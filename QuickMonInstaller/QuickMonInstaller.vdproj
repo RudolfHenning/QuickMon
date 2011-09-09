@@ -712,7 +712,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
         "ProductCode" = "8:{D07E1C56-04C1-49DF-83FA-CDFEDF7C1810}"
-        "PackageCode" = "8:{D6E330AA-4B79-4841-8DD7-92177D254D15}"
+        "PackageCode" = "8:{157F31B8-1A61-4C0F-AA8E-D03C6ED14EBB}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
