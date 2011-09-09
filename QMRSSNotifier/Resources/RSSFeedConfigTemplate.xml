@@ -1,0 +1,10 @@
+<config>
+  <rssConfig rssFilePath="" title="QuickMon RSS alerts" link="" description="" language="en-us" generator="QuickMon RSS notifier"
+             keepEntriesDays="10"
+             lineTitle="%CollectorName% - %AlertLevel%" 
+             lineCategory="%CurrentState%, %CollectorType%" 
+             lineDescription="&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br /&gt;
+&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br /&gt;
+&lt;b&gt;Collector:&lt;/b&gt; %CollectorType%&lt;br /&gt;
+&lt;b&gt;Details&lt;/b&gt;&lt;blockquote&gt;%Details%&lt;/blockquote&gt;" />
+</config>

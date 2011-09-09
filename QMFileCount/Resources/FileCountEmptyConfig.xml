@@ -1,0 +1,12 @@
+<config>
+  <directoryList>
+    <directory directoryPathFilter="c:\temp\*.*" 
+               warningFileCountMax="1" errorFileCountMax="100" 
+               warningFileSizeMaxKB="0" errorFileSizeMaxKB="0" 
+               fileMaxAgeSec="120" fileMinAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" />
+    <directory directoryPathFilter="c:\test\*.*" 
+               warningFileCountMax="0" errorFileCountMax="0" 
+               warningFileSizeMaxKB="10240" errorFileSizeMaxKB="20480" 
+               fileMaxAgeSec="0" fileMinAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" />
+  </directoryList>
+</config>

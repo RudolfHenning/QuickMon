@@ -1,0 +1,6 @@
+<config>
+	<hosts>
+		<host hostName="hostName1" description="" maxTime="100" timeOut="5000" />
+		<host hostName="hostName2" description="" maxTime="100" timeOut="5000" />
+	</hosts>
+</config>

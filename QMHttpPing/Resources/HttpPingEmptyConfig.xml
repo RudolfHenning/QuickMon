@@ -1,0 +1,7 @@
+<config>
+  <addresses>
+    <!--
+      <address url="" proxyServer="" maxTimeMS="1000" timeOutMS="5000" />
+      -->
+  </addresses>
+</config>

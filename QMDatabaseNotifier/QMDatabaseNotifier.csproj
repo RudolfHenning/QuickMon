@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A6999558-7A12-4D18-AB04-3B1745F80AD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QMDatabaseNotifier</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\QuickMon\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\QuickMon\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlertMessage.cs" />
+    <Compile Include="Controls\ChooseTimeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ChooseTimeDialog.Designer.cs">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClockControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser.designer.cs">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RichTextControlEx.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RichTextControlEx.designer.cs">
+      <DependentUpon>RichTextControlEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBSettings.cs" />
+    <Compile Include="EditConfig\EditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditConfig\EditConfig.Designer.cs">
+      <DependentUpon>EditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="QMDatabaseNotifier.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RTF\RTFBuilder.cs" />
+    <Compile Include="RTF\RTFBuilder.RawFonts.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFFormatWrap.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFImage.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFParaWrap.cs" />
+    <Compile Include="RTF\RTFBuilderbase.cs" />
+    <Compile Include="RTF\RTFFont.cs" />
+    <Compile Include="ShowViewer\ShowViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowViewer\ShowViewer.Designer.cs">
+      <DependentUpon>ShowViewer.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickMonShared\QuickMonShared.csproj">
+      <Project>{0965B8A3-8DB0-43CB-ADB4-8FE4BF0E3FC3}</Project>
+      <Name>QuickMonShared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\ChooseTimeDialog.resx">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DateTimeChooser.resx">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RichTextControlEx.resx">
+      <DependentUpon>RichTextControlEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditConfig\EditConfig.resx">
+      <DependentUpon>EditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowViewer\ShowViewer.resx">
+      <DependentUpon>ShowViewer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="QuickMon.sql" />
+    <Content Include="Resources\DatabaseNotifierEmptyConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\QueryTemplate.sql" />
+    <Content Include="SampleSelect.sql" />
+    <None Include="Resources\database_options.png" />
+    <None Include="Resources\doc_refresh.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

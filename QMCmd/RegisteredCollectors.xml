@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfAgentRegistration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AgentRegistration>
+    <Name>Ping</Name>
+    <AssemblyPath>C:\Users\rhenning.Shoprite\Documents\Visual Studio 2010\Projects\QuickMon\QMPing\bin\Debug\QMPing.dll</AssemblyPath>
+    <ClassName>QuickMon.Ping</ClassName>
+  </AgentRegistration>
+  <AgentRegistration>
+    <Name>FileCount</Name>
+    <AssemblyPath>C:\Users\rhenning.Shoprite\Documents\Visual Studio 2010\Projects\QuickMon\QMFileCount\bin\Debug\QMFileCount.dll</AssemblyPath>
+    <ClassName>QuickMon.FileCount</ClassName>
+  </AgentRegistration>
+  <AgentRegistration>
+    <Name>ServiceState</Name>
+    <AssemblyPath>C:\Users\rhenning.Shoprite\Documents\Visual Studio 2010\Projects\QuickMon\QMServiceState\bin\Debug\QMServiceState.dll</AssemblyPath>
+    <ClassName>QuickMon.ServiceState</ClassName>
+  </AgentRegistration>
+  <AgentRegistration>
+    <Name>BizTalkSuspendedCount</Name>
+    <AssemblyPath>C:\Users\rhenning.Shoprite\Documents\Visual Studio 2010\Projects\QuickMon\QMBizTalkSuspendedCount\bin\Debug\QMBizTalkSuspendedCount.dll</AssemblyPath>
+    <ClassName>QuickMon.BizTalkSuspendedCount</ClassName>
+  </AgentRegistration>
+</ArrayOfAgentRegistration>

@@ -1,0 +1,6 @@
+<config>
+  <machine name="hostName">
+    <service name="service 1" />
+    <service name="service 2" />
+  </machine>
+</config>

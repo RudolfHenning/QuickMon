@@ -1,0 +1,13 @@
+<config>
+  <bizTalkGroup sqlServer="" mgmtDb="BizTalkMgmtDb" allReceiveLocations="True" allSendPorts="True" allOrchestrations="True">
+    <receiveLocations>
+      <!--<receiveLocation name="" />  -->
+    </receiveLocations>
+    <sendPorts>
+      <!--<sendPort name="" />-->
+    </sendPorts>
+    <orchestrations>
+      <!--<orchestration name="" />-->
+    </orchestrations>
+  </bizTalkGroup>
+</config>

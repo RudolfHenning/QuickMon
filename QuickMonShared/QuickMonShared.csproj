@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0965B8A3-8DB0-43CB-ADB4-8FE4BF0E3FC3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QuickMonShared</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AgentRegistration.cs" />
+    <Compile Include="Collectors\CollectorMessage.cs" />
+    <Compile Include="Controls\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\RegistrationHelper.cs" />
+    <Compile Include="Tools\CSVExtensions.cs" />
+    <Compile Include="Tools\FormatUtils.cs" />
+    <Compile Include="Management\ImportCollectorConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\ImportCollectorConfig.Designer.cs">
+      <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\SelectNotifierCollectors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\SelectNotifierCollectors.Designer.cs">
+      <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceWindows\EditServiceWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServiceWindows\EditServiceWindows.Designer.cs">
+      <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\DetailLevel.cs" />
+    <Compile Include="Enums\AlertLevel.cs" />
+    <Compile Include="Collectors\CollectorBase.cs" />
+    <Compile Include="Collectors\CollectorEntry.cs" />
+    <Compile Include="Management\EditCollectorEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\EditCollectorEntry.Designer.cs">
+      <DependentUpon>EditCollectorEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\EditNotifierEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\EditNotifierEntry.Designer.cs">
+      <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\EditRegisteredAgent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\EditRegisteredAgent.Designer.cs">
+      <DependentUpon>EditRegisteredAgent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\MonitorPackManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\MonitorPackManagement.Designer.cs">
+      <DependentUpon>MonitorPackManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Management\RegisteredAgentsManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\RegisteredAgentsManagement.Designer.cs">
+      <DependentUpon>RegisteredAgentsManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\NotifierBase.cs" />
+    <Compile Include="Notifiers\NotifierEntry.cs" />
+    <Compile Include="NotUsed\CollectorList.cs" />
+    <Compile Include="Interfaces\IAgent.cs" />
+    <Compile Include="Interfaces\ICollector.cs" />
+    <Compile Include="Interfaces\INotifier.cs" />
+    <Compile Include="MonitorPack.cs" />
+    <Compile Include="Enums\MonitorStates.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\SerializeUtils.cs" />
+    <Compile Include="ServiceWindows\ServiceWindows.cs" />
+    <Compile Include="Tools\CSVEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\CSVEditor.designer.cs">
+      <DependentUpon>CSVEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\InPutValidation.cs" />
+    <Compile Include="Tools\XmlElementEx.cs" />
+    <Compile Include="Tools\XmlFormattingUtils.cs" />
+    <Compile Include="Controls\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Management\ImportCollectorConfig.resx">
+      <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\SelectNotifierCollectors.resx">
+      <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceWindows\EditServiceWindows.resx">
+      <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\EditCollectorEntry.resx">
+      <DependentUpon>EditCollectorEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\EditNotifierEntry.resx">
+      <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\EditRegisteredAgent.resx">
+      <DependentUpon>EditRegisteredAgent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\MonitorPackManagement.resx">
+      <DependentUpon>MonitorPackManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Management\RegisteredAgentsManagement.resx">
+      <DependentUpon>RegisteredAgentsManagement.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\CSVEditor.resx">
+      <DependentUpon>CSVEditor.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\whack.ico" />
+    <None Include="Resources\project.ico" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\319.ico" />
+    <None Include="Resources\AddEx.png" />
+    <Content Include="Resources\CollectorEntry.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Resources\save.png" />
+    <None Include="Resources\doc_new2.png" />
+    <None Include="Resources\folder_doc.png" />
+    <None Include="Resources\DISK04.ICO" />
+    <None Include="Resources\folder_favor.png" />
+    <Content Include="Resources\MonitorPack.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\NotifierEntry.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

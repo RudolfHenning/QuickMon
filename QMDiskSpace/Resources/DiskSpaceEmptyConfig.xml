@@ -1,0 +1,5 @@
+<config>
+  <drives>
+    <drive name="c" warningSizeLeftMB="500" errorSizeLeftMB="100" warnOnNotReady="False" />
+  </drives>
+</config>

@@ -1,0 +1,3 @@
+﻿* - Notifiers per CollectorEntry??
+    Or specify a list of collectors for which the notifier will log a message (default = all)
+* - Collectors - add Interface for returning single 'value' (e.g. total number of files as used by FileCount agent...)

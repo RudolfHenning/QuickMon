@@ -1,0 +1,8 @@
+<monitorPack name="{0}" enabled="{1}" agentRegistrationFile="{2}" defaultViewerNotifier="{3}">
+  <collectorEntries>
+    {4}
+  </collectorEntries>
+  <notifierEntries>
+    {5}
+  </notifierEntries>
+</monitorPack>

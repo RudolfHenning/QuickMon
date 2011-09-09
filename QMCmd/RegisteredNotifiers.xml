@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfAgentRegistration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AgentRegistration>
+    <Name>LogFile</Name>
+    <AssemblyPath>C:\Users\rhenning.Shoprite\Documents\Visual Studio 2010\Projects\QuickMon\QMLogFile\bin\Debug\QMLogFile.dll</AssemblyPath>
+    <ClassName>QuickMon.LogFile</ClassName>
+  </AgentRegistration>
+</ArrayOfAgentRegistration>

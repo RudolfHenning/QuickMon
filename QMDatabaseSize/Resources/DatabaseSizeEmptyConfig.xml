@@ -1,0 +1,5 @@
+<config>
+  <connection sqlServer="" integratedSec="True" userName="" password="" cmndTimeOut="60">
+      <database name="" warningSizeMB="1024" errorSizeMB="4096"/>
+  </connection>
+</config>

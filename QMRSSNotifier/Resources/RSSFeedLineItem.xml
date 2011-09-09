@@ -1,0 +1,9 @@
+<item>
+    <title>ThaTitle</title>
+    <!--<link>ALink</link>-->
+    <guid>ThaGuid</guid>
+    <pubDate>ThaDate</pubDate>
+    <category>ThaCategory</category>
+    <comments>ThaComment</comments>
+    <description>[CDATA[ TheDescription ]]</description>
+</item>

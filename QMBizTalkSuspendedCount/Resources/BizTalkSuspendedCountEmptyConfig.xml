@@ -1,0 +1,6 @@
+<config>
+  <bizTalkGroup sqlServer="" mgmtDb="BizTalkMgmtDb" instancesWarning="10" instancesError="50" allHostsApps="True" showLastXDetails="10" raiseHtmlAlerts="True">
+    <hosts />
+    <apps />
+  </bizTalkGroup>
+</config>
