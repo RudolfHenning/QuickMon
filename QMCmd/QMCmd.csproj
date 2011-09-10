@@ -64,15 +64,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="RegisteredNotifiers.xml" />
-    <Content Include="TestDummy.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TestDummy2.xml">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="workConfig.qmconfig" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
