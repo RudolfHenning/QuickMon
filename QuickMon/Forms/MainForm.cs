@@ -279,6 +279,11 @@ namespace QuickMon
         {
             showDetailsToolStripMenuItem_Click(sender, e);
         }
+        private void tvwCollectors_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
+        {
+            if (e.Node.Parent == null)
+                e.Cancel = true;
+        }
         #endregion
 
         #region Context menu events
@@ -325,7 +330,7 @@ namespace QuickMon
             {
                 CollectorEntry collector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
                 QuickMon.Management.EditCollectorEntry editCollectorEntry = new QuickMon.Management.EditCollectorEntry();
-                
+                editCollectorEntry.AllowCollectorChange = false;
                 editCollectorEntry.SelectedEntry = collector;
                 if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {

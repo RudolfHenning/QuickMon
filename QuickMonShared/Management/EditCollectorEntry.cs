@@ -28,6 +28,8 @@ namespace QuickMon.Management
         #endregion
 
         public CollectorEntry SelectedEntry { get; set; }
+        private bool allowCollectorChange = true;
+        public bool AllowCollectorChange { get { return allowCollectorChange; } set { allowCollectorChange = value; } }
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
         {
@@ -41,6 +43,7 @@ namespace QuickMon.Management
             txtName.Text = SelectedEntry.Name;
             chkEnabled.Checked = SelectedEntry.Enabled;
             chkFolder.Checked = SelectedEntry.IsFolder;
+            chkFolder.Enabled = allowCollectorChange;
             lblId.Text = SelectedEntry.UniqueId;
             cboParentCollector.Items.Add("<None>");
             cboParentCollector.SelectedIndex = 0;
@@ -53,6 +56,7 @@ namespace QuickMon.Management
                 if (ce.UniqueId == SelectedEntry.ParentCollectorId)
                     cboParentCollector.SelectedItem = ce;
             }
+            cboParentCollector.Enabled = allowCollectorChange;
 
             foreach (AgentRegistration ar in (from a in monitorPack.AgentRegistrations
                                               where a.IsCollector
@@ -279,7 +283,7 @@ namespace QuickMon.Management
             this.MinimumSize = collapsedSize;
             manualEditlinkLabel.Enabled = true;
             cmdConfig.Enabled = true;
-            cboCollector.Enabled = true;
+            cboCollector.Enabled = allowCollectorChange;
             CheckOkEnable();
             txtConfig.Text = "";
         }
@@ -295,7 +299,7 @@ namespace QuickMon.Management
             cmdConfig.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
             manualEditlinkLabel.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
             importLinkLabel.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
-            cboCollector.Enabled = !chkFolder.Checked;
+            cboCollector.Enabled = !chkFolder.Checked && allowCollectorChange;
             chkCollectOnParentWarning.Enabled = !chkFolder.Checked;
             numericUpDownRepeatAlertInXMin.Enabled = !chkFolder.Checked;
             AlertOnceInXMinNumericUpDown.Enabled = !chkFolder.Checked;
