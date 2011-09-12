@@ -111,6 +111,114 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_DD5EF0C342134E909826FBB0EF6A682C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_D37C793AB4654EA1BF163A429908F33F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_CC364B4DF64B45F2B7FEFD481DF02E4F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_AC0EDF20D48642029F5C6A045C0B0A6D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_8703DBD4AC434B40A634BF2ABB9E9D18"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_7639A58FE6734DF5A5BFE3CE3B692A85"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_6BB6DBE62A1C4063B3E7AB62BA2FDC93"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_6551EC21BB084EDCBDBD7F884249EC97"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_6323F6C48596420FA7A5239379E42F60"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_604C549A0EE24ADBAC2D9BB1D7EDFCF0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_5EDD3FE7C7734104BF2F30604C61243B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_59F42731630741A697A88B297B89B7DC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_59A14358DE084D899442AF789D6008BB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_4C38254090A54C8EB44231B09B9FA69D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_3F0D5FF5620F432EBD858BFC6778A3B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_797398D9152C2093A0B875E99A4C6048"
+        "OwnerKey" = "8:_3D4964DD64CF4729A9F6B7897F53005E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7F5FD274E9824C95A457E90E32E66CF8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -153,114 +261,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_DD5EF0C342134E909826FBB0EF6A682C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_D37C793AB4654EA1BF163A429908F33F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_CC364B4DF64B45F2B7FEFD481DF02E4F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_AC0EDF20D48642029F5C6A045C0B0A6D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_8703DBD4AC434B40A634BF2ABB9E9D18"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_7639A58FE6734DF5A5BFE3CE3B692A85"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_6BB6DBE62A1C4063B3E7AB62BA2FDC93"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_6551EC21BB084EDCBDBD7F884249EC97"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_6323F6C48596420FA7A5239379E42F60"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_604C549A0EE24ADBAC2D9BB1D7EDFCF0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_5EDD3FE7C7734104BF2F30604C61243B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_59F42731630741A697A88B297B89B7DC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_59A14358DE084D899442AF789D6008BB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_4C38254090A54C8EB44231B09B9FA69D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_3F0D5FF5620F432EBD858BFC6778A3B1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
-        "OwnerKey" = "8:_3D4964DD64CF4729A9F6B7897F53005E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -274,7 +274,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E43ABD2DDDB038B9EF27DC1967DBF79B"
+        "OwnerKey" = "8:_797398D9152C2093A0B875E99A4C6048"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -570,34 +570,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CAE96F69ADBC4FD8BB05243DEFDF0BAC"
-            {
-            "SourcePath" = "8:..\\QuickMonService\\InstallService.cmd"
-            "TargetName" = "8:InstallService.cmd"
-            "Tag" = "8:"
-            "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E43ABD2DDDB038B9EF27DC1967DBF79B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_797398D9152C2093A0B875E99A4C6048"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E43ABD2DDDB038B9EF27DC1967DBF79B"
+                    "_797398D9152C2093A0B875E99A4C6048"
                     {
                     "Name" = "8:QuickMonShared.dll"
                     "Attributes" = "3:512"
@@ -619,6 +599,26 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CAE96F69ADBC4FD8BB05243DEFDF0BAC"
+            {
+            "SourcePath" = "8:..\\QuickMonService\\InstallService.cmd"
+            "TargetName" = "8:InstallService.cmd"
+            "Tag" = "8:"
+            "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -711,15 +711,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{D07E1C56-04C1-49DF-83FA-CDFEDF7C1810}"
-        "PackageCode" = "8:{F9638EA4-9141-4C2B-80FB-A36DAD02BA86}"
+        "ProductCode" = "8:{89F804D1-A091-4BCA-893B-0ADA720690D7}"
+        "PackageCode" = "8:{AE0D4930-2854-4036-8644-A278549F6050}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.0.0"
+        "ProductVersion" = "8:2.0.1"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1325,7 +1325,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1FB4208CC496470BBA184F31CF5FB7B4"
             {
-            "SourcePath" = "8:..\\QMDiskSpace\\obj\\Debug\\QMDiskSpace.dll"
+            "SourcePath" = "8:..\\QMDiskSpace\\obj\\Release\\QMDiskSpace.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1353,7 +1353,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3D4964DD64CF4729A9F6B7897F53005E"
             {
-            "SourcePath" = "8:..\\QMSQLTableSize\\obj\\Debug\\QMSQLTableSize.dll"
+            "SourcePath" = "8:..\\QMSQLTableSize\\obj\\Release\\QMSQLTableSize.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1381,7 +1381,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3F0D5FF5620F432EBD858BFC6778A3B1"
             {
-            "SourcePath" = "8:..\\QMSMTPNotifier\\obj\\Debug\\QMSMTPNotifier.dll"
+            "SourcePath" = "8:..\\QMSMTPNotifier\\obj\\Release\\QMSMTPNotifier.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1409,7 +1409,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C38254090A54C8EB44231B09B9FA69D"
             {
-            "SourcePath" = "8:..\\QMDatabaseNotifier\\obj\\Debug\\QMDatabaseNotifier.dll"
+            "SourcePath" = "8:..\\QMDatabaseNotifier\\obj\\Release\\QMDatabaseNotifier.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1437,7 +1437,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_59A14358DE084D899442AF789D6008BB"
             {
-            "SourcePath" = "8:..\\QMBizTalkSuspendedCount\\obj\\Debug\\QMBizTalkSuspendedCount.dll"
+            "SourcePath" = "8:..\\QMBizTalkSuspendedCount\\obj\\Release\\QMBizTalkSuspendedCount.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1465,7 +1465,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_59F42731630741A697A88B297B89B7DC"
             {
-            "SourcePath" = "8:..\\QuickMon\\obj\\x86\\Debug\\QuickMon.exe"
+            "SourcePath" = "8:..\\QuickMon\\obj\\x86\\Release\\QuickMon.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1493,7 +1493,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5EDD3FE7C7734104BF2F30604C61243B"
             {
-            "SourcePath" = "8:..\\QMHttpPing\\obj\\Debug\\QMHttpPing.dll"
+            "SourcePath" = "8:..\\QMHttpPing\\obj\\Release\\QMHttpPing.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1521,7 +1521,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_604C549A0EE24ADBAC2D9BB1D7EDFCF0"
             {
-            "SourcePath" = "8:..\\QMBizTalkPortAndOrchs\\obj\\Debug\\QMBizTalkPortAndOrchs.dll"
+            "SourcePath" = "8:..\\QMBizTalkPortAndOrchs\\obj\\Release\\QMBizTalkPortAndOrchs.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1549,7 +1549,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6323F6C48596420FA7A5239379E42F60"
             {
-            "SourcePath" = "8:..\\QMDatabaseSize\\obj\\Debug\\QMDatabaseSize.dll"
+            "SourcePath" = "8:..\\QMDatabaseSize\\obj\\Release\\QMDatabaseSize.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1577,7 +1577,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6551EC21BB084EDCBDBD7F884249EC97"
             {
-            "SourcePath" = "8:..\\QMPerfCounter\\obj\\Debug\\QMPerfCounter.dll"
+            "SourcePath" = "8:..\\QMPerfCounter\\obj\\Release\\QMPerfCounter.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1605,7 +1605,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6BB6DBE62A1C4063B3E7AB62BA2FDC93"
             {
-            "SourcePath" = "8:..\\QMPing\\obj\\Debug\\QMPing.dll"
+            "SourcePath" = "8:..\\QMPing\\obj\\Release\\QMPing.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1633,7 +1633,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7639A58FE6734DF5A5BFE3CE3B692A85"
             {
-            "SourcePath" = "8:..\\QMWMIQuery\\obj\\Debug\\QMWMIQuery.dll"
+            "SourcePath" = "8:..\\QMWMIQuery\\obj\\Release\\QMWMIQuery.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1661,7 +1661,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7F5FD274E9824C95A457E90E32E66CF8"
             {
-            "SourcePath" = "8:..\\QuickMonShared\\obj\\Debug\\QuickMonShared.dll"
+            "SourcePath" = "8:..\\QuickMonShared\\obj\\Release\\QuickMonShared.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1689,7 +1689,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8703DBD4AC434B40A634BF2ABB9E9D18"
             {
-            "SourcePath" = "8:..\\QMRSSNotifier\\obj\\Debug\\QMRSSNotifier.dll"
+            "SourcePath" = "8:..\\QMRSSNotifier\\obj\\Release\\QMRSSNotifier.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1717,7 +1717,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_AC0EDF20D48642029F5C6A045C0B0A6D"
             {
-            "SourcePath" = "8:..\\QMLogFile\\obj\\Debug\\QMLogFile.dll"
+            "SourcePath" = "8:..\\QMLogFile\\obj\\Release\\QMLogFile.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1745,7 +1745,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CC364B4DF64B45F2B7FEFD481DF02E4F"
             {
-            "SourcePath" = "8:..\\QMFileCount\\obj\\Debug\\QMFileCount.dll"
+            "SourcePath" = "8:..\\QMFileCount\\obj\\Release\\QMFileCount.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1773,7 +1773,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D37C793AB4654EA1BF163A429908F33F"
             {
-            "SourcePath" = "8:..\\QuickMonEditor\\obj\\x86\\Debug\\QuickMonEditor.exe"
+            "SourcePath" = "8:..\\QuickMonEditor\\obj\\x86\\Release\\QuickMonEditor.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1801,7 +1801,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD5EF0C342134E909826FBB0EF6A682C"
             {
-            "SourcePath" = "8:..\\QuickMonService\\obj\\x86\\Debug\\QuickMonService.exe"
+            "SourcePath" = "8:..\\QuickMonService\\obj\\x86\\Release\\QuickMonService.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
@@ -1829,7 +1829,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FE22E8B236724F1391D91353075BE664"
             {
-            "SourcePath" = "8:..\\QMServiceState\\obj\\Debug\\QMServiceState.dll"
+            "SourcePath" = "8:..\\QMServiceState\\obj\\Release\\QMServiceState.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
