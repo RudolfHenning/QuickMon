@@ -13,6 +13,6 @@ namespace QuickMon
         /// e.g. SMTP does not have a viewer but Database does
         /// </summary>
         bool HasViewer { get; }
-        void OpenViewer(); //string config);
+        void OpenViewer();
     }
 }

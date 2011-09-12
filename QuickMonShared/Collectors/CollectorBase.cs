@@ -28,22 +28,5 @@ namespace QuickMon
         public abstract string GetDefaultOrEmptyConfigString();
         public abstract void ReadConfiguration(XmlDocument configDoc);
         #endregion   
-     
-        #region ReadXmlElementAttr
-        public string ReadXmlElementAttr(XmlNode e, string attrName, string defaultValue = "")
-        {
-            return ReadXmlElementAttr((XmlElement)e, attrName, defaultValue);
-        }
-        public string ReadXmlElementAttr(XmlElement e, string attrName, string defaultValue = "")
-        {
-            try
-            {
-                if (e.HasAttribute(attrName))
-                    return e.Attributes.GetNamedItem(attrName).Value;
-            }
-            catch { }
-            return defaultValue;
-        } 
-        #endregion
     }
 }

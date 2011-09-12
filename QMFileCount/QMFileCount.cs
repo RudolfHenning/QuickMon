@@ -16,7 +16,6 @@ namespace QuickMon
         public override MonitorStates GetState()
         {
             MonitorStates returnState = MonitorStates.Good;
-            //string lastDetails = "";
             StringBuilder plainTextDetails = new StringBuilder();
             StringBuilder htmlTextTextDetails = new StringBuilder();
             LastDetailMsg.PlainText = "Getting file details";
@@ -175,32 +174,6 @@ namespace QuickMon
                 fileInfo.FileCount = -1;
                 fileInfo.FileSize = -1;
             }
-
-            //try
-            //{
-            //    if (Directory.Exists(directoryFilterEntry.DirectoryPath))
-            //    {
-            //        fileInfo = SHFunctions.GetDirectoryFileInfo(
-            //                directoryFilterEntry.DirectoryPath, 
-            //                directoryFilterEntry.FileFilter,
-            //                directoryFilterEntry.FileMaxAgeSec,
-            //                directoryFilterEntry.FileMinAgeSec,
-            //                directoryFilterEntry.FileMaxSizeKB,
-            //                directoryFilterEntry.FileMinSizeKB);
-            //    }
-            //    else
-            //    {
-            //        LastErrorMsg = "Directory '" + directoryFilterEntry.DirectoryPath + "' does not exist!";
-            //        fileInfo.FileCount = -1;
-            //        fileInfo.FileSize = -1;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LastErrorMsg = ex.ToString();
-            //    fileInfo.FileCount = -1;
-            //    fileInfo.FileSize = -1;
-            //}
             return fileInfo;
         }
 
@@ -208,7 +181,6 @@ namespace QuickMon
         {
             ShowDetails showDetails = new ShowDetails();
             showDetails.DirectorieFilters = directorieFilters;
-            //showDetails.CustomConfig = config;
             showDetails.ShowDetail();
         }
         public override string ConfigureAgent(string config)
@@ -233,24 +205,24 @@ namespace QuickMon
                 directoryFilterEntry.FilterFullPath = host.Attributes.GetNamedItem("directoryPathFilter").Value;
                 
                 int tmp = 0;
-                if (int.TryParse(ReadXmlElementAttr(host,"warningFileCountMax", "0"), out tmp))
+                if (int.TryParse(host.ReadXmlElementAttr("warningFileCountMax", "0"), out tmp))
                     directoryFilterEntry.CountWarningIndicator = tmp;
-                if (int.TryParse(ReadXmlElementAttr(host, "errorFileCountMax", "0"), out tmp))
+                if (int.TryParse(host.ReadXmlElementAttr("errorFileCountMax", "0"), out tmp))
                     directoryFilterEntry.CountErrorIndicator = tmp;
                 long tmpl;
 
-                if (long.TryParse(ReadXmlElementAttr(host, "warningFileSizeMaxKB", "0"), out tmpl))
+                if (long.TryParse(host.ReadXmlElementAttr("warningFileSizeMaxKB", "0"), out tmpl))
                     directoryFilterEntry.SizeKBWarningIndicator = tmpl;
-                if (long.TryParse(ReadXmlElementAttr(host, "errorFileSizeMaxKB", "0"), out tmpl))
+                if (long.TryParse(host.ReadXmlElementAttr("errorFileSizeMaxKB", "0"), out tmpl))
                     directoryFilterEntry.SizeKBErrorIndicator = tmpl;
 
-                if (long.TryParse(ReadXmlElementAttr(host, "fileMaxAgeSec", "0"), out tmpl))
+                if (long.TryParse(host.ReadXmlElementAttr("fileMaxAgeSec", "0"), out tmpl))
                     directoryFilterEntry.FileMaxAgeSec = tmpl;
-                if (long.TryParse(ReadXmlElementAttr(host, "fileMinAgeSec", "0"), out tmpl))
+                if (long.TryParse(host.ReadXmlElementAttr("fileMinAgeSec", "0"), out tmpl))
                     directoryFilterEntry.FileMinAgeSec = tmpl;
-                if (long.TryParse(ReadXmlElementAttr(host, "fileMinSizeKB", "0"), out tmpl))
+                if (long.TryParse(host.ReadXmlElementAttr("fileMinSizeKB", "0"), out tmpl))
                     directoryFilterEntry.FileMinSizeKB = tmpl;
-                if (long.TryParse(ReadXmlElementAttr(host, "fileMaxSizeKB", "0"), out tmpl))
+                if (long.TryParse(host.ReadXmlElementAttr("fileMaxSizeKB", "0"), out tmpl))
                     directoryFilterEntry.FileMaxSizeKB = tmpl;
 
                 directorieFilters.Add(directoryFilterEntry);

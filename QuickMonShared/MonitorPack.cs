@@ -8,13 +8,10 @@ using System.Diagnostics;
 
 namespace QuickMon
 {
-    //public delegate void RaiseStateChangeDelegate(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates currentState, string details);
-    
     public delegate void RaiseCurrentStateDelegate(CollectorEntry collector, MonitorStates currentState);
     public delegate void RaiseNotifierErrorDelegare(NotifierEntry notifier, string errorMessage);
     public delegate void RaiseCollectorErrorDelegare(CollectorEntry collector, string errorMessage);
     public delegate void RaiseMonitorPackErrorDelegate(string errorMessage);
-
     public delegate void StateChangedDelegate(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates currentState, CollectorMessage details);
 
     public class MonitorPack
@@ -554,42 +551,7 @@ namespace QuickMon
             }
             return sb.ToString();
         } 
-        public INotifier CreateNotifierInstanceFromEntry(NotifierEntry ne)
-        {
-            INotifier notifier = null;
-            AgentRegistration currentNotifier = null;
-            if (AgentRegistrations != null)
-            {
-                currentNotifier = (from o in AgentRegistrations
-                                   where o.IsNotifier && o.Name == ne.NotifierRegistrationName
-                                   select o).FirstOrDefault();
-                if (currentNotifier != null)
-                {
-                    notifier = NotifierEntry.CreateNotifierEntry(currentNotifier.AssemblyPath, currentNotifier.ClassName);
-                    XmlDocument configDoc = new XmlDocument();
-                    configDoc.LoadXml(ne.Configuration);
-                    notifier.ReadConfiguration(configDoc);
-                }
-            }
-            return notifier;
-        }
         #endregion        
-
-        #region Management
-        //public System.Windows.Forms.DialogResult ShowManagementWindow()
-        //{
-        //    //System.Windows.Forms.Application.EnableVisualStyles();
-        //    //System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-        //    Management.MonitorPackManagement monitorPackManagement = new Management.MonitorPackManagement();
-        //    MonitorPack monitorPack = this;
-        //    System.Windows.Forms.DialogResult r = monitorPackManagement.ShowMonitorPack(monitorPack);
-        //    if (r == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //         Load(monitorPack.MonitorPackPath);
-        //    }
-        //    return r;
-        //}
-        #endregion
 
         #region Sorting/Swapping
         internal void SwapCollectorEntries(CollectorEntry c1, CollectorEntry c2)

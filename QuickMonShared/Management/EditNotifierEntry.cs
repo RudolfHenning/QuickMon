@@ -152,7 +152,8 @@ namespace QuickMon.Management
                 SelectedEntry.AlertLevel = (AlertLevel)cboAlertLevel.SelectedIndex;
                 SelectedEntry.DetailLevel = (DetailLevel)cboDetailLevel.SelectedIndex;
                 SelectedEntry.NotifierRegistrationName = ((AgentRegistration)cboNotifier.SelectedItem).Name;
-                SelectedEntry.Notifier = monitorPack.CreateNotifierInstanceFromEntry(SelectedEntry);
+                AgentRegistration ar = (AgentRegistration)cboNotifier.SelectedItem;
+                SelectedEntry.Notifier = NotifierEntry.CreateNotifierEntry(ar.AssemblyPath, ar.ClassName);
 
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
