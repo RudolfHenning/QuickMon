@@ -56,10 +56,6 @@ namespace QuickMon
                        .Replace("%CurrentState%", newState.ToString())
                        .Replace("%CollectorName%", category)
                        .Replace("%CollectorType%", collectorType);
-                    //if (mailSettings.IsBodyHtml)
-                    //{
-                    //    body = body.Replace("\r\n", "<br/>");
-                    //}
 
                     mailMessage.Body = body;
                     mailMessage.IsBodyHtml = mailSettings.IsBodyHtml;

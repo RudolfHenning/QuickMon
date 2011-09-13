@@ -1,10 +1,9 @@
 <config>
   <smtp hostServer="" useDefaultCredentials="True" domain="" userName="" password="" fromAddress="" toAddress=""
         isBodyHtml="True"
-        subject="QuickMon alert - %CollectorName% - %AlertLevel%" body="QuickMon alert raised for &lt;b&gt;'%CollectorName%'&lt;/b&gt;
-&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%
-&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%
-&lt;b&gt;Collector:&lt;/b&gt; %CollectorType%
-&lt;b&gt;Details&lt;/b&gt;
-%Details%" />
+        subject="%AlertLevel% - %CollectorName%" body="QuickMon alert raised for &lt;b&gt;'%CollectorName%'&lt;/b&gt;&lt;br /&gt;
+&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br /&gt;
+&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br /&gt;
+&lt;b&gt;Collector:&lt;/b&gt; %CollectorType%&lt;br /&gt;
+&lt;b&gt;Details&lt;/b&gt;&lt;blockquote&gt;%Details%&lt;/blockquote&gt;" />
 </config>
