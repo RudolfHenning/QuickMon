@@ -35,9 +35,13 @@ namespace QuickMon
                 Cursor.Current = Cursors.WaitCursor;
                 lvwDatabases.BeginUpdate();
                 lvwDatabases.Items.Clear();
+                lvwDatabases.Groups.Clear();
+                ListViewGroup group = new ListViewGroup(SqlServer, SqlServer);
+                lvwDatabases.Groups.Add(group);
                 foreach (DatabaseEntry dbe in Databases)
                 {
                     ListViewItem lvi = new ListViewItem(dbe.Name);
+                    lvi.Group = group;
                     lvi.SubItems.Add("-");
                     lvi.Tag = dbe;
                     lvwDatabases.Items.Add(lvi);

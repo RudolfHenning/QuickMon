@@ -70,6 +70,7 @@
             this.txtViewerName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.chkUseSP2 = new System.Windows.Forms.CheckBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCmndTimeOut)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageConnection.SuspendLayout();
@@ -240,9 +241,9 @@
             this.chkUseSP.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkUseSP.Location = new System.Drawing.Point(13, 6);
             this.chkUseSP.Name = "chkUseSP";
-            this.chkUseSP.Size = new System.Drawing.Size(135, 17);
+            this.chkUseSP.Size = new System.Drawing.Size(216, 17);
             this.chkUseSP.TabIndex = 0;
-            this.chkUseSP.Text = "Use stored procuredure";
+            this.chkUseSP.Text = "Use stored procuredure (Recommended)";
             this.chkUseSP.UseVisualStyleBackColor = true;
             // 
             // label6
@@ -519,16 +520,27 @@
             this.chkUseSP2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkUseSP2.Location = new System.Drawing.Point(13, 6);
             this.chkUseSP2.Name = "chkUseSP2";
-            this.chkUseSP2.Size = new System.Drawing.Size(135, 17);
+            this.chkUseSP2.Size = new System.Drawing.Size(216, 17);
             this.chkUseSP2.TabIndex = 4;
-            this.chkUseSP2.Text = "Use stored procuredure";
+            this.chkUseSP2.Text = "Use stored procuredure (Recommended)";
             this.chkUseSP2.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(12, 302);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(290, 13);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Tip: see QuickMon.sql example sql script to setup database.";
             // 
             // EditConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 332);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdTest);
@@ -549,6 +561,7 @@
             this.tabPageViewer.ResumeLayout(false);
             this.tabPageViewer.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -595,5 +608,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtCollectorType;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }

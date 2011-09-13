@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Collectors");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
@@ -94,7 +94,7 @@
             this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLoad.Name = "toolStripButtonLoad";
             this.toolStripButtonLoad.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonLoad.Text = "Open exiting QuickMon config file";
+            this.toolStripButtonLoad.Text = "Open Monitor Pack file";
             this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
             // 
             // toolStripButtonRecentFiles
@@ -104,13 +104,13 @@
             this.toolStripButtonRecentFiles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRecentFiles.Name = "toolStripButtonRecentFiles";
             this.toolStripButtonRecentFiles.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonRecentFiles.Text = "Recent QuickMon config files";
+            this.toolStripButtonRecentFiles.Text = "Recent Monitor Pack files";
             this.toolStripButtonRecentFiles.Click += new System.EventHandler(this.toolStripButtonRecentFiles_Click);
             // 
             // toolStripButtonConfigPack
             // 
             this.toolStripButtonConfigPack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.app;
+            this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.GlobeWrench;
             this.toolStripButtonConfigPack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonConfigPack.Name = "toolStripButtonConfigPack";
             this.toolStripButtonConfigPack.Size = new System.Drawing.Size(36, 36);
@@ -150,6 +150,7 @@
             this.toolStripButtonNotifiers.Name = "toolStripButtonNotifiers";
             this.toolStripButtonNotifiers.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonNotifiers.Text = "Notifiers";
+            this.toolStripButtonNotifiers.ToolTipText = "View default notifier or list of all notifiers";
             this.toolStripButtonNotifiers.Click += new System.EventHandler(this.toolStripButtonNotifiers_Click);
             // 
             // statusStrip1
@@ -166,13 +167,13 @@
             // lastUpdateToolStripStatusLabel
             // 
             this.lastUpdateToolStripStatusLabel.Name = "lastUpdateToolStripStatusLabel";
-            this.lastUpdateToolStripStatusLabel.Size = new System.Drawing.Size(11, 17);
+            this.lastUpdateToolStripStatusLabel.Size = new System.Drawing.Size(10, 17);
             this.lastUpdateToolStripStatusLabel.Text = ".";
             // 
             // toolStripStatusLabelStatus
             // 
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(311, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(312, 17);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.Text = ".";
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -185,10 +186,10 @@
             this.tvwCollectors.ImageList = this.imageList1;
             this.tvwCollectors.Location = new System.Drawing.Point(0, 39);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.Name = "root";
-            treeNode1.Text = "Collectors";
+            treeNode2.Name = "root";
+            treeNode2.Text = "Collectors";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(337, 248);
@@ -211,14 +212,14 @@
             this.refreshToolStripMenuItem,
             this.systemToolStripMenuItem});
             this.contextMenuStriptvw.Name = "contextMenuStriptvw";
-            this.contextMenuStriptvw.Size = new System.Drawing.Size(196, 192);
+            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 192);
             // 
             // showDetailsToolStripMenuItem
             // 
             this.showDetailsToolStripMenuItem.Enabled = false;
             this.showDetailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.showDetailsToolStripMenuItem.Text = "Show details";
             this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
             // 
@@ -226,7 +227,7 @@
             // 
             this.disableCollectorToolStripMenuItem.Enabled = false;
             this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.disableCollectorToolStripMenuItem.Text = "Disable collector";
             this.disableCollectorToolStripMenuItem.Click += new System.EventHandler(this.disableCollectorToolStripMenuItem_Click);
             // 
@@ -234,19 +235,19 @@
             // 
             this.configureCollectorToolStripMenuItem.Enabled = false;
             this.configureCollectorToolStripMenuItem.Name = "configureCollectorToolStripMenuItem";
-            this.configureCollectorToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.configureCollectorToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.configureCollectorToolStripMenuItem.Text = "Configure collector";
             this.configureCollectorToolStripMenuItem.Click += new System.EventHandler(this.configureCollectorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(192, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(190, 6);
             // 
             // notifiersToolStripMenuItem
             // 
             this.notifiersToolStripMenuItem.Name = "notifiersToolStripMenuItem";
-            this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.notifiersToolStripMenuItem.Text = "Notifiers";
             this.notifiersToolStripMenuItem.Click += new System.EventHandler(this.notifiersToolStripMenuItem_Click);
             // 
@@ -254,19 +255,19 @@
             // 
             this.defaultNotifierViewerToolStripMenuItem.Enabled = false;
             this.defaultNotifierViewerToolStripMenuItem.Name = "defaultNotifierViewerToolStripMenuItem";
-            this.defaultNotifierViewerToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.defaultNotifierViewerToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.defaultNotifierViewerToolStripMenuItem.Text = "Default notifier viewer ";
             this.defaultNotifierViewerToolStripMenuItem.Click += new System.EventHandler(this.defaultNotifierViewerToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 6);
             // 
             // disablePollingToolStripMenuItem
             // 
             this.disablePollingToolStripMenuItem.Name = "disablePollingToolStripMenuItem";
-            this.disablePollingToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.disablePollingToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.disablePollingToolStripMenuItem.Text = "Disable polling";
             this.disablePollingToolStripMenuItem.Click += new System.EventHandler(this.disablePollingToolStripMenuItem_Click);
             // 
@@ -274,7 +275,7 @@
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
@@ -286,34 +287,34 @@
             this.configureMonitorPackToolStripMenuItem,
             this.applicationOptionsToolStripMenuItem});
             this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
-            this.systemToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.systemToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.systemToolStripMenuItem.Text = "System";
             // 
             // loadMonitorPackToolStripMenuItem
             // 
             this.loadMonitorPackToolStripMenuItem.Name = "loadMonitorPackToolStripMenuItem";
-            this.loadMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.loadMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.loadMonitorPackToolStripMenuItem.Text = "Load Monitor pack";
             this.loadMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
             // 
             // recentMonitorPackFilesToolStripMenuItem
             // 
             this.recentMonitorPackFilesToolStripMenuItem.Name = "recentMonitorPackFilesToolStripMenuItem";
-            this.recentMonitorPackFilesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.recentMonitorPackFilesToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.recentMonitorPackFilesToolStripMenuItem.Text = "Recent Monitor pack files";
             this.recentMonitorPackFilesToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRecentFiles_Click);
             // 
             // configureMonitorPackToolStripMenuItem
             // 
             this.configureMonitorPackToolStripMenuItem.Name = "configureMonitorPackToolStripMenuItem";
-            this.configureMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.configureMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.configureMonitorPackToolStripMenuItem.Text = "Configure Monitor pack";
             this.configureMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonConfigPack_Click);
             // 
             // applicationOptionsToolStripMenuItem
             // 
             this.applicationOptionsToolStripMenuItem.Name = "applicationOptionsToolStripMenuItem";
-            this.applicationOptionsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.applicationOptionsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.applicationOptionsToolStripMenuItem.Text = "Application Options";
             this.applicationOptionsToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonOptions_Click);
             // 

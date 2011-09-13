@@ -41,6 +41,11 @@ namespace QuickMon
             {
                 EventLog.WriteEntry(serviceEventSource, string.Format("Starting QuickMon monitoring and alerting service using MonitorPack '{0}'", Properties.Settings.Default.MonitorPackPath), EventLogEntryType.Information, 0);
                 monitorPack.Load(Properties.Settings.Default.MonitorPackPath);
+                if (monitorPack.Notifiers != null && monitorPack.Notifiers.Count > 0)
+                {
+                    foreach (var notifier in monitorPack.Notifiers)
+                        EventLog.WriteEntry(serviceEventSource, string.Format("Using notifier '{0}'", notifier.Name), EventLogEntryType.Information, 0);
+                }
                 monitorPack.RaiseNotifierError += new RaiseNotifierErrorDelegare(monitorPack_RaiseNotifierError);
                 monitorPack.RaiseCollectorError += new RaiseCollectorErrorDelegare(monitorPack_RaiseCollectorError);
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;

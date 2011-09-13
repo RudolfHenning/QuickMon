@@ -13,6 +13,13 @@ namespace QuickMon
         [STAThread]
         static void Main(string[] args)
         {
+            if (Properties.Settings.Default.NewVersion)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.NewVersion = false;
+                Properties.Settings.Default.Save();
+            }
+
             if (Properties.Settings.Default.RecentQMConfigFiles == null)
                 Properties.Settings.Default.RecentQMConfigFiles = new System.Collections.Specialized.StringCollection();
 

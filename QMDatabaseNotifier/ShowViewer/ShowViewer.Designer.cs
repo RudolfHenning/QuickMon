@@ -194,7 +194,6 @@
             "Info",
             "Warning",
             "Error",
-            "Crisis",
             "Any"});
             this.cboAlertLevel.Location = new System.Drawing.Point(80, 30);
             this.cboAlertLevel.Name = "cboAlertLevel";
@@ -292,7 +291,7 @@
             // countsToolStripStatusLabel
             // 
             this.countsToolStripStatusLabel.Name = "countsToolStripStatusLabel";
-            this.countsToolStripStatusLabel.Size = new System.Drawing.Size(11, 17);
+            this.countsToolStripStatusLabel.Size = new System.Drawing.Size(10, 17);
             this.countsToolStripStatusLabel.Text = ".";
             // 
             // statusToolStripStatusLabel

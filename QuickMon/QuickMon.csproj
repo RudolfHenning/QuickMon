@@ -157,6 +157,7 @@
     <Content Include="QuickMon.ico" />
     <None Include="Resources\folder_favor.png" />
     <None Include="Resources\319.ico" />
+    <None Include="Resources\GlobeWrench.ico" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\horn.png" />
   </ItemGroup>

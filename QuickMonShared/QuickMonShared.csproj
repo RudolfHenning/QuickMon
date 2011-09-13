@@ -52,6 +52,20 @@
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\RichTextControlEx.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RichTextControlEx.designer.cs">
+      <DependentUpon>RichTextControlEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RTF\RTFBuilder.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RawFonts.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFFormatWrap.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFImage.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFParaWrap.cs" />
+    <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
+    <Compile Include="Controls\RTF\RTFFont.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -142,6 +156,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\RichTextControlEx.resx">
+      <DependentUpon>RichTextControlEx.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Management\ImportCollectorConfig.resx">
       <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
     </EmbeddedResource>

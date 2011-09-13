@@ -1,3 +1,2 @@
-﻿* - Notifiers per CollectorEntry??
-    Or specify a list of collectors for which the notifier will log a message (default = all)
-* - Collectors - add Interface for returning single 'value' (e.g. total number of files as used by FileCount agent...)
+﻿* - Collectors - add Interface for returning single 'value' (e.g. total number of files as used by FileCount agent...)
+* - build in some kind of timer or repeat check for collectors - only raise warning/error if state stays in same state for x time (especially for performance counters)

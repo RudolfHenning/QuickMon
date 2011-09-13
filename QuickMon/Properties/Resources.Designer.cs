@@ -151,6 +151,13 @@ namespace QuickMon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GlobeWrench {
+            get {
+                object obj = ResourceManager.GetObject("GlobeWrench", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap horn {
             get {
                 object obj = ResourceManager.GetObject("horn", resourceCulture);

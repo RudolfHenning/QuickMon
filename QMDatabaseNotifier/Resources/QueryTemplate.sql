@@ -10,7 +10,7 @@ FROM
 	[AlertMessages]
 WHERE 
 	[InsertDate] between @FromDate and @ToDate and
-	(@AlertLevel is null or [AlertLevel] = @AlertLevel) and
+	(@AlertLevel is null or [AlertLevel] >= @AlertLevel) and
 	(@CollectorType is null or [CollectorType] like @CollectorType) and
 	(@Category is null or [Category] like @Category) and
 	(@CurrentState is null or [CurrentState] = @CurrentState) and

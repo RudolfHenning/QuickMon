@@ -53,6 +53,11 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.filePathtoolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -69,11 +74,6 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cboDefaultViewerNotifier = new System.Windows.Forms.ComboBox();
-            this.monitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -127,6 +127,7 @@
             this.recentToolStripButton.Name = "recentToolStripButton";
             this.recentToolStripButton.Size = new System.Drawing.Size(36, 36);
             this.recentToolStripButton.Text = "Recent items";
+            this.recentToolStripButton.ToolTipText = "Recent monitor packs";
             this.recentToolStripButton.Click += new System.EventHandler(this.recentToolStripButton_Click);
             // 
             // toolStripButtonSave
@@ -181,9 +182,9 @@
             // tvwMonPack
             // 
             this.tvwMonPack.AllowDrop = true;
-            this.tvwMonPack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvwMonPack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tvwMonPack.ContextMenuStrip = this.contextMenuStrip1;
             this.tvwMonPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwMonPack.HideSelection = false;
@@ -284,6 +285,45 @@
             this.moveDownToolStripMenuItem.Text = "Move down";
             this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
+            // monitorPackToolStripMenuItem
+            // 
+            this.monitorPackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.recentToolStripMenuItem,
+            this.saveToolStripMenuItem});
+            this.monitorPackToolStripMenuItem.Name = "monitorPackToolStripMenuItem";
+            this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.monitorPackToolStripMenuItem.Text = "Monitor pack";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNew_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.toolStripoad_Click);
+            // 
+            // recentToolStripMenuItem
+            // 
+            this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.recentToolStripMenuItem.Text = "Recent";
+            this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -340,8 +380,8 @@
             // 
             // txtName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(134, 42);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(281, 20);
@@ -363,8 +403,8 @@
             // 
             // txtAgentsRegistrationFile
             // 
-            this.txtAgentsRegistrationFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAgentsRegistrationFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAgentsRegistrationFile.Location = new System.Drawing.Point(134, 68);
             this.txtAgentsRegistrationFile.Name = "txtAgentsRegistrationFile";
             this.txtAgentsRegistrationFile.ReadOnly = true;
@@ -438,45 +478,6 @@
             this.cboDefaultViewerNotifier.Size = new System.Drawing.Size(199, 21);
             this.cboDefaultViewerNotifier.TabIndex = 9;
             // 
-            // monitorPackToolStripMenuItem
-            // 
-            this.monitorPackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.recentToolStripMenuItem,
-            this.saveToolStripMenuItem});
-            this.monitorPackToolStripMenuItem.Name = "monitorPackToolStripMenuItem";
-            this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.monitorPackToolStripMenuItem.Text = "Monitor pack";
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNew_Click);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.toolStripoad_Click);
-            // 
-            // recentToolStripMenuItem
-            // 
-            this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.recentToolStripMenuItem.Text = "Recent";
-            this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonSave_Click);
-            // 
             // MonitorPackManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -499,7 +500,7 @@
             this.MinimumSize = new System.Drawing.Size(510, 333);
             this.Name = "MonitorPackManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Monitor pack management";
+            this.Text = "Monitor Pack Management";
             this.Load += new System.EventHandler(this.MonitorPackManagement_Load);
             this.Shown += new System.EventHandler(this.MonitorPackManagement_Shown);
             this.toolStrip1.ResumeLayout(false);

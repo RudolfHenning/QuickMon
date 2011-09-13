@@ -29,7 +29,7 @@ namespace QuickMon
         {
             splitContainerMain.Panel2Collapsed = true;
             cboTopCount.SelectedIndex = 2;
-            cboAlertLevel.SelectedIndex = 5;
+            cboAlertLevel.SelectedIndex = 4;
             cboState.SelectedIndex = 6;
             dateTimeChooserFrom.SelectedDateTime = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
             dateTimeChooserTo.SelectedDateTime = DateTime.Now.AddMinutes(1);
@@ -83,7 +83,7 @@ namespace QuickMon
                 string detailsParamName = DbSettings.DetailsFieldName.Replace("'", "''").Replace("@", "");
                 string datetimeParamName = DbSettings.DateTimeFieldName.Replace("'", "''").Replace("@", "");
                 object alertTypeValue = cboAlertLevel.SelectedIndex;
-                if (cboAlertLevel.SelectedIndex == 5)
+                if (cboAlertLevel.SelectedIndex == 4)
                     alertTypeValue = DBNull.Value;
                 object currentStateValue = cboState.SelectedIndex;
                 if (cboState.SelectedIndex == 6)
