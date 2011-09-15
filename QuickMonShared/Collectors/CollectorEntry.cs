@@ -88,7 +88,7 @@ namespace QuickMon
         /// Only raise an alert if the LastMonitorState remains Error or Warning.
         /// After each alert is generated this time gets updated
         /// </summary>
-        public int AlertOnlyAfterXMinutesInErrorOrWarningState { get; set; }
+        public int DelayErrWarnAlertForXMin { get; set; }
         /// <summary>
         /// Records when the last good state was recorded
         /// </summary>
@@ -124,7 +124,7 @@ namespace QuickMon
                 collectorEntry.CollectOnParentWarning = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("collectOnParentWarning", "False"));
                 collectorEntry.RepeatAlertInXMin = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("repeatAlertInXMin", "0"));
                 collectorEntry.AlertOnceInXMin = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("alertOnceInXMin", "0"));
-                collectorEntry.AlertOnlyAfterXMinutesInErrorOrWarningState = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("waitAlertTimeErrWarnInMin", "0"));
+                collectorEntry.DelayErrWarnAlertForXMin = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("delayErrWarnAlertForXMin", "0"));
                 collectorEntry.LastAlertTime = new DateTime(2000, 1, 1); //long ago
                 collectorEntry.LastGoodState = new DateTime(2000, 1, 1); //long ago
                 collectorEntry.LastMonitorState = MonitorStates.NotAvailable;
@@ -160,7 +160,7 @@ namespace QuickMon
                 CollectOnParentWarning,                
                 RepeatAlertInXMin,
                 AlertOnceInXMin,
-                AlertOnlyAfterXMinutesInErrorOrWarningState,
+                DelayErrWarnAlertForXMin,
                 Configuration,
                 ServiceWindows.ToConfig());
             return config;
@@ -229,6 +229,7 @@ namespace QuickMon
             return stateChanged;
         }
         private bool waitAlertTimeErrWarnInMinFlagged = false;
+        private DateTime delayErrWarnAlertTime = new DateTime(2000, 1, 1);
         public bool RaiseAlert()
         {
             bool raiseAlert = false;
@@ -236,20 +237,27 @@ namespace QuickMon
                 raiseAlert = false;
             else
             {
-                bool errorWarningTimeOut = false;
+                //bool errorWarningTimeOut = false;
                 bool repeatAlert = false;
-                bool stateChanged = (LastMonitorState != CurrentState) && AlertOnlyAfterXMinutesInErrorOrWarningState == 0;
-                if (LastMonitorState == MonitorStates.Good && (CurrentState == MonitorStates.Error || CurrentState == MonitorStates.Warning))
-                    waitAlertTimeErrWarnInMinFlagged = true;
+                bool stateChanged = (LastMonitorState != CurrentState) && DelayErrWarnAlertForXMin == 0;
 
-                //Has the state be in error or warning longer than specified minutes
-                if (waitAlertTimeErrWarnInMinFlagged && AlertOnlyAfterXMinutesInErrorOrWarningState > 0 &&
-                     LastGoodState.AddMinutes(AlertOnlyAfterXMinutesInErrorOrWarningState) < DateTime.Now &&
-                        (CurrentState == MonitorStates.Error || CurrentState == MonitorStates.Warning))
+                if (DelayErrWarnAlertForXMin > 0)
                 {
-                    errorWarningTimeOut = true;
-                    waitAlertTimeErrWarnInMinFlagged = false;
+                    if (LastMonitorState == MonitorStates.Good && (CurrentState == MonitorStates.Error || CurrentState == MonitorStates.Warning))
+                    {
+                        waitAlertTimeErrWarnInMinFlagged = true;
+                        delayErrWarnAlertTime = DateTime.Now.AddMinutes(DelayErrWarnAlertForXMin);
+                    }
+                    else if (CurrentState == MonitorStates.Good)
+                        waitAlertTimeErrWarnInMinFlagged = false;
+
+                    if (waitAlertTimeErrWarnInMinFlagged && DateTime.Now > delayErrWarnAlertTime)
+                    {
+                        stateChanged = true;
+                        waitAlertTimeErrWarnInMinFlagged = false;
+                    }
                 }
+
                 //Should the alert be repeated
                 if ((RepeatAlertInXMin > 0) &&
                         (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now) &&
@@ -258,7 +266,7 @@ namespace QuickMon
                     repeatAlert = true;
                 }
 
-                if (stateChanged || errorWarningTimeOut || repeatAlert)
+                if (stateChanged || repeatAlert)
                 {
                     //only allow repeat alert after specified minutes
                     if (AlertOnceInXMin == 0 || LastAlertTime.AddMinutes(AlertOnceInXMin) < DateTime.Now)
