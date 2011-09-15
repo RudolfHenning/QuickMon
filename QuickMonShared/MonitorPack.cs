@@ -29,28 +29,6 @@ namespace QuickMon
         }
 
         #region Events
-        //public event RaiseStateChangeDelegate RaiseStateChange;
-        //private void RaiseRaiseStateChange(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates currentState, string details)
-        //{
-        //    if (RaiseStateChange != null)
-        //    {
-        //        RaiseStateChange(alertLevel, collectorType, category, oldState, currentState, details);
-        //    }
-        //    foreach (NotifierEntry notifierEntry in (from n in Notifiers
-        //                                             where n.Enabled
-        //                                             select n))
-        //    {
-        //        try
-        //        {
-        //            if (notifierEntry.DetailLevel != DetailLevel.Summary && (int)notifierEntry.AlertLevel <= (int)alertLevel)
-        //                notifierEntry.Notifier.RecordMessage(alertLevel, collectorType, category, oldState, currentState, details);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            RaiseRaiseNotifierError(notifierEntry, ex.ToString());
-        //        }
-        //    }
-        //}
         public event RaiseNotifierErrorDelegare RaiseNotifierError;
         private void RaiseRaiseNotifierError(NotifierEntry notifier, string errorMessage)
         {
@@ -84,23 +62,6 @@ namespace QuickMon
         {
             if (StateChanged != null)
                 StateChanged(alertLevel, collectorType, collectorName, oldState, currentState, details);
-
-            
-
-            //foreach (NotifierEntry notifierEntry in (from n in Notifiers
-            //                                         where n.Enabled
-            //                                         select n))
-            //{
-            //    try
-            //    {
-            //        if (notifierEntry.DetailLevel != DetailLevel.Summary && (int)notifierEntry.AlertLevel <= (int)alertLevel)
-            //            notifierEntry.Notifier.RecordMessage(alertLevel, collectorType, collectorName, oldState, currentState, details);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        RaiseRaiseNotifierError(notifierEntry, ex.ToString());
-            //    }
-            //}
         }
         #endregion
 
@@ -207,32 +168,7 @@ namespace QuickMon
                 currentState = MonitorStates.Error;
                 collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
             }
-
-            //if (!collector.IsFolder && collector.Enabled && collector.ServiceWindows.IsInTimeWindow())
-            //{
-            //    RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage() { PlainText = "Getting state", HtmlText = "<p>Getting state</p>" });
-            //    try
-            //    {
-            //        currentState = collector.Collector.GetState();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        RaiseRaiseCollectorError(collector, ex.Message);
-            //        currentState = MonitorStates.Error;
-            //    }
-            //    collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
-            //}
-            //else if (collector.IsFolder && collector.ServiceWindows.IsInTimeWindow())
-            //{
-            //    currentState = MonitorStates.Folder;
-            //}
-            //else
-            //{
-            //    if (collector.LastMonitorState != MonitorStates.ConfigurationError)
-            //        currentState = MonitorStates.Disabled;
-            //    else
-            //        currentState = MonitorStates.ConfigurationError;
-            //}
+            
             sw.Stop();
 #if DEBUG
             Trace.WriteLine(string.Format("RefreshCollectorState - {0}: {1}ms", collector.Name, sw.ElapsedMilliseconds));
@@ -264,51 +200,15 @@ namespace QuickMon
                             collector.LastMonitorDetails);
                     collector.LastAlertTime = DateTime.Now;
                 }
+                else
+                {
+                    RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
+                    SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
+                }
 
                 collector.LastMonitorState = currentState;
                 collector.LastStateChange = DateTime.Now;
-            }
-
-            //if (!collector.IsFolder) //don't bother raising events for folders
-            //{
-            //    RaiseRaiseCurrentStateDelegate(collector, currentState);
-
-            //    //************** See if state changed ****************
-            //    if (collector.LastMonitorState != currentState ||
-            //        (
-            //            (collector.RepeatAlertInXMin > 0) &&
-            //            (collector.LastStateChange.AddMinutes(collector.RepeatAlertInXMin) < DateTime.Now) &&
-            //            (currentState == MonitorStates.Error || currentState == MonitorStates.Warning)
-            //         )
-            //        )
-            //    {
-            //        AlertLevel alertLevel = AlertLevel.Debug;
-            //        if (currentState == MonitorStates.Good || currentState == MonitorStates.Disabled || currentState == MonitorStates.NotAvailable)
-            //            alertLevel = AlertLevel.Info;
-            //        else if (currentState == MonitorStates.Warning)
-            //            alertLevel = AlertLevel.Warning;
-            //        else if (currentState == MonitorStates.Error || currentState == MonitorStates.ConfigurationError)
-            //            alertLevel = AlertLevel.Error;
-
-            //        //*************** Raising alert *****************
-            //        if (collector.AlertOnceInXMin == 0 || collector.LastAlertTime.AddMinutes(collector.AlertOnceInXMin) < DateTime.Now)
-            //        {
-            //            RaiseStateChanged(alertLevel, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
-            //                collector.LastMonitorDetails);
-            //            SendNotifierAlert(alertLevel, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
-            //                collector.LastMonitorDetails);
-            //            collector.LastAlertTime = DateTime.Now;
-            //        }
-
-            //        collector.LastMonitorState = currentState;
-            //        collector.LastStateChange = DateTime.Now;
-            //    }
-            //    else //if (!collector.IsFolder) //don't bother raising events for folders
-            //    {
-            //        RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
-            //        SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
-            //    }
-            //} 
+            }            
             #endregion
 
             #region Set or check dependants

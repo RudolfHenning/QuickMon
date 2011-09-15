@@ -74,6 +74,7 @@ namespace QuickMon.Management
             chkCollectOnParentWarning.Checked = SelectedEntry.CollectOnParentWarning;
             numericUpDownRepeatAlertInXMin.Value = SelectedEntry.RepeatAlertInXMin;
             AlertOnceInXMinNumericUpDown.Value = SelectedEntry.AlertOnceInXMin;
+            delayAlertSecNumericUpDown.Value = SelectedEntry.DelayErrWarnAlertForXSec;
             linkLabelServiceWindows.Text = SelectedEntry.ServiceWindows.ToString();
             CheckOkEnable();
         }
@@ -197,6 +198,7 @@ namespace QuickMon.Management
             SelectedEntry.CollectOnParentWarning = chkCollectOnParentWarning.Checked && !chkFolder.Checked;
             SelectedEntry.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
             SelectedEntry.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
+            SelectedEntry.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
