@@ -1,4 +1,4 @@
-<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}"  repeatAlertInXMin="{7}" alertOnceInXMin="{8}">
-  {9}
+<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}"  repeatAlertInXMin="{7}" alertOnceInXMin="{8}" waitAlertTimeErrWarnInMin="{9}">
   {10}
+  {11}
 </collectorEntry>
