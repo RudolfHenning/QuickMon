@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowDetails));
             this.lvwDatabases = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -39,9 +40,11 @@
             this.timerColumnWidthChanged = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.timerItemSelected = new System.Windows.Forms.Timer(this.components);
-            this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvwDatabases
@@ -49,6 +52,7 @@
             this.lvwDatabases.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderSize});
+            this.lvwDatabases.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwDatabases.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwDatabases.FullRowSelect = true;
             this.lvwDatabases.Location = new System.Drawing.Point(0, 39);
@@ -63,6 +67,11 @@
             // 
             this.columnHeaderName.Text = "Name";
             this.columnHeaderName.Width = 210;
+            // 
+            // columnHeaderSize
+            // 
+            this.columnHeaderSize.Text = "Size (MB)";
+            this.columnHeaderSize.Width = 113;
             // 
             // imageList1
             // 
@@ -120,10 +129,20 @@
             // 
             this.timerItemSelected.Interval = 200;
             // 
-            // columnHeaderSize
+            // contextMenuStrip1
             // 
-            this.columnHeaderSize.Text = "Size (MB)";
-            this.columnHeaderSize.Width = 113;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 26);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
             // ShowDetails
             // 
@@ -143,6 +162,7 @@
             this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,5 +180,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Timer timerItemSelected;
         private System.Windows.Forms.ColumnHeader columnHeaderSize;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

@@ -188,26 +188,24 @@ namespace QuickMon
                 else if (currentState == MonitorStates.Error || currentState == MonitorStates.ConfigurationError)
                     alertLevel = AlertLevel.Error;
 
+                //Check if alert should be raised now
+                if (collector.RaiseAlert())
+                {
+                    SendNotifierAlert(alertLevel, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
+                            collector.LastMonitorDetails);
+                }
+                else //otherwise raise only Debug info
+                {
+                    RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
+                    SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
+                }
+                //Did the state changed?
                 if (collector.StateChanged())
                 {
                     RaiseStateChanged(alertLevel, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
                                 collector.LastMonitorDetails);
                 }
-
-                if (collector.RaiseAlert())
-                {
-                    SendNotifierAlert(alertLevel, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
-                            collector.LastMonitorDetails);
-                    collector.LastAlertTime = DateTime.Now;
-                }
-                else
-                {
-                    RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
-                    SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
-                }
-
-                collector.LastMonitorState = currentState;
-                collector.LastStateChange = DateTime.Now;
+                collector.LastMonitorState = currentState;                
             }            
             #endregion
 
@@ -326,6 +324,50 @@ namespace QuickMon
         #endregion
 
         #region Loading and saving configuration
+        public void ApplyCollectorConfig(CollectorEntry collectorEntry)
+        {
+            if (collectorEntry == null)
+                return;
+            AgentRegistration currentCollector = null;
+            if (collectorEntry.IsFolder)
+            {
+                collectorEntry.Collector = null;
+            }
+            else
+            {
+                //first clear/release any existing references
+                if (collectorEntry.Collector != null)
+                    collectorEntry.Collector = null;
+
+                if (AgentRegistrations != null)
+                    currentCollector = (from o in AgentRegistrations
+                                        where o.IsCollector && o.Name == collectorEntry.CollectorRegistrationName
+                                        select o).FirstOrDefault();
+                if (currentCollector != null)
+                {
+                    collectorEntry.Collector = CollectorEntry.CreateCollectorEntry(currentCollector.AssemblyPath, currentCollector.ClassName);
+                    XmlDocument configDoc = new XmlDocument();
+                    configDoc.LoadXml(collectorEntry.Configuration);
+                    try
+                    {
+                        collectorEntry.Collector.ReadConfiguration(configDoc);
+                    }
+                    catch (Exception ex)
+                    {
+                        collectorEntry.LastMonitorState = MonitorStates.ConfigurationError;
+                        collectorEntry.Enabled = false;
+                        collectorEntry.LastMonitorDetails.PlainText = ex.Message;
+                    }
+                }
+                else
+                {
+                    collectorEntry.LastMonitorState = MonitorStates.ConfigurationError;
+                    collectorEntry.Enabled = false;
+                    collectorEntry.LastMonitorDetails.PlainText = string.Format("Collector '{0}' cannot be loaded as the type '{1}' is not registered!", collectorEntry.Name, collectorEntry.CollectorRegistrationName);
+                    RaiseRaiseMonitorPackError(string.Format("Collector '{0}' cannot be loaded as the type '{1}' is not registered!", collectorEntry.Name, collectorEntry.CollectorRegistrationName));
+                }
+            }
+        }
         /// <summary>
         /// Loading QuickMon monitor pack file
         /// </summary>
@@ -342,41 +384,7 @@ namespace QuickMon
             foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
             {
                 CollectorEntry newCollectorEntry = CollectorEntry.FromConfig(xmlCollectorEntry);
-                AgentRegistration currentCollector = null;
-                if (newCollectorEntry.IsFolder)
-                {
-                    newCollectorEntry.Collector = null;
-                }
-                else
-                {
-                    if (AgentRegistrations != null)
-                        currentCollector = (from o in AgentRegistrations
-                                            where o.IsCollector && o.Name == newCollectorEntry.CollectorRegistrationName
-                                            select o).FirstOrDefault();
-                    if (currentCollector != null)
-                    {
-                        newCollectorEntry.Collector = CollectorEntry.CreateCollectorEntry(currentCollector.AssemblyPath, currentCollector.ClassName);
-                        XmlDocument configDoc = new XmlDocument();
-                        configDoc.LoadXml(newCollectorEntry.Configuration);
-                        try
-                        {
-                            newCollectorEntry.Collector.ReadConfiguration(configDoc);
-                        }
-                        catch (Exception ex)
-                        {
-                            newCollectorEntry.LastMonitorState = MonitorStates.ConfigurationError;
-                            newCollectorEntry.Enabled = false;
-                            newCollectorEntry.LastMonitorDetails.PlainText = ex.Message;
-                        }
-                    }
-                    else
-                    {
-                        newCollectorEntry.LastMonitorState = MonitorStates.ConfigurationError;
-                        newCollectorEntry.Enabled = false;
-                        newCollectorEntry.LastMonitorDetails.PlainText = string.Format("Collector '{0}' cannot be loaded as the type '{1}' is not registered!", newCollectorEntry.Name, newCollectorEntry.CollectorRegistrationName);
-                        RaiseRaiseMonitorPackError(string.Format("Collector '{0}' cannot be loaded as the type '{1}' is not registered!", newCollectorEntry.Name, newCollectorEntry.CollectorRegistrationName));
-                    }
-                }
+                ApplyCollectorConfig(newCollectorEntry);        
                 Collectors.Add(newCollectorEntry);
             }
             foreach (XmlElement xmlNotifierEntry in root.SelectNodes("notifierEntries/notifierEntry"))

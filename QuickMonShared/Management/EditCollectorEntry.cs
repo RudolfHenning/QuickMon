@@ -23,7 +23,7 @@ namespace QuickMon.Management
 
         #region Private
         private MonitorPack monitorPack;
-        private Size collapsedSize = new Size(600, 330);
+        private Size collapsedSize = new Size(600, 260);
         private Size expandedSize = new Size(600, 500); 
         #endregion
 
@@ -303,8 +303,9 @@ namespace QuickMon.Management
             importLinkLabel.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
             cboCollector.Enabled = !chkFolder.Checked && allowCollectorChange;
             chkCollectOnParentWarning.Enabled = !chkFolder.Checked;
-            numericUpDownRepeatAlertInXMin.Enabled = !chkFolder.Checked;
+            numericUpDownRepeatAlertInXMin.Enabled = !chkFolder.Checked;            
             AlertOnceInXMinNumericUpDown.Enabled = !chkFolder.Checked;
+            delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
         }
         #endregion       
 

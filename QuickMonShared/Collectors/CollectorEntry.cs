@@ -191,6 +191,7 @@ namespace QuickMon
             return string.Format("{0} ({1})", Name, CollectorRegistrationName);
         }
 
+        #region Refreshing state and getting alerts
         public MonitorStates GetCurrentState()
         {
             if (LastMonitorState != MonitorStates.ConfigurationError)
@@ -220,7 +221,7 @@ namespace QuickMon
             {
                 CurrentState = MonitorStates.ConfigurationError;
             }
-            
+
             return CurrentState;
         }
         public bool StateChanged()
@@ -231,9 +232,11 @@ namespace QuickMon
             else
             {
                 stateChanged = (LastMonitorState != CurrentState);
+                if (stateChanged)
+                    LastStateChange = DateTime.Now; //reset time
             }
             return stateChanged;
-        }        
+        }
         public bool RaiseAlert()
         {
             bool raiseAlert = false;
@@ -266,7 +269,7 @@ namespace QuickMon
                         waitAlertTimeErrWarnInMinFlagged = false;
                     }
                 }
-                else 
+                else
                     waitAlertTimeErrWarnInMinFlagged = false;
 
                 //Should the alert be repeated
@@ -275,6 +278,7 @@ namespace QuickMon
                         (CurrentState == MonitorStates.Error || CurrentState == MonitorStates.Warning))
                 {
                     repeatAlert = true;
+                    LastStateChange = DateTime.Now; //reset time otherwise it keeps on being repeated every time the collector state is checked again
                 }
 
                 if (stateChanged || repeatAlert)
@@ -284,10 +288,13 @@ namespace QuickMon
                     {
                         raiseAlert = true;
                     }
-                }             
+                }
+                if (raiseAlert)
+                    LastAlertTime = DateTime.Now; //reset alert time
             }
 
             return raiseAlert;
-        }
+        } 
+        #endregion
     }
 }

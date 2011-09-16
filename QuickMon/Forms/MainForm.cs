@@ -335,6 +335,7 @@ namespace QuickMon
                 if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
                     collector = editCollectorEntry.SelectedEntry;
+                    monitorPack.ApplyCollectorConfig(collector);
                     tvwCollectors.SelectedNode.Tag = collector;
                     tvwCollectors.SelectedNode.Text = collector.Name;
                     if (!collector.Enabled)
