@@ -261,23 +261,25 @@ namespace QuickMon.Management
         private void ShowManualConfig()
         {
             this.MaximumSize = new Size(0, 0);
+            CheckOkEnable();
             lblConfig.Visible = true;
             txtConfig.Visible = true;
             lblConfigWarn.Visible = true;
+            chkFolder.Enabled = false;
             this.Size = expandedSize;
             this.MinimumSize = expandedSize;
             manualEditlinkLabel.Enabled = false;
             cmdConfig.Enabled = false;
             cmdSaveConfig.Visible = true;
             cmdCancelConfig.Visible = true;
-            cboCollector.Enabled = false;
-            CheckOkEnable();
+            cboCollector.Enabled = false;            
         }
         private void HideManualConfig()
         {
             lblConfig.Visible = false;
             txtConfig.Visible = false;
             lblConfigWarn.Visible = false;
+            chkFolder.Enabled = true;
             cmdSaveConfig.Visible = false;
             cmdCancelConfig.Visible = false;
             this.Size = collapsedSize;
@@ -288,6 +290,7 @@ namespace QuickMon.Management
             cboCollector.Enabled = allowCollectorChange;
             CheckOkEnable();
             txtConfig.Text = "";
+            
         }
         private void CheckOkEnable()
         {
@@ -307,7 +310,7 @@ namespace QuickMon.Management
             AlertOnceInXMinNumericUpDown.Enabled = !chkFolder.Checked;
             delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
         }
-        #endregion       
+        #endregion 
 
     }
 }

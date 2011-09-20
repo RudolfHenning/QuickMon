@@ -12,7 +12,6 @@ namespace QuickMon
 {
     public partial class ShowDetails : Form
     {
-        //public string CustomConfig { get; set; }
         public List<HostEntry> HostEntries { get; set; }
 
         public ShowDetails()
@@ -120,17 +119,18 @@ namespace QuickMon
                     }
                     else if (pingTime > host.MaxTime)
                     {
-                        itmX.SubItems[1].ForeColor = Color.DarkOrange;
+                        itmX.ForeColor = Color.DarkOrange;
                     }
                     else
                     {
-                        itmX.SubItems[1].ForeColor = SystemColors.WindowText;
+                        itmX.ForeColor = SystemColors.WindowText;
                     }
 
                 }
                 catch (Exception ex)
                 {
                     itmX.SubItems[1].Text = ex.Message;
+                    itmX.ForeColor = Color.Red;
                 }
             }
             lvwHosts.EndUpdate();

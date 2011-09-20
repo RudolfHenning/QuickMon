@@ -65,18 +65,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageAgent = new System.Windows.Forms.TabPage();
+            this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.tabPageGeneral = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageAgent.SuspendLayout();
-            this.tabPageAlerts.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
+            this.tabPageAlerts.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -85,7 +85,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(127, 38);
+            this.chkEnabled.Location = new System.Drawing.Point(99, 38);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
@@ -97,9 +97,9 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(127, 12);
+            this.txtName.Location = new System.Drawing.Point(99, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(447, 20);
+            this.txtName.Size = new System.Drawing.Size(475, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -120,7 +120,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(497, 291);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 10;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -132,7 +132,7 @@
             this.cmdOK.Location = new System.Drawing.Point(416, 291);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 9;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -166,7 +166,7 @@
             this.lblId.Location = new System.Drawing.Point(31, 296);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(16, 13);
-            this.lblId.TabIndex = 6;
+            this.lblId.TabIndex = 7;
             this.lblId.Text = "Id";
             // 
             // label3
@@ -197,7 +197,7 @@
             this.chkCollectOnParentWarning.Checked = true;
             this.chkCollectOnParentWarning.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCollectOnParentWarning.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkCollectOnParentWarning.Location = new System.Drawing.Point(112, 64);
+            this.chkCollectOnParentWarning.Location = new System.Drawing.Point(112, 38);
             this.chkCollectOnParentWarning.Name = "chkCollectOnParentWarning";
             this.chkCollectOnParentWarning.Size = new System.Drawing.Size(270, 17);
             this.chkCollectOnParentWarning.TabIndex = 4;
@@ -244,18 +244,20 @@
             this.label6.Location = new System.Drawing.Point(9, 296);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
-            this.label6.TabIndex = 5;
+            this.label6.TabIndex = 6;
             this.label6.Text = "Id";
             // 
             // cmdConfig
             // 
+            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdConfig.Enabled = false;
             this.cmdConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdConfig.Location = new System.Drawing.Point(112, 40);
+            this.cmdConfig.Location = new System.Drawing.Point(335, 291);
             this.cmdConfig.Name = "cmdConfig";
             this.cmdConfig.Size = new System.Drawing.Size(75, 23);
-            this.cmdConfig.TabIndex = 2;
+            this.cmdConfig.TabIndex = 8;
             this.cmdConfig.Text = "Configure";
+            this.toolTip1.SetToolTip(this.cmdConfig, "Configure Collector agent");
             this.cmdConfig.UseVisualStyleBackColor = true;
             this.cmdConfig.Click += new System.EventHandler(this.cmdConfig_Click);
             // 
@@ -325,11 +327,11 @@
             this.chkFolder.Checked = true;
             this.chkFolder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFolder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkFolder.Location = new System.Drawing.Point(201, 38);
+            this.chkFolder.Location = new System.Drawing.Point(14, 43);
             this.chkFolder.Name = "chkFolder";
-            this.chkFolder.Size = new System.Drawing.Size(53, 17);
-            this.chkFolder.TabIndex = 3;
-            this.chkFolder.Text = "Folder";
+            this.chkFolder.Size = new System.Drawing.Size(64, 17);
+            this.chkFolder.TabIndex = 2;
+            this.chkFolder.Text = "Is Folder";
             this.chkFolder.UseVisualStyleBackColor = true;
             this.chkFolder.CheckedChanged += new System.EventHandler(this.chkFolder_CheckedChanged);
             // 
@@ -338,10 +340,10 @@
             this.linkLabelServiceWindows.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelServiceWindows.AutoEllipsis = true;
-            this.linkLabelServiceWindows.Location = new System.Drawing.Point(118, 38);
+            this.linkLabelServiceWindows.Location = new System.Drawing.Point(267, 40);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(435, 23);
-            this.linkLabelServiceWindows.TabIndex = 3;
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(305, 23);
+            this.linkLabelServiceWindows.TabIndex = 4;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
             this.toolTip1.SetToolTip(this.linkLabelServiceWindows, "Only operate within specified times. Return \'disabled\' status otherwise");
@@ -350,21 +352,21 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 38);
+            this.label7.Location = new System.Drawing.Point(168, 40);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 13);
-            this.label7.TabIndex = 2;
+            this.label7.TabIndex = 3;
             this.label7.Text = "Service window(s)";
             // 
             // manualEditlinkLabel
             // 
             this.manualEditlinkLabel.AutoSize = true;
-            this.manualEditlinkLabel.Location = new System.Drawing.Point(193, 45);
+            this.manualEditlinkLabel.Location = new System.Drawing.Point(113, 45);
             this.manualEditlinkLabel.Name = "manualEditlinkLabel";
-            this.manualEditlinkLabel.Size = new System.Drawing.Size(62, 13);
+            this.manualEditlinkLabel.Size = new System.Drawing.Size(133, 13);
             this.manualEditlinkLabel.TabIndex = 3;
             this.manualEditlinkLabel.TabStop = true;
-            this.manualEditlinkLabel.Text = "Manual edit";
+            this.manualEditlinkLabel.Text = "Manually edit configuration";
             this.toolTip1.SetToolTip(this.manualEditlinkLabel, "Manually edit configuration (not recommended)");
             this.manualEditlinkLabel.Click += new System.EventHandler(this.cmdManualConfig_Click);
             // 
@@ -387,10 +389,10 @@
             this.importLinkLabel.Enabled = false;
             this.importLinkLabel.Location = new System.Drawing.Point(272, 45);
             this.importLinkLabel.Name = "importLinkLabel";
-            this.importLinkLabel.Size = new System.Drawing.Size(36, 13);
+            this.importLinkLabel.Size = new System.Drawing.Size(97, 13);
             this.importLinkLabel.TabIndex = 4;
             this.importLinkLabel.TabStop = true;
-            this.importLinkLabel.Text = "Import";
+            this.importLinkLabel.Text = "Import from existing";
             this.toolTip1.SetToolTip(this.importLinkLabel, "Import configuration of similar collector agents");
             this.importLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.importLinkLabel_LinkClicked);
             // 
@@ -445,14 +447,14 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAgent);
+            this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAlerts);
             this.tabControl1.Location = new System.Drawing.Point(11, 61);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(567, 224);
-            this.tabControl1.TabIndex = 4;
+            this.tabControl1.TabIndex = 5;
             // 
             // tabPageAgent
             // 
@@ -460,8 +462,8 @@
             this.tabPageAgent.Controls.Add(this.label3);
             this.tabPageAgent.Controls.Add(this.panel1);
             this.tabPageAgent.Controls.Add(this.cboCollector);
+            this.tabPageAgent.Controls.Add(this.chkFolder);
             this.tabPageAgent.Controls.Add(this.importLinkLabel);
-            this.tabPageAgent.Controls.Add(this.cmdConfig);
             this.tabPageAgent.Controls.Add(this.manualEditlinkLabel);
             this.tabPageAgent.Location = new System.Drawing.Point(4, 22);
             this.tabPageAgent.Name = "tabPageAgent";
@@ -469,6 +471,19 @@
             this.tabPageAgent.Size = new System.Drawing.Size(559, 198);
             this.tabPageAgent.TabIndex = 0;
             this.tabPageAgent.Text = "Agent details";
+            // 
+            // tabPageGeneral
+            // 
+            this.tabPageGeneral.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageGeneral.Controls.Add(this.chkCollectOnParentWarning);
+            this.tabPageGeneral.Controls.Add(this.cboParentCollector);
+            this.tabPageGeneral.Controls.Add(this.label2);
+            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGeneral.Name = "tabPageGeneral";
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGeneral.Size = new System.Drawing.Size(559, 198);
+            this.tabPageGeneral.TabIndex = 2;
+            this.tabPageGeneral.Text = "Dependencies ";
             // 
             // tabPageAlerts
             // 
@@ -507,30 +522,17 @@
             this.label11.TabIndex = 6;
             this.label11.Text = "Delay alert";
             // 
-            // tabPageGeneral
-            // 
-            this.tabPageGeneral.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPageGeneral.Controls.Add(this.label7);
-            this.tabPageGeneral.Controls.Add(this.chkCollectOnParentWarning);
-            this.tabPageGeneral.Controls.Add(this.linkLabelServiceWindows);
-            this.tabPageGeneral.Controls.Add(this.cboParentCollector);
-            this.tabPageGeneral.Controls.Add(this.label2);
-            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
-            this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(559, 198);
-            this.tabPageGeneral.TabIndex = 2;
-            this.tabPageGeneral.Text = "General";
-            // 
             // EditCollectorEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 326);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.linkLabelServiceWindows);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.chkFolder);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblId);
+            this.Controls.Add(this.cmdConfig);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.chkEnabled);
@@ -553,10 +555,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageAgent.ResumeLayout(false);
             this.tabPageAgent.PerformLayout();
-            this.tabPageAlerts.ResumeLayout(false);
-            this.tabPageAlerts.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
+            this.tabPageAlerts.ResumeLayout(false);
+            this.tabPageAlerts.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

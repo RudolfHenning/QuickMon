@@ -43,30 +43,51 @@ namespace QuickMon
             }
         }
 
-        private bool TestAddress()
+        private int GetPingTime(string hostName)
+        {
+            int pingTime = 0;
+
+            System.Net.Dns.GetHostAddresses(txtAddress.Text);
+
+            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+            {
+                System.Net.NetworkInformation.PingReply reply = ping.Send(txtAddress.Text, 5000);
+                if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                    pingTime = Convert.ToInt32(reply.RoundtripTime);
+                else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
+                    pingTime = int.MaxValue;
+            }
+            return pingTime;
+        }
+
+        private bool TestAddress(bool prompt = false)
         {
             bool success = false;
             try
             {
-                System.Net.Dns.GetHostAddresses(txtAddress.Text);
+                GetPingTime(txtAddress.Text);
                 success = true;
             }
             catch (Exception ex) 
             {
-                if (MessageBox.Show("Address not valid!\r\nAccept anyway?\r\n" + ex.ToString(), "Address not valid", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                if (MessageBox.Show("Test failed!\r\nAccept anyway?\r\n" + ex.Message, "Ping test", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
                     success = true;
                 }
             }
-
             return success;
         }
 
         private void cmdTestAddress_Click(object sender, EventArgs e)
         {
-            if (TestAddress())
+            try
             {
-                MessageBox.Show("Test success!", "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                int pingTime = GetPingTime(txtAddress.Text);
+                MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms", pingTime), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Test failed!\r\n" + ex.Message, "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
