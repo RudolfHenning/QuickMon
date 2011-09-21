@@ -3,3 +3,6 @@
 
 * - build in some kind of timer or repeat check for collectors - only raise warning/error if state stays in same state for x time (especially for performance counters)
 * - Collector 'retries' on errors/warnings - perhaps coupled with timer/counter for raising alerts only after x errors like above
+
+* - Add SQLQuery collector - specify some SQL tsql query or stored proc and test returned value(s) or row count against test values like WMIQuery
+    For safety - don't allow queries with keywords 'Update', 'Delete' etc. - if you must update or delete from a temp table rather use a SP
