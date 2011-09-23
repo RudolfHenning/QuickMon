@@ -11,6 +11,8 @@ namespace QuickMon
         {
             if (anyValue == null)
                 return defaultValue;
+            else if (anyValue == DBNull.Value)
+                return defaultValue;
             else
                 return anyValue.ToString();
         }

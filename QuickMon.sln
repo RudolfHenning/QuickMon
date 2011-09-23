@@ -83,9 +83,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMHttpPing", "QMHttpPing\QM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLQuery", "SQLQuery", "{5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMSQLQuery", "QMSQLQuery\QMSQLQuery.csproj", "{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 22
+		SccNumberOfProjects = 23
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -169,6 +171,10 @@ Global
 		SccProjectTopLevelParentUniqueName21 = QuickMon.sln
 		SccProjectName21 = QMHttpPing
 		SccLocalPath21 = QMHttpPing
+		SccProjectUniqueName22 = QMSQLQuery\\QMSQLQuery.csproj
+		SccProjectTopLevelParentUniqueName22 = QuickMon.sln
+		SccProjectName22 = QMSQLQuery
+		SccLocalPath22 = QMSQLQuery
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -388,6 +394,16 @@ Global
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -426,6 +442,7 @@ Global
 		{28BD4DC6-FA75-452F-AC95-4AAD3E12CCD5} = {B5E5386F-D133-4657-A724-8B274B5D0BD9}
 		{6E6E545C-99BB-4088-945E-FAB1B768486C} = {176BE279-08D1-4111-9BC3-FA85646B065D}
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5} = {079FB1E6-16C6-4594-B744-641E75196181}
+		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D} = {5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506}
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2

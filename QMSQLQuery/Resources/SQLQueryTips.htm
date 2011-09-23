@@ -1,0 +1,55 @@
+<html lang="en-za" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>QuickMon SQL Query Collector tips</title>
+<style type="text/css">
+    body 
+    {
+        font-family: Verdana;
+        font-size: 12;
+    }
+    h1, h2
+    {
+        color: Maroon;
+    }
+    a
+    {
+        text-decoration: none;
+    }
+    a:hover
+    {
+        text-decoration: underline:
+    }
+</style>
+</head>
+<body>
+<h1>QuickMon SQL Query Collector</h1>
+<p>The <a href="http://quickmon.codeplex.com" target="_blank">QuickMon</a> SQL Query Collector is a general <i><a href="http://quickmon.codeplex.com/wikipage?title=Collectors&referringTitle=Documentation" target="_blank">Collector</a></i> that allows you to specify almost any
+tsql query (or stored procedure) to test against configured values. There are a few restrictions
+on how it can/should be used.</p>
+<h2>General tips</h2>
+<ul>
+<li>The sql query/stored proc must only return a single value (unless 
+the row count itself is used as the returned value)</li>
+<li>The query must be as fast/quick as possible - as it will be called each time QuickMon 
+refreshes all collector states.</li>
+<li>Avoid locking/blocking of data. Since the purpose of the collector is only to monitor and 
+you don't want it to become a resource drain or block. Tip: use 'with (nolock)' or 'with (readpast)'</li>
+<li>Avoid cursors and/or transactions.</li>
+<li>You can use CTEs (Common Table Expressions) to simplify query statements.</li>
+<li>Even when using the 'use row count as value' make the query as simple as possible with fewest
+posible columns (ideally only one).</li>
+<li>When the returned value is not a number (within 64-bit integer) then it must match the
+specified values for Success/Warning/Error exactly.</li>
+<li>There are two special values for the Success, Warning and Error settings - '[null]' and '[any]'.
+The '[null]' value means it must match a 'null' value in the returned result. <br />
+The '[any]' value means the actual value could be anything - or effectively it is ignored. <br />
+Only one of the Success, Warning or Error setting value can be set to either '[null]' or '[any]'.</li>
+</ul>
+<h2>Restrictions</h2>
+<ul>
+<li><i>UPDATE</i> and <i>DELETE</i> statements are not allowed. If you use temporary tables and must use
+update or delete statements then rather place it into a stored procedure.</li>
+<li>For summary query: Any additional columns will simply be ignored.</li>
+</ul>
+</body>
+</html>
