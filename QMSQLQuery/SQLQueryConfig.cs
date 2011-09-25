@@ -31,7 +31,7 @@ namespace QuickMon
 
                 XmlNode summaryQueryNode = queryNode.SelectSingleNode("summaryQuery");
                 queryEntry.UseSPForSummary = bool.Parse(summaryQueryNode.ReadXmlElementAttr("useSP", "False"));
-                queryEntry.ReturnValueIsInt = bool.Parse(summaryQueryNode.ReadXmlElementAttr("returnValueIsInt", "True"));
+                queryEntry.ReturnValueIsNumber = bool.Parse(summaryQueryNode.ReadXmlElementAttr("returnValueIsNumber", "True"));
                 queryEntry.ReturnValueInverted = bool.Parse(summaryQueryNode.ReadXmlElementAttr("returnValueInverted", "False"));
                 queryEntry.WarningValue = summaryQueryNode.ReadXmlElementAttr("warningValue", "1");
                 queryEntry.ErrorValue = summaryQueryNode.ReadXmlElementAttr("errorValue", "2");
@@ -66,7 +66,7 @@ namespace QuickMon
 
                 XmlNode summaryQueryNode = queryNode.AppendElementWithText("summaryQuery", queryEntry.SummaryQuery);
                 summaryQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForSummary);
-                summaryQueryNode.SetAttributeValue("returnValueIsInt", queryEntry.ReturnValueIsInt);
+                summaryQueryNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
                 summaryQueryNode.SetAttributeValue("returnValueInverted", queryEntry.ReturnValueInverted);
                 summaryQueryNode.SetAttributeValue("warningValue", queryEntry.WarningValue);
                 summaryQueryNode.SetAttributeValue("errorValue", queryEntry.ErrorValue);

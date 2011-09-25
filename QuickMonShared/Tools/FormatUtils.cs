@@ -16,6 +16,19 @@ namespace QuickMon
             else
                 return anyValue.ToString();
         }
+        public static bool IsDouble(this string s)
+        {
+            if (s == null || s.Length == 0)
+                return false;
+            else
+            {
+                double tmp = 0;
+                if (double.TryParse(s, out tmp))
+                    return true;
+                else
+                    return false;
+            }
+        }
         public static bool IsInteger(this string s)
         {
             if (s == null || s.Length == 0)
@@ -49,6 +62,15 @@ namespace QuickMon
             else
             {
                 return o.ToString().IsLong();
+            }
+        }
+        public static bool IsNumber(this object o)
+        {
+            if (o == null)
+                return false;
+            else
+            {
+                return o.ToString().IsDouble();
             }
         }
     }

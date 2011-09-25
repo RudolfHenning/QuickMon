@@ -22,8 +22,8 @@ namespace QuickMon
         public bool UseSPForDetail { get; set; }
         public string SummaryQuery { get; set; }
         public string DetailQuery { get; set; }
-        private bool returnValueIsInt = true;
-        public bool ReturnValueIsInt { get { return returnValueIsInt; } set { returnValueIsInt = value; } }
+        private bool returnValueIsNumber = true;
+        public bool ReturnValueIsNumber { get { return returnValueIsNumber; } set { returnValueIsNumber = value; } }
         public bool ReturnValueInverted { get; set; }
         private string warningValue = "1";
         public string WarningValue { get { return warningValue; } set { warningValue = value; } }
@@ -61,6 +61,7 @@ namespace QuickMon
                 using (SqlCommand cmnd = new SqlCommand(SummaryQuery, conn))
                 {
                     cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = cmndTimeOut;
                     using (SqlDataReader r = cmnd.ExecuteReader())
                     {
                         while (r.Read())
@@ -82,6 +83,7 @@ namespace QuickMon
                 using (SqlCommand cmnd = new SqlCommand(SummaryQuery, conn))
                 {
                     cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = cmndTimeOut;
                     using (SqlDataReader r = cmnd.ExecuteReader())
                     {
                         if (r.Read())
@@ -101,6 +103,7 @@ namespace QuickMon
                 using (SqlCommand cmnd = new SqlCommand(DetailQuery, conn))
                 {
                     cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = cmndTimeOut;
                     using (SqlDataAdapter da = new SqlDataAdapter(cmnd))
                     {
                         da.Fill(returnValues);

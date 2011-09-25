@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Collectors");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
@@ -186,10 +186,10 @@
             this.tvwCollectors.ImageList = this.imageList1;
             this.tvwCollectors.Location = new System.Drawing.Point(0, 39);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode2.Name = "root";
-            treeNode2.Text = "Collectors";
+            treeNode1.Name = "root";
+            treeNode1.Text = "Collectors";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(337, 248);

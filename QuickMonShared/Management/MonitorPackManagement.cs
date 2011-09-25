@@ -53,145 +53,71 @@ namespace QuickMon.Management
         #region Toolbar & context menu & Button events
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
-            monitorPack = new MonitorPack();
+            string oldAgentRegistrationFile = "";
+            if (monitorPack != null && monitorPack.AgentRegistrationFile.Length > 0)
+                oldAgentRegistrationFile = monitorPack.AgentRegistrationFile;
+            monitorPack = new MonitorPack() { AgentRegistrationFile = oldAgentRegistrationFile };
             RefreshMonitorPack();
         }
         private void toolStripoad_Click(object sender, EventArgs e)
         {
-            openFileDialogOpen.FileName = filePathtoolStripStatusLabel.Text;
-            if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                monitorPack = new MonitorPack();
-                monitorPack.Load(openFileDialogOpen.FileName);
-                filePathtoolStripStatusLabel.Text = openFileDialogOpen.FileName;
-                RefreshMonitorPack();
+                string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                if (!System.IO.Directory.Exists(startUpPath))
+                    System.IO.Directory.CreateDirectory(startUpPath);
+                openFileDialogOpen.InitialDirectory = startUpPath;
+                openFileDialogOpen.FileName = filePathtoolStripStatusLabel.Text;
+
+                if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    monitorPack = new MonitorPack();
+                    monitorPack.Load(openFileDialogOpen.FileName);
+                    filePathtoolStripStatusLabel.Text = openFileDialogOpen.FileName;
+                    RefreshMonitorPack();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void recentToolStripButton_Click(object sender, EventArgs e)
         {
-            Form f = new Form();
-            f.SuspendLayout();
-            f.Name = "RecentFilesWindow";
-            f.Text = "Recently opened QuickMon config files";
-            f.Icon = Properties.Resources._319;
-            f.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            f.MaximizeBox = false;
-            f.MinimizeBox = false;
-            f.StartPosition = FormStartPosition.CenterScreen;
-            f.Size = new System.Drawing.Size(800, 400);
-            f.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            f.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            f.KeyPreview = true;
-            f.KeyUp += (object mysender, KeyEventArgs ea) =>
+            RecentMonitorPacks recentMonitorPacks = new RecentMonitorPacks();
+            if (recentMonitorPacks.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (ea.KeyCode == Keys.Escape)
-                {
-                    Form theForm = ((Form)mysender);
-                    theForm.Close();
-                }
-            };
-
-            Button cmdOK = new Button();
-            cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            cmdOK.Location = new System.Drawing.Point(620, 330);
-            cmdOK.Name = "cmdOK";
-            cmdOK.Size = new System.Drawing.Size(75, 23);
-            cmdOK.TabIndex = 1;
-            cmdOK.Text = "OK";
-            cmdOK.UseVisualStyleBackColor = true;
-            cmdOK.Enabled = false;
-            cmdOK.Click += (object mysender, EventArgs ea) =>
-            {
-                Form theForm = ((Button)mysender).FindForm();
-                ListBox l = (ListBox)theForm.Controls["lstFiles"];
-                if (l.SelectedIndex > -1)
-                {
-                    theForm.DialogResult = System.Windows.Forms.DialogResult.OK;
-                    theForm.Close();
-                }
-            };
-            Button cmdCancel = new Button();
-            cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            cmdCancel.Location = new System.Drawing.Point(700, 330);
-            cmdCancel.Name = "cmdCancel";
-            cmdCancel.Size = new System.Drawing.Size(75, 23);
-            cmdCancel.TabIndex = 2;
-            cmdCancel.Text = "Cancel";
-            cmdCancel.UseVisualStyleBackColor = true;
-
-            ListBox lb = new ListBox();
-            lb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            lb.Location = new Point(0, 0);
-            lb.Size = new System.Drawing.Size(f.ClientSize.Width, 320);
-            lb.Name = "lstFiles";
-            lb.TabIndex = 0;
-            lb.SelectedIndexChanged += (object mysender, EventArgs ea) =>
-            {
-                ListBox l = (ListBox)mysender;
-                Form theForm = l.FindForm();
-                Button okb = (Button)theForm.Controls["cmdOK"];
-                okb.Enabled = l.SelectedIndex > -1;
-            };
-            lb.DoubleClick += (object mysender, EventArgs ea) =>
-            {
-                ListBox l = (ListBox)mysender;
-                Form theForm = l.FindForm();
-                if (l.SelectedIndex > -1)
-                {
-                    theForm.DialogResult = System.Windows.Forms.DialogResult.OK;
-                    theForm.Close();
-                }
-
-            };
-            lb.KeyUp += (object mysender, KeyEventArgs ea) =>
-            {
-                if (ea.KeyCode == Keys.Return)
-                {
-                    ListBox l = (ListBox)mysender;
-                    Form theForm = l.FindForm();
-                    if (l.SelectedIndex > -1)
-                    {
-                        theForm.DialogResult = System.Windows.Forms.DialogResult.OK;
-                        theForm.Close();
-                    }
-                }
-            };
-            foreach (string filePath in (from string s in Properties.Settings.Default.recentMonitorPacks
-                                         orderby s
-                                         select s))
-            {
-                lb.Items.Add(filePath);
-            }
-            f.Controls.Add(lb);
-            f.Controls.Add(cmdOK);
-            f.Controls.Add(cmdCancel);
-
-            f.ResumeLayout(false);
-            f.PerformLayout();
-            if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string monitorPackPath = ((ListBox)f.Controls["lstFiles"]).SelectedItem.ToString();
                 monitorPack = new MonitorPack();
-                monitorPack.Load(monitorPackPath);
-                filePathtoolStripStatusLabel.Text = monitorPackPath;
+                monitorPack.Load(recentMonitorPacks.SelectedPack);
+                filePathtoolStripStatusLabel.Text = recentMonitorPacks.SelectedPack;
                 RefreshMonitorPack();
             }
         }
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
-            saveFileDialogSave.FileName = filePathtoolStripStatusLabel.Text;
-            if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                SortItemsByTreeView();
-                monitorPack.Name = txtName.Text;
-                monitorPack.Enabled = chkEnabled.Checked;
-                monitorPack.DefaultViewerNotifier = (from n in monitorPack.Notifiers
-                                                     where cboDefaultViewerNotifier.SelectedIndex > -1 &&
-                                                        n.Notifier.HasViewer && n.Name == cboDefaultViewerNotifier.SelectedItem.ToString()
-                                                     select n).FirstOrDefault();
-                monitorPack.Save(saveFileDialogSave.FileName);
-                filePathtoolStripStatusLabel.Text = saveFileDialogSave.FileName;
+                string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                if (!System.IO.Directory.Exists(startUpPath))
+                    System.IO.Directory.CreateDirectory(startUpPath);
+                saveFileDialogSave.InitialDirectory = startUpPath;
+                saveFileDialogSave.FileName = filePathtoolStripStatusLabel.Text;
+                if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    SortItemsByTreeView();
+                    monitorPack.Name = txtName.Text;
+                    monitorPack.Enabled = chkEnabled.Checked;
+                    monitorPack.DefaultViewerNotifier = (from n in monitorPack.Notifiers
+                                                         where cboDefaultViewerNotifier.SelectedIndex > -1 &&
+                                                            n.Notifier.HasViewer && n.Name == cboDefaultViewerNotifier.SelectedItem.ToString()
+                                                         select n).FirstOrDefault();
+                    monitorPack.Save(saveFileDialogSave.FileName);
+                    filePathtoolStripStatusLabel.Text = saveFileDialogSave.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
@@ -377,7 +303,9 @@ namespace QuickMon.Management
             try
             {
                 SortItemsByTreeView();
-                monitorPack.Name = txtName.Text;
+                monitorPack.Name = txtName.Text.Trim();
+                if (monitorPack.MonitorPackPath.Length > 0 && monitorPack.Name.Length == 0)
+                    monitorPack.Name = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
                 monitorPack.Enabled = chkEnabled.Checked;
                 monitorPack.DefaultViewerNotifier = (from n in monitorPack.Notifiers
                                                      where cboDefaultViewerNotifier.SelectedIndex > -1 &&
@@ -386,6 +314,11 @@ namespace QuickMon.Management
                 //save any changes
                 if (!monitorPack.Save())
                 {
+                    string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                    if (!System.IO.Directory.Exists(startUpPath))
+                        System.IO.Directory.CreateDirectory(startUpPath);
+                    saveFileDialogSave.InitialDirectory = startUpPath;
+                    saveFileDialogSave.FileName = monitorPack.Name;
                     if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {                        
                         monitorPack.Save(saveFileDialogSave.FileName);

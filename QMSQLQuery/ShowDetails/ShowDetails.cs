@@ -74,7 +74,7 @@ namespace QuickMon
                 bool warningCondition = false;
                 object value = null;
 
-                if (!queryInstance.ReturnValueIsInt)
+                if (!queryInstance.ReturnValueIsNumber)
                 {
                     value = queryInstance.RunQueryWithSingleResult();
                 }
@@ -98,7 +98,7 @@ namespace QuickMon
                 }
                 else //non null value
                 {
-                    if (!queryInstance.ReturnValueIsInt)
+                    if (!queryInstance.ReturnValueIsNumber)
                     {
                         if (value.ToString() == queryInstance.ErrorValue)
                             errorCondition = true;
@@ -113,14 +113,14 @@ namespace QuickMon
                     }
                     else //now we know the value is not null and must be in a range
                     {
-                        if (!value.IsIntegerTypeNumber()) //value must be a number!
+                        if (!value.IsNumber()) //value must be a number!
                         {
                             errorCondition = true;
                         }
                         else if (queryInstance.ErrorValue != "[any]" && queryInstance.ErrorValue != "[null]" &&
                                 (
-                                 (!queryInstance.ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(queryInstance.ErrorValue)) ||
-                                 (queryInstance.ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(queryInstance.ErrorValue))
+                                 (!queryInstance.ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(queryInstance.ErrorValue)) ||
+                                 (queryInstance.ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(queryInstance.ErrorValue))
                                 )
                             )
                         {
@@ -128,8 +128,8 @@ namespace QuickMon
                         }
                         else if (queryInstance.WarningValue != "[any]" && queryInstance.WarningValue != "[null]" &&
                                (
-                                (!queryInstance.ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(queryInstance.WarningValue)) ||
-                                (queryInstance.ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(queryInstance.WarningValue))
+                                (!queryInstance.ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(queryInstance.WarningValue)) ||
+                                (queryInstance.ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(queryInstance.WarningValue))
                                )
                             )
                         {

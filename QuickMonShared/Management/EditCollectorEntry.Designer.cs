@@ -45,7 +45,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmdConfig = new System.Windows.Forms.Button();
             this.txtConfig = new System.Windows.Forms.TextBox();
             this.lblConfig = new System.Windows.Forms.Label();
             this.lblConfigWarn = new System.Windows.Forms.Label();
@@ -55,10 +54,8 @@
             this.chkFolder = new System.Windows.Forms.CheckBox();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
-            this.manualEditlinkLabel = new System.Windows.Forms.LinkLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.importLinkLabel = new System.Windows.Forms.LinkLabel();
             this.delayAlertSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -69,6 +66,7 @@
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.configureEditButtonCollector = new QuickMon.Controls.ConfigureEditButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
@@ -247,20 +245,6 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "Id";
             // 
-            // cmdConfig
-            // 
-            this.cmdConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdConfig.Enabled = false;
-            this.cmdConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdConfig.Location = new System.Drawing.Point(335, 291);
-            this.cmdConfig.Name = "cmdConfig";
-            this.cmdConfig.Size = new System.Drawing.Size(75, 23);
-            this.cmdConfig.TabIndex = 8;
-            this.cmdConfig.Text = "Configure";
-            this.toolTip1.SetToolTip(this.cmdConfig, "Configure Collector agent");
-            this.cmdConfig.UseVisualStyleBackColor = true;
-            this.cmdConfig.Click += new System.EventHandler(this.cmdConfig_Click);
-            // 
             // txtConfig
             // 
             this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -358,18 +342,6 @@
             this.label7.TabIndex = 3;
             this.label7.Text = "Service window(s)";
             // 
-            // manualEditlinkLabel
-            // 
-            this.manualEditlinkLabel.AutoSize = true;
-            this.manualEditlinkLabel.Location = new System.Drawing.Point(113, 45);
-            this.manualEditlinkLabel.Name = "manualEditlinkLabel";
-            this.manualEditlinkLabel.Size = new System.Drawing.Size(133, 13);
-            this.manualEditlinkLabel.TabIndex = 3;
-            this.manualEditlinkLabel.TabStop = true;
-            this.manualEditlinkLabel.Text = "Manually edit configuration";
-            this.toolTip1.SetToolTip(this.manualEditlinkLabel, "Manually edit configuration (not recommended)");
-            this.manualEditlinkLabel.Click += new System.EventHandler(this.cmdManualConfig_Click);
-            // 
             // AlertOnceInXMinNumericUpDown
             // 
             this.AlertOnceInXMinNumericUpDown.Location = new System.Drawing.Point(108, 39);
@@ -382,19 +354,6 @@
             this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.AlertOnceInXMinNumericUpDown.TabIndex = 4;
             this.toolTip1.SetToolTip(this.AlertOnceInXMinNumericUpDown, "Only allow 1 alert to be raised withing the specified number of minutes");
-            // 
-            // importLinkLabel
-            // 
-            this.importLinkLabel.AutoSize = true;
-            this.importLinkLabel.Enabled = false;
-            this.importLinkLabel.Location = new System.Drawing.Point(272, 45);
-            this.importLinkLabel.Name = "importLinkLabel";
-            this.importLinkLabel.Size = new System.Drawing.Size(97, 13);
-            this.importLinkLabel.TabIndex = 4;
-            this.importLinkLabel.TabStop = true;
-            this.importLinkLabel.Text = "Import from existing";
-            this.toolTip1.SetToolTip(this.importLinkLabel, "Import configuration of similar collector agents");
-            this.importLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.importLinkLabel_LinkClicked);
             // 
             // delayAlertSecNumericUpDown
             // 
@@ -463,8 +422,6 @@
             this.tabPageAgent.Controls.Add(this.panel1);
             this.tabPageAgent.Controls.Add(this.cboCollector);
             this.tabPageAgent.Controls.Add(this.chkFolder);
-            this.tabPageAgent.Controls.Add(this.importLinkLabel);
-            this.tabPageAgent.Controls.Add(this.manualEditlinkLabel);
             this.tabPageAgent.Location = new System.Drawing.Point(4, 22);
             this.tabPageAgent.Name = "tabPageAgent";
             this.tabPageAgent.Padding = new System.Windows.Forms.Padding(3);
@@ -522,17 +479,28 @@
             this.label11.TabIndex = 6;
             this.label11.Text = "Delay alert";
             // 
+            // configureEditButtonCollector
+            // 
+            this.configureEditButtonCollector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.configureEditButtonCollector.Location = new System.Drawing.Point(324, 291);
+            this.configureEditButtonCollector.Name = "configureEditButtonCollector";
+            this.configureEditButtonCollector.Size = new System.Drawing.Size(86, 23);
+            this.configureEditButtonCollector.TabIndex = 8;
+            this.configureEditButtonCollector.ConfigureClicked += new System.EventHandler(this.cmdConfig_Click);
+            this.configureEditButtonCollector.ManualConfigureClicked += new System.EventHandler(this.cmdManualConfig_Click);
+            this.configureEditButtonCollector.ImportConfigurationClicked += new System.EventHandler(this.configureEditButton1_ImportConfigurationClicked);
+            // 
             // EditCollectorEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 326);
+            this.Controls.Add(this.configureEditButtonCollector);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.linkLabelServiceWindows);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblId);
-            this.Controls.Add(this.cmdConfig);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.chkEnabled);
@@ -581,7 +549,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button cmdConfig;
         private System.Windows.Forms.TextBox txtConfig;
         private System.Windows.Forms.Label lblConfig;
         private System.Windows.Forms.Label lblConfigWarn;
@@ -591,12 +558,10 @@
         private System.Windows.Forms.CheckBox chkFolder;
         private System.Windows.Forms.LinkLabel linkLabelServiceWindows;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.LinkLabel manualEditlinkLabel;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.LinkLabel importLinkLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageAgent;
@@ -605,5 +570,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TabPage tabPageGeneral;
+        private Controls.ConfigureEditButton configureEditButtonCollector;
     }
 }

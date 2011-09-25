@@ -49,20 +49,42 @@ namespace QuickMon.Management
         }
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.FileName = txtFilePath.Text;
-            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                txtFilePath.Text = saveFileDialog1.FileName;
+                string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                if (!System.IO.Directory.Exists(startUpPath))
+                    System.IO.Directory.CreateDirectory(startUpPath);
+                saveFileDialog1.InitialDirectory = startUpPath;
+                saveFileDialog1.FileName = txtFilePath.Text;
+                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtFilePath.Text = saveFileDialog1.FileName;
+                }
+                ValidateInput();
             }
-            ValidateInput();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
         {
-            openFileDialog1.FileName = txtFilePath.Text;
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                txtFilePath.Text = openFileDialog1.FileName;
-                LoadList();
+                string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                if (!System.IO.Directory.Exists(startUpPath))
+                    System.IO.Directory.CreateDirectory(startUpPath);
+                openFileDialog1.InitialDirectory = startUpPath;
+                openFileDialog1.FileName = txtFilePath.Text;
+                if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtFilePath.Text = openFileDialog1.FileName;
+                    LoadList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void toolStripButtonAdd_Click(object sender, EventArgs e)

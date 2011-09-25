@@ -316,11 +316,11 @@
             this.chkUseRowCountAsValue.Checked = true;
             this.chkUseRowCountAsValue.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkUseRowCountAsValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(354, 200);
+            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(391, 200);
             this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
-            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(115, 17);
+            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(136, 17);
             this.chkUseRowCountAsValue.TabIndex = 6;
-            this.chkUseRowCountAsValue.Text = "Row count is value";
+            this.chkUseRowCountAsValue.Text = "Use row count as value";
             this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
             // 
             // label9
@@ -374,9 +374,9 @@
             this.chkIsReturnValueInt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkIsReturnValueInt.Location = new System.Drawing.Point(9, 200);
             this.chkIsReturnValueInt.Name = "chkIsReturnValueInt";
-            this.chkIsReturnValueInt.Size = new System.Drawing.Size(157, 17);
+            this.chkIsReturnValueInt.Size = new System.Drawing.Size(142, 17);
             this.chkIsReturnValueInt.TabIndex = 4;
-            this.chkIsReturnValueInt.Text = "Value is in a range of values";
+            this.chkIsReturnValueInt.Text = "Return value is a number";
             this.chkIsReturnValueInt.UseVisualStyleBackColor = true;
             this.chkIsReturnValueInt.CheckedChanged += new System.EventHandler(this.chkIsReturnValueInt_CheckedChanged);
             // 

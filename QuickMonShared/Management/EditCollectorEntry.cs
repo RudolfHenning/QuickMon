@@ -268,8 +268,9 @@ namespace QuickMon.Management
             chkFolder.Enabled = false;
             this.Size = expandedSize;
             this.MinimumSize = expandedSize;
-            manualEditlinkLabel.Enabled = false;
-            cmdConfig.Enabled = false;
+            //manualEditlinkLabel.Enabled = false;
+            //cmdConfig.Enabled = false;
+            configureEditButtonCollector.Enabled = false;
             cmdSaveConfig.Visible = true;
             cmdCancelConfig.Visible = true;
             cboCollector.Enabled = false;            
@@ -285,8 +286,9 @@ namespace QuickMon.Management
             this.Size = collapsedSize;
             this.MaximumSize = collapsedSize;
             this.MinimumSize = collapsedSize;
-            manualEditlinkLabel.Enabled = true;
-            cmdConfig.Enabled = true;
+            //manualEditlinkLabel.Enabled = true;
+            //cmdConfig.Enabled = true;
+            configureEditButtonCollector.Enabled = true;
             cboCollector.Enabled = allowCollectorChange;
             CheckOkEnable();
             txtConfig.Text = "";
@@ -301,9 +303,7 @@ namespace QuickMon.Management
 
             cmdOK.Enabled = isEnable;
 
-            cmdConfig.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
-            manualEditlinkLabel.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
-            importLinkLabel.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
+            configureEditButtonCollector.Enabled = cboCollector.SelectedIndex > -1 && !txtConfig.Visible && !chkFolder.Checked;
             cboCollector.Enabled = !chkFolder.Checked && allowCollectorChange;
             chkCollectOnParentWarning.Enabled = !chkFolder.Checked;
             numericUpDownRepeatAlertInXMin.Enabled = !chkFolder.Checked;            
@@ -311,6 +311,19 @@ namespace QuickMon.Management
             delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
         }
         #endregion 
+
+        private void configureEditButton1_ImportConfigurationClicked(object sender, EventArgs e)
+        {
+            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
+            importCollectorConfig.IsCollector = true;
+            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
+            importCollectorConfig.AgentType = ((AgentRegistration)cboCollector.SelectedItem).Name;
+            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
+            }
+        }
+
 
     }
 }

@@ -72,6 +72,7 @@ namespace QuickMon
         }
         private void CheckButtonsEnable()
         {
+            addWithSameConnectionDetailsToolStripMenuItem.Enabled = lvwQueries.SelectedItems.Count > 0;
             editToolStripButton.Enabled = lvwQueries.SelectedItems.Count > 0;
             editToolStripMenuItem.Enabled = lvwQueries.SelectedItems.Count > 0;
             removeToolStripButton.Enabled = lvwQueries.SelectedItems.Count > 0;
@@ -109,7 +110,7 @@ namespace QuickMon
         } 
         #endregion
 
-        #region Toolbar button events
+        #region Toolbar button and context menu events
         private void addToolStripButton_Click(object sender, EventArgs e)
         {
             EditSqlQueryInstance editSqlQueryInstance = new EditSqlQueryInstance();
@@ -124,6 +125,35 @@ namespace QuickMon
                 lvwQueries.Items.Add(lvi);
                 CheckOKEnabled();
                 CheckButtonsEnable();
+            }
+        }
+        private void addWithSameConnectionDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwQueries.SelectedItems.Count > 0 && lvwQueries.SelectedItems[0].Tag is QueryInstance)
+            {
+                EditSqlQueryInstance editSqlQueryInstance = new EditSqlQueryInstance();
+                QueryInstance masterToCopy = (QueryInstance)lvwQueries.SelectedItems[0].Tag;
+                QueryInstance sqlQueryInstanceCopy = new QueryInstance()
+                {
+                    SqlServer = masterToCopy.SqlServer,
+                    Database = masterToCopy.Database,
+                    IntegratedSecurity = masterToCopy.IntegratedSecurity,
+                    UserName = masterToCopy.UserName,
+                    Password = masterToCopy.Password,
+                    CmndTimeOut = masterToCopy.CmndTimeOut
+                };
+                editSqlQueryInstance.SelectedQueryInstance = sqlQueryInstanceCopy;
+                if (editSqlQueryInstance.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    ListViewItem lvi = new ListViewItem(editSqlQueryInstance.SelectedQueryInstance.Name);
+                    lvi.SubItems.Add(editSqlQueryInstance.SelectedQueryInstance.SqlServer + "\\" + editSqlQueryInstance.SelectedQueryInstance.Database);
+                    lvi.SubItems.Add(editSqlQueryInstance.SelectedQueryInstance.WarningValue);
+                    lvi.SubItems.Add(editSqlQueryInstance.SelectedQueryInstance.ErrorValue);
+                    lvi.Tag = editSqlQueryInstance.SelectedQueryInstance;
+                    lvwQueries.Items.Add(lvi);
+                    CheckOKEnabled();
+                    CheckButtonsEnable();
+                }
             }
         }
         private void editToolStripButton_Click(object sender, EventArgs e)
@@ -158,5 +188,7 @@ namespace QuickMon
             }
         } 
         #endregion
+
+        
     }
 }

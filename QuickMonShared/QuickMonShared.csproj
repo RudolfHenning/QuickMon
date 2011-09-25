@@ -49,6 +49,12 @@
   <ItemGroup>
     <Compile Include="AgentRegistration.cs" />
     <Compile Include="Collectors\CollectorMessage.cs" />
+    <Compile Include="Controls\ConfigureEditButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ConfigureEditButton.Designer.cs">
+      <DependentUpon>ConfigureEditButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -66,6 +72,7 @@
     <Compile Include="Controls\RTF\RTFBuilder.RTFParaWrap.cs" />
     <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
     <Compile Include="Controls\RTF\RTFFont.cs" />
+    <Compile Include="Management\RecentMonitorPacks.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

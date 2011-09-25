@@ -51,7 +51,7 @@ namespace QuickMon
             numericUpDownCmndTimeOut.Value = SelectedQueryInstance.CmndTimeOut;
             chkUseSPForSummary.Checked = SelectedQueryInstance.UseSPForSummary;
             txtStateQuery.Text = SelectedQueryInstance.SummaryQuery;
-            chkIsReturnValueInt.Checked = SelectedQueryInstance.ReturnValueIsInt;
+            chkIsReturnValueInt.Checked = SelectedQueryInstance.ReturnValueIsNumber;
             chkReturnValueNotInverted.Checked = !SelectedQueryInstance.ReturnValueInverted;
             chkUseRowCountAsValue.Checked = SelectedQueryInstance.UseRowCountAsValue;
             cboSuccessValue.Text = SelectedQueryInstance.SuccessValue;
@@ -90,7 +90,7 @@ namespace QuickMon
                     testQueryInstance.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                     testQueryInstance.UseSPForSummary = chkUseSPForSummary.Checked;
                     testQueryInstance.SummaryQuery = txtStateQuery.Text;
-                    testQueryInstance.ReturnValueIsInt = chkIsReturnValueInt.Checked;
+                    testQueryInstance.ReturnValueIsNumber = chkIsReturnValueInt.Checked;
                     testQueryInstance.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
                     testQueryInstance.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                     testQueryInstance.SuccessValue = cboSuccessValue.Text;
@@ -110,10 +110,10 @@ namespace QuickMon
                         lastStep = "Run summary query";
                         returnValue = testQueryInstance.RunQueryWithSingleResult();
                     }
-                    if (testQueryInstance.ReturnValueIsInt)
+                    if (testQueryInstance.ReturnValueIsNumber)
                     {
                         lastStep = "Test return value is an Integer";
-                        if (!returnValue.IsIntegerTypeNumber())
+                        if (!returnValue.IsNumber())
                             throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
                     }
                     //testing detail query
@@ -150,7 +150,7 @@ namespace QuickMon
                 SelectedQueryInstance.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                 SelectedQueryInstance.UseSPForSummary = chkUseSPForSummary.Checked;
                 SelectedQueryInstance.SummaryQuery = txtStateQuery.Text;
-                SelectedQueryInstance.ReturnValueIsInt = chkIsReturnValueInt.Checked;
+                SelectedQueryInstance.ReturnValueIsNumber = chkIsReturnValueInt.Checked;
                 SelectedQueryInstance.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
                 SelectedQueryInstance.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                 SelectedQueryInstance.SuccessValue = cboSuccessValue.Text;
@@ -161,7 +161,6 @@ namespace QuickMon
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
-
         }
 
         private bool DoValidate()
@@ -177,7 +176,9 @@ namespace QuickMon
                 if (!chkIntegratedSec.Checked && txtUserName.Text.Length == 0)
                     throw new InPutValidationException("The user name must be specified when not using integrated security!", txtUserName);
                 if (txtStateQuery.Text.Trim().Length == 0)
-                    throw new InPutValidationException("The state query must be specified!", txtStateQuery);
+                    throw new InPutValidationException("The summary query must be specified!", txtStateQuery);
+                if (!TSQLValid(txtStateQuery.Text))
+                    throw new InPutValidationException("SQL statements may not contain certain keywords (e.g. update, delete, create etc!", txtStateQuery);
                 if ((cboSuccessValue.Text == "[null]" && cboWarningValue.Text == "[null]") ||
                     (cboSuccessValue.Text == "[null]" && cboErrorValue.Text == "[null]") ||
                     (cboWarningValue.Text == "[null]" && cboErrorValue.Text == "[null]"))
@@ -223,7 +224,8 @@ namespace QuickMon
                 }
                 if (txtDetailQuery.Text.Trim().Length == 0)
                     throw new InPutValidationException("The detail query must be specified!", txtDetailQuery);
-                
+                if (!TSQLValid(txtDetailQuery.Text))
+                    throw new InPutValidationException("SQL statements may not contain certain keywords (e.g. update, delete, create etc!", txtDetailQuery);
                 return true;
             }
             catch (InPutValidationException ex)
@@ -240,6 +242,28 @@ namespace QuickMon
                 }
                 return false;
             }
-        } 
+        }
+        private bool TSQLValid(string tsql)
+        {
+            if (ContainSQLStatement(tsql, "DELETE") ||
+                ContainSQLStatement(tsql, "UPDATE") ||
+                ContainSQLStatement(tsql, "CREATE")
+                )
+                return false;
+            else
+                return true;
+        }
+        private bool ContainSQLStatement(string tsql, string keyword)
+        {
+            if (tsql.ToUpper().StartsWith(keyword + " ") ||
+                tsql.ToUpper().Contains("\r\n" + keyword + " ") ||
+                tsql.ToUpper().Contains("\r\n" + keyword + "\r\n") ||
+                tsql.ToUpper().Contains(" " + keyword + " ") ||
+                tsql.ToUpper().Contains(" " + keyword + "\r\n") ||
+                tsql.ToUpper().StartsWith(" " + keyword))
+                return true;
+            else
+                return false;
+        }
     }
 }

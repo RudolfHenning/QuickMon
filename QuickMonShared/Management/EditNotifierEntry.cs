@@ -38,7 +38,7 @@ namespace QuickMon.Management
         {
             this.Size = collapsedSize;
             this.MaximumSize = collapsedSize;
-            lblConfig.Visible = false;
+            //lblConfig.Visible = false;
             txtConfig.Visible = false;
             lblConfigWarn.Visible = false;
             cmdSaveConfig.Visible = false;
@@ -110,17 +110,6 @@ namespace QuickMon.Management
                 catch { }
             }
             ShowManualConfig();
-        }
-        private void importLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
-            importCollectorConfig.IsCollector = false;
-            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
-            importCollectorConfig.AgentType = ((AgentRegistration)cboNotifier.SelectedItem).Name;
-            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
-            }
         }
         private void cmdSaveConfig_Click(object sender, EventArgs e)        {
             
@@ -198,10 +187,7 @@ namespace QuickMon.Management
                 isEnable = false;
 
             cmdOK.Enabled = isEnable;
-
-            cmdConfig.Enabled = cboNotifier.SelectedIndex > -1 && !txtConfig.Visible;
-            manualEditlinkLabel.Enabled = cboNotifier.SelectedIndex > -1 && !txtConfig.Visible;
-            importLinkLabel.Enabled = cboNotifier.SelectedIndex > -1 && !txtConfig.Visible;
+            configureEditButtonNotifier.Enabled = cboNotifier.SelectedIndex > -1 && !txtConfig.Visible;
         }
         private void ShowManualConfig()
         {
@@ -212,8 +198,7 @@ namespace QuickMon.Management
             this.Size = expandedSize;
             this.MinimumSize = expandedSize;
             this.MinimumSize = expandedSize;
-            manualEditlinkLabel.Enabled = false;
-            cmdConfig.Enabled = false;
+            configureEditButtonNotifier.Enabled = false;
             cmdSaveConfig.Visible = true;
             cmdCancelConfig.Visible = true;
             cboNotifier.Enabled = false;
@@ -229,8 +214,7 @@ namespace QuickMon.Management
             this.Size = collapsedSize;
             this.MaximumSize = collapsedSize;
             this.MinimumSize = collapsedSize;
-            manualEditlinkLabel.Enabled = true;
-            cmdConfig.Enabled = true;
+            configureEditButtonNotifier.Enabled = true;
             cboNotifier.Enabled = true;
             CheckOkEnable();
             txtConfig.Text = "";
@@ -263,6 +247,18 @@ namespace QuickMon.Management
                 SelectedEntry.AlertForCollectors.Clear();
                 SelectedEntry.AlertForCollectors.AddRange(selectNotifierCollectors.SelectedCollectors.ToArray());
                 SetAlertForCollectors();
+            }
+        }
+
+        private void configureEditButtonNotifier_ImportConfigurationClicked(object sender, EventArgs e)
+        {
+            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
+            importCollectorConfig.IsCollector = false;
+            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
+            importCollectorConfig.AgentType = ((AgentRegistration)cboNotifier.SelectedItem).Name;
+            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
             }
         }
 

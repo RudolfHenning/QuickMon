@@ -47,8 +47,10 @@ Only one of the Success, Warning or Error setting value can be set to either '[n
 </ul>
 <h2>Restrictions</h2>
 <ul>
-<li><i>UPDATE</i> and <i>DELETE</i> statements are not allowed. If you use temporary tables and must use
-update or delete statements then rather place it into a stored procedure.</li>
+<li><i>UPDATE</i>, <i>DELETE</i> and <i>CREATE</i> statements are not allowed. 
+If you must use functionality that requires it rather place it into a stored procedure.</li>
+<li>Both Summary and Detail queries must be a 'single' statement - i.e. no 'GO' statements between
+lines.</li>
 <li>For summary query: Any additional columns will simply be ignored.</li>
 </ul>
 </body>
