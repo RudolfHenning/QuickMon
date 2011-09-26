@@ -35,6 +35,12 @@
         "Entry"
         {
         "MsmKey" = "8:_39968236769F664B78C3C7517DED2312"
+        "OwnerKey" = "8:_60762E87B2DB422892A885709949A8F2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_39968236769F664B78C3C7517DED2312"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -184,6 +190,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_60762E87B2DB422892A885709949A8F2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_630D7118624742BD90B5425B0B554382"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -269,7 +281,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_39968236769F664B78C3C7517DED2312"
+        "OwnerKey" = "8:_60762E87B2DB422892A885709949A8F2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -378,6 +390,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_39968236769F664B78C3C7517DED2312"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -649,7 +667,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_2AFA676443A24D628769186BF6553CA7"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -687,7 +705,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
         "ProductCode" = "8:{7004A5D9-2CD8-425B-8378-B6285335A82F}"
-        "PackageCode" = "8:{6EDA79D0-48F9-4398-BC28-8ED0DBD72A2D}"
+        "PackageCode" = "8:{52ACD6DC-1DBB-4951-9D84-30ABB02949CA}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -708,7 +726,7 @@
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -1517,6 +1535,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{F0D14F1B-BBCD-479D-9407-9E1032E4215A}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_60762E87B2DB422892A885709949A8F2"
+            {
+            "SourcePath" = "8:..\\QMSQLQuery\\obj\\Release\\QMSQLQuery.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2AFA676443A24D628769186BF6553CA7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
