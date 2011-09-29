@@ -85,9 +85,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLQuery", "SQLQuery", "{5C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMSQLQuery", "QMSQLQuery\QMSQLQuery.csproj", "{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QuickMonServiceInstaller", "QuickMonServiceInstaller\QuickMonServiceInstaller.vdproj", "{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 23
+		SccNumberOfProjects = 24
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -175,6 +177,12 @@ Global
 		SccProjectTopLevelParentUniqueName22 = QuickMon.sln
 		SccProjectName22 = QMSQLQuery
 		SccLocalPath22 = QMSQLQuery
+		SccProjectUniqueName23 = QuickMonServiceInstaller\\QuickMonServiceInstaller.vdproj
+		SccProjectName23 = QuickMonServiceInstaller
+		SccLocalPath23 = QuickMonServiceInstaller
+	EndGlobalSection
+	GlobalSection(SharpSetup) = preSolution
+		Version = 1.2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -404,6 +412,12 @@ Global
 		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D}.Release|x86.ActiveCfg = Release|Any CPU
+		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Debug|Any CPU.ActiveCfg = Debug
+		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Debug|x86.ActiveCfg = Debug
+		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Release|Any CPU.ActiveCfg = Release
+		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Release|Mixed Platforms.ActiveCfg = Release
+		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -443,8 +457,5 @@ Global
 		{6E6E545C-99BB-4088-945E-FAB1B768486C} = {176BE279-08D1-4111-9BC3-FA85646B065D}
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5} = {079FB1E6-16C6-4594-B744-641E75196181}
 		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D} = {5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506}
-	EndGlobalSection
-	GlobalSection(SharpSetup) = preSolution
-		Version = 1.2
 	EndGlobalSection
 EndGlobal

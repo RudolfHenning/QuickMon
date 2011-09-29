@@ -1,4 +1,4 @@
-﻿namespace QuickMonService
+﻿namespace QuickMon
 {
     partial class ProjectInstaller
     {
