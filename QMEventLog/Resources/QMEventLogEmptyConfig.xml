@@ -1,0 +1,15 @@
+<config>
+  <eventlogs>
+    <!--
+    <log computer="" eventLog="" typeInfo="False" typeWarn="True" typeErr="True" containsText="False" textFilter=""
+         withInLastXEntries="100" withInLastXMinutes="60" warningValue="1" errorValue="10">
+      <sources>
+        <source>Application</source>
+      </sources>
+      <eventIds>
+        <eventId>0</eventId>
+      </eventIds>      
+    </log>
+    -->
+  </eventlogs>
+</config>

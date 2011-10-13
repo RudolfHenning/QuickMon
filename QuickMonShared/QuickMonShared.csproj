@@ -212,6 +212,7 @@
     <None Include="Resources\add.png" />
     <None Include="Resources\319.ico" />
     <None Include="Resources\AddEx.png" />
+    <None Include="Resources\Checkmark2.ico" />
     <Content Include="Resources\CollectorEntry.xml">
       <SubType>Designer</SubType>
     </Content>

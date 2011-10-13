@@ -69,7 +69,7 @@
             // 
             this.cmdSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSaveConfig.Image = global::QuickMon.Properties.Resources.DISK04;
+            this.cmdSaveConfig.Image = global::QuickMon.Properties.Resources.Checkmark2;
             this.cmdSaveConfig.Location = new System.Drawing.Point(396, 171);
             this.cmdSaveConfig.Name = "cmdSaveConfig";
             this.cmdSaveConfig.Size = new System.Drawing.Size(39, 23);

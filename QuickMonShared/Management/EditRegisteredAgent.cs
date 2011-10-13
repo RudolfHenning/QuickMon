@@ -35,6 +35,7 @@ namespace QuickMon
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
             openFileDialogMonitor.FileName = txtPath.Text;
+            openFileDialogMonitor.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             if (openFileDialogMonitor.ShowDialog() == DialogResult.OK)
             {
                 txtPath.Text = openFileDialogMonitor.FileName;

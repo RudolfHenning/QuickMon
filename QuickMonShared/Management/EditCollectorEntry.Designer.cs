@@ -281,7 +281,7 @@
             // 
             this.cmdSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSaveConfig.Image = global::QuickMon.Properties.Resources.DISK04;
+            this.cmdSaveConfig.Image = global::QuickMon.Properties.Resources.Checkmark2;
             this.cmdSaveConfig.Location = new System.Drawing.Point(472, 1);
             this.cmdSaveConfig.Name = "cmdSaveConfig";
             this.cmdSaveConfig.Size = new System.Drawing.Size(39, 23);
@@ -324,9 +324,9 @@
             this.linkLabelServiceWindows.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelServiceWindows.AutoEllipsis = true;
-            this.linkLabelServiceWindows.Location = new System.Drawing.Point(267, 40);
+            this.linkLabelServiceWindows.Location = new System.Drawing.Point(276, 40);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(305, 23);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(296, 23);
             this.linkLabelServiceWindows.TabIndex = 4;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
@@ -336,11 +336,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(168, 40);
+            this.label7.Location = new System.Drawing.Point(174, 40);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 13);
+            this.label7.Size = new System.Drawing.Size(96, 13);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Service window(s)";
+            this.label7.Text = "Service window(s):";
             // 
             // AlertOnceInXMinNumericUpDown
             // 

@@ -15,26 +15,26 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_2FD79193875A3003D5EC1F20DD8252D1"
+        "OwnerKey" = "8:_3A21973944DE4D36B3BFDA12D346E157"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3A21973944DE4D36B3BFDA12D346E157"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C8FE0C653F679AC91F959B46E2BAB171"
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3A21973944DE4D36B3BFDA12D346E157"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C8FE0C653F679AC91F959B46E2BAB171"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3A21973944DE4D36B3BFDA12D346E157"
+        "OwnerKey" = "8:_2FD79193875A3003D5EC1F20DD8252D1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -55,6 +55,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -71,6 +79,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -128,14 +144,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C8FE0C653F679AC91F959B46E2BAB171"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2FD79193875A3003D5EC1F20DD8252D1"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C8FE0C653F679AC91F959B46E2BAB171"
+                    "_2FD79193875A3003D5EC1F20DD8252D1"
                     {
                     "Name" = "8:QuickMonShared.dll"
                     "Attributes" = "3:512"
@@ -226,15 +242,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{C4487569-2700-4F32-8B30-CD9189C01925}"
-        "PackageCode" = "8:{96D55B40-FC56-44E9-84E6-A10407C841C8}"
+        "ProductCode" = "8:{9AA04FF5-19F2-4BEF-9038-3002DF62D87B}"
+        "PackageCode" = "8:{BDB6FFEF-9415-402C-B980-F3D9D48394A3}"
         "UpgradeCode" = "8:{41A2E10C-94E4-4D12-946B-75AA135A9CCC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:2.4.0"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

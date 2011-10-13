@@ -117,50 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="project" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\project.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CollectorEntryXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CollectorEntry.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="DISK04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DISK04.ICO;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MonitorPackXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MonitorPack.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="AddEx" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AddEx.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folder_favor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder_favor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_new2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_new2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="whack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folder_doc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder_doc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NotifierEntryXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NotifierEntry.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="_319" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\319.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Checkmark2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Checkmark2.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAQAAEABADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAEAAAABAA
+        AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
+        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMzMz
+        MzMzMzMzMzAAAAAAAA/////////////zAAAAAAD/+P/////4j///8wAAAAAAb/7/////EY////MAAAAA
+        AA+IiIiIiBGIiI/zAAAAAAD//v/////4j///8wAAAAAAb4iIiIiIEXiIj/MAAAAAAA/+/////xGP///z
+        AAAAAAD/iIiIiIgRF4iP8wAAAAAAb/7/////8RGP//MAAAAAAA+IiIiIEXgReI/zAAAAAAD//v///xER
+        EY//8wAAAAAAb4iIgziBERiIj/MAAAAAAA/+/7s////////zAAAAAAD/iIi7iIiIiIiP8wAAAAAAb/7/
+        /////4iI//MAAAAAAA+IiIM4iIzMx4/zAAAAAAD//v+7P///zI//8wAAAAAAb4iIuziIiMx4j/MAAAAA
+        AA/+/7s////Mj//zAAAAAAD/iIi7OIiIzHiP8wAAAAAAb/7/uz///MyP//MAAAAAAA+IiLuIiIiHeI/z
+        AAAAAAD//v//////zI//8wAAAAAAb////////8z///MAAAAAAA/////////////zAAAAAAD/////////
+        ////8wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///////////gAAA/4AAAH8AAAB+gA
+        AAfoAAAH8AAAB+gAAAfoAAAH8AAAB+gAAAfoAAAH8AAAB+gAAAfoAAAH8AAAB+gAAAfoAAAH8AAAB+gA
+        AAfoAAAH8AAAB+gAAAfoAAAH8AAAB+gAAAfoAAAH8AAAB/gAAAf4AAAP/////w==
+</value>
   </data>
 </root>

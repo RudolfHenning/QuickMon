@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//using System.Linq;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Specialized;
@@ -47,8 +47,10 @@ namespace QuickMon
         private bool clearTextOnUpdate = false;
         [Description("Clear text box after update")]
         public bool ClearTextOnUpdate { get { return clearTextOnUpdate; } set { clearTextOnUpdate = value; } }
+        public bool AllowDuplicates { get; set; }
+        public bool ValuesAreIntegers { get; set; }
 
-        public string CSVData { get; set; } 
+        public string CSVData { get; set; }
         #endregion
 
         #region Form events
@@ -56,9 +58,16 @@ namespace QuickMon
         {
             if (CSVData != null && CSVData.Length > 0)
             {
-                lstItem.Items.AddRange(CSVData.ToListFromCSVString().ToArray());
+                if (!ValuesAreIntegers)
+                    lstItem.Items.AddRange(CSVData.ToListFromCSVString().ToArray());
+                else
+                    foreach (int i in (from n in CSVData.ToListFromCSVString()
+                                       where n.IsInteger()
+                                       orderby int.Parse(n)
+                                       select int.Parse(n)))
+                        lstItem.Items.Add(i);
             }
-        } 
+        }
         #endregion
 
         #region List events
@@ -77,18 +86,27 @@ namespace QuickMon
                 cmdMoveUp.Enabled = false;
             }
             cmdRemove.Enabled = (lstItem.SelectedIndex > -1);
-        } 
+        }
         #endregion
 
         #region Button events
         private void cmdOK_Click(object sender, EventArgs e)
         {
             CSVData = "";
-            foreach (object item in lstItem.Items)
-            {
-                CSVData += item.ToString() + ", ";
-            }
-            CSVData = CSVData.Trim(' ',',');
+            if (!ValuesAreIntegers)
+                foreach (object item in lstItem.Items)
+                {
+                    CSVData += item.ToString() + ", ";
+                }
+            else
+                foreach (int item in (from object o in lstItem.Items
+                                      where o.IsNumber()
+                                      orderby int.Parse(o.ToString())
+                                      select int.Parse(o.ToString())))
+                {
+                    CSVData += item.ToString() + ", ";
+                }
+            CSVData = CSVData.Trim(' ', ',');
             DialogResult = DialogResult.OK;
         }
         private void cmdNew_Click(object sender, EventArgs e)
@@ -102,18 +120,36 @@ namespace QuickMon
         {
             if (txtItem.Text.Contains(","))
             {
-                MessageBox.Show("Text cannot contain a comma ','!", "Add",  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Text cannot contain a comma ','!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
                 if (lstItem.SelectedIndex > -1)
                 {
-                    lstItem.Items[lstItem.SelectedIndex] = txtItem.Text;
+                    if (lstItem.Items[lstItem.SelectedIndex].ToString() != txtItem.Text)
+                    {
+                        if (!AllowDuplicates && (from string lsi in lstItem.Items
+                                                 where lsi == txtItem.Text
+                                                 select lsi).Count() > 0)
+                        {
+                            MessageBox.Show("Duplicates are not allowed!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return;
+                        }
+                        lstItem.Items[lstItem.SelectedIndex] = txtItem.Text;
+                    }
                 }
                 else
                 {
-                    lstItem.SelectedIndex = lstItem.Items.Add(txtItem.Text);
-                    cmdAddUpdate.Text = "&Update";
+                    if (!AllowDuplicates && lstItem.Items.Contains(txtItem.Text))
+                    {
+                        MessageBox.Show("Duplicates are not allowed!", "Add", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                    else
+                    {
+                        lstItem.SelectedIndex = lstItem.Items.Add(txtItem.Text);
+                        cmdAddUpdate.Text = "&Update";
+                    }
                 }
                 if (clearTextOnUpdate)
                 {
@@ -161,8 +197,17 @@ namespace QuickMon
                 cmdMoveUp.Enabled = lstItem.SelectedIndex > 0;
                 cmdMoveDown.Enabled = lstItem.SelectedIndex < lstItem.Items.Count - 1;
             }
-        } 
-        #endregion       
+        }
+        #endregion
+
+        private void txtItem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                cmdAddUpdate_Click(sender, e);
+                e.Handled = true;
+            }
+        }
 
     }
 }

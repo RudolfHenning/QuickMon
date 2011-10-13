@@ -84,6 +84,7 @@
             this.txtItem.Name = "txtItem";
             this.txtItem.Size = new System.Drawing.Size(197, 20);
             this.txtItem.TabIndex = 1;
+            this.txtItem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItem_KeyPress);
             // 
             // cmdAddUpdate
             // 

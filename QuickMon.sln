@@ -87,9 +87,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMSQLQuery", "QMSQLQuery\QM
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QuickMonServiceInstaller", "QuickMonServiceInstaller\QuickMonServiceInstaller.vdproj", "{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventLog", "EventLog", "{95B81387-EBF2-4901-BA0B-D27235238D29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMEventLog", "QMEventLog\QMEventLog.csproj", "{5B7EC7DD-E40C-4577-8308-666B5B0253A5}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 24
+		SccNumberOfProjects = 25
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -180,9 +184,10 @@ Global
 		SccProjectUniqueName23 = QuickMonServiceInstaller\\QuickMonServiceInstaller.vdproj
 		SccProjectName23 = QuickMonServiceInstaller
 		SccLocalPath23 = QuickMonServiceInstaller
-	EndGlobalSection
-	GlobalSection(SharpSetup) = preSolution
-		Version = 1.2
+		SccProjectUniqueName24 = QMEventLog\\QMEventLog.csproj
+		SccProjectTopLevelParentUniqueName24 = QuickMon.sln
+		SccProjectName24 = QMEventLog
+		SccLocalPath24 = QMEventLog
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -418,6 +423,16 @@ Global
 		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Release|Any CPU.ActiveCfg = Release
 		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Release|Mixed Platforms.ActiveCfg = Release
 		{FAEF0C76-D98B-4FB4-8B87-BCB83C888993}.Release|x86.ActiveCfg = Release
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -436,6 +451,7 @@ Global
 		{176BE279-08D1-4111-9BC3-FA85646B065D} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
 		{079FB1E6-16C6-4594-B744-641E75196181} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
 		{5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
+		{95B81387-EBF2-4901-BA0B-D27235238D29} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
 		{A0C85BBD-D4C9-4203-85D9-80167DA2ABB7} = {18BEA596-0B9D-4E0B-BB1A-2C49D7F77D9B}
 		{A1597495-CECF-4C44-9B86-BB86A08C372A} = {EC41AA07-D0D5-4659-B919-6BCF3C26BAFE}
 		{F4BE4C2C-C69E-477D-844E-4E5017FEAC13} = {5FF50FEB-CD97-41B1-9F71-A60530300050}
@@ -457,5 +473,9 @@ Global
 		{6E6E545C-99BB-4088-945E-FAB1B768486C} = {176BE279-08D1-4111-9BC3-FA85646B065D}
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5} = {079FB1E6-16C6-4594-B744-641E75196181}
 		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D} = {5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506}
+		{5B7EC7DD-E40C-4577-8308-666B5B0253A5} = {95B81387-EBF2-4901-BA0B-D27235238D29}
+	EndGlobalSection
+	GlobalSection(SharpSetup) = preSolution
+		Version = 1.2
 	EndGlobalSection
 EndGlobal
