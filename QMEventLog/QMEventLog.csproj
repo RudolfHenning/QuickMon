@@ -99,6 +99,7 @@
     <None Include="Resources\doc_edit.png" />
     <None Include="Resources\doc_refresh.png" />
     <None Include="Resources\doc_remove.png" />
+    <None Include="Resources\OUTLLIBR_9825.ico" />
     <Content Include="Resources\QMEventLogEmptyConfig.xml">
       <SubType>Designer</SubType>
     </Content>

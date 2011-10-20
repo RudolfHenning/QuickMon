@@ -88,8 +88,29 @@ namespace QuickMon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap OUTLLIBR_9825 {
+            get {
+                object obj = ResourceManager.GetObject("OUTLLIBR_9825", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;config&gt;
+        ///  &lt;eventlogs&gt;
+        ///    &lt;!--
+        ///    &lt;log computer=&quot;&quot; eventLog=&quot;&quot; typeInfo=&quot;False&quot; typeWarn=&quot;True&quot; typeErr=&quot;True&quot; containsText=&quot;False&quot; textFilter=&quot;&quot;
+        ///         withInLastXEntries=&quot;100&quot; withInLastXMinutes=&quot;60&quot; warningValue=&quot;1&quot; errorValue=&quot;10&quot;&gt;
+        ///      &lt;sources&gt;
+        ///        &lt;source&gt;Application&lt;/source&gt;
+        ///      &lt;/sources&gt;
+        ///      &lt;eventIds&gt;
+        ///        &lt;eventId&gt;0&lt;/eventId&gt;
+        ///      &lt;/eventIds&gt;      
+        ///    &lt;/log&gt;
+        ///    --&gt;
+        ///  &lt;/eventlogs&gt;
+        ///&lt;/config&gt;.
         /// </summary>
         internal static string QMEventLogEmptyConfig {
             get {

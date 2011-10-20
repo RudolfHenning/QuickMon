@@ -15,18 +15,42 @@ namespace QuickMon
             {
                 using (RegistryKey remoteLMKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, machineName))
                 {
-                    using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog\\" + eventLogName, false))
+                    using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog\\" + eventLogName))
                     {
                         sources.AddRange(eventlogKey.GetSubKeyNames());
                         sources.Sort();
                     }
                 }
             }
+            catch (System.Security.SecurityException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new Exception(string.Format("Error retrieving event sources for {0} on {1}", eventLogName, machineName), ex);
             }
             return sources;
+        }
+        public static List<string> GetEventLogNames(string machineName)
+        {
+            List<string> logNames = new List<string>();
+            try
+            {
+                using (RegistryKey remoteLMKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, machineName))
+                {
+                    using (RegistryKey eventlogKey = remoteLMKey.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\Eventlog"))
+                    {
+                        logNames.AddRange(eventlogKey.GetSubKeyNames());
+                        logNames.Sort();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Error retrieving event logs on {1}", machineName), ex);
+            }
+            return logNames;
         }
         public static List<string> GetEventSources(string eventLogName)
         {

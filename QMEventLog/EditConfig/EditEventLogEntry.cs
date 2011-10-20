@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace QuickMon
 {
@@ -22,6 +23,8 @@ namespace QuickMon
         #region Form events
         private void EditEventLogEntry_Load(object sender, EventArgs e)
         {
+            pictureBoxSecWarning.Visible = !IsAdmin();
+            lblSecWarning.Visible = !IsAdmin();
             if (SelectedEventLogEntry == null)
             {
                 SelectedEventLogEntry = new QMEventLogEntry();
@@ -201,12 +204,33 @@ namespace QuickMon
                 if (System.Net.Dns.GetHostAddresses(txtComputer.Text).Length == 0)
                     return;
 
-                EventLog[] logs = EventLog.GetEventLogs(txtComputer.Text);
-                foreach (EventLog log in (from l in logs
-                                          orderby l.LogDisplayName
-                                          select l))
+                //EventLog[] logs = EventLog.GetEventLogs(txtComputer.Text);
+                //List<EventLog> sortedLogs = new List<EventLog>();
+                //for (int i = 0; i < logs.Length; i++)
+                //{
+                //    try
+                //    {
+                //        EventLog log = logs[i];
+                //        string s = log.LogDisplayName; //simply try to access the property will trigger the exception if not in Admin mode
+                //        sortedLogs.Add(log);
+                //    }
+                //    catch(System.Security.SecurityException) 
+                //    {
+                //        //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //    }
+                //}
+                //sortedLogs.Sort((l, l2) => l.LogDisplayName.CompareTo(l2.LogDisplayName));
+                //foreach (EventLog log in sortedLogs) 
+                //                            //(from l in logs
+                //                            //  orderby l.LogDisplayName
+                //                            //  select l))
+                //    {
+                //        cboLog.Items.Add(log.LogDisplayName);
+                //    }
+
+                foreach (string eventLogName in EventLogUtil.GetEventLogNames(txtComputer.Text))
                 {
-                    cboLog.Items.Add(log.LogDisplayName);
+                    cboLog.Items.Add(eventLogName);
                 }
                 if (SelectedEventLogEntry.EventLog != null)
                     cboLog.SelectedItem = SelectedEventLogEntry.EventLog;
@@ -237,6 +261,10 @@ namespace QuickMon
                     }
                     lvwSources.Items.AddRange(sources.ToArray());
                 }
+                catch (System.Security.SecurityException)
+                {
+                    MessageBox.Show("This editor window requires that the application runs in Administrative mode to access all functionality!\r\nPlease restart the application in 'Administrative' mode if you need to access all functionality.", "Admin Access", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -264,7 +292,28 @@ namespace QuickMon
             catch { return false; }
             cmdOK.Enabled = true;
             return true;
-        } 
+        }
+        private bool IsAdmin()
+        {
+            string strIdentity;
+            try
+            {
+                AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
+                WindowsIdentity wi = WindowsIdentity.GetCurrent();
+                WindowsPrincipal wp = new WindowsPrincipal(wi);
+                strIdentity = wp.Identity.Name;
+
+                if (wp.IsInRole(WindowsBuiltInRole.Administrator))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
         #endregion
 
         #region Timer

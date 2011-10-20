@@ -43,6 +43,10 @@
             this.chkErr = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lvwSources = new System.Windows.Forms.ListView();
+            this.contextMenuStripSourceList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.allToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uncheckSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdEditEventIds = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtEventIds = new System.Windows.Forms.TextBox();
@@ -61,24 +65,23 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txtSourceQuickFind = new System.Windows.Forms.TextBox();
-            this.lblSourceCount = new System.Windows.Forms.Label();
             this.contextMenuStripQuickFind = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.containsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblSourceCount = new System.Windows.Forms.Label();
             this.timerQuickFind = new System.Windows.Forms.Timer(this.components);
             this.timerSourcesSelected = new System.Windows.Forms.Timer(this.components);
             this.lblSrcSel = new System.Windows.Forms.Label();
-            this.contextMenuStripSourceList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.allToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uncheckSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBoxSecWarning = new System.Windows.Forms.PictureBox();
+            this.lblSecWarning = new System.Windows.Forms.Label();
+            this.contextMenuStripSourceList.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithinLastXEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithLastMinutes)).BeginInit();
             this.contextMenuStripQuickFind.SuspendLayout();
-            this.contextMenuStripSourceList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecWarning)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -231,6 +234,36 @@
             this.lvwSources.View = System.Windows.Forms.View.List;
             this.lvwSources.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvwSources_ItemChecked);
             this.lvwSources.SelectedIndexChanged += new System.EventHandler(this.lvwSources_SelectedIndexChanged);
+            // 
+            // contextMenuStripSourceList
+            // 
+            this.contextMenuStripSourceList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allToolStripMenuItem1,
+            this.checkSelectedToolStripMenuItem,
+            this.uncheckSelectedToolStripMenuItem});
+            this.contextMenuStripSourceList.Name = "contextMenuStripSourceList";
+            this.contextMenuStripSourceList.Size = new System.Drawing.Size(167, 70);
+            // 
+            // allToolStripMenuItem1
+            // 
+            this.allToolStripMenuItem1.Name = "allToolStripMenuItem1";
+            this.allToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.allToolStripMenuItem1.Text = "All";
+            this.allToolStripMenuItem1.Click += new System.EventHandler(this.allToolStripMenuItem1_Click);
+            // 
+            // checkSelectedToolStripMenuItem
+            // 
+            this.checkSelectedToolStripMenuItem.Name = "checkSelectedToolStripMenuItem";
+            this.checkSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.checkSelectedToolStripMenuItem.Text = "Check selected";
+            this.checkSelectedToolStripMenuItem.Click += new System.EventHandler(this.checkSelectedToolStripMenuItem_Click);
+            // 
+            // uncheckSelectedToolStripMenuItem
+            // 
+            this.uncheckSelectedToolStripMenuItem.Name = "uncheckSelectedToolStripMenuItem";
+            this.uncheckSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.uncheckSelectedToolStripMenuItem.Text = "Uncheck selected";
+            this.uncheckSelectedToolStripMenuItem.Click += new System.EventHandler(this.uncheckSelectedToolStripMenuItem_Click);
             // 
             // cmdEditEventIds
             // 
@@ -465,15 +498,6 @@
             this.txtSourceQuickFind.TabIndex = 13;
             this.txtSourceQuickFind.TextChanged += new System.EventHandler(this.txtSourceQuickFind_TextChanged);
             // 
-            // lblSourceCount
-            // 
-            this.lblSourceCount.AutoSize = true;
-            this.lblSourceCount.Location = new System.Drawing.Point(22, 110);
-            this.lblSourceCount.Name = "lblSourceCount";
-            this.lblSourceCount.Size = new System.Drawing.Size(18, 13);
-            this.lblSourceCount.TabIndex = 11;
-            this.lblSourceCount.Text = "All";
-            // 
             // contextMenuStripQuickFind
             // 
             this.contextMenuStripQuickFind.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -498,6 +522,15 @@
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
+            // lblSourceCount
+            // 
+            this.lblSourceCount.AutoSize = true;
+            this.lblSourceCount.Location = new System.Drawing.Point(22, 110);
+            this.lblSourceCount.Name = "lblSourceCount";
+            this.lblSourceCount.Size = new System.Drawing.Size(18, 13);
+            this.lblSourceCount.TabIndex = 11;
+            this.lblSourceCount.Text = "All";
+            // 
             // timerQuickFind
             // 
             this.timerQuickFind.Interval = 200;
@@ -517,41 +550,34 @@
             this.lblSrcSel.TabIndex = 32;
             this.lblSrcSel.Text = "Sel:None";
             // 
-            // contextMenuStripSourceList
+            // pictureBoxSecWarning
             // 
-            this.contextMenuStripSourceList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allToolStripMenuItem1,
-            this.checkSelectedToolStripMenuItem,
-            this.uncheckSelectedToolStripMenuItem});
-            this.contextMenuStripSourceList.Name = "contextMenuStripSourceList";
-            this.contextMenuStripSourceList.Size = new System.Drawing.Size(167, 70);
+            this.pictureBoxSecWarning.ErrorImage = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.pictureBoxSecWarning.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.pictureBoxSecWarning.Location = new System.Drawing.Point(8, 374);
+            this.pictureBoxSecWarning.Name = "pictureBoxSecWarning";
+            this.pictureBoxSecWarning.Size = new System.Drawing.Size(54, 34);
+            this.pictureBoxSecWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxSecWarning.TabIndex = 33;
+            this.pictureBoxSecWarning.TabStop = false;
             // 
-            // allToolStripMenuItem1
+            // lblSecWarning
             // 
-            this.allToolStripMenuItem1.Name = "allToolStripMenuItem1";
-            this.allToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.allToolStripMenuItem1.Text = "All";
-            this.allToolStripMenuItem1.Click += new System.EventHandler(this.allToolStripMenuItem1_Click);
-            // 
-            // checkSelectedToolStripMenuItem
-            // 
-            this.checkSelectedToolStripMenuItem.Name = "checkSelectedToolStripMenuItem";
-            this.checkSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.checkSelectedToolStripMenuItem.Text = "Check selected";
-            this.checkSelectedToolStripMenuItem.Click += new System.EventHandler(this.checkSelectedToolStripMenuItem_Click);
-            // 
-            // uncheckSelectedToolStripMenuItem
-            // 
-            this.uncheckSelectedToolStripMenuItem.Name = "uncheckSelectedToolStripMenuItem";
-            this.uncheckSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.uncheckSelectedToolStripMenuItem.Text = "Uncheck selected";
-            this.uncheckSelectedToolStripMenuItem.Click += new System.EventHandler(this.uncheckSelectedToolStripMenuItem_Click);
+            this.lblSecWarning.AutoSize = true;
+            this.lblSecWarning.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblSecWarning.Location = new System.Drawing.Point(68, 382);
+            this.lblSecWarning.Name = "lblSecWarning";
+            this.lblSecWarning.Size = new System.Drawing.Size(145, 13);
+            this.lblSecWarning.TabIndex = 34;
+            this.lblSecWarning.Text = "Warning: Not in Admin mode!";
             // 
             // EditEventLogEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 412);
+            this.Controls.Add(this.lblSecWarning);
+            this.Controls.Add(this.pictureBoxSecWarning);
             this.Controls.Add(this.lblSrcSel);
             this.Controls.Add(this.lblSourceCount);
             this.Controls.Add(this.txtSourceQuickFind);
@@ -591,6 +617,7 @@
             this.Text = "Edit Event Log Entry";
             this.Load += new System.EventHandler(this.EditEventLogEntry_Load);
             this.Shown += new System.EventHandler(this.EditEventLogEntry_Shown);
+            this.contextMenuStripSourceList.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithinLastXEntries)).EndInit();
@@ -598,7 +625,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownError)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithLastMinutes)).EndInit();
             this.contextMenuStripQuickFind.ResumeLayout(false);
-            this.contextMenuStripSourceList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecWarning)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -648,5 +675,7 @@
         private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem checkSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uncheckSelectedToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBoxSecWarning;
+        private System.Windows.Forms.Label lblSecWarning;
     }
 }
