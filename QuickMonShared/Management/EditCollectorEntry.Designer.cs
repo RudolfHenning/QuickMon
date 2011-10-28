@@ -83,7 +83,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(99, 38);
+            this.chkEnabled.Location = new System.Drawing.Point(67, 38);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
@@ -95,9 +95,9 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(99, 12);
+            this.txtName.Location = new System.Drawing.Point(64, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(475, 20);
+            this.txtName.Size = new System.Drawing.Size(510, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -324,9 +324,9 @@
             this.linkLabelServiceWindows.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelServiceWindows.AutoEllipsis = true;
-            this.linkLabelServiceWindows.Location = new System.Drawing.Point(276, 40);
+            this.linkLabelServiceWindows.Location = new System.Drawing.Point(244, 40);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(296, 23);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(328, 23);
             this.linkLabelServiceWindows.TabIndex = 4;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
@@ -336,7 +336,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(174, 40);
+            this.label7.Location = new System.Drawing.Point(142, 40);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 13);
             this.label7.TabIndex = 3;

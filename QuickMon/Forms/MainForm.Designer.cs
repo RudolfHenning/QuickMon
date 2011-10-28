@@ -212,12 +212,13 @@
             this.refreshToolStripMenuItem,
             this.systemToolStripMenuItem});
             this.contextMenuStriptvw.Name = "contextMenuStriptvw";
-            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 192);
+            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 214);
             // 
             // showDetailsToolStripMenuItem
             // 
             this.showDetailsToolStripMenuItem.Enabled = false;
             this.showDetailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showDetailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.search;
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
             this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.showDetailsToolStripMenuItem.Text = "Show details";
@@ -234,6 +235,7 @@
             // configureCollectorToolStripMenuItem
             // 
             this.configureCollectorToolStripMenuItem.Enabled = false;
+            this.configureCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GlobeWrench;
             this.configureCollectorToolStripMenuItem.Name = "configureCollectorToolStripMenuItem";
             this.configureCollectorToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.configureCollectorToolStripMenuItem.Text = "Configure collector";
@@ -246,6 +248,7 @@
             // 
             // notifiersToolStripMenuItem
             // 
+            this.notifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.horn;
             this.notifiersToolStripMenuItem.Name = "notifiersToolStripMenuItem";
             this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.notifiersToolStripMenuItem.Text = "Notifiers";
@@ -273,6 +276,7 @@
             // 
             // refreshToolStripMenuItem
             // 
+            this.refreshToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_refresh;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
@@ -292,6 +296,7 @@
             // 
             // loadMonitorPackToolStripMenuItem
             // 
+            this.loadMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder;
             this.loadMonitorPackToolStripMenuItem.Name = "loadMonitorPackToolStripMenuItem";
             this.loadMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.loadMonitorPackToolStripMenuItem.Text = "Load Monitor pack";
@@ -299,6 +304,7 @@
             // 
             // recentMonitorPackFilesToolStripMenuItem
             // 
+            this.recentMonitorPackFilesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
             this.recentMonitorPackFilesToolStripMenuItem.Name = "recentMonitorPackFilesToolStripMenuItem";
             this.recentMonitorPackFilesToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.recentMonitorPackFilesToolStripMenuItem.Text = "Recent Monitor pack files";
@@ -306,6 +312,7 @@
             // 
             // configureMonitorPackToolStripMenuItem
             // 
+            this.configureMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GlobeWrench;
             this.configureMonitorPackToolStripMenuItem.Name = "configureMonitorPackToolStripMenuItem";
             this.configureMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.configureMonitorPackToolStripMenuItem.Text = "Configure Monitor pack";
@@ -313,6 +320,7 @@
             // 
             // applicationOptionsToolStripMenuItem
             // 
+            this.applicationOptionsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools;
             this.applicationOptionsToolStripMenuItem.Name = "applicationOptionsToolStripMenuItem";
             this.applicationOptionsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.applicationOptionsToolStripMenuItem.Text = "Application Options";

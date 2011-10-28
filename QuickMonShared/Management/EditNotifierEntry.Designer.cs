@@ -126,9 +126,9 @@
             this.cboNotifier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboNotifier.FormattingEnabled = true;
-            this.cboNotifier.Location = new System.Drawing.Point(109, 61);
+            this.cboNotifier.Location = new System.Drawing.Point(83, 61);
             this.cboNotifier.Name = "cboNotifier";
-            this.cboNotifier.Size = new System.Drawing.Size(361, 21);
+            this.cboNotifier.Size = new System.Drawing.Size(387, 21);
             this.cboNotifier.TabIndex = 4;
             this.cboNotifier.SelectedIndexChanged += new System.EventHandler(this.cboNotifier_SelectedIndexChanged);
             // 
@@ -163,7 +163,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(109, 38);
+            this.chkEnabled.Location = new System.Drawing.Point(86, 38);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
@@ -175,9 +175,9 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(109, 12);
+            this.txtName.Location = new System.Drawing.Point(83, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(361, 20);
+            this.txtName.Size = new System.Drawing.Size(387, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -215,7 +215,7 @@
             "Info",
             "Warning",
             "Error"});
-            this.cboAlertLevel.Location = new System.Drawing.Point(109, 88);
+            this.cboAlertLevel.Location = new System.Drawing.Point(83, 88);
             this.cboAlertLevel.Name = "cboAlertLevel";
             this.cboAlertLevel.Size = new System.Drawing.Size(93, 21);
             this.cboAlertLevel.TabIndex = 6;
@@ -224,7 +224,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(208, 91);
+            this.label4.Location = new System.Drawing.Point(182, 91);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 7;
@@ -241,7 +241,7 @@
             "Summary only",
             "Detail",
             "Both"});
-            this.cboDetailLevel.Location = new System.Drawing.Point(273, 88);
+            this.cboDetailLevel.Location = new System.Drawing.Point(247, 88);
             this.cboDetailLevel.Name = "cboDetailLevel";
             this.cboDetailLevel.Size = new System.Drawing.Size(102, 21);
             this.cboDetailLevel.TabIndex = 8;
@@ -253,9 +253,9 @@
             this.alertForCollectorslinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.alertForCollectorslinkLabel.AutoEllipsis = true;
-            this.alertForCollectorslinkLabel.Location = new System.Drawing.Point(110, 118);
+            this.alertForCollectorslinkLabel.Location = new System.Drawing.Point(83, 118);
             this.alertForCollectorslinkLabel.Name = "alertForCollectorslinkLabel";
-            this.alertForCollectorslinkLabel.Size = new System.Drawing.Size(365, 21);
+            this.alertForCollectorslinkLabel.Size = new System.Drawing.Size(392, 21);
             this.alertForCollectorslinkLabel.TabIndex = 10;
             this.alertForCollectorslinkLabel.TabStop = true;
             this.alertForCollectorslinkLabel.Text = "All Collectors";

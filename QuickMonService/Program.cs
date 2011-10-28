@@ -12,6 +12,13 @@ namespace QuickMon
 		/// </summary>
 		static void Main(string[] args)
 		{
+            if (Properties.Settings.Default.NewVersion)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.NewVersion = false;
+                Properties.Settings.Default.Save();
+            }
+
 			if (args.Length > 0)
 			{
 				if (args[0].ToUpper() == "-INSTALL")

@@ -92,6 +92,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Download.png" />
     <Content Include="Resources\SQLQueryTips.htm" />
     <None Include="Resources\doc_remove.png" />
     <None Include="Resources\doc_refresh.png" />

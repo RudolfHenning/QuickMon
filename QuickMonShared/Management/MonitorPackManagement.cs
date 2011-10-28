@@ -581,7 +581,7 @@ namespace QuickMon.Management
             TreeNode currentNode = tvwMonPack.SelectedNode;
             if (currentNode != null)
             {
-                bool hasAgents = monitorPack.AgentRegistrations.Count > 0;
+                bool hasAgents = monitorPack.AgentRegistrations.Count > 0 && monitorPack.AgentRegistrationFile.Length > 0;
                 bool canAdd = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == collectorRootImgIndex || currentNode.ImageIndex == notifierRootImgIndex || currentNode.ImageIndex == folderImgIndex;
                 bool canRemove = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex;
                 bool canConfig = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex; //|| currentNode.ImageIndex == collectorRootImgIndex

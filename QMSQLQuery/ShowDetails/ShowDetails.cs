@@ -39,6 +39,7 @@ namespace QuickMon
                     lvwResults.Items.Add(lvi);
                 }
             }
+            exportToolStripButton.Enabled = lvwResults.Items.Count > 0;
         }
 
         private void RefreshList()
@@ -213,6 +214,7 @@ namespace QuickMon
                 }
             }
             lvwDetails.EndUpdate();
+            exportToolStripButton.Enabled = lvwResults.SelectedItems.Count > 0;
         }
 
         private void ShowDetails_Load(object sender, EventArgs e)
@@ -276,6 +278,44 @@ namespace QuickMon
             rtxDetails.ScrollToCaret();
             Cursor.Current = Cursors.Default;
             toolStripStatusLabelDetails.Text = oldStatusText;
+        }
+
+        private void exportToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvwResults.SelectedItems.Count > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(lvwDetails.Columns[0].Text);
+                    for (int i = 1; i < lvwDetails.Columns.Count; i++)
+                    {
+                        ColumnHeader h = lvwDetails.Columns[i];
+                        sb.Append("," + h.Text);
+                    }
+                    sb.AppendLine();
+                    foreach (ListViewItem lvi in lvwDetails.Items)
+                    {
+                        sb.Append(lvi.Text);
+                        for (int i = 1; i < lvwDetails.Columns.Count; i++)
+                        {
+                            if (lvi.SubItems[i].Text.Contains(','))
+                                sb.Append(",\"" + lvi.SubItems[i].Text + "\"");
+                            else
+                                sb.Append("," + lvi.SubItems[i].Text);
+                        }
+                        sb.AppendLine();
+                    }
+                    if (saveFileDialogCSV.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(saveFileDialogCSV.FileName, sb.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

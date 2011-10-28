@@ -68,7 +68,7 @@ namespace QuickMon
         #region Properties
         public string Name { get; set; }
         public bool Enabled { get; set; }
-        private string agentRegistrationFile;
+        private string agentRegistrationFile = "";
         public string AgentRegistrationFile 
         {
             get { return agentRegistrationFile; }

@@ -40,13 +40,15 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lvwDetails = new QuickMon.ListViewEx();
-            this.label1 = new System.Windows.Forms.Label();
             this.splitContainerDetails = new System.Windows.Forms.SplitContainer();
+            this.lvwDetails = new QuickMon.ListViewEx();
             this.cmdViewDetails = new System.Windows.Forms.Button();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.timerSelectItem = new System.Windows.Forms.Timer(this.components);
+            this.saveFileDialogCSV = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -144,12 +146,24 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh});
+            this.toolStripButtonRefresh,
+            this.exportToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(507, 39);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // exportToolStripButton
+            // 
+            this.exportToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.exportToolStripButton.Enabled = false;
+            this.exportToolStripButton.Image = global::QuickMon.Properties.Resources.Download;
+            this.exportToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportToolStripButton.Name = "exportToolStripButton";
+            this.exportToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.exportToolStripButton.Text = "Export";
+            this.exportToolStripButton.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
             // splitContainer1
             // 
@@ -168,30 +182,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Size = new System.Drawing.Size(507, 286);
             this.splitContainer1.SplitterDistance = 96;
+            this.splitContainer1.SplitterWidth = 7;
             this.splitContainer1.TabIndex = 9;
-            // 
-            // lvwDetails
-            // 
-            this.lvwDetails.ContextMenuStrip = this.contextMenuStrip1;
-            this.lvwDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwDetails.FullRowSelect = true;
-            this.lvwDetails.Location = new System.Drawing.Point(0, 0);
-            this.lvwDetails.Name = "lvwDetails";
-            this.lvwDetails.Size = new System.Drawing.Size(507, 67);
-            this.lvwDetails.SmallImageList = this.imageList1;
-            this.lvwDetails.TabIndex = 7;
-            this.lvwDetails.UseCompatibleStateImageBehavior = false;
-            this.lvwDetails.View = System.Windows.Forms.View.Details;
-            this.lvwDetails.SelectedIndexChanged += new System.EventHandler(this.lvwDetails_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(507, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Details";
             // 
             // splitContainerDetails
             // 
@@ -208,18 +200,32 @@
             // splitContainerDetails.Panel2
             // 
             this.splitContainerDetails.Panel2.Controls.Add(this.rtxDetails);
-            this.splitContainerDetails.Size = new System.Drawing.Size(507, 167);
-            this.splitContainerDetails.SplitterDistance = 83;
+            this.splitContainerDetails.Size = new System.Drawing.Size(507, 164);
+            this.splitContainerDetails.SplitterDistance = 81;
+            this.splitContainerDetails.SplitterWidth = 7;
             this.splitContainerDetails.TabIndex = 8;
+            // 
+            // lvwDetails
+            // 
+            this.lvwDetails.ContextMenuStrip = this.contextMenuStrip1;
+            this.lvwDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwDetails.FullRowSelect = true;
+            this.lvwDetails.Location = new System.Drawing.Point(0, 0);
+            this.lvwDetails.Name = "lvwDetails";
+            this.lvwDetails.Size = new System.Drawing.Size(507, 65);
+            this.lvwDetails.TabIndex = 7;
+            this.lvwDetails.UseCompatibleStateImageBehavior = false;
+            this.lvwDetails.View = System.Windows.Forms.View.Details;
+            this.lvwDetails.SelectedIndexChanged += new System.EventHandler(this.lvwDetails_SelectedIndexChanged);
             // 
             // cmdViewDetails
             // 
-            this.cmdViewDetails.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.cmdViewDetails.BackColor = System.Drawing.Color.DarkGray;
             this.cmdViewDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.cmdViewDetails.FlatAppearance.BorderSize = 0;
             this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdViewDetails.Font = new System.Drawing.Font("Marlett", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdViewDetails.Location = new System.Drawing.Point(0, 67);
+            this.cmdViewDetails.Location = new System.Drawing.Point(0, 65);
             this.cmdViewDetails.Margin = new System.Windows.Forms.Padding(0);
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Size = new System.Drawing.Size(507, 16);
@@ -234,14 +240,28 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(507, 80);
+            this.rtxDetails.Size = new System.Drawing.Size(507, 76);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(507, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Details";
             // 
             // timerSelectItem
             // 
             this.timerSelectItem.Interval = 500;
             this.timerSelectItem.Tick += new System.EventHandler(this.timerSelectItem_Tick);
+            // 
+            // saveFileDialogCSV
+            // 
+            this.saveFileDialogCSV.DefaultExt = "csv";
+            this.saveFileDialogCSV.Filter = "CSV Files|*.csv";
             // 
             // ShowDetails
             // 
@@ -294,5 +314,7 @@
         private System.Windows.Forms.Button cmdViewDetails;
         private System.Windows.Forms.RichTextBox rtxDetails;
         private System.Windows.Forms.Timer timerSelectItem;
+        private System.Windows.Forms.ToolStripButton exportToolStripButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogCSV;
     }
 }

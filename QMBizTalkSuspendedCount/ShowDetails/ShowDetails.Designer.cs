@@ -194,6 +194,7 @@
             // 
             // cmdToggleHideDetails
             // 
+            this.cmdToggleHideDetails.BackColor = System.Drawing.Color.DarkGray;
             this.cmdToggleHideDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.cmdToggleHideDetails.FlatAppearance.BorderSize = 0;
             this.cmdToggleHideDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -203,7 +204,7 @@
             this.cmdToggleHideDetails.Size = new System.Drawing.Size(688, 16);
             this.cmdToggleHideDetails.TabIndex = 6;
             this.cmdToggleHideDetails.Text = "ttt";
-            this.cmdToggleHideDetails.UseVisualStyleBackColor = true;
+            this.cmdToggleHideDetails.UseVisualStyleBackColor = false;
             this.cmdToggleHideDetails.Click += new System.EventHandler(this.cmdToggleHideDetails_Click);
             // 
             // txtDetails
