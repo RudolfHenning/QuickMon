@@ -159,6 +159,7 @@
     <None Include="Resources\319.ico" />
     <None Include="Resources\GlobeWrench.ico" />
     <None Include="Resources\search.png" />
+    <None Include="Resources\Gear-Spanner.ico" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\horn.png" />
   </ItemGroup>

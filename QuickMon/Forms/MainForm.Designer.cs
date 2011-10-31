@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -43,7 +42,7 @@
             this.lastUpdateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tvwCollectors = new QuickMon.TreeViewEx();
-            this.contextMenuStriptvw = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStriptvw = new System.Windows.Forms.ContextMenuStrip();
             this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,11 +57,11 @@
             this.recentMonitorPackFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.timerMain = new System.Windows.Forms.Timer(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.timerMain = new System.Windows.Forms.Timer();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.timerAppIconRefresher = new System.Windows.Forms.Timer(this.components);
+            this.timerAppIconRefresher = new System.Windows.Forms.Timer();
             this.backgroundWorkerRefresh = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -110,7 +109,7 @@
             // toolStripButtonConfigPack
             // 
             this.toolStripButtonConfigPack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.GlobeWrench;
+            this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.Gear_Spanner;
             this.toolStripButtonConfigPack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonConfigPack.Name = "toolStripButtonConfigPack";
             this.toolStripButtonConfigPack.Size = new System.Drawing.Size(36, 36);
@@ -212,7 +211,7 @@
             this.refreshToolStripMenuItem,
             this.systemToolStripMenuItem});
             this.contextMenuStriptvw.Name = "contextMenuStriptvw";
-            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 214);
+            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 192);
             // 
             // showDetailsToolStripMenuItem
             // 

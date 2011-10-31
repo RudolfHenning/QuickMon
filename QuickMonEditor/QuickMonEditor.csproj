@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>GlobeWrench.ico</ApplicationIcon>
+    <ApplicationIcon>Gear-Spanner.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bullet_ball_glass_blue.ico" />
+    <Content Include="Gear-Spanner.ico" />
     <Content Include="GlobeWrench.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
