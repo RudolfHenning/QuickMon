@@ -319,9 +319,16 @@ namespace QuickMon.Management
         {
             try
             {
+                if (txtName.Text.Length == 0)
+                {
+                    MessageBox.Show("Please specify a name!", "Name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtName.Focus();
+                    return;
+                }
                 SortItemsByTreeView();
+
                 monitorPack.Name = txtName.Text.Trim();
-                if (monitorPack.MonitorPackPath.Length > 0 && monitorPack.Name.Length == 0)
+                if (monitorPack.MonitorPackPath != null && monitorPack.MonitorPackPath.Length > 0 && monitorPack.Name.Length == 0)
                     monitorPack.Name = System.IO.Path.GetFileNameWithoutExtension(monitorPack.MonitorPackPath);
                 monitorPack.Enabled = chkEnabled.Checked;
                 monitorPack.DefaultViewerNotifier = (from n in monitorPack.Notifiers
@@ -329,7 +336,7 @@ namespace QuickMon.Management
                                                         n.Notifier.HasViewer && n.Name == cboDefaultViewerNotifier.SelectedItem.ToString()
                                                      select n).FirstOrDefault();
                 //save any changes
-                if (!monitorPack.Save())
+                if (monitorPack.MonitorPackPath == null || !monitorPack.Save())
                 {
                     string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
                     if (!System.IO.Directory.Exists(startUpPath))
