@@ -75,9 +75,10 @@ namespace QuickMon
             return returnState;
         }
 
-        public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
+            showDetails.Text = "Show details - " + collectorName;
             showDetails.SelectedEventLogConfig = evConfig;
             showDetails.Show();
         }

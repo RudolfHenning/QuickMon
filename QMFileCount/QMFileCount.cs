@@ -177,10 +177,11 @@ namespace QuickMon
             return fileInfo;
         }
 
-        public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
             showDetails.DirectorieFilters = directorieFilters;
+            showDetails.Text = "Show details - " + collectorName;
             showDetails.ShowDetail();
         }
         public override string ConfigureAgent(string config)

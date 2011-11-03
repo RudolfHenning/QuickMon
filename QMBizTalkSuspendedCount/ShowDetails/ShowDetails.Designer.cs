@@ -34,6 +34,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lvwSuspMsgs = new System.Windows.Forms.ListView();
@@ -49,6 +50,7 @@
             this.cmdToggleHideDetails = new System.Windows.Forms.Button();
             this.txtDetails = new HenIT.Controls.RichTextControlEx();
             this.timerShowDetail = new System.Windows.Forms.Timer(this.components);
+            this.saveFileDialogCSV = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -81,7 +83,8 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh});
+            this.toolStripButtonRefresh,
+            this.exportToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(688, 39);
@@ -97,6 +100,18 @@
             this.toolStripButtonRefresh.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonRefresh.Text = "Refresh";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // exportToolStripButton
+            // 
+            this.exportToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.exportToolStripButton.Enabled = false;
+            this.exportToolStripButton.Image = global::QuickMon.Properties.Resources.Download;
+            this.exportToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportToolStripButton.Name = "exportToolStripButton";
+            this.exportToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.exportToolStripButton.Text = "Export";
+            this.exportToolStripButton.ToolTipText = "Exporting selected entries";
+            this.exportToolStripButton.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
             // contextMenuStrip1
             // 
@@ -226,6 +241,11 @@
             this.timerShowDetail.Interval = 200;
             this.timerShowDetail.Tick += new System.EventHandler(this.timerShowDetail_Tick);
             // 
+            // saveFileDialogCSV
+            // 
+            this.saveFileDialogCSV.DefaultExt = "csv";
+            this.saveFileDialogCSV.Filter = "CSV Files|*.csv";
+            // 
             // ShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,5 +295,7 @@
         private System.Windows.Forms.Button cmdToggleHideDetails;
         private HenIT.Controls.RichTextControlEx txtDetails;
         private System.Windows.Forms.Timer timerShowDetail;
+        private System.Windows.Forms.ToolStripButton exportToolStripButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogCSV;
     }
 }

@@ -82,15 +82,10 @@ namespace QuickMon
             return returnState;
 		}
 
-		public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
 		{
             ShowDetails showDetails = new ShowDetails();
-            //XmlDocument configXml = new XmlDocument();
-            //if (config.Length > 0)
-            //    configXml.LoadXml(config);
-            //else
-            //    configXml.LoadXml(GetDefaultOrEmptyConfigString());
-            //ReadConfiguration(configXml);
+            showDetails.Text = "Show details - " + collectorName;
             showDetails.SqlServer = sqlServer;
             showDetails.IntegratedSec = integratedSec;
             showDetails.UserName = userName;

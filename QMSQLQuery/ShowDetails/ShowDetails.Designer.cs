@@ -49,6 +49,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerSelectItem = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialogCSV = new System.Windows.Forms.SaveFileDialog();
+            this.contextMenuStripRTF = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -60,15 +63,16 @@
             this.splitContainerDetails.Panel1.SuspendLayout();
             this.splitContainerDetails.Panel2.SuspendLayout();
             this.splitContainerDetails.SuspendLayout();
+            this.contextMenuStripRTF.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelDetails});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 325);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 375);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(507, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(645, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -108,7 +112,7 @@
             this.lvwResults.FullRowSelect = true;
             this.lvwResults.Location = new System.Drawing.Point(0, 0);
             this.lvwResults.Name = "lvwResults";
-            this.lvwResults.Size = new System.Drawing.Size(507, 96);
+            this.lvwResults.Size = new System.Drawing.Size(645, 112);
             this.lvwResults.SmallImageList = this.imageList1;
             this.lvwResults.TabIndex = 6;
             this.lvwResults.UseCompatibleStateImageBehavior = false;
@@ -150,7 +154,7 @@
             this.exportToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(507, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(645, 39);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -167,6 +171,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 39);
             this.splitContainer1.Name = "splitContainer1";
@@ -180,9 +185,9 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainerDetails);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Size = new System.Drawing.Size(507, 286);
-            this.splitContainer1.SplitterDistance = 96;
-            this.splitContainer1.SplitterWidth = 7;
+            this.splitContainer1.Size = new System.Drawing.Size(645, 336);
+            this.splitContainer1.SplitterDistance = 112;
+            this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 9;
             // 
             // splitContainerDetails
@@ -200,9 +205,9 @@
             // splitContainerDetails.Panel2
             // 
             this.splitContainerDetails.Panel2.Controls.Add(this.rtxDetails);
-            this.splitContainerDetails.Size = new System.Drawing.Size(507, 164);
-            this.splitContainerDetails.SplitterDistance = 81;
-            this.splitContainerDetails.SplitterWidth = 7;
+            this.splitContainerDetails.Size = new System.Drawing.Size(645, 197);
+            this.splitContainerDetails.SplitterDistance = 97;
+            this.splitContainerDetails.SplitterWidth = 8;
             this.splitContainerDetails.TabIndex = 8;
             // 
             // lvwDetails
@@ -212,7 +217,7 @@
             this.lvwDetails.FullRowSelect = true;
             this.lvwDetails.Location = new System.Drawing.Point(0, 0);
             this.lvwDetails.Name = "lvwDetails";
-            this.lvwDetails.Size = new System.Drawing.Size(507, 65);
+            this.lvwDetails.Size = new System.Drawing.Size(645, 81);
             this.lvwDetails.TabIndex = 7;
             this.lvwDetails.UseCompatibleStateImageBehavior = false;
             this.lvwDetails.View = System.Windows.Forms.View.Details;
@@ -225,10 +230,10 @@
             this.cmdViewDetails.FlatAppearance.BorderSize = 0;
             this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdViewDetails.Font = new System.Drawing.Font("Marlett", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdViewDetails.Location = new System.Drawing.Point(0, 65);
+            this.cmdViewDetails.Location = new System.Drawing.Point(0, 81);
             this.cmdViewDetails.Margin = new System.Windows.Forms.Padding(0);
             this.cmdViewDetails.Name = "cmdViewDetails";
-            this.cmdViewDetails.Size = new System.Drawing.Size(507, 16);
+            this.cmdViewDetails.Size = new System.Drawing.Size(645, 16);
             this.cmdViewDetails.TabIndex = 8;
             this.cmdViewDetails.Text = "ttt";
             this.cmdViewDetails.UseVisualStyleBackColor = false;
@@ -240,16 +245,17 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(507, 76);
+            this.rtxDetails.Size = new System.Drawing.Size(645, 92);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
             // 
             // label1
             // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(507, 19);
+            this.label1.Size = new System.Drawing.Size(645, 19);
             this.label1.TabIndex = 0;
             this.label1.Text = "Details";
             // 
@@ -263,11 +269,33 @@
             this.saveFileDialogCSV.DefaultExt = "csv";
             this.saveFileDialogCSV.Filter = "CSV Files|*.csv";
             // 
+            // contextMenuStripRTF
+            // 
+            this.contextMenuStripRTF.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
+            this.contextMenuStripRTF.Name = "contextMenuStripRTF";
+            this.contextMenuStripRTF.Size = new System.Drawing.Size(123, 48);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
             // ShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 347);
+            this.ClientSize = new System.Drawing.Size(645, 397);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -290,6 +318,7 @@
             this.splitContainerDetails.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerDetails)).EndInit();
             this.splitContainerDetails.ResumeLayout(false);
+            this.contextMenuStripRTF.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,5 +345,8 @@
         private System.Windows.Forms.Timer timerSelectItem;
         private System.Windows.Forms.ToolStripButton exportToolStripButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialogCSV;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripRTF;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }

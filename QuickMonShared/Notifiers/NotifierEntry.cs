@@ -86,7 +86,7 @@ namespace QuickMon
         {
             if (Notifier != null && Notifier.HasViewer)
             {
-                Notifier.OpenViewer();
+                Notifier.OpenViewer(Name);
             }
         }
         public override string ToString()

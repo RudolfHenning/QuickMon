@@ -135,13 +135,11 @@ namespace QuickMon
             return returnState;
         }
 
-        public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
         {
-            //XmlDocument configDoc = new XmlDocument();
-            //configDoc.LoadXml(config);
-            //ReadConfiguration(configDoc);
             ShowDetails showDetails = new ShowDetails();
             showDetails.WmiIConfig = wmiIConfig;
+            showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
 

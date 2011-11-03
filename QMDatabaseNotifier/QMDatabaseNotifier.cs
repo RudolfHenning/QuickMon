@@ -81,10 +81,11 @@ namespace QuickMon
             }
         }
         public override bool HasViewer { get { return true; } }
-        public override void OpenViewer()
+        public override void OpenViewer(string notifierName)
         {
             ShowViewer showViewer = new ShowViewer();
             showViewer.DbSettings = dbSettings;
+            showViewer.Text = "QuickMon Database Notifier Viewer - " + notifierName;
             showViewer.Show();
         }
         public override string ConfigureAgent(string config)

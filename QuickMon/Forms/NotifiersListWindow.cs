@@ -40,7 +40,10 @@ namespace QuickMon
         {
             openViewerToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1 && 
                     lvwNotifiers.SelectedItems[0].Tag is NotifierEntry &&
-                    ((NotifierEntry)lvwNotifiers.SelectedItems[0].Tag).Notifier.HasViewer;
+                    (
+                        ((NotifierEntry)lvwNotifiers.SelectedItems[0].Tag).Notifier != null &&
+                        ((NotifierEntry)lvwNotifiers.SelectedItems[0].Tag).Notifier.HasViewer
+                    );
         }
 
         private void openViewerToolStripMenuItem_Click(object sender, EventArgs e)

@@ -125,17 +125,11 @@ namespace QuickMon
             return new CollectorMessage() { PlainText = plainTextDetails.ToString(), HtmlText = htmlTextTextDetails.ToString() };
         }
 
-        public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
         {
-            //XmlDocument configXml = new XmlDocument();
-            //if (config.Length > 0)
-            //    configXml.LoadXml(config);
-            //else
-            //    configXml.LoadXml(GetDefaultOrEmptyConfigString());
-            //ReadConfiguration(configXml);
-
             ShowDetails showDetails = new ShowDetails();
             showDetails.BizTalkGroup = bizTalkGroup;
+            showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
 

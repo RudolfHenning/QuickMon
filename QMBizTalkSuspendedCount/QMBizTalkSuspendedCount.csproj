@@ -110,6 +110,7 @@
     <Content Include="Resources\BizTalkSuspendedCountEmptyConfig.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\Download.png" />
     <None Include="Resources\doc_refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

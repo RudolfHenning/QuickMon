@@ -98,10 +98,11 @@ namespace QuickMon
             return returnState;
         }
 
-        public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
             showDetails.TableSizeConfig = tableSizeConfig;
+            showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
 

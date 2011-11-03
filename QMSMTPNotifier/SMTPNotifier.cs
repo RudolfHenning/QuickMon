@@ -74,7 +74,7 @@ namespace QuickMon
                 smtpWriteMutex.ReleaseMutex();
             }
         }
-        public override void OpenViewer()
+        public override void OpenViewer(string notifierName)
         {
             throw new NotImplementedException();
         }

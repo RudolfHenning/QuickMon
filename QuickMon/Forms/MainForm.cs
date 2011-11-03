@@ -431,6 +431,10 @@ namespace QuickMon
                 root.Nodes.Clear();
                 monitorPack = new MonitorPack();
                 monitorPack.Load(monitorPackPath);
+                if (monitorPack.AgentLoadingErrors != null && monitorPack.AgentLoadingErrors.Length > 0)
+                {
+                    MessageBox.Show(monitorPack.AgentLoadingErrors, "Loading errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 SetEnableDisablePolling();
 
                 List<CollectorEntry> noDependantCollectors = (from c in monitorPack.Collectors

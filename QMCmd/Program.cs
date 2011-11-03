@@ -15,7 +15,7 @@ namespace QuickMon
             bool reportOnlyStates = true;
             string currentPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            string registeredAgentsFile = currentPath + @"\RegisteredAgents.qmral";
+            string registeredAgentsPath = currentPath;// +@"\RegisteredAgents.qmral";
             string pingAgentAssembly = currentPath + @"\QMPing.dll";
             string fileCountAgentAssembly = currentPath + @"\QMFileCount.dll";
             string serviceStateAgentAssembly = currentPath + @"\QMServiceState.dll";
@@ -28,7 +28,7 @@ namespace QuickMon
             #region Agent registrations
             try
             {
-                monitorPack.AgentRegistrationFile = registeredAgentsFile;
+                monitorPack.AgentsAssemblyPath = registeredAgentsPath;
             }
             catch
             {
@@ -77,7 +77,7 @@ namespace QuickMon
                          }
                      }
                     );
-                SerializationUtils.SerializeXMLToFile<List<AgentRegistration>>(registeredAgentsFile, monitorPack.AgentRegistrations);
+                //SerializationUtils.SerializeXMLToFile<List<AgentRegistration>>(registeredAgentsFile, monitorPack.AgentRegistrations);
             } 
             #endregion
 

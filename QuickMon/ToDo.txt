@@ -1,8 +1,7 @@
 ﻿* - Collectors - add Interface for returning single 'value' (e.g. total number of files as used by FileCount agent...)
 * - Collector 'correcting script' that may be run if error/warning alert is raised
 
-* - build in some kind of timer or repeat check for collectors - only raise warning/error if state stays in same state for x time (especially for performance counters)
-* - Collector 'retries' on errors/warnings - perhaps coupled with timer/counter for raising alerts only after x errors like above
+* - Change ShowStatusDetails method on ICollector to accept 'Name' of collector and display it in the window heading -
+    This will help when multiple windows are open to identify which window instance is which.
 
-* - Add SQLQuery collector - specify some SQL tsql query or stored proc and test returned value(s) or row count against test values like WMIQuery
-    For safety - don't allow queries with keywords 'Update', 'Delete' etc. - if you must update or delete from a temp table rather use a SP
+* - Replace Registered Agent List file with just a path - when app loads pack it loads all QM agents that is in that directory

@@ -1,4 +1,4 @@
-<monitorPack name="{0}" enabled="{1}" agentRegistrationFile="{2}" defaultViewerNotifier="{3}">
+<monitorPack version="2.5" name="{0}" enabled="{1}" agentRegistrationPath="{2}" defaultViewerNotifier="{3}">
   <collectorEntries>
     {4}
   </collectorEntries>

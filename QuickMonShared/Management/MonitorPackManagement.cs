@@ -42,7 +42,7 @@ namespace QuickMon.Management
         #region Form events
         private void MonitorPackManagement_Load(object sender, EventArgs e)
         {
-
+            txtAgentsRegistrationFile.Text = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         }
         private void MonitorPackManagement_Shown(object sender, EventArgs e)
         {
@@ -53,10 +53,10 @@ namespace QuickMon.Management
         #region Toolbar & context menu & Button events
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
-            string oldAgentRegistrationFile = "";
-            if (monitorPack != null && monitorPack.AgentRegistrationFile.Length > 0)
-                oldAgentRegistrationFile = monitorPack.AgentRegistrationFile;
-            monitorPack = new MonitorPack() { AgentRegistrationFile = oldAgentRegistrationFile };
+            string oldAgentsAssemblyPath = "";
+            if (monitorPack != null && monitorPack.AgentsAssemblyPath.Length > 0)
+                oldAgentsAssemblyPath = monitorPack.AgentsAssemblyPath;
+            monitorPack = new MonitorPack() { AgentsAssemblyPath = oldAgentsAssemblyPath };
             RefreshMonitorPack();
         }
         private void toolStripoad_Click(object sender, EventArgs e)
@@ -288,15 +288,32 @@ namespace QuickMon.Management
         }
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            RegisteredAgentsManagement registeredAgentsManagement = new RegisteredAgentsManagement();
-            registeredAgentsManagement.FilePath = monitorPack.AgentRegistrationFile;
-            if (registeredAgentsManagement.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = txtAgentsRegistrationFile.Text;
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                monitorPack.AgentRegistrationFile = registeredAgentsManagement.FilePath;
-                monitorPack.Name = txtName.Text; //in case it was changed
-                monitorPack.Enabled = chkEnabled.Checked;
-                RefreshMonitorPack();
+                try
+                {
+                    monitorPack.AgentsAssemblyPath = fbd.SelectedPath;
+                    monitorPack.Name = txtName.Text; //in case it was changed
+                    monitorPack.Enabled = chkEnabled.Checked;
+                    RefreshMonitorPack();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Loading agents", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+
+            //RegisteredAgentsManagement registeredAgentsManagement = new RegisteredAgentsManagement();
+            //registeredAgentsManagement.FilePath = monitorPack.AgentRegistrationFile;
+            //if (registeredAgentsManagement.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    monitorPack.AgentRegistrationFile = registeredAgentsManagement.FilePath;
+            //    monitorPack.Name = txtName.Text; //in case it was changed
+            //    monitorPack.Enabled = chkEnabled.Checked;
+            //    RefreshMonitorPack();
+            //}
         }
         private void cmdOK_Click(object sender, EventArgs e)
         {
@@ -474,7 +491,7 @@ namespace QuickMon.Management
                     monitorPack = new MonitorPack();
                 txtName.Text = monitorPack.Name;
                 chkEnabled.Checked = monitorPack.Enabled;
-                txtAgentsRegistrationFile.Text = monitorPack.AgentRegistrationFile;
+                txtAgentsRegistrationFile.Text = monitorPack.AgentsAssemblyPath;
                 TreeNode root = tvwMonPack.Nodes[0];
                 tvwMonPack.BeginUpdate();
                 root.Expand();
@@ -497,7 +514,7 @@ namespace QuickMon.Management
                 foreach (NotifierEntry ne in monitorPack.Notifiers)
                 {
                     LoadNotifierEntry(ne, notifierRootNode);
-                    if (ne.Notifier.HasViewer)
+                    if (ne.Notifier != null && ne.Notifier.HasViewer)
                         cboDefaultViewerNotifier.Items.Add(ne.Name);
                 }
                 if (monitorPack.DefaultViewerNotifier != null)
@@ -527,8 +544,8 @@ namespace QuickMon.Management
             TreeNode AgentRegistrationNode = (from TreeNode n in agentConfigNode.Nodes
                                               where n.Name == "AgentRegistrationFile"
                                                        select n).First();
-            AgentRegistrationNode.Text = "Registered Agents File: " + monitorPack.AgentRegistrationFile;
-            if (!System.IO.File.Exists(monitorPack.AgentRegistrationFile))
+            AgentRegistrationNode.Text = "Registered Agents Path: " + monitorPack.AgentsAssemblyPath;
+            if (!System.IO.Directory.Exists(monitorPack.AgentsAssemblyPath))
                 agentConfigNode.Expand();
         }
         private void LoadNotifierEntry(NotifierEntry ne, TreeNode parentNode)
@@ -581,7 +598,7 @@ namespace QuickMon.Management
             TreeNode currentNode = tvwMonPack.SelectedNode;
             if (currentNode != null)
             {
-                bool hasAgents = monitorPack.AgentRegistrations.Count > 0 && monitorPack.AgentRegistrationFile.Length > 0;
+                bool hasAgents = monitorPack.AgentRegistrations.Count > 0 && monitorPack.AgentsAssemblyPath.Length > 0;
                 bool canAdd = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == collectorRootImgIndex || currentNode.ImageIndex == notifierRootImgIndex || currentNode.ImageIndex == folderImgIndex;
                 bool canRemove = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex;
                 bool canConfig = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex; //|| currentNode.ImageIndex == collectorRootImgIndex
@@ -617,7 +634,7 @@ namespace QuickMon.Management
         private void EnableOKButton()
         {
             cmdOK.Enabled = monitorPack != null &&
-                monitorPack.AgentRegistrationFile != null && System.IO.File.Exists(monitorPack.AgentRegistrationFile);
+                monitorPack.AgentsAssemblyPath != null && System.IO.Directory.Exists(monitorPack.AgentsAssemblyPath);
         }            
         private void backgroundWorkerNodeSelection_DoWork(object sender, DoWorkEventArgs e)
         {

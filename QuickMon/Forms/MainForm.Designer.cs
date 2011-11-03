@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -42,7 +43,7 @@
             this.lastUpdateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tvwCollectors = new QuickMon.TreeViewEx();
-            this.contextMenuStriptvw = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStriptvw = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,11 +58,11 @@
             this.recentMonitorPackFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageList1 = new System.Windows.Forms.ImageList();
-            this.timerMain = new System.Windows.Forms.Timer();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.timerAppIconRefresher = new System.Windows.Forms.Timer();
+            this.timerAppIconRefresher = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerRefresh = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -211,7 +212,7 @@
             this.refreshToolStripMenuItem,
             this.systemToolStripMenuItem});
             this.contextMenuStriptvw.Name = "contextMenuStriptvw";
-            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 192);
+            this.contextMenuStriptvw.Size = new System.Drawing.Size(194, 214);
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -234,7 +235,7 @@
             // configureCollectorToolStripMenuItem
             // 
             this.configureCollectorToolStripMenuItem.Enabled = false;
-            this.configureCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GlobeWrench;
+            this.configureCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Gear_Spanner;
             this.configureCollectorToolStripMenuItem.Name = "configureCollectorToolStripMenuItem";
             this.configureCollectorToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.configureCollectorToolStripMenuItem.Text = "Configure collector";

@@ -21,11 +21,95 @@ namespace QuickMon
 
         public SQLQueryConfig SQLQueryConfig { get; set; }
 
+        #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
             LoadList();
         }
+        private void ShowDetails_Load(object sender, EventArgs e)
+        {
+            splitContainerDetails.Panel2Collapsed = true;
+        }
+        #endregion
 
+        #region Toolbar button events
+        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void exportToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvwResults.SelectedItems.Count > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(lvwDetails.Columns[0].Text);
+                    for (int i = 1; i < lvwDetails.Columns.Count; i++)
+                    {
+                        ColumnHeader h = lvwDetails.Columns[i];
+                        sb.Append("," + h.Text);
+                    }
+                    sb.AppendLine();
+                    foreach (ListViewItem lvi in lvwDetails.Items)
+                    {
+                        sb.Append(lvi.Text);
+                        for (int i = 1; i < lvwDetails.Columns.Count; i++)
+                        {
+                            if (lvi.SubItems[i].Text.Contains(','))
+                                sb.Append(",\"" + lvi.SubItems[i].Text + "\"");
+                            else
+                                sb.Append("," + lvi.SubItems[i].Text);
+                        }
+                        sb.AppendLine();
+                    }
+                    if (saveFileDialogCSV.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(saveFileDialogCSV.FileName, sb.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+
+        #region ListView events
+        private void lvwResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDetailView();
+        }
+        private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            timerSelectItem.Enabled = false;
+            if (lvwDetails.SelectedItems.Count > 0)
+                toolStripStatusLabelDetails.Text = lvwDetails.SelectedItems.Count.ToString() + " item(s) selected";
+            else
+                toolStripStatusLabelDetails.Text = "0 items selected";
+            timerSelectItem.Enabled = true;
+        }
+        #endregion
+
+        #region Timer events
+        private void timerSelectItem_Tick(object sender, EventArgs e)
+        {
+            timerSelectItem.Enabled = false;
+            DisplaySelectedItemDetails();
+        }
+        #endregion
+
+        #region Button events
+        private void cmdViewDetails_Click(object sender, EventArgs e)
+        {
+            splitContainerDetails.Panel2Collapsed = !splitContainerDetails.Panel2Collapsed;
+            cmdViewDetails.Text = splitContainerDetails.Panel2Collapsed ? "ttt" : "uuu";
+            splitContainerDetails.SplitterWidth = 8;
+        }
+        #endregion
+
+        #region Private methods
         private void LoadList()
         {
             lvwResults.Items.Clear();
@@ -41,7 +125,6 @@ namespace QuickMon
             }
             exportToolStripButton.Enabled = lvwResults.Items.Count > 0;
         }
-
         private void RefreshList()
         {
             try
@@ -65,7 +148,6 @@ namespace QuickMon
             }
             LoadDetailView();
         }
-
         private string GetQIValue(ListViewItem lvi, QueryInstance queryInstance)
         {
             string results = "";
@@ -152,17 +234,6 @@ namespace QuickMon
             }
             return results;
         }
-
-        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
-        {
-            RefreshList();
-        }
-
-        private void lvwResults_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadDetailView();
-        }
-
         private void LoadDetailView()
         {
             lvwDetails.BeginUpdate();
@@ -173,7 +244,7 @@ namespace QuickMon
                 QueryInstance queryInstance = (QueryInstance)lvwResults.SelectedItems[0].Tag;
                 try
                 {
-                    
+
                     Cursor.Current = Cursors.WaitCursor;
                     DataSet ds = queryInstance.RunDetailQuery();
                     foreach (DataColumn currentDataColumn in ds.Tables[0].Columns)
@@ -216,107 +287,66 @@ namespace QuickMon
             lvwDetails.EndUpdate();
             exportToolStripButton.Enabled = lvwResults.SelectedItems.Count > 0;
         }
-
-        private void ShowDetails_Load(object sender, EventArgs e)
-        {
-            splitContainerDetails.Panel2Collapsed = true;
-        }
-
-        private void cmdViewDetails_Click(object sender, EventArgs e)
-        {
-            splitContainerDetails.Panel2Collapsed = !splitContainerDetails.Panel2Collapsed;
-            cmdViewDetails.Text = splitContainerDetails.Panel2Collapsed ? "ttt" : "uuu";
-        }
-
-        private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            timerSelectItem.Enabled = false;
-            if (lvwDetails.SelectedItems.Count > 0)
-                toolStripStatusLabelDetails.Text = lvwDetails.SelectedItems.Count.ToString() + " item(s) selected";
-            else
-                toolStripStatusLabelDetails.Text = "0 items selected";
-            timerSelectItem.Enabled = true;
-        }
-
-        private void timerSelectItem_Tick(object sender, EventArgs e)
-        {
-            timerSelectItem.Enabled = false;
-            DisplaySelectedItemDetails();
-        }
         private void DisplaySelectedItemDetails()
         {
             string oldStatusText = toolStripStatusLabelDetails.Text;
-            RTFBuilder rtfBuilder = new RTFBuilder();
-
-            //avoid cursor flickering when only a few items are selected
-            if (lvwDetails.SelectedItems.Count > MAXPREVIEWDISPLAYCOUNT)
-                Cursor.Current = Cursors.WaitCursor;
-            //have to limit the maximum number of selected items
-            foreach (ListViewItem lvi in (from ListViewItem l in lvwDetails.SelectedItems
-                                          select l).Take(MAXPREVIEWDISPLAYCOUNT))
-            {
-                for (int i = 0; i < lvwDetails.Columns.Count;i++ )
-                {
-                    rtfBuilder.FontStyle(FontStyle.Bold).Append(lvwDetails.Columns[i].Text + ": ").AppendLine(lvi.SubItems[i].Text);
-                }
-                rtfBuilder.FontStyle(FontStyle.Underline).AppendLine(new String(' ', 250));
-                rtfBuilder.AppendLine();
-            }
-            if (lvwDetails.SelectedItems.Count > MAXPREVIEWDISPLAYCOUNT)
-            {
-                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine(string.Format("Only first {0} entries shown...", MAXPREVIEWDISPLAYCOUNT));
-            }
-            else if (lvwDetails.SelectedItems.Count == 0)
-                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("No entries selected");
-            else
-            {
-                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine(string.Format("{0} entry(s)", lvwDetails.SelectedItems.Count));
-            }
-            rtxDetails.Rtf = rtfBuilder.ToString();
-            rtxDetails.SelectionStart = 0;
-            rtxDetails.SelectionLength = 0;
-            rtxDetails.ScrollToCaret();
-            Cursor.Current = Cursors.Default;
-            toolStripStatusLabelDetails.Text = oldStatusText;
-        }
-
-        private void exportToolStripButton_Click(object sender, EventArgs e)
-        {
             try
             {
-                if (lvwResults.SelectedItems.Count > 0)
+                RTFBuilder rtfBuilder = new RTFBuilder();
+
+                //avoid cursor flickering when only a few items are selected
+                //if (lvwDetails.SelectedItems.Count > MAXPREVIEWDISPLAYCOUNT)
+                    Cursor.Current = Cursors.WaitCursor;
+                //have to limit the maximum number of selected items
+                foreach (ListViewItem lvi in (from ListViewItem l in lvwDetails.SelectedItems
+                                              select l).Take(MAXPREVIEWDISPLAYCOUNT))
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(lvwDetails.Columns[0].Text);
-                    for (int i = 1; i < lvwDetails.Columns.Count; i++)
+                    for (int i = 0; i < lvwDetails.Columns.Count; i++)
                     {
-                        ColumnHeader h = lvwDetails.Columns[i];
-                        sb.Append("," + h.Text);
+                        rtfBuilder.FontStyle(FontStyle.Bold).Append(lvwDetails.Columns[i].Text + ": ").AppendLine(lvi.SubItems[i].Text);
                     }
-                    sb.AppendLine();
-                    foreach (ListViewItem lvi in lvwDetails.Items)
-                    {
-                        sb.Append(lvi.Text);
-                        for (int i = 1; i < lvwDetails.Columns.Count; i++)
-                        {
-                            if (lvi.SubItems[i].Text.Contains(','))
-                                sb.Append(",\"" + lvi.SubItems[i].Text + "\"");
-                            else
-                                sb.Append("," + lvi.SubItems[i].Text);
-                        }
-                        sb.AppendLine();
-                    }
-                    if (saveFileDialogCSV.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        System.IO.File.WriteAllText(saveFileDialogCSV.FileName, sb.ToString());
-                    }
+                    rtfBuilder.FontStyle(FontStyle.Underline).AppendLine(new String(' ', 250));
+                    rtfBuilder.AppendLine();
                 }
+                if (lvwDetails.SelectedItems.Count > MAXPREVIEWDISPLAYCOUNT)
+                {
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine(string.Format("Only first {0} entries shown...", MAXPREVIEWDISPLAYCOUNT));
+                }
+                else if (lvwDetails.SelectedItems.Count == 0)
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("No entries selected");
+                else
+                {
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine(string.Format("{0} entry(s)", lvwDetails.SelectedItems.Count));
+                }
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+                
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                toolStripStatusLabelDetails.Text = oldStatusText;
+            }
+            
+        } 
+        #endregion
+
+        #region Context menu events
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.Copy();
         }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.SelectAll();
+        } 
+        #endregion
 
     }
 }

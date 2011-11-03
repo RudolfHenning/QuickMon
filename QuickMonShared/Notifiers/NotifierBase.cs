@@ -10,7 +10,7 @@ namespace QuickMon
     {
         #region INotifier Members
         public abstract void RecordMessage(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage);
-        public abstract void OpenViewer();
+        public abstract void OpenViewer(string notifierName);
         #endregion
 
         #region IAgent Members

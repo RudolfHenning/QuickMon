@@ -80,7 +80,7 @@ namespace QuickMon
             return Properties.Resources.LogFileEmptyConfig_xml;
         }
         public override bool HasViewer { get { return true; } }
-        public override void OpenViewer()
+        public override void OpenViewer(string notifierName)
         {
             if (File.Exists(outputPath))
             {

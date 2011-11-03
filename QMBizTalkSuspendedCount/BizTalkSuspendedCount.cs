@@ -63,11 +63,11 @@ namespace QuickMon
 			return returnState;
 		}
 
-		public override void ShowStatusDetails()
+        public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
             showDetails.BizTalkGroup = bizTalkGroup;
-			//showDetails.CustomConfig = config;
+            showDetails.Text = "Show details - " + collectorName;
 			showDetails.ShowDetail();
 		}
 

@@ -89,8 +89,8 @@ namespace QuickMon
 				else if (okCount > 0 && errorCount > 0)
 					returnState = MonitorStates.Warning;
 
-                LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
-                LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+				LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
+				LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
 			}
 			catch (Exception ex)
 			{
@@ -104,10 +104,11 @@ namespace QuickMon
 			return returnState;
 		}
 
-		public override void ShowStatusDetails()
+		public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
-            showDetails.Services = services;
+			showDetails.Services = services;
+			showDetails.Text = "Show details - " + collectorName;
 			showDetails.ShowDetail();
 		}
 

@@ -62,15 +62,15 @@ namespace HenIT.Controls
             }
         }
 
-        public override ContextMenu ContextMenu
+        public override ContextMenuStrip ContextMenuStrip
         {
             get
             {
-                return richTextBox1.ContextMenu;
+                return richTextBox1.ContextMenuStrip;
             }
             set
             {
-                richTextBox1.ContextMenu = value;
+                richTextBox1.ContextMenuStrip = value;
                 
             }
         }
@@ -129,5 +129,24 @@ namespace HenIT.Controls
             set { richTextBox1.SelectionLength = value; }
         }
 
+        public void Copy()
+        {
+            BaseControl.Copy();
+        }
+
+        public void SelectAll()
+        {
+            BaseControl.SelectAll();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BaseControl.Copy();
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BaseControl.SelectAll();
+        }
     }
 }

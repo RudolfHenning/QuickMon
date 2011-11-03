@@ -183,7 +183,7 @@ namespace QuickMon
 
         public void ShowStatusDetails()
         {
-            Collector.ShowStatusDetails();
+            Collector.ShowStatusDetails(Name);
         }
 
         public override string ToString()
