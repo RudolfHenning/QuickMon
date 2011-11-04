@@ -614,10 +614,13 @@ namespace QuickMon
 			Type[] types = quickAsshehe.GetTypes();
 			foreach (Type type in types)
 			{
-				foreach (Type interfaceType in type.GetInterfaces())
+				if (!type.IsInterface && !type.IsAbstract)
 				{
-					if (interfaceType.FullName == "QuickMon.IAgent")
-						yield return type.FullName;
+					foreach (Type interfaceType in type.GetInterfaces())
+					{
+						if (interfaceType.FullName == "QuickMon.IAgent")
+							yield return type.FullName;
+					}
 				}
 			}
 		} 

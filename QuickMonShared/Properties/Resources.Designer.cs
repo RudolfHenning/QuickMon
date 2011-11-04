@@ -114,6 +114,13 @@ namespace QuickMon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap down {
+            get {
+                object obj = ResourceManager.GetObject("down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder_doc {
             get {
                 object obj = ResourceManager.GetObject("folder_doc", resourceCulture);
@@ -129,7 +136,7 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;monitorPack name=&quot;{0}&quot; enabled=&quot;{1}&quot; agentRegistrationFile=&quot;{2}&quot; defaultViewerNotifier=&quot;{3}&quot;&gt;
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;2.5&quot; name=&quot;{0}&quot; enabled=&quot;{1}&quot; agentRegistrationPath=&quot;{2}&quot; defaultViewerNotifier=&quot;{3}&quot;&gt;
         ///  &lt;collectorEntries&gt;
         ///    {4}
         ///  &lt;/collectorEntries&gt;
@@ -173,6 +180,13 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap stop {
             get {
                 object obj = ResourceManager.GetObject("stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap up {
+            get {
+                object obj = ResourceManager.GetObject("up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

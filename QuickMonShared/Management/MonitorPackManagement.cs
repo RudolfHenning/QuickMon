@@ -132,6 +132,15 @@ namespace QuickMon.Management
                 if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
                     monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
+                    if (editCollectorEntry.SelectedEntry.ParentCollectorId != null && editCollectorEntry.SelectedEntry.ParentCollectorId.Length > 0)
+                    {
+                        TreeNode collectorRootNode = (from TreeNode n in tvwMonPack.Nodes[0].Nodes
+                                                  where n.Name == "Collectors"
+                                                  select n).First();
+                        currentNode = SelectCollectorNodeById(editCollectorEntry.SelectedEntry.ParentCollectorId, collectorRootNode);
+                        if (currentNode == null)
+                            currentNode = collectorRootNode; //should never happen really but if...
+                    }
                     LoadCollectorEntry(editCollectorEntry.SelectedEntry, currentNode);
                     currentNode.Expand();
                 }
@@ -364,7 +373,6 @@ namespace QuickMon.Management
         {
             if (!backgroundWorkerNodeSelection.IsBusy)
             {
-                EnableContextMenus();
                 backgroundWorkerNodeSelection.RunWorkerAsync();
             }
         }
@@ -408,6 +416,10 @@ namespace QuickMon.Management
                     {
                         oldParent.Nodes.Remove(dragNode);
                         oldParent.Nodes.Add(dragNode);
+                    }
+                    else if (oldParent.Parent.Text == "Monitor Pack Agent Instances")
+                    {
+                        //do nothing
                     }
                     else //append to parent's parent
                     {
@@ -603,24 +615,19 @@ namespace QuickMon.Management
         private void EnableContextMenus()
         {            
             TreeNode currentNode = tvwMonPack.SelectedNode;
+            bool hasAgents = monitorPack.AgentRegistrations.Count > 0 && monitorPack.AgentsAssemblyPath.Length > 0;
+            bool canAdd = false;
+            bool canRemove = false;
+            bool canConfig = false;
+            bool canMoveUp = false;
+            bool canMoveDown = false;
             if (currentNode != null)
             {
-                bool hasAgents = monitorPack.AgentRegistrations.Count > 0 && monitorPack.AgentsAssemblyPath.Length > 0;
-                bool canAdd = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == collectorRootImgIndex || currentNode.ImageIndex == notifierRootImgIndex || currentNode.ImageIndex == folderImgIndex;
-                bool canRemove = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex;
-                bool canConfig = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex; //|| currentNode.ImageIndex == collectorRootImgIndex
-                bool canMoveUp = (currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex) && currentNode.Parent.FirstNode != currentNode || currentNode.ImageIndex == folderImgIndex;
-                bool canMoveDown = (currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex) && currentNode.Parent.LastNode != currentNode || currentNode.ImageIndex == folderImgIndex;
-
-                toolStripButtonAdd.Enabled = canAdd && hasAgents;
-                addToolStripMenuItem.Enabled = canAdd && hasAgents;
-                toolStripButtonRemove.Enabled = canRemove && hasAgents;
-                removeToolStripMenuItem.Enabled = canRemove && hasAgents;
-                toolStripButtonConfigure.Enabled = canConfig && hasAgents;
-                configureToolStripMenuItem.Enabled = canConfig && hasAgents;
-
-                moveUpToolStripMenuItem.Enabled = canMoveUp && hasAgents;
-                moveDownToolStripMenuItem.Enabled = canMoveDown && hasAgents;
+                canAdd = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == collectorRootImgIndex || currentNode.ImageIndex == notifierRootImgIndex || currentNode.ImageIndex == folderImgIndex;
+                canRemove = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex;
+                canConfig = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex; //|| currentNode.ImageIndex == collectorRootImgIndex
+                canMoveUp = (currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex) && currentNode.Parent.FirstNode != currentNode;
+                canMoveDown = (currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == notifierImgIndex || currentNode.ImageIndex == folderImgIndex) && currentNode.Parent.LastNode != currentNode;
 
                 if (currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == folderImgIndex)
                 {
@@ -637,6 +644,18 @@ namespace QuickMon.Management
             }
             else
                 enableToolStripMenuItem.Visible = false;
+
+            toolStripButtonAdd.Enabled = canAdd && hasAgents;
+            addToolStripMenuItem.Enabled = canAdd && hasAgents;
+            toolStripButtonRemove.Enabled = canRemove && hasAgents;
+            removeToolStripMenuItem.Enabled = canRemove && hasAgents;
+            toolStripButtonConfigure.Enabled = canConfig && hasAgents;
+            configureToolStripMenuItem.Enabled = canConfig && hasAgents;
+
+            moveUpToolStripMenuItem.Enabled = canMoveUp && hasAgents;
+            moveUpToolStripButton.Enabled = canMoveUp && hasAgents;
+            moveDownToolStripMenuItem.Enabled = canMoveDown && hasAgents;
+            moveDownToolStripButton.Enabled = canMoveDown && hasAgents;
         }
         private void EnableOKButton()
         {
@@ -654,8 +673,8 @@ namespace QuickMon.Management
                 });
             }
             catch { }
-        }        
-        private void SelectCollectorNodeById(string uniqueId, TreeNode parentNode)
+        }
+        private TreeNode SelectCollectorNodeById(string uniqueId, TreeNode parentNode)
         {
             foreach (TreeNode collectorNode in parentNode.Nodes)
             {
@@ -663,13 +682,16 @@ namespace QuickMon.Management
                 {
                     tvwMonPack.SelectedNode = collectorNode;
                     collectorNode.EnsureVisible();
-                    return;
+                    return collectorNode;
                 }
                 else
                 {
-                    SelectCollectorNodeById(uniqueId, collectorNode);
+                    TreeNode n = SelectCollectorNodeById(uniqueId, collectorNode);
+                    if (n != null)
+                        return n;
                 }
             }
+            return null;
         }
         private void RemoveCollector(TreeNode parentNode)
         {

@@ -201,6 +201,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\up.png" />
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -221,6 +222,7 @@
     <None Include="Resources\folder_doc.png" />
     <None Include="Resources\DISK04.ICO" />
     <None Include="Resources\folder_favor.png" />
+    <None Include="Resources\down.png" />
     <Content Include="Resources\MonitorPack.xml">
       <SubType>Designer</SubType>
     </Content>

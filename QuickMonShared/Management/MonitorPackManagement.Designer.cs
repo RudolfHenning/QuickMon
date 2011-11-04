@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorPackManagement));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors", 4, 4);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Notifiers", 5, 5);
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Monitor Pack Agent Instances", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorPackManagement));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
@@ -44,7 +44,9 @@
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonConfigure = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemove = new System.Windows.Forms.ToolStripButton();
-            this.tvwMonPack = new QuickMon.TreeViewEx();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +76,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cboDefaultViewerNotifier = new System.Windows.Forms.ComboBox();
+            this.tvwMonPack = new QuickMon.TreeViewEx();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -91,7 +94,10 @@
             this.toolStripSeparator1,
             this.toolStripButtonAdd,
             this.toolStripButtonConfigure,
-            this.toolStripButtonRemove});
+            this.toolStripButtonRemove,
+            this.toolStripSeparator2,
+            this.moveUpToolStripButton,
+            this.moveDownToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(498, 39);
@@ -179,43 +185,32 @@
             this.toolStripButtonRemove.Text = "Remove";
             this.toolStripButtonRemove.Click += new System.EventHandler(this.toolStripButtonRemove_Click);
             // 
-            // tvwMonPack
+            // toolStripSeparator2
             // 
-            this.tvwMonPack.AllowDrop = true;
-            this.tvwMonPack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvwMonPack.ContextMenuStrip = this.contextMenuStrip1;
-            this.tvwMonPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwMonPack.HideSelection = false;
-            this.tvwMonPack.ImageIndex = 0;
-            this.tvwMonPack.ImageList = this.imageList1;
-            this.tvwMonPack.Location = new System.Drawing.Point(0, 95);
-            this.tvwMonPack.Name = "tvwMonPack";
-            treeNode1.ImageIndex = 4;
-            treeNode1.Name = "Collectors";
-            treeNode1.SelectedImageIndex = 4;
-            treeNode1.Text = "Collectors";
-            treeNode2.ImageIndex = 5;
-            treeNode2.Name = "Notifiers";
-            treeNode2.SelectedImageIndex = 5;
-            treeNode2.Text = "Notifiers";
-            treeNode3.Name = "MonitorPackNode";
-            treeNode3.Text = "Monitor Pack Agent Instances";
-            this.tvwMonPack.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            this.tvwMonPack.SelectedImageIndex = 0;
-            this.tvwMonPack.ShowRootLines = false;
-            this.tvwMonPack.Size = new System.Drawing.Size(498, 266);
-            this.tvwMonPack.TabIndex = 7;
-            this.tvwMonPack.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwMonPack_EnterKeyPressed);
-            this.tvwMonPack.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwMonPack_DeleteKeyPressed);
-            this.tvwMonPack.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvwMonPack_AfterCollapse);
-            this.tvwMonPack.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvwMonPack_ItemDrag);
-            this.tvwMonPack.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwMonPack_AfterSelect);
-            this.tvwMonPack.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragDrop);
-            this.tvwMonPack.DragOver += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragOver);
-            this.tvwMonPack.DoubleClick += new System.EventHandler(this.tvwMonPack_DoubleClick);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            // 
+            // moveUpToolStripButton
+            // 
+            this.moveUpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpToolStripButton.Enabled = false;
+            this.moveUpToolStripButton.Image = global::QuickMon.Properties.Resources.up;
+            this.moveUpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpToolStripButton.Name = "moveUpToolStripButton";
+            this.moveUpToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.moveUpToolStripButton.Text = "Move down";
+            this.moveUpToolStripButton.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
+            // 
+            // moveDownToolStripButton
+            // 
+            this.moveDownToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownToolStripButton.Enabled = false;
+            this.moveDownToolStripButton.Image = global::QuickMon.Properties.Resources.down;
+            this.moveDownToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownToolStripButton.Name = "moveDownToolStripButton";
+            this.moveDownToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.moveDownToolStripButton.Text = "Move down";
+            this.moveDownToolStripButton.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -229,14 +224,14 @@
             this.moveDownToolStripMenuItem,
             this.monitorPackToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 186);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 164);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Enabled = false;
             this.addToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
             // 
@@ -246,7 +241,7 @@
             this.configureToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.configureToolStripMenuItem.Image = global::QuickMon.Properties.Resources.project;
             this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-            this.configureToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.configureToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.configureToolStripMenuItem.Text = "Configure";
             this.configureToolStripMenuItem.Click += new System.EventHandler(this.configureToolStripMenuItem_Click);
             // 
@@ -255,14 +250,14 @@
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRemove_Click);
             // 
             // enableToolStripMenuItem
             // 
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
-            this.enableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.enableToolStripMenuItem.Text = "Enable";
             this.enableToolStripMenuItem.Visible = false;
             this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
@@ -270,13 +265,13 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 6);
             // 
             // moveUpToolStripMenuItem
             // 
             this.moveUpToolStripMenuItem.Enabled = false;
             this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.moveUpToolStripMenuItem.Text = "Move up";
             this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
             // 
@@ -284,7 +279,7 @@
             // 
             this.moveDownToolStripMenuItem.Enabled = false;
             this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.moveDownToolStripMenuItem.Text = "Move down";
             this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
@@ -296,7 +291,7 @@
             this.recentToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.monitorPackToolStripMenuItem.Name = "monitorPackToolStripMenuItem";
-            this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.monitorPackToolStripMenuItem.Text = "Monitor pack";
             // 
             // newToolStripMenuItem
@@ -389,9 +384,9 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(134, 42);
+            this.txtName.Location = new System.Drawing.Point(86, 42);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(281, 20);
+            this.txtName.Size = new System.Drawing.Size(329, 20);
             this.txtName.TabIndex = 2;
             // 
             // chkEnabled
@@ -412,10 +407,10 @@
             // 
             this.txtAgentsRegistrationFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAgentsRegistrationFile.Location = new System.Drawing.Point(134, 68);
+            this.txtAgentsRegistrationFile.Location = new System.Drawing.Point(86, 68);
             this.txtAgentsRegistrationFile.Name = "txtAgentsRegistrationFile";
             this.txtAgentsRegistrationFile.ReadOnly = true;
-            this.txtAgentsRegistrationFile.Size = new System.Drawing.Size(313, 20);
+            this.txtAgentsRegistrationFile.Size = new System.Drawing.Size(361, 20);
             this.txtAgentsRegistrationFile.TabIndex = 5;
             // 
             // label2
@@ -423,9 +418,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 13);
+            this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Registered Agents Path:";
+            this.label2.Text = "Agents Path:";
             // 
             // cmdBrowse
             // 
@@ -484,6 +479,44 @@
             this.cboDefaultViewerNotifier.Name = "cboDefaultViewerNotifier";
             this.cboDefaultViewerNotifier.Size = new System.Drawing.Size(199, 21);
             this.cboDefaultViewerNotifier.TabIndex = 9;
+            // 
+            // tvwMonPack
+            // 
+            this.tvwMonPack.AllowDrop = true;
+            this.tvwMonPack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvwMonPack.ContextMenuStrip = this.contextMenuStrip1;
+            this.tvwMonPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwMonPack.HideSelection = false;
+            this.tvwMonPack.ImageIndex = 0;
+            this.tvwMonPack.ImageList = this.imageList1;
+            this.tvwMonPack.Location = new System.Drawing.Point(0, 95);
+            this.tvwMonPack.Name = "tvwMonPack";
+            treeNode1.ImageIndex = 4;
+            treeNode1.Name = "Collectors";
+            treeNode1.SelectedImageIndex = 4;
+            treeNode1.Text = "Collectors";
+            treeNode2.ImageIndex = 5;
+            treeNode2.Name = "Notifiers";
+            treeNode2.SelectedImageIndex = 5;
+            treeNode2.Text = "Notifiers";
+            treeNode3.Name = "MonitorPackNode";
+            treeNode3.Text = "Monitor Pack Agent Instances";
+            this.tvwMonPack.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            this.tvwMonPack.SelectedImageIndex = 0;
+            this.tvwMonPack.ShowRootLines = false;
+            this.tvwMonPack.Size = new System.Drawing.Size(498, 266);
+            this.tvwMonPack.TabIndex = 7;
+            this.tvwMonPack.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwMonPack_EnterKeyPressed);
+            this.tvwMonPack.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwMonPack_DeleteKeyPressed);
+            this.tvwMonPack.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvwMonPack_AfterCollapse);
+            this.tvwMonPack.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvwMonPack_ItemDrag);
+            this.tvwMonPack.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwMonPack_AfterSelect);
+            this.tvwMonPack.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragDrop);
+            this.tvwMonPack.DragOver += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragOver);
+            this.tvwMonPack.DoubleClick += new System.EventHandler(this.tvwMonPack_DoubleClick);
             // 
             // MonitorPackManagement
             // 
@@ -561,5 +594,8 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton moveUpToolStripButton;
+        private System.Windows.Forms.ToolStripButton moveDownToolStripButton;
     }
 }
