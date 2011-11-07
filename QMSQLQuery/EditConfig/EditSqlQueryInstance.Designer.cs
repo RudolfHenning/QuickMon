@@ -47,7 +47,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelQueryTips = new System.Windows.Forms.LinkLabel();
-            this.txtStateQuery = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -61,12 +60,13 @@
             this.chkUseSPForSummary = new System.Windows.Forms.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.txtDetailQuery = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.chkUseSPForDetail = new System.Windows.Forms.CheckBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdTest = new System.Windows.Forms.Button();
+            this.txtDetailQuery = new System.Windows.Forms.TextBox();
+            this.txtStateQuery = new System.Windows.Forms.TextBox();
             this.tabControlConfig.SuspendLayout();
             this.tabPageConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCmndTimeOut)).BeginInit();
@@ -255,8 +255,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.linkLabelQueryTips);
             this.tabPage2.Controls.Add(this.txtStateQuery);
+            this.tabPage2.Controls.Add(this.linkLabelQueryTips);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.chkUseRowCountAsValue);
             this.tabPage2.Controls.Add(this.label9);
@@ -285,19 +285,6 @@
             this.linkLabelQueryTips.TabStop = true;
             this.linkLabelQueryTips.Text = "click here to see query tips and restrictions";
             this.linkLabelQueryTips.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelQueryTips_LinkClicked);
-            // 
-            // txtStateQuery
-            // 
-            this.txtStateQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtStateQuery.Location = new System.Drawing.Point(9, 42);
-            this.txtStateQuery.Multiline = true;
-            this.txtStateQuery.Name = "txtStateQuery";
-            this.txtStateQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStateQuery.Size = new System.Drawing.Size(587, 152);
-            this.txtStateQuery.TabIndex = 3;
-            this.txtStateQuery.Text = "SELECT * FROM SomeTable";
             // 
             // label8
             // 
@@ -434,8 +421,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.linkLabel1);
             this.tabPage1.Controls.Add(this.txtDetailQuery);
+            this.tabPage1.Controls.Add(this.linkLabel1);
             this.tabPage1.Controls.Add(this.label12);
             this.tabPage1.Controls.Add(this.chkUseSPForDetail);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -455,19 +442,6 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "click here to see query tips and restrictions";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelQueryTips_LinkClicked);
-            // 
-            // txtDetailQuery
-            // 
-            this.txtDetailQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetailQuery.Location = new System.Drawing.Point(9, 42);
-            this.txtDetailQuery.Multiline = true;
-            this.txtDetailQuery.Name = "txtDetailQuery";
-            this.txtDetailQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDetailQuery.Size = new System.Drawing.Size(587, 209);
-            this.txtDetailQuery.TabIndex = 2;
-            this.txtDetailQuery.Text = "SELECT * FROM SomeTable";
             // 
             // label12
             // 
@@ -525,6 +499,27 @@
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
+            // txtDetailQuery
+            // 
+            this.txtDetailQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDetailQuery.Location = new System.Drawing.Point(6, 42);
+            this.txtDetailQuery.Multiline = true;
+            this.txtDetailQuery.Name = "txtDetailQuery";
+            this.txtDetailQuery.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDetailQuery.Size = new System.Drawing.Size(590, 209);
+            this.txtDetailQuery.TabIndex = 4;
+            // 
+            // txtStateQuery
+            // 
+            this.txtStateQuery.Location = new System.Drawing.Point(9, 42);
+            this.txtStateQuery.Multiline = true;
+            this.txtStateQuery.Name = "txtStateQuery";
+            this.txtStateQuery.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtStateQuery.Size = new System.Drawing.Size(587, 152);
+            this.txtStateQuery.TabIndex = 3;
+            // 
             // EditSqlQueryInstance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -543,6 +538,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Sql Query Instance";
             this.Load += new System.EventHandler(this.EditSqlQueryInstance_Load);
+            this.Shown += new System.EventHandler(this.EditSqlQueryInstance_Shown);
             this.tabControlConfig.ResumeLayout(false);
             this.tabPageConnection.ResumeLayout(false);
             this.tabPageConnection.PerformLayout();
@@ -581,7 +577,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.CheckBox chkUseSPForSummary;
         private System.Windows.Forms.CheckBox chkUseSPForDetail;
-        private System.Windows.Forms.TextBox txtStateQuery;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chkUseRowCountAsValue;
         private System.Windows.Forms.Label label9;
@@ -592,9 +587,10 @@
         private System.Windows.Forms.CheckBox chkReturnValueNotInverted;
         private System.Windows.Forms.ComboBox cboWarningValue;
         private System.Windows.Forms.ComboBox cboSuccessValue;
-        private System.Windows.Forms.TextBox txtDetailQuery;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.LinkLabel linkLabelQueryTips;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.TextBox txtDetailQuery;
+        private System.Windows.Forms.TextBox txtStateQuery;
     }
 }

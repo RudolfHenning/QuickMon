@@ -91,9 +91,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventLog", "EventLog", "{95
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMEventLog", "QMEventLog\QMEventLog.csproj", "{5B7EC7DD-E40C-4577-8308-666B5B0253A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third Party Controls", "Third Party Controls", "{8F816A92-8E8D-4F30-9253-4C916E70B28B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastColoredTextBox", "Third Party Controls\FastColoredTextBox\FastColoredTextBox.csproj", "{6DD14A85-CCFC-4774-BD26-0F5772512319}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 25
+		SccNumberOfProjects = 26
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -188,6 +192,10 @@ Global
 		SccProjectTopLevelParentUniqueName24 = QuickMon.sln
 		SccProjectName24 = QMEventLog
 		SccLocalPath24 = QMEventLog
+		SccProjectUniqueName25 = Third\u0020Party\u0020Controls\\FastColoredTextBox\\FastColoredTextBox.csproj
+		SccProjectTopLevelParentUniqueName25 = QuickMon.sln
+		SccProjectName25 = Third\u0020Party\u0020Controls/FastColoredTextBox
+		SccLocalPath25 = Third\u0020Party\u0020Controls\\FastColoredTextBox
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -433,6 +441,16 @@ Global
 		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5B7EC7DD-E40C-4577-8308-666B5B0253A5}.Release|x86.ActiveCfg = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -474,6 +492,7 @@ Global
 		{D1682B7F-58C6-441E-8C84-ED64676AC3B5} = {079FB1E6-16C6-4594-B744-641E75196181}
 		{588C5B41-B919-4C98-A3AE-51BCD5C4EB3D} = {5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506}
 		{5B7EC7DD-E40C-4577-8308-666B5B0253A5} = {95B81387-EBF2-4901-BA0B-D27235238D29}
+		{6DD14A85-CCFC-4774-BD26-0F5772512319} = {8F816A92-8E8D-4F30-9253-4C916E70B28B}
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2

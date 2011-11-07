@@ -1,0 +1,3 @@
+﻿This control is used with permission from Pavel Torgashov 
+
+http://www.codeproject.com/KB/edit/FastColoredTextBox_.aspx

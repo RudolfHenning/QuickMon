@@ -38,6 +38,7 @@ namespace QuickMon
             }
         }
 
+        #region Form events
         private void EditSqlQueryInstance_Load(object sender, EventArgs e)
         {
             if (SelectedQueryInstance == null)
@@ -50,7 +51,7 @@ namespace QuickMon
             txtPassword.Text = SelectedQueryInstance.Password;
             numericUpDownCmndTimeOut.Value = SelectedQueryInstance.CmndTimeOut;
             chkUseSPForSummary.Checked = SelectedQueryInstance.UseSPForSummary;
-            txtStateQuery.Text = SelectedQueryInstance.SummaryQuery;
+
             chkIsReturnValueInt.Checked = SelectedQueryInstance.ReturnValueIsNumber;
             chkReturnValueNotInverted.Checked = !SelectedQueryInstance.ReturnValueInverted;
             chkUseRowCountAsValue.Checked = SelectedQueryInstance.UseRowCountAsValue;
@@ -58,9 +59,18 @@ namespace QuickMon
             cboWarningValue.Text = SelectedQueryInstance.WarningValue;
             cboErrorValue.Text = SelectedQueryInstance.ErrorValue;
             chkUseSPForDetail.Checked = SelectedQueryInstance.UseSPForDetail;
-            txtDetailQuery.Text = SelectedQueryInstance.DetailQuery;
-        }
 
+        }
+        private void EditSqlQueryInstance_Shown(object sender, EventArgs e)
+        {
+            txtStateQuery.Text = "";
+            txtStateQuery.Text = SelectedQueryInstance.SummaryQuery;
+            txtDetailQuery.Text = SelectedQueryInstance.DetailQuery;
+            //txtStateQuery.Language = Language.SQL;
+        } 
+        #endregion
+
+        #region Checkbox events
         private void chkIntegratedSec_CheckedChanged(object sender, EventArgs e)
         {
             txtUserName.ReadOnly = chkIntegratedSec.Checked;
@@ -70,8 +80,10 @@ namespace QuickMon
         {
             chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
             chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
-        }
+        } 
+        #endregion
 
+        #region Button click events
         private void cmdTest_Click(object sender, EventArgs e)
         {
             if (DoValidate())
@@ -161,8 +173,10 @@ namespace QuickMon
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
-        }
+        } 
+        #endregion
 
+        #region Private methods
         private bool DoValidate()
         {
             try
@@ -264,6 +278,8 @@ namespace QuickMon
                 return true;
             else
                 return false;
-        }
+        } 
+        #endregion
+        
     }
 }
