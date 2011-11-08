@@ -107,6 +107,9 @@ namespace FastColoredTextBoxNS
 
         internal static void InsertLine(FastColoredTextBox tb)
         {
+            if (!tb.Multiline && tb.LinesCount > 0)
+                return;
+
             if (tb.LinesCount == 0)
                 tb.InsertLine(tb.Selection.Start.iLine + 1, new Line(tb.GenerateUniqueLineId()));
             else

@@ -280,6 +280,37 @@ namespace QuickMon
                 return false;
         } 
         #endregion
+
+        #region Context menus
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl.Name == "txtStateQuery")
+                txtStateQuery.Cut();
+            else if (this.ActiveControl.Name == "txtDetailQuery")
+                txtDetailQuery.Cut();
+        }
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl.Name == "txtStateQuery")
+                txtStateQuery.Copy();
+            else if (this.ActiveControl.Name == "txtDetailQuery")
+                txtDetailQuery.Copy();
+        }
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl.Name == "txtStateQuery")
+                txtStateQuery.Paste();
+            else if (this.ActiveControl.Name == "txtDetailQuery")
+                txtDetailQuery.Paste();
+        }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl.Name == "txtStateQuery")
+                txtStateQuery.SelectAll();
+            else if (this.ActiveControl.Name == "txtDetailQuery")
+                txtDetailQuery.SelectAll();
+        } 
+        #endregion
         
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditSqlQueryInstance));
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -65,13 +66,20 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdTest = new System.Windows.Forms.Button();
-            this.txtDetailQuery = new System.Windows.Forms.TextBox();
-            this.txtStateQuery = new System.Windows.Forms.TextBox();
+            this.txtStateQuery = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.contextMenuStripSqlEdit = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtDetailQuery = new FastColoredTextBoxNS.FastColoredTextBox();
             this.tabControlConfig.SuspendLayout();
             this.tabPageConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCmndTimeOut)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.contextMenuStripSqlEdit.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -499,26 +507,83 @@
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
+            // txtStateQuery
+            // 
+            this.txtStateQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(25, 15);
+            this.txtStateQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtStateQuery.ContextMenuStrip = this.contextMenuStripSqlEdit;
+            this.txtStateQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtStateQuery.HighlightingRangeType = FastColoredTextBoxNS.HighlightingRangeType.AllTextRange;
+            this.txtStateQuery.Language = FastColoredTextBoxNS.Language.SQL;
+            this.txtStateQuery.Location = new System.Drawing.Point(9, 42);
+            this.txtStateQuery.Name = "txtStateQuery";
+            this.txtStateQuery.PreferredLineWidth = 0;
+            this.txtStateQuery.Size = new System.Drawing.Size(587, 152);
+            this.txtStateQuery.TabIndex = 13;
+            // 
+            // contextMenuStripSqlEdit
+            // 
+            this.contextMenuStripSqlEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cutToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.selectAllToolStripMenuItem});
+            this.contextMenuStripSqlEdit.Name = "contextMenuStripSqlEdit";
+            this.contextMenuStripSqlEdit.Size = new System.Drawing.Size(129, 98);
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.cutToolStripMenuItem.Text = "C&ut";
+            this.cutToolStripMenuItem.Click += new System.EventHandler(this.cutToolStripMenuItem_Click);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.pasteToolStripMenuItem.Text = "P&aste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(125, 6);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
             // txtDetailQuery
             // 
             this.txtDetailQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetailQuery.Location = new System.Drawing.Point(6, 42);
-            this.txtDetailQuery.Multiline = true;
+            this.txtDetailQuery.AutoScrollMinSize = new System.Drawing.Size(25, 15);
+            this.txtDetailQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDetailQuery.ContextMenuStrip = this.contextMenuStripSqlEdit;
+            this.txtDetailQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtDetailQuery.HighlightingRangeType = FastColoredTextBoxNS.HighlightingRangeType.AllTextRange;
+            this.txtDetailQuery.Language = FastColoredTextBoxNS.Language.SQL;
+            this.txtDetailQuery.Location = new System.Drawing.Point(9, 42);
             this.txtDetailQuery.Name = "txtDetailQuery";
-            this.txtDetailQuery.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDetailQuery.Size = new System.Drawing.Size(590, 209);
-            this.txtDetailQuery.TabIndex = 4;
-            // 
-            // txtStateQuery
-            // 
-            this.txtStateQuery.Location = new System.Drawing.Point(9, 42);
-            this.txtStateQuery.Multiline = true;
-            this.txtStateQuery.Name = "txtStateQuery";
-            this.txtStateQuery.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtStateQuery.Size = new System.Drawing.Size(587, 152);
-            this.txtStateQuery.TabIndex = 3;
+            this.txtDetailQuery.PreferredLineWidth = 0;
+            this.txtDetailQuery.Size = new System.Drawing.Size(587, 209);
+            this.txtDetailQuery.TabIndex = 14;
             // 
             // EditSqlQueryInstance
             // 
@@ -547,6 +612,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.contextMenuStripSqlEdit.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -590,7 +656,13 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.LinkLabel linkLabelQueryTips;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.TextBox txtDetailQuery;
-        private System.Windows.Forms.TextBox txtStateQuery;
+        private FastColoredTextBoxNS.FastColoredTextBox txtStateQuery;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripSqlEdit;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private FastColoredTextBoxNS.FastColoredTextBox txtDetailQuery;
     }
 }

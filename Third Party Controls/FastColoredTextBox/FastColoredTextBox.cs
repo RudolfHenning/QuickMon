@@ -36,6 +36,8 @@ namespace FastColoredTextBoxNS
         internal readonly CommandManager manager = new CommandManager();
         Keys lastModifiers;
         bool wordWrap;
+        bool scrollBars;
+        bool multiline;
         WordWrapMode wordWrapMode = WordWrapMode.WordWrapControlWidth;
         int wordWrapLinesCount;
         Range selection;
@@ -606,6 +608,8 @@ namespace FastColoredTextBoxNS
                 AutoIndent = true;
                 CommentPrefix = "//";
                 lineNumberStartValue = 1;
+                multiline = true;
+                scrollBars = true;
                 //
                 base.AutoScroll = true;
                 timer.Tick += new EventHandler(timer_Tick);
@@ -826,6 +830,53 @@ namespace FastColoredTextBoxNS
             set
             {
                 base.BackColor = value;
+            }
+        }
+
+        [Browsable(true)]
+        [DefaultValue(true)]
+        [Description("Scollbars visibility.")]
+        public bool ShowScrollBars
+        {
+            get { return scrollBars; }
+            set
+            {
+                if (value == scrollBars) return;
+                scrollBars = value;
+                needRecalc = true;
+                Invalidate();
+            }
+
+        }
+
+        /// <summary>
+        /// Multiline.
+        /// </summary>
+        [Browsable(true)]
+        [DefaultValue(true)]
+        [Description("Multiline mode.")]
+        public bool Multiline
+        {
+            get { return multiline; }
+            set
+            {
+                if (multiline == value) return;
+                multiline = value;
+                needRecalc = true;
+                if (multiline)
+                {
+                    base.AutoScroll = true;
+                    ShowScrollBars = true;
+                }
+                else
+                {
+                    base.AutoScroll = false;
+                    ShowScrollBars = false;
+                    if (lines.Count > 1)
+                        lines.RemoveRange(1, lines.Count - 1);
+                    manager.ClearHistory();
+                }
+                Invalidate();
             }
         }
 
@@ -1539,6 +1590,32 @@ namespace FastColoredTextBoxNS
             AutoScrollMinSize = new Size(minWidth, wordWrapLinesCount * CharHeight + TopIndent);
         }
 
+        private new Size AutoScrollMinSize
+        {
+            set {
+                if (scrollBars)
+                {
+                        base.AutoScroll = true;
+                        base.AutoScrollMinSize = value;
+                }else
+                {
+                        base.AutoScroll = false;
+                        base.AutoScrollMinSize = new Size(0, 0);
+                        VerticalScroll.Visible = false;
+                        HorizontalScroll.Visible = false;
+                        HorizontalScroll.Maximum = value.Width;
+                        VerticalScroll.Maximum = value.Height;
+                }
+            }
+
+            get {
+                if (scrollBars)
+                    return base.AutoScrollMinSize;
+                else
+                    return new Size(HorizontalScroll.Maximum, VerticalScroll.Maximum);
+            }
+        }
+
         private void RecalcWordWrap(int fromLine, int toLine)
         {
             int maxCharsPerLine = 0;
@@ -1604,6 +1681,9 @@ namespace FastColoredTextBoxNS
                 if (rect.Left < LeftIndent)
                     h += rect.Left - LeftIndent;
             //
+            if (!Multiline)
+                v = 0;
+            //
             try
             {
                 VerticalScroll.Value = Math.Max(0,v);
@@ -1611,9 +1691,12 @@ namespace FastColoredTextBoxNS
             }
             catch (ArgumentOutOfRangeException) { ;}
 
-            //some magic for update scrolls
-            AutoScrollMinSize -= new Size(1, 0);
-            AutoScrollMinSize += new Size(1, 0);
+            if (ShowScrollBars)
+            {
+                //some magic for update scrolls
+                base.AutoScrollMinSize -= new Size(1, 0);
+                base.AutoScrollMinSize += new Size(1, 0);
+            }
             //
             if (oldV != VerticalScroll.Value)
                 OnVisibleRangeChanged();
@@ -2732,6 +2815,7 @@ namespace FastColoredTextBoxNS
                         updatingRange.Start = new Place(0, args.ChangedRange.Start.iLine);
                     if (updatingRange.End.iLine < args.ChangedRange.End.iLine)
                         updatingRange.End = new Place(lines[args.ChangedRange.End.iLine].Count, args.ChangedRange.End.iLine);
+                    updatingRange = updatingRange.GetIntersectionWith(Range);
                 }
                 return;
             }
@@ -3362,6 +3446,8 @@ namespace FastColoredTextBoxNS
                 //select folded block
                 int iStart = (marker as FoldedAreaMarker).iLine;
                 int iEnd = FindEndOfFoldingBlock(iStart);
+                if (iEnd < 0)
+                    return;
                 Selection.BeginUpdate();
                 Selection.Start = new Place(0, iStart);
                 Selection.End = new Place(lines[iEnd].Count, iEnd);

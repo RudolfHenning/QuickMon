@@ -107,6 +107,10 @@
       <Project>{0965B8A3-8DB0-43CB-ADB4-8FE4BF0E3FC3}</Project>
       <Name>QuickMonShared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Third Party Controls\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6DD14A85-CCFC-4774-BD26-0F5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
