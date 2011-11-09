@@ -47,6 +47,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.moveUpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.moveDownToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.infoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +99,9 @@
             this.toolStripButtonRemove,
             this.toolStripSeparator2,
             this.moveUpToolStripButton,
-            this.moveDownToolStripButton});
+            this.moveDownToolStripButton,
+            this.toolStripSeparator3,
+            this.infoToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(498, 39);
@@ -211,6 +215,22 @@
             this.moveDownToolStripButton.Size = new System.Drawing.Size(36, 36);
             this.moveDownToolStripButton.Text = "Move down";
             this.moveDownToolStripButton.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
+            // 
+            // infoToolStripButton
+            // 
+            this.infoToolStripButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.infoToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.infoToolStripButton.Image = global::QuickMon.Properties.Resources.info;
+            this.infoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.infoToolStripButton.Name = "infoToolStripButton";
+            this.infoToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.infoToolStripButton.Text = "toolStripButton1";
+            this.infoToolStripButton.Click += new System.EventHandler(this.infoToolStripButton_Click);
             // 
             // contextMenuStrip1
             // 
@@ -597,5 +617,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton moveUpToolStripButton;
         private System.Windows.Forms.ToolStripButton moveDownToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton infoToolStripButton;
     }
 }

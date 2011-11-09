@@ -45,7 +45,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtConfig = new System.Windows.Forms.TextBox();
             this.lblConfig = new System.Windows.Forms.Label();
             this.lblConfigWarn = new System.Windows.Forms.Label();
             this.cmdSaveConfig = new System.Windows.Forms.Button();
@@ -59,18 +58,19 @@
             this.delayAlertSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.manualEditPanel = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageAgent = new System.Windows.Forms.TabPage();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
             this.configureEditButtonCollector = new QuickMon.Controls.ConfigureEditButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.manualEditPanel.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageAgent.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -245,18 +245,6 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "Id";
             // 
-            // txtConfig
-            // 
-            this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfig.Location = new System.Drawing.Point(0, 24);
-            this.txtConfig.Multiline = true;
-            this.txtConfig.Name = "txtConfig";
-            this.txtConfig.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConfig.Size = new System.Drawing.Size(550, 102);
-            this.txtConfig.TabIndex = 2;
-            // 
             // lblConfig
             // 
             this.lblConfig.AutoSize = true;
@@ -386,20 +374,20 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "Only alert once in";
             // 
-            // panel1
+            // manualEditPanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.manualEditPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.lblConfig);
-            this.panel1.Controls.Add(this.txtConfig);
-            this.panel1.Controls.Add(this.lblConfigWarn);
-            this.panel1.Controls.Add(this.cmdSaveConfig);
-            this.panel1.Controls.Add(this.cmdCancelConfig);
-            this.panel1.Location = new System.Drawing.Point(3, 69);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(550, 126);
-            this.panel1.TabIndex = 5;
+            this.manualEditPanel.Controls.Add(this.txtConfig);
+            this.manualEditPanel.Controls.Add(this.lblConfig);
+            this.manualEditPanel.Controls.Add(this.lblConfigWarn);
+            this.manualEditPanel.Controls.Add(this.cmdSaveConfig);
+            this.manualEditPanel.Controls.Add(this.cmdCancelConfig);
+            this.manualEditPanel.Location = new System.Drawing.Point(3, 69);
+            this.manualEditPanel.Name = "manualEditPanel";
+            this.manualEditPanel.Size = new System.Drawing.Size(550, 126);
+            this.manualEditPanel.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -419,7 +407,7 @@
             // 
             this.tabPageAgent.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageAgent.Controls.Add(this.label3);
-            this.tabPageAgent.Controls.Add(this.panel1);
+            this.tabPageAgent.Controls.Add(this.manualEditPanel);
             this.tabPageAgent.Controls.Add(this.cboCollector);
             this.tabPageAgent.Controls.Add(this.chkFolder);
             this.tabPageAgent.Location = new System.Drawing.Point(4, 22);
@@ -479,6 +467,22 @@
             this.label11.TabIndex = 6;
             this.label11.Text = "Delay alert";
             // 
+            // txtConfig
+            // 
+            this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 15);
+            this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;
+            this.txtConfig.Location = new System.Drawing.Point(0, 25);
+            this.txtConfig.Name = "txtConfig";
+            this.txtConfig.PreferredLineWidth = 0;
+            this.txtConfig.Size = new System.Drawing.Size(550, 101);
+            this.txtConfig.TabIndex = 2;
+            this.txtConfig.WordWrap = true;
+            // 
             // configureEditButtonCollector
             // 
             this.configureEditButtonCollector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -518,8 +522,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.manualEditPanel.ResumeLayout(false);
+            this.manualEditPanel.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPageAgent.ResumeLayout(false);
             this.tabPageAgent.PerformLayout();
@@ -549,7 +553,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtConfig;
         private System.Windows.Forms.Label lblConfig;
         private System.Windows.Forms.Label lblConfigWarn;
         private System.Windows.Forms.Button cmdSaveConfig;
@@ -562,7 +565,7 @@
         private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel manualEditPanel;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageAgent;
         private System.Windows.Forms.TabPage tabPageAlerts;
@@ -571,5 +574,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TabPage tabPageGeneral;
         private Controls.ConfigureEditButton configureEditButtonCollector;
+        private FastColoredTextBoxNS.FastColoredTextBox txtConfig;
     }
 }

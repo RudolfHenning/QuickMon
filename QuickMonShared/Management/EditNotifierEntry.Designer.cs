@@ -34,7 +34,6 @@
             this.cmdSaveConfig = new System.Windows.Forms.Button();
             this.lblConfigWarn = new System.Windows.Forms.Label();
             this.lblConfig = new System.Windows.Forms.Label();
-            this.txtConfig = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cboNotifier = new System.Windows.Forms.ComboBox();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -51,6 +50,7 @@
             this.alertForCollectorslinkLabel = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
             this.configureEditButtonNotifier = new QuickMon.Controls.ConfigureEditButton();
+            this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
             this.SuspendLayout();
             // 
             // cmdCancelConfig
@@ -61,7 +61,7 @@
             this.cmdCancelConfig.Location = new System.Drawing.Point(436, 171);
             this.cmdCancelConfig.Name = "cmdCancelConfig";
             this.cmdCancelConfig.Size = new System.Drawing.Size(39, 23);
-            this.cmdCancelConfig.TabIndex = 17;
+            this.cmdCancelConfig.TabIndex = 15;
             this.cmdCancelConfig.UseVisualStyleBackColor = true;
             this.cmdCancelConfig.Click += new System.EventHandler(this.cmdCancelConfig_Click);
             // 
@@ -73,7 +73,7 @@
             this.cmdSaveConfig.Location = new System.Drawing.Point(396, 171);
             this.cmdSaveConfig.Name = "cmdSaveConfig";
             this.cmdSaveConfig.Size = new System.Drawing.Size(39, 23);
-            this.cmdSaveConfig.TabIndex = 16;
+            this.cmdSaveConfig.TabIndex = 14;
             this.cmdSaveConfig.UseVisualStyleBackColor = true;
             this.cmdSaveConfig.Click += new System.EventHandler(this.cmdSaveConfig_Click);
             // 
@@ -84,7 +84,7 @@
             this.lblConfigWarn.Location = new System.Drawing.Point(106, 176);
             this.lblConfigWarn.Name = "lblConfigWarn";
             this.lblConfigWarn.Size = new System.Drawing.Size(224, 13);
-            this.lblConfigWarn.TabIndex = 14;
+            this.lblConfigWarn.TabIndex = 12;
             this.lblConfigWarn.Text = "Warning! Manual editing can break the agent!";
             this.lblConfigWarn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -94,21 +94,9 @@
             this.lblConfig.Location = new System.Drawing.Point(14, 176);
             this.lblConfig.Name = "lblConfig";
             this.lblConfig.Size = new System.Drawing.Size(69, 13);
-            this.lblConfig.TabIndex = 13;
+            this.lblConfig.TabIndex = 11;
             this.lblConfig.Text = "Configuration";
             this.lblConfig.Visible = false;
-            // 
-            // txtConfig
-            // 
-            this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfig.Location = new System.Drawing.Point(15, 195);
-            this.txtConfig.Multiline = true;
-            this.txtConfig.Name = "txtConfig";
-            this.txtConfig.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConfig.Size = new System.Drawing.Size(460, 126);
-            this.txtConfig.TabIndex = 15;
             // 
             // label3
             // 
@@ -140,7 +128,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(395, 327);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 20;
+            this.cmdCancel.TabIndex = 18;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -152,7 +140,7 @@
             this.cmdOK.Location = new System.Drawing.Point(314, 327);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 19;
+            this.cmdOK.TabIndex = 17;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -277,16 +265,33 @@
             this.configureEditButtonNotifier.Location = new System.Drawing.Point(222, 327);
             this.configureEditButtonNotifier.Name = "configureEditButtonNotifier";
             this.configureEditButtonNotifier.Size = new System.Drawing.Size(86, 23);
-            this.configureEditButtonNotifier.TabIndex = 19;
+            this.configureEditButtonNotifier.TabIndex = 16;
             this.configureEditButtonNotifier.ConfigureClicked += new System.EventHandler(this.cmdConfig_Click);
             this.configureEditButtonNotifier.ManualConfigureClicked += new System.EventHandler(this.cmdManualConfig_Click);
             this.configureEditButtonNotifier.ImportConfigurationClicked += new System.EventHandler(this.configureEditButtonNotifier_ImportConfigurationClicked);
+            // 
+            // txtConfig
+            // 
+            this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 15);
+            this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;
+            this.txtConfig.Location = new System.Drawing.Point(12, 195);
+            this.txtConfig.Name = "txtConfig";
+            this.txtConfig.PreferredLineWidth = 0;
+            this.txtConfig.Size = new System.Drawing.Size(464, 126);
+            this.txtConfig.TabIndex = 13;
+            this.txtConfig.WordWrap = true;
             // 
             // EditNotifierEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 362);
+            this.Controls.Add(this.txtConfig);
             this.Controls.Add(this.configureEditButtonNotifier);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.alertForCollectorslinkLabel);
@@ -298,7 +303,6 @@
             this.Controls.Add(this.cmdSaveConfig);
             this.Controls.Add(this.lblConfigWarn);
             this.Controls.Add(this.lblConfig);
-            this.Controls.Add(this.txtConfig);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboNotifier);
             this.Controls.Add(this.cmdCancel);
@@ -326,7 +330,6 @@
         private System.Windows.Forms.Button cmdSaveConfig;
         private System.Windows.Forms.Label lblConfigWarn;
         private System.Windows.Forms.Label lblConfig;
-        private System.Windows.Forms.TextBox txtConfig;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cboNotifier;
         private System.Windows.Forms.Button cmdCancel;
@@ -343,5 +346,6 @@
         private System.Windows.Forms.LinkLabel alertForCollectorslinkLabel;
         private System.Windows.Forms.Label label5;
         private Controls.ConfigureEditButton configureEditButtonNotifier;
+        private FastColoredTextBoxNS.FastColoredTextBox txtConfig;
     }
 }

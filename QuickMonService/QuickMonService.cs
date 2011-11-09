@@ -49,7 +49,13 @@ namespace QuickMon
                 else
                     throw new Exception("MonitorPack path not specified!");
             }
-            EventLog.WriteEntry(serviceEventSource, string.Format("Started QuickMon monitoring and alerting service with '{0}' monitor pack(s)", packs.Count), EventLogEntryType.Information, 0);
+            EventLog.WriteEntry(serviceEventSource, 
+                string.Format("Started QuickMon monitoring and alerting service with '{0}' monitor pack(s)\r\nService version: {1}\r\nShared components version: {2}", 
+                    packs.Count,
+                    System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString()
+                    ), 
+                EventLogEntryType.Information, 0);
         }
 
         private void AddAndStartMonitorPack(string monitorPackPath)

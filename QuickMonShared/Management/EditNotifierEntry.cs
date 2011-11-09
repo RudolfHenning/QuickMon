@@ -152,6 +152,29 @@ namespace QuickMon.Management
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void alertForCollectorslinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SelectNotifierCollectors selectNotifierCollectors = new SelectNotifierCollectors();
+            selectNotifierCollectors.SelectedCollectors = new List<string>();
+            selectNotifierCollectors.SelectedCollectors.AddRange(SelectedEntry.AlertForCollectors.ToArray());
+            if (selectNotifierCollectors.ShowNotifierCollectors(monitorPack) == System.Windows.Forms.DialogResult.OK)
+            {
+                SelectedEntry.AlertForCollectors.Clear();
+                SelectedEntry.AlertForCollectors.AddRange(selectNotifierCollectors.SelectedCollectors.ToArray());
+                SetAlertForCollectors();
+            }
+        }
+        private void configureEditButtonNotifier_ImportConfigurationClicked(object sender, EventArgs e)
+        {
+            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
+            importCollectorConfig.IsCollector = false;
+            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
+            importCollectorConfig.AgentType = ((AgentRegistration)cboNotifier.SelectedItem).Name;
+            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
+            }
+        }
         #endregion
 
         #region Change checking
@@ -236,32 +259,6 @@ namespace QuickMon.Management
             }
         } 
         #endregion        
-
-        private void alertForCollectorslinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            SelectNotifierCollectors selectNotifierCollectors = new SelectNotifierCollectors();
-            selectNotifierCollectors.SelectedCollectors = new List<string>();
-            selectNotifierCollectors.SelectedCollectors.AddRange(SelectedEntry.AlertForCollectors.ToArray());
-            if (selectNotifierCollectors.ShowNotifierCollectors(monitorPack) == System.Windows.Forms.DialogResult.OK)
-            {
-                SelectedEntry.AlertForCollectors.Clear();
-                SelectedEntry.AlertForCollectors.AddRange(selectNotifierCollectors.SelectedCollectors.ToArray());
-                SetAlertForCollectors();
-            }
-        }
-
-        private void configureEditButtonNotifier_ImportConfigurationClicked(object sender, EventArgs e)
-        {
-            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
-            importCollectorConfig.IsCollector = false;
-            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
-            importCollectorConfig.AgentType = ((AgentRegistration)cboNotifier.SelectedItem).Name;
-            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
-            }
-        }
-
 
     }
 }

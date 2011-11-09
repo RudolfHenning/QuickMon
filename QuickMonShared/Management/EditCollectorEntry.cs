@@ -83,11 +83,12 @@ namespace QuickMon.Management
             this.Size = collapsedSize;
             this.MinimumSize = collapsedSize;
             this.MaximumSize = collapsedSize;
-            lblConfig.Visible = false;
-            txtConfig.Visible = false;
-            lblConfigWarn.Visible = false;
-            cmdSaveConfig.Visible = false;
-            cmdCancelConfig.Visible = false;
+            manualEditPanel.Visible = false;
+            //lblConfig.Visible = false;
+            //txtConfig.Visible = false;
+            //lblConfigWarn.Visible = false;
+            //cmdSaveConfig.Visible = false;
+            //cmdCancelConfig.Visible = false;
         }
 
         #endregion
@@ -140,6 +141,17 @@ namespace QuickMon.Management
                 catch { }
             }
             ShowManualConfig();
+        }
+        private void configureEditButton1_ImportConfigurationClicked(object sender, EventArgs e)
+        {
+            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
+            importCollectorConfig.IsCollector = true;
+            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
+            importCollectorConfig.AgentType = ((AgentRegistration)cboCollector.SelectedItem).Name;
+            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
+            }
         }
         private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -260,43 +272,30 @@ namespace QuickMon.Management
         }
         private void ShowManualConfig()
         {
-            this.MaximumSize = new Size(0, 0);
-            CheckOkEnable();
-            lblConfig.Visible = true;
-            txtConfig.Visible = true;
-            lblConfigWarn.Visible = true;
+            this.MaximumSize = new Size(0, 0);            
+            manualEditPanel.Visible = true;
             chkFolder.Enabled = false;
             this.Size = expandedSize;
             this.MinimumSize = expandedSize;
-            //manualEditlinkLabel.Enabled = false;
-            //cmdConfig.Enabled = false;
             configureEditButtonCollector.Enabled = false;
-            cmdSaveConfig.Visible = true;
-            cmdCancelConfig.Visible = true;
-            cboCollector.Enabled = false;            
+            cboCollector.Enabled = false;
+            CheckOkEnable();
         }
         private void HideManualConfig()
         {
-            lblConfig.Visible = false;
-            txtConfig.Visible = false;
-            lblConfigWarn.Visible = false;
+            manualEditPanel.Visible = false;    
             chkFolder.Enabled = true;
-            cmdSaveConfig.Visible = false;
-            cmdCancelConfig.Visible = false;
             this.Size = collapsedSize;
             this.MaximumSize = collapsedSize;
             this.MinimumSize = collapsedSize;
-            //manualEditlinkLabel.Enabled = true;
-            //cmdConfig.Enabled = true;
             configureEditButtonCollector.Enabled = true;
             cboCollector.Enabled = allowCollectorChange;
             CheckOkEnable();
-            txtConfig.Text = "";
-            
+            txtConfig.Text = "";            
         }
         private void CheckOkEnable()
         {
-            bool isEnable = !txtConfig.Visible;
+            bool isEnable = !manualEditPanel.Visible;
             if (txtName.Text.Length == 0 || cboParentCollector.SelectedIndex < 0 ||
                 (!chkFolder.Checked && (cboCollector.SelectedIndex < 0 || SelectedEntry.Configuration == null || SelectedEntry.Configuration.Length == 0)))
                 isEnable = false;
@@ -311,19 +310,6 @@ namespace QuickMon.Management
             delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
         }
         #endregion 
-
-        private void configureEditButton1_ImportConfigurationClicked(object sender, EventArgs e)
-        {
-            ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
-            importCollectorConfig.IsCollector = true;
-            importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
-            importCollectorConfig.AgentType = ((AgentRegistration)cboCollector.SelectedItem).Name;
-            if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
-            }
-        }
-
 
     }
 }

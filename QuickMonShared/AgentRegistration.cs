@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace QuickMon
 {
@@ -16,7 +17,18 @@ namespace QuickMon
 
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Name, ClassName);
+            string versionInfo = "";
+            try
+            {
+                if (System.IO.File.Exists(AssemblyPath))
+                {
+                    Assembly a = Assembly.LoadFrom(AssemblyPath);
+                    versionInfo = a.GetName().Version.ToString();
+                    a = null;
+                }
+            }
+            catch { }
+            return string.Format("{0} ( {1}{2} )", Name, ClassName, versionInfo.Length > 0 ? " - " + versionInfo : "");
         }
     }
 }

@@ -135,6 +135,13 @@ namespace QuickMon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap info {
+            get {
+                object obj = ResourceManager.GetObject("info", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to &lt;monitorPack version=&quot;2.5&quot; name=&quot;{0}&quot; enabled=&quot;{1}&quot; agentRegistrationPath=&quot;{2}&quot; defaultViewerNotifier=&quot;{3}&quot;&gt;
         ///  &lt;collectorEntries&gt;

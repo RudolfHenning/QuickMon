@@ -223,6 +223,7 @@
     <None Include="Resources\DISK04.ICO" />
     <None Include="Resources\folder_favor.png" />
     <None Include="Resources\down.png" />
+    <None Include="Resources\info.png" />
     <Content Include="Resources\MonitorPack.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -230,7 +231,12 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Third Party Controls\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6DD14A85-CCFC-4774-BD26-0F5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

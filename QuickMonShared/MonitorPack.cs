@@ -28,6 +28,7 @@ namespace QuickMon
 			LastGlobalState = MonitorStates.NotAvailable;
 			DefaultViewerNotifier = null;
 			AgentRegistrations = new List<AgentRegistration>();
+			agentsAssemblyPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //set as default
 		}
 
 		#region Events
