@@ -44,7 +44,9 @@ namespace QuickMon
                 }
                 else
                 {
-                    if (receiveLocationsDisabled >= receiveLocationCount || sendPortStoppedCount >= sendPortCount || orchestrationStoppedCount >= orchestrationCount)
+                    if ((receiveLocationsDisabled >= receiveLocationCount && (receiveLocationCount > 0)) ||
+                        (sendPortStoppedCount >= sendPortCount && (sendPortCount > 0)) || 
+                        (orchestrationStoppedCount >= orchestrationCount && (orchestrationCount > 0)))
                     {
                         returnState = MonitorStates.Error;
 

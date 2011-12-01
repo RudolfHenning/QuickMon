@@ -165,6 +165,7 @@
             this.toolStripButtonAdd.Name = "toolStripButtonAdd";
             this.toolStripButtonAdd.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonAdd.Text = "Add";
+            this.toolStripButtonAdd.ToolTipText = "Add agent";
             this.toolStripButtonAdd.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
             // 
             // toolStripButtonConfigure
@@ -187,6 +188,7 @@
             this.toolStripButtonRemove.Name = "toolStripButtonRemove";
             this.toolStripButtonRemove.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonRemove.Text = "Remove";
+            this.toolStripButtonRemove.ToolTipText = "Remove agent";
             this.toolStripButtonRemove.Click += new System.EventHandler(this.toolStripButtonRemove_Click);
             // 
             // toolStripSeparator2
@@ -244,14 +246,14 @@
             this.moveDownToolStripMenuItem,
             this.monitorPackToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 164);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(161, 178);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Enabled = false;
             this.addToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
             // 
@@ -261,7 +263,7 @@
             this.configureToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.configureToolStripMenuItem.Image = global::QuickMon.Properties.Resources.project;
             this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-            this.configureToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.configureToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.configureToolStripMenuItem.Text = "Configure";
             this.configureToolStripMenuItem.Click += new System.EventHandler(this.configureToolStripMenuItem_Click);
             // 
@@ -270,14 +272,14 @@
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRemove_Click);
             // 
             // enableToolStripMenuItem
             // 
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
-            this.enableToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.enableToolStripMenuItem.Text = "Enable";
             this.enableToolStripMenuItem.Visible = false;
             this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
@@ -285,13 +287,13 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
             // 
             // moveUpToolStripMenuItem
             // 
             this.moveUpToolStripMenuItem.Enabled = false;
             this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.moveUpToolStripMenuItem.Text = "Move up";
             this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
             // 
@@ -299,7 +301,7 @@
             // 
             this.moveDownToolStripMenuItem.Enabled = false;
             this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.moveDownToolStripMenuItem.Text = "Move down";
             this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
@@ -311,14 +313,14 @@
             this.recentToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.monitorPackToolStripMenuItem.Name = "monitorPackToolStripMenuItem";
-            this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.monitorPackToolStripMenuItem.Text = "Monitor pack";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new2;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNew_Click);
             // 
@@ -326,7 +328,7 @@
             // 
             this.openToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_doc;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.toolStripoad_Click);
             // 
@@ -334,7 +336,7 @@
             // 
             this.recentToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
             this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.recentToolStripMenuItem.Text = "Recent";
             this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
             // 
@@ -342,7 +344,7 @@
             // 
             this.saveToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonSave_Click);
             // 
@@ -416,9 +418,9 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(423, 44);
+            this.chkEnabled.Location = new System.Drawing.Point(422, 44);
             this.chkEnabled.Name = "chkEnabled";
-            this.chkEnabled.Size = new System.Drawing.Size(63, 17);
+            this.chkEnabled.Size = new System.Drawing.Size(64, 17);
             this.chkEnabled.TabIndex = 3;
             this.chkEnabled.Text = "Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
@@ -483,7 +485,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 372);
+            this.label3.Location = new System.Drawing.Point(12, 371);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 13);
             this.label3.TabIndex = 8;
@@ -495,7 +497,7 @@
             this.cboDefaultViewerNotifier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDefaultViewerNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboDefaultViewerNotifier.FormattingEnabled = true;
-            this.cboDefaultViewerNotifier.Location = new System.Drawing.Point(134, 369);
+            this.cboDefaultViewerNotifier.Location = new System.Drawing.Point(134, 367);
             this.cboDefaultViewerNotifier.Name = "cboDefaultViewerNotifier";
             this.cboDefaultViewerNotifier.Size = new System.Drawing.Size(199, 21);
             this.cboDefaultViewerNotifier.TabIndex = 9;

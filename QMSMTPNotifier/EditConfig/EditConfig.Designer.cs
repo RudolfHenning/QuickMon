@@ -116,7 +116,7 @@
             this.chkUseDefultCredentials.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkUseDefultCredentials.Location = new System.Drawing.Point(92, 38);
             this.chkUseDefultCredentials.Name = "chkUseDefultCredentials";
-            this.chkUseDefultCredentials.Size = new System.Drawing.Size(132, 17);
+            this.chkUseDefultCredentials.Size = new System.Drawing.Size(133, 17);
             this.chkUseDefultCredentials.TabIndex = 2;
             this.chkUseDefultCredentials.Text = "Use default credentials";
             this.chkUseDefultCredentials.UseVisualStyleBackColor = true;
@@ -236,7 +236,7 @@
             this.chkIsBodyHtml.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkIsBodyHtml.Location = new System.Drawing.Point(92, 252);
             this.chkIsBodyHtml.Name = "chkIsBodyHtml";
-            this.chkIsBodyHtml.Size = new System.Drawing.Size(91, 17);
+            this.chkIsBodyHtml.Size = new System.Drawing.Size(92, 17);
             this.chkIsBodyHtml.TabIndex = 10;
             this.chkIsBodyHtml.Text = "Is body HTML";
             this.chkIsBodyHtml.UseVisualStyleBackColor = true;
