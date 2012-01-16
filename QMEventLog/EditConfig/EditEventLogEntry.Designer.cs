@@ -178,7 +178,7 @@
             this.chkInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkInfo.Location = new System.Drawing.Point(97, 65);
             this.chkInfo.Name = "chkInfo";
-            this.chkInfo.Size = new System.Drawing.Size(76, 17);
+            this.chkInfo.Size = new System.Drawing.Size(77, 17);
             this.chkInfo.TabIndex = 6;
             this.chkInfo.Text = "Information";
             this.chkInfo.UseVisualStyleBackColor = true;
@@ -191,7 +191,7 @@
             this.chkWarn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkWarn.Location = new System.Drawing.Point(181, 65);
             this.chkWarn.Name = "chkWarn";
-            this.chkWarn.Size = new System.Drawing.Size(64, 17);
+            this.chkWarn.Size = new System.Drawing.Size(65, 17);
             this.chkWarn.TabIndex = 7;
             this.chkWarn.Text = "Warning";
             this.chkWarn.UseVisualStyleBackColor = true;
@@ -204,7 +204,7 @@
             this.chkErr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkErr.Location = new System.Drawing.Point(260, 65);
             this.chkErr.Name = "chkErr";
-            this.chkErr.Size = new System.Drawing.Size(46, 17);
+            this.chkErr.Size = new System.Drawing.Size(47, 17);
             this.chkErr.TabIndex = 8;
             this.chkErr.Text = "Error";
             this.chkErr.UseVisualStyleBackColor = true;
@@ -325,7 +325,7 @@
             this.optTextContains.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.optTextContains.Location = new System.Drawing.Point(99, 17);
             this.optTextContains.Name = "optTextContains";
-            this.optTextContains.Size = new System.Drawing.Size(65, 17);
+            this.optTextContains.Size = new System.Drawing.Size(66, 17);
             this.optTextContains.TabIndex = 1;
             this.optTextContains.Text = "Contains";
             this.optTextContains.UseVisualStyleBackColor = true;
@@ -337,7 +337,7 @@
             this.optTextStartWith.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.optTextStartWith.Location = new System.Drawing.Point(16, 17);
             this.optTextStartWith.Name = "optTextStartWith";
-            this.optTextStartWith.Size = new System.Drawing.Size(73, 17);
+            this.optTextStartWith.Size = new System.Drawing.Size(74, 17);
             this.optTextStartWith.TabIndex = 0;
             this.optTextStartWith.TabStop = true;
             this.optTextStartWith.Text = "Starts with";
@@ -552,6 +552,7 @@
             // 
             // pictureBoxSecWarning
             // 
+            this.pictureBoxSecWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxSecWarning.ErrorImage = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
             this.pictureBoxSecWarning.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
             this.pictureBoxSecWarning.Location = new System.Drawing.Point(8, 374);
@@ -563,6 +564,7 @@
             // 
             // lblSecWarning
             // 
+            this.lblSecWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSecWarning.AutoSize = true;
             this.lblSecWarning.ForeColor = System.Drawing.Color.DarkRed;
             this.lblSecWarning.Location = new System.Drawing.Point(68, 382);
