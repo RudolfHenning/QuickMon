@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Threading;
 
 namespace QuickMon
 {
     public class PerfCounter : CollectorBase
     {
         PerfCounterConfig perfCounterConfig = new PerfCounterConfig();
+        private Mutex qmPerfCounterCollectorMutex = new Mutex();
 
         public override MonitorStates GetState()
         {
@@ -23,6 +25,7 @@ namespace QuickMon
             string outputFormat = "F3";
             try
             {
+                
                 plainTextDetails.AppendLine(string.Format("Querying {0} performance counters", perfCounterConfig.QMPerfCounters.Count));
                 htmlTextTextDetails.AppendLine(string.Format("<i>Querying {0} performance counters</i>", perfCounterConfig.QMPerfCounters.Count));
                 htmlTextTextDetails.AppendLine("<ul>");
@@ -34,7 +37,16 @@ namespace QuickMon
                     outputFormat = "F3";
                     try
                     {
-                        value = perfCounter.GetNextValue();
+                        qmPerfCounterCollectorMutex.WaitOne();
+                        try
+                        {
+                            value = perfCounter.GetNextValue();
+                        }
+                        finally
+                        {
+                            qmPerfCounterCollectorMutex.ReleaseMutex();
+                        }
+
                         if (value > 9999)
                             outputFormat = "F1";
                         if (!perfCounter.ReturnValueInverted)
@@ -50,9 +62,9 @@ namespace QuickMon
                                 errorCondition = true;
                             else if (perfCounter.WarningValue >= value)
                                 warningCondition = true;
-                        }                                               
+                        }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         LastDetailMsg.PlainText = ex.Message;
                         errorCondition = true;
@@ -76,7 +88,7 @@ namespace QuickMon
                         plainTextDetails.AppendLine(string.Format("\t{0} - value '{1}'", perfCounter.ToString(), value.ToString(outputFormat)));
                         htmlTextTextDetails.AppendLine(string.Format("<li>{0} - value '{1}'</li>", perfCounter.ToString(), value.ToString(outputFormat)));
                     }
-                 }
+                }
                 htmlTextTextDetails.AppendLine("</ul>");
                 if (errors > 0 && warnings == 0) //are all errors
                     returnState = MonitorStates.Error;
@@ -92,6 +104,10 @@ namespace QuickMon
                 LastDetailMsg.PlainText = string.Format("Last step: '{0}\r\n{1}", LastDetailMsg.PlainText, ex.Message);
                 LastDetailMsg.HtmlText = string.Format("<blockquote>Last step: '{0}<br />{1}</blockquote>", LastDetailMsg.PlainText, ex.Message);
                 returnState = MonitorStates.Error;
+            }
+            finally
+            {
+                
             }
             return returnState;
         }

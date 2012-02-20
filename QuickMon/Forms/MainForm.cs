@@ -22,6 +22,7 @@ namespace QuickMon
         private MonitorPack monitorPack = new MonitorPack();
         private System.Threading.Mutex updateTreeNode = new System.Threading.Mutex();
         private int folderImgIndex = 5;
+        private System.Timers.Timer mainRefreshTimer;
         #endregion
 
         #region Form events
@@ -42,8 +43,25 @@ namespace QuickMon
             {
                 LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
             }
-            timerMain.Interval = Properties.Settings.Default.PollFrequency;
+            try
+            {
+                this.timerMain.Tick -= new System.EventHandler(this.timerMain_Tick);
+            }
+            catch { }
+            //timerMain.Interval = Properties.Settings.Default.PollFrequency;
+            //try
+            //{
+            //    this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
+            //}
+            //catch { }
+
+            mainRefreshTimer = new System.Timers.Timer();
+            mainRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(mainRefreshTimer_Elapsed);
+            mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequency;
+            mainRefreshTimer.Enabled = true;    
         }
+
+        
         private void MainForm_Shown(object sender, EventArgs e)
         {
             backgroundWorkerRefresh.RunWorkerAsync();
@@ -110,17 +128,39 @@ namespace QuickMon
         private void toolStripButtonOptions_Click(object sender, EventArgs e)
         {
             OptionsWindow optionsWindow = new OptionsWindow();
-            timerMain.Enabled = false;
+            //timerMain.Enabled = false;
+            mainRefreshTimer.Enabled = false; 
             if (optionsWindow.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                timerMain.Interval = Properties.Settings.Default.PollFrequency;
+                mainRefreshTimer.Elapsed -= new System.Timers.ElapsedEventHandler(mainRefreshTimer_Elapsed);
+                mainRefreshTimer = null;
+                Application.DoEvents();
+                mainRefreshTimer = new System.Timers.Timer();
+                mainRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(mainRefreshTimer_Elapsed);
+                mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequency;
+
+                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+
+                //try
+                //{
+                //    this.timerMain.Tick -= new System.EventHandler(this.timerMain_Tick);
+                //}
+                //catch { }
+                //timerMain.Interval = Properties.Settings.Default.PollFrequency;
+                //try
+                //{
+                //    this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
+                //}
+                //catch { }
             }
-            timerMain.Enabled = true;
+            //timerMain.Enabled = true;
+            mainRefreshTimer.Enabled = true; 
         }
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
             if (!backgroundWorkerRefresh.IsBusy)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 backgroundWorkerRefresh.RunWorkerAsync();
             }
         }
@@ -148,6 +188,21 @@ namespace QuickMon
         #endregion
 
         #region Timer events
+        private void mainRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                RefreshMonitorPack();
+            }
+            catch (Exception ex)
+            {
+                if (Properties.Settings.Default.DisablePollingOnError)
+                    monitorPack.Enabled = false;
+                toolStripStatusLabelStatus.Text = ex.Message;
+                toolStripStatusLabelStatus.ToolTipText = ex.Message;
+            }
+            SetEnableDisablePolling();
+        }
         private void timerMain_Tick(object sender, EventArgs e)
         {
             try
@@ -295,22 +350,19 @@ namespace QuickMon
         #endregion
 
         #region monitorPack events
-        private void monitorPack_RaiseCurrentState(CollectorEntry collector, MonitorStates currentState)
+        private void UpdateTreeNodeStates(CollectorEntry collector, MonitorStates currentState)
         {
             try
             {
-                updateTreeNode.WaitOne();
                 tvwCollectors.BeginUpdate();
                 if (collector.Tag != null && collector.Tag is TreeNode)
                 {
                     SetTreeNodeState((TreeNode)collector.Tag, collector, currentState);
                 }
                 else //scan for the node (old way)
-                    this.Invoke((MethodInvoker)delegate()
-                    {
-                        UpdateCollectorNode(tvwCollectors.Nodes[0], collector, currentState);
-                    }
-                    );
+                {
+                    UpdateCollectorNode(tvwCollectors.Nodes[0], collector, currentState);
+                }
             }
             catch (Exception ex)
             {
@@ -319,15 +371,39 @@ namespace QuickMon
             finally
             {
                 tvwCollectors.EndUpdate();
-                updateTreeNode.ReleaseMutex();
             }
         }
-        private void monitorPack_RaiseNotifierError(NotifierEntry notifier, string errorMessage)
+        private void monitorPack_RaiseCurrentState(CollectorEntry collector, MonitorStates currentState)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    UpdateTreeNodeStates(collector, currentState);
+                });
+            }
+            else
+                UpdateTreeNodeStates(collector, currentState);
+
+        }
+        private void ShowNotifierError(NotifierEntry notifier, string errorMessage)
         {
             if (MessageBox.Show(string.Format("There was a problem recording an alert with notifier {0}\r\nDo you want to disable it?\r\n{1}", notifier.Name, errorMessage), "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Yes)
             {
                 notifier.Enabled = false;
             }
+        }
+        private void monitorPack_RaiseNotifierError(NotifierEntry notifier, string errorMessage)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    ShowNotifierError(notifier, errorMessage);
+                });
+            }
+            else
+                ShowNotifierError(notifier, errorMessage);
         }
 
         private void SetTreeNodeState(TreeNode treeNode, CollectorEntry collector, MonitorStates currentState)
@@ -378,11 +454,7 @@ namespace QuickMon
         {
             try
             {
-                this.Invoke((MethodInvoker)delegate()
-                {
-                    RefreshMonitorPack();
-                }
-                );
+                RefreshMonitorPack();
             }
             catch (Exception ex)
             {
@@ -395,17 +467,43 @@ namespace QuickMon
         {
             try
             {
-                timerMain.Enabled = false;
-                tvwCollectors.BeginUpdate();
                 Cursor.Current = Cursors.WaitCursor;
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        //timerMain.Enabled = false;
+                        mainRefreshTimer.Enabled = false; 
+                        tvwCollectors.BeginUpdate();
+                    }
+                    );
+                }
+                else
+                {
+                    //timerMain.Enabled = false;
+                    mainRefreshTimer.Enabled = false; 
+                    tvwCollectors.BeginUpdate();
+                }
                 if (monitorPack.Enabled)
                 {
                     globalState = monitorPack.RefreshStates();
                 }
                 else
                     globalState = MonitorStates.Disabled;
+
                 UpdateAppIcon();
-                lastUpdateToolStripStatusLabel.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        lastUpdateToolStripStatusLabel.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    );
+                }
+                else
+                {
+                    lastUpdateToolStripStatusLabel.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                }
             }
             catch (Exception ex)
             {
@@ -415,9 +513,20 @@ namespace QuickMon
             }
             finally
             {
-                tvwCollectors.EndUpdate();
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        tvwCollectors.EndUpdate();
+                    }
+                    );
+                }
+                else
+                {
+                    tvwCollectors.EndUpdate();
+                }
                 Cursor.Current = Cursors.Default;
-                timerMain.Enabled = true;
+                mainRefreshTimer.Enabled = true; 
             }
         }
         #endregion
@@ -439,6 +548,7 @@ namespace QuickMon
                 root.Nodes.Clear();
                 monitorPack = new MonitorPack();
                 monitorPack.Load(monitorPackPath);
+                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 if (monitorPack.AgentLoadingErrors != null && monitorPack.AgentLoadingErrors.Length > 0)
                 {
                     MessageBox.Show(monitorPack.AgentLoadingErrors, "Loading errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -537,7 +647,18 @@ namespace QuickMon
                         icon = Properties.Resources.bullet_ball_glass_red;
                 }
                 Icon oldIcon = this.Icon;
-                this.Icon = icon;
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        this.Icon = icon;
+                    }
+                    );
+                }
+                else
+                {
+                    this.Icon = icon;
+                }
                 oldIcon.Dispose();
                 glassIcon = !glassIcon;
             }

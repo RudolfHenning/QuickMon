@@ -16,21 +16,26 @@ namespace QuickMon
 
         public override void RecordMessage(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage)
         {
+            string lastStep = "";
             try
             {
                 logWriteMutex.WaitOne();
                 if (createNewFileSizeKB > 0)
                 {
+                    lastStep = "Checking if log file exists";
                     FileInfo fi = new FileInfo(outputPath);
                     if (fi.Exists)
                     {
+                        lastStep = "Checking log file size";
                         if (fi.Length > createNewFileSizeKB * 1024)
                         {
+                            lastStep = "Create new log file";
                             CreateBackupFile(outputPath, 1);
                         }
                     }
                 }
 
+                lastStep = "Append text to log file";
                 File.AppendAllText(outputPath,
                     string.Format("Time: {0}\r\nAlert level: {1}\r\nCollector: {2}\r\nCategory: {3}\r\nOld state: {4}\r\nCurrent state: {5}\r\nDetails: {6}",
                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -42,7 +47,10 @@ namespace QuickMon
                         collectorMessage.PlainText + "\r\n" + new string('-', 79) + "\r\n"
                     ));
             }
-            catch{ }
+            catch (Exception ex)
+            {
+                throw new Exception("Error recording message in log file notifier '{0}'\r\nLast step: " + lastStep, ex);
+            }
             finally
             {
                 logWriteMutex.ReleaseMutex();

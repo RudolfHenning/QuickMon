@@ -171,22 +171,22 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lastUpdateToolStripStatusLabel,
             this.toolStripStatusLabelStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 353);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 351);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(329, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(329, 24);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lastUpdateToolStripStatusLabel
             // 
             this.lastUpdateToolStripStatusLabel.Name = "lastUpdateToolStripStatusLabel";
-            this.lastUpdateToolStripStatusLabel.Size = new System.Drawing.Size(10, 17);
+            this.lastUpdateToolStripStatusLabel.Size = new System.Drawing.Size(12, 19);
             this.lastUpdateToolStripStatusLabel.Text = ".";
             // 
             // toolStripStatusLabelStatus
             // 
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(304, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(302, 19);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.Text = ".";
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -205,7 +205,7 @@
             treeNode1});
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
-            this.tvwCollectors.Size = new System.Drawing.Size(329, 314);
+            this.tvwCollectors.Size = new System.Drawing.Size(329, 312);
             this.tvwCollectors.TabIndex = 2;
             this.tvwCollectors.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvwCollectors_BeforeCollapse);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
@@ -311,7 +311,7 @@
             // 
             this.loadMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder;
             this.loadMonitorPackToolStripMenuItem.Name = "loadMonitorPackToolStripMenuItem";
-            this.loadMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.loadMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
             this.loadMonitorPackToolStripMenuItem.Text = "Load Monitor pack";
             this.loadMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
             // 
@@ -319,7 +319,7 @@
             // 
             this.recentMonitorPackFilesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
             this.recentMonitorPackFilesToolStripMenuItem.Name = "recentMonitorPackFilesToolStripMenuItem";
-            this.recentMonitorPackFilesToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.recentMonitorPackFilesToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
             this.recentMonitorPackFilesToolStripMenuItem.Text = "Recent Monitor pack files";
             this.recentMonitorPackFilesToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRecentFiles_Click);
             // 
@@ -327,7 +327,7 @@
             // 
             this.configureMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GlobeWrench;
             this.configureMonitorPackToolStripMenuItem.Name = "configureMonitorPackToolStripMenuItem";
-            this.configureMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.configureMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
             this.configureMonitorPackToolStripMenuItem.Text = "Configure Monitor pack";
             this.configureMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonConfigPack_Click);
             // 
@@ -335,7 +335,7 @@
             // 
             this.applicationOptionsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tools;
             this.applicationOptionsToolStripMenuItem.Name = "applicationOptionsToolStripMenuItem";
-            this.applicationOptionsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.applicationOptionsToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
             this.applicationOptionsToolStripMenuItem.Text = "Application Options";
             this.applicationOptionsToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonOptions_Click);
             // 

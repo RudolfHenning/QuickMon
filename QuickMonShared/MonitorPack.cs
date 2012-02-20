@@ -7,6 +7,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Collections;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace QuickMon
 {
@@ -32,12 +33,21 @@ namespace QuickMon
 		}
 
 		#region Events
+		private Mutex qmRaiseCurrentStateMutex = new Mutex();
+		private Mutex qmRaiseNotifierErrorMutex = new Mutex();
+
 		public event RaiseNotifierErrorDelegare RaiseNotifierError;
 		private void RaiseRaiseNotifierError(NotifierEntry notifier, string errorMessage)
 		{
-			if (RaiseNotifierError != null)
+			//qmRaiseNotifierErrorMutex.WaitOne();
+			try
 			{
-				RaiseNotifierError(notifier, errorMessage);
+				if (RaiseNotifierError != null)
+					RaiseNotifierError(notifier, errorMessage);
+			}
+			finally
+			{
+				//qmRaiseNotifierErrorMutex.ReleaseMutex();
 			}
 		}
 		public event RaiseCollectorErrorDelegare RaiseCollectorError;
@@ -57,8 +67,22 @@ namespace QuickMon
 		public event RaiseCurrentStateDelegate RaiseCurrentState;
 		private void RaiseRaiseCurrentStateDelegate(CollectorEntry collector, MonitorStates currentState)
 		{
-			if (RaiseCurrentState != null)
-				RaiseCurrentState(collector, currentState);
+			//qmRaiseCurrentStateMutex.WaitOne();
+			try
+			{
+				if (RaiseCurrentState != null)
+				{
+					RaiseCurrentState(collector, currentState);
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseCurrentStateDelegate: {0}", ex.Message));
+			}
+			finally
+			{
+				//qmRaiseCurrentStateMutex.ReleaseMutex();
+			}
 		}
 		public event StateChangedDelegate StateChanged;
 		private void RaiseStateChanged(AlertLevel alertLevel, string collectorType, string collectorName, MonitorStates oldState, MonitorStates currentState, CollectorMessage details)
@@ -109,6 +133,8 @@ namespace QuickMon
 		public NotifierEntry DefaultViewerNotifier { get; set; }
 		public MonitorStates LastGlobalState { get; set; }
 		public string MonitorPackPath { get; set; }
+        private int concurrencyLevel = 1;
+        public int ConcurrencyLevel { get { return concurrencyLevel; } set { concurrencyLevel = value; } }
 
 		#region Async related properties
 		/// <summary>
@@ -132,11 +158,27 @@ namespace QuickMon
 			List<CollectorEntry> noDependantCollectors = (from c in Collectors
 														  where c.ParentCollectorId.Length == 0
 														  select c).ToList();
-			//Refresh states
-			foreach (CollectorEntry collector in noDependantCollectors)
+
+			//Using .Net 4 Parralel processing extensions
+            int threads = concurrencyLevel;
+#if DEBUG
+			//threads = 5;
+#endif
+			ParallelOptions po = new ParallelOptions()
 			{
-				RefreshCollectorState(collector);
+				MaxDegreeOfParallelism = threads
+			};
+			ParallelLoopResult parResult = Parallel.ForEach(noDependantCollectors, po, collector => RefreshCollectorState(collector));
+			if (!parResult.IsCompleted)
+			{
+				SendNotifierAlert(AlertLevel.Error, DetailLevel.Summary, "N/A", "GlobalState", MonitorStates.NotAvailable, MonitorStates.Error, new CollectorMessage("Error querying collectors in parralel"));
 			}
+
+			////Refresh states
+			//foreach (CollectorEntry collector in noDependantCollectors)
+			//{
+			//    RefreshCollectorState(collector);
+			//}
 			sw.Stop();
 #if DEBUG
 			Trace.WriteLine(string.Format("RefreshStates - Global time: {0}ms", sw.ElapsedMilliseconds));
@@ -180,16 +222,22 @@ namespace QuickMon
 
 			#region Getting current state
 			sw.Start();
-			try
-			{
-				currentState = collector.GetCurrentState();
-			}
-			catch (Exception ex)
-			{
-				RaiseRaiseCollectorError(collector, ex.Message);
-				currentState = MonitorStates.Error;
-				collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
-			}
+            try
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Starting: {0}", collector.Name));
+                currentState = collector.GetCurrentState();
+            }
+            catch (Exception ex)
+            {
+                RaiseRaiseCollectorError(collector, ex.Message);
+                currentState = MonitorStates.Error;
+                collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
+                System.Diagnostics.Trace.WriteLine(string.Format("Error: {0} - {1}", collector.Name, ex.Message));
+            }
+            finally
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Ending: {0}", collector.Name));
+            }
 			
 			sw.Stop();
 #if DEBUG
