@@ -60,7 +60,6 @@
             this.configureMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.timerAppIconRefresher = new System.Windows.Forms.Timer(this.components);
@@ -163,7 +162,7 @@
             this.infoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.infoToolStripButton.Name = "infoToolStripButton";
             this.infoToolStripButton.Size = new System.Drawing.Size(36, 36);
-            this.infoToolStripButton.Text = "toolStripButton1";
+            this.infoToolStripButton.Text = "About";
             this.infoToolStripButton.Click += new System.EventHandler(this.infoToolStripButton_Click);
             // 
             // statusStrip1
@@ -350,11 +349,6 @@
             this.imageList1.Images.SetKeyName(4, "bullet_ball_glass_red.ico");
             this.imageList1.Images.SetKeyName(5, "205_1.ico");
             // 
-            // timerMain
-            // 
-            this.timerMain.Interval = 10000;
-            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
-            // 
             // openFileDialogOpen
             // 
             this.openFileDialogOpen.DefaultExt = "qmconfig";
@@ -411,7 +405,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonConfigPack;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
-        private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
         private System.Windows.Forms.ContextMenuStrip contextMenuStriptvw;

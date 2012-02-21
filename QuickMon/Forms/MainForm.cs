@@ -39,33 +39,30 @@ namespace QuickMon
             }
             SnappingEnabled = Properties.Settings.Default.MainFormSnap;
             monitorPack.Enabled = false;
+            mainRefreshTimer = new System.Timers.Timer();
+            mainRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(mainRefreshTimer_Elapsed);
+            mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequency;
+            mainRefreshTimer.Enabled = true;
+
             if (Properties.Settings.Default.LastMonitorPack != null)
             {
                 LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
             }
-            try
-            {
-                this.timerMain.Tick -= new System.EventHandler(this.timerMain_Tick);
-            }
-            catch { }
+            //try
+            //{
+            //    this.timerMain.Tick -= new System.EventHandler(this.timerMain_Tick);
+            //}
+            //catch { }
             //timerMain.Interval = Properties.Settings.Default.PollFrequency;
             //try
             //{
             //    this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             //}
-            //catch { }
-
-            mainRefreshTimer = new System.Timers.Timer();
-            mainRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(mainRefreshTimer_Elapsed);
-            mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequency;
-            mainRefreshTimer.Enabled = true;    
+            //catch { }            
         }
-
-        
         private void MainForm_Shown(object sender, EventArgs e)
         {
             backgroundWorkerRefresh.RunWorkerAsync();
-            timerMain.Enabled = true;
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -115,7 +112,8 @@ namespace QuickMon
         }
         private void toolStripButtonConfigPack_Click(object sender, EventArgs e)
         {
-            timerMain.Enabled = false;
+            //timerMain.Enabled = false;
+            mainRefreshTimer.Enabled = false;
             QuickMon.Management.MonitorPackManagement monitorPackManagement = new Management.MonitorPackManagement();
             if (monitorPackManagement.ShowMonitorPack(monitorPack) == System.Windows.Forms.DialogResult.OK)
             {
@@ -123,7 +121,8 @@ namespace QuickMon
                 LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
                 backgroundWorkerRefresh.RunWorkerAsync();
             }
-            timerMain.Enabled = true;
+            //timerMain.Enabled = true;
+            mainRefreshTimer.Enabled = true;   
         }
         private void toolStripButtonOptions_Click(object sender, EventArgs e)
         {
@@ -179,11 +178,14 @@ namespace QuickMon
         }
         private void infoToolStripButton_Click(object sender, EventArgs e)
         {
-            string info = string.Format("QuickMon\r\nApplication Version\t\t{0}\r\nShared components version\t{1}",
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString()
-                );
-            MessageBox.Show(info, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //string info = string.Format("QuickMon\r\nApplication Version\t\t{0}\r\nShared components version\t{1}",
+            //    System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+            //    System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString()
+            //    );
+            //MessageBox.Show(info, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            AboutQuickMon aboutQuickMon = new AboutQuickMon();
+            aboutQuickMon.ShowDialog();
         }
         #endregion
 
@@ -354,7 +356,8 @@ namespace QuickMon
         {
             try
             {
-                tvwCollectors.BeginUpdate();
+                Cursor.Current = Cursors.WaitCursor;
+                //tvwCollectors.BeginUpdate();
                 if (collector.Tag != null && collector.Tag is TreeNode)
                 {
                     SetTreeNodeState((TreeNode)collector.Tag, collector, currentState);
@@ -370,7 +373,7 @@ namespace QuickMon
             }
             finally
             {
-                tvwCollectors.EndUpdate();
+                //tvwCollectors.EndUpdate();
             }
         }
         private void monitorPack_RaiseCurrentState(CollectorEntry collector, MonitorStates currentState)
@@ -472,17 +475,17 @@ namespace QuickMon
                 {
                     this.Invoke((MethodInvoker)delegate()
                     {
-                        //timerMain.Enabled = false;
+                        Cursor.Current = Cursors.WaitCursor;
                         mainRefreshTimer.Enabled = false; 
-                        tvwCollectors.BeginUpdate();
+                        //tvwCollectors.BeginUpdate();
                     }
                     );
                 }
                 else
                 {
-                    //timerMain.Enabled = false;
+                    Cursor.Current = Cursors.WaitCursor;
                     mainRefreshTimer.Enabled = false; 
-                    tvwCollectors.BeginUpdate();
+                    //tvwCollectors.BeginUpdate();
                 }
                 if (monitorPack.Enabled)
                 {
@@ -513,18 +516,18 @@ namespace QuickMon
             }
             finally
             {
-                if (this.InvokeRequired)
-                {
-                    this.Invoke((MethodInvoker)delegate()
-                    {
-                        tvwCollectors.EndUpdate();
-                    }
-                    );
-                }
-                else
-                {
-                    tvwCollectors.EndUpdate();
-                }
+                //if (this.InvokeRequired)
+                //{
+                //    this.Invoke((MethodInvoker)delegate()
+                //    {
+                //        //tvwCollectors.EndUpdate();
+                //    }
+                //    );
+                //}
+                //else
+                //{
+                //    //tvwCollectors.EndUpdate();
+                //}
                 Cursor.Current = Cursors.Default;
                 mainRefreshTimer.Enabled = true; 
             }
@@ -536,7 +539,7 @@ namespace QuickMon
         {
             if (System.IO.File.Exists(monitorPackPath))
             {
-                timerMain.Enabled = false;
+                mainRefreshTimer.Enabled = false;
                 try
                 {
                     monitorPack.RaiseCurrentState -= new RaiseCurrentStateDelegate(monitorPack_RaiseCurrentState);
@@ -581,8 +584,10 @@ namespace QuickMon
                     }
                 }
                 catch { }
-                timerMain.Enabled = true;
+                tvwCollectors.SelectedNode = root;
+                root.EnsureVisible();
                 AddMonitorPackFileToRecentList(monitorPackPath);
+                mainRefreshTimer.Enabled = true; 
             }
         }
         private void AddMonitorPackFileToRecentList(string monitorPackPath)
@@ -688,8 +693,6 @@ namespace QuickMon
             }
         }
         #endregion                        
-
-
         
     }
 }

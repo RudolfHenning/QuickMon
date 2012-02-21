@@ -295,8 +295,10 @@ namespace QuickMon.Management
         }
         private void infoToolStripButton_Click(object sender, EventArgs e)
         {
-            string info = string.Format("QuickMon config editor\r\nVersion {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            MessageBox.Show(info, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //string info = string.Format("QuickMon config editor\r\nVersion {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            //MessageBox.Show(info, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AboutQuickMon aboutQuickMon = new AboutQuickMon();
+            aboutQuickMon.ShowDialog();
         }
         private void cmdBrowse_Click(object sender, EventArgs e)
         {

@@ -74,6 +74,15 @@ namespace QuickMon.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to http://quickmon.codeplex.com/.
+        /// </summary>
+        internal static string AppSourceURL {
+            get {
+                return ResourceManager.GetString("AppSourceURL", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Icon bullet_ball_blue {
             get {
                 object obj = ResourceManager.GetObject("bullet_ball_blue", resourceCulture);

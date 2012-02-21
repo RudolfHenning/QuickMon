@@ -14,9 +14,9 @@ namespace QuickMon
             InitializeComponent();
         }
 
-        //private MonitorPack monitorPack;
         private List<MonitorPack> packs = new List<MonitorPack>();
         private string serviceEventSource = "QuickMon Service";
+        private int concurrencyLevel = 5;
 
         protected override void OnStart(string[] args)
         {
@@ -34,6 +34,8 @@ namespace QuickMon
 #endif
             #endregion
 
+            concurrencyLevel = Properties.Settings.Default.ParralelThreads;
+
             if (Properties.Settings.Default.MonitorPackPaths != null && Properties.Settings.Default.MonitorPackPaths.Count > 0)
             {
                 foreach (string monitorPackPath in Properties.Settings.Default.MonitorPackPaths)
@@ -42,18 +44,20 @@ namespace QuickMon
                         AddAndStartMonitorPack(monitorPackPath);
                 }
             }
-            else
-            {
-                if (System.IO.File.Exists(Properties.Settings.Default.MonitorPackPath))
-                    AddAndStartMonitorPack(Properties.Settings.Default.MonitorPackPath);
-                else
-                    throw new Exception("MonitorPack path not specified!");
-            }
+            //If someone still use the singular MonitorPackPath setting
+            if (Properties.Settings.Default.MonitorPackPath != null &&
+                Properties.Settings.Default.MonitorPackPath.Length > 0 &&
+                System.IO.File.Exists(Properties.Settings.Default.MonitorPackPath))
+                AddAndStartMonitorPack(Properties.Settings.Default.MonitorPackPath);
+            else if (packs.Count == 0)
+                throw new Exception("MonitorPack path not specified!");
+
             EventLog.WriteEntry(serviceEventSource, 
-                string.Format("Started QuickMon monitoring and alerting service with '{0}' monitor pack(s)\r\nService version: {1}\r\nShared components version: {2}", 
+                string.Format("Started QuickMon monitoring and alerting service with '{0}' monitor pack(s)\r\nService version: {1}\r\nShared components version: {2}\r\nConcurrency level: {3}", 
                     packs.Count,
                     System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                    System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString()
+                    System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString(),
+                    concurrencyLevel
                     ), 
                 EventLogEntryType.Information, 0);
         }
@@ -71,10 +75,11 @@ namespace QuickMon
                     foreach (var notifier in monitorPack.Notifiers)
                         sbNotifiers.AppendLine("\t" + notifier.Name);
                 }
-                EventLog.WriteEntry(serviceEventSource, string.Format("MonitorPack {0} has the following notifiers\r\n{1}", monitorPack.Name, sbNotifiers.ToString()), EventLogEntryType.Information, 0);
+                EventLog.WriteEntry(serviceEventSource, string.Format("MonitorPack '{0}' has the following notifiers\r\n{1}", monitorPack.Name, sbNotifiers.ToString()), EventLogEntryType.Information, 0);
                 monitorPack.RaiseNotifierError += new RaiseNotifierErrorDelegare(monitorPack_RaiseNotifierError);
                 monitorPack.RaiseCollectorError += new RaiseCollectorErrorDelegare(monitorPack_RaiseCollectorError);
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
+                monitorPack.ConcurrencyLevel = concurrencyLevel;
                 packs.Add(monitorPack);
                 monitorPack.StartPolling();
             }

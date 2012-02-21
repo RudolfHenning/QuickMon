@@ -72,5 +72,17 @@ namespace QuickMon.Properties {
                 this["NewVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int ParralelThreads {
+            get {
+                return ((int)(this["ParralelThreads"]));
+            }
+            set {
+                this["ParralelThreads"] = value;
+            }
+        }
     }
 }

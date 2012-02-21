@@ -133,8 +133,12 @@ namespace QuickMon
 		public NotifierEntry DefaultViewerNotifier { get; set; }
 		public MonitorStates LastGlobalState { get; set; }
 		public string MonitorPackPath { get; set; }
-        private int concurrencyLevel = 1;
-        public int ConcurrencyLevel { get { return concurrencyLevel; } set { concurrencyLevel = value; } }
+		private int concurrencyLevel = 1;
+		public int ConcurrencyLevel 
+		{
+			get { return concurrencyLevel; }
+			set { concurrencyLevel = value; } 
+		}
 
 		#region Async related properties
 		/// <summary>
@@ -160,25 +164,30 @@ namespace QuickMon
 														  select c).ToList();
 
 			//Using .Net 4 Parralel processing extensions
-            int threads = concurrencyLevel;
+			int threads = concurrencyLevel;
 #if DEBUG
 			//threads = 5;
 #endif
-			ParallelOptions po = new ParallelOptions()
+			if (concurrencyLevel > 1)
 			{
-				MaxDegreeOfParallelism = threads
-			};
-			ParallelLoopResult parResult = Parallel.ForEach(noDependantCollectors, po, collector => RefreshCollectorState(collector));
-			if (!parResult.IsCompleted)
-			{
-				SendNotifierAlert(AlertLevel.Error, DetailLevel.Summary, "N/A", "GlobalState", MonitorStates.NotAvailable, MonitorStates.Error, new CollectorMessage("Error querying collectors in parralel"));
+				ParallelOptions po = new ParallelOptions()
+				{
+					MaxDegreeOfParallelism = threads
+				};
+				ParallelLoopResult parResult = Parallel.ForEach(noDependantCollectors, po, collector => RefreshCollectorState(collector));
+				if (!parResult.IsCompleted)
+				{
+					SendNotifierAlert(AlertLevel.Error, DetailLevel.Summary, "N/A", "GlobalState", MonitorStates.NotAvailable, MonitorStates.Error, new CollectorMessage("Error querying collectors in parralel"));
+				}
 			}
-
-			////Refresh states
-			//foreach (CollectorEntry collector in noDependantCollectors)
-			//{
-			//    RefreshCollectorState(collector);
-			//}
+			else //use old single threaded way
+			{
+				//Refresh states
+				foreach (CollectorEntry collector in noDependantCollectors)
+				{
+					RefreshCollectorState(collector);
+				}
+			}
 			sw.Stop();
 #if DEBUG
 			Trace.WriteLine(string.Format("RefreshStates - Global time: {0}ms", sw.ElapsedMilliseconds));
@@ -222,22 +231,22 @@ namespace QuickMon
 
 			#region Getting current state
 			sw.Start();
-            try
-            {
-                System.Diagnostics.Trace.WriteLine(string.Format("Starting: {0}", collector.Name));
-                currentState = collector.GetCurrentState();
-            }
-            catch (Exception ex)
-            {
-                RaiseRaiseCollectorError(collector, ex.Message);
-                currentState = MonitorStates.Error;
-                collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
-                System.Diagnostics.Trace.WriteLine(string.Format("Error: {0} - {1}", collector.Name, ex.Message));
-            }
-            finally
-            {
-                System.Diagnostics.Trace.WriteLine(string.Format("Ending: {0}", collector.Name));
-            }
+			try
+			{
+				System.Diagnostics.Trace.WriteLine(string.Format("Starting: {0}", collector.Name));
+				currentState = collector.GetCurrentState();
+			}
+			catch (Exception ex)
+			{
+				RaiseRaiseCollectorError(collector, ex.Message);
+				currentState = MonitorStates.Error;
+				collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
+				System.Diagnostics.Trace.WriteLine(string.Format("Error: {0} - {1}", collector.Name, ex.Message));
+			}
+			finally
+			{
+				System.Diagnostics.Trace.WriteLine(string.Format("Ending: {0}", collector.Name));
+			}
 			
 			sw.Stop();
 #if DEBUG

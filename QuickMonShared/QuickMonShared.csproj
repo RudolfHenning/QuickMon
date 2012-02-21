@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Management\AboutQuickMon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Management\AboutQuickMon.Designer.cs">
+      <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgentRegistration.cs" />
     <Compile Include="Collectors\CollectorMessage.cs" />
     <Compile Include="Controls\ConfigureEditButton.cs">
@@ -163,6 +169,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Management\AboutQuickMon.resx">
+      <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\RichTextControlEx.resx">
       <DependentUpon>RichTextControlEx.cs</DependentUpon>
     </EmbeddedResource>

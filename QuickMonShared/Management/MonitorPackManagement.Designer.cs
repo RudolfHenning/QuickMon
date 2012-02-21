@@ -231,7 +231,7 @@
             this.infoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.infoToolStripButton.Name = "infoToolStripButton";
             this.infoToolStripButton.Size = new System.Drawing.Size(36, 36);
-            this.infoToolStripButton.Text = "toolStripButton1";
+            this.infoToolStripButton.Text = "About";
             this.infoToolStripButton.Click += new System.EventHandler(this.infoToolStripButton_Click);
             // 
             // contextMenuStrip1
