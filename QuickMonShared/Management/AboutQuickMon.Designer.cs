@@ -149,6 +149,7 @@
             this.lnkURL.TabIndex = 25;
             this.lnkURL.TabStop = true;
             this.lnkURL.Text = "linkLabel1";
+            this.lnkURL.Visible = false;
             this.lnkURL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkURL_LinkClicked);
             // 
             // AboutQuickMon

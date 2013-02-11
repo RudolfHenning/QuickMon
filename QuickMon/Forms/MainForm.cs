@@ -178,12 +178,6 @@ namespace QuickMon
         }
         private void infoToolStripButton_Click(object sender, EventArgs e)
         {
-            //string info = string.Format("QuickMon\r\nApplication Version\t\t{0}\r\nShared components version\t{1}",
-            //    System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-            //    System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString()
-            //    );
-            //MessageBox.Show(info, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             AboutQuickMon aboutQuickMon = new AboutQuickMon();
             aboutQuickMon.ShowDialog();
         }
