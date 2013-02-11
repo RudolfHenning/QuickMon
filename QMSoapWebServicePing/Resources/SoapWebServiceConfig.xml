@@ -1,0 +1,8 @@
+<config>
+  <webServices>
+    <!--
+      <webService url="" name="" method="" paramatersCSV="" onErrorType="" 
+        errorCustomValue="" onWarningType="" warningCustomValue="" />
+      -->
+  </webServices>
+</config>
