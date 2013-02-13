@@ -15,14 +15,14 @@ namespace QuickMon
             MonitorStates returnState = MonitorStates.Good;
             StringBuilder plainTextDetails = new StringBuilder();
             StringBuilder htmlTextTextDetails = new StringBuilder();
-            LastDetailMsg.PlainText = "Querying table sizes";
+            LastDetailMsg.PlainText = "Querying web service";
             LastDetailMsg.HtmlText = "";
             int errors = 0;
             int success = 0;
             try
             {
-                plainTextDetails.AppendLine(string.Format("Pinging {0} addresses", soapWebServicePingConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<b>Pinging {0} addresses</b>", soapWebServicePingConfig.Entries.Count));
+                plainTextDetails.AppendLine(string.Format("Calling {0} web service(s)", soapWebServicePingConfig.Entries.Count));
+                htmlTextTextDetails.AppendLine(string.Format("<b>Calling {0} web service(s)</b>", soapWebServicePingConfig.Entries.Count));
 
                 htmlTextTextDetails.AppendLine("<ul>");
                 foreach (SoapWebServicePingConfigEntry soapWebServicePingConfigEntry in soapWebServicePingConfig.Entries)
@@ -33,32 +33,40 @@ namespace QuickMon
                         htmlTextTextDetails.Append(string.Format("<li>{0} - ", soapWebServicePingConfigEntry.ServiceBaseURL));
 
                         object val = soapWebServicePingConfigEntry.ExecuteMethod();
+                        string formattedVal = "";
 
-                        if ((int)SoapWebServicePingResultEnum.CheckAvailabilityOnly == soapWebServicePingConfigEntry.OnErrorType)
+                        bool checkResultMatch = soapWebServicePingConfigEntry.CheckResultMatch(val, soapWebServicePingConfigEntry.ResultType, soapWebServicePingConfigEntry.CustomValue1, soapWebServicePingConfigEntry.CustomValue2, out formattedVal);
+
+                        if (
+                            (checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Success)
+                            ||
+                            (!checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Failure)
+                            )
                         {
                             success++;
-                            plainTextDetails.Append("Success - Available");
-                            htmlTextTextDetails.Append("<b>Success</b> - Available");
+                            plainTextDetails.Append("Success - ");
+                            htmlTextTextDetails.Append("<b>Success</b> - ");                           
                         }
-                        else if ((int)SoapWebServicePingResultEnum.FailOnNoValue == soapWebServicePingConfigEntry.OnErrorType
-                            && (val == null || val.ToString() == ""))
-                        {
-                            errors++;
-                            plainTextDetails.Append("Error - No value returned");
-                            htmlTextTextDetails.Append("<b>Error</b> - No value returned");
-                        }
-                        else if ((int)SoapWebServicePingResultEnum.FailOnSpecifiedValue == soapWebServicePingConfigEntry.OnErrorType
-                            && val.ToString() == soapWebServicePingConfigEntry.ErrorCustomValue)
-                        {
-                            errors++;
-                            plainTextDetails.Append(string.Format("Error - Value:{0}", val));
-                            htmlTextTextDetails.Append(string.Format("<b>Error</b> - Value:{0}", val));
-                        }                        
                         else
                         {
-                            success++;
-                            plainTextDetails.Append("Success - Available");
-                            htmlTextTextDetails.Append("<b>Success</b> - Available");
+                            errors++;
+                            plainTextDetails.Append("Failure - ");
+                            htmlTextTextDetails.Append("<b>Failure</b> - ");
+                        }
+                        switch (soapWebServicePingConfigEntry.ResultType)
+                        {
+                            case SoapWebServicePingResultEnum.CheckAvailabilityOnly:
+                                plainTextDetails.Append("Available");
+                                htmlTextTextDetails.Append("Available");
+                                break;
+                            case SoapWebServicePingResultEnum.NoValueOnly:
+                                plainTextDetails.Append("No value returned");
+                                htmlTextTextDetails.Append("No value returned");
+                                break;
+                            default:
+                                plainTextDetails.Append(string.Format("Value:{0}", formattedVal));
+                                htmlTextTextDetails.Append(string.Format("Value:{0}", formattedVal));
+                                break;
                         }
 
                         plainTextDetails.AppendLine();
@@ -93,7 +101,10 @@ namespace QuickMon
 
         public override void ShowStatusDetails(string collectorName)
         {
-            throw new NotImplementedException();
+            ShowDetails showDetails = new ShowDetails();
+            showDetails.SoapWebServicePingConfig = soapWebServicePingConfig;
+            showDetails.Text = "Show details - " + collectorName;
+            showDetails.Show();
         }
 
         public override string ConfigureAgent(string config)

@@ -83,19 +83,15 @@ namespace QuickMon
                 }
                 else
                 {
-                    returnValue = null;
+                    throw new Exception("Web Service instance not set!");
                 }
             }
             catch (System.Reflection.TargetInvocationException tex)
             {
                 if (tex.InnerException != null)
-                    LastError = string.Format("Last step: {0}\r\n{1}", lastStep, tex.InnerException.Message);
+                    throw  new Exception(string.Format("Last step: {0}\r\n{1}", lastStep, tex.InnerException.Message));
                 else
-                    LastError = string.Format("Last step: {0}\r\n{1}", lastStep, tex.ToString());
-            }
-            catch (Exception ex)
-            {
-                LastError = string.Format("Last step: {0}\r\n{1}", lastStep, ex.ToString());
+                    throw new Exception(string.Format("Last step: {0}\r\n{1}", lastStep, tex.ToString()));
             }
             return returnValue;
         }

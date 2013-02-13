@@ -66,6 +66,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ShowDetails\ShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowDetails\ShowDetails.Designer.cs">
+      <DependentUpon>ShowDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="SoapWebServicePing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapWebServicePingConfig.cs" />
@@ -90,8 +96,12 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ShowDetails\ShowDetails.resx">
+      <DependentUpon>ShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\doc_refresh.png" />
     <Content Include="Resources\SoapWebServiceConfig.xml" />
   </ItemGroup>
   <ItemGroup />

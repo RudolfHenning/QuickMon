@@ -61,10 +61,21 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_refresh {
+            get {
+                object obj = ResourceManager.GetObject("doc_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;config&gt;
         ///  &lt;webServices&gt;
         ///    &lt;!--
-        ///      &lt;webService url=&quot;&quot; name=&quot;&quot; method=&quot;&quot; paramatersCSV=&quot;&quot; /&gt;
+        ///      &lt;webService url=&quot;&quot; name=&quot;&quot; method=&quot;&quot; paramatersCSV=&quot;&quot; onErrorType=&quot;&quot; 
+        ///        errorCustomValue=&quot;&quot; onWarningType=&quot;&quot; warningCustomValue=&quot;&quot; /&gt;
         ///      --&gt;
         ///  &lt;/webServices&gt;
         ///&lt;/config&gt;.

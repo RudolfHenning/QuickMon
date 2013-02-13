@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditConfig));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdRemove = new System.Windows.Forms.Button();
@@ -125,6 +126,7 @@
             this.lvwEntries.UseCompatibleStateImageBehavior = false;
             this.lvwEntries.View = System.Windows.Forms.View.Details;
             this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.cmdEdit_Click);
             this.lvwEntries.Resize += new System.EventHandler(this.lvwEntries_Resize);
             // 
             // columnHeaderServiceURL
@@ -135,13 +137,11 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "Service name";
-            this.columnHeaderName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderName.Width = 90;
             // 
             // columnHeaderMethodName
             // 
             this.columnHeaderMethodName.Text = "Method name";
-            this.columnHeaderMethodName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderMethodName.Width = 90;
             // 
             // columnHeaderParameters
@@ -173,6 +173,7 @@
             this.Controls.Add(this.cmdAdd);
             this.Controls.Add(this.lvwEntries);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "EditConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

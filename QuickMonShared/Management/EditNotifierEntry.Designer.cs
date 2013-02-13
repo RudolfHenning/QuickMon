@@ -101,9 +101,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 64);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.854546F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(11, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(92, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "Notifier type";
             // 
@@ -113,10 +114,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboNotifier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboNotifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboNotifier.FormattingEnabled = true;
-            this.cboNotifier.Location = new System.Drawing.Point(83, 61);
+            this.cboNotifier.Location = new System.Drawing.Point(109, 59);
             this.cboNotifier.Name = "cboNotifier";
-            this.cboNotifier.Size = new System.Drawing.Size(387, 21);
+            this.cboNotifier.Size = new System.Drawing.Size(361, 23);
             this.cboNotifier.TabIndex = 4;
             this.cboNotifier.SelectedIndexChanged += new System.EventHandler(this.cboNotifier_SelectedIndexChanged);
             // 
@@ -153,7 +155,7 @@
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkEnabled.Location = new System.Drawing.Point(86, 38);
             this.chkEnabled.Name = "chkEnabled";
-            this.chkEnabled.Size = new System.Drawing.Size(63, 17);
+            this.chkEnabled.Size = new System.Drawing.Size(64, 17);
             this.chkEnabled.TabIndex = 2;
             this.chkEnabled.Text = "Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
@@ -172,9 +174,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 15);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(11, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
@@ -275,7 +278,7 @@
             this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 15);
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 17);
             this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;

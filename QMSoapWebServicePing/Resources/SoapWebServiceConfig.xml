@@ -1,8 +1,16 @@
 <config>
   <webServices>
     <!--
-      <webService url="" name="" method="" paramatersCSV="" onErrorType="" 
-        errorCustomValue="" onWarningType="" warningCustomValue="" />
+      <webService url="" name="" method="" paramatersCSV=""         
+        checkType="0" resultType="" checkValue1="" checkValue2=""
+         />
+         
       -->
+    <!--
+      checkType can be 0 (success) or 1 (failure)
+      resultType is one of SoapWebServicePingResultEnum
+      checkValue1 is first custom value
+      checkValue2 is second custom value e.g. when checking range like 'between 1 and 10'
+    -->
   </webServices>
 </config>

@@ -56,19 +56,19 @@
             this.manualConfigurationToolStripMenuItem,
             this.importFromExistingToolStripMenuItem});
             this.contextMenuStripButton.Name = "contextMenuStripButton";
-            this.contextMenuStripButton.Size = new System.Drawing.Size(222, 48);
+            this.contextMenuStripButton.Size = new System.Drawing.Size(247, 52);
             // 
             // manualConfigurationToolStripMenuItem
             // 
             this.manualConfigurationToolStripMenuItem.Name = "manualConfigurationToolStripMenuItem";
-            this.manualConfigurationToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.manualConfigurationToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
             this.manualConfigurationToolStripMenuItem.Text = "Manually edit configuration";
             this.manualConfigurationToolStripMenuItem.Click += new System.EventHandler(this.manualConfigurationToolStripMenuItem_Click);
             // 
             // importFromExistingToolStripMenuItem
             // 
             this.importFromExistingToolStripMenuItem.Name = "importFromExistingToolStripMenuItem";
-            this.importFromExistingToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.importFromExistingToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
             this.importFromExistingToolStripMenuItem.Text = "Import from existing";
             this.importFromExistingToolStripMenuItem.Click += new System.EventHandler(this.importFromExistingToolStripMenuItem_Click);
             // 
@@ -78,11 +78,11 @@
             this.cmdDropDown.FlatAppearance.BorderSize = 0;
             this.cmdDropDown.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdDropDown.Font = new System.Drawing.Font("Wingdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(3)));
+            this.cmdDropDown.Image = global::QuickMon.Properties.Resources.DnArrow;
             this.cmdDropDown.Location = new System.Drawing.Point(67, 0);
             this.cmdDropDown.Name = "cmdDropDown";
             this.cmdDropDown.Size = new System.Drawing.Size(19, 22);
             this.cmdDropDown.TabIndex = 1;
-            this.cmdDropDown.Text = "Ú";
             this.cmdDropDown.UseVisualStyleBackColor = true;
             this.cmdDropDown.Click += new System.EventHandler(this.cmdDropDown_Click);
             // 

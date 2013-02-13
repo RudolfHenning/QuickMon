@@ -169,6 +169,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\ConfigureEditButton.resx">
+      <DependentUpon>ConfigureEditButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Management\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +236,7 @@
     <None Include="Resources\folder_favor.png" />
     <None Include="Resources\down.png" />
     <None Include="Resources\info.png" />
+    <None Include="Resources\DnArrow.png" />
     <Content Include="Resources\MonitorPack.xml">
       <SubType>Designer</SubType>
     </Content>

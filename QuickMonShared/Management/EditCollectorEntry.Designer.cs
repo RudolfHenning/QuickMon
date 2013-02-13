@@ -59,13 +59,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.manualEditPanel = new System.Windows.Forms.Panel();
+            this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageAgent = new System.Windows.Forms.TabPage();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
             this.configureEditButtonCollector = new QuickMon.Controls.ConfigureEditButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
@@ -85,7 +85,7 @@
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkEnabled.Location = new System.Drawing.Point(67, 38);
             this.chkEnabled.Name = "chkEnabled";
-            this.chkEnabled.Size = new System.Drawing.Size(63, 17);
+            this.chkEnabled.Size = new System.Drawing.Size(64, 17);
             this.chkEnabled.TabIndex = 2;
             this.chkEnabled.Text = "Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
@@ -104,9 +104,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
@@ -170,9 +171,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 13);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.163636F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 13);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.Size = new System.Drawing.Size(108, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "Collector type";
             // 
@@ -182,10 +184,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboCollector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboCollector.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.854546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCollector.FormattingEnabled = true;
-            this.cboCollector.Location = new System.Drawing.Point(112, 10);
+            this.cboCollector.Location = new System.Drawing.Point(120, 10);
             this.cboCollector.Name = "cboCollector";
-            this.cboCollector.Size = new System.Drawing.Size(437, 21);
+            this.cboCollector.Size = new System.Drawing.Size(429, 23);
             this.cboCollector.TabIndex = 1;
             this.cboCollector.SelectedIndexChanged += new System.EventHandler(this.cboCollector_SelectedIndexChanged);
             // 
@@ -197,7 +200,7 @@
             this.chkCollectOnParentWarning.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkCollectOnParentWarning.Location = new System.Drawing.Point(112, 38);
             this.chkCollectOnParentWarning.Name = "chkCollectOnParentWarning";
-            this.chkCollectOnParentWarning.Size = new System.Drawing.Size(270, 17);
+            this.chkCollectOnParentWarning.Size = new System.Drawing.Size(271, 17);
             this.chkCollectOnParentWarning.TabIndex = 4;
             this.chkCollectOnParentWarning.Text = "Continue checking dependant collectors on warning";
             this.chkCollectOnParentWarning.UseVisualStyleBackColor = true;
@@ -301,7 +304,7 @@
             this.chkFolder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkFolder.Location = new System.Drawing.Point(14, 43);
             this.chkFolder.Name = "chkFolder";
-            this.chkFolder.Size = new System.Drawing.Size(64, 17);
+            this.chkFolder.Size = new System.Drawing.Size(65, 17);
             this.chkFolder.TabIndex = 2;
             this.chkFolder.Text = "Is Folder";
             this.chkFolder.UseVisualStyleBackColor = true;
@@ -389,6 +392,22 @@
             this.manualEditPanel.Size = new System.Drawing.Size(550, 126);
             this.manualEditPanel.TabIndex = 0;
             // 
+            // txtConfig
+            // 
+            this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 17);
+            this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;
+            this.txtConfig.Location = new System.Drawing.Point(0, 25);
+            this.txtConfig.Name = "txtConfig";
+            this.txtConfig.PreferredLineWidth = 0;
+            this.txtConfig.Size = new System.Drawing.Size(550, 101);
+            this.txtConfig.TabIndex = 2;
+            this.txtConfig.WordWrap = true;
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -466,22 +485,6 @@
             this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 6;
             this.label11.Text = "Delay alert";
-            // 
-            // txtConfig
-            // 
-            this.txtConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 15);
-            this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;
-            this.txtConfig.Location = new System.Drawing.Point(0, 25);
-            this.txtConfig.Name = "txtConfig";
-            this.txtConfig.PreferredLineWidth = 0;
-            this.txtConfig.Size = new System.Drawing.Size(550, 101);
-            this.txtConfig.TabIndex = 2;
-            this.txtConfig.WordWrap = true;
             // 
             // configureEditButtonCollector
             // 
