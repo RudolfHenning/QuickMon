@@ -57,6 +57,7 @@ namespace QuickMon
             cmdOK.Text = "OK";
             cmdOK.UseVisualStyleBackColor = true;
             cmdOK.Enabled = false;
+            cmdOK.FlatStyle = FlatStyle.Popup;
             cmdOK.Click += (object mysender, EventArgs ea) =>
             {
                 Form theForm = ((Button)mysender).FindForm();
@@ -76,6 +77,9 @@ namespace QuickMon
             cmdCancel.TabIndex = 2;
             cmdCancel.Text = "Cancel";
             cmdCancel.UseVisualStyleBackColor = true;
+            cmdCancel.FlatStyle = FlatStyle.Popup;
+
+            f.CancelButton = cmdCancel;
 
             ListBox lb = new ListBox();
             lb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));

@@ -103,9 +103,17 @@ namespace QuickMon
         private void lvwEntries_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+            {
                 cmdEdit_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
             else if (e.KeyCode == Keys.Delete)
+            {
                 cmdRemove_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
         #endregion
 
@@ -153,5 +161,6 @@ namespace QuickMon
             return cmdOK.Enabled;
         }
         #endregion
+
     }
 }

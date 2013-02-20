@@ -64,6 +64,22 @@ namespace QuickMon
             }
         }
 
+        private void NotifiersListWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                openViewerToolStripMenuItem_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
 
 
 

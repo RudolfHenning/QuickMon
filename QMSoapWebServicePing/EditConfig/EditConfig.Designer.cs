@@ -127,6 +127,7 @@
             this.lvwEntries.View = System.Windows.Forms.View.Details;
             this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
             this.lvwEntries.DoubleClick += new System.EventHandler(this.cmdEdit_Click);
+            this.lvwEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvwEntries_KeyDown);
             this.lvwEntries.Resize += new System.EventHandler(this.lvwEntries_Resize);
             // 
             // columnHeaderServiceURL
@@ -165,6 +166,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(616, 346);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);

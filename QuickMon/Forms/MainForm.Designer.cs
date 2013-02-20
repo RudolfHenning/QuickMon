@@ -38,6 +38,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonOptions = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNotifiers = new System.Windows.Forms.ToolStripSplitButton();
+            this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lastUpdateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -63,8 +65,6 @@
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.timerAppIconRefresher = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerRefresh = new System.ComponentModel.BackgroundWorker();
-            this.toolStripButtonNotifiers = new System.Windows.Forms.ToolStripSplitButton();
-            this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStriptvw.SuspendLayout();
@@ -86,8 +86,8 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(374, 39);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.TabStop = true;
             // 
             // toolStripButtonLoad
             // 
@@ -144,6 +144,26 @@
             this.toolStripButtonRefresh.Text = "Refresh";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
+            // toolStripButtonNotifiers
+            // 
+            this.toolStripButtonNotifiers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNotifiers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showAllNotifiersToolStripMenuItem});
+            this.toolStripButtonNotifiers.Image = global::QuickMon.Properties.Resources.horn;
+            this.toolStripButtonNotifiers.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNotifiers.Name = "toolStripButtonNotifiers";
+            this.toolStripButtonNotifiers.Size = new System.Drawing.Size(48, 36);
+            this.toolStripButtonNotifiers.Text = "Notifiers";
+            this.toolStripButtonNotifiers.ToolTipText = "View default notifier or list of all notifiers";
+            this.toolStripButtonNotifiers.ButtonClick += new System.EventHandler(this.toolStripButtonNotifiers_Click);
+            // 
+            // showAllNotifiersToolStripMenuItem
+            // 
+            this.showAllNotifiersToolStripMenuItem.Name = "showAllNotifiersToolStripMenuItem";
+            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
+            this.showAllNotifiersToolStripMenuItem.Text = "Show all notifiers";
+            this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.notifiersToolStripMenuItem_Click);
+            // 
             // infoToolStripButton
             // 
             this.infoToolStripButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -196,7 +216,7 @@
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(374, 312);
-            this.tvwCollectors.TabIndex = 2;
+            this.tvwCollectors.TabIndex = 0;
             this.tvwCollectors.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvwCollectors_BeforeCollapse);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
             this.tvwCollectors.DoubleClick += new System.EventHandler(this.tvwCollectors_DoubleClick);
@@ -359,26 +379,6 @@
             // backgroundWorkerRefresh
             // 
             this.backgroundWorkerRefresh.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerRefresh_DoWork);
-            // 
-            // toolStripButtonNotifiers
-            // 
-            this.toolStripButtonNotifiers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNotifiers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAllNotifiersToolStripMenuItem});
-            this.toolStripButtonNotifiers.Image = global::QuickMon.Properties.Resources.horn;
-            this.toolStripButtonNotifiers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNotifiers.Name = "toolStripButtonNotifiers";
-            this.toolStripButtonNotifiers.Size = new System.Drawing.Size(48, 36);
-            this.toolStripButtonNotifiers.Text = "Notifiers";
-            this.toolStripButtonNotifiers.ToolTipText = "View default notifier or list of all notifiers";
-            this.toolStripButtonNotifiers.ButtonClick += new System.EventHandler(this.toolStripButtonNotifiers_Click);
-            // 
-            // showAllNotifiersToolStripMenuItem
-            // 
-            this.showAllNotifiersToolStripMenuItem.Name = "showAllNotifiersToolStripMenuItem";
-            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
-            this.showAllNotifiersToolStripMenuItem.Text = "Show all notifiers";
-            this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.notifiersToolStripMenuItem_Click);
             // 
             // MainForm
             // 

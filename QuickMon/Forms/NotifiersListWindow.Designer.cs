@@ -63,13 +63,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openViewerToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(141, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 28);
             // 
             // openViewerToolStripMenuItem
             // 
             this.openViewerToolStripMenuItem.Enabled = false;
             this.openViewerToolStripMenuItem.Name = "openViewerToolStripMenuItem";
-            this.openViewerToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.openViewerToolStripMenuItem.Size = new System.Drawing.Size(155, 24);
             this.openViewerToolStripMenuItem.Text = "Open viewer";
             this.openViewerToolStripMenuItem.Click += new System.EventHandler(this.openViewerToolStripMenuItem_Click);
             // 
@@ -80,11 +80,13 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.lvwNotifiers);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "NotifiersListWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Notifier List";
             this.Shown += new System.EventHandler(this.NotifiersListWindow_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NotifiersListWindow_KeyDown);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 

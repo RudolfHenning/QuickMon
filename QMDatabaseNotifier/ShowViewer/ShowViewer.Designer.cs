@@ -126,7 +126,7 @@
             this.chkStayCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkStayCurrent.Location = new System.Drawing.Point(385, 32);
             this.chkStayCurrent.Name = "chkStayCurrent";
-            this.chkStayCurrent.Size = new System.Drawing.Size(81, 17);
+            this.chkStayCurrent.Size = new System.Drawing.Size(82, 17);
             this.chkStayCurrent.TabIndex = 10;
             this.chkStayCurrent.Text = "Stay current";
             this.chkStayCurrent.UseVisualStyleBackColor = true;
@@ -282,16 +282,16 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.countsToolStripStatusLabel,
             this.statusToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 340);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 338);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(618, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(618, 24);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // countsToolStripStatusLabel
             // 
             this.countsToolStripStatusLabel.Name = "countsToolStripStatusLabel";
-            this.countsToolStripStatusLabel.Size = new System.Drawing.Size(10, 17);
+            this.countsToolStripStatusLabel.Size = new System.Drawing.Size(12, 19);
             this.countsToolStripStatusLabel.Text = ".";
             // 
             // statusToolStripStatusLabel
@@ -317,8 +317,8 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.rtxDetails);
-            this.splitContainerMain.Size = new System.Drawing.Size(618, 254);
-            this.splitContainerMain.SplitterDistance = 154;
+            this.splitContainerMain.Size = new System.Drawing.Size(618, 252);
+            this.splitContainerMain.SplitterDistance = 152;
             this.splitContainerMain.TabIndex = 2;
             // 
             // lvwMessages
@@ -334,7 +334,7 @@
             this.lvwMessages.HideSelection = false;
             this.lvwMessages.Location = new System.Drawing.Point(0, 0);
             this.lvwMessages.Name = "lvwMessages";
-            this.lvwMessages.Size = new System.Drawing.Size(618, 138);
+            this.lvwMessages.Size = new System.Drawing.Size(618, 136);
             this.lvwMessages.SmallImageList = this.imageList1;
             this.lvwMessages.TabIndex = 0;
             this.lvwMessages.UseCompatibleStateImageBehavior = false;
@@ -383,7 +383,7 @@
             this.cmdViewDetails.FlatAppearance.BorderSize = 0;
             this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdViewDetails.Font = new System.Drawing.Font("Marlett", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdViewDetails.Location = new System.Drawing.Point(0, 138);
+            this.cmdViewDetails.Location = new System.Drawing.Point(0, 136);
             this.cmdViewDetails.Margin = new System.Windows.Forms.Padding(0);
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Size = new System.Drawing.Size(618, 16);
@@ -411,31 +411,31 @@
             this.toolStripMenuItem10,
             this.showDetailsForAllSelectedItemsToolStripMenuItem});
             this.contextMenuStripRTBox.Name = "contextMenuStripRTBox";
-            this.contextMenuStripRTBox.Size = new System.Drawing.Size(247, 76);
+            this.contextMenuStripRTBox.Size = new System.Drawing.Size(283, 82);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem1
             // 
             this.selectAllToolStripMenuItem1.Name = "selectAllToolStripMenuItem1";
-            this.selectAllToolStripMenuItem1.Size = new System.Drawing.Size(246, 22);
+            this.selectAllToolStripMenuItem1.Size = new System.Drawing.Size(282, 24);
             this.selectAllToolStripMenuItem1.Text = "Select all";
             this.selectAllToolStripMenuItem1.Click += new System.EventHandler(this.selectAllToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(243, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(279, 6);
             // 
             // showDetailsForAllSelectedItemsToolStripMenuItem
             // 
             this.showDetailsForAllSelectedItemsToolStripMenuItem.Name = "showDetailsForAllSelectedItemsToolStripMenuItem";
-            this.showDetailsForAllSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.showDetailsForAllSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             this.showDetailsForAllSelectedItemsToolStripMenuItem.Text = "Show details for all selected items";
             this.showDetailsForAllSelectedItemsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsForAllSelectedItemsToolStripMenuItem_Click);
             // 
@@ -453,10 +453,12 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(630, 400);
             this.Name = "ShowViewer";
             this.Text = "QuickMon Database Notifier Viewer";
             this.Load += new System.EventHandler(this.ShowViewer_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ShowViewer_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

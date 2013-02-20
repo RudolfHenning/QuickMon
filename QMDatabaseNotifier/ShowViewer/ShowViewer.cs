@@ -297,5 +297,15 @@ namespace QuickMon
             }
              ).Start();
         }
+
+        private void ShowViewer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

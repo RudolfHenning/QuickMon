@@ -140,29 +140,41 @@ namespace QuickMon
                             throw new Exception("DataSet contains no rows or columns!");
                         else
                         {
-                            if (fromVal == "[Count]")
+                             if (fromVal == "[Count]")
                             {
                                 if (toVal.IsNumber())
                                 {
-                                    result = tab.Rows.Count == double.Parse(toVal);
+                                    result = CheckResultMatchMacro(tab.Rows.Count, toVal);
                                     formattedVal = tab.Rows.Count.ToString() + " row(s)";
                                 }
                                 else
                                     throw new Exception("Second custom value must be a number!");
                             }
-                            else if (fromVal == "[LastValue]")
-                            {
-                                result = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString().ToLower() == toVal.ToLower();
-                                formattedVal = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString();
-                            }
                             else if (fromVal == "[FirstValue]")
                             {
-                                result = tab.Rows[0][0].ToString().ToLower() == toVal.ToLower();
+                                result = CheckResultMatchMacro(tab.Rows[0][0].ToString().ToLower(), toVal.ToLower());
                                 formattedVal = tab.Rows[0][0].ToString();
+                            }
+                            else if (fromVal == "[LastValue]")
+                            {
+                                result = CheckResultMatchMacro(tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString().ToLower(), toVal.ToLower());
+                                formattedVal = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString();
+                            }
+                            else if (fromVal.StartsWith("[") && fromVal.EndsWith("]") && fromVal.Contains("]["))
+                            {
+                                string[] tabArr = fromVal.Split(new string[] { "[", "]" }, StringSplitOptions.RemoveEmptyEntries);
+                                if (!tabArr[0].IsInteger() || !tabArr[1].IsInteger())
+                                    throw new Exception("First custom value cotains invalid macro format!");
+                                else
+                                {
+                                    object celVal = tab.Rows[int.Parse(tabArr[0])][int.Parse(tabArr[1])];
+                                    result = CheckResultMatchMacro(celVal, toVal);
+                                    formattedVal = celVal.ToString();
+                                }
                             }
                             else
                             {
-                                result = tab.Rows[0][0].ToString().ToLower() == fromVal.ToLower();
+                                result = CheckResultMatchMacro(tab.Rows[0][0].ToString().ToLower(), toVal.ToLower());
                                 formattedVal = tab.Rows[0][0].ToString();
                             }
                         }
@@ -180,30 +192,66 @@ namespace QuickMon
                         throw new Exception("String array is empty!");
                     else if (fromVal == "[Count]")
                     {
-                        if (toVal.IsNumber())
+                        //if (toVal.IsNumber())
                         {
-                            result = sa.Length == double.Parse(toVal);
+                            result = CheckResultMatchMacro(sa.Length, toVal);
                             formattedVal = sa.Length.ToString() + " row(s)";
                         }
-                        else
-                            throw new Exception("Second custom value must be a number!");
+                        //else
+//                            throw new Exception("Second custom value must be a number!");
                     }
                     else if (fromVal == "[LastValue]")
                     {
-                        result = sa[sa.Length - 1].ToLower() == toVal.ToLower();
+                        result = CheckResultMatchMacro(sa[sa.Length - 1].ToLower(), toVal.ToLower());
                         formattedVal = sa[sa.Length - 1];
                     }
                     else if (fromVal == "[FirstValue]")
                     {
-                        result = sa[0].ToLower() == toVal.ToLower();
+                        result = CheckResultMatchMacro(sa[0].ToLower(), toVal.ToLower());
                         formattedVal = sa[0];
                     }
                     else
                     {
-                        result = sa[0].ToLower() == fromVal.ToLower();
+                        result = CheckResultMatchMacro(sa[0].ToLower(), fromVal.ToLower());
                         formattedVal = sa[0];
                     }
                 }
+            }
+            return result;
+        }
+
+        private bool CheckResultMatchMacro(object val, string macro)
+        {
+            bool result = false;
+
+            if (macro.StartsWith("[Between]") && macro.Contains("[and]"))
+            {
+                string[] queryItems = macro.Split(' ');
+                if (val.IsNumber() && queryItems.Length == 4 && queryItems[1].IsNumber() && queryItems[3].IsNumber())
+                    result = (double.Parse(queryItems[1]) < double.Parse(val.ToString()))
+                        && (double.Parse(val.ToString()) < double.Parse(queryItems[3]));
+                else
+                    throw new Exception("Invalid value returned or second custom value cotains invalid macro!");
+            }
+            else if (macro.StartsWith("[LargerThan]"))
+            {
+                string macroValue = macro.Replace("[LargerThan]", "").Trim();
+                if (val.IsNumber() && macroValue.IsNumber())
+                    result = (double.Parse(macroValue) < double.Parse(val.ToString()));
+                else
+                    throw new Exception("Invalid value returned or second custom value cotains invalid macro!");
+            }
+            else if (macro.StartsWith("[SmallerThan]"))
+            {
+                string macroValue = macro.Replace("[SmallerThan]", "").Trim();
+                if (val.IsNumber() && macroValue.IsNumber())
+                    result = (double.Parse(macroValue) > double.Parse(val.ToString()));
+                else
+                    throw new Exception("Invalid value returned or second custom value cotains invalid macro!");
+            }
+            else
+            {
+                result = val.ToString() == macro;
             }
             return result;
         }

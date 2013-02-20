@@ -30,7 +30,7 @@ namespace QuickMon
                 cboCheckType.SelectedIndex = SelectedSoapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Success ? 0 : 1;
                 cboResultType.SelectedIndex = (int)SelectedSoapWebServicePingConfigEntry.ResultType;
                 cboErrorCustomValue1.Text = SelectedSoapWebServicePingConfigEntry.CustomValue1;
-                txtErrorCustomValue2.Text = SelectedSoapWebServicePingConfigEntry.CustomValue2;
+                cboErrorCustomValue2.Text = SelectedSoapWebServicePingConfigEntry.CustomValue2;
             }
             else
             {
@@ -59,7 +59,7 @@ namespace QuickMon
             tmpSoapWebServicePingConfigEntry.CheckType = (SoapWebServicePingCheckType)cboCheckType.SelectedIndex;
             tmpSoapWebServicePingConfigEntry.ResultType = (SoapWebServicePingResultEnum)cboResultType.SelectedIndex;
             tmpSoapWebServicePingConfigEntry.CustomValue1 = cboErrorCustomValue1.Text;
-            tmpSoapWebServicePingConfigEntry.CustomValue2 = txtErrorCustomValue2.Text;
+            tmpSoapWebServicePingConfigEntry.CustomValue2 = cboErrorCustomValue2.Text;
             try
             {
                 object pingResult = tmpSoapWebServicePingConfigEntry.ExecuteMethod();
@@ -102,7 +102,7 @@ namespace QuickMon
                 SelectedSoapWebServicePingConfigEntry.CheckType = (SoapWebServicePingCheckType)cboCheckType.SelectedIndex;
                 SelectedSoapWebServicePingConfigEntry.ResultType = (SoapWebServicePingResultEnum)cboResultType.SelectedIndex;
                 SelectedSoapWebServicePingConfigEntry.CustomValue1 = cboErrorCustomValue1.Text;
-                SelectedSoapWebServicePingConfigEntry.CustomValue2 = txtErrorCustomValue2.Text;
+                SelectedSoapWebServicePingConfigEntry.CustomValue2 = cboErrorCustomValue2.Text;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
@@ -119,13 +119,67 @@ namespace QuickMon
         #region Private methods
         private bool CheckOKButtonEnable()
         {
+            bool customValue1Check = true;
+            bool customValue2Check = true;
+
+            if (cboResultType.SelectedIndex < 2) //Check Availability Only & No/Empty Value
+                customValue1Check = true;
+            else if (cboResultType.SelectedIndex == 2) // Specified Value
+            {
+                customValue1Check = cboErrorCustomValue1.Text.Length > 0 && !cboErrorCustomValue1.Text.StartsWith("[");
+            }
+            else if (cboResultType.SelectedIndex == 3) // Values in range
+            {
+                customValue1Check = cboErrorCustomValue1.Text.IsNumber() && cboErrorCustomValue2.Text.IsNumber();
+            }
+            else if (cboResultType.SelectedIndex == 4) // Dataset 
+            {
+                customValue1Check = (cboErrorCustomValue1.Text == "[Count]" && cboErrorCustomValue2.Text.IsNumber())
+                        || (cboErrorCustomValue1.Text == "[FirstValue]" && cboErrorCustomValue2.Text.Length > 0)
+                        || (cboErrorCustomValue1.Text == "[LastValue]" && cboErrorCustomValue2.Text.Length > 0)
+                        || (cboErrorCustomValue1.Text.StartsWith("[") && cboErrorCustomValue1.Text.Contains("][") && cboErrorCustomValue1.Text.EndsWith("]") && cboErrorCustomValue2.Text.Length > 0);
+            }
+            else //String array
+            {
+                customValue1Check = (cboErrorCustomValue1.Text == "[Count]" && cboErrorCustomValue2.Text.IsNumber())
+                        || (cboErrorCustomValue1.Text == "[FirstValue]" && cboErrorCustomValue2.Text.Length > 0)
+                        || (cboErrorCustomValue1.Text == "[LastValue]" && cboErrorCustomValue2.Text.Length > 0)
+                        || (cboErrorCustomValue1.Text.StartsWith("[") && (!cboErrorCustomValue1.Text.Contains("][")) && cboErrorCustomValue1.Text.EndsWith("]") && cboErrorCustomValue2.Text.Length > 0);
+            }
+            if (customValue1Check && cboErrorCustomValue1.Text.StartsWith("[") && cboErrorCustomValue2.Text.StartsWith("["))
+            {
+                customValue2Check = false;
+                if (cboResultType.SelectedIndex >= 4)
+                {
+                    if (cboErrorCustomValue2.Text.StartsWith("[Between]") && cboErrorCustomValue2.Text.Contains("[and]"))
+                    {
+                        string[] queryItems = cboErrorCustomValue2.Text.Split(' ');
+                        if (queryItems.Length == 4 && queryItems[1].IsNumber() && queryItems[3].IsNumber())
+                            customValue2Check = true;
+                    }
+                    else if (cboErrorCustomValue2.Text.StartsWith("[LargerThan]"))
+                    {
+                        string[] queryItems = cboErrorCustomValue2.Text.Split(' ');
+                        if (queryItems.Length == 2 && queryItems[1].IsNumber())
+                            customValue2Check = true;
+                    }
+                    else if (cboErrorCustomValue2.Text.StartsWith("[SmallerThan]"))
+                    {
+                        string[] queryItems = cboErrorCustomValue2.Text.Split(' ');
+                        if (queryItems.Length == 2 && queryItems[1].IsNumber())
+                            customValue2Check = true;
+                    }
+                }
+            }
+
             cmdOK.Enabled = txtServiceURL.Text.Length > 0 
                 && (!txtServiceURL.Text.Contains("\\"))
                 && txtServiceName.Text.Trim().Length > 0
                 && txtMethodName.Text.Trim().Length > 0
                 && cboCheckType.SelectedIndex > -1
                 && cboResultType.SelectedIndex > -1
-                && (cboErrorCustomValue1.Text.Length > 0 || cboResultType.SelectedIndex < 2);
+                && customValue1Check
+                && customValue2Check;
             cmdTestAddress.Enabled = txtServiceURL.Text.Length > 0
                 && txtServiceURL.Text.ToLower() != "http://" 
                 && (!txtServiceURL.Text.Contains("\\"))
@@ -133,7 +187,8 @@ namespace QuickMon
                 && txtMethodName.Text.Length > 0
                 && cboCheckType.SelectedIndex > -1
                 && cboResultType.SelectedIndex > -1
-                && (cboErrorCustomValue1.Text.Length > 0 || cboResultType.SelectedIndex < 2);
+                && customValue1Check
+                && customValue2Check;
             return cmdOK.Enabled;
         }
         #endregion    

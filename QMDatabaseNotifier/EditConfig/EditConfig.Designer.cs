@@ -241,7 +241,7 @@
             this.chkUseSP.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkUseSP.Location = new System.Drawing.Point(13, 6);
             this.chkUseSP.Name = "chkUseSP";
-            this.chkUseSP.Size = new System.Drawing.Size(216, 17);
+            this.chkUseSP.Size = new System.Drawing.Size(217, 17);
             this.chkUseSP.TabIndex = 0;
             this.chkUseSP.Text = "Use stored procuredure (Recommended)";
             this.chkUseSP.UseVisualStyleBackColor = true;
@@ -409,7 +409,7 @@
             this.chkIntegratedSec.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkIntegratedSec.Location = new System.Drawing.Point(140, 60);
             this.chkIntegratedSec.Name = "chkIntegratedSec";
-            this.chkIntegratedSec.Size = new System.Drawing.Size(111, 17);
+            this.chkIntegratedSec.Size = new System.Drawing.Size(112, 17);
             this.chkIntegratedSec.TabIndex = 13;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;
@@ -520,7 +520,7 @@
             this.chkUseSP2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkUseSP2.Location = new System.Drawing.Point(13, 6);
             this.chkUseSP2.Name = "chkUseSP2";
-            this.chkUseSP2.Size = new System.Drawing.Size(216, 17);
+            this.chkUseSP2.Size = new System.Drawing.Size(217, 17);
             this.chkUseSP2.TabIndex = 4;
             this.chkUseSP2.Text = "Use stored procuredure (Recommended)";
             this.chkUseSP2.UseVisualStyleBackColor = true;
@@ -539,6 +539,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(648, 332);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.tabControl1);

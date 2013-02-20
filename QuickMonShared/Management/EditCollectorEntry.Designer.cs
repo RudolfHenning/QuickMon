@@ -501,6 +501,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(584, 326);
             this.Controls.Add(this.configureEditButtonCollector);
             this.Controls.Add(this.label7);

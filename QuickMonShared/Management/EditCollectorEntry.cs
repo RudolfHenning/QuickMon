@@ -136,7 +136,7 @@ namespace QuickMon.Management
                 {
                     AgentRegistration ar = (AgentRegistration)cboCollector.SelectedItem;
                     ICollector col = CollectorEntry.CreateCollectorEntry(ar.AssemblyPath, ar.ClassName);
-                    txtConfig.Text = col.GetDefaultOrEmptyConfigString();
+                    txtConfig.Text = col.GetDefaultOrEmptyConfigString();                    
                 }
                 catch { }
             }
@@ -280,6 +280,7 @@ namespace QuickMon.Management
             configureEditButtonCollector.Enabled = false;
             cboCollector.Enabled = false;
             CheckOkEnable();
+            //cmdCancel.Enabled = false;
         }
         private void HideManualConfig()
         {
@@ -291,7 +292,8 @@ namespace QuickMon.Management
             configureEditButtonCollector.Enabled = true;
             cboCollector.Enabled = allowCollectorChange;
             CheckOkEnable();
-            txtConfig.Text = "";            
+            txtConfig.Text = "";
+            //cmdCancel.Enabled = true;
         }
         private void CheckOkEnable()
         {
@@ -309,7 +311,7 @@ namespace QuickMon.Management
             AlertOnceInXMinNumericUpDown.Enabled = !chkFolder.Checked;
             delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
         }
-        #endregion 
+        #endregion
 
     }
 }

@@ -47,9 +47,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cboCheckType = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtErrorCustomValue2 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cboErrorCustomValue1 = new System.Windows.Forms.ComboBox();
+            this.cboErrorCustomValue2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label6
@@ -219,7 +219,7 @@
             "Failure"});
             this.cboCheckType.Location = new System.Drawing.Point(113, 115);
             this.cboCheckType.Name = "cboCheckType";
-            this.cboCheckType.Size = new System.Drawing.Size(89, 21);
+            this.cboCheckType.Size = new System.Drawing.Size(148, 21);
             this.cboCheckType.TabIndex = 9;
             this.cboCheckType.SelectedIndexChanged += new System.EventHandler(this.cboCheckType_SelectedIndexChanged);
             // 
@@ -232,37 +232,44 @@
             this.label8.Text = "Value 2";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // txtErrorCustomValue2
-            // 
-            this.txtErrorCustomValue2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtErrorCustomValue2.Location = new System.Drawing.Point(333, 142);
-            this.txtErrorCustomValue2.Name = "txtErrorCustomValue2";
-            this.txtErrorCustomValue2.Size = new System.Drawing.Size(116, 20);
-            this.txtErrorCustomValue2.TabIndex = 15;
-            this.txtErrorCustomValue2.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
-            // 
             // cboErrorCustomValue1
             // 
             this.cboErrorCustomValue1.FormattingEnabled = true;
             this.cboErrorCustomValue1.Items.AddRange(new object[] {
             "[Count]",
             "[FirstValue]",
-            "[LastValue]"});
+            "[LastValue]",
+            "[x]",
+            "[x][y]"});
             this.cboErrorCustomValue1.Location = new System.Drawing.Point(113, 142);
             this.cboErrorCustomValue1.Name = "cboErrorCustomValue1";
-            this.cboErrorCustomValue1.Size = new System.Drawing.Size(154, 21);
+            this.cboErrorCustomValue1.Size = new System.Drawing.Size(148, 21);
             this.cboErrorCustomValue1.TabIndex = 13;
             this.cboErrorCustomValue1.SelectedIndexChanged += new System.EventHandler(this.cboCheckType_SelectedIndexChanged);
             this.cboErrorCustomValue1.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
+            // 
+            // cboErrorCustomValue2
+            // 
+            this.cboErrorCustomValue2.FormattingEnabled = true;
+            this.cboErrorCustomValue2.Items.AddRange(new object[] {
+            "[Between] x [and] y",
+            "[LargerThan] x",
+            "[SmallerThan] x"});
+            this.cboErrorCustomValue2.Location = new System.Drawing.Point(333, 142);
+            this.cboErrorCustomValue2.Name = "cboErrorCustomValue2";
+            this.cboErrorCustomValue2.Size = new System.Drawing.Size(156, 21);
+            this.cboErrorCustomValue2.TabIndex = 19;
+            this.cboErrorCustomValue2.SelectedIndexChanged += new System.EventHandler(this.cboCheckType_SelectedIndexChanged);
+            this.cboErrorCustomValue2.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
             // 
             // EditSoapWebServicePingConfigEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(501, 218);
+            this.Controls.Add(this.cboErrorCustomValue2);
             this.Controls.Add(this.cboErrorCustomValue1);
-            this.Controls.Add(this.txtErrorCustomValue2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cboCheckType);
@@ -312,8 +319,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cboCheckType;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtErrorCustomValue2;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ComboBox cboErrorCustomValue1;
+        private System.Windows.Forms.ComboBox cboErrorCustomValue2;
     }
 }
