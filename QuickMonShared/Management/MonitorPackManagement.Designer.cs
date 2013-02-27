@@ -62,6 +62,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.filePathtoolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -292,6 +294,7 @@
             // moveUpToolStripMenuItem
             // 
             this.moveUpToolStripMenuItem.Enabled = false;
+            this.moveUpToolStripMenuItem.Image = global::QuickMon.Properties.Resources.up;
             this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
             this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.moveUpToolStripMenuItem.Text = "Move up";
@@ -300,6 +303,7 @@
             // moveDownToolStripMenuItem
             // 
             this.moveDownToolStripMenuItem.Enabled = false;
+            this.moveDownToolStripMenuItem.Image = global::QuickMon.Properties.Resources.down;
             this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
             this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.moveDownToolStripMenuItem.Text = "Move down";
@@ -311,7 +315,9 @@
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.recentToolStripMenuItem,
-            this.saveToolStripMenuItem});
+            this.saveToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.exportSelectedToolStripMenuItem});
             this.monitorPackToolStripMenuItem.Name = "monitorPackToolStripMenuItem";
             this.monitorPackToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
             this.monitorPackToolStripMenuItem.Text = "Monitor pack";
@@ -320,7 +326,7 @@
             // 
             this.newToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new2;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNew_Click);
             // 
@@ -328,7 +334,7 @@
             // 
             this.openToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_doc;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.toolStripoad_Click);
             // 
@@ -336,7 +342,7 @@
             // 
             this.recentToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
             this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
             this.recentToolStripMenuItem.Text = "Recent";
             this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
             // 
@@ -344,9 +350,23 @@
             // 
             this.saveToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(167, 6);
+            // 
+            // exportSelectedToolStripMenuItem
+            // 
+            this.exportSelectedToolStripMenuItem.Enabled = false;
+            this.exportSelectedToolStripMenuItem.Image = global::QuickMon.Properties.Resources._274_2;
+            this.exportSelectedToolStripMenuItem.Name = "exportSelectedToolStripMenuItem";
+            this.exportSelectedToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.exportSelectedToolStripMenuItem.Text = "Export selected";
+            this.exportSelectedToolStripMenuItem.Click += new System.EventHandler(this.exportSelectedToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -461,7 +481,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(419, 367);
+            this.cmdCancel.Location = new System.Drawing.Point(419, 365);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 11;
@@ -473,7 +493,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(338, 367);
+            this.cmdOK.Location = new System.Drawing.Point(340, 365);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 10;
@@ -485,7 +505,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 371);
+            this.label3.Location = new System.Drawing.Point(8, 371);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 13);
             this.label3.TabIndex = 8;
@@ -493,13 +513,14 @@
             // 
             // cboDefaultViewerNotifier
             // 
-            this.cboDefaultViewerNotifier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboDefaultViewerNotifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboDefaultViewerNotifier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDefaultViewerNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboDefaultViewerNotifier.FormattingEnabled = true;
-            this.cboDefaultViewerNotifier.Location = new System.Drawing.Point(134, 367);
+            this.cboDefaultViewerNotifier.Location = new System.Drawing.Point(129, 367);
             this.cboDefaultViewerNotifier.Name = "cboDefaultViewerNotifier";
-            this.cboDefaultViewerNotifier.Size = new System.Drawing.Size(199, 21);
+            this.cboDefaultViewerNotifier.Size = new System.Drawing.Size(205, 21);
             this.cboDefaultViewerNotifier.TabIndex = 9;
             // 
             // tvwMonPack
@@ -622,5 +643,7 @@
         private System.Windows.Forms.ToolStripButton moveDownToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton infoToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem exportSelectedToolStripMenuItem;
     }
 }

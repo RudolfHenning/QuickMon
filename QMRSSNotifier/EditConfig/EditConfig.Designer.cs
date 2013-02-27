@@ -94,8 +94,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtLanguage);
             this.groupBox1.Controls.Add(this.label4);
@@ -124,8 +124,8 @@
             // 
             // txtLanguage
             // 
-            this.txtLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLanguage.Location = new System.Drawing.Point(142, 123);
             this.txtLanguage.Name = "txtLanguage";
             this.txtLanguage.Size = new System.Drawing.Size(316, 20);
@@ -143,8 +143,8 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(142, 97);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(316, 20);
@@ -161,8 +161,8 @@
             // 
             // txtGenerator
             // 
-            this.txtGenerator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGenerator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGenerator.Location = new System.Drawing.Point(142, 71);
             this.txtGenerator.Name = "txtGenerator";
             this.txtGenerator.Size = new System.Drawing.Size(316, 20);
@@ -180,8 +180,8 @@
             // 
             // txtLink
             // 
-            this.txtLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLink.Location = new System.Drawing.Point(142, 45);
             this.txtLink.Name = "txtLink";
             this.txtLink.Size = new System.Drawing.Size(316, 20);
@@ -198,8 +198,8 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Location = new System.Drawing.Point(142, 19);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(316, 20);
@@ -208,8 +208,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label9);
@@ -295,15 +295,15 @@
             // 
             // txtLineDescription
             // 
-            this.txtLineDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLineDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLineDescription.Location = new System.Drawing.Point(142, 97);
             this.txtLineDescription.Multiline = true;
             this.txtLineDescription.Name = "txtLineDescription";
             this.txtLineDescription.Size = new System.Drawing.Size(316, 71);
             this.txtLineDescription.TabIndex = 8;
             this.txtLineDescription.Text = "<b>Date Time:</b> %DateTime%\r\n<b>Current state:</b> %CurrentState%\r\n<b>Collector:" +
-                "</b> %CollectorType%\r\n<b>Details</b>\r\n%Details%";
+    "</b> %CollectorType%\r\n<b>Details</b>\r\n%Details%";
             // 
             // lblCopyCollectorType
             // 
@@ -361,8 +361,8 @@
             // 
             // txtLineCategory
             // 
-            this.txtLineCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLineCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLineCategory.Location = new System.Drawing.Point(142, 71);
             this.txtLineCategory.Name = "txtLineCategory";
             this.txtLineCategory.Size = new System.Drawing.Size(316, 20);
@@ -381,8 +381,8 @@
             // 
             // txtLineTitle
             // 
-            this.txtLineTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLineTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLineTitle.Location = new System.Drawing.Point(142, 45);
             this.txtLineTitle.Name = "txtLineTitle";
             this.txtLineTitle.Size = new System.Drawing.Size(316, 20);
@@ -411,8 +411,8 @@
             // 
             // txtRSSFilePath
             // 
-            this.txtRSSFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRSSFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRSSFilePath.Location = new System.Drawing.Point(154, 6);
             this.txtRSSFilePath.Name = "txtRSSFilePath";
             this.txtRSSFilePath.Size = new System.Drawing.Size(283, 20);
@@ -442,6 +442,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(488, 461);
             this.Controls.Add(this.cmdBrowse);
             this.Controls.Add(this.label12);

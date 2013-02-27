@@ -242,26 +242,26 @@
             this.checkSelectedToolStripMenuItem,
             this.uncheckSelectedToolStripMenuItem});
             this.contextMenuStripSourceList.Name = "contextMenuStripSourceList";
-            this.contextMenuStripSourceList.Size = new System.Drawing.Size(167, 70);
+            this.contextMenuStripSourceList.Size = new System.Drawing.Size(184, 76);
             // 
             // allToolStripMenuItem1
             // 
             this.allToolStripMenuItem1.Name = "allToolStripMenuItem1";
-            this.allToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.allToolStripMenuItem1.Size = new System.Drawing.Size(183, 24);
             this.allToolStripMenuItem1.Text = "All";
             this.allToolStripMenuItem1.Click += new System.EventHandler(this.allToolStripMenuItem1_Click);
             // 
             // checkSelectedToolStripMenuItem
             // 
             this.checkSelectedToolStripMenuItem.Name = "checkSelectedToolStripMenuItem";
-            this.checkSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.checkSelectedToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
             this.checkSelectedToolStripMenuItem.Text = "Check selected";
             this.checkSelectedToolStripMenuItem.Click += new System.EventHandler(this.checkSelectedToolStripMenuItem_Click);
             // 
             // uncheckSelectedToolStripMenuItem
             // 
             this.uncheckSelectedToolStripMenuItem.Name = "uncheckSelectedToolStripMenuItem";
-            this.uncheckSelectedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.uncheckSelectedToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
             this.uncheckSelectedToolStripMenuItem.Text = "Uncheck selected";
             this.uncheckSelectedToolStripMenuItem.Click += new System.EventHandler(this.uncheckSelectedToolStripMenuItem_Click);
             // 
@@ -504,13 +504,13 @@
             this.containsToolStripMenuItem,
             this.allToolStripMenuItem});
             this.contextMenuStripQuickFind.Name = "contextMenuStripQuickFind";
-            this.contextMenuStripQuickFind.Size = new System.Drawing.Size(122, 48);
+            this.contextMenuStripQuickFind.Size = new System.Drawing.Size(133, 52);
             // 
             // containsToolStripMenuItem
             // 
             this.containsToolStripMenuItem.CheckOnClick = true;
             this.containsToolStripMenuItem.Name = "containsToolStripMenuItem";
-            this.containsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.containsToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.containsToolStripMenuItem.Text = "Contains";
             this.containsToolStripMenuItem.Click += new System.EventHandler(this.containsToolStripMenuItem_Click);
             // 
@@ -518,7 +518,7 @@
             // 
             this.allToolStripMenuItem.CheckOnClick = true;
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
@@ -577,6 +577,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(484, 412);
             this.Controls.Add(this.lblSecWarning);
             this.Controls.Add(this.pictureBoxSecWarning);

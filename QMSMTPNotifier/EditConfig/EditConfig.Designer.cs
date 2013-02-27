@@ -304,6 +304,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(488, 462);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);

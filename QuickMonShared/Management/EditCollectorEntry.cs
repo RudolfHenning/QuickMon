@@ -129,16 +129,19 @@ namespace QuickMon.Management
         }
         private void cmdManualConfig_Click(object sender, EventArgs e)
         {
-            txtConfig.Text = SelectedEntry.Configuration;
-            if (txtConfig.Text.Length == 0 && cboCollector.SelectedItem != null)
+            if (SelectedEntry.Configuration.Length == 0 && cboCollector.SelectedItem != null)
             {
                 try
                 {
                     AgentRegistration ar = (AgentRegistration)cboCollector.SelectedItem;
                     ICollector col = CollectorEntry.CreateCollectorEntry(ar.AssemblyPath, ar.ClassName);
-                    txtConfig.Text = col.GetDefaultOrEmptyConfigString();                    
+                    txtConfig.Text = XmlFormattingUtils.NormalizeXML(col.GetDefaultOrEmptyConfigString());
                 }
                 catch { }
+            }
+            else
+            {
+                txtConfig.Text = XmlFormattingUtils.NormalizeXML(SelectedEntry.Configuration);
             }
             ShowManualConfig();
         }
@@ -311,6 +314,21 @@ namespace QuickMon.Management
             AlertOnceInXMinNumericUpDown.Enabled = !chkFolder.Checked;
             delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
         }
+        #endregion
+
+        #region Manual config edit context menu events
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.Copy();
+        }
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.Paste();
+        }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.SelectAll();
+        } 
         #endregion
 
     }

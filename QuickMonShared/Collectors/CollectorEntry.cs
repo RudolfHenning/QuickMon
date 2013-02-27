@@ -296,5 +296,22 @@ namespace QuickMon
             return raiseAlert;
         } 
         #endregion
+
+        public CollectorEntry Clone()
+        {
+            CollectorEntry clone = new CollectorEntry();
+            clone.Name = Name;
+            clone.UniqueId = UniqueId;
+            clone.ParentCollectorId = ParentCollectorId;
+            clone.IsFolder = IsFolder;
+            clone.CollectOnParentWarning = CollectOnParentWarning;
+            clone.CollectorRegistrationName = CollectorRegistrationName;
+            clone.Collector = Collector;
+            clone.Configuration = Configuration;
+            clone.Enabled = Enabled;
+            clone.ServiceWindows = ServiceWindows;
+            clone.Tag = Tag;
+            return clone;
+        }
     }
 }

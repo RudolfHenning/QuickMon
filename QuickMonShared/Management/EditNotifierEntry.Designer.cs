@@ -51,6 +51,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.configureEditButtonNotifier = new QuickMon.Controls.ConfigureEditButton();
             this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configEditContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancelConfig
@@ -280,6 +285,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 17);
             this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfig.ContextMenuStrip = this.configEditContextMenuStrip;
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;
             this.txtConfig.Location = new System.Drawing.Point(12, 195);
@@ -288,6 +294,36 @@
             this.txtConfig.Size = new System.Drawing.Size(464, 126);
             this.txtConfig.TabIndex = 13;
             this.txtConfig.WordWrap = true;
+            // 
+            // configEditContextMenuStrip
+            // 
+            this.configEditContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
+            this.configEditContextMenuStrip.Name = "configEditContextMenuStrip";
+            this.configEditContextMenuStrip.Size = new System.Drawing.Size(153, 98);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // EditNotifierEntry
             // 
@@ -323,6 +359,7 @@
             this.Text = "Edit Notifier Entry";
             this.Load += new System.EventHandler(this.EditNotifierEntry_Load);
             this.Shown += new System.EventHandler(this.EditNotifierEntry_Shown);
+            this.configEditContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -351,5 +388,9 @@
         private System.Windows.Forms.Label label5;
         private Controls.ConfigureEditButton configureEditButtonNotifier;
         private FastColoredTextBoxNS.FastColoredTextBox txtConfig;
+        private System.Windows.Forms.ContextMenuStrip configEditContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }

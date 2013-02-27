@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditConfig));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addWithSameConnectionDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,7 +48,6 @@
             this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdOK = new System.Windows.Forms.Button();
             this.columnResizeTimer = new System.Windows.Forms.Timer(this.components);
-            this.addWithSameConnectionDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -60,20 +60,28 @@
             this.editToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(254, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(284, 100);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripButton_Click);
+            // 
+            // addWithSameConnectionDetailsToolStripMenuItem
+            // 
+            this.addWithSameConnectionDetailsToolStripMenuItem.Enabled = false;
+            this.addWithSameConnectionDetailsToolStripMenuItem.Name = "addWithSameConnectionDetailsToolStripMenuItem";
+            this.addWithSameConnectionDetailsToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.addWithSameConnectionDetailsToolStripMenuItem.Text = "Add with same connection details";
+            this.addWithSameConnectionDetailsToolStripMenuItem.Click += new System.EventHandler(this.addWithSameConnectionDetailsToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Enabled = false;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripButton_Click);
             // 
@@ -81,7 +89,7 @@
             // 
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripButton_Click);
             // 
@@ -208,18 +216,11 @@
             this.columnResizeTimer.Interval = 200;
             this.columnResizeTimer.Tick += new System.EventHandler(this.columnResizeTimer_Tick);
             // 
-            // addWithSameConnectionDetailsToolStripMenuItem
-            // 
-            this.addWithSameConnectionDetailsToolStripMenuItem.Enabled = false;
-            this.addWithSameConnectionDetailsToolStripMenuItem.Name = "addWithSameConnectionDetailsToolStripMenuItem";
-            this.addWithSameConnectionDetailsToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.addWithSameConnectionDetailsToolStripMenuItem.Text = "Add with same connection details";
-            this.addWithSameConnectionDetailsToolStripMenuItem.Click += new System.EventHandler(this.addWithSameConnectionDetailsToolStripMenuItem_Click);
-            // 
             // EditConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(615, 372);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.toolStrip1);

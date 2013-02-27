@@ -683,5 +683,30 @@ namespace QuickMon
 			}
 		} 
 		#endregion
+
+		public List<CollectorEntry> GetRootCollectors()
+		{
+			return (from c in Collectors
+					where c.ParentCollectorId.Length == 0
+					select c).ToList();
+		}
+        public List<CollectorEntry> GetChildCollectors(CollectorEntry parentCE)
+        {
+            return (from c in Collectors
+                    where c.ParentCollectorId == parentCE.UniqueId
+                    select c).ToList();
+        }
+        public List<CollectorEntry> GetAllChildCollectors(CollectorEntry parentCE)
+        {
+            List<CollectorEntry> list = new List<CollectorEntry>();
+            List<CollectorEntry> listChildren = new List<CollectorEntry>();
+            listChildren = GetChildCollectors(parentCE);
+            foreach (CollectorEntry child in listChildren)
+            {
+                list.Add(child);
+                list.AddRange(GetAllChildCollectors(child));
+            }
+            return list;
+        }
 	}
 }

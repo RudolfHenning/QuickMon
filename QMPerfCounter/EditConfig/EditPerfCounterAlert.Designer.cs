@@ -108,7 +108,7 @@
             this.invertValuesCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.invertValuesCheckBox.Location = new System.Drawing.Point(118, 19);
             this.invertValuesCheckBox.Name = "invertValuesCheckBox";
-            this.invertValuesCheckBox.Size = new System.Drawing.Size(151, 17);
+            this.invertValuesCheckBox.Size = new System.Drawing.Size(152, 17);
             this.invertValuesCheckBox.TabIndex = 0;
             this.invertValuesCheckBox.Text = "Success < Warning < Error";
             this.invertValuesCheckBox.UseVisualStyleBackColor = true;
@@ -202,6 +202,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(486, 184);
             this.Controls.Add(this.cmdEditPerfCounter);
             this.Controls.Add(this.txtPerfCounter);

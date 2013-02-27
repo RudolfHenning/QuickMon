@@ -115,7 +115,7 @@ namespace QuickMon.Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
@@ -524,9 +524,9 @@ namespace QuickMon.Management
                                               where n.Name == "Collectors"
                                               select n).First();
                 collectorRootNode.Nodes.Clear();
-                foreach (CollectorEntry ce in (from c in monitorPack.Collectors
-                                               where c.ParentCollectorId.Length == 0
-                                               select c))
+                foreach (CollectorEntry ce in monitorPack.GetRootCollectors()) //(from c in monitorPack.Collectors 
+                                               //where c.ParentCollectorId.Length == 0
+                                               //select c)
                 {
                     LoadCollectorEntry(ce, collectorRootNode);
                 }
@@ -610,9 +610,7 @@ namespace QuickMon.Management
                 ceNode.ForeColor = Color.Gray;
             }
 
-            foreach (CollectorEntry childCollector in (from c in monitorPack.Collectors
-                                                       where c.ParentCollectorId == ce.UniqueId
-                                                       select c))
+            foreach (CollectorEntry childCollector in monitorPack.GetChildCollectors(ce))
             {
                 LoadCollectorEntry(childCollector, ceNode);
             }
@@ -626,6 +624,7 @@ namespace QuickMon.Management
             bool canConfig = false;
             bool canMoveUp = false;
             bool canMoveDown = false;
+            exportSelectedToolStripMenuItem.Enabled = false;
             if (currentNode != null)
             {
                 canAdd = currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == collectorRootImgIndex || currentNode.ImageIndex == notifierRootImgIndex || currentNode.ImageIndex == folderImgIndex;
@@ -638,6 +637,7 @@ namespace QuickMon.Management
                 {
                     enableToolStripMenuItem.Text = ((CollectorEntry)currentNode.Tag).Enabled ? "Disable" : "Enable";
                     enableToolStripMenuItem.Visible = true;
+                    exportSelectedToolStripMenuItem.Enabled = true;
                 }
                 else if (currentNode.ImageIndex == notifierImgIndex)
                 {
@@ -797,6 +797,49 @@ namespace QuickMon.Management
             });
         }
         #endregion
+
+        private void exportSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                TreeNode currentNode = tvwMonPack.SelectedNode;
+                if (currentNode.ImageIndex == collectorImgIndex || currentNode.ImageIndex == folderImgIndex)
+                {
+                    List<CollectorEntry> list = new List<CollectorEntry>();
+                    list.Add(((CollectorEntry)currentNode.Tag).Clone());
+                    list[0].ParentCollectorId = "";
+                    list.AddRange(monitorPack.GetAllChildCollectors((CollectorEntry)currentNode.Tag));
+
+                    MonitorPack exportPack = new MonitorPack();
+                    exportPack.Collectors.AddRange(list);
+
+                    string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                    if (!System.IO.Directory.Exists(startUpPath))
+                        System.IO.Directory.CreateDirectory(startUpPath);
+                    saveFileDialogSave.InitialDirectory = startUpPath;
+                    saveFileDialogSave.FileName = list[0].Name + " - Exported";
+                    if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        exportPack.Name = list[0].Name + " - Export";
+                        exportPack.Enabled = true;
+                        exportPack.DefaultViewerNotifier = null;
+                        exportPack.Save(saveFileDialogSave.FileName);
+
+                        if (MessageBox.Show("Do you want to load this exported monitor pack now?", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            monitorPack = new MonitorPack();
+                            monitorPack.Load(saveFileDialogSave.FileName);
+                            filePathtoolStripStatusLabel.Text = saveFileDialogSave.FileName;
+                            RefreshMonitorPack();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         
     }
 }

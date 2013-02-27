@@ -168,7 +168,7 @@
             this.chkIntegratedSec.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkIntegratedSec.Location = new System.Drawing.Point(143, 38);
             this.chkIntegratedSec.Name = "chkIntegratedSec";
-            this.chkIntegratedSec.Size = new System.Drawing.Size(111, 17);
+            this.chkIntegratedSec.Size = new System.Drawing.Size(112, 17);
             this.chkIntegratedSec.TabIndex = 2;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;
@@ -411,6 +411,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(684, 352);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox1);

@@ -50,12 +50,12 @@
             this.tabPageSummary = new System.Windows.Forms.TabPage();
             this.tabPageDetail = new System.Windows.Forms.TabPage();
             this.cmdEditColumnNames = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.keyColumnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.txtColumnNames = new System.Windows.Forms.TextBox();
             this.lblColumnNameSequence = new System.Windows.Forms.Label();
             this.txtDetailQuery = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.keyColumnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cmdTestDB = new System.Windows.Forms.Button();
             this.cmdEditMachineNames = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -157,7 +157,7 @@
             this.chkIsReturnValueInt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkIsReturnValueInt.Location = new System.Drawing.Point(13, 144);
             this.chkIsReturnValueInt.Name = "chkIsReturnValueInt";
-            this.chkIsReturnValueInt.Size = new System.Drawing.Size(157, 17);
+            this.chkIsReturnValueInt.Size = new System.Drawing.Size(158, 17);
             this.chkIsReturnValueInt.TabIndex = 2;
             this.chkIsReturnValueInt.Text = "Value is in a range of values";
             this.chkIsReturnValueInt.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@
             this.chkReturnValueNotInverted.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkReturnValueNotInverted.Location = new System.Drawing.Point(199, 144);
             this.chkReturnValueNotInverted.Name = "chkReturnValueNotInverted";
-            this.chkReturnValueNotInverted.Size = new System.Drawing.Size(151, 17);
+            this.chkReturnValueNotInverted.Size = new System.Drawing.Size(152, 17);
             this.chkReturnValueNotInverted.TabIndex = 3;
             this.chkReturnValueNotInverted.Text = "Success < Warning < Error";
             this.chkReturnValueNotInverted.UseVisualStyleBackColor = true;
@@ -255,7 +255,7 @@
             this.chkUseRowCountAsValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkUseRowCountAsValue.Location = new System.Drawing.Point(358, 144);
             this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
-            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(115, 17);
+            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(116, 17);
             this.chkUseRowCountAsValue.TabIndex = 4;
             this.chkUseRowCountAsValue.Text = "Row count is value";
             this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
@@ -323,26 +323,6 @@
             this.cmdEditColumnNames.UseVisualStyleBackColor = true;
             this.cmdEditColumnNames.Click += new System.EventHandler(this.cmdEditColumnNames_Click);
             // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 178);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 13);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Key column";
-            this.label9.Visible = false;
-            // 
-            // keyColumnNumericUpDown
-            // 
-            this.keyColumnNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.keyColumnNumericUpDown.Location = new System.Drawing.Point(140, 176);
-            this.keyColumnNumericUpDown.Name = "keyColumnNumericUpDown";
-            this.keyColumnNumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.keyColumnNumericUpDown.TabIndex = 6;
-            this.keyColumnNumericUpDown.Visible = false;
-            // 
             // txtColumnNames
             // 
             this.txtColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -386,6 +366,26 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "WMI query for summary";
             // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(17, 178);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Key column";
+            this.label9.Visible = false;
+            // 
+            // keyColumnNumericUpDown
+            // 
+            this.keyColumnNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.keyColumnNumericUpDown.Location = new System.Drawing.Point(140, 176);
+            this.keyColumnNumericUpDown.Name = "keyColumnNumericUpDown";
+            this.keyColumnNumericUpDown.Size = new System.Drawing.Size(59, 20);
+            this.keyColumnNumericUpDown.TabIndex = 6;
+            this.keyColumnNumericUpDown.Visible = false;
+            // 
             // cmdTestDB
             // 
             this.cmdTestDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -414,6 +414,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(550, 334);
             this.Controls.Add(this.cmdEditMachineNames);
             this.Controls.Add(this.cmdTestDB);

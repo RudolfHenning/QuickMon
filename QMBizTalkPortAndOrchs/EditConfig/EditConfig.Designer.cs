@@ -33,32 +33,32 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chkAllReceiveLocations = new System.Windows.Forms.CheckBox();
-            this.lstReceiveLocations = new System.Windows.Forms.ListBox();
-            this.cmdAddReceiveLocation = new System.Windows.Forms.Button();
-            this.cmdRemoveReceiveLocation = new System.Windows.Forms.Button();
+            this.txtDisplayOrchestrations = new System.Windows.Forms.TextBox();
+            this.txtDisplaySendPorts = new System.Windows.Forms.TextBox();
+            this.txtDisplayReceiveLocations = new System.Windows.Forms.TextBox();
+            this.chkDisplayAllOchestrations = new System.Windows.Forms.CheckBox();
+            this.chkDisplayAllSendPorts = new System.Windows.Forms.CheckBox();
+            this.chkDisplayAllReceiveLocations = new System.Windows.Forms.CheckBox();
             this.cmdTestDB = new System.Windows.Forms.Button();
             this.txtDatabase = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSQLServer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lstReceiveLocations = new System.Windows.Forms.ListBox();
+            this.cmdAddReceiveLocation = new System.Windows.Forms.Button();
+            this.cmdRemoveReceiveLocation = new System.Windows.Forms.Button();
+            this.chkAllReceiveLocations = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.lstSendPorts = new System.Windows.Forms.ListBox();
             this.cmdAddSendPort = new System.Windows.Forms.Button();
             this.cmdRemoveSendPort = new System.Windows.Forms.Button();
             this.chkAllSendPorts = new System.Windows.Forms.CheckBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.lstOrchestrations = new System.Windows.Forms.ListBox();
             this.cmdAddOrchestration = new System.Windows.Forms.Button();
             this.cmdRemoveOrchestrations = new System.Windows.Forms.Button();
             this.chkAllOrchestrations = new System.Windows.Forms.CheckBox();
-            this.chkDisplayAllReceiveLocations = new System.Windows.Forms.CheckBox();
-            this.chkDisplayAllSendPorts = new System.Windows.Forms.CheckBox();
-            this.chkDisplayAllOchestrations = new System.Windows.Forms.CheckBox();
-            this.txtDisplayReceiveLocations = new System.Windows.Forms.TextBox();
-            this.txtDisplaySendPorts = new System.Windows.Forms.TextBox();
-            this.txtDisplayOrchestrations = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -126,71 +126,77 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "BizTalk group settings";
             // 
-            // tabPage2
+            // txtDisplayOrchestrations
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.lstReceiveLocations);
-            this.tabPage2.Controls.Add(this.cmdAddReceiveLocation);
-            this.tabPage2.Controls.Add(this.cmdRemoveReceiveLocation);
-            this.tabPage2.Controls.Add(this.chkAllReceiveLocations);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(452, 253);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Receive Locations";
-            // 
-            // chkAllReceiveLocations
-            // 
-            this.chkAllReceiveLocations.AutoSize = true;
-            this.chkAllReceiveLocations.Checked = true;
-            this.chkAllReceiveLocations.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllReceiveLocations.Location = new System.Drawing.Point(11, 12);
-            this.chkAllReceiveLocations.Name = "chkAllReceiveLocations";
-            this.chkAllReceiveLocations.Size = new System.Drawing.Size(129, 17);
-            this.chkAllReceiveLocations.TabIndex = 0;
-            this.chkAllReceiveLocations.Text = "All Receive Locations";
-            this.chkAllReceiveLocations.UseVisualStyleBackColor = true;
-            this.chkAllReceiveLocations.CheckedChanged += new System.EventHandler(this.chkAllReceiveLocations_CheckedChanged);
-            // 
-            // lstReceiveLocations
-            // 
-            this.lstReceiveLocations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDisplayOrchestrations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstReceiveLocations.Enabled = false;
-            this.lstReceiveLocations.FormattingEnabled = true;
-            this.lstReceiveLocations.Location = new System.Drawing.Point(11, 35);
-            this.lstReceiveLocations.Name = "lstReceiveLocations";
-            this.lstReceiveLocations.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstReceiveLocations.Size = new System.Drawing.Size(391, 199);
-            this.lstReceiveLocations.TabIndex = 1;
+            this.txtDisplayOrchestrations.Location = new System.Drawing.Point(28, 217);
+            this.txtDisplayOrchestrations.Name = "txtDisplayOrchestrations";
+            this.txtDisplayOrchestrations.ReadOnly = true;
+            this.txtDisplayOrchestrations.Size = new System.Drawing.Size(418, 20);
+            this.txtDisplayOrchestrations.TabIndex = 10;
             // 
-            // cmdAddReceiveLocation
+            // txtDisplaySendPorts
             // 
-            this.cmdAddReceiveLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddReceiveLocation.Enabled = false;
-            this.cmdAddReceiveLocation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAddReceiveLocation.Location = new System.Drawing.Point(408, 35);
-            this.cmdAddReceiveLocation.Name = "cmdAddReceiveLocation";
-            this.cmdAddReceiveLocation.Size = new System.Drawing.Size(34, 23);
-            this.cmdAddReceiveLocation.TabIndex = 2;
-            this.cmdAddReceiveLocation.Text = "+";
-            this.cmdAddReceiveLocation.UseVisualStyleBackColor = true;
-            this.cmdAddReceiveLocation.Click += new System.EventHandler(this.cmdAddReceiveLocation_Click);
+            this.txtDisplaySendPorts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDisplaySendPorts.Location = new System.Drawing.Point(28, 165);
+            this.txtDisplaySendPorts.Name = "txtDisplaySendPorts";
+            this.txtDisplaySendPorts.ReadOnly = true;
+            this.txtDisplaySendPorts.Size = new System.Drawing.Size(418, 20);
+            this.txtDisplaySendPorts.TabIndex = 8;
             // 
-            // cmdRemoveReceiveLocation
+            // txtDisplayReceiveLocations
             // 
-            this.cmdRemoveReceiveLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRemoveReceiveLocation.Enabled = false;
-            this.cmdRemoveReceiveLocation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRemoveReceiveLocation.Location = new System.Drawing.Point(408, 64);
-            this.cmdRemoveReceiveLocation.Name = "cmdRemoveReceiveLocation";
-            this.cmdRemoveReceiveLocation.Size = new System.Drawing.Size(34, 23);
-            this.cmdRemoveReceiveLocation.TabIndex = 3;
-            this.cmdRemoveReceiveLocation.Text = "-";
-            this.cmdRemoveReceiveLocation.UseVisualStyleBackColor = true;
-            this.cmdRemoveReceiveLocation.Click += new System.EventHandler(this.cmdRemoveReceiveLocation_Click);
+            this.txtDisplayReceiveLocations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDisplayReceiveLocations.Location = new System.Drawing.Point(28, 116);
+            this.txtDisplayReceiveLocations.Name = "txtDisplayReceiveLocations";
+            this.txtDisplayReceiveLocations.ReadOnly = true;
+            this.txtDisplayReceiveLocations.Size = new System.Drawing.Size(418, 20);
+            this.txtDisplayReceiveLocations.TabIndex = 6;
+            // 
+            // chkDisplayAllOchestrations
+            // 
+            this.chkDisplayAllOchestrations.AutoSize = true;
+            this.chkDisplayAllOchestrations.Checked = true;
+            this.chkDisplayAllOchestrations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDisplayAllOchestrations.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkDisplayAllOchestrations.Location = new System.Drawing.Point(15, 194);
+            this.chkDisplayAllOchestrations.Name = "chkDisplayAllOchestrations";
+            this.chkDisplayAllOchestrations.Size = new System.Drawing.Size(107, 17);
+            this.chkDisplayAllOchestrations.TabIndex = 9;
+            this.chkDisplayAllOchestrations.Text = "All Orchestrations";
+            this.chkDisplayAllOchestrations.UseVisualStyleBackColor = true;
+            this.chkDisplayAllOchestrations.CheckedChanged += new System.EventHandler(this.chkAllOrchestrations_CheckedChanged);
+            // 
+            // chkDisplayAllSendPorts
+            // 
+            this.chkDisplayAllSendPorts.AutoSize = true;
+            this.chkDisplayAllSendPorts.Checked = true;
+            this.chkDisplayAllSendPorts.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDisplayAllSendPorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkDisplayAllSendPorts.Location = new System.Drawing.Point(15, 142);
+            this.chkDisplayAllSendPorts.Name = "chkDisplayAllSendPorts";
+            this.chkDisplayAllSendPorts.Size = new System.Drawing.Size(91, 17);
+            this.chkDisplayAllSendPorts.TabIndex = 7;
+            this.chkDisplayAllSendPorts.Text = "All Send Ports";
+            this.chkDisplayAllSendPorts.UseVisualStyleBackColor = true;
+            this.chkDisplayAllSendPorts.CheckedChanged += new System.EventHandler(this.chkAllSendPorts_CheckedChanged);
+            // 
+            // chkDisplayAllReceiveLocations
+            // 
+            this.chkDisplayAllReceiveLocations.AutoSize = true;
+            this.chkDisplayAllReceiveLocations.Checked = true;
+            this.chkDisplayAllReceiveLocations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDisplayAllReceiveLocations.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkDisplayAllReceiveLocations.Location = new System.Drawing.Point(15, 90);
+            this.chkDisplayAllReceiveLocations.Name = "chkDisplayAllReceiveLocations";
+            this.chkDisplayAllReceiveLocations.Size = new System.Drawing.Size(128, 17);
+            this.chkDisplayAllReceiveLocations.TabIndex = 5;
+            this.chkDisplayAllReceiveLocations.Text = "All Receive Locations";
+            this.chkDisplayAllReceiveLocations.UseVisualStyleBackColor = true;
+            this.chkDisplayAllReceiveLocations.CheckedChanged += new System.EventHandler(this.chkAllReceiveLocations_CheckedChanged);
             // 
             // cmdTestDB
             // 
@@ -240,6 +246,72 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Management DB server";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.lstReceiveLocations);
+            this.tabPage2.Controls.Add(this.cmdAddReceiveLocation);
+            this.tabPage2.Controls.Add(this.cmdRemoveReceiveLocation);
+            this.tabPage2.Controls.Add(this.chkAllReceiveLocations);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(452, 253);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Receive Locations";
+            // 
+            // lstReceiveLocations
+            // 
+            this.lstReceiveLocations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstReceiveLocations.Enabled = false;
+            this.lstReceiveLocations.FormattingEnabled = true;
+            this.lstReceiveLocations.Location = new System.Drawing.Point(11, 35);
+            this.lstReceiveLocations.Name = "lstReceiveLocations";
+            this.lstReceiveLocations.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstReceiveLocations.Size = new System.Drawing.Size(391, 199);
+            this.lstReceiveLocations.TabIndex = 1;
+            // 
+            // cmdAddReceiveLocation
+            // 
+            this.cmdAddReceiveLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdAddReceiveLocation.Enabled = false;
+            this.cmdAddReceiveLocation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAddReceiveLocation.Location = new System.Drawing.Point(408, 35);
+            this.cmdAddReceiveLocation.Name = "cmdAddReceiveLocation";
+            this.cmdAddReceiveLocation.Size = new System.Drawing.Size(34, 23);
+            this.cmdAddReceiveLocation.TabIndex = 2;
+            this.cmdAddReceiveLocation.Text = "+";
+            this.cmdAddReceiveLocation.UseVisualStyleBackColor = true;
+            this.cmdAddReceiveLocation.Click += new System.EventHandler(this.cmdAddReceiveLocation_Click);
+            // 
+            // cmdRemoveReceiveLocation
+            // 
+            this.cmdRemoveReceiveLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdRemoveReceiveLocation.Enabled = false;
+            this.cmdRemoveReceiveLocation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemoveReceiveLocation.Location = new System.Drawing.Point(408, 64);
+            this.cmdRemoveReceiveLocation.Name = "cmdRemoveReceiveLocation";
+            this.cmdRemoveReceiveLocation.Size = new System.Drawing.Size(34, 23);
+            this.cmdRemoveReceiveLocation.TabIndex = 3;
+            this.cmdRemoveReceiveLocation.Text = "-";
+            this.cmdRemoveReceiveLocation.UseVisualStyleBackColor = true;
+            this.cmdRemoveReceiveLocation.Click += new System.EventHandler(this.cmdRemoveReceiveLocation_Click);
+            // 
+            // chkAllReceiveLocations
+            // 
+            this.chkAllReceiveLocations.AutoSize = true;
+            this.chkAllReceiveLocations.Checked = true;
+            this.chkAllReceiveLocations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAllReceiveLocations.Location = new System.Drawing.Point(11, 12);
+            this.chkAllReceiveLocations.Name = "chkAllReceiveLocations";
+            this.chkAllReceiveLocations.Size = new System.Drawing.Size(129, 17);
+            this.chkAllReceiveLocations.TabIndex = 0;
+            this.chkAllReceiveLocations.Text = "All Receive Locations";
+            this.chkAllReceiveLocations.UseVisualStyleBackColor = true;
+            this.chkAllReceiveLocations.CheckedChanged += new System.EventHandler(this.chkAllReceiveLocations_CheckedChanged);
+            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
@@ -253,20 +325,6 @@
             this.tabPage3.Size = new System.Drawing.Size(452, 253);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Send Ports";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage4.Controls.Add(this.lstOrchestrations);
-            this.tabPage4.Controls.Add(this.cmdAddOrchestration);
-            this.tabPage4.Controls.Add(this.cmdRemoveOrchestrations);
-            this.tabPage4.Controls.Add(this.chkAllOrchestrations);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(452, 253);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Orchestrations";
             // 
             // lstSendPorts
             // 
@@ -320,6 +378,20 @@
             this.chkAllSendPorts.UseVisualStyleBackColor = true;
             this.chkAllSendPorts.CheckedChanged += new System.EventHandler(this.chkAllSendPorts_CheckedChanged);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.lstOrchestrations);
+            this.tabPage4.Controls.Add(this.cmdAddOrchestration);
+            this.tabPage4.Controls.Add(this.cmdRemoveOrchestrations);
+            this.tabPage4.Controls.Add(this.chkAllOrchestrations);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(452, 253);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Orchestrations";
+            // 
             // lstOrchestrations
             // 
             this.lstOrchestrations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -372,82 +444,11 @@
             this.chkAllOrchestrations.UseVisualStyleBackColor = true;
             this.chkAllOrchestrations.CheckedChanged += new System.EventHandler(this.chkAllOrchestrations_CheckedChanged);
             // 
-            // chkDisplayAllReceiveLocations
-            // 
-            this.chkDisplayAllReceiveLocations.AutoSize = true;
-            this.chkDisplayAllReceiveLocations.Checked = true;
-            this.chkDisplayAllReceiveLocations.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDisplayAllReceiveLocations.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayAllReceiveLocations.Location = new System.Drawing.Point(15, 90);
-            this.chkDisplayAllReceiveLocations.Name = "chkDisplayAllReceiveLocations";
-            this.chkDisplayAllReceiveLocations.Size = new System.Drawing.Size(127, 17);
-            this.chkDisplayAllReceiveLocations.TabIndex = 5;
-            this.chkDisplayAllReceiveLocations.Text = "All Receive Locations";
-            this.chkDisplayAllReceiveLocations.UseVisualStyleBackColor = true;
-            this.chkDisplayAllReceiveLocations.CheckedChanged += new System.EventHandler(this.chkAllReceiveLocations_CheckedChanged);
-            // 
-            // chkDisplayAllSendPorts
-            // 
-            this.chkDisplayAllSendPorts.AutoSize = true;
-            this.chkDisplayAllSendPorts.Checked = true;
-            this.chkDisplayAllSendPorts.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDisplayAllSendPorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayAllSendPorts.Location = new System.Drawing.Point(15, 142);
-            this.chkDisplayAllSendPorts.Name = "chkDisplayAllSendPorts";
-            this.chkDisplayAllSendPorts.Size = new System.Drawing.Size(90, 17);
-            this.chkDisplayAllSendPorts.TabIndex = 7;
-            this.chkDisplayAllSendPorts.Text = "All Send Ports";
-            this.chkDisplayAllSendPorts.UseVisualStyleBackColor = true;
-            this.chkDisplayAllSendPorts.CheckedChanged += new System.EventHandler(this.chkAllSendPorts_CheckedChanged);
-            // 
-            // chkDisplayAllOchestrations
-            // 
-            this.chkDisplayAllOchestrations.AutoSize = true;
-            this.chkDisplayAllOchestrations.Checked = true;
-            this.chkDisplayAllOchestrations.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDisplayAllOchestrations.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayAllOchestrations.Location = new System.Drawing.Point(15, 194);
-            this.chkDisplayAllOchestrations.Name = "chkDisplayAllOchestrations";
-            this.chkDisplayAllOchestrations.Size = new System.Drawing.Size(106, 17);
-            this.chkDisplayAllOchestrations.TabIndex = 9;
-            this.chkDisplayAllOchestrations.Text = "All Orchestrations";
-            this.chkDisplayAllOchestrations.UseVisualStyleBackColor = true;
-            this.chkDisplayAllOchestrations.CheckedChanged += new System.EventHandler(this.chkAllOrchestrations_CheckedChanged);
-            // 
-            // txtDisplayReceiveLocations
-            // 
-            this.txtDisplayReceiveLocations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDisplayReceiveLocations.Location = new System.Drawing.Point(28, 116);
-            this.txtDisplayReceiveLocations.Name = "txtDisplayReceiveLocations";
-            this.txtDisplayReceiveLocations.ReadOnly = true;
-            this.txtDisplayReceiveLocations.Size = new System.Drawing.Size(418, 20);
-            this.txtDisplayReceiveLocations.TabIndex = 6;
-            // 
-            // txtDisplaySendPorts
-            // 
-            this.txtDisplaySendPorts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDisplaySendPorts.Location = new System.Drawing.Point(28, 165);
-            this.txtDisplaySendPorts.Name = "txtDisplaySendPorts";
-            this.txtDisplaySendPorts.ReadOnly = true;
-            this.txtDisplaySendPorts.Size = new System.Drawing.Size(418, 20);
-            this.txtDisplaySendPorts.TabIndex = 8;
-            // 
-            // txtDisplayOrchestrations
-            // 
-            this.txtDisplayOrchestrations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDisplayOrchestrations.Location = new System.Drawing.Point(28, 217);
-            this.txtDisplayOrchestrations.Name = "txtDisplayOrchestrations";
-            this.txtDisplayOrchestrations.ReadOnly = true;
-            this.txtDisplayOrchestrations.Size = new System.Drawing.Size(418, 20);
-            this.txtDisplayOrchestrations.TabIndex = 10;
-            // 
             // EditConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(484, 332);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdCancel);

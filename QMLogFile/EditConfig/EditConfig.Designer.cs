@@ -76,8 +76,8 @@
             // 
             // txtLogFilePath
             // 
-            this.txtLogFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLogFilePath.Location = new System.Drawing.Point(116, 16);
             this.txtLogFilePath.Name = "txtLogFilePath";
             this.txtLogFilePath.Size = new System.Drawing.Size(382, 20);
@@ -134,6 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(549, 111);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

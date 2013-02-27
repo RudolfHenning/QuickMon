@@ -200,7 +200,7 @@
             this.chkWarningOnNotAvailable.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkWarningOnNotAvailable.Location = new System.Drawing.Point(19, 91);
             this.chkWarningOnNotAvailable.Name = "chkWarningOnNotAvailable";
-            this.chkWarningOnNotAvailable.Size = new System.Drawing.Size(219, 17);
+            this.chkWarningOnNotAvailable.Size = new System.Drawing.Size(220, 17);
             this.chkWarningOnNotAvailable.TabIndex = 9;
             this.chkWarningOnNotAvailable.Text = "Raise warning when drive is not available";
             this.chkWarningOnNotAvailable.UseVisualStyleBackColor = true;
@@ -218,6 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(329, 162);
             this.Controls.Add(this.lblDriveType);
             this.Controls.Add(this.chkWarningOnNotAvailable);

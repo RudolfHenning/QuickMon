@@ -120,13 +120,13 @@
             this.editToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(192, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(214, 100);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_add;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripButton_Click);
             // 
@@ -134,7 +134,7 @@
             // 
             this.addCloneComputerToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_add;
             this.addCloneComputerToolStripMenuItem.Name = "addCloneComputerToolStripMenuItem";
-            this.addCloneComputerToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.addCloneComputerToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
             this.addCloneComputerToolStripMenuItem.Text = "Add - Same computer";
             this.addCloneComputerToolStripMenuItem.Click += new System.EventHandler(this.addCloneComputerToolStripMenuItem_Click);
             // 
@@ -143,7 +143,7 @@
             this.editToolStripMenuItem.Enabled = false;
             this.editToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripButton_Click);
             // 
@@ -152,7 +152,7 @@
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_remove;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripButton_Click);
             // 
@@ -211,6 +211,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(518, 322);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lvwPerfCounters);
