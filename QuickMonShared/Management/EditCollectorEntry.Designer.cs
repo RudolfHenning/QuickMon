@@ -60,26 +60,27 @@
             this.label8 = new System.Windows.Forms.Label();
             this.manualEditPanel = new System.Windows.Forms.Panel();
             this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageAgent = new System.Windows.Forms.TabPage();
+            this.lblAgentDescription = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.configureEditButtonCollector = new QuickMon.Controls.ConfigureEditButton();
-            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             this.manualEditPanel.SuspendLayout();
+            this.configEditContextMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageAgent.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageAlerts.SuspendLayout();
-            this.configEditContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -88,10 +89,10 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(67, 38);
+            this.chkEnabled.Location = new System.Drawing.Point(97, 38);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(64, 17);
-            this.chkEnabled.TabIndex = 2;
+            this.chkEnabled.TabIndex = 3;
             this.chkEnabled.Text = "Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
             this.chkEnabled.CheckedChanged += new System.EventHandler(this.chkEnabled_CheckedChanged);
@@ -124,7 +125,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(497, 291);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 10;
+            this.cmdCancel.TabIndex = 11;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -136,7 +137,7 @@
             this.cmdOK.Location = new System.Drawing.Point(416, 291);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 9;
+            this.cmdOK.TabIndex = 10;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -170,7 +171,7 @@
             this.lblId.Location = new System.Drawing.Point(31, 296);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(16, 13);
-            this.lblId.TabIndex = 7;
+            this.lblId.TabIndex = 8;
             this.lblId.Text = "Id";
             // 
             // label3
@@ -250,7 +251,7 @@
             this.label6.Location = new System.Drawing.Point(9, 296);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
-            this.label6.TabIndex = 6;
+            this.label6.TabIndex = 7;
             this.label6.Text = "Id";
             // 
             // lblConfig
@@ -307,7 +308,7 @@
             this.chkFolder.Checked = true;
             this.chkFolder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFolder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkFolder.Location = new System.Drawing.Point(14, 43);
+            this.chkFolder.Location = new System.Drawing.Point(18, 38);
             this.chkFolder.Name = "chkFolder";
             this.chkFolder.Size = new System.Drawing.Size(65, 17);
             this.chkFolder.TabIndex = 2;
@@ -320,10 +321,10 @@
             this.linkLabelServiceWindows.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelServiceWindows.AutoEllipsis = true;
-            this.linkLabelServiceWindows.Location = new System.Drawing.Point(244, 40);
+            this.linkLabelServiceWindows.Location = new System.Drawing.Point(280, 40);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(328, 23);
-            this.linkLabelServiceWindows.TabIndex = 4;
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(292, 23);
+            this.linkLabelServiceWindows.TabIndex = 5;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
             this.toolTip1.SetToolTip(this.linkLabelServiceWindows, "Only operate within specified times. Return \'disabled\' status otherwise");
@@ -331,12 +332,12 @@
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(142, 40);
+            this.label7.Location = new System.Drawing.Point(171, 40);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 13);
-            this.label7.TabIndex = 3;
+            this.label7.Size = new System.Drawing.Size(106, 13);
+            this.label7.TabIndex = 4;
             this.label7.Text = "Service window(s):";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // AlertOnceInXMinNumericUpDown
             // 
@@ -414,6 +415,36 @@
             this.txtConfig.TabIndex = 2;
             this.txtConfig.WordWrap = true;
             // 
+            // configEditContextMenuStrip
+            // 
+            this.configEditContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
+            this.configEditContextMenuStrip.Name = "configEditContextMenuStrip";
+            this.configEditContextMenuStrip.Size = new System.Drawing.Size(133, 76);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -426,21 +457,32 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(567, 224);
-            this.tabControl1.TabIndex = 5;
+            this.tabControl1.TabIndex = 6;
             // 
             // tabPageAgent
             // 
             this.tabPageAgent.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageAgent.Controls.Add(this.lblAgentDescription);
             this.tabPageAgent.Controls.Add(this.label3);
             this.tabPageAgent.Controls.Add(this.manualEditPanel);
             this.tabPageAgent.Controls.Add(this.cboCollector);
-            this.tabPageAgent.Controls.Add(this.chkFolder);
             this.tabPageAgent.Location = new System.Drawing.Point(4, 22);
             this.tabPageAgent.Name = "tabPageAgent";
             this.tabPageAgent.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageAgent.Size = new System.Drawing.Size(559, 198);
             this.tabPageAgent.TabIndex = 0;
             this.tabPageAgent.Text = "Agent details";
+            // 
+            // lblAgentDescription
+            // 
+            this.lblAgentDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAgentDescription.AutoEllipsis = true;
+            this.lblAgentDescription.Location = new System.Drawing.Point(120, 38);
+            this.lblAgentDescription.Name = "lblAgentDescription";
+            this.lblAgentDescription.Size = new System.Drawing.Size(429, 30);
+            this.lblAgentDescription.TabIndex = 2;
+            this.lblAgentDescription.Text = ".";
             // 
             // tabPageGeneral
             // 
@@ -498,40 +540,10 @@
             this.configureEditButtonCollector.Location = new System.Drawing.Point(324, 291);
             this.configureEditButtonCollector.Name = "configureEditButtonCollector";
             this.configureEditButtonCollector.Size = new System.Drawing.Size(86, 23);
-            this.configureEditButtonCollector.TabIndex = 8;
+            this.configureEditButtonCollector.TabIndex = 9;
             this.configureEditButtonCollector.ConfigureClicked += new System.EventHandler(this.cmdConfig_Click);
             this.configureEditButtonCollector.ManualConfigureClicked += new System.EventHandler(this.cmdManualConfig_Click);
             this.configureEditButtonCollector.ImportConfigurationClicked += new System.EventHandler(this.configureEditButton1_ImportConfigurationClicked);
-            // 
-            // configEditContextMenuStrip
-            // 
-            this.configEditContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.selectAllToolStripMenuItem});
-            this.configEditContextMenuStrip.Name = "configEditContextMenuStrip";
-            this.configEditContextMenuStrip.Size = new System.Drawing.Size(153, 98);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.copyToolStripMenuItem.Text = "Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // selectAllToolStripMenuItem
-            // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.selectAllToolStripMenuItem.Text = "Select All";
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // EditCollectorEntry
             // 
@@ -541,6 +553,7 @@
             this.ClientSize = new System.Drawing.Size(584, 326);
             this.Controls.Add(this.configureEditButtonCollector);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.chkFolder);
             this.Controls.Add(this.linkLabelServiceWindows);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label6);
@@ -564,6 +577,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
             this.manualEditPanel.ResumeLayout(false);
             this.manualEditPanel.PerformLayout();
+            this.configEditContextMenuStrip.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPageAgent.ResumeLayout(false);
             this.tabPageAgent.PerformLayout();
@@ -571,7 +585,6 @@
             this.tabPageGeneral.PerformLayout();
             this.tabPageAlerts.ResumeLayout(false);
             this.tabPageAlerts.PerformLayout();
-            this.configEditContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -620,5 +633,6 @@
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.Label lblAgentDescription;
     }
 }

@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QuickMon.ico</ApplicationIcon>
+    <ApplicationIcon>QMon3b.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -154,6 +154,9 @@
     <None Include="Resources\bullet_ball_yellow.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="QMon.ico" />
+    <Content Include="QMon3.ico" />
+    <Content Include="QMon3b.ico" />
     <Content Include="QuickMon.ico" />
     <None Include="Resources\folder_favor.png" />
     <None Include="Resources\319.ico" />
@@ -161,6 +164,10 @@
     <None Include="Resources\search.png" />
     <None Include="Resources\Gear-Spanner.ico" />
     <None Include="Resources\info.png" />
+    <None Include="Resources\QEdit.ico" />
+    <None Include="Resources\QEdit2.png" />
+    <None Include="Resources\QEdit3.png" />
+    <None Include="Resources\MegaPhone.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\horn.png" />
   </ItemGroup>

@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>QMon2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -227,6 +230,7 @@
     <None Include="Resources\AddEx.png" />
     <None Include="Resources\Checkmark2.ico" />
     <None Include="Resources\274_2.ico" />
+    <Content Include="QMon2.ico" />
     <Content Include="Resources\CollectorEntry.xml">
       <SubType>Designer</SubType>
     </Content>

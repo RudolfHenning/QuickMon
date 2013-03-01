@@ -39,7 +39,13 @@ namespace QuickMon
                                 indentation--;
                         }
                         sb.AppendLine((new string('\t', indentation * 2)) + line);
-                        if (!(line.StartsWith("</") || line.EndsWith("/>")))
+                        if (!(line.StartsWith("</") 
+                                || line.EndsWith("/>") 
+                                || line.StartsWith("<!--") 
+                                || line.EndsWith("-->")
+                                || line.StartsWith("<![")
+                                || line.EndsWith("]>")
+                                ))
                             indentation++;
                     }
                     else

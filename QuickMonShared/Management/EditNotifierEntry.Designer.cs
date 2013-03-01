@@ -55,6 +55,7 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblAgentDescription = new System.Windows.Forms.Label();
             this.configEditContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -193,7 +194,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 91);
+            this.label2.Location = new System.Drawing.Point(14, 118);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 5;
@@ -211,7 +212,7 @@
             "Info",
             "Warning",
             "Error"});
-            this.cboAlertLevel.Location = new System.Drawing.Point(83, 88);
+            this.cboAlertLevel.Location = new System.Drawing.Point(83, 115);
             this.cboAlertLevel.Name = "cboAlertLevel";
             this.cboAlertLevel.Size = new System.Drawing.Size(93, 21);
             this.cboAlertLevel.TabIndex = 6;
@@ -220,7 +221,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(182, 91);
+            this.label4.Location = new System.Drawing.Point(182, 118);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 7;
@@ -237,7 +238,7 @@
             "Summary only",
             "Detail",
             "Both"});
-            this.cboDetailLevel.Location = new System.Drawing.Point(247, 88);
+            this.cboDetailLevel.Location = new System.Drawing.Point(247, 115);
             this.cboDetailLevel.Name = "cboDetailLevel";
             this.cboDetailLevel.Size = new System.Drawing.Size(102, 21);
             this.cboDetailLevel.TabIndex = 8;
@@ -249,7 +250,7 @@
             this.alertForCollectorslinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.alertForCollectorslinkLabel.AutoEllipsis = true;
-            this.alertForCollectorslinkLabel.Location = new System.Drawing.Point(83, 118);
+            this.alertForCollectorslinkLabel.Location = new System.Drawing.Point(83, 145);
             this.alertForCollectorslinkLabel.Name = "alertForCollectorslinkLabel";
             this.alertForCollectorslinkLabel.Size = new System.Drawing.Size(392, 21);
             this.alertForCollectorslinkLabel.TabIndex = 10;
@@ -261,7 +262,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 118);
+            this.label5.Location = new System.Drawing.Point(14, 145);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 9;
@@ -302,28 +303,39 @@
             this.pasteToolStripMenuItem,
             this.selectAllToolStripMenuItem});
             this.configEditContextMenuStrip.Name = "configEditContextMenuStrip";
-            this.configEditContextMenuStrip.Size = new System.Drawing.Size(153, 98);
+            this.configEditContextMenuStrip.Size = new System.Drawing.Size(133, 76);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.pasteToolStripMenuItem.Text = "Paste";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // lblAgentDescription
+            // 
+            this.lblAgentDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAgentDescription.AutoEllipsis = true;
+            this.lblAgentDescription.Location = new System.Drawing.Point(109, 85);
+            this.lblAgentDescription.Name = "lblAgentDescription";
+            this.lblAgentDescription.Size = new System.Drawing.Size(366, 22);
+            this.lblAgentDescription.TabIndex = 19;
+            this.lblAgentDescription.Text = ".";
             // 
             // EditNotifierEntry
             // 
@@ -331,6 +343,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(488, 362);
+            this.Controls.Add(this.lblAgentDescription);
             this.Controls.Add(this.txtConfig);
             this.Controls.Add(this.configureEditButtonNotifier);
             this.Controls.Add(this.label5);
@@ -392,5 +405,6 @@
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.Label lblAgentDescription;
     }
 }

@@ -129,19 +129,23 @@ namespace QuickMon.Management
         }
         private void cmdManualConfig_Click(object sender, EventArgs e)
         {
-            if (SelectedEntry.Configuration.Length == 0 && cboCollector.SelectedItem != null)
+            try
             {
-                try
+                if ((SelectedEntry.Configuration == null || SelectedEntry.Configuration.Length == 0) && cboCollector.SelectedItem != null)
                 {
+
                     AgentRegistration ar = (AgentRegistration)cboCollector.SelectedItem;
                     ICollector col = CollectorEntry.CreateCollectorEntry(ar.AssemblyPath, ar.ClassName);
                     txtConfig.Text = XmlFormattingUtils.NormalizeXML(col.GetDefaultOrEmptyConfigString());
                 }
-                catch { }
+                else
+                {
+                    txtConfig.Text = XmlFormattingUtils.NormalizeXML(SelectedEntry.Configuration);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                txtConfig.Text = XmlFormattingUtils.NormalizeXML(SelectedEntry.Configuration);
+                MessageBox.Show(string.Format("Error getting new/existing configuration\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             ShowManualConfig();
         }
@@ -313,6 +317,20 @@ namespace QuickMon.Management
             numericUpDownRepeatAlertInXMin.Enabled = !chkFolder.Checked;            
             AlertOnceInXMinNumericUpDown.Enabled = !chkFolder.Checked;
             delayAlertSecNumericUpDown.Enabled = !chkFolder.Checked;
+
+            lblAgentDescription.Text = "";
+            if (cboCollector.SelectedIndex > -1)
+            {
+                try
+                {
+                    AgentRegistration ar = (AgentRegistration)cboCollector.SelectedItem;
+                    System.Reflection.Assembly a = System.Reflection.Assembly.LoadFrom(ar.AssemblyPath);
+                    System.Reflection.AssemblyDescriptionAttribute ad = (System.Reflection.AssemblyDescriptionAttribute)System.Reflection.AssemblyDescriptionAttribute.GetCustomAttribute(
+                        a, typeof(System.Reflection.AssemblyDescriptionAttribute));
+                    lblAgentDescription.Text = "Description: " + ad.Description;
+                }
+                catch { }
+            }
         }
         #endregion
 
@@ -330,6 +348,5 @@ namespace QuickMon.Management
             txtConfig.SelectAll();
         } 
         #endregion
-
     }
 }

@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QuickMonSrv.ico</ApplicationIcon>
+    <ApplicationIcon>QMon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -108,6 +108,7 @@
     <None Include="UninstallService.cmd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="QMon.ico" />
     <Content Include="QuickMon.ico" />
     <Content Include="QuickMonSrv.ico" />
   </ItemGroup>

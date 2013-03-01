@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QuickMon.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MonitorPackPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="PollingFreqSec" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">30</Value>
     </Setting>

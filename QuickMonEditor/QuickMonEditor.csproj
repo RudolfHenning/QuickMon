@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Gear-Spanner.ico</ApplicationIcon>
+    <ApplicationIcon>QEdit3.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -96,6 +96,9 @@
     <Content Include="bullet_ball_glass_blue.ico" />
     <Content Include="Gear-Spanner.ico" />
     <Content Include="GlobeWrench.ico" />
+    <Content Include="QEdit.ico" />
+    <Content Include="QEdit2.ico" />
+    <Content Include="QEdit3.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

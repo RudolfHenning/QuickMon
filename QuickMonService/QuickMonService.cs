@@ -35,22 +35,22 @@ namespace QuickMon
             #endregion
 
             concurrencyLevel = Properties.Settings.Default.ParralelThreads;
-
+            int monitorPacksLoaded = 0;
             if (Properties.Settings.Default.MonitorPackPaths != null && Properties.Settings.Default.MonitorPackPaths.Count > 0)
             {
                 foreach (string monitorPackPath in Properties.Settings.Default.MonitorPackPaths)
                 {
                     if (System.IO.File.Exists(monitorPackPath))
+                    {
                         AddAndStartMonitorPack(monitorPackPath);
+                        monitorPacksLoaded++;
+                    }
                 }
             }
-            //If someone still use the singular MonitorPackPath setting
-            if (Properties.Settings.Default.MonitorPackPath != null &&
-                Properties.Settings.Default.MonitorPackPath.Length > 0 &&
-                System.IO.File.Exists(Properties.Settings.Default.MonitorPackPath))
-                AddAndStartMonitorPack(Properties.Settings.Default.MonitorPackPath);
-            else if (packs.Count == 0)
-                throw new Exception("MonitorPack path not specified!");
+            if (monitorPacksLoaded == 0)
+            {
+                throw new Exception("No MonitorPack specified! Please edit 'QuickMonService.exe.config' and add an entry under 'MonitorPackPaths'");
+            }            
 
             EventLog.WriteEntry(serviceEventSource, 
                 string.Format("Started QuickMon monitoring and alerting service with '{0}' monitor pack(s)\r\nService version: {1}\r\nShared components version: {2}\r\nConcurrency level: {3}", 

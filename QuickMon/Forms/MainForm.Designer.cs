@@ -112,7 +112,7 @@
             // toolStripButtonConfigPack
             // 
             this.toolStripButtonConfigPack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.Gear_Spanner;
+            this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.QEdit3;
             this.toolStripButtonConfigPack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonConfigPack.Name = "toolStripButtonConfigPack";
             this.toolStripButtonConfigPack.Size = new System.Drawing.Size(36, 36);
@@ -149,7 +149,7 @@
             this.toolStripButtonNotifiers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonNotifiers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAllNotifiersToolStripMenuItem});
-            this.toolStripButtonNotifiers.Image = global::QuickMon.Properties.Resources.horn;
+            this.toolStripButtonNotifiers.Image = global::QuickMon.Properties.Resources.MegaPhone;
             this.toolStripButtonNotifiers.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNotifiers.Name = "toolStripButtonNotifiers";
             this.toolStripButtonNotifiers.Size = new System.Drawing.Size(48, 36);
