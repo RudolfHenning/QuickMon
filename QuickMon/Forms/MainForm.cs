@@ -227,6 +227,7 @@ namespace QuickMon
             {
                 showDetailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode.ImageIndex != folderImgIndex;
                 configureCollectorToolStripMenuItem.Enabled = true;
+                configureCollectorToolStripMenuItem1.Enabled = true;
                 if (tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
                 {
                     CollectorEntry collector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
@@ -242,6 +243,7 @@ namespace QuickMon
                 showDetailsToolStripMenuItem.Enabled = false;
                 disableCollectorToolStripMenuItem.Enabled = false;
                 configureCollectorToolStripMenuItem.Enabled = false;
+                configureCollectorToolStripMenuItem1.Enabled = false;
             }            
         }
         private void tvwCollectors_DoubleClick(object sender, EventArgs e)
@@ -620,30 +622,30 @@ namespace QuickMon
                 if (globalState == MonitorStates.NotAvailable || globalState == MonitorStates.Disabled)
                 {
                     if (glassIcon)
-                        icon = Properties.Resources.bullet_ball_blue;
+                        icon = Properties.Resources.QMon_Blue;// .bullet_ball_blue;
                     else
-                        icon = Properties.Resources.bullet_ball_glass_blue;
+                        icon = Properties.Resources.QMon_Blue2;//.bullet_ball_glass_blue;
                 }
                 else if (globalState == MonitorStates.Good)
                 {
                     if (glassIcon)
-                        icon = Properties.Resources.bullet_ball_green;
+                        icon = Properties.Resources.QMon_Green;//.bullet_ball_green;
                     else
-                        icon = Properties.Resources.bullet_ball_glass_green;
+                        icon = Properties.Resources.QMon_Green2;//.bullet_ball_glass_green;
                 }
                 else if (globalState == MonitorStates.Warning)
                 {
                     if (glassIcon)
-                        icon = Properties.Resources.bullet_ball_yellow;
+                        icon = Properties.Resources.QMon_Yellow;//.bullet_ball_yellow;
                     else
-                        icon = Properties.Resources.bullet_ball_glass_yellow;
+                        icon = Properties.Resources.QMon_Yellow2;//.bullet_ball_glass_yellow;
                 }
                 else
                 {
                     if (glassIcon)
-                        icon = Properties.Resources.bullet_ball_red;
+                        icon = Properties.Resources.QMon_Red;//.bullet_ball_red;
                     else
-                        icon = Properties.Resources.bullet_ball_glass_red;
+                        icon = Properties.Resources.QMon_Red2;//.bullet_ball_glass_red;
                 }
                 Icon oldIcon = this.Icon;
                 if (this.InvokeRequired)

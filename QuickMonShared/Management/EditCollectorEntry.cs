@@ -23,13 +23,15 @@ namespace QuickMon.Management
 
         #region Private
         private MonitorPack monitorPack;
-        private Size collapsedSize = new Size(600, 260);
-        private Size expandedSize = new Size(600, 500); 
+        private Size collapsedSize = new Size(600, 290);
+        private Size expandedSize = new Size(600, 600); 
         #endregion
 
+        #region Properties
         public CollectorEntry SelectedEntry { get; set; }
         private bool allowCollectorChange = true;
-        public bool AllowCollectorChange { get { return allowCollectorChange; } set { allowCollectorChange = value; } }
+        public bool AllowCollectorChange { get { return allowCollectorChange; } set { allowCollectorChange = value; } } 
+        #endregion
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
         {
@@ -77,6 +79,7 @@ namespace QuickMon.Management
             delayAlertSecNumericUpDown.Value = SelectedEntry.DelayErrWarnAlertForXSec;
             linkLabelServiceWindows.Text = SelectedEntry.ServiceWindows.ToString();
             CheckOkEnable();
+            toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + SelectedEntry.ServiceWindows.ToString());
         }
         private void EditCollectorEntry_Load(object sender, EventArgs e)
         {
@@ -84,11 +87,6 @@ namespace QuickMon.Management
             this.MinimumSize = collapsedSize;
             this.MaximumSize = collapsedSize;
             manualEditPanel.Visible = false;
-            //lblConfig.Visible = false;
-            //txtConfig.Visible = false;
-            //lblConfigWarn.Visible = false;
-            //cmdSaveConfig.Visible = false;
-            //cmdCancelConfig.Visible = false;
         }
 
         #endregion
@@ -160,6 +158,10 @@ namespace QuickMon.Management
                 SelectedEntry.Configuration = importCollectorConfig.SelectedConfig;
             }
         }
+        private void lblServiceWindows_DoubleClick(object sender, EventArgs e)
+        {
+            linkLabelServiceWindows_LinkClicked(null, null);
+        }
         private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EditServiceWindows editServiceWindows = new EditServiceWindows();
@@ -168,6 +170,7 @@ namespace QuickMon.Management
             {
                 SelectedEntry.ServiceWindows = editServiceWindows.SelectedServiceWindows;
                 linkLabelServiceWindows.Text = editServiceWindows.SelectedServiceWindows.ToString();
+                toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + SelectedEntry.ServiceWindows.ToString());
             }
         }
         private void importLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -348,5 +351,8 @@ namespace QuickMon.Management
             txtConfig.SelectAll();
         } 
         #endregion
+
+
+
     }
 }

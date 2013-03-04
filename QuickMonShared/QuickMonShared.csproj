@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QMon2.ico</ApplicationIcon>
+    <ApplicationIcon>QMon3.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -231,6 +231,7 @@
     <None Include="Resources\Checkmark2.ico" />
     <None Include="Resources\274_2.ico" />
     <Content Include="QMon2.ico" />
+    <Content Include="QMon3.ico" />
     <Content Include="Resources\CollectorEntry.xml">
       <SubType>Designer</SubType>
     </Content>

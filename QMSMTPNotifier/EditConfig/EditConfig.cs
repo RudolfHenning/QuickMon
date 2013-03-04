@@ -21,7 +21,7 @@ namespace QuickMon
 
         private void chkUseDefultCredentials_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxCredentials.Enabled = ! chkUseDefultCredentials.Checked;
+            groupBoxCredentials.Enabled = !chkUseDefultCredentials.Checked;
         }
 
         public DialogResult ShowConfig()
@@ -36,6 +36,8 @@ namespace QuickMon
             txtSubject.Text = MailSettings.Subject;
             chkIsBodyHtml.Checked = MailSettings.IsBodyHtml;
             txtBody.Text = MailSettings.Body;
+            chkTLS.Checked = MailSettings.UseTLS;
+            portNumericUpDown.Value = MailSettings.Port;
             return ShowDialog();
         }
 
@@ -51,6 +53,9 @@ namespace QuickMon
             MailSettings.Subject = txtSubject.Text;
             MailSettings.IsBodyHtml = chkIsBodyHtml.Checked;
             MailSettings.Body = txtBody.Text;
+            MailSettings.UseTLS = chkTLS.Checked;
+            MailSettings.Port = (int)portNumericUpDown.Value;
+
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
@@ -69,6 +74,8 @@ namespace QuickMon
                 {
                     smtpClient.Host = txtSMTPServer.Text;
                     smtpClient.UseDefaultCredentials = chkUseDefultCredentials.Checked;
+                    smtpClient.Port = (int)portNumericUpDown.Value; //465;// 587;
+
                     if (!chkUseDefultCredentials.Checked)
                     {
                         lastStep = "Setting up non default credentials";
@@ -77,6 +84,11 @@ namespace QuickMon
                         cr.UserName = txtUserName.Text;
                         cr.Password = txtPassword.Text;
                         smtpClient.Credentials = cr;
+                    }
+
+                    if (chkTLS.Checked)
+                    {                        
+                        smtpClient.EnableSsl = true;
                     }
                     MailMessage mailMessage = new MailMessage(txtFromAddress.Text, txtToAddress.Text);
 
@@ -94,7 +106,10 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Test failed\r\nLast step: {0}\r\n{1}", lastStep, ex.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(ex.InnerException != null)
+                    MessageBox.Show(string.Format("Test failed\r\nLast step: {0}\r\n{1}", lastStep, ex.InnerException.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    MessageBox.Show(string.Format("Test failed\r\nLast step: {0}\r\n{1}", lastStep, ex.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

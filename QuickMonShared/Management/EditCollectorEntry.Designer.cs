@@ -52,7 +52,7 @@
             this.cmdCancelConfig = new System.Windows.Forms.Button();
             this.chkFolder = new System.Windows.Forms.CheckBox();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblServiceWindows = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.delayAlertSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -321,23 +321,24 @@
             this.linkLabelServiceWindows.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelServiceWindows.AutoEllipsis = true;
-            this.linkLabelServiceWindows.Location = new System.Drawing.Point(280, 40);
+            this.linkLabelServiceWindows.Location = new System.Drawing.Point(111, 62);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(292, 23);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(463, 25);
             this.linkLabelServiceWindows.TabIndex = 5;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
             this.toolTip1.SetToolTip(this.linkLabelServiceWindows, "Only operate within specified times. Return \'disabled\' status otherwise");
             this.linkLabelServiceWindows.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelServiceWindows_LinkClicked);
             // 
-            // label7
+            // lblServiceWindows
             // 
-            this.label7.Location = new System.Drawing.Point(171, 40);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Service window(s):";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblServiceWindows.AutoSize = true;
+            this.lblServiceWindows.Location = new System.Drawing.Point(9, 62);
+            this.lblServiceWindows.Name = "lblServiceWindows";
+            this.lblServiceWindows.Size = new System.Drawing.Size(96, 13);
+            this.lblServiceWindows.TabIndex = 4;
+            this.lblServiceWindows.Text = "Service window(s):";
+            this.lblServiceWindows.DoubleClick += new System.EventHandler(this.lblServiceWindows_DoubleClick);
             // 
             // AlertOnceInXMinNumericUpDown
             // 
@@ -395,7 +396,7 @@
             this.manualEditPanel.Controls.Add(this.cmdCancelConfig);
             this.manualEditPanel.Location = new System.Drawing.Point(3, 69);
             this.manualEditPanel.Name = "manualEditPanel";
-            this.manualEditPanel.Size = new System.Drawing.Size(550, 126);
+            this.manualEditPanel.Size = new System.Drawing.Size(550, 100);
             this.manualEditPanel.TabIndex = 0;
             // 
             // txtConfig
@@ -411,7 +412,7 @@
             this.txtConfig.Location = new System.Drawing.Point(0, 25);
             this.txtConfig.Name = "txtConfig";
             this.txtConfig.PreferredLineWidth = 0;
-            this.txtConfig.Size = new System.Drawing.Size(550, 101);
+            this.txtConfig.Size = new System.Drawing.Size(550, 75);
             this.txtConfig.TabIndex = 2;
             this.txtConfig.WordWrap = true;
             // 
@@ -453,10 +454,10 @@
             this.tabControl1.Controls.Add(this.tabPageAgent);
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAlerts);
-            this.tabControl1.Location = new System.Drawing.Point(11, 61);
+            this.tabControl1.Location = new System.Drawing.Point(11, 87);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(567, 224);
+            this.tabControl1.Size = new System.Drawing.Size(567, 198);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPageAgent
@@ -469,7 +470,7 @@
             this.tabPageAgent.Location = new System.Drawing.Point(4, 22);
             this.tabPageAgent.Name = "tabPageAgent";
             this.tabPageAgent.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAgent.Size = new System.Drawing.Size(559, 198);
+            this.tabPageAgent.Size = new System.Drawing.Size(559, 172);
             this.tabPageAgent.TabIndex = 0;
             this.tabPageAgent.Text = "Agent details";
             // 
@@ -493,7 +494,7 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(559, 198);
+            this.tabPageGeneral.Size = new System.Drawing.Size(559, 172);
             this.tabPageGeneral.TabIndex = 2;
             this.tabPageGeneral.Text = "Dependencies ";
             // 
@@ -512,7 +513,7 @@
             this.tabPageAlerts.Location = new System.Drawing.Point(4, 22);
             this.tabPageAlerts.Name = "tabPageAlerts";
             this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAlerts.Size = new System.Drawing.Size(559, 198);
+            this.tabPageAlerts.Size = new System.Drawing.Size(559, 172);
             this.tabPageAlerts.TabIndex = 1;
             this.tabPageAlerts.Text = "Alerts";
             // 
@@ -552,7 +553,7 @@
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(584, 326);
             this.Controls.Add(this.configureEditButtonCollector);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblServiceWindows);
             this.Controls.Add(this.chkFolder);
             this.Controls.Add(this.linkLabelServiceWindows);
             this.Controls.Add(this.tabControl1);
@@ -614,7 +615,7 @@
         private System.Windows.Forms.Button cmdCancelConfig;
         private System.Windows.Forms.CheckBox chkFolder;
         private System.Windows.Forms.LinkLabel linkLabelServiceWindows;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblServiceWindows;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
         private System.Windows.Forms.Label label9;

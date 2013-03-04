@@ -1,6 +1,6 @@
 <config>
-  <smtp hostServer="" useDefaultCredentials="True" domain="" userName="" password="" fromAddress="" toAddress=""
-        isBodyHtml="True"
+  <smtp hostServer="" useDefaultCredentials="True" domain="" userName="" password="" fromAddress="" toAddress="" useTLS="false"
+        isBodyHtml="True" port="25"
         subject="%AlertLevel% - %CollectorName%" body="QuickMon alert raised for &lt;b&gt;'%CollectorName%'&lt;/b&gt;&lt;br /&gt;
 &lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br /&gt;
 &lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br /&gt;

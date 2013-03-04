@@ -190,4 +190,28 @@
   <data name="MegaPhone" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MegaPhone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="QMon_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Blue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Blue2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Blue2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Green.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Green2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Green2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Red.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Red2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Red2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Yellow.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QMon_Yellow2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QMon-Yellow2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

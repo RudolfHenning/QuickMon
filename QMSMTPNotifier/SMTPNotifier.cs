@@ -28,14 +28,20 @@ namespace QuickMon
                 {
                     smtpClient.Host = mailSettings.HostServer;
                     smtpClient.UseDefaultCredentials = mailSettings.UseDefaultCredentials;
+                    smtpClient.Port = mailSettings.Port;
+
                     if (!mailSettings.UseDefaultCredentials)
                     {
                         lastStep = "Setting up non default credentials";
                         System.Net.NetworkCredential cr = new System.Net.NetworkCredential();
                         cr.Domain = mailSettings.Domain;
                         cr.UserName = mailSettings.UserName;
-                        cr.Password = mailSettings.Password;
+                        cr.Password = mailSettings.Password; 
                         smtpClient.Credentials = cr;
+                    }
+                    if (mailSettings.UseTLS)
+                    {                        
+                        smtpClient.EnableSsl = true;
                     }
                     MailMessage mailMessage = new MailMessage(mailSettings.FromAddress, mailSettings.ToAddress);
 
@@ -119,7 +125,9 @@ namespace QuickMon
                 connectionNode.SetAttributeValue("toAddress", mailSettings.ToAddress);
                 connectionNode.SetAttributeValue("isBodyHtml", mailSettings.IsBodyHtml.ToString());
                 connectionNode.SetAttributeValue("subject", mailSettings.Subject);
-                connectionNode.SetAttributeValue("body", mailSettings.Body);                
+                connectionNode.SetAttributeValue("body", mailSettings.Body);
+                connectionNode.SetAttributeValue("useTLS", mailSettings.UseTLS.ToString());
+                connectionNode.SetAttributeValue("port", mailSettings.Port.ToString());
                 config = configXml.OuterXml;
             }
             return config;
@@ -134,6 +142,8 @@ namespace QuickMon
             XmlNode connectionNode = root.SelectSingleNode("smtp");
             mailSettings.HostServer = connectionNode.ReadXmlElementAttr("hostServer", "");
             mailSettings.UseDefaultCredentials = bool.Parse(connectionNode.ReadXmlElementAttr("useDefaultCredentials", "True"));
+            mailSettings.UseTLS = bool.Parse(connectionNode.ReadXmlElementAttr("useTLS", "False"));
+            mailSettings.Port = int.Parse(connectionNode.ReadXmlElementAttr("port", "25"));
             mailSettings.Domain = connectionNode.ReadXmlElementAttr("domain", "");
             mailSettings.UserName = connectionNode.ReadXmlElementAttr("userName", "");
             mailSettings.Password = connectionNode.ReadXmlElementAttr("password", "");

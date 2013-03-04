@@ -32,15 +32,16 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRecentFiles = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonConfigPack = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonOptions = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripSplitButton();
+            this.recentMonitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButtonConfigPack = new System.Windows.Forms.ToolStripSplitButton();
+            this.configureCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonNotifiers = new System.Windows.Forms.ToolStripSplitButton();
             this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.infoToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonOptions = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lastUpdateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -76,13 +77,12 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonLoad,
-            this.toolStripButtonRecentFiles,
             this.toolStripButtonConfigPack,
-            this.toolStripSeparator1,
-            this.toolStripButtonOptions,
-            this.toolStripButtonRefresh,
             this.toolStripButtonNotifiers,
-            this.infoToolStripButton});
+            this.toolStripSeparator1,
+            this.toolStripButtonRefresh,
+            this.infoToolStripButton,
+            this.toolStripButtonOptions});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(374, 39);
@@ -92,57 +92,42 @@
             // toolStripButtonLoad
             // 
             this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonLoad.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recentMonitorPacksToolStripMenuItem});
             this.toolStripButtonLoad.Image = global::QuickMon.Properties.Resources.folder;
             this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLoad.Name = "toolStripButtonLoad";
-            this.toolStripButtonLoad.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonLoad.Size = new System.Drawing.Size(48, 36);
             this.toolStripButtonLoad.Text = "Open Monitor Pack file";
-            this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
+            this.toolStripButtonLoad.ButtonClick += new System.EventHandler(this.toolStripButtonLoad_Click);
             // 
-            // toolStripButtonRecentFiles
+            // recentMonitorPacksToolStripMenuItem
             // 
-            this.toolStripButtonRecentFiles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRecentFiles.Image = global::QuickMon.Properties.Resources.folder_favor;
-            this.toolStripButtonRecentFiles.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRecentFiles.Name = "toolStripButtonRecentFiles";
-            this.toolStripButtonRecentFiles.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonRecentFiles.Text = "Recent Monitor Pack files";
-            this.toolStripButtonRecentFiles.Click += new System.EventHandler(this.toolStripButtonRecentFiles_Click);
+            this.recentMonitorPacksToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
+            this.recentMonitorPacksToolStripMenuItem.Name = "recentMonitorPacksToolStripMenuItem";
+            this.recentMonitorPacksToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.recentMonitorPacksToolStripMenuItem.Text = "Recent monitor packs";
+            this.recentMonitorPacksToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRecentFiles_Click);
             // 
             // toolStripButtonConfigPack
             // 
             this.toolStripButtonConfigPack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonConfigPack.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configureCollectorToolStripMenuItem1});
             this.toolStripButtonConfigPack.Image = global::QuickMon.Properties.Resources.QEdit3;
             this.toolStripButtonConfigPack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonConfigPack.Name = "toolStripButtonConfigPack";
-            this.toolStripButtonConfigPack.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonConfigPack.Size = new System.Drawing.Size(48, 36);
             this.toolStripButtonConfigPack.Text = "Configure Monitor Pack";
-            this.toolStripButtonConfigPack.Click += new System.EventHandler(this.toolStripButtonConfigPack_Click);
+            this.toolStripButtonConfigPack.ButtonClick += new System.EventHandler(this.toolStripButtonConfigPack_Click);
             // 
-            // toolStripSeparator1
+            // configureCollectorToolStripMenuItem1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
-            // 
-            // toolStripButtonOptions
-            // 
-            this.toolStripButtonOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOptions.Image = global::QuickMon.Properties.Resources.tools;
-            this.toolStripButtonOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonOptions.Name = "toolStripButtonOptions";
-            this.toolStripButtonOptions.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonOptions.Text = "Application Options";
-            this.toolStripButtonOptions.Click += new System.EventHandler(this.toolStripButtonOptions_Click);
-            // 
-            // toolStripButtonRefresh
-            // 
-            this.toolStripButtonRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRefresh.Image = global::QuickMon.Properties.Resources.doc_refresh;
-            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonRefresh.Text = "Refresh";
-            this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            this.configureCollectorToolStripMenuItem1.Enabled = false;
+            this.configureCollectorToolStripMenuItem1.Name = "configureCollectorToolStripMenuItem1";
+            this.configureCollectorToolStripMenuItem1.Size = new System.Drawing.Size(193, 24);
+            this.configureCollectorToolStripMenuItem1.Text = "Configure collector";
+            this.configureCollectorToolStripMenuItem1.Click += new System.EventHandler(this.configureCollectorToolStripMenuItem_Click);
             // 
             // toolStripButtonNotifiers
             // 
@@ -164,6 +149,21 @@
             this.showAllNotifiersToolStripMenuItem.Text = "Show all notifiers";
             this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.notifiersToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripButtonRefresh
+            // 
+            this.toolStripButtonRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonRefresh.Image = global::QuickMon.Properties.Resources.doc_refresh;
+            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
+            this.toolStripButtonRefresh.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonRefresh.Text = "Refresh";
+            this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
             // infoToolStripButton
             // 
             this.infoToolStripButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -174,6 +174,17 @@
             this.infoToolStripButton.Size = new System.Drawing.Size(36, 36);
             this.infoToolStripButton.Text = "About";
             this.infoToolStripButton.Click += new System.EventHandler(this.infoToolStripButton_Click);
+            // 
+            // toolStripButtonOptions
+            // 
+            this.toolStripButtonOptions.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButtonOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOptions.Image = global::QuickMon.Properties.Resources.tools;
+            this.toolStripButtonOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOptions.Name = "toolStripButtonOptions";
+            this.toolStripButtonOptions.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonOptions.Text = "Application Options";
+            this.toolStripButtonOptions.Click += new System.EventHandler(this.toolStripButtonOptions_Click);
             // 
             // statusStrip1
             // 
@@ -235,7 +246,7 @@
             this.refreshToolStripMenuItem,
             this.systemToolStripMenuItem});
             this.contextMenuStriptvw.Name = "contextMenuStriptvw";
-            this.contextMenuStriptvw.Size = new System.Drawing.Size(217, 208);
+            this.contextMenuStriptvw.Size = new System.Drawing.Size(217, 230);
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -258,7 +269,7 @@
             // configureCollectorToolStripMenuItem
             // 
             this.configureCollectorToolStripMenuItem.Enabled = false;
-            this.configureCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Gear_Spanner;
+            this.configureCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.QEdit3;
             this.configureCollectorToolStripMenuItem.Name = "configureCollectorToolStripMenuItem";
             this.configureCollectorToolStripMenuItem.Size = new System.Drawing.Size(216, 24);
             this.configureCollectorToolStripMenuItem.Text = "Configure collector";
@@ -271,7 +282,7 @@
             // 
             // notifiersToolStripMenuItem
             // 
-            this.notifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.horn;
+            this.notifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.MegaPhone;
             this.notifiersToolStripMenuItem.Name = "notifiersToolStripMenuItem";
             this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(216, 24);
             this.notifiersToolStripMenuItem.Text = "Notifiers";
@@ -335,7 +346,7 @@
             // 
             // configureMonitorPackToolStripMenuItem
             // 
-            this.configureMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GlobeWrench;
+            this.configureMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.QEdit3;
             this.configureMonitorPackToolStripMenuItem.Name = "configureMonitorPackToolStripMenuItem";
             this.configureMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
             this.configureMonitorPackToolStripMenuItem.Text = "Configure Monitor pack";
@@ -411,9 +422,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private TreeViewEx tvwCollectors;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ToolStripButton toolStripButtonLoad;
         private System.Windows.Forms.ToolStripButton toolStripButtonOptions;
-        private System.Windows.Forms.ToolStripButton toolStripButtonConfigPack;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
@@ -435,12 +444,15 @@
         private System.Windows.Forms.ToolStripMenuItem notifiersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultNotifierViewerToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel lastUpdateToolStripStatusLabel;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRecentFiles;
         private System.Windows.Forms.ToolStripMenuItem recentMonitorPackFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configureCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton infoToolStripButton;
         private System.Windows.Forms.ToolStripSplitButton toolStripButtonNotifiers;
         private System.Windows.Forms.ToolStripMenuItem showAllNotifiersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSplitButton toolStripButtonConfigPack;
+        private System.Windows.Forms.ToolStripMenuItem configureCollectorToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSplitButton toolStripButtonLoad;
+        private System.Windows.Forms.ToolStripMenuItem recentMonitorPacksToolStripMenuItem;
     }
 }
 

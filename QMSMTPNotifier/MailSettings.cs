@@ -17,5 +17,7 @@ namespace QuickMon
         public bool IsBodyHtml { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public bool UseTLS { get; set; }
+        public int Port { get; set; }
     }
 }

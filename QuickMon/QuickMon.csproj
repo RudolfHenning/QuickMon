@@ -168,6 +168,14 @@
     <None Include="Resources\QEdit2.png" />
     <None Include="Resources\QEdit3.png" />
     <None Include="Resources\MegaPhone.png" />
+    <None Include="Resources\QMon-Blue.ico" />
+    <None Include="Resources\QMon-Green.ico" />
+    <None Include="Resources\QMon-Red.ico" />
+    <None Include="Resources\QMon-Yellow.ico" />
+    <None Include="Resources\QMon-Blue2.ico" />
+    <None Include="Resources\QMon-Green2.ico" />
+    <None Include="Resources\QMon-Red2.ico" />
+    <None Include="Resources\QMon-Yellow2.ico" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\horn.png" />
   </ItemGroup>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditConfig));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdTest = new System.Windows.Forms.Button();
@@ -53,7 +54,12 @@
             this.txtBody = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.chkTLS = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.portNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxCredentials.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.portNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -64,7 +70,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(397, 427);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 17;
+            this.cmdCancel.TabIndex = 20;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -75,7 +81,7 @@
             this.cmdTest.Location = new System.Drawing.Point(235, 427);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 15;
+            this.cmdTest.TabIndex = 18;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -87,7 +93,7 @@
             this.cmdOK.Location = new System.Drawing.Point(316, 427);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 16;
+            this.cmdOK.TabIndex = 19;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -107,7 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSMTPServer.Location = new System.Drawing.Point(92, 12);
             this.txtSMTPServer.Name = "txtSMTPServer";
-            this.txtSMTPServer.Size = new System.Drawing.Size(380, 20);
+            this.txtSMTPServer.Size = new System.Drawing.Size(278, 20);
             this.txtSMTPServer.TabIndex = 1;
             // 
             // chkUseDefultCredentials
@@ -117,7 +123,7 @@
             this.chkUseDefultCredentials.Location = new System.Drawing.Point(92, 38);
             this.chkUseDefultCredentials.Name = "chkUseDefultCredentials";
             this.chkUseDefultCredentials.Size = new System.Drawing.Size(133, 17);
-            this.chkUseDefultCredentials.TabIndex = 2;
+            this.chkUseDefultCredentials.TabIndex = 4;
             this.chkUseDefultCredentials.Text = "Use default credentials";
             this.chkUseDefultCredentials.UseVisualStyleBackColor = true;
             this.chkUseDefultCredentials.CheckedChanged += new System.EventHandler(this.chkUseDefultCredentials_CheckedChanged);
@@ -135,7 +141,7 @@
             this.groupBoxCredentials.Location = new System.Drawing.Point(92, 61);
             this.groupBoxCredentials.Name = "groupBoxCredentials";
             this.groupBoxCredentials.Size = new System.Drawing.Size(380, 107);
-            this.groupBoxCredentials.TabIndex = 3;
+            this.groupBoxCredentials.TabIndex = 6;
             this.groupBoxCredentials.TabStop = false;
             this.groupBoxCredentials.Text = "Custom credentials";
             // 
@@ -200,7 +206,7 @@
             this.label5.Location = new System.Drawing.Point(5, 177);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 13);
-            this.label5.TabIndex = 4;
+            this.label5.TabIndex = 7;
             this.label5.Text = "From address";
             // 
             // txtFromAddress
@@ -210,7 +216,7 @@
             this.txtFromAddress.Location = new System.Drawing.Point(92, 174);
             this.txtFromAddress.Name = "txtFromAddress";
             this.txtFromAddress.Size = new System.Drawing.Size(380, 20);
-            this.txtFromAddress.TabIndex = 5;
+            this.txtFromAddress.TabIndex = 8;
             // 
             // label6
             // 
@@ -218,8 +224,9 @@
             this.label6.Location = new System.Drawing.Point(5, 203);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 13);
-            this.label6.TabIndex = 6;
+            this.label6.TabIndex = 9;
             this.label6.Text = "To address";
+            this.toolTip1.SetToolTip(this.label6, "Use , (comma) to separate multiple addresses");
             // 
             // txtToAddress
             // 
@@ -228,7 +235,7 @@
             this.txtToAddress.Location = new System.Drawing.Point(92, 200);
             this.txtToAddress.Name = "txtToAddress";
             this.txtToAddress.Size = new System.Drawing.Size(380, 20);
-            this.txtToAddress.TabIndex = 7;
+            this.txtToAddress.TabIndex = 10;
             // 
             // chkIsBodyHtml
             // 
@@ -237,7 +244,7 @@
             this.chkIsBodyHtml.Location = new System.Drawing.Point(92, 252);
             this.chkIsBodyHtml.Name = "chkIsBodyHtml";
             this.chkIsBodyHtml.Size = new System.Drawing.Size(92, 17);
-            this.chkIsBodyHtml.TabIndex = 10;
+            this.chkIsBodyHtml.TabIndex = 13;
             this.chkIsBodyHtml.Text = "Is body HTML";
             this.chkIsBodyHtml.UseVisualStyleBackColor = true;
             // 
@@ -247,7 +254,7 @@
             this.label7.Location = new System.Drawing.Point(5, 229);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 13);
-            this.label7.TabIndex = 8;
+            this.label7.TabIndex = 11;
             this.label7.Text = "Subject *";
             // 
             // txtSubject
@@ -257,7 +264,7 @@
             this.txtSubject.Location = new System.Drawing.Point(92, 226);
             this.txtSubject.Name = "txtSubject";
             this.txtSubject.Size = new System.Drawing.Size(380, 20);
-            this.txtSubject.TabIndex = 9;
+            this.txtSubject.TabIndex = 12;
             // 
             // label8
             // 
@@ -265,7 +272,7 @@
             this.label8.Location = new System.Drawing.Point(5, 278);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 11;
+            this.label8.TabIndex = 14;
             this.label8.Text = "Body *";
             // 
             // txtBody
@@ -278,7 +285,7 @@
             this.txtBody.Name = "txtBody";
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtBody.Size = new System.Drawing.Size(380, 81);
-            this.txtBody.TabIndex = 12;
+            this.txtBody.TabIndex = 15;
             // 
             // label9
             // 
@@ -287,7 +294,7 @@
             this.label9.Location = new System.Drawing.Point(5, 359);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(331, 13);
-            this.label9.TabIndex = 13;
+            this.label9.TabIndex = 16;
             this.label9.Text = "* Body and Subject may contain one or more of the following macros:";
             // 
             // label10
@@ -296,9 +303,52 @@
             this.label10.Location = new System.Drawing.Point(48, 378);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(424, 46);
-            this.label10.TabIndex = 14;
+            this.label10.TabIndex = 17;
             this.label10.Text = "%DateTime% %AlertLevel% %CurrentState% %PreviousState% \r\n%CollectorName% %Collect" +
     "orType% \r\n%Details% (Only applies to Body)";
+            // 
+            // chkTLS
+            // 
+            this.chkTLS.AutoSize = true;
+            this.chkTLS.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkTLS.Location = new System.Drawing.Point(235, 38);
+            this.chkTLS.Name = "chkTLS";
+            this.chkTLS.Size = new System.Drawing.Size(92, 17);
+            this.chkTLS.TabIndex = 5;
+            this.chkTLS.Text = "Use TLS/SSL";
+            this.chkTLS.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(376, 14);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(26, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Port";
+            // 
+            // portNumericUpDown
+            // 
+            this.portNumericUpDown.Location = new System.Drawing.Point(409, 12);
+            this.portNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.portNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.portNumericUpDown.Name = "portNumericUpDown";
+            this.portNumericUpDown.Size = new System.Drawing.Size(63, 20);
+            this.portNumericUpDown.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.portNumericUpDown, "SMTP default port - 25\r\nTSL default port - 587 \r\nOther ports - 465, 475, 2525");
+            this.portNumericUpDown.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
             // 
             // EditConfig
             // 
@@ -306,6 +356,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(488, 462);
+            this.Controls.Add(this.portNumericUpDown);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.chkTLS);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -333,6 +386,7 @@
             this.Text = "Edit Config";
             this.groupBoxCredentials.ResumeLayout(false);
             this.groupBoxCredentials.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.portNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,5 +418,9 @@
         private System.Windows.Forms.TextBox txtBody;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox chkTLS;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown portNumericUpDown;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
