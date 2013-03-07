@@ -11,11 +11,13 @@ using System.Threading.Tasks;
 
 namespace QuickMon
 {
+    public delegate void RaiseCollectorCalledDelegate(CollectorEntry collector);
 	public delegate void RaiseCurrentStateDelegate(CollectorEntry collector, MonitorStates currentState);
 	public delegate void RaiseNotifierErrorDelegare(NotifierEntry notifier, string errorMessage);
 	public delegate void RaiseCollectorErrorDelegare(CollectorEntry collector, string errorMessage);
 	public delegate void RaiseMonitorPackErrorDelegate(string errorMessage);
 	public delegate void StateChangedDelegate(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates currentState, CollectorMessage details);
+    public delegate void CollectorExecutionTimeDelegate(CollectorEntry collector, long msTime);
 
 	public class MonitorPack
 	{
@@ -31,6 +33,8 @@ namespace QuickMon
 			AgentRegistrations = new List<AgentRegistration>();
 			agentsAssemblyPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //set as default
 		}
+
+        private string quickMonPCCategory = "QuickMon";
 
 		#region Events
 		private Mutex qmRaiseCurrentStateMutex = new Mutex();
@@ -90,6 +94,22 @@ namespace QuickMon
 			if (StateChanged != null)
 				StateChanged(alertLevel, collectorType, collectorName, oldState, currentState, details);
 		}
+        public event RaiseCollectorCalledDelegate CollectorCalled;
+        private void RaiseCollectorCalled(CollectorEntry collector)
+        {
+            if (CollectorCalled != null)
+            {
+                CollectorCalled(collector);
+            }
+        }
+        public event CollectorExecutionTimeDelegate CollectorExecutionTimeEvent;
+        private void RaiseCollectorExecutionTime(CollectorEntry collector, long msTime)
+        {
+            if (CollectorExecutionTimeEvent != null)
+            {
+                CollectorExecutionTimeEvent(collector, msTime);
+            }
+        }
 		#endregion
 
 		#region Properties
@@ -152,8 +172,19 @@ namespace QuickMon
 		#endregion
 		#endregion
 
-		#region Refreshing states
-		public MonitorStates RefreshStates()
+        #region Performance Counter Vars
+        private PerformanceCounter collectorErrorStatePerSec = null;
+        private PerformanceCounter collectorWarningStatePerSec = null;
+        private PerformanceCounter collectorInfoStatePerSec = null;
+        private PerformanceCounter notifierAlertSendPerSec = null;
+        private PerformanceCounter collectorsQueriedPerSecond = null;
+        private PerformanceCounter notifiersCalledPerSecond = null;
+        private PerformanceCounter collectorsQueryTime = null;
+        private PerformanceCounter notifiersSendTime = null;
+        #endregion
+
+        #region Refreshing states
+        public MonitorStates RefreshStates()
 		{
 			MonitorStates globalState = MonitorStates.Good;
 			Stopwatch sw = new Stopwatch();
@@ -189,6 +220,7 @@ namespace QuickMon
 				}
 			}
 			sw.Stop();
+            PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
 #if DEBUG
 			Trace.WriteLine(string.Format("RefreshStates - Global time: {0}ms", sw.ElapsedMilliseconds));
 #endif
@@ -218,6 +250,7 @@ namespace QuickMon
 			sw.Restart();
 			SendNotifierAlert(globalAlertLevel, DetailLevel.Summary, "N/A", "GlobalState", MonitorStates.NotAvailable, MonitorStates.NotAvailable, new CollectorMessage());
 			sw.Stop();
+            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
 #if DEBUG
 			Trace.WriteLine(string.Format("RefreshStates - Global notification time: {0}ms", sw.ElapsedMilliseconds));
 #endif
@@ -226,6 +259,7 @@ namespace QuickMon
 		}
 		private void RefreshCollectorState(CollectorEntry collector)
 		{
+            RaiseCollectorCalled(collector);
 			MonitorStates currentState = MonitorStates.NotAvailable;
 			Stopwatch sw = new Stopwatch();
 
@@ -235,6 +269,10 @@ namespace QuickMon
 			{
 				System.Diagnostics.Trace.WriteLine(string.Format("Starting: {0}", collector.Name));
 				currentState = collector.GetCurrentState();
+                if (currentState == MonitorStates.Good || 
+                    currentState == MonitorStates.Warning ||
+                    currentState == MonitorStates.Good)
+                    PCRaiseCollectorsQueried();
 			}
 			catch (Exception ex)
 			{
@@ -249,6 +287,7 @@ namespace QuickMon
 			}
 			
 			sw.Stop();
+            RaiseCollectorExecutionTime(collector, sw.ElapsedMilliseconds);
 #if DEBUG
 			Trace.WriteLine(string.Format("RefreshCollectorState - {0}: {1}ms", collector.Name, sw.ElapsedMilliseconds));
 #endif 
@@ -260,18 +299,32 @@ namespace QuickMon
 				RaiseRaiseCurrentStateDelegate(collector, currentState);
 
 				AlertLevel alertLevel = AlertLevel.Debug;
-				if (currentState == MonitorStates.Good || currentState == MonitorStates.Disabled || currentState == MonitorStates.NotAvailable)
-					alertLevel = AlertLevel.Info;
-				else if (currentState == MonitorStates.Warning)
-					alertLevel = AlertLevel.Warning;
-				else if (currentState == MonitorStates.Error || currentState == MonitorStates.ConfigurationError)
-					alertLevel = AlertLevel.Error;
+                if (currentState == MonitorStates.Good)
+                {
+                    alertLevel = AlertLevel.Info;
+                    PCRaiseCollectorSuccessState();
+                }
+                else if (currentState == MonitorStates.Disabled || currentState == MonitorStates.NotAvailable)
+                {
+                    alertLevel = AlertLevel.Info;                    
+                }
+                else if (currentState == MonitorStates.Warning)
+                {
+                    alertLevel = AlertLevel.Warning;
+                    PCRaiseCollectorWarningState();
+                }
+                else if (currentState == MonitorStates.Error || currentState == MonitorStates.ConfigurationError)
+                {
+                    alertLevel = AlertLevel.Error;
+                    PCRaiseCollectorErrorState();
+                }
 
 				//Check if alert should be raised now
 				if (collector.RaiseAlert())
 				{
 					SendNotifierAlert(alertLevel, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
 							collector.LastMonitorDetails);
+                    PCRaiseNotifierAlertSend();
 				}
 				else //otherwise raise only Debug info
 				{
@@ -311,7 +364,7 @@ namespace QuickMon
 				}
 			} 
 			#endregion
-		}
+		}        
 		private void SetChildCollectorStates(CollectorEntry collector, MonitorStates childState)
 		{
 			foreach (CollectorEntry childCollector in (from c in Collectors
@@ -326,6 +379,8 @@ namespace QuickMon
 		private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel,
 				string collectorType, string collectorName, MonitorStates oldState, MonitorStates currentState, CollectorMessage details)
 		{
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 			foreach (NotifierEntry notifierEntry in (from n in Notifiers
 													 where n.Enabled && (int)n.AlertLevel <= (int)alertLevel &&
 														(detailLevel == DetailLevel.All || detailLevel == n.DetailLevel) &&
@@ -334,6 +389,7 @@ namespace QuickMon
 			{
 				try
 				{
+                    PCRaiseNotifiersCalled();
 					notifierEntry.Notifier.RecordMessage(alertLevel, collectorType, collectorName, oldState, currentState, details);
 				}
 				catch (Exception ex)
@@ -341,6 +397,8 @@ namespace QuickMon
 					RaiseRaiseNotifierError(notifierEntry, ex.ToString());
 				}
 			}
+            sw.Stop();
+            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
 		}
 		#endregion
 
@@ -364,6 +422,7 @@ namespace QuickMon
 				}
 				BackgroundWaitIsPolling(PollingFreq);
 			}
+            ClosePerformanceCounters();
 		}
 		private void BackgroundWaitIsPolling(int nextWaitInterval)
 		{
@@ -505,6 +564,7 @@ namespace QuickMon
 				Properties.Settings.Default.recentMonitorPacks.Add(configurationFile);
 				Properties.Settings.Default.Save();
 			}
+            InitializeGlobalPerformanceCounters();
 		}
 		public bool Save()
 		{
@@ -708,5 +768,162 @@ namespace QuickMon
             }
             return list;
         }
-	}
+
+        #region Performance counters
+        private void InitializeGlobalPerformanceCounters()
+        {
+            try
+            {
+                CounterCreationData[] quickMonCreationData = new CounterCreationData[]
+                    {
+                        new CounterCreationData("Collector success states/Sec", "Collector successful states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector warning states/Sec", "Collector warning states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector error states/Sec", "Collector error states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Notifier alerts send/Sec", "Notifier alerts send per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collectors queried/Sec", "Number of Collectors queried per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Notifiers called/Sec", "Number of Notifiers called per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collectors query time", "Collector total query time (ms)", PerformanceCounterType.NumberOfItems32),
+                        new CounterCreationData("Notifiers send time", "Notifiers total send time (ms)", PerformanceCounterType.NumberOfItems32)
+                    };
+
+                if (PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {
+                    PerformanceCounterCategory pcC = new PerformanceCounterCategory(quickMonPCCategory);
+                    if (pcC.GetCounters().Length != quickMonCreationData.Length)
+                    {
+                        PerformanceCounterCategory.Delete(quickMonPCCategory);
+                    }
+                }
+
+                if (!PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {                    
+                    PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon General Counters", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseRaiseMonitorPackError(string.Format("Create global performance counters category error!: {0}", ex.Message));
+            }
+            try
+            {
+                collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory,"Collector error states/Sec");
+                collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector warning states/Sec");
+                collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector success states/Sec");
+                notifierAlertSendPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Notifier alerts send/Sec");
+                collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collectors queried/Sec");
+                notifiersCalledPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers called/Sec");
+                collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collectors query time");
+                notifiersSendTime = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers send time");
+            }    
+            catch (Exception ex)
+            {
+                RaiseRaiseMonitorPackError(string.Format("Initialize global performance counters error!: {0}", ex.Message));
+            }
+        }
+        public void ClosePerformanceCounters()
+        {
+            PCSetCollectorsQueryTime(0);
+        }
+        private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
+        {
+            PerformanceCounter counter = new PerformanceCounter(categoryName, counterName, false);
+            counter.BeginInit();
+            counter.RawValue = 0;
+            counter.EndInit();
+            return counter;
+        }
+        private PerformanceCounter GetPerfCounterInstance(string categoryName, string counterName)
+        {
+            PerformanceCounter counter = new PerformanceCounter(categoryName, counterName, false);
+            return counter;
+        }
+        private void PCRaiseCollectorSuccessState()
+        {
+            IncrementCounter(collectorInfoStatePerSec, "Collector successful states per second");
+        }
+        private void PCRaiseCollectorWarningState()
+        {
+            IncrementCounter(collectorWarningStatePerSec, "Collector warning states per second");
+        }
+        private void PCRaiseCollectorErrorState()
+        {
+            IncrementCounter(collectorErrorStatePerSec, "Collector error states per second");
+        }
+        private void PCRaiseNotifierAlertSend()
+        {
+            IncrementCounter(notifierAlertSendPerSec, "Notifier alerts send per second");
+        }
+        private void PCRaiseCollectorsQueried()
+        {
+            IncrementCounter(collectorsQueriedPerSecond, "Collectors queried per second");
+        }
+        private void PCRaiseNotifiersCalled()
+        {
+            IncrementCounter(notifiersCalledPerSecond, "Notifiers called per second");
+        }
+        private void PCSetCollectorsQueryTime(long time)
+        {
+            SetCounterValue(collectorsQueryTime, time, "Collector total query time (ms)");
+        }
+        private void PCSetNotifiersSendTime(long time)
+        {
+            SetCounterValue(notifiersSendTime, time, "Notifiers total send time (ms)");
+        }
+        private void SetCounterValue(PerformanceCounter counter, long value, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    RaiseRaiseMonitorPackError("Performance counter not set up or installed! : " + description);
+                }
+                else
+                {
+                    counter.RawValue = value;
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseRaiseMonitorPackError(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
+        }
+        private void IncrementCounter(PerformanceCounter counter, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    RaiseRaiseMonitorPackError("Performance counter not set up or installed! : " + description);                    
+                }
+                else
+                {
+                    counter.Increment();
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseRaiseMonitorPackError(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
+        }
+        private void DecrementCounter(PerformanceCounter counter, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    RaiseRaiseMonitorPackError("Performance counter not set up or installed! : " + description);
+                }
+                else
+                {
+                    if (counter.RawValue > 0)
+                        counter.Decrement();
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseRaiseMonitorPackError(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
+        }
+        #endregion
+    }
 }

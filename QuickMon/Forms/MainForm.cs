@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace QuickMon
 {
@@ -23,6 +24,16 @@ namespace QuickMon
         private System.Threading.Mutex updateTreeNode = new System.Threading.Mutex();
         private int folderImgIndex = 5;
         private System.Timers.Timer mainRefreshTimer;
+        private string quickMonPCCategory = "QuickMon UI Client";
+
+        #region Performance Counter Vars
+        private PerformanceCounter collectorErrorStatePerSec = null;
+        private PerformanceCounter collectorWarningStatePerSec = null;
+        private PerformanceCounter collectorInfoStatePerSec = null;
+        private PerformanceCounter collectorsQueriedPerSecond = null;
+        private PerformanceCounter collectorsQueryTime = null;
+        private PerformanceCounter selectedCollectorsQueryTime = null;
+        #endregion
         #endregion
 
         #region Form events
@@ -58,7 +69,8 @@ namespace QuickMon
             //{
             //    this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             //}
-            //catch { }            
+            //catch { }
+            InitializeGlobalPerformanceCounters();
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -70,6 +82,8 @@ namespace QuickMon
             {
                 if (System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                     monitorPack.Save(Properties.Settings.Default.LastMonitorPack);
+                monitorPack.ClosePerformanceCounters();
+                ClosePerformanceCounters();
             }
             catch { }
             if (WindowState == FormWindowState.Normal)
@@ -404,7 +418,46 @@ namespace QuickMon
             else
                 ShowNotifierError(notifier, errorMessage);
         }
-
+        private void monitorPack_CollectorCalled(CollectorEntry collector)
+        {
+            PCRaiseCollectorsQueried();
+        }
+        private void monitorPack_CollectorExecutionTimeEvent(CollectorEntry collector, long msTime)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((MethodInvoker)delegate()
+                {
+                    if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                    {
+                        CollectorEntry tvcollector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                        if (tvcollector.UniqueId == collector.UniqueId)
+                        {
+                            PCSetSelectedCollectorsQueryTime(msTime);
+                            return;
+                        }
+                    }
+                    else
+                        PCSetSelectedCollectorsQueryTime(0);
+                }
+                );
+            }
+            else
+            {
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                {
+                    CollectorEntry tvcollector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                    if (tvcollector.UniqueId == collector.UniqueId)
+                    {
+                        PCSetSelectedCollectorsQueryTime(msTime);
+                        return;
+                    }
+                }
+                else
+                    PCSetSelectedCollectorsQueryTime(0);
+            }            
+            
+        }
         private void SetTreeNodeState(TreeNode treeNode, CollectorEntry collector, MonitorStates currentState)
         {
             if (currentState == MonitorStates.Disabled || currentState == MonitorStates.NotAvailable)
@@ -416,16 +469,19 @@ namespace QuickMon
             {
                 treeNode.ImageIndex = 2;
                 treeNode.SelectedImageIndex = 2;
+                PCRaiseCollectorSuccessState();
             }
             else if (currentState == MonitorStates.Warning)
             {
                 treeNode.ImageIndex = 3;
                 treeNode.SelectedImageIndex = 3;
+                PCRaiseCollectorWarningState();
             }
             else
             {
                 treeNode.ImageIndex = 4;
                 treeNode.SelectedImageIndex = 4;
+                PCRaiseCollectorErrorState();
             }
             if (collector.Enabled)
                 treeNode.ForeColor = SystemColors.WindowText;
@@ -473,7 +529,6 @@ namespace QuickMon
                     {
                         Cursor.Current = Cursors.WaitCursor;
                         mainRefreshTimer.Enabled = false; 
-                        //tvwCollectors.BeginUpdate();
                     }
                     );
                 }
@@ -481,11 +536,14 @@ namespace QuickMon
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     mainRefreshTimer.Enabled = false; 
-                    //tvwCollectors.BeginUpdate();
                 }
                 if (monitorPack.Enabled)
                 {
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
                     globalState = monitorPack.RefreshStates();
+                    sw.Stop();
+                    PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
                 }
                 else
                     globalState = MonitorStates.Disabled;
@@ -512,18 +570,6 @@ namespace QuickMon
             }
             finally
             {
-                //if (this.InvokeRequired)
-                //{
-                //    this.Invoke((MethodInvoker)delegate()
-                //    {
-                //        //tvwCollectors.EndUpdate();
-                //    }
-                //    );
-                //}
-                //else
-                //{
-                //    //tvwCollectors.EndUpdate();
-                //}
                 Cursor.Current = Cursors.Default;
                 mainRefreshTimer.Enabled = true; 
             }
@@ -540,6 +586,9 @@ namespace QuickMon
                 {
                     monitorPack.RaiseCurrentState -= new RaiseCurrentStateDelegate(monitorPack_RaiseCurrentState);
                     monitorPack.RaiseNotifierError -= new RaiseNotifierErrorDelegare(monitorPack_RaiseNotifierError);
+                    monitorPack.CollectorCalled -= new RaiseCollectorCalledDelegate(monitorPack_CollectorCalled);
+                    monitorPack.CollectorExecutionTimeEvent -= new CollectorExecutionTimeDelegate(monitorPack_CollectorExecutionTimeEvent);
+                    monitorPack.ClosePerformanceCounters();
                     monitorPack = null;
                 }
                 catch { }
@@ -565,6 +614,8 @@ namespace QuickMon
 
                 monitorPack.RaiseCurrentState += new RaiseCurrentStateDelegate(monitorPack_RaiseCurrentState);
                 monitorPack.RaiseNotifierError += new RaiseNotifierErrorDelegare(monitorPack_RaiseNotifierError);
+                monitorPack.CollectorCalled += new RaiseCollectorCalledDelegate(monitorPack_CollectorCalled);
+                monitorPack.CollectorExecutionTimeEvent += new CollectorExecutionTimeDelegate(monitorPack_CollectorExecutionTimeEvent);
                 globalState = MonitorStates.NotAvailable;
                 Properties.Settings.Default.LastMonitorPack = monitorPackPath;
                 UpdateAppTitle();
@@ -585,7 +636,7 @@ namespace QuickMon
                 AddMonitorPackFileToRecentList(monitorPackPath);
                 mainRefreshTimer.Enabled = true; 
             }
-        }
+        }        
         private void AddMonitorPackFileToRecentList(string monitorPackPath)
         {
             if ((from string f in Properties.Settings.Default.RecentQMConfigFiles
@@ -690,5 +741,126 @@ namespace QuickMon
         }
         #endregion                        
         
+        #region Performance counters
+        private void InitializeGlobalPerformanceCounters()
+        {
+            try
+            {
+                CounterCreationData[] quickMonCreationData = new CounterCreationData[]
+                    {
+                        new CounterCreationData("Collector success states/Sec", "Collector successful states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector warning states/Sec", "Collector warning states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector error states/Sec", "Collector error states per second", PerformanceCounterType.RateOfCountsPerSecond32),                        
+                        new CounterCreationData("Collectors queried/Sec", "Number of Collectors queried per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collectors query time", "Collector total query time (ms)", PerformanceCounterType.NumberOfItems32),
+                        new CounterCreationData("Selected Collector query time", "Selected Collector query time (ms)", PerformanceCounterType.NumberOfItems32)
+                    };
+
+                if (PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {
+                    PerformanceCounterCategory pcC = new PerformanceCounterCategory(quickMonPCCategory);
+                    if (pcC.GetCounters().Count() != quickMonCreationData.Length)
+                    {
+                        PerformanceCounterCategory.Delete(quickMonPCCategory);
+                    }
+                }
+
+                if (!PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {                    
+                    PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error creating application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            try
+            {
+                collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector error states/Sec");
+                collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector warning states/Sec");
+                collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector success states/Sec");
+                collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collectors queried/Sec");
+                collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collectors query time");
+                selectedCollectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Selected Collector query time");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error initializing application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public void ClosePerformanceCounters()
+        {
+            SetCounterValue(collectorsQueryTime, 0, "Collector total query time (ms)");
+            SetCounterValue(selectedCollectorsQueryTime, 0,"Selected collector query time (ms)");
+        }
+        private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
+        {
+            PerformanceCounter counter = new PerformanceCounter(categoryName, counterName, false);
+            counter.BeginInit();
+            counter.RawValue = 0;
+            counter.EndInit();
+            return counter;
+        }
+        private void PCRaiseCollectorSuccessState()
+        {
+            IncrementCounter(collectorInfoStatePerSec, "Collector successful states per second");
+        }
+        private void PCRaiseCollectorWarningState()
+        {
+            IncrementCounter(collectorWarningStatePerSec, "Collector warning states per second");
+        }
+        private void PCRaiseCollectorErrorState()
+        {
+            IncrementCounter(collectorErrorStatePerSec, "Collector error states per second");
+        }
+        private void PCRaiseCollectorsQueried()
+        {
+            IncrementCounter(collectorsQueriedPerSecond, "Collectors queried per second");
+        }
+        private void PCSetCollectorsQueryTime(long time)
+        {
+            SetCounterValue(collectorsQueryTime, time, "Collector total query time (ms)");
+        }
+        private void PCSetSelectedCollectorsQueryTime(long time)
+        {
+            SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
+        }
+        private void IncrementCounter(PerformanceCounter counter, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    toolStripStatusLabelStatus.Text = "Performance counter not set up or installed! : " + description;
+                }
+                else
+                {
+                    counter.Increment();
+                }
+            }
+            catch (Exception ex)
+            {
+                toolStripStatusLabelStatus.Text = string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString());
+            }
+        }
+        private void SetCounterValue(PerformanceCounter counter, long value, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    toolStripStatusLabelStatus.Text = "Performance counter not set up or installed! : " + description;
+                }
+                else
+                {
+                    counter.RawValue = value;
+                }
+            }
+            catch (Exception ex)
+            {
+                toolStripStatusLabelStatus.Text = string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString());
+            }
+        }
+        #endregion
     }
 }

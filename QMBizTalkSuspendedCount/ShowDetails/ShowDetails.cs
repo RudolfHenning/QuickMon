@@ -16,6 +16,7 @@ namespace QuickMon
         public BizTalkGroup BizTalkGroup { get; set; }
 
         private const int MAXDETAILITEMS = 100;
+        private bool selectionBusy = false;
 
         public ShowDetails()
         {
@@ -52,9 +53,15 @@ namespace QuickMon
         #region ListView events
         private void lvwSuspMsgs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timerShowDetail.Enabled = false;
-            timerShowDetail.Enabled = true;
-            exportToolStripButton.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+            if (!selectionBusy)
+            {
+                selectionBusy = true;
+                timerShowDetail.Enabled = false;
+                timerShowDetail.Enabled = true;
+                exportToolStripButton.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+                exportSelectedToolStripMenuItem.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+                selectionBusy = false;
+            }
         }
         #endregion
 
@@ -155,11 +162,12 @@ namespace QuickMon
                     sb.AppendLine();
                     foreach (ListViewItem lvi in lvwSuspMsgs.Items)
                     {
-                        sb.Append(lvi.Text);
+                        sb.Append(string.Format("\"{0}\"", lvi.Text));
                         for (int i = 1; i < lvwSuspMsgs.Columns.Count; i++)
                         {
-                            if (lvi.SubItems[i].Text.Contains(','))
-                                sb.Append(",\"" + lvi.SubItems[i].Text + "\"");
+                            string field = lvi.SubItems[i].Text;
+                            if (field.Contains(',') || field.Contains('\r'))
+                                sb.Append(string.Format(",\"{0}\"", field.Replace("\"","'")));
                             else
                                 sb.Append("," + lvi.SubItems[i].Text);
                         }
@@ -169,6 +177,7 @@ namespace QuickMon
                     {
                         System.IO.File.WriteAllText(saveFileDialogCSV.FileName, sb.ToString());
                     }
+                    MessageBox.Show("Export done", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -209,6 +218,20 @@ namespace QuickMon
             }
         }
         #endregion
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectionBusy = true;
+            foreach (ListViewItem lvi in lvwSuspMsgs.Items)
+            {
+                lvi.Selected = true;
+            }
+            selectionBusy = false;
+            timerShowDetail.Enabled = false;
+            timerShowDetail.Enabled = true;
+            exportToolStripButton.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+            exportSelectedToolStripMenuItem.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+        }
 
         
     }

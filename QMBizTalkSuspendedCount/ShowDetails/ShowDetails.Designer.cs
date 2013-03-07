@@ -48,9 +48,12 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.cmdToggleHideDetails = new System.Windows.Forms.Button();
-            this.txtDetails = new HenIT.Controls.RichTextControlEx();
             this.timerShowDetail = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialogCSV = new System.Windows.Forms.SaveFileDialog();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.txtDetails = new HenIT.Controls.RichTextControlEx();
+            this.exportSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -116,16 +119,20 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllToolStripMenuItem,
+            this.exportSelectedToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.refreshToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 104);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
             // lvwSuspMsgs
             // 
@@ -138,6 +145,7 @@
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
+            this.lvwSuspMsgs.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwSuspMsgs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwSuspMsgs.FullRowSelect = true;
             this.lvwSuspMsgs.HideSelection = false;
@@ -222,6 +230,29 @@
             this.cmdToggleHideDetails.UseVisualStyleBackColor = false;
             this.cmdToggleHideDetails.Click += new System.EventHandler(this.cmdToggleHideDetails_Click);
             // 
+            // timerShowDetail
+            // 
+            this.timerShowDetail.Interval = 250;
+            this.timerShowDetail.Tick += new System.EventHandler(this.timerShowDetail_Tick);
+            // 
+            // saveFileDialogCSV
+            // 
+            this.saveFileDialogCSV.DefaultExt = "csv";
+            this.saveFileDialogCSV.Filter = "CSV Files|*.csv";
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(179, 6);
+            // 
             // txtDetails
             // 
             this.txtDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -236,15 +267,13 @@
             this.txtDetails.Size = new System.Drawing.Size(688, 66);
             this.txtDetails.TabIndex = 0;
             // 
-            // timerShowDetail
+            // exportSelectedToolStripMenuItem
             // 
-            this.timerShowDetail.Interval = 200;
-            this.timerShowDetail.Tick += new System.EventHandler(this.timerShowDetail_Tick);
-            // 
-            // saveFileDialogCSV
-            // 
-            this.saveFileDialogCSV.DefaultExt = "csv";
-            this.saveFileDialogCSV.Filter = "CSV Files|*.csv";
+            this.exportSelectedToolStripMenuItem.Enabled = false;
+            this.exportSelectedToolStripMenuItem.Name = "exportSelectedToolStripMenuItem";
+            this.exportSelectedToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
+            this.exportSelectedToolStripMenuItem.Text = "Export selected";
+            this.exportSelectedToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
             // ShowDetails
             // 
@@ -297,5 +326,8 @@
         private System.Windows.Forms.Timer timerShowDetail;
         private System.Windows.Forms.ToolStripButton exportToolStripButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialogCSV;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportSelectedToolStripMenuItem;
     }
 }
