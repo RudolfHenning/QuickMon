@@ -12,6 +12,11 @@ namespace QuickMon
 {
     public partial class MainForm : FadeSnapForm
     {
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
+        [System.Runtime.InteropServices.DllImport("User32")]
+        private static extern int SetForegroundWindow(IntPtr hwnd);
+
         public MainForm()
         {
             InitializeComponent();
@@ -55,10 +60,7 @@ namespace QuickMon
             mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequency;
             mainRefreshTimer.Enabled = true;
 
-            if (Properties.Settings.Default.LastMonitorPack != null)
-            {
-                LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
-            }
+            
             //try
             //{
             //    this.timerMain.Tick -= new System.EventHandler(this.timerMain_Tick);
@@ -69,11 +71,16 @@ namespace QuickMon
             //{
             //    this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             //}
-            //catch { }
-            InitializeGlobalPerformanceCounters();
+            //catch { }            
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            InitializeGlobalPerformanceCounters();
+            if (Properties.Settings.Default.LastMonitorPack != null)
+            {
+                LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
+                System.Threading.Thread.Sleep(100);
+            }
             backgroundWorkerRefresh.RunWorkerAsync();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -769,24 +776,34 @@ namespace QuickMon
                 {                    
                     PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
                 }
+                try
+                {
+                    collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector error states/Sec");
+                    collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector warning states/Sec");
+                    collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector success states/Sec");
+                    collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collectors queried/Sec");
+                    collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collectors query time");
+                    selectedCollectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Selected Collector query time");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error initializing application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error creating application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            try
-            {
-                collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector error states/Sec");
-                collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector warning states/Sec");
-                collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector success states/Sec");
-                collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collectors queried/Sec");
-                collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collectors query time");
-                selectedCollectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Selected Collector query time");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error initializing application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                if (ex.Message.Contains("Requested registry access is not allowed"))
+                {
+                    if (IsAdmin())
+                        MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else //try launching in admin mode
+                    {
+                        RestartInAdminMode();
+                    }
+                }                    
+                else
+                    MessageBox.Show("Error creating application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
         public void ClosePerformanceCounters()
         {
@@ -860,6 +877,55 @@ namespace QuickMon
             {
                 toolStripStatusLabelStatus.Text = string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString());
             }
+        }
+        #endregion
+
+        #region Admin Mode utils
+        bool IsAdmin()
+        {
+            string strIdentity;
+            try
+            {
+                AppDomain.CurrentDomain.SetPrincipalPolicy(System.Security.Principal.PrincipalPolicy.WindowsPrincipal);
+                System.Security.Principal.WindowsIdentity wi = System.Security.Principal.WindowsIdentity.GetCurrent();
+                System.Security.Principal.WindowsPrincipal wp = new System.Security.Principal.WindowsPrincipal(wi);
+                strIdentity = wp.Identity.Name;
+
+                if (wp.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        private void RestartInAdminMode()
+        {
+            Properties.Settings.Default.Save();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            startInfo.UseShellExecute = true;
+            startInfo.WorkingDirectory = Environment.CurrentDirectory;
+            startInfo.FileName = Application.ExecutablePath;
+            startInfo.Verb = "runas";
+            try
+            {
+                Process p = Process.Start(startInfo);
+                System.Threading.Thread.Sleep(1000);
+                ShowWindow(p.MainWindowHandle, 5);
+                p.WaitForInputIdle(); //this is the key!!
+                System.Threading.Thread.Sleep(500);
+                SetForegroundWindow(p.MainWindowHandle);
+            }
+            catch (System.ComponentModel.Win32Exception) // ex)
+            {
+                return;
+            }
+
+            Application.Exit();
         }
         #endregion
     }

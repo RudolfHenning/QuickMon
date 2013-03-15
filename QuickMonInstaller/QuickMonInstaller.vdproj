@@ -473,18 +473,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AEF69716952181B21E031B4717828D17"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -618,6 +606,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AEF69716952181B21E031B4717828D17"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -803,7 +803,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.8.1.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.8.2.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_AEF69716952181B21E031B4717828D17"
@@ -1002,15 +1002,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{C339F9FD-789D-4E49-8B71-F592D979BCC8}"
-        "PackageCode" = "8:{04F18BC7-59A5-4FA4-AA76-ECE8804FCFF2}"
+        "ProductCode" = "8:{BA7F1183-AB01-417E-BF2A-8CDC1B1DD5C1}"
+        "PackageCode" = "8:{4B333B26-7FFA-4537-B37A-08AA9E44C6D4}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.8.1"
+        "ProductVersion" = "8:2.8.2"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

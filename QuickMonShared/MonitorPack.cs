@@ -796,29 +796,29 @@ namespace QuickMon
                 }
 
                 if (!PerformanceCounterCategory.Exists(quickMonPCCategory))
-                {                    
+                {
                     PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon General Counters", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
+                }
+                try
+                {
+                    collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector error states/Sec");
+                    collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector warning states/Sec");
+                    collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector success states/Sec");
+                    notifierAlertSendPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Notifier alerts send/Sec");
+                    collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collectors queried/Sec");
+                    notifiersCalledPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers called/Sec");
+                    collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collectors query time");
+                    notifiersSendTime = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers send time");
+                }
+                catch (Exception ex)
+                {
+                    RaiseRaiseMonitorPackError(string.Format("Initialize global performance counters error!: {0}", ex.Message));
                 }
             }
             catch (Exception ex)
             {
                 RaiseRaiseMonitorPackError(string.Format("Create global performance counters category error!: {0}", ex.Message));
-            }
-            try
-            {
-                collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory,"Collector error states/Sec");
-                collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector warning states/Sec");
-                collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector success states/Sec");
-                notifierAlertSendPerSec = InitializePerfCounterInstance(quickMonPCCategory, "Notifier alerts send/Sec");
-                collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collectors queried/Sec");
-                notifiersCalledPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers called/Sec");
-                collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collectors query time");
-                notifiersSendTime = InitializePerfCounterInstance(quickMonPCCategory, "Notifiers send time");
-            }    
-            catch (Exception ex)
-            {
-                RaiseRaiseMonitorPackError(string.Format("Initialize global performance counters error!: {0}", ex.Message));
-            }
+            }            
         }
         public void ClosePerformanceCounters()
         {
