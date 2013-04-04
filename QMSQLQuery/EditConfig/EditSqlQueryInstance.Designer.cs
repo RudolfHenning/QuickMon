@@ -34,6 +34,7 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.tabControlConfig = new System.Windows.Forms.TabControl();
             this.tabPageConnection = new System.Windows.Forms.TabPage();
+            this.chkUsePersistentConnection = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtServer = new System.Windows.Forms.TextBox();
@@ -74,6 +75,8 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdTest = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtApplicationName = new System.Windows.Forms.TextBox();
             this.tabControlConfig.SuspendLayout();
             this.tabPageConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCmndTimeOut)).BeginInit();
@@ -117,6 +120,9 @@
             // tabPageConnection
             // 
             this.tabPageConnection.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConnection.Controls.Add(this.label13);
+            this.tabPageConnection.Controls.Add(this.txtApplicationName);
+            this.tabPageConnection.Controls.Add(this.chkUsePersistentConnection);
             this.tabPageConnection.Controls.Add(this.label2);
             this.tabPageConnection.Controls.Add(this.txtPassword);
             this.tabPageConnection.Controls.Add(this.txtServer);
@@ -136,6 +142,17 @@
             this.tabPageConnection.TabIndex = 0;
             this.tabPageConnection.Text = "Connection";
             // 
+            // chkUsePersistentConnection
+            // 
+            this.chkUsePersistentConnection.AutoSize = true;
+            this.chkUsePersistentConnection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUsePersistentConnection.Location = new System.Drawing.Point(271, 58);
+            this.chkUsePersistentConnection.Name = "chkUsePersistentConnection";
+            this.chkUsePersistentConnection.Size = new System.Drawing.Size(148, 17);
+            this.chkUsePersistentConnection.TabIndex = 5;
+            this.chkUsePersistentConnection.Text = "Use persistent connection";
+            this.chkUsePersistentConnection.UseVisualStyleBackColor = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -154,7 +171,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.ReadOnly = true;
             this.txtPassword.Size = new System.Drawing.Size(457, 20);
-            this.txtPassword.TabIndex = 8;
+            this.txtPassword.TabIndex = 9;
             // 
             // txtServer
             // 
@@ -171,7 +188,7 @@
             this.label4.Location = new System.Drawing.Point(7, 110);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 8;
             this.label4.Text = "Password";
             // 
             // label3
@@ -191,7 +208,7 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ReadOnly = true;
             this.txtUserName.Size = new System.Drawing.Size(457, 20);
-            this.txtUserName.TabIndex = 6;
+            this.txtUserName.TabIndex = 7;
             // 
             // txtDatabase
             // 
@@ -208,7 +225,7 @@
             this.label5.Location = new System.Drawing.Point(7, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 5;
+            this.label5.TabIndex = 6;
             this.label5.Text = "Username";
             // 
             // chkIntegratedSec
@@ -231,7 +248,7 @@
             this.label6.Location = new System.Drawing.Point(7, 135);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 13);
-            this.label6.TabIndex = 9;
+            this.label6.TabIndex = 10;
             this.label6.Text = "Time out value";
             // 
             // numericUpDownCmndTimeOut
@@ -244,7 +261,7 @@
             0});
             this.numericUpDownCmndTimeOut.Name = "numericUpDownCmndTimeOut";
             this.numericUpDownCmndTimeOut.Size = new System.Drawing.Size(67, 20);
-            this.numericUpDownCmndTimeOut.TabIndex = 10;
+            this.numericUpDownCmndTimeOut.TabIndex = 11;
             this.numericUpDownCmndTimeOut.Value = new decimal(new int[] {
             60,
             0,
@@ -257,7 +274,7 @@
             this.label7.Location = new System.Drawing.Point(212, 135);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(26, 13);
-            this.label7.TabIndex = 11;
+            this.label7.TabIndex = 12;
             this.label7.Text = "Sec";
             // 
             // tabPage2
@@ -586,6 +603,24 @@
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 162);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(88, 13);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "Application name";
+            // 
+            // txtApplicationName
+            // 
+            this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtApplicationName.Location = new System.Drawing.Point(139, 159);
+            this.txtApplicationName.Name = "txtApplicationName";
+            this.txtApplicationName.Size = new System.Drawing.Size(457, 20);
+            this.txtApplicationName.TabIndex = 14;
+            // 
             // EditSqlQueryInstance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -666,5 +701,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private FastColoredTextBoxNS.FastColoredTextBox txtDetailQuery;
+        private System.Windows.Forms.CheckBox chkUsePersistentConnection;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtApplicationName;
     }
 }

@@ -28,6 +28,8 @@ namespace QuickMon
                 queryEntry.UserName = queryNode.ReadXmlElementAttr("userName", "");
                 queryEntry.Password = queryNode.ReadXmlElementAttr("password", "");
                 queryEntry.CmndTimeOut = int.Parse(queryNode.ReadXmlElementAttr("cmndTimeOut", "60"));
+                queryEntry.UsePersistentConnection = bool.Parse(queryNode.ReadXmlElementAttr("usePersistentConnection", "False"));
+                queryEntry.ApplicationName = queryNode.ReadXmlElementAttr("applicationName", "QuickMon");
 
                 XmlNode summaryQueryNode = queryNode.SelectSingleNode("summaryQuery");
                 queryEntry.UseSPForSummary = bool.Parse(summaryQueryNode.ReadXmlElementAttr("useSP", "False"));
@@ -63,6 +65,8 @@ namespace QuickMon
                 queryNode.SetAttributeValue("userName", queryEntry.UserName);
                 queryNode.SetAttributeValue("password", queryEntry.Password);
                 queryNode.SetAttributeValue("cmndTimeOut", queryEntry.CmndTimeOut);
+                queryNode.SetAttributeValue("usePersistentConnection", queryEntry.UsePersistentConnection);
+                queryNode.SetAttributeValue("applicationName", queryEntry.ApplicationName);
 
                 XmlNode summaryQueryNode = queryNode.AppendElementWithText("summaryQuery", queryEntry.SummaryQuery);
                 summaryQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForSummary);
@@ -72,6 +76,7 @@ namespace QuickMon
                 summaryQueryNode.SetAttributeValue("errorValue", queryEntry.ErrorValue);
                 summaryQueryNode.SetAttributeValue("successValue", queryEntry.SuccessValue);
                 summaryQueryNode.SetAttributeValue("useRowCountAsValue", queryEntry.UseRowCountAsValue);
+
                 
                 XmlNode detailQueryNode = queryNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
                 detailQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForDetail);

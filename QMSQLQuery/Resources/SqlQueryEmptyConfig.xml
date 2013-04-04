@@ -2,6 +2,7 @@
   <queries>
     <!--
     <query name="" sqlServer="." database="master" integratedSec="True" userName=""  password=""
+      usePersistentConnection="False" applicationName="QuickMon"
        cmndTimeOut="60">
       <summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False"
                   warningValue="1" errorValue="2" successValue="[any]"

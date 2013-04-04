@@ -32,7 +32,10 @@ namespace QuickMon
         private string successValue = "[any]";
         public string SuccessValue { get { return successValue; } set { successValue = value; } }
         public bool UseRowCountAsValue { get; set; }
-
+        public bool UsePersistentConnection { get; set; }
+        private SqlConnection testExecutionConn = null;
+        public string ApplicationName { get; set; }
+        
         public override string ToString()
         {
             return string.Format("{0} - {1}\\{2}\\{3}", Name, SqlServer, Database, SummaryQuery);
@@ -41,6 +44,7 @@ namespace QuickMon
         private string GetConnectionString()
         {
             SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
+            sb.ApplicationName = ApplicationName;
             sb.DataSource = SqlServer;
             sb.InitialCatalog = Database;
             sb.IntegratedSecurity = IntegratedSecurity;
@@ -51,13 +55,54 @@ namespace QuickMon
             }
             return sb.ConnectionString;
         }
+        private SqlConnection GetConnection()
+        {
+            try
+            {
+                if (UsePersistentConnection)
+                {
+                    if (testExecutionConn == null || testExecutionConn.State == ConnectionState.Closed)
+                    {
+                        testExecutionConn = new SqlConnection(GetConnectionString());
+                        testExecutionConn.Open();
+                    }
+                }
+                else
+                {
+                    if (testExecutionConn != null)
+                    {
+                        CloseConnection();
+                    }
+                    testExecutionConn = new SqlConnection(GetConnectionString());
+                    testExecutionConn.Open();
+                }
+            }
+            catch
+            {
+                CloseConnection(true);
+                throw;
+            }
+            return testExecutionConn;
+        }
+        private void CloseConnection(bool closeNonPersistent = false)
+        {
+            try
+            {
+                if (closeNonPersistent && UsePersistentConnection)
+                {
+                    testExecutionConn.Close();
+                    testExecutionConn = null;
+                }
+            }
+            catch { }
+        }
 
         internal int RunQueryWithCountResult()
         {
             int returnValue = 0;
-            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            SqlConnection conn = GetConnection();
+            try
             {
-                conn.Open();
                 using (SqlCommand cmnd = new SqlCommand(SummaryQuery, conn))
                 {
                     cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
@@ -70,6 +115,12 @@ namespace QuickMon
                         }
                     }
                 }
+                CloseConnection();
+            }
+            catch
+            {
+                CloseConnection(true);
+                throw;
             }
             return returnValue;
         }
@@ -77,9 +128,9 @@ namespace QuickMon
         internal object RunQueryWithSingleResult()
         {
             object returnValue = null;
-            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            SqlConnection conn = GetConnection();
+            try
             {
-                conn.Open();
                 using (SqlCommand cmnd = new SqlCommand(SummaryQuery, conn))
                 {
                     cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
@@ -90,6 +141,12 @@ namespace QuickMon
                             returnValue = r[0];
                     }
                 }
+                CloseConnection();
+            }
+            catch
+            {
+                CloseConnection(true);
+                throw;
             }
             return returnValue;
         }

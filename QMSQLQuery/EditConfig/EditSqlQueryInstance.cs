@@ -59,7 +59,8 @@ namespace QuickMon
             cboWarningValue.Text = SelectedQueryInstance.WarningValue;
             cboErrorValue.Text = SelectedQueryInstance.ErrorValue;
             chkUseSPForDetail.Checked = SelectedQueryInstance.UseSPForDetail;
-
+            chkUsePersistentConnection.Checked = SelectedQueryInstance.UsePersistentConnection;
+            txtApplicationName.Text = SelectedQueryInstance.ApplicationName;
         }
         private void EditSqlQueryInstance_Shown(object sender, EventArgs e)
         {
@@ -110,6 +111,7 @@ namespace QuickMon
                     testQueryInstance.ErrorValue = cboErrorValue.Text;
                     testQueryInstance.UseSPForDetail = chkUseSPForDetail.Checked;
                     testQueryInstance.DetailQuery = txtDetailQuery.Text;
+                    testQueryInstance.ApplicationName = txtApplicationName.Text;
 
                     object returnValue = null;
                     if (testQueryInstance.UseRowCountAsValue)
@@ -170,6 +172,8 @@ namespace QuickMon
                 SelectedQueryInstance.ErrorValue = cboErrorValue.Text;
                 SelectedQueryInstance.UseSPForDetail = chkUseSPForDetail.Checked;
                 SelectedQueryInstance.DetailQuery = txtDetailQuery.Text;
+                SelectedQueryInstance.UsePersistentConnection = chkUsePersistentConnection.Checked;
+                SelectedQueryInstance.ApplicationName = txtApplicationName.Text;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
