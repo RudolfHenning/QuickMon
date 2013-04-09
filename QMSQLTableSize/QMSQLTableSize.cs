@@ -18,6 +18,7 @@ namespace QuickMon
             LastDetailMsg.HtmlText = "";
             int errors = 0;
             int warnings = 0;
+            double totalValue = 0;
             try
             {
                 plainTextDetails.AppendLine(string.Format("Querying {0} databases", tableSizeConfig.DatabaseEntries.Count));
@@ -49,18 +50,21 @@ namespace QuickMon
                             }
                             else if (tableSizeInfo.Rows >= tableEntry.ErrorValue)
                             {
+                                totalValue += tableSizeInfo.Rows;
                                 errors++;
                                 plainTextDetails.Append(string.Format("{0} - Error (trigger {1})", tableSizeInfo.Rows, tableEntry.ErrorValue));
                                 htmlTextTextDetails.Append(string.Format("{0} - <b>Error</b> (trigger {1})", tableSizeInfo.Rows, tableEntry.ErrorValue));
                             }
                             else if (tableSizeInfo.Rows >= tableEntry.WarningValue)
                             {
+                                totalValue += tableSizeInfo.Rows;
                                 warnings++;
                                 plainTextDetails.Append(string.Format("{0} - Warning (trigger {1})", tableSizeInfo.Rows, tableEntry.WarningValue));
                                 htmlTextTextDetails.Append(string.Format("{0} - <b>Warning</b> (trigger {1})", tableSizeInfo.Rows, tableEntry.WarningValue));
                             }
                             else
                             {
+                                totalValue += tableSizeInfo.Rows;
                                 plainTextDetails.Append(string.Format("{0}", tableSizeInfo.Rows));
                                 htmlTextTextDetails.Append(string.Format("{0}", tableSizeInfo.Rows));
                             }
@@ -86,6 +90,7 @@ namespace QuickMon
                     returnState = MonitorStates.Warning;
                 LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
                 LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = totalValue;
             }
             catch (Exception ex)
             {

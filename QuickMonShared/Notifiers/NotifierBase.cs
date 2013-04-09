@@ -21,6 +21,10 @@ namespace QuickMon
         public abstract string ConfigureAgent(string config);
         public abstract string GetDefaultOrEmptyConfigString();
         public abstract void ReadConfiguration(XmlDocument configDoc);
+        public virtual void Close()
+        {
+
+        }
         #endregion
     }
 }

@@ -37,8 +37,6 @@
             treeNode2});
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
-            this.recentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
@@ -80,7 +78,10 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cboDefaultViewerNotifier = new System.Windows.Forms.ComboBox();
+            this.chkRunCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.tvwMonPack = new QuickMon.TreeViewEx();
+            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripSplitButton();
+            this.recentItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -93,7 +94,6 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonNew,
             this.toolStripButtonLoad,
-            this.recentToolStripButton,
             this.toolStripButtonSave,
             this.toolStripSeparator1,
             this.toolStripButtonAdd,
@@ -119,28 +119,6 @@
             this.toolStripButtonNew.Text = "New";
             this.toolStripButtonNew.ToolTipText = "New monitor pack";
             this.toolStripButtonNew.Click += new System.EventHandler(this.toolStripButtonNew_Click);
-            // 
-            // toolStripButtonLoad
-            // 
-            this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonLoad.Image = global::QuickMon.Properties.Resources.folder_doc;
-            this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonLoad.Name = "toolStripButtonLoad";
-            this.toolStripButtonLoad.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButtonLoad.Text = "Load";
-            this.toolStripButtonLoad.ToolTipText = "Load monitor pack";
-            this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripoad_Click);
-            // 
-            // recentToolStripButton
-            // 
-            this.recentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.recentToolStripButton.Image = global::QuickMon.Properties.Resources.folder_favor;
-            this.recentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.recentToolStripButton.Name = "recentToolStripButton";
-            this.recentToolStripButton.Size = new System.Drawing.Size(36, 36);
-            this.recentToolStripButton.Text = "Recent items";
-            this.recentToolStripButton.ToolTipText = "Recent monitor packs";
-            this.recentToolStripButton.Click += new System.EventHandler(this.recentToolStripButton_Click);
             // 
             // toolStripButtonSave
             // 
@@ -387,7 +365,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 393);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(498, 22);
-            this.statusStrip1.TabIndex = 12;
+            this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // filePathtoolStripStatusLabel
@@ -484,7 +462,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(419, 365);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 11;
+            this.cmdCancel.TabIndex = 12;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -496,7 +474,7 @@
             this.cmdOK.Location = new System.Drawing.Point(340, 365);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 10;
+            this.cmdOK.TabIndex = 11;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -508,7 +486,7 @@
             this.label3.Location = new System.Drawing.Point(8, 371);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(109, 13);
-            this.label3.TabIndex = 8;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Default notifier viewer";
             // 
             // cboDefaultViewerNotifier
@@ -521,7 +499,20 @@
             this.cboDefaultViewerNotifier.Location = new System.Drawing.Point(129, 367);
             this.cboDefaultViewerNotifier.Name = "cboDefaultViewerNotifier";
             this.cboDefaultViewerNotifier.Size = new System.Drawing.Size(205, 21);
-            this.cboDefaultViewerNotifier.TabIndex = 9;
+            this.cboDefaultViewerNotifier.TabIndex = 10;
+            // 
+            // chkRunCorrectiveScripts
+            // 
+            this.chkRunCorrectiveScripts.AutoSize = true;
+            this.chkRunCorrectiveScripts.Checked = true;
+            this.chkRunCorrectiveScripts.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRunCorrectiveScripts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkRunCorrectiveScripts.Location = new System.Drawing.Point(86, 94);
+            this.chkRunCorrectiveScripts.Name = "chkRunCorrectiveScripts";
+            this.chkRunCorrectiveScripts.Size = new System.Drawing.Size(141, 17);
+            this.chkRunCorrectiveScripts.TabIndex = 7;
+            this.chkRunCorrectiveScripts.Text = "Enable corrective scripts";
+            this.chkRunCorrectiveScripts.UseVisualStyleBackColor = true;
             // 
             // tvwMonPack
             // 
@@ -534,7 +525,7 @@
             this.tvwMonPack.HideSelection = false;
             this.tvwMonPack.ImageIndex = 0;
             this.tvwMonPack.ImageList = this.imageList1;
-            this.tvwMonPack.Location = new System.Drawing.Point(0, 95);
+            this.tvwMonPack.Location = new System.Drawing.Point(0, 117);
             this.tvwMonPack.Name = "tvwMonPack";
             treeNode1.ImageIndex = 4;
             treeNode1.Name = "Collectors";
@@ -550,8 +541,8 @@
             treeNode3});
             this.tvwMonPack.SelectedImageIndex = 0;
             this.tvwMonPack.ShowRootLines = false;
-            this.tvwMonPack.Size = new System.Drawing.Size(498, 266);
-            this.tvwMonPack.TabIndex = 7;
+            this.tvwMonPack.Size = new System.Drawing.Size(498, 244);
+            this.tvwMonPack.TabIndex = 8;
             this.tvwMonPack.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwMonPack_EnterKeyPressed);
             this.tvwMonPack.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwMonPack_DeleteKeyPressed);
             this.tvwMonPack.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvwMonPack_AfterCollapse);
@@ -561,12 +552,34 @@
             this.tvwMonPack.DragOver += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragOver);
             this.tvwMonPack.DoubleClick += new System.EventHandler(this.tvwMonPack_DoubleClick);
             // 
+            // toolStripButtonLoad
+            // 
+            this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonLoad.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recentItemsToolStripMenuItem});
+            this.toolStripButtonLoad.Image = global::QuickMon.Properties.Resources.folder_doc;
+            this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonLoad.Name = "toolStripButtonLoad";
+            this.toolStripButtonLoad.Size = new System.Drawing.Size(48, 36);
+            this.toolStripButtonLoad.Text = "Load";
+            this.toolStripButtonLoad.ToolTipText = "Load monitor pack";
+            this.toolStripButtonLoad.ButtonClick += new System.EventHandler(this.toolStripoad_Click);
+            // 
+            // recentItemsToolStripMenuItem
+            // 
+            this.recentItemsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
+            this.recentItemsToolStripMenuItem.Name = "recentItemsToolStripMenuItem";
+            this.recentItemsToolStripMenuItem.Size = new System.Drawing.Size(172, 38);
+            this.recentItemsToolStripMenuItem.Text = "Recent items";
+            this.recentItemsToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
+            // 
             // MonitorPackManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(498, 415);
+            this.Controls.Add(this.chkRunCorrectiveScripts);
             this.Controls.Add(this.cboDefaultViewerNotifier);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmdCancel);
@@ -602,7 +615,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonNew;
         private System.Windows.Forms.ToolStripButton toolStripButtonSave;
-        private System.Windows.Forms.ToolStripButton toolStripButtonLoad;
         private TreeViewEx tvwMonPack;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ImageList imageList1;
@@ -631,7 +643,6 @@
         private System.Windows.Forms.ToolStripMenuItem moveUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel filePathtoolStripStatusLabel;
-        private System.Windows.Forms.ToolStripButton recentToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monitorPackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
@@ -645,5 +656,8 @@
         private System.Windows.Forms.ToolStripButton infoToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem exportSelectedToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkRunCorrectiveScripts;
+        private System.Windows.Forms.ToolStripSplitButton toolStripButtonLoad;
+        private System.Windows.Forms.ToolStripMenuItem recentItemsToolStripMenuItem;
     }
 }

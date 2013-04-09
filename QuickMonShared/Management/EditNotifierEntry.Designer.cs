@@ -124,7 +124,7 @@
             this.cboNotifier.FormattingEnabled = true;
             this.cboNotifier.Location = new System.Drawing.Point(109, 59);
             this.cboNotifier.Name = "cboNotifier";
-            this.cboNotifier.Size = new System.Drawing.Size(361, 23);
+            this.cboNotifier.Size = new System.Drawing.Size(367, 23);
             this.cboNotifier.TabIndex = 4;
             this.cboNotifier.SelectedIndexChanged += new System.EventHandler(this.cboNotifier_SelectedIndexChanged);
             // 
@@ -159,7 +159,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(86, 38);
+            this.chkEnabled.Location = new System.Drawing.Point(110, 38);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(64, 17);
             this.chkEnabled.TabIndex = 2;
@@ -171,9 +171,9 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(83, 12);
+            this.txtName.Location = new System.Drawing.Point(109, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(387, 20);
+            this.txtName.Size = new System.Drawing.Size(366, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -202,8 +202,6 @@
             // 
             // cboAlertLevel
             // 
-            this.cboAlertLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboAlertLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboAlertLevel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboAlertLevel.FormattingEnabled = true;
@@ -229,8 +227,6 @@
             // 
             // cboDetailLevel
             // 
-            this.cboDetailLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboDetailLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetailLevel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboDetailLevel.FormattingEnabled = true;

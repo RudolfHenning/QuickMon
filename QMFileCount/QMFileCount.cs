@@ -26,6 +26,7 @@ namespace QuickMon
             int errorCount = 0;
             int warningCount = 0;
             int okCount = 0;
+            int totalFileCount = 0;
             try
             {
                 htmlTextTextDetails.AppendLine("<ul>");
@@ -39,47 +40,51 @@ namespace QuickMon
                         plainTextDetails.AppendLine(string.Format("An error occured while accessing {0}\r\n\t{1}", directoryFilter.FilterFullPath, LastErrorMsg));
                         htmlTextTextDetails.AppendLine(string.Format("<li>{0} - Error accessing files<blockquote>{1}</blockquote></li>", directoryFilter.FilterFullPath, LastErrorMsg));
                     }
-                    else if (
-                        (directoryFilter.CountErrorIndicator > 0 && directoryFilter.CountErrorIndicator <= directoryFileInfo.FileCount) || 
-                        (directoryFilter.SizeKBErrorIndicator > 0 && directoryFilter.SizeKBErrorIndicator * 1024 <= directoryFileInfo.FileSize)
-                       )
-                    {
-                        errorCount++;
-                        plainTextDetails.AppendLine(string.Format("Error state reached for {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - <b>Error</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                        plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
-                        htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
-                        htmlTextTextDetails.AppendLine("</blockquote></li>");
-                    }
-                    else if (
-                        (directoryFilter.CountWarningIndicator > 0 && directoryFilter.CountWarningIndicator <= directoryFileInfo.FileCount) ||
-                        (directoryFilter.SizeKBWarningIndicator > 0 && directoryFilter.SizeKBWarningIndicator * 1024 <= directoryFileInfo.FileSize)
-                       )
-                    {
-                        warningCount++;
-                        plainTextDetails.AppendLine(string.Format("Warning state reached for {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - <b>Warning</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                        plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
-                        htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
-                        htmlTextTextDetails.AppendLine("</blockquote></li>");
-                    }
                     else
                     {
-                        okCount++;
-                        if (directoryFileInfo.FileCount > 0)
+                        totalFileCount += directoryFileInfo.FileCount;
+                        if (
+                        (directoryFilter.CountErrorIndicator > 0 && directoryFilter.CountErrorIndicator <= directoryFileInfo.FileCount) ||
+                        (directoryFilter.SizeKBErrorIndicator > 0 && directoryFilter.SizeKBErrorIndicator * 1024 <= directoryFileInfo.FileSize)
+                       )
                         {
-                            plainTextDetails.AppendLine(string.Format("Example details of {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            errorCount++;
+                            plainTextDetails.AppendLine(string.Format("Error state reached for {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} - <b>Error</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
+                            htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
+                            htmlTextTextDetails.AppendLine("</blockquote></li>");
+                        }
+                        else if (
+                                (directoryFilter.CountWarningIndicator > 0 && directoryFilter.CountWarningIndicator <= directoryFileInfo.FileCount) ||
+                                (directoryFilter.SizeKBWarningIndicator > 0 && directoryFilter.SizeKBWarningIndicator * 1024 <= directoryFileInfo.FileSize)
+                               )
+                        {
+                            warningCount++;
+                            plainTextDetails.AppendLine(string.Format("Warning state reached for {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} - <b>Warning</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
                             plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
                             htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
                             htmlTextTextDetails.AppendLine("</blockquote></li>");
                         }
                         else
                         {
-                            plainTextDetails.AppendLine(string.Format("No files found {0}", directoryFilter.FilterFullPath));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} - No files found</li>", directoryFilter.FilterFullPath));
+                            okCount++;
+                            if (directoryFileInfo.FileCount > 0)
+                            {
+                                plainTextDetails.AppendLine(string.Format("Example details of {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                                htmlTextTextDetails.AppendLine(string.Format("<li>{0} {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                                plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
+                                htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
+                                htmlTextTextDetails.AppendLine("</blockquote></li>");
+                            }
+                            else
+                            {
+                                plainTextDetails.AppendLine(string.Format("No files found {0}", directoryFilter.FilterFullPath));
+                                htmlTextTextDetails.AppendLine(string.Format("<li>{0} - No files found</li>", directoryFilter.FilterFullPath));
+                            }
                         }
-                    }                    
+                    }
                 }
                 htmlTextTextDetails.AppendLine("</ul>");
                 if (errorCount > 0)
@@ -90,6 +95,7 @@ namespace QuickMon
                     returnState = MonitorStates.Good;
                 LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
                 LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = totalFileCount;
             }
             catch (Exception ex)
             {

@@ -59,6 +59,7 @@ namespace QuickMon
                 foreach (HttpPingEntry httpPingEntry in HttpPingConfig.Entries)
                 {
                     ListViewItem lvi = new ListViewItem(httpPingEntry.Url);
+                    lvi.UseItemStyleForSubItems = false;
                     lvi.SubItems.Add("-");
                     lvi.Tag = httpPingEntry;
                     lvwHosts.Items.Add(lvi);
@@ -79,12 +80,12 @@ namespace QuickMon
                     itmX.SubItems[1].Text = pingTime.ToString();
                     if (pingTime > httpPingEntry.TimeOut)
                     {
-                        itmX.ForeColor = Color.Red;
+                        itmX.SubItems[1].ForeColor = Color.Red;
                         itmX.SubItems[1].Text = "Time-out";
                     }
                     else if (pingTime > httpPingEntry.MaxTime)
                     {
-                        itmX.SubItems[1].ForeColor = Color.DarkOrange;
+                        itmX.SubItems[1].ForeColor = Color.DarkRed;
                     }
                     else
                     {
@@ -95,6 +96,7 @@ namespace QuickMon
                 catch (Exception ex)
                 {
                     itmX.SubItems[1].Text = ex.Message;
+                    itmX.SubItems[1].ForeColor = Color.Red;
                 }
             }
             lvwHosts.EndUpdate();

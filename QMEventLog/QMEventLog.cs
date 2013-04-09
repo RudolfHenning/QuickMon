@@ -20,6 +20,7 @@ namespace QuickMon
             int errors = 0;
             int warnings = 0;
             int success = 0;
+            long totalCount = 0;
             try
             {
                 plainTextDetails.AppendLine(string.Format("Event logs"));
@@ -35,7 +36,8 @@ namespace QuickMon
                     if (count >= eventLogEntry.ErrorValue)
                         errorCondition = true;
                     else if (count >= eventLogEntry.WarningValue)
-                        warningCondition = true;                    
+                        warningCondition = true;
+                    totalCount += count;
 
                     if (errorCondition)
                     {
@@ -63,6 +65,7 @@ namespace QuickMon
                     returnState = MonitorStates.Warning;
                 LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
                 LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = totalCount;
             }
             catch (Exception ex)
             {

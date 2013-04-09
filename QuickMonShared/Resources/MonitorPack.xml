@@ -1,8 +1,8 @@
-<monitorPack version="2.5" name="{0}" enabled="{1}" agentRegistrationPath="{2}" defaultViewerNotifier="{3}">
+<monitorPack version="2.5" name="{0}" enabled="{1}" agentRegistrationPath="{2}" defaultViewerNotifier="{3}" runCorrectiveScripts="{4}">
   <collectorEntries>
-    {4}
+    {5}
   </collectorEntries>
   <notifierEntries>
-    {5}
+    {6}
   </notifierEntries>
 </monitorPack>

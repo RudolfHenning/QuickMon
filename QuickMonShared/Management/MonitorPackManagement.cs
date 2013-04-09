@@ -109,6 +109,7 @@ namespace QuickMon.Management
                                                          where cboDefaultViewerNotifier.SelectedIndex > -1 &&
                                                             n.Notifier.HasViewer && n.Name == cboDefaultViewerNotifier.SelectedItem.ToString()
                                                          select n).FirstOrDefault();
+                    monitorPack.RunCorrectiveScripts = chkRunCorrectiveScripts.Checked;
                     monitorPack.Save(saveFileDialogSave.FileName);
                     filePathtoolStripStatusLabel.Text = saveFileDialogSave.FileName;
                 }
@@ -349,6 +350,7 @@ namespace QuickMon.Management
                                                      where cboDefaultViewerNotifier.SelectedIndex > -1 &&
                                                         n.Notifier.HasViewer && n.Name == cboDefaultViewerNotifier.SelectedItem.ToString()
                                                      select n).FirstOrDefault();
+                monitorPack.RunCorrectiveScripts = chkRunCorrectiveScripts.Checked;
                 //save any changes
                 if (monitorPack.MonitorPackPath == null || !monitorPack.Save())
                 {
@@ -516,6 +518,7 @@ namespace QuickMon.Management
                 txtName.Text = monitorPack.Name;
                 chkEnabled.Checked = monitorPack.Enabled;
                 txtAgentsRegistrationFile.Text = monitorPack.AgentsAssemblyPath;
+                chkRunCorrectiveScripts.Checked = monitorPack.RunCorrectiveScripts;
                 TreeNode root = tvwMonPack.Nodes[0];
                 tvwMonPack.BeginUpdate();
                 root.Expand();

@@ -78,6 +78,8 @@ namespace QuickMon.Management
             AlertOnceInXMinNumericUpDown.Value = SelectedEntry.AlertOnceInXMin;
             delayAlertSecNumericUpDown.Value = SelectedEntry.DelayErrWarnAlertForXSec;
             linkLabelServiceWindows.Text = SelectedEntry.ServiceWindows.ToString();
+            txtCorrectiveScriptOnWarning.Text = SelectedEntry.CorrectiveScriptOnWarningPath;
+            txtCorrectiveScriptOnError.Text = SelectedEntry.CorrectiveScriptOnErrorPath;
             CheckOkEnable();
             toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + SelectedEntry.ServiceWindows.ToString());
         }
@@ -221,6 +223,8 @@ namespace QuickMon.Management
             SelectedEntry.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
             SelectedEntry.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
             SelectedEntry.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
+            SelectedEntry.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
+            SelectedEntry.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
@@ -351,6 +355,34 @@ namespace QuickMon.Management
             txtConfig.SelectAll();
         } 
         #endregion
+
+        private void cmdBrowseForWarningCorrectiveScript_Click(object sender, EventArgs e)
+        {
+            correctiveScriptOpenFileDialog.Title = "Corrective script for Warning Alert";
+            if (System.IO.File.Exists(txtCorrectiveScriptOnWarning.Text))
+            {
+                correctiveScriptOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtCorrectiveScriptOnWarning.Text);
+                correctiveScriptOpenFileDialog.FileName = txtCorrectiveScriptOnWarning.Text;
+            }
+            if (correctiveScriptOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtCorrectiveScriptOnWarning.Text = correctiveScriptOpenFileDialog.FileName;
+            }
+        }
+
+        private void cmdBrowseForErrorCorrectiveScript_Click(object sender, EventArgs e)
+        {
+            correctiveScriptOpenFileDialog.Title = "Corrective script for Error Alert";
+            if (System.IO.File.Exists(txtCorrectiveScriptOnError.Text))
+            {
+                correctiveScriptOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtCorrectiveScriptOnError.Text);
+                correctiveScriptOpenFileDialog.FileName = txtCorrectiveScriptOnError.Text;
+            }
+            if (correctiveScriptOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtCorrectiveScriptOnError.Text = correctiveScriptOpenFileDialog.FileName;
+            }
+        }
 
 
 

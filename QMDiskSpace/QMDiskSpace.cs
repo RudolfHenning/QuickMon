@@ -18,6 +18,7 @@ namespace QuickMon
 			LastDetailMsg.PlainText = "Getting drive infos";
 			LastError = 0;
 			LastErrorMsg = "";
+            long totalFreeSpace = 0;
 			try
 			{
 				foreach (DriveSpaceEntry dse in drives)
@@ -26,17 +27,20 @@ namespace QuickMon
 					DriveInfo di = new DriveInfo(dse.DriveLetter);
 					if (di.IsReady)
 					{
+                        totalFreeSpace += di.TotalFreeSpace;
 						if (di.TotalFreeSpace < dse.ErrorSizeLeftMB * 1048576)
 						{
 							LastDetailMsg.PlainText = string.Format("Drive {0} has reached error level {1} MB left.", dse.DriveLetter, (di.TotalFreeSpace / 1048576));
 							LastErrorMsg = LastDetailMsg.PlainText;
-							return MonitorStates.Error;
+                            if (returnState == MonitorStates.Good || returnState == MonitorStates.Warning)
+                                returnState = MonitorStates.Error;
 
 						}
 						else if (di.TotalFreeSpace < dse.WarningSizeLeftMB * 1048576)
 						{
 							lastDetails += string.Format("Drive {0} has {1} MB available space - Warning", dse.DriveLetter, (di.TotalFreeSpace / 1048576));
-							returnState = MonitorStates.Warning;
+                            if (returnState == MonitorStates.Good)
+							    returnState = MonitorStates.Warning;
 						}
 						else
 						{
@@ -48,7 +52,7 @@ namespace QuickMon
 						if (dse.WarnOnNotReady && returnState == MonitorStates.Good)
 						{
 							lastDetails += string.Format("Drive {0} is not available!", dse.DriveLetter);
-							returnState = MonitorStates.Warning;
+   							returnState = MonitorStates.Warning;
 						}
 						else
 						{
@@ -65,6 +69,7 @@ namespace QuickMon
 				returnState = MonitorStates.Error;
 			}
 			LastDetailMsg.PlainText = lastDetails.TrimEnd('\r', '\n');
+            LastDetailMsg.LastValue = totalFreeSpace;
 			return returnState;
 		}
 

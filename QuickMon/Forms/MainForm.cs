@@ -431,9 +431,27 @@ namespace QuickMon
         }
         private void monitorPack_CollectorExecutionTimeEvent(CollectorEntry collector, long msTime)
         {
-            if (this.InvokeRequired)
+            try
             {
-                this.Invoke((MethodInvoker)delegate()
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                        {
+                            CollectorEntry tvcollector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                            if (tvcollector.UniqueId == collector.UniqueId)
+                            {
+                                PCSetSelectedCollectorsQueryTime(msTime);
+                                return;
+                            }
+                        }
+                        else
+                            PCSetSelectedCollectorsQueryTime(0);
+                    }
+                    );
+                }
+                else
                 {
                     if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
                     {
@@ -447,23 +465,8 @@ namespace QuickMon
                     else
                         PCSetSelectedCollectorsQueryTime(0);
                 }
-                );
             }
-            else
-            {
-                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
-                {
-                    CollectorEntry tvcollector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
-                    if (tvcollector.UniqueId == collector.UniqueId)
-                    {
-                        PCSetSelectedCollectorsQueryTime(msTime);
-                        return;
-                    }
-                }
-                else
-                    PCSetSelectedCollectorsQueryTime(0);
-            }            
-            
+            catch { }
         }
         private void SetTreeNodeState(TreeNode treeNode, CollectorEntry collector, MonitorStates currentState)
         {
@@ -508,6 +511,42 @@ namespace QuickMon
                     return true;
             }
             return false;
+        }
+        private void monitorPack_RunCollectorCorrectiveWarningScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (collector != null && 
+                    System.IO.File.Exists(collector.CorrectiveScriptOnWarningPath))
+                {
+                    Process p = new Process();
+                    p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnWarningPath);
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                toolStripStatusLabelStatus.Text = "Corrective script error:" + ex.Message;
+            }
+        }
+        private void monitorPack_RunCollectorCorrectiveErrorScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (collector != null && 
+                    System.IO.File.Exists(collector.CorrectiveScriptOnErrorPath))
+                {
+                    Process p = new Process();
+                    p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnErrorPath);
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                toolStripStatusLabelStatus.Text = "Corrective script error:" + ex.Message;
+            }
         }
         #endregion
 
@@ -623,6 +662,8 @@ namespace QuickMon
                 monitorPack.RaiseNotifierError += new RaiseNotifierErrorDelegare(monitorPack_RaiseNotifierError);
                 monitorPack.CollectorCalled += new RaiseCollectorCalledDelegate(monitorPack_CollectorCalled);
                 monitorPack.CollectorExecutionTimeEvent += new CollectorExecutionTimeDelegate(monitorPack_CollectorExecutionTimeEvent);
+                monitorPack.RunCollectorCorrectiveWarningScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveWarningScript);
+                monitorPack.RunCollectorCorrectiveErrorScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveErrorScript);
                 globalState = MonitorStates.NotAvailable;
                 Properties.Settings.Default.LastMonitorPack = monitorPackPath;
                 UpdateAppTitle();
@@ -643,7 +684,7 @@ namespace QuickMon
                 AddMonitorPackFileToRecentList(monitorPackPath);
                 mainRefreshTimer.Enabled = true; 
             }
-        }        
+        }
         private void AddMonitorPackFileToRecentList(string monitorPackPath)
         {
             if ((from string f in Properties.Settings.Default.RecentQMConfigFiles

@@ -28,6 +28,7 @@ namespace QuickMon
 			int errorCount = 0;
 			int warningCount = 0;
 			int okCount = 0;
+            long totalSize = 0;
 			try
 			{
 				DatabaseSizeInfo databaseSizeInfo = new DatabaseSizeInfo();
@@ -37,6 +38,7 @@ namespace QuickMon
 				foreach (DatabaseEntry dbEntry in databases)
 				{
 					long size = databaseSizeInfo.GetDatabaseSize(dbEntry.Name);
+					totalSize += size;
 					if (size >= (long)dbEntry.ErrorSizeMB)
 					{
 						errorCount++;
@@ -56,6 +58,7 @@ namespace QuickMon
 						htmlTextTextDetails.AppendLine(string.Format("<li>Database {0} - Size {1}MB</li>", dbEntry.Name, size));
 					}
 				}
+				LastDetailMsg.LastValue = totalSize;
 				htmlTextTextDetails.AppendLine("</ul>");
 
 				databaseSizeInfo.CloseConnection();

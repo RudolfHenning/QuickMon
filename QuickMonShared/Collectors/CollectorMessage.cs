@@ -25,6 +25,8 @@ namespace QuickMon
             }
             set { htmlText = value; }
         }
+        public object LastValue { get; set; }
+
         public void AppendCollectorMessage(CollectorMessage appendedOne)
         {
             PlainText += appendedOne.PlainText;

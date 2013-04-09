@@ -71,6 +71,14 @@
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtCorrectiveScriptOnWarning = new System.Windows.Forms.TextBox();
+            this.txtCorrectiveScriptOnError = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmdBrowseForWarningCorrectiveScript = new System.Windows.Forms.Button();
+            this.cmdBrowseForErrorCorrectiveScript = new System.Windows.Forms.Button();
+            this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.configureEditButtonCollector = new QuickMon.Controls.ConfigureEditButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
@@ -81,6 +89,7 @@
             this.tabPageAgent.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageAlerts.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -454,6 +463,7 @@
             this.tabControl1.Controls.Add(this.tabPageAgent);
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAlerts);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(11, 87);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -535,6 +545,88 @@
             this.label11.TabIndex = 6;
             this.label11.Text = "Delay alert";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.cmdBrowseForErrorCorrectiveScript);
+            this.tabPage1.Controls.Add(this.cmdBrowseForWarningCorrectiveScript);
+            this.tabPage1.Controls.Add(this.txtCorrectiveScriptOnError);
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.txtCorrectiveScriptOnWarning);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(559, 172);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Corrective scripts";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "On Warning Alert";
+            // 
+            // txtCorrectiveScriptOnWarning
+            // 
+            this.txtCorrectiveScriptOnWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(30, 26);
+            this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
+            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(485, 20);
+            this.txtCorrectiveScriptOnWarning.TabIndex = 1;
+            // 
+            // txtCorrectiveScriptOnError
+            // 
+            this.txtCorrectiveScriptOnError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(30, 68);
+            this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
+            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(485, 20);
+            this.txtCorrectiveScriptOnError.TabIndex = 4;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 49);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(70, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "On Error Alert";
+            // 
+            // cmdBrowseForWarningCorrectiveScript
+            // 
+            this.cmdBrowseForWarningCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(520, 24);
+            this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
+            this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 2;
+            this.cmdBrowseForWarningCorrectiveScript.Text = "- - -";
+            this.cmdBrowseForWarningCorrectiveScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForWarningCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForWarningCorrectiveScript_Click);
+            // 
+            // cmdBrowseForErrorCorrectiveScript
+            // 
+            this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(520, 66);
+            this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
+            this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 5;
+            this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
+            this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
+            // 
+            // correctiveScriptOpenFileDialog
+            // 
+            this.correctiveScriptOpenFileDialog.DefaultExt = "cmd";
+            this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|All Files|*.*";
+            this.correctiveScriptOpenFileDialog.Title = "Corrective script";
+            // 
             // configureEditButtonCollector
             // 
             this.configureEditButtonCollector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -586,6 +678,8 @@
             this.tabPageGeneral.PerformLayout();
             this.tabPageAlerts.ResumeLayout(false);
             this.tabPageAlerts.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -635,5 +729,13 @@
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.Label lblAgentDescription;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox txtCorrectiveScriptOnError;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtCorrectiveScriptOnWarning;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button cmdBrowseForErrorCorrectiveScript;
+        private System.Windows.Forms.Button cmdBrowseForWarningCorrectiveScript;
+        private System.Windows.Forms.OpenFileDialog correctiveScriptOpenFileDialog;
     }
 }

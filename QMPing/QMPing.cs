@@ -18,11 +18,12 @@ namespace QuickMon
 			StringBuilder plainTextDetails = new StringBuilder();
 			StringBuilder htmlTextTextDetails = new StringBuilder();
 			string lastAction = "";
+            long pingTotalTime = 0;
 			LastDetailMsg.PlainText = "Pinging hosts";
 			htmlTextTextDetails.AppendLine("<ul>");
 			LastError = 0;
 			LastErrorMsg = "";
-			try
+            try
 			{
 				foreach (HostEntry host in hostEntries)
 				{
@@ -37,6 +38,7 @@ namespace QuickMon
 							pingTime = Convert.ToInt32(reply.RoundtripTime);
 						else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
 							pingTime = int.MaxValue;
+                        pingTotalTime += pingTime;
 
 						if (pingTime >= host.TimeOut) //if any time-out then it is an error
 						{
@@ -61,6 +63,8 @@ namespace QuickMon
 				htmlTextTextDetails.AppendLine("</ul>");
 				LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
 				LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = pingTotalTime;
+                
 			}
 			catch (Exception ex)
 			{

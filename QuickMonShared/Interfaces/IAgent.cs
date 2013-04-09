@@ -20,5 +20,7 @@ namespace QuickMon
         string ConfigureAgent(string config);
         string GetDefaultOrEmptyConfigString();
         void ReadConfiguration(XmlDocument configDoc);
+        //In case some agents needs to close some resources
+        void Close();
     }
 }

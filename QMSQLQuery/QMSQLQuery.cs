@@ -20,6 +20,7 @@ namespace QuickMon
             int errors = 0;
             int warnings = 0;
             int success = 0;
+            double totalValue = 0;
             try
             {
                 plainTextDetails.AppendLine(string.Format("SQL Queries"));
@@ -56,6 +57,9 @@ namespace QuickMon
                     }
                     else //non null value
                     {
+                        if (value.IsNumber())
+                            totalValue += double.Parse(value.ToString());
+
                         if (!queryInstance.ReturnValueIsNumber)
                         {
                             if (value.ToString() == queryInstance.ErrorValue)
@@ -122,6 +126,7 @@ namespace QuickMon
                     returnState = MonitorStates.Warning;
                 LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
                 LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = totalValue;
             }
             catch (Exception ex)
             {

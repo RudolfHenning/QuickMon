@@ -2,6 +2,23 @@
 * - Collector 'correcting script' that may be run if error/warning alert is raised
 
 * - Change ShowStatusDetails method on ICollector to accept 'Name' of collector and display it in the window heading -
-    This will help when multiple windows are open to identify which window instance is which.
+	This will help when multiple windows are open to identify which window instance is which.
 
-* - Replace Registered Agent List file with just a path - when app loads pack it loads all QM agents that is in that directory
+Collectors and 'corrective script'
+  Add CorrectiveScriptOnWarningPath field to CollectorEntry
+  Add CorrectiveScriptOnErrorPath field to CollectorEntry
+  Add Event to MonitorPack that fires when CorrectiveScriptXPath is set and return value is X
+  Add bool setting on MonitorPack to run CorrectiveScripts or not.
+  MonitorPack editor must have place to change value
+  Add 'Alert' like message to log that corrective script has been run ????
+
+In order to provide a Performance counter Notifier some changes are required
+Collectors
+  CollectorMessage class gets new field for LastValue (ideally integer but what about array??)
+Notifiers 
+  SMTP (for example) can access this field with %LastValue% macro
+  New notifier (performance counter) will use LastValue if it is a number
+	Category: (Default:)QuickMon Performance Counter Notifier
+	Counters: Value(NumberOfItems32) and/or Value/Sec(RateOfCountsPerSecond32)
+	Instance name: Collector name
+	Notifier must have array (List<PerformanceCounter>) to keep reference to each Collector's PC 'Instance'.

@@ -19,6 +19,7 @@ namespace QuickMon
             LastDetailMsg.HtmlText = "";
             int errors = 0;
             int warnings = 0;
+            long pingTotalTime = 0;
             try
             {
                 plainTextDetails.AppendLine(string.Format("Pinging {0} addresses", httpPingConfig.Entries.Count));
@@ -33,7 +34,7 @@ namespace QuickMon
                         htmlTextTextDetails.Append(string.Format("<li>{0} - ", httpPingEntry.Url));
 
                         int pingTime = httpPingEntry.Ping();
-
+                        pingTotalTime += pingTime;
                         if (pingTime == int.MaxValue)
                         {
                             errors++;
@@ -77,6 +78,8 @@ namespace QuickMon
                     returnState = MonitorStates.Warning;
                 LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
                 LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = pingTotalTime;
+                
             }
             catch (Exception ex)
             {

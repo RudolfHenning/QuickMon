@@ -10,5 +10,6 @@ namespace QuickMon
         CollectorMessage LastDetailMsg { get; set; }
         MonitorStates GetState();
         void ShowStatusDetails(string collectorName);
+
     }
 }

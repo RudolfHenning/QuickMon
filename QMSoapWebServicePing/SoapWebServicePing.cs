@@ -33,10 +33,9 @@ namespace QuickMon
                         htmlTextTextDetails.Append(string.Format("<li>{0} - ", soapWebServicePingConfigEntry.ServiceBaseURL));
 
                         object val = soapWebServicePingConfigEntry.ExecuteMethod();
-                        string formattedVal = "";
-
+                        string formattedVal = "";                        
                         bool checkResultMatch = soapWebServicePingConfigEntry.CheckResultMatch(val, soapWebServicePingConfigEntry.ResultType, soapWebServicePingConfigEntry.CustomValue1, soapWebServicePingConfigEntry.CustomValue2, out formattedVal);
-
+                        LastDetailMsg.LastValue = formattedVal;
                         if (
                             (checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Success)
                             ||

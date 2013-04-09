@@ -54,6 +54,7 @@ namespace QuickMon
 						}
 					}
 					sw.Stop();
+					LastDetailMsg.LastValue = okCount;
 					plainTextDetails.AppendLine(string.Format("{0}", machine.MachineName));
 					htmlTextTextDetails.AppendLine(string.Format("<b>{0}</b><br /><blockquote>", machine.MachineName));
 					if (notRunningServices.Count > 0)
@@ -91,6 +92,7 @@ namespace QuickMon
 
 				LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
 				LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
+                LastDetailMsg.LastValue = okCount;
 			}
 			catch (Exception ex)
 			{

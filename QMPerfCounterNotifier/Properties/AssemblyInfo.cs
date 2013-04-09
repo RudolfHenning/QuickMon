@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Quick Monitor Shared components")]
-[assembly: AssemblyDescription("Main QuickMon module")]
+[assembly: AssemblyTitle("QMPerfCounterNotifier")]
+[assembly: AssemblyDescription("QuickMon Performance counter notifier")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("QuickMon")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3df8dd8d-4139-494a-8576-18ba81150ad0")]
+[assembly: Guid("03b76a0c-6b08-404c-a31a-b694cb3937ab")]
 
 // Version information for an assembly consists of the following four values:
 //
