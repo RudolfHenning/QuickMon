@@ -105,6 +105,8 @@ namespace QuickMon
                 monitorPack.RaiseNotifierError += new RaiseNotifierErrorDelegare(monitorPack_RaiseNotifierError);
                 monitorPack.RaiseCollectorError += new RaiseCollectorErrorDelegare(monitorPack_RaiseCollectorError);
                 monitorPack.CollectorExecutionTimeEvent += new CollectorExecutionTimeDelegate(monitorPack_CollectorExecutionTimeEvent);
+                monitorPack.RunCollectorCorrectiveWarningScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveWarningScript);
+                monitorPack.RunCollectorCorrectiveErrorScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveErrorScript);
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
                 monitorPack.ConcurrencyLevel = concurrencyLevel;
                 packs.Add(monitorPack);
@@ -133,7 +135,47 @@ namespace QuickMon
         private void monitorPack_CollectorExecutionTimeEvent(CollectorEntry collector, long msTime)
         {
             PCRaiseCollectorExecutionTime(msTime);
-        } 
+        }
+        private void monitorPack_RunCollectorCorrectiveWarningScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (collector != null &&
+                    System.IO.File.Exists(collector.CorrectiveScriptOnWarningPath))
+                {
+                    EventLog.WriteEntry(serviceEventSource, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
+                        , EventLogEntryType.Information, 21);
+                    Process p = new Process();
+                    p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnWarningPath);
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry(serviceEventSource, "Corrective script error(Warning):" + ex.Message, EventLogEntryType.Error, 23);
+            }
+        }
+        private void monitorPack_RunCollectorCorrectiveErrorScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (collector != null &&
+                    System.IO.File.Exists(collector.CorrectiveScriptOnErrorPath))
+                {
+                    EventLog.WriteEntry(serviceEventSource, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
+                        , EventLogEntryType.Information, 22);
+                    Process p = new Process();
+                    p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnErrorPath);
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry(serviceEventSource, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
+            }
+        }
         #endregion
 
         #region Performance counters
