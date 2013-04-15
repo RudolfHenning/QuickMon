@@ -33,6 +33,7 @@ namespace QuickMon
         public string SuccessValue { get { return successValue; } set { successValue = value; } }
         public bool UseRowCountAsValue { get; set; }
         public bool UsePersistentConnection { get; set; }
+        public bool UseExecuteTimeAsValue { get; set; }
         private SqlConnection testExecutionConn = null;
         public string ApplicationName { get; set; }
         
@@ -124,7 +125,6 @@ namespace QuickMon
             }
             return returnValue;
         }
-
         internal object RunQueryWithSingleResult()
         {
             object returnValue = null;
@@ -140,6 +140,37 @@ namespace QuickMon
                         if (r.Read())
                             returnValue = r[0];
                     }
+                }
+                CloseConnection();
+            }
+            catch
+            {
+                CloseConnection(true);
+                throw;
+            }
+            return returnValue;
+        }
+        internal long RunQueryWithExecutionTimeResult()
+        {
+            long returnValue = 0;
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            SqlConnection conn = GetConnection();
+            try
+            {
+                using (SqlCommand cmnd = new SqlCommand(SummaryQuery, conn))
+                {
+                    cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = cmndTimeOut;
+                    sw.Start();
+                    using (SqlDataReader r = cmnd.ExecuteReader())
+                    {                        
+                        while (r.Read())
+                        {
+                            
+                        }
+                    }
+                    sw.Stop();
+                    returnValue = sw.ElapsedMilliseconds;
                 }
                 CloseConnection();
             }

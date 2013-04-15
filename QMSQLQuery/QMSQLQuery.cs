@@ -34,20 +34,14 @@ namespace QuickMon
                     LastDetailMsg.PlainText = string.Format("Running SQL query '{0}' on '{1}\\{2}'", queryInstance.Name, queryInstance.SqlServer, queryInstance.Database);
 
                     if (!queryInstance.ReturnValueIsNumber)
-                    {
                         value = queryInstance.RunQueryWithSingleResult();
-                    }
+                    else if (!queryInstance.UseRowCountAsValue && !queryInstance.UseExecuteTimeAsValue)
+                        value = queryInstance.RunQueryWithSingleResult();
+                    else if (queryInstance.UseRowCountAsValue)
+                        value = queryInstance.RunQueryWithCountResult();
                     else
-                    {
-                        if (queryInstance.UseRowCountAsValue)
-                        {
-                            value = queryInstance.RunQueryWithCountResult();
-                        }
-                        else
-                        {
-                            value = queryInstance.RunQueryWithSingleResult();
-                        }
-                    }
+                        value = queryInstance.RunQueryWithExecutionTimeResult();
+
                     if (value == DBNull.Value)
                     {
                         if (queryInstance.ErrorValue == "[null]")

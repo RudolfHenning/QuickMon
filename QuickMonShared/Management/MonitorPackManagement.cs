@@ -549,6 +549,8 @@ namespace QuickMon.Management
 
                 collectorRootNode.Expand();
                 notifierRootNode.Expand();
+                root.EnsureVisible();
+                tvwMonPack.SelectedNode = root;
             }
             catch(Exception ex) 
             { 

@@ -22,3 +22,10 @@ Notifiers
 	Counters: Value(NumberOfItems32) and/or Value/Sec(RateOfCountsPerSecond32)
 	Instance name: Collector name
 	Notifier must have array (List<PerformanceCounter>) to keep reference to each Collector's PC 'Instance'.
+
+
+SQL Ping collector (SQLQuery collector - add 'use query time as value')
+Registry collector
+ErrorLevel collector (like when running exe/batch file)
+
+Look at idea to have GetState() return whole structure

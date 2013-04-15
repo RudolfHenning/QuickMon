@@ -107,9 +107,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PerformanceCounter", "Perfo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMPerfCounterNotifier", "QMPerfCounterNotifier\QMPerfCounterNotifier.csproj", "{8281724F-743F-494C-8858-9EC9E493ECCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RegistryQuery", "RegistryQuery", "{0FE07EFD-14A1-4D13-AD86-4375569F88DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMDErrorLevel", "CMDErrorLevel", "{AF5FB181-17D6-42D9-9389-7DCD5BBC9870}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QMRegistryQuery", "QMRegistryQuery\QMRegistryQuery.csproj", "{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 29
+		SccNumberOfProjects = 30
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -220,6 +226,10 @@ Global
 		SccProjectTopLevelParentUniqueName28 = QuickMon.sln
 		SccProjectName28 = QMPerfCounterNotifier
 		SccLocalPath28 = QMPerfCounterNotifier
+		SccProjectUniqueName29 = QMRegistryQuery\\QMRegistryQuery.csproj
+		SccProjectTopLevelParentUniqueName29 = QuickMon.sln
+		SccProjectName29 = QMRegistryQuery
+		SccLocalPath29 = QMRegistryQuery
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -505,6 +515,16 @@ Global
 		{8281724F-743F-494C-8858-9EC9E493ECCD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8281724F-743F-494C-8858-9EC9E493ECCD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8281724F-743F-494C-8858-9EC9E493ECCD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -525,6 +545,8 @@ Global
 		{5CD3AF69-CE82-4316-9EC7-AF4AA1CD9506} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
 		{95B81387-EBF2-4901-BA0B-D27235238D29} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
 		{EE62B44B-7A81-42C7-B809-E2964869341B} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
+		{0FE07EFD-14A1-4D13-AD86-4375569F88DD} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
+		{AF5FB181-17D6-42D9-9389-7DCD5BBC9870} = {5EEAB2EC-918A-457C-93CB-32BD7EC91605}
 		{A0C85BBD-D4C9-4203-85D9-80167DA2ABB7} = {18BEA596-0B9D-4E0B-BB1A-2C49D7F77D9B}
 		{A1597495-CECF-4C44-9B86-BB86A08C372A} = {EC41AA07-D0D5-4659-B919-6BCF3C26BAFE}
 		{F4BE4C2C-C69E-477D-844E-4E5017FEAC13} = {5FF50FEB-CD97-41B1-9F71-A60530300050}
@@ -553,6 +575,7 @@ Global
 		{C11EE667-5489-4955-99C7-D97A71A49C2E} = {142CC3A0-AA12-4A96-A139-70C378A732C2}
 		{95EC2A89-1862-4B5C-A26A-6555F5D82FC6} = {EE62B44B-7A81-42C7-B809-E2964869341B}
 		{8281724F-743F-494C-8858-9EC9E493ECCD} = {2995F10C-B655-4028-8475-475FDAA3C45D}
+		{7015CD5C-8AB8-4391-AB2F-B6402A11BCF6} = {0FE07EFD-14A1-4D13-AD86-4375569F88DD}
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2

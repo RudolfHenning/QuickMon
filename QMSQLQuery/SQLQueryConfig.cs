@@ -39,6 +39,7 @@ namespace QuickMon
                 queryEntry.ErrorValue = summaryQueryNode.ReadXmlElementAttr("errorValue", "2");
                 queryEntry.SuccessValue = summaryQueryNode.ReadXmlElementAttr("successValue", "[any]");
                 queryEntry.UseRowCountAsValue = bool.Parse(summaryQueryNode.ReadXmlElementAttr("useRowCountAsValue", "False"));
+                queryEntry.UseExecuteTimeAsValue = bool.Parse(summaryQueryNode.ReadXmlElementAttr("useExecuteTimeAsValue", "False"));
                 queryEntry.SummaryQuery = summaryQueryNode.InnerText;
 
                 XmlNode detailQueryNode = queryNode.SelectSingleNode("detailQuery");
@@ -76,8 +77,8 @@ namespace QuickMon
                 summaryQueryNode.SetAttributeValue("errorValue", queryEntry.ErrorValue);
                 summaryQueryNode.SetAttributeValue("successValue", queryEntry.SuccessValue);
                 summaryQueryNode.SetAttributeValue("useRowCountAsValue", queryEntry.UseRowCountAsValue);
+                summaryQueryNode.SetAttributeValue("useExecuteTimeAsValue", queryEntry.UseExecuteTimeAsValue);
 
-                
                 XmlNode detailQueryNode = queryNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
                 detailQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForDetail);
                 queriesNode.AppendChild(queryNode);

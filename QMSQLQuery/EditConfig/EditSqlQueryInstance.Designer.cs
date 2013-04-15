@@ -34,6 +34,8 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.tabControlConfig = new System.Windows.Forms.TabControl();
             this.tabPageConnection = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtApplicationName = new System.Windows.Forms.TextBox();
             this.chkUsePersistentConnection = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -48,6 +50,8 @@
             this.numericUpDownCmndTimeOut = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cboReturnType = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.txtStateQuery = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStripSqlEdit = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,12 +61,10 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabelQueryTips = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
-            this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.cboErrorValue = new System.Windows.Forms.ComboBox();
-            this.chkIsReturnValueInt = new System.Windows.Forms.CheckBox();
             this.chkReturnValueNotInverted = new System.Windows.Forms.CheckBox();
             this.cboWarningValue = new System.Windows.Forms.ComboBox();
             this.cboSuccessValue = new System.Windows.Forms.ComboBox();
@@ -75,8 +77,6 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdTest = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtApplicationName = new System.Windows.Forms.TextBox();
             this.tabControlConfig.SuspendLayout();
             this.tabPageConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCmndTimeOut)).BeginInit();
@@ -141,6 +141,24 @@
             this.tabPageConnection.Size = new System.Drawing.Size(602, 257);
             this.tabPageConnection.TabIndex = 0;
             this.tabPageConnection.Text = "Connection";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 162);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(88, 13);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "Application name";
+            // 
+            // txtApplicationName
+            // 
+            this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtApplicationName.Location = new System.Drawing.Point(139, 159);
+            this.txtApplicationName.Name = "txtApplicationName";
+            this.txtApplicationName.Size = new System.Drawing.Size(457, 20);
+            this.txtApplicationName.TabIndex = 14;
             // 
             // chkUsePersistentConnection
             // 
@@ -280,15 +298,15 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.cboReturnType);
+            this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.txtStateQuery);
             this.tabPage2.Controls.Add(this.linkLabelQueryTips);
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.chkUseRowCountAsValue);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.cboErrorValue);
-            this.tabPage2.Controls.Add(this.chkIsReturnValueInt);
             this.tabPage2.Controls.Add(this.chkReturnValueNotInverted);
             this.tabPage2.Controls.Add(this.cboWarningValue);
             this.tabPage2.Controls.Add(this.cboSuccessValue);
@@ -300,12 +318,39 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Summary query";
             // 
+            // cboReturnType
+            // 
+            this.cboReturnType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboReturnType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboReturnType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboReturnType.FormattingEnabled = true;
+            this.cboReturnType.Items.AddRange(new object[] {
+            "Query value (any type)",
+            "Query value (number)",
+            "Row count",
+            "Execution time (MS)"});
+            this.cboReturnType.Location = new System.Drawing.Point(98, 199);
+            this.cboReturnType.Name = "cboReturnType";
+            this.cboReturnType.Size = new System.Drawing.Size(155, 21);
+            this.cboReturnType.TabIndex = 5;
+            this.cboReturnType.SelectedIndexChanged += new System.EventHandler(this.cboReturnType_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 202);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(62, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Return type";
+            // 
             // txtStateQuery
             // 
             this.txtStateQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(25, 15);
+            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(27, 17);
             this.txtStateQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStateQuery.ContextMenuStrip = this.contextMenuStripSqlEdit;
             this.txtStateQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -315,7 +360,7 @@
             this.txtStateQuery.Name = "txtStateQuery";
             this.txtStateQuery.PreferredLineWidth = 0;
             this.txtStateQuery.Size = new System.Drawing.Size(587, 152);
-            this.txtStateQuery.TabIndex = 13;
+            this.txtStateQuery.TabIndex = 3;
             // 
             // contextMenuStripSqlEdit
             // 
@@ -382,20 +427,6 @@
             this.label8.TabIndex = 11;
             this.label8.Text = "Error";
             // 
-            // chkUseRowCountAsValue
-            // 
-            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkUseRowCountAsValue.AutoSize = true;
-            this.chkUseRowCountAsValue.Checked = true;
-            this.chkUseRowCountAsValue.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUseRowCountAsValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(391, 200);
-            this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
-            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(137, 17);
-            this.chkUseRowCountAsValue.TabIndex = 6;
-            this.chkUseRowCountAsValue.Text = "Use row count as value";
-            this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
-            // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -438,21 +469,6 @@
             this.cboErrorValue.Size = new System.Drawing.Size(105, 21);
             this.cboErrorValue.TabIndex = 12;
             // 
-            // chkIsReturnValueInt
-            // 
-            this.chkIsReturnValueInt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkIsReturnValueInt.AutoSize = true;
-            this.chkIsReturnValueInt.Checked = true;
-            this.chkIsReturnValueInt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsReturnValueInt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIsReturnValueInt.Location = new System.Drawing.Point(9, 200);
-            this.chkIsReturnValueInt.Name = "chkIsReturnValueInt";
-            this.chkIsReturnValueInt.Size = new System.Drawing.Size(143, 17);
-            this.chkIsReturnValueInt.TabIndex = 4;
-            this.chkIsReturnValueInt.Text = "Return value is a number";
-            this.chkIsReturnValueInt.UseVisualStyleBackColor = true;
-            this.chkIsReturnValueInt.CheckedChanged += new System.EventHandler(this.chkIsReturnValueInt_CheckedChanged);
-            // 
             // chkReturnValueNotInverted
             // 
             this.chkReturnValueNotInverted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -460,10 +476,10 @@
             this.chkReturnValueNotInverted.Checked = true;
             this.chkReturnValueNotInverted.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkReturnValueNotInverted.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkReturnValueNotInverted.Location = new System.Drawing.Point(195, 200);
+            this.chkReturnValueNotInverted.Location = new System.Drawing.Point(259, 200);
             this.chkReturnValueNotInverted.Name = "chkReturnValueNotInverted";
             this.chkReturnValueNotInverted.Size = new System.Drawing.Size(152, 17);
-            this.chkReturnValueNotInverted.TabIndex = 5;
+            this.chkReturnValueNotInverted.TabIndex = 6;
             this.chkReturnValueNotInverted.Text = "Success < Warning < Error";
             this.chkReturnValueNotInverted.UseVisualStyleBackColor = true;
             // 
@@ -581,7 +597,6 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdOK.Location = new System.Drawing.Point(466, 327);
             this.cmdOK.Name = "cmdOK";
@@ -602,24 +617,6 @@
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 162);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(88, 13);
-            this.label13.TabIndex = 13;
-            this.label13.Text = "Application name";
-            // 
-            // txtApplicationName
-            // 
-            this.txtApplicationName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtApplicationName.Location = new System.Drawing.Point(139, 159);
-            this.txtApplicationName.Name = "txtApplicationName";
-            this.txtApplicationName.Size = new System.Drawing.Size(457, 20);
-            this.txtApplicationName.TabIndex = 14;
             // 
             // EditSqlQueryInstance
             // 
@@ -681,12 +678,10 @@
         private System.Windows.Forms.CheckBox chkUseSPForSummary;
         private System.Windows.Forms.CheckBox chkUseSPForDetail;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox chkUseRowCountAsValue;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cboErrorValue;
-        private System.Windows.Forms.CheckBox chkIsReturnValueInt;
         private System.Windows.Forms.CheckBox chkReturnValueNotInverted;
         private System.Windows.Forms.ComboBox cboWarningValue;
         private System.Windows.Forms.ComboBox cboSuccessValue;
@@ -704,5 +699,7 @@
         private System.Windows.Forms.CheckBox chkUsePersistentConnection;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtApplicationName;
+        private System.Windows.Forms.ComboBox cboReturnType;
+        private System.Windows.Forms.Label label14;
     }
 }

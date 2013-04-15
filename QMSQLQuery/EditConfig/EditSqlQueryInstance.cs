@@ -52,9 +52,16 @@ namespace QuickMon
             numericUpDownCmndTimeOut.Value = SelectedQueryInstance.CmndTimeOut;
             chkUseSPForSummary.Checked = SelectedQueryInstance.UseSPForSummary;
 
-            chkIsReturnValueInt.Checked = SelectedQueryInstance.ReturnValueIsNumber;
+            if (!SelectedQueryInstance.ReturnValueIsNumber)
+                cboReturnType.SelectedIndex = 0;
+            else if (!SelectedQueryInstance.UseRowCountAsValue && !SelectedQueryInstance.UseExecuteTimeAsValue)
+                cboReturnType.SelectedIndex = 1;
+            else if (SelectedQueryInstance.UseRowCountAsValue)
+                cboReturnType.SelectedIndex = 2;
+            else
+                cboReturnType.SelectedIndex = 3;
+
             chkReturnValueNotInverted.Checked = !SelectedQueryInstance.ReturnValueInverted;
-            chkUseRowCountAsValue.Checked = SelectedQueryInstance.UseRowCountAsValue;
             cboSuccessValue.Text = SelectedQueryInstance.SuccessValue;
             cboWarningValue.Text = SelectedQueryInstance.WarningValue;
             cboErrorValue.Text = SelectedQueryInstance.ErrorValue;
@@ -77,11 +84,11 @@ namespace QuickMon
             txtUserName.ReadOnly = chkIntegratedSec.Checked;
             txtPassword.ReadOnly = chkIntegratedSec.Checked;
         }
-        private void chkIsReturnValueInt_CheckedChanged(object sender, EventArgs e)
-        {
-            chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
-            chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
-        } 
+        //private void chkIsReturnValueInt_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
+        //    chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
+        //} 
         #endregion
 
         #region Button click events
@@ -103,9 +110,26 @@ namespace QuickMon
                     testQueryInstance.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                     testQueryInstance.UseSPForSummary = chkUseSPForSummary.Checked;
                     testQueryInstance.SummaryQuery = txtStateQuery.Text;
-                    testQueryInstance.ReturnValueIsNumber = chkIsReturnValueInt.Checked;
+                    if (cboReturnType.SelectedIndex == 0)
+                    {
+                        testQueryInstance.ReturnValueIsNumber = false;
+                        testQueryInstance.UseRowCountAsValue = false;
+                        testQueryInstance.UseExecuteTimeAsValue = false;
+                    }
+                    else
+                    {
+                        testQueryInstance.ReturnValueIsNumber = true;
+                        if (cboReturnType.SelectedIndex == 2)
+                        {
+                            testQueryInstance.UseRowCountAsValue = true;
+                        }
+                        else if (cboReturnType.SelectedIndex == 3)
+                        {
+                            testQueryInstance.UseExecuteTimeAsValue = true;
+                            chkReturnValueNotInverted.Checked = true;
+                        }
+                    }
                     testQueryInstance.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
-                    testQueryInstance.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                     testQueryInstance.SuccessValue = cboSuccessValue.Text;
                     testQueryInstance.WarningValue = cboWarningValue.Text;
                     testQueryInstance.ErrorValue = cboErrorValue.Text;
@@ -114,22 +138,29 @@ namespace QuickMon
                     testQueryInstance.ApplicationName = txtApplicationName.Text;
 
                     object returnValue = null;
-                    if (testQueryInstance.UseRowCountAsValue)
+                    if (!testQueryInstance.ReturnValueIsNumber)
+                    {
+                        lastStep = "Run summary query";
+                        returnValue = testQueryInstance.RunQueryWithSingleResult();
+                    }
+                    else if (!testQueryInstance.UseRowCountAsValue && !testQueryInstance.UseExecuteTimeAsValue)
+                    {
+                        lastStep = "Run summary query (value is number)";
+                        returnValue = testQueryInstance.RunQueryWithSingleResult();
+                        if (!returnValue.IsNumber())
+                            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
+                    }
+                    else if (testQueryInstance.UseRowCountAsValue)
                     {
                         lastStep = "Run summary query (row count as value)";
                         returnValue = testQueryInstance.RunQueryWithCountResult();
                     }
                     else
                     {
-                        lastStep = "Run summary query";
-                        returnValue = testQueryInstance.RunQueryWithSingleResult();
+                        lastStep = "Run summary query (execution time as value)";
+                        returnValue = testQueryInstance.RunQueryWithExecutionTimeResult();
                     }
-                    if (testQueryInstance.ReturnValueIsNumber)
-                    {
-                        lastStep = "Test return value is an Integer";
-                        if (!returnValue.IsNumber())
-                            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                    }
+
                     //testing detail query
                     List<DataColumn> columns = new List<DataColumn>(); // = testQueryInstance.GetDetailQueryColumns();                    
                     lastStep = "Testing detail query";
@@ -164,9 +195,26 @@ namespace QuickMon
                 SelectedQueryInstance.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                 SelectedQueryInstance.UseSPForSummary = chkUseSPForSummary.Checked;
                 SelectedQueryInstance.SummaryQuery = txtStateQuery.Text;
-                SelectedQueryInstance.ReturnValueIsNumber = chkIsReturnValueInt.Checked;
+                if (cboReturnType.SelectedIndex == 0)
+                {
+                    SelectedQueryInstance.ReturnValueIsNumber = false;
+                    SelectedQueryInstance.UseRowCountAsValue = false;
+                    SelectedQueryInstance.UseExecuteTimeAsValue = false;
+                }
+                else
+                {
+                    SelectedQueryInstance.ReturnValueIsNumber = true;
+                    if (cboReturnType.SelectedIndex == 2)
+                    {
+                        SelectedQueryInstance.UseRowCountAsValue = true;
+                    }
+                    else if (cboReturnType.SelectedIndex == 3)
+                    {
+                        SelectedQueryInstance.UseExecuteTimeAsValue = true;
+                        chkReturnValueNotInverted.Checked = true;
+                    }
+                }
                 SelectedQueryInstance.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
-                SelectedQueryInstance.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
                 SelectedQueryInstance.SuccessValue = cboSuccessValue.Text;
                 SelectedQueryInstance.WarningValue = cboWarningValue.Text;
                 SelectedQueryInstance.ErrorValue = cboErrorValue.Text;
@@ -209,8 +257,10 @@ namespace QuickMon
                 {
                     throw new InPutValidationException("Only one value can be [any]!", cboSuccessValue);
                 }
-                if (chkIsReturnValueInt.Checked)
+                if (cboReturnType.SelectedIndex != 0)
                 {
+                    if (cboReturnType.SelectedIndex == 3)
+                        chkReturnValueNotInverted.Checked = true;
                     if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" && !cboSuccessValue.Text.IsLong())
                         throw new InPutValidationException("Success value must be a valid integer!\r\n(or predefined values [any] or [null])", cboSuccessValue);
                     else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" && !cboWarningValue.Text.IsLong())
@@ -315,6 +365,12 @@ namespace QuickMon
                 txtDetailQuery.SelectAll();
         } 
         #endregion
+
+        private void cboReturnType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chkReturnValueNotInverted.Enabled = cboReturnType.SelectedIndex > 0 && cboReturnType.SelectedIndex < 3;
+            cboSuccessValue.Enabled = cboReturnType.SelectedIndex == 0;
+        }
         
     }
 }

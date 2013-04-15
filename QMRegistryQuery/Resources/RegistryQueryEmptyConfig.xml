@@ -1,0 +1,10 @@
+<config>
+  <queries>
+    <!--
+    <query name="" useRemoteServer="False" server="" registryHive="LocalMachine" path="" keyName=""
+      returnValueIsNumber="False" successValue="[any]" warningValue="1" errorValue="2"
+      returnValueInARange="False" returnValueInverted="False"
+      />
+    -->
+  </queries>
+</config>
