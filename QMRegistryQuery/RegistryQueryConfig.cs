@@ -27,6 +27,7 @@ namespace QuickMon
                 queryEntry.RegistryHive = RegistryQueryInstance.GetRegistryHiveFromString(queryNode.ReadXmlElementAttr("registryHive", ""));
                 queryEntry.Path = queryNode.ReadXmlElementAttr("path", "");
                 queryEntry.KeyName = queryNode.ReadXmlElementAttr("keyName", "");
+                queryEntry.ExpandEnvironmentNames = bool.Parse(queryNode.ReadXmlElementAttr("expandEnvironmentNames", "False"));
 
                 queryEntry.ReturnValueIsNumber = bool.Parse(queryNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
                 queryEntry.SuccessValue = queryNode.ReadXmlElementAttr("successValue", "");
@@ -54,6 +55,7 @@ namespace QuickMon
                 queryNode.SetAttributeValue("registryHive", queryEntry.RegistryHive.ToString());
                 queryNode.SetAttributeValue("path", queryEntry.Path);
                 queryNode.SetAttributeValue("keyName", queryEntry.KeyName);
+                queryNode.SetAttributeValue("expandEnvironmentNames", queryEntry.ExpandEnvironmentNames);
                 queryNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
                 queryNode.SetAttributeValue("successValue", queryEntry.SuccessValue);
                 queryNode.SetAttributeValue("warningValue", queryEntry.WarningValue);

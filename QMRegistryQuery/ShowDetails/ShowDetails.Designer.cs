@@ -41,6 +41,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.columnResizeTimer = new System.Windows.Forms.Timer(this.components);
+            this.copyPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -61,6 +63,7 @@
             this.lvwDetails.TabIndex = 4;
             this.lvwDetails.UseCompatibleStateImageBehavior = false;
             this.lvwDetails.View = System.Windows.Forms.View.Details;
+            this.lvwDetails.SelectedIndexChanged += new System.EventHandler(this.lvwDetails_SelectedIndexChanged);
             this.lvwDetails.Resize += new System.EventHandler(this.lvwDetails_Resize);
             // 
             // columnHeaderName
@@ -71,25 +74,27 @@
             // columnHeaderPath
             // 
             this.columnHeaderPath.Text = "Registry Path";
-            this.columnHeaderPath.Width = 296;
+            this.columnHeaderPath.Width = 290;
             // 
             // columnHeaderValue
             // 
             this.columnHeaderValue.Text = "Value";
-            this.columnHeaderValue.Width = 73;
+            this.columnHeaderValue.Width = 93;
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem});
+            this.refreshToolStripMenuItem,
+            this.copyPathToolStripMenuItem,
+            this.copyValueToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 28);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 76);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(148, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -135,8 +140,23 @@
             // 
             // columnResizeTimer
             // 
-            this.columnResizeTimer.Interval = 200;
             this.columnResizeTimer.Tick += new System.EventHandler(this.columnResizeTimer_Tick);
+            // 
+            // copyPathToolStripMenuItem
+            // 
+            this.copyPathToolStripMenuItem.Enabled = false;
+            this.copyPathToolStripMenuItem.Name = "copyPathToolStripMenuItem";
+            this.copyPathToolStripMenuItem.Size = new System.Drawing.Size(148, 24);
+            this.copyPathToolStripMenuItem.Text = "Copy Path";
+            this.copyPathToolStripMenuItem.Click += new System.EventHandler(this.copyPathToolStripMenuItem_Click);
+            // 
+            // copyValueToolStripMenuItem
+            // 
+            this.copyValueToolStripMenuItem.Enabled = false;
+            this.copyValueToolStripMenuItem.Name = "copyValueToolStripMenuItem";
+            this.copyValueToolStripMenuItem.Size = new System.Drawing.Size(148, 24);
+            this.copyValueToolStripMenuItem.Text = "Copy Value";
+            this.copyValueToolStripMenuItem.Click += new System.EventHandler(this.copyValueToolStripMenuItem_Click);
             // 
             // ShowDetails
             // 
@@ -175,5 +195,7 @@
         private System.Windows.Forms.Timer columnResizeTimer;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyPathToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyValueToolStripMenuItem;
     }
 }

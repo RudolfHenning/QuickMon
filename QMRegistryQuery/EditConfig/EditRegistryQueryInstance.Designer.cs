@@ -52,6 +52,7 @@
             this.cmdTest = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.chkExpandEnvNames = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -181,9 +182,9 @@
             this.groupBox1.Controls.Add(this.chkReturnValueNotInverted);
             this.groupBox1.Controls.Add(this.chkValueIsInARange);
             this.groupBox1.Controls.Add(this.chkValueIsANumber);
-            this.groupBox1.Location = new System.Drawing.Point(12, 144);
+            this.groupBox1.Location = new System.Drawing.Point(12, 168);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(559, 81);
+            this.groupBox1.Size = new System.Drawing.Size(559, 78);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Returned value";
@@ -287,7 +288,7 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(334, 233);
+            this.cmdTest.Location = new System.Drawing.Point(334, 252);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
             this.cmdTest.TabIndex = 11;
@@ -300,7 +301,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(496, 233);
+            this.cmdCancel.Location = new System.Drawing.Point(496, 252);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 13;
@@ -311,7 +312,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(415, 233);
+            this.cmdOK.Location = new System.Drawing.Point(415, 252);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 12;
@@ -319,11 +320,23 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
+            // chkExpandEnvNames
+            // 
+            this.chkExpandEnvNames.AutoSize = true;
+            this.chkExpandEnvNames.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkExpandEnvNames.Location = new System.Drawing.Point(138, 145);
+            this.chkExpandEnvNames.Name = "chkExpandEnvNames";
+            this.chkExpandEnvNames.Size = new System.Drawing.Size(164, 17);
+            this.chkExpandEnvNames.TabIndex = 14;
+            this.chkExpandEnvNames.Text = "Expand environmental names";
+            this.chkExpandEnvNames.UseVisualStyleBackColor = true;
+            // 
             // EditRegistryQueryInstance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 264);
+            this.ClientSize = new System.Drawing.Size(583, 283);
+            this.Controls.Add(this.chkExpandEnvNames);
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -378,5 +391,6 @@
         private System.Windows.Forms.Button cmdTest;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
+        private System.Windows.Forms.CheckBox chkExpandEnvNames;
     }
 }

@@ -69,7 +69,7 @@ namespace QuickMon
                 foreach (RegistryQueryInstance queryInstance in SelectedRegistryQueryConfig.Queries)
                 {
                     ListViewItem lvi = new ListViewItem(queryInstance.Name);
-                    lvi.SubItems.Add((queryInstance.UseRemoteServer ? queryInstance.Server +"\\" : "") +  queryInstance.Path);
+                    lvi.SubItems.Add((queryInstance.UseRemoteServer ? queryInstance.Server + "\\" : "") + RegistryQueryInstance.GetRegistryHiveFromString(queryInstance.RegistryHive.ToString()).ToString() + "\\" + queryInstance.Path);
                     lvi.SubItems.Add(queryInstance.KeyName);
                     lvi.SubItems.Add(queryInstance.SuccessValue);
                     lvi.SubItems.Add(queryInstance.WarningValue);
@@ -119,7 +119,7 @@ namespace QuickMon
             if (editQueryInstance.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ListViewItem lvi = new ListViewItem(editQueryInstance.SelectedRegistryQueryInstance.Name);
-                lvi.SubItems.Add((editQueryInstance.SelectedRegistryQueryInstance.UseRemoteServer ? editQueryInstance.SelectedRegistryQueryInstance.Server +"\\" : "") +  editQueryInstance.SelectedRegistryQueryInstance.Path);
+                lvi.SubItems.Add((editQueryInstance.SelectedRegistryQueryInstance.UseRemoteServer ? editQueryInstance.SelectedRegistryQueryInstance.Server + "\\" : "") + RegistryQueryInstance.GetRegistryHiveFromString(editQueryInstance.SelectedRegistryQueryInstance.RegistryHive.ToString()).ToString() + "\\" + editQueryInstance.SelectedRegistryQueryInstance.Path);
                 lvi.SubItems.Add(editQueryInstance.SelectedRegistryQueryInstance.KeyName);
                 lvi.SubItems.Add(editQueryInstance.SelectedRegistryQueryInstance.SuccessValue);
                 lvi.SubItems.Add(editQueryInstance.SelectedRegistryQueryInstance.WarningValue);
@@ -140,11 +140,11 @@ namespace QuickMon
                 {
                     ListViewItem lvi = lvwQueries.SelectedItems[0];
                     lvi.Text = editQueryInstance.SelectedRegistryQueryInstance.Name;
-                    lvi.SubItems[1].Text = (editQueryInstance.SelectedRegistryQueryInstance.UseRemoteServer ? editQueryInstance.SelectedRegistryQueryInstance.Server + "\\" : "") + editQueryInstance.SelectedRegistryQueryInstance.Path;
+                    lvi.SubItems[1].Text = (editQueryInstance.SelectedRegistryQueryInstance.UseRemoteServer ? editQueryInstance.SelectedRegistryQueryInstance.Server + "\\" : "") + RegistryQueryInstance.GetRegistryHiveFromString(editQueryInstance.SelectedRegistryQueryInstance.RegistryHive.ToString()).ToString() + "\\" + editQueryInstance.SelectedRegistryQueryInstance.Path;
                     lvi.SubItems[2].Text = editQueryInstance.SelectedRegistryQueryInstance.KeyName;
                     lvi.SubItems[3].Text = editQueryInstance.SelectedRegistryQueryInstance.SuccessValue;
-                    lvi.SubItems[3].Text = editQueryInstance.SelectedRegistryQueryInstance.WarningValue;
-                    lvi.SubItems[4].Text = editQueryInstance.SelectedRegistryQueryInstance.ErrorValue;
+                    lvi.SubItems[4].Text = editQueryInstance.SelectedRegistryQueryInstance.WarningValue;
+                    lvi.SubItems[5].Text = editQueryInstance.SelectedRegistryQueryInstance.ErrorValue;
                     lvi.Tag = editQueryInstance.SelectedRegistryQueryInstance;
                 }
             }

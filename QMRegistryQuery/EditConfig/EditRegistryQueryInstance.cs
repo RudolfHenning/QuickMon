@@ -34,6 +34,7 @@ namespace QuickMon
                     SelectedRegistryQueryInstance.RegistryHive == Microsoft.Win32.RegistryHive.CurrentConfig ? 4 : 0;
                 txtPath.Text = SelectedRegistryQueryInstance.Path;
                 txtKey.Text = SelectedRegistryQueryInstance.KeyName;
+                chkExpandEnvNames.Checked = SelectedRegistryQueryInstance.ExpandEnvironmentNames;
                 chkValueIsANumber.Checked = SelectedRegistryQueryInstance.ReturnValueIsNumber;
                 chkValueIsInARange.Checked = SelectedRegistryQueryInstance.ReturnValueInARange;
                 chkReturnValueNotInverted.Checked = !SelectedRegistryQueryInstance.ReturnValueInverted;
@@ -79,6 +80,7 @@ namespace QuickMon
                 SelectedRegistryQueryInstance.Server = txtServer.Text;
                 SelectedRegistryQueryInstance.Path = txtPath.Text;
                 SelectedRegistryQueryInstance.KeyName = txtKey.Text;
+                SelectedRegistryQueryInstance.ExpandEnvironmentNames = chkExpandEnvNames.Checked;
                 SelectedRegistryQueryInstance.RegistryHive = RegistryQueryInstance.GetRegistryHiveFromString(cboRegistryHive.Text);
 
                 if (!chkValueIsANumber.Checked)
@@ -115,6 +117,7 @@ namespace QuickMon
                     testQueryInstance.Server = txtServer.Text;
                     testQueryInstance.Path = txtPath.Text;
                     testQueryInstance.KeyName = txtKey.Text;
+                    testQueryInstance.ExpandEnvironmentNames = chkExpandEnvNames.Checked;
                     testQueryInstance.RegistryHive = RegistryQueryInstance.GetRegistryHiveFromString(cboRegistryHive.Text);
 
                     if (!chkValueIsANumber.Checked)

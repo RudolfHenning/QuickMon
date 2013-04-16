@@ -15,6 +15,7 @@ namespace QuickMon
         public RegistryHive RegistryHive { get; set; }
         public string Path { get; set; }
         public string KeyName { get; set; }
+        public bool ExpandEnvironmentNames { get; set; }
         public bool ReturnValueIsNumber { get; set; }
         public bool ReturnValueInARange { get; set; }
         public bool ReturnValueInverted { get; set; }
@@ -157,7 +158,7 @@ namespace QuickMon
                 RegistryKey valKey = remoteKey.OpenSubKey(Path);
                 if (valKey != null)
                 {
-                    result = valKey.GetValue(KeyName, "[notExists]");
+                    result = valKey.GetValue(KeyName, "[notExists]", ExpandEnvironmentNames ? RegistryValueOptions.None : RegistryValueOptions.DoNotExpandEnvironmentNames);
                 }
                 else
                 {

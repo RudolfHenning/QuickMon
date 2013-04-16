@@ -54,7 +54,7 @@ namespace QuickMon
                 foreach (RegistryQueryInstance rq in SelectedRegistryQueryConfig.Queries)
                 {
                     ListViewItem lvi = new ListViewItem(rq.Name);
-                    lvi.SubItems.Add((rq.UseRemoteServer ? "[" + rq.Server + "]\\" : "") + rq.Path + "\\@[" + rq.KeyName + "]");
+                    lvi.SubItems.Add((rq.UseRemoteServer ? "[" + rq.Server + "]\\" : "") + RegistryQueryInstance.GetRegistryHiveFromString(rq.RegistryHive.ToString()).ToString() + "\\" + rq.Path + "\\@[" + rq.KeyName + "]");
                     lvi.SubItems.Add("-");
                     lvi.Tag = rq;
                     lvwDetails.Items.Add(lvi);
@@ -95,5 +95,27 @@ namespace QuickMon
             RefreshList();
         } 
         #endregion
+
+        private void copyPathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwDetails.SelectedItems.Count == 1)
+            {
+                Clipboard.SetText(lvwDetails.SelectedItems[0].SubItems[1].Text);
+            }
+        }
+
+        private void copyValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwDetails.SelectedItems.Count == 1)
+            {
+                Clipboard.SetText(lvwDetails.SelectedItems[0].SubItems[2].Text);
+            }
+        }
+
+        private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            copyPathToolStripMenuItem.Enabled = lvwDetails.SelectedItems.Count == 1;
+            copyValueToolStripMenuItem.Enabled = lvwDetails.SelectedItems.Count == 1;
+        }
     }
 }
