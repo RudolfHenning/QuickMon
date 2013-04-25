@@ -32,13 +32,23 @@ namespace QuickMon
                 htmlTextTextDetails.AppendLine("<ul>");
                 foreach (DirectoryFilterEntry directoryFilter in directorieFilters)
                 {
-                    DirectoryFileInfo directoryFileInfo = GetDirFileInfo(directoryFilter);
+                    DirectoryFileInfo directoryFileInfo = directoryFilter.GetDirFileInfo();
 
-                    if (directoryFileInfo.FileCount == -1)
+                    if (!directoryFileInfo.Exists)
                     {
                         errorCount++;
-                        plainTextDetails.AppendLine(string.Format("An error occured while accessing {0}\r\n\t{1}", directoryFilter.FilterFullPath, LastErrorMsg));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - Error accessing files<blockquote>{1}</blockquote></li>", directoryFilter.FilterFullPath, LastErrorMsg));
+                        plainTextDetails.AppendLine(string.Format("Directory '{0}' not found or not accessible!", directoryFilter.DirectoryPath));
+                        htmlTextTextDetails.AppendLine(string.Format("<li>Directory '{0}' not found or not accessible!</li>", directoryFilter.DirectoryPath));
+                    }
+                    else if (directoryFilter.DirectoryExistOnly)
+                    {
+                        okCount++;
+                    }
+                    else if (directoryFileInfo.FileCount == -1)
+                    {
+                        errorCount++;
+                        plainTextDetails.AppendLine(string.Format("An error occured while accessing '{0}'\r\n\t{1}", directoryFilter.FilterFullPath, directoryFilter.LastErrorMsg));
+                        htmlTextTextDetails.AppendLine(string.Format("<li>'{0}' - Error accessing files<blockquote>{1}</blockquote></li>", directoryFilter.FilterFullPath, directoryFilter.LastErrorMsg));
                     }
                     else
                     {
@@ -49,8 +59,8 @@ namespace QuickMon
                        )
                         {
                             errorCount++;
-                            plainTextDetails.AppendLine(string.Format("Error state reached for {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} - <b>Error</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            plainTextDetails.AppendLine(string.Format("Error state reached for '{0}': {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            htmlTextTextDetails.AppendLine(string.Format("<li>'{0}' - <b>Error</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
                             plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
                             htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
                             htmlTextTextDetails.AppendLine("</blockquote></li>");
@@ -61,8 +71,8 @@ namespace QuickMon
                                )
                         {
                             warningCount++;
-                            plainTextDetails.AppendLine(string.Format("Warning state reached for {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} - <b>Warning</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            plainTextDetails.AppendLine(string.Format("Warning state reached for '{0}': {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                            htmlTextTextDetails.AppendLine(string.Format("<li>'{0}' - <b>Warning</b> {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
                             plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
                             htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
                             htmlTextTextDetails.AppendLine("</blockquote></li>");
@@ -72,16 +82,16 @@ namespace QuickMon
                             okCount++;
                             if (directoryFileInfo.FileCount > 0)
                             {
-                                plainTextDetails.AppendLine(string.Format("Example details of {0}: {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
-                                htmlTextTextDetails.AppendLine(string.Format("<li>{0} {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                                plainTextDetails.AppendLine(string.Format("Example details of '{0}': {1} file(s), {2}", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
+                                htmlTextTextDetails.AppendLine(string.Format("<li>'{0}' {1} file(s), {2}\r\n<blockquote>", directoryFilter.FilterFullPath, directoryFileInfo.FileCount, FormatFileSize(directoryFileInfo.FileSize)));
                                 plainTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos));
                                 htmlTextTextDetails.AppendLine(GetTop10FileInfos(directoryFileInfo.FileInfos).Replace("\r\n", "<br/>"));
                                 htmlTextTextDetails.AppendLine("</blockquote></li>");
                             }
                             else
                             {
-                                plainTextDetails.AppendLine(string.Format("No files found {0}", directoryFilter.FilterFullPath));
-                                htmlTextTextDetails.AppendLine(string.Format("<li>{0} - No files found</li>", directoryFilter.FilterFullPath));
+                                plainTextDetails.AppendLine(string.Format("No files found '{0}'", directoryFilter.FilterFullPath));
+                                htmlTextTextDetails.AppendLine(string.Format("<li>'{0}' - No files found</li>", directoryFilter.FilterFullPath));
                             }
                         }
                     }
@@ -144,6 +154,7 @@ namespace QuickMon
         private DirectoryFileInfo GetDirFileInfo(DirectoryFilterEntry directoryFilterEntry)
         {
             DirectoryFileInfo fileInfo;
+            fileInfo.Exists = false;
             fileInfo.FileCount = 0;
             fileInfo.FileSize = 0;
             fileInfo.FileInfos = new List<FileInfo>();
@@ -151,24 +162,29 @@ namespace QuickMon
             {
                 if (Directory.Exists(directoryFilterEntry.DirectoryPath))
                 {
-                    foreach (string filePath in System.IO.Directory.GetFiles(directoryFilterEntry.DirectoryPath, directoryFilterEntry.FileFilter))
+                    fileInfo.Exists = true;
+                    if (!directoryFilterEntry.DirectoryExistOnly)
                     {
-                        System.IO.FileInfo fi = new System.IO.FileInfo(filePath);
-
-                        if ((directoryFilterEntry.FileMaxAgeSec == 0 || fi.LastWriteTime.AddSeconds(directoryFilterEntry.FileMaxAgeSec) > DateTime.Now) &&
-                                    (directoryFilterEntry.FileMinAgeSec == 0 || fi.LastWriteTime.AddSeconds(directoryFilterEntry.FileMinAgeSec) < DateTime.Now) &&
-                                    (directoryFilterEntry.FileMaxSizeKB == 0 || fi.Length <= (directoryFilterEntry.FileMaxSizeKB * 1024)) &&
-                                    (directoryFilterEntry.FileMinSizeKB == 0 || fi.Length >= (directoryFilterEntry.FileMinSizeKB * 1024))
-                                    )
+                        foreach (string filePath in System.IO.Directory.GetFiles(directoryFilterEntry.DirectoryPath, directoryFilterEntry.FileFilter))
                         {
-                            fileInfo.FileSize += fi.Length;
-                            fileInfo.FileCount += 1;
-                            fileInfo.FileInfos.Add(fi);
+                            System.IO.FileInfo fi = new System.IO.FileInfo(filePath);
+
+                            if ((directoryFilterEntry.FileMaxAgeSec == 0 || fi.LastWriteTime.AddSeconds(directoryFilterEntry.FileMaxAgeSec) > DateTime.Now) &&
+                                        (directoryFilterEntry.FileMinAgeSec == 0 || fi.LastWriteTime.AddSeconds(directoryFilterEntry.FileMinAgeSec) < DateTime.Now) &&
+                                        (directoryFilterEntry.FileMaxSizeKB == 0 || fi.Length <= (directoryFilterEntry.FileMaxSizeKB * 1024)) &&
+                                        (directoryFilterEntry.FileMinSizeKB == 0 || fi.Length >= (directoryFilterEntry.FileMinSizeKB * 1024))
+                                        )
+                            {
+                                fileInfo.FileSize += fi.Length;
+                                fileInfo.FileCount += 1;
+                                fileInfo.FileInfos.Add(fi);
+                            }
                         }
                     }
                 }
                 else
                 {
+                    fileInfo.Exists = false;
                     LastErrorMsg = "Directory '" + directoryFilterEntry.DirectoryPath + "' does not exist!";
                     fileInfo.FileCount = -1;
                     fileInfo.FileSize = -1;
@@ -210,7 +226,8 @@ namespace QuickMon
             {
                 DirectoryFilterEntry directoryFilterEntry = new DirectoryFilterEntry();
                 directoryFilterEntry.FilterFullPath = host.Attributes.GetNamedItem("directoryPathFilter").Value;
-                
+                directoryFilterEntry.DirectoryExistOnly = bool.Parse(host.ReadXmlElementAttr("testDirectoryExistOnly", "False"));
+
                 int tmp = 0;
                 if (int.TryParse(host.ReadXmlElementAttr("warningFileCountMax", "0"), out tmp))
                     directoryFilterEntry.CountWarningIndicator = tmp;

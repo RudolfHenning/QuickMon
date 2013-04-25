@@ -8,6 +8,7 @@ namespace QuickMon
 {
     public struct DirectoryFileInfo
     {
+        public bool Exists;
         public int FileCount;
         public long FileSize;
         public List<FileInfo> FileInfos;

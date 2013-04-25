@@ -18,6 +18,7 @@ namespace QuickMon
             long fileSizeMin = 0)
         {
             DirectoryFileInfo fileInfo;
+            fileInfo.Exists = System.IO.Directory.Exists(directoryPath);
             fileInfo.FileCount = 0;
             fileInfo.FileSize = 0;
             fileInfo.FileInfos = new List<System.IO.FileInfo>();

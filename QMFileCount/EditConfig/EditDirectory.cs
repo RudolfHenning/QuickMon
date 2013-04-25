@@ -33,6 +33,7 @@ namespace QuickMon
         {
             txtDirectory.Text = SelectedDirectoryFilterEntry.DirectoryPath;
             txtFilter.Text = SelectedDirectoryFilterEntry.FileFilter;
+            chkDirectoryExistOnly.Checked = SelectedDirectoryFilterEntry.DirectoryExistOnly;
             numericUpDownCountWarningIndicator.Value = SelectedDirectoryFilterEntry.CountWarningIndicator;
             numericUpDownCountErrorIndicator.Value = SelectedDirectoryFilterEntry.CountErrorIndicator;
             numericUpDownSizeWarningIndicator.Value = SelectedDirectoryFilterEntry.SizeKBWarningIndicator;
@@ -60,11 +61,11 @@ namespace QuickMon
             {
                 MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (numericUpDownCountWarningIndicator.Value > numericUpDownCountErrorIndicator.Value)
+            else if (!chkDirectoryExistOnly.Checked && numericUpDownCountWarningIndicator.Value > numericUpDownCountErrorIndicator.Value)
             {
                 MessageBox.Show("Error file count cannot be less than warning file count!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (numericUpDownSizeWarningIndicator.Value > numericUpDownSizeErrorIndicator.Value)
+            else if (!chkDirectoryExistOnly.Checked && numericUpDownSizeWarningIndicator.Value > numericUpDownSizeErrorIndicator.Value)
             {
                 MessageBox.Show("Error file size cannot be less than warning file size!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -80,10 +81,24 @@ namespace QuickMon
                 SelectedDirectoryFilterEntry.FileMaxAgeSec = (int)numericUpDownFileAgeMax.Value;
                 SelectedDirectoryFilterEntry.FileMinSizeKB = (int)numericUpDownFileSizeMin.Value;
                 SelectedDirectoryFilterEntry.FileMaxSizeKB = (int)numericUpDownFileSizeMax.Value;
+                SelectedDirectoryFilterEntry.DirectoryExistOnly = chkDirectoryExistOnly.Checked;
 
                 DialogResult = DialogResult.OK;
                 Close();
             }
+        }
+
+        private void chkDirectoryExistOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            txtFilter.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownCountWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownCountErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownSizeWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownSizeErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownFileAgeMin.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownFileAgeMax.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownFileSizeMin.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownFileSizeMax.Enabled = !chkDirectoryExistOnly.Checked;
         }
     }
 }

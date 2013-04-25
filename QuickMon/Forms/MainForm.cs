@@ -711,7 +711,8 @@ namespace QuickMon
                 LoadCollectorNode(collectorNode, childCollector);
             }
             root.Nodes.Add(collectorNode);
-            root.Expand();
+            if (collector.Enabled)
+                collectorNode.Expand();
         }
         private void UpdateAppIcon()
         {
