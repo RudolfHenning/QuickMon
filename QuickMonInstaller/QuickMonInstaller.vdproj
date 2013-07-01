@@ -851,7 +851,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.10.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_AEF69716952181B21E031B4717828D17"
@@ -1050,15 +1050,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{54981B05-0843-485D-ABDE-5C47C5DA6C20}"
-        "PackageCode" = "8:{0D98F6A1-9A87-4E8E-88F4-26E817E52141}"
+        "ProductCode" = "8:{817DF3D6-76C0-47B7-AED3-67DF6FB3BE7E}"
+        "PackageCode" = "8:{C6A864E1-5D48-44AB-8DC4-7A15A898FD28}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.10.2"
+        "ProductVersion" = "8:2.10.3"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

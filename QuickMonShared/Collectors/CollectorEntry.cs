@@ -31,6 +31,7 @@ namespace QuickMon
         public bool IsFolder { get; set; }        
         public bool CollectOnParentWarning { get; set; }
 
+        public bool CorrectiveScriptDisabled { get; set; }
         public string CorrectiveScriptOnWarningPath { get; set; }
         public string CorrectiveScriptOnErrorPath { get; set; }
 
@@ -120,6 +121,7 @@ namespace QuickMon
             collectorEntry.Enabled = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("enabled", "True"));
             collectorEntry.IsFolder = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("isFolder", "False"));
             collectorEntry.ParentCollectorId = xmlCollectorEntry.ReadXmlElementAttr("dependOnParent");
+            collectorEntry.CorrectiveScriptDisabled = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptDisabled", "False"));
             collectorEntry.CorrectiveScriptOnWarningPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnWarningPath");
             collectorEntry.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
 
@@ -172,6 +174,7 @@ namespace QuickMon
                 RepeatAlertInXMin,
                 AlertOnceInXMin,
                 DelayErrWarnAlertForXSec,
+                CorrectiveScriptDisabled,
                 CorrectiveScriptOnWarningPath,
                 CorrectiveScriptOnErrorPath,
                 Configuration,
@@ -317,6 +320,9 @@ namespace QuickMon
             clone.Configuration = Configuration;
             clone.Enabled = Enabled;
             clone.ServiceWindows = ServiceWindows;
+            clone.CorrectiveScriptDisabled = CorrectiveScriptDisabled;
+            clone.CorrectiveScriptOnWarningPath = CorrectiveScriptOnWarningPath;
+            clone.CorrectiveScriptOnErrorPath = CorrectiveScriptOnErrorPath;
             clone.Tag = Tag;
             return clone;
         }

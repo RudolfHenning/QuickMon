@@ -1,4 +1,5 @@
-<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}"  repeatAlertInXMin="{7}" alertOnceInXMin="{8}" delayErrWarnAlertForXSec="{9}" correctiveScriptOnWarningPath="{10}" correctiveScriptOnErrorPath="{11}">
-  {12}
+<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}"  repeatAlertInXMin="{7}" alertOnceInXMin="{8}" delayErrWarnAlertForXSec="{9}"
+  correctiveScriptDisabled="{10}" correctiveScriptOnWarningPath="{11}" correctiveScriptOnErrorPath="{12}">
   {13}
+  {14}
 </collectorEntry>

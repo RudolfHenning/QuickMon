@@ -11,13 +11,16 @@ using System.Threading.Tasks;
 
 namespace QuickMon
 {
-	public delegate void RaiseCollectorCalledDelegate(CollectorEntry collector);
-	public delegate void RaiseCurrentStateDelegate(CollectorEntry collector, MonitorStates currentState);
-	public delegate void RaiseNotifierErrorDelegare(NotifierEntry notifier, string errorMessage);
-	public delegate void RaiseCollectorErrorDelegare(CollectorEntry collector, string errorMessage);
-	public delegate void RaiseMonitorPackErrorDelegate(string errorMessage);
-	public delegate void StateChangedDelegate(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates currentState, CollectorMessage details);
-	public delegate void CollectorExecutionTimeDelegate(CollectorEntry collector, long msTime);
+    #region Delegates
+    public delegate void RaiseCollectorCalledDelegate(CollectorEntry collector);
+    public delegate void RaiseCurrentStateDelegate(CollectorEntry collector, MonitorStates currentState);
+    public delegate void RaiseNotifierErrorDelegare(NotifierEntry notifier, string errorMessage);
+    public delegate void RaiseCollectorErrorDelegare(CollectorEntry collector, string errorMessage);
+    public delegate void RaiseMonitorPackErrorDelegate(string errorMessage);
+    public delegate void StateChangedDelegate(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates currentState, CollectorMessage details);
+    public delegate void CollectorExecutionTimeDelegate(CollectorEntry collector, long msTime);
+    public delegate void MonitorPackPathChangedDelegate(string newMonitorPackPath); 
+    #endregion
 
 	public class MonitorPack
 	{
@@ -37,41 +40,50 @@ namespace QuickMon
 		private string quickMonPCCategory = "QuickMon";
 
 		#region Events
-		private Mutex qmRaiseCurrentStateMutex = new Mutex();
-		private Mutex qmRaiseNotifierErrorMutex = new Mutex();
-
 		public event RaiseNotifierErrorDelegare RaiseNotifierError;
 		private void RaiseRaiseNotifierError(NotifierEntry notifier, string errorMessage)
 		{
-			//qmRaiseNotifierErrorMutex.WaitOne();
 			try
 			{
 				if (RaiseNotifierError != null)
 					RaiseNotifierError(notifier, errorMessage);
 			}
-			finally
-			{
-				//qmRaiseNotifierErrorMutex.ReleaseMutex();
-			}
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseNotifierError: {0}", ex.Message));
+            }
 		}
 		public event RaiseCollectorErrorDelegare RaiseCollectorError;
-		private void RaiseRaiseCollectorError(CollectorEntry collector, string errorMessage)
-		{
-			if (RaiseCollectorError != null)
-			{
-				RaiseCollectorError(collector, errorMessage);
-			}
-		}
+        private void RaiseRaiseCollectorError(CollectorEntry collector, string errorMessage)
+        {
+            try
+            {
+                if (RaiseCollectorError != null)
+                {
+                    RaiseCollectorError(collector, errorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseCollectorError: {0}", ex.Message));
+            }
+        }
 		public event RaiseMonitorPackErrorDelegate RaiseMonitorPackError;
-		private void RaiseRaiseMonitorPackError(string errorMessage)
-		{
-			if (RaiseMonitorPackError != null)
-				RaiseMonitorPackError(errorMessage);
-		}
+        private void RaiseRaiseMonitorPackError(string errorMessage)
+        {
+            try
+            {
+                if (RaiseMonitorPackError != null)
+                    RaiseMonitorPackError(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseMonitorPackError: {0}", ex.Message));
+            }
+        }
 		public event RaiseCurrentStateDelegate RaiseCurrentState;
 		private void RaiseRaiseCurrentStateDelegate(CollectorEntry collector, MonitorStates currentState)
 		{
-			//qmRaiseCurrentStateMutex.WaitOne();
 			try
 			{
 				if (RaiseCurrentState != null)
@@ -83,57 +95,103 @@ namespace QuickMon
 			{
 				System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseCurrentStateDelegate: {0}", ex.Message));
 			}
-			finally
-			{
-				//qmRaiseCurrentStateMutex.ReleaseMutex();
-			}
 		}
 		public event StateChangedDelegate StateChanged;
-		private void RaiseStateChanged(AlertLevel alertLevel, string collectorType, string collectorName, MonitorStates oldState, MonitorStates currentState, CollectorMessage details)
-		{
-			if (StateChanged != null)
-				StateChanged(alertLevel, collectorType, collectorName, oldState, currentState, details);
-		}
+        private void RaiseStateChanged(AlertLevel alertLevel, string collectorType, string collectorName, MonitorStates oldState, MonitorStates currentState, CollectorMessage details)
+        {
+            try
+            {
+                if (StateChanged != null)
+                    StateChanged(alertLevel, collectorType, collectorName, oldState, currentState, details);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseStateChanged: {0}", ex.Message));
+            }
+        }
 		public event RaiseCollectorCalledDelegate CollectorCalled;
-		private void RaiseCollectorCalled(CollectorEntry collector)
-		{
-			if (CollectorCalled != null)
-			{
-				CollectorCalled(collector);
-			}
-		}
+        private void RaiseCollectorCalled(CollectorEntry collector)
+        {
+            try
+            {
+                if (CollectorCalled != null)
+                {
+                    CollectorCalled(collector);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseCollectorCalled: {0}", ex.Message));
+            }
+        }
 		public event CollectorExecutionTimeDelegate CollectorExecutionTimeEvent;
 		private void RaiseCollectorExecutionTime(CollectorEntry collector, long msTime)
 		{
-			if (CollectorExecutionTimeEvent != null)
-			{
-				CollectorExecutionTimeEvent(collector, msTime);
-			}
+            try
+            {
+                if (CollectorExecutionTimeEvent != null)
+                {
+                    CollectorExecutionTimeEvent(collector, msTime);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseCollectorExecutionTime: {0}", ex.Message));
+            }
 		}
 		public event RaiseCollectorCalledDelegate RunCollectorCorrectiveWarningScript;
-		private void RaiseRunCollectorCorrectiveWarningScript(CollectorEntry collector)
-		{
-			if (RunCorrectiveScripts && 
-				RunCollectorCorrectiveWarningScript != null &&
-				collector != null && 
-				collector.CorrectiveScriptOnWarningPath.Length > 0)
-			{
-				RunCollectorCorrectiveWarningScript(collector);
-                LogCorrectiveScriptAction(collector, false);
-			}
-		}
+        private void RaiseRunCollectorCorrectiveWarningScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (RunCorrectiveScripts &&
+                    RunCollectorCorrectiveWarningScript != null &&
+                    collector != null &&
+                    !collector.CorrectiveScriptDisabled &&
+                    collector.CorrectiveScriptOnWarningPath.Length > 0)
+                {
+                    RunCollectorCorrectiveWarningScript(collector);
+                    LogCorrectiveScriptAction(collector, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveWarningScript: {0}", ex.Message));
+            }
+        }
 		public event RaiseCollectorCalledDelegate RunCollectorCorrectiveErrorScript;
-		private void RaiseRunCollectorCorrectiveErrorScript(CollectorEntry collector)
-		{
-			if (RunCorrectiveScripts &&
-				RunCollectorCorrectiveErrorScript != null &&
-				collector != null && 
-				collector.CorrectiveScriptOnErrorPath.Length > 0)
-			{
-				RunCollectorCorrectiveErrorScript(collector);
-                LogCorrectiveScriptAction(collector, true);
-			}
-		}
+        private void RaiseRunCollectorCorrectiveErrorScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (RunCorrectiveScripts &&
+                    RunCollectorCorrectiveErrorScript != null &&
+                    collector != null &&
+                    !collector.CorrectiveScriptDisabled &&
+                    collector.CorrectiveScriptOnErrorPath.Length > 0)
+                {
+                    RunCollectorCorrectiveErrorScript(collector);
+                    LogCorrectiveScriptAction(collector, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
+            }
+        }
+        public event MonitorPackPathChangedDelegate MonitorPackPathChanged;
+        private void RaiseMonitorPackPathChanged(string newMonitorPackPath)
+        {
+            try 
+            {
+                if (MonitorPackPathChanged != null)
+                    MonitorPackPathChanged(newMonitorPackPath);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
+            }
+        }
 		#endregion
 
 		#region Properties
@@ -578,7 +636,6 @@ namespace QuickMon
 			Name = root.Attributes.GetNamedItem("name").Value;
 			Enabled = bool.Parse(root.Attributes.GetNamedItem("enabled").Value);
 			AgentsAssemblyPath = root.ReadXmlElementAttr("agentRegistrationPath");
-			//AgentRegistrationFile = root.ReadXmlElementAttr("agentRegistrationFile");
 			string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
 			RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
 			foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
@@ -618,6 +675,7 @@ namespace QuickMon
 					DefaultViewerNotifier = newNotifierEntry;
 			}
 			MonitorPackPath = configurationFile;
+            RaiseMonitorPackPathChanged(MonitorPackPath);
 			if (Properties.Settings.Default.recentMonitorPacks == null)
 				Properties.Settings.Default.recentMonitorPacks = new System.Collections.Specialized.StringCollection();
 			if (!Properties.Settings.Default.recentMonitorPacks.Contains(configurationFile))
@@ -629,7 +687,7 @@ namespace QuickMon
 		}
 		public bool Save()
 		{
-			if (System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(MonitorPackPath)))
+			if (MonitorPackPath != null && MonitorPackPath.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(MonitorPackPath)))
 			{
 				Save(MonitorPackPath);
 				return true;
@@ -658,6 +716,7 @@ namespace QuickMon
 			outputDoc.Save(configurationFile);
 
 			MonitorPackPath = configurationFile;
+            RaiseMonitorPackPathChanged(MonitorPackPath);
 			if (Properties.Settings.Default.recentMonitorPacks == null)
 				Properties.Settings.Default.recentMonitorPacks = new System.Collections.Specialized.StringCollection();
 			if (!Properties.Settings.Default.recentMonitorPacks.Contains(configurationFile))
@@ -806,30 +865,32 @@ namespace QuickMon
 		} 
 		#endregion
 
-		public List<CollectorEntry> GetRootCollectors()
-		{
-			return (from c in Collectors
-					where c.ParentCollectorId.Length == 0
-					select c).ToList();
-		}
-		public List<CollectorEntry> GetChildCollectors(CollectorEntry parentCE)
-		{
-			return (from c in Collectors
-					where c.ParentCollectorId == parentCE.UniqueId
-					select c).ToList();
-		}
-		public List<CollectorEntry> GetAllChildCollectors(CollectorEntry parentCE)
-		{
-			List<CollectorEntry> list = new List<CollectorEntry>();
-			List<CollectorEntry> listChildren = new List<CollectorEntry>();
-			listChildren = GetChildCollectors(parentCE);
-			foreach (CollectorEntry child in listChildren)
-			{
-				list.Add(child);
-				list.AddRange(GetAllChildCollectors(child));
-			}
-			return list;
-		}
+        #region GetCollectorLists
+        public List<CollectorEntry> GetRootCollectors()
+        {
+            return (from c in Collectors
+                    where c.ParentCollectorId.Length == 0
+                    select c).ToList();
+        }
+        public List<CollectorEntry> GetChildCollectors(CollectorEntry parentCE)
+        {
+            return (from c in Collectors
+                    where c.ParentCollectorId == parentCE.UniqueId
+                    select c).ToList();
+        }
+        public List<CollectorEntry> GetAllChildCollectors(CollectorEntry parentCE)
+        {
+            List<CollectorEntry> list = new List<CollectorEntry>();
+            List<CollectorEntry> listChildren = new List<CollectorEntry>();
+            listChildren = GetChildCollectors(parentCE);
+            foreach (CollectorEntry child in listChildren)
+            {
+                list.Add(child);
+                list.AddRange(GetAllChildCollectors(child));
+            }
+            return list;
+        } 
+        #endregion
 
 		#region Performance counters
 		private void InitializeGlobalPerformanceCounters()

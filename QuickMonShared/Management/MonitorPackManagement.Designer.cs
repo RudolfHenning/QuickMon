@@ -30,13 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorPackManagement));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors", 4, 4);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Notifiers", 5, 5);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Monitor Pack Agent Instances", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Collectors", 4, 4);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Notifiers", 5, 5);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Monitor Pack Agent Instances", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
+            this.toolStripManagement = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripSplitButton();
+            this.recentItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
@@ -80,18 +82,17 @@
             this.cboDefaultViewerNotifier = new System.Windows.Forms.ComboBox();
             this.chkRunCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.tvwMonPack = new QuickMon.TreeViewEx();
-            this.toolStripButtonLoad = new System.Windows.Forms.ToolStripSplitButton();
-            this.recentItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1.SuspendLayout();
+            this.toolStripManagement.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip1
+            // toolStripManagement
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripManagement.AllowItemReorder = true;
+            this.toolStripManagement.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripManagement.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonNew,
             this.toolStripButtonLoad,
             this.toolStripButtonSave,
@@ -104,10 +105,10 @@
             this.moveDownToolStripButton,
             this.toolStripSeparator3,
             this.infoToolStripButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(498, 39);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStripManagement.Location = new System.Drawing.Point(0, 0);
+            this.toolStripManagement.Name = "toolStripManagement";
+            this.toolStripManagement.Size = new System.Drawing.Size(498, 39);
+            this.toolStripManagement.TabIndex = 0;
             // 
             // toolStripButtonNew
             // 
@@ -119,6 +120,27 @@
             this.toolStripButtonNew.Text = "New";
             this.toolStripButtonNew.ToolTipText = "New monitor pack";
             this.toolStripButtonNew.Click += new System.EventHandler(this.toolStripButtonNew_Click);
+            // 
+            // toolStripButtonLoad
+            // 
+            this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonLoad.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recentItemsToolStripMenuItem});
+            this.toolStripButtonLoad.Image = global::QuickMon.Properties.Resources.folder_doc;
+            this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonLoad.Name = "toolStripButtonLoad";
+            this.toolStripButtonLoad.Size = new System.Drawing.Size(48, 36);
+            this.toolStripButtonLoad.Text = "Load";
+            this.toolStripButtonLoad.ToolTipText = "Load monitor pack";
+            this.toolStripButtonLoad.ButtonClick += new System.EventHandler(this.toolStripoad_Click);
+            // 
+            // recentItemsToolStripMenuItem
+            // 
+            this.recentItemsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
+            this.recentItemsToolStripMenuItem.Name = "recentItemsToolStripMenuItem";
+            this.recentItemsToolStripMenuItem.Size = new System.Drawing.Size(156, 24);
+            this.recentItemsToolStripMenuItem.Text = "Recent items";
+            this.recentItemsToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
             // 
             // toolStripButtonSave
             // 
@@ -527,18 +549,18 @@
             this.tvwMonPack.ImageList = this.imageList1;
             this.tvwMonPack.Location = new System.Drawing.Point(0, 117);
             this.tvwMonPack.Name = "tvwMonPack";
-            treeNode1.ImageIndex = 4;
-            treeNode1.Name = "Collectors";
-            treeNode1.SelectedImageIndex = 4;
-            treeNode1.Text = "Collectors";
-            treeNode2.ImageIndex = 5;
-            treeNode2.Name = "Notifiers";
-            treeNode2.SelectedImageIndex = 5;
-            treeNode2.Text = "Notifiers";
-            treeNode3.Name = "MonitorPackNode";
-            treeNode3.Text = "Monitor Pack Agent Instances";
+            treeNode4.ImageIndex = 4;
+            treeNode4.Name = "Collectors";
+            treeNode4.SelectedImageIndex = 4;
+            treeNode4.Text = "Collectors";
+            treeNode5.ImageIndex = 5;
+            treeNode5.Name = "Notifiers";
+            treeNode5.SelectedImageIndex = 5;
+            treeNode5.Text = "Notifiers";
+            treeNode6.Name = "MonitorPackNode";
+            treeNode6.Text = "Monitor Pack Agent Instances";
             this.tvwMonPack.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode6});
             this.tvwMonPack.SelectedImageIndex = 0;
             this.tvwMonPack.ShowRootLines = false;
             this.tvwMonPack.Size = new System.Drawing.Size(498, 244);
@@ -551,27 +573,6 @@
             this.tvwMonPack.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragDrop);
             this.tvwMonPack.DragOver += new System.Windows.Forms.DragEventHandler(this.tvwMonPack_DragOver);
             this.tvwMonPack.DoubleClick += new System.EventHandler(this.tvwMonPack_DoubleClick);
-            // 
-            // toolStripButtonLoad
-            // 
-            this.toolStripButtonLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonLoad.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recentItemsToolStripMenuItem});
-            this.toolStripButtonLoad.Image = global::QuickMon.Properties.Resources.folder_doc;
-            this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonLoad.Name = "toolStripButtonLoad";
-            this.toolStripButtonLoad.Size = new System.Drawing.Size(48, 36);
-            this.toolStripButtonLoad.Text = "Load";
-            this.toolStripButtonLoad.ToolTipText = "Load monitor pack";
-            this.toolStripButtonLoad.ButtonClick += new System.EventHandler(this.toolStripoad_Click);
-            // 
-            // recentItemsToolStripMenuItem
-            // 
-            this.recentItemsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_favor;
-            this.recentItemsToolStripMenuItem.Name = "recentItemsToolStripMenuItem";
-            this.recentItemsToolStripMenuItem.Size = new System.Drawing.Size(172, 38);
-            this.recentItemsToolStripMenuItem.Text = "Recent items";
-            this.recentItemsToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripButton_Click);
             // 
             // MonitorPackManagement
             // 
@@ -592,16 +593,17 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tvwMonPack);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStripManagement);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(510, 333);
             this.Name = "MonitorPackManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monitor Pack Management";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MonitorPackManagement_FormClosing);
             this.Load += new System.EventHandler(this.MonitorPackManagement_Load);
             this.Shown += new System.EventHandler(this.MonitorPackManagement_Shown);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStripManagement.ResumeLayout(false);
+            this.toolStripManagement.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -612,7 +614,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip toolStripManagement;
         private System.Windows.Forms.ToolStripButton toolStripButtonNew;
         private System.Windows.Forms.ToolStripButton toolStripButtonSave;
         private TreeViewEx tvwMonPack;

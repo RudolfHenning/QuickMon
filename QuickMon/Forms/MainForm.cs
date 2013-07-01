@@ -12,10 +12,12 @@ namespace QuickMon
 {
     public partial class MainForm : FadeSnapForm
     {
+        #region External calls
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
         [System.Runtime.InteropServices.DllImport("User32")]
-        private static extern int SetForegroundWindow(IntPtr hwnd);
+        private static extern int SetForegroundWindow(IntPtr hwnd); 
+        #endregion
 
         public MainForm()
         {
@@ -55,24 +57,18 @@ namespace QuickMon
             }
             SnappingEnabled = Properties.Settings.Default.MainFormSnap;
             monitorPack.Enabled = false;
+            monitorPack.MonitorPackPathChanged += new MonitorPackPathChangedDelegate(monitorPack_MonitorPackPathChanged);
             mainRefreshTimer = new System.Timers.Timer();
             mainRefreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(mainRefreshTimer_Elapsed);
             mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequency;
             mainRefreshTimer.Enabled = true;
-
-            
-            //try
-            //{
-            //    this.timerMain.Tick -= new System.EventHandler(this.timerMain_Tick);
-            //}
-            //catch { }
-            //timerMain.Interval = Properties.Settings.Default.PollFrequency;
-            //try
-            //{
-            //    this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
-            //}
-            //catch { }            
+            try
+            {
+                ToolStripManager.LoadSettings(this, "QuickMon.MainToolbar");
+            }
+            catch { }
         }
+        
         private void MainForm_Shown(object sender, EventArgs e)
         {
             InitializeGlobalPerformanceCounters();
@@ -91,6 +87,7 @@ namespace QuickMon
                     monitorPack.Save(Properties.Settings.Default.LastMonitorPack);
                 monitorPack.ClosePerformanceCounters();
                 ClosePerformanceCounters();
+                ToolStripManager.SaveSettings(this, "QuickMon.MainToolbar");
             }
             catch { }
             if (WindowState == FormWindowState.Normal)
@@ -425,6 +422,10 @@ namespace QuickMon
             else
                 ShowNotifierError(notifier, errorMessage);
         }
+        private void monitorPack_MonitorPackPathChanged(string newMonitorPackPath)
+        {
+            Properties.Settings.Default.LastMonitorPack = newMonitorPackPath;
+        }
         private void monitorPack_CollectorCalled(CollectorEntry collector)
         {
             PCRaiseCollectorsQueried();
@@ -664,8 +665,9 @@ namespace QuickMon
                 monitorPack.CollectorExecutionTimeEvent += new CollectorExecutionTimeDelegate(monitorPack_CollectorExecutionTimeEvent);
                 monitorPack.RunCollectorCorrectiveWarningScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveWarningScript);
                 monitorPack.RunCollectorCorrectiveErrorScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveErrorScript);
+                monitorPack.MonitorPackPathChanged += new MonitorPackPathChangedDelegate(monitorPack_MonitorPackPathChanged);
                 globalState = MonitorStates.NotAvailable;
-                Properties.Settings.Default.LastMonitorPack = monitorPackPath;
+                
                 UpdateAppTitle();
                 try
                 {

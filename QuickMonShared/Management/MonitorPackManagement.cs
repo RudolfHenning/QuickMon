@@ -41,10 +41,23 @@ namespace QuickMon.Management
         private void MonitorPackManagement_Load(object sender, EventArgs e)
         {
             txtAgentsRegistrationFile.Text = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            try
+            {
+                ToolStripManager.LoadSettings(this, "QuickMon.ConfigurationEditorToolbar");
+            }
+            catch { }
         }
         private void MonitorPackManagement_Shown(object sender, EventArgs e)
         {
             RefreshMonitorPack();
+        }
+        private void MonitorPackManagement_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                ToolStripManager.SaveSettings(this, "QuickMon.ConfigurationEditorToolbar");
+            }
+            catch { }
         }
         #endregion
 
@@ -845,6 +858,8 @@ namespace QuickMon.Management
                 MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
         
     }
 }

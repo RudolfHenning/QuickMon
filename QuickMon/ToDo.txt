@@ -1,9 +1,10 @@
 ﻿* - Collectors - add Interface for returning single 'value' (e.g. total number of files as used by FileCount agent...)
-* - Collector 'correcting script' that may be run if error/warning alert is raised
-
+* - Collector 'correcting script' that may be run if error/warning alert is raised - Done
 * - Change ShowStatusDetails method on ICollector to accept 'Name' of collector and display it in the window heading -
 	This will help when multiple windows are open to identify which window instance is which.
+	Done
 
+************************************************************************************
 Collectors and 'corrective script'
   Add CorrectiveScriptOnWarningPath field to CollectorEntry
   Add CorrectiveScriptOnErrorPath field to CollectorEntry
@@ -12,6 +13,8 @@ Collectors and 'corrective script'
   MonitorPack editor must have place to change value
   Add 'Alert' like message to log that corrective script has been run ????
 
+
+************************************************************************************
 In order to provide a Performance counter Notifier some changes are required
 Collectors
   CollectorMessage class gets new field for LastValue (ideally integer but what about array??)
@@ -22,10 +25,10 @@ Notifiers
 	Counters: Value(NumberOfItems32) and/or Value/Sec(RateOfCountsPerSecond32)
 	Instance name: Collector name
 	Notifier must have array (List<PerformanceCounter>) to keep reference to each Collector's PC 'Instance'.
+*************************************************************************************
 
-
-SQL Ping collector (SQLQuery collector - add 'use query time as value')
-Registry collector
+SQL Ping collector (SQLQuery collector - add 'use query time as value') - Done
+Registry collector - Done
 ErrorLevel collector (like when running exe/batch file)
 
 Look at idea to have GetState() return whole structure
