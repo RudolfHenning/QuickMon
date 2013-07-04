@@ -63,6 +63,14 @@ namespace QuickMon
                        .Replace("%CollectorName%", category)
                        .Replace("%CollectorType%", collectorType);
 
+                    mailMessage.Priority = (MailPriority)mailSettings.MailPriority;
+                    if (mailSettings.SenderAddress.Length > 0)
+                        mailMessage.Sender = new MailAddress(mailSettings.SenderAddress);
+                    if (mailSettings.ReplyToAddress.Length > 0)
+                    {
+                        mailMessage.ReplyToList.Add(mailSettings.ReplyToAddress);
+                    }
+
                     mailMessage.Body = body;
                     mailMessage.IsBodyHtml = mailSettings.IsBodyHtml;
 
@@ -123,6 +131,9 @@ namespace QuickMon
                 connectionNode.SetAttributeValue("password", mailSettings.Password);
                 connectionNode.SetAttributeValue("fromAddress", mailSettings.FromAddress);
                 connectionNode.SetAttributeValue("toAddress", mailSettings.ToAddress);
+                connectionNode.SetAttributeValue("senderAddress", mailSettings.SenderAddress);
+                connectionNode.SetAttributeValue("replyToAddress", mailSettings.ReplyToAddress);
+                connectionNode.SetAttributeValue("mailPriority", mailSettings.MailPriority);                
                 connectionNode.SetAttributeValue("isBodyHtml", mailSettings.IsBodyHtml.ToString());
                 connectionNode.SetAttributeValue("subject", mailSettings.Subject);
                 connectionNode.SetAttributeValue("body", mailSettings.Body);
@@ -148,6 +159,9 @@ namespace QuickMon
             mailSettings.UserName = connectionNode.ReadXmlElementAttr("userName", "");
             mailSettings.Password = connectionNode.ReadXmlElementAttr("password", "");
             mailSettings.FromAddress = connectionNode.ReadXmlElementAttr("fromAddress", "");
+            mailSettings.SenderAddress = connectionNode.ReadXmlElementAttr("senderAddress", "");
+            mailSettings.ReplyToAddress = connectionNode.ReadXmlElementAttr("replyToAddress", "");
+            mailSettings.MailPriority = int.Parse(connectionNode.ReadXmlElementAttr("mailPriority", "1"));
             mailSettings.ToAddress = connectionNode.ReadXmlElementAttr("toAddress", "");
             mailSettings.IsBodyHtml = bool.Parse(connectionNode.ReadXmlElementAttr("isBodyHtml", "True"));
             mailSettings.Subject = connectionNode.ReadXmlElementAttr("subject", "");

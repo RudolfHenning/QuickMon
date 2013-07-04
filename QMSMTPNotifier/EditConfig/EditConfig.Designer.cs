@@ -58,8 +58,17 @@
             this.label11 = new System.Windows.Forms.Label();
             this.portNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtSender = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtReplyToAddress = new System.Windows.Forms.TextBox();
+            this.priorityGroupBox = new System.Windows.Forms.GroupBox();
+            this.optPriorityLow = new System.Windows.Forms.RadioButton();
+            this.optPriorityNormal = new System.Windows.Forms.RadioButton();
+            this.optPriorityHigh = new System.Windows.Forms.RadioButton();
             this.groupBoxCredentials.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.portNumericUpDown)).BeginInit();
+            this.priorityGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -67,10 +76,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(397, 427);
+            this.cmdCancel.Location = new System.Drawing.Point(424, 439);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 20;
+            this.cmdCancel.TabIndex = 25;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -78,10 +87,10 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(235, 427);
+            this.cmdTest.Location = new System.Drawing.Point(262, 439);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 18;
+            this.cmdTest.TabIndex = 23;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -90,10 +99,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(316, 427);
+            this.cmdOK.Location = new System.Drawing.Point(343, 439);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 19;
+            this.cmdOK.TabIndex = 24;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -109,8 +118,6 @@
             // 
             // txtSMTPServer
             // 
-            this.txtSMTPServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSMTPServer.Location = new System.Drawing.Point(92, 12);
             this.txtSMTPServer.Name = "txtSMTPServer";
             this.txtSMTPServer.Size = new System.Drawing.Size(278, 20);
@@ -140,7 +147,7 @@
             this.groupBoxCredentials.Controls.Add(this.txtDomain);
             this.groupBoxCredentials.Location = new System.Drawing.Point(92, 61);
             this.groupBoxCredentials.Name = "groupBoxCredentials";
-            this.groupBoxCredentials.Size = new System.Drawing.Size(380, 107);
+            this.groupBoxCredentials.Size = new System.Drawing.Size(305, 95);
             this.groupBoxCredentials.TabIndex = 6;
             this.groupBoxCredentials.TabStop = false;
             this.groupBoxCredentials.Text = "Custom credentials";
@@ -161,7 +168,7 @@
             this.txtPassword.Location = new System.Drawing.Point(100, 71);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(274, 20);
+            this.txtPassword.Size = new System.Drawing.Size(199, 20);
             this.txtPassword.TabIndex = 5;
             // 
             // label3
@@ -179,7 +186,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUserName.Location = new System.Drawing.Point(100, 45);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(274, 20);
+            this.txtUserName.Size = new System.Drawing.Size(199, 20);
             this.txtUserName.TabIndex = 3;
             // 
             // label2
@@ -197,82 +204,82 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDomain.Location = new System.Drawing.Point(100, 19);
             this.txtDomain.Name = "txtDomain";
-            this.txtDomain.Size = new System.Drawing.Size(274, 20);
+            this.txtDomain.Size = new System.Drawing.Size(199, 20);
             this.txtDomain.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 177);
+            this.label5.Location = new System.Drawing.Point(5, 165);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 13);
-            this.label5.TabIndex = 7;
+            this.label5.TabIndex = 8;
             this.label5.Text = "From address";
             // 
             // txtFromAddress
             // 
             this.txtFromAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFromAddress.Location = new System.Drawing.Point(92, 174);
+            this.txtFromAddress.Location = new System.Drawing.Point(92, 162);
             this.txtFromAddress.Name = "txtFromAddress";
-            this.txtFromAddress.Size = new System.Drawing.Size(380, 20);
-            this.txtFromAddress.TabIndex = 8;
+            this.txtFromAddress.Size = new System.Drawing.Size(173, 20);
+            this.txtFromAddress.TabIndex = 9;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 203);
+            this.label6.Location = new System.Drawing.Point(5, 191);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "To address";
+            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "To address(es)";
             this.toolTip1.SetToolTip(this.label6, "Use , (comma) to separate multiple addresses");
             // 
             // txtToAddress
             // 
             this.txtToAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtToAddress.Location = new System.Drawing.Point(92, 200);
+            this.txtToAddress.Location = new System.Drawing.Point(92, 188);
             this.txtToAddress.Name = "txtToAddress";
-            this.txtToAddress.Size = new System.Drawing.Size(380, 20);
-            this.txtToAddress.TabIndex = 10;
+            this.txtToAddress.Size = new System.Drawing.Size(407, 20);
+            this.txtToAddress.TabIndex = 13;
             // 
             // chkIsBodyHtml
             // 
             this.chkIsBodyHtml.AutoSize = true;
             this.chkIsBodyHtml.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIsBodyHtml.Location = new System.Drawing.Point(92, 252);
+            this.chkIsBodyHtml.Location = new System.Drawing.Point(92, 266);
             this.chkIsBodyHtml.Name = "chkIsBodyHtml";
             this.chkIsBodyHtml.Size = new System.Drawing.Size(92, 17);
-            this.chkIsBodyHtml.TabIndex = 13;
+            this.chkIsBodyHtml.TabIndex = 18;
             this.chkIsBodyHtml.Text = "Is body HTML";
             this.chkIsBodyHtml.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 229);
+            this.label7.Location = new System.Drawing.Point(5, 243);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 13);
-            this.label7.TabIndex = 11;
+            this.label7.TabIndex = 16;
             this.label7.Text = "Subject *";
             // 
             // txtSubject
             // 
             this.txtSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSubject.Location = new System.Drawing.Point(92, 226);
+            this.txtSubject.Location = new System.Drawing.Point(92, 240);
             this.txtSubject.Name = "txtSubject";
-            this.txtSubject.Size = new System.Drawing.Size(380, 20);
-            this.txtSubject.TabIndex = 12;
+            this.txtSubject.Size = new System.Drawing.Size(407, 20);
+            this.txtSubject.TabIndex = 17;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 278);
+            this.label8.Location = new System.Drawing.Point(5, 292);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 14;
+            this.label8.TabIndex = 19;
             this.label8.Text = "Body *";
             // 
             // txtBody
@@ -280,30 +287,30 @@
             this.txtBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBody.Location = new System.Drawing.Point(92, 275);
+            this.txtBody.Location = new System.Drawing.Point(92, 289);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBody.Size = new System.Drawing.Size(380, 81);
-            this.txtBody.TabIndex = 15;
+            this.txtBody.Size = new System.Drawing.Size(407, 83);
+            this.txtBody.TabIndex = 20;
             // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(5, 359);
+            this.label9.Location = new System.Drawing.Point(5, 375);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(331, 13);
-            this.label9.TabIndex = 16;
+            this.label9.TabIndex = 21;
             this.label9.Text = "* Body and Subject may contain one or more of the following macros:";
             // 
             // label10
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label10.Location = new System.Drawing.Point(48, 378);
+            this.label10.Location = new System.Drawing.Point(48, 392);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(424, 46);
-            this.label10.TabIndex = 17;
+            this.label10.TabIndex = 22;
             this.label10.Text = "%DateTime% %AlertLevel% %CurrentState% %PreviousState% \r\n%CollectorName% %Collect" +
     "orType% \r\n%Details% (Only applies to Body)";
             // 
@@ -350,12 +357,101 @@
             0,
             0});
             // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(279, 165);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Sender";
+            this.toolTip1.SetToolTip(this.label12, "Use , (comma) to separate multiple addresses");
+            // 
+            // txtSender
+            // 
+            this.txtSender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSender.Location = new System.Drawing.Point(326, 162);
+            this.txtSender.Name = "txtSender";
+            this.txtSender.Size = new System.Drawing.Size(173, 20);
+            this.txtSender.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.txtSender, "May only contain a single address");
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(5, 217);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 13);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "Reply to";
+            this.toolTip1.SetToolTip(this.label13, "Use , (comma) to separate multiple addresses");
+            // 
+            // txtReplyToAddress
+            // 
+            this.txtReplyToAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtReplyToAddress.Location = new System.Drawing.Point(92, 214);
+            this.txtReplyToAddress.Name = "txtReplyToAddress";
+            this.txtReplyToAddress.Size = new System.Drawing.Size(407, 20);
+            this.txtReplyToAddress.TabIndex = 15;
+            // 
+            // priorityGroupBox
+            // 
+            this.priorityGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.priorityGroupBox.Controls.Add(this.optPriorityHigh);
+            this.priorityGroupBox.Controls.Add(this.optPriorityNormal);
+            this.priorityGroupBox.Controls.Add(this.optPriorityLow);
+            this.priorityGroupBox.Location = new System.Drawing.Point(409, 61);
+            this.priorityGroupBox.Name = "priorityGroupBox";
+            this.priorityGroupBox.Size = new System.Drawing.Size(94, 95);
+            this.priorityGroupBox.TabIndex = 7;
+            this.priorityGroupBox.TabStop = false;
+            this.priorityGroupBox.Text = "Priority";
+            // 
+            // optPriorityLow
+            // 
+            this.optPriorityLow.AutoSize = true;
+            this.optPriorityLow.Location = new System.Drawing.Point(8, 22);
+            this.optPriorityLow.Name = "optPriorityLow";
+            this.optPriorityLow.Size = new System.Drawing.Size(45, 17);
+            this.optPriorityLow.TabIndex = 0;
+            this.optPriorityLow.Text = "Low";
+            this.optPriorityLow.UseVisualStyleBackColor = true;
+            // 
+            // optPriorityNormal
+            // 
+            this.optPriorityNormal.AutoSize = true;
+            this.optPriorityNormal.Checked = true;
+            this.optPriorityNormal.Location = new System.Drawing.Point(8, 44);
+            this.optPriorityNormal.Name = "optPriorityNormal";
+            this.optPriorityNormal.Size = new System.Drawing.Size(58, 17);
+            this.optPriorityNormal.TabIndex = 1;
+            this.optPriorityNormal.TabStop = true;
+            this.optPriorityNormal.Text = "Normal";
+            this.optPriorityNormal.UseVisualStyleBackColor = true;
+            // 
+            // optPriorityHigh
+            // 
+            this.optPriorityHigh.AutoSize = true;
+            this.optPriorityHigh.Location = new System.Drawing.Point(8, 67);
+            this.optPriorityHigh.Name = "optPriorityHigh";
+            this.optPriorityHigh.Size = new System.Drawing.Size(47, 17);
+            this.optPriorityHigh.TabIndex = 2;
+            this.optPriorityHigh.Text = "High";
+            this.optPriorityHigh.UseVisualStyleBackColor = true;
+            // 
             // EditConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(488, 462);
+            this.ClientSize = new System.Drawing.Size(515, 474);
+            this.Controls.Add(this.priorityGroupBox);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txtReplyToAddress);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.txtSender);
             this.Controls.Add(this.portNumericUpDown);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.chkTLS);
@@ -387,6 +483,8 @@
             this.groupBoxCredentials.ResumeLayout(false);
             this.groupBoxCredentials.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.portNumericUpDown)).EndInit();
+            this.priorityGroupBox.ResumeLayout(false);
+            this.priorityGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,5 +520,13 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown portNumericUpDown;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtSender;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtReplyToAddress;
+        private System.Windows.Forms.GroupBox priorityGroupBox;
+        private System.Windows.Forms.RadioButton optPriorityHigh;
+        private System.Windows.Forms.RadioButton optPriorityNormal;
+        private System.Windows.Forms.RadioButton optPriorityLow;
     }
 }

@@ -33,6 +33,14 @@ namespace QuickMon
             txtPassword.Text = MailSettings.Password;
             txtFromAddress.Text = MailSettings.FromAddress;
             txtToAddress.Text = MailSettings.ToAddress;
+            txtSender.Text = MailSettings.SenderAddress;
+            txtReplyToAddress.Text = MailSettings.ReplyToAddress;
+            if (MailSettings.MailPriority == 0)
+                optPriorityLow.Checked = true;
+            else if (MailSettings.MailPriority == 2)
+                optPriorityHigh.Checked = true;
+            else
+                optPriorityNormal.Checked = true;
             txtSubject.Text = MailSettings.Subject;
             chkIsBodyHtml.Checked = MailSettings.IsBodyHtml;
             txtBody.Text = MailSettings.Body;
@@ -43,21 +51,48 @@ namespace QuickMon
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            MailSettings.HostServer = txtSMTPServer.Text;
-            MailSettings.UseDefaultCredentials = chkUseDefultCredentials.Checked;
-            MailSettings.Domain = txtDomain.Text;
-            MailSettings.UserName = txtUserName.Text;
-            MailSettings.Password = txtPassword.Text;
-            MailSettings.FromAddress = txtFromAddress.Text;
-            MailSettings.ToAddress = txtToAddress.Text;
-            MailSettings.Subject = txtSubject.Text;
-            MailSettings.IsBodyHtml = chkIsBodyHtml.Checked;
-            MailSettings.Body = txtBody.Text;
-            MailSettings.UseTLS = chkTLS.Checked;
-            MailSettings.Port = (int)portNumericUpDown.Value;
+            try
+            {
+                if (txtSMTPServer.Text.Length == 0)
+                {
+                    throw new Exception("SMTP host server not specified!");
+                }
+                if (txtFromAddress.Text.Contains(',') || txtFromAddress.Text.Contains(';'))
+                {
+                    throw new Exception("From address may only contain a single address!");
+                }
+                if (txtSender.Text.Contains(',') || txtSender.Text.Contains(';'))
+                {
+                    throw new Exception("Sender address may only contain a single address!");
+                }
+                MailSettings.HostServer = txtSMTPServer.Text;
+                MailSettings.UseDefaultCredentials = chkUseDefultCredentials.Checked;
+                MailSettings.Domain = txtDomain.Text;
+                MailSettings.UserName = txtUserName.Text;
+                MailSettings.Password = txtPassword.Text;
+                MailSettings.FromAddress = txtFromAddress.Text;
+                MailSettings.ToAddress = txtToAddress.Text;
+                MailSettings.SenderAddress = txtSender.Text;
+                MailSettings.ReplyToAddress = txtReplyToAddress.Text;
+                if (optPriorityLow.Checked)
+                    MailSettings.MailPriority = 0;
+                else if (optPriorityHigh.Checked)
+                    MailSettings.MailPriority = 2;
+                else
+                    MailSettings.MailPriority = 1;
+                MailSettings.Subject = txtSubject.Text;
+                MailSettings.IsBodyHtml = chkIsBodyHtml.Checked;
+                MailSettings.Body = txtBody.Text;
+                MailSettings.UseTLS = chkTLS.Checked;
+                MailSettings.Port = (int)portNumericUpDown.Value;
 
-            DialogResult = System.Windows.Forms.DialogResult.OK;
-            Close();
+                DialogResult = System.Windows.Forms.DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cmdTest_Click(object sender, EventArgs e)
@@ -68,6 +103,14 @@ namespace QuickMon
                 if (txtSMTPServer.Text.Length == 0)
                 {
                     throw new Exception("SMTP host server not specified!");
+                }
+                if (txtFromAddress.Text.Contains(',') || txtFromAddress.Text.Contains(';'))
+                {
+                    throw new Exception("From address may only contain a single address!");
+                }
+                if (txtSender.Text.Contains(',') || txtSender.Text.Contains(';'))
+                {
+                    throw new Exception("Sender address may only contain a single address!");
                 }
                 lastStep = "Setting up SMTP client details";
                 using (SmtpClient smtpClient = new SmtpClient())
@@ -91,7 +134,18 @@ namespace QuickMon
                         smtpClient.EnableSsl = true;
                     }
                     MailMessage mailMessage = new MailMessage(txtFromAddress.Text, txtToAddress.Text);
-
+                    if (optPriorityLow.Checked)
+                        mailMessage.Priority = MailPriority.Low;
+                    else if (optPriorityHigh.Checked)
+                        mailMessage.Priority = MailPriority.High;
+                    else
+                        mailMessage.Priority = MailPriority.Normal;
+                    if (txtSender.Text.Length > 0)
+                        mailMessage.Sender = new MailAddress(txtSender.Text);
+                    if (txtReplyToAddress.Text.Length > 0)
+                    {
+                        mailMessage.ReplyToList.Add(txtReplyToAddress.Text);
+                    }
                     lastStep = "Setting up mail body";
                     if (chkIsBodyHtml.Checked)
                         mailMessage.Body = "<b>Test</b><br />Test was successful";
