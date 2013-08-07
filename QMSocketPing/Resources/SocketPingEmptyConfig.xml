@@ -1,0 +1,10 @@
+<config>
+  <hosts>
+    <!--
+      <host name="" port="23" receiveTimeoutMS="30000" sendTimeoutMS="30000"
+        useTelnetLogin="false" userName="" password=""
+        pingTimeOutMS="5000" />
+      <address url="" proxyServer="" maxTimeMS="1000" timeOutMS="5000" />
+      -->
+  </hosts>
+</config>
