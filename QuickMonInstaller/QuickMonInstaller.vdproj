@@ -167,12 +167,6 @@
         "Entry"
         {
         "MsmKey" = "8:_AEF69716952181B21E031B4717828D17"
-        "OwnerKey" = "8:_DBEA5F3000F14E86B9E20EDF58289EC0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AEF69716952181B21E031B4717828D17"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -186,6 +180,12 @@
         {
         "MsmKey" = "8:_AEF69716952181B21E031B4717828D17"
         "OwnerKey" = "8:_DD5EF0C342134E909826FBB0EF6A682C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AEF69716952181B21E031B4717828D17"
+        "OwnerKey" = "8:_DBEA5F3000F14E86B9E20EDF58289EC0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -317,12 +317,6 @@
         "Entry"
         {
         "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
-        "OwnerKey" = "8:_DBEA5F3000F14E86B9E20EDF58289EC0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -336,6 +330,12 @@
         {
         "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "OwnerKey" = "8:_DD5EF0C342134E909826FBB0EF6A682C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
+        "OwnerKey" = "8:_DBEA5F3000F14E86B9E20EDF58289EC0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -527,12 +527,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DBEA5F3000F14E86B9E20EDF58289EC0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -546,6 +540,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_DD5EF0C342134E909826FBB0EF6A682C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DBEA5F3000F14E86B9E20EDF58289EC0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -875,7 +875,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.10.4.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.11.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_AEF69716952181B21E031B4717828D17"
@@ -1037,7 +1037,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_2AFA676443A24D628769186BF6553CA7"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -1074,15 +1074,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{C0B0519F-75C5-4981-992E-166A3FBDE5CF}"
-        "PackageCode" = "8:{A84ED574-A67D-4E28-ABC5-AB37E7E0ACCA}"
+        "ProductCode" = "8:{B738E6F4-10A8-4410-98A3-6299180CDDD8}"
+        "PackageCode" = "8:{BAA9BEF5-353E-4E44-9CDE-33E17E76E82C}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.10.4"
+        "ProductVersion" = "8:2.11.0"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1096,7 +1096,7 @@
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:1"
+        "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"

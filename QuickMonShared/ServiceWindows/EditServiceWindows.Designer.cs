@@ -134,10 +134,10 @@
             this.groupBox1.Controls.Add(this.chkTue);
             this.groupBox1.Controls.Add(this.chkMon);
             this.groupBox1.Controls.Add(this.chkSun);
-            this.groupBox1.Location = new System.Drawing.Point(12, 38);
+            this.groupBox1.Location = new System.Drawing.Point(12, 212);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(403, 41);
-            this.groupBox1.TabIndex = 6;
+            this.groupBox1.Size = new System.Drawing.Size(409, 41);
+            this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Days of Week";
             // 
@@ -300,10 +300,10 @@
             this.columnHeaderFrom,
             this.columnHeaderTo});
             this.lvwTimes.FullRowSelect = true;
-            this.lvwTimes.Location = new System.Drawing.Point(12, 85);
+            this.lvwTimes.Location = new System.Drawing.Point(12, 39);
             this.lvwTimes.Name = "lvwTimes";
-            this.lvwTimes.Size = new System.Drawing.Size(409, 169);
-            this.lvwTimes.TabIndex = 7;
+            this.lvwTimes.Size = new System.Drawing.Size(409, 167);
+            this.lvwTimes.TabIndex = 6;
             this.lvwTimes.UseCompatibleStateImageBehavior = false;
             this.lvwTimes.View = System.Windows.Forms.View.Details;
             this.lvwTimes.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwTimes_DeleteKeyPressed);

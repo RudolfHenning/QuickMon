@@ -250,61 +250,81 @@ namespace QuickMon
         public bool RaiseAlert()
         {
             bool raiseAlert = false;
-            if (IsFolder) //don't bother raising events for folders
+            if (IsFolder || !Enabled || //don't bother raising events for folders, disabled, N/A or collectors
+                CurrentState == MonitorStates.Good || //No alerts for Good state
+                CurrentState == MonitorStates.NotAvailable ||
+                CurrentState == MonitorStates.Disabled)
+            {
                 raiseAlert = false;
+                LastStateChange = DateTime.Now;
+                waitAlertTimeErrWarnInMinFlagged = false;
+            }
             else
             {
-                bool repeatAlert = false;
                 bool stateChanged = (LastMonitorState != CurrentState);
 
-                if (DelayErrWarnAlertForXSec > 0 && (CurrentState == MonitorStates.Error || CurrentState == MonitorStates.Warning))
+                if (stateChanged)
                 {
-                    stateChanged = false;
-                    if (LastMonitorState == MonitorStates.Good)
+                    if (DelayErrWarnAlertForXSec > 0) // alert should be delayed
                     {
-                        waitAlertState = CurrentState;
-                        waitAlertTimeErrWarnInMinFlagged = true;
                         delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
-                    }
-                    else if (CurrentState != waitAlertState) //state changed between Warning and error
-                    {
-                        waitAlertState = CurrentState;
                         waitAlertTimeErrWarnInMinFlagged = true;
-                        delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
                     }
-
-                    if (waitAlertTimeErrWarnInMinFlagged && DateTime.Now > delayErrWarnAlertTime)
+                    else
                     {
-                        stateChanged = true;
-                        waitAlertTimeErrWarnInMinFlagged = false;
+                        raiseAlert = true;
                     }
                 }
                 else
-                    waitAlertTimeErrWarnInMinFlagged = false;
-
-                //Should the alert be repeated
-                if ((RepeatAlertInXMin > 0) &&
-                        (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now) &&
-                        (CurrentState == MonitorStates.Error || CurrentState == MonitorStates.Warning))
                 {
-                    repeatAlert = true;
-                    LastStateChange = DateTime.Now; //reset time otherwise it keeps on being repeated every time the collector state is checked again
+                    if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
+                    {
+                        if (DateTime.Now > delayErrWarnAlertTime)
+                        {
+                            raiseAlert = true;
+                            waitAlertTimeErrWarnInMinFlagged = false;
+                            //handle further alerts as if it changed now again
+                            LastStateChange = DateTime.Now;
+                        }
+                        else
+                        {
+                            raiseAlert = false;
+                        }
+                    }
+                    else
+                    {
+                        if (RepeatAlertInXMin > 0)
+                        {
+                            if (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)
+                            {
+                                raiseAlert = true;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else
+                            {
+                                raiseAlert = false;
+                            }
+                        }
+                        else
+                        {
+                            raiseAlert = false;
+                        }
+                    }
                 }
-
-                if (stateChanged || repeatAlert)
+                if (raiseAlert)
                 {
                     //only allow repeat alert after specified minutes
-                    if (AlertOnceInXMin == 0 || LastAlertTime.AddMinutes(AlertOnceInXMin) < DateTime.Now)
+                    if (AlertOnceInXMin > 0 && LastAlertTime.AddMinutes(AlertOnceInXMin) > DateTime.Now)
                     {
-                        raiseAlert = true;
+                        raiseAlert = false; //cancel alert
                     }
                 }
                 if (raiseAlert)
                     LastAlertTime = DateTime.Now; //reset alert time
             }
-
             return raiseAlert;
-        } 
+        }
         #endregion
 
         public CollectorEntry Clone()
