@@ -95,6 +95,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\satelitedish.ico" />
     <None Include="Resources\doc_refresh.png" />
     <Content Include="Resources\HttpPingEmptyConfig.xml">
       <SubType>Designer</SubType>

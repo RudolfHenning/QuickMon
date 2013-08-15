@@ -56,7 +56,8 @@ namespace QuickMon
                 string txt = TextFilter.Length > 0 ? (", Text-" + (ContainsText ? "Contains{" + TextFilter + "}" : "StartW{" + TextFilter + "}")) : "";
                 return string.Format("{0}, {1}{2}{3}{4}", typeInfo, within, sources, ids, txt);
             }
-        } 
+        }
+        public List<EventLogEntryEx> LastEntries = new List<EventLogEntryEx>();
         #endregion
 
         public override string ToString()
@@ -68,6 +69,7 @@ namespace QuickMon
         internal int GetMatchingEventLogCount()
         {
             int result = 0;
+            LastEntries = new List<EventLogEntryEx>();
             using (diag.EventLog log = new diag.EventLog(EventLog, Computer))
             {
                 DateTime currentTime = DateTime.Now;
@@ -90,15 +92,19 @@ namespace QuickMon
                     newentry.MachineName = entry.MachineName;
                     newentry.LogName = EventLog;
                     newentry.Source = entry.Source;
-                    if (TextFilter.Length > 0)
-                        newentry.Message = entry.Message;
+                    newentry.Message = entry.Message;
+                    newentry.MessageSummary = newentry.Message.Length > 80 ? newentry.Message.Substring(0, 80) : newentry.Message;
+                    //if (TextFilter.Length > 0)
+                    //    newentry.Message = entry.Message;
                     newentry.TimeGenerated = entry.TimeGenerated;
                     newentry.UserName = entry.UserName;
 
                     if (MatchEntry(newentry))
+                    {
+                        LastEntries.Add(newentry);
                         result++;
-                    counter++;
-                    
+                    }
+                    counter++;                    
                 }
             }
             return result;

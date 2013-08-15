@@ -36,11 +36,11 @@ namespace QuickMon
                         string formattedVal = "";                        
                         bool checkResultMatch = soapWebServicePingConfigEntry.CheckResultMatch(val, soapWebServicePingConfigEntry.ResultType, soapWebServicePingConfigEntry.CustomValue1, soapWebServicePingConfigEntry.CustomValue2, out formattedVal);
                         LastDetailMsg.LastValue = formattedVal;
-                        if (
-                            (checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Success)
-                            ||
-                            (!checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Failure)
-                            )
+                        if (checkResultMatch)
+                            //(checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Success)
+                            //||
+                            //(!checkResultMatch && soapWebServicePingConfigEntry.CheckType == SoapWebServicePingCheckType.Failure)
+                            //)
                         {
                             success++;
                             plainTextDetails.Append("Success - ");

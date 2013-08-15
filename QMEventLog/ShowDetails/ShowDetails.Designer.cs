@@ -32,10 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowDetails));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.autoRefreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelDetails = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerDetails = new System.Windows.Forms.SplitContainer();
             this.lvwDetails = new QuickMon.ListViewEx();
+            this.columnHeaderLog = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSource = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,9 +52,13 @@
             this.lvwEntries = new System.Windows.Forms.ListView();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.machLogColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListSummary = new System.Windows.Forms.ImageList(this.components);
             this.timerSelectItem = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorkerMessages = new System.ComponentModel.BackgroundWorker();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerDetails)).BeginInit();
@@ -63,6 +69,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -70,7 +77,8 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh});
+            this.toolStripButtonRefresh,
+            this.autoRefreshToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(812, 39);
@@ -86,6 +94,17 @@
             this.toolStripButtonRefresh.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonRefresh.Text = "Refresh";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // autoRefreshToolStripButton
+            // 
+            this.autoRefreshToolStripButton.CheckOnClick = true;
+            this.autoRefreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.autoRefreshToolStripButton.Image = global::QuickMon.Properties.Resources.satelitedish;
+            this.autoRefreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.autoRefreshToolStripButton.Name = "autoRefreshToolStripButton";
+            this.autoRefreshToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.autoRefreshToolStripButton.Text = "Auto refresh";
+            this.autoRefreshToolStripButton.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripButton_CheckStateChanged);
             // 
             // statusStrip1
             // 
@@ -127,6 +146,7 @@
             // lvwDetails
             // 
             this.lvwDetails.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderLog,
             this.columnHeaderDate,
             this.columnHeaderTime,
             this.columnHeaderSource,
@@ -144,6 +164,11 @@
             this.lvwDetails.View = System.Windows.Forms.View.Details;
             this.lvwDetails.SelectedIndexChanged += new System.EventHandler(this.lvwDetails_SelectedIndexChanged);
             this.lvwDetails.Resize += new System.EventHandler(this.lvwDetails_Resize);
+            // 
+            // columnHeaderLog
+            // 
+            this.columnHeaderLog.Text = "Log";
+            this.columnHeaderLog.Width = 146;
             // 
             // columnHeaderDate
             // 
@@ -238,12 +263,13 @@
             // 
             this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
-            this.machLogColumnHeader});
+            this.machLogColumnHeader,
+            this.columnHeaderCount});
+            this.lvwEntries.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwEntries.FullRowSelect = true;
             this.lvwEntries.HideSelection = false;
             this.lvwEntries.Location = new System.Drawing.Point(0, 0);
-            this.lvwEntries.MultiSelect = false;
             this.lvwEntries.Name = "lvwEntries";
             this.lvwEntries.Size = new System.Drawing.Size(812, 139);
             this.lvwEntries.SmallImageList = this.imageListSummary;
@@ -262,6 +288,35 @@
             this.machLogColumnHeader.Text = "Filter summary";
             this.machLogColumnHeader.Width = 371;
             // 
+            // columnHeaderCount
+            // 
+            this.columnHeaderCount.Text = "Count";
+            this.columnHeaderCount.Width = 65;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.autoRefreshToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 52);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // autoRefreshToolStripMenuItem
+            // 
+            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
+            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
+            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
+            // 
             // imageListSummary
             // 
             this.imageListSummary.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListSummary.ImageStream")));
@@ -276,9 +331,10 @@
             this.timerSelectItem.Interval = 500;
             this.timerSelectItem.Tick += new System.EventHandler(this.timerSelectItem_Tick);
             // 
-            // backgroundWorkerMessages
+            // refreshTimer
             // 
-            this.backgroundWorkerMessages.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerMessages_DoWork);
+            this.refreshTimer.Interval = 30000;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
             // ShowDetails
             // 
@@ -291,9 +347,11 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "ShowDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Show Details";
             this.Load += new System.EventHandler(this.ShowDetails_Load);
             this.Shown += new System.EventHandler(this.ShowDetails_Shown);
+            this.Resize += new System.EventHandler(this.ShowDetails_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -306,6 +364,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,7 +393,13 @@
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ColumnHeader machLogColumnHeader;
         private System.Windows.Forms.Timer timerSelectItem;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerMessages;
         private System.Windows.Forms.ImageList imageListSummary;
+        private System.Windows.Forms.ToolStripButton autoRefreshToolStripButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoRefreshToolStripMenuItem;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.ColumnHeader columnHeaderCount;
+        private System.Windows.Forms.ColumnHeader columnHeaderLog;
     }
 }

@@ -22,36 +22,10 @@ namespace QuickMon
         #region Show detail
         public void ShowDetail()
         {
-            //if (CustomConfig.Length > 0)
-            //{
-            //    try
-            //    {
-            //        XmlDocument config = new XmlDocument();
-            //        config.LoadXml(CustomConfig);
-
-            //        XmlNodeList hostListNodes = config.GetElementsByTagName("host");
-            //        foreach (XmlNode hostXmlNode in hostListNodes)
-            //        {
-            //            HostEntry hostEntry = new HostEntry();
-            //            hostEntry.HostName = hostXmlNode.Attributes.GetNamedItem("hostName").Value;
-            //            hostEntry.Description = hostXmlNode.Attributes.GetNamedItem("description").Value;
-            //            hostEntry.MaxTime = int.Parse(hostXmlNode.Attributes.GetNamedItem("maxTime").Value);
-            //            hostEntry.TimeOut = int.Parse(hostXmlNode.Attributes.GetNamedItem("timeOut").Value);
-
-            //            ListViewItem lvi = new ListViewItem(hostEntry.HostName);
-            //            lvi.SubItems.Add("-");
-            //            lvi.Tag = hostEntry;
-            //            lvwHosts.Items.Add(lvi);
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
             base.Show();
             LoadList();
             RefreshList();
+            ShowDetails_Resize(null, null);
         }
 
         
@@ -60,7 +34,7 @@ namespace QuickMon
         #region ListView events
         private void ShowDetails_Resize(object sender, EventArgs e)
         {
-            lvwHosts.Columns[0].Width = lvwHosts.Width - 25 - lvwHosts.Columns[1].Width;
+            lvwHosts.Columns[0].Width = lvwHosts.ClientSize.Width - lvwHosts.Columns[1].Width - lvwHosts.Columns[2].Width;
         }
         #endregion
 
@@ -86,6 +60,8 @@ namespace QuickMon
                 foreach (var hostEntry in HostEntries)
                 {
                     ListViewItem lvi = new ListViewItem(hostEntry.HostName);
+                    lvi.ImageIndex = 0;
+                    lvi.SubItems.Add("-");
                     lvi.SubItems.Add("-");
                     lvi.Tag = hostEntry;
                     lvwHosts.Items.Add(lvi);
@@ -101,36 +77,42 @@ namespace QuickMon
                 HostEntry host = (HostEntry)itmX.Tag;
                 try
                 {
-                    int pingTime = 0;
-                    using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+                    PingResult pingResult = host.Ping();
+                    MonitorStates result = host.GetState(pingResult);
+                    if (pingResult.Success)
                     {
-                        System.Net.NetworkInformation.PingReply reply = ping.Send(host.HostName, host.TimeOut);
-                        if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
-                            pingTime = Convert.ToInt32(reply.RoundtripTime);
-                        else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
-                            pingTime = int.MaxValue;
-
-                    }
-                    itmX.SubItems[1].Text = pingTime.ToString();
-                    if (pingTime > host.TimeOut)
-                    {
-                        itmX.ForeColor = Color.Red;
-                        itmX.SubItems[1].Text = "Time-out";
-                    }
-                    else if (pingTime > host.MaxTime)
-                    {
-                        itmX.ForeColor = Color.DarkOrange;
+                        itmX.SubItems[1].Text = pingResult.PingTime.ToString();
+                        itmX.SubItems[2].Text = pingResult.LastErrorMsg;
+                        if (result == MonitorStates.Good)
+                        {
+                            itmX.ImageIndex = 0;
+                            itmX.BackColor = SystemColors.Window;
+                        }
+                        else if (result == MonitorStates.Warning)
+                        {
+                            itmX.ImageIndex = 1;
+                            itmX.BackColor = Color.SandyBrown;
+                        }
+                        else
+                        {
+                            itmX.ImageIndex = 2;
+                            itmX.BackColor = Color.Salmon;
+                        }
                     }
                     else
                     {
-                        itmX.ForeColor = SystemColors.WindowText;
+                        itmX.ImageIndex = 2;
+                        itmX.BackColor = Color.Salmon; 
+                        itmX.SubItems[1].Text = "Err";
+                        itmX.SubItems[2].Text = pingResult.LastErrorMsg;
                     }
-
                 }
                 catch (Exception ex)
                 {
-                    itmX.SubItems[1].Text = ex.Message;
-                    itmX.ForeColor = Color.Red;
+                    itmX.ImageIndex = 2;
+                    itmX.SubItems[1].Text = "Err";
+                    itmX.SubItems[2].Text = ex.Message;
+                    itmX.BackColor = Color.Salmon; 
                 }
             }
             lvwHosts.EndUpdate();
@@ -139,6 +121,31 @@ namespace QuickMon
         }
 
         #endregion
-        
+
+        #region Auto refreshing
+        private void autoRefreshtoolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion        
     }
 }

@@ -43,6 +43,11 @@ namespace QuickMon
         {
             columnResizeTimer.Enabled = true;
         } 
+        private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            copyPathToolStripMenuItem.Enabled = lvwDetails.SelectedItems.Count == 1;
+            copyValueToolStripMenuItem.Enabled = lvwDetails.SelectedItems.Count == 1;
+        }
         #endregion
 
         #region Private methods
@@ -64,27 +69,59 @@ namespace QuickMon
         }
         private void RefreshList()
         {
-            if (SelectedRegistryQueryConfig != null)
+            try
             {
-                foreach (ListViewItem lvi in lvwDetails.Items)
-                {
-                    if (lvi.Tag is RegistryQueryInstance)
+                lvwDetails.BeginUpdate();
+                if (SelectedRegistryQueryConfig != null)
+                {                    
+                    foreach (ListViewItem lvi in lvwDetails.Items)
                     {
-                        RegistryQueryInstance rq = (RegistryQueryInstance)lvi.Tag;
-                        try
+                        if (lvi.Tag is RegistryQueryInstance)
                         {
-                            object value = rq.GetValue();
-                            if (value == null)
-                                lvi.SubItems[2].Text = "Null";
-                            else
-                                lvi.SubItems[2].Text = value.ToString();
-                        }
-                        catch (Exception ex)
-                        {
-                            lvi.SubItems[2].Text = ex.Message;
+                            RegistryQueryInstance rq = (RegistryQueryInstance)lvi.Tag;
+                            
+                            try
+                            {
+                                object value = rq.GetValue();
+                                MonitorStates currentState = rq.EvaluateValue(value);
+                                if (value == null)
+                                    lvi.SubItems[2].Text = "Null";
+                                else
+                                    lvi.SubItems[2].Text = value.ToString();
+                                if (currentState == MonitorStates.Good)
+                                {
+                                    lvi.ImageIndex = 0;
+                                    lvi.BackColor = SystemColors.Window;
+                                }
+                                else if (currentState == MonitorStates.Warning)
+                                {
+                                    lvi.ImageIndex = 1;
+                                    lvi.BackColor = Color.SandyBrown;
+                                }
+                                else
+                                {
+                                    lvi.ImageIndex = 2;
+                                    lvi.BackColor = Color.Salmon;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                lvi.SubItems[2].Text = ex.Message;
+                                lvi.ImageIndex = 2;
+                                lvi.BackColor = Color.Salmon;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                lvwDetails.EndUpdate();
+                toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
         } 
         #endregion
@@ -96,6 +133,7 @@ namespace QuickMon
         } 
         #endregion
 
+        #region Context menu events
         private void copyPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lvwDetails.SelectedItems.Count == 1)
@@ -103,19 +141,39 @@ namespace QuickMon
                 Clipboard.SetText(lvwDetails.SelectedItems[0].SubItems[1].Text);
             }
         }
-
         private void copyValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lvwDetails.SelectedItems.Count == 1)
             {
                 Clipboard.SetText(lvwDetails.SelectedItems[0].SubItems[2].Text);
             }
-        }
+        } 
+        #endregion
 
-        private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
+        #region Auto refreshing
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
-            copyPathToolStripMenuItem.Enabled = lvwDetails.SelectedItems.Count == 1;
-            copyValueToolStripMenuItem.Enabled = lvwDetails.SelectedItems.Count == 1;
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
         }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
     }
 }

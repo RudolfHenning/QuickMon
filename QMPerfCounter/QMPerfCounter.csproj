@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PerfMon.ico" />
+    <None Include="Resources\satelitedish.ico" />
     <None Include="Resources\doc_add.png" />
     <None Include="Resources\doc_remove.png" />
     <None Include="Resources\doc_edit.png" />

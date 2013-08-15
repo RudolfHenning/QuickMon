@@ -20,24 +20,30 @@ namespace QuickMon
         }
 
         private const int MAXPREVIEWDISPLAYCOUNT = 100;
+        private bool busyRefreshing = false;
 
         internal EventLogConfig SelectedEventLogConfig { get; set; }
 
         #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            LoadEntries();
+            RefreshList();
         }
         private void ShowDetails_Load(object sender, EventArgs e)
         {
             splitContainerDetails.Panel2Collapsed = true;
+            LoadEntries();
         } 
+        private void ShowDetails_Resize(object sender, EventArgs e)
+        {
+            lvwEntries.Columns[0].Width = lvwEntries.ClientSize.Width - lvwEntries.Columns[1].Width - lvwEntries.Columns[2].Width;
+        }
         #endregion
 
         #region List view events
         private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshList();
+            RefreshSubList();
         }
         private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -47,7 +53,7 @@ namespace QuickMon
         } 
         private void lvwDetails_Resize(object sender, EventArgs e)
         {
-            lvwDetails.Columns[4].Width = lvwDetails.ClientSize.Width - lvwDetails.Columns[0].Width - lvwDetails.Columns[1].Width - lvwDetails.Columns[2].Width - lvwDetails.Columns[3].Width;
+            lvwDetails.Columns[5].Width = lvwDetails.ClientSize.Width - lvwDetails.Columns[0].Width - lvwDetails.Columns[1].Width - lvwDetails.Columns[2].Width - lvwDetails.Columns[3].Width - lvwDetails.Columns[4].Width;
         }
         #endregion
 
@@ -61,57 +67,90 @@ namespace QuickMon
                 {
                     ListViewItem lvi = new ListViewItem(entry.ComputerLogName);
                     lvi.SubItems.Add(entry.FilterSummary);
+                    lvi.SubItems.Add("0");
                     lvi.ImageIndex = 0;
                     lvi.Tag = entry;
                     lvwEntries.Items.Add(lvi);
                 }
-                while (backgroundWorkerMessages.IsBusy)
-                {
-                    Application.DoEvents();
-                }
-                backgroundWorkerMessages.RunWorkerAsync();
+                //while (backgroundWorkerMessages.IsBusy)
+                //{
+                //    Application.DoEvents();
+                //}
+                //backgroundWorkerMessages.RunWorkerAsync();
             }
         }
         private void RefreshList()
         {
-            while (backgroundWorkerMessages.IsBusy)
+            if (busyRefreshing)
+                return;
+            busyRefreshing = true;
+            foreach (ListViewItem lvi in lvwEntries.Items)
             {
-                Application.DoEvents();
-            }
-            backgroundWorkerMessages.RunWorkerAsync();
-            toolStripStatusLabelDetails.Text = "Loading items...";
-            Application.DoEvents();
-            Cursor.Current = Cursors.WaitCursor;            
-            lvwDetails.Items.Clear();
-            if (lvwEntries.SelectedItems.Count > 0)
-            {   
-                List<ListViewItem> listItems = new List<ListViewItem>();
-                QMEventLogEntry entry = (QMEventLogEntry)lvwEntries.SelectedItems[0].Tag;
                 try
                 {
-                    lvwDetails.BeginUpdate();
-                    foreach (EventLogEntryEx ev in entry.GetMatchingEventLogEntries())
+                    if (lvi.Tag is QMEventLogEntry)
                     {
-                        ListViewItem lvi = new ListViewItem(ev.TimeGenerated.ToString("yyyy-MM-dd"));
-                        if (ev.EntryType == EventLogEntryType.Information)
-                            lvi.ImageIndex = 0;
-                        else if (ev.EntryType == EventLogEntryType.Warning)
-                            lvi.ImageIndex = 1;
-                        else if (ev.EntryType == EventLogEntryType.Error)
-                            lvi.ImageIndex = 2;
-                        else if (ev.EntryType == EventLogEntryType.FailureAudit)
+                        QMEventLogEntry entry = (QMEventLogEntry)lvi.Tag;
+                        int count = entry.GetMatchingEventLogCount();
+                        if (count >= entry.ErrorValue)
                             lvi.ImageIndex = 3;
-                        else if (ev.EntryType == EventLogEntryType.SuccessAudit)
-                            lvi.ImageIndex = 4;
+                        else if (count >= entry.WarningValue)
+                            lvi.ImageIndex = 2;
                         else
                             lvi.ImageIndex = 1;
-                        lvi.SubItems.Add(ev.TimeGenerated.ToString("HH:mm:ss"));
-                        lvi.SubItems.Add(ev.Source);
-                        lvi.SubItems.Add(ev.EventId.ToString());
-                        lvi.SubItems.Add(ev.MessageSummary);
-                        lvi.Tag = ev;
-                        listItems.Add(lvi);
+                        lvi.SubItems[2].Text = count.ToString();
                     }
+                    Application.DoEvents();
+                }
+                catch { }
+            }
+            busyRefreshing = false;
+            RefreshSubList();
+        }
+
+        private void RefreshSubList()
+        {
+            if (busyRefreshing)
+                return;
+            busyRefreshing = true;
+
+            toolStripStatusLabelDetails.Text = "Loading items...";
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+            lvwDetails.Items.Clear();
+            if (lvwEntries.SelectedItems.Count > 0)
+            {
+                List<ListViewItem> listItems = new List<ListViewItem>();
+                try
+                {
+                    foreach (ListViewItem lviEntry in lvwEntries.SelectedItems)
+                    {
+                        QMEventLogEntry entry = (QMEventLogEntry)lviEntry.Tag;
+                        foreach (EventLogEntryEx ev in entry.LastEntries) // entry.GetMatchingEventLogEntries())
+                        {
+                            ListViewItem lvi = new ListViewItem(entry.ComputerLogName);
+                            if (ev.EntryType == EventLogEntryType.Information)
+                                lvi.ImageIndex = 0;
+                            else if (ev.EntryType == EventLogEntryType.Warning)
+                                lvi.ImageIndex = 1;
+                            else if (ev.EntryType == EventLogEntryType.Error)
+                                lvi.ImageIndex = 2;
+                            else if (ev.EntryType == EventLogEntryType.FailureAudit)
+                                lvi.ImageIndex = 3;
+                            else if (ev.EntryType == EventLogEntryType.SuccessAudit)
+                                lvi.ImageIndex = 4;
+                            else
+                                lvi.ImageIndex = 1;
+                            lvi.SubItems.Add(ev.TimeGenerated.ToString("yyyy-MM-dd"));
+                            lvi.SubItems.Add(ev.TimeGenerated.ToString("HH:mm:ss"));
+                            lvi.SubItems.Add(ev.Source);
+                            lvi.SubItems.Add(ev.EventId.ToString());
+                            lvi.SubItems.Add(ev.MessageSummary);
+                            lvi.Tag = ev;
+                            listItems.Add(lvi);
+                        }
+                    }
+                    lvwDetails.Items.AddRange(listItems.ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -122,16 +161,11 @@ namespace QuickMon
                     lvi.SubItems.Add(ex.Message);
                     listItems.Add(lvi);
                 }
-                finally
-                {
-                    lvwDetails.EndUpdate();
-                }
 
-                lvwDetails.Items.AddRange(listItems.ToArray());
-                
-            }            
+            }
             Cursor.Current = Cursors.Default;
-            toolStripStatusLabelDetails.Text = string.Format("{0} item(s) found", lvwDetails.Items.Count);
+            toolStripStatusLabelDetails.Text = string.Format("{0} item(s) found, Last update {1}", lvwDetails.Items.Count, DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss"));
+            busyRefreshing = false;  
         }
         private void DisplaySelectedItemDetails()
         {
@@ -187,13 +221,12 @@ namespace QuickMon
             cmdViewDetails.Text = splitContainerDetails.Panel2Collapsed ? "ttt" : "uuu";
         }
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
-        {
-            
+        {            
             RefreshList();
         }
         private void cboEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshList();
+            RefreshSubList();
         }
 
         private void timerSelectItem_Tick(object sender, EventArgs e)
@@ -201,34 +234,32 @@ namespace QuickMon
             timerSelectItem.Enabled = false;
             DisplaySelectedItemDetails();
         }
-        private void backgroundWorkerMessages_DoWork(object sender, DoWorkEventArgs e)
-        {            
-            this.Invoke((MethodInvoker)delegate
+
+        #region Auto refreshing
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
             {
-                //lazyLoadMsgs = true;
-                foreach (ListViewItem lvi in lvwEntries.Items)
-                {
-                    try
-                    {
-                        //if (!lazyLoadMsgs)
-                        //    break;
-                        if (lvi.Tag is QMEventLogEntry)
-                        {
-                            QMEventLogEntry entry = (QMEventLogEntry)lvi.Tag;
-                            int count = entry.GetMatchingEventLogCount();
-                            if (count >= entry.ErrorValue)
-                                lvi.ImageIndex = 3;
-                            else if (count >= entry.WarningValue)
-                                lvi.ImageIndex = 2;
-                            else
-                                lvi.ImageIndex = 1;
-                        }
-                        Application.DoEvents();
-                    }
-                    catch { }
-                }
-            });
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
         }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
 
     }
 }

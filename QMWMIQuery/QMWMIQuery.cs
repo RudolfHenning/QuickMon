@@ -29,84 +29,22 @@ namespace QuickMon
 				htmlTextTextDetails.AppendLine("<ul>");
 				foreach (string machineName in wmiIConfig.Machines)
 				{
-					bool errorCondition = false;
-					bool warningCondition = false;
 					object value = null;
 					LastDetailMsg.PlainText = string.Format("Running WMI query for '{0}' - '{1}'", machineName, wmiIConfig.StateQuery);
 
-					if (!wmiIConfig.ReturnValueIsInt)
-					{
-						value = wmiIConfig.RunQueryWithSingleResult(machineName);                        
-					}
-					else //(wmiIConfig.ReturnValueIsInt)
-					{
-						if (wmiIConfig.UseRowCountAsValue)
-						{
-							value = wmiIConfig.RunQueryWithCountResult(machineName);
-						}
-						else
-						{
-							value = wmiIConfig.RunQueryWithSingleResult(machineName);
-						}
-					}
-					if (value == null)
-					{
-						if (wmiIConfig.ErrorValue == "[null]")
-							errorCondition = true;
-						else if (wmiIConfig.WarningValue == "[null]")
-							warningCondition = true;
-					}
-					else //non null value
-					{
-						if (value.IsNumber())
-							totalValue += double.Parse(value.ToString());
-						if (!wmiIConfig.ReturnValueIsInt)
-						{
-							if (value.ToString() == wmiIConfig.ErrorValue)
-								errorCondition = true;
-							else if (value.ToString() == wmiIConfig.WarningValue)
-								warningCondition = true;
-							else if (value.ToString() == wmiIConfig.SuccessValue || wmiIConfig.SuccessValue == "[any]")
-								warningCondition = false; //just to flag condition
-							else if (wmiIConfig.WarningValue == "[any]")
-								warningCondition = true;
-							else if (wmiIConfig.ErrorValue == "[any]")
-								errorCondition = true;
-						}
-						else //now we know the value is not null and must be in a range
-						{
-							if (!value.IsIntegerTypeNumber()) //value must be a number!
-							{
-								errorCondition = true;
-							}
-							else if (wmiIConfig.ErrorValue != "[any]" && wmiIConfig.ErrorValue != "[null]" &&
-									(
-									 (!wmiIConfig.ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(wmiIConfig.ErrorValue)) ||
-									 (wmiIConfig.ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(wmiIConfig.ErrorValue))
-									)
-								)
-							{
-								errorCondition = true;
-							}
-							else if (wmiIConfig.WarningValue != "[any]" && wmiIConfig.WarningValue != "[null]" &&
-								   (
-									(!wmiIConfig.ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(wmiIConfig.WarningValue)) ||
-									(wmiIConfig.ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(wmiIConfig.WarningValue))
-								   )
-								)
-							{
-								warningCondition = true;
-							}
-						}
-					}
+                    value = wmiIConfig.RunQuery(machineName);
+                    MonitorStates currentState = wmiIConfig.GetState(value);
 
-					if (errorCondition)
+                    if (value != null && value.IsNumber())
+                        totalValue += double.Parse(value.ToString());
+
+                    if (currentState == MonitorStates.Error)
 					{
 						errors++;
 						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.ErrorValue));
 						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.ErrorValue));
 					}
-					else if (warningCondition)
+					else if (currentState == MonitorStates.Warning)
 					{
 						warnings++;
 						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.WarningValue));

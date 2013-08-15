@@ -7,6 +7,7 @@ namespace QuickMon
 {
     public class DirectoryFilterEntry
     {
+        #region Properties
         public string DirectoryPath { get; set; }
         public string FileFilter { get; set; }
         public bool DirectoryExistOnly { get; set; }
@@ -51,7 +52,9 @@ namespace QuickMon
         /// </summary>
         public long SizeKBErrorIndicator { get; set; }
 
-        public string LastErrorMsg { get; set; }
+        public string LastErrorMsg { get; set; } 
+        #endregion
+
         public static string GetDirectoryFromPath(string path)
         {
             string directory = path;
@@ -115,5 +118,50 @@ namespace QuickMon
             }
             return fileInfo;
         }
+        public MonitorStates GetState(DirectoryFileInfo fileInfo)
+        {
+            MonitorStates returnState = MonitorStates.Good;
+            LastErrorMsg = "";
+            if (!fileInfo.Exists)
+            {
+                returnState = MonitorStates.Error;
+                LastErrorMsg = string.Format("Directory '{0}' not found or not accessible!", DirectoryPath);
+                
+            }
+            else if (DirectoryExistOnly)
+            {
+                returnState = MonitorStates.Good;
+            }
+            else if (fileInfo.FileCount == -1)
+            {
+                returnState = MonitorStates.Error;
+                LastErrorMsg = string.Format("An error occured while accessing '{0}'\r\n\t{1}", FilterFullPath, LastErrorMsg);
+            }
+            else
+            {
+                if (
+                    (CountErrorIndicator > 0 && CountErrorIndicator <= fileInfo.FileCount) ||
+                    (SizeKBErrorIndicator > 0 && SizeKBErrorIndicator * 1024 <= fileInfo.FileSize)
+                   )
+                {
+                    returnState = MonitorStates.Error;
+                    LastErrorMsg = string.Format("Error state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.FileSize));
+                }
+                else if (
+                        (CountWarningIndicator > 0 && CountWarningIndicator <= fileInfo.FileCount) ||
+                        (SizeKBWarningIndicator > 0 && SizeKBWarningIndicator * 1024 <= fileInfo.FileSize)
+                       )
+                {
+                    returnState = MonitorStates.Warning;
+                    LastErrorMsg = string.Format("Warning state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.FileSize));
+                }
+                else
+                {
+                    returnState = MonitorStates.Good;
+                }
+            }
+            return returnState;
+        }
+               
     }
 }

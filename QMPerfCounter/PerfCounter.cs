@@ -10,13 +10,14 @@ namespace QuickMon
     public class PerfCounter : CollectorBase
     {
         PerfCounterConfig perfCounterConfig = new PerfCounterConfig();
-        private Mutex qmPerfCounterCollectorMutex = new Mutex();
+        //private Mutex qmPerfCounterCollectorMutex = new Mutex();
 
         public override MonitorStates GetState()
         {
             MonitorStates returnState = MonitorStates.Good;
             StringBuilder plainTextDetails = new StringBuilder();
             StringBuilder htmlTextTextDetails = new StringBuilder();
+            string lastErrMsg = "";
             LastDetailMsg.PlainText = "Querying performance counters";
             LastDetailMsg.HtmlText = "";
             int errors = 0;
@@ -31,52 +32,30 @@ namespace QuickMon
                 htmlTextTextDetails.AppendLine("<ul>");
                 foreach (QMPerfCounterInstance perfCounter in perfCounterConfig.QMPerfCounters)
                 {
-                    bool errorCondition = false;
-                    bool warningCondition = false;
+                    MonitorStates currentState = MonitorStates.Good;
                     float value = 0;
                     outputFormat = "F3";
                     try
                     {
-                        qmPerfCounterCollectorMutex.WaitOne();
-                        try
-                        {
-                            value = perfCounter.GetNextValue();
-                        }
-                        finally
-                        {
-                            qmPerfCounterCollectorMutex.ReleaseMutex();
-                        }
-
+                        value = perfCounter.GetNextValue();
                         if (value > 9999)
                             outputFormat = "F1";
-                        if (!perfCounter.ReturnValueInverted)
-                        {
-                            if (perfCounter.ErrorValue <= value)
-                                errorCondition = true;
-                            else if (perfCounter.WarningValue <= value)
-                                warningCondition = true;
-                        }
-                        else
-                        {
-                            if (perfCounter.ErrorValue >= value)
-                                errorCondition = true;
-                            else if (perfCounter.WarningValue >= value)
-                                warningCondition = true;
-                        }
+                        currentState = perfCounter.GetState(value);
+                        lastErrMsg = "";
                     }
                     catch (Exception ex)
                     {
-                        LastDetailMsg.PlainText = ex.Message;
-                        errorCondition = true;
+                        lastErrMsg = ex.Message;
+                        currentState = MonitorStates.Error;
                     }
 
-                    if (errorCondition)
+                    if (currentState == MonitorStates.Error)
                     {
                         errors++;
-                        plainTextDetails.AppendLine(string.Format("\t{0} - value '{1}' - Error (trigger '{2}') {3}", perfCounter.ToString(), value.ToString(outputFormat), perfCounter.ErrorValue.ToString(outputFormat), LastDetailMsg.PlainText));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - value '{1}' - <b>Error</b> (trigger '{2}') {3} </li>", perfCounter.ToString(), value.ToString(outputFormat), perfCounter.ErrorValue.ToString(outputFormat), LastDetailMsg.PlainText));
+                        plainTextDetails.AppendLine(string.Format("\t{0} - value '{1}' - Error (trigger '{2}') {3}", perfCounter.ToString(), value.ToString(outputFormat), perfCounter.ErrorValue.ToString(outputFormat), lastErrMsg));
+                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - value '{1}' - <b>Error</b> (trigger '{2}') {3} </li>", perfCounter.ToString(), value.ToString(outputFormat), perfCounter.ErrorValue.ToString(outputFormat), lastErrMsg));
                     }
-                    else if (warningCondition)
+                    else if (currentState == MonitorStates.Warning)
                     {
                         warnings++;
                         plainTextDetails.AppendLine(string.Format("\t{0} - value '{1}' - Warning (trigger '{2}')", perfCounter.ToString(), value.ToString(outputFormat), perfCounter.WarningValue.ToString(outputFormat)));

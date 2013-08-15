@@ -74,22 +74,25 @@ namespace QuickMon
                     object obj = soapWebServicePingConfigEntry.ExecuteMethod();
                     string formattedVal = "";
 
-                    soapWebServicePingConfigEntry.CheckResultMatch(obj, soapWebServicePingConfigEntry.ResultType,
+                    bool success = soapWebServicePingConfigEntry.CheckResultMatch(obj, soapWebServicePingConfigEntry.ResultType,
                         soapWebServicePingConfigEntry.CustomValue1, soapWebServicePingConfigEntry.CustomValue2, out formattedVal);
                     itmX.SubItems[1].Text = formattedVal;
-
-                    //if (obj == null)
-                    //    itmX.SubItems[1].Text = "Null";
-                    //else if (obj is string && (string)obj == "")
-                    //    itmX.SubItems[1].Text = "Empty string";
-                    //else if (obj is DataSet)
-                    //    itmX.SubItems[1].Text = "DataSet";
-                    //else
-                        
+                    if (success)
+                    {
+                        itmX.ImageIndex = 0;
+                        itmX.BackColor = SystemColors.Window;
+                    }
+                    else
+                    {
+                        itmX.ImageIndex = 2;
+                        itmX.BackColor = Color.Salmon;
+                    }                       
                 }
                 catch (Exception ex)
                 {
                     itmX.SubItems[1].Text = ex.Message;
+                    itmX.ImageIndex = 2;
+                    itmX.BackColor = Color.Salmon;
                 }
             }
             lvwHosts.EndUpdate();
@@ -97,6 +100,32 @@ namespace QuickMon
             toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
         #endregion 
+
+        #region Auto refreshing
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
     }
 
 

@@ -18,53 +18,95 @@ namespace QuickMon
 			StringBuilder plainTextDetails = new StringBuilder();
 			StringBuilder htmlTextTextDetails = new StringBuilder();
 			string lastAction = "";
-            long pingTotalTime = 0;
+			long pingTotalTime = 0;
+            int errors = 0;
+            int warnings = 0;
+            int success = 0;
 			LastDetailMsg.PlainText = "Pinging hosts";
 			htmlTextTextDetails.AppendLine("<ul>");
 			LastError = 0;
 			LastErrorMsg = "";
-            try
+			try
 			{
 				foreach (HostEntry host in hostEntries)
 				{
-					int pingTime = -1;
+                    PingResult pingResult = host.Ping();
+                    MonitorStates currentState = host.GetState(pingResult);
+                    if (pingResult.Success)
+                    {
+                        pingTotalTime += pingResult.PingTime;
+                        if (currentState == MonitorStates.Error)
+                        {
+                            errors++;
+                            LastErrorMsg = string.Format("Error: {0} - {1}", host.HostName, pingResult.LastErrorMsg);
+                            plainTextDetails.AppendLine(LastErrorMsg);
+                            htmlTextTextDetails.AppendLine(string.Format("<li><b>Error</b>: {0} - {1}</li>", host.HostName, pingResult.LastErrorMsg));
+                        }
+                        else if (currentState == MonitorStates.Warning)
+                        {
+                            warnings++;
+                            LastErrorMsg = string.Format("Warning: {0} - {1}ms - {2}", host.HostName, pingResult.PingTime, pingResult.LastErrorMsg);
+                            plainTextDetails.AppendLine(LastErrorMsg);
+                            htmlTextTextDetails.AppendLine(string.Format("<li><b>Warning</b>: {0} - {1}ms - {2}</li>", host.HostName, pingResult.PingTime, pingResult.LastErrorMsg));
+                        }
+                        else
+                        {
+                            success++;
+                            LastErrorMsg = string.Format("Success: {0} - {1}ms - {2}", host.HostName, pingResult.PingTime, pingResult.LastErrorMsg);
+                            plainTextDetails.AppendLine(LastErrorMsg);
+                            htmlTextTextDetails.AppendLine(string.Format("<li><b>Success</b>: {0} - {1}ms - {2}</li>", host.HostName, pingResult.PingTime, pingResult.LastErrorMsg));
+                        }
+                    }
+                    else
+                    {
+                        errors++;
+                        LastErrorMsg = string.Format("Error: {0} - {1}", host.HostName, pingResult.LastErrorMsg);
+                        plainTextDetails.AppendLine(LastErrorMsg);
+                        htmlTextTextDetails.AppendLine(string.Format("<li><b>Error</b>: {0} - {1}</li>", host.HostName, pingResult.LastErrorMsg));
+                    }                    
 
-					using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
-					{
-						lastAction = "Pinging " + host.HostName;
-						System.Net.NetworkInformation.PingReply reply = ping.Send(host.HostName, host.TimeOut);
+                    //int pingTime = -1;
 
-						if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
-							pingTime = Convert.ToInt32(reply.RoundtripTime);
-						else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
-							pingTime = int.MaxValue;
-                        pingTotalTime += pingTime;
+                    //using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+                    //{
+                    //    lastAction = "Pinging " + host.HostName;
+                    //    System.Net.NetworkInformation.PingReply reply = ping.Send(host.HostName, host.TimeOut);
 
-						if (pingTime >= host.TimeOut) //if any time-out then it is an error
-						{
-							LastDetailMsg.PlainText = "Time-out pinging " + host.HostName;
-							LastErrorMsg = "Time-out pinging " + host.HostName;
-							LastDetailMsg.HtmlText = string.Format("<p><b>Time-out pinging:</b> {0}</p>", host.HostName);
-							return MonitorStates.Error;
-						}
-						else if (pingTime > host.MaxTime)
-						{
-							returnState = MonitorStates.Warning;
-							plainTextDetails.AppendLine(string.Format("Ping {0}: {1}ms - Warning", host.HostName, pingTime));
-							htmlTextTextDetails.AppendLine(string.Format("<li>Ping {0}: {1}ms - <b>Warning</b></li>", host.HostName, pingTime));
-						}
-						else
-						{
-							plainTextDetails.AppendLine(string.Format("Ping {0}: {1}ms - Good", host.HostName, pingTime));
-							htmlTextTextDetails.AppendLine(string.Format("<li>Ping {0}: {1}ms - <b>Good</b></li>", host.HostName, pingTime));
-						}
-					}
+                    //    if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                    //        pingTime = Convert.ToInt32(reply.RoundtripTime);
+                    //    else // if (reply.Status == System.Net.NetworkInformation.IPStatus.TimedOut)
+                    //        pingTime = int.MaxValue;
+                    //    pingTotalTime += pingTime;
+
+                    //    if (pingTime >= host.TimeOut) //if any time-out then it is an error
+                    //    {
+                    //        LastDetailMsg.PlainText = "Time-out pinging " + host.HostName;
+                    //        LastErrorMsg = "Time-out pinging " + host.HostName;
+                    //        LastDetailMsg.HtmlText = string.Format("<p><b>Time-out pinging:</b> {0}</p>", host.HostName);
+                    //        return MonitorStates.Error;
+                    //    }
+                    //    else if (pingTime > host.MaxTime)
+                    //    {
+                    //        returnState = MonitorStates.Warning;
+                    //        plainTextDetails.AppendLine(string.Format("Ping {0}: {1}ms - Warning", host.HostName, pingTime));
+                    //        htmlTextTextDetails.AppendLine(string.Format("<li>Ping {0}: {1}ms - <b>Warning</b></li>", host.HostName, pingTime));
+                    //    }
+                    //    else
+                    //    {
+                    //        plainTextDetails.AppendLine(string.Format("Ping {0}: {1}ms - Good", host.HostName, pingTime));
+                    //        htmlTextTextDetails.AppendLine(string.Format("<li>Ping {0}: {1}ms - <b>Good</b></li>", host.HostName, pingTime));
+                    //    }
+                    //}
 				}
-				htmlTextTextDetails.AppendLine("</ul>");
+                htmlTextTextDetails.AppendLine("</ul>");
 				LastDetailMsg.PlainText = plainTextDetails.ToString().TrimEnd('\r', '\n');
 				LastDetailMsg.HtmlText = htmlTextTextDetails.ToString();
-                LastDetailMsg.LastValue = pingTotalTime;
-                
+				LastDetailMsg.LastValue = pingTotalTime;
+
+                if (errors > 0) // any errors
+                    returnState = MonitorStates.Error;
+                else if (warnings > 0) //any warnings
+                    returnState = MonitorStates.Warning;
 			}
 			catch (Exception ex)
 			{

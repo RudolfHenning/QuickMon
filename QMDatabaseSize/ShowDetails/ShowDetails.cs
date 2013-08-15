@@ -23,11 +23,30 @@ namespace QuickMon
         public int CmndTimeOut { get; set; }
         public List<DatabaseEntry> Databases { get; set; }
 
+        #region Form events
+        private void ShowDetails_Load(object sender, EventArgs e)
+        {
+            LoadDatabases();
+        }
+        private void ShowDetails_Shown(object sender, EventArgs e)
+        {
+            RefreshList();
+            ShowDetails_Resize(null, null);
+        }
+        private void ShowDetails_Resize(object sender, EventArgs e)
+        {
+            lvwDatabases.Columns[0].Width = lvwDatabases.ClientSize.Width - lvwDatabases.Columns[1].Width;
+        }
+        #endregion
+
+        #region Toolbar events
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
-            RefreshDatabaseList();
-        }
+            RefreshList();
+        } 
+        #endregion
 
+        #region Private events
         private void LoadDatabases()
         {
             try
@@ -57,11 +76,11 @@ namespace QuickMon
                 Cursor.Current = Cursors.Default;
             }
         }
-
-        private void RefreshDatabaseList()
+        private void RefreshList()
         {
             try
             {
+                lvwDatabases.BeginUpdate();
                 Cursor.Current = Cursors.WaitCursor;
 
                 DatabaseSizeInfo databaseSizeInfo = new DatabaseSizeInfo();
@@ -74,15 +93,26 @@ namespace QuickMon
                         long size = databaseSizeInfo.GetDatabaseSize(dbe.Name);
                         lvi.SubItems[1].Text = size.ToString();
                         if (size >= dbe.ErrorSizeMB)
+                        {
                             lvi.ImageIndex = 2;
+                            lvi.BackColor = Color.Salmon;
+                        }
                         else if (size >= dbe.WarningSizeMB)
+                        {
                             lvi.ImageIndex = 1;
+                            lvi.BackColor = Color.SandyBrown;
+                        }
                         else
+                        {
                             lvi.ImageIndex = 0;
+                            lvi.BackColor = SystemColors.Window;
+                        }
                     }
                     catch (Exception innerEx)
                     {
                         lvi.SubItems[1].Text = innerEx.Message;
+                        lvi.ImageIndex = 2;
+                        lvi.BackColor = Color.Salmon;
                     }
                 }
                 databaseSizeInfo.CloseConnection();
@@ -93,19 +123,39 @@ namespace QuickMon
             }
             finally
             {
+                lvwDatabases.EndUpdate();
                 Cursor.Current = Cursors.Default;
+                toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
-            
-        }
+        } 
+        #endregion
 
-        private void ShowDetails_Load(object sender, EventArgs e)
+        #region Auto refreshing
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
-            LoadDatabases();
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
         }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
 
-        private void ShowDetails_Shown(object sender, EventArgs e)
-        {
-            RefreshDatabaseList();
-        }
+
     }
 }

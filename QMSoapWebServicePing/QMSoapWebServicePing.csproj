@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\doc_refresh.png" />
+    <None Include="Resources\satelitedish.ico" />
     <Content Include="Resources\SoapWebServiceConfig.xml" />
   </ItemGroup>
   <ItemGroup />

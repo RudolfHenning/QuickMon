@@ -35,10 +35,14 @@
             this.columnHeaderResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.autoRefreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -55,6 +59,7 @@
             this.lvwHosts.Location = new System.Drawing.Point(0, 39);
             this.lvwHosts.Name = "lvwHosts";
             this.lvwHosts.Size = new System.Drawing.Size(490, 229);
+            this.lvwHosts.SmallImageList = this.imageList1;
             this.lvwHosts.TabIndex = 3;
             this.lvwHosts.UseCompatibleStateImageBehavior = false;
             this.lvwHosts.View = System.Windows.Forms.View.Details;
@@ -63,7 +68,7 @@
             // columnHeaderURL
             // 
             this.columnHeaderURL.Text = "Web Service";
-            this.columnHeaderURL.Width = 274;
+            this.columnHeaderURL.Width = 302;
             // 
             // columnHeaderResult
             // 
@@ -73,24 +78,41 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem});
+            this.refreshToolStripMenuItem,
+            this.autoRefreshToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(148, 28);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 52);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // autoRefreshToolStripMenuItem
+            // 
+            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
+            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "bullet_ball_glass_green.ico");
+            this.imageList1.Images.SetKeyName(1, "bullet_ball_glass_yellow.ico");
+            this.imageList1.Images.SetKeyName(2, "bullet_ball_glass_red.ico");
             // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh});
+            this.toolStripButtonRefresh,
+            this.autoRefreshToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(490, 39);
@@ -106,6 +128,17 @@
             this.toolStripButtonRefresh.Size = new System.Drawing.Size(36, 36);
             this.toolStripButtonRefresh.Text = "Refresh";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // autoRefreshToolStripButton
+            // 
+            this.autoRefreshToolStripButton.CheckOnClick = true;
+            this.autoRefreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.autoRefreshToolStripButton.Image = global::QuickMon.Properties.Resources.satelitedish;
+            this.autoRefreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.autoRefreshToolStripButton.Name = "autoRefreshToolStripButton";
+            this.autoRefreshToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.autoRefreshToolStripButton.Text = "Auto refresh";
+            this.autoRefreshToolStripButton.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripButton_CheckStateChanged);
             // 
             // statusStrip1
             // 
@@ -124,6 +157,11 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(475, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Interval = 5000;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
             // ShowDetails
             // 
@@ -161,5 +199,9 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripButton autoRefreshToolStripButton;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripMenuItem autoRefreshToolStripMenuItem;
     }
 }

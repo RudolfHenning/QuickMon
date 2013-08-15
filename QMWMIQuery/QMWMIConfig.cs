@@ -224,5 +224,80 @@ namespace QuickMon
             results.Tables.Add(dtab);
             return results;
         }
+
+        internal object RunQuery(string machineName)
+        {
+            object value = null;
+            if (!ReturnValueIsInt)
+            {
+                value = RunQueryWithSingleResult(machineName);
+            }
+            else
+            {
+                if (UseRowCountAsValue)
+                {
+                    value = RunQueryWithCountResult(machineName);
+                }
+                else
+                {
+                    value = RunQueryWithSingleResult(machineName);
+                }
+            }
+            return value;
+        }
+
+        internal MonitorStates GetState(object value)
+        {
+            MonitorStates currentState = MonitorStates.Good;
+            if (value == null)
+            {
+                if (ErrorValue == "[null]")
+                    currentState = MonitorStates.Error;
+                else if (WarningValue == "[null]")
+                    currentState = MonitorStates.Warning;
+            }
+            else //non null value
+            {
+                if (!ReturnValueIsInt)
+                {
+                    if (value.ToString() == ErrorValue)
+                        currentState = MonitorStates.Error;
+                    else if (value.ToString() == WarningValue)
+                        currentState = MonitorStates.Warning;
+                    else if (value.ToString() == SuccessValue || SuccessValue == "[any]")
+                        currentState = MonitorStates.Good; //just to flag condition
+                    else if (WarningValue == "[any]")
+                        currentState = MonitorStates.Warning;
+                    else if (ErrorValue == "[any]")
+                        currentState = MonitorStates.Error;
+                }
+                else //now we know the value is not null and must be in a range
+                {
+                    if (!value.IsIntegerTypeNumber()) //value must be a number!
+                    {
+                        currentState = MonitorStates.Error;
+                    }
+                    else if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
+                            (
+                             (!ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(ErrorValue)) ||
+                             (ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(ErrorValue))
+                            )
+                        )
+                    {
+                        currentState = MonitorStates.Error;
+                    }
+                    else if (WarningValue != "[any]" && WarningValue != "[null]" &&
+                           (
+                            (!ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(WarningValue)) ||
+                            (ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(WarningValue))
+                           )
+                        )
+                    {
+                        currentState = MonitorStates.Warning;
+                    }
+                }
+            }
+            return currentState;
+        }
     }
 }

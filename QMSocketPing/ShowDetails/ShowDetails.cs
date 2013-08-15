@@ -26,13 +26,14 @@ namespace QuickMon
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
             RefreshList();
+            ShowDetails_Resize(null, null);
         }
         #endregion
 
         #region ListView events
         private void ShowDetails_Resize(object sender, EventArgs e)
         {
-            lvwHosts.Columns[0].Width = lvwHosts.Width - 25 - lvwHosts.Columns[1].Width;
+            lvwHosts.Columns[0].Width = lvwHosts.ClientSize.Width - lvwHosts.Columns[1].Width;
         }
         #endregion
 
@@ -58,7 +59,7 @@ namespace QuickMon
                 foreach (SocketPingEntry httpPingEntry in SocketPingConfig.Entries)
                 {
                     ListViewItem lvi = new ListViewItem(httpPingEntry.HostName);
-                    lvi.UseItemStyleForSubItems = false;
+                    //lvi.UseItemStyleForSubItems = false;
                     lvi.SubItems.Add("-");
                     lvi.Tag = httpPingEntry;
                     lvwHosts.Items.Add(lvi);
@@ -79,25 +80,53 @@ namespace QuickMon
                     itmX.SubItems[1].Text = pingTime.ToString();
                     if (pingTime > httpPingEntry.PingTimeOutMS)
                     {
-                        itmX.SubItems[1].ForeColor = Color.Red;
-                        itmX.SubItems[1].Text = "Time-out";
+                        itmX.ImageIndex = 2;
+                        itmX.BackColor = Color.Salmon;
+                        itmX.SubItems[1].Text = "Time-out (" + pingTime.ToString() + ")";
                     }
                     else
                     {
-                        itmX.SubItems[1].ForeColor = SystemColors.WindowText;
+                        itmX.ImageIndex = 0;
+                        itmX.BackColor = SystemColors.Window;
                     }
-
                 }
                 catch (Exception ex)
                 {
                     itmX.SubItems[1].Text = ex.Message;
-                    itmX.SubItems[1].ForeColor = Color.Red;
+                    itmX.ImageIndex = 2;
+                    itmX.BackColor = Color.Salmon;
                 }
             }
             lvwHosts.EndUpdate();
             System.Windows.Forms.Cursor.Current = Cursors.Default;
             toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
-        #endregion    
+        #endregion  
+  
+        #region Auto refreshing
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
     }
 }

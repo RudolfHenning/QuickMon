@@ -39,8 +39,12 @@
             this.viewDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.autoRefreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -57,7 +61,7 @@
             this.lvwDirectories.FullRowSelect = true;
             this.lvwDirectories.Location = new System.Drawing.Point(0, 39);
             this.lvwDirectories.Name = "lvwDirectories";
-            this.lvwDirectories.Size = new System.Drawing.Size(446, 302);
+            this.lvwDirectories.Size = new System.Drawing.Size(574, 302);
             this.lvwDirectories.TabIndex = 0;
             this.lvwDirectories.UseCompatibleStateImageBehavior = false;
             this.lvwDirectories.View = System.Windows.Forms.View.Details;
@@ -68,7 +72,7 @@
             // columnHeaderPath
             // 
             this.columnHeaderPath.Text = "Path";
-            this.columnHeaderPath.Width = 308;
+            this.columnHeaderPath.Width = 437;
             // 
             // columnHeaderCount
             // 
@@ -83,22 +87,24 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem,
+            this.autoRefreshToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.viewDirectoryToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 82);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(165, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // viewDirectoryToolStripMenuItem
             // 
             this.viewDirectoryToolStripMenuItem.Name = "viewDirectoryToolStripMenuItem";
-            this.viewDirectoryToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.viewDirectoryToolStripMenuItem.Size = new System.Drawing.Size(165, 24);
             this.viewDirectoryToolStripMenuItem.Text = "View directory";
             this.viewDirectoryToolStripMenuItem.Click += new System.EventHandler(this.viewDirectoryToolStripMenuItem_Click);
             // 
@@ -107,10 +113,11 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh});
+            this.toolStripButtonRefresh,
+            this.autoRefreshToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(446, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(574, 39);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -124,13 +131,24 @@
             this.toolStripButtonRefresh.Text = "Refresh";
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
+            // autoRefreshToolStripButton
+            // 
+            this.autoRefreshToolStripButton.CheckOnClick = true;
+            this.autoRefreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.autoRefreshToolStripButton.Image = global::QuickMon.Properties.Resources.satelitedish;
+            this.autoRefreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.autoRefreshToolStripButton.Name = "autoRefreshToolStripButton";
+            this.autoRefreshToolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.autoRefreshToolStripButton.Text = "toolStripButton1";
+            this.autoRefreshToolStripButton.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripButton_CheckStateChanged);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 341);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(446, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(574, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -138,15 +156,33 @@
             // 
             this.toolStripStatusLabel1.AutoSize = false;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(431, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(559, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // autoRefreshToolStripMenuItem
+            // 
+            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
+            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(165, 24);
+            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
+            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 6);
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Interval = 5000;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
             // ShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 363);
+            this.ClientSize = new System.Drawing.Size(574, 363);
             this.Controls.Add(this.lvwDirectories);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -177,5 +213,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton autoRefreshToolStripButton;
+        private System.Windows.Forms.ToolStripMenuItem autoRefreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }

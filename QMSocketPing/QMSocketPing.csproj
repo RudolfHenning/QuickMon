@@ -104,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\refresh.png" />
+    <None Include="Resources\satelitedish.ico" />
+    <None Include="Resources\doc_refresh.png" />
     <Content Include="Resources\SocketPingEmptyConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

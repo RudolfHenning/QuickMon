@@ -48,6 +48,7 @@
             // 
             // errorNumericUpDown
             // 
+            this.errorNumericUpDown.DecimalPlaces = 3;
             this.errorNumericUpDown.Location = new System.Drawing.Point(118, 68);
             this.errorNumericUpDown.Maximum = new decimal(new int[] {
             -1,
@@ -65,6 +66,7 @@
             // 
             // warningNumericUpDown
             // 
+            this.warningNumericUpDown.DecimalPlaces = 3;
             this.warningNumericUpDown.Location = new System.Drawing.Point(118, 42);
             this.warningNumericUpDown.Maximum = new decimal(new int[] {
             -1,

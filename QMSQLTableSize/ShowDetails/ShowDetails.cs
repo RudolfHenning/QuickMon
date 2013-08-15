@@ -21,7 +21,7 @@ namespace QuickMon
         #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            LoadList();
+            RefreshList();
             timerColumnWidthChanged.Enabled = true;
         }
         #endregion
@@ -45,12 +45,12 @@ namespace QuickMon
         #region Toolbar events
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
-            LoadList();
+            RefreshList();
         } 
         #endregion
 
         #region Private methods
-        private void LoadList()
+        private void RefreshList()
         {
             lvwDatabases.Items.Clear();
             lvwDatabases.Groups.Clear();
@@ -94,9 +94,35 @@ namespace QuickMon
                         lvwDatabases.Items.Add(lvi);
                     }
                 }
+                toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
         }	 
     	#endregion
 
+        #region Auto refreshing
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
+            }
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
     }
 }

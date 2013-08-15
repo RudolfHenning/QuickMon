@@ -55,9 +55,7 @@ namespace QuickMon
             float value = 0;
             try
             {
-
                     value = pc.NextValue();
-               
             }
             catch
             {
@@ -65,28 +63,26 @@ namespace QuickMon
                 System.Threading.Thread.Sleep(10);
                 value = GetNextValue();
             }
-
-            //retries++;
-            //float[] values = new float[pcList.Count];
-            //if (retries < 3)
-            //{
-            //    try
-            //    {
-            //        for (int i = 0; i < pcList.Count; i++)
-            //        {
-            //            PerformanceCounter pc = pcList[i];
-            //            values[i] = pc.NextValue();
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        InitializePerfCounter();
-            //        System.Threading.Thread.Sleep(10);
-            //        values = GetNextValue();
-            //    }
-            //}
-            //retries--;
             return value;
+        }
+        public MonitorStates GetState(float value)
+        {
+            MonitorStates state = MonitorStates.Good;
+            if (!ReturnValueInverted)
+            {
+                if (ErrorValue <= value)
+                    state = MonitorStates.Error;
+                else if (WarningValue <= value)
+                    state = MonitorStates.Warning;
+            }
+            else
+            {
+                if (ErrorValue >= value)
+                    state = MonitorStates.Error;
+                else if (WarningValue >= value)
+                    state = MonitorStates.Warning;
+            }
+            return state;
         }
         public override string ToString()
         {

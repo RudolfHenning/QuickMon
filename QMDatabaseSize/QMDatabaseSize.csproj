@@ -92,6 +92,7 @@
     <Content Include="Resources\DatabaseSizeEmptyConfig.xml" />
     <None Include="Resources\SelectDatabaseSizesScript.txt" />
     <None Include="Resources\doc_refresh.png" />
+    <None Include="Resources\satelitedish.ico" />
     <Content Include="SelectDatabaseSizes.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

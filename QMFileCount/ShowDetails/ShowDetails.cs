@@ -123,43 +123,6 @@ namespace QuickMon
                     lvwDirectories.Items.Add(lvwi);
                 }
             }
-
-            //XmlDocument config = new XmlDocument();
-            //config.LoadXml(CustomConfig);
-            //System.Xml.XmlElement root = config.DocumentElement;
-            //foreach (System.Xml.XmlElement host in root.SelectNodes("directoryList/directory"))
-            //{
-            //    DirectoryFilterEntry directoryFilterEntry = new DirectoryFilterEntry();
-            //    directoryFilterEntry.FilterFullPath = host.Attributes.GetNamedItem("directoryPathFilter").Value;
-
-            //    int tmp = 0;
-            //    if (int.TryParse(host.ReadXmlElementAttr("warningFileCountMax", "0"), out tmp))
-            //        directoryFilterEntry.CountWarningIndicator = tmp;
-            //    if (int.TryParse(host.ReadXmlElementAttr("errorFileCountMax", "0"), out tmp))
-            //        directoryFilterEntry.CountErrorIndicator = tmp;
-            //    long tmpl;
-
-            //    if (long.TryParse(host.ReadXmlElementAttr("warningFileSizeMaxKB", "0"), out tmpl))
-            //        directoryFilterEntry.SizeKBWarningIndicator = tmpl;
-            //    if (long.TryParse(host.ReadXmlElementAttr("errorFileSizeMaxKB", "0"), out tmpl))
-            //        directoryFilterEntry.SizeKBErrorIndicator = tmpl;
-
-            //    if (long.TryParse(host.ReadXmlElementAttr("fileMaxAgeSec", "0"), out tmpl))
-            //        directoryFilterEntry.FileMaxAgeSec = tmpl;
-            //    if (long.TryParse(host.ReadXmlElementAttr( "fileMinAgeSec", "0"), out tmpl))
-            //        directoryFilterEntry.FileMinAgeSec = tmpl;
-            //    if (long.TryParse(host.ReadXmlElementAttr("fileMinSizeKB", "0"), out tmpl))
-            //        directoryFilterEntry.FileMinSizeKB = tmpl;
-            //    if (long.TryParse(host.ReadXmlElementAttr("fileMaxSizeKB", "0"), out tmpl))
-            //        directoryFilterEntry.FileMaxSizeKB = tmpl;
-
-            //    ListViewItem lvwi = new ListViewItem(directoryFilterEntry.FilterFullPath);
-            //    lvwi.SubItems.Add("-");
-            //    lvwi.SubItems.Add("-");
-            //    lvwi.Tag = directoryFilterEntry;
-
-            //    lvwDirectories.Items.Add(lvwi);
-            //}
         }
         private void RefreshList()
         {
@@ -176,25 +139,54 @@ namespace QuickMon
 
         private void LoadDirInfo(ListViewItem itm)
         {
-            int count = 0;
-            string countString;
+            //int count = 0;
+            string countString="-";
+            string oldValue = "-";
             try
             {
-                count = GetDirFileCount(itm);
-                if (count == -1)
+                DirectoryFilterEntry filterEntry = (DirectoryFilterEntry)itm.Tag;
+                DirectoryFileInfo fileInfo = filterEntry.GetDirFileInfo();
+                MonitorStates currentState = filterEntry.GetState(fileInfo);
+
+                oldValue = itm.SubItems[1].Text;
+                if (!fileInfo.Exists)
                 {
                     countString = "N/A";
                 }
                 else
                 {
-                    countString = count.ToString();
+                    countString = fileInfo.FileCount.ToString();
                 }
+                if (fileInfo.FileSize >= 0)
+                {
+                    itm.SubItems[2].Text = fileInfo.FileSize.ToString();
+                }
+                else
+                {
+                    itm.SubItems[2].Text = "N/A";
+                }
+                if (currentState == MonitorStates.Good)
+                    itm.BackColor = SystemColors.Window;
+                else if (currentState == MonitorStates.Warning)
+                    itm.BackColor = Color.SandyBrown;
+                else
+                    itm.BackColor = Color.Salmon;
+
+                //count = GetDirFileCount(itm);
+                //if (count == -1)
+                //{
+                //    countString = "N/A";
+                //}
+                //else
+                //{
+                //    countString = count.ToString();
+                //}
             }
             catch (Exception anyex)
             {
-                countString = "err:" + anyex.Message;
+                itm.SubItems[1].Text = "err:" + anyex.Message;
             }
-            string oldValue = itm.SubItems[1].Text;
+            //string oldValue = itm.SubItems[1].Text;
             itm.SubItems[1].Text = countString;
             if ((oldValue != "-") && (oldValue != countString))
             {
@@ -213,45 +205,71 @@ namespace QuickMon
             }
         }
 
-        private int GetDirFileCount(ListViewItem itm)
+        //private int GetDirFileCount(ListViewItem itm)
+        //{
+        //    string path = itm.Text;
+        //    string filter = "*.*";
+        //    if (path.Contains("*"))
+        //    {
+        //        filter = path.Substring(path.LastIndexOf('\\') + 1);
+        //        path = path.Substring(0, path.LastIndexOf('\\'));
+        //    }
+        //    DirectoryFileInfo fileInfo;
+        //    fileInfo.FileCount = 0;
+        //    fileInfo.FileSize = 0;
+        //    try
+        //    {
+        //        if (Directory.Exists(path))
+        //        {
+        //            fileInfo = SHFunctions.GetDirectoryFileInfo(path, filter);
+        //        }
+        //        else
+        //        {
+        //            fileInfo.FileCount = -1;
+        //            fileInfo.FileSize = -1;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        fileInfo.FileCount = -1;
+        //        fileInfo.FileSize = -1;
+        //    }
+        //    if (fileInfo.FileSize >= 0)
+        //    {
+        //        itm.SubItems[2].Text = fileInfo.FileSize.ToString();
+        //    }
+        //    else
+        //    {
+        //        itm.SubItems[2].Text = "N/A";
+        //    }
+        //    return fileInfo.FileCount;
+        //} 
+        #endregion
+
+        #region Auto refresh
+        private void autoRefreshToolStripButton_CheckStateChanged(object sender, EventArgs e)
         {
-            string path = itm.Text;
-            string filter = "*.*";
-            if (path.Contains("*"))
+            autoRefreshToolStripMenuItem.Checked = autoRefreshToolStripButton.Checked;
+            if (autoRefreshToolStripButton.Checked)
             {
-                filter = path.Substring(path.LastIndexOf('\\') + 1);
-                path = path.Substring(0, path.LastIndexOf('\\'));
-            }
-            DirectoryFileInfo fileInfo;
-            fileInfo.FileCount = 0;
-            fileInfo.FileSize = 0;
-            try
-            {
-                if (Directory.Exists(path))
-                {
-                    fileInfo = SHFunctions.GetDirectoryFileInfo(path, filter);
-                }
-                else
-                {
-                    fileInfo.FileCount = -1;
-                    fileInfo.FileSize = -1;
-                }
-            }
-            catch
-            {
-                fileInfo.FileCount = -1;
-                fileInfo.FileSize = -1;
-            }
-            if (fileInfo.FileSize >= 0)
-            {
-                itm.SubItems[2].Text = fileInfo.FileSize.ToString();
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshToolStripButton.BackColor = Color.LightGreen;
             }
             else
             {
-                itm.SubItems[2].Text = "N/A";
+                refreshTimer.Enabled = false;
+                autoRefreshToolStripButton.BackColor = SystemColors.Control;
             }
-            return fileInfo.FileCount;
-        } 
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }  
         #endregion
         
     }

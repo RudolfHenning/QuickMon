@@ -217,7 +217,7 @@ namespace QuickMon
                     }
                 }
             }
-            return result;
+            return (result == (CheckType == SoapWebServicePingCheckType.Success));
         }
 
         private bool CheckResultMatchMacro(object val, string macro)
@@ -255,6 +255,7 @@ namespace QuickMon
             }
             return result;
         }
+        
     }
 
     public class SoapWebServicePingConfig

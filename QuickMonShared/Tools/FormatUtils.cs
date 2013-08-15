@@ -73,5 +73,25 @@ namespace QuickMon
                 return o.ToString().IsDouble();
             }
         }
+        public static string FormatFileSize(long fileSize)
+        {
+            if (fileSize < 1024)
+            {
+                return fileSize.ToString() + " bytes";
+            }
+            else if (fileSize < 1048576)
+            {
+                return (fileSize / 1024).ToString() + " KB";
+            }
+            else if (fileSize < 1073741824)
+            {
+                return (fileSize / 1048576.0).ToString("0.00") + " MB";
+            }
+            else
+            {
+                return (fileSize / 1073741824.00).ToString("0.00") + " GB";
+            }
+
+        }
     }
 }

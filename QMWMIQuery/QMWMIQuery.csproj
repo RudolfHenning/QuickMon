@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\doc_refresh.png" />
+    <None Include="Resources\satelitedish.ico" />
     <Content Include="Resources\WMIQueryEmptyConfig.xml">
       <SubType>Designer</SubType>
     </Content>

@@ -95,6 +95,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\satelitedish.ico" />
     <None Include="Resources\doc_add.png" />
     <None Include="Resources\doc_edit.png" />
     <None Include="Resources\doc_refresh.png" />
