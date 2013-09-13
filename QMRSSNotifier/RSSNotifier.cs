@@ -14,7 +14,7 @@ namespace QuickMon
     public class RSSNotifier : NotifierBase
     {
         private RSSNotifierConfig rssConfig = new RSSNotifierConfig();
-        private Mutex rssWriteMutex = new Mutex();
+        //private Mutex rssWriteMutex = new Mutex();
         private InMemoryRSSDocument rssDocument = null;
 
         public override void RecordMessage(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage)
@@ -22,7 +22,7 @@ namespace QuickMon
             string lastStep = "";
             try
             {
-                rssWriteMutex.WaitOne();
+                //rssWriteMutex.WaitOne();
                 if (rssDocument == null)
                 {
                     LoadRSSDocument();
@@ -68,7 +68,7 @@ namespace QuickMon
             }
             finally
             {
-                rssWriteMutex.ReleaseMutex();
+                //rssWriteMutex.ReleaseMutex();
             }
         }
 

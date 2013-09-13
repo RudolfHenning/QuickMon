@@ -28,7 +28,6 @@ namespace QuickMon
         private MonitorStates globalState = MonitorStates.NotAvailable;
         private bool glassIcon = true;
         private MonitorPack monitorPack = new MonitorPack();
-        private System.Threading.Mutex updateTreeNode = new System.Threading.Mutex();
         private int folderImgIndex = 5;
         private System.Timers.Timer mainRefreshTimer;
         private string quickMonPCCategory = "QuickMon UI Client";

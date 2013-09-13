@@ -9,6 +9,7 @@ namespace QuickMon
 {
     public class QueryInstance
     {
+        #region Properties
         public string Name { get; set; }
         public string SqlServer { get; set; }
         public string Database { get; set; }
@@ -35,13 +36,15 @@ namespace QuickMon
         public bool UsePersistentConnection { get; set; }
         public bool UseExecuteTimeAsValue { get; set; }
         private SqlConnection testExecutionConn = null;
-        public string ApplicationName { get; set; }
+        public string ApplicationName { get; set; } 
+        #endregion
         
         public override string ToString()
         {
             return string.Format("{0} - {1}\\{2}\\{3}", Name, SqlServer, Database, SummaryQuery);
         }
 
+        #region Connection stuff
         private string GetConnectionString()
         {
             SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder();
@@ -96,9 +99,26 @@ namespace QuickMon
                 }
             }
             catch { }
-        }
+        } 
+        #endregion
 
-        internal int RunQueryWithCountResult()
+        #region RunQuery
+        internal object RunQuery()
+        {
+            object value = null;
+
+            if (!ReturnValueIsNumber)
+                value = RunQueryWithSingleResult();
+            else if (!UseRowCountAsValue && !UseExecuteTimeAsValue)
+                value = RunQueryWithSingleResult();
+            else if (UseRowCountAsValue)
+                value = RunQueryWithCountResult();
+            else
+                value = RunQueryWithExecutionTimeResult();
+
+            return value;
+        }
+        private int RunQueryWithCountResult()
         {
             int returnValue = 0;
             SqlConnection conn = GetConnection();
@@ -125,7 +145,7 @@ namespace QuickMon
             }
             return returnValue;
         }
-        internal object RunQueryWithSingleResult()
+        private object RunQueryWithSingleResult()
         {
             object returnValue = null;
             SqlConnection conn = GetConnection();
@@ -150,7 +170,7 @@ namespace QuickMon
             }
             return returnValue;
         }
-        internal long RunQueryWithExecutionTimeResult()
+        private long RunQueryWithExecutionTimeResult()
         {
             long returnValue = 0;
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -161,12 +181,13 @@ namespace QuickMon
                 {
                     cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
                     cmnd.CommandTimeout = cmndTimeOut;
+                    cmnd.Prepare();
                     sw.Start();
                     using (SqlDataReader r = cmnd.ExecuteReader())
-                    {                        
+                    {
                         while (r.Read())
                         {
-                            
+
                         }
                     }
                     sw.Stop();
@@ -180,6 +201,61 @@ namespace QuickMon
                 throw;
             }
             return returnValue;
+        } 
+        #endregion
+        
+        internal MonitorStates GetState(object value)
+        {
+            MonitorStates currentState = MonitorStates.Good;
+            if (value == DBNull.Value)
+            {
+                if (ErrorValue == "[null]")
+                    currentState = MonitorStates.Error;
+                else if (WarningValue == "[null]")
+                    currentState = MonitorStates.Warning;
+            }
+            else //non null value
+            {
+                if (!ReturnValueIsNumber)
+                {
+                    if (value.ToString() == ErrorValue)
+                        currentState = MonitorStates.Error;
+                    else if (value.ToString() == WarningValue)
+                        currentState = MonitorStates.Warning;
+                    else if (value.ToString() == SuccessValue || SuccessValue == "[any]")
+                        currentState = MonitorStates.Good; //just to flag condition
+                    else if (WarningValue == "[any]")
+                        currentState = MonitorStates.Warning;
+                    else if (ErrorValue == "[any]")
+                        currentState = MonitorStates.Error;
+                }
+                else //now we know the value is not null and must be in a range
+                {
+                    if (!value.IsNumber()) //value must be a number!
+                    {
+                        currentState = MonitorStates.Error;
+                    }
+                    else if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
+                            (
+                             (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(ErrorValue)) ||
+                             (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(ErrorValue))
+                            )
+                        )
+                    {
+                        currentState = MonitorStates.Error;
+                    }
+                    else if (WarningValue != "[any]" && WarningValue != "[null]" &&
+                           (
+                            (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(WarningValue)) ||
+                            (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(WarningValue))
+                           )
+                        )
+                    {
+                        currentState = MonitorStates.Warning;
+                    }
+                }
+            }
+            return currentState;
         }
 
         internal DataSet RunDetailQuery()
@@ -190,7 +266,7 @@ namespace QuickMon
                 conn.Open();
                 using (SqlCommand cmnd = new SqlCommand(DetailQuery, conn))
                 {
-                    cmnd.CommandType = UseSPForSummary ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandType = UseSPForDetail ? CommandType.StoredProcedure : CommandType.Text;
                     cmnd.CommandTimeout = cmndTimeOut;
                     using (SqlDataAdapter da = new SqlDataAdapter(cmnd))
                     {

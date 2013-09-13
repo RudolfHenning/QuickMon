@@ -101,6 +101,7 @@
     <None Include="Resources\stop.png" />
     <None Include="Resources\doc_refresh.png" />
     <None Include="Resources\add.png" />
+    <None Include="Resources\satelitedish.ico" />
     <Content Include="Resources\ServiceStateEmptyConfig.xml">
       <SubType>Designer</SubType>
     </Content>

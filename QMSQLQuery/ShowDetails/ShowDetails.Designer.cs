@@ -40,6 +40,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.autoRefreshtoolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainerDetails = new System.Windows.Forms.SplitContainer();
@@ -52,6 +54,10 @@
             this.contextMenuStripRTF = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.showSQLQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -70,7 +76,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelDetails});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 375);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 446);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(645, 22);
             this.statusStrip1.TabIndex = 8;
@@ -80,7 +86,7 @@
             // 
             this.toolStripStatusLabelDetails.AutoSize = false;
             this.toolStripStatusLabelDetails.Name = "toolStripStatusLabelDetails";
-            this.toolStripStatusLabelDetails.Size = new System.Drawing.Size(492, 17);
+            this.toolStripStatusLabelDetails.Size = new System.Drawing.Size(630, 17);
             this.toolStripStatusLabelDetails.Spring = true;
             this.toolStripStatusLabelDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -98,7 +104,7 @@
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
@@ -112,7 +118,7 @@
             this.lvwResults.FullRowSelect = true;
             this.lvwResults.Location = new System.Drawing.Point(0, 0);
             this.lvwResults.Name = "lvwResults";
-            this.lvwResults.Size = new System.Drawing.Size(645, 112);
+            this.lvwResults.Size = new System.Drawing.Size(645, 105);
             this.lvwResults.SmallImageList = this.imageList1;
             this.lvwResults.TabIndex = 6;
             this.lvwResults.UseCompatibleStateImageBehavior = false;
@@ -132,9 +138,12 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem});
+            this.refreshToolStripMenuItem,
+            this.autoRefreshToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.showSQLQueryToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(245, 104);
             // 
             // imageList1
             // 
@@ -151,12 +160,30 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonRefresh,
+            this.autoRefreshtoolStripButton,
+            this.toolStripSeparator1,
             this.exportToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(645, 39);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // autoRefreshtoolStripButton
+            // 
+            this.autoRefreshtoolStripButton.CheckOnClick = true;
+            this.autoRefreshtoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.autoRefreshtoolStripButton.Image = global::QuickMon.Properties.Resources.satelitedish;
+            this.autoRefreshtoolStripButton.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.autoRefreshtoolStripButton.Name = "autoRefreshtoolStripButton";
+            this.autoRefreshtoolStripButton.Size = new System.Drawing.Size(36, 36);
+            this.autoRefreshtoolStripButton.Text = "Auto refresh";
+            this.autoRefreshtoolStripButton.CheckStateChanged += new System.EventHandler(this.autoRefreshtoolStripButton_CheckStateChanged);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // exportToolStripButton
             // 
@@ -185,8 +212,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainerDetails);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Size = new System.Drawing.Size(645, 336);
-            this.splitContainer1.SplitterDistance = 112;
+            this.splitContainer1.Size = new System.Drawing.Size(645, 407);
+            this.splitContainer1.SplitterDistance = 105;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 9;
             // 
@@ -205,8 +232,8 @@
             // splitContainerDetails.Panel2
             // 
             this.splitContainerDetails.Panel2.Controls.Add(this.rtxDetails);
-            this.splitContainerDetails.Size = new System.Drawing.Size(645, 197);
-            this.splitContainerDetails.SplitterDistance = 97;
+            this.splitContainerDetails.Size = new System.Drawing.Size(645, 275);
+            this.splitContainerDetails.SplitterDistance = 154;
             this.splitContainerDetails.SplitterWidth = 8;
             this.splitContainerDetails.TabIndex = 8;
             // 
@@ -217,7 +244,7 @@
             this.lvwDetails.FullRowSelect = true;
             this.lvwDetails.Location = new System.Drawing.Point(0, 0);
             this.lvwDetails.Name = "lvwDetails";
-            this.lvwDetails.Size = new System.Drawing.Size(645, 81);
+            this.lvwDetails.Size = new System.Drawing.Size(645, 138);
             this.lvwDetails.TabIndex = 7;
             this.lvwDetails.UseCompatibleStateImageBehavior = false;
             this.lvwDetails.View = System.Windows.Forms.View.Details;
@@ -230,7 +257,7 @@
             this.cmdViewDetails.FlatAppearance.BorderSize = 0;
             this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdViewDetails.Font = new System.Drawing.Font("Marlett", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdViewDetails.Location = new System.Drawing.Point(0, 81);
+            this.cmdViewDetails.Location = new System.Drawing.Point(0, 138);
             this.cmdViewDetails.Margin = new System.Windows.Forms.Padding(0);
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Size = new System.Drawing.Size(645, 16);
@@ -245,7 +272,7 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(645, 92);
+            this.rtxDetails.Size = new System.Drawing.Size(645, 113);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
             // 
@@ -275,27 +302,53 @@
             this.copyToolStripMenuItem,
             this.selectAllToolStripMenuItem});
             this.contextMenuStripRTF.Name = "contextMenuStripRTF";
-            this.contextMenuStripRTF.Size = new System.Drawing.Size(123, 48);
+            this.contextMenuStripRTF.Size = new System.Drawing.Size(133, 52);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // autoRefreshToolStripMenuItem
+            // 
+            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
+            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
+            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Interval = 5000;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // showSQLQueryToolStripMenuItem
+            // 
+            this.showSQLQueryToolStripMenuItem.Enabled = false;
+            this.showSQLQueryToolStripMenuItem.Name = "showSQLQueryToolStripMenuItem";
+            this.showSQLQueryToolStripMenuItem.Size = new System.Drawing.Size(244, 24);
+            this.showSQLQueryToolStripMenuItem.Text = "Edit SQL Query (local copy)";
+            this.showSQLQueryToolStripMenuItem.Click += new System.EventHandler(this.showSQLQueryToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(179, 6);
             // 
             // ShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 397);
+            this.ClientSize = new System.Drawing.Size(645, 468);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -348,5 +401,11 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripRTF;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton autoRefreshtoolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem autoRefreshToolStripMenuItem;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.ToolStripMenuItem showSQLQueryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }

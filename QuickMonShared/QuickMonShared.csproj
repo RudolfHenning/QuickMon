@@ -216,6 +216,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="QuickMonSharedDiagram1.cd" />
     <None Include="Resources\up.png" />
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

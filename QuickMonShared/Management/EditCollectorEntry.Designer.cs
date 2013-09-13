@@ -72,6 +72,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkCorrectiveScriptDisabled = new System.Windows.Forms.CheckBox();
             this.cmdBrowseForErrorCorrectiveScript = new System.Windows.Forms.Button();
             this.cmdBrowseForWarningCorrectiveScript = new System.Windows.Forms.Button();
             this.txtCorrectiveScriptOnError = new System.Windows.Forms.TextBox();
@@ -80,7 +81,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.configureEditButtonCollector = new QuickMon.Controls.ConfigureEditButton();
-            this.chkCorrectiveScriptDisabled = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
@@ -563,6 +563,16 @@
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Corrective scripts";
             // 
+            // chkCorrectiveScriptDisabled
+            // 
+            this.chkCorrectiveScriptDisabled.AutoSize = true;
+            this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(388, 6);
+            this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
+            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(157, 17);
+            this.chkCorrectiveScriptDisabled.TabIndex = 1;
+            this.chkCorrectiveScriptDisabled.Text = "Disable all corrective scripts";
+            this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
+            // 
             // cmdBrowseForErrorCorrectiveScript
             // 
             this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -639,16 +649,6 @@
             this.configureEditButtonCollector.ConfigureClicked += new System.EventHandler(this.cmdConfig_Click);
             this.configureEditButtonCollector.ManualConfigureClicked += new System.EventHandler(this.cmdManualConfig_Click);
             this.configureEditButtonCollector.ImportConfigurationClicked += new System.EventHandler(this.configureEditButton1_ImportConfigurationClicked);
-            // 
-            // chkCorrectiveScriptDisabled
-            // 
-            this.chkCorrectiveScriptDisabled.AutoSize = true;
-            this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(388, 6);
-            this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
-            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(157, 17);
-            this.chkCorrectiveScriptDisabled.TabIndex = 1;
-            this.chkCorrectiveScriptDisabled.Text = "Disable all corrective scripts";
-            this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
             // 
             // EditCollectorEntry
             // 

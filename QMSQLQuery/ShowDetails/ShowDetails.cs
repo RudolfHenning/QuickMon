@@ -79,6 +79,7 @@ namespace QuickMon
         #region ListView events
         private void lvwResults_SelectedIndexChanged(object sender, EventArgs e)
         {
+            showSQLQueryToolStripMenuItem.Enabled = lvwResults.SelectedItems.Count == 1;
             LoadDetailView();
         }
         private void lvwDetails_SelectedIndexChanged(object sender, EventArgs e)
@@ -153,77 +154,13 @@ namespace QuickMon
             string results = "";
             try
             {
-                bool errorCondition = false;
-                bool warningCondition = false;
-                object value = null;
-
-                if (!queryInstance.ReturnValueIsNumber)
-                {
-                    value = queryInstance.RunQueryWithSingleResult();
-                }
-                else
-                {
-                    if (queryInstance.UseRowCountAsValue)
-                    {
-                        value = queryInstance.RunQueryWithCountResult();
-                    }
-                    else
-                    {
-                        value = queryInstance.RunQueryWithSingleResult();
-                    }
-                }
-                if (value == DBNull.Value)
-                {
-                    if (queryInstance.ErrorValue == "[null]")
-                        errorCondition = true;
-                    else if (queryInstance.WarningValue == "[null]")
-                        warningCondition = true;
-                }
-                else //non null value
-                {
-                    if (!queryInstance.ReturnValueIsNumber)
-                    {
-                        if (value.ToString() == queryInstance.ErrorValue)
-                            errorCondition = true;
-                        else if (value.ToString() == queryInstance.WarningValue)
-                            warningCondition = true;
-                        else if (value.ToString() == queryInstance.SuccessValue || queryInstance.SuccessValue == "[any]")
-                            warningCondition = false; //just to flag condition
-                        else if (queryInstance.WarningValue == "[any]")
-                            warningCondition = true;
-                        else if (queryInstance.ErrorValue == "[any]")
-                            errorCondition = true;
-                    }
-                    else //now we know the value is not null and must be in a range
-                    {
-                        if (!value.IsNumber()) //value must be a number!
-                        {
-                            errorCondition = true;
-                        }
-                        else if (queryInstance.ErrorValue != "[any]" && queryInstance.ErrorValue != "[null]" &&
-                                (
-                                 (!queryInstance.ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(queryInstance.ErrorValue)) ||
-                                 (queryInstance.ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(queryInstance.ErrorValue))
-                                )
-                            )
-                        {
-                            errorCondition = true;
-                        }
-                        else if (queryInstance.WarningValue != "[any]" && queryInstance.WarningValue != "[null]" &&
-                               (
-                                (!queryInstance.ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(queryInstance.WarningValue)) ||
-                                (queryInstance.ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(queryInstance.WarningValue))
-                               )
-                            )
-                        {
-                            warningCondition = true;
-                        }
-                    }
-                }
+                object value = queryInstance.RunQuery();
+                MonitorStates currentstate = queryInstance.GetState(value);
+                
                 results = FormatUtils.N(value, "[null]");
-                if (errorCondition)
+                if (currentstate == MonitorStates.Error)
                     lvi.ImageIndex = 3;
-                else if (warningCondition)
+                else if (currentstate == MonitorStates.Warning)
                     lvi.ImageIndex = 2;
                 else
                     lvi.ImageIndex = 1;
@@ -338,6 +275,20 @@ namespace QuickMon
         #endregion
 
         #region Context menu events
+        private void showSQLQueryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwResults.SelectedItems.Count > 0)
+            {
+                bool autoRefreshTemp = refreshTimer.Enabled;
+                refreshTimer.Enabled = false;
+                QueryInstance queryInstance = (QueryInstance)lvwResults.SelectedItems[0].Tag;
+                EditDetailQuery editDetailQuery = new EditDetailQuery();
+                editDetailQuery.SelectedQueryInstance = queryInstance;
+                if (editDetailQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    lvwResults.SelectedItems[0].Tag = editDetailQuery.SelectedQueryInstance;
+                refreshTimer.Enabled = autoRefreshTemp;
+            }
+        }
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             rtxDetails.Copy();
@@ -346,6 +297,32 @@ namespace QuickMon
         {
             rtxDetails.SelectAll();
         } 
+        #endregion
+
+        #region Auto refreshing
+        private void autoRefreshtoolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshtoolStripButton.Checked;
+            if (autoRefreshtoolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshtoolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshtoolStripButton.BackColor = SystemColors.Control;
+            }
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshtoolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
         #endregion
 
     }

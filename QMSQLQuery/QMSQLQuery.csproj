@@ -67,6 +67,12 @@
     <Compile Include="QMSQLQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryInstance.cs" />
+    <Compile Include="ShowDetails\EditDetailQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowDetails\EditDetailQuery.Designer.cs">
+      <DependentUpon>EditDetailQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShowDetails\ShowDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,7 @@
       <DependentUpon>ShowDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLQueryConfig.cs" />
+    <Compile Include="SQLTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EditConfig\EditConfig.resx">
@@ -87,12 +94,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ShowDetails\EditDetailQuery.resx">
+      <DependentUpon>EditDetailQuery.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ShowDetails\ShowDetails.resx">
       <DependentUpon>ShowDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Download.png" />
+    <None Include="Resources\satelitedish.ico" />
     <Content Include="Resources\SQLQueryTips.htm" />
     <None Include="Resources\doc_remove.png" />
     <None Include="Resources\doc_refresh.png" />

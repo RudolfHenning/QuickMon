@@ -1,5 +1,4 @@
 ﻿* - Collectors - add Interface for returning single 'value' (e.g. total number of files as used by FileCount agent...)
-* - Collector 'correcting script' that may be run if error/warning alert is raised - Done
 * - Change ShowStatusDetails method on ICollector to accept 'Name' of collector and display it in the window heading -
 	This will help when multiple windows are open to identify which window instance is which.
 	Done
@@ -32,3 +31,7 @@ Registry collector - Done
 ErrorLevel collector (like when running exe/batch file)
 
 Look at idea to have GetState() return whole structure
+
+*************************************************************************************
+
+Updates to config of collector must be visible in Show details while window is already open.

@@ -28,79 +28,21 @@ namespace QuickMon
                 htmlTextTextDetails.AppendLine("<ul>");
                 foreach (QueryInstance queryInstance in sqlQueryConfig.Queries)
                 {
-                    bool errorCondition = false;
-                    bool warningCondition = false;
                     object value = null;
                     LastDetailMsg.PlainText = string.Format("Running SQL query '{0}' on '{1}\\{2}'", queryInstance.Name, queryInstance.SqlServer, queryInstance.Database);
 
-                    if (!queryInstance.ReturnValueIsNumber)
-                        value = queryInstance.RunQueryWithSingleResult();
-                    else if (!queryInstance.UseRowCountAsValue && !queryInstance.UseExecuteTimeAsValue)
-                        value = queryInstance.RunQueryWithSingleResult();
-                    else if (queryInstance.UseRowCountAsValue)
-                        value = queryInstance.RunQueryWithCountResult();
-                    else
-                        value = queryInstance.RunQueryWithExecutionTimeResult();
+                    value = queryInstance.RunQuery();
+                    MonitorStates currentstate = queryInstance.GetState(value);
+                    if (value != DBNull.Value && value.IsNumber())
+                        totalValue += double.Parse(value.ToString());
 
-                    if (value == DBNull.Value)
-                    {
-                        if (queryInstance.ErrorValue == "[null]")
-                            errorCondition = true;
-                        else if (queryInstance.WarningValue == "[null]")
-                            warningCondition = true;
-                    }
-                    else //non null value
-                    {
-                        if (value.IsNumber())
-                            totalValue += double.Parse(value.ToString());
-
-                        if (!queryInstance.ReturnValueIsNumber)
-                        {
-                            if (value.ToString() == queryInstance.ErrorValue)
-                                errorCondition = true;
-                            else if (value.ToString() == queryInstance.WarningValue)
-                                warningCondition = true;
-                            else if (value.ToString() == queryInstance.SuccessValue || queryInstance.SuccessValue == "[any]")
-                                warningCondition = false; //just to flag condition
-                            else if (queryInstance.WarningValue == "[any]")
-                                warningCondition = true;
-                            else if (queryInstance.ErrorValue == "[any]")
-                                errorCondition = true;
-                        }
-                        else //now we know the value is not null and must be in a range
-                        {
-                            if (!value.IsNumber()) //value must be a number!
-                            {
-                                errorCondition = true;
-                            }
-                            else if (queryInstance.ErrorValue != "[any]" && queryInstance.ErrorValue != "[null]" &&
-                                    (
-                                     (!queryInstance.ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(queryInstance.ErrorValue)) ||
-                                     (queryInstance.ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(queryInstance.ErrorValue))
-                                    )
-                                )
-                            {
-                                errorCondition = true;
-                            }
-                            else if (queryInstance.WarningValue != "[any]" && queryInstance.WarningValue != "[null]" &&
-                                   (
-                                    (!queryInstance.ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(queryInstance.WarningValue)) ||
-                                    (queryInstance.ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(queryInstance.WarningValue))
-                                   )
-                                )
-                            {
-                                warningCondition = true;
-                            }
-                        }
-                    }
-
-                    if (errorCondition)
+                    if (currentstate == MonitorStates.Error)
                     {
                         errors++;
                         plainTextDetails.AppendLine(string.Format("\t'{0}' - value '{1}' - Error (trigger {2})", queryInstance.Name, FormatUtils.N(value, "[null]"), queryInstance.ErrorValue));
                         htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", queryInstance.Name, FormatUtils.N(value, "[null]"), queryInstance.ErrorValue));
                     }
-                    else if (warningCondition)
+                    else if (currentstate == MonitorStates.Warning)
                     {
                         warnings++;
                         plainTextDetails.AppendLine(string.Format("\t'{0}' - value '{1}' - Warning (trigger {2})", queryInstance.Name, FormatUtils.N(value, "[null]"), queryInstance.WarningValue));

@@ -12,7 +12,7 @@ namespace QuickMon
     {
         private string category;
         
-        private Mutex pcCategoryCreationMutex = new Mutex();
+        //private Mutex pcCategoryCreationMutex = new Mutex();
         private List<PerformanceCounter> perfCounterCache = new List<PerformanceCounter>();
 
         public override void RecordMessage(AlertLevel alertLevel, string collectorType, string collectorName, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage)
@@ -21,7 +21,7 @@ namespace QuickMon
             PerformanceCounter thePCValueInstance = null;
             try
             {
-                pcCategoryCreationMutex.WaitOne();
+                //pcCategoryCreationMutex.WaitOne();
                 if (!PerformanceCounterCategory.Exists(category)) //Does performance counter category exists?
                 {
                     CounterCreationDataCollection ccdc = new CounterCreationDataCollection(
@@ -33,11 +33,11 @@ namespace QuickMon
                     PerformanceCounterCategory.Create(category, category, PerformanceCounterCategoryType.MultiInstance, ccdc);
                     System.Threading.Thread.Sleep(500); //give moment for internal stuff to do creation of PC
                 }
-                pcCategoryCreationMutex.ReleaseMutex();
+                //pcCategoryCreationMutex.ReleaseMutex();
             }
             catch (Exception ex)
             {
-                pcCategoryCreationMutex.ReleaseMutex();
+                //pcCategoryCreationMutex.ReleaseMutex();
                 throw new Exception(string.Format("An error occured trying to create the performance counter category  '{0}'", category), ex);
             }
             try

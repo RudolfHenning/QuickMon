@@ -40,10 +40,10 @@
             this.columnHeaderAlertDetails = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.autoRefreshtoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -124,7 +124,7 @@
             this.refreshToolStripMenuItem,
             this.autoRefreshToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 52);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 74);
             // 
             // autoRefreshToolStripMenuItem
             // 
@@ -133,6 +133,14 @@
             this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
             this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "bullet_ball_glass_green.ico");
+            this.imageList1.Images.SetKeyName(1, "bullet_ball_glass_yellow.ico");
+            this.imageList1.Images.SetKeyName(2, "bullet_ball_glass_red.ico");
             // 
             // toolStrip1
             // 
@@ -162,14 +170,6 @@
             // 
             this.refreshTimer.Interval = 5000;
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "bullet_ball_glass_green.ico");
-            this.imageList1.Images.SetKeyName(1, "bullet_ball_glass_yellow.ico");
-            this.imageList1.Images.SetKeyName(2, "bullet_ball_glass_red.ico");
             // 
             // ShowDetails
             // 

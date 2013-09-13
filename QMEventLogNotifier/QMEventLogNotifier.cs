@@ -7,7 +7,7 @@ namespace QuickMon
 {
     public class EventLogNotifier : NotifierBase
     {
-        private Mutex eventLogWriteMutex = new Mutex();
+        //private Mutex eventLogWriteMutex = new Mutex();
         private EventLogNotifierConfig eventLogNotifierConfig = new EventLogNotifierConfig();
 
         public override void RecordMessage(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage)
@@ -15,7 +15,7 @@ namespace QuickMon
             string lastStep = "";
             try
             {
-                eventLogWriteMutex.WaitOne();
+                //eventLogWriteMutex.WaitOne();
                 if (eventLogNotifierConfig.MachineName.Length == 0)
                 {
                     throw new Exception("Computer name not specified!");
@@ -60,7 +60,7 @@ namespace QuickMon
             }
             finally
             {
-                eventLogWriteMutex.ReleaseMutex();
+                //eventLogWriteMutex.ReleaseMutex();
             }
         }
 

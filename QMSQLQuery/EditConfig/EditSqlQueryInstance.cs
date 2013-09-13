@@ -137,29 +137,35 @@ namespace QuickMon
                     testQueryInstance.DetailQuery = txtDetailQuery.Text;
                     testQueryInstance.ApplicationName = txtApplicationName.Text;
 
-                    object returnValue = null;
-                    if (!testQueryInstance.ReturnValueIsNumber)
+                    lastStep = "Run summary query";
+                    object returnValue = testQueryInstance.RunQuery();
+                    if (!testQueryInstance.UseRowCountAsValue && !testQueryInstance.UseExecuteTimeAsValue && !returnValue.IsNumber())
                     {
-                        lastStep = "Run summary query";
-                        returnValue = testQueryInstance.RunQueryWithSingleResult();
+                        throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
                     }
-                    else if (!testQueryInstance.UseRowCountAsValue && !testQueryInstance.UseExecuteTimeAsValue)
-                    {
-                        lastStep = "Run summary query (value is number)";
-                        returnValue = testQueryInstance.RunQueryWithSingleResult();
-                        if (!returnValue.IsNumber())
-                            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                    }
-                    else if (testQueryInstance.UseRowCountAsValue)
-                    {
-                        lastStep = "Run summary query (row count as value)";
-                        returnValue = testQueryInstance.RunQueryWithCountResult();
-                    }
-                    else
-                    {
-                        lastStep = "Run summary query (execution time as value)";
-                        returnValue = testQueryInstance.RunQueryWithExecutionTimeResult();
-                    }
+
+                    //if (!testQueryInstance.ReturnValueIsNumber)
+                    //{
+                    //    lastStep = "Run summary query";
+                    //    returnValue = testQueryInstance.RunQueryWithSingleResult();
+                    //}
+                    //else if (!testQueryInstance.UseRowCountAsValue && !testQueryInstance.UseExecuteTimeAsValue)
+                    //{
+                    //    lastStep = "Run summary query (value is number)";
+                    //    returnValue = testQueryInstance.RunQueryWithSingleResult();
+                    //    if (!returnValue.IsNumber())
+                    //        throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
+                    //}
+                    //else if (testQueryInstance.UseRowCountAsValue)
+                    //{
+                    //    lastStep = "Run summary query (row count as value)";
+                    //    returnValue = testQueryInstance.RunQueryWithCountResult();
+                    //}
+                    //else
+                    //{
+                    //    lastStep = "Run summary query (execution time as value)";
+                    //    returnValue = testQueryInstance.RunQueryWithExecutionTimeResult();
+                    //}
 
                     //testing detail query
                     List<DataColumn> columns = new List<DataColumn>(); // = testQueryInstance.GetDetailQueryColumns();                    
@@ -243,7 +249,7 @@ namespace QuickMon
                     throw new InPutValidationException("The user name must be specified when not using integrated security!", txtUserName);
                 if (txtStateQuery.Text.Trim().Length == 0)
                     throw new InPutValidationException("The summary query must be specified!", txtStateQuery);
-                if (!TSQLValid(txtStateQuery.Text))
+                if (!SQLTools.TSQLValid(txtStateQuery.Text))
                     throw new InPutValidationException("SQL statements may not contain certain keywords (e.g. update, delete, create etc!", txtStateQuery);
                 if ((cboSuccessValue.Text == "[null]" && cboWarningValue.Text == "[null]") ||
                     (cboSuccessValue.Text == "[null]" && cboErrorValue.Text == "[null]") ||
@@ -292,7 +298,7 @@ namespace QuickMon
                 }
                 if (txtDetailQuery.Text.Trim().Length == 0)
                     throw new InPutValidationException("The detail query must be specified!", txtDetailQuery);
-                if (!TSQLValid(txtDetailQuery.Text))
+                if (!SQLTools.TSQLValid(txtDetailQuery.Text))
                     throw new InPutValidationException("SQL statements may not contain certain keywords (e.g. update, delete, create etc!", txtDetailQuery);
                 return true;
             }
@@ -310,29 +316,7 @@ namespace QuickMon
                 }
                 return false;
             }
-        }
-        private bool TSQLValid(string tsql)
-        {
-            if (ContainSQLStatement(tsql, "DELETE") ||
-                ContainSQLStatement(tsql, "UPDATE") ||
-                ContainSQLStatement(tsql, "CREATE")
-                )
-                return false;
-            else
-                return true;
-        }
-        private bool ContainSQLStatement(string tsql, string keyword)
-        {
-            if (tsql.ToUpper().StartsWith(keyword + " ") ||
-                tsql.ToUpper().Contains("\r\n" + keyword + " ") ||
-                tsql.ToUpper().Contains("\r\n" + keyword + "\r\n") ||
-                tsql.ToUpper().Contains(" " + keyword + " ") ||
-                tsql.ToUpper().Contains(" " + keyword + "\r\n") ||
-                tsql.ToUpper().StartsWith(" " + keyword))
-                return true;
-            else
-                return false;
-        } 
+        }         
         #endregion
 
         #region Context menus

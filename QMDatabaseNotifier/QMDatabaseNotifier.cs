@@ -14,7 +14,7 @@ namespace QuickMon
         #region Private variables
         private DBSettings dbSettings = new DBSettings();
         private string connStr = "";
-        private Mutex sqlWriteMutex = new Mutex(); 
+        //private Mutex sqlWriteMutex = new Mutex(); 
         #endregion
 
         public override void RecordMessage(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage)
@@ -22,7 +22,7 @@ namespace QuickMon
             string lastStep = "";
             try
             {
-                sqlWriteMutex.WaitOne();
+                //sqlWriteMutex.WaitOne();
                 if (connStr.Length == 0)
                 {
                     lastStep = "Setting up connection string";
@@ -77,7 +77,7 @@ namespace QuickMon
             }
             finally
             {
-                sqlWriteMutex.ReleaseMutex();
+                //sqlWriteMutex.ReleaseMutex();
             }
         }
         public override bool HasViewer { get { return true; } }

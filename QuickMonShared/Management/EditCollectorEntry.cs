@@ -91,7 +91,6 @@ namespace QuickMon.Management
             this.MaximumSize = collapsedSize;
             manualEditPanel.Visible = false;
         }
-
         #endregion
 
         #region Button events

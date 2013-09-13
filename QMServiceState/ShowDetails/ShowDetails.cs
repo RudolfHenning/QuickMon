@@ -13,7 +13,6 @@ namespace QuickMon
 {
     public partial class ShowDetails : Form
     {
-        //public string CustomConfig { get; set; }
         public List<ServiceStateDefinition> Services { get; set; }
 
         public ShowDetails()
@@ -246,6 +245,27 @@ namespace QuickMon
             }
             return success;
         } 
+        private bool IsAdmin()
+        {
+            string strIdentity;
+            try
+            {
+                AppDomain.CurrentDomain.SetPrincipalPolicy(System.Security.Principal.PrincipalPolicy.WindowsPrincipal);
+                System.Security.Principal.WindowsIdentity wi = System.Security.Principal.WindowsIdentity.GetCurrent();
+                System.Security.Principal.WindowsPrincipal wp = new System.Security.Principal.WindowsPrincipal(wi);
+                strIdentity = wp.Identity.Name;
+
+                if (wp.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator))
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
         #endregion
 
         #region Timer events
@@ -259,9 +279,22 @@ namespace QuickMon
             timerItemSelected.Enabled = false;
             if (lvwServices.SelectedItems.Count > 0)
             {
-                startToolStripMenuItem.Enabled = (lvwServices.SelectedItems[0].ImageIndex != 0);
-                stopToolStripMenuItem.Enabled = (lvwServices.SelectedItems[0].ImageIndex != 1);
-                restartToolStripMenuItem.Enabled = (lvwServices.SelectedItems[0].ImageIndex != 1);
+                bool inAdminMode = IsAdmin();
+                string machineName = lvwServices.SelectedItems[0].Group.Header;
+                string serviceName = lvwServices.SelectedItems[0].Text;
+
+                if (machineName.ToLower() == System.Environment.MachineName.ToLower() && !inAdminMode)
+                {
+                    startToolStripMenuItem.Enabled = false;
+                    stopToolStripMenuItem.Enabled = false;
+                    restartToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    startToolStripMenuItem.Enabled = (lvwServices.SelectedItems[0].ImageIndex != 0);
+                    stopToolStripMenuItem.Enabled = (lvwServices.SelectedItems[0].ImageIndex != 1);
+                    restartToolStripMenuItem.Enabled = (lvwServices.SelectedItems[0].ImageIndex != 1);
+                }
             }
             else
             {
@@ -271,6 +304,32 @@ namespace QuickMon
             }
         } 
         #endregion
-        
+
+        #region Auto refreshing
+        private void autoRefreshtoolStripButton_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshToolStripMenuItem.Checked = autoRefreshtoolStripButton.Checked;
+            if (autoRefreshtoolStripButton.Checked)
+            {
+                refreshTimer.Enabled = false;
+                refreshTimer.Enabled = true;
+                autoRefreshtoolStripButton.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                refreshTimer.Enabled = false;
+                autoRefreshtoolStripButton.BackColor = SystemColors.Control;
+            }
+        }
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+        private void autoRefreshToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            autoRefreshtoolStripButton.Checked = autoRefreshToolStripMenuItem.Checked;
+        }
+        #endregion
+
     }
 }
