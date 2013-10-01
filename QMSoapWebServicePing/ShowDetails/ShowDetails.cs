@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public SoapWebServicePingConfig SoapWebServicePingConfig { get; set; }
 
@@ -18,15 +18,41 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            SoapWebServicePingConfig = null;
+            SoapWebServicePingConfig = ((SoapWebServicePing)collector).SoapWebServicePingConfig;
+            LoadList();
+            RefreshList();
+            ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            SoapWebServicePingConfig = null;
+            SoapWebServicePingConfig = ((SoapWebServicePing)collector).SoapWebServicePingConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
         #region Form events
         private void ShowDetails_Load(object sender, EventArgs e)
         {
-            LoadList();
-            ShowDetails_Resize(null, null);
+            //LoadList();
+            //ShowDetails_Resize(null, null);
         }
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            RefreshList();
+            //RefreshList();
         }
         private void ShowDetails_Resize(object sender, EventArgs e)
         {
@@ -53,6 +79,7 @@ namespace QuickMon
         {
             if (SoapWebServicePingConfig != null)
             {
+                lvwHosts.Items.Clear();
                 foreach (SoapWebServicePingConfigEntry soapWebServicePingConfigEntry in SoapWebServicePingConfig.Entries)
                 {
                     ListViewItem lvi = new ListViewItem(string.Format("{0}\\{1}", soapWebServicePingConfigEntry.ServiceBaseURL, soapWebServicePingConfigEntry.MethodName));

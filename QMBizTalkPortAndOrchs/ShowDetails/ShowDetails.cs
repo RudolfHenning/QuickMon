@@ -9,14 +9,37 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
-    {
+    public partial class ShowDetails : Form, ICollectorDetailView
+    {   
+        public BizTalkGroup BizTalkGroup { get; set; }
+
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        public BizTalkGroup BizTalkGroup { get; set; }
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            BizTalkGroup = null;
+            BizTalkGroup = ((BizTalkPortAndOrchs)collector).BizTalkGroup;
+            LoadLists();
+            //ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            BizTalkGroup = ((BizTalkPortAndOrchs)collector).BizTalkGroup;
+            LoadLists();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
@@ -34,42 +57,50 @@ namespace QuickMon
 
                     foreach (var item in BizTalkGroup.GetReceiveLocationList())
                     {
-                        ListViewItem lvi = new ListViewItem(item.ReceivePortName);
-                        lvi.SubItems.Add(item.ReceiveLocationName);
-                        lvi.SubItems.Add(item.Disabled ? "Disabled" : "Enabled");
-                        if (item.Disabled)
-                            lvi.BackColor = Color.LightCoral;
-                        lvi.Tag = item;
-                        lvwReceiveLocations.Items.Add(lvi);
+                        if (BizTalkGroup.AllReceiveLocations || BizTalkGroup.ReceiveLocations.Contains(item.ReceiveLocationName))
+                        {
+                            ListViewItem lvi = new ListViewItem(item.ReceivePortName);
+                            lvi.SubItems.Add(item.ReceiveLocationName);
+                            lvi.SubItems.Add(item.Disabled ? "Disabled" : "Enabled");
+                            if (item.Disabled)
+                                lvi.BackColor = Color.LightCoral;
+                            lvi.Tag = item;
+                            lvwReceiveLocations.Items.Add(lvi);
+                        }
                     }
 
                     lvwSendPorts.BeginUpdate();
                     lvwSendPorts.Items.Clear();
                     foreach (var item in BizTalkGroup.GetSendPortList())
                     {
-                        ListViewItem lvi = new ListViewItem(item.Name);
-                        lvi.SubItems.Add(item.State);
-                        if (item.State == "Stopped")
-                            lvi.BackColor = Color.LightCoral;
-                        else if (item.State == "Unenlisted")
-                            lvi.BackColor = Color.Yellow;
-                        lvi.Tag = item;
-                        lvwSendPorts.Items.Add(lvi);
+                        if (BizTalkGroup.AllSendPorts || BizTalkGroup.SendPorts.Contains(item.Name))
+                        {
+                            ListViewItem lvi = new ListViewItem(item.Name);
+                            lvi.SubItems.Add(item.State);
+                            if (item.State == "Stopped")
+                                lvi.BackColor = Color.LightCoral;
+                            else if (item.State == "Unenlisted")
+                                lvi.BackColor = Color.Yellow;
+                            lvi.Tag = item;
+                            lvwSendPorts.Items.Add(lvi);
+                        }
                     }
-
 
                     lvwOrchestrations.BeginUpdate();
                     lvwOrchestrations.Items.Clear();
                     foreach (var item in BizTalkGroup.GetOrchestrationList())
                     {
-                        ListViewItem lvi = new ListViewItem(item.Name);
-                        lvi.SubItems.Add(item.State);
-                        if (item.State == "Stopped")
-                            lvi.BackColor = Color.LightCoral;
-                        else if (item.State == "Unenlisted")
-                            lvi.BackColor = Color.Yellow;
-                        lvi.Tag = item;
-                        lvwOrchestrations.Items.Add(lvi);
+                        if (BizTalkGroup.AllOrchestrations || BizTalkGroup.Orchestrations.Contains(item.Name))
+                        {
+                            ListViewItem lvi = new ListViewItem(item.Name);
+                            lvi.SubItems.Add(item.State);
+                            if (item.State == "Stopped")
+                                lvi.BackColor = Color.LightCoral;
+                            else if (item.State == "Unenlisted")
+                                lvi.BackColor = Color.Yellow;
+                            lvi.Tag = item;
+                            lvwOrchestrations.Items.Add(lvi);
+                        }
                     }
                 }
             }

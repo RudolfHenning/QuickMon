@@ -8,7 +8,7 @@ namespace QuickMon
 {
     public class BizTalkPortAndOrchs : CollectorBase
     {
-        private BizTalkGroup bizTalkGroup = new BizTalkGroup();
+        internal BizTalkGroup BizTalkGroup = new BizTalkGroup();
 
         public override MonitorStates GetState()
         {
@@ -22,19 +22,19 @@ namespace QuickMon
 			try
 			{
                 LastDetailMsg.PlainText = "Getting Receive Location count";
-                int receiveLocationCount = bizTalkGroup.AllReceiveLocations ? bizTalkGroup.GetTotalReceiveLocationCount() : bizTalkGroup.ReceiveLocations.Count;
+                int receiveLocationCount = BizTalkGroup.AllReceiveLocations ? BizTalkGroup.GetTotalReceiveLocationCount() : BizTalkGroup.ReceiveLocations.Count;
                 LastDetailMsg.PlainText = "Getting Disabled Receive Location count";
-                int receiveLocationsDisabled = bizTalkGroup.AllReceiveLocations ? bizTalkGroup.GetDisabledReceiveLocationCount(new List<string>()) : bizTalkGroup.GetDisabledReceiveLocationCount(bizTalkGroup.ReceiveLocations);
+                int receiveLocationsDisabled = BizTalkGroup.AllReceiveLocations ? BizTalkGroup.GetDisabledReceiveLocationCount(new List<string>()) : BizTalkGroup.GetDisabledReceiveLocationCount(BizTalkGroup.ReceiveLocations);
                 //Now check send ports
                 LastDetailMsg.PlainText = "Getting Send Port count";
-                int sendPortCount = bizTalkGroup.AllSendPorts ? bizTalkGroup.GetTotalSendPortCount() : bizTalkGroup.SendPorts.Count;
+                int sendPortCount = BizTalkGroup.AllSendPorts ? BizTalkGroup.GetTotalSendPortCount() : BizTalkGroup.SendPorts.Count;
                 LastDetailMsg.PlainText = "Getting Stopped Send Port count";
-                int sendPortStoppedCount = bizTalkGroup.AllSendPorts ? bizTalkGroup.GetStoppedSendPortCount(new List<string>()) : bizTalkGroup.GetStoppedSendPortCount(bizTalkGroup.SendPorts);
+                int sendPortStoppedCount = BizTalkGroup.AllSendPorts ? BizTalkGroup.GetStoppedSendPortCount(new List<string>()) : BizTalkGroup.GetStoppedSendPortCount(BizTalkGroup.SendPorts);
                 //Now check orchestrations
                 LastDetailMsg.PlainText = "Getting Orchestration count";
-                int orchestrationCount = bizTalkGroup.AllOrchestrations ? bizTalkGroup.GetTotalOrchestrationCount() : bizTalkGroup.Orchestrations.Count;
+                int orchestrationCount = BizTalkGroup.AllOrchestrations ? BizTalkGroup.GetTotalOrchestrationCount() : BizTalkGroup.Orchestrations.Count;
                 LastDetailMsg.PlainText = "Getting Stopped Orchestration count";
-                int orchestrationStoppedCount = bizTalkGroup.AllOrchestrations ? bizTalkGroup.GetStoppedOrchestrationCount(new List<string>()) : bizTalkGroup.GetStoppedOrchestrationCount(bizTalkGroup.Orchestrations);
+                int orchestrationStoppedCount = BizTalkGroup.AllOrchestrations ? BizTalkGroup.GetStoppedOrchestrationCount(new List<string>()) : BizTalkGroup.GetStoppedOrchestrationCount(BizTalkGroup.Orchestrations);
 
                 if (receiveLocationsDisabled == -1 || sendPortStoppedCount == -1 || orchestrationStoppedCount == -1)
                 {
@@ -79,7 +79,7 @@ namespace QuickMon
             int count = 0;
             plainTextDetails.AppendLine("Disabled Receive Locations");
             htmlTextTextDetails.AppendLine("<b>Disabled Receive Locations</b>\r\n<ul>");
-            foreach (string rl in bizTalkGroup.GetDisabledReceiveLocationNames())
+            foreach (string rl in BizTalkGroup.GetDisabledReceiveLocationNames())
             {
                 plainTextDetails.AppendLine(string.Format("\t{0}", rl));
                 htmlTextTextDetails.AppendLine(string.Format("<li>{0}</li>", rl));
@@ -95,7 +95,7 @@ namespace QuickMon
             count = 0;
             plainTextDetails.AppendLine("Stopped Send Ports");
             htmlTextTextDetails.AppendLine("<b>Stopped Send Ports</b>\r\n<ul>");
-            foreach (string s in bizTalkGroup.GetStoppedSendPortNames())
+            foreach (string s in BizTalkGroup.GetStoppedSendPortNames())
             {
                 plainTextDetails.AppendLine(string.Format("\t{0}", s));
                 htmlTextTextDetails.AppendLine(string.Format("<li>{0}</li>", s));
@@ -111,7 +111,7 @@ namespace QuickMon
             count = 0;
             plainTextDetails.AppendLine("Stopped Orchestrations");
             htmlTextTextDetails.AppendLine("<b>Stopped Orchestrations</b>\r\n<ul>");
-            foreach (string s in bizTalkGroup.GetStoppedOrchestrationNames())
+            foreach (string s in BizTalkGroup.GetStoppedOrchestrationNames())
             {
                 plainTextDetails.AppendLine(string.Format("\t{0}", s));
                 htmlTextTextDetails.AppendLine(string.Format("<li>{0}</li>", s));
@@ -130,7 +130,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.BizTalkGroup = bizTalkGroup;
+            showDetails.BizTalkGroup = BizTalkGroup;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -144,7 +144,7 @@ namespace QuickMon
                 configXml.LoadXml(GetDefaultOrEmptyConfigString());
             ReadConfiguration(configXml);
             EditConfig editConfig = new EditConfig();
-            editConfig.BizTalkGroup = bizTalkGroup;
+            editConfig.BizTalkGroup = BizTalkGroup;
             if (editConfig.ShowConfig() == System.Windows.Forms.DialogResult.OK)
             {
                 XmlNode root = configXml.DocumentElement.SelectSingleNode("bizTalkGroup");
@@ -197,32 +197,37 @@ namespace QuickMon
         public override void ReadConfiguration(XmlDocument config)
         {
             XmlNode root = config.DocumentElement.SelectSingleNode("bizTalkGroup");
-            bizTalkGroup.SqlServer = root.ReadXmlElementAttr("sqlServer", ".");
-            bizTalkGroup.MgmtDBName = root.ReadXmlElementAttr("mgmtDb", "BizTalkMgmtDb");
-            bizTalkGroup.AllReceiveLocations = bool.Parse(root.ReadXmlElementAttr("allReceiveLocations", "True"));
-            bizTalkGroup.AllSendPorts = bool.Parse(root.ReadXmlElementAttr("allSendPorts", "True"));
-            bizTalkGroup.AllOrchestrations = bool.Parse(root.ReadXmlElementAttr("allOrchestrations", "True"));
-            bizTalkGroup.ReceiveLocations = new List<string>();
+            BizTalkGroup.SqlServer = root.ReadXmlElementAttr("sqlServer", ".");
+            BizTalkGroup.MgmtDBName = root.ReadXmlElementAttr("mgmtDb", "BizTalkMgmtDb");
+            BizTalkGroup.AllReceiveLocations = bool.Parse(root.ReadXmlElementAttr("allReceiveLocations", "True"));
+            BizTalkGroup.AllSendPorts = bool.Parse(root.ReadXmlElementAttr("allSendPorts", "True"));
+            BizTalkGroup.AllOrchestrations = bool.Parse(root.ReadXmlElementAttr("allOrchestrations", "True"));
+            BizTalkGroup.ReceiveLocations = new List<string>();
             foreach (XmlElement receiveLocationNode in root.SelectNodes("receiveLocations/receiveLocation"))
             {
                 string receiveLocationName = receiveLocationNode.ReadXmlElementAttr("name");
                 if (receiveLocationName.Length > 0)
-                    bizTalkGroup.ReceiveLocations.Add(receiveLocationName);
+                    BizTalkGroup.ReceiveLocations.Add(receiveLocationName);
             }
-            bizTalkGroup.SendPorts = new List<string>();
+            BizTalkGroup.SendPorts = new List<string>();
             foreach (XmlElement sendPortNode in root.SelectNodes("sendPorts/sendPort"))
             {
                 string sendPortName = sendPortNode.ReadXmlElementAttr("name");
                 if (sendPortName.Length > 0)
-                    bizTalkGroup.SendPorts.Add(sendPortName);
+                    BizTalkGroup.SendPorts.Add(sendPortName);
             }
-            bizTalkGroup.Orchestrations = new List<string>();
+            BizTalkGroup.Orchestrations = new List<string>();
             foreach (XmlElement orchestrationNode in root.SelectNodes("orchestrations/orchestration"))
             {
                 string orchestrationName = orchestrationNode.ReadXmlElementAttr("name");
                 if (orchestrationName.Length > 0)
-                    bizTalkGroup.Orchestrations.Add(orchestrationName);
+                    BizTalkGroup.Orchestrations.Add(orchestrationName);
             }
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

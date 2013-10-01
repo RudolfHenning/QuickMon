@@ -9,19 +9,45 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
+        public TableSizeConfig TableSizeConfig { get; set; }
+
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        public TableSizeConfig TableSizeConfig { get; set; }
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            TableSizeConfig = null;
+            TableSizeConfig = ((SQLTableSize)collector).TableSizeConfig;
+            //LoadList();
+            RefreshList();
+            //ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            TableSizeConfig = null;
+            TableSizeConfig = ((SQLTableSize)collector).TableSizeConfig;
+            //LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            RefreshList();
+            //RefreshList();
             timerColumnWidthChanged.Enabled = true;
         }
         #endregion

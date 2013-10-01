@@ -35,3 +35,9 @@ Look at idea to have GetState() return whole structure
 *************************************************************************************
 
 Updates to config of collector must be visible in Show details while window is already open.
+Replace ShowStatusDetails method on Collectors with ShowCurrentDetails that takes parent CollectorEntry as parameter
+  or return a reference that the parent CollectorEntry can use to update/refresh
+Interface for ShowDetail window to allow forced update of config...
+
+
+Ability for 'Detail window' for things like ping/httpping to keep little history.

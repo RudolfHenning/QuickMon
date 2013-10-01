@@ -9,7 +9,7 @@ namespace QuickMon
 {
 	public class DiskSpace : CollectorBase
 	{
-		private List<DriveSpaceEntry> drives = new List<DriveSpaceEntry>();
+		internal List<DriveSpaceEntry> Drives = new List<DriveSpaceEntry>();
 
 		public override MonitorStates GetState()
 		{
@@ -21,7 +21,7 @@ namespace QuickMon
             long totalFreeSpace = 0;
 			try
 			{
-				foreach (DriveSpaceEntry dse in drives)
+				foreach (DriveSpaceEntry dse in Drives)
 				{
 					LastDetailMsg.PlainText = "Getting drive info for " + dse.DriveLetter;
 					DriveInfo di = new DriveInfo(dse.DriveLetter);
@@ -77,7 +77,7 @@ namespace QuickMon
 		{
 			ShowDetails showDetails = new ShowDetails();
 			showDetails.Text = "Show details - " + collectorName;
-			showDetails.Drives = drives;
+			showDetails.Drives = Drives;
 			showDetails.Show();
 		}
 
@@ -99,7 +99,7 @@ namespace QuickMon
 
 		public override void ReadConfiguration(XmlDocument config)
 		{
-			drives = new List<DriveSpaceEntry>();
+			Drives = new List<DriveSpaceEntry>();
 			XmlElement root = config.DocumentElement;
 			foreach (XmlElement drive in root.SelectNodes("drives/drive"))
 			{
@@ -108,10 +108,15 @@ namespace QuickMon
 				driveSpaceEntry.WarningSizeLeftMB = long.Parse(drive.ReadXmlElementAttr("warningSizeLeftMB", "500"));
 				driveSpaceEntry.ErrorSizeLeftMB = long.Parse(drive.ReadXmlElementAttr("errorSizeLeftMB", "100"));
 				driveSpaceEntry.WarnOnNotReady = bool.Parse(drive.ReadXmlElementAttr("warnOnNotReady", "False"));
-				drives.Add(driveSpaceEntry);
+				Drives.Add(driveSpaceEntry);
 			}
 		}
-	}
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
+    }
 }
 
 // WMI option

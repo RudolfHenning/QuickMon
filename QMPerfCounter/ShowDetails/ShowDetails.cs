@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public PerfCounterConfig PFConfig { get; set; }
 
@@ -19,6 +19,32 @@ namespace QuickMon
             PFConfig = new PerfCounterConfig();
         }
 
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            PFConfig = null;
+            PFConfig = ((PerfCounter)collector).PerfCounterConfig;
+            LoadList();
+            RefreshList();
+            lvwPerfCounters_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            PFConfig = null;
+            PFConfig = ((PerfCounter)collector).PerfCounterConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
         #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
@@ -27,15 +53,7 @@ namespace QuickMon
         }
         private void ShowDetails_Load(object sender, EventArgs e)
         {
-            foreach (var pc in PFConfig.QMPerfCounters)
-            {
-                ListViewItem lvi = new ListViewItem(pc.ToString());
-                lvi.ImageIndex = 0;
-                lvi.SubItems.Add("-");
-                lvi.SubItems.Add(pc.WarningValue.ToString("F1") + "/" + pc.ErrorValue.ToString("F1"));
-                lvi.Tag = pc;
-                lvwPerfCounters.Items.Add(lvi);
-            }
+            
         }
         #endregion
 
@@ -54,6 +72,19 @@ namespace QuickMon
         #endregion
 
         #region Private methods
+        private void LoadList()
+        {
+            lvwPerfCounters.Items.Clear();
+            foreach (var pc in PFConfig.QMPerfCounters)
+            {
+                ListViewItem lvi = new ListViewItem(pc.ToString());
+                lvi.ImageIndex = 0;
+                lvi.SubItems.Add("-");
+                lvi.SubItems.Add(pc.WarningValue.ToString("F1") + "/" + pc.ErrorValue.ToString("F1"));
+                lvi.Tag = pc;
+                lvwPerfCounters.Items.Add(lvi);
+            }
+        }
         private void RefreshList()
         {
             Cursor.Current = Cursors.WaitCursor;

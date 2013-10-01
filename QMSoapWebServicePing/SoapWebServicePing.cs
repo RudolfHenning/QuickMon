@@ -8,7 +8,7 @@ namespace QuickMon
 {
     public class SoapWebServicePing : CollectorBase
     {
-        private SoapWebServicePingConfig soapWebServicePingConfig = new SoapWebServicePingConfig();
+        internal SoapWebServicePingConfig SoapWebServicePingConfig = new SoapWebServicePingConfig();
 
         public override MonitorStates GetState()
         {
@@ -21,11 +21,11 @@ namespace QuickMon
             int success = 0;
             try
             {
-                plainTextDetails.AppendLine(string.Format("Calling {0} web service(s)", soapWebServicePingConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<b>Calling {0} web service(s)</b>", soapWebServicePingConfig.Entries.Count));
+                plainTextDetails.AppendLine(string.Format("Calling {0} web service(s)", SoapWebServicePingConfig.Entries.Count));
+                htmlTextTextDetails.AppendLine(string.Format("<b>Calling {0} web service(s)</b>", SoapWebServicePingConfig.Entries.Count));
 
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (SoapWebServicePingConfigEntry soapWebServicePingConfigEntry in soapWebServicePingConfig.Entries)
+                foreach (SoapWebServicePingConfigEntry soapWebServicePingConfigEntry in SoapWebServicePingConfig.Entries)
                 {
                     try
                     {
@@ -101,7 +101,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.SoapWebServicePingConfig = soapWebServicePingConfig;
+            showDetails.SoapWebServicePingConfig = SoapWebServicePingConfig;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -115,7 +115,7 @@ namespace QuickMon
                 configDoc.LoadXml(GetDefaultOrEmptyConfigString());
             ReadConfiguration(configDoc);
             EditConfig editConfig = new EditConfig();
-            editConfig.SelectedSoapWebServicePingConfig = soapWebServicePingConfig;
+            editConfig.SelectedSoapWebServicePingConfig = SoapWebServicePingConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.SelectedSoapWebServicePingConfig.ToConfig();
@@ -131,7 +131,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(System.Xml.XmlDocument configDoc)
         {
-            soapWebServicePingConfig.ReadConfiguration(configDoc);
+            SoapWebServicePingConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

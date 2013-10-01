@@ -9,24 +9,38 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
+        public SocketPingConfig SocketPingConfig { get; set; }
+
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        public SocketPingConfig SocketPingConfig { get; set; }
-
-        #region Form events
-        private void ShowDetails_Load(object sender, EventArgs e)
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
         {
+            base.Show();
+            SocketPingConfig = null;
+            SocketPingConfig = ((SocketPing)collector).SocketPingConfig;
             LoadList();
-        }
-        private void ShowDetails_Shown(object sender, EventArgs e)
-        {
             RefreshList();
             ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            SocketPingConfig = null;
+            SocketPingConfig = ((SocketPing)collector).SocketPingConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
         }
         #endregion
 
@@ -56,6 +70,7 @@ namespace QuickMon
         {
             if (SocketPingConfig != null)
             {
+                lvwHosts.Items.Clear();
                 foreach (SocketPingEntry httpPingEntry in SocketPingConfig.Entries)
                 {
                     ListViewItem lvi = new ListViewItem(httpPingEntry.HostName);

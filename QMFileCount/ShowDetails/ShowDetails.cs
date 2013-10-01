@@ -10,9 +10,8 @@ using System.IO;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
-        //public string CustomConfig { get; set; }
         public List<DirectoryFilterEntry> DirectorieFilters { get; set; }
 
         public ShowDetails()
@@ -20,41 +19,37 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            DirectorieFilters = null;
+            DirectorieFilters = ((FileCount)collector).DirectorieFilters;
+            LoadList();
+            RefreshList();
+            //ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            DirectorieFilters = null;
+            DirectorieFilters = ((FileCount)collector).DirectorieFilters;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
         #region Show detail
         public void ShowDetail()
         {
-            //if (CustomConfig.Length > 0)
-            //{
-            //    try
-            //    {
-            //        LoadDirFilters();
-            //        //XmlDocument config = new XmlDocument();
-            //        //config.LoadXml(CustomConfig);
-            //        //XmlNode directoryList = config.SelectSingleNode("config/directoryList");
-
-            //        //XmlNodeList directoriesXmlNodes = config.GetElementsByTagName("directory");
-            //        //foreach (XmlNode directoryXmlNode in directoriesXmlNodes)
-            //        //{
-            //        //    DirectoryFilterEntry directoryFilterEntry = new DirectoryFilterEntry();
-            //        //    directoryFilterEntry.FilterFullPath = directoryXmlNode.InnerText;
-            //        //    if (directoryXmlNode.Attributes.GetNamedItem("warningFileCountMax") != null)
-            //        //        directoryFilterEntry.WarningIndicator = int.Parse(directoryXmlNode.Attributes.GetNamedItem("warningFileCountMax").Value);
-            //        //    if (directoryXmlNode.Attributes.GetNamedItem("errorFileCountMax") != null)
-            //        //        directoryFilterEntry.ErrorIndicator = int.Parse(directoryXmlNode.Attributes.GetNamedItem("errorFileCountMax").Value);
-            //        //    ListViewItem lvwi = new ListViewItem(directoryFilterEntry.FilterFullPath);
-            //        //    lvwi.SubItems.Add("-");
-            //        //    lvwi.SubItems.Add("-");
-            //        //    lvwi.Tag = directoryFilterEntry;
-            //        //    lvwDirectories.Items.Add(lvwi);
-            //        //}
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
             base.Show();
-            LoadDirFilters();
+            LoadList();
             RefreshList();
         } 
         #endregion
@@ -109,10 +104,11 @@ namespace QuickMon
         #endregion
 
         #region Local methods
-        private void LoadDirFilters()
+        private void LoadList()
         {
             if (DirectorieFilters != null)
             {
+                lvwDirectories.Items.Clear();
                 foreach (DirectoryFilterEntry directoryFilterEntry in DirectorieFilters)
                 {
                     ListViewItem lvwi = new ListViewItem(directoryFilterEntry.FilterFullPath);

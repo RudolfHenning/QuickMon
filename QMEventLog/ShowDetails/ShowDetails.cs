@@ -12,7 +12,7 @@ using HenIT.RTF;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public ShowDetails()
         {
@@ -24,15 +24,40 @@ namespace QuickMon
 
         internal EventLogConfig SelectedEventLogConfig { get; set; }
 
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            SelectedEventLogConfig = null;
+            SelectedEventLogConfig = ((EventLogCount)collector).EventLogConfig;
+            LoadList();
+            RefreshList();
+            ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            SelectedEventLogConfig = null;
+            SelectedEventLogConfig = ((EventLogCount)collector).EventLogConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
         #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            RefreshList();
+
         }
         private void ShowDetails_Load(object sender, EventArgs e)
         {
             splitContainerDetails.Panel2Collapsed = true;
-            LoadEntries();
         } 
         private void ShowDetails_Resize(object sender, EventArgs e)
         {
@@ -58,7 +83,7 @@ namespace QuickMon
         #endregion
 
         #region Private methods
-        private void LoadEntries()
+        private void LoadList()
         {
             lvwEntries.Items.Clear();
             if (SelectedEventLogConfig != null)
@@ -72,11 +97,6 @@ namespace QuickMon
                     lvi.Tag = entry;
                     lvwEntries.Items.Add(lvi);
                 }
-                //while (backgroundWorkerMessages.IsBusy)
-                //{
-                //    Application.DoEvents();
-                //}
-                //backgroundWorkerMessages.RunWorkerAsync();
             }
         }
         private void RefreshList()
@@ -107,7 +127,6 @@ namespace QuickMon
             busyRefreshing = false;
             RefreshSubList();
         }
-
         private void RefreshSubList()
         {
             if (busyRefreshing)

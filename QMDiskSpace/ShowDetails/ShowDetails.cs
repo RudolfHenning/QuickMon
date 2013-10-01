@@ -10,20 +10,59 @@ using System.IO;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
-    {
+    public partial class ShowDetails : Form, ICollectorDetailView
+    {        
+        public List<DriveSpaceEntry> Drives { get; set; }
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        public List<DriveSpaceEntry> Drives { get; set; }
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            Drives = null;
+            Drives = ((DiskSpace)collector).Drives;
+            LoadList();
+            RefreshList();
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            Drives = null;
+            Drives = ((DiskSpace)collector).Drives;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
             RefreshList();
         }
 
+        private void LoadList()
+        {
+            if (Drives != null)
+            {
+                lvwDrives.Items.Clear();
+                foreach (DriveSpaceEntry dse in Drives)
+                {
+                    ListViewItem lvi = new ListViewItem(dse.DriveLetter);
+                    lvi.SubItems.Add("N/A");
+                    lvi.SubItems.Add("N/A");
+                    lvi.Tag = dse;
+                    lvwDrives.Items.Add(lvi);
+                }
+            }
+        }
         private void RefreshList()
         {
             foreach (ListViewItem lvi in lvwDrives.Items)
@@ -56,18 +95,7 @@ namespace QuickMon
 
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            if (Drives != null)
-            {
-                foreach (DriveSpaceEntry dse in Drives)
-                {
-                    ListViewItem lvi = new ListViewItem(dse.DriveLetter);
-                    lvi.SubItems.Add("N/A");
-                    lvi.SubItems.Add("N/A");
-                    lvi.Tag = dse;
-                    lvwDrives.Items.Add(lvi);
-                }
-            }
-            RefreshList();
+
         }
     }
 }

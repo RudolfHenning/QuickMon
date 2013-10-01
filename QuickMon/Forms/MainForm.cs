@@ -243,6 +243,7 @@ namespace QuickMon
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.ImageIndex > 0)
             {
                 showDetailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode.ImageIndex != folderImgIndex;
+                showCollectorDetailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode.ImageIndex != folderImgIndex;
                 configureCollectorToolStripMenuItem.Enabled = true;
                 configureCollectorToolStripMenuItem1.Enabled = true;
                 if (tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
@@ -258,6 +259,7 @@ namespace QuickMon
             else
             {
                 showDetailsToolStripMenuItem.Enabled = false;
+                showCollectorDetailsToolStripMenuItem.Enabled = false;
                 disableCollectorToolStripMenuItem.Enabled = false;
                 configureCollectorToolStripMenuItem.Enabled = false;
                 configureCollectorToolStripMenuItem1.Enabled = false;
@@ -265,7 +267,7 @@ namespace QuickMon
         }
         private void tvwCollectors_DoubleClick(object sender, EventArgs e)
         {
-            showDetailsToolStripMenuItem_Click(sender, e);
+            showCollectorDetailsToolStripMenuItem_Click(sender, e);
         }
         private void tvwCollectors_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
         {
@@ -288,6 +290,21 @@ namespace QuickMon
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+        private void showCollectorDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.ImageIndex != folderImgIndex && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                {
+                    CollectorEntry collectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                    collectorEntry.ShowDetails();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void disableCollectorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -316,19 +333,19 @@ namespace QuickMon
         {
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
             {
-                CollectorEntry collector = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                CollectorEntry collectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
                 QuickMon.Management.EditCollectorEntry editCollectorEntry = new QuickMon.Management.EditCollectorEntry();
                 editCollectorEntry.AllowCollectorChange = false;
-                editCollectorEntry.SelectedEntry = collector;
+                editCollectorEntry.SelectedEntry = collectorEntry;
                 if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
-                    collector = editCollectorEntry.SelectedEntry;
-                    monitorPack.ApplyCollectorConfig(collector);
-                    tvwCollectors.SelectedNode.Tag = collector;
-                    tvwCollectors.SelectedNode.Text = collector.Name;
-                    if (!collector.Enabled)
+                    collectorEntry = editCollectorEntry.SelectedEntry;
+                    monitorPack.ApplyCollectorConfig(collectorEntry);
+                    tvwCollectors.SelectedNode.Tag = collectorEntry;
+                    tvwCollectors.SelectedNode.Text = collectorEntry.Name;
+                    if (!collectorEntry.Enabled)
                     {
-                        if (!collector.IsFolder)
+                        if (!collectorEntry.IsFolder)
                         {
                             tvwCollectors.SelectedNode.ImageIndex = 1;
                             tvwCollectors.SelectedNode.SelectedImageIndex = 1;
@@ -336,7 +353,11 @@ namespace QuickMon
                         tvwCollectors.SelectedNode.ForeColor = Color.Gray;
                     }
                     else
+                    {
                         tvwCollectors.SelectedNode.ForeColor = SystemColors.WindowText;
+                        if (!collectorEntry.IsFolder)
+                            collectorEntry.RefreshDetailsIfOpen();
+                    }
                 }
             }
         }
@@ -971,5 +992,7 @@ namespace QuickMon
             Application.Exit();
         }
         #endregion
+
+
     }
 }

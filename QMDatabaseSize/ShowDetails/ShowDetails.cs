@@ -9,30 +9,42 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        public string SqlServer { get; set; }
-        public bool IntegratedSec { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public int CmndTimeOut { get; set; }
-        public List<DatabaseEntry> Databases { get; set; }
+        public DatabaseSizeConfig DatabaseSizeConfig { get; set; }
 
-        #region Form events
-        private void ShowDetails_Load(object sender, EventArgs e)
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
         {
-            LoadDatabases();
-        }
-        private void ShowDetails_Shown(object sender, EventArgs e)
-        {
+            base.Show();
+            DatabaseSizeConfig = null;
+            DatabaseSizeConfig = ((DatabaseSize)collector).DatabaseSizeConfig;
+            LoadList();
             RefreshList();
             ShowDetails_Resize(null, null);
         }
+        public void RefreshConfig(ICollector collector)
+        {
+            DatabaseSizeConfig = null;
+            DatabaseSizeConfig = ((DatabaseSize)collector).DatabaseSizeConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
+        #region Form events
         private void ShowDetails_Resize(object sender, EventArgs e)
         {
             lvwDatabases.Columns[0].Width = lvwDatabases.ClientSize.Width - lvwDatabases.Columns[1].Width;
@@ -47,7 +59,7 @@ namespace QuickMon
         #endregion
 
         #region Private events
-        private void LoadDatabases()
+        private void LoadList()
         {
             try
             {
@@ -55,9 +67,9 @@ namespace QuickMon
                 lvwDatabases.BeginUpdate();
                 lvwDatabases.Items.Clear();
                 lvwDatabases.Groups.Clear();
-                ListViewGroup group = new ListViewGroup(SqlServer, SqlServer);
+                ListViewGroup group = new ListViewGroup(DatabaseSizeConfig.SqlServer, DatabaseSizeConfig.SqlServer);
                 lvwDatabases.Groups.Add(group);
-                foreach (DatabaseEntry dbe in Databases)
+                foreach (DatabaseEntry dbe in DatabaseSizeConfig.Databases)
                 {
                     ListViewItem lvi = new ListViewItem(dbe.Name);
                     lvi.Group = group;
@@ -84,7 +96,7 @@ namespace QuickMon
                 Cursor.Current = Cursors.WaitCursor;
 
                 DatabaseSizeInfo databaseSizeInfo = new DatabaseSizeInfo();
-                databaseSizeInfo.OpenConnection(SqlServer, IntegratedSec, UserName, Password, CmndTimeOut);
+                databaseSizeInfo.OpenConnection(DatabaseSizeConfig.SqlServer, DatabaseSizeConfig.IntegratedSec, DatabaseSizeConfig.UserName, DatabaseSizeConfig.Password, DatabaseSizeConfig.CmndTimeOut);
                 foreach (ListViewItem lvi in lvwDatabases.Items)
                 {
                     DatabaseEntry dbe = (DatabaseEntry)lvi.Tag;

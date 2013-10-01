@@ -8,7 +8,7 @@ namespace QuickMon
 {
 	public class BizTalkSuspendedCount : CollectorBase
 	{
-		private BizTalkGroup bizTalkGroup = new BizTalkGroup();
+		internal BizTalkGroup BizTalkGroup = new BizTalkGroup();
 
 		public override MonitorStates GetState()
 		{
@@ -22,12 +22,12 @@ namespace QuickMon
 			LastErrorMsg = "";			
 			try
 			{
-				instancesSuspended = bizTalkGroup.GetSuspendedMsgsCount();
-				if (instancesSuspended < bizTalkGroup.InstancesWarning)
+				instancesSuspended = BizTalkGroup.GetSuspendedMsgsCount();
+				if (instancesSuspended < BizTalkGroup.InstancesWarning)
 				{
 					returnState = MonitorStates.Good;
 				}
-				else if (instancesSuspended >= bizTalkGroup.InstancesError)
+				else if (instancesSuspended >= BizTalkGroup.InstancesError)
 				{
 					returnState = MonitorStates.Error;
 				}
@@ -40,9 +40,9 @@ namespace QuickMon
                     LastDetailMsg.PlainText = string.Format("Total suspended count: {0}\r\n", instancesSuspended);
                     LastDetailMsg.HtmlText = string.Format("<b>Total suspended count:</b> {0}<hr />\r\n", instancesSuspended);
 
-					if (returnState != MonitorStates.Good && bizTalkGroup.ShowLastXDetails > 0)
+					if (returnState != MonitorStates.Good && BizTalkGroup.ShowLastXDetails > 0)
 					{
-                        LastDetailMsg.AppendCollectorMessage(bizTalkGroup.GetLastXDetails());
+                        LastDetailMsg.AppendCollectorMessage(BizTalkGroup.GetLastXDetails());
 					}
 				}
 				else
@@ -66,7 +66,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
-            showDetails.BizTalkGroup = bizTalkGroup;
+            showDetails.BizTalkGroup = BizTalkGroup;
             showDetails.Text = "Show details - " + collectorName;
 			showDetails.ShowDetail();
 		}
@@ -87,26 +87,30 @@ namespace QuickMon
 		public override void ReadConfiguration(XmlDocument config)
 		{            
 			XmlNode root = config.DocumentElement.SelectSingleNode("bizTalkGroup");
-			bizTalkGroup.SqlServer = root.ReadXmlElementAttr("sqlServer", ".");
-			bizTalkGroup.MgmtDBName = root.ReadXmlElementAttr("mgmtDb", "BizTalkMgmtDb");
-			bizTalkGroup.InstancesWarning = int.Parse(root.ReadXmlElementAttr("instancesWarning", "1"));
-			bizTalkGroup.InstancesError = int.Parse(root.ReadXmlElementAttr("instancesError", "1"));
-			bizTalkGroup.ShowLastXDetails = int.Parse(root.ReadXmlElementAttr("showLastXDetails", "0"));
+			BizTalkGroup.SqlServer = root.ReadXmlElementAttr("sqlServer", ".");
+			BizTalkGroup.MgmtDBName = root.ReadXmlElementAttr("mgmtDb", "BizTalkMgmtDb");
+			BizTalkGroup.InstancesWarning = int.Parse(root.ReadXmlElementAttr("instancesWarning", "1"));
+			BizTalkGroup.InstancesError = int.Parse(root.ReadXmlElementAttr("instancesError", "1"));
+			BizTalkGroup.ShowLastXDetails = int.Parse(root.ReadXmlElementAttr("showLastXDetails", "0"));
 
 			foreach (XmlElement host in root.SelectNodes("hosts/host"))
 			{
 				string hostName = host.ReadXmlElementAttr("name");
 				if (hostName.Length > 0)
-					bizTalkGroup.Hosts.Add(hostName);
+					BizTalkGroup.Hosts.Add(hostName);
 			}
 			foreach (XmlElement app in root.SelectNodes("apps/app"))
 			{
 				string appName = app.ReadXmlElementAttr("name");
 				if (appName.Length > 0)
-					bizTalkGroup.Apps.Add(app.Attributes.GetNamedItem("name").Value);
+					BizTalkGroup.Apps.Add(app.Attributes.GetNamedItem("name").Value);
 			}
 			//bizTalkGroup.RaiseHtmlAlerts = bool.Parse(root.ReadXmlElementAttr("raiseHtmlAlerts", "True"));
 		}
-		
-	}
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
+    }
 }

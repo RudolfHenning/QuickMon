@@ -8,7 +8,8 @@ namespace QuickMon
 {
     public class SQLTableSize : CollectorBase
     {
-        private TableSizeConfig tableSizeConfig = new TableSizeConfig();
+        internal TableSizeConfig TableSizeConfig = new TableSizeConfig();
+
         public override MonitorStates GetState()
         {
             MonitorStates returnState = MonitorStates.Good;
@@ -21,11 +22,11 @@ namespace QuickMon
             double totalValue = 0;
             try
             {
-                plainTextDetails.AppendLine(string.Format("Querying {0} databases", tableSizeConfig.DatabaseEntries.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<b>Querying {0} databases</b>", tableSizeConfig.DatabaseEntries.Count));
+                plainTextDetails.AppendLine(string.Format("Querying {0} databases", TableSizeConfig.DatabaseEntries.Count));
+                htmlTextTextDetails.AppendLine(string.Format("<b>Querying {0} databases</b>", TableSizeConfig.DatabaseEntries.Count));
 
                 htmlTextTextDetails.AppendLine("<blockquote>");
-                foreach (DatabaseEntry databaseSizeEntry in tableSizeConfig.DatabaseEntries)
+                foreach (DatabaseEntry databaseSizeEntry in TableSizeConfig.DatabaseEntries)
                 {
                     try
                     {
@@ -106,7 +107,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.TableSizeConfig = tableSizeConfig;
+            showDetails.TableSizeConfig = TableSizeConfig;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -121,7 +122,7 @@ namespace QuickMon
             ReadConfiguration(configDoc);
 
             EditConfig editConfig = new EditConfig();
-            editConfig.TableSizeConfig = tableSizeConfig;
+            editConfig.TableSizeConfig = TableSizeConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.TableSizeConfig.ToConfig();
@@ -136,7 +137,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(XmlDocument configDoc)
         {
-            tableSizeConfig.ReadConfiguration(configDoc);
+            TableSizeConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

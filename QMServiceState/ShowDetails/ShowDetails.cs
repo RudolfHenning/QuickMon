@@ -11,7 +11,7 @@ using System.ServiceProcess;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public List<ServiceStateDefinition> Services { get; set; }
 
@@ -19,6 +19,31 @@ namespace QuickMon
         {
             InitializeComponent();
         }
+
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            Services = null;
+            Services = ((ServiceState)collector).Services;
+            LoadList();
+            RefreshList();
+            ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            Services = ((ServiceState)collector).Services;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         #region Show detail
         public void ShowDetail()
@@ -118,6 +143,7 @@ namespace QuickMon
         {
             if (Services != null)
             {
+                lvwServices.Items.Clear();
                 foreach (ServiceStateDefinition serviceDefinition in (from s in Services
                                                                       orderby s.MachineName
                                                                       select s))

@@ -8,7 +8,7 @@ namespace QuickMon
 {
     public class EventLogCount : CollectorBase
     {
-        private EventLogConfig evConfig = new EventLogConfig();
+        internal EventLogConfig EventLogConfig = new EventLogConfig();
 
         public override MonitorStates GetState()
         {
@@ -26,7 +26,7 @@ namespace QuickMon
                 plainTextDetails.AppendLine(string.Format("Event logs"));
                 htmlTextTextDetails.AppendLine(string.Format("Event logs"));
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (QMEventLogEntry eventLogEntry in evConfig.Entries)
+                foreach (QMEventLogEntry eventLogEntry in EventLogConfig.Entries)
                 {
                     bool errorCondition = false;
                     bool warningCondition = false;
@@ -82,7 +82,7 @@ namespace QuickMon
         {
             ShowDetails showDetails = new ShowDetails();
             showDetails.Text = "Show details - " + collectorName;
-            showDetails.SelectedEventLogConfig = evConfig;
+            showDetails.SelectedEventLogConfig = EventLogConfig;
             showDetails.Show();
         }
 
@@ -96,7 +96,7 @@ namespace QuickMon
             ReadConfiguration(configDoc);
 
             EditConfig editConfig = new EditConfig();
-            editConfig.SelectedEventLogConfig = evConfig;
+            editConfig.SelectedEventLogConfig = EventLogConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.SelectedEventLogConfig.ToConfig();
@@ -111,7 +111,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(XmlDocument configDoc)
         {
-            evConfig.ReadConfiguration(configDoc);
+            EventLogConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

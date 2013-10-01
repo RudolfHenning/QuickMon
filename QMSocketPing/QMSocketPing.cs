@@ -14,7 +14,7 @@ namespace QuickMon
         public SocketPing() : base() { }
 
         
-        private SocketPingConfig socketPingConfig = new SocketPingConfig();
+        internal SocketPingConfig SocketPingConfig = new SocketPingConfig();
 
         public override MonitorStates GetState()
         {
@@ -31,7 +31,7 @@ namespace QuickMon
             LastErrorMsg = "";
             try
             {
-                foreach (SocketPingEntry entry in socketPingConfig.Entries)
+                foreach (SocketPingEntry entry in SocketPingConfig.Entries)
                 {
                     lastAction = "Pinging " + entry.HostName;
                     int pingTime = entry.Ping();
@@ -75,7 +75,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.SocketPingConfig = socketPingConfig;
+            showDetails.SocketPingConfig = SocketPingConfig;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -89,7 +89,7 @@ namespace QuickMon
                 configDoc.LoadXml(GetDefaultOrEmptyConfigString());
             ReadConfiguration(configDoc);
             EditConfig editConfig = new EditConfig();
-            editConfig.SelectedSocketPingConfig = socketPingConfig;
+            editConfig.SelectedSocketPingConfig = SocketPingConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.SelectedSocketPingConfig.ToConfig();
@@ -105,7 +105,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(System.Xml.XmlDocument configDoc)
         {
-            socketPingConfig.ReadConfiguration(configDoc);
+            SocketPingConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

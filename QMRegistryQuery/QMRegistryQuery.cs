@@ -8,7 +8,7 @@ namespace QuickMon
 {
     public class RegistryQuery : CollectorBase
     {
-        private RegistryQueryConfig registryQueryConfig = new RegistryQueryConfig();
+        internal RegistryQueryConfig RegistryQueryConfig = new RegistryQueryConfig();
 
         public override MonitorStates GetState()
         {
@@ -26,7 +26,7 @@ namespace QuickMon
                 plainTextDetails.AppendLine(string.Format("Registry Queries"));
                 htmlTextTextDetails.AppendLine(string.Format("Registry Queries"));
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (RegistryQueryInstance queryInstance in registryQueryConfig.Queries)
+                foreach (RegistryQueryInstance queryInstance in RegistryQueryConfig.Queries)
                 {
                     object value = null;
                     if (queryInstance.UseRemoteServer)
@@ -81,11 +81,11 @@ namespace QuickMon
 
         public override void ShowStatusDetails(string collectorName)
         {
-            if (registryQueryConfig != null)
+            if (RegistryQueryConfig != null)
             {
                 ShowDetails showDetails = new ShowDetails();
                 showDetails.Text = "Details for collector - '" + collectorName + "'";
-                showDetails.SelectedRegistryQueryConfig = registryQueryConfig;
+                showDetails.SelectedRegistryQueryConfig = RegistryQueryConfig;
                 showDetails.Show();
             }
         }
@@ -100,7 +100,7 @@ namespace QuickMon
             ReadConfiguration(configDoc);
 
             EditConfig editConfig = new EditConfig();
-            editConfig.SelectedRegistryQueryConfig = registryQueryConfig;
+            editConfig.SelectedRegistryQueryConfig = RegistryQueryConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.SelectedRegistryQueryConfig.ToConfig();
@@ -115,7 +115,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(System.Xml.XmlDocument configDoc)
         {
-            registryQueryConfig.ReadConfiguration(configDoc);
+            RegistryQueryConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

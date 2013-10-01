@@ -9,8 +9,7 @@ namespace QuickMon
 {
     public class PerfCounter : CollectorBase
     {
-        PerfCounterConfig perfCounterConfig = new PerfCounterConfig();
-        //private Mutex qmPerfCounterCollectorMutex = new Mutex();
+        internal PerfCounterConfig PerfCounterConfig = new PerfCounterConfig();
 
         public override MonitorStates GetState()
         {
@@ -27,10 +26,10 @@ namespace QuickMon
             try
             {
                 
-                plainTextDetails.AppendLine(string.Format("Querying {0} performance counters", perfCounterConfig.QMPerfCounters.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<i>Querying {0} performance counters</i>", perfCounterConfig.QMPerfCounters.Count));
+                plainTextDetails.AppendLine(string.Format("Querying {0} performance counters", PerfCounterConfig.QMPerfCounters.Count));
+                htmlTextTextDetails.AppendLine(string.Format("<i>Querying {0} performance counters</i>", PerfCounterConfig.QMPerfCounters.Count));
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (QMPerfCounterInstance perfCounter in perfCounterConfig.QMPerfCounters)
+                foreach (QMPerfCounterInstance perfCounter in PerfCounterConfig.QMPerfCounters)
                 {
                     MonitorStates currentState = MonitorStates.Good;
                     float value = 0;
@@ -94,7 +93,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.PFConfig = perfCounterConfig;
+            showDetails.PFConfig = PerfCounterConfig;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -109,7 +108,7 @@ namespace QuickMon
             ReadConfiguration(configDoc);
 
             EditConfig editConfig = new EditConfig();
-            editConfig.PFConfig = perfCounterConfig; 
+            editConfig.PFConfig = PerfCounterConfig; 
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.PFConfig.ToConfig();
@@ -125,7 +124,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(XmlDocument configDoc)
         {
-            perfCounterConfig.ReadConfig(configDoc);
+            PerfCounterConfig.ReadConfig(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

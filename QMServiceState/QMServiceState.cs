@@ -12,7 +12,7 @@ namespace QuickMon
 	{
 		public ServiceState() : base() { }
 
-		private List<ServiceStateDefinition> services = new List<ServiceStateDefinition>();
+		internal List<ServiceStateDefinition> Services = new List<ServiceStateDefinition>();
 
 		public override MonitorStates GetState()
 		{
@@ -30,7 +30,7 @@ namespace QuickMon
 			LastErrorMsg = "";			
 			try
 			{
-				foreach (ServiceStateDefinition machine in services)
+				foreach (ServiceStateDefinition machine in Services)
 				{
 					List<string> runningServices = new List<string>();
 					List<string> notRunningServices = new List<string>();
@@ -109,7 +109,7 @@ namespace QuickMon
 		public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
-			showDetails.Services = services;
+			showDetails.Services = Services;
 			showDetails.Text = "Show details - " + collectorName;
 			showDetails.ShowDetail();
 		}
@@ -131,7 +131,7 @@ namespace QuickMon
 
 		public override void ReadConfiguration(XmlDocument config)
 		{
-			services = new List<ServiceStateDefinition>();
+			Services = new List<ServiceStateDefinition>();
 			XmlElement root = config.DocumentElement;
 			foreach (XmlElement machine in root.SelectNodes("machine"))
 			{
@@ -142,8 +142,13 @@ namespace QuickMon
 				{
 					serviceStateDefinition.Services.Add(service.Attributes.GetNamedItem("name").Value);					
 				}
-				services.Add(serviceStateDefinition);
+				Services.Add(serviceStateDefinition);
 			}
-		}		
-	}
+		}
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
+    }
 }

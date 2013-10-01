@@ -16,12 +16,14 @@ namespace QuickMon
             InitializeComponent();
         }
 
-        public string SqlServer { get; set; }
-        public bool IntegratedSec { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public int CmndTimeOut { get; set; }
-        public List<DatabaseEntry> Databases { get; set; }
+        public DatabaseSizeConfig DatabaseSizeConfig { get; set; }
+
+        //public string SqlServer { get; set; }
+        //public bool IntegratedSec { get; set; }
+        //public string UserName { get; set; }
+        //public string Password { get; set; }
+        //public int CmndTimeOut { get; set; }
+        //public List<DatabaseEntry> Databases { get; set; }
 
         public DialogResult ShowConfig()
         {
@@ -35,11 +37,13 @@ namespace QuickMon
 
         private void EditConfig_Load(object sender, EventArgs e)
         {
-            txtServer.Text = SqlServer;
-            chkIntegratedSec.Checked = IntegratedSec;
-            txtUserName.Text = UserName;
-            txtPassword.Text = Password;
-            numericUpDownCmndTimeOut.Value = CmndTimeOut;
+            if (DatabaseSizeConfig == null)
+                DatabaseSizeConfig = new QuickMon.DatabaseSizeConfig();
+            txtServer.Text = DatabaseSizeConfig.SqlServer;
+            chkIntegratedSec.Checked = DatabaseSizeConfig.IntegratedSec;
+            txtUserName.Text = DatabaseSizeConfig.UserName;
+            txtPassword.Text = DatabaseSizeConfig.Password;
+            numericUpDownCmndTimeOut.Value = DatabaseSizeConfig.CmndTimeOut;
             LoadDatabases();
         }
 
@@ -58,7 +62,7 @@ namespace QuickMon
                 Cursor.Current = Cursors.WaitCursor;
                 lvwDatabases.Items.Clear();
                 lvwDatabases.BeginUpdate();
-                foreach (DatabaseEntry dbe in Databases)
+                foreach (DatabaseEntry dbe in DatabaseSizeConfig.Databases)
                 {
                     if (dbe.Name.Length > 0)
                     {
@@ -208,16 +212,17 @@ namespace QuickMon
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            SqlServer = txtServer.Text;
-            IntegratedSec = chkIntegratedSec.Checked;
-            UserName = txtUserName.Text;
-            Password = txtPassword.Text;
-            CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
-            Databases = new List<DatabaseEntry>();
+            DatabaseSizeConfig = new QuickMon.DatabaseSizeConfig();
+            DatabaseSizeConfig.SqlServer = txtServer.Text;
+            DatabaseSizeConfig.IntegratedSec = chkIntegratedSec.Checked;
+            DatabaseSizeConfig.UserName = txtUserName.Text;
+            DatabaseSizeConfig.Password = txtPassword.Text;
+            DatabaseSizeConfig.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
+            DatabaseSizeConfig.Databases = new List<DatabaseEntry>();
             foreach (ListViewItem lvi in lvwDatabases.Items)
             {
                 DatabaseEntry dbe = (DatabaseEntry)lvi.Tag;
-                Databases.Add(dbe);
+                DatabaseSizeConfig.Databases.Add(dbe);
             }
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();

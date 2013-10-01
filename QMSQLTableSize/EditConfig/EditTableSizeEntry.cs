@@ -189,7 +189,8 @@ namespace QuickMon
         }
         private void LoadDatabases()
         {
-            string sql = "select name from sys.databases where not(owner_sid = 0x01) order by name";
+            string sql = "select name from sys.databases order by name";
+            //sql = "select name from sys.databases where not(owner_sid = 0x01) order by name";
             try
             {
                 cboDatabase.Items.Clear();

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseEntry.cs" />
+    <Compile Include="DatabaseSizeConfig.cs" />
     <Compile Include="DatabaseSizeInfo.cs" />
     <Compile Include="EditConfig\EditConfig.cs">
       <SubType>Form</SubType>

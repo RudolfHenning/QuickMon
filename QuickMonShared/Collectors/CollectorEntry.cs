@@ -191,10 +191,41 @@ namespace QuickMon
             return newCollectorEntry;
         }
 
+
+
+        #region Viewing details
+        [Obsolete]
         public void ShowStatusDetails()
         {
             Collector.ShowStatusDetails(Name);
         }
+        private ICollectorDetailView collectorDetailView = null;
+        public void ShowDetails()
+        {
+            if (Collector != null)
+            {
+                if (collectorDetailView == null || (!collectorDetailView.IsStillVisible()))
+                {
+                    collectorDetailView = Collector.GetCollectorDetailView();
+                    collectorDetailView.ShowCollectorDetails(Collector);
+                }
+                else
+                {
+                    collectorDetailView.RefreshConfig(Collector);
+                }
+            }
+        }
+        public void RefreshDetailsIfOpen()
+        {
+            if (Collector != null)
+            {
+                if (collectorDetailView != null && (collectorDetailView.IsStillVisible()))
+                {
+                    collectorDetailView.RefreshConfig(Collector);
+                }
+            }
+        } 
+        #endregion
 
         public override string ToString()
         {

@@ -10,7 +10,7 @@ using System.IO;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public List<HostEntry> HostEntries { get; set; }
 
@@ -19,6 +19,32 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            HostEntries = null;
+            HostEntries = ((Ping)collector).HostEntries;
+            LoadList();
+            RefreshList();
+            ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            HostEntries = null;
+            HostEntries = ((Ping)collector).HostEntries;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
         #region Show detail
         public void ShowDetail()
         {
@@ -26,9 +52,7 @@ namespace QuickMon
             LoadList();
             RefreshList();
             ShowDetails_Resize(null, null);
-        }
-
-        
+        }        
         #endregion
 
         #region ListView events
@@ -57,6 +81,7 @@ namespace QuickMon
         {
             if (HostEntries != null)
             {
+                lvwHosts.Items.Clear();
                 foreach (var hostEntry in HostEntries)
                 {
                     ListViewItem lvi = new ListViewItem(hostEntry.HostName);
@@ -119,7 +144,6 @@ namespace QuickMon
             System.Windows.Forms.Cursor.Current = Cursors.Default;
             toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
-
         #endregion
 
         #region Auto refreshing

@@ -9,17 +9,62 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
+        public WMIConfig WmiIConfig { get; set; }
+
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        public WMIConfig WmiIConfig { get; set; }
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            WmiIConfig = null;
+            WmiIConfig = ((WMIQuery)collector).WmiIConfig;
+            LoadList();
+            RefreshList();
+            lvwResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            //ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            WmiIConfig = null;
+            WmiIConfig = ((WMIQuery)collector).WmiIConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         #region Form events
         private void ShowDetails_Load(object sender, EventArgs e)
+        {
+            
+        }
+        private void ShowDetails_Shown(object sender, EventArgs e)
+        {            
+            
+        }
+        #endregion
+
+        #region Toolbar button events
+        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshList();
+        } 
+        #endregion
+
+        #region Private methods
+        private void LoadList()
         {
             if (WmiIConfig != null)
             {
@@ -51,34 +96,19 @@ namespace QuickMon
                         newColumn.Text = columnName;
 
                         if ((currentDataColumn.DataType == typeof(UInt64)) || (currentDataColumn.DataType == typeof(UInt32)) || (currentDataColumn.DataType == typeof(UInt16)) ||
-                            (currentDataColumn.DataType == typeof(Int64)) || (currentDataColumn.DataType == typeof(Int32)) || (currentDataColumn.DataType == typeof(Int16)) )
+                            (currentDataColumn.DataType == typeof(Int64)) || (currentDataColumn.DataType == typeof(Int32)) || (currentDataColumn.DataType == typeof(Int16)))
                         {
                             newColumn.TextAlign = HorizontalAlignment.Right;
                         }
-                        else 
+                        else
                         {
                             newColumn.TextAlign = HorizontalAlignment.Left;
                         }
                         lvwResults.Columns.Add(newColumn);
-                    }                    
+                    }
                 }
             }
         }
-        private void ShowDetails_Shown(object sender, EventArgs e)
-        {
-            RefreshList();
-            lvwResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-        }
-        #endregion
-
-        #region Toolbar button events
-        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
-        {
-            RefreshList();
-        } 
-        #endregion
-
-        #region Private methods
         private void RefreshList()
         {
             if (WmiIConfig != null)

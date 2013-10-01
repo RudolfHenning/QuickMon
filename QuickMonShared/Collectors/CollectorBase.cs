@@ -17,6 +17,7 @@ namespace QuickMon
         #region ICollector Members
         public abstract MonitorStates GetState();
         public abstract void ShowStatusDetails(string collectorName);
+        public abstract ICollectorDetailView GetCollectorDetailView();
         #endregion
 
         #region IAgent Members
@@ -32,7 +33,5 @@ namespace QuickMon
             
         }
         #endregion   
-    
-
     }
 }

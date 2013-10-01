@@ -10,7 +10,7 @@ namespace QuickMon
 	{
 		public Ping() : base() { }
 
-		private List<HostEntry> hostEntries = new List<HostEntry>();
+		internal List<HostEntry> HostEntries = new List<HostEntry>();
 
 		public override MonitorStates GetState()
 		{
@@ -28,7 +28,7 @@ namespace QuickMon
 			LastErrorMsg = "";
 			try
 			{
-				foreach (HostEntry host in hostEntries)
+				foreach (HostEntry host in HostEntries)
 				{
                     PingResult pingResult = host.Ping();
                     MonitorStates currentState = host.GetState(pingResult);
@@ -121,7 +121,7 @@ namespace QuickMon
 		public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
-			showDetails.HostEntries = hostEntries;
+			showDetails.HostEntries = HostEntries;
 			showDetails.Text = "Show details - " + collectorName;
 			showDetails.ShowDetail();
 		}
@@ -142,7 +142,7 @@ namespace QuickMon
 
 		public override void ReadConfiguration(XmlDocument config)
 		{
-			hostEntries = new List<HostEntry>();
+			HostEntries = new List<HostEntry>();
 			XmlElement root = config.DocumentElement;
 			foreach (XmlElement host in root.SelectNodes("hosts/host"))
 			{
@@ -154,8 +154,13 @@ namespace QuickMon
 					hostEntry.MaxTime = tmp;
 				if (int.TryParse(host.Attributes.GetNamedItem("timeOut").Value, out tmp))
 					hostEntry.TimeOut = tmp;
-				hostEntries.Add(hostEntry);
+				HostEntries.Add(hostEntry);
 			}
-		}		
-	}
+		}
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
+    }
 }

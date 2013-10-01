@@ -8,7 +8,7 @@ namespace QuickMon
 {
     public class HttpPing : CollectorBase
     {
-        private HttpPingConfig httpPingConfig = new HttpPingConfig();
+        internal HttpPingConfig HttpPingConfig = new HttpPingConfig();
 
         public override MonitorStates GetState()
         {
@@ -22,11 +22,11 @@ namespace QuickMon
             long pingTotalTime = 0;
             try
             {
-                plainTextDetails.AppendLine(string.Format("Pinging {0} addresses", httpPingConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<b>Pinging {0} addresses</b>", httpPingConfig.Entries.Count));
+                plainTextDetails.AppendLine(string.Format("Pinging {0} addresses", HttpPingConfig.Entries.Count));
+                htmlTextTextDetails.AppendLine(string.Format("<b>Pinging {0} addresses</b>", HttpPingConfig.Entries.Count));
 
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (HttpPingEntry httpPingEntry in httpPingConfig.Entries)
+                foreach (HttpPingEntry httpPingEntry in HttpPingConfig.Entries)
                 {
                     try
                     {
@@ -95,7 +95,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.HttpPingConfig = httpPingConfig;
+            showDetails.HttpPingConfig = HttpPingConfig;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -109,7 +109,7 @@ namespace QuickMon
                 configDoc.LoadXml(GetDefaultOrEmptyConfigString());
             ReadConfiguration(configDoc);
             EditConfig editConfig = new EditConfig();
-            editConfig.SelectedHttpPingConfig = httpPingConfig;
+            editConfig.SelectedHttpPingConfig = HttpPingConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.SelectedHttpPingConfig.ToConfig();
@@ -125,7 +125,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(XmlDocument configDoc)
         {
-            httpPingConfig.ReadConfiguration(configDoc);
+            HttpPingConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

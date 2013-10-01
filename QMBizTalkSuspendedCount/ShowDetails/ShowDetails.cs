@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public BizTalkGroup BizTalkGroup { get; set; }
 
@@ -22,6 +22,29 @@ namespace QuickMon
         {
             InitializeComponent();
         }
+
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            BizTalkGroup = null;
+            BizTalkGroup = ((BizTalkSuspendedCount)collector).BizTalkGroup;
+            RefreshList();
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            BizTalkGroup = null;
+            BizTalkGroup = ((BizTalkSuspendedCount)collector).BizTalkGroup;
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         #region Show detail
         public void ShowDetail()
@@ -189,6 +212,19 @@ namespace QuickMon
                 Cursor.Current = Cursors.Default;
             }
         }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectionBusy = true;
+            foreach (ListViewItem lvi in lvwSuspMsgs.Items)
+            {
+                lvi.Selected = true;
+            }
+            selectionBusy = false;
+            timerShowDetail.Enabled = false;
+            timerShowDetail.Enabled = true;
+            exportToolStripButton.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+            exportSelectedToolStripMenuItem.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
+        }
         #endregion
 
         #region Private events
@@ -217,22 +253,6 @@ namespace QuickMon
                 exportToolStripButton.Enabled = false;
             }
         }
-        #endregion
-
-        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            selectionBusy = true;
-            foreach (ListViewItem lvi in lvwSuspMsgs.Items)
-            {
-                lvi.Selected = true;
-            }
-            selectionBusy = false;
-            timerShowDetail.Enabled = false;
-            timerShowDetail.Enabled = true;
-            exportToolStripButton.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
-            exportSelectedToolStripMenuItem.Enabled = lvwSuspMsgs.SelectedItems.Count > 0;
-        }
-
-        
+        #endregion        
     }
 }

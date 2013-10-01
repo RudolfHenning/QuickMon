@@ -10,21 +10,47 @@ using HenIT.RTF;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public ShowDetails()
         {
             InitializeComponent();
         }
 
-        private const int MAXPREVIEWDISPLAYCOUNT = 100;
+        public SQLQueryConfig SqlQueryConfig { get; set; }
 
-        public SQLQueryConfig SQLQueryConfig { get; set; }
+        private const int MAXPREVIEWDISPLAYCOUNT = 100;        
+
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            SqlQueryConfig = null;
+            SqlQueryConfig = ((SQLQuery)collector).SqlQueryConfig;
+            LoadList();
+            RefreshList();
+            //ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            SqlQueryConfig = null;
+            SqlQueryConfig = ((SQLQuery)collector).SqlQueryConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
 
         #region Form events
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            LoadList();
+            
         }
         private void ShowDetails_Load(object sender, EventArgs e)
         {
@@ -113,10 +139,11 @@ namespace QuickMon
         #region Private methods
         private void LoadList()
         {
-            lvwResults.Items.Clear();
-            if (SQLQueryConfig != null)
+            
+            if (SqlQueryConfig != null)
             {
-                foreach (QueryInstance queryInstance in SQLQueryConfig.Queries)
+                lvwResults.Items.Clear();
+                foreach (QueryInstance queryInstance in SqlQueryConfig.Queries)
                 {
                     ListViewItem lvi = new ListViewItem(queryInstance.Name);
                     lvi.SubItems.Add(GetQIValue(lvi, queryInstance));

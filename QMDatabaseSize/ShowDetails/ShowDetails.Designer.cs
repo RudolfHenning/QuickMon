@@ -35,6 +35,7 @@
             this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -43,7 +44,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.autoRefreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.timerItemSelected = new System.Windows.Forms.Timer(this.components);
-            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -91,6 +91,14 @@
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // autoRefreshToolStripMenuItem
+            // 
+            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
+            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
+            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
             // 
             // imageList1
             // 
@@ -160,14 +168,6 @@
             // 
             this.timerItemSelected.Interval = 200;
             // 
-            // autoRefreshToolStripMenuItem
-            // 
-            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
-            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
-            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
-            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
-            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
-            // 
             // refreshTimer
             // 
             this.refreshTimer.Interval = 5000;
@@ -185,8 +185,6 @@
             this.Name = "ShowDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Show Details";
-            this.Load += new System.EventHandler(this.ShowDetails_Load);
-            this.Shown += new System.EventHandler(this.ShowDetails_Shown);
             this.Resize += new System.EventHandler(this.ShowDetails_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);

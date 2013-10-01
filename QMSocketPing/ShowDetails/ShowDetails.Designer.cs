@@ -175,8 +175,6 @@
             this.Name = "ShowDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShowDetails";
-            this.Load += new System.EventHandler(this.ShowDetails_Load);
-            this.Shown += new System.EventHandler(this.ShowDetails_Shown);
             this.Resize += new System.EventHandler(this.ShowDetails_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);

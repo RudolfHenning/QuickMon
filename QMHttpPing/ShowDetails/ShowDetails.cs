@@ -10,7 +10,7 @@ using System.IO;
 
 namespace QuickMon
 {
-    public partial class ShowDetails : Form
+    public partial class ShowDetails : Form, ICollectorDetailView
     {
         public HttpPingConfig HttpPingConfig { get; set; }
 
@@ -19,14 +19,39 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region ICollectorDetailView Members
+        public void ShowCollectorDetails(ICollector collector)
+        {
+            base.Show();
+            HttpPingConfig = null;
+            HttpPingConfig = ((HttpPing)collector).HttpPingConfig;
+            LoadList();
+            RefreshList();
+            ShowDetails_Resize(null, null);
+        }
+        public void RefreshConfig(ICollector collector)
+        {
+            HttpPingConfig = ((HttpPing)collector).HttpPingConfig;
+            LoadList();
+            RefreshList();
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        public bool IsStillVisible()
+        {
+            return (!(this.Disposing || this.IsDisposed)) && this.Visible;
+        }
+        #endregion
+
         #region Form events
         private void ShowDetails_Load(object sender, EventArgs e)
         {
-            LoadList();
+            //LoadList();
         }
         private void ShowDetails_Shown(object sender, EventArgs e)
         {
-            RefreshList();
+            //RefreshList();
         }
         #endregion
 
@@ -56,6 +81,7 @@ namespace QuickMon
         {
             if (HttpPingConfig != null)
             {
+                lvwHosts.Items.Clear();
                 foreach (HttpPingEntry httpPingEntry in HttpPingConfig.Entries)
                 {
                     ListViewItem lvi = new ListViewItem(httpPingEntry.Url);

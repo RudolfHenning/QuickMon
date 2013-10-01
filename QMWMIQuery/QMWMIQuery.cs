@@ -9,7 +9,7 @@ namespace QuickMon
 {
 	public class WMIQuery : CollectorBase
 	{
-		private WMIConfig wmiIConfig = new WMIConfig();
+		internal WMIConfig WmiIConfig = new WMIConfig();
 
 		public override MonitorStates GetState()
 		{
@@ -24,16 +24,16 @@ namespace QuickMon
 			double totalValue = 0;
 			try
 			{
-				plainTextDetails.AppendLine(string.Format("Running the WMI query: '{0}'", wmiIConfig.StateQuery));
-				htmlTextTextDetails.AppendLine(string.Format("<i>Running the WMI query: '{0}'</i>", wmiIConfig.StateQuery));
+				plainTextDetails.AppendLine(string.Format("Running the WMI query: '{0}'", WmiIConfig.StateQuery));
+				htmlTextTextDetails.AppendLine(string.Format("<i>Running the WMI query: '{0}'</i>", WmiIConfig.StateQuery));
 				htmlTextTextDetails.AppendLine("<ul>");
-				foreach (string machineName in wmiIConfig.Machines)
+				foreach (string machineName in WmiIConfig.Machines)
 				{
 					object value = null;
-					LastDetailMsg.PlainText = string.Format("Running WMI query for '{0}' - '{1}'", machineName, wmiIConfig.StateQuery);
+					LastDetailMsg.PlainText = string.Format("Running WMI query for '{0}' - '{1}'", machineName, WmiIConfig.StateQuery);
 
-                    value = wmiIConfig.RunQuery(machineName);
-                    MonitorStates currentState = wmiIConfig.GetState(value);
+                    value = WmiIConfig.RunQuery(machineName);
+                    MonitorStates currentState = WmiIConfig.GetState(value);
 
                     if (value != null && value.IsNumber())
                         totalValue += double.Parse(value.ToString());
@@ -41,14 +41,14 @@ namespace QuickMon
                     if (currentState == MonitorStates.Error)
 					{
 						errors++;
-						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.ErrorValue));
-						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.ErrorValue));
+						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.ErrorValue));
+						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.ErrorValue));
 					}
 					else if (currentState == MonitorStates.Warning)
 					{
 						warnings++;
-						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.WarningValue));
-						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), wmiIConfig.WarningValue));
+						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.WarningValue));
+						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.WarningValue));
 					}
 					else
 					{
@@ -80,7 +80,7 @@ namespace QuickMon
 		public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
-			showDetails.WmiIConfig = wmiIConfig;
+			showDetails.WmiIConfig = WmiIConfig;
 			showDetails.Text = "Show details - " + collectorName;
 			showDetails.Show();
 		}
@@ -95,7 +95,7 @@ namespace QuickMon
 			ReadConfiguration(configDoc);
 
 			EditConfig editConfig = new EditConfig();
-			editConfig.WmiIConfig = wmiIConfig;
+			editConfig.WmiIConfig = WmiIConfig;
 			if (editConfig.ShowConfig() == System.Windows.Forms.DialogResult.OK)
 			{
 				config = editConfig.WmiIConfig.ToConfig();
@@ -110,7 +110,12 @@ namespace QuickMon
 
 		public override void ReadConfiguration(XmlDocument configDoc)
 		{
-			wmiIConfig.ReadConfig(configDoc);
+			WmiIConfig.ReadConfig(configDoc);
 		}
-	}
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
+    }
 }

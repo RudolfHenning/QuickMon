@@ -8,7 +8,7 @@ namespace QuickMon
 {
     public class SQLQuery : CollectorBase
     {
-        private SQLQueryConfig sqlQueryConfig = new SQLQueryConfig();
+        internal SQLQueryConfig SqlQueryConfig = new SQLQueryConfig();
 
         public override MonitorStates GetState()
         {
@@ -26,7 +26,7 @@ namespace QuickMon
                 plainTextDetails.AppendLine(string.Format("SQL Queries"));
                 htmlTextTextDetails.AppendLine(string.Format("SQL Queries"));
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (QueryInstance queryInstance in sqlQueryConfig.Queries)
+                foreach (QueryInstance queryInstance in SqlQueryConfig.Queries)
                 {
                     object value = null;
                     LastDetailMsg.PlainText = string.Format("Running SQL query '{0}' on '{1}\\{2}'", queryInstance.Name, queryInstance.SqlServer, queryInstance.Database);
@@ -78,7 +78,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.SQLQueryConfig = sqlQueryConfig;
+            showDetails.SqlQueryConfig = SqlQueryConfig;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.Show();
         }
@@ -93,7 +93,7 @@ namespace QuickMon
             ReadConfiguration(configDoc);
 
             EditConfig editConfig = new EditConfig();
-            editConfig.SqlQueryConfig = sqlQueryConfig;
+            editConfig.SqlQueryConfig = SqlQueryConfig;
             if (editConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 config = editConfig.SqlQueryConfig.ToConfig();
@@ -108,7 +108,12 @@ namespace QuickMon
 
         public override void ReadConfiguration(XmlDocument configDoc)
         {
-            sqlQueryConfig.ReadConfiguration(configDoc);
+            SqlQueryConfig.ReadConfiguration(configDoc);
+        }
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
         }
     }
 }

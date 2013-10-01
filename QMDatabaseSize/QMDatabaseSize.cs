@@ -8,12 +8,13 @@ namespace QuickMon
 {
 	public class DatabaseSize : CollectorBase
 	{
-		private string sqlServer = "";
-		private bool integratedSec;
-		private string userName;
-		private string password;
-		private int cmndTimeOut = 60;
-		private List<DatabaseEntry> databases = new List<DatabaseEntry>();
+        //private string sqlServer = "";
+        //private bool integratedSec;
+        //private string userName;
+        //private string password;
+        //private int cmndTimeOut = 60;
+        internal DatabaseSizeConfig DatabaseSizeConfig = new DatabaseSizeConfig();
+		//internal List<DatabaseEntry> Databases = new List<DatabaseEntry>();
 
 		public override MonitorStates GetState()
 		{
@@ -32,10 +33,10 @@ namespace QuickMon
 			try
 			{
 				DatabaseSizeInfo databaseSizeInfo = new DatabaseSizeInfo();
-				databaseSizeInfo.OpenConnection(sqlServer, integratedSec, userName, password, cmndTimeOut);
+                databaseSizeInfo.OpenConnection(DatabaseSizeConfig.SqlServer, DatabaseSizeConfig.IntegratedSec, DatabaseSizeConfig.UserName, DatabaseSizeConfig.Password, DatabaseSizeConfig.CmndTimeOut);
 
 				htmlTextTextDetails.AppendLine("<ul>");
-				foreach (DatabaseEntry dbEntry in databases)
+				foreach (DatabaseEntry dbEntry in DatabaseSizeConfig.Databases)
 				{
 					long size = databaseSizeInfo.GetDatabaseSize(dbEntry.Name);
 					totalSize += size;
@@ -87,15 +88,15 @@ namespace QuickMon
 
 		public override void ShowStatusDetails(string collectorName)
 		{
-			ShowDetails showDetails = new ShowDetails();
-			showDetails.Text = "Show details - " + collectorName;
-			showDetails.SqlServer = sqlServer;
-			showDetails.IntegratedSec = integratedSec;
-			showDetails.UserName = userName;
-			showDetails.Password = password;
-			showDetails.CmndTimeOut = cmndTimeOut;
-			showDetails.Databases = databases;
-			showDetails.Show();
+            //ShowDetails showDetails = new ShowDetails();
+            //showDetails.Text = "Show details - " + collectorName;
+            //showDetails.SqlServer = sqlServer;
+            //showDetails.IntegratedSec = integratedSec;
+            //showDetails.UserName = userName;
+            //showDetails.Password = password;
+            //showDetails.CmndTimeOut = cmndTimeOut;
+            //showDetails.Databases = Databases;
+            //showDetails.Show();
 		}
 
 		public override string ConfigureAgent(string config)
@@ -108,30 +109,32 @@ namespace QuickMon
 			ReadConfiguration(configXml);
 
 			EditConfig editConfig = new EditConfig();
-			editConfig.SqlServer = sqlServer;
-			editConfig.IntegratedSec = integratedSec;
-			editConfig.UserName = userName;
-			editConfig.Password = password;
-			editConfig.Databases = databases;
-			editConfig.CmndTimeOut = cmndTimeOut;
+            editConfig.DatabaseSizeConfig = DatabaseSizeConfig;
+            //editConfig.SqlServer = DatabaseSizeConfig.SqlServer;
+            //editConfig.IntegratedSec = DatabaseSizeConfig.IntegratedSec;
+            //editConfig.UserName = DatabaseSizeConfig.UserName;
+            //editConfig.Password = DatabaseSizeConfig.Password;
+            //editConfig.Databases = DatabaseSizeConfig.Databases;
+            //editConfig.CmndTimeOut = DatabaseSizeConfig.CmndTimeOut;
 			if (editConfig.ShowConfig() == System.Windows.Forms.DialogResult.OK)
 			{
-				sqlServer = editConfig.SqlServer;
-				integratedSec = editConfig.IntegratedSec;
-				userName = editConfig.UserName;
-				password = editConfig.Password;
-				databases = editConfig.Databases;
+                DatabaseSizeConfig = editConfig.DatabaseSizeConfig;
+                //DatabaseSizeConfig.SqlServer = editConfig.SqlServer;
+                //DatabaseSizeConfig.IntegratedSec = editConfig.IntegratedSec;
+                //DatabaseSizeConfig.UserName = editConfig.UserName;
+                //DatabaseSizeConfig.Password = editConfig.Password;
+                //DatabaseSizeConfig.Databases = editConfig.Databases;
 
 				XmlElement root = configXml.DocumentElement;
 				XmlNode connectionNode = root.SelectSingleNode("connection");
-				connectionNode.SetAttributeValue("sqlServer", editConfig.SqlServer);
-				connectionNode.SetAttributeValue("integratedSec", editConfig.IntegratedSec.ToString());
-				connectionNode.SetAttributeValue("userName", userName);
-				connectionNode.SetAttributeValue("password", password);
-				connectionNode.SetAttributeValue("cmndTimeOut", cmndTimeOut.ToString());
+                connectionNode.SetAttributeValue("sqlServer", DatabaseSizeConfig.SqlServer);
+                connectionNode.SetAttributeValue("integratedSec", DatabaseSizeConfig.IntegratedSec.ToString());
+                connectionNode.SetAttributeValue("userName", DatabaseSizeConfig.UserName);
+                connectionNode.SetAttributeValue("password", DatabaseSizeConfig.Password);
+                connectionNode.SetAttributeValue("cmndTimeOut", DatabaseSizeConfig.CmndTimeOut.ToString());
 				connectionNode.InnerXml = "";
 
-				foreach (var database in databases)
+                foreach (var database in DatabaseSizeConfig.Databases)
 				{
 					XmlElement databaseNode = configXml.CreateElement("database");
 					databaseNode.SetAttributeValue("name", database.Name);
@@ -154,15 +157,16 @@ namespace QuickMon
 		{
 			XmlElement root = config.DocumentElement;
 			XmlNode connectionNode = root.SelectSingleNode("connection");
-			sqlServer = connectionNode.ReadXmlElementAttr("sqlServer", "");
-			integratedSec = bool.Parse(connectionNode.ReadXmlElementAttr("integratedSec", "True"));
-			userName = connectionNode.ReadXmlElementAttr("userName", "");
-			password = connectionNode.ReadXmlElementAttr("password", "");
-			cmndTimeOut = int.Parse(connectionNode.ReadXmlElementAttr("cmndTimeOut", "60"));
-			databases = new List<DatabaseEntry>();
+            DatabaseSizeConfig = new DatabaseSizeConfig();
+            DatabaseSizeConfig.SqlServer = connectionNode.ReadXmlElementAttr("sqlServer", "");
+            DatabaseSizeConfig.IntegratedSec = bool.Parse(connectionNode.ReadXmlElementAttr("integratedSec", "True"));
+            DatabaseSizeConfig.UserName = connectionNode.ReadXmlElementAttr("userName", "");
+            DatabaseSizeConfig.Password = connectionNode.ReadXmlElementAttr("password", "");
+            DatabaseSizeConfig.CmndTimeOut = int.Parse(connectionNode.ReadXmlElementAttr("cmndTimeOut", "60"));
+            DatabaseSizeConfig.Databases = new List<DatabaseEntry>();
 			foreach (XmlElement databaseNode in connectionNode.SelectNodes("database"))
 			{
-				databases.Add(new DatabaseEntry()
+                DatabaseSizeConfig.Databases.Add(new DatabaseEntry()
 						{
 							Name = databaseNode.ReadXmlElementAttr("name", ""),
 							WarningSizeMB = int.Parse(databaseNode.ReadXmlElementAttr("warningSizeMB", "1024")),
@@ -171,5 +175,10 @@ namespace QuickMon
 					);
 			}
 		}
-	}
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
+    }
 }

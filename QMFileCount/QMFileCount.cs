@@ -11,7 +11,7 @@ namespace QuickMon
     {
         public FileCount() : base() { }
 
-        private List<DirectoryFilterEntry> directorieFilters = new List<DirectoryFilterEntry>();
+        internal List<DirectoryFilterEntry> DirectorieFilters = new List<DirectoryFilterEntry>();
 
         public override MonitorStates GetState()
         {
@@ -30,7 +30,7 @@ namespace QuickMon
             try
             {
                 htmlTextTextDetails.AppendLine("<ul>");
-                foreach (DirectoryFilterEntry directoryFilter in directorieFilters)
+                foreach (DirectoryFilterEntry directoryFilter in DirectorieFilters)
                 {
                     DirectoryFileInfo directoryFileInfo = directoryFilter.GetDirFileInfo();
                     MonitorStates currentState = directoryFilter.GetState(directoryFileInfo);
@@ -176,7 +176,7 @@ namespace QuickMon
         public override void ShowStatusDetails(string collectorName)
         {
             ShowDetails showDetails = new ShowDetails();
-            showDetails.DirectorieFilters = directorieFilters;
+            showDetails.DirectorieFilters = DirectorieFilters;
             showDetails.Text = "Show details - " + collectorName;
             showDetails.ShowDetail();
         }
@@ -194,7 +194,7 @@ namespace QuickMon
         }
         public override void ReadConfiguration(XmlDocument config)
         {
-            directorieFilters = new List<DirectoryFilterEntry>();
+            DirectorieFilters = new List<DirectoryFilterEntry>();
             System.Xml.XmlElement root = config.DocumentElement;
             foreach (System.Xml.XmlElement host in root.SelectNodes("directoryList/directory"))
             {
@@ -223,9 +223,13 @@ namespace QuickMon
                 if (long.TryParse(host.ReadXmlElementAttr("fileMaxSizeKB", "0"), out tmpl))
                     directoryFilterEntry.FileMaxSizeKB = tmpl;
 
-                directorieFilters.Add(directoryFilterEntry);
+                DirectorieFilters.Add(directoryFilterEntry);
             }
         }
-        
+
+        public override ICollectorDetailView GetCollectorDetailView()
+        {
+            return (ICollectorDetailView)(new ShowDetails());
+        }
     }
 }
