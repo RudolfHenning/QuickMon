@@ -25,6 +25,7 @@ namespace QuickMon
         }
 
         #region Private vars
+        private bool mainTimerEnabled = true;
         private MonitorStates globalState = MonitorStates.NotAvailable;
         private bool glassIcon = true;
         private MonitorPack monitorPack = new MonitorPack();
@@ -129,16 +130,25 @@ namespace QuickMon
         }
         private void toolStripButtonConfigPack_Click(object sender, EventArgs e)
         {
-            //timerMain.Enabled = false;
+            mainTimerEnabled = false;
             mainRefreshTimer.Enabled = false;
             QuickMon.Management.MonitorPackManagement monitorPackManagement = new Management.MonitorPackManagement();
             if (monitorPackManagement.ShowMonitorPack(monitorPack) == System.Windows.Forms.DialogResult.OK)
             {
+                CloseAllDetailWindows();
                 Properties.Settings.Default.LastMonitorPack = monitorPackManagement.MonitorPackPath;
                 LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
-                backgroundWorkerRefresh.RunWorkerAsync();
+                try
+                {
+                    if (!backgroundWorkerRefresh.IsBusy)
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        backgroundWorkerRefresh.RunWorkerAsync();
+                    }
+                }
+                catch { }
             }
-            //timerMain.Enabled = true;
+            mainTimerEnabled = true;
             mainRefreshTimer.Enabled = true;   
         }
         private void toolStripButtonOptions_Click(object sender, EventArgs e)
@@ -174,11 +184,15 @@ namespace QuickMon
         }
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
-            if (!backgroundWorkerRefresh.IsBusy)
+            try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                backgroundWorkerRefresh.RunWorkerAsync();
+                if (!backgroundWorkerRefresh.IsBusy)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    backgroundWorkerRefresh.RunWorkerAsync();
+                }
             }
+            catch { }
         }
         private void toolStripButtonNotifiers_Click(object sender, EventArgs e)
         {
@@ -216,21 +230,21 @@ namespace QuickMon
             }
             SetEnableDisablePolling();
         }
-        private void timerMain_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                RefreshMonitorPack();
-            }
-            catch (Exception ex)
-            {
-                if (Properties.Settings.Default.DisablePollingOnError)
-                    monitorPack.Enabled = false;
-                toolStripStatusLabelStatus.Text = ex.Message;
-                toolStripStatusLabelStatus.ToolTipText = ex.Message;
-            }
-            SetEnableDisablePolling();
-        }
+        //private void timerMain_Tick(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        RefreshMonitorPack();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (Properties.Settings.Default.DisablePollingOnError)
+        //            monitorPack.Enabled = false;
+        //        toolStripStatusLabelStatus.Text = ex.Message;
+        //        toolStripStatusLabelStatus.ToolTipText = ex.Message;
+        //    }
+        //    SetEnableDisablePolling();
+        //}
         private void timerAppIconRefresher_Tick(object sender, EventArgs e)
         {
             UpdateAppIcon();
@@ -631,14 +645,17 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                if (Properties.Settings.Default.DisablePollingOnError)
-                    monitorPack.Enabled = false;
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute."))
+                {
+                    if (Properties.Settings.Default.DisablePollingOnError)
+                        monitorPack.Enabled = false;
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             finally
             {
                 Cursor.Current = Cursors.Default;
-                mainRefreshTimer.Enabled = true; 
+                mainRefreshTimer.Enabled = mainTimerEnabled; 
             }
         }
         #endregion
@@ -808,6 +825,25 @@ namespace QuickMon
                     Text += string.Format(" - [{0}] - {1}", monitorPack.Name, System.IO.Path.GetDirectoryName(Properties.Settings.Default.LastMonitorPack));
                 else if (Properties.Settings.Default.LastMonitorPack != null)
                     Text += string.Format(" - [{0}] - {1}", System.IO.Path.GetFileNameWithoutExtension(Properties.Settings.Default.LastMonitorPack), System.IO.Path.GetDirectoryName(Properties.Settings.Default.LastMonitorPack));
+            }
+        }
+        private void CloseAllDetailWindows(TreeNode parent = null)
+        {
+            if (parent == null)
+            {
+                CloseAllDetailWindows(tvwCollectors.Nodes[0]);
+            }
+            else
+            {
+                foreach (TreeNode child in parent.Nodes)
+                {
+                    if (child.Tag is CollectorEntry)
+                    {
+                        CollectorEntry childCollector = (CollectorEntry)child.Tag;
+                        childCollector.CloseDetails();
+                    }
+                    CloseAllDetailWindows(child);
+                }
             }
         }
         #endregion                        

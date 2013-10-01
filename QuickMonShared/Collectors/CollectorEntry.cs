@@ -225,6 +225,20 @@ namespace QuickMon
                 }
             }
         } 
+        public void CloseDetails()
+        {
+            if (Collector != null)
+            {
+                if (collectorDetailView != null && (collectorDetailView.IsStillVisible()))
+                {
+                    try
+                    {
+                        ((System.Windows.Forms.Form)collectorDetailView).Close();
+                    }
+                    catch { }
+                }
+            }
+        }
         #endregion
 
         public override string ToString()
@@ -377,5 +391,7 @@ namespace QuickMon
             clone.Tag = Tag;
             return clone;
         }
+
+
     }
 }
