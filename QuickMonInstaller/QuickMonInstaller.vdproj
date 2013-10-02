@@ -1037,7 +1037,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_2AFA676443A24D628769186BF6553CA7"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -1075,7 +1075,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
         "ProductCode" = "8:{C9FD0341-7059-4CB4-8327-E9233C28A3ED}"
-        "PackageCode" = "8:{67E9D5A2-E728-4E12-8B26-04480336D701}"
+        "PackageCode" = "8:{618A19E0-CDD2-4A49-8FE0-B79E7102DE40}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1096,7 +1096,7 @@
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:1"
+        "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"

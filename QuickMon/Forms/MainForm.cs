@@ -118,6 +118,7 @@ namespace QuickMon
                 openFileDialogOpen.InitialDirectory = startUpPath;
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
+                    CloseAllDetailWindows();
                     LoadMonitorPack(openFileDialogOpen.FileName);
                     backgroundWorkerRefresh.RunWorkerAsync();
                 }
@@ -132,6 +133,7 @@ namespace QuickMon
             RecentMonitorPacks recentMonitorPacks = new RecentMonitorPacks();
             if (recentMonitorPacks.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                CloseAllDetailWindows();
                 LoadMonitorPack(recentMonitorPacks.SelectedPack);
                 backgroundWorkerRefresh.RunWorkerAsync();
             }
