@@ -12,14 +12,12 @@ namespace QuickMon
     {
         private string outputPath = "";
         private long createNewFileSizeKB = 0;
-        //private Mutex logWriteMutex = new Mutex();
 
         public override void RecordMessage(AlertLevel alertLevel, string collectorType, string category, MonitorStates oldState, MonitorStates newState, CollectorMessage collectorMessage)
         {
             string lastStep = "";
             try
             {
-                //logWriteMutex.WaitOne();
                 if (createNewFileSizeKB > 0)
                 {
                     lastStep = "Checking if log file exists";
@@ -50,10 +48,6 @@ namespace QuickMon
             catch (Exception ex)
             {
                 throw new Exception("Error recording message in log file notifier '{0}'\r\nLast step: " + lastStep, ex);
-            }
-            finally
-            {
-                //logWriteMutex.ReleaseMutex();
             }
         }
         private void CreateBackupFile(string baseFilePath, int counter)

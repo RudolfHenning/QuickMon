@@ -311,12 +311,6 @@
         "Entry"
         {
         "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
-        "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -472,6 +466,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
+        "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CAE96F69ADBC4FD8BB05243DEFDF0BAC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -522,6 +522,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_59F42731630741A697A88B297B89B7DC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AEF69716952181B21E031B4717828D17"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -678,12 +684,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AEF69716952181B21E031B4717828D17"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -875,7 +875,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.12.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.12.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_AEF69716952181B21E031B4717828D17"
@@ -1037,7 +1037,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_2AFA676443A24D628769186BF6553CA7"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -1074,15 +1074,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{3EF3E6AE-381D-45A5-BB05-43E674851BB4}"
-        "PackageCode" = "8:{09F8861D-4A04-49F6-92EF-D0ED407B0035}"
+        "ProductCode" = "8:{C9FD0341-7059-4CB4-8327-E9233C28A3ED}"
+        "PackageCode" = "8:{67E9D5A2-E728-4E12-8B26-04480336D701}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.12.0"
+        "ProductVersion" = "8:2.12.1"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1096,7 +1096,7 @@
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"

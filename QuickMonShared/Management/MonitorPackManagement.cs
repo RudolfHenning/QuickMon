@@ -44,6 +44,10 @@ namespace QuickMon.Management
             try
             {
                 ToolStripManager.LoadSettings(this, "QuickMon.ConfigurationEditorToolbar");
+                if (monitorPack != null && monitorPack.AgentRegistrations.Count == 0)
+                {
+                    monitorPack.AgentsAssemblyPath = "";
+                }
             }
             catch { }
         }

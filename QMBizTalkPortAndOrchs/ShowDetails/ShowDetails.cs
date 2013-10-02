@@ -10,7 +10,8 @@ using System.Windows.Forms;
 namespace QuickMon
 {
     public partial class ShowDetails : Form, ICollectorDetailView
-    {   
+    {
+        public string WindowTitle { get; set; }
         public BizTalkGroup BizTalkGroup { get; set; }
 
         public ShowDetails()

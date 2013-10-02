@@ -86,6 +86,7 @@ namespace QuickMon
                     tmpWMIConfig.ErrorValue = cboErrorValue.Text;
                     tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
                     tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
+                    
                     //tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
 
                     object returnValue = null;
@@ -110,14 +111,22 @@ namespace QuickMon
                     lastStep = "Testing detail query - Getting column names";
                     List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
                     lastStep = "Testing detail query - Custom column name sequence check";
+                    StringBuilder sbColumns = new StringBuilder();
+                    for (int i = 1; i < columns.Count; i++ )
+                        sbColumns.AppendLine(columns[i].ColumnName);
                     foreach (string columnName in tmpWMIConfig.ColumnNames)
                     {
+                        
                         if ((from c in columns
                              where c.ColumnName.ToUpper() == columnName.ToUpper()
                              select c).Count() != 1)
                         {
                             columnWarningText += columnName + ", ";
                         }
+                    }
+                    if (chkCopyColumnNames.Checked)
+                    {
+                        Clipboard.SetText(sbColumns.ToString());
                     }
 
                     lastStep = "Testing detail query";

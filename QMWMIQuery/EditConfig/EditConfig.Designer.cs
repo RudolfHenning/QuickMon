@@ -58,6 +58,7 @@
             this.keyColumnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cmdTestDB = new System.Windows.Forms.Button();
             this.cmdEditMachineNames = new System.Windows.Forms.Button();
+            this.chkCopyColumnNames = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             this.tabPageDetail.SuspendLayout();
@@ -297,6 +298,7 @@
             // tabPageDetail
             // 
             this.tabPageDetail.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageDetail.Controls.Add(this.chkCopyColumnNames);
             this.tabPageDetail.Controls.Add(this.cmdEditColumnNames);
             this.tabPageDetail.Controls.Add(this.txtColumnNames);
             this.tabPageDetail.Controls.Add(this.lblColumnNameSequence);
@@ -318,7 +320,7 @@
             this.cmdEditColumnNames.Location = new System.Drawing.Point(475, 174);
             this.cmdEditColumnNames.Name = "cmdEditColumnNames";
             this.cmdEditColumnNames.Size = new System.Drawing.Size(33, 23);
-            this.cmdEditColumnNames.TabIndex = 4;
+            this.cmdEditColumnNames.TabIndex = 7;
             this.cmdEditColumnNames.Text = "- - -";
             this.cmdEditColumnNames.UseVisualStyleBackColor = true;
             this.cmdEditColumnNames.Click += new System.EventHandler(this.cmdEditColumnNames_Click);
@@ -330,7 +332,7 @@
             this.txtColumnNames.Location = new System.Drawing.Point(140, 176);
             this.txtColumnNames.Name = "txtColumnNames";
             this.txtColumnNames.Size = new System.Drawing.Size(329, 20);
-            this.txtColumnNames.TabIndex = 3;
+            this.txtColumnNames.TabIndex = 6;
             this.txtColumnNames.Text = ".";
             // 
             // lblColumnNameSequence
@@ -340,7 +342,7 @@
             this.lblColumnNameSequence.Location = new System.Drawing.Point(13, 179);
             this.lblColumnNameSequence.Name = "lblColumnNameSequence";
             this.lblColumnNameSequence.Size = new System.Drawing.Size(121, 13);
-            this.lblColumnNameSequence.TabIndex = 2;
+            this.lblColumnNameSequence.TabIndex = 5;
             this.lblColumnNameSequence.Text = "Column name sequence";
             this.lblColumnNameSequence.DoubleClick += new System.EventHandler(this.lblColumnNameSequence_DoubleClick);
             // 
@@ -354,7 +356,7 @@
             this.txtDetailQuery.Name = "txtDetailQuery";
             this.txtDetailQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDetailQuery.Size = new System.Drawing.Size(495, 143);
-            this.txtDetailQuery.TabIndex = 1;
+            this.txtDetailQuery.TabIndex = 2;
             this.txtDetailQuery.Text = "SELECT Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = \'C:\'";
             // 
             // label7
@@ -373,7 +375,7 @@
             this.label9.Location = new System.Drawing.Point(17, 178);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
-            this.label9.TabIndex = 5;
+            this.label9.TabIndex = 4;
             this.label9.Text = "Key column";
             this.label9.Visible = false;
             // 
@@ -409,6 +411,17 @@
             this.cmdEditMachineNames.Text = "- - -";
             this.cmdEditMachineNames.UseVisualStyleBackColor = true;
             this.cmdEditMachineNames.Click += new System.EventHandler(this.cmdEditMachineNames_Click);
+            // 
+            // chkCopyColumnNames
+            // 
+            this.chkCopyColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCopyColumnNames.AutoSize = true;
+            this.chkCopyColumnNames.Location = new System.Drawing.Point(298, 8);
+            this.chkCopyColumnNames.Name = "chkCopyColumnNames";
+            this.chkCopyColumnNames.Size = new System.Drawing.Size(214, 17);
+            this.chkCopyColumnNames.TabIndex = 1;
+            this.chkCopyColumnNames.Text = "Copy column names to clipboard on test";
+            this.chkCopyColumnNames.UseVisualStyleBackColor = true;
             // 
             // EditConfig
             // 
@@ -475,5 +488,6 @@
         private System.Windows.Forms.NumericUpDown keyColumnNumericUpDown;
         private System.Windows.Forms.Button cmdEditColumnNames;
         private System.Windows.Forms.Button cmdEditMachineNames;
+        private System.Windows.Forms.CheckBox chkCopyColumnNames;
     }
 }

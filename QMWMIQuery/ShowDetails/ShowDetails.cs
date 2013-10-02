@@ -26,6 +26,7 @@ namespace QuickMon
             WmiIConfig = ((WMIQuery)collector).WmiIConfig;
             LoadList();
             RefreshList();
+            Application.DoEvents();
             lvwResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             //ShowDetails_Resize(null, null);
         }
@@ -35,6 +36,8 @@ namespace QuickMon
             WmiIConfig = ((WMIQuery)collector).WmiIConfig;
             LoadList();
             RefreshList();
+            Application.DoEvents();
+            lvwResults.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (this.WindowState == FormWindowState.Minimized)
                 this.WindowState = FormWindowState.Normal;
             this.Show();

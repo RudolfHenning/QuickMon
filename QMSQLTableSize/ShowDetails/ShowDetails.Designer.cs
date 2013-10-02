@@ -63,6 +63,7 @@
             this.lvwDatabases.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderRows});
+            this.lvwDatabases.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwDatabases.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwDatabases.FullRowSelect = true;
             this.lvwDatabases.Location = new System.Drawing.Point(0, 39);

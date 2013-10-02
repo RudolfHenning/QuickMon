@@ -35,6 +35,7 @@ namespace QuickMon
 			DefaultViewerNotifier = null;
 			AgentRegistrations = new List<AgentRegistration>();
 			agentsAssemblyPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //set as default
+            BusyPolling = false;
 		}
 
 		private string quickMonPCCategory = "QuickMon";
@@ -197,6 +198,8 @@ namespace QuickMon
 		#region Properties
 		public string Name { get; set; }
 		public bool Enabled { get; set; }
+        public bool BusyPolling { get; private set; }
+        public bool AbortPolling { get; set; }
 		private string agentsAssemblyPath = "";
 		public string AgentsAssemblyPath
 		{
@@ -256,6 +259,8 @@ namespace QuickMon
 		#region Refreshing states
 		public MonitorStates RefreshStates()
 		{
+            AbortPolling = false;
+            BusyPolling = true;
 			MonitorStates globalState = MonitorStates.Good;
 			Stopwatch sw = new Stopwatch();
 			sw.Start();
@@ -325,145 +330,165 @@ namespace QuickMon
 			Trace.WriteLine(string.Format("RefreshStates - Global notification time: {0}ms", sw.ElapsedMilliseconds));
 #endif
 
+            BusyPolling = false;
 			return globalState;
 		}
 		private void RefreshCollectorState(CollectorEntry collector)
 		{
-			RaiseCollectorCalled(collector);
-			MonitorStates currentState = MonitorStates.NotAvailable;
-			Stopwatch sw = new Stopwatch();
-
-			#region Getting current state
-			sw.Start();
-			try
-			{
-				System.Diagnostics.Trace.WriteLine(string.Format("Starting: {0}", collector.Name));
-				currentState = collector.GetCurrentState();
-				if (currentState == MonitorStates.Good ||
-					currentState == MonitorStates.Warning ||
-					currentState == MonitorStates.Error)
-				{
-					PCRaiseCollectorsQueried();					
-				}
-			}
-			catch (Exception ex)
-			{
-				RaiseRaiseCollectorError(collector, ex.Message);
-				currentState = MonitorStates.Error;
-				collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
-				System.Diagnostics.Trace.WriteLine(string.Format("Error: {0} - {1}", collector.Name, ex.Message));
-			}
-			finally
-			{
-				System.Diagnostics.Trace.WriteLine(string.Format("Ending: {0}", collector.Name));
-			}
-			
-			sw.Stop();
-			RaiseCollectorExecutionTime(collector, sw.ElapsedMilliseconds);
-#if DEBUG
-			Trace.WriteLine(string.Format("RefreshCollectorState - {0}: {1}ms", collector.Name, sw.ElapsedMilliseconds));
-#endif 
-	#endregion
-
-			#region Raising alerts or events
-            if (!collector.IsFolder)
+            if (!AbortPolling)
             {
-                RaiseRaiseCurrentStateDelegate(collector, currentState);
+                RaiseCollectorCalled(collector);
+                MonitorStates currentState = MonitorStates.NotAvailable;
+                Stopwatch sw = new Stopwatch();
 
-                AlertLevel alertLevel = AlertLevel.Debug;
-                if (currentState == MonitorStates.Good)
-                {
-                    alertLevel = AlertLevel.Info;
-                    PCRaiseCollectorSuccessState();
-                }
-                else if (currentState == MonitorStates.Disabled || currentState == MonitorStates.NotAvailable)
-                {
-                    alertLevel = AlertLevel.Info;
-                }
-                else if (currentState == MonitorStates.Warning)
-                {
-                    alertLevel = AlertLevel.Warning;
-                    PCRaiseCollectorWarningState();
-                }
-                else if (currentState == MonitorStates.Error || currentState == MonitorStates.ConfigurationError)
-                {
-                    alertLevel = AlertLevel.Error;
-                    PCRaiseCollectorErrorState();
-                }
-
-                //Check if alert should be raised now
-                if (collector.RaiseAlert())
-                {
-                    SendNotifierAlert(alertLevel, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
-                            collector.LastMonitorDetails);
-                    PCRaiseNotifierAlertSend();
-                }
-                else //otherwise raise only Debug info
-                {
-                    RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
-                    SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, collector.LastMonitorDetails); // new CollectorMessage());
-                }
-                //Did the state changed?
-                if (collector.StateChanged())
-                {
-                    RaiseStateChanged(alertLevel, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
-                                collector.LastMonitorDetails);
-                }
-                collector.LastMonitorState = currentState;
-
+                #region Getting current state
+                sw.Start();
                 try
                 {
-                    //run corrective script only after alert has been raised
-                    if (RunCorrectiveScripts)
+                    System.Diagnostics.Trace.WriteLine(string.Format("Starting: {0}", collector.Name));
+                    currentState = collector.GetCurrentState();
+                    if (currentState == MonitorStates.Good ||
+                        currentState == MonitorStates.Warning ||
+                        currentState == MonitorStates.Error)
                     {
-                        if (currentState == MonitorStates.Warning)
-                            RaiseRunCollectorCorrectiveWarningScript(collector);
-                        else if (currentState == MonitorStates.Error)
-                            RaiseRunCollectorCorrectiveErrorScript(collector);
+                        PCRaiseCollectorsQueried();
                     }
                 }
                 catch (Exception ex)
                 {
                     RaiseRaiseCollectorError(collector, ex.Message);
+                    currentState = MonitorStates.Error;
+                    collector.LastMonitorDetails = collector.Collector.LastDetailMsg;
+                    System.Diagnostics.Trace.WriteLine(string.Format("Error: {0} - {1}", collector.Name, ex.Message));
+                }
+                finally
+                {
+                    System.Diagnostics.Trace.WriteLine(string.Format("Ending: {0}", collector.Name));
+                }
+
+                sw.Stop();
+                RaiseCollectorExecutionTime(collector, sw.ElapsedMilliseconds);
+#if DEBUG
+                Trace.WriteLine(string.Format("RefreshCollectorState - {0}: {1}ms", collector.Name, sw.ElapsedMilliseconds));
+#endif
+                #endregion
+
+                #region Raising alerts or events
+                if (!collector.IsFolder)
+                {
+                    RaiseRaiseCurrentStateDelegate(collector, currentState);
+
+                    AlertLevel alertLevel = AlertLevel.Debug;
+                    if (currentState == MonitorStates.Good)
+                    {
+                        alertLevel = AlertLevel.Info;
+                        PCRaiseCollectorSuccessState();
+                    }
+                    else if (currentState == MonitorStates.Disabled || currentState == MonitorStates.NotAvailable)
+                    {
+                        alertLevel = AlertLevel.Info;
+                    }
+                    else if (currentState == MonitorStates.Warning)
+                    {
+                        alertLevel = AlertLevel.Warning;
+                        PCRaiseCollectorWarningState();
+                    }
+                    else if (currentState == MonitorStates.Error || currentState == MonitorStates.ConfigurationError)
+                    {
+                        alertLevel = AlertLevel.Error;
+                        PCRaiseCollectorErrorState();
+                    }
+
+                    //Check if alert should be raised now
+                    if (collector.RaiseAlert())
+                    {
+                        SendNotifierAlert(alertLevel, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
+                                collector.LastMonitorDetails);
+                        PCRaiseNotifierAlertSend();
+                    }
+                    else //otherwise raise only Debug info
+                    {
+                        RaiseStateChanged(AlertLevel.Debug, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, new CollectorMessage());
+                        SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState, collector.LastMonitorDetails); // new CollectorMessage());
+                    }
+                    //Did the state changed?
+                    if (collector.StateChanged())
+                    {
+                        RaiseStateChanged(alertLevel, collector.CollectorRegistrationName, collector.Name, collector.LastMonitorState, currentState,
+                                    collector.LastMonitorDetails);
+                    }
+                    collector.LastMonitorState = currentState;
+
+                    try
+                    {
+                        //run corrective script only after alert has been raised
+                        if (RunCorrectiveScripts)
+                        {
+                            if (currentState == MonitorStates.Warning)
+                                RaiseRunCollectorCorrectiveWarningScript(collector);
+                            else if (currentState == MonitorStates.Error)
+                                RaiseRunCollectorCorrectiveErrorScript(collector);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        RaiseRaiseCollectorError(collector, ex.Message);
+                    }
+                }
+                #endregion
+
+                #region Set or check dependants
+                if (currentState == MonitorStates.Error)
+                {
+                    SetChildCollectorStates(collector, MonitorStates.Error);
+                }
+                else if ((currentState == MonitorStates.Warning && !collector.CollectOnParentWarning) || currentState == MonitorStates.NotAvailable)
+                {
+                    SetChildCollectorStates(collector, MonitorStates.NotAvailable);
+                }
+                else if (currentState == MonitorStates.Disabled || currentState == MonitorStates.ConfigurationError || (collector.IsFolder && !collector.Enabled))
+                {
+                    SetChildCollectorStates(collector, MonitorStates.Disabled);
+                }
+                else
+                {
+                    try
+                    {
+                        foreach (CollectorEntry childCollector in (from c in Collectors
+                                                                   where c.ParentCollectorId == collector.UniqueId
+                                                                   select c))
+                        {
+                            RefreshCollectorState(childCollector);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
+                            throw;
+                    }
+                }
+                #endregion
+            }
+		}
+        private void SetChildCollectorStates(CollectorEntry collector, MonitorStates childState)
+        {
+            try
+            {
+                foreach (CollectorEntry childCollector in (from c in Collectors
+                                                           where c.ParentCollectorId == collector.UniqueId
+                                                           select c))
+                {
+                    RaiseRaiseCurrentStateDelegate(childCollector, childState);
+                    childCollector.LastMonitorState = childState;
+                    SetChildCollectorStates(childCollector, childState);
                 }
             }
-			#endregion
-
-			#region Set or check dependants
-			if (currentState == MonitorStates.Error)
-			{
-				SetChildCollectorStates(collector, MonitorStates.Error);
-			}
-			else if ((currentState == MonitorStates.Warning && !collector.CollectOnParentWarning) || currentState == MonitorStates.NotAvailable)
-			{
-				SetChildCollectorStates(collector, MonitorStates.NotAvailable);
-			}
-			else if (currentState == MonitorStates.Disabled || currentState == MonitorStates.ConfigurationError || (collector.IsFolder && !collector.Enabled))
-			{
-				SetChildCollectorStates(collector, MonitorStates.Disabled);
-			}
-			else
-			{
-				foreach (CollectorEntry childCollector in (from c in Collectors
-														   where c.ParentCollectorId == collector.UniqueId
-														   select c))
-				{
-					RefreshCollectorState(childCollector);
-				}
-			} 
-			#endregion
-		}        
-		private void SetChildCollectorStates(CollectorEntry collector, MonitorStates childState)
-		{
-			foreach (CollectorEntry childCollector in (from c in Collectors
-													   where c.ParentCollectorId == collector.UniqueId
-													   select c))
-			{
-				RaiseRaiseCurrentStateDelegate(childCollector, childState);
-				childCollector.LastMonitorState = childState;
-				SetChildCollectorStates(childCollector, childState);
-			}
-		}
+            catch (Exception ex)
+            {
+                if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
+                    throw;
+            }
+        }
 		private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel,
 				string collectorType, string collectorName, MonitorStates oldState, MonitorStates currentState, CollectorMessage details)
 		{

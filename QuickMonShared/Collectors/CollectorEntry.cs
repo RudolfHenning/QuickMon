@@ -191,8 +191,6 @@ namespace QuickMon
             return newCollectorEntry;
         }
 
-
-
         #region Viewing details
         [Obsolete]
         public void ShowStatusDetails()
@@ -207,6 +205,7 @@ namespace QuickMon
                 if (collectorDetailView == null || (!collectorDetailView.IsStillVisible()))
                 {
                     collectorDetailView = Collector.GetCollectorDetailView();
+                    ((System.Windows.Forms.Form)collectorDetailView).Text = Name + " (" + this.CollectorRegistrationName + ")";                    
                     collectorDetailView.ShowCollectorDetails(Collector);
                 }
                 else

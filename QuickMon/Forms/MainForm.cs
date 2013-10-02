@@ -83,9 +83,17 @@ namespace QuickMon
         {
             try
             {
-                if (System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
-                    monitorPack.Save(Properties.Settings.Default.LastMonitorPack);
-                monitorPack.ClosePerformanceCounters();
+                if (monitorPack != null )
+                {
+                    if (monitorPack.BusyPolling) //still busy with previous polling instance
+                    {
+                        //Attempting to abort it.
+                        monitorPack.AbortPolling = true;
+                    }
+                    if (System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
+                        monitorPack.Save(Properties.Settings.Default.LastMonitorPack);
+                    monitorPack.ClosePerformanceCounters();
+                }
                 ClosePerformanceCounters();
                 ToolStripManager.SaveSettings(this, "QuickMon.MainToolbar");
             }
@@ -618,8 +626,25 @@ namespace QuickMon
                     Cursor.Current = Cursors.WaitCursor;
                     mainRefreshTimer.Enabled = false; 
                 }
+            }
+            catch { }
+            try
+            {
+                
                 if (monitorPack.Enabled)
                 {
+                    if (monitorPack.BusyPolling) //still busy with previous polling instance
+                    {
+                        //Attempting to abort it.
+                        monitorPack.AbortPolling = true;
+                        DateTime abortStart = DateTime.Now;
+                        while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                        {
+                            Application.DoEvents();
+                        }
+                        Cursor.Current = Cursors.WaitCursor;
+                    }
+
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
                     globalState = monitorPack.RefreshStates();
