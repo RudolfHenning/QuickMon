@@ -48,7 +48,10 @@
             this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
+            this.cmdEditSummaryQuery = new System.Windows.Forms.Button();
             this.tabPageDetail = new System.Windows.Forms.TabPage();
+            this.cmdEditDetailsQuery = new System.Windows.Forms.Button();
+            this.chkCopyColumnNames = new System.Windows.Forms.CheckBox();
             this.cmdEditColumnNames = new System.Windows.Forms.Button();
             this.txtColumnNames = new System.Windows.Forms.TextBox();
             this.lblColumnNameSequence = new System.Windows.Forms.Label();
@@ -58,7 +61,6 @@
             this.keyColumnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cmdTestDB = new System.Windows.Forms.Button();
             this.cmdEditMachineNames = new System.Windows.Forms.Button();
-            this.chkCopyColumnNames = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             this.tabPageDetail.SuspendLayout();
@@ -137,7 +139,7 @@
             this.txtStateQuery.Name = "txtStateQuery";
             this.txtStateQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtStateQuery.Size = new System.Drawing.Size(495, 113);
-            this.txtStateQuery.TabIndex = 1;
+            this.txtStateQuery.TabIndex = 2;
             this.txtStateQuery.Text = "SELECT FreeSpace FROM Win32_LogicalDisk where Caption = \'C:\'";
             // 
             // label3
@@ -159,7 +161,7 @@
             this.chkIsReturnValueInt.Location = new System.Drawing.Point(13, 144);
             this.chkIsReturnValueInt.Name = "chkIsReturnValueInt";
             this.chkIsReturnValueInt.Size = new System.Drawing.Size(158, 17);
-            this.chkIsReturnValueInt.TabIndex = 2;
+            this.chkIsReturnValueInt.TabIndex = 3;
             this.chkIsReturnValueInt.Text = "Value is in a range of values";
             this.chkIsReturnValueInt.UseVisualStyleBackColor = true;
             this.chkIsReturnValueInt.CheckedChanged += new System.EventHandler(this.chkIsReturnValueInt_CheckedChanged);
@@ -174,7 +176,7 @@
             this.chkReturnValueNotInverted.Location = new System.Drawing.Point(199, 144);
             this.chkReturnValueNotInverted.Name = "chkReturnValueNotInverted";
             this.chkReturnValueNotInverted.Size = new System.Drawing.Size(152, 17);
-            this.chkReturnValueNotInverted.TabIndex = 3;
+            this.chkReturnValueNotInverted.TabIndex = 4;
             this.chkReturnValueNotInverted.Text = "Success < Warning < Error";
             this.chkReturnValueNotInverted.UseVisualStyleBackColor = true;
             // 
@@ -189,7 +191,7 @@
             this.cboSuccessValue.Location = new System.Drawing.Point(102, 172);
             this.cboSuccessValue.Name = "cboSuccessValue";
             this.cboSuccessValue.Size = new System.Drawing.Size(102, 21);
-            this.cboSuccessValue.TabIndex = 6;
+            this.cboSuccessValue.TabIndex = 7;
             // 
             // label4
             // 
@@ -198,7 +200,7 @@
             this.label4.Location = new System.Drawing.Point(10, 175);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
-            this.label4.TabIndex = 5;
+            this.label4.TabIndex = 6;
             this.label4.Text = "Values: Success";
             // 
             // label5
@@ -208,7 +210,7 @@
             this.label5.Location = new System.Drawing.Point(210, 175);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 7;
+            this.label5.TabIndex = 8;
             this.label5.Text = "Warning";
             // 
             // cboWarningValue
@@ -222,7 +224,7 @@
             this.cboWarningValue.Location = new System.Drawing.Point(263, 172);
             this.cboWarningValue.Name = "cboWarningValue";
             this.cboWarningValue.Size = new System.Drawing.Size(96, 21);
-            this.cboWarningValue.TabIndex = 8;
+            this.cboWarningValue.TabIndex = 9;
             // 
             // cboErrorValue
             // 
@@ -235,7 +237,7 @@
             this.cboErrorValue.Location = new System.Drawing.Point(400, 172);
             this.cboErrorValue.Name = "cboErrorValue";
             this.cboErrorValue.Size = new System.Drawing.Size(105, 21);
-            this.cboErrorValue.TabIndex = 10;
+            this.cboErrorValue.TabIndex = 11;
             // 
             // label6
             // 
@@ -244,7 +246,7 @@
             this.label6.Location = new System.Drawing.Point(365, 175);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
-            this.label6.TabIndex = 9;
+            this.label6.TabIndex = 10;
             this.label6.Text = "Error";
             // 
             // chkUseRowCountAsValue
@@ -257,7 +259,7 @@
             this.chkUseRowCountAsValue.Location = new System.Drawing.Point(358, 144);
             this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
             this.chkUseRowCountAsValue.Size = new System.Drawing.Size(116, 17);
-            this.chkUseRowCountAsValue.TabIndex = 4;
+            this.chkUseRowCountAsValue.TabIndex = 5;
             this.chkUseRowCountAsValue.Text = "Row count is value";
             this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
             // 
@@ -277,6 +279,7 @@
             // tabPageSummary
             // 
             this.tabPageSummary.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSummary.Controls.Add(this.cmdEditSummaryQuery);
             this.tabPageSummary.Controls.Add(this.txtStateQuery);
             this.tabPageSummary.Controls.Add(this.label6);
             this.tabPageSummary.Controls.Add(this.chkUseRowCountAsValue);
@@ -295,9 +298,21 @@
             this.tabPageSummary.TabIndex = 0;
             this.tabPageSummary.Text = "Summary";
             // 
+            // cmdEditSummaryQuery
+            // 
+            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.IPEDINTL_20007;
+            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
+            this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
+            this.cmdEditSummaryQuery.Size = new System.Drawing.Size(36, 23);
+            this.cmdEditSummaryQuery.TabIndex = 1;
+            this.cmdEditSummaryQuery.UseVisualStyleBackColor = true;
+            this.cmdEditSummaryQuery.Click += new System.EventHandler(this.cmdEditSummaryQuery_Click);
+            // 
             // tabPageDetail
             // 
             this.tabPageDetail.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageDetail.Controls.Add(this.cmdEditDetailsQuery);
             this.tabPageDetail.Controls.Add(this.chkCopyColumnNames);
             this.tabPageDetail.Controls.Add(this.cmdEditColumnNames);
             this.tabPageDetail.Controls.Add(this.txtColumnNames);
@@ -312,6 +327,28 @@
             this.tabPageDetail.Size = new System.Drawing.Size(518, 203);
             this.tabPageDetail.TabIndex = 1;
             this.tabPageDetail.Text = "Detail";
+            // 
+            // cmdEditDetailsQuery
+            // 
+            this.cmdEditDetailsQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditDetailsQuery.Image = global::QuickMon.Properties.Resources.IPEDINTL_20007;
+            this.cmdEditDetailsQuery.Location = new System.Drawing.Point(136, 2);
+            this.cmdEditDetailsQuery.Name = "cmdEditDetailsQuery";
+            this.cmdEditDetailsQuery.Size = new System.Drawing.Size(36, 23);
+            this.cmdEditDetailsQuery.TabIndex = 8;
+            this.cmdEditDetailsQuery.UseVisualStyleBackColor = true;
+            this.cmdEditDetailsQuery.Click += new System.EventHandler(this.cmdEditDetailsQuery_Click);
+            // 
+            // chkCopyColumnNames
+            // 
+            this.chkCopyColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCopyColumnNames.AutoSize = true;
+            this.chkCopyColumnNames.Location = new System.Drawing.Point(298, 8);
+            this.chkCopyColumnNames.Name = "chkCopyColumnNames";
+            this.chkCopyColumnNames.Size = new System.Drawing.Size(214, 17);
+            this.chkCopyColumnNames.TabIndex = 1;
+            this.chkCopyColumnNames.Text = "Copy column names to clipboard on test";
+            this.chkCopyColumnNames.UseVisualStyleBackColor = true;
             // 
             // cmdEditColumnNames
             // 
@@ -412,17 +449,6 @@
             this.cmdEditMachineNames.UseVisualStyleBackColor = true;
             this.cmdEditMachineNames.Click += new System.EventHandler(this.cmdEditMachineNames_Click);
             // 
-            // chkCopyColumnNames
-            // 
-            this.chkCopyColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkCopyColumnNames.AutoSize = true;
-            this.chkCopyColumnNames.Location = new System.Drawing.Point(298, 8);
-            this.chkCopyColumnNames.Name = "chkCopyColumnNames";
-            this.chkCopyColumnNames.Size = new System.Drawing.Size(214, 17);
-            this.chkCopyColumnNames.TabIndex = 1;
-            this.chkCopyColumnNames.Text = "Copy column names to clipboard on test";
-            this.chkCopyColumnNames.UseVisualStyleBackColor = true;
-            // 
             // EditConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,5 +515,7 @@
         private System.Windows.Forms.Button cmdEditColumnNames;
         private System.Windows.Forms.Button cmdEditMachineNames;
         private System.Windows.Forms.CheckBox chkCopyColumnNames;
+        private System.Windows.Forms.Button cmdEditSummaryQuery;
+        private System.Windows.Forms.Button cmdEditDetailsQuery;
     }
 }

@@ -162,6 +162,32 @@ namespace QuickMon
                 Close();
             }
         }
+        private void cmdEditSummaryQuery_Click(object sender, EventArgs e)
+        {
+            EditWMIQuery editWMIQuery = new EditWMIQuery();
+            editWMIQuery.MachineName = txtMachines.Text;
+            editWMIQuery.RootNameSpace = txtNamespace.Text;
+            editWMIQuery.QueryText = txtStateQuery.Text;
+            if (editWMIQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtMachines.Text = editWMIQuery.MachineName;
+                txtNamespace.Text = editWMIQuery.RootNameSpace;
+                txtStateQuery.Text = editWMIQuery.QueryText;
+            }
+        }
+        private void cmdEditDetailsQuery_Click(object sender, EventArgs e)
+        {
+            EditWMIQuery editWMIQuery = new EditWMIQuery();
+            editWMIQuery.MachineName = txtMachines.Text;
+            editWMIQuery.RootNameSpace = txtNamespace.Text;
+            editWMIQuery.QueryText = txtDetailQuery.Text;
+            if (editWMIQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtMachines.Text = editWMIQuery.MachineName;
+                txtNamespace.Text = editWMIQuery.RootNameSpace;
+                txtDetailQuery.Text = editWMIQuery.QueryText;
+            }
+        }
         #endregion
 
         #region Other control events

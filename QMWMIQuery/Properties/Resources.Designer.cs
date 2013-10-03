@@ -73,6 +73,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IPEDINTL_20007 {
+            get {
+                object obj = ResourceManager.GetObject("IPEDINTL_20007", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap satelitedish {
             get {
                 object obj = ResourceManager.GetObject("satelitedish", resourceCulture);

@@ -117,17 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="satelitedish" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\satelitedish.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WMIQueryEmptyConfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WMIQueryEmptyConfig.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="doc_refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IPEDINTL_20007" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IPEDINTL_20007.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="timerGenerateQuery.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA//7+APz7+wDae1MA34llAOGQbgDklnYA55+BAJA8FQCWQRkAmkQcAJ9HHgCnTSQAqk8mALVW
+        LAC+XTIAvVwyAMJfNADMZzsA1GxAANVwRQDLbUQA13VLANBySgDcglwA35BuAOabewCINxAAijgRAJNA
+        FwDebDUA4m83AOdyOgDsdj0A3nI+AOZ4QwDwf0gA8X9JAPmLVgDrilsA85BgAO6NXgD5lWQA/Z9xAP+k
+        dwD4o3kA/q6HAPyuiAD/tpMA/raSAP64lQD+vJwA/7+gAP/EpwCxk4QAtJeJAMCpnQDEr6UA7+XgAP70
+        7wD49PIA34RUALacjgC/rKEA5dDEAMCvpgDHtq0A0rmqAMewogC7pZgAuqWYAMWvogDCsqgAy7uxAMO0
+        qwD0598A6t/YAMmzpADBrJ4A2MKzAMezpgC/rJ8A0L6yANzQyADz6uQAZUs3AGZMOABlSzgAalA8AGlQ
+        PQDSvKwAyrWlANjCsgDUvq4A3Ma2ANnDswDYw7MA2cS1AMe3qwDUxrwA5NnRAPr28wBmTTkAcFhFAHVe
+        TACCbVwA2si6AN7PwwDWyL0A6dzRAPXv6gDw5t0A39bOAO/n3wD+/fwA/Pv6AAFATgAEWGwAA1pyAAVi
+        fQAETGAABEldAAhrhgAGUWUACGWAABmLrAACTWQAAkFVAANFWQADQlYABVx3AAdtjgAIbowACXWWAAyB
+        pgALb40ADnmbABGDpwAViq8AGpW6AB6cxAAckLQAAj5SAB6cxwAhn8oAHo+2AHjR+gBzzfoAbMj6AFu8
+        +QBkwvkAUrX5AEit+AAwnPcAN6H3AD+n+AArmPcA////AP7+/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAi4R6fHeCdnV7fnmAf46OdI+SkpKTlJaVl5ibmpmcnIGQkpGSjZN9lomXiJuHmZl4kJCRkI2M
+        fYuJioiGh4WFgwAAAAAAAHByVDpMZFNjSWkAExMTEhEODAoIHRw2OFBnABMtJSEgHx4iJxZLb21HWAAU
+        LxsJDQ8jKRlDNzY5W1cAFjILABUkKBY7c2VucVpVAAM0EBcmKhZDRT43NkJcZgAYNRMsKxY7nZ2dAQI8
+        XlUABDUwLhZAnUE/RUaeUkRWAAU1MT0Aa52dnZ2dYmhZVgAGMwUAAGqdSkg/nVFsVQAAGgcAAABhnZ2d
+        nZ1OVgAAAAcAAAAAX2BgT1xdTQAAAAAAAAAAAAAAAAAAAAAAAAD8AAAAgAAAAIAAAACAAAAAiAAAAIAA
+        AACAAAAAgAAAAIQAAACMAQAAnAMAALwHAAA=
+</value>
   </data>
 </root>

@@ -140,6 +140,16 @@ namespace QuickMon
         }
         private void toolStripButtonConfigPack_Click(object sender, EventArgs e)
         {
+            if (monitorPack != null)
+            {
+                monitorPack.AbortPolling = true;
+                DateTime abortStart = DateTime.Now;
+                while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                {
+                    Application.DoEvents();
+                }
+            }
+
             mainTimerEnabled = false;
             mainRefreshTimer.Enabled = false;
             QuickMon.Management.MonitorPackManagement monitorPackManagement = new Management.MonitorPackManagement();
