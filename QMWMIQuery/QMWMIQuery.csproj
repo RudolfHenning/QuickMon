@@ -54,6 +54,12 @@
     <Compile Include="EditConfig\EditConfig.Designer.cs">
       <DependentUpon>EditConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditConfig\EditConfigEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditConfig\EditConfigEntry.Designer.cs">
+      <DependentUpon>EditConfigEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditConfig\EditWMIQuery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,11 +80,15 @@
     <Compile Include="ShowDetails\ShowDetails.Designer.cs">
       <DependentUpon>ShowDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="WMIConfigEntry.cs" />
     <Compile Include="WMIQueryParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EditConfig\EditConfig.resx">
       <DependentUpon>EditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditConfig\EditConfigEntry.resx">
+      <DependentUpon>EditConfigEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditConfig\EditWMIQuery.resx">
       <DependentUpon>EditWMIQuery.cs</DependentUpon>
@@ -96,6 +106,9 @@
     <None Include="Resources\doc_refresh.png" />
     <None Include="Resources\satelitedish.ico" />
     <None Include="Resources\IPEDINTL_20007.ico" />
+    <None Include="Resources\doc_add.png" />
+    <None Include="Resources\doc_edit.png" />
+    <None Include="Resources\doc_remove.png" />
     <Content Include="Resources\WMIQueryEmptyConfig.xml">
       <SubType>Designer</SubType>
     </Content>

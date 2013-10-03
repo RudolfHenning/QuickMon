@@ -660,8 +660,12 @@ namespace QuickMon
 			XmlElement root = configurationXml.DocumentElement;
 			Name = root.Attributes.GetNamedItem("name").Value;
 			Enabled = bool.Parse(root.Attributes.GetNamedItem("enabled").Value);
+#if DEBUG
+            AgentsAssemblyPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+#else
 			AgentsAssemblyPath = root.ReadXmlElementAttr("agentRegistrationPath");
-			string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
+#endif
+            string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
 			RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
 			foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
 			{

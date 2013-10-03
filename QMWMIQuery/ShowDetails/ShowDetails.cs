@@ -11,7 +11,7 @@ namespace QuickMon
 {
     public partial class ShowDetails : Form, ICollectorDetailView
     {
-        public WMIConfig WmiIConfig { get; set; }
+        public WMIConfig WmiConfig { get; set; }
 
         public ShowDetails()
         {
@@ -22,8 +22,8 @@ namespace QuickMon
         public void ShowCollectorDetails(ICollector collector)
         {
             base.Show();
-            WmiIConfig = null;
-            WmiIConfig = ((WMIQuery)collector).WmiIConfig;
+            WmiConfig = null;
+            WmiConfig = ((WMIQuery)collector).WmiIConfig;
             LoadList();
             RefreshList();
             Application.DoEvents();
@@ -32,8 +32,8 @@ namespace QuickMon
         }
         public void RefreshConfig(ICollector collector)
         {
-            WmiIConfig = null;
-            WmiIConfig = ((WMIQuery)collector).WmiIConfig;
+            WmiConfig = null;
+            WmiConfig = ((WMIQuery)collector).WmiIConfig;
             LoadList();
             RefreshList();
             Application.DoEvents();
@@ -69,85 +69,148 @@ namespace QuickMon
         #region Private methods
         private void LoadList()
         {
-            if (WmiIConfig != null)
+            if (WmiConfig != null)
             {
-                lvwResults.Columns.Clear();
-                List<string> columnNames = new List<string>();
-                List<DataColumn> dataColumns = WmiIConfig.GetDetailQueryColumns();
-                if (WmiIConfig.ColumnNames.Count > 0)
+                lvwResults.Items.Clear();
+                foreach (WMIConfigEntry wmiConfigEntry in WmiConfig.Entries)
                 {
-                    if (!WmiIConfig.ColumnNames.Contains("Machine"))
-                    {
-                        columnNames.Add("Machine");
-                    }
-                    columnNames.AddRange(WmiIConfig.ColumnNames.ToArray());
-                }
-                else
-                {
-                    dataColumns.ForEach(c => columnNames.Add(c.ColumnName));
+                    ListViewItem lvi = new ListViewItem(wmiConfigEntry.Name);
+                    lvi.SubItems.Add("");
+                    lvi.Tag = wmiConfigEntry;
+                    lvwResults.Items.Add(lvi);
                 }
 
-                foreach (string columnName in columnNames)
-                {
-                    DataColumn currentDataColumn = (from dc in dataColumns
-                                                    where dc.ColumnName == columnName
-                                                    select dc).FirstOrDefault();
-                    if (currentDataColumn != null)
-                    {
-                        ColumnHeader newColumn = new ColumnHeader();
-                        newColumn.Tag = currentDataColumn;
-                        newColumn.Text = columnName;
+                //lvwResults.Columns.Clear();
+                //List<string> columnNames = new List<string>();
+                //List<DataColumn> dataColumns = WmiConfig.GetDetailQueryColumns();
+                //if (WmiConfig.ColumnNames.Count > 0)
+                //{
+                //    if (!WmiConfig.ColumnNames.Contains("Machine"))
+                //    {
+                //        columnNames.Add("Machine");
+                //    }
+                //    columnNames.AddRange(WmiConfig.ColumnNames.ToArray());
+                //}
+                //else
+                //{
+                //    dataColumns.ForEach(c => columnNames.Add(c.ColumnName));
+                //}
 
-                        if ((currentDataColumn.DataType == typeof(UInt64)) || (currentDataColumn.DataType == typeof(UInt32)) || (currentDataColumn.DataType == typeof(UInt16)) ||
-                            (currentDataColumn.DataType == typeof(Int64)) || (currentDataColumn.DataType == typeof(Int32)) || (currentDataColumn.DataType == typeof(Int16)))
-                        {
-                            newColumn.TextAlign = HorizontalAlignment.Right;
-                        }
-                        else
-                        {
-                            newColumn.TextAlign = HorizontalAlignment.Left;
-                        }
-                        lvwResults.Columns.Add(newColumn);
-                    }
-                }
+                //foreach (string columnName in columnNames)
+                //{
+                //    DataColumn currentDataColumn = (from dc in dataColumns
+                //                                    where dc.ColumnName == columnName
+                //                                    select dc).FirstOrDefault();
+                //    if (currentDataColumn != null)
+                //    {
+                //        ColumnHeader newColumn = new ColumnHeader();
+                //        newColumn.Tag = currentDataColumn;
+                //        newColumn.Text = columnName;
+
+                //        if ((currentDataColumn.DataType == typeof(UInt64)) || (currentDataColumn.DataType == typeof(UInt32)) || (currentDataColumn.DataType == typeof(UInt16)) ||
+                //            (currentDataColumn.DataType == typeof(Int64)) || (currentDataColumn.DataType == typeof(Int32)) || (currentDataColumn.DataType == typeof(Int16)))
+                //        {
+                //            newColumn.TextAlign = HorizontalAlignment.Right;
+                //        }
+                //        else
+                //        {
+                //            newColumn.TextAlign = HorizontalAlignment.Left;
+                //        }
+                //        lvwResults.Columns.Add(newColumn);
+                //    }
+                //}
             }
         }
         private void RefreshList()
         {
-            if (WmiIConfig != null)
+            try
             {
-                try
+                lvwResults.BeginUpdate();
+                Cursor.Current = Cursors.WaitCursor;
+                foreach (ListViewItem lvi in lvwResults.Items)
                 {
-                    DataSet data = WmiIConfig.RunDetailQuery();
-
-                    lvwResults.BeginUpdate();
-                    lvwResults.Items.Clear();
-                    if (data != null && data.Tables.Count > 0 && lvwResults.Columns.Count > 0)
-                    {
-                        foreach (DataRow r in data.Tables[0].Rows)
-                        {
-                            ListViewItem lvi = new ListViewItem();
-                            lvi.Text = r[lvwResults.Columns[0].Text].ToString();
-                            for (int i = 1; i < lvwResults.Columns.Count; i++)
-                            {
-                                ColumnHeader columnHeader = lvwResults.Columns[i];
-                                lvi.SubItems.Add(r[columnHeader.Text].ToString());
-                            }
-                            lvwResults.Items.Add(lvi);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    lvwResults.EndUpdate();
-                    toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    WMIConfigEntry wmiConfigEntry = (WMIConfigEntry)lvi.Tag;
+                    lvi.SubItems[1].Text = GetQIValue(lvi, wmiConfigEntry);
                 }
             }
-        } 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                lvwResults.EndUpdate();
+            }
+            LoadDetailView();
+
+            //if (WmiConfig != null)
+            //{
+            //    try
+            //    {
+            //        foreach (ListViewItem lvi in lvwResults.Items)
+            //        {
+            //            WMIConfigEntry wmiConfigEntry = (WMIConfigEntry)lvi.Tag;
+            //            lvi.SubItems[1].Text = GetQIValue(lvi, wmiConfigEntry);
+            //        }
+
+            //        DataSet data = WmiConfig.RunDetailQuery();
+
+            //        lvwResults.BeginUpdate();
+            //        lvwResults.Items.Clear();
+            //        if (data != null && data.Tables.Count > 0 && lvwResults.Columns.Count > 0)
+            //        {
+            //            foreach (DataRow r in data.Tables[0].Rows)
+            //            {
+            //                ListViewItem lvi = new ListViewItem();
+            //                lvi.Text = r[lvwResults.Columns[0].Text].ToString();
+            //                for (int i = 1; i < lvwResults.Columns.Count; i++)
+            //                {
+            //                    ColumnHeader columnHeader = lvwResults.Columns[i];
+            //                    lvi.SubItems.Add(r[columnHeader.Text].ToString());
+            //                }
+            //                lvwResults.Items.Add(lvi);
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    finally
+            //    {
+            //        lvwResults.EndUpdate();
+            //        toolStripStatusLabel1.Text = "Last updated " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //    }
+            //}
+        }
+
+        private void LoadDetailView()
+        {
+            
+        }
+        private string GetQIValue(ListViewItem lvi, WMIConfigEntry wmiConfigEntry)
+        {
+            string results = "";
+            try
+            {
+                object value = wmiConfigEntry.RunQuery();
+                MonitorStates currentstate = wmiConfigEntry.GetState(value);
+
+                results = FormatUtils.N(value, "[null]");
+                if (currentstate == MonitorStates.Error)
+                    lvi.ImageIndex = 3;
+                else if (currentstate == MonitorStates.Warning)
+                    lvi.ImageIndex = 2;
+                else
+                    lvi.ImageIndex = 1;
+            }
+            catch (Exception ex)
+            {
+                results = ex.Message;
+            }
+            return results;
+        }
         #endregion
 
         #region Auto refreshing

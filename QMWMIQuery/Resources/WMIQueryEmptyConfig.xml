@@ -1,8 +1,18 @@
 <config>
-  <wmi namespace="root\CIMV2" machines=".">
+  <!--
+  <wmi namespace="root\CIMV2" machineName=".">
     <stateQuery syntax="SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" 
                 warningValue="1048576000" errorValue="524288000" successValue="[any]"
                 useRowCountAsValue="False" />
     <detailQuery syntax="SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'" columnNames="Caption, Size, FreeSpace, Description" keyColumn="0" />
   </wmi>
+  -->
+  <wmiQueries>
+    <wmiQuery name="Example" namespace="root\CIMV2" machineName=".">
+      <stateQuery syntax="SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True"
+            warningValue="1048576000" errorValue="524288000" successValue="[any]"
+            useRowCountAsValue="False" />
+      <detailQuery syntax="SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'" columnNames="Caption, Size, FreeSpace, Description" keyColumn="0" />
+    </wmiQuery>
+  </wmiQueries>
 </config>

@@ -21,42 +21,69 @@ namespace QuickMon
 			int errors = 0;
 			int warnings = 0;
 			int success = 0;
-			double totalValue = 0;
+            double totalValue = 0;
 			try
 			{
-				plainTextDetails.AppendLine(string.Format("Running the WMI query: '{0}'", WmiIConfig.StateQuery));
-				htmlTextTextDetails.AppendLine(string.Format("<i>Running the WMI query: '{0}'</i>", WmiIConfig.StateQuery));
+				plainTextDetails.AppendLine(string.Format("Running {0} WMI queries", WmiIConfig.Entries.Count));
+                htmlTextTextDetails.AppendLine(string.Format("<i>Running {0} WMI queries'</i>", WmiIConfig.Entries.Count));
 				htmlTextTextDetails.AppendLine("<ul>");
-				foreach (string machineName in WmiIConfig.Machines)
-				{
-					object value = null;
-					LastDetailMsg.PlainText = string.Format("Running WMI query for '{0}' - '{1}'", machineName, WmiIConfig.StateQuery);
 
-                    value = WmiIConfig.RunQuery(machineName);
-                    MonitorStates currentState = WmiIConfig.GetState(value);
+                foreach (WMIConfigEntry wmiConfigEntry in WmiIConfig.Entries)
+                {
+                    plainTextDetails.Append(string.Format("\t\t{0} - ", wmiConfigEntry.Name));
+                    htmlTextTextDetails.Append(string.Format("<li>{0} - ", wmiConfigEntry.Name));
 
-                    if (value != null && value.IsNumber())
-                        totalValue += double.Parse(value.ToString());
-
+                    object val = wmiConfigEntry.RunQuery();
+                    MonitorStates currentState = wmiConfigEntry.GetState(val);
                     if (currentState == MonitorStates.Error)
-					{
-						errors++;
-						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.ErrorValue));
-						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.ErrorValue));
-					}
-					else if (currentState == MonitorStates.Warning)
-					{
-						warnings++;
-						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.WarningValue));
-						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})</li>", machineName, FormatUtils.N(value, "[null]"), WmiIConfig.WarningValue));
-					}
-					else
-					{
-						success++;
-						plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}'", machineName, value));
-						htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}'</li>", machineName, value));
-					}
-				}
+                    {
+                        errors++;
+                        plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.ErrorValue));
+                        htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.ErrorValue));
+                    }
+                    else if (currentState == MonitorStates.Warning)
+                    {
+                        warnings++;
+                        plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.WarningValue));
+                        htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})</li>", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.WarningValue));
+                    }
+                    else
+                    {
+                        success++;
+                        plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}'", wmiConfigEntry.Machinename, val));
+                        htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}'</li>", wmiConfigEntry.Machinename, val));
+                    }
+                    if (val != null && val.IsNumber())
+                        totalValue += double.Parse(val.ToString());
+                }
+				
+                    //object value = null;
+                    //LastDetailMsg.PlainText = string.Format("Running WMI query for '{0}' - '{1}'", WmiIConfig.Machinename, WmiIConfig.StateQuery);
+
+                    //value = WmiIConfig.RunQuery();
+                    //MonitorStates currentState = WmiIConfig.GetState(value);
+
+
+
+                    //if (currentState == MonitorStates.Error)
+                    //{
+                    //    errors++;
+                    //    plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", WmiIConfig.Machinename, FormatUtils.N(value, "[null]"), WmiIConfig.ErrorValue));
+                    //    htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})</li>", WmiIConfig.Machinename, FormatUtils.N(value, "[null]"), WmiIConfig.ErrorValue));
+                    //}
+                    //else if (currentState == MonitorStates.Warning)
+                    //{
+                    //    warnings++;
+                    //    plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", WmiIConfig.Machinename, FormatUtils.N(value, "[null]"), WmiIConfig.WarningValue));
+                    //    htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})</li>", WmiIConfig.Machinename, FormatUtils.N(value, "[null]"), WmiIConfig.WarningValue));
+                    //}
+                    //else
+                    //{
+                    //    success++;
+                    //    plainTextDetails.AppendLine(string.Format("Machine '{0}' - value '{1}'", WmiIConfig.Machinename, value));
+                    //    htmlTextTextDetails.AppendLine(string.Format("<li>Machine '{0}' - Value '{1}'</li>", WmiIConfig.Machinename, value));
+                    //}
+				
 				htmlTextTextDetails.AppendLine("</ul>");
 				if (errors > 0 && warnings == 0)
 					returnState = MonitorStates.Error;
@@ -80,7 +107,7 @@ namespace QuickMon
 		public override void ShowStatusDetails(string collectorName)
 		{
 			ShowDetails showDetails = new ShowDetails();
-			showDetails.WmiIConfig = WmiIConfig;
+			showDetails.WmiConfig = WmiIConfig;
 			showDetails.Text = "Show details - " + collectorName;
 			showDetails.Show();
 		}
@@ -95,10 +122,10 @@ namespace QuickMon
 			ReadConfiguration(configDoc);
 
 			EditConfig editConfig = new EditConfig();
-			editConfig.WmiIConfig = WmiIConfig;
+			editConfig.WmiConfig = WmiIConfig;
 			if (editConfig.ShowConfig() == System.Windows.Forms.DialogResult.OK)
 			{
-				config = editConfig.WmiIConfig.ToConfig();
+				config = editConfig.WmiConfig.ToConfig();
 			}
 			return config;
 		}

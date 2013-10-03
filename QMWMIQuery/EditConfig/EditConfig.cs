@@ -14,278 +14,166 @@ namespace QuickMon
         public EditConfig()
         {
             InitializeComponent();
-            WmiIConfig = new WMIConfig();
         }
 
-        public WMIConfig WmiIConfig { get; set; }
+        public WMIConfig WmiConfig { get; set; }
 
         public DialogResult ShowConfig()
         {
             return ShowDialog();
         }
 
-        #region Form events
+        #region Form events 
+        private void EditConfig_Load(object sender, EventArgs e)
+        {
+
+        }
         private void EditConfig_Shown(object sender, EventArgs e)
         {
-            txtNamespace.Text = WmiIConfig.Namespace;
-            txtMachines.Text = WmiIConfig.Machines.ToCSVString();
-            txtStateQuery.Text = WmiIConfig.StateQuery;
-            chkIsReturnValueInt.Checked = WmiIConfig.ReturnValueIsInt;
-            chkReturnValueNotInverted.Checked = !WmiIConfig.ReturnValueInverted;
-            chkUseRowCountAsValue.Checked = WmiIConfig.UseRowCountAsValue;
-            cboSuccessValue.Text = WmiIConfig.SuccessValue;
-            cboWarningValue.Text = WmiIConfig.WarningValue;
-            cboErrorValue.Text = WmiIConfig.ErrorValue;
-            txtDetailQuery.Text = WmiIConfig.DetailQuery;
-            txtColumnNames.Text = WmiIConfig.ColumnNames.ToCSVString();
-            //keyColumnNumericUpDown.Value = WmiIConfig.KeyColumn;
+            LoadList();
+            columnResizeTimer.Enabled = true;
+        }
+        #endregion
+
+        #region List view events
+        private void lvwQueries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            timerCheckButtonEnabled.Enabled = false;
+            timerCheckButtonEnabled.Enabled = true;
+        }
+        private void lvwQueries_Resize(object sender, EventArgs e)
+        {
+            columnResizeTimer.Enabled = false;
+            columnResizeTimer.Enabled = true;
+        }
+        private void lvwQueries_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                editToolStripButton_Click(null, null);
+            else if (e.KeyCode == Keys.Delete)
+                removeToolStripButton_Click(null, null);
+        }
+        private void lvwQueries_DoubleClick(object sender, EventArgs e)
+        {
+            editToolStripButton_Click(null, null);
+        }
+        #endregion
+
+        #region Private methods
+        private void LoadList()
+        {
+            if (WmiConfig != null)
+            {
+                lvwQueries.Items.Clear();
+                foreach (WMIConfigEntry wmiConfigEntry in WmiConfig.Entries)
+                {
+                    ListViewItem lvi = new ListViewItem(wmiConfigEntry.Name);
+                    lvi.SubItems.Add(wmiConfigEntry.Machinename);
+                    lvi.SubItems.Add(wmiConfigEntry.Namespace);
+                    lvi.SubItems.Add(wmiConfigEntry.DetailQuery);
+                    lvi.Tag = wmiConfigEntry;
+                    lvwQueries.Items.Add(lvi);
+                }
+                CheckOKEnabled();
+            }
+        }
+        private bool CheckOKEnabled()
+        {
+            cmdOK.Enabled = (lvwQueries.Items.Count > 0);
+            return cmdOK.Enabled;
+        }
+        private void CheckButtonsEnable()
+        {
+            editToolStripButton.Enabled = lvwQueries.SelectedItems.Count > 0;
+            editToolStripMenuItem.Enabled = lvwQueries.SelectedItems.Count > 0;
+            removeToolStripButton.Enabled = lvwQueries.SelectedItems.Count > 0;
+            removeToolStripMenuItem.Enabled = lvwQueries.SelectedItems.Count > 0;
+        }
+        #endregion
+
+        #region Toolbar button and context menu events
+        private void addToolStripButton_Click(object sender, EventArgs e)
+        {
+            EditConfigEntry editConfigEntry = new EditConfigEntry();
+            editConfigEntry.WmiIConfigEntry = new WMIConfigEntry();
+            if (editConfigEntry.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ListViewItem lvi = new ListViewItem(editConfigEntry.WmiIConfigEntry.Name);
+                lvi.SubItems.Add(editConfigEntry.WmiIConfigEntry.Machinename);
+                lvi.SubItems.Add(editConfigEntry.WmiIConfigEntry.Namespace);
+                lvi.SubItems.Add(editConfigEntry.WmiIConfigEntry.DetailQuery);
+                lvi.Tag = editConfigEntry.WmiIConfigEntry;
+                lvwQueries.Items.Add(lvi);
+                CheckOKEnabled();
+                CheckButtonsEnable();
+            }
+        }        
+        private void editToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (lvwQueries.SelectedItems.Count > 0 && lvwQueries.SelectedItems[0].Tag is WMIConfigEntry)
+            {
+                EditConfigEntry editConfigEntry = new EditConfigEntry();
+                editConfigEntry.WmiIConfigEntry = (WMIConfigEntry)lvwQueries.SelectedItems[0].Tag;
+                if (editConfigEntry.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    ListViewItem lvi = lvwQueries.SelectedItems[0];
+                    lvi.Text = editConfigEntry.WmiIConfigEntry.Name;
+                    lvi.SubItems[1].Text = editConfigEntry.WmiIConfigEntry.Machinename;
+                    lvi.SubItems[2].Text = editConfigEntry.WmiIConfigEntry.Namespace;
+                    lvi.SubItems[3].Text = editConfigEntry.WmiIConfigEntry.DetailQuery;
+                    lvi.Tag = editConfigEntry.WmiIConfigEntry;
+                }
+            }
+        }
+        private void removeToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (lvwQueries.SelectedItems.Count > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to remove the selected entries?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    foreach (ListViewItem lvi in lvwQueries.SelectedItems)
+                    {
+                        lvwQueries.Items.Remove(lvi);
+                    }
+                    CheckOKEnabled();
+                }
+            }
         } 
         #endregion
 
+        #region Timer events
+        private void columnResizeTimer_Tick(object sender, EventArgs e)
+        {
+            columnResizeTimer.Enabled = false;
+            lvwQueries.Columns[3].Width = lvwQueries.ClientSize.Width - lvwQueries.Columns[0].Width - lvwQueries.Columns[1].Width - lvwQueries.Columns[2].Width;
+        }
+        private void timerCheckButtonEnabled_Tick(object sender, EventArgs e)
+        {
+            timerCheckButtonEnabled.Enabled = false;
+            CheckButtonsEnable();
+        }
+        #endregion
+
         #region Button events
-        private void cmdEditMachineNames_Click(object sender, EventArgs e)
-        {
-            CSVEditor csvEditor = new CSVEditor();
-            csvEditor.Text = "Machine names";
-            csvEditor.ItemDescription = "Machine";
-            csvEditor.CSVData = txtMachines.Text;
-            if (csvEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtMachines.Text = csvEditor.CSVData;
-            }
-        }
-        private void cmdEditColumnNames_Click(object sender, EventArgs e)
-        {
-            CSVEditor csvEditor = new CSVEditor();
-            csvEditor.Text = "Column names";
-            csvEditor.ItemDescription = "Column";
-            csvEditor.Sorted = false;
-            csvEditor.CSVData = txtColumnNames.Text;
-            if (csvEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtColumnNames.Text = csvEditor.CSVData;
-            }
-        }
-        private void cmdTestDB_Click(object sender, EventArgs e)
-        {
-            if (DoValidate())
-            {
-                string lastStep = "Initialize values";
-                string columnWarningText = "";
-                try
-                {
-                    WMIConfig tmpWMIConfig = new WMIConfig();
-                    tmpWMIConfig.Namespace = txtNamespace.Text;
-                    tmpWMIConfig.Machines = txtMachines.Text.ToListFromCSVString(true);
-                    tmpWMIConfig.StateQuery = txtStateQuery.Text;
-                    tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                    tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
-                    tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                    tmpWMIConfig.SuccessValue = cboSuccessValue.Text;
-                    tmpWMIConfig.WarningValue = cboWarningValue.Text;
-                    tmpWMIConfig.ErrorValue = cboErrorValue.Text;
-                    tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
-                    tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
-                    
-                    //tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
-
-                    object returnValue = null;
-                    if (tmpWMIConfig.UseRowCountAsValue)
-                    {
-                        lastStep = "Run summary query (row count as value)";
-                        returnValue = tmpWMIConfig.RunQueryWithCountResult(tmpWMIConfig.Machines[0]);
-                    }
-                    else
-                    {
-                        lastStep = "Run summary query";
-                        returnValue = tmpWMIConfig.RunQueryWithSingleResult(tmpWMIConfig.Machines[0]);
-                    }
-
-                    if (tmpWMIConfig.ReturnValueIsInt)
-                    {
-                        lastStep = "Test return value is an Integer";
-                        if (!returnValue.IsIntegerTypeNumber())
-                            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                    }
-                    //testing detail query
-                    lastStep = "Testing detail query - Getting column names";
-                    List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
-                    lastStep = "Testing detail query - Custom column name sequence check";
-                    StringBuilder sbColumns = new StringBuilder();
-                    for (int i = 1; i < columns.Count; i++ )
-                        sbColumns.AppendLine(columns[i].ColumnName);
-                    foreach (string columnName in tmpWMIConfig.ColumnNames)
-                    {
-                        
-                        if ((from c in columns
-                             where c.ColumnName.ToUpper() == columnName.ToUpper()
-                             select c).Count() != 1)
-                        {
-                            columnWarningText += columnName + ", ";
-                        }
-                    }
-                    if (chkCopyColumnNames.Checked)
-                    {
-                        Clipboard.SetText(sbColumns.ToString());
-                    }
-
-                    lastStep = "Testing detail query";
-                    DataSet ds = tmpWMIConfig.RunDetailQuery();
-                    if (columnWarningText.Length == 0)
-                        MessageBox.Show(string.Format("Success!\r\nSummary value return: {0}\r\nDetail row count: {1}\r\nDetail columns: {2}", returnValue, ds.Tables[0].Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else
-                        MessageBox.Show(string.Format("Success (with warning)!\r\nSummary value return: {0}\r\nDetail row count: {1}\r\nDetail columns returned: {2}\r\nColumns not found: {3}", returnValue, ds.Tables[0].Rows.Count, columns.ToCSVString(), columnWarningText), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(string.Format("Failed!\r\nLast step: {0}\r\n{1}", lastStep, ex.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
-        }
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            if (DoValidate())
+            if (CheckOKEnabled())
             {
-                WmiIConfig.Namespace = txtNamespace.Text;
-                WmiIConfig.Machines = txtMachines.Text.ToListFromCSVString(true);
-                WmiIConfig.StateQuery = txtStateQuery.Text;
-                WmiIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                WmiIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
-                WmiIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                WmiIConfig.SuccessValue = cboSuccessValue.Text;
-                WmiIConfig.WarningValue = cboWarningValue.Text;
-                WmiIConfig.ErrorValue = cboErrorValue.Text;
-                WmiIConfig.DetailQuery = txtDetailQuery.Text;
-                WmiIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
-                //WmiIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
+                WmiConfig = new WMIConfig();
+                WmiConfig.Entries = new List<WMIConfigEntry>();
+                foreach (ListViewItem lvi in lvwQueries.Items)
+                {
+                    WMIConfigEntry wmiConfigEntry = (WMIConfigEntry)lvi.Tag;
+                    WmiConfig.Entries.Add(wmiConfigEntry);
+                }
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
         }
-        private void cmdEditSummaryQuery_Click(object sender, EventArgs e)
-        {
-            EditWMIQuery editWMIQuery = new EditWMIQuery();
-            editWMIQuery.MachineName = txtMachines.Text;
-            editWMIQuery.RootNameSpace = txtNamespace.Text;
-            editWMIQuery.QueryText = txtStateQuery.Text;
-            if (editWMIQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtMachines.Text = editWMIQuery.MachineName;
-                txtNamespace.Text = editWMIQuery.RootNameSpace;
-                txtStateQuery.Text = editWMIQuery.QueryText;
-            }
-        }
-        private void cmdEditDetailsQuery_Click(object sender, EventArgs e)
-        {
-            EditWMIQuery editWMIQuery = new EditWMIQuery();
-            editWMIQuery.MachineName = txtMachines.Text;
-            editWMIQuery.RootNameSpace = txtNamespace.Text;
-            editWMIQuery.QueryText = txtDetailQuery.Text;
-            if (editWMIQuery.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtMachines.Text = editWMIQuery.MachineName;
-                txtNamespace.Text = editWMIQuery.RootNameSpace;
-                txtDetailQuery.Text = editWMIQuery.QueryText;
-            }
-        }
         #endregion
 
-        #region Other control events
-        private void chkIsReturnValueInt_CheckedChanged(object sender, EventArgs e)
-        {
-            chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
-            chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
-        }
-        private void lblColumnNameSequence_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                WMIConfig tmpWMIConfig = new WMIConfig();
-                tmpWMIConfig.Namespace = txtNamespace.Text;
-                tmpWMIConfig.Machines = txtMachines.Text.ToListFromCSVString(true);
-                tmpWMIConfig.StateQuery = txtStateQuery.Text;
-                tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
-                tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                tmpWMIConfig.SuccessValue = cboSuccessValue.Text;
-                tmpWMIConfig.WarningValue = cboWarningValue.Text;
-                tmpWMIConfig.ErrorValue = cboErrorValue.Text;
-                tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
-                tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
-               // tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
 
-                List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
-                txtColumnNames.Text = "";
-                columns.ForEach(c => txtColumnNames.Text += c.ColumnName + ", ");
-                txtColumnNames.Text = txtColumnNames.Text.TrimEnd(' ', ',');
-            }
-            catch { }
-        }
-        #endregion
 
-        #region Private events
-        private bool DoValidate()
-        {
-            try
-            {
-                if (txtNamespace.Text.Length == 0)
-                    throw new InPutValidationException("Namespace must be specified!", txtNamespace);
-                if (txtMachines.Text.Length == 0 || txtMachines.Text.ToListFromCSVString(true).Count == 0)
-                    throw new InPutValidationException("There must be at least one machine name!", txtMachines);
-                if ((cboSuccessValue.Text == "[null]" && cboWarningValue.Text == "[null]") ||
-                    (cboSuccessValue.Text == "[null]" && cboErrorValue.Text == "[null]") ||
-                    (cboWarningValue.Text == "[null]" && cboErrorValue.Text == "[null]"))
-                {
-                    throw new InPutValidationException("Only one value can be [null]!", cboSuccessValue);
-                }
-                if ((cboSuccessValue.Text == "[any]" && cboWarningValue.Text == "[any]") ||
-                    (cboSuccessValue.Text == "[any]" && cboErrorValue.Text == "[any]") ||
-                    (cboWarningValue.Text == "[any]" && cboErrorValue.Text == "[any]"))
-                {
-                    throw new InPutValidationException("Only one value can be [any]!", cboSuccessValue);
-                }
-                if (chkIsReturnValueInt.Checked)
-                {
-                    if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" && !cboSuccessValue.Text.IsLong())
-                        throw new InPutValidationException("Success value must be a valid integer!\r\n(or predefined values [any] or [null])", cboSuccessValue);
-                    else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" && !cboWarningValue.Text.IsLong())
-                        throw new InPutValidationException("Warning value must be a valid integer!\r\n(or predefined values [any] or [null])", cboWarningValue);
-                    else if (cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" && !cboErrorValue.Text.IsLong())
-                        throw new InPutValidationException("Error value must be a valid integer!\r\n(or predefined values [any] or [null])", cboErrorValue);
-                    else if (chkReturnValueNotInverted.Checked)
-                    {
-                        if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" &&
-                            cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            long.Parse(cboSuccessValue.Text) >= long.Parse(cboWarningValue.Text))
-                            throw new InPutValidationException("Success value must smaller than Warning value", cboSuccessValue);
-                        else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" &&
-                            int.Parse(cboWarningValue.Text) >= long.Parse(cboErrorValue.Text))
-                            throw new InPutValidationException("Warning value must smaller than Error value", cboWarningValue);
-                    }
-                    else if (!chkReturnValueNotInverted.Checked)
-                    {
-                        if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" &&
-                            cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            long.Parse(cboSuccessValue.Text) <= long.Parse(cboWarningValue.Text))
-                            throw new InPutValidationException("Success value must bigger than Warning value", cboSuccessValue);
-                        else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" &&
-                            long.Parse(cboWarningValue.Text) <= long.Parse(cboErrorValue.Text))
-                            throw new InPutValidationException("Warning value must bigger than Error value", cboWarningValue);
-                    }
-                }
-                return true;
-            }
-            catch (InPutValidationException ex)
-            {
-                MessageBox.Show(ex.Message, "Input Validation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                if (ex.ValidatedObject is Control)
-                    ((Control)ex.ValidatedObject).Focus();
-                return false;
-            }
-        } 
-        #endregion
 
-    }    
+    }
 }
