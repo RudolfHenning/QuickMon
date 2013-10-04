@@ -111,7 +111,7 @@
             this.lvwQueries.FullRowSelect = true;
             this.lvwQueries.Location = new System.Drawing.Point(0, 45);
             this.lvwQueries.Name = "lvwQueries";
-            this.lvwQueries.Size = new System.Drawing.Size(615, 295);
+            this.lvwQueries.Size = new System.Drawing.Size(615, 292);
             this.lvwQueries.TabIndex = 24;
             this.lvwQueries.UseCompatibleStateImageBehavior = false;
             this.lvwQueries.View = System.Windows.Forms.View.Details;
@@ -147,33 +147,33 @@
             this.editToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 76);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.addToolStripMenuItem.Text = "Add";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Enabled = false;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.removeToolStripMenuItem.Text = "Remove";
             // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(447, 346);
+            this.cmdOK.Location = new System.Drawing.Point(447, 343);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 22;
@@ -191,7 +191,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(528, 346);
+            this.cmdCancel.Location = new System.Drawing.Point(528, 343);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 23;

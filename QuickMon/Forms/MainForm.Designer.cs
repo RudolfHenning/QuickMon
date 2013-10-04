@@ -87,7 +87,7 @@
             this.toolStripButtonOptions});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(374, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(389, 39);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.TabStop = true;
             // 
@@ -193,9 +193,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lastUpdateToolStripStatusLabel,
             this.toolStripStatusLabelStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 351);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(374, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(389, 24);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -208,7 +208,7 @@
             // toolStripStatusLabelStatus
             // 
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(347, 19);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(362, 19);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.Text = ".";
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -228,7 +228,7 @@
             treeNode1});
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
-            this.tvwCollectors.Size = new System.Drawing.Size(374, 312);
+            this.tvwCollectors.Size = new System.Drawing.Size(389, 349);
             this.tvwCollectors.TabIndex = 0;
             this.tvwCollectors.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvwCollectors_BeforeCollapse);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
@@ -249,7 +249,7 @@
             this.refreshToolStripMenuItem,
             this.systemToolStripMenuItem});
             this.contextMenuStriptvw.Name = "contextMenuStriptvw";
-            this.contextMenuStriptvw.Size = new System.Drawing.Size(228, 254);
+            this.contextMenuStriptvw.Size = new System.Drawing.Size(228, 232);
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -409,7 +409,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 375);
+            this.ClientSize = new System.Drawing.Size(389, 412);
             this.Controls.Add(this.tvwCollectors);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

@@ -109,6 +109,7 @@
     <None Include="Resources\doc_add.png" />
     <None Include="Resources\doc_edit.png" />
     <None Include="Resources\doc_remove.png" />
+    <None Include="Resources\Download.png" />
     <Content Include="Resources\WMIQueryEmptyConfig.xml">
       <SubType>Designer</SubType>
     </Content>

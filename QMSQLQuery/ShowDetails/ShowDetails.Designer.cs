@@ -38,6 +38,9 @@
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.showSQLQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.autoRefreshtoolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -54,10 +57,7 @@
             this.contextMenuStripRTF = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.showSQLQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -104,7 +104,7 @@
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(244, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
             // 
@@ -143,7 +143,28 @@
             this.toolStripMenuItem1,
             this.showSQLQueryToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(245, 104);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(245, 82);
+            // 
+            // autoRefreshToolStripMenuItem
+            // 
+            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
+            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(244, 24);
+            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
+            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(241, 6);
+            // 
+            // showSQLQueryToolStripMenuItem
+            // 
+            this.showSQLQueryToolStripMenuItem.Enabled = false;
+            this.showSQLQueryToolStripMenuItem.Name = "showSQLQueryToolStripMenuItem";
+            this.showSQLQueryToolStripMenuItem.Size = new System.Drawing.Size(244, 24);
+            this.showSQLQueryToolStripMenuItem.Text = "Edit SQL Query (local copy)";
+            this.showSQLQueryToolStripMenuItem.Click += new System.EventHandler(this.showSQLQueryToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -268,6 +289,7 @@
             // 
             // rtxDetails
             // 
+            this.rtxDetails.ContextMenuStrip = this.contextMenuStripRTF;
             this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
@@ -302,47 +324,26 @@
             this.copyToolStripMenuItem,
             this.selectAllToolStripMenuItem});
             this.contextMenuStripRTF.Name = "contextMenuStripRTF";
-            this.contextMenuStripRTF.Size = new System.Drawing.Size(133, 52);
+            this.contextMenuStripRTF.Size = new System.Drawing.Size(153, 74);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
-            // 
-            // autoRefreshToolStripMenuItem
-            // 
-            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
-            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
-            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
-            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
-            this.autoRefreshToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.autoRefreshToolStripMenuItem_CheckStateChanged);
             // 
             // refreshTimer
             // 
             this.refreshTimer.Interval = 5000;
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // showSQLQueryToolStripMenuItem
-            // 
-            this.showSQLQueryToolStripMenuItem.Enabled = false;
-            this.showSQLQueryToolStripMenuItem.Name = "showSQLQueryToolStripMenuItem";
-            this.showSQLQueryToolStripMenuItem.Size = new System.Drawing.Size(244, 24);
-            this.showSQLQueryToolStripMenuItem.Text = "Edit SQL Query (local copy)";
-            this.showSQLQueryToolStripMenuItem.Click += new System.EventHandler(this.showSQLQueryToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(179, 6);
             // 
             // ShowDetails
             // 

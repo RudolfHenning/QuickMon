@@ -241,6 +241,17 @@ namespace QuickMon
         #endregion
 
         #region Private events
+        private void CheckTestOKEnabled()
+        {
+            cmdOK.Enabled = txtName.Text.Length > 0 && txtNamespace.Text.Length > 0 && txtMachines.Text.Length > 0 &&
+                txtStateQuery.Text.Length > 0 &&
+                cboSuccessValue.Text.Length > 0 && cboWarningValue.Text.Length > 0 && cboErrorValue.Text.Length > 0 &&
+                txtDetailQuery.Text.Length > 0;
+            cmdTestDB.Enabled = txtName.Text.Length > 0 && txtNamespace.Text.Length > 0 && txtMachines.Text.Length > 0 &&
+                txtStateQuery.Text.Length > 0 &&
+                cboSuccessValue.Text.Length > 0 && cboWarningValue.Text.Length > 0 && cboErrorValue.Text.Length > 0 &&
+                txtDetailQuery.Text.Length > 0;
+        }
         private bool DoValidate()
         {
             try
@@ -304,7 +315,37 @@ namespace QuickMon
         } 
         #endregion
 
-
-
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void txtNamespace_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void txtMachines_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void txtStateQuery_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void cboErrorValue_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void cboWarningValue_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void cboSuccessValue_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
+        private void txtDetailQuery_TextChanged(object sender, EventArgs e)
+        {
+            CheckTestOKEnabled();
+        }
     }    
 }

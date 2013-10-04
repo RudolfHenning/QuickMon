@@ -660,11 +660,8 @@ namespace QuickMon
 			XmlElement root = configurationXml.DocumentElement;
 			Name = root.Attributes.GetNamedItem("name").Value;
 			Enabled = bool.Parse(root.Attributes.GetNamedItem("enabled").Value);
-#if DEBUG
-            AgentsAssemblyPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-#else
 			AgentsAssemblyPath = root.ReadXmlElementAttr("agentRegistrationPath");
-#endif
+
             string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
 			RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
 			foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
@@ -820,7 +817,13 @@ namespace QuickMon
 			try
 			{
 				AgentRegistrations.Clear();
-				foreach (string assemblyPath in System.IO.Directory.GetFiles(agentsAssemblyPath, "*.dll"))
+                string agentAssemblyPathLocal = "";
+#if DEBUG
+                agentAssemblyPathLocal = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+#else
+			    agentAssemblyPathLocal = agentsAssemblyPath;
+#endif
+                foreach (string assemblyPath in System.IO.Directory.GetFiles(agentAssemblyPathLocal, "*.dll"))
 				{
 					try
 					{

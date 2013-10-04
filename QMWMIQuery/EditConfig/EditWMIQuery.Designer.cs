@@ -47,6 +47,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.timerGenerateQuery = new System.Windows.Forms.Timer(this.components);
+            this.chkAccessdniedErrors = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtMachine
@@ -72,7 +73,7 @@
             this.label1.Location = new System.Drawing.Point(12, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 3;
             this.label1.Text = "Root namespace";
             // 
             // cboNamespace
@@ -84,7 +85,7 @@
             this.cboNamespace.Name = "cboNamespace";
             this.cboNamespace.Size = new System.Drawing.Size(388, 21);
             this.cboNamespace.Sorted = true;
-            this.cboNamespace.TabIndex = 3;
+            this.cboNamespace.TabIndex = 4;
             this.cboNamespace.Text = "root\\CIMV2";
             this.cboNamespace.SelectedIndexChanged += new System.EventHandler(this.cboNamespace_SelectedIndexChanged);
             // 
@@ -95,7 +96,7 @@
             this.cmdLoadClasses.Location = new System.Drawing.Point(512, 63);
             this.cmdLoadClasses.Name = "cmdLoadClasses";
             this.cmdLoadClasses.Size = new System.Drawing.Size(58, 23);
-            this.cmdLoadClasses.TabIndex = 7;
+            this.cmdLoadClasses.TabIndex = 8;
             this.cmdLoadClasses.Text = "Load";
             this.cmdLoadClasses.UseVisualStyleBackColor = true;
             this.cmdLoadClasses.Click += new System.EventHandler(this.cmdLoadClasses_Click);
@@ -106,7 +107,7 @@
             this.label3.Location = new System.Drawing.Point(12, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 13);
-            this.label3.TabIndex = 5;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Class name";
             // 
             // cboClass
@@ -118,7 +119,7 @@
             this.cboClass.Name = "cboClass";
             this.cboClass.Size = new System.Drawing.Size(388, 21);
             this.cboClass.Sorted = true;
-            this.cboClass.TabIndex = 6;
+            this.cboClass.TabIndex = 7;
             this.cboClass.SelectedIndexChanged += new System.EventHandler(this.cboClass_SelectedIndexChanged);
             // 
             // cmdLoadNameSpaces
@@ -128,7 +129,7 @@
             this.cmdLoadNameSpaces.Location = new System.Drawing.Point(512, 36);
             this.cmdLoadNameSpaces.Name = "cmdLoadNameSpaces";
             this.cmdLoadNameSpaces.Size = new System.Drawing.Size(58, 23);
-            this.cmdLoadNameSpaces.TabIndex = 4;
+            this.cmdLoadNameSpaces.TabIndex = 5;
             this.cmdLoadNameSpaces.Text = "Load";
             this.cmdLoadNameSpaces.UseVisualStyleBackColor = true;
             this.cmdLoadNameSpaces.Click += new System.EventHandler(this.cmdLoadNameSpaces_Click);
@@ -139,7 +140,7 @@
             this.label4.Location = new System.Drawing.Point(12, 98);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
-            this.label4.TabIndex = 8;
+            this.label4.TabIndex = 9;
             this.label4.Text = "Properties";
             // 
             // lstProperties
@@ -152,7 +153,7 @@
             this.lstProperties.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstProperties.Size = new System.Drawing.Size(187, 173);
             this.lstProperties.Sorted = true;
-            this.lstProperties.TabIndex = 9;
+            this.lstProperties.TabIndex = 10;
             this.lstProperties.SelectedIndexChanged += new System.EventHandler(this.lstProperties_SelectedIndexChanged);
             // 
             // label5
@@ -161,7 +162,7 @@
             this.label5.Location = new System.Drawing.Point(320, 98);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 13);
-            this.label5.TabIndex = 10;
+            this.label5.TabIndex = 11;
             this.label5.Text = "Example query";
             // 
             // txtQuery
@@ -173,7 +174,7 @@
             this.txtQuery.Multiline = true;
             this.txtQuery.Name = "txtQuery";
             this.txtQuery.Size = new System.Drawing.Size(247, 151);
-            this.txtQuery.TabIndex = 11;
+            this.txtQuery.TabIndex = 12;
             // 
             // cmdTest
             // 
@@ -183,7 +184,7 @@
             this.cmdTest.Location = new System.Drawing.Point(334, 275);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 13;
+            this.cmdTest.TabIndex = 14;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -196,7 +197,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(496, 275);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 15;
+            this.cmdCancel.TabIndex = 16;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -208,7 +209,7 @@
             this.cmdOK.Location = new System.Drawing.Point(415, 275);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 14;
+            this.cmdOK.TabIndex = 15;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -220,7 +221,7 @@
             this.label6.Location = new System.Drawing.Point(5, 280);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(277, 13);
-            this.label6.TabIndex = 12;
+            this.label6.TabIndex = 13;
             this.label6.Text = "Testing the query will create a CSV file in \'My Documents\'";
             // 
             // timerGenerateQuery
@@ -228,11 +229,24 @@
             this.timerGenerateQuery.Interval = 250;
             this.timerGenerateQuery.Tick += new System.EventHandler(this.timerGenerateQuery_Tick);
             // 
+            // chkAccessdniedErrors
+            // 
+            this.chkAccessdniedErrors.AutoSize = true;
+            this.chkAccessdniedErrors.Checked = true;
+            this.chkAccessdniedErrors.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAccessdniedErrors.Location = new System.Drawing.Point(347, 15);
+            this.chkAccessdniedErrors.Name = "chkAccessdniedErrors";
+            this.chkAccessdniedErrors.Size = new System.Drawing.Size(159, 17);
+            this.chkAccessdniedErrors.TabIndex = 2;
+            this.chkAccessdniedErrors.Text = "Show \'Access denied\' errors";
+            this.chkAccessdniedErrors.UseVisualStyleBackColor = true;
+            // 
             // EditWMIQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 307);
+            this.Controls.Add(this.chkAccessdniedErrors);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.cmdCancel);
@@ -282,5 +296,6 @@
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer timerGenerateQuery;
+        private System.Windows.Forms.CheckBox chkAccessdniedErrors;
     }
 }

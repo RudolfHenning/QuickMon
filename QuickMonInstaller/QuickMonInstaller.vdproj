@@ -311,6 +311,12 @@
         "Entry"
         {
         "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
+        "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "OwnerKey" = "8:_FE22E8B236724F1391D91353075BE664"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -466,12 +472,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
-        "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CAE96F69ADBC4FD8BB05243DEFDF0BAC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -528,6 +528,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_AEF69716952181B21E031B4717828D17"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -684,12 +690,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1FB4208CC496470BBA184F31CF5FB7B4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AFA260C0F67CBB7FFDC60B159913A1C9"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -875,7 +875,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.12.1.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:QuickMonShared, Version=2.13.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_AEF69716952181B21E031B4717828D17"
@@ -1074,15 +1074,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickMon"
-        "ProductCode" = "8:{C9FD0341-7059-4CB4-8327-E9233C28A3ED}"
-        "PackageCode" = "8:{618A19E0-CDD2-4A49-8FE0-B79E7102DE40}"
+        "ProductCode" = "8:{54661CF3-95DD-4934-AD4B-F9E6795716FE}"
+        "PackageCode" = "8:{FE7BAF69-5592-4529-A0BF-3B894E3049E4}"
         "UpgradeCode" = "8:{1AB71844-4929-4203-914E-0E8AF49AD720}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.12.1"
+        "ProductVersion" = "8:2.13.0"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

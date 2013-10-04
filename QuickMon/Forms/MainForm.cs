@@ -142,10 +142,13 @@ namespace QuickMon
         {
             if (monitorPack != null)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 monitorPack.AbortPolling = true;
                 DateTime abortStart = DateTime.Now;
-                while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                while (monitorPack.BusyPolling && abortStart.AddSeconds(3) > DateTime.Now)
                 {
+                    Cursor.Current = Cursors.WaitCursor;
+                    System.Threading.Thread.Sleep(100);
                     Application.DoEvents();
                 }
             }
@@ -250,21 +253,6 @@ namespace QuickMon
             }
             SetEnableDisablePolling();
         }
-        //private void timerMain_Tick(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        RefreshMonitorPack();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (Properties.Settings.Default.DisablePollingOnError)
-        //            monitorPack.Enabled = false;
-        //        toolStripStatusLabelStatus.Text = ex.Message;
-        //        toolStripStatusLabelStatus.ToolTipText = ex.Message;
-        //    }
-        //    SetEnableDisablePolling();
-        //}
         private void timerAppIconRefresher_Tick(object sender, EventArgs e)
         {
             UpdateAppIcon();

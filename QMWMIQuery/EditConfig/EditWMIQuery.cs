@@ -25,12 +25,14 @@ namespace QuickMon
         #region Form events
         private void EditWMIQuery_Load(object sender, EventArgs e)
         {
-            txtMachine.Text = MachineName;
-            txtQuery.Text = QueryText;
+           
         }
         private void EditWMIQuery_Shown(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+            txtMachine.Text = MachineName;
+            cboNamespace.Text = RootNameSpace;
+            txtQuery.Text = QueryText;
             LoadNameSpaces();
             LoadClasses();
             CheckOKEnabled();
@@ -136,7 +138,7 @@ namespace QuickMon
                             sb.AppendLine();
                         }
                     }
-                    string outputFileName = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyComputer), "QMWMIQuery.csv");
+                    string outputFileName = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QMWMIQuery.csv");
                     System.IO.File.WriteAllText(outputFileName, sb.ToString());
                     System.Diagnostics.Process p = new System.Diagnostics.Process();
                     p.StartInfo = new System.Diagnostics.ProcessStartInfo();
@@ -161,14 +163,14 @@ namespace QuickMon
             loading = true;
             try
             {
-
-                if (txtMachine.Text != null && txtMachine.Text.Length > 0)
+                if (txtMachine.Text == null || txtMachine.Text.Length == 0 || txtMachine.Text == ".")
                 {
                     txtMachine.Text = System.Environment.MachineName;
                 }
                 
                 cboNamespace.Items.Clear();
-                LoadNameSpaceClasses("root");
+
+                LoadNameSpaceClasses("root", ! chkAccessdniedErrors.Checked);
                 if (RootNameSpace != null && RootNameSpace.Length > 0)
                 {
                     object sel = (from object li in cboNamespace.Items
@@ -176,6 +178,7 @@ namespace QuickMon
                                                  select li).FirstOrDefault();
                     cboNamespace.SelectedItem = sel;
                 }
+                CheckOKEnabled();
             }
             catch (Exception ex)
             {
@@ -183,22 +186,30 @@ namespace QuickMon
             }
             loading = false;
         }
-        private void LoadNameSpaceClasses(string parentPath)
+        private void LoadNameSpaceClasses(string parentPath, bool hideAccessErrors)
         {
             string strScope = string.Format(@"\\{0}\" + parentPath, txtMachine.Text);
-            ManagementClass nsClass =
-                new ManagementClass(
-                new ManagementScope(strScope),
-                new ManagementPath("__namespace"),
-                null);
-
-            foreach (ManagementObject ns in nsClass.GetInstances())
+            try
             {
-                string fullNS = parentPath + "\\" + ns["Name"].ToString();
-                cboNamespace.Items.Add(fullNS);
-                LoadNameSpaceClasses(fullNS);
+                ManagementClass nsClass =
+                    new ManagementClass(
+                    new ManagementScope(strScope),
+                    new ManagementPath("__namespace"),
+                    null);
+
+                foreach (ManagementObject ns in nsClass.GetInstances())
+                {
+                    string fullNS = parentPath + "\\" + ns["Name"].ToString();
+                    cboNamespace.Items.Add(fullNS);
+                    LoadNameSpaceClasses(fullNS, hideAccessErrors);
+                }
             }
-            CheckOKEnabled();
+            catch (Exception ex)
+            {
+                if ((!ex.Message.Contains("Access denied") || !hideAccessErrors))
+                    throw;
+            }
+            
         }
 
         private void LoadClasses()

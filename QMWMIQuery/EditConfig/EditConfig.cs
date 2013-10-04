@@ -70,7 +70,7 @@ namespace QuickMon
                     ListViewItem lvi = new ListViewItem(wmiConfigEntry.Name);
                     lvi.SubItems.Add(wmiConfigEntry.Machinename);
                     lvi.SubItems.Add(wmiConfigEntry.Namespace);
-                    lvi.SubItems.Add(wmiConfigEntry.DetailQuery);
+                    lvi.SubItems.Add(wmiConfigEntry.StateQuery);
                     lvi.Tag = wmiConfigEntry;
                     lvwQueries.Items.Add(lvi);
                 }
