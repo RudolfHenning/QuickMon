@@ -71,12 +71,12 @@ namespace QuickMon
             if (SocketPingConfig != null)
             {
                 lvwHosts.Items.Clear();
-                foreach (SocketPingEntry httpPingEntry in SocketPingConfig.Entries)
+                foreach (SocketPingEntry socketPingEntry in SocketPingConfig.Entries)
                 {
-                    ListViewItem lvi = new ListViewItem(httpPingEntry.HostName);
+                    ListViewItem lvi = new ListViewItem(string.Format("{0}:{1}", socketPingEntry.HostName, socketPingEntry.PortNumber));
                     //lvi.UseItemStyleForSubItems = false;
                     lvi.SubItems.Add("-");
-                    lvi.Tag = httpPingEntry;
+                    lvi.Tag = socketPingEntry;
                     lvwHosts.Items.Add(lvi);
                 }
             }

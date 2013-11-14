@@ -61,7 +61,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(166, 65);
+            this.label5.Location = new System.Drawing.Point(175, 65);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(63, 13);
             this.label5.TabIndex = 7;
@@ -81,7 +81,7 @@
             0,
             0});
             this.nudTimeOut.Name = "nudTimeOut";
-            this.nudTimeOut.Size = new System.Drawing.Size(60, 20);
+            this.nudTimeOut.Size = new System.Drawing.Size(73, 20);
             this.nudTimeOut.TabIndex = 6;
             this.nudTimeOut.Value = new decimal(new int[] {
             5000,
@@ -102,7 +102,7 @@
             // 
             this.nudPortNumber.Location = new System.Drawing.Point(100, 37);
             this.nudPortNumber.Maximum = new decimal(new int[] {
-            9999,
+            65535,
             0,
             0,
             0});
@@ -112,7 +112,7 @@
             0,
             0});
             this.nudPortNumber.Name = "nudPortNumber";
-            this.nudPortNumber.Size = new System.Drawing.Size(60, 20);
+            this.nudPortNumber.Size = new System.Drawing.Size(73, 20);
             this.nudPortNumber.TabIndex = 4;
             this.nudPortNumber.Value = new decimal(new int[] {
             23,
@@ -133,7 +133,7 @@
             // 
             this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestAddress.Location = new System.Drawing.Point(346, 9);
+            this.cmdTestAddress.Location = new System.Drawing.Point(360, 9);
             this.cmdTestAddress.Name = "cmdTestAddress";
             this.cmdTestAddress.Size = new System.Drawing.Size(40, 23);
             this.cmdTestAddress.TabIndex = 2;
@@ -147,7 +147,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAddress.Location = new System.Drawing.Point(100, 11);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(240, 20);
+            this.txtAddress.Size = new System.Drawing.Size(254, 20);
             this.txtAddress.TabIndex = 1;
             this.txtAddress.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
             // 
@@ -165,7 +165,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(311, 148);
+            this.cmdCancel.Location = new System.Drawing.Point(325, 148);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 16;
@@ -176,7 +176,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(230, 148);
+            this.cmdOK.Location = new System.Drawing.Point(244, 148);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 15;
@@ -187,7 +187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(166, 93);
+            this.label4.Location = new System.Drawing.Point(175, 93);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 10;
@@ -207,7 +207,7 @@
             0,
             0});
             this.nudReceiveTimeout.Name = "nudReceiveTimeout";
-            this.nudReceiveTimeout.Size = new System.Drawing.Size(60, 20);
+            this.nudReceiveTimeout.Size = new System.Drawing.Size(73, 20);
             this.nudReceiveTimeout.TabIndex = 9;
             this.nudReceiveTimeout.Value = new decimal(new int[] {
             30000,
@@ -227,7 +227,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(166, 119);
+            this.label8.Location = new System.Drawing.Point(175, 119);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(63, 13);
             this.label8.TabIndex = 13;
@@ -247,7 +247,7 @@
             0,
             0});
             this.nudSendTimeout.Name = "nudSendTimeout";
-            this.nudSendTimeout.Size = new System.Drawing.Size(60, 20);
+            this.nudSendTimeout.Size = new System.Drawing.Size(73, 20);
             this.nudSendTimeout.TabIndex = 12;
             this.nudSendTimeout.Value = new decimal(new int[] {
             30000,
@@ -271,7 +271,7 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.chkUseTelNetLogin);
-            this.groupBox1.Location = new System.Drawing.Point(235, 39);
+            this.groupBox1.Location = new System.Drawing.Point(247, 39);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(151, 98);
             this.groupBox1.TabIndex = 14;
@@ -326,7 +326,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(398, 183);
+            this.ClientSize = new System.Drawing.Size(412, 183);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.nudSendTimeout);
