@@ -27,6 +27,7 @@ namespace QuickMon
                 Stream stream = client.OpenRead(webServiceAsmxUrl + "?wsdl");
                 ServiceDescription description = ServiceDescription.Read(stream);
                 ServiceDescriptionImporter importer = new ServiceDescriptionImporter();
+                //ServiceContractGenerator 
                 importer.ProtocolName = "Soap12";
                 importer.AddServiceDescription(description, null, null);
                 importer.Style = ServiceDescriptionImportStyle.Client;
@@ -59,6 +60,10 @@ namespace QuickMon
                     lastStep = "Creating instance of web service client";
                     WebServiceInstance = results.CompiledAssembly.CreateInstance(serviceName);
                     success = true;
+                }
+                else
+                {
+                    LastError = string.Format("ServiceDescriptionImporter returned {0}", warning);
                 }
             }
             catch (Exception ex)
