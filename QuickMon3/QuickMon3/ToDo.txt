@@ -5,3 +5,6 @@ Add some category/Type for Collector agent (class) so it can be grouped in the '
 BIG addition - Detail views can/must use remote host dataset as source 
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 
+-------------------------------------------------------------------------------------------------------
+Add functionality in UI client to install/manage Windows service.
+
