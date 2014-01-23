@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{401F6EC8-9013-49E7-BDF5-FA2ECD76FFAF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QuickMon</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>QM3.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CollectorContextMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CollectorContextMenuControl.Designer.cs">
+      <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NotifierContextMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NotifierContextMenuControl.Designer.cs">
+      <DependentUpon>NotifierContextMenuControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutQuickMon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutQuickMon.Designer.cs">
+      <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AgentTypeSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AgentTypeSelect.Designer.cs">
+      <DependentUpon>AgentTypeSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditCollectorConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCollectorConfig.Designer.cs">
+      <DependentUpon>EditCollectorConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditMonitorPackConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditMonitorPackConfig.Designer.cs">
+      <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditNotifierEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditNotifierEntry.Designer.cs">
+      <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditRAWMarkup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditRAWMarkup.Designer.cs">
+      <DependentUpon>EditRAWMarkup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditServiceWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditServiceWindows.Designer.cs">
+      <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FadeSnapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportCollectorConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportCollectorConfig.Designer.cs">
+      <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RecentMonitorPacks.cs" />
+    <Compile Include="Forms\SelectNotifierCollectors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectNotifierCollectors.Designer.cs">
+      <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GeneralSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GeneralSettings.Designer.cs">
+      <DependentUpon>GeneralSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\AdminModeTools.cs" />
+    <Compile Include="Utils\CommandLineUtils.cs" />
+    <EmbeddedResource Include="Controls\CollectorContextMenuControl.resx">
+      <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NotifierContextMenuControl.resx">
+      <DependentUpon>NotifierContextMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutQuickMon.resx">
+      <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AgentTypeSelect.resx">
+      <DependentUpon>AgentTypeSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditCollectorConfig.resx">
+      <DependentUpon>EditCollectorConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditMonitorPackConfig.resx">
+      <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditNotifierEntry.resx">
+      <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditRAWMarkup.resx">
+      <DependentUpon>EditRAWMarkup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditServiceWindows.resx">
+      <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportCollectorConfig.resx">
+      <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectNotifierCollectors.resx">
+      <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GeneralSettings.resx">
+      <DependentUpon>GeneralSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="QM3.ico" />
+    <Content Include="QuickMon3.ico" />
+    <None Include="Resources\AboutBkgrnd.png" />
+    <Content Include="ToDo.txt" />
+    <None Include="Resources\proc2.gif" />
+    <None Include="Resources\Plus16x16.png" />
+    <None Include="Resources\folder_add.png" />
+    <None Include="Resources\comp_search1.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\doc_edit.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\comp_search.png" />
+    <None Include="Resources\OrangeHeader1.png" />
+    <None Include="Resources\onebit_20.png" />
+    <None Include="Resources\QM3-background.png" />
+    <None Include="Resources\QM3.png" />
+    <None Include="Resources\319.ico" />
+    <None Include="Resources\CometSeparator.png" />
+    <None Include="Resources\filesearch1.ico" />
+    <None Include="Resources\filesearch.ico" />
+    <None Include="Resources\tables.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\clock.png" />
+    <None Include="Resources\thunderbolt.png" />
+    <None Include="Resources\warning.png" />
+    <None Include="Resources\tools.png" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\QEdit3.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\doc_new2.png" />
+    <None Include="Resources\folder_favor.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\Untitled.png" />
+    <None Include="Resources\QMstateError.ico" />
+    <None Include="Resources\QMstateWarningSml.ico" />
+    <None Include="Resources\QMstateNASml.ico" />
+    <None Include="Resources\QMstateGoodSml.ico" />
+    <None Include="Resources\QMstateErrorSml.ico" />
+    <None Include="Resources\QMstateDisabledSml.ico" />
+    <None Include="Resources\QMon-Yellow2.ico" />
+    <None Include="Resources\QMon-Yellow.ico" />
+    <None Include="Resources\QMon-Red2.ico" />
+    <None Include="Resources\QMon-Red.ico" />
+    <None Include="Resources\QMon-Green2.ico" />
+    <None Include="Resources\QMon-Green.ico" />
+    <None Include="Resources\QMon-Blue2.ico" />
+    <None Include="Resources\QMon-Blue.ico" />
+    <None Include="Resources\QMstateWarning.ico" />
+    <None Include="Resources\QMstateNA.ico" />
+    <None Include="Resources\QMstateGood.ico" />
+    <None Include="Resources\QMstateDisabled.ico" />
+    <None Include="Resources\whack1.ico" />
+    <None Include="Resources\Checkmark21.ico" />
+    <None Include="Resources\whack.ico" />
+    <None Include="Resources\Checkmark2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
+      <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

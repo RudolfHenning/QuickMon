@@ -1,0 +1,3 @@
+<config>
+  <logFile path="please specify a valid path" createNewFileSizeKB="0" />
+</config>

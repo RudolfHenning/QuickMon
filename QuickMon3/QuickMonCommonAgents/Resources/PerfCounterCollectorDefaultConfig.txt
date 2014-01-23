@@ -1,0 +1,7 @@
+<config>
+  <performanceCounters>
+    <!--
+      <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="80" errorValue="100" />
+      -->
+  </performanceCounters>
+</config>

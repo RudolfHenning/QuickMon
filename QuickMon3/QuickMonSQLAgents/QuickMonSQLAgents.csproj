@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B6778BA0-1B26-42A5-BE96-CE2EB2034AF8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QuickMonSQLAgents</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\QuickMon3\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\QuickMon3\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collectors\SqlDatabaseSize\ShowDetails\SqlDatabaseSizeCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\ShowDetails\SqlDatabaseSizeCollectorShowDetails.Designer.cs">
+      <DependentUpon>SqlDatabaseSizeCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeEditEntry.Designer.cs">
+      <DependentUpon>SqlDatabaseSizeEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeCollectorEditConfig.Designer.cs">
+      <DependentUpon>SqlDatabaseSizeCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
+    <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
+    <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeEntry.cs" />
+    <Compile Include="Collectors\SqlQueryCollector\ShowDetails\EditSqlQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\ShowDetails\EditSqlQuery.Designer.cs">
+      <DependentUpon>EditSqlQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\ShowDetails\SqlQueryCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\ShowDetails\SqlQueryCollectorShowDetails.Designer.cs">
+      <DependentUpon>SqlQueryCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditConfig.Designer.cs">
+      <DependentUpon>SqlQueryCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlQueryCollector\QueryInstance.cs" />
+    <Compile Include="Collectors\SqlQueryCollector\SqlQueryCollector.cs" />
+    <Compile Include="Collectors\SqlQueryCollector\SqlQueryCollectorConfig.cs" />
+    <Compile Include="Collectors\SqlTableSizeCollector\ShowDetails\SqlTableSizeCollectorViewDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSizeCollector\ShowDetails\SqlTableSizeCollectorViewDetails.Designer.cs">
+      <DependentUpon>SqlTableSizeCollectorViewDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditConfig.Designer.cs">
+      <DependentUpon>SqlTableSizeCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSizeCollector\SqlTableSizeCollector.cs" />
+    <Compile Include="Collectors\SqlTableSizeCollector\SqlTableSizeCollectorConfig.cs" />
+    <Compile Include="Collectors\SqlTableSizeCollector\SqlTableSizeCollectorEntry.cs" />
+    <Compile Include="Collectors\SqlTableSizeCollector\TableSizeInfo.cs" />
+    <Compile Include="Controls\ChooseTimeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ChooseTimeDialog.designer.cs">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClockControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser.designer.cs">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericSQLServerDAL.cs" />
+    <Compile Include="Notifiers\AlertMessage.cs" />
+    <Compile Include="Notifiers\SqlDatabaseNotifier\SQLDatabaseNotifier.cs" />
+    <Compile Include="Notifiers\SqlDatabaseNotifier\SQLDatabaseNotifierConfig.cs" />
+    <Compile Include="Notifiers\SqlDatabaseNotifier\EditConfig\SqlDatabaseNotifierEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\SqlDatabaseNotifier\EditConfig\SqlDatabaseNotifierEditConfig.Designer.cs">
+      <DependentUpon>SqlDatabaseNotifierEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\SqlDatabaseNotifier\ShowViewer\SqlDatabaseNotifierShowViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\SqlDatabaseNotifier\ShowViewer\SqlDatabaseNotifierShowViewer.Designer.cs">
+      <DependentUpon>SqlDatabaseNotifierShowViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SQLTools.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SqlQueryCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
+      <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Collectors\SqlDatabaseSize\ShowDetails\SqlDatabaseSizeCollectorShowDetails.resx">
+      <DependentUpon>SqlDatabaseSizeCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeCollectorEditConfig.resx">
+      <DependentUpon>SqlDatabaseSizeCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeEditEntry.resx">
+      <DependentUpon>SqlDatabaseSizeEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlQueryCollector\ShowDetails\EditSqlQuery.resx">
+      <DependentUpon>EditSqlQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditConfig.resx">
+      <DependentUpon>SqlQueryCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditEntry.resx">
+      <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlQueryCollector\ShowDetails\SqlQueryCollectorShowDetails.resx">
+      <DependentUpon>SqlQueryCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditConfig.resx">
+      <DependentUpon>SqlTableSizeCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditEntry.resx">
+      <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlTableSizeCollector\ShowDetails\SqlTableSizeCollectorViewDetails.resx">
+      <DependentUpon>SqlTableSizeCollectorViewDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChooseTimeDialog.resx">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DateTimeChooser.resx">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\SqlDatabaseNotifier\EditConfig\SqlDatabaseNotifierEditConfig.resx">
+      <DependentUpon>SqlDatabaseNotifierEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\SqlDatabaseNotifier\ShowViewer\SqlDatabaseNotifierShowViewer.resx">
+      <DependentUpon>SqlDatabaseNotifierShowViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SqlDatabaseNotifierDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExampleSqlDatabaseCreateScript.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QueryTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SQLQueryTips.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\SqlTableSizeCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SqlDatabaseSizeCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Collectors\SqlDatabaseSize\SelectDatabaseSizes.sql" />
+    <None Include="Resources\SelectDatabaseSizesScript.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

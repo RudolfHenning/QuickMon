@@ -1,0 +1,7 @@
+<config>  
+    <databases>
+      <!--
+		<database server="." name="master" integratedSec="True" userName=""  password="" sqlCmndTimeOutSec="30" warningValueMB="1024" errorValueMB="4096" />      
+      -->      
+    </databases>  
+</config>

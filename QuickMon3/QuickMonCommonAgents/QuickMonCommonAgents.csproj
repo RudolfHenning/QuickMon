@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1BBD85B4-F406-483F-A279-9999AFA2C326}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QuickMonCommonAgents</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\QuickMon3\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\QuickMon3\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collectors\EventLogCollector\EditConfig\EventLogCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\EventLogCollector\EditConfig\EventLogCollectorEditEntry.Designer.cs">
+      <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\EventLogCollector\EditConfig\EventLogCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\EventLogCollector\EditConfig\EventLogCollectorEditConfig.Designer.cs">
+      <DependentUpon>EventLogCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\EventLogCollector\EventLogCollector.cs" />
+    <Compile Include="Collectors\EventLogCollector\EventLogCollectorConfig.cs" />
+    <Compile Include="Collectors\EventLogCollector\EventLogCollectorEntry.cs" />
+    <Compile Include="Collectors\EventLogCollector\Utility\EventLogEntryEx.cs" />
+    <Compile Include="Collectors\EventLogCollector\ShowDetails\EventLogCollectorViewDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\EventLogCollector\ShowDetails\EventLogCollectorViewDetails.Designer.cs">
+      <DependentUpon>EventLogCollectorViewDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\ShowDetails\FileSystemCollectorViewDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\ShowDetails\FileSystemCollectorViewDetails.Designer.cs">
+      <DependentUpon>FileSystemCollectorViewDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditFilterEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditFilterEntry.Designer.cs">
+      <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditConfig.Designer.cs">
+      <DependentUpon>FileSystemCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\FileSystemCollector\DirectoryFileInfo.cs" />
+    <Compile Include="Collectors\FileSystemCollector\FileSystemCollector.cs" />
+    <Compile Include="Collectors\FileSystemCollector\FileSystemCollectorConfig.cs" />
+    <Compile Include="Collectors\FileSystemCollector\FileSystemDirectoryFilterEntry.cs" />
+    <Compile Include="Collectors\LoopbackCollector\EditConfig\LoopbackCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\LoopbackCollector\EditConfig\LoopbackCollectorEditConfig.Designer.cs">
+      <DependentUpon>LoopbackCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\LoopbackCollector\LoopbackCollector.cs" />
+    <Compile Include="Collectors\LoopbackCollector\LoopbackCollectorConfig.cs" />
+    <Compile Include="Collectors\PerfCounterCollector\PerfCounterCollectorHostEntry.cs" />
+    <Compile Include="Collectors\PerfCounterCollector\PerfCounterCollectorConfig.cs" />
+    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditConfig.Designer.cs">
+      <DependentUpon>PerfCounterEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditAlert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditAlert.Designer.cs">
+      <DependentUpon>PerfCounterEditAlert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEdit.Designer.cs">
+      <DependentUpon>PerfCounterEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\ShowDetails\PerfCounterShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\ShowDetails\PerfCounterShowDetails.Designer.cs">
+      <DependentUpon>PerfCounterShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditConfig.Designer.cs">
+      <DependentUpon>PingCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditHostAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditHostAddress.Designer.cs">
+      <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\EventLogCollector\Utility\EventLogProperties.cs" />
+    <Compile Include="Collectors\EventLogCollector\Utility\EventLogUtil.cs" />
+    <Compile Include="Collectors\PingCollector\PingCollectorHostEntry.cs" />
+    <Compile Include="Collectors\LoopbackCollector\ShowDetails\LoopbackCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\LoopbackCollector\ShowDetails\LoopbackCollectorShowDetails.Designer.cs">
+      <DependentUpon>LoopbackCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PerfCounterCollector\PerfCounterCollector.cs" />
+    <Compile Include="Collectors\PingCollector\PingCollector.cs" />
+    <Compile Include="Collectors\PingCollector\PingCollectorConfig.cs" />
+    <Compile Include="Collectors\PingCollector\ShowDetails\PingCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PingCollector\ShowDetails\PingCollectorShowDetails.Designer.cs">
+      <DependentUpon>PingCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PingCollector\Utility\WebClientEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\ShowDetails\RegistryQueryCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\ShowDetails\RegistryQueryCollectorShowDetails.Designer.cs">
+      <DependentUpon>RegistryQueryCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditConfig.Designer.cs">
+      <DependentUpon>RegistryQueryCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditInstance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditInstance.Designer.cs">
+      <DependentUpon>RegistryQueryCollectorEditInstance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\RegistryQueryCollector\RegistryQueryCollector.cs" />
+    <Compile Include="Collectors\RegistryQueryCollector\RegistryQueryCollectorConfig.cs" />
+    <Compile Include="Collectors\RegistryQueryCollector\RegistryQueryInstance.cs" />
+    <Compile Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorEditEntry.Designer.cs">
+      <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\ShowDetails\ServiceStateCollectorDetailView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\ShowDetails\ServiceStateCollectorDetailView.Designer.cs">
+      <DependentUpon>ServiceStateCollectorDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorAddService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorAddService.Designer.cs">
+      <DependentUpon>ServiceStateCollectorAddService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorEditConfig.Designer.cs">
+      <DependentUpon>ServiceStateCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\ServiceStateCollector\ServiceStateCollector.cs" />
+    <Compile Include="Collectors\ServiceStateCollector\ServiceStateCollectorConfig.cs" />
+    <Compile Include="Collectors\ServiceStateCollector\ServiceStateDefinition.cs" />
+    <Compile Include="Collectors\SoapWebServicePingCollector\ShowDetails\SoapWebServicePingCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SoapWebServicePingCollector\ShowDetails\SoapWebServicePingCollectorShowDetails.Designer.cs">
+      <DependentUpon>SoapWebServicePingCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SoapWebServicePingCollector\EditConfig\SoapWebServicePingCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SoapWebServicePingCollector\EditConfig\SoapWebServicePingCollectorEditConfig.Designer.cs">
+      <DependentUpon>SoapWebServicePingCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SoapWebServicePingCollector\EditConfig\SoapWebServicePingCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SoapWebServicePingCollector\EditConfig\SoapWebServicePingCollectorEditEntry.Designer.cs">
+      <DependentUpon>SoapWebServicePingCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SoapWebServicePingCollector\SoapWebServicePingCollector.cs" />
+    <Compile Include="Collectors\SoapWebServicePingCollector\SoapWebServicePingCollectorConfig.cs" />
+    <Compile Include="Collectors\SoapWebServicePingCollector\SoapWebServicePingConfigEntry.cs" />
+    <Compile Include="Collectors\SoapWebServicePingCollector\SoapWebServicePingEnums.cs" />
+    <Compile Include="Collectors\SoapWebServicePingCollector\SoapWebServiceRunner.cs" />
+    <Compile Include="Collectors\WMIQueryCollector\CimConvert.cs" />
+    <Compile Include="Collectors\WMIQueryCollector\ShowDetails\WMIQueryCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\ShowDetails\WMIQueryCollectorShowDetails.Designer.cs">
+      <DependentUpon>WMIQueryCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\EditConfig\EditWMIQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\EditConfig\EditWMIQuery.Designer.cs">
+      <DependentUpon>EditWMIQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\WMIQueryParser.cs" />
+    <Compile Include="Collectors\WMIQueryCollector\WMIQueryCollector.cs" />
+    <Compile Include="Collectors\WMIQueryCollector\WMIQueryCollectorConfig.cs" />
+    <Compile Include="Collectors\WMIQueryCollector\WMIQueryEntry.cs" />
+    <Compile Include="Collectors\WMIQueryCollector\EditConfig\WMIQueryCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\EditConfig\WMIQueryCollectorEditConfig.Designer.cs">
+      <DependentUpon>WMIQueryCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\EditConfig\WMIQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WMIQueryCollector\EditConfig\WMIQueryCollectorEditEntry.Designer.cs">
+      <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\EventLogNotifier\EditConfig\EventLogNotifierEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\EventLogNotifier\EditConfig\EventLogNotifierEditConfig.Designer.cs">
+      <DependentUpon>EventLogNotifierEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\EventLogNotifier\EventLogNotifier.cs" />
+    <Compile Include="Notifiers\EventLogNotifier\EventLogNotifierConfig.cs" />
+    <Compile Include="Notifiers\EventLogNotifier\ShowViewer\EventLogNotifierShowViewer.cs" />
+    <Compile Include="Notifiers\InMemoryNotifier\EditConfig\InMemoryNotifierConfigEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\InMemoryNotifier\EditConfig\InMemoryNotifierConfigEditor.Designer.cs">
+      <DependentUpon>InMemoryNotifierConfigEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifier.cs" />
+    <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifierConfig.cs" />
+    <Compile Include="Notifiers\InMemoryNotifier\ShowViewer\InMemoryNotivierViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\InMemoryNotifier\ShowViewer\InMemoryNotivierViewer.Designer.cs">
+      <DependentUpon>InMemoryNotivierViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\LogFileNotifier\EditConfig\LogFileNotifierEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\LogFileNotifier\EditConfig\LogFileNotifierEditConfig.Designer.cs">
+      <DependentUpon>LogFileNotifierEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\LogFileNotifier\LogFileNotifier.cs" />
+    <Compile Include="Notifiers\LogFileNotifier\LogFileNotifierConfig.cs" />
+    <Compile Include="Notifiers\LogFileNotifier\ShowViewer\LogFileNotifierShowViewer.cs" />
+    <Compile Include="Notifiers\SMTPNotifier\EditConfig\SMTPNotifierEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\SMTPNotifier\EditConfig\SMTPNotifierEditConfig.Designer.cs">
+      <DependentUpon>SMTPNotifierEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\SMTPNotifier\SMTPNotifier.cs" />
+    <Compile Include="Notifiers\SMTPNotifier\SMTPNotifierConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
+      <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Collectors\EventLogCollector\EditConfig\EventLogCollectorEditEntry.resx">
+      <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\EventLogCollector\EditConfig\EventLogCollectorEditConfig.resx">
+      <DependentUpon>EventLogCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\EventLogCollector\ShowDetails\EventLogCollectorViewDetails.resx">
+      <DependentUpon>EventLogCollectorViewDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditConfig.resx">
+      <DependentUpon>FileSystemCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditFilterEntry.resx">
+      <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\FileSystemCollector\ShowDetails\FileSystemCollectorViewDetails.resx">
+      <DependentUpon>FileSystemCollectorViewDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\LoopbackCollector\EditConfig\LoopbackCollectorEditConfig.resx">
+      <DependentUpon>LoopbackCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\LoopbackCollector\ShowDetails\LoopbackCollectorShowDetails.resx">
+      <DependentUpon>LoopbackCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditConfig.resx">
+      <DependentUpon>PerfCounterEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditAlert.resx">
+      <DependentUpon>PerfCounterEditAlert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEdit.resx">
+      <DependentUpon>PerfCounterEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PerfCounterCollector\ShowDetails\PerfCounterShowDetails.resx">
+      <DependentUpon>PerfCounterShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PingCollector\EditConfig\PingCollectorEditConfig.resx">
+      <DependentUpon>PingCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PingCollector\EditConfig\PingCollectorEditHostAddress.resx">
+      <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PingCollector\ShowDetails\PingCollectorShowDetails.resx">
+      <DependentUpon>PingCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditConfig.resx">
+      <DependentUpon>RegistryQueryCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditInstance.resx">
+      <DependentUpon>RegistryQueryCollectorEditInstance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\RegistryQueryCollector\ShowDetails\RegistryQueryCollectorShowDetails.resx">
+      <DependentUpon>RegistryQueryCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorEditEntry.resx">
+      <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\ServiceStateCollector\ShowDetails\ServiceStateCollectorDetailView.resx">
+      <DependentUpon>ServiceStateCollectorDetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorAddService.resx">
+      <DependentUpon>ServiceStateCollectorAddService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\ServiceStateCollector\EditConfig\ServiceStateCollectorEditConfig.resx">
+      <DependentUpon>ServiceStateCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SoapWebServicePingCollector\ShowDetails\SoapWebServicePingCollectorShowDetails.resx">
+      <DependentUpon>SoapWebServicePingCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SoapWebServicePingCollector\EditConfig\SoapWebServicePingCollectorEditConfig.resx">
+      <DependentUpon>SoapWebServicePingCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SoapWebServicePingCollector\EditConfig\SoapWebServicePingCollectorEditEntry.resx">
+      <DependentUpon>SoapWebServicePingCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WMIQueryCollector\ShowDetails\WMIQueryCollectorShowDetails.resx">
+      <DependentUpon>WMIQueryCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WMIQueryCollector\EditConfig\EditWMIQuery.resx">
+      <DependentUpon>EditWMIQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WMIQueryCollector\EditConfig\WMIQueryCollectorEditConfig.resx">
+      <DependentUpon>WMIQueryCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WMIQueryCollector\EditConfig\WMIQueryCollectorEditEntry.resx">
+      <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\EventLogNotifier\EditConfig\EventLogNotifierEditConfig.resx">
+      <DependentUpon>EventLogNotifierEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\InMemoryNotifier\EditConfig\InMemoryNotifierConfigEditor.resx">
+      <DependentUpon>InMemoryNotifierConfigEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\InMemoryNotifier\ShowViewer\InMemoryNotivierViewer.resx">
+      <DependentUpon>InMemoryNotivierViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\LogFileNotifier\EditConfig\LogFileNotifierEditConfig.resx">
+      <DependentUpon>LogFileNotifierEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\SMTPNotifier\EditConfig\SMTPNotifierEditConfig.resx">
+      <DependentUpon>SMTPNotifierEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoopbackCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\satelitedish.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InMemoryNotifierDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_lightning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clockBW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PingCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfCounterCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfCounterCollectorQuickConfig1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ServiceStateCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FileSystemCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SoapWebServicePingCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EventLogCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTLLIBR_9825.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RegistryQueryCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WMIQueryCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\308.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EventLogNotifierDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LogFileNotifierDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SMTPNotifierDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfCounterCollectorQuickConfig2.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,8 @@
+<monitorPack version="{0}" name="{1}" enabled="{2}" defaultViewerNotifier="{3}" runCorrectiveScripts="{4}">
+  <collectorEntries>
+    {5}
+  </collectorEntries>
+  <notifierEntries>
+    {6}
+  </notifierEntries>
+</monitorPack>

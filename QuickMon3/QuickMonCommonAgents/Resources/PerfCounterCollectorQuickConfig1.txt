@@ -1,0 +1,7 @@
+<config>
+		<performanceCounters>
+				<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="80" errorValue="99" />
+				<performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" />
+				<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" />
+		</performanceCounters>
+</config>

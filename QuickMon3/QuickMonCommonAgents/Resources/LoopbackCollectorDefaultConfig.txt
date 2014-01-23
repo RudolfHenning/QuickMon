@@ -1,0 +1,3 @@
+<config>
+	<loopback returnState="Good" />
+</config>

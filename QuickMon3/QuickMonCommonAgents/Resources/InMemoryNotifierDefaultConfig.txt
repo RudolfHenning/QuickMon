@@ -1,0 +1,3 @@
+<config>
+	<inMemory maxEntryCount="99999" />
+</config>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.0.2014.0122" Manufacturer="Hen IT"
+       UpgradeCode="59162023-5478-4668-A278-41c930000000">
+    <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
+       Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <Feature Id="ProductFeature" Title="QuickMon 3" Level="1"
+         Description="QuickMon 3" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id='ProductComponent' />
+      <ComponentRef Id='readmetxt' />
+      <ComponentRef Id='ProgramMenuDir' />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
+    
+    <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <Upgrade Id="59162023-5478-4668-A278-41c930000000">  
+       <UpgradeVersion
+          Minimum="1.0.0.0" Maximum="99.0.0.0"
+          Property="PREVIOUSVERSIONSINSTALLED"
+          IncludeMinimum="yes" IncludeMaximum="no" />
+    </Upgrade> 
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATIONCOMP" Name="Hen IT">
+          <Directory Id="INSTALLLOCATION" Name="QuickMon 3">
+            <Component Id="ProductComponent" Guid="59162023-5478-4668-A278-41ca30000000">
+              <File Id="QuickMonEXE" Name="QuickMon.exe" Source="QuickMon.exe" KeyPath="yes">
+                <Shortcut Id="startmenuQuickMon3" Directory="ProgramMenuDir" Name="QuickMon 3"
+													WorkingDirectory="INSTALLDIR" Icon="QuickMon.exe" IconIndex="0" Advertise="yes" />
+              </File>
+              <ProgId Id="QuickMon3" Advertise="yes">
+                <Extension Id="qmconfig" Advertise="yes" ContentType="application/text">
+                  <Verb Id="open" Sequence="10" Command="Open"  Argument="&quot;%1&quot;" />
+                </Extension>
+              </ProgId>
+              
+              <File Id="QuickMonRemoteHostCMDEXE" Name="QuickMonRemoteHostCMD.exe" Source="QuickMonRemoteHostCMD.exe" KeyPath="no" />
+              <File Id="QuickMonServiceEXE" Name="QuickMonService.exe" Source="QuickMonService.exe" KeyPath="no" />
+              
+              <File Id="FastColoredTextBoxDll" Name="FastColoredTextBox.dll" Source="FastColoredTextBox.dll" KeyPath="no" />
+              <File Id="QuickMonBizTalkAgentsDll" Name="QuickMonBizTalkAgents.dll" Source="QuickMonBizTalkAgents.dll" KeyPath="no" />
+              <File Id="QuickMonCommonAgentsDll" Name="QuickMonCommonAgents.dll" Source="QuickMonCommonAgents.dll" KeyPath="no" />
+              <File Id="QuickMonCoreDll" Name="QuickMonCore.dll" Source="QuickMonCore.dll" KeyPath="no" />
+              <File Id="QuickMonSQLAgentsDll" Name="QuickMonSQLAgents.dll" Source="QuickMonSQLAgents.dll" KeyPath="no" />
+              
+              <File Id="QuickMonEXEConfig" Name="QuickMon.exe.config" Source="QuickMon.exe.config" KeyPath="no" />
+              <File Id="QuickMonServiceEXEConfig" Name="QuickMonService.exe.config" Source="QuickMonService.exe.config" KeyPath="no" />
+              <File Id="QuickMonRemoteHostCMDEXEConfig" Name="QuickMonRemoteHostCMD.exe.config" Source="QuickMonRemoteHostCMD.exe.config" KeyPath="no" />
+              
+              <File Id="MonitorPackListtxt" Name="MonitorPackList.txt" Source="MonitorPackList.txt" KeyPath="no" />              
+            </Component>
+            <Component Id="readmetxt" Guid="59162023-5478-4668-A278-41cc30000000">
+                <File Id="readme.txt" Source="readme.txt" KeyPath="yes">
+                  <Shortcut Id="startmenuQuickMon3readme" Directory="ProgramMenuDir" Name="QuickMon 3 read me"
+													WorkingDirectory="INSTALLDIR" Advertise="yes" />
+                </File>
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="QuickMon 3">
+          <Component Id="ProgramMenuDir" Guid="59162023-5478-4668-A278-41cb30000000">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\Hen IT\QuickMon 3' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Icon Id="QuickMon.exe" SourceFile="QuickMon.exe" />
+    <Property Id="ARPPRODUCTICON" Value="QuickMon.exe" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+    <!--<UIRef Id="WixUI_InstallDir" />-->
+
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="This setup requires the .NET Framework 4.0 (Client) to be installed.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+
+      <!-- Show Launch app checkbox -->
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction"
+          Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch QuickMon 3" />
+    <!-- Step 3: Include the custom action -->
+    <Property Id="WixShellExecTarget" Value="[#QuickMonEXE]" />
+    <CustomAction Id="LaunchApplication"
+        BinaryKey="WixCA"
+        DllEntry="WixShellExec"
+        Impersonate="yes" />
+
+    <WixVariable Id="WixUIBannerBmp" Value="InstallBanner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="DialogBkground.bmp" />
+  </Product>
+</Wix>

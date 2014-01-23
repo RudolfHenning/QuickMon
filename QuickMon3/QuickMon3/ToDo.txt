@@ -1,0 +1,7 @@
+﻿Collector (Entry) must support method to indicate if config is 'complete'/valid so Edit window can enable/disable OK button
+Variable names like %Server% in things like performance counters, Services etc - CollectorEntry add property for 'ServerName'
+Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
+Add some category/Type for Collector agent (class) so it can be grouped in the 'Select Collector type list'
+BIG addition - Detail views can/must use remote host dataset as source 
+Some way to add predefined sets of collector settings (like set of perf counters for system health)
+

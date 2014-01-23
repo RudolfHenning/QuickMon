@@ -1,0 +1,3 @@
+<config>
+  <eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" />
+</config>

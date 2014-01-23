@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29B5071D-576E-4F78-85A5-3B5BD5F8AA8C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QuickMonBizTalkAgents</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\QuickMon3\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\QuickMon3\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collectors\BizTalkAddAppOrHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkAddAppOrHost.Designer.cs">
+      <DependentUpon>BizTalkAddAppOrHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkEditList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkEditList.Designer.cs">
+      <DependentUpon>BizTalkEditList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BizTalkGroupBase.cs" />
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\ShowDetails\BizTalkPortAndOrchsCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\ShowDetails\BizTalkPortAndOrchsCollectorShowDetails.Designer.cs">
+      <DependentUpon>BizTalkPortAndOrchsCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\BizTalkGroupPortsAndOrchs.cs" />
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\BizTalkPortAndOrchsCollector.cs" />
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\BizTalkPortAndOrchsCollectorConfig.cs" />
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\ReceiveLocationInfo.cs" />
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\SendPortInfo.cs" />
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\EditConfig\BizTalkPortsAndOrchsEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkPortAndOrchsCollector\EditConfig\BizTalkPortsAndOrchsEditConfig.Designer.cs">
+      <DependentUpon>BizTalkPortsAndOrchsEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\ShowDetails\BizTalkSuspendedCountCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\ShowDetails\BizTalkSuspendedCountCollectorShowDetails.Designer.cs">
+      <DependentUpon>BizTalkSuspendedCountCollectorShowDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\EditConfig\BizTalkSuspendedCountCollectorEditConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\EditConfig\BizTalkSuspendedCountCollectorEditConfig.Designer.cs">
+      <DependentUpon>BizTalkSuspendedCountCollectorEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\BizTalkSuspendedCountCollector.cs" />
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\BizTalkSuspendedCountCollectorConfig.cs" />
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\BizTalkSuspendedCounts.cs" />
+    <Compile Include="Collectors\BizTalkSuspendedCountCollector\SuspendedInstance.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
+      <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Collectors\BizTalkAddAppOrHost.resx">
+      <DependentUpon>BizTalkAddAppOrHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkEditList.resx">
+      <DependentUpon>BizTalkEditList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkPortAndOrchsCollector\EditConfig\BizTalkPortsAndOrchsEditConfig.resx">
+      <DependentUpon>BizTalkPortsAndOrchsEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkPortAndOrchsCollector\ShowDetails\BizTalkPortAndOrchsCollectorShowDetails.resx">
+      <DependentUpon>BizTalkPortAndOrchsCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkSuspendedCountCollector\EditConfig\BizTalkSuspendedCountCollectorEditConfig.resx">
+      <DependentUpon>BizTalkSuspendedCountCollectorEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkSuspendedCountCollector\ShowDetails\BizTalkSuspendedCountCollectorShowDetails.resx">
+      <DependentUpon>BizTalkSuspendedCountCollectorShowDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BizTalkGroupPortsAndOrchsDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BizTalkSuspendedCountCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

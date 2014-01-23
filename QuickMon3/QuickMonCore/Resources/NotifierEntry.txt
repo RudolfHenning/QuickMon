@@ -1,0 +1,4 @@
+<notifierEntry name="{0}" notifier="{1}" enabled="{2}" alertLevel="{3}" detailLevel="{4}">
+    {5}
+    {6}
+</notifierEntry>

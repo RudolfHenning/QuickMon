@@ -1,0 +1,14 @@
+<config>
+  <connection sqlServer="" database="" integratedSec="True" userName="" password="" >
+    <command cmndTimeOut="60" useSP="True" value="InsertMessage" 
+             alertFieldName="AlertLevel" 
+             collectorTypeFieldName="CollectorType"
+             categoryFieldName="Category"
+             previousStateFieldName="PreviousState"
+             currentStateFieldName="CurrentState"
+             detailsFieldName="Details"
+             useSPForViewer="True"
+             viewer="QueryMessages"
+             dateTimeFieldName="InsertDate"/>
+  </connection>
+</config>
