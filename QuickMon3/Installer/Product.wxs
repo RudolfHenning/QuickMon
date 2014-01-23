@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.0.2014.0122" Manufacturer="Hen IT"
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.0.0123.2014" Manufacturer="Hen IT"
        UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
@@ -12,17 +12,9 @@
       <ComponentRef Id='ProgramMenuDir' />
     </Feature>
 
-    <InstallExecuteSequence>
-      <RemoveExistingProducts Before="InstallInitialize" />
-    </InstallExecuteSequence>
-    
-    <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
-    <Upgrade Id="59162023-5478-4668-A278-41c930000000">  
-       <UpgradeVersion
-          Minimum="1.0.0.0" Maximum="99.0.0.0"
-          Property="PREVIOUSVERSIONSINSTALLED"
-          IncludeMinimum="yes" IncludeMaximum="no" />
-    </Upgrade> 
+    <MajorUpgrade       
+      AllowSameVersionUpgrades="yes"
+      DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." /> 
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
@@ -54,7 +46,7 @@
               <File Id="QuickMonServiceEXEConfig" Name="QuickMonService.exe.config" Source="QuickMonService.exe.config" KeyPath="no" />
               <File Id="QuickMonRemoteHostCMDEXEConfig" Name="QuickMonRemoteHostCMD.exe.config" Source="QuickMonRemoteHostCMD.exe.config" KeyPath="no" />
               
-              <File Id="MonitorPackListtxt" Name="MonitorPackList.txt" Source="MonitorPackList.txt" KeyPath="no" />              
+              <File Id="MonitorPackListtxt" Name="MonitorPackListExample.txt" Source="MonitorPackListExample.txt" KeyPath="no" />              
             </Component>
             <Component Id="readmetxt" Guid="59162023-5478-4668-A278-41cc30000000">
                 <File Id="readme.txt" Source="readme.txt" KeyPath="yes">
