@@ -93,6 +93,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Charon {
+            get {
+                object obj = ResourceManager.GetObject("Charon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Checkmark2 {
             get {
                 object obj = ResourceManager.GetObject("Checkmark2", resourceCulture);

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -125,6 +126,12 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RecentMonitorPacks.cs" />
+    <Compile Include="Forms\RemoteAgentsManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RemoteAgentsManager.Designer.cs">
+      <DependentUpon>RemoteAgentsManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SelectNotifierCollectors.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +181,9 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemoteAgentsManager.resx">
+      <DependentUpon>RemoteAgentsManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectNotifierCollectors.resx">
       <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +218,7 @@
     <Content Include="QM3.ico" />
     <Content Include="QuickMon3.ico" />
     <None Include="Resources\AboutBkgrnd.png" />
+    <None Include="Resources\Charon.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

@@ -303,6 +303,11 @@ namespace QuickMon
                     }
             }
         }
+        private void knownRemoteAgentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QuickMon.Forms.RemoteAgentsManager ram = new Forms.RemoteAgentsManager();
+            ram.ShowDialog();
+        }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
@@ -1757,6 +1762,8 @@ namespace QuickMon
             SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
         }
         #endregion
+
+
 
         #region Testing
         //private void button1_Click(object sender, EventArgs e)

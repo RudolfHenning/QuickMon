@@ -757,7 +757,7 @@
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
             this.remoteportNumericUpDown.TabIndex = 5;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
-            8888,
+            8181,
             0,
             0,
             0});
@@ -785,11 +785,14 @@
             // 
             this.txtRemoteAgentServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRemoteAgentServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtRemoteAgentServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRemoteAgentServer.Enabled = false;
             this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
             this.txtRemoteAgentServer.Size = new System.Drawing.Size(196, 20);
             this.txtRemoteAgentServer.TabIndex = 3;
+            this.txtRemoteAgentServer.Leave += new System.EventHandler(this.txtRemoteAgentServer_Leave);
             // 
             // cmdRemoteAgentTest
             // 

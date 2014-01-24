@@ -86,6 +86,13 @@ namespace QuickMon.Forms
                     editCollectorConfigEntryToolStripButton_Click(null, null);
                 }
             }
+            try
+            {
+                txtRemoteAgentServer.AutoCompleteCustomSource = new AutoCompleteStringCollection();
+                txtRemoteAgentServer.AutoCompleteCustomSource.AddRange((from string s in Properties.Settings.Default.KnownRemoteHosts
+                                                                        select s).ToArray());
+            }
+            catch { }
         }
         #endregion
 
@@ -499,6 +506,19 @@ namespace QuickMon.Forms
         #endregion
 
         #region Remote Agent
+        private void txtRemoteAgentServer_Leave(object sender, EventArgs e)
+        {
+            if (txtRemoteAgentServer.Text.Contains(":"))
+            {
+                string computerName = txtRemoteAgentServer.Text.Substring(0, txtRemoteAgentServer.Text.IndexOf(":"));
+                string portNo = txtRemoteAgentServer.Text.Substring(txtRemoteAgentServer.Text.IndexOf(":") + 1);
+                if (portNo.IsNumber())
+                {
+                    txtRemoteAgentServer.Text = computerName;
+                    remoteportNumericUpDown.Value = int.Parse(portNo);
+                }
+            }
+        }
         private void cmdRemoteAgentTest_Click(object sender, EventArgs e)
         {
             CollectorEntry textCollector = new CollectorEntry();

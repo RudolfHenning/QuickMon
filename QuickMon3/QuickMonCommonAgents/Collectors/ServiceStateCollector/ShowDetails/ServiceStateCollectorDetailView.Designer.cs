@@ -30,32 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServiceStateCollectorDetailView));
-            //this.lvwServices = new QuickMon.ListViewEx();
             this.columnHeaderService = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
-            // lvwServices
+            // lvwEntries
             // 
             this.lvwEntries.AutoResizeColumnEnabled = true;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
             this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderService});
-            //this.lvwServices.ContextMenuStrip = this.refreshContextMenuStrip;
-            //this.lvwServices.Dock = System.Windows.Forms.DockStyle.Fill;
-            //this.lvwServices.FullRowSelect = true;
-            //this.lvwServices.Location = new System.Drawing.Point(0, 39);
-            //this.lvwServices.Name = "lvwServices";
-            //this.lvwServices.Size = new System.Drawing.Size(405, 269);
+            this.lvwEntries.Size = new System.Drawing.Size(405, 269);
             this.lvwEntries.SmallImageList = this.imageList1;
-            //this.lvwServices.TabIndex = 12;
-            //this.lvwServices.UseCompatibleStateImageBehavior = false;
-            //this.lvwServices.View = System.Windows.Forms.View.Details;
             // 
             // columnHeaderService
             // 
             this.columnHeaderService.Text = "Service";
-            this.columnHeaderService.Width = 349;
+            this.columnHeaderService.Width = 399;
             // 
             // imageList1
             // 
@@ -72,12 +62,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(405, 330);
-            //this.Controls.Add(this.lvwServices);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ServiceStateCollectorDetailView";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Detail View";
-           // this.Controls.SetChildIndex(this.lvwServices, 0);
+            this.Controls.SetChildIndex(this.lvwEntries, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
