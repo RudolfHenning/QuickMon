@@ -30,7 +30,7 @@ namespace QuickMon.Collectors
         {
             get
             {
-                return string.Format("Service{s}: {0}", SubItems.Count);
+                return string.Format("Service(s): {0}", SubItems.Count);
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }

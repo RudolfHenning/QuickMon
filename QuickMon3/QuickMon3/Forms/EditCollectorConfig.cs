@@ -380,13 +380,24 @@ namespace QuickMon.Forms
                 entry = (ICollectorConfigEntry)lvwEntries.SelectedItems[0].Tag;
             else if (tvwEntries.SelectedNode != null)
                 entry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Tag;
+
+            //ICollectorConfig cc = (ICollectorConfig)currentEditingEntry.Collector.AgentConfig;
+            //ICollectorConfigEntry entry2 = (from ce in cc.Entries
+            //         where ce.Description == entry.Description && ce.TriggerSummary == entry.TriggerSummary
+            //         select ce).FirstOrDefault();
+
             if (entry != null)
+            {
                 if (SelectedEntry.ShowEditConfigEntry(ref entry))
                 {
+                    //entry2 = entry;
+                    //currentEditingEntry.Collector.AgentConfig = cc;
+
                     //ICollectorConfig cnf = ((ICollectorConfig)currentEditingEntry.Collector.AgentConfig);
                     //cnf.ReadConfiguration(cnf.ToConfig());
                     ApplyConfig();
                 }
+            }
         }
         private void deleteCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
         {
@@ -455,6 +466,17 @@ namespace QuickMon.Forms
             SelectedEntry.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
             SelectedEntry.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
             SelectedEntry.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+            if (SelectedEntry.RemoteAgentHostAddress.Length > 0)
+            {
+                if ((from string rh in Properties.Settings.Default.KnownRemoteHosts
+                         where rh.ToLower() == SelectedEntry.RemoteAgentHostAddress.ToLower() + ":" + SelectedEntry.RemoteAgentHostPort.ToString()
+                         select rh).Count() == 0
+                         )
+                {
+                    Properties.Settings.Default.KnownRemoteHosts.Add(SelectedEntry.RemoteAgentHostAddress + ":" + SelectedEntry.RemoteAgentHostPort.ToString());
+                }
+            }
+
             //Alert suppresion
             SelectedEntry.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
             SelectedEntry.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;

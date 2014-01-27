@@ -32,7 +32,8 @@ namespace QuickMon
             //editConfig.SetTitle(title); //"Edit " + Name + " config");
             if (editConfig != null && editConfig.ShowEditEntry() == System.Windows.Forms.DialogResult.OK)
             {
-                entry = (ICollectorConfigEntry)editConfig.SelectedEntry;
+                //entry = (ICollectorConfigEntry)editConfig.SelectedEntry;
+                entry = editConfig.SelectedEntry;
                 accepted = true;
             }
             return accepted;

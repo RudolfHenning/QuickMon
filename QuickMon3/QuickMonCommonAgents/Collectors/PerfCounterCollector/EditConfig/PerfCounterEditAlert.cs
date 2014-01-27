@@ -26,19 +26,20 @@ namespace QuickMon.Collectors
         }
         #endregion
 
+        PerfCounterCollectorEntry currentEntry = null;
+
         public PerfCounterCollectorEntry SelectedPCInstance { get; set; }
         public string InitialMachine { get; set; }
 
         #region Form events
         private void PerfCounterEditAlert_Shown(object sender, EventArgs e)
         {
-            PerfCounterCollectorEntry currentEntry = null;
+            currentEntry = new PerfCounterCollectorEntry();
             if (SelectedEntry != null)
-                currentEntry = (PerfCounterCollectorEntry)SelectedEntry;
-            else if (SelectedPCInstance != null)
-                currentEntry = (PerfCounterCollectorEntry)SelectedPCInstance;
-
-            if (currentEntry == null) //Show add performance window.
+            {
+                currentEntry = ((PerfCounterCollectorEntry)SelectedEntry).Clone();                
+            }
+            else //Show add performance window.
             {
                 PerfCounterEdit editPerfCounter = new PerfCounterEdit();
                 
@@ -49,7 +50,6 @@ namespace QuickMon.Collectors
                 if (editPerfCounter.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     currentEntry = editPerfCounter.SelectedPCInstance;
-                    SelectedEntry = currentEntry;
                 }
                 else
                 {
@@ -67,30 +67,33 @@ namespace QuickMon.Collectors
         #region Button events
         private void cmdEditPerfCounter_Click(object sender, EventArgs e)
         {
+            PerfCounterCollectorEntry thisEntry = (PerfCounterCollectorEntry)currentEntry;
             PerfCounterEdit editPerfCounter = new PerfCounterEdit();
-            editPerfCounter.InitialMachine = SelectedPCInstance.Computer;
-            editPerfCounter.InitialCategory = SelectedPCInstance.Category;
-            editPerfCounter.InitialCounter = SelectedPCInstance.Counter;
-            editPerfCounter.InitialInstance = SelectedPCInstance.Instance;
+            editPerfCounter.InitialMachine = thisEntry.Computer;
+            editPerfCounter.InitialCategory = thisEntry.Category;
+            editPerfCounter.InitialCounter = thisEntry.Counter;
+            editPerfCounter.InitialInstance = thisEntry.Instance;
             if (editPerfCounter.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                SelectedPCInstance = editPerfCounter.SelectedPCInstance;
-                txtPerfCounter.Text = SelectedPCInstance.ToString();
+                currentEntry = editPerfCounter.SelectedPCInstance;
+                txtPerfCounter.Text = currentEntry.ToString();
             }
         }
         private void cmdOK_Click(object sender, EventArgs e)
         {
             if (IsValid())
             {
-                PerfCounterCollectorEntry currentEntry = null;
-                if (SelectedEntry != null)
-                    currentEntry = (PerfCounterCollectorEntry)SelectedEntry;
-                else if (SelectedPCInstance != null)
-                    currentEntry = (PerfCounterCollectorEntry)SelectedPCInstance;
+                if (SelectedEntry == null)
+                    SelectedEntry = new PerfCounterCollectorEntry();
 
-                currentEntry.ReturnValueInverted = (warningNumericUpDown.Value > errorNumericUpDown.Value);
-                currentEntry.WarningValue = (float)warningNumericUpDown.Value;
-                currentEntry.ErrorValue = (float)errorNumericUpDown.Value;
+                ((PerfCounterCollectorEntry)SelectedEntry).Computer = currentEntry.Computer;
+                ((PerfCounterCollectorEntry)SelectedEntry).Category = currentEntry.Category;
+                ((PerfCounterCollectorEntry)SelectedEntry).Counter = currentEntry.Counter;
+                ((PerfCounterCollectorEntry)SelectedEntry).Instance = currentEntry.Instance;
+                ((PerfCounterCollectorEntry)SelectedEntry).ReturnValueInverted = (warningNumericUpDown.Value > errorNumericUpDown.Value);
+                ((PerfCounterCollectorEntry)SelectedEntry).WarningValue = (float)warningNumericUpDown.Value;
+                ((PerfCounterCollectorEntry)SelectedEntry).ErrorValue = (float)errorNumericUpDown.Value;
+                //SelectedEntry = currentEntry;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
@@ -118,9 +121,9 @@ namespace QuickMon.Collectors
         {
             try
             {
-                if (SelectedPCInstance != null)
+                if (currentEntry != null)
                 {
-                    float val = SelectedPCInstance.GetNextValue();
+                    float val = currentEntry.GetNextValue();
                     Clipboard.SetText(val.ToString("F4"));
                     MessageBox.Show(string.Format("Current value: {0}", val.ToString("F4")), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

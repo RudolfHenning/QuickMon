@@ -83,6 +83,16 @@ namespace QuickMon.Collectors
             return string.Format("{0}\\{1}\\{2}\\{3}", Computer, Category, Counter, Instance);
         }
 
-
+        public PerfCounterCollectorEntry Clone()
+        {
+            PerfCounterCollectorEntry currentEntry = new PerfCounterCollectorEntry();
+            currentEntry.Computer = Computer;
+            currentEntry.Category = Category;
+            currentEntry.Counter = Counter;
+            currentEntry.Instance = Instance;
+            currentEntry.WarningValue = WarningValue;
+            currentEntry.ErrorValue = ErrorValue;
+            return currentEntry;
+        }
     }
 }
