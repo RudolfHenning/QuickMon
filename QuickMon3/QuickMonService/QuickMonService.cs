@@ -18,9 +18,8 @@ namespace QuickMon
         private List<MonitorPack> packs = new List<MonitorPack>();
         public ServiceHost wcfServiceHost = null;
         private Uri baseAddress = new Uri(Properties.Settings.Default.WcfServiceURL);
-        //private CollectorRemoteHost collectorRemoteHost = new CollectorRemoteHost();
-        //private string Globals.ServiceEventSourceName = "QuickMon 3 Service";
         private int concurrencyLevel = 5;
+
         #region Performance Counter Vars
         private PerformanceCounter monitorPacksLoaded = null;
         private PerformanceCounter collectionExecutionTimePerSec = null;
@@ -80,7 +79,7 @@ namespace QuickMon
             }
             if (monitorPacksLoaded == 0)
             {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "No (valid) monitor pack specified in service config! To hide this warning add an entry under 'MonitorPackPaths' in QuickMonService.exe.config",
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "No (valid) monitor pack specified in service config! This service will only operare as a Remote Agent. To hide this warning please add some MonitorPacks in QuickMonService.exe.config",
                     EventLogEntryType.Warning, 0);
             }
             else

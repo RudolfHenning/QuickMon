@@ -97,6 +97,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -702,6 +703,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.llblRemoteAgentInstallHelp);
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.chkRemoteAgentEnabled);
             this.groupBox2.Controls.Add(this.remoteportNumericUpDown);
@@ -871,6 +873,19 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
+            // llblRemoteAgentInstallHelp
+            // 
+            this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.llblRemoteAgentInstallHelp.AutoSize = true;
+            this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
+            this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
+            this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
+            this.llblRemoteAgentInstallHelp.TabIndex = 7;
+            this.llblRemoteAgentInstallHelp.TabStop = true;
+            this.llblRemoteAgentInstallHelp.Text = "Install help";
+            this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
+            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -992,5 +1007,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
         private System.Windows.Forms.ColumnHeader triggerColumnHeader;
+        private System.Windows.Forms.LinkLabel llblRemoteAgentInstallHelp;
     }
 }

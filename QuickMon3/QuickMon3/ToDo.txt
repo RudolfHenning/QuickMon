@@ -8,5 +8,6 @@ Some way to add predefined sets of collector settings (like set of perf counters
 -------------------------------------------------------------------------------------------------------
 Add functionality in UI client to install/manage Windows service.
   Add Window listing 'Known' remote agents. Store list in app settings.
-  Also have button to 'Install Remote host and service'
+    Enhancement - must check both Remote Agent exe's (even CMD version) using dummy Ping config (local ping).
+	  with addition functionality to try and start windows service.
 

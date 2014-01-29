@@ -595,6 +595,11 @@ namespace QuickMon.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         } 
+        private void llblRemoteAgentInstallHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("To install the Remote Agent Host (Service) run the following command in 'Admin mode' on the remote computer:\r\n\r\n\t" +
+                "QuickMonService.exe -install\r\n\r\nBy default the executable should be located in 'C:\\Program Files\\Hen IT\\QuickMon 3'", "Install Remote Agent host", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
         #endregion
 
         #region Corrective scripts
@@ -632,6 +637,5 @@ namespace QuickMon.Forms
             }
         } 
         #endregion
-
     }
 }

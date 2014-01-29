@@ -16,7 +16,7 @@ List of components
 How to install the Windows service
 ----------------------------------
 1. Open an 'Admin' command (cmd.exe) Window (Run as Admin)
-2. Change directory to the QuickMon 3 installation directory (default C:\Program Files (x86)\Hen IT\QuickMon 3)
+2. Change directory to the QuickMon 3 installation directory (default C:\Program Files\Hen IT\QuickMon 3)
 3. Run the following command:
    QuickMonService.exe -install
 4. Specify an user account and password that has the permissions you require to access all the resources you need to monitor.
@@ -27,5 +27,5 @@ How to install the Windows service
 -------------------------
 Remote host functionality
 -------------------------
-To connect to a 'QuickMon Remote host' either the Windows service must be installed (and running) on that machine OR you can run the command line version. They cannot be run simultaneously.
+To connect to a 'QuickMon Remote host' either the Windows service must be installed (and running) on that machine OR you can run the command line version. They cannot be run simultaneously for the same port number on the same machine.
 Take note that the command line version requires an user to be logged into the remote machine running QuickMonRemoteHostCMD.exe. The Windows service can run without anyone logged onto the machine.
