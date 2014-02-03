@@ -279,8 +279,27 @@ namespace QuickMon.Forms
         private void lvwRemoteHosts_SelectedIndexChanged(object sender, EventArgs e)
         {
             removeToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
+            attemptToStartAgentToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0 && lvwRemoteHosts.SelectedItems[0].ImageIndex == 1;
         } 
         #endregion
+
+        private void attemptToStartAgentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvwRemoteHosts.SelectedItems.Count > 0)
+                {
+                    RemoteAgentInfo ri = (RemoteAgentInfo)lvwRemoteHosts.SelectedItems[0].Tag;
+                    ServiceController srvc = new ServiceController("QuickMon 3 Service", ri.Computer);
+                    srvc.Start();
+                    lvwRemoteHosts.SelectedItems[0].ImageIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }

@@ -46,6 +46,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.cmdAdd = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.attemptToStartAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -117,27 +118,29 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.attemptToStartAgentToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 54);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 98);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(129, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 6);
             // 
             // removeToolStripMenuItem
             // 
+            this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -225,6 +228,14 @@
             this.openFileDialog1.Filter = "QuickMon 3 Service|QuickMonService.exe";
             this.openFileDialog1.Title = "Select QuickMon 3 Service";
             // 
+            // attemptToStartAgentToolStripMenuItem
+            // 
+            this.attemptToStartAgentToolStripMenuItem.Enabled = false;
+            this.attemptToStartAgentToolStripMenuItem.Name = "attemptToStartAgentToolStripMenuItem";
+            this.attemptToStartAgentToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.attemptToStartAgentToolStripMenuItem.Text = "Attempt to start Agent";
+            this.attemptToStartAgentToolStripMenuItem.Click += new System.EventHandler(this.attemptToStartAgentToolStripMenuItem_Click);
+            // 
             // RemoteAgentsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,5 +283,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem attemptToStartAgentToolStripMenuItem;
     }
 }
