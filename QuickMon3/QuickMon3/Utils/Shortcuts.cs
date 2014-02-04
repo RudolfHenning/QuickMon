@@ -63,15 +63,6 @@ namespace HenIT.ShellTools
         #endregion
 
         #region Taskbar shortcut
-        public static bool TaskBarShortCutExists(string exeFilePath = "")
-        {
-            if (exeFilePath == null || exeFilePath.Length == 0)
-                exeFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-
-            string pinLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft\\Internet Explorer\\Quick Launch\\User Pinned\\TaskBar");
-            pinLocation = System.IO.Path.Combine(pinLocation, System.IO.Path.GetFileNameWithoutExtension(exeFilePath) + ".lnk");
-            return System.IO.File.Exists(pinLocation);
-        }
         public static void PinToTaskBar(string exeFilePath = "")
         {
             if (exeFilePath == null || exeFilePath.Length == 0)
@@ -83,6 +74,36 @@ namespace HenIT.ShellTools
             if (exeFilePath == null || exeFilePath.Length == 0)
                 exeFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
             PinUnpinTaskBar(exeFilePath, false);
+        }
+        public static bool PinnedToTaskbar(string filePath = "")
+        {
+            bool pinnedAlready = false;
+            if (filePath == null || filePath.Length == 0)
+                filePath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
+            // create the shell application object
+            Shell shellApplication = new Shell();
+
+            string path = Path.GetDirectoryName(filePath);
+            string fileName = Path.GetFileName(filePath);
+
+            Folder directory = shellApplication.NameSpace(path);
+            FolderItem link = directory.ParseName(fileName);
+
+            FolderItemVerbs verbs = link.Verbs();
+            for (int i = 0; i < verbs.Count; i++)
+            {
+                FolderItemVerb verb = verbs.Item(i);
+                string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
+
+                if ((verbName.Equals("unpin from taskbar")))
+                {
+                    pinnedAlready = true;
+                }
+            }
+
+            shellApplication = null;
+            return pinnedAlready;
         }
         private static void PinUnpinTaskBar(string filePath, bool pin)
         {
@@ -114,15 +135,6 @@ namespace HenIT.ShellTools
         #endregion
 
         #region Start Menu shortcut
-        public static bool StartMenuShortCutExists(string exeFilePath = "")
-        {
-            if (exeFilePath == null || exeFilePath.Length == 0)
-                exeFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-
-            string pinLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft\\Internet Explorer\\Quick Launch\\User Pinned\\StartMenu");
-            pinLocation = System.IO.Path.Combine(pinLocation, System.IO.Path.GetFileNameWithoutExtension(exeFilePath) + ".lnk");
-            return System.IO.File.Exists(pinLocation);
-        }
         public static void PinToStartMenu(string exeFilePath = "")
         {
             if (exeFilePath == null || exeFilePath.Length == 0)
@@ -134,6 +146,36 @@ namespace HenIT.ShellTools
             if (exeFilePath == null || exeFilePath.Length == 0)
                 exeFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
             PinUnpinStartMenu(exeFilePath, false);
+        }
+        public static bool PinnedToStartMenu(string filePath = "")
+        {
+            bool pinnedAlready = false;
+            if (filePath == null || filePath.Length == 0)
+                filePath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
+            // create the shell application object
+            Shell shellApplication = new Shell();
+
+            string path = Path.GetDirectoryName(filePath);
+            string fileName = Path.GetFileName(filePath);
+
+            Folder directory = shellApplication.NameSpace(path);
+            FolderItem link = directory.ParseName(fileName);
+
+            FolderItemVerbs verbs = link.Verbs();
+            for (int i = 0; i < verbs.Count; i++)
+            {
+                FolderItemVerb verb = verbs.Item(i);
+                string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
+
+                if ((verbName.Equals("unpin from start menu")))
+                {
+                    pinnedAlready = true;
+                }
+            }
+
+            shellApplication = null;
+            return pinnedAlready;
         }
         private static void PinUnpinStartMenu(string filePath, bool pin)
         {

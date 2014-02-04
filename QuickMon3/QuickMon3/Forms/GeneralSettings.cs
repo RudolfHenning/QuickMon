@@ -17,14 +17,18 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        private bool loading = false;
+
         private void GeneralSettings_Load(object sender, EventArgs e)
         {
+            loading = true;
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
             chkSnapToDesktop.Checked = Properties.Settings.Default.MainFormSnap;
             chkAutosaveChanges.Checked = Properties.Settings.Default.AutosaveChanges;
-            chkPinToTaskbar.Checked = Shortcuts.TaskBarShortCutExists();
-            chkPinToStartMenu.Checked = Shortcuts.StartMenuShortCutExists();
-            chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists();
+            chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
+            chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
+            chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists("QuickMon 3");
+            loading = false;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -39,6 +43,8 @@ namespace QuickMon
 
         private void chkPinToTaskbar_CheckedChanged(object sender, EventArgs e)
         {
+            if (loading)
+                return;
             try
             {
                 if (!chkPinToTaskbar.Checked)
@@ -54,6 +60,8 @@ namespace QuickMon
 
         private void chkPinToStartMenu_CheckedChanged(object sender, EventArgs e)
         {
+            if (loading)
+                return;
             try
             {
                 if (!chkPinToStartMenu.Checked)
@@ -69,12 +77,14 @@ namespace QuickMon
 
         private void chkDesktopShortcut_CheckedChanged(object sender, EventArgs e)
         {
+            if (loading)
+                return;
             try
             {
                 if (chkDesktopShortcut.Checked)
-                    Shortcuts.CreateDesktopShortcut();
+                    Shortcuts.CreateDesktopShortcut("", "QuickMon 3");
                 else
-                    Shortcuts.DeleteDesktopShortcut();
+                    Shortcuts.DeleteDesktopShortcut("", "QuickMon 3");
             }
             catch (Exception ex)
             {
