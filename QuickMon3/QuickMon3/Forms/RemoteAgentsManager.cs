@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using HenIT.Security;
 
@@ -203,86 +204,6 @@ namespace QuickMon.Forms
                 }
             }
         }
-        #endregion
-
-        #region Private methods
-        private void RefreshServiceStates()
-        {
-            try
-            {
-                foreach (ListViewItem lvi in lvwRemoteHosts.Items)
-                {
-                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
-                    try
-                    {
-                        CollectorEntry ce = new CollectorEntry();
-                        ce.EnableRemoteExecute = true;
-                        ce.RemoteAgentHostAddress = ri.Computer;
-                        ce.RemoteAgentHostPort = ri.PortNumber;
-                        ce.CollectorRegistrationName = "PingCollector";
-                        ce.CollectorRegistrationDisplayName = "Ping Collector";
-
-                        ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
-
-                        if (System.Net.Dns.GetHostAddresses(ri.Computer).Count() == 0)
-                            lvi.ImageIndex = 3;
-                        else
-                        {
-                            MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
-                            if (testState.State == CollectorState.Good)
-                                lvi.ImageIndex = 0;
-                            else
-                                lvi.ImageIndex = 2;
-                        }
-                    }
-                    catch (Exception riEx)
-                    {
-                        lvi.ImageIndex = 1;
-                        System.Diagnostics.Trace.WriteLine(riEx.ToString());
-                    }
-                    //try
-                    //{
-                    //    ServiceController srvc = new ServiceController("QuickMon 3 Service", computerName);
-                    //    if (srvc.Status == ServiceControllerStatus.Running)
-                    //    {
-                    //        lvi.ImageIndex = 0;
-                    //    }
-                    //    else if (srvc.Status == ServiceControllerStatus.Stopped)
-                    //    {
-                    //        lvi.ImageIndex = 1;
-                    //    }
-                    //    else if (srvc.Status == ServiceControllerStatus.Paused)
-                    //    {
-                    //        lvi.ImageIndex = 4;
-                    //    }
-                    //    else if (srvc.Status == ServiceControllerStatus.StartPending || srvc.Status == ServiceControllerStatus.StopPending)
-                    //    {
-                    //        lvi.ImageIndex = 2;
-                    //    }
-                    //    else
-                    //        lvi.ImageIndex = 3;
-                    //}
-                    //catch 
-                    //{
-                    //    lvi.ImageIndex = 3;
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        } 
-        #endregion
-
-        #region ListView events
-        private void lvwRemoteHosts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            removeToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
-            attemptToStartAgentToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0 && lvwRemoteHosts.SelectedItems[0].ImageIndex == 1;
-        } 
-        #endregion
-
         private void attemptToStartAgentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -300,6 +221,93 @@ namespace QuickMon.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
+
+        #region Private methods
+        private void RefreshServiceStates()
+        {
+            refreshTimer.Enabled = false;
+            refreshTimer.Enabled = true;
+        }
+        private void RefreshItem(object o)
+        {
+            int imageIndex = 0;
+            ListViewItem lvi = (ListViewItem)o;
+            try
+            {                
+                RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                CollectorEntry ce = new CollectorEntry();
+                ce.EnableRemoteExecute = true;
+                ce.RemoteAgentHostAddress = ri.Computer;
+                ce.RemoteAgentHostPort = ri.PortNumber;
+                ce.CollectorRegistrationName = "PingCollector";
+                ce.CollectorRegistrationDisplayName = "Ping Collector";
+                ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
+
+                bool hostExists = false;
+                lock (this)
+                {
+                    hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
+                }
+                if (!hostExists)
+                    imageIndex = 3;
+                else
+                {
+                    MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
+
+                    if (testState.State == CollectorState.Good)
+                        imageIndex = 0;
+                    else
+                        imageIndex = 2;
+                }
+            }
+            catch (Exception riEx)
+            {
+                imageIndex = 1;
+                System.Diagnostics.Trace.WriteLine(riEx.ToString());
+            }
+            SetListViewItemIcon(lvi, imageIndex);
+        }
+        #endregion
+
+        #region ListView events
+        private void lvwRemoteHosts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            removeToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
+            attemptToStartAgentToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0 && lvwRemoteHosts.SelectedItems[0].ImageIndex == 1;
+        } 
+        #endregion
+
+        #region Refresh statusses
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            refreshTimer.Enabled = false;
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                List<ListViewItem> items = new List<ListViewItem>();
+                items.AddRange((from ListViewItem lvi in lvwRemoteHosts.Items
+                                select lvi).ToArray());
+                foreach (ListViewItem lvi in lvwRemoteHosts.Items)
+                {
+                    SetListViewItemIcon(lvi, 3);
+                    System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Cursor.Current = Cursors.Default;
+        }
+        private void SetListViewItemIcon(ListViewItem lvi, int imageIndex)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                lvi.ImageIndex = imageIndex;
+            });
+        } 
+        #endregion
 
     }
 }

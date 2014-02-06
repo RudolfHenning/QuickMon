@@ -37,7 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.cmdAbout = new System.Windows.Forms.Button();
+            this.cmdRemoteAgents = new System.Windows.Forms.Button();
             this.cmdPollingFrequency = new System.Windows.Forms.Button();
             this.cmdGeneralSettings = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -57,8 +57,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.cmdAddCollector);
             this.panel1.Controls.Add(this.cmdAddFolder);
+            this.panel1.Controls.Add(this.cmdAddCollector);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(4, 48);
             this.panel1.Name = "panel1";
@@ -67,13 +67,13 @@
             // 
             // cmdAddCollector
             // 
-            this.cmdAddCollector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdAddCollector.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdAddCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdAddCollector.Image = global::QuickMon.Properties.Resources.add;
             this.cmdAddCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddCollector.Location = new System.Drawing.Point(92, 0);
+            this.cmdAddCollector.Location = new System.Drawing.Point(0, 0);
             this.cmdAddCollector.Name = "cmdAddCollector";
-            this.cmdAddCollector.Size = new System.Drawing.Size(134, 44);
+            this.cmdAddCollector.Size = new System.Drawing.Size(112, 44);
             this.cmdAddCollector.TabIndex = 1;
             this.cmdAddCollector.Text = "&Add";
             this.toolTip1.SetToolTip(this.cmdAddCollector, "Add new collector");
@@ -81,16 +81,15 @@
             // 
             // cmdAddFolder
             // 
-            this.cmdAddFolder.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cmdAddFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdAddFolder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdAddFolder.Image = global::QuickMon.Properties.Resources.folder_add;
             this.cmdAddFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddFolder.Location = new System.Drawing.Point(0, 0);
+            this.cmdAddFolder.Location = new System.Drawing.Point(112, 0);
             this.cmdAddFolder.Name = "cmdAddFolder";
-            this.cmdAddFolder.Size = new System.Drawing.Size(92, 44);
+            this.cmdAddFolder.Size = new System.Drawing.Size(114, 44);
             this.cmdAddFolder.TabIndex = 0;
             this.cmdAddFolder.Text = "Folder";
-            this.cmdAddFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.cmdAddFolder, "Add folder collector");
             this.cmdAddFolder.UseVisualStyleBackColor = true;
             // 
@@ -142,7 +141,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.cmdAbout);
+            this.panel2.Controls.Add(this.cmdRemoteAgents);
             this.panel2.Controls.Add(this.cmdPollingFrequency);
             this.panel2.Controls.Add(this.cmdGeneralSettings);
             this.panel2.Controls.Add(this.label5);
@@ -156,19 +155,19 @@
             this.panel2.Size = new System.Drawing.Size(226, 36);
             this.panel2.TabIndex = 8;
             // 
-            // cmdAbout
+            // cmdRemoteAgents
             // 
-            this.cmdAbout.BackgroundImage = global::QuickMon.Properties.Resources.info;
-            this.cmdAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdAbout.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAbout.Location = new System.Drawing.Point(194, 0);
-            this.cmdAbout.Name = "cmdAbout";
-            this.cmdAbout.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdAbout.Size = new System.Drawing.Size(32, 36);
-            this.cmdAbout.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.cmdAbout, "About QuickMon 3");
-            this.cmdAbout.UseVisualStyleBackColor = true;
+            this.cmdRemoteAgents.BackgroundImage = global::QuickMon.Properties.Resources.Charon;
+            this.cmdRemoteAgents.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdRemoteAgents.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cmdRemoteAgents.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemoteAgents.Location = new System.Drawing.Point(194, 0);
+            this.cmdRemoteAgents.Name = "cmdRemoteAgents";
+            this.cmdRemoteAgents.Padding = new System.Windows.Forms.Padding(2);
+            this.cmdRemoteAgents.Size = new System.Drawing.Size(32, 36);
+            this.cmdRemoteAgents.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.cmdRemoteAgents, "About QuickMon 3");
+            this.cmdRemoteAgents.UseVisualStyleBackColor = true;
             // 
             // cmdPollingFrequency
             // 
@@ -379,7 +378,7 @@
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.Button cmdPollingFrequency;
         public System.Windows.Forms.Button cmdGeneralSettings;
-        public System.Windows.Forms.Button cmdAbout;
+        public System.Windows.Forms.Button cmdRemoteAgents;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

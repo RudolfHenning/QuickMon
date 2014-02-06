@@ -61,9 +61,8 @@
             this.pollingNormalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pollingFastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customPollingFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knownRemoteAgentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -111,6 +110,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -124,6 +125,7 @@
             this.notifiersContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainRefreshTimer
@@ -135,6 +137,7 @@
             // 
             this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.OrangeHeader1;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.toolStrip1);
             this.panel1.Controls.Add(this.mainToolStrip);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -158,7 +161,7 @@
             this.mainToolStrip.Location = new System.Drawing.Point(4, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.mainToolStrip.Size = new System.Drawing.Size(292, 39);
+            this.mainToolStrip.Size = new System.Drawing.Size(261, 39);
             this.mainToolStrip.TabIndex = 28;
             // 
             // openMonitorPackToolStripButton
@@ -349,8 +352,7 @@
             this.generalSettingsToolStripSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pollingToolStripMenuItem,
             this.knownRemoteAgentsToolStripMenuItem,
-            this.closeAllChildWindowsToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.closeAllChildWindowsToolStripMenuItem});
             this.generalSettingsToolStripSplitButton.Image = global::QuickMon.Properties.Resources.tools;
             this.generalSettingsToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.generalSettingsToolStripSplitButton.Name = "generalSettingsToolStripSplitButton";
@@ -406,22 +408,6 @@
             this.customPollingFrequencyToolStripMenuItem.Text = "Custom Frequency";
             this.customPollingFrequencyToolStripMenuItem.Click += new System.EventHandler(this.customPollingFrequencyToolStripMenuItem_Click);
             // 
-            // closeAllChildWindowsToolStripMenuItem
-            // 
-            this.closeAllChildWindowsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables;
-            this.closeAllChildWindowsToolStripMenuItem.Name = "closeAllChildWindowsToolStripMenuItem";
-            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
-            this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
-            this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Image = global::QuickMon.Properties.Resources.info;
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // knownRemoteAgentsToolStripMenuItem
             // 
             this.knownRemoteAgentsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Charon;
@@ -429,6 +415,14 @@
             this.knownRemoteAgentsToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
             this.knownRemoteAgentsToolStripMenuItem.Text = "Known Remote Agents";
             this.knownRemoteAgentsToolStripMenuItem.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
+            // 
+            // closeAllChildWindowsToolStripMenuItem
+            // 
+            this.closeAllChildWindowsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables;
+            this.closeAllChildWindowsToolStripMenuItem.Name = "closeAllChildWindowsToolStripMenuItem";
+            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
+            this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
+            this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
             // 
             // openFileDialogOpen
             // 
@@ -775,7 +769,7 @@
             this.lvwNotifiers.Location = new System.Drawing.Point(17, 3);
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(444, 77);
+            this.lvwNotifiers.Size = new System.Drawing.Size(444, 75);
             this.lvwNotifiers.SmallImageList = this.notifiersImageList;
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
@@ -891,6 +885,29 @@
             // 
             this.showNotifierContextMenuTimer.Tick += new System.EventHandler(this.showNotifierContextMenuTimer_Tick);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.toolStrip1.Location = new System.Drawing.Point(265, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(57, 25);
+            this.toolStrip1.TabIndex = 29;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.aboutToolStripMenuItem.Image = global::QuickMon.Properties.Resources.info;
+            this.aboutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
+            this.aboutToolStripMenuItem.Text = "toolStripButton1";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -930,6 +947,8 @@
             this.notifiersContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -947,7 +966,6 @@
         private System.Windows.Forms.ToolStripButton refreshToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem editMonitorPackToolStripMenuItem;
         private System.Windows.Forms.ToolStripSplitButton generalSettingsToolStripSplitButton;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatus;
@@ -1017,6 +1035,8 @@
         private System.Windows.Forms.Timer showCollectorContextMenuTimer;
         private System.Windows.Forms.Timer showNotifierContextMenuTimer;
         private System.Windows.Forms.ToolStripMenuItem knownRemoteAgentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton aboutToolStripMenuItem;
     }
 }
 

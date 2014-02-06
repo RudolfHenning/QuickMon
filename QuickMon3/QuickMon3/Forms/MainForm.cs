@@ -69,7 +69,7 @@ namespace QuickMon
             popedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_Click);
             popedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
             popedContainerForTreeView.cmdPollingFrequency.Click += new EventHandler(customPollingFrequencyToolStripMenuItem_Click);
-            popedContainerForTreeView.cmdAbout.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            popedContainerForTreeView.cmdRemoteAgents.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
 
             popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
             popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
@@ -1762,8 +1762,6 @@ namespace QuickMon
             SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
         }
         #endregion
-
-
 
         #region Testing
         //private void button1_Click(object sender, EventArgs e)
