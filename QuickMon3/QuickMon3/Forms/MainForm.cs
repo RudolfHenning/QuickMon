@@ -66,7 +66,7 @@ namespace QuickMon
             popedContainerForTreeView.cmdNewMonitorPack.Click += new EventHandler(newMonitorPackToolStripMenuItem_Click);
             popedContainerForTreeView.cmdLoadMonitorPack.Click += new EventHandler(openMonitorPackToolStripButton_ButtonClick);
             popedContainerForTreeView.cmdLoadRecentMonitorPack.Click += new EventHandler(recentMonitorPackToolStripMenuItem1_Click);
-            popedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_Click);
+            popedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_ButtonClick);
             popedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
             popedContainerForTreeView.cmdPollingFrequency.Click += new EventHandler(customPollingFrequencyToolStripMenuItem_Click);
             popedContainerForTreeView.cmdRemoteAgents.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
@@ -216,8 +216,17 @@ namespace QuickMon
         }
         private void saveAsMonitorPackToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             HideCollectorContextMenu();
-            SaveAsMonitorPack(true);
+            SaveAsMonitorPack();
+        }
+        private void saveAsMonitorPackToolStripMenuItem_ButtonClick(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            SaveMonitorPack();            
         }
         private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
@@ -559,13 +568,41 @@ namespace QuickMon
             if (Properties.Settings.Default.AutosaveChanges)
                 SaveAsMonitorPack();
         }
-        private bool SaveAsMonitorPack(bool promptOverride = false)
+        private bool SaveMonitorPack()
         {
             bool success = false;
             try
             {
-                bool canAutoSave = false; 
-                if (monitorPack != null && monitorPack.MonitorPackPath != null && System.IO.File.Exists(monitorPack.MonitorPackPath))
+                if (monitorPack != null && monitorPack.MonitorPackPath != null && monitorPack.MonitorPackPath.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath)))
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    SortItemsByTreeView();
+                    monitorPack.Save();
+                    Properties.Settings.Default.LastMonitorPack = monitorPack.MonitorPackPath;
+                    monitorPackChanged = false;
+                    success = true;
+                }
+                else
+                {
+                    success = SaveAsMonitorPack();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Cursor.Current = Cursors.Default;
+            return success;
+        }
+        private bool SaveAsMonitorPack()
+        {
+            bool success = false;
+            try
+            {
+                bool canAutoSave = false;
+                if (monitorPack == null)
+                    monitorPack = new MonitorPack();
+                if (monitorPack.MonitorPackPath != null && System.IO.File.Exists(monitorPack.MonitorPackPath))
                 {
                     canAutoSave = Properties.Settings.Default.AutosaveChanges;
                     saveFileDialogSave.FileName = monitorPack.MonitorPackPath;                    
@@ -574,14 +611,11 @@ namespace QuickMon
                         saveFileDialogSave.InitialDirectory = System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath);
                     }
                     catch { }
-                }
-                SortItemsByTreeView();
-                if ((canAutoSave && !promptOverride) || saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                }                
+                if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    monitorPack.Save(saveFileDialogSave.FileName);
-                    Properties.Settings.Default.LastMonitorPack = saveFileDialogSave.FileName;
-                    monitorPackChanged = false;
-                    success = true;
+                    monitorPack.MonitorPackPath = saveFileDialogSave.FileName;
+                    success = SaveMonitorPack();
                 }
             }
             catch (Exception ex)
