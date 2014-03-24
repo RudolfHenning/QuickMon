@@ -46,9 +46,6 @@
             this.editItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entriesImageList = new System.Windows.Forms.ImageList(this.components);
-            this.lvwEntries = new QuickMon.ListViewEx();
-            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -83,6 +80,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
             this.label17 = new System.Windows.Forms.Label();
             this.chkRemoteAgentEnabled = new System.Windows.Forms.CheckBox();
             this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -97,7 +95,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
+            this.cmdBrowseForRestorationScript = new System.Windows.Forms.Button();
+            this.txtRestorationScript = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lvwEntries = new QuickMon.ListViewEx();
+            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -122,7 +126,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(497, 432);
+            this.cmdCancel.Location = new System.Drawing.Point(497, 457);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 7;
@@ -134,7 +138,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(416, 432);
+            this.cmdOK.Location = new System.Drawing.Point(416, 457);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 6;
@@ -171,7 +175,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 437);
+            this.label6.Location = new System.Drawing.Point(12, 462);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
             this.label6.TabIndex = 4;
@@ -181,7 +185,7 @@
             // 
             this.lblId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblId.AutoSize = true;
-            this.lblId.Location = new System.Drawing.Point(34, 437);
+            this.lblId.Location = new System.Drawing.Point(34, 462);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(16, 13);
             this.lblId.TabIndex = 5;
@@ -207,7 +211,7 @@
             this.tabControl1.Location = new System.Drawing.Point(1, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(582, 388);
+            this.tabControl1.Size = new System.Drawing.Size(582, 413);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -220,7 +224,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(574, 362);
+            this.tabPage1.Size = new System.Drawing.Size(574, 387);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Collector settings";
             // 
@@ -233,7 +237,7 @@
             this.panCollectorConfigContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panCollectorConfigContainer.Location = new System.Drawing.Point(3, 29);
             this.panCollectorConfigContainer.Name = "panCollectorConfigContainer";
-            this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 304);
+            this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 329);
             this.panCollectorConfigContainer.TabIndex = 1;
             // 
             // tvwEntries
@@ -246,7 +250,7 @@
             this.tvwEntries.Location = new System.Drawing.Point(0, 160);
             this.tvwEntries.Name = "tvwEntries";
             this.tvwEntries.SelectedImageIndex = 0;
-            this.tvwEntries.Size = new System.Drawing.Size(568, 144);
+            this.tvwEntries.Size = new System.Drawing.Size(568, 169);
             this.tvwEntries.TabIndex = 2;
             this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
             this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
@@ -292,39 +296,6 @@
             this.entriesImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.entriesImageList.Images.SetKeyName(0, "5_50.ico");
             this.entriesImageList.Images.SetKeyName(1, "243.ico");
-            // 
-            // lvwEntries
-            // 
-            this.lvwEntries.AutoResizeColumnEnabled = false;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
-            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.entriesColumnHeader,
-            this.triggerColumnHeader});
-            this.lvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
-            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lvwEntries.FullRowSelect = true;
-            this.lvwEntries.HideSelection = false;
-            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
-            this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(568, 135);
-            this.lvwEntries.SmallImageList = this.entriesImageList;
-            this.lvwEntries.TabIndex = 1;
-            this.lvwEntries.UseCompatibleStateImageBehavior = false;
-            this.lvwEntries.View = System.Windows.Forms.View.Details;
-            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
-            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
-            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
-            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
-            // 
-            // entriesColumnHeader
-            // 
-            this.entriesColumnHeader.Text = "Entries";
-            this.entriesColumnHeader.Width = 293;
-            // 
-            // triggerColumnHeader
-            // 
-            this.triggerColumnHeader.Text = "Alert triggers";
-            this.triggerColumnHeader.Width = 249;
             // 
             // collectorEditToolStrip
             // 
@@ -375,7 +346,7 @@
             // 
             this.panel2.Controls.Add(this.llblRawEdit);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 333);
+            this.panel2.Location = new System.Drawing.Point(3, 358);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(568, 26);
             this.panel2.TabIndex = 1;
@@ -437,7 +408,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(574, 362);
+            this.tabPage2.Size = new System.Drawing.Size(574, 387);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced settings";
             // 
@@ -445,6 +416,10 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
+            this.groupBox4.Controls.Add(this.cmdBrowseForRestorationScript);
+            this.groupBox4.Controls.Add(this.txtRestorationScript);
+            this.groupBox4.Controls.Add(this.label20);
             this.groupBox4.Controls.Add(this.label19);
             this.groupBox4.Controls.Add(this.cmdBrowseForWarningCorrectiveScript);
             this.groupBox4.Controls.Add(this.chkCorrectiveScriptDisabled);
@@ -455,7 +430,7 @@
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Location = new System.Drawing.Point(7, 274);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(560, 81);
+            this.groupBox4.Size = new System.Drawing.Size(560, 105);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             // 
@@ -477,7 +452,7 @@
             this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(520, 21);
             this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
             this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 4;
+            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 5;
             this.cmdBrowseForWarningCorrectiveScript.Text = "- - -";
             this.cmdBrowseForWarningCorrectiveScript.UseVisualStyleBackColor = true;
             this.cmdBrowseForWarningCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForWarningCorrectiveScript_Click);
@@ -498,9 +473,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(9, 26);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "On Warning Alert";
+            this.label7.Size = new System.Drawing.Size(64, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "On Warning";
             // 
             // cmdBrowseForErrorCorrectiveScript
             // 
@@ -509,7 +484,7 @@
             this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(520, 47);
             this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
             this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 7;
+            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 8;
             this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
             this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
             this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
@@ -518,28 +493,30 @@
             // 
             this.txtCorrectiveScriptOnWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(111, 23);
+            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 23);
             this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
-            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(404, 20);
-            this.txtCorrectiveScriptOnWarning.TabIndex = 3;
+            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(381, 20);
+            this.txtCorrectiveScriptOnWarning.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnWarning, "Corrective script that runs every time a state of \'Warning\' is returned.\r\n");
             // 
             // txtCorrectiveScriptOnError
             // 
             this.txtCorrectiveScriptOnError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(111, 49);
+            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 49);
             this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
-            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(404, 20);
-            this.txtCorrectiveScriptOnError.TabIndex = 6;
+            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(381, 20);
+            this.txtCorrectiveScriptOnError.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnError, "Corrective script that runs every time a state of \'Error\' is returned.\r\n");
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(9, 52);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(70, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "On Error Alert";
+            this.label12.Size = new System.Drawing.Size(46, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "On Error";
             // 
             // groupBox5
             // 
@@ -718,6 +695,19 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
+            // llblRemoteAgentInstallHelp
+            // 
+            this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.llblRemoteAgentInstallHelp.AutoSize = true;
+            this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
+            this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
+            this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
+            this.llblRemoteAgentInstallHelp.TabIndex = 7;
+            this.llblRemoteAgentInstallHelp.TabStop = true;
+            this.llblRemoteAgentInstallHelp.Text = "Install help";
+            this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -873,24 +863,85 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // llblRemoteAgentInstallHelp
+            // cmdBrowseForRestorationScript
             // 
-            this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.llblRemoteAgentInstallHelp.AutoSize = true;
-            this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
-            this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
-            this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 7;
-            this.llblRemoteAgentInstallHelp.TabStop = true;
-            this.llblRemoteAgentInstallHelp.Text = "Install help";
-            this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
+            this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(520, 73);
+            this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
+            this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForRestorationScript.TabIndex = 11;
+            this.cmdBrowseForRestorationScript.Text = "- - -";
+            this.cmdBrowseForRestorationScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForRestorationScript.Click += new System.EventHandler(this.cmdBrowseForRestorationScript_Click);
+            // 
+            // txtRestorationScript
+            // 
+            this.txtRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRestorationScript.Location = new System.Drawing.Point(134, 75);
+            this.txtRestorationScript.Name = "txtRestorationScript";
+            this.txtRestorationScript.Size = new System.Drawing.Size(381, 20);
+            this.txtRestorationScript.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.txtRestorationScript, "Only runs once when state change from Warning/Error to Good");
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(9, 78);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(116, 13);
+            this.label20.TabIndex = 9;
+            this.label20.Text = "Restoration (only once)";
+            // 
+            // lvwEntries
+            // 
+            this.lvwEntries.AutoResizeColumnEnabled = false;
+            this.lvwEntries.AutoResizeColumnIndex = 0;
+            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.entriesColumnHeader,
+            this.triggerColumnHeader});
+            this.lvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
+            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lvwEntries.FullRowSelect = true;
+            this.lvwEntries.HideSelection = false;
+            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
+            this.lvwEntries.Name = "lvwEntries";
+            this.lvwEntries.Size = new System.Drawing.Size(568, 135);
+            this.lvwEntries.SmallImageList = this.entriesImageList;
+            this.lvwEntries.TabIndex = 1;
+            this.lvwEntries.UseCompatibleStateImageBehavior = false;
+            this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
+            // 
+            // entriesColumnHeader
+            // 
+            this.entriesColumnHeader.Text = "Entries";
+            this.entriesColumnHeader.Width = 293;
+            // 
+            // triggerColumnHeader
+            // 
+            this.triggerColumnHeader.Text = "Alert triggers";
+            this.triggerColumnHeader.Width = 249;
+            // 
+            // chkOnlyRunCorrectiveScriptsOnStateChange
+            // 
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(307, 2);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(159, 17);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only run when state change";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
             // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 462);
+            this.ClientSize = new System.Drawing.Size(584, 487);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
@@ -901,7 +952,7 @@
             this.Controls.Add(this.txtName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(600, 500);
+            this.MinimumSize = new System.Drawing.Size(600, 525);
             this.Name = "EditCollectorConfig";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1008,5 +1059,9 @@
         private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
         private System.Windows.Forms.ColumnHeader triggerColumnHeader;
         private System.Windows.Forms.LinkLabel llblRemoteAgentInstallHelp;
+        private System.Windows.Forms.Button cmdBrowseForRestorationScript;
+        private System.Windows.Forms.TextBox txtRestorationScript;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox chkOnlyRunCorrectiveScriptsOnStateChange;
     }
 }

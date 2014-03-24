@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.2.0207.2014" Manufacturer="Hen IT"
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.2.0210.2014" Manufacturer="Hen IT"
        UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
-    <Feature Id="ProductFeature" Title="QuickMon 3" Level="1"
-         Description="QuickMon 3" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
+    <Feature Id="ProductFeature" Title="QuickMon 3" Level="1" Description="QuickMon 3" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
       <ComponentRef Id='ProductComponent' />
       <ComponentRef Id='readmetxt' />
       <ComponentRef Id='ProgramMenuDir' />
@@ -31,22 +30,20 @@
                 <Extension Id="qmconfig" Advertise="yes" ContentType="application/text">
                   <Verb Id="open" Sequence="10" Command="Open"  Argument="&quot;%1&quot;" />
                 </Extension>
-              </ProgId>
-              
+              </ProgId>              
               <File Id="QuickMonRemoteHostCMDEXE" Name="QuickMonRemoteHostCMD.exe" Source="QuickMonRemoteHostCMD.exe" KeyPath="no" />
               <File Id="QuickMonServiceEXE" Name="QuickMonService.exe" Source="QuickMonService.exe" KeyPath="no" />
-              
               <File Id="FastColoredTextBoxDll" Name="FastColoredTextBox.dll" Source="FastColoredTextBox.dll" KeyPath="no" />
               <File Id="QuickMonBizTalkAgentsDll" Name="QuickMonBizTalkAgents.dll" Source="QuickMonBizTalkAgents.dll" KeyPath="no" />
               <File Id="QuickMonCommonAgentsDll" Name="QuickMonCommonAgents.dll" Source="QuickMonCommonAgents.dll" KeyPath="no" />
               <File Id="QuickMonCoreDll" Name="QuickMonCore.dll" Source="QuickMonCore.dll" KeyPath="no" />
               <File Id="QuickMonSQLAgentsDll" Name="QuickMonSQLAgents.dll" Source="QuickMonSQLAgents.dll" KeyPath="no" />
-              
+              <File Id="MonitorPackListtxt" Name="MonitorPackListExample.txt" Source="MonitorPackListExample.txt" KeyPath="no" />              
+            </Component>
+            <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5C08-41ca30000000" Feature="ProductFeature" NeverOverwrite="yes" Permanent="yes">
               <File Id="QuickMonEXEConfig" Name="QuickMon.exe.config" Source="QuickMon.exe.config" KeyPath="no" />
               <File Id="QuickMonServiceEXEConfig" Name="QuickMonService.exe.config" Source="QuickMonService.exe.config" KeyPath="no" />
               <File Id="QuickMonRemoteHostCMDEXEConfig" Name="QuickMonRemoteHostCMD.exe.config" Source="QuickMonRemoteHostCMD.exe.config" KeyPath="no" />
-              
-              <File Id="MonitorPackListtxt" Name="MonitorPackListExample.txt" Source="MonitorPackListExample.txt" KeyPath="no" />              
             </Component>
             <Component Id="readmetxt" Guid="59162023-5478-4668-A278-41cc30000000">
                 <File Id="readme.txt" Source="readme.txt" KeyPath="yes">

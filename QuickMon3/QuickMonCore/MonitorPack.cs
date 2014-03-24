@@ -222,6 +222,26 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
             }
         }
+        public event RaiseCollectorCalledDelegate RunRestorationScript;
+        private void RaiseRunCollectorRestorationScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (RunCorrectiveScripts &&
+                    RunRestorationScript != null &&
+                    collector != null &&
+                    !collector.CorrectiveScriptDisabled &&
+                    collector.RestorationScriptPath.Length > 0)
+                {
+                    RunRestorationScript(collector);
+                    LogRestorationScriptAction(collector);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
+            }
+        }
         #endregion
 
         #region Monitor pack general events
@@ -635,27 +655,38 @@ namespace QuickMon
                         });
                     }
                     //Did the state changed?
-                    if (collector.StateChanged())
+                    bool stateChanged = collector.StateChanged();
+                    if (stateChanged)
                     {
                         RaiseCollectorStateChanged(alertLevel, collector);
                     }
-                    collector.LastMonitorState.State = currentState;
 
                     try
                     {
                         //run corrective script only after alert has been raised
                         if (RunCorrectiveScripts)
                         {
-                            if (currentState == CollectorState.Warning)
+                            if (currentState == CollectorState.Warning &&
+                                    (stateChanged || !collector.CorrectiveScriptsOnlyOnStateChange))
                                 RaiseRunCollectorCorrectiveWarningScript(collector);
-                            else if (currentState == CollectorState.Error)
+                            else if (currentState == CollectorState.Error &&
+                                    (stateChanged || !collector.CorrectiveScriptsOnlyOnStateChange))
                                 RaiseRunCollectorCorrectiveErrorScript(collector);
+                            else if (stateChanged &&
+                                    currentState == CollectorState.Good &&
+                                    (collector.LastMonitorState.State == CollectorState.Warning || collector.LastMonitorState.State == CollectorState.Error))
+                            {
+                                RaiseRunCollectorRestorationScript(collector);
+                            }
+
                         }
                     }
                     catch (Exception ex)
                     {
                         RaiseRaiseCollectorError(collector, ex.Message);
                     }
+
+                    collector.LastMonitorState.State = currentState;
                 }
                 #endregion
 
@@ -717,6 +748,8 @@ namespace QuickMon
                 #endregion
             }
         }
+
+        
         private void SetChildCollectorStates(CollectorEntry collector, CollectorState childState)
         {
             try
@@ -804,6 +837,39 @@ namespace QuickMon
         //    sw.Stop();
         //    PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
         //}
+        private void LogRestorationScriptAction(CollectorEntry collectorEntry)
+        {
+            collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
+                collectorEntry.Name, collectorEntry.RestorationScriptPath);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            foreach (NotifierEntry notifierEntry in (from n in Notifiers
+                                                     where n.Enabled &&
+                                                        (
+                                                            ((int)n.AlertLevel <= (int)AlertLevel.Warning)
+                                                        ) &&
+                                                        (n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(collectorEntry.Name))
+                                                     select n))
+            {
+                try
+                {
+                    PCRaiseNotifiersCalled();
+                    notifierEntry.Notifier.RecordMessage(new AlertRaised()
+                    {
+                        Level = AlertLevel.Warning,
+                        DetailLevel = DetailLevel.Detail,
+                        RaisedFor = collectorEntry,
+                        State = collectorEntry.CurrentState.Clone()
+                    });
+                }
+                catch (Exception ex)
+                {
+                    RaiseRaiseNotifierError(notifierEntry, ex.ToString());
+                }
+            }
+            sw.Stop();
+            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
+        }
         private void LogCorrectiveScriptAction(CollectorEntry collectorEntry, bool error)
         {
             collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
@@ -822,7 +888,7 @@ namespace QuickMon
                 try
                 {
                     PCRaiseNotifiersCalled();
-                    SendNotifierAlert(new AlertRaised()
+                    notifierEntry.Notifier.RecordMessage(new AlertRaised()
                     {
                         Level = (error ? AlertLevel.Error : AlertLevel.Warning),
                         DetailLevel = DetailLevel.Detail,

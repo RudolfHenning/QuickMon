@@ -6,4 +6,5 @@ BIG addition - Detail views can/must use remote host dataset as source
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 
 -------------------------------------------------------------------------------------------------------
-
+Add Restoration scripts (to be run when alert state change from warning/error to good only). Could be used to start something that was disabled by corrective scripts.
+Also, add option to have corrective scripts only execute first time error or warning state is triggered

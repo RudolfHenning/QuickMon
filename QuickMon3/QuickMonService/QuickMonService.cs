@@ -163,6 +163,7 @@ namespace QuickMon
                 monitorPack.CollectorExecutionTimeEvent += new CollectorExecutionTimeDelegate(monitorPack_CollectorExecutionTimeEvent);
                 monitorPack.RunCollectorCorrectiveWarningScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveWarningScript);
                 monitorPack.RunCollectorCorrectiveErrorScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveErrorScript);
+                monitorPack.RunRestorationScript += new RaiseCollectorCalledDelegate(monitorPack_RunRestorationScript);
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
                 monitorPack.ConcurrencyLevel = concurrencyLevel;
                 packs.Add(monitorPack);
@@ -174,6 +175,8 @@ namespace QuickMon
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Error loading/starting MonitorPack '{0}'\r\n{1}", monitorPackPath, ex.Message), EventLogEntryType.Error, 11);
             }
         }
+
+        
         #endregion
 
         #region Monitor pack events
@@ -227,6 +230,26 @@ namespace QuickMon
                         , EventLogEntryType.Information, 22);
                     Process p = new Process();
                     p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnErrorPath);
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
+            }
+        }
+        private void monitorPack_RunRestorationScript(CollectorEntry collector)
+        {
+            try
+            {
+                if (collector != null &&
+                    System.IO.File.Exists(collector.RestorationScriptPath))
+                {
+                    EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the restoration script '{0}' for collector '{1}'", collector.RestorationScriptPath, collector.Name)
+                        , EventLogEntryType.Information, 22);
+                    Process p = new Process();
+                    p.StartInfo = new ProcessStartInfo(collector.RestorationScriptPath);
                     p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     p.Start();
                 }

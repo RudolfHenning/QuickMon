@@ -61,6 +61,8 @@ namespace QuickMon.Forms
                 chkCorrectiveScriptDisabled.Checked = currentEditingEntry.CorrectiveScriptDisabled;
                 txtCorrectiveScriptOnWarning.Text = currentEditingEntry.CorrectiveScriptOnWarningPath;
                 txtCorrectiveScriptOnError.Text = currentEditingEntry.CorrectiveScriptOnErrorPath;
+                txtRestorationScript.Text = currentEditingEntry.RestorationScriptPath;
+                chkOnlyRunCorrectiveScriptsOnStateChange.Checked = currentEditingEntry.CorrectiveScriptsOnlyOnStateChange;
                 linkLabelServiceWindows.Text = currentEditingEntry.ServiceWindows.ToString();                 
                 
                 LoadParentCollectorList();
@@ -485,6 +487,8 @@ namespace QuickMon.Forms
             SelectedEntry.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
             SelectedEntry.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
             SelectedEntry.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
+            SelectedEntry.RestorationScriptPath = txtRestorationScript.Text;
+            SelectedEntry.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
             //Service windows
             SelectedEntry.ServiceWindows.CreateFromConfig(currentEditingEntry.ServiceWindows.ToConfig());
 
@@ -636,6 +640,21 @@ namespace QuickMon.Forms
                 txtCorrectiveScriptOnError.Text = correctiveScriptOpenFileDialog.FileName;
             }
         } 
+        private void cmdBrowseForRestorationScript_Click(object sender, EventArgs e)
+        {
+            correctiveScriptOpenFileDialog.Title = "Restoration script";
+            if (System.IO.File.Exists(txtRestorationScript.Text))
+            {
+                correctiveScriptOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtRestorationScript.Text);
+                correctiveScriptOpenFileDialog.FileName = txtRestorationScript.Text;
+            }
+            if (correctiveScriptOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtRestorationScript.Text = correctiveScriptOpenFileDialog.FileName;
+            }
+        }
         #endregion
+
+
     }
 }

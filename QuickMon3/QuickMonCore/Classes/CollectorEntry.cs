@@ -42,6 +42,8 @@ namespace QuickMon
         public bool CorrectiveScriptDisabled { get; set; }
         public string CorrectiveScriptOnWarningPath { get; set; }
         public string CorrectiveScriptOnErrorPath { get; set; }
+        public string RestorationScriptPath { get; set; }
+        public bool CorrectiveScriptsOnlyOnStateChange { get; set; }
 
         #region Collector agent related
         public string CollectorRegistrationName { get; set; }
@@ -314,6 +316,8 @@ namespace QuickMon
             collectorEntry.CorrectiveScriptDisabled = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptDisabled", "False"));
             collectorEntry.CorrectiveScriptOnWarningPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnWarningPath");
             collectorEntry.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
+            collectorEntry.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
+            collectorEntry.CorrectiveScriptsOnlyOnStateChange = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptsOnlyOnStateChange", "False"));
             collectorEntry.EnableRemoteExecute = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("enableRemoteExecute", "False"));
             collectorEntry.RemoteAgentHostAddress = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostAddress");
             collectorEntry.RemoteAgentHostPort = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostPort", 8181);
@@ -377,6 +381,8 @@ namespace QuickMon
                 CorrectiveScriptDisabled,
                 CorrectiveScriptOnWarningPath,
                 CorrectiveScriptOnErrorPath,
+                RestorationScriptPath,
+                CorrectiveScriptsOnlyOnStateChange,
                 EnableRemoteExecute.ToString(),
                 RemoteAgentHostAddress,
                 RemoteAgentHostPort,

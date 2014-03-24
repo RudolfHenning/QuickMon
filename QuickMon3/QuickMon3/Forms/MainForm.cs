@@ -117,6 +117,7 @@ namespace QuickMon
                     monitorPack.OnNotifierError += monitorPack_RaiseNotifierError;
                     monitorPack.RunCollectorCorrectiveWarningScript += monitorPack_RunCollectorCorrectiveWarningScript;
                     monitorPack.RunCollectorCorrectiveErrorScript += monitorPack_RunCollectorCorrectiveErrorScript;
+                    monitorPack.RunRestorationScript += monitorPack_RunRestorationScript;
                     monitorPack.CollectorCalled += monitorPack_CollectorCalled;
                     lblNoNotifiersYet.Visible = true;
                 }
@@ -128,6 +129,8 @@ namespace QuickMon
             }
             mainRefreshTimer.Enabled = true;
         }
+
+        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -696,6 +699,7 @@ namespace QuickMon
                     monitorPack.OnNotifierError -= monitorPack_RaiseNotifierError;
                     monitorPack.RunCollectorCorrectiveWarningScript -= monitorPack_RunCollectorCorrectiveWarningScript;
                     monitorPack.RunCollectorCorrectiveErrorScript -= monitorPack_RunCollectorCorrectiveErrorScript;
+                    monitorPack.RunRestorationScript -= monitorPack_RunRestorationScript;
                     monitorPack.CollectorCalled -= monitorPack_CollectorCalled;
                     monitorPack.CollectorExecutionTimeEvent -= monitorPack_CollectorExecutionTimeEvent;
                     
@@ -727,6 +731,7 @@ namespace QuickMon
                 monitorPack.OnNotifierError += monitorPack_RaiseNotifierError;
                 monitorPack.RunCollectorCorrectiveWarningScript += monitorPack_RunCollectorCorrectiveWarningScript;
                 monitorPack.RunCollectorCorrectiveErrorScript += monitorPack_RunCollectorCorrectiveErrorScript;
+                monitorPack.RunRestorationScript += monitorPack_RunRestorationScript;
                 monitorPack.CollectorCalled += monitorPack_CollectorCalled;
                 monitorPack.CollectorExecutionTimeEvent += monitorPack_CollectorExecutionTimeEvent;
 
@@ -1167,6 +1172,11 @@ namespace QuickMon
         {
             if (collectorEntry != null && !collectorEntry.CorrectiveScriptDisabled)
                 RunCorrectiveScript(collectorEntry.CorrectiveScriptOnWarningPath);
+        }
+        private void monitorPack_RunRestorationScript(CollectorEntry collectorEntry)
+        {
+            if (collectorEntry != null && !collectorEntry.CorrectiveScriptDisabled)
+                RunCorrectiveScript(collectorEntry.RestorationScriptPath);
         }
         private void RunCorrectiveScript(string scriptPath)
         {
