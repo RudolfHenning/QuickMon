@@ -837,72 +837,35 @@ namespace QuickMon
         //    sw.Stop();
         //    PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
         //}
+        private void SendNotifierAlert(AlertLevel level, DetailLevel detailLevel, CollectorEntry collectorEntry, MonitorState state)
+        {
+            SendNotifierAlert(new AlertRaised()
+            {
+                Level = level,
+                DetailLevel = detailLevel,
+                RaisedFor = collectorEntry,
+                State = state
+            });
+        }
         private void LogRestorationScriptAction(CollectorEntry collectorEntry)
         {
-            collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
+            collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
                 collectorEntry.Name, collectorEntry.RestorationScriptPath);
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            foreach (NotifierEntry notifierEntry in (from n in Notifiers
-                                                     where n.Enabled &&
-                                                        (
-                                                            ((int)n.AlertLevel <= (int)AlertLevel.Warning)
-                                                        ) &&
-                                                        (n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(collectorEntry.Name))
-                                                     select n))
-            {
-                try
-                {
-                    PCRaiseNotifiersCalled();
-                    notifierEntry.Notifier.RecordMessage(new AlertRaised()
-                    {
-                        Level = AlertLevel.Warning,
-                        DetailLevel = DetailLevel.Detail,
-                        RaisedFor = collectorEntry,
-                        State = collectorEntry.CurrentState.Clone()
-                    });
-                }
-                catch (Exception ex)
-                {
-                    RaiseRaiseNotifierError(notifierEntry, ex.ToString());
-                }
-            }
-            sw.Stop();
-            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
+            SendNotifierAlert(
+                collectorEntry.LastMonitorState.State == CollectorState.Warning ? AlertLevel.Warning : AlertLevel.Error,
+                DetailLevel.Detail,
+                collectorEntry,
+                collectorEntry.CurrentState.Clone());            
         }
         private void LogCorrectiveScriptAction(CollectorEntry collectorEntry, bool error)
         {
             collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
-                collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath);       
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            foreach (NotifierEntry notifierEntry in (from n in Notifiers
-                                                     where n.Enabled &&
-                                                        (
-                                                            ((int)n.AlertLevel <= (int)AlertLevel.Warning && !error) ||
-                                                            ((int)n.AlertLevel <= (int)AlertLevel.Error && error)
-                                                        ) &&
-                                                        (n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(collectorEntry.Name))
-                                                     select n))
-            {
-                try
-                {
-                    PCRaiseNotifiersCalled();
-                    notifierEntry.Notifier.RecordMessage(new AlertRaised()
-                    {
-                        Level = (error ? AlertLevel.Error : AlertLevel.Warning),
-                        DetailLevel = DetailLevel.Detail,
-                        RaisedFor = collectorEntry,
-                        State = collectorEntry.CurrentState.Clone()
-                    });
-                }
-                catch (Exception ex)
-                {
-                    RaiseRaiseNotifierError(notifierEntry, ex.ToString());
-                }
-            }
-            sw.Stop();
-            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
+                collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath);
+            SendNotifierAlert(
+                        (error ? AlertLevel.Error : AlertLevel.Warning),
+                        DetailLevel.Detail,
+                        collectorEntry,
+                        collectorEntry.CurrentState.Clone());
         }
         #endregion
 
