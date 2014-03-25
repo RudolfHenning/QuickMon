@@ -364,6 +364,7 @@ namespace QuickMon
         }
         public string ToConfig()
         {
+            //remeber to update CollectorEntryRequest version as well
             string collectorConfig = "";
             if (Collector != null)
                 collectorConfig = Collector.AgentConfig.ToConfig();

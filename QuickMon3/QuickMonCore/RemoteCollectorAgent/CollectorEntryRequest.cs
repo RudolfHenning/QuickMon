@@ -19,6 +19,8 @@ namespace QuickMon
         public bool CorrectiveScriptDisabled { get; set; }
         public string CorrectiveScriptOnWarningPath { get; set; }
         public string CorrectiveScriptOnErrorPath { get; set; }
+        public string RestorationScriptPath { get; set; }
+        public bool CorrectiveScriptsOnlyOnStateChange { get; set; }
         #endregion
 
         public string CollectorTypeName { get; set; }
@@ -57,6 +59,8 @@ namespace QuickMon
                 CorrectiveScriptDisabled,
                 CorrectiveScriptOnWarningPath,
                 CorrectiveScriptOnErrorPath,
+                RestorationScriptPath,
+                CorrectiveScriptsOnlyOnStateChange,
                 "False",
                 "",
                 "8181",
@@ -74,6 +78,8 @@ namespace QuickMon
             CorrectiveScriptDisabled = fullEntry.CorrectiveScriptDisabled;
             CorrectiveScriptOnWarningPath = fullEntry.CorrectiveScriptOnWarningPath;
             CorrectiveScriptOnErrorPath = fullEntry.CorrectiveScriptOnErrorPath;
+            RestorationScriptPath = fullEntry.RestorationScriptPath;
+            CorrectiveScriptsOnlyOnStateChange = fullEntry.CorrectiveScriptsOnlyOnStateChange;
             CollectorTypeName = fullEntry.CollectorRegistrationName;
             ProcessChildrenOnWarning = fullEntry.CollectOnParentWarning;
             RepeatAlertInXMin = fullEntry.RepeatAlertInXMin;
