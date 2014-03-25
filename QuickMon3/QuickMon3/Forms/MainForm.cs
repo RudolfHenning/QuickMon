@@ -584,6 +584,7 @@ namespace QuickMon
                     Properties.Settings.Default.LastMonitorPack = monitorPack.MonitorPackPath;
                     monitorPackChanged = false;
                     success = true;
+                    AddMonitorPackFileToRecentList(monitorPack.MonitorPackPath);
                 }
                 else
                 {

@@ -28,6 +28,11 @@ namespace QuickMon
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //if application is launched with qmconfig file set it as last Monitor pack
+            if (args.Length > 0 && System.IO.File.Exists(args[0]) && args[0].ToLower().EndsWith(".qmconfig"))
+                Properties.Settings.Default.LastMonitorPack = args[0];
+
             Application.Run(new MainForm());
         }
 
