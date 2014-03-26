@@ -44,6 +44,7 @@ namespace QuickMon
 
         public string ToConfig()
         {
+            //remember to update CollectorEntry version as well
             string serviceWindows = "";
             string config = string.Format(Properties.Resources.CollectorEntryXml,
                 UniqueId,
@@ -61,9 +62,9 @@ namespace QuickMon
                 CorrectiveScriptOnErrorPath,
                 RestorationScriptPath,
                 CorrectiveScriptsOnlyOnStateChange,
-                "False",
-                "",
-                "8181",
+                "False", //for Remote Agent usage corrective are not supported on host yet.
+                "", //for Remote Agent there is no further nested Remote host.
+                "8181", //for Remote Agent there is no further nested Remote host.
                 ConfigString,
                 serviceWindows);
             return config;

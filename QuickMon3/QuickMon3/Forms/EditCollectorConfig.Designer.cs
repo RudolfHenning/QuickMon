@@ -57,6 +57,10 @@
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
+            this.cmdBrowseForRestorationScript = new System.Windows.Forms.Button();
+            this.txtRestorationScript = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.cmdBrowseForWarningCorrectiveScript = new System.Windows.Forms.Button();
             this.chkCorrectiveScriptDisabled = new System.Windows.Forms.CheckBox();
@@ -95,13 +99,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.cmdBrowseForRestorationScript = new System.Windows.Forms.Button();
-            this.txtRestorationScript = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -434,6 +434,47 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             // 
+            // chkOnlyRunCorrectiveScriptsOnStateChange
+            // 
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(307, 2);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(166, 17);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only run when state change *";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
+            // 
+            // cmdBrowseForRestorationScript
+            // 
+            this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(520, 73);
+            this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
+            this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForRestorationScript.TabIndex = 11;
+            this.cmdBrowseForRestorationScript.Text = "- - -";
+            this.cmdBrowseForRestorationScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForRestorationScript.Click += new System.EventHandler(this.cmdBrowseForRestorationScript_Click);
+            // 
+            // txtRestorationScript
+            // 
+            this.txtRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRestorationScript.Location = new System.Drawing.Point(134, 75);
+            this.txtRestorationScript.Name = "txtRestorationScript";
+            this.txtRestorationScript.Size = new System.Drawing.Size(381, 20);
+            this.txtRestorationScript.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.txtRestorationScript, "Only runs once when state change from Warning/Error to Good");
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(9, 78);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(116, 13);
+            this.label20.TabIndex = 9;
+            this.label20.Text = "Restoration (only once)";
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -462,9 +503,9 @@
             this.chkCorrectiveScriptDisabled.AutoSize = true;
             this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(134, 2);
             this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
-            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(157, 17);
+            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(144, 17);
             this.chkCorrectiveScriptDisabled.TabIndex = 1;
-            this.chkCorrectiveScriptDisabled.Text = "Disable all corrective scripts";
+            this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
             this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
             this.chkCorrectiveScriptDisabled.CheckedChanged += new System.EventHandler(this.chkCorrectiveScriptDisabled_CheckedChanged);
             // 
@@ -473,9 +514,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(9, 26);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 13);
+            this.label7.Size = new System.Drawing.Size(71, 13);
             this.label7.TabIndex = 3;
-            this.label7.Text = "On Warning";
+            this.label7.Text = "On Warning *";
             // 
             // cmdBrowseForErrorCorrectiveScript
             // 
@@ -514,9 +555,9 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(9, 52);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(46, 13);
+            this.label12.Size = new System.Drawing.Size(53, 13);
             this.label12.TabIndex = 6;
-            this.label12.Text = "On Error";
+            this.label12.Text = "On Error *";
             // 
             // groupBox5
             // 
@@ -863,37 +904,6 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // cmdBrowseForRestorationScript
-            // 
-            this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(520, 73);
-            this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
-            this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForRestorationScript.TabIndex = 11;
-            this.cmdBrowseForRestorationScript.Text = "- - -";
-            this.cmdBrowseForRestorationScript.UseVisualStyleBackColor = true;
-            this.cmdBrowseForRestorationScript.Click += new System.EventHandler(this.cmdBrowseForRestorationScript_Click);
-            // 
-            // txtRestorationScript
-            // 
-            this.txtRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRestorationScript.Location = new System.Drawing.Point(134, 75);
-            this.txtRestorationScript.Name = "txtRestorationScript";
-            this.txtRestorationScript.Size = new System.Drawing.Size(381, 20);
-            this.txtRestorationScript.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.txtRestorationScript, "Only runs once when state change from Warning/Error to Good");
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 78);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(116, 13);
-            this.label20.TabIndex = 9;
-            this.label20.Text = "Restoration (only once)";
-            // 
             // lvwEntries
             // 
             this.lvwEntries.AutoResizeColumnEnabled = false;
@@ -926,16 +936,6 @@
             // 
             this.triggerColumnHeader.Text = "Alert triggers";
             this.triggerColumnHeader.Width = 249;
-            // 
-            // chkOnlyRunCorrectiveScriptsOnStateChange
-            // 
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(307, 2);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(159, 17);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only run when state change";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
             // 
             // EditCollectorConfig
             // 

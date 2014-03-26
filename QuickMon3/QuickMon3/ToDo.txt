@@ -6,7 +6,12 @@ BIG addition - Detail views can/must use remote host dataset as source
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 
 -------------------------------------------------------------------------------------------------------
-Add Restoration scripts (to be run when alert state change from warning/error to good only). Could be used to start something that was disabled by corrective scripts.
-Also, add option to have corrective scripts only execute first time error or warning state is triggered
+Add Restoration scripts (to be run when alert state change from warning/error to good only). Could be used to start something that was disabled by corrective scripts.*done
+Also, add option to have corrective scripts only execute first time error or warning state is triggered *done
 
-Fix default file association with qmconfig files (open through Windows Explorer)
+Fix default file association with qmconfig files (open through Windows Explorer) *done
+-------------------------------------------------------------------------------------------------------
+Future advancement - Allow corrective scrpts to run on remote hosts
+Additional to Repeat after/Delay alert with minutes/seconds also have option for number of alerts
+  e.g. Number of Warning/error polls before repeating alert.
+  and  Number of Warning/error polls before raising alert.
