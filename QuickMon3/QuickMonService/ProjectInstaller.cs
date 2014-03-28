@@ -72,6 +72,11 @@ namespace QuickMon
             get { return processInstaller.Password; }
             set { processInstaller.Password = value; }
         }
+        public bool DelayedAutoStart
+        {
+            get { return serviceInstaller.DelayedAutoStart; }
+            set { serviceInstaller.DelayedAutoStart = value; }
+        }
         #endregion
     }
 }

@@ -75,7 +75,7 @@
             // 
             this.freqSecNumericUpDown.Location = new System.Drawing.Point(91, 12);
             this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
-            60,
+            120,
             0,
             0,
             0});

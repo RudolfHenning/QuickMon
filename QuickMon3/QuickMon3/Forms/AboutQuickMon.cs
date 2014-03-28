@@ -75,5 +75,10 @@ namespace QuickMon
         {
             Close();
         }
+
+        private void AboutQuickMon_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Close();
+        }
     }
 }

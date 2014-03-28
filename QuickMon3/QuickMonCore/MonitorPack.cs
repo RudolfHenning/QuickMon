@@ -283,7 +283,6 @@ namespace QuickMon
         #endregion
 
         public string AgentLoadingErrors { get; set; }
-        //public List<RegisteredAgent> RegisteredAgents { get; set; }
         public List<CollectorEntry> Collectors { get; private set; }
         public List<NotifierEntry> Notifiers { get; private set; }
         public CollectorState CurrentState { get; set; }
@@ -543,7 +542,7 @@ namespace QuickMon
             {
                 Level = globalAlertLevel,
                 DetailLevel = DetailLevel.Summary,
-                RaisedFor = null, //"",
+                RaisedFor = null,
                 State = new MonitorState() { RawDetails = "GlobalState", State = CollectorState.NotAvailable }
             });
             sw.Stop();

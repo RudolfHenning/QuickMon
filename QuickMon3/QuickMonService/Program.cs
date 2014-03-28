@@ -51,6 +51,7 @@ namespace QuickMon
                 string logPath = System.IO.Path.Combine(workingPath, "Install.log");
                 ServiceStartMode startmode = ServiceStartMode.Automatic;
                 ServiceAccount account = ServiceAccount.LocalService;
+                bool DelayedAutoStart = false;
                 string username = "";
                 string password = "";
 
@@ -68,6 +69,7 @@ namespace QuickMon
                         username = installerForm.UserName;
                         password = installerForm.Password;
                     }
+                    DelayedAutoStart = installerForm.DelayedStart;
                 }
 
                 Hashtable savedState = new Hashtable();
@@ -78,6 +80,7 @@ namespace QuickMon
                 myProjectInstaller.DisplayName = "QuickMon 3 Service";
                 myProjectInstaller.Description = "QuickMon 3 Monitoring, alerting and Remote Service";
                 myProjectInstaller.StartType = startmode;
+                myProjectInstaller.DelayedAutoStart = DelayedAutoStart;
                 myProjectInstaller.Account = account;
                 if (account == ServiceAccount.User)
                 {

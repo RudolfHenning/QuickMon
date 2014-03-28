@@ -19,6 +19,9 @@ namespace QuickMon
 
         private bool loading = false;
 
+        public int PollingFrequencySec { get; set; }
+        public bool PollingEnabled { get; set; }
+
         private void GeneralSettings_Load(object sender, EventArgs e)
         {
             loading = true;
@@ -28,11 +31,18 @@ namespace QuickMon
             chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
             chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
             chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists("QuickMon 3");
+            if (freqSecNumericUpDown.Maximum >= PollingFrequencySec)
+                freqSecNumericUpDown.Value = PollingFrequencySec;
+            else
+                freqSecNumericUpDown.Value = 10;
+            chkPollingEnabled.Checked = PollingEnabled;
             loading = false;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
+            PollingFrequencySec = (int)freqSecNumericUpDown.Value;
+            PollingEnabled = chkPollingEnabled.Checked;
             Properties.Settings.Default.ConcurrencyLevel = (int)concurrencyLevelNnumericUpDown.Value;
             Properties.Settings.Default.MainFormSnap = chkSnapToDesktop.Checked;
             Properties.Settings.Default.AutosaveChanges = chkAutosaveChanges.Checked;
@@ -89,6 +99,18 @@ namespace QuickMon
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void llblPollingFreq_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SetTimerConfig setTimerConfig = new SetTimerConfig();
+            setTimerConfig.FrequencySec = PollingFrequencySec;
+            setTimerConfig.TimerEnabled = PollingEnabled;
+            if (setTimerConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                PollingFrequencySec = setTimerConfig.FrequencySec;
+                PollingEnabled = setTimerConfig.TimerEnabled;
             }
         }
     }

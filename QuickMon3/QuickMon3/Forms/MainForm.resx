@@ -121,7 +121,7 @@
     <value>17, 17</value>
   </metadata>
   <metadata name="extraToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>800, 49</value>
+    <value>477, 56</value>
   </metadata>
   <metadata name="mainToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 17</value>
@@ -133,26 +133,26 @@
     <value>371, 17</value>
   </metadata>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>522, 17</value>
+    <value>534, 17</value>
   </metadata>
   <metadata name="refreshBackgroundWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>632, 17</value>
+    <value>650, 17</value>
   </metadata>
   <metadata name="saveFileDialogSave.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>813, 17</value>
+    <value>844, 17</value>
   </metadata>
   <metadata name="collectorTreeContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1079, 17</value>
+    <value>1124, 17</value>
   </metadata>
   <metadata name="treeImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>959, 17</value>
+    <value>999, 17</value>
   </metadata>
   <data name="treeImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACO
-        UQAAAk1TRnQBSQFMAgEBDQEAAVABAwFQAQMBGAEAARgBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        UQAAAk1TRnQBSQFMAgEBDQEAAXABAwFwAQMBGAEAARgBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABYAMAAQEBAAEYBgABbP8A/wD/AP8ArgAD+gLzAfQB5wHoAfIB4AHhAfAB3QHeAe8B5gHnAfEC8wH2
         /wAMAALzAfQB7gHvAfcBhwGNAeABRgFPAdEBLAE1AcwBeAGAAdsBygHOAej/AAkAAcoBzwHtAZEBoQHq
         AZQBtwH8AX4BogH1AXIBmAHwAXEBlwHuAX8BpQHzAYkBpwHwAZcBqQHsAdEB2AHwAfEB8gHz+QAC+QH6
@@ -504,14 +504,14 @@
 </value>
   </data>
   <metadata name="notifiersImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>197, 54</value>
+    <value>1540, 17</value>
   </metadata>
   <data name="notifiersImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACG
-        CAAAAk1TRnQBSQFMAgEBAwEAAdgBAgHYAQIBEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CAAAAk1TRnQBSQFMAgEBAwEAAfgBAgH4AQIBEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEYBgABDCcAAYQBggGEAwABhAGCAoQBggGErgABhAGCAYQDAAHGAcMBxgGEAYIChAGC
         AYQDAAGEAYIChAGCAYQMAAFoAaoBxwEAAXwBrwEAAYQBtwEAAYwBvwEAAZUByAEAAZwBzwEAAaIB1QEA
         AaIB1QEAAZwBzwEAAZUByAEAAXcBqnUAAYQBggGEAwABxgHDAsYBwwLGAcMBxgGEAYIChAGCAoQBggKE
@@ -551,13 +551,13 @@
 </value>
   </data>
   <metadata name="notifiersContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 54</value>
+    <value>1345, 17</value>
   </metadata>
   <metadata name="showCollectorContextMenuTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>345, 54</value>
+    <value>17, 56</value>
   </metadata>
   <metadata name="showNotifierContextMenuTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>574, 49</value>
+    <value>251, 56</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>83</value>

@@ -21,7 +21,10 @@ namespace QuickMon
 
         private void SetTimerConfig_Load(object sender, EventArgs e)
         {
-            freqSecNumericUpDown.Value = FrequencySec;
+            if (freqSecNumericUpDown.Maximum >= FrequencySec)
+                freqSecNumericUpDown.Value = FrequencySec;
+            else
+                freqSecNumericUpDown.Value = 10;
             chkEnabled.Checked = TimerEnabled;
         }
 

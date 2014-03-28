@@ -18,12 +18,14 @@ namespace QuickMon
             UniqueId = Guid.NewGuid().ToString();
             RemoteAgentHostPort = 8181;
         }
+
         #region Private vars
         private bool waitAlertTimeErrWarnInMinFlagged = false;
         private DateTime delayErrWarnAlertTime = new DateTime(2000, 1, 1);
         #endregion
 
         #region Properties
+        #region General properties
         public string Name { get; set; }
         /// <summary>
         /// Any unique identifier for this collector entry. Used in collector parent-child relatioships
@@ -34,18 +36,28 @@ namespace QuickMon
         /// </summary>
         public string ParentCollectorId { get; set; }
         /// <summary>
+        /// Any object you wish to link with this instance
+        /// </summary>
+        public object Tag { get; set; }
+        #endregion
+
+        #region Is this collector entry enabled now
+        /// <summary>
+        /// User/config based setting to disable this CollectorEntry
+        /// </summary>
+        public bool Enabled { get; set; }
+        /// <summary>
+        /// List if service windows when collector can operate
+        /// </summary>
+        public ServiceWindows ServiceWindows { get; set; }
+        #endregion
+
+        #region Collector agent related
+        /// <summary>
         /// Is this collector entry just a folder/container
         /// </summary>
         public bool IsFolder { get; set; }
-        public bool CollectOnParentWarning { get; set; }
-
-        public bool CorrectiveScriptDisabled { get; set; }
-        public string CorrectiveScriptOnWarningPath { get; set; }
-        public string CorrectiveScriptOnErrorPath { get; set; }
-        public string RestorationScriptPath { get; set; }
-        public bool CorrectiveScriptsOnlyOnStateChange { get; set; }
-
-        #region Collector agent related
+        public bool CollectOnParentWarning { get; set; } 
         public string CollectorRegistrationName { get; set; }
         public string CollectorRegistrationDisplayName { get; set; }
         public ICollector Collector { get; set; }
@@ -62,15 +74,12 @@ namespace QuickMon
         }
         #endregion
 
-        #region Is this collector entry enabled now
-        /// <summary>
-        /// User/config based setting to disable this CollectorEntry
-        /// </summary>
-        public bool Enabled { get; set; }
-        /// <summary>
-        /// List if service windows when collector can operate
-        /// </summary>
-        public ServiceWindows ServiceWindows { get; set; }
+        #region Corrective Script related
+        public bool CorrectiveScriptDisabled { get; set; }
+        public string CorrectiveScriptOnWarningPath { get; set; }
+        public string CorrectiveScriptOnErrorPath { get; set; }
+        public string RestorationScriptPath { get; set; }
+        public bool CorrectiveScriptsOnlyOnStateChange { get; set; } 
         #endregion
 
         #region Last State update details
@@ -82,7 +91,6 @@ namespace QuickMon
         /// Records the last monitor state
         /// </summary>
         public MonitorState LastMonitorState { get; set; }
-
         /// <summary>
         /// Records when the last state change was
         /// </summary>
@@ -113,11 +121,6 @@ namespace QuickMon
         public DateTime LastGoodState { get; set; }
         #endregion
 
-        /// <summary>
-        /// Any object you wish to link with this instance
-        /// </summary>
-        public object Tag { get; set; }
-
         #region Remote Execution
         public bool EnableRemoteExecute { get; set; }
         public string RemoteAgentHostAddress { get; set; }
@@ -126,23 +129,33 @@ namespace QuickMon
         #endregion
 
         #region Refreshing state and getting alerts
+        /// <summary>
+        /// Queries the agent to get the latest state.
+        /// </summary>
+        /// <returns>True or False but not both I hope</returns>
         public MonitorState GetCurrentState()
         {
-            if (LastMonitorState.State != CollectorState.ConfigurationError)
-            {
-                if (CurrentState == null)
-                    CurrentState = new MonitorState() { State = CollectorState.NotAvailable };
-                if (IsFolder)
+            if (LastMonitorState == null)
+                    LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
+            if (CurrentState == null)
+                CurrentState = new MonitorState() { State = CollectorState.NotAvailable };
+            if (LastMonitorState.State != CollectorState.ConfigurationError)            
+            {                
+                if (!Enabled)
+                {
+                    CurrentState.State = CollectorState.Disabled;
+                }
+                else if (IsFolder)
                 {
                     LastMonitorState = CurrentState;
-                    if (Enabled && ServiceWindows.IsInTimeWindow())
+                    if (ServiceWindows.IsInTimeWindow())
                         CurrentState.State = CollectorState.Folder;
                     else
                         CurrentState.State = CollectorState.Disabled;
                 }
                 else
                 {
-                    if (Enabled && ServiceWindows.IsInTimeWindow())
+                    if (ServiceWindows.IsInTimeWindow())
                     {
                         //*********** Call actual collector GetState **********
                         LastMonitorState = CurrentState;
@@ -172,14 +185,16 @@ namespace QuickMon
             {
                 CurrentState.State = CollectorState.ConfigurationError;
             }
-
             return CurrentState;
         }
-
+        /// <summary>
+        /// Check if the Collector state changed from previous poll
+        /// </summary>
+        /// <returns>True or False, you decide</returns>
         public bool StateChanged()
         {
             bool stateChanged = false;
-            if (IsFolder) //don't bother raising events for folders
+            if (IsFolder || !Enabled) //don't bother raising events for folders
                 stateChanged = false;
             else
             {
@@ -189,6 +204,10 @@ namespace QuickMon
             }
             return stateChanged;
         }
+        /// <summary>
+        /// Check if an Alert must be raised or not.
+        /// </summary>
+        /// <returns>True or False, you decide</returns>
         public bool RaiseAlert()
         {
             bool raiseAlert = false;
@@ -270,6 +289,11 @@ namespace QuickMon
         #endregion
 
         #region Get/Set configuration
+        /// <summary>
+        /// Create a new instance of the collector agent
+        /// </summary>
+        /// <param name="ra">Agent registration type</param>
+        /// <returns>Instance of ICollector</returns>
         public static ICollector CreateCollectorEntry(RegisteredAgent ra)
         {
             if (ra != null)
@@ -291,6 +315,12 @@ namespace QuickMon
         //    else
         //        return null;
         //}
+        /// <summary>
+        /// Create a new instance of the collector agent
+        /// </summary>
+        /// <param name="assemblyPath">Path to Collector agent type</param>
+        /// <param name="className">Class name of Collector agent type</param>
+        /// <returns>Instance of ICollector</returns>
         private static ICollector CreateCollectorEntry(string assemblyPath, string className)
         {
             Assembly collectorEntryAssembly = Assembly.LoadFile(assemblyPath);
@@ -298,12 +328,22 @@ namespace QuickMon
             newCollectorEntry.Name = className.Replace("QuickMon.Collectors.","");
             return newCollectorEntry;
         }
+        /// <summary>
+        /// Create CollectorEntry instance based on configuration string
+        /// </summary>
+        /// <param name="stringCollectorEntry">configuration string</param>
+        /// <returns>CollectorEntry instance</returns>
         public static CollectorEntry FromConfig(string stringCollectorEntry)
         {
             XmlDocument xmlCollectorEntry = new XmlDocument();
             xmlCollectorEntry.LoadXml(stringCollectorEntry);
             return FromConfig(xmlCollectorEntry.DocumentElement);
         }
+        /// <summary>
+        /// Create CollectorEntry instance based on configuration string
+        /// </summary>
+        /// <param name="xmlCollectorEntry">configuration XmlElement instance</param>
+        /// <returns>CollectorEntry instance</returns>
         public static CollectorEntry FromConfig(XmlElement xmlCollectorEntry)
         {
             CollectorEntry collectorEntry = new CollectorEntry();
@@ -362,14 +402,14 @@ namespace QuickMon
             }
             return collectorEntry;
         }
+        /// <summary>
+        /// Export current CollectorEntry config as XML string
+        /// </summary>
+        /// <returns>XML config string</returns>
         public string ToConfig()
         {
-            //remember to update CollectorEntryRequest version as well
-            string collectorConfig = "";
-            if (Collector != null)
-                collectorConfig = Collector.AgentConfig.ToConfig();
-            string config = string.Format(Properties.Resources.CollectorEntryXml,
-                UniqueId,
+            string collectorConfig = Collector == null ? "" : Collector.AgentConfig.ToConfig();
+            string config = ToConfig(UniqueId,
                 Name.EscapeXml(),
                 Enabled,
                 IsFolder,
@@ -384,11 +424,79 @@ namespace QuickMon
                 CorrectiveScriptOnErrorPath,
                 RestorationScriptPath,
                 CorrectiveScriptsOnlyOnStateChange,
-                EnableRemoteExecute.ToString(),
+                EnableRemoteExecute,
                 RemoteAgentHostAddress,
                 RemoteAgentHostPort,
                 collectorConfig,
                 ServiceWindows.ToConfig());
+            return config;
+        }
+        /// <summary>
+        /// Export current CollectorEntry config as XML string
+        /// </summary>
+        /// <param name="uniqueId">Unique id of Collector entry</param>
+        /// <param name="name">Display name of Collector entry</param>
+        /// <param name="enabled">Is Collector entry enables (True/False)</param>
+        /// <param name="isFolder">Is this Collector entry a folder (True/False)</param>
+        /// <param name="collectorRegistrationName">Agent registration name</param>
+        /// <param name="parentCollectorId">Parent  Collector entry id</param>
+        /// <param name="collectOnParentWarning">Show 'child' collector entries be checked if this collector entry returns a warning state</param>
+        /// <param name="repeatAlertInXMin">Repeat warning/error alert if state remains warning/error</param>
+        /// <param name="alertOnceInXMin">Only alert once in specified minutes regardless of state changes</param>
+        /// <param name="delayErrWarnAlertForXSec">Only raise alert if state remains warning/error for specified number of seconds</param>
+        /// <param name="correctiveScriptDisabled">Is corrective scripts disabled? (True/False)</param>
+        /// <param name="correctiveScriptOnWarningPath">Path to script if warning state is reached</param>
+        /// <param name="correctiveScriptOnErrorPath">Path to script if error state is reached</param>
+        /// <param name="restorationScriptPath">Path to script if good state is reached after state was warning/error before</param>
+        /// <param name="correctiveScriptsOnlyOnStateChange"></param>
+        /// <param name="enableRemoteExecute">Is remote agent checking enabled (True/False)</param>
+        /// <param name="remoteAgentHostAddress">Name of the remote agent host</param>
+        /// <param name="remoteAgentHostPort">Port number of remote agent host (default is 8181)</param>
+        /// <param name="collectorConfig">Full xml config string of collector agent</param>
+        /// <param name="serviceWindows">Full xml config of service windows</param>
+        /// <returns>XML config string</returns>
+        public static string ToConfig(string uniqueId,
+                string name,
+                bool enabled,
+                bool isFolder,
+                string collectorRegistrationName,
+                string parentCollectorId,
+                bool collectOnParentWarning,
+                int repeatAlertInXMin,
+                int alertOnceInXMin,
+                int delayErrWarnAlertForXSec,
+                bool correctiveScriptDisabled,
+                string correctiveScriptOnWarningPath,
+                string correctiveScriptOnErrorPath,
+                string restorationScriptPath,
+                bool correctiveScriptsOnlyOnStateChange,
+                bool enableRemoteExecute,
+                string remoteAgentHostAddress,
+                int remoteAgentHostPort,
+                string collectorConfig,
+                string serviceWindows)
+        {
+            string config = string.Format(Properties.Resources.CollectorEntryXml,
+                uniqueId,
+                name,
+                enabled,
+                isFolder,
+                collectorRegistrationName,
+                parentCollectorId,
+                collectOnParentWarning,
+                repeatAlertInXMin,
+                alertOnceInXMin,
+                delayErrWarnAlertForXSec,
+                correctiveScriptDisabled,
+                correctiveScriptOnWarningPath,
+                correctiveScriptOnErrorPath,
+                restorationScriptPath,
+                correctiveScriptsOnlyOnStateChange,
+                enableRemoteExecute,
+                remoteAgentHostAddress,
+                remoteAgentHostPort,
+                collectorConfig,
+                serviceWindows);
             return config;
         }
         #endregion
@@ -454,30 +562,15 @@ namespace QuickMon
         {
             return string.Format("{0} ({1})", Name, CollectorRegistrationName);
         }
+        /// <summary>
+        /// Creates a new copy of the current Collector Entry
+        /// </summary>
+        /// <returns>CollectorEntry instance</returns>
         public CollectorEntry Clone()
         {
             CollectorEntry clone = FromConfig(ToConfig());
-            clone.CollectorRegistrationDisplayName = this.CollectorRegistrationDisplayName;
+            clone.CollectorRegistrationDisplayName = this.CollectorRegistrationDisplayName; //have to add it afterwards since config does not specify it
             return clone;
         }
-        //public CollectorEntry Clone()
-        //{
-        //    CollectorEntry clone = new CollectorEntry();
-        //    clone.Name = Name;
-        //    clone.UniqueId = UniqueId;
-        //    clone.ParentCollectorId = ParentCollectorId;
-        //    clone.IsFolder = IsFolder;
-        //    clone.CollectOnParentWarning = CollectOnParentWarning;
-        //    clone.CollectorRegistrationName = CollectorRegistrationName;
-        //    clone.Collector =  Collector;
-        //    clone.InitialConfiguration = InitialConfiguration;
-        //    clone.Enabled = Enabled;
-        //    clone.ServiceWindows = ServiceWindows;
-        //    clone.CorrectiveScriptDisabled = CorrectiveScriptDisabled;
-        //    clone.CorrectiveScriptOnWarningPath = CorrectiveScriptOnWarningPath;
-        //    clone.CorrectiveScriptOnErrorPath = CorrectiveScriptOnErrorPath;
-        //    clone.Tag = Tag;
-        //    return clone;
-        //}
     }
 }

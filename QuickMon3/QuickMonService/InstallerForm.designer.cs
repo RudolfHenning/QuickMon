@@ -154,7 +154,7 @@
             this.cmdOK.Location = new System.Drawing.Point(186, 197);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 5;
+            this.cmdOK.TabIndex = 6;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -167,7 +167,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(267, 197);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 6;
+            this.cmdCancel.TabIndex = 7;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -204,7 +204,7 @@
             this.chkDelayedStart.Location = new System.Drawing.Point(21, 201);
             this.chkDelayedStart.Name = "chkDelayedStart";
             this.chkDelayedStart.Size = new System.Drawing.Size(88, 17);
-            this.chkDelayedStart.TabIndex = 7;
+            this.chkDelayedStart.TabIndex = 5;
             this.chkDelayedStart.Text = "Delayed start";
             this.chkDelayedStart.UseVisualStyleBackColor = true;
             // 

@@ -68,8 +68,8 @@ namespace QuickMon
             popedContainerForTreeView.cmdLoadRecentMonitorPack.Click += new EventHandler(recentMonitorPackToolStripMenuItem1_Click);
             popedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_ButtonClick);
             popedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
-            popedContainerForTreeView.cmdPollingFrequency.Click += new EventHandler(customPollingFrequencyToolStripMenuItem_Click);
             popedContainerForTreeView.cmdRemoteAgents.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
+            popedContainerForTreeView.cmdAbout.Click += new EventHandler(aboutToolStripMenuItem_Click);
 
             popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
             popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
@@ -90,6 +90,7 @@ namespace QuickMon
             SnappingEnabled = Properties.Settings.Default.MainFormSnap;            
             masterSplitContainer.Panel2Collapsed = true;
             MainForm_Resize(null, null);
+            lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
         }
         private void MainForm_Resize(object sender, EventArgs e)
         {
@@ -106,7 +107,7 @@ namespace QuickMon
                 if (Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                 {
                     LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
-                    System.Threading.Thread.Sleep(100);                    
+                    System.Threading.Thread.Sleep(100);
                     RefreshMonitorPack();
                 }
                 else
@@ -123,10 +124,11 @@ namespace QuickMon
                 }
                 monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            tvwCollectors.Focus();
             mainRefreshTimer.Enabled = true;
         }
 
@@ -175,6 +177,12 @@ namespace QuickMon
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 RefreshMonitorPack();
+            }
+            else if (e.Control && e.KeyCode == Keys.O)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                openMonitorPackToolStripButton_ButtonClick(sender, e);
             }
         }
         #endregion
@@ -252,11 +260,15 @@ namespace QuickMon
         {
             HideCollectorContextMenu();
             GeneralSettings generalSettings = new GeneralSettings();
+            generalSettings.PollingFrequencySec = mainRefreshTimer.Interval / 1000;
+            generalSettings.PollingEnabled = mainRefreshTimer.Enabled;
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                mainRefreshTimer.Interval = generalSettings.PollingFrequencySec * 1000;
+                mainRefreshTimer.Enabled = generalSettings.PollingEnabled;
             }
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
@@ -290,14 +302,15 @@ namespace QuickMon
         private void customPollingFrequencyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            SetTimerConfig setTimerConfig = new SetTimerConfig();
-            setTimerConfig.FrequencySec = (mainRefreshTimer.Interval / 1000);
-            setTimerConfig.TimerEnabled = mainRefreshTimer.Enabled;
-            if (setTimerConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                mainRefreshTimer.Interval = setTimerConfig.FrequencySec * 1000;
-                mainRefreshTimer.Enabled = setTimerConfig.TimerEnabled;
-            }
+            generalSettingsToolStripSplitButton_ButtonClick(sender, e);
+            //SetTimerConfig setTimerConfig = new SetTimerConfig();
+            //setTimerConfig.FrequencySec = (mainRefreshTimer.Interval / 1000);
+            //setTimerConfig.TimerEnabled = mainRefreshTimer.Enabled;
+            //if (setTimerConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    mainRefreshTimer.Interval = setTimerConfig.FrequencySec * 1000;
+            //    mainRefreshTimer.Enabled = setTimerConfig.TimerEnabled;
+            //}
         }
         private void closeAllChildWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1806,257 +1819,6 @@ namespace QuickMon
         {
             SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
         }
-        #endregion
-
-        #region Testing
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 0)
-        //    {
-        //        Management.EditCollectorEntry editCollectorEntry = new Management.EditCollectorEntry();
-        //        editCollectorEntry.SelectedEntry = monitorPack.Collectors[0];
-        //        editCollectorEntry.AllowCollectorChange = false;
-        //        if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            if (!editCollectorEntry.SelectedEntry.IsFolder)
-        //                editCollectorEntry.SelectedEntry.RefreshDetailsIfOpen();
-        //        }
-        //    }
-        //}
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 0)
-        //    {
-        //        //lblDetails.Text = monitorPack.Collectors[0].GetCurrentState().State.ToString();
-        //    }
-        //}
-        //private void button4_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 1)
-        //    {
-        //        Management.EditCollectorEntry editCollectorEntry = new Management.EditCollectorEntry();
-        //        editCollectorEntry.SelectedEntry = monitorPack.Collectors[1];
-        //        editCollectorEntry.AllowCollectorChange = false;
-        //        if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            if (!editCollectorEntry.SelectedEntry.IsFolder)
-        //                editCollectorEntry.SelectedEntry.RefreshDetailsIfOpen();
-        //        }
-        //    }
-        //}
-        //private void button3_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 1)
-        //    {
-        //        //lblDetails.Text = monitorPack.Collectors[1].GetCurrentState().State.ToString();
-        //    }
-        //}
-        //private void cmdView_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 0)
-        //    {
-        //        monitorPack.Collectors[0].ShowDetails();
-        //    }
-        //}
-        //private void button5_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 1)
-        //    {
-        //        monitorPack.Collectors[1].ShowDetails();
-        //    }
-        //}
-        //private void cmdCloseAll_Click(object sender, EventArgs e)
-        //{
-        //    foreach (CollectorEntry entry in monitorPack.Collectors)
-        //    {
-        //        entry.CloseDetails();
-        //    }
-        //    foreach (NotifierEntry entry in monitorPack.Notifiers)
-        //    {
-        //        entry.CloseViewer();
-        //    }
-        //}
-        //private void button6_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Notifiers.Count > 0)
-        //    {
-        //        Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
-        //        editNotifierEntry.SelectedEntry = monitorPack.Notifiers[0];
-        //        if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            monitorPack.Notifiers[0].CloseViewer();
-        //           // lblDetails.Text = editNotifierEntry.SelectedEntry.Notifier.AgentConfig.ToConfig();
-        //        }
-        //    }
-        //}
-        //private void button7_Click(object sender, EventArgs e)
-        //{
-        //    Management.EditCollectorEntry editCollectorEntry = new Management.EditCollectorEntry();
-        //    editCollectorEntry.AllowCollectorChange = true;
-        //    if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //        //lblDetails.Text = editCollectorEntry.SelectedEntry.Collector.AgentConfig.ToConfig();
-        //    }
-        //}
-        //private void button8_Click(object sender, EventArgs e)
-        //{
-        //    MessageBox.Show(monitorPack.RefreshStates().ToString());
-        //}
-        //private void button9_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Notifiers.Count > 0)
-        //    {
-        //        if (monitorPack.Notifiers[0].Notifier.HasViewer)
-        //        {
-        //            monitorPack.Notifiers[0].ShowViewer();
-        //        }
-        //    }
-        //}
-        //private void button10_Click(object sender, EventArgs e)
-        //{
-        //    monitorPack.RefreshStates();
-        //    SetAppIcon(monitorPack.CurrentState);
-        //}
-        //private void button11_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 0)
-        //    {
-        //        monitorPack.Collectors[0].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Good\" /></config>");
-        //    }
-        //}
-        //private void button12_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 0)
-        //    {
-        //        monitorPack.Collectors[0].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Warning\" /></config>");
-        //    }
-        //}
-        //private void button13_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 0)
-        //    {
-        //        monitorPack.Collectors[0].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Error\" /></config>");
-        //    }
-        //}
-        //private void button16_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 1)
-        //    {
-        //        monitorPack.Collectors[1].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Good\" /></config>");
-        //    }
-        //}
-        //private void button15_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 1)
-        //    {
-        //        monitorPack.Collectors[1].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Warning\" /></config>");
-        //    }
-        //}
-        //private void button14_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 1)
-        //    {
-        //        monitorPack.Collectors[1].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Error\" /></config>");
-        //    }
-        //}
-        //private void button22_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 2)
-        //    {
-        //        Management.EditCollectorEntry editCollectorEntry = new Management.EditCollectorEntry();
-        //        editCollectorEntry.SelectedEntry = monitorPack.Collectors[2];
-        //        editCollectorEntry.AllowCollectorChange = false;
-        //        if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            if (!editCollectorEntry.SelectedEntry.IsFolder)
-        //                editCollectorEntry.SelectedEntry.RefreshDetailsIfOpen();
-        //        }
-        //    }
-        //}
-        //private void button21_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 2)
-        //    {
-        //        //lblDetails.Text = monitorPack.Collectors[2].GetCurrentState().State.ToString();
-        //    }
-        //}
-        //private void button20_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 2)
-        //    {
-        //        monitorPack.Collectors[2].ShowDetails();
-        //    }
-        //}
-        //private void button19_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 2)
-        //    {
-        //        monitorPack.Collectors[2].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Good\" /></config>");
-        //    }
-        //}
-        //private void button18_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 2)
-        //    {
-        //        monitorPack.Collectors[2].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Warning\" /></config>");
-        //    }
-        //}
-        //private void button17_Click(object sender, EventArgs e)
-        //{
-        //    if (monitorPack.Collectors.Count > 2)
-        //    {
-        //        monitorPack.Collectors[2].Collector.SetConfigurationFromXmlString("<config><loopback returnState=\"Error\" /></config>");
-        //    }
-        //} 
-        //private void button23_Click(object sender, EventArgs e)
-        //{
-        //    string testConfig = "<monitorPack version=\"3.0\" name=\"Blank\" enabled=\"True\" defaultViewerNotifier=\"\" runCorrectiveScripts=\"False\">" +
-        //          "<collectorEntries>" +
-
-        //          "<collectorEntry name=\"Test\"  uniqueID=\"ffd85fc7-0f02-4b22-b390-a0b98d886500\" " +
-        //          "enabled=\"True\" isFolder=\"False\" collector=\"LoopbackCollector\" " +
-        //          "collectOnParentWarning=\"False\" repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
-        //          "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\">" +
-        //          "<config><loopback returnState=\"Good\" /></config>" +
-        //          "<serviceWindows></serviceWindows>" +
-        //          "</collectorEntry>" +
-
-        //          "<collectorEntry name=\"Test 2\"  uniqueID=\"ffd85fc7-0f02-4b22-b390-a0b98d886501\" " +
-        //          "enabled=\"True\" isFolder=\"False\" collector=\"LoopbackCollector\" " +
-        //          "collectOnParentWarning=\"False\" repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
-        //          "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\">" +
-        //          "<config><loopback returnState=\"Good\" /></config>" +
-        //          "<serviceWindows></serviceWindows>" +
-        //          "</collectorEntry>" +
-
-        //          "<collectorEntry name=\"Test 3\"  uniqueID=\"ffd85fc7-0f02-4b22-b390-a0b98d886502\" " +
-        //          "enabled=\"True\" isFolder=\"False\" collector=\"LoopbackCollector\" " +
-        //          "collectOnParentWarning=\"False\" repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
-        //          "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\">" +
-        //          "<config><loopback returnState=\"Good\" /></config>" +
-        //          "<serviceWindows></serviceWindows>" +
-        //          "</collectorEntry>" +
-
-        //          "<collectorEntry name=\"Ping test\"  uniqueID=\"ffd85fc7-0f02-4b22-b390-a0b98d886503\" " +
-        //          "enabled=\"True\" isFolder=\"False\" collector=\"PingCollector\" " +
-        //          "collectOnParentWarning=\"False\" repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
-        //          "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\">" +
-        //          "<config><hosts><host hostName=\"rudolfc2d\" description=\"\" maxTime=\"100\" timeOut=\"5000\" />	</hosts></config>" +
-        //          "<serviceWindows></serviceWindows>" +
-        //          "</collectorEntry>" +
-
-        //          "</collectorEntries>" +
-        //          "<notifierEntries>" +
-        //          "<notifierEntry name=\"Test\" notifier=\"InMemoryNotifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\">" +
-        //          "<config>	<inMemory maxEntryCount=\"15\" /></config>" +
-        //          "<collectors />" +
-        //          "</notifierEntry>" +
-        //          "</notifierEntries>" +
-        //          "</monitorPack>";
-        //    System.IO.File.WriteAllText(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon", "QuickMon3Test.qmconfig"), testConfig);
-        //    //System.IO.File.WriteAllText(@"C:\Users\rhenning.SHOPRITE\AppData\Local\Hen IT\QuickMon\QuickMon3Test.qmconfig", testConfig);
-        //    monitorPack.LoadXml(testConfig);
-        //}
         #endregion
     }
 }

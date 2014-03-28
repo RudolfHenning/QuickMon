@@ -1,17 +1,26 @@
-﻿Collector (Entry) must support method to indicate if config is 'complete'/valid so Edit window can enable/disable OK button
-Variable names like %Server% in things like performance counters, Services etc - CollectorEntry add property for 'ServerName'
-Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
-Add some category/Type for Collector agent (class) so it can be grouped in the 'Select Collector type list'
-BIG addition - Detail views can/must use remote host dataset as source 
-Some way to add predefined sets of collector settings (like set of perf counters for system health)
-
--------------------------------------------------------------------------------------------------------
-Add Restoration scripts (to be run when alert state change from warning/error to good only). Could be used to start something that was disabled by corrective scripts.*done
-Also, add option to have corrective scripts only execute first time error or warning state is triggered *done
-
-Fix default file association with qmconfig files (open through Windows Explorer) *done
--------------------------------------------------------------------------------------------------------
-Future advancement - Allow corrective scrpts to run on remote hosts
+﻿CHANGES (considdered possible for next release)
 Additional to Repeat after/Delay alert with minutes/seconds also have option for number of alerts
   e.g. Number of Warning/error polls before repeating alert.
   and  Number of Warning/error polls before raising alert.
+
+--------------------------------------------------------------------------------------------------------
+BIG CHANGES (somewhere in future)
+Some way to add predefined sets of collector settings (like set of perf counters for system health)
+Detail views can/must use remote host dataset as source 
+Future advancement - Allow corrective scrpts to run on remote hosts
+Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)
+
+--------------------------------------------------------------------------------------------------------
+POSSIBLE CHANGES (might be just nice to have)
+Variable names like %Server% in things like performance counters, Services etc - CollectorEntry add property for 'ServerName'
+Collector (Entry) must support method to indicate if config is 'complete'/valid so Edit window can enable/disable OK button
+Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
+Add some category/Type for Collector agent (class) so it can be grouped in the 'Select Collector type list'
+
+-------------------------------------------------------------------------------------------------------
+DONE CHANGES
+Add Restoration scripts (to be run when alert state change from warning/error to good only). Could be used to start something that was disabled by corrective scripts.*done
+Also, add option to have corrective scripts only execute first time error or warning state is triggered *done
+Fix default file association with qmconfig files (open through Windows Explorer) *done
+-------------------------------------------------------------------------------------------------------
+

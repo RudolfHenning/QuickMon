@@ -8,12 +8,15 @@ namespace QuickMon
     [Serializable]
     public class CollectorEntryRequest
     {
+        #region Properties
         public string Name { get; set; }
         public string UniqueId { get; set; }
         public string ParentCollectorId { get; set; }
         public bool IsFolder { get; set; }
         public bool Enabled { get; set; }
         public bool ProcessChildrenOnWarning { get; set; }
+        public string CollectorTypeName { get; set; }
+        public string ConfigString { get; set; }
 
         #region CorrectiveScripts
         public bool CorrectiveScriptDisabled { get; set; }
@@ -22,9 +25,6 @@ namespace QuickMon
         public string RestorationScriptPath { get; set; }
         public bool CorrectiveScriptsOnlyOnStateChange { get; set; }
         #endregion
-
-        public string CollectorTypeName { get; set; }
-        public string ConfigString { get; set; }
 
         #region Alerting
         /// <summary>
@@ -40,14 +40,12 @@ namespace QuickMon
         /// After each alert is generated this time gets updated
         /// </summary>
         public int DelayErrWarnAlertForXSec { get; set; }
+        #endregion 
         #endregion
 
         public string ToConfig()
         {
-            //remember to update CollectorEntry version as well
-            string serviceWindows = "";
-            string config = string.Format(Properties.Resources.CollectorEntryXml,
-                UniqueId,
+            return CollectorEntry.ToConfig(UniqueId,
                 Name,
                 Enabled,
                 IsFolder,
@@ -62,12 +60,12 @@ namespace QuickMon
                 CorrectiveScriptOnErrorPath,
                 RestorationScriptPath,
                 CorrectiveScriptsOnlyOnStateChange,
-                "False", //for Remote Agent usage corrective are not supported on host yet.
+                false, //for Remote Agent usage corrective are not supported on host yet.
                 "", //for Remote Agent there is no further nested Remote host.
-                "8181", //for Remote Agent there is no further nested Remote host.
+                8181, //for Remote Agent there is no further nested Remote host.
                 ConfigString,
-                serviceWindows);
-            return config;
+                ""  //No service windows for remote agent
+                );
         }
         public void FromCollectorEntry(CollectorEntry fullEntry)
         {

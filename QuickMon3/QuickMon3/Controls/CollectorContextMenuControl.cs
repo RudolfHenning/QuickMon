@@ -15,5 +15,10 @@ namespace QuickMon.Controls
         {
             InitializeComponent();
         }
+
+        private void CollectorContextMenuControl_Load(object sender, EventArgs e)
+        {
+     
+        }
     }
 }
