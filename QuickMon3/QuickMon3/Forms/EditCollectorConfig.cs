@@ -468,7 +468,7 @@ namespace QuickMon.Forms
             SelectedEntry.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
             SelectedEntry.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
             SelectedEntry.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
-            if (SelectedEntry.RemoteAgentHostAddress.Length > 0)
+            if (chkRemoteAgentEnabled.Checked && SelectedEntry.RemoteAgentHostAddress.Length > 0)
             {
                 if ((from string rh in Properties.Settings.Default.KnownRemoteHosts
                          where rh.ToLower() == SelectedEntry.RemoteAgentHostAddress.ToLower() + ":" + SelectedEntry.RemoteAgentHostPort.ToString()

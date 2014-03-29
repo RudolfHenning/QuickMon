@@ -24,6 +24,10 @@ namespace QuickMon
 
             if (Properties.Settings.Default.RecentQMConfigFiles == null)
                 Properties.Settings.Default.RecentQMConfigFiles = new System.Collections.Specialized.StringCollection();
+            if (Properties.Settings.Default.KnownRemoteHosts == null)
+            {
+                Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
+            }
 
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             Application.EnableVisualStyles();

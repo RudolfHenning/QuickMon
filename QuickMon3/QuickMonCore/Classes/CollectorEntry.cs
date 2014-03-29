@@ -408,7 +408,7 @@ namespace QuickMon
         /// <returns>XML config string</returns>
         public string ToConfig()
         {
-            string collectorConfig = Collector == null ? "" : Collector.AgentConfig.ToConfig();
+            string collectorConfig = Collector == null ? InitialConfiguration : Collector.AgentConfig.ToConfig();
             string config = ToConfig(UniqueId,
                 Name.EscapeXml(),
                 Enabled,
