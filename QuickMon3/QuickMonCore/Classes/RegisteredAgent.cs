@@ -24,6 +24,12 @@ namespace QuickMon
 
     public static class RegisteredAgentCache
     {
+        private static string agentsPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string AgentsPath
+        {
+            get { return agentsPath; }
+            set { agentsPath = value; }
+        }
         private static bool cacheLoaded = false;
         private static List<RegisteredAgent> agents = new List<RegisteredAgent>();
         public static List<RegisteredAgent> Agents
@@ -32,7 +38,7 @@ namespace QuickMon
             {
                 if (!cacheLoaded)
                 {
-                    agents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+                    agents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(agentsPath);
                     cacheLoaded = true;
                 }
                 return agents;
