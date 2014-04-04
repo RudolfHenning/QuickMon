@@ -44,5 +44,12 @@ namespace QuickMon
                 return agents;
             }
         }
+        public static void LoadAgentsOverride(string agentsPath)
+        {
+            cacheLoaded = false;
+            AgentsPath = agentsPath;
+            agents = new List<RegisteredAgent>();
+            agents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(agentsPath);
+        }
     }
 }
