@@ -34,6 +34,7 @@
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkImportConfigAfterSelect = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -94,11 +95,24 @@
             this.detailsColumnHeader.Text = "Details";
             this.detailsColumnHeader.Width = 341;
             // 
+            // chkImportConfigAfterSelect
+            // 
+            this.chkImportConfigAfterSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkImportConfigAfterSelect.AutoSize = true;
+            this.chkImportConfigAfterSelect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkImportConfigAfterSelect.Location = new System.Drawing.Point(12, 350);
+            this.chkImportConfigAfterSelect.Name = "chkImportConfigAfterSelect";
+            this.chkImportConfigAfterSelect.Size = new System.Drawing.Size(268, 17);
+            this.chkImportConfigAfterSelect.TabIndex = 3;
+            this.chkImportConfigAfterSelect.Text = "Show custom config after selection (Import possible)";
+            this.chkImportConfigAfterSelect.UseVisualStyleBackColor = true;
+            // 
             // AgentTypeSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 378);
+            this.Controls.Add(this.chkImportConfigAfterSelect);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -109,6 +123,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agent Type Select";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -119,5 +134,6 @@
         private ListViewEx lvwAgentType;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ColumnHeader detailsColumnHeader;
+        private System.Windows.Forms.CheckBox chkImportConfigAfterSelect;
     }
 }

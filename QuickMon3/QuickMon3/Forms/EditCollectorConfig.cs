@@ -33,6 +33,7 @@ namespace QuickMon.Forms
 
         public CollectorEntry SelectedEntry { get; set; }
         public bool LaunchAddEntry { get; set; }
+        public bool ImportConfigAfterSelect { get; set; }
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
         {            
@@ -87,6 +88,10 @@ namespace QuickMon.Forms
                     lvwEntries.Items[0].Selected = true;
                     editCollectorConfigEntryToolStripButton_Click(null, null);
                 }
+            }
+            else if (ImportConfigAfterSelect && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
+            {
+                llblRawEdit_LinkClicked(null, null);
             }
             try
             {

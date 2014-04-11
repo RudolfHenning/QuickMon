@@ -17,6 +17,7 @@ namespace QuickMon.Forms
             InitializeComponent();
         }
         public RegisteredAgent SelectedAgent { get; set; }
+        public bool ImportConfigAfterSelect { get; set; }
 
         public DialogResult ShowNotifierSelection(string currentNotifierRegistrationName)
         {
@@ -89,6 +90,7 @@ namespace QuickMon.Forms
             if (lvwAgentType.SelectedItems.Count ==1)
             {
                 SelectedAgent = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
+                ImportConfigAfterSelect = chkImportConfigAfterSelect.Checked;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }

@@ -118,18 +118,30 @@ namespace QuickMon
                     }
                 }
             };
+            Graphics g = f.CreateGraphics();
+            int widest = 400;
             foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
                                          orderby s
                                          select s))
             {
                 lb.Items.Add(filePath);
+                SizeF sz = g.MeasureString(filePath, lb.Font);
+                if (sz.Width > widest)
+                    widest = (int)sz.Width;
             }
+            
+
             f.Controls.Add(lb);
             f.Controls.Add(cmdOK);
             f.Controls.Add(cmdCancel);
 
             f.ResumeLayout(false);
             f.PerformLayout();
+
+            if (widest + 50 < Screen.PrimaryScreen.WorkingArea.Width)
+            {
+                f.Width = widest + 50;
+            }
 
             if (f.ShowDialog() == DialogResult.OK)
             {
