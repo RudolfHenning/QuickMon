@@ -147,6 +147,10 @@ namespace QuickMon
 
                 toolStripStatusLabelStatus.Text = "Shutting down...";
                 Application.DoEvents();
+                if (mainRefreshTimer.Enabled)
+                {
+                    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
+                }
                 mainRefreshTimer.Enabled = false;
                 CloseAllDetailWindows();
                 if (monitorPack.BusyPolling)
@@ -165,10 +169,6 @@ namespace QuickMon
                 {
                     Properties.Settings.Default.MainWindowLocation = this.Location;
                     Properties.Settings.Default.MainWindowSize = this.Size;
-                }
-                if (mainRefreshTimer.Enabled)
-                {
-                    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
                 }
                 Properties.Settings.Default.Save();
             }
