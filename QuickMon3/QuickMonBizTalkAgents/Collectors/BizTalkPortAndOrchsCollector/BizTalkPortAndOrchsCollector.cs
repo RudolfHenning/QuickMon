@@ -8,7 +8,7 @@ using QuickMon.Collectors;
 
 namespace QuickMon
 {
-    [Description("BizTalk Port & Orchestration Collector")]
+    [Description("BizTalk Port & Orchestration Collector"), Category("BizTalk")]
     public class BizTalkPortAndOrchsCollector : CollectorBase
     {
         public BizTalkPortAndOrchsCollector()

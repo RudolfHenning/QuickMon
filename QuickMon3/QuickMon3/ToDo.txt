@@ -1,8 +1,4 @@
 ﻿CHANGES (considdered possible for next release)
-BUG: Check out the drag & droping/sorting of nodes in the treeview. Not working properly if node is last child node and parent is also a last child. *Worked on
-Additional to Repeat after/Delay alert with minutes/seconds also have option for number of alerts
-  e.g. Number of Warning/error polls before repeating alert.
-  and  Number of Warning/error polls before raising alert.
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -19,7 +15,6 @@ POSSIBLE CHANGES (might be just nice to have)
 Variable names like %Server% in things like performance counters, Services etc - CollectorEntry add property for 'ServerName'
 Collector (Entry) must support method to indicate if config is 'complete'/valid so Edit window can enable/disable OK button
 Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
-Add some category/Type for Collector agent (class) so it can be grouped in the 'Select Collector type list'
 Add some way Collector/Agent types have its own Icon that can be displayed in select collector type window.
 
 -------------------------------------------------------------------------------------------------------
@@ -30,5 +25,10 @@ BUG: Fix default file association with qmconfig files (open through Windows Expl
 BUG: Polling frequency of Windows app does not get saved on exit *done
 On main window have shortcut/menu/button to load 'Recent list' (perhaps like service monitor dropdown but only visible when button is clicked) *done
 On select collector/notifier type window have option to go to 'Import from existing config' as well (default is to bring up new config window) *done
+BUG: Check out the drag & droping/sorting of nodes in the treeview. Not working properly if node is last child node and parent is also a last child. *done
+Additional to Repeat after/Delay alert with minutes/seconds also have option for number of alerts *done
+  e.g. Number of Warning/error polls before repeating alert.
+  and  Number of Warning/error polls before raising alert.
+Add some category/Type for Collector agent (class) so it can be grouped in the 'Select Collector type list' *done
 -------------------------------------------------------------------------------------------------------
 

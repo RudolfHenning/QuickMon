@@ -62,32 +62,40 @@ namespace QuickMon.Notifiers
 
         public void RefreshDisplayData()
         {
-            if (notifierInstance != null && notifierInstance.Alerts != null && notifierInstance.Alerts.Count > 0)
+            if (notifierInstance != null && notifierInstance.Alerts != null)
             {
-                if (lastAlert != null && lastAlert.RaisedTime == notifierInstance.Alerts[notifierInstance.Alerts.Count - 1].RaisedTime)
-                    return;
-                else if (notifierInstance.Alerts.Count > 0)
-                    lastAlert = notifierInstance.Alerts[notifierInstance.Alerts.Count - 1];
-
                 RTFBuilder rtfBuilder = new RTFBuilder();
-                for (int i = notifierInstance.Alerts.Count - 1; i >= 0; i--)
+                if (notifierInstance.Alerts.Count == 0)
                 {
-                    AlertRaised alertRaised = notifierInstance.Alerts[i];
+                    
+                }
+                else
+                {
+                    if (lastAlert != null && lastAlert.RaisedTime == notifierInstance.Alerts[notifierInstance.Alerts.Count - 1].RaisedTime)
+                        return;
+                    else if (notifierInstance.Alerts.Count > 0)
+                        lastAlert = notifierInstance.Alerts[notifierInstance.Alerts.Count - 1];
 
-                    rtfBuilder.Append(string.Format("{0}:", alertRaised.RaisedTime.ToString("yyyy-MM-dd HH:mm:ss"))).FontStyle(FontStyle.Bold);
-                    if (alertRaised.Level == AlertLevel.Error)
+                    
+                    for (int i = notifierInstance.Alerts.Count - 1; i >= 0; i--)
                     {
-                        rtfBuilder.ForeColor(Color.DarkRed);
-                    }
-                    else if (alertRaised.Level == AlertLevel.Warning)
-                    {
-                        rtfBuilder.ForeColor(Color.DarkOrange);
-                    }
-                    rtfBuilder.Append(string.Format(" {0}", alertRaised.Level));
-                    rtfBuilder.FontStyle(FontStyle.Regular).ForeColor(SystemColors.ControlText);
+                        AlertRaised alertRaised = notifierInstance.Alerts[i];
 
-                    rtfBuilder.Append(string.Format("\t{0}\r\n{1}", alertRaised.RaisedFor, alertRaised.State.RawDetails));
-                    rtfBuilder.AppendLine();
+                        rtfBuilder.Append(string.Format("{0}:", alertRaised.RaisedTime.ToString("yyyy-MM-dd HH:mm:ss"))).FontStyle(FontStyle.Bold);
+                        if (alertRaised.Level == AlertLevel.Error)
+                        {
+                            rtfBuilder.ForeColor(Color.DarkRed);
+                        }
+                        else if (alertRaised.Level == AlertLevel.Warning)
+                        {
+                            rtfBuilder.ForeColor(Color.DarkOrange);
+                        }
+                        rtfBuilder.Append(string.Format(" {0}", alertRaised.Level));
+                        rtfBuilder.FontStyle(FontStyle.Regular).ForeColor(SystemColors.ControlText);
+
+                        rtfBuilder.Append(string.Format("\t{0}\r\n{1}", alertRaised.RaisedFor, alertRaised.State.RawDetails));
+                        rtfBuilder.AppendLine();
+                    }
                 }
                 alertsRichTextBox.Rtf = rtfBuilder.ToString();
             }

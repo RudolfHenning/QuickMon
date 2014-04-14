@@ -13,18 +13,26 @@ namespace HenIT.ShellTools
         #region Desktop shortcut
         public static bool DesktopShortCutExists(string fileName = "")
         {
-            if (fileName == null || fileName.Length == 0)
-                fileName = System.Reflection.Assembly.GetEntryAssembly().Location;
+            try
+            {
+                if (fileName == null || fileName.Length == 0)
+                    fileName = System.Reflection.Assembly.GetEntryAssembly().Location;
 
-            string fileNamelnk = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), System.IO.Path.GetFileNameWithoutExtension(fileName) + ".lnk");
-            string fileNameurl = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), System.IO.Path.GetFileNameWithoutExtension(fileName) + ".url");
+                string fileNamelnk = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), System.IO.Path.GetFileNameWithoutExtension(fileName) + ".lnk");
+                string fileNameurl = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), System.IO.Path.GetFileNameWithoutExtension(fileName) + ".url");
 
-            if (System.IO.File.Exists(fileNamelnk))
-                return true;
-            else if (System.IO.File.Exists(fileNameurl))
-                return true;
-            else
-                return false;
+                if (System.IO.File.Exists(fileNamelnk))
+                    return true;
+                else if (System.IO.File.Exists(fileNameurl))
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
+            return false;
         }
         public static void CreateDesktopShortcut(string exeFileName = "", string linkName = "")
         {
@@ -78,31 +86,38 @@ namespace HenIT.ShellTools
         public static bool PinnedToTaskbar(string filePath = "")
         {
             bool pinnedAlready = false;
-            if (filePath == null || filePath.Length == 0)
-                filePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
-            // create the shell application object
-            Shell shellApplication = new Shell();
-
-            string path = Path.GetDirectoryName(filePath);
-            string fileName = Path.GetFileName(filePath);
-
-            Folder directory = shellApplication.NameSpace(path);
-            FolderItem link = directory.ParseName(fileName);
-
-            FolderItemVerbs verbs = link.Verbs();
-            for (int i = 0; i < verbs.Count; i++)
+            try
             {
-                FolderItemVerb verb = verbs.Item(i);
-                string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
+                if (filePath == null || filePath.Length == 0)
+                    filePath = System.Reflection.Assembly.GetEntryAssembly().Location;
+                if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
+                // create the shell application object
+                Shell shellApplication = new Shell();
 
-                if ((verbName.Equals("unpin from taskbar")))
+                string path = Path.GetDirectoryName(filePath);
+                string fileName = Path.GetFileName(filePath);
+
+                Folder directory = shellApplication.NameSpace(path);
+                FolderItem link = directory.ParseName(fileName);
+
+                FolderItemVerbs verbs = link.Verbs();
+                for (int i = 0; i < verbs.Count; i++)
                 {
-                    pinnedAlready = true;
-                }
-            }
+                    FolderItemVerb verb = verbs.Item(i);
+                    string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
 
-            shellApplication = null;
+                    if ((verbName.Equals("unpin from taskbar")))
+                    {
+                        pinnedAlready = true;
+                    }
+                }
+
+                shellApplication = null;
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
             return pinnedAlready;
         }
         private static void PinUnpinTaskBar(string filePath, bool pin)
@@ -150,31 +165,37 @@ namespace HenIT.ShellTools
         public static bool PinnedToStartMenu(string filePath = "")
         {
             bool pinnedAlready = false;
-            if (filePath == null || filePath.Length == 0)
-                filePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
-            // create the shell application object
-            Shell shellApplication = new Shell();
-
-            string path = Path.GetDirectoryName(filePath);
-            string fileName = Path.GetFileName(filePath);
-
-            Folder directory = shellApplication.NameSpace(path);
-            FolderItem link = directory.ParseName(fileName);
-
-            FolderItemVerbs verbs = link.Verbs();
-            for (int i = 0; i < verbs.Count; i++)
+            try
             {
-                FolderItemVerb verb = verbs.Item(i);
-                string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
+                if (filePath == null || filePath.Length == 0)
+                    filePath = System.Reflection.Assembly.GetEntryAssembly().Location;
+                if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
+                // create the shell application object
+                Shell shellApplication = new Shell();
 
-                if ((verbName.Equals("unpin from start menu")))
+                string path = Path.GetDirectoryName(filePath);
+                string fileName = Path.GetFileName(filePath);
+
+                Folder directory = shellApplication.NameSpace(path);
+                FolderItem link = directory.ParseName(fileName);
+
+                FolderItemVerbs verbs = link.Verbs();
+                for (int i = 0; i < verbs.Count; i++)
                 {
-                    pinnedAlready = true;
-                }
-            }
+                    FolderItemVerb verb = verbs.Item(i);
+                    string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
 
-            shellApplication = null;
+                    if ((verbName.Equals("unpin from start menu")))
+                    {
+                        pinnedAlready = true;
+                    }
+                }
+                shellApplication = null;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
             return pinnedAlready;
         }
         private static void PinUnpinStartMenu(string filePath, bool pin)

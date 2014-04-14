@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Loopback Collector")]
+    [Description("Loopback Collector"), Category("Test")]
     public class LoopbackCollector : CollectorBase
     {
         public LoopbackCollector()

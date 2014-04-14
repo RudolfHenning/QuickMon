@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("Registry Query Collector")]
+    [Description("Registry Query Collector"), Category("General")]
     public class RegistryQueryCollector : CollectorBase
     {
         public RegistryQueryCollector()

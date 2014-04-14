@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("BizTalk Suspended Counts Collector")]
+    [Description("BizTalk Suspended Counts Collector"), Category("BizTalk")]
     public class BizTalkSuspendedCountCollector : CollectorBase
     {
         public BizTalkSuspendedCountCollector()

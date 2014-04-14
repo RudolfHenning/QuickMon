@@ -51,10 +51,27 @@ namespace QuickMon.Forms
             lvwAgentType.AutoResizeColumnIndex = 1;
             lvwAgentType.AutoResizeColumnEnabled = true;
             lvwAgentType.Items.Clear();
+            lvwAgentType.Groups.Clear();
+            
+            ListViewGroup generalGroup = new ListViewGroup("General");
+            lvwAgentType.Groups.Add(generalGroup);
+            foreach(string categoryName in (from a in RegisteredAgentCache.Agents
+                                            where a.IsCollector && a.CategoryName != "Test"
+                                            group a by a.CategoryName into g
+                                            select g.Key))
+            {
+                lvwAgentType.Groups.Add(new ListViewGroup(categoryName));
+            }
+            ListViewGroup folderGroup = new ListViewGroup("Folder");
+            lvwAgentType.Groups.Add(folderGroup);
+            ListViewGroup testGroup = new ListViewGroup("Test");
+            lvwAgentType.Groups.Add(testGroup);
 
             RegisteredAgent folder = new RegisteredAgent() { ClassName = "QuickMon.Collectors.Folder", Name = "Folder", IsCollector = true, DisplayName = "Folder" };
             ListViewItem lvi = new ListViewItem("Folder");
-            lvi.SubItems.Add("");
+            lvi.Group = folderGroup;
+            lvi.ImageIndex = 1;
+            lvi.SubItems.Add("Container for child objects");
             lvi.Tag = folder;
             lvwAgentType.Items.Add(lvi);
             if (currentCollectorRegistrationName == "Folder")
@@ -65,12 +82,23 @@ namespace QuickMon.Forms
                                             orderby a.Name
                                             select a))
             {
+                ListViewGroup agentGroup = (from ListViewGroup gr in lvwAgentType.Groups
+                                            where gr.Header.ToLower() == ar.CategoryName.ToLower()
+                                            select gr).FirstOrDefault();
+                if (agentGroup == null)
+                    agentGroup = generalGroup;
+
                 lvi = new ListViewItem(ar.DisplayName);
                 string details = ar.ClassName;
                 System.Reflection.Assembly a = System.Reflection.Assembly.LoadFrom(ar.AssemblyPath);
                 details += ", Version: " + a.GetName().Version.ToString();
                 details += ", Assembly: " + System.IO.Path.GetFileName(a.Location);
 
+                if (agentGroup == testGroup)
+                    lvi.ImageIndex = 2;
+                else
+                    lvi.ImageIndex = 0;
+                lvi.Group = agentGroup;
                 lvi.SubItems.Add(details);
                 lvi.Tag = ar;
                 lvwAgentType.Items.Add(lvi);

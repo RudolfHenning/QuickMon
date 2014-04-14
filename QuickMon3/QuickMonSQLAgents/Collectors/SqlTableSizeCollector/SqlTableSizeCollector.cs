@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("SQL Table Size Collector")]
+    [Description("SQL Table Size Collector"), Category("SQL Server")]
     public class SqlTableSizeCollector : CollectorBase
     {
         public SqlTableSizeCollector()

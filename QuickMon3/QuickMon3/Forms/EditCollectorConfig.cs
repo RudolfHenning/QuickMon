@@ -54,8 +54,11 @@ namespace QuickMon.Forms
                 remoteportNumericUpDown.Value = currentEditingEntry.RemoteAgentHostPort;
 
                 numericUpDownRepeatAlertInXMin.Value = currentEditingEntry.RepeatAlertInXMin;
+                numericUpDownRepeatAlertInXPolls.Value = currentEditingEntry.RepeatAlertInXPolls;
                 AlertOnceInXMinNumericUpDown.Value = currentEditingEntry.AlertOnceInXMin;
+                AlertOnceInXPollsNumericUpDown.Value = currentEditingEntry.AlertOnceInXPolls;
                 delayAlertSecNumericUpDown.Value = currentEditingEntry.DelayErrWarnAlertForXSec;
+                delayAlertPollsNumericUpDown.Value = currentEditingEntry.DelayErrWarnAlertForXPolls;
 
                 chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
 
@@ -486,8 +489,11 @@ namespace QuickMon.Forms
 
             //Alert suppresion
             SelectedEntry.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
+            SelectedEntry.RepeatAlertInXPolls = (int)numericUpDownRepeatAlertInXPolls.Value;
             SelectedEntry.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
+            SelectedEntry.AlertOnceInXPolls = (int)AlertOnceInXPollsNumericUpDown.Value;
             SelectedEntry.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
+            SelectedEntry.DelayErrWarnAlertForXPolls = (int)delayAlertPollsNumericUpDown.Value;
             //Corrective scripts
             SelectedEntry.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
             SelectedEntry.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
@@ -616,8 +622,10 @@ namespace QuickMon.Forms
         {
             txtCorrectiveScriptOnWarning.Enabled = !chkCorrectiveScriptDisabled.Checked;
             txtCorrectiveScriptOnError.Enabled = !chkCorrectiveScriptDisabled.Checked;
+            txtRestorationScript.Enabled = !chkCorrectiveScriptDisabled.Checked;
             cmdBrowseForWarningCorrectiveScript.Enabled = !chkCorrectiveScriptDisabled.Checked;
             cmdBrowseForErrorCorrectiveScript.Enabled = !chkCorrectiveScriptDisabled.Checked;
+            cmdBrowseForRestorationScript.Enabled = !chkCorrectiveScriptDisabled.Checked;
         }
         private void cmdBrowseForWarningCorrectiveScript_Click(object sender, EventArgs e)
         {

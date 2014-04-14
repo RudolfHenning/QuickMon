@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("SQL Query Collector")]
+    [Description("SQL Query Collector"), Category("SQL Server")]
     public class SqlQueryCollector : CollectorBase
     {
         public SqlQueryCollector()

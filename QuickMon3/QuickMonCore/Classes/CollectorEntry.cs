@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace QuickMon
 {
-    public class CollectorEntry
+    public partial class CollectorEntry
     {
         public CollectorEntry()
         {
@@ -22,6 +22,7 @@ namespace QuickMon
         #region Private vars
         private bool waitAlertTimeErrWarnInMinFlagged = false;
         private DateTime delayErrWarnAlertTime = new DateTime(2000, 1, 1);
+        private int numberOfPollingsInErrWarn = 0;
         #endregion
 
         #region Properties
@@ -102,19 +103,22 @@ namespace QuickMon
         /// Repeat raising alert after X minutes if state remains in error/warning
         /// </summary>
         public int RepeatAlertInXMin { get; set; }
+        public int RepeatAlertInXPolls { get; set; }
         /// <summary>
         /// Only raise an alert once in X minutes. Used in conjunction with LastAlertTime
         /// </summary>
         public int AlertOnceInXMin { get; set; }
-        /// <summary>
-        /// Record the last time an alert was raised. Used in conjunction with AlertOnceInXMin
-        /// </summary>
-        public DateTime LastAlertTime { get; set; }
+        public int AlertOnceInXPolls { get; set; }
         /// <summary>
         /// Only raise an alert if the LastMonitorState remains Error or Warning.
         /// After each alert is generated this time gets updated
         /// </summary>
         public int DelayErrWarnAlertForXSec { get; set; }
+        public int DelayErrWarnAlertForXPolls { get; set; }
+        /// <summary>
+        /// Record the last time an alert was raised. Used in conjunction with AlertOnceInXMin
+        /// </summary>
+        public DateTime LastAlertTime { get; set; }
         /// <summary>
         /// Records when the last good state was recorded
         /// </summary>
@@ -125,6 +129,10 @@ namespace QuickMon
         public bool EnableRemoteExecute { get; set; }
         public string RemoteAgentHostAddress { get; set; }
         public int RemoteAgentHostPort { get; set; }
+        public bool ForceRemoteExcuteOnChildCollectors { get; set; }
+        public bool OverrideRemoteAgentHost { get; set; }
+        public string OverrideRemoteAgentHostAddress  { get; set; }
+        public int OverrideRemoteAgentHostPort { get; set; }
         #endregion
         #endregion
 
@@ -160,7 +168,19 @@ namespace QuickMon
                         //*********** Call actual collector GetState **********
                         LastMonitorState = CurrentState;
 
-                        if (EnableRemoteExecute)
+                        if (OverrideRemoteAgentHost)
+                        {
+                            try
+                            {
+                                CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
+                            }
+                            catch (Exception ex)
+                            {
+                                CurrentState.State = CollectorState.Error;
+                                CurrentState.RawDetails = ex.ToString();
+                            }
+                        }
+                        else if (EnableRemoteExecute)
                         {
                             try
                             {
@@ -204,88 +224,6 @@ namespace QuickMon
             }
             return stateChanged;
         }
-        /// <summary>
-        /// Check if an Alert must be raised or not.
-        /// </summary>
-        /// <returns>True or False, you decide</returns>
-        public bool RaiseAlert()
-        {
-            bool raiseAlert = false;
-            if (IsFolder || !Enabled || //don't bother raising events for folders, disabled, N/A or collectors
-                //CurrentState.State == CollectorState.Good || //No alerts for Good state
-                CurrentState.State == CollectorState.NotAvailable ||
-                CurrentState.State == CollectorState.Disabled)
-            {
-                raiseAlert = false;
-                LastStateChange = DateTime.Now;
-                waitAlertTimeErrWarnInMinFlagged = false;
-            }
-            else
-            {
-                bool stateChanged = (LastMonitorState.State != CurrentState.State);
-
-                if (stateChanged)
-                {
-                    if (DelayErrWarnAlertForXSec > 0) // alert should be delayed
-                    {
-                        delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
-                        waitAlertTimeErrWarnInMinFlagged = true;
-                    }
-                    else
-                    {
-                        raiseAlert = true;
-                    }
-                }
-                else
-                {
-                    if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
-                    {
-                        if (DateTime.Now > delayErrWarnAlertTime)
-                        {
-                            raiseAlert = true;
-                            waitAlertTimeErrWarnInMinFlagged = false;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
-                        }
-                        else
-                        {
-                            raiseAlert = false;
-                        }
-                    }
-                    else
-                    {
-                        if (RepeatAlertInXMin > 0)
-                        {
-                            if (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)
-                            {
-                                raiseAlert = true;
-                                //handle further alerts as if it changed now again
-                                LastStateChange = DateTime.Now;
-                            }
-                            else
-                            {
-                                raiseAlert = false;
-                            }
-                        }
-                        else
-                        {
-                            raiseAlert = false;
-                        }
-                    }
-                }
-                if (raiseAlert)
-                {
-                    //only allow repeat alert after specified minutes
-                    if (AlertOnceInXMin > 0 && LastAlertTime.AddMinutes(AlertOnceInXMin) > DateTime.Now)
-                    {
-                        raiseAlert = false; //cancel alert
-                    }
-                }
-                if (raiseAlert)
-                    LastAlertTime = DateTime.Now; //reset alert time
-            }
-            return raiseAlert;
-        }
         #endregion
 
         #region Get/Set configuration
@@ -303,18 +241,6 @@ namespace QuickMon
             else
                 return null;
         }
-        //public static ICollector CreateCollectorEntry(string className)
-        //{
-        //    RegisteredAgent ra = (from r in RegisteredAgentCache.Agents
-        //                          where r.IsCollector &&  (r.ClassName == className || r.ClassName.EndsWith("." + className))
-        //                          select r).FirstOrDefault();
-        //    if (ra != null)
-        //    {
-        //        return CreateCollectorEntry(ra.AssemblyPath, ra.ClassName);
-        //    }
-        //    else
-        //        return null;
-        //}
         /// <summary>
         /// Create a new instance of the collector agent
         /// </summary>
@@ -359,6 +285,7 @@ namespace QuickMon
             collectorEntry.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
             collectorEntry.CorrectiveScriptsOnlyOnStateChange = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptsOnlyOnStateChange", "False"));
             collectorEntry.EnableRemoteExecute = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("enableRemoteExecute", "False"));
+            collectorEntry.ForceRemoteExcuteOnChildCollectors = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("forceRemoteExcuteOnChildCollectors", "False"));
             collectorEntry.RemoteAgentHostAddress = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostAddress");
             collectorEntry.RemoteAgentHostPort = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostPort", 8181);
 
@@ -379,6 +306,11 @@ namespace QuickMon
                 collectorEntry.RepeatAlertInXMin = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("repeatAlertInXMin", "0"));
                 collectorEntry.AlertOnceInXMin = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("alertOnceInXMin", "0"));
                 collectorEntry.DelayErrWarnAlertForXSec = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("delayErrWarnAlertForXSec", "0"));
+
+                collectorEntry.RepeatAlertInXPolls = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("repeatAlertInXPolls", "0"));
+                collectorEntry.AlertOnceInXPolls = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("alertOnceInXPolls", "0"));
+                collectorEntry.DelayErrWarnAlertForXPolls = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("delayErrWarnAlertForXPolls", "0"));
+
                 collectorEntry.LastAlertTime = new DateTime(2000, 1, 1); //long ago
                 collectorEntry.LastGoodState = new DateTime(2000, 1, 1); //long ago
                 collectorEntry.LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable, CurrentValue = null, RawDetails = "", HtmlDetails = "" };
@@ -416,15 +348,15 @@ namespace QuickMon
                 CollectorRegistrationName,
                 ParentCollectorId,
                 CollectOnParentWarning,
-                RepeatAlertInXMin,
-                AlertOnceInXMin,
-                DelayErrWarnAlertForXSec,
+                RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec,
+                RepeatAlertInXPolls, AlertOnceInXPolls,  DelayErrWarnAlertForXPolls,
                 CorrectiveScriptDisabled,
                 CorrectiveScriptOnWarningPath,
                 CorrectiveScriptOnErrorPath,
                 RestorationScriptPath,
                 CorrectiveScriptsOnlyOnStateChange,
                 EnableRemoteExecute,
+                ForceRemoteExcuteOnChildCollectors,
                 RemoteAgentHostAddress,
                 RemoteAgentHostPort,
                 collectorConfig,
@@ -462,15 +394,15 @@ namespace QuickMon
                 string collectorRegistrationName,
                 string parentCollectorId,
                 bool collectOnParentWarning,
-                int repeatAlertInXMin,
-                int alertOnceInXMin,
-                int delayErrWarnAlertForXSec,
+                int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
+                int repeatAlertInXPolls, int alertOnceInXPolls,  int delayErrWarnAlertForXPolls,
                 bool correctiveScriptDisabled,
                 string correctiveScriptOnWarningPath,
                 string correctiveScriptOnErrorPath,
                 string restorationScriptPath,
                 bool correctiveScriptsOnlyOnStateChange,
                 bool enableRemoteExecute,
+                bool forceRemoteExcuteOnChildCollectors,
                 string remoteAgentHostAddress,
                 int remoteAgentHostPort,
                 string collectorConfig,
@@ -484,9 +416,8 @@ namespace QuickMon
                 collectorRegistrationName,
                 parentCollectorId,
                 collectOnParentWarning,
-                repeatAlertInXMin,
-                alertOnceInXMin,
-                delayErrWarnAlertForXSec,
+                repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
+                repeatAlertInXPolls, alertOnceInXPolls,  delayErrWarnAlertForXPolls,
                 correctiveScriptDisabled,
                 correctiveScriptOnWarningPath,
                 correctiveScriptOnErrorPath,

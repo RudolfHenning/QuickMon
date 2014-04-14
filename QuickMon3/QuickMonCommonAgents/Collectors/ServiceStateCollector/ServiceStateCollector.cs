@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("Windows Service State Collector")]
+    [Description("Windows Service State Collector"), Category("General")]
     public class ServiceStateCollector : CollectorBase
     {
         public ServiceStateCollector()

@@ -1,6 +1,10 @@
-<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}"  repeatAlertInXMin="{7}" alertOnceInXMin="{8}" delayErrWarnAlertForXSec="{9}"
-  correctiveScriptDisabled="{10}" correctiveScriptOnWarningPath="{11}" correctiveScriptOnErrorPath="{12}" restorationScriptPath="{13}" correctiveScriptsOnlyOnStateChange="{14}"
-  enableRemoteExecute="{15}" remoteAgentHostAddress="{16}" remoteAgentHostPort="{17}">
-  {18}
-  {19}
+<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}" 
+  repeatAlertInXMin="{7}" alertOnceInXMin="{8}" delayErrWarnAlertForXSec="{9}"
+  repeatAlertInXPolls="{10}" alertOnceInXPolls="{11}" delayErrWarnAlertForXPolls="{12}"
+  correctiveScriptDisabled="{13}" correctiveScriptOnWarningPath="{14}" correctiveScriptOnErrorPath="{15}" restorationScriptPath="{16}" correctiveScriptsOnlyOnStateChange="{17}"
+  enableRemoteExecute="{18}" forceRemoteExcuteOnChildCollectors="{19}" remoteAgentHostAddress="{20}" remoteAgentHostPort="{21}">
+  <!-- custom config -->
+  {22}
+  <!-- ServiceWindows -->
+  {23}
 </collectorEntry>

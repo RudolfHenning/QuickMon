@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("Event Log Collector")]
+    [Description("Event Log Collector"), Category("General")]
     public class EventLogCollector : CollectorBase
     {
         public EventLogCollector()

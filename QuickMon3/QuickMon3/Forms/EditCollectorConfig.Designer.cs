@@ -99,6 +99,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.numericUpDownRepeatAlertInXPolls = new System.Windows.Forms.NumericUpDown();
+            this.delayAlertPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AlertOnceInXPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -119,6 +128,9 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -563,6 +575,15 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.label26);
+            this.groupBox5.Controls.Add(this.label25);
+            this.groupBox5.Controls.Add(this.label24);
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.numericUpDownRepeatAlertInXPolls);
+            this.groupBox5.Controls.Add(this.delayAlertPollsNumericUpDown);
+            this.groupBox5.Controls.Add(this.AlertOnceInXPollsNumericUpDown);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.label21);
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.numericUpDownRepeatAlertInXMin);
@@ -596,7 +617,7 @@
             this.label4.Location = new System.Drawing.Point(10, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 13);
-            this.label4.TabIndex = 1;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Repeat alert after";
             // 
             // numericUpDownRepeatAlertInXMin
@@ -608,8 +629,8 @@
             0,
             0});
             this.numericUpDownRepeatAlertInXMin.Name = "numericUpDownRepeatAlertInXMin";
-            this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDownRepeatAlertInXMin.TabIndex = 2;
+            this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXMin.TabIndex = 1;
             // 
             // delayAlertSecNumericUpDown
             // 
@@ -620,8 +641,8 @@
             0,
             0});
             this.delayAlertSecNumericUpDown.Name = "delayAlertSecNumericUpDown";
-            this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(60, 20);
-            this.delayAlertSecNumericUpDown.TabIndex = 8;
+            this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertSecNumericUpDown.TabIndex = 12;
             // 
             // label8
             // 
@@ -629,26 +650,26 @@
             this.label8.Location = new System.Drawing.Point(10, 48);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 4;
+            this.label8.TabIndex = 6;
             this.label8.Text = "Only alert once in";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(173, 74);
+            this.label10.Location = new System.Drawing.Point(162, 74);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(269, 13);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Seconds (Only raise alert if Error/Warning state persists)";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Seconds";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(173, 22);
+            this.label5.Location = new System.Drawing.Point(162, 22);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(272, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Minutes (0 = never, Only applies to Errors and Warnings)";
+            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Minutes";
             // 
             // label11
             // 
@@ -656,16 +677,16 @@
             this.label11.Location = new System.Drawing.Point(10, 74);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 13);
-            this.label11.TabIndex = 7;
+            this.label11.TabIndex = 11;
             this.label11.Text = "Delay alert";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(173, 48);
+            this.label9.Location = new System.Drawing.Point(162, 48);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
-            this.label9.TabIndex = 6;
+            this.label9.TabIndex = 8;
             this.label9.Text = "Minutes";
             // 
             // AlertOnceInXMinNumericUpDown
@@ -677,8 +698,8 @@
             0,
             0});
             this.AlertOnceInXMinNumericUpDown.Name = "AlertOnceInXMinNumericUpDown";
-            this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(60, 20);
-            this.AlertOnceInXMinNumericUpDown.TabIndex = 5;
+            this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXMinNumericUpDown.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -904,6 +925,96 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(313, 22);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(232, 13);
+            this.label21.TabIndex = 5;
+            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(313, 74);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(224, 13);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
+            // 
+            // numericUpDownRepeatAlertInXPolls
+            // 
+            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
+            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
+            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXPolls.TabIndex = 3;
+            // 
+            // delayAlertPollsNumericUpDown
+            // 
+            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 72);
+            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
+            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertPollsNumericUpDown.TabIndex = 14;
+            // 
+            // AlertOnceInXPollsNumericUpDown
+            // 
+            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 46);
+            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
+            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXPollsNumericUpDown.TabIndex = 9;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(269, 22);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(29, 13);
+            this.label23.TabIndex = 4;
+            this.label23.Text = "Polls";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(269, 48);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(29, 13);
+            this.label24.TabIndex = 10;
+            this.label24.Text = "Polls";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(269, 74);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(29, 13);
+            this.label25.TabIndex = 15;
+            this.label25.Text = "Polls";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(313, 48);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(239, 13);
+            this.label26.TabIndex = 17;
+            this.label26.Text = "Note that # of polls depends on polling frequency";
+            // 
             // lvwEntries
             // 
             this.lvwEntries.AutoResizeColumnEnabled = false;
@@ -984,6 +1095,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1063,5 +1177,14 @@
         private System.Windows.Forms.TextBox txtRestorationScript;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.CheckBox chkOnlyRunCorrectiveScriptsOnStateChange;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericUpDownRepeatAlertInXPolls;
+        private System.Windows.Forms.NumericUpDown delayAlertPollsNumericUpDown;
+        private System.Windows.Forms.NumericUpDown AlertOnceInXPollsNumericUpDown;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label26;
     }
 }

@@ -706,6 +706,16 @@ namespace QuickMon
                 {
                     try
                     {
+                        //if ForceRemoteExcuteOnChildCollectors is set then apply set ParentOverrideRemoteExcuteHostAddress and ParentOverrideRemoteExcutePort
+                        if (collector.ForceRemoteExcuteOnChildCollectors)
+                        {
+                            SetChildCollectorRemoteExecuteDetails(collector, collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
+                        }
+                        else
+                        {
+                            SetChildCollectorRemoteExecuteDetails(collector, "", 8181);
+                        }
+
                         if (ConcurrencyLevel > 1)
                         {
                             ParallelOptions po = new ParallelOptions()
@@ -745,6 +755,21 @@ namespace QuickMon
                     }
                 }
                 #endregion
+            }
+        }
+
+        private void SetChildCollectorRemoteExecuteDetails(CollectorEntry collector, string remoteAgentHostAddress, int remoteAgentHostPort)
+        {
+            foreach ( CollectorEntry childCollector in (from c in Collectors
+                               where c.ParentCollectorId == collector.UniqueId
+                               select c))
+            {
+                childCollector.OverrideRemoteAgentHost = remoteAgentHostAddress.Length > 0;
+                childCollector.OverrideRemoteAgentHostAddress = remoteAgentHostAddress;
+                childCollector.OverrideRemoteAgentHostPort = remoteAgentHostPort;
+
+                //Set grand children
+                SetChildCollectorRemoteExecuteDetails(childCollector, remoteAgentHostAddress, remoteAgentHostPort);
             }
         }
 

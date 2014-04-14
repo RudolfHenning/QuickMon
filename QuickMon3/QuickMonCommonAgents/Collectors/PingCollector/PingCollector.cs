@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("Ping Collector")]
+    [Description("Ping Collector"), Category("General")]
     public class PingCollector : CollectorBase
     {
         public PingCollector()

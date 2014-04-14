@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-     [Description("Performance Counter Collector")]
+     [Description("Performance Counter Collector"), Category("General")]
     public class PerfCounterCollector : CollectorBase
     {
          public PerfCounterCollector()

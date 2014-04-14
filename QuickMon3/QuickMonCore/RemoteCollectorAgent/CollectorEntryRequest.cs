@@ -31,15 +31,18 @@ namespace QuickMon
         /// Repeat raising alert after X minutes if state remains in error/warning
         /// </summary>
         public int RepeatAlertInXMin { get; set; }
+        public int RepeatAlertInXPolls { get; set; }
         /// <summary>
         /// Only raise an alert once in X minutes. Used in conjunction with LastAlertTime
         /// </summary>
         public int AlertOnceInXMin { get; set; }
+        public int AlertOnceInXPolls { get; set; }
         /// <summary>
         /// Only raise an alert if the LastMonitorState remains Error or Warning.
         /// After each alert is generated this time gets updated
         /// </summary>
         public int DelayErrWarnAlertForXSec { get; set; }
+        public int DelayErrWarnAlertForXPolls { get; set; }
         #endregion 
         #endregion
 
@@ -52,15 +55,15 @@ namespace QuickMon
                 CollectorTypeName,
                 ParentCollectorId,
                 ProcessChildrenOnWarning,
-                RepeatAlertInXMin,
-                AlertOnceInXMin,
-                DelayErrWarnAlertForXSec,
+                RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec,
+                RepeatAlertInXPolls, AlertOnceInXPolls,  DelayErrWarnAlertForXPolls,
                 CorrectiveScriptDisabled,
                 CorrectiveScriptOnWarningPath,
                 CorrectiveScriptOnErrorPath,
                 RestorationScriptPath,
                 CorrectiveScriptsOnlyOnStateChange,
                 false, //for Remote Agent usage corrective are not supported on host yet.
+                false, //No child collectors to worry about
                 "", //for Remote Agent there is no further nested Remote host.
                 8181, //for Remote Agent there is no further nested Remote host.
                 ConfigString,

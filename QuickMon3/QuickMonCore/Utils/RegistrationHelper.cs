@@ -44,15 +44,22 @@ namespace QuickMon
                                                 name = name.Replace("Collectors.", "");
                                                 name = name.Replace("Notifiers.", "");
                                                 string displayName = name;
-
+                                                string categoryName = "General";
                                                 try
                                                 {
                                                     displayName = GetTypeDisplayName(type, name);
                                                 }
                                                 catch { }
+                                                try
+                                                {
+                                                    categoryName = GetCategoryName(type);
+                                                }
+                                                catch { }
+
                                                 RegisteredAgent agentRegistration = new RegisteredAgent();
                                                 agentRegistration.Name = name;
                                                 agentRegistration.DisplayName = displayName;
+                                                agentRegistration.CategoryName = categoryName;
                                                 agentRegistration.AssemblyPath = dllPath;
                                                 agentRegistration.ClassName = className;
                                                 agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(quickMonAssembly, className);
@@ -98,15 +105,22 @@ namespace QuickMon
                                 name = name.Replace("Collectors.", "");
                                 name = name.Replace("Notifiers.", "");
                                 string displayName = name;
+                                string categoryName = "General";
 
                                 try
                                 {
                                     displayName = GetTypeDisplayName(type, name);
                                 }
                                 catch { }
+                                try
+                                {
+                                    categoryName = GetCategoryName(type);
+                                }
+                                catch { }
                                 RegisteredAgent agentRegistration = new RegisteredAgent();
                                 agentRegistration.Name = name;
                                 agentRegistration.DisplayName = displayName;
+                                agentRegistration.CategoryName = categoryName;
                                 agentRegistration.AssemblyPath = Assembly.GetExecutingAssembly().Location;
                                 agentRegistration.ClassName = className;
                                 agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(currentAssembly, className);
@@ -121,6 +135,18 @@ namespace QuickMon
             return list;
         }
 
+        private static string GetCategoryName(Type type)
+        {
+            string categoryName = "General";
+            object[] atts = type.GetCustomAttributes(typeof(System.ComponentModel.CategoryAttribute), true);
+            if (atts != null && atts.Length > 0)
+            {
+                object att1 = atts[0];
+                categoryName = ((System.ComponentModel.CategoryAttribute)att1).Category;
+            }
+            return categoryName;
+        }
+
         private static string GetTypeDisplayName(Type type, string defaultValue = "")
         {
             string displayName = defaultValue;
@@ -130,6 +156,7 @@ namespace QuickMon
                 object att1 = atts[0];
                 displayName = ((System.ComponentModel.DescriptionAttribute)att1).Description;
             }
+            
             return displayName;
         }
         public static bool IsQuickMonAssembly(Assembly quickMonAssembly)

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("File System Collector")]
+    [Description("File System Collector"), Category("General")]
     public class FileSystemCollector : CollectorBase
     {
         public FileSystemCollector()

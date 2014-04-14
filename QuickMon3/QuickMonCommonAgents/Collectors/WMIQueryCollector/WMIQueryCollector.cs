@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("WMI Query Collector")]
+    [Description("WMI Query Collector"), Category("General")]
     public class WMIQueryCollector : CollectorBase
     {
         public WMIQueryCollector()

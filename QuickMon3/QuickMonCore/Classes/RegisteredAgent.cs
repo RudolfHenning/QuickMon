@@ -12,6 +12,7 @@ namespace QuickMon
         public string DisplayName { get; set; }
         public string AssemblyPath { get; set; }
         public string ClassName { get; set; }
+        public string CategoryName { get; set; }
         private bool isCollector = true;
         public bool IsCollector { get { return isCollector; } set { isCollector = value; } }
         public bool IsNotifier { get { return !isCollector; } set { isCollector = !value; } }
