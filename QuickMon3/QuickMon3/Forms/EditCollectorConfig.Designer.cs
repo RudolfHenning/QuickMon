@@ -111,6 +111,7 @@
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -742,6 +743,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chkForceRemoteExcuteOnChildCollectors);
             this.groupBox2.Controls.Add(this.llblRemoteAgentInstallHelp);
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.chkRemoteAgentEnabled);
@@ -765,7 +767,7 @@
             this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 7;
+            this.llblRemoteAgentInstallHelp.TabIndex = 3;
             this.llblRemoteAgentInstallHelp.TabStop = true;
             this.llblRemoteAgentInstallHelp.Text = "Install help";
             this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
@@ -777,18 +779,18 @@
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(8, 1);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(134, 13);
+            this.label17.Size = new System.Drawing.Size(86, 13);
             this.label17.TabIndex = 0;
-            this.label17.Text = "Remote agent settings";
+            this.label17.Text = "Remote agent";
             // 
             // chkRemoteAgentEnabled
             // 
             this.chkRemoteAgentEnabled.AutoSize = true;
-            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(148, 0);
+            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(107, 0);
             this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
-            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(179, 17);
+            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(136, 17);
             this.chkRemoteAgentEnabled.TabIndex = 1;
-            this.chkRemoteAgentEnabled.Text = "Enable Remote Agent execution";
+            this.chkRemoteAgentEnabled.Text = "Enable for this collector";
             this.chkRemoteAgentEnabled.UseVisualStyleBackColor = true;
             this.chkRemoteAgentEnabled.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
             // 
@@ -809,7 +811,7 @@
             0});
             this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
-            this.remoteportNumericUpDown.TabIndex = 5;
+            this.remoteportNumericUpDown.TabIndex = 7;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
             8181,
             0,
@@ -822,7 +824,7 @@
             this.label13.Location = new System.Drawing.Point(15, 26);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 13);
-            this.label13.TabIndex = 2;
+            this.label13.TabIndex = 4;
             this.label13.Text = "Remote server name";
             // 
             // label14
@@ -832,7 +834,7 @@
             this.label14.Location = new System.Drawing.Point(340, 26);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
-            this.label14.TabIndex = 4;
+            this.label14.TabIndex = 6;
             this.label14.Text = "Port";
             // 
             // txtRemoteAgentServer
@@ -845,7 +847,7 @@
             this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
             this.txtRemoteAgentServer.Size = new System.Drawing.Size(196, 20);
-            this.txtRemoteAgentServer.TabIndex = 3;
+            this.txtRemoteAgentServer.TabIndex = 5;
             this.txtRemoteAgentServer.Leave += new System.EventHandler(this.txtRemoteAgentServer_Leave);
             // 
             // cmdRemoteAgentTest
@@ -856,7 +858,7 @@
             this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 21);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
-            this.cmdRemoteAgentTest.TabIndex = 6;
+            this.cmdRemoteAgentTest.TabIndex = 8;
             this.cmdRemoteAgentTest.Text = "Test";
             this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
             this.cmdRemoteAgentTest.Click += new System.EventHandler(this.cmdRemoteAgentTest_Click);
@@ -1048,6 +1050,17 @@
             this.triggerColumnHeader.Text = "Alert triggers";
             this.triggerColumnHeader.Width = 249;
             // 
+            // chkForceRemoteExcuteOnChildCollectors
+            // 
+            this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
+            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(249, 0);
+            this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
+            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
+            this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
+            this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
+            this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
+            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1186,5 +1199,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckBox chkForceRemoteExcuteOnChildCollectors;
     }
 }

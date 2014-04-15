@@ -883,8 +883,10 @@ namespace QuickMon
             collectorNode.Tag = collector;
             collector.Tag = collectorNode;
             collectorNode.ForeColor = collector.Enabled ? SystemColors.WindowText : Color.Gray;
-            if (collector.EnableRemoteExecute)
-                collectorNode.Text += string.Format(" [{0}:{1}]", collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
+            if (collector.EnableRemoteExecute || collector.ForceRemoteExcuteOnChildCollectors)
+            {
+                collectorNode.Text += string.Format(" [{0}:{1}]", (collector.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
+            }
             foreach (CollectorEntry childCollector in (from c in monitorPack.Collectors
                                                        where c.ParentCollectorId == collector.UniqueId
                                                        select c))
@@ -970,8 +972,10 @@ namespace QuickMon
                     {
                         monitorPackChanged = true;
                         tvwCollectors.SelectedNode.Text = editCollectorEntry.SelectedEntry.Name;
-                        if (editCollectorEntry.SelectedEntry.EnableRemoteExecute)
-                            tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", editCollectorEntry.SelectedEntry.RemoteAgentHostAddress, editCollectorEntry.SelectedEntry.RemoteAgentHostPort);
+                        if (editCollectorEntry.SelectedEntry.EnableRemoteExecute || editCollectorEntry.SelectedEntry.ForceRemoteExcuteOnChildCollectors)
+                        {
+                            tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (editCollectorEntry.SelectedEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + editCollectorEntry.SelectedEntry.RemoteAgentHostAddress, editCollectorEntry.SelectedEntry.RemoteAgentHostPort);
+                        }
 
                         //check if parent collector has changed
                         TreeNode currentNode = tvwCollectors.SelectedNode;

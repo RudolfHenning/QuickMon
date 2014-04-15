@@ -424,6 +424,7 @@ namespace QuickMon
                 restorationScriptPath,
                 correctiveScriptsOnlyOnStateChange,
                 enableRemoteExecute,
+                forceRemoteExcuteOnChildCollectors,
                 remoteAgentHostAddress,
                 remoteAgentHostPort,
                 collectorConfig,

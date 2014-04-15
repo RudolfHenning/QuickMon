@@ -1,4 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
+Add collectors for OLEDB database connections.
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -8,7 +9,6 @@ Future advancement - Allow corrective scrpts to run on remote hosts
 Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)
 Allow multiple monitor packs in Windows client (different tabs...)
 Convert to WPF app (yeah right)
-Remote host overrides on parent collector (specify a remote host on parent that will apply to all child collectors - applied at run time)
 
 --------------------------------------------------------------------------------------------------------
 POSSIBLE CHANGES (might be just nice to have)
@@ -22,13 +22,18 @@ DONE CHANGES
 Add Restoration scripts (to be run when alert state change from warning/error to good only). Could be used to start something that was disabled by corrective scripts.*done
 Also, add option to have corrective scripts only execute first time error or warning state is triggered *done
 BUG: Fix default file association with qmconfig files (open through Windows Explorer) *done
+
+V3.4
 BUG: Polling frequency of Windows app does not get saved on exit *done
 On main window have shortcut/menu/button to load 'Recent list' (perhaps like service monitor dropdown but only visible when button is clicked) *done
 On select collector/notifier type window have option to go to 'Import from existing config' as well (default is to bring up new config window) *done
 BUG: Check out the drag & droping/sorting of nodes in the treeview. Not working properly if node is last child node and parent is also a last child. *done
+
+V3.5
 Additional to Repeat after/Delay alert with minutes/seconds also have option for number of alerts *done
   e.g. Number of Warning/error polls before repeating alert.
   and  Number of Warning/error polls before raising alert.
 Add some category/Type for Collector agent (class) so it can be grouped in the 'Select Collector type list' *done
+Remote host overrides on parent collector (specify a remote host on parent that will apply to all child collectors - applied at run time) *done
 -------------------------------------------------------------------------------------------------------
 
