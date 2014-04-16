@@ -1,8 +1,13 @@
 ﻿CHANGES (considdered possible for next release)
 Add collectors for OLEDB database connections.
+Add setting per collector entry level to specify that it should 'refresh' with X seconds no matter the main polling frequency (objviously must be larger than polling frequency)
+  Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
+  When refreshing from UI client this setting get override (so every refresh execute agent)
+Add run-time setting per collector entry level that indicate it should not refreshed while a previous instance has finished (or within X seconds, whichever comes first)
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
+Dynamic repolling (sliding scale). If warning/error state is returned the polling frequencyfor the resource must get slower (to avoid monitor to death scenario)
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Detail views can/must use remote host dataset as source 
 Future advancement - Allow corrective scrpts to run on remote hosts
