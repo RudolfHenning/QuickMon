@@ -188,11 +188,18 @@ namespace QuickMon.Collectors
                         }
                         lvwDetails.Items.Add(lvi);
                     }
-                    lvwDetails.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    //try
+                    {
+                        lvwDetails.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    }
+                    //catch { }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "View details", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (ex.Message.Contains("Cannot access a disposed object"))
+                        timerSelectItem.Enabled = false;
+                    else
+                        MessageBox.Show(ex.Message, "View details", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -298,5 +305,7 @@ namespace QuickMon.Collectors
         {
             rtxDetails.SelectAll();
         }
+
+
     }
 }

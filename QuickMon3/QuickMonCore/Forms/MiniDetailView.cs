@@ -199,6 +199,7 @@ namespace QuickMon.Forms
             // 
             // PingCollectorShowDetails
             // 
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MiniDetailView_FormClosing);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.statusStrip1);
@@ -212,6 +213,11 @@ namespace QuickMon.Forms
             this.PerformLayout();
         } 
         #endregion
+
+        private void MiniDetailView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            refreshTimer.Enabled = false;
+        }
 
         #region Toolbar events
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
