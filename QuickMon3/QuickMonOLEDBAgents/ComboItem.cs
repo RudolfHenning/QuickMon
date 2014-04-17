@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace QuickMon
+namespace HenIT.Utils
 {
     internal class ComboItem
     {

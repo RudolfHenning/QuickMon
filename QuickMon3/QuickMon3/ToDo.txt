@@ -21,6 +21,7 @@ Variable names like %Server% in things like performance counters, Services etc -
 Collector (Entry) must support method to indicate if config is 'complete'/valid so Edit window can enable/disable OK button
 Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
 Add some way Collector/Agent types have its own Icon that can be displayed in select collector type window.
+The GetEditConfigWindow method in AgentBase (for Collectors) must be removed - not used anymore. Notifiers still use it darn...
 
 -------------------------------------------------------------------------------------------------------
 DONE CHANGES

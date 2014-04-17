@@ -82,20 +82,31 @@ namespace QuickMon.Collectors
         {
             try
             {
-                string outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify);
-                outputPath = System.IO.Path.Combine(outputPath, "Hen IT\\QuickMon");
-                if (!System.IO.Directory.Exists(outputPath))
-                    System.IO.Directory.CreateDirectory(outputPath);
-                outputPath = System.IO.Path.Combine(outputPath, "SQLQueryTips.htm");
-                if (System.IO.File.Exists(outputPath))
-                    System.IO.File.Delete(outputPath);
-                System.IO.File.WriteAllText(outputPath, Properties.Resources.SQLQueryTips, Encoding.UTF8);
-                System.Diagnostics.Process.Start(outputPath);
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo("https://quickmon.codeplex.com/wikipage?title=SQL%20Query%20Collector%20query%20syntax%20Tips");
+                p.Start();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Query Tips", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            //try
+            //{ 
+            //    string outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify);
+            //    outputPath = System.IO.Path.Combine(outputPath, "Hen IT\\QuickMon");
+            //    if (!System.IO.Directory.Exists(outputPath))
+            //        System.IO.Directory.CreateDirectory(outputPath);
+            //    outputPath = System.IO.Path.Combine(outputPath, "SQLQueryTips.htm");
+            //    if (System.IO.File.Exists(outputPath))
+            //        System.IO.File.Delete(outputPath);
+            //    System.IO.File.WriteAllText(outputPath, Properties.Resources.SQLQueryTips, Encoding.UTF8);
+            //    System.Diagnostics.Process.Start(outputPath);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Query Tips", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void cboReturnType_SelectedIndexChanged(object sender, EventArgs e)

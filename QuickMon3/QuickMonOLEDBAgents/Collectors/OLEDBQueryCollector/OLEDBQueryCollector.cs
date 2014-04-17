@@ -34,7 +34,7 @@ namespace QuickMon.Collectors
                 foreach (OLEDBQueryInstance queryInstance in sqlQueryConfig.Entries)
                 {
                     object value = null;
-                    lastAction = string.Format("Running SQL query '{0}' ('{1}')", queryInstance.Name, queryInstance.GetConnectionString());
+                    lastAction = string.Format("Running SQL query '{0}' ('{1}')", queryInstance.Name, queryInstance.ConnectionString);
 
                     value = queryInstance.RunQuery();
                     CollectorState currentstate = queryInstance.GetState(value);
@@ -80,7 +80,7 @@ namespace QuickMon.Collectors
 
         public override ICollectorDetailView GetCollectorDetailView()
         {
-            throw new NotImplementedException();
+            return new OLEDBQueryCollectorShowDetails();
         }
 
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()

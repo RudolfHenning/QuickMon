@@ -67,10 +67,10 @@
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeEntry.cs" />
-    <Compile Include="Collectors\SqlQueryCollector\ShowDetails\EditSqlQuery.cs">
+    <Compile Include="Collectors\SqlQueryCollector\EditConfig\EditSqlQuery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Collectors\SqlQueryCollector\ShowDetails\EditSqlQuery.Designer.cs">
+    <Compile Include="Collectors\SqlQueryCollector\EditConfig\EditSqlQuery.Designer.cs">
       <DependentUpon>EditSqlQuery.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\SqlQueryCollector\ShowDetails\SqlQueryCollectorShowDetails.cs">
@@ -178,7 +178,7 @@
     <EmbeddedResource Include="Collectors\SqlDatabaseSize\EditConfig\SqlDatabaseSizeEditEntry.resx">
       <DependentUpon>SqlDatabaseSizeEditEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Collectors\SqlQueryCollector\ShowDetails\EditSqlQuery.resx">
+    <EmbeddedResource Include="Collectors\SqlQueryCollector\EditConfig\EditSqlQuery.resx">
       <DependentUpon>EditSqlQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\SqlQueryCollector\EditConfig\SqlQueryCollectorEditConfig.resx">

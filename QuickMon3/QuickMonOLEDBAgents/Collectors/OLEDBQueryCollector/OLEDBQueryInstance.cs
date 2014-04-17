@@ -13,17 +13,17 @@ namespace QuickMon.Collectors
         public OLEDBQueryInstance()
         {
             ConnectionString = "";
-            DataSource = "";
-            Provider = "";
-            UserName = "";
+            //DataSource = "";
+            //Provider = "";
+            //UserName = "";
         }
         #region Properties
         public string Name { get; set; }
         public string ConnectionString { get; set; }
-        public string DataSource { get; set; }
-        public string Provider { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        //public string DataSource { get; set; }
+        //public string Provider { get; set; }
+        //public string UserName { get; set; }
+        //public string Password { get; set; }
         private int cmndTimeOut = 60;
         public int CmndTimeOut { get { return cmndTimeOut; } set { cmndTimeOut = value; } }
         public bool UseSPForSummary { get; set; }
@@ -50,10 +50,7 @@ namespace QuickMon.Collectors
         {
             get
             {
-                if (ConnectionString.Length > 0)
-                    return string.Format("{0}: {1} ({2})", Name, ConnectionString, SummaryQuery);
-                else
-                    return string.Format("{0}: {1} ({2})", Name, GenericOLEDBDAL.GetConnectionString(DataSource, Provider, UserName, Password), SummaryQuery);
+                return string.Format("{0}: {1} ({2})", Name, ConnectionString, SummaryQuery);
             }
         }
         public string TriggerSummary
@@ -68,20 +65,10 @@ namespace QuickMon.Collectors
 
         public override string ToString()
         {
-            if (ConnectionString.Length > 0)
-                return string.Format("{0}: {1} ({2})", Name, ConnectionString, SummaryQuery);
-            else
-                return string.Format("{0} - {1}\\{2}\\{3}", Name, GenericOLEDBDAL.GetConnectionString(DataSource, Provider, UserName, Password), SummaryQuery); 
+            return string.Format("{0}: {1} ({2})", Name, ConnectionString, SummaryQuery);
         }
 
         #region Connection stuff
-        public string GetConnectionString()
-        {
-            if (ConnectionString.Length > 0)
-                return ConnectionString;
-            else
-                return GenericOLEDBDAL.GetConnectionString(DataSource, Provider, UserName, Password);
-        }
         private OleDbConnection GetConnection()
         {
             try
@@ -90,7 +77,7 @@ namespace QuickMon.Collectors
                 {
                     if (testExecutionConn == null || testExecutionConn.State == ConnectionState.Closed)
                     {
-                        testExecutionConn = new OleDbConnection(GetConnectionString());
+                        testExecutionConn = new OleDbConnection(ConnectionString);
                         testExecutionConn.Open();
                     }
                 }
@@ -100,7 +87,7 @@ namespace QuickMon.Collectors
                     {
                         CloseConnection();
                     }
-                    testExecutionConn = new OleDbConnection(GetConnectionString());
+                    testExecutionConn = new OleDbConnection(ConnectionString);
                     testExecutionConn.Open();
                 }
             }
@@ -284,7 +271,7 @@ namespace QuickMon.Collectors
         internal DataSet RunDetailQuery()
         {
             DataSet returnValues = new DataSet();
-            using (OleDbConnection conn = new OleDbConnection(GetConnectionString()))
+            using (OleDbConnection conn = new OleDbConnection(ConnectionString))
             {
                 conn.Open();
                 using (OleDbCommand cmnd = new OleDbCommand(DetailQuery, conn))

@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collectors\OLEDBQueryCollector\EditConfig\ConnectionStringBuilderUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\OLEDBQueryCollector\EditConfig\ConnectionStringBuilderUI.Designer.cs">
+      <DependentUpon>ConnectionStringBuilderUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collectors\OLEDBQueryCollector\EditConfig\OLEDBQueryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +62,18 @@
     <Compile Include="Collectors\OLEDBQueryCollector\OLEDBQueryCollector.cs" />
     <Compile Include="Collectors\OLEDBQueryCollector\OLEDBQueryCollectorConfig.cs" />
     <Compile Include="Collectors\OLEDBQueryCollector\OLEDBQueryInstance.cs" />
+    <Compile Include="Collectors\OLEDBQueryCollector\EditConfig\EditOLEDBQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\OLEDBQueryCollector\EditConfig\EditOLEDBQuery.Designer.cs">
+      <DependentUpon>EditOLEDBQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\OLEDBQueryCollector\ShowDetails\OLEDBQueryCollectorShowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\OLEDBQueryCollector\ShowDetails\OLEDBQueryCollectorShowDetails.Designer.cs">
+      <DependentUpon>OLEDBQueryCollectorShowDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComboItem.cs" />
     <Compile Include="GenericOLEDBDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,8 +95,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Collectors\OLEDBQueryCollector\EditConfig\ConnectionStringBuilderUI.resx">
+      <DependentUpon>ConnectionStringBuilderUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Collectors\OLEDBQueryCollector\EditConfig\OLEDBQueryCollectorEditEntry.resx">
       <DependentUpon>OLEDBQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\OLEDBQueryCollector\EditConfig\EditOLEDBQuery.resx">
+      <DependentUpon>EditOLEDBQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\OLEDBQueryCollector\ShowDetails\OLEDBQueryCollectorShowDetails.resx">
+      <DependentUpon>OLEDBQueryCollectorShowDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

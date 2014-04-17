@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using HenIT.Data.OLEDB;
 using QuickMon.Utils;
 
 namespace QuickMon.Collectors
@@ -29,17 +30,12 @@ namespace QuickMon.Collectors
         #region Form events
         private void OLEDBQueryCollectorEditEntry_Load(object sender, EventArgs e)
         {
-            LoadProviders();
             OLEDBQueryInstance selectedEntry;            
             selectedEntry = (OLEDBQueryInstance)SelectedEntry;            
 
             if (selectedEntry != null)
             {
                 txtName.Text = selectedEntry.Name;
-                txtDataSource.Text = selectedEntry.DataSource;
-                SetProviderFromText(selectedEntry.Provider);
-                txtUserName.Text = selectedEntry.UserName;
-                txtPassword.Text = selectedEntry.Password;
                 txtConnectionString.Text = selectedEntry.ConnectionString;
                 numericUpDownCmndTimeOut.Value = selectedEntry.CmndTimeOut;
                 chkUseSPForSummary.Checked = selectedEntry.UseSPForSummary;
@@ -68,48 +64,9 @@ namespace QuickMon.Collectors
                 cboReturnType.SelectedIndex = 0;
             }
         }
-
-
         private void OLEDBQueryCollectorEditEntry_Shown(object sender, EventArgs e)
         {
 
-        }
-        #endregion
-
-        #region Private methods
-        private void LoadProviders()
-        {
-            cboProvider.Items.Clear();
-            cboProvider.Items.Add(new ComboItem() { DisplayName = "Microsoft Jet 4.0", Value = "Microsoft.Jet.OLEDB.4.0" });
-            cboProvider.Items.Add(new ComboItem() { DisplayName = "OLE DB provider for SQL Server", Value = "sqloledb" });
-            cboProvider.Items.Add(new ComboItem() { DisplayName = "OLE DB provider for Oracle", Value = "msdaora" });
-        }
-        private void SetProviderFromText(string text = "")
-        {
-            if (text == "")
-            {
-                text = cboProvider.Text;
-            }
-            foreach(ComboItem c in cboProvider.Items)
-            {
-                if (c.Value.ToLower() == text.ToLower())
-                {
-                    cboProvider.Text = c.DisplayName;
-                    break;
-                }
-            }
-        }
-        private string GetProviderFromCombo()
-        {
-            string text = cboProvider.Text;
-            foreach (ComboItem c in cboProvider.Items)
-            {
-                if (c.Value.ToLower() == text.ToLower())
-                {
-                    return c.DisplayName;
-                }
-            }
-            return cboProvider.Text;
         }
         #endregion
 
@@ -120,10 +77,8 @@ namespace QuickMon.Collectors
             {
                 if (txtName.Text.Length == 0)
                     throw new InPutValidationException("Name must be specified!", txtName);
-                if (txtDataSource.Text.Length == 0 && txtConnectionString.Text.Length == 0)
-                    throw new InPutValidationException("Either a full connection string or a data source must be specified!", txtDataSource);
-                if (cboProvider.Text.Length == 0 && txtConnectionString.Text.Length == 0)
-                    throw new InPutValidationException("The database name must be specified!", cboProvider);                
+                if (txtConnectionString.Text.Length == 0)
+                    throw new InPutValidationException("Connection string must be specified!", txtConnectionString);
                 if (txtStateQuery.Text.Trim().Length == 0)
                     throw new InPutValidationException("The summary query must be specified!", txtStateQuery);
                 if (!SQLTools.TSQLValid(txtStateQuery.Text))
@@ -190,32 +145,19 @@ namespace QuickMon.Collectors
         }
         private void CheckOkEnabled()
         {
-            bool enabled = ((txtDataSource.Text.Length > 0 && cboProvider.Text.Length > 0) || txtConnectionString.Text.Length > 0)
-               && txtStateQuery.Text.Length > 0 && txtDetailQuery.Text.Length > 0;
+            bool enabled = txtConnectionString.Text.Length > 0 && txtStateQuery.Text.Length > 0 && txtDetailQuery.Text.Length > 0;
             cmdOK.Enabled = enabled;
             cmdTest.Enabled = enabled;
         }
         #endregion
 
-        #region Change control
-        private void cboProvider_Leave(object sender, EventArgs e)
-        {
-            SetProviderFromText();
-            CheckOkEnabled();
-        }
+        #region Change control        
         private void cboReturnType_SelectedIndexChanged(object sender, EventArgs e)
         {
             chkReturnValueNotInverted.Enabled = cboReturnType.SelectedIndex > 0 && cboReturnType.SelectedIndex < 3;
             cboSuccessValue.Enabled = cboReturnType.SelectedIndex == 0;
         }
-        private void txtDataSource_TextChanged(object sender, EventArgs e)
-        {
-            CheckOkEnabled();
-        }
-        private void cboProvider_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CheckOkEnabled();
-        }
+        
         private void txtConnectionString_TextChanged(object sender, EventArgs e)
         {
             CheckOkEnabled();
@@ -271,12 +213,8 @@ namespace QuickMon.Collectors
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     OLEDBQueryInstance testQueryInstance = new OLEDBQueryInstance();
-                    testQueryInstance.Name = txtName.Text;
-                    testQueryInstance.DataSource = txtDataSource.Text;
-                    SetProviderFromText();
-                    testQueryInstance.Provider = GetProviderFromCombo();
-                    testQueryInstance.UserName = txtUserName.Text;
-                    testQueryInstance.Password = txtPassword.Text;
+                    testQueryInstance.Name = txtName.Text;                    
+                    testQueryInstance.ConnectionString = txtConnectionString.Text;
                     testQueryInstance.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                     testQueryInstance.UseSPForSummary = chkUseSPForSummary.Checked;
                     testQueryInstance.SummaryQuery = txtStateQuery.Text;
@@ -334,7 +272,6 @@ namespace QuickMon.Collectors
                 }
             }
         }
-
         
         private void cmdOK_Click(object sender, EventArgs e)
         {
@@ -351,12 +288,8 @@ namespace QuickMon.Collectors
 
                 if (selectedEntry != null)
                 {
-                    selectedEntry.Name = txtName.Text;
-                    selectedEntry.DataSource = txtDataSource.Text;
-                    SetProviderFromText();
-                    selectedEntry.Provider = GetProviderFromCombo();
-                    selectedEntry.UserName = txtUserName.Text;
-                    selectedEntry.Password = txtPassword.Text;
+                    selectedEntry.Name = txtName.Text;                    
+                    selectedEntry.ConnectionString = txtConnectionString.Text;
                     selectedEntry.CmndTimeOut = (int)numericUpDownCmndTimeOut.Value;
                     selectedEntry.UseSPForSummary = chkUseSPForSummary.Checked;
                     selectedEntry.SummaryQuery = txtStateQuery.Text;
@@ -392,5 +325,43 @@ namespace QuickMon.Collectors
             }
         }
         #endregion
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo("http://www.connectionstrings.com/");
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void linkLabelQueryTips_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo("https://quickmon.codeplex.com/wikipage?title=Ole%20Db%20Query%20Collector%20query%20syntax%20Tips");
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdBuildConnStr_Click(object sender, EventArgs e)
+        {
+            ConnectionStringBuilderUI csb = new ConnectionStringBuilderUI();
+            csb.ConnectionString = txtConnectionString.Text;
+            if (csb.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtConnectionString.Text = csb.ConnectionString;
+            }
+        }
     }
 }

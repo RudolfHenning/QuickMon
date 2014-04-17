@@ -104,9 +104,39 @@ namespace HenIT.Data.OLEDB
         private string password = string.Empty;
         public string Password
         {
-            protected get { return password; }
+            get { return password; }
             set { password = value; }
         }
+        private string initialCatalogue = string.Empty;
+        public string InitialCatalogue
+        {
+            get { return initialCatalogue; }
+            set { initialCatalogue = value; }
+        }
+        private string server = string.Empty;
+        public string Server
+        {
+            get { return server; }
+            set { server = value; }
+        }
+        private string database = string.Empty;
+        public string Database
+        {
+            get { return database; }
+            set { database = value; }
+        }
+        private bool persistSecurityInfo = false;
+        public bool PersistSecurityInfo
+        {
+            get { return persistSecurityInfo; }
+            set { persistSecurityInfo = value; }
+        }
+        private byte trustedConnection = 2;
+        public byte TrustedConnection
+        {
+            get { return trustedConnection; }
+            set { trustedConnection = value; }
+        }        
         #endregion
         private int commandTimeout = 120;
         public int CommandTimeout
@@ -128,25 +158,97 @@ namespace HenIT.Data.OLEDB
         public string ConnectionString
         {
             get { return connectionString; }
-            set { connectionString = value; }
+            set {
+                connectionString = value; 
+                OleDbConnectionStringBuilder connbuilder = new OleDbConnectionStringBuilder();
+                connbuilder.ConnectionString = connectionString;
+                provider = connbuilder.Provider;
+                try
+                {
+                    if (provider.Length == 0)
+                        provider = connbuilder["Provider"].ToString();
+                }
+                catch { }
+                try
+                {
+                    dataSource = connbuilder.DataSource;
+                    if (dataSource.Length == 0)
+                        dataSource = connbuilder["Data Source"].ToString();
+                }
+                catch { }
+                try
+                {
+                    if (connbuilder["User Id"] != null)
+                        userName = connbuilder["User Id"].ToString();
+                }
+                catch { }
+                try
+                {
+                    if (connbuilder["Password"] != null)
+                        password = connbuilder["Password"].ToString();
+                }
+                catch { }
+                try
+                {
+                    if (connbuilder["Initial Catalog"] != null)
+                        initialCatalogue = connbuilder["Initial Catalog"].ToString();
+                }
+                catch { }
+                try
+                {
+                    if (connbuilder["Server"] != null)
+                        server = connbuilder["Server"].ToString();
+                }
+                catch { }
+                try
+                {
+                    if (connbuilder["Database"] != null)
+                        database = connbuilder["Database"].ToString();
+                }
+                catch { }
+                persistSecurityInfo = connbuilder.PersistSecurityInfo;
+                try
+                {
+                    if (connbuilder["Trusted_Connection"] != null)
+                        trustedConnection = (connbuilder["Trusted_Connection"].ToString().ToLower() == "true" || connbuilder["Trusted_Connection"].ToString().ToLower() == "yes") ? (byte)1 : (byte)0;
+                    else
+                        trustedConnection = 2;
+                }
+                catch { }
+            }
         }
 
         public string GetConnectionString()
         {
-            return GetConnectionString(dataSource, provider, userName, password);            
+            return GetConnectionString(dataSource, provider, userName, password, initialCatalogue, server, database, persistSecurityInfo, trustedConnection);
         }
-        public static string GetConnectionString(string dataSource, string provider, string userName = "", string password = "")
+        public static string GetConnectionString(string dataSource, string provider, string userName = "", string password = "",
+            string initialCatalogue = "", string server = "", string database = "", bool persistSecurityInfo = false, byte trustedConnection = 2)
         {
             string connStr = "";
-            if (dataSource.Length > 0 && provider.Length > 0)
+            if (provider.Length > 0)
             {
                 OleDbConnectionStringBuilder connbuilder = new OleDbConnectionStringBuilder();
-                connbuilder.DataSource = dataSource;
+                if (dataSource.Length > 0)
+                    connbuilder.DataSource = dataSource;
                 connbuilder.Provider = provider;
-                if (userName.Length > 0)
+                if (userName.Length > 0 && (!(userName.ToLower() == "admin" && password.Length == 0)))
                 {
                     connbuilder["User Id"] = userName;
-                    connbuilder["Password"] = password;
+                    if (password.Length > 0)
+                        connbuilder["Password"] = password;
+                }
+                if (initialCatalogue.Length > 0)
+                    connbuilder["Initial Catalog"] = initialCatalogue;
+                if (server.Length > 0)
+                    connbuilder["Server"] = server;
+                if (server.Length > 0)
+                    connbuilder["Database"] = database;
+                if (persistSecurityInfo)
+                    connbuilder.PersistSecurityInfo = persistSecurityInfo;
+                if (trustedConnection != 2)
+                {
+                    connbuilder["Trusted_Connection"] = trustedConnection == 1;
                 }
                 connStr = connbuilder.ConnectionString;
             }

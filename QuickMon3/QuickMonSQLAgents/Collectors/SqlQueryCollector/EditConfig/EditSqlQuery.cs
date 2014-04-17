@@ -72,7 +72,6 @@ namespace QuickMon.Collectors
                 SelectedQueryInstance.UseSPForDetail = oldQueryType;
             }
         }
-
         private void cmdOK_Click(object sender, EventArgs e)
         {
             if (DoValidate())

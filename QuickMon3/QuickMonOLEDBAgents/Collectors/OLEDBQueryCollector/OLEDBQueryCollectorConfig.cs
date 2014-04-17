@@ -29,11 +29,7 @@ namespace QuickMon.Collectors
             foreach (XmlElement queryNode in root.SelectNodes("queries/query"))
             {
                 OLEDBQueryInstance queryEntry = new OLEDBQueryInstance();
-                queryEntry.Name = queryNode.ReadXmlElementAttr("name", "");
-                queryEntry.DataSource = queryNode.ReadXmlElementAttr("dataSource", "");
-                queryEntry.Provider = queryNode.ReadXmlElementAttr("provider", "Microsoft.Jet.OLEDB.4.0");
-                queryEntry.UserName = queryNode.ReadXmlElementAttr("userName", "");
-                queryEntry.Password = queryNode.ReadXmlElementAttr("password", "");
+                queryEntry.Name = queryNode.ReadXmlElementAttr("name", "");                
                 queryEntry.ConnectionString = queryNode.ReadXmlElementAttr("connectionString", "");
                 queryEntry.CmndTimeOut = int.Parse(queryNode.ReadXmlElementAttr("cmndTimeOut", "60"));
                 queryEntry.UsePersistentConnection = bool.Parse(queryNode.ReadXmlElementAttr("usePersistentConnection", "False"));
@@ -67,10 +63,6 @@ namespace QuickMon.Collectors
             {
                 XmlElement queryNode = config.CreateElement("query");
                 queryNode.SetAttributeValue("name", queryEntry.Name);
-                queryNode.SetAttributeValue("dataSource", queryEntry.DataSource);
-                queryNode.SetAttributeValue("provider", queryEntry.Provider);
-                queryNode.SetAttributeValue("userName", queryEntry.UserName);
-                queryNode.SetAttributeValue("password", queryEntry.Password);
                 queryNode.SetAttributeValue("connectionString", queryEntry.ConnectionString);
                 queryNode.SetAttributeValue("cmndTimeOut", queryEntry.CmndTimeOut);
                 queryNode.SetAttributeValue("usePersistentConnection", queryEntry.UsePersistentConnection);

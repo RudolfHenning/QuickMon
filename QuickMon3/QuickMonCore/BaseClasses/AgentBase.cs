@@ -39,6 +39,10 @@ namespace QuickMon
             return accepted;
         }
         public abstract IEditConfigEntryWindow GetEditConfigEntryWindow();
+        /// <summary>
+        /// Not used anymore (at least for Collectors)
+        /// </summary>
+        /// <returns></returns>
         public abstract IEditConfigWindow GetEditConfigWindow();
         public abstract string GetDefaultOrEmptyConfigString();
         public virtual void SetConfigurationFromXmlString(string configurationString)
