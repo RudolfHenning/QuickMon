@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.5.0415.2014" Manufacturer="Hen IT"
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.6.0419.2014" Manufacturer="Hen IT"
        UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
@@ -38,6 +38,7 @@
               <File Id="QuickMonCommonAgentsDll" Name="QuickMonCommonAgents.dll" Source="QuickMonCommonAgents.dll" KeyPath="no" />
               <File Id="QuickMonCoreDll" Name="QuickMonCore.dll" Source="QuickMonCore.dll" KeyPath="no" />
               <File Id="QuickMonSQLAgentsDll" Name="QuickMonSQLAgents.dll" Source="QuickMonSQLAgents.dll" KeyPath="no" />
+              <File Id="QuickMonOLEDBAgentsDll" Name="QuickMonOLEDBAgents.dll" Source="QuickMonOLEDBAgents.dll" KeyPath="no" />
               <File Id="MonitorPackListtxt" Name="MonitorPackListExample.txt" Source="MonitorPackListExample.txt" KeyPath="no" />
             </Component>
             <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5C08-41ca30000000" Feature="ProductFeature" NeverOverwrite="yes" Win64="yes">
@@ -63,8 +64,6 @@
         </Directory>
       </Directory>
     </Directory>
-
-
 
     <Icon Id="QuickMon.exe" SourceFile="QuickMon.exe" />
     <Property Id="ARPPRODUCTICON" Value="QuickMon.exe" />

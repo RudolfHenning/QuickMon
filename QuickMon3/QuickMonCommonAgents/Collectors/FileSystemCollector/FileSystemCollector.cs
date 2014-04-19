@@ -129,10 +129,10 @@ namespace QuickMon.Collectors
         {
             return new FileSystemCollectorViewDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new FileSystemCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new FileSystemCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.FileSystemCollectorDefaultConfig;

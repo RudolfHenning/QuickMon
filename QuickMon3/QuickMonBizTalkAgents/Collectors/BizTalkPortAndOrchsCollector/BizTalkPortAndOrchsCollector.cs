@@ -135,10 +135,10 @@ namespace QuickMon
         {
             return new BizTalkPortAndOrchsCollectorShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new BizTalkPortsAndOrchsEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new BizTalkPortsAndOrchsEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.BizTalkGroupPortsAndOrchsDefaultConfig;

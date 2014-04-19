@@ -88,10 +88,10 @@ namespace QuickMon.Collectors
             return new OLEDBQueryCollectorEditEntry();
         }
 
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            throw new NotImplementedException();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public override string GetDefaultOrEmptyConfigString()
         {

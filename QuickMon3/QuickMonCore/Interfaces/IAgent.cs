@@ -16,6 +16,6 @@ namespace QuickMon
         void Close();
 
         bool ShowEditEntry(ref ICollectorConfigEntry entry);
-        bool ShowEditConfiguration(string title);
+        
     }
 }

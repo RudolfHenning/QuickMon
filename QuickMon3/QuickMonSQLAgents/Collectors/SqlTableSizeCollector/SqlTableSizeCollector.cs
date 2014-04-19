@@ -92,10 +92,10 @@ namespace QuickMon.Collectors
         {
             return new SqlTableSizeCollectorViewDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new SqlTableSizeCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new SqlTableSizeCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.SqlTableSizeCollectorDefaultConfig;

@@ -93,10 +93,10 @@ namespace QuickMon.Collectors
         {
             return new PerfCounterShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new PerfCounterEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new PerfCounterEditConfig();
+        //}
 
         public override string GetDefaultOrEmptyConfigString()
         {

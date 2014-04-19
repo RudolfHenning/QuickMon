@@ -82,10 +82,10 @@ namespace QuickMon.Collectors
             return new SqlQueryCollectorShowDetails();
         }
 
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new SqlQueryCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new SqlQueryCollectorEditConfig();
+        //}
 
         public override string GetDefaultOrEmptyConfigString()
         {

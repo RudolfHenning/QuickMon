@@ -86,10 +86,10 @@ namespace QuickMon.Collectors
         {
             return new ServiceStateCollectorDetailView();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new ServiceStateCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new ServiceStateCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.ServiceStateCollectorDefaultConfig;

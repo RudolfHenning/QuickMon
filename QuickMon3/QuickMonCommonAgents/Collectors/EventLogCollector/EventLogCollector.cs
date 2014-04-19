@@ -84,10 +84,10 @@ namespace QuickMon.Collectors
         {
             return new EventLogCollectorViewDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new EventLogCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new EventLogCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.EventLogCollectorDefaultConfig;

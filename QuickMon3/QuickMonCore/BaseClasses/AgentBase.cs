@@ -11,19 +11,7 @@ namespace QuickMon
         public string Name { get;  set; }
         public IAgentConfig AgentConfig { get; set; }
 
-        public virtual bool ShowEditConfiguration(string title)
-        {
-            bool accepted = false;
-            IEditConfigWindow editConfig = GetEditConfigWindow();
-            editConfig.SelectedConfig = AgentConfig;
-            editConfig.SetTitle(title); //"Edit " + Name + " config");
-            if (editConfig != null && editConfig.ShowConfig() == System.Windows.Forms.DialogResult.OK)
-            {
-                AgentConfig = editConfig.SelectedConfig;
-                accepted = true;
-            }
-            return accepted;
-        }
+        
         public virtual bool ShowEditEntry(ref ICollectorConfigEntry entry)
         {
             bool accepted = false;
@@ -39,11 +27,7 @@ namespace QuickMon
             return accepted;
         }
         public abstract IEditConfigEntryWindow GetEditConfigEntryWindow();
-        /// <summary>
-        /// Not used anymore (at least for Collectors)
-        /// </summary>
-        /// <returns></returns>
-        public abstract IEditConfigWindow GetEditConfigWindow();
+        
         public abstract string GetDefaultOrEmptyConfigString();
         public virtual void SetConfigurationFromXmlString(string configurationString)
         {

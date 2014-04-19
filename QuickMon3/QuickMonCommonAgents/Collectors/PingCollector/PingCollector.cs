@@ -89,10 +89,10 @@ namespace QuickMon.Collectors
         {
             return new PingCollectorShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new PingCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new PingCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.PingCollectorDefaultConfig;

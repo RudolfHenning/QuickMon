@@ -73,10 +73,10 @@ namespace QuickMon.Collectors
         {
             return new BizTalkSuspendedCountCollectorShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new BizTalkSuspendedCountCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new BizTalkSuspendedCountCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.BizTalkSuspendedCountCollectorDefaultConfig;

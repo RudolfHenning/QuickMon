@@ -83,10 +83,10 @@ namespace QuickMon.Collectors
         {
             return new WMIQueryCollectorShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new WMIQueryCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new WMIQueryCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.WMIQueryCollectorDefaultConfig;

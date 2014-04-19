@@ -26,10 +26,10 @@ namespace QuickMon.Collectors
         {
             return new LoopbackCollectorShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new LoopbackCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new LoopbackCollectorEditConfig();
+        //}
 
         public override string GetDefaultOrEmptyConfigString()
         {

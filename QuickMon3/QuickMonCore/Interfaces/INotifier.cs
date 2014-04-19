@@ -16,5 +16,6 @@ namespace QuickMon
         /// </summary>
         bool HasViewer { get; }
         INotivierViewer GetNotivierViewer();
+        bool ShowEditConfiguration(string title);
     }    
 }

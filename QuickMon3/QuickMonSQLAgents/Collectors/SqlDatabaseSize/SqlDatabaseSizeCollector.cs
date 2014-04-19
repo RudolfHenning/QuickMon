@@ -78,10 +78,10 @@ namespace QuickMon.Collectors
         {
             return new SqlDatabaseSizeCollectorShowDetails();
         }
-        public override IEditConfigWindow GetEditConfigWindow()
-        {
-            return new SqlDatabaseSizeCollectorEditConfig();
-        }
+        //public override IEditConfigWindow GetEditConfigWindow()
+        //{
+        //    return new SqlDatabaseSizeCollectorEditConfig();
+        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.SqlDatabaseSizeCollectorDefaultConfig;
