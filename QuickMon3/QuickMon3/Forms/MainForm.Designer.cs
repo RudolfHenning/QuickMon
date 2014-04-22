@@ -1041,7 +1041,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
-        private TreeViewEx tvwCollectors;
+        private QuickMon.TreeViewEx tvwCollectors;
         private System.Windows.Forms.ImageList treeImageList;
         private System.Windows.Forms.ContextMenuStrip collectorTreeContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem collectorTreeViewDetailsToolStripMenuItem;

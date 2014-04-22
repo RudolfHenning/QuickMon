@@ -17,6 +17,7 @@ namespace QuickMon
             Enabled = true;
             UniqueId = Guid.NewGuid().ToString();
             RemoteAgentHostPort = 8181;
+            LastStateUpdate = new DateTime(2000, 1, 1);
         }
 
         #region Private vars
@@ -96,6 +97,9 @@ namespace QuickMon
         /// Records when the last state change was
         /// </summary>
         public DateTime LastStateChange { get; set; }
+        public DateTime LastStateCheckAttemptBegin { get; set; }
+        public DateTime LastStateUpdate { get; set; }
+        public long LastStateCheckDurationMS { get; set; }
         #endregion
 
         #region Alerting
@@ -144,7 +148,7 @@ namespace QuickMon
         public MonitorState GetCurrentState()
         {
             if (LastMonitorState == null)
-                    LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
+                LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
             if (CurrentState == null)
                 CurrentState = new MonitorState() { State = CollectorState.NotAvailable };
             if (LastMonitorState.State != CollectorState.ConfigurationError)            
@@ -166,8 +170,10 @@ namespace QuickMon
                     if (ServiceWindows.IsInTimeWindow())
                     {
                         //*********** Call actual collector GetState **********
+                        LastStateCheckAttemptBegin = DateTime.Now;
                         LastMonitorState = CurrentState;
-
+                        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+                        sw.Start();
                         if (OverrideRemoteAgentHost)
                         {
                             try
@@ -194,6 +200,9 @@ namespace QuickMon
                         }
                         else
                             CurrentState = Collector.GetState();
+                        sw.Stop();
+                        LastStateCheckDurationMS = sw.ElapsedMilliseconds;
+                        LastStateUpdate = DateTime.Now;
                         if (CurrentState.State == CollectorState.Good)
                             LastGoodState = DateTime.Now;
                     }

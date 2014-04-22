@@ -10,15 +10,17 @@ namespace QuickMon
     {
         public static MonitorState GetRemoteAgentState(CollectorEntry entry)
         {
-            BasicHttpBinding myBinding = new BasicHttpBinding();
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort));
-            ChannelFactory<ICollectorEntryRelay> myChannelFactory = new ChannelFactory<ICollectorEntryRelay>(myBinding, myEndpoint);
-            ICollectorEntryRelay relay = myChannelFactory.CreateChannel();
+            return GetRemoteAgentState(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
 
-            CollectorEntryRequest colReq = new CollectorEntryRequest();
-            colReq.FromCollectorEntry(entry);
-            colReq.ParentCollectorId = ""; //Since this mechanism  do no support nested collectors
-            return relay.GetState(colReq);
+            //BasicHttpBinding myBinding = new BasicHttpBinding();
+            //EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort));
+            //ChannelFactory<ICollectorEntryRelay> myChannelFactory = new ChannelFactory<ICollectorEntryRelay>(myBinding, myEndpoint);
+            //ICollectorEntryRelay relay = myChannelFactory.CreateChannel();
+
+            //CollectorEntryRequest colReq = new CollectorEntryRequest();
+            //colReq.FromCollectorEntry(entry);
+            //colReq.ParentCollectorId = ""; //Since this mechanism  do no support nested collectors
+            //return relay.GetState(colReq);
         }
         public static MonitorState GetRemoteAgentState(CollectorEntry entry, string hostAddressOverride, int portNumberOverride)
         {
