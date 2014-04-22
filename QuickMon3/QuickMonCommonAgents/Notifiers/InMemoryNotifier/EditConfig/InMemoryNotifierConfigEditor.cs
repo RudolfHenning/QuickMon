@@ -17,14 +17,14 @@ namespace QuickMon.Notifiers
         }
 
         #region IEditConfigWindow Members
-        public IAgentConfig SelectedConfig { get; set; }  
-        public DialogResult ShowConfig()
+        public IAgentConfig SelectedConfig { get; set; }
+        public QuickMonDialogResult ShowConfig()
         {
             if (SelectedConfig != null)
             {
                 maxCountNumericUpDown.Value = ((InMemoryNotifierConfig)SelectedConfig).MaxEntryCount;
             }
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         public void SetTitle(string title)
         {
@@ -34,13 +34,9 @@ namespace QuickMon.Notifiers
 
         #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get; set; }
-        public DialogResult ShowEditEntry()
+        public QuickMonDialogResult ShowEditEntry()
         {
-            if (SelectedEntry != null)
-            {
-                maxCountNumericUpDown.Value = ((InMemoryNotifierConfig)SelectedEntry).MaxEntryCount;
-            }
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         #endregion
 

@@ -18,10 +18,10 @@ namespace QuickMon.Collectors
         }
 
         #region IEditConfigWindow Members
-        public IAgentConfig SelectedConfig { get;set;}        
-        public DialogResult ShowConfig()
+        public IAgentConfig SelectedConfig { get;set;}
+        public QuickMonDialogResult ShowConfig()
         {
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         public void SetTitle(string title)
         {
@@ -31,9 +31,9 @@ namespace QuickMon.Collectors
 
         #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get;set;}
-        public DialogResult ShowEditEntry()
+        public QuickMonDialogResult ShowEditEntry()
         {
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         #endregion
 

@@ -22,9 +22,9 @@ namespace QuickMon.Collectors
         {
             Text = title;
         }
-        public DialogResult ShowConfig()
+        public QuickMonDialogResult ShowConfig()
         {
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         #endregion
 

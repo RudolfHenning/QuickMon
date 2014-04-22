@@ -21,9 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastColoredTextBox", "FastC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonOLEDBAgents", "QuickMonOLEDBAgents\QuickMonOLEDBAgents.csproj", "{6044A43B-A37F-4F7D-A2F6-5F56E374335E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonCoreUI", "QuickMonCoreUI\QuickMonCoreUI.csproj", "{8001D615-E0F8-40C4-875C-AE65C150BB04}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -54,6 +56,9 @@ Global
 		SccProjectUniqueName9 = QuickMonOLEDBAgents\\QuickMonOLEDBAgents.csproj
 		SccProjectName9 = QuickMonOLEDBAgents
 		SccLocalPath9 = QuickMonOLEDBAgents
+		SccProjectUniqueName10 = QuickMonCoreUI\\QuickMonCoreUI.csproj
+		SccProjectName10 = QuickMonCoreUI
+		SccLocalPath10 = QuickMonCoreUI
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +101,10 @@ Global
 		{6044A43B-A37F-4F7D-A2F6-5F56E374335E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6044A43B-A37F-4F7D-A2F6-5F56E374335E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6044A43B-A37F-4F7D-A2F6-5F56E374335E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8001D615-E0F8-40C4-875C-AE65C150BB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8001D615-E0F8-40C4-875C-AE65C150BB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8001D615-E0F8-40C4-875C-AE65C150BB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8001D615-E0F8-40C4-875C-AE65C150BB04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

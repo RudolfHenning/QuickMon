@@ -1,9 +1,9 @@
 ﻿CHANGES (considdered possible for next release)
-Add collectors for OLEDB database connections.
-Add setting per collector entry level to specify that it should 'refresh' with X seconds no matter the main polling frequency (objviously must be larger than polling frequency)
+Add setting per collector entry level to specify that it should 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
   Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
   When refreshing from UI client this setting get override (so every refresh execute agent)
 Add run-time setting per collector entry level that indicate it should not refreshed while a previous instance has finished (or within X seconds, whichever comes first)
+Copy and Paste of Collectors (to duplicate parts of the treeview - perhaps later with 'replace computer name/any string' in config)
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -14,6 +14,7 @@ Future advancement - Allow corrective scrpts to run on remote hosts
 Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)
 Allow multiple monitor packs in Windows client (different tabs...)
 Convert to WPF app (yeah right)
+   First step is to remove/or separate all UI components from core parts. * Done
 
 --------------------------------------------------------------------------------------------------------
 POSSIBLE CHANGES (might be just nice to have)
@@ -45,5 +46,9 @@ Remote host overrides on parent collector (specify a remote host on parent that 
 V3.6
 Added OleDb query collector
 The GetEditConfigWindow method in AgentBase (for Collectors) must be removed - not used anymore. Notifiers still use it darn...
+
+V3.7
+'Fix' irritating issue where % Processor time perf counter query in itself sometimes cause 100% cpu usage.
+Removed Windows.Forms reference from QuickMonCore dll
 -------------------------------------------------------------------------------------------------------
 

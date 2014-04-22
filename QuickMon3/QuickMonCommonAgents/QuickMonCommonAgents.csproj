@@ -310,6 +310,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\QuickMonCoreUI\QuickMonCoreUI.csproj">
+      <Project>{8001d615-e0f8-40c4-875c-ae65c150bb04}</Project>
+      <Name>QuickMonCoreUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
       <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
       <Name>QuickMonCore</Name>

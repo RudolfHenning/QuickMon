@@ -39,7 +39,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,40 +59,6 @@
     <Compile Include="Classes\CollectorEntry.cs" />
     <Compile Include="Classes\ServiceWindows.cs" />
     <Compile Include="Constants\AutoFreshTimes.cs" />
-    <Compile Include="Controls\supercontextmenu\PopedCotainer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\supercontextmenu\PoperContainer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\supercontextmenu\PopedCotainer.Designer.cs" />
-    <Compile Include="Forms\BaseDetailView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ConfigureEditButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ConfigureEditButton.Designer.cs">
-      <DependentUpon>ConfigureEditButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\InputBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\InputBox.designer.cs">
-      <DependentUpon>InputBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListViewEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\MiniDetailView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\RichTextControlEx.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\RichTextControlEx.designer.cs">
-      <DependentUpon>RichTextControlEx.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\RTF\RTFBuilder.cs" />
     <Compile Include="Controls\RTF\RTFBuilder.RawFonts.cs" />
     <Compile Include="Controls\RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
@@ -102,33 +67,10 @@
     <Compile Include="Controls\RTF\RTFBuilder.RTFParaWrap.cs" />
     <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
     <Compile Include="Controls\RTF\RTFFont.cs" />
-    <Compile Include="Forms\SimpleDetailView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SimpleListEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SimpleNotifierEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\TreeList\TreeViewColumns.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TreeList\TreeViewColumns.designer.cs">
-      <DependentUpon>TreeViewColumns.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TreeViewEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Enums\AlertLevel.cs" />
     <Compile Include="Enums\CollectorState.cs" />
     <Compile Include="Enums\DetailLevel.cs" />
-    <Compile Include="Forms\SetTimerConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SetTimerConfig.Designer.cs">
-      <DependentUpon>SetTimerConfig.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Enums\QuickMonDialogResult.cs" />
     <Compile Include="Interfaces\IAgent.cs" />
     <Compile Include="Interfaces\IAgentConfig.cs" />
     <Compile Include="Interfaces\ICollector.cs" />
@@ -152,12 +94,6 @@
     <Compile Include="RemoteCollectorAgent\CollectorEntryRelay.cs" />
     <Compile Include="RemoteCollectorAgent\CollectorEntryRequest.cs" />
     <Compile Include="RemoteCollectorAgent\ICollectorEntryRelay.cs" />
-    <Compile Include="Utils\CSVEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utils\CSVEditor.Designer.cs">
-      <DependentUpon>CSVEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\CSVExtensions.cs" />
     <Compile Include="Utils\FormatUtils.cs" />
     <Compile Include="Utils\InPutValidationException.cs" />
@@ -169,34 +105,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Compile Include="Controls\supercontextmenu\PoperContainer.Designer.cs" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ConfigureEditButton.resx">
-      <DependentUpon>ConfigureEditButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InputBox.resx">
-      <DependentUpon>InputBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\RichTextControlEx.resx">
-      <DependentUpon>RichTextControlEx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TreeList\TreeViewColumns.resx">
-      <DependentUpon>TreeViewColumns.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SetTimerConfig.resx">
-      <DependentUpon>SetTimerConfig.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Utils\CSVEditor.resx">
-      <DependentUpon>CSVEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

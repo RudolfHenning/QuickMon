@@ -19,7 +19,7 @@ namespace QuickMon.Collectors
         #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get; set; }
 
-        public DialogResult ShowEditEntry()
+        public QuickMonDialogResult ShowEditEntry()
         {
             if (SelectedEntry == null)
                 SelectedEntry = new PingCollectorHostEntry();
@@ -47,10 +47,11 @@ namespace QuickMon.Collectors
             chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
             txtUserName.Text = HostEntry.TelnetUserName;
             txtPassword.Text = HostEntry.TelnetPassword;
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
 
         #endregion
+
         public PingCollectorHostEntry HostEntry { get; set; }
 
         public DialogResult ShowHostAddress()

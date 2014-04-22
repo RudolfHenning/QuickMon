@@ -50,6 +50,13 @@ namespace QuickMon.Collectors
                 if (pc == null)
                     InitializePerfCounter();
                 value = pc.NextValue();
+
+                //the next section is to overcome the 'bug' that querying the 'Processor\% Processor Time\_Total' counter in itself (first time) can lead to 100% CPU spike.
+                if (value > 99.0 && pc.CounterName =="% Processor Time")
+                {
+                    System.Threading.Thread.Sleep(13);
+                    value = pc.NextValue();
+                }
             }
             catch
             {

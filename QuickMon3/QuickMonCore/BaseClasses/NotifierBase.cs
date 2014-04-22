@@ -21,8 +21,8 @@ namespace QuickMon.Notifiers
             bool accepted = false;
             IEditConfigWindow editConfig = GetEditConfigWindow();
             editConfig.SelectedConfig = AgentConfig;
-            editConfig.SetTitle(title); //"Edit " + Name + " config");
-            if (editConfig != null && editConfig.ShowConfig() == System.Windows.Forms.DialogResult.OK)
+            editConfig.SetTitle(title);
+            if (editConfig != null && editConfig.ShowConfig() == QuickMonDialogResult.Ok)
             {
                 AgentConfig = editConfig.SelectedConfig;
                 accepted = true;

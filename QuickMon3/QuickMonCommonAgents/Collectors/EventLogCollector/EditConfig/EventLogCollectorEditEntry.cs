@@ -20,11 +20,11 @@ namespace QuickMon.Collectors
 
         #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get; set; }
-        public DialogResult ShowEditEntry()
+        public QuickMonDialogResult ShowEditEntry()
         {
             if (SelectedEntry == null)
                 SelectedEntry = new EventLogCollectorEntry() { Computer = System.Net.Dns.GetHostName() };
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         #endregion
 

@@ -498,9 +498,11 @@ namespace QuickMon
         /// Creates a new copy of the current Collector Entry
         /// </summary>
         /// <returns>CollectorEntry instance</returns>
-        public CollectorEntry Clone()
+        public CollectorEntry Clone(bool newId = false)
         {
             CollectorEntry clone = FromConfig(ToConfig());
+            if (newId)
+                clone.UniqueId = Guid.NewGuid().ToString();
             clone.CollectorRegistrationDisplayName = this.CollectorRegistrationDisplayName; //have to add it afterwards since config does not specify it
             return clone;
         }

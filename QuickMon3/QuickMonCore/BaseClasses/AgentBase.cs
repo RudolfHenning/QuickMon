@@ -18,7 +18,7 @@ namespace QuickMon
             IEditConfigEntryWindow editConfig = GetEditConfigEntryWindow();
             editConfig.SelectedEntry = entry;
             //editConfig.SetTitle(title); //"Edit " + Name + " config");
-            if (editConfig != null && editConfig.ShowEditEntry() == System.Windows.Forms.DialogResult.OK)
+            if (editConfig != null && editConfig.ShowEditEntry() == QuickMonDialogResult.Ok)
             {
                 //entry = (ICollectorConfigEntry)editConfig.SelectedEntry;
                 entry = editConfig.SelectedEntry;

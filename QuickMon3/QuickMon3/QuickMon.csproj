@@ -125,6 +125,12 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PasteCollectors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PasteCollectors.Designer.cs">
+      <DependentUpon>PasteCollectors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RecentMonitorPacks.cs" />
     <Compile Include="Forms\RemoteAgentsManager.cs">
       <SubType>Form</SubType>
@@ -182,6 +188,9 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PasteCollectors.resx">
+      <DependentUpon>PasteCollectors.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemoteAgentsManager.resx">
       <DependentUpon>RemoteAgentsManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -220,6 +229,10 @@
     <Content Include="QuickMon3.ico" />
     <None Include="Resources\AboutBkgrnd.png" />
     <None Include="Resources\Charon.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\paste.png" />
+    <None Include="Resources\okGray.png" />
+    <None Include="Resources\pastewithedit.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />
@@ -277,6 +290,10 @@
     <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
       <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
       <Name>FastColoredTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonCoreUI\QuickMonCoreUI.csproj">
+      <Project>{8001d615-e0f8-40c4-875c-ae65c150bb04}</Project>
+      <Name>QuickMonCoreUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
       <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>

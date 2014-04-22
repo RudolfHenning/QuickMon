@@ -19,9 +19,9 @@ namespace QuickMon.Collectors
 
         #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get; set; }
-        public DialogResult ShowEditEntry()
+        public QuickMonDialogResult ShowEditEntry()
         {
-            return ShowDialog();
+            return (QuickMonDialogResult)ShowDialog();
         }
         #endregion
 

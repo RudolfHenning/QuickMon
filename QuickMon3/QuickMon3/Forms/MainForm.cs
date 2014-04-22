@@ -50,12 +50,20 @@ namespace QuickMon
         private QuickMon.Controls.CollectorContextMenuControl popedContainerForTreeView;//a user control that is derievd from PopedContainer; it can contain any type of controls and you design it as if you design a form!!!
         private QuickMon.Controls.PoperContainer poperContainerForTreeView;//the container... which displays previous user control as a context poped up menu
         private QuickMon.Controls.NotifierContextMenuControl popedContainerForListView;
-        private QuickMon.Controls.PoperContainer poperContainerForListView; 
+        private QuickMon.Controls.PoperContainer poperContainerForListView;
+
+        private List<CollectorEntry> copiedCollectorList = new List<CollectorEntry>();
         #endregion       
 
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
+            popedContainerForTreeView.cmdCopy.Enabled = false;
+            popedContainerForTreeView.cmdPaste.Enabled = false;
+            popedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
+            popedContainerForTreeView.cmdCopy.Click += new System.EventHandler(collectorContextMenuCmdCopy_Click);
+            popedContainerForTreeView.cmdPaste.Click += new System.EventHandler(collectorContextMenuCmdPaste_Click);
+            popedContainerForTreeView.cmdPasteWithEdit.Click += new System.EventHandler(collectorContextMenuCmdPasteWithEdit_Click);
             popedContainerForTreeView.cmdViewDetails.Click += new System.EventHandler(collectorTreeViewDetailsToolStripMenuItem_Click);
             popedContainerForTreeView.cmdAddFolder.Click += new System.EventHandler(addCollectorFolderToolStripMenuItem_Click);
             popedContainerForTreeView.cmdAddCollector.Click += new System.EventHandler(addCollectorToolStripMenuItem_Click);
@@ -75,6 +83,7 @@ namespace QuickMon
             popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
             popedContainerForListView.cmdEditNotifier.Click += new System.EventHandler(notifierConfigurationToolStripMenuItem_Click);
             popedContainerForListView.cmdDisableNotifier.Click += new System.EventHandler(disableNotifierToolStripMenuItem_Click);
+            popedContainerForListView.cmdDisableNotifier.BackColor = Color.DarkGray;
             popedContainerForListView.cmdDeleteNotifier.Click += new System.EventHandler(removeNotifierToolStripMenuItem_Click);
 
             if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
@@ -92,6 +101,8 @@ namespace QuickMon
             MainForm_Resize(null, null);
             lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
         }
+
+        
         private void MainForm_Resize(object sender, EventArgs e)
         {
             //mainToolStrip.Left = (this.ClientSize.Width - mainToolStrip.Width) / 2;
@@ -131,7 +142,6 @@ namespace QuickMon
             tvwCollectors.Focus();
             mainRefreshTimer.Enabled = true;
         }
-
         
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -888,7 +898,8 @@ namespace QuickMon
                 collectorNode.Text += string.Format(" [{0}:{1}]", (collector.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
             }
             foreach (CollectorEntry childCollector in (from c in monitorPack.Collectors
-                                                       where c.ParentCollectorId == collector.UniqueId
+                                                       where c.ParentCollectorId == collector.UniqueId &&
+                                                       c.ParentCollectorId != c.UniqueId
                                                        select c))
             {
                 LoadCollectorNode(collectorNode, childCollector);
@@ -1051,27 +1062,26 @@ namespace QuickMon
                         newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
                     }
 
-     
-                        QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
-                        editCollectorEntry.SelectedEntry = newCollectorEntry;
 
-                        editCollectorEntry.LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect;
-                        editCollectorEntry.ImportConfigAfterSelect = agentTypeSelect.ImportConfigAfterSelect;
-                        
-                        if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
+                    editCollectorEntry.SelectedEntry = newCollectorEntry;
+
+                    editCollectorEntry.LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect;
+                    editCollectorEntry.ImportConfigAfterSelect = agentTypeSelect.ImportConfigAfterSelect;
+
+                    if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        monitorPackChanged = true;
+                        monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
+                        TreeNode root = tvwCollectors.Nodes[0];
+                        if (parentCollectorEntry != null)
                         {
-                            monitorPackChanged = true;
-                            monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
-                            TreeNode root = tvwCollectors.Nodes[0];
-                            if (parentCollectorEntry != null)
-                            {
-                                root = tvwCollectors.SelectedNode;
-                            }
-                            LoadCollectorNode(root, editCollectorEntry.SelectedEntry);
-                            root.Expand();
-                            DoAutoSave();
+                            root = tvwCollectors.SelectedNode;
                         }
-                    
+                        LoadCollectorNode(root, editCollectorEntry.SelectedEntry);
+                        root.Expand();
+                        DoAutoSave();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1089,7 +1099,8 @@ namespace QuickMon
                 popedContainerForTreeView.cmdEditCollector.Enabled = true;
                 popedContainerForTreeView.cmdDeleteCollector.Enabled = true;
                 popedContainerForTreeView.cmdDisableCollector.Enabled = true;
-                popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
+                popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.DarkGray;
+                //popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
 
                 collectorTreeViewDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
                 viewCollectorDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
@@ -1099,6 +1110,9 @@ namespace QuickMon
                 disableCollectorTreeToolStripMenuItem.Enabled = true;
                 removeCollectorToolStripMenuItem.Enabled = true;
                 disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable" : "Enable";
+
+                popedContainerForTreeView.cmdCopy.Enabled = true;
+                //popedContainerForTreeView.cmdPaste.Enabled = true;
             }
             else
             {
@@ -1112,8 +1126,12 @@ namespace QuickMon
                 collectorTreeEditConfigToolStripMenuItem.Enabled = false;
                 editCollectorToolStripMenuItem.Enabled = false;
                 disableCollectorTreeToolStripMenuItem.Enabled = false;
+                popedContainerForTreeView.cmdDisableCollector.BackColor = Color.DarkGray;
                 removeCollectorToolStripMenuItem.Enabled = false;
                 removeCollectorToolStripMenuItem1.Enabled = false;
+
+                popedContainerForTreeView.cmdCopy.Enabled = false;
+                //popedContainerForTreeView.cmdPaste.Enabled = false;
             }
         }
         private void CheckNotifierContextMenuEnables()
@@ -1136,6 +1154,91 @@ namespace QuickMon
             popedContainerForListView.cmdEditNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             popedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             popedContainerForListView.cmdDeleteNotifier.Enabled = lvwNotifiers.SelectedItems.Count > 0;
+        }
+        private void CopySelectedCollectorAndDependants()
+        {
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+            {
+                CollectorEntry entry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                List<CollectorEntry> sourceList = monitorPack.GetAllChildCollectors(entry);
+                copiedCollectorList = new List<CollectorEntry>();
+                copiedCollectorList.Add(entry.Clone());
+                foreach (CollectorEntry en in sourceList)
+                {
+                    //Copy as is with same IDs
+                    copiedCollectorList.Add(en.Clone());
+                }
+
+                popedContainerForTreeView.cmdPaste.Enabled = true;
+                popedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
+            }
+        }
+        private void PasteSelectedCollectorAndDependant(bool showEditList)
+        {
+            try
+            {
+                if (copiedCollectorList != null && copiedCollectorList.Count > 0)
+                {
+                    if (showEditList)
+                    {
+                        PasteCollectors pasteCollectors = new PasteCollectors();
+                        pasteCollectors.SelectedCollectors = copiedCollectorList;
+                        if (pasteCollectors.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            copiedCollectorList = pasteCollectors.SelectedCollectors;
+                        }
+                        else
+                            return;
+                    }
+
+                    if (copiedCollectorList != null && copiedCollectorList.Count > 0)
+                    {
+                        monitorPackChanged = true;
+
+                        for (int i = 0; i < copiedCollectorList.Count; i++)
+                        {
+                            string newId = Guid.NewGuid().ToString();
+                            string oldId = copiedCollectorList[i].UniqueId;
+                            for (int j = 0; j < copiedCollectorList.Count; j++)
+                            {
+                                if (i != j && copiedCollectorList[j].ParentCollectorId == oldId)
+                                {
+                                    copiedCollectorList[j].ParentCollectorId = newId;
+                                }
+                            }
+                            copiedCollectorList[i].UniqueId = newId;
+                        }
+
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                        {
+                            copiedCollectorList[0].ParentCollectorId = ((CollectorEntry)tvwCollectors.SelectedNode.Tag).UniqueId;
+                        }
+                        else
+                            copiedCollectorList[0].ParentCollectorId = "";
+                        CollectorEntry rootChild = null;
+                        for (int i = 0; i < copiedCollectorList.Count; i++)
+                        {
+                            CollectorEntry newChild = copiedCollectorList[i].Clone();
+                            if (rootChild == null)
+                                rootChild = newChild;
+                            monitorPack.Collectors.Add(newChild);
+                        }
+                        TreeNode root = tvwCollectors.Nodes[0];
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                        {
+                            root = tvwCollectors.SelectedNode;
+                        }
+
+                        LoadCollectorNode(root, rootChild);
+                        root.Expand();
+                        DoAutoSave();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -1315,6 +1418,21 @@ namespace QuickMon
             catch { }
         }
 
+        private void collectorContextMenuCmdCopy_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            CopySelectedCollectorAndDependants();
+        }
+        private void collectorContextMenuCmdPaste_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            PasteSelectedCollectorAndDependant(false);
+        }  
+        private void collectorContextMenuCmdPasteWithEdit_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            PasteSelectedCollectorAndDependant(true);
+        }  
         private void collectorTreeViewDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
