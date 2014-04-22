@@ -1100,7 +1100,7 @@ namespace QuickMon
                 popedContainerForTreeView.cmdDeleteCollector.Enabled = true;
                 popedContainerForTreeView.cmdDisableCollector.Enabled = true;
                 popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.DarkGray;
-                //popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
+                popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
 
                 collectorTreeViewDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
                 viewCollectorDetailsToolStripMenuItem.Enabled = !entry.IsFolder;

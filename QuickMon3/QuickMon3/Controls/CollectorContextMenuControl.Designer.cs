@@ -40,6 +40,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.cmdAbout = new System.Windows.Forms.Button();
             this.cmdRemoteAgents = new System.Windows.Forms.Button();
             this.cmdGeneralSettings = new System.Windows.Forms.Button();
@@ -48,12 +49,12 @@
             this.cmdLoadMonitorPack = new System.Windows.Forms.Button();
             this.cmdNewMonitorPack = new System.Windows.Forms.Button();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.cmdDeleteCollector = new System.Windows.Forms.Button();
+            this.cmdDisableCollector = new System.Windows.Forms.Button();
             this.cmdAddFolder = new System.Windows.Forms.Button();
             this.cmdAddCollector = new System.Windows.Forms.Button();
             this.cmdEditCollector = new System.Windows.Forms.Button();
             this.cmdViewDetails = new System.Windows.Forms.Button();
-            this.cmdDisableCollector = new System.Windows.Forms.Button();
-            this.cmdDeleteCollector = new System.Windows.Forms.Button();
             this.cmdPasteWithEdit = new System.Windows.Forms.Button();
             this.cmdPaste = new System.Windows.Forms.Button();
             this.cmdCopy = new System.Windows.Forms.Button();
@@ -61,6 +62,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -68,7 +70,7 @@
             this.panel1.Controls.Add(this.cmdAddFolder);
             this.panel1.Controls.Add(this.cmdAddCollector);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(4, 80);
+            this.panel1.Location = new System.Drawing.Point(4, 82);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(226, 44);
             this.panel1.TabIndex = 2;
@@ -77,7 +79,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.DarkGray;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(4, 79);
+            this.label1.Location = new System.Drawing.Point(4, 81);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(226, 1);
             this.label1.TabIndex = 1;
@@ -88,7 +90,7 @@
             // 
             this.label2.BackColor = System.Drawing.Color.DarkGray;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(4, 124);
+            this.label2.Location = new System.Drawing.Point(4, 237);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(226, 1);
             this.label2.TabIndex = 5;
@@ -99,7 +101,7 @@
             // 
             this.label3.BackColor = System.Drawing.Color.DarkGray;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(4, 169);
+            this.label3.Location = new System.Drawing.Point(4, 126);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(226, 1);
             this.label3.TabIndex = 7;
@@ -117,7 +119,7 @@
             this.panel2.Controls.Add(this.cmdLoadMonitorPack);
             this.panel2.Controls.Add(this.cmdNewMonitorPack);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(4, 192);
+            this.panel2.Location = new System.Drawing.Point(4, 238);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(226, 36);
             this.panel2.TabIndex = 6;
@@ -137,7 +139,7 @@
             this.label4.BackColor = System.Drawing.Color.Gainsboro;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(4, 170);
+            this.label4.Location = new System.Drawing.Point(4, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(226, 22);
             this.label4.TabIndex = 4;
@@ -149,15 +151,13 @@
             this.panel3.Controls.Add(this.cmdEditCollector);
             this.panel3.Controls.Add(this.cmdViewDetails);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(4, 35);
+            this.panel3.Location = new System.Drawing.Point(4, 37);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(226, 44);
             this.panel3.TabIndex = 1;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.cmdDeleteCollector);
-            this.panel4.Controls.Add(this.cmdDisableCollector);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.cmdPasteWithEdit);
             this.panel4.Controls.Add(this.cmdPaste);
@@ -165,18 +165,28 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(4, 4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(226, 31);
+            this.panel4.Size = new System.Drawing.Size(226, 33);
             this.panel4.TabIndex = 0;
             // 
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.DimGray;
             this.label6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label6.Location = new System.Drawing.Point(96, 0);
+            this.label6.Location = new System.Drawing.Point(223, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(2, 31);
+            this.label6.Size = new System.Drawing.Size(2, 33);
             this.label6.TabIndex = 3;
             this.label6.Text = "label6";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.cmdDeleteCollector);
+            this.panel5.Controls.Add(this.cmdDisableCollector);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(4, 127);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(226, 44);
+            this.panel5.TabIndex = 8;
             // 
             // cmdAbout
             // 
@@ -282,13 +292,47 @@
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdRefresh.Image = global::QuickMon.Properties.Resources.refresh;
             this.cmdRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRefresh.Location = new System.Drawing.Point(4, 125);
+            this.cmdRefresh.Location = new System.Drawing.Point(4, 171);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(226, 44);
             this.cmdRefresh.TabIndex = 3;
             this.cmdRefresh.Text = "Refresh F5";
             this.toolTip1.SetToolTip(this.cmdRefresh, "Redresh all collector states");
             this.cmdRefresh.UseVisualStyleBackColor = true;
+            // 
+            // cmdDeleteCollector
+            // 
+            this.cmdDeleteCollector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdDeleteCollector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdDeleteCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdDeleteCollector.Image = global::QuickMon.Properties.Resources.stop;
+            this.cmdDeleteCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDeleteCollector.Location = new System.Drawing.Point(112, 0);
+            this.cmdDeleteCollector.Name = "cmdDeleteCollector";
+            this.cmdDeleteCollector.Padding = new System.Windows.Forms.Padding(0, 2, 15, 0);
+            this.cmdDeleteCollector.Size = new System.Drawing.Size(114, 44);
+            this.cmdDeleteCollector.TabIndex = 5;
+            this.cmdDeleteCollector.Text = "Delete";
+            this.cmdDeleteCollector.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.cmdDeleteCollector, "Delete collector");
+            this.cmdDeleteCollector.UseVisualStyleBackColor = true;
+            // 
+            // cmdDisableCollector
+            // 
+            this.cmdDisableCollector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdDisableCollector.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cmdDisableCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.okGray;
+            this.cmdDisableCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDisableCollector.Location = new System.Drawing.Point(0, 0);
+            this.cmdDisableCollector.Name = "cmdDisableCollector";
+            this.cmdDisableCollector.Padding = new System.Windows.Forms.Padding(0, 2, 15, 0);
+            this.cmdDisableCollector.Size = new System.Drawing.Size(112, 44);
+            this.cmdDisableCollector.TabIndex = 4;
+            this.cmdDisableCollector.Text = "Enable";
+            this.cmdDisableCollector.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.cmdDisableCollector, "Enable/Disable collector");
+            this.cmdDisableCollector.UseVisualStyleBackColor = true;
             // 
             // cmdAddFolder
             // 
@@ -355,75 +399,57 @@
             this.toolTip1.SetToolTip(this.cmdViewDetails, "View collector details");
             this.cmdViewDetails.UseVisualStyleBackColor = true;
             // 
-            // cmdDisableCollector
-            // 
-            this.cmdDisableCollector.BackgroundImage = global::QuickMon.Properties.Resources.okGray;
-            this.cmdDisableCollector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdDisableCollector.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmdDisableCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdDisableCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDisableCollector.Location = new System.Drawing.Point(98, 0);
-            this.cmdDisableCollector.Name = "cmdDisableCollector";
-            this.cmdDisableCollector.Padding = new System.Windows.Forms.Padding(0, 2, 3, 0);
-            this.cmdDisableCollector.Size = new System.Drawing.Size(32, 31);
-            this.cmdDisableCollector.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.cmdDisableCollector, "Enable/Disable collector");
-            this.cmdDisableCollector.UseVisualStyleBackColor = true;
-            // 
-            // cmdDeleteCollector
-            // 
-            this.cmdDeleteCollector.BackgroundImage = global::QuickMon.Properties.Resources.stop;
-            this.cmdDeleteCollector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdDeleteCollector.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cmdDeleteCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdDeleteCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDeleteCollector.Location = new System.Drawing.Point(130, 0);
-            this.cmdDeleteCollector.Name = "cmdDeleteCollector";
-            this.cmdDeleteCollector.Padding = new System.Windows.Forms.Padding(0, 2, 3, 0);
-            this.cmdDeleteCollector.Size = new System.Drawing.Size(32, 31);
-            this.cmdDeleteCollector.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.cmdDeleteCollector, "Delete collector");
-            this.cmdDeleteCollector.UseVisualStyleBackColor = true;
-            // 
             // cmdPasteWithEdit
             // 
-            this.cmdPasteWithEdit.BackgroundImage = global::QuickMon.Properties.Resources.pastewithedit;
             this.cmdPasteWithEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdPasteWithEdit.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdPasteWithEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdPasteWithEdit.Location = new System.Drawing.Point(64, 0);
+            this.cmdPasteWithEdit.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmdPasteWithEdit.Image = global::QuickMon.Properties.Resources.pastewithedit;
+            this.cmdPasteWithEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPasteWithEdit.Location = new System.Drawing.Point(145, 0);
             this.cmdPasteWithEdit.Name = "cmdPasteWithEdit";
-            this.cmdPasteWithEdit.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdPasteWithEdit.Size = new System.Drawing.Size(32, 31);
+            this.cmdPasteWithEdit.Padding = new System.Windows.Forms.Padding(1);
+            this.cmdPasteWithEdit.Size = new System.Drawing.Size(78, 33);
             this.cmdPasteWithEdit.TabIndex = 2;
+            this.cmdPasteWithEdit.Text = "Paste+";
+            this.cmdPasteWithEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.cmdPasteWithEdit, "Edit and Paste copied Collector and dependents");
             this.cmdPasteWithEdit.UseVisualStyleBackColor = true;
             // 
             // cmdPaste
             // 
-            this.cmdPaste.BackgroundImage = global::QuickMon.Properties.Resources.paste;
             this.cmdPaste.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdPaste.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdPaste.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdPaste.Location = new System.Drawing.Point(32, 0);
+            this.cmdPaste.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmdPaste.Image = global::QuickMon.Properties.Resources.paste;
+            this.cmdPaste.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPaste.Location = new System.Drawing.Point(64, 0);
             this.cmdPaste.Name = "cmdPaste";
             this.cmdPaste.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdPaste.Size = new System.Drawing.Size(32, 31);
+            this.cmdPaste.Size = new System.Drawing.Size(81, 33);
             this.cmdPaste.TabIndex = 1;
+            this.cmdPaste.Text = "Paste";
+            this.cmdPaste.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.cmdPaste, "Paste copied Collector and dependents");
             this.cmdPaste.UseVisualStyleBackColor = true;
             // 
             // cmdCopy
             // 
-            this.cmdCopy.BackgroundImage = global::QuickMon.Properties.Resources.copy;
             this.cmdCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdCopy.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdCopy.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCopy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmdCopy.Image = global::QuickMon.Properties.Resources.copy;
+            this.cmdCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdCopy.Location = new System.Drawing.Point(0, 0);
             this.cmdCopy.Name = "cmdCopy";
             this.cmdCopy.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdCopy.Size = new System.Drawing.Size(32, 31);
+            this.cmdCopy.Size = new System.Drawing.Size(64, 33);
             this.cmdCopy.TabIndex = 0;
+            this.cmdCopy.Text = "Copy";
+            this.cmdCopy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.cmdCopy, "Copy selected Collector (and dependants)");
             this.cmdCopy.UseVisualStyleBackColor = true;
             // 
@@ -432,22 +458,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cmdRefresh);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cmdRefresh);
+            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
             this.Name = "CollectorContextMenuControl";
             this.Padding = new System.Windows.Forms.Padding(4);
-            this.Size = new System.Drawing.Size(234, 237);
+            this.Size = new System.Drawing.Size(234, 279);
             this.Load += new System.EventHandler(this.CollectorContextMenuControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -478,9 +506,10 @@
         private System.Windows.Forms.Panel panel4;
         public System.Windows.Forms.Button cmdCopy;
         public System.Windows.Forms.Button cmdPaste;
-        public System.Windows.Forms.Button cmdDeleteCollector;
         private System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Button cmdDisableCollector;
         public System.Windows.Forms.Button cmdPasteWithEdit;
+        private System.Windows.Forms.Panel panel5;
+        public System.Windows.Forms.Button cmdDeleteCollector;
+        public System.Windows.Forms.Button cmdDisableCollector;
     }
 }

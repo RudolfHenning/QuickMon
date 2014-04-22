@@ -18,6 +18,8 @@ namespace QuickMon
             UniqueId = Guid.NewGuid().ToString();
             RemoteAgentHostPort = 8181;
             LastStateUpdate = new DateTime(2000, 1, 1);
+            FirstStateUpdate = new DateTime(2000, 1, 1);
+            PollCount = 0;
         }
 
         #region Private vars
@@ -97,9 +99,17 @@ namespace QuickMon
         /// Records when the last state change was
         /// </summary>
         public DateTime LastStateChange { get; set; }
+        #endregion
+
+        #region Stats
         public DateTime LastStateCheckAttemptBegin { get; set; }
         public DateTime LastStateUpdate { get; set; }
         public long LastStateCheckDurationMS { get; set; }
+        public int PollCount { get; set; }
+        public DateTime FirstStateUpdate { get; set; }
+        public int GoodStateCount { get; set; }
+        public int WarningStateCount { get; set; }
+        public int ErrorStateCount { get; set; }
         #endregion
 
         #region Alerting
@@ -203,6 +213,9 @@ namespace QuickMon
                         sw.Stop();
                         LastStateCheckDurationMS = sw.ElapsedMilliseconds;
                         LastStateUpdate = DateTime.Now;
+                        if (FirstStateUpdate == new DateTime(2000, 1, 1))
+                            FirstStateUpdate = DateTime.Now;
+                        PollCount++;
                         if (CurrentState.State == CollectorState.Good)
                             LastGoodState = DateTime.Now;
                     }
