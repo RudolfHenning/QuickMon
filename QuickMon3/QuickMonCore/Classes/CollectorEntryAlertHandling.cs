@@ -104,7 +104,13 @@ namespace QuickMon
                         numberOfPollingsInErrWarn = 0;
                 }
                 if (raiseAlert)
+                {
                     LastAlertTime = DateTime.Now; //reset alert time
+                    if (CurrentState.State == CollectorState.Warning)
+                        LastWarningAlertTime = DateTime.Now;
+                    if (CurrentState.State == CollectorState.Error)
+                        LastErrorAlertTime = DateTime.Now;
+                }
             }
             return raiseAlert;
         }

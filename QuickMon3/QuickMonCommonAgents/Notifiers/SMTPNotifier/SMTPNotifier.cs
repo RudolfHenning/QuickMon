@@ -51,6 +51,7 @@ namespace QuickMon.Notifiers
                     string oldState = "N/A";
                     string newState = "N/A";
                     string detailMessage = "N/A";
+                    string viaHost = "";
                     if (alertRaised.RaisedFor != null)
                     {
                         collectorName = alertRaised.RaisedFor.Name;
@@ -58,6 +59,10 @@ namespace QuickMon.Notifiers
                         oldState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.LastMonitorState.State);
                         newState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.CurrentState.State);
                         detailMessage = mailSettings.IsBodyHtml ? alertRaised.RaisedFor.CurrentState.HtmlDetails : alertRaised.RaisedFor.CurrentState.RawDetails;
+                        if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
+                            viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
+                        else if (alertRaised.RaisedFor.EnableRemoteExecute)
+                            viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
                     }
 
                     lastStep = "Setting up mail body";
@@ -67,7 +72,7 @@ namespace QuickMon.Notifiers
                     .Replace("%AlertLevel%", Enum.GetName(typeof(AlertLevel), alertRaised.Level))
                     .Replace("%PreviousState%", oldState)
                     .Replace("%CurrentState%", newState)
-                    .Replace("%CollectorName%", collectorName)
+                    .Replace("%CollectorName%", collectorName + viaHost)
                     .Replace("%CollectorType%", collectorType);
 
                     string subject = mailSettings.Subject
@@ -75,7 +80,7 @@ namespace QuickMon.Notifiers
                        .Replace("%AlertLevel%", Enum.GetName(typeof(AlertLevel), alertRaised.Level))
                        .Replace("%PreviousState%", oldState)
                        .Replace("%CurrentState%", newState)
-                       .Replace("%CollectorName%", collectorName)
+                       .Replace("%CollectorName%", collectorName + viaHost)
                        .Replace("%CollectorType%", collectorType);
 
                     mailMessage.Priority = (MailPriority)mailSettings.MailPriority;

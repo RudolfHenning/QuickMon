@@ -42,6 +42,7 @@ namespace QuickMon.Notifiers
                 string oldState = "N/A";
                 string newState = "N/A";
                 string detailMessage = "N/A";
+                string viaHost = "N/A";
                 if (alertRaised.RaisedFor != null)
                 {
                     collectorName = alertRaised.RaisedFor.Name;
@@ -49,16 +50,21 @@ namespace QuickMon.Notifiers
                     oldState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.LastMonitorState.State);
                     newState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.CurrentState.State);
                     detailMessage = alertRaised.RaisedFor.CurrentState.RawDetails;
+                    if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
+                        viaHost = string.Format("{0}:{1}", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
+                    else if (alertRaised.RaisedFor.EnableRemoteExecute)
+                        viaHost = string.Format("{0}:{1}", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
                 }
 
                 File.AppendAllText(currentConfig.OutputPath,
-                    string.Format("Time: {0}\r\nAlert level: {1}\r\nCollector: {2}\r\nCategory: {3}\r\nOld state: {4}\r\nCurrent state: {5}\r\nDetails: {6}",
+                    string.Format("Time: {0}\r\nAlert level: {1}\r\nCollector: {2}\r\nCategory: {3}\r\nOld state: {4}\r\nCurrent state: {5}\r\nVia host: {6}\r\nDetails: {7}",
                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                         Enum.GetName(typeof(AlertLevel), alertRaised.Level),
                         collectorType,
                         collectorName,
                         oldState,
                         newState,
+                        viaHost,
                         detailMessage + "\r\n" + new string('-', 79) + "\r\n"
                     ));
             }

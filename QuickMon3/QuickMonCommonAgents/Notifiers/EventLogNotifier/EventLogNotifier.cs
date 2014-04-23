@@ -34,6 +34,7 @@ namespace QuickMon.Notifiers.EventLogNotifier
                 string oldState = "N/A";
                 string newState = "N/A";
                 string detailMessage = "N/A";
+                string viaHost = "N/A";
                 if (alertRaised.RaisedFor != null)
                 {
                     collectorName = alertRaised.RaisedFor.Name;
@@ -41,6 +42,10 @@ namespace QuickMon.Notifiers.EventLogNotifier
                     oldState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.LastMonitorState.State);
                     newState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.CurrentState.State);
                     detailMessage = alertRaised.RaisedFor.CurrentState.RawDetails;
+                    if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
+                        viaHost = string.Format("{0}:{1}", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
+                    else if (alertRaised.RaisedFor.EnableRemoteExecute)
+                        viaHost = string.Format("{0}:{1}", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
                 }
                 currentEventSource = currentConfig.EventSource
                     .Replace("%CollectorName%", collectorName)
@@ -63,13 +68,14 @@ namespace QuickMon.Notifiers.EventLogNotifier
 
                 lastStep = "Generate output stream";
                 
-                string outputStr = string.Format("Time: {0}\r\nAlert level: {1}\r\nType: {2}\r\nCategory: {3}\r\nOld state: {4}\r\nCurrent state: {5}\r\nDetails: {6}",
+                string outputStr = string.Format("Time: {0}\r\nAlert level: {1}\r\nType: {2}\r\nCategory: {3}\r\nOld state: {4}\r\nCurrent state: {5}\r\nVia host: {6}\r\nDetails: {7}",
                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                         Enum.GetName(typeof(AlertLevel), alertRaised.Level),
                         collectorType,
                         collectorName,
                         oldState,
                         newState,
+                        viaHost,
                         detailMessage);
 
                 lastStep = "Write the event log entry";

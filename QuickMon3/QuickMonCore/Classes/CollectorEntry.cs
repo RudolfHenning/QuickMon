@@ -17,9 +17,12 @@ namespace QuickMon
             Enabled = true;
             UniqueId = Guid.NewGuid().ToString();
             RemoteAgentHostPort = 8181;
-            LastStateUpdate = new DateTime(2000, 1, 1);
-            FirstStateUpdate = new DateTime(2000, 1, 1);
+            //LastStateUpdate = new DateTime(2000, 1, 1);
+            //FirstStateUpdate = new DateTime(2000, 1, 1);
             PollCount = 0;
+            GoodStateCount = 0;
+            WarningStateCount = 0;
+            ErrorStateCount = 0;
         }
 
         #region Private vars
@@ -102,6 +105,16 @@ namespace QuickMon
         #endregion
 
         #region Stats
+        /// <summary>
+        /// Record the last time an alert was raised. Used in conjunction with AlertOnceInXMin
+        /// </summary>
+        public DateTime LastAlertTime { get; set; }
+        /// <summary>
+        /// Records when the last good state was recorded
+        /// </summary>
+        public DateTime LastGoodState { get; set; }
+        public DateTime LastWarningState { get; set; }
+        public DateTime LastErrorState { get; set; }
         public DateTime LastStateCheckAttemptBegin { get; set; }
         public DateTime LastStateUpdate { get; set; }
         public long LastStateCheckDurationMS { get; set; }
@@ -110,6 +123,8 @@ namespace QuickMon
         public int GoodStateCount { get; set; }
         public int WarningStateCount { get; set; }
         public int ErrorStateCount { get; set; }
+        public DateTime LastWarningAlertTime { get; set; }
+        public DateTime LastErrorAlertTime { get; set; }
         #endregion
 
         #region Alerting
@@ -129,14 +144,6 @@ namespace QuickMon
         /// </summary>
         public int DelayErrWarnAlertForXSec { get; set; }
         public int DelayErrWarnAlertForXPolls { get; set; }
-        /// <summary>
-        /// Record the last time an alert was raised. Used in conjunction with AlertOnceInXMin
-        /// </summary>
-        public DateTime LastAlertTime { get; set; }
-        /// <summary>
-        /// Records when the last good state was recorded
-        /// </summary>
-        public DateTime LastGoodState { get; set; }
         #endregion
 
         #region Remote Execution
@@ -211,13 +218,28 @@ namespace QuickMon
                         else
                             CurrentState = Collector.GetState();
                         sw.Stop();
+
+                        //Updating stats
                         LastStateCheckDurationMS = sw.ElapsedMilliseconds;
                         LastStateUpdate = DateTime.Now;
-                        if (FirstStateUpdate == new DateTime(2000, 1, 1))
+                        if (FirstStateUpdate <  (new DateTime(2000, 1, 1)))
                             FirstStateUpdate = DateTime.Now;
                         PollCount++;
                         if (CurrentState.State == CollectorState.Good)
+                        {
                             LastGoodState = DateTime.Now;
+                            GoodStateCount++;
+                        }
+                        else if (CurrentState.State == CollectorState.Warning)
+                        {
+                            LastWarningState = DateTime.Now;
+                            WarningStateCount++;
+                        }
+                        else if (CurrentState.State == CollectorState.Error)
+                        {
+                            LastErrorState = DateTime.Now;
+                            ErrorStateCount++;
+                        }
                     }
                     else
                         CurrentState.State = CollectorState.Disabled;

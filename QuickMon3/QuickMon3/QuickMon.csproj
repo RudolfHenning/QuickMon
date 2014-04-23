@@ -80,6 +80,12 @@
     <Compile Include="Forms\AgentTypeSelect.Designer.cs">
       <DependentUpon>AgentTypeSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CollectorStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CollectorStats.Designer.cs">
+      <DependentUpon>CollectorStats.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditCollectorConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +173,9 @@
     <EmbeddedResource Include="Forms\AgentTypeSelect.resx">
       <DependentUpon>AgentTypeSelect.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CollectorStats.resx">
+      <DependentUpon>CollectorStats.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditCollectorConfig.resx">
       <DependentUpon>EditCollectorConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -230,9 +239,21 @@
     <None Include="Resources\AboutBkgrnd.png" />
     <None Include="Resources\Charon.png" />
     <None Include="Resources\copy.png" />
+    <None Include="Resources\FireWallRule.reg" />
     <None Include="Resources\paste.png" />
     <None Include="Resources\okGray.png" />
     <None Include="Resources\pastewithedit.png" />
+    <None Include="Resources\doc_new16x16.png" />
+    <None Include="Resources\folder_add16x16.png" />
+    <None Include="Resources\folder16x16.png" />
+    <None Include="Resources\info16x16.png" />
+    <None Include="Resources\save16x16.png" />
+    <None Include="Resources\tools16x16.png" />
+    <None Include="Resources\folder_favor16x16.png" />
+    <None Include="Resources\Charon16x161.png" />
+    <None Include="Resources\doc_stats16x16.png" />
+    <None Include="Resources\MenuOrangeShade.png" />
+    <None Include="Resources\doc_stats.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

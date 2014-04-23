@@ -22,6 +22,7 @@ namespace QuickMon.Forms
         public DialogResult ShowNotifierSelection(string currentNotifierRegistrationName)
         {
             this.Text = "Select Notifier type";
+            chkImportConfigAfterSelect.Visible = false;
             lvwAgentType.AutoResizeColumnIndex = 1;
             lvwAgentType.AutoResizeColumnEnabled = true;
             lvwAgentType.Items.Clear();
@@ -39,6 +40,7 @@ namespace QuickMon.Forms
 
                 lvi.SubItems.Add(details);
                 lvi.Tag = ar;
+                lvi.ImageIndex = 0;
                 lvwAgentType.Items.Add(lvi);
                 if (ar.Name == currentNotifierRegistrationName)
                     lvi.Selected = true;

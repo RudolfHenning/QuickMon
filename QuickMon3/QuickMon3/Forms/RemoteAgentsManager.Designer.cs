@@ -48,6 +48,7 @@
             this.cmdAdd = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblLocalServiceRegistered.AutoSize = true;
             this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 282);
+            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 274);
             this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
             this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
             this.llblLocalServiceRegistered.TabIndex = 6;
@@ -70,7 +71,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(297, 277);
+            this.cmdCancel.Location = new System.Drawing.Point(336, 277);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 8;
@@ -81,7 +82,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(216, 277);
+            this.cmdOK.Location = new System.Drawing.Point(255, 277);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 7;
@@ -102,7 +103,7 @@
             this.lvwRemoteHosts.FullRowSelect = true;
             this.lvwRemoteHosts.Location = new System.Drawing.Point(12, 12);
             this.lvwRemoteHosts.Name = "lvwRemoteHosts";
-            this.lvwRemoteHosts.Size = new System.Drawing.Size(360, 228);
+            this.lvwRemoteHosts.Size = new System.Drawing.Size(399, 228);
             this.lvwRemoteHosts.SmallImageList = this.imageList1;
             this.lvwRemoteHosts.TabIndex = 0;
             this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
@@ -179,7 +180,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtComputer.Location = new System.Drawing.Point(70, 248);
             this.txtComputer.Name = "txtComputer";
-            this.txtComputer.Size = new System.Drawing.Size(123, 20);
+            this.txtComputer.Size = new System.Drawing.Size(162, 20);
             this.txtComputer.TabIndex = 2;
             this.txtComputer.TextChanged += new System.EventHandler(this.txtComputer_TextChanged);
             this.txtComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtComputer_KeyDown);
@@ -187,7 +188,7 @@
             // remoteportNumericUpDown
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(230, 249);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(269, 249);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -211,7 +212,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(198, 251);
+            this.label14.Location = new System.Drawing.Point(237, 251);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 3;
@@ -222,7 +223,7 @@
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAdd.Enabled = false;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAdd.Location = new System.Drawing.Point(327, 246);
+            this.cmdAdd.Location = new System.Drawing.Point(366, 246);
             this.cmdAdd.Name = "cmdAdd";
             this.cmdAdd.Size = new System.Drawing.Size(45, 23);
             this.cmdAdd.TabIndex = 5;
@@ -241,11 +242,25 @@
             // 
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
+            // llblFirewallRule
+            // 
+            this.llblFirewallRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblFirewallRule.AutoSize = true;
+            this.llblFirewallRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblFirewallRule.Location = new System.Drawing.Point(12, 292);
+            this.llblFirewallRule.Name = "llblFirewallRule";
+            this.llblFirewallRule.Size = new System.Drawing.Size(176, 13);
+            this.llblFirewallRule.TabIndex = 9;
+            this.llblFirewallRule.TabStop = true;
+            this.llblFirewallRule.Text = "Try to add Firewall rule for port 8181";
+            this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
+            // 
             // RemoteAgentsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 312);
+            this.ClientSize = new System.Drawing.Size(423, 312);
+            this.Controls.Add(this.llblFirewallRule);
             this.Controls.Add(this.cmdAdd);
             this.Controls.Add(this.remoteportNumericUpDown);
             this.Controls.Add(this.label14);
@@ -290,5 +305,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem attemptToStartAgentToolStripMenuItem;
         private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.LinkLabel llblFirewallRule;
     }
 }

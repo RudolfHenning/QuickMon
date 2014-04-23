@@ -61,6 +61,7 @@ namespace QuickMon
             popedContainerForTreeView.cmdCopy.Enabled = false;
             popedContainerForTreeView.cmdPaste.Enabled = false;
             popedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
+            popedContainerForTreeView.cmdStats.Enabled = false;
             popedContainerForTreeView.cmdCopy.Click += new System.EventHandler(collectorContextMenuCmdCopy_Click);
             popedContainerForTreeView.cmdPaste.Click += new System.EventHandler(collectorContextMenuCmdPaste_Click);
             popedContainerForTreeView.cmdPasteWithEdit.Click += new System.EventHandler(collectorContextMenuCmdPasteWithEdit_Click);
@@ -70,6 +71,7 @@ namespace QuickMon
             popedContainerForTreeView.cmdEditCollector.Click += new System.EventHandler(collectorTreeEditConfigToolStripMenuItem_Click);
             popedContainerForTreeView.cmdDisableCollector.Click += new System.EventHandler(disableCollectorTreeToolStripMenuItem_Click);
             popedContainerForTreeView.cmdDeleteCollector.Click += new System.EventHandler(removeCollectorToolStripMenuItem_Click);
+            popedContainerForTreeView.cmdStats.Click += new System.EventHandler(cmdStats_Click);
             popedContainerForTreeView.cmdRefresh.Click += new EventHandler(refreshToolStripButton_Click);
             popedContainerForTreeView.cmdNewMonitorPack.Click += new EventHandler(newMonitorPackToolStripMenuItem_Click);
             popedContainerForTreeView.cmdLoadMonitorPack.Click += new EventHandler(openMonitorPackToolStripButton_ButtonClick);
@@ -77,7 +79,7 @@ namespace QuickMon
             popedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_ButtonClick);
             popedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
             popedContainerForTreeView.cmdRemoteAgents.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
-            popedContainerForTreeView.cmdAbout.Click += new EventHandler(aboutToolStripMenuItem_Click);
+            popedContainerForTreeView.cmdAbout.Click += new EventHandler(aboutToolStripMenuItem_Click);            
 
             popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
             popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
@@ -101,8 +103,7 @@ namespace QuickMon
             MainForm_Resize(null, null);
             lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
         }
-
-        
+                
         private void MainForm_Resize(object sender, EventArgs e)
         {
             //mainToolStrip.Left = (this.ClientSize.Width - mainToolStrip.Width) / 2;
@@ -272,18 +273,21 @@ namespace QuickMon
         }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
+            bool timerEnabled = mainRefreshTimer.Enabled;
             HideCollectorContextMenu();
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = mainRefreshTimer.Interval / 1000;
-            generalSettings.PollingEnabled = mainRefreshTimer.Enabled;
+            generalSettings.PollingEnabled = timerEnabled;
+            mainRefreshTimer.Enabled = false; //temporary stops it.
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 mainRefreshTimer.Interval = generalSettings.PollingFrequencySec * 1000;
-                mainRefreshTimer.Enabled = generalSettings.PollingEnabled;
+                timerEnabled = generalSettings.PollingEnabled;                
             }
+            mainRefreshTimer.Enabled = timerEnabled;
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1112,6 +1116,8 @@ namespace QuickMon
                 disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable" : "Enable";
 
                 popedContainerForTreeView.cmdCopy.Enabled = true;
+                popedContainerForTreeView.cmdStats.Enabled = true;
+                collectorStatisticsToolStripMenuItem.Enabled = true;
                 //popedContainerForTreeView.cmdPaste.Enabled = true;
             }
             else
@@ -1131,6 +1137,8 @@ namespace QuickMon
                 removeCollectorToolStripMenuItem1.Enabled = false;
 
                 popedContainerForTreeView.cmdCopy.Enabled = false;
+                popedContainerForTreeView.cmdStats.Enabled = false;
+                collectorStatisticsToolStripMenuItem.Enabled = false;
                 //popedContainerForTreeView.cmdPaste.Enabled = false;
             }
         }
@@ -1240,6 +1248,37 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void SetNodesToBeingRefreshed(TreeNode root = null)
+        {
+            if (root == null)
+                root = tvwCollectors.Nodes[0];
+
+            if (root.Tag != null && root.Tag is CollectorEntry)
+            {
+                CollectorEntry collector = (CollectorEntry)root.Tag;
+                if (!collector.IsFolder && collector.Enabled)
+                {
+                    //root.ForeColor = Color.DarkRed; //13,14,15
+                    if (root.ImageIndex == 3)
+                    {
+                        root.ImageIndex = 13;
+                        root.SelectedImageIndex = 13;
+                    }
+                    else if (root.ImageIndex == 4)
+                    {
+                        root.ImageIndex = 14;
+                        root.SelectedImageIndex = 14;
+                    }
+                    else if (root.ImageIndex == 5)
+                    {
+                        root.ImageIndex = 15;
+                        root.SelectedImageIndex = 15;
+                    }
+                }                
+            }
+            foreach (TreeNode childNode in root.Nodes)
+                SetNodesToBeingRefreshed(childNode);
+        }
         #endregion
 
         #region Monitor pack events
@@ -1249,38 +1288,48 @@ namespace QuickMon
                 {
                     try
                     {
-
                         if (collectorEntry != null && collectorEntry.Tag is TreeNode)
                         {
                             System.Diagnostics.Trace.WriteLine("Updating " + collectorEntry.Name);
-                            TreeNode currentTreeNode = (TreeNode)collectorEntry.Tag;
+                            TreeNode currentTreeNode = (TreeNode)collectorEntry.Tag;                            
+
+                            bool nodeChanged = false;
+                            Color foreColor = currentTreeNode.ForeColor;
+                            int imageIndex = currentTreeNode.ImageIndex;
+
                             if (collectorEntry.Enabled && currentTreeNode.ForeColor != SystemColors.WindowText)
-                                currentTreeNode.ForeColor = SystemColors.WindowText;
+                            {
+                                nodeChanged = true;
+                                foreColor = SystemColors.WindowText;                                
+                            }
                             else if (!collectorEntry.Enabled && currentTreeNode.ForeColor != Color.Gray)
-                                currentTreeNode.ForeColor = Color.Gray;
+                            {
+                                nodeChanged = true;
+                                foreColor = Color.Gray;
+                            }
 
                             if (collectorEntry.IsFolder || collectorEntry.CurrentState.State == CollectorState.Folder)
                             {
                                 if (currentTreeNode.ImageIndex != 1)
                                 {
-                                    currentTreeNode.ImageIndex = 1;
-                                    currentTreeNode.SelectedImageIndex = 1;
+                                    nodeChanged = true;
+                                    imageIndex = 1;
                                 }
                             }
                             else if (!collectorEntry.Enabled || collectorEntry.CurrentState.State == CollectorState.Disabled)
                             {
                                 if (currentTreeNode.ImageIndex != 2)
                                 {
-                                    currentTreeNode.ImageIndex = 2;
-                                    currentTreeNode.SelectedImageIndex = 2;
+                                    nodeChanged = true;
+                                    imageIndex = 2;
                                 }
                             }
                             else if (collectorEntry.CurrentState.State == CollectorState.Error || collectorEntry.CurrentState.State == CollectorState.ConfigurationError)
                             {
                                 if (currentTreeNode.ImageIndex != 5)
                                 {
-                                    currentTreeNode.ImageIndex = 5;
-                                    currentTreeNode.SelectedImageIndex = 5;
+                                    nodeChanged = true;
+                                    imageIndex = 5;
                                     PCRaiseCollectorErrorState();
                                 }
                             }
@@ -1288,8 +1337,8 @@ namespace QuickMon
                             {
                                 if (currentTreeNode.ImageIndex != 4)
                                 {
-                                    currentTreeNode.ImageIndex = 4;
-                                    currentTreeNode.SelectedImageIndex = 4;
+                                    nodeChanged = true;
+                                    imageIndex = 4;
                                     PCRaiseCollectorWarningState();
                                 }
                             }
@@ -1297,18 +1346,27 @@ namespace QuickMon
                             {
                                 if (currentTreeNode.ImageIndex != 3)
                                 {
-                                    currentTreeNode.ImageIndex = 3;
-                                    currentTreeNode.SelectedImageIndex = 3;
+                                    nodeChanged = true;
+                                    imageIndex = 3;
                                     PCRaiseCollectorSuccessState();
                                 }
                             }
                             else if (currentTreeNode.ImageIndex != 2)
                             {
-                                currentTreeNode.ImageIndex = 2;
-                                currentTreeNode.SelectedImageIndex = 2;
+                                nodeChanged = true;
+                                imageIndex = 2;
+                            }
+                            if (nodeChanged)
+                            {
+                                if (currentTreeNode.ForeColor != foreColor)
+                                    currentTreeNode.ForeColor = foreColor;
+                                if (currentTreeNode.ImageIndex != imageIndex)
+                                {
+                                    currentTreeNode.ImageIndex = imageIndex;
+                                    currentTreeNode.SelectedImageIndex = imageIndex;
+                                }
                             }
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -1496,6 +1554,25 @@ namespace QuickMon
                 }
             }
         }
+        private void cmdStats_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HideCollectorContextMenu();
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                {
+                    CollectorStats collectorStats = new CollectorStats();
+                    collectorStats.SelectedEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                    collectorStats.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            
+        }
         #endregion
 
         #region Notifier context menu
@@ -1622,6 +1699,23 @@ namespace QuickMon
                         Cursor.Current = Cursors.WaitCursor;
                     }
 
+                    tvwCollectors.Invoke((MethodInvoker)delegate
+                    {
+                        try
+                        {
+                            tvwCollectors.BeginUpdate();
+                            SetNodesToBeingRefreshed();
+                        }
+                        catch { }
+                        finally
+                        {
+                            tvwCollectors.EndUpdate();
+                            tvwCollectors.Refresh();
+                            Application.DoEvents();
+                            Cursor.Current = Cursors.WaitCursor;
+                        }
+                    });
+
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
                     Cursor.Current = Cursors.WaitCursor;
@@ -1646,7 +1740,9 @@ namespace QuickMon
             {
                 Cursor.Current = Cursors.Default;
             }
-        }         
+        }
+
+                 
         #endregion
 
         #region Collector tree drag and dropping
@@ -2030,6 +2126,7 @@ namespace QuickMon
                         MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else //try launching in admin mode
                     {
+                        MessageBox.Show("QuickMon 3 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         RestartInAdminMode();
                     }
                 }
@@ -2111,7 +2208,5 @@ namespace QuickMon
             SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
         }
         #endregion
-
-
     }
 }

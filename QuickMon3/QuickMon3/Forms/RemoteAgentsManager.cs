@@ -49,6 +49,16 @@ namespace QuickMon.Forms
                 {
                     llblLocalServiceRegistered.Visible = false;
                 }
+
+                try
+                {
+                    llblFirewallRule.Visible = true;
+                    Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
+                    string quickMonRule = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A54E9}").ToString();
+                    if (quickMonRule.Length > 0)
+                        llblFirewallRule.Visible = false;   
+                }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -161,7 +171,7 @@ namespace QuickMon.Forms
         }
         #endregion
 
-        #region Registering local service
+        #region Registering local service and firewall rule
         private void llblLocalServiceRegistered_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string localPath = Environment.CurrentDirectory;
@@ -185,6 +195,34 @@ namespace QuickMon.Forms
                 }
             }
         } 
+        private void llblFirewallRule_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string regfile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon3FirewallRule.reg");
+            try
+            {
+                if (System.IO.File.Exists(regfile))
+                    System.IO.File.Delete(regfile);
+                System.IO.File.WriteAllText(regfile, Properties.Resources.FireWallRule);
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo();
+                p.StartInfo.FileName = "REGEDIT.EXE";
+                p.StartInfo.Arguments = "/S " + regfile;
+                p.StartInfo.Verb = "runas";
+                try
+                {
+                    p.Start();
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+             
+        }
         #endregion
 
         #region Context menu events
@@ -308,6 +346,8 @@ namespace QuickMon.Forms
             });
         } 
         #endregion
+
+
 
     }
 }

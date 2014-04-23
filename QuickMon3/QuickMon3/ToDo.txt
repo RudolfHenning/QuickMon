@@ -1,13 +1,11 @@
 ﻿CHANGES (considdered possible for next release)
-Detail views can/must use remote host dataset as source 
-Collector stats/details popup window - show stuff like last refresh time, error msg, call duration...
-Add setting per collector entry level to specify that it should 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
+Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
   Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
-  When refreshing from UI client this setting get override (so every refresh execute agent)
-Add run-time setting per collector entry level that indicate it should not refreshed while a previous instance has finished (or within X seconds, whichever comes first)
+  When refreshing from UI client this setting gets override (so every refresh execute agent)??
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
+Detail views can/must use remote host dataset as source 
 Dynamic repolling (sliding scale). If warning/error state is returned the polling frequencyfor the resource must get slower (to avoid monitor to death scenario)
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Future advancement - Allow corrective scrpts to run on remote hosts
@@ -51,5 +49,10 @@ V3.7
 'Fix' irritating issue where % Processor time perf counter query in itself sometimes cause 100% cpu usage.
 Removed Windows.Forms reference from QuickMonCore dll
 Copy and Paste of Collectors (to duplicate parts of the treeview - perhaps later with 'replace computer name/any string' in config)
+Add run-time setting per collector entry level that indicate it should not refreshed while a previous instance has finished (or within X seconds, whichever comes first)
+Collector stats/details popup window - show stuff like last refresh time, error msg, call duration...
+Upon refresh initiated (F5 clicked) change font or style (or color) for each Node that will be refreshed. On update of status it will be reset to default.
+Add a way to add the firewall exception rule for port 8181
+
 -------------------------------------------------------------------------------------------------------
 

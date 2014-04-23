@@ -82,6 +82,7 @@ namespace QuickMon.Notifiers
                     int oldState = 0;
                     int newState = 0;
                     string detailMessage = "N/A";
+                    string viaHost = "";
                     if (alertRaised.RaisedFor != null)
                     {
                         collectorName = alertRaised.RaisedFor.Name;
@@ -89,6 +90,10 @@ namespace QuickMon.Notifiers
                         oldState = (byte)alertRaised.RaisedFor.LastMonitorState.State;
                         newState = (byte)alertRaised.RaisedFor.CurrentState.State;
                         detailMessage = FormatUtils.N(alertRaised.RaisedFor.CurrentState.RawDetails, "No details available");
+                        if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
+                            viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
+                        else if (alertRaised.RaisedFor.EnableRemoteExecute)
+                            viaHost = string.Format(" (via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
                     }
 
                     using (SqlCommand cmnd = new SqlCommand(sql, cacheConn))
@@ -97,7 +102,7 @@ namespace QuickMon.Notifiers
                             { 
                                 new SqlParameter("@" + alertParamName,  (byte)alertRaised.Level),
                                 new SqlParameter("@" + collectorTypeParamName,  collectorType),
-                                new SqlParameter("@" + categoryParamName,  collectorName),
+                                new SqlParameter("@" + categoryParamName,  collectorName + viaHost),
                                 new SqlParameter("@" + previousStateParamName,  oldState),
                                 new SqlParameter("@" + currentStateParamName,  newState),
                                 new SqlParameter("@" + detailsParamName, detailMessage)

@@ -56,6 +56,13 @@ namespace QuickMon.Collectors
                 {
                     System.Threading.Thread.Sleep(13);
                     value = pc.NextValue();
+
+                    //if for some reason it is still 100%...
+                    if (value > 99.0 && pc.CounterName == "% Processor Time")
+                    {
+                        System.Threading.Thread.Sleep(99);
+                        value = pc.NextValue();
+                    }
                 }
             }
             catch

@@ -93,7 +93,13 @@ namespace QuickMon.Notifiers
                         rtfBuilder.Append(string.Format(" {0}", alertRaised.Level));
                         rtfBuilder.FontStyle(FontStyle.Regular).ForeColor(SystemColors.ControlText);
 
-                        rtfBuilder.Append(string.Format("\t{0}\r\n{1}", alertRaised.RaisedFor, alertRaised.State.RawDetails));
+                        string viaHost = "";
+                        if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
+                            viaHost = string.Format("(via {0}:{1})", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
+                        else if (alertRaised.RaisedFor.EnableRemoteExecute)
+                            viaHost = string.Format("(via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
+
+                        rtfBuilder.Append(string.Format("\t{0} {1}\r\n{2}", alertRaised.RaisedFor, viaHost, alertRaised.State.RawDetails));
                         rtfBuilder.AppendLine();
                     }
                 }
