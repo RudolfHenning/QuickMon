@@ -117,16 +117,37 @@ namespace QuickMon
                     lvwProperties.Items.Add(lvi);
                     
 
-                    lvi = new ListViewItem("Last good state");
-                    lvi.SubItems.Add(FormatDate(SelectedEntry.LastGoodState));
+                    lvi = new ListViewItem("Last good state time:");
+                    lvi.SubItems.Add(FormatDate(SelectedEntry.LastGoodStateTime));
+                    lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Last good state details");
+                    if (SelectedEntry.LastGoodState != null && SelectedEntry.LastGoodState.RawDetails != null)
+                        lvi.SubItems.Add(SelectedEntry.LastGoodState.RawDetails);
+                    else
+                        lvi.SubItems.Add("N/A");
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last warning state");
-                    lvi.SubItems.Add(FormatDate(SelectedEntry.LastWarningState));
+                    lvi.SubItems.Add(FormatDate(SelectedEntry.LastWarningStateTime));
+                    lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Last warning state details");
+                    if (SelectedEntry.LastWarningState != null && SelectedEntry.LastWarningState.RawDetails != null)
+                        lvi.SubItems.Add(SelectedEntry.LastWarningState.RawDetails);
+                    else
+                        lvi.SubItems.Add("N/A");
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last error state");
-                    lvi.SubItems.Add(FormatDate( SelectedEntry.LastErrorState));
+                    lvi.SubItems.Add(FormatDate( SelectedEntry.LastErrorStateTime));
+                    lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Last error state details");
+                    if (SelectedEntry.LastErrorState != null && SelectedEntry.LastErrorState.RawDetails != null)
+                        lvi.SubItems.Add(SelectedEntry.LastErrorState.RawDetails);
+                    else
+                        lvi.SubItems.Add("N/A");
                     lvwProperties.Items.Add(lvi);
                 }
             }
@@ -147,17 +168,17 @@ namespace QuickMon
                 RTFBuilder rtfBuilder = new RTFBuilder();
                 if (lvwProperties.SelectedItems.Count > 0)
                 {
-                    int maxlen = 30;
+                    int maxlen = 35;
                     foreach (ListViewItem lvi in lvwProperties.Items)
                     {
-                        if (lvi.Text.Length > maxlen)
-                            maxlen = lvi.Text.Length;
+                        if (lvi.Text.Length + 2 > maxlen)
+                            maxlen = lvi.Text.Length + 2;
                     }
 
 
                     foreach (ListViewItem lvi in lvwProperties.SelectedItems)
                     {
-                        rtfBuilder.FontStyle(FontStyle.Bold).Append(lvi.Text.PadRight(maxlen));
+                        rtfBuilder.FontStyle(FontStyle.Bold).Append((lvi.Text + ":").PadRight(maxlen));
                         if (lvi.SubItems[1].Text.Contains("\r"))
                         {
                             rtfBuilder.AppendLine("");

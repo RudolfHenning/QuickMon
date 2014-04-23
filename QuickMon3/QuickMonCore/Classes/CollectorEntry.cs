@@ -23,6 +23,9 @@ namespace QuickMon
             GoodStateCount = 0;
             WarningStateCount = 0;
             ErrorStateCount = 0;
+            LastGoodState = null;
+            LastWarningState = null;
+            LastErrorState = null;
         }
 
         #region Private vars
@@ -102,6 +105,7 @@ namespace QuickMon
         /// Records when the last state change was
         /// </summary>
         public DateTime LastStateChange { get; set; }
+
         #endregion
 
         #region Stats
@@ -112,9 +116,9 @@ namespace QuickMon
         /// <summary>
         /// Records when the last good state was recorded
         /// </summary>
-        public DateTime LastGoodState { get; set; }
-        public DateTime LastWarningState { get; set; }
-        public DateTime LastErrorState { get; set; }
+        public DateTime LastGoodStateTime { get; set; }
+        public DateTime LastWarningStateTime { get; set; }
+        public DateTime LastErrorStateTime { get; set; }
         public DateTime LastStateCheckAttemptBegin { get; set; }
         public DateTime LastStateUpdate { get; set; }
         public long LastStateCheckDurationMS { get; set; }
@@ -125,6 +129,10 @@ namespace QuickMon
         public int ErrorStateCount { get; set; }
         public DateTime LastWarningAlertTime { get; set; }
         public DateTime LastErrorAlertTime { get; set; }
+
+        public MonitorState LastGoodState { get; set; }
+        public MonitorState LastWarningState { get; set; }
+        public MonitorState LastErrorState { get; set; }
         #endregion
 
         #region Alerting
@@ -227,17 +235,20 @@ namespace QuickMon
                         PollCount++;
                         if (CurrentState.State == CollectorState.Good)
                         {
-                            LastGoodState = DateTime.Now;
+                            LastGoodState = CurrentState;
+                            LastGoodStateTime = DateTime.Now;
                             GoodStateCount++;
                         }
                         else if (CurrentState.State == CollectorState.Warning)
                         {
-                            LastWarningState = DateTime.Now;
+                            LastWarningState = CurrentState;
+                            LastWarningStateTime = DateTime.Now;
                             WarningStateCount++;
                         }
                         else if (CurrentState.State == CollectorState.Error)
                         {
-                            LastErrorState = DateTime.Now;
+                            LastErrorState = CurrentState;
+                            LastErrorStateTime = DateTime.Now;
                             ErrorStateCount++;
                         }
                     }
@@ -356,7 +367,7 @@ namespace QuickMon
                 collectorEntry.DelayErrWarnAlertForXPolls = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("delayErrWarnAlertForXPolls", "0"));
 
                 collectorEntry.LastAlertTime = new DateTime(2000, 1, 1); //long ago
-                collectorEntry.LastGoodState = new DateTime(2000, 1, 1); //long ago
+                collectorEntry.LastGoodStateTime = new DateTime(2000, 1, 1); //long ago
                 collectorEntry.LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable, CurrentValue = null, RawDetails = "", HtmlDetails = "" };
                 XmlNode configNode = xmlCollectorEntry.SelectSingleNode("config");
                 if (configNode != null)
