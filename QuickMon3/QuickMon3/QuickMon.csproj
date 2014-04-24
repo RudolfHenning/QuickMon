@@ -254,6 +254,7 @@
     <None Include="Resources\doc_stats16x16.png" />
     <None Include="Resources\MenuOrangeShade.png" />
     <None Include="Resources\doc_stats.png" />
+    <None Include="Resources\scroll.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

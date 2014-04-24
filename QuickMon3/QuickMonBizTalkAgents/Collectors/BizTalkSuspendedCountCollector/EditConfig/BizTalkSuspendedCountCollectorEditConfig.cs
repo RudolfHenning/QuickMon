@@ -51,10 +51,13 @@ namespace QuickMon.Collectors
             }
             txtSQLServer.Text = currentConfig.SqlServer;
             txtDatabase.Text = currentConfig.MgmtDBName;
-            nudMsgsWarning.Value = currentConfig.InstancesWarning;
-            nudMsgsError.Value = currentConfig.InstancesError;
+            if (currentConfig.InstancesWarning > 0)
+                nudMsgsWarning.Value = currentConfig.InstancesWarning;
+            if (currentConfig.InstancesError > 0)
+                nudMsgsError.Value = currentConfig.InstancesError;
             chkAllHostsApps.Checked = currentConfig.AllAppsHosts;
-            nudShowTopXEntries.Value = currentConfig.ShowLastXDetails;
+            if (currentConfig.ShowLastXDetails > 0)
+                nudShowTopXEntries.Value = currentConfig.ShowLastXDetails;
 
             foreach (string hostName in currentConfig.Hosts)
             {

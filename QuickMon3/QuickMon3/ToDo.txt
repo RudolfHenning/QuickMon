@@ -53,6 +53,9 @@ Add run-time setting per collector entry level that indicate it should not refre
 Collector stats/details popup window - show stuff like last refresh time, error msg, call duration...
 Upon refresh initiated (F5 clicked) change font or style (or color) for each Node that will be refreshed. On update of status it will be reset to default.
 Add a way to add the firewall exception rule for port 8181
-
+Fixed unknown bug where monitorpack used LastMonitorState in stead of CurrentState to get global state
+Rearrange menu/toolbar so most important actions are first
+Add double click to windows services collector edit to add/remove selected services
+Set initial values for BizTalk suspended counts settings ( > 0)
 -------------------------------------------------------------------------------------------------------
 

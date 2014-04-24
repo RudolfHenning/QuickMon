@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutQuickMon));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblCreateDate = new System.Windows.Forms.Label();
             this.lblCompany = new System.Windows.Forms.Label();
@@ -113,6 +114,7 @@
             this.Controls.Add(this.lblVersionInfo);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "AboutQuickMon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

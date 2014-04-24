@@ -40,85 +40,123 @@ namespace QuickMon
             try
             {
                 lvwProperties.Items.Clear();
+                lvwProperties.Groups.Clear();
                 lvwProperties.BeginUpdate();
                 if (SelectedEntry != null)
                 {
+                    this.Text = "Collector statistics - " + SelectedEntry.Name;
+                    ListViewGroup lvgGeneral = new ListViewGroup("General");
+                    lvwProperties.Groups.Add(lvgGeneral);
+
                     ListViewItem lvi = new ListViewItem("Collector Name");
                     lvi.SubItems.Add(SelectedEntry.Name);
+                    lvi.Group = lvgGeneral;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Enabled");
                     lvi.SubItems.Add(SelectedEntry.Enabled ? "Yes" : "No");
+                    lvi.Group = lvgGeneral;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Agent type");
                     lvi.SubItems.Add(SelectedEntry.CollectorRegistrationDisplayName);
+                    lvi.Group = lvgGeneral;
                     lvwProperties.Items.Add(lvi);
+
+                    ListViewGroup lvgCurrent = new ListViewGroup("Current state");
+                    lvwProperties.Groups.Add(lvgCurrent);
+                    ListViewGroup lvgPrevious = new ListViewGroup("Previous state");
+                    lvwProperties.Groups.Add(lvgPrevious);
 
                     lvi = new ListViewItem("Current state");
                     lvi.SubItems.Add(SelectedEntry.CurrentState.State.ToString());
+                    lvi.Group = lvgCurrent;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Current state details");
                     lvi.SubItems.Add(SelectedEntry.CurrentState.RawDetails);
-                    lvwProperties.Items.Add(lvi);
-                    
+                    lvi.Group = lvgCurrent;
+                    lvwProperties.Items.Add(lvi);                    
 
                     lvi = new ListViewItem("Last state update");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastStateUpdate));
+                    lvi.Group = lvgCurrent;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last state check duration (ms)");
                     lvi.SubItems.Add(SelectedEntry.LastStateCheckDurationMS.ToString());
+                    lvi.Group = lvgCurrent;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Previous state");
                     lvi.SubItems.Add(SelectedEntry.LastMonitorState.State.ToString());
+                    lvi.Group = lvgPrevious;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Previous state details");
                     lvi.SubItems.Add(SelectedEntry.LastMonitorState.RawDetails);
+                    lvi.Group = lvgPrevious;
                     lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Previous state time");
+                    lvi.SubItems.Add(FormatDate(SelectedEntry.LastMonitorState.LastStateChangeTime));
+                    lvi.Group = lvgPrevious;
+                    lvwProperties.Items.Add(lvi);
+
+                    ListViewGroup lvgPolling = new ListViewGroup("Polling details");
+                    lvwProperties.Groups.Add(lvgPolling);
 
                     lvi = new ListViewItem("# of times polled");
                     lvi.SubItems.Add(SelectedEntry.PollCount.ToString());
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("First polled time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.FirstStateUpdate));
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("# of times good states");
                     lvi.SubItems.Add(SelectedEntry.GoodStateCount.ToString());
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("# of times warning states");
                     lvi.SubItems.Add(SelectedEntry.WarningStateCount.ToString());
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("# of times error states");
                     lvi.SubItems.Add(SelectedEntry.ErrorStateCount.ToString());
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last attempted polling time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastStateCheckAttemptBegin));
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
-                    
+
+                    ListViewGroup lvgAlerts = new ListViewGroup("Alerts");
+                    lvwProperties.Groups.Add(lvgAlerts);
+
                     lvi = new ListViewItem("Last alert time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastAlertTime));
+                    lvi.Group = lvgAlerts;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last warning alert time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastWarningAlertTime));
+                    lvi.Group = lvgAlerts;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last error alert time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastErrorAlertTime));
-                    lvwProperties.Items.Add(lvi);
-                    
+                    lvi.Group = lvgAlerts;
+                    lvwProperties.Items.Add(lvi);                    
 
                     lvi = new ListViewItem("Last good state time:");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastGoodStateTime));
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last good state details");
@@ -126,10 +164,12 @@ namespace QuickMon
                         lvi.SubItems.Add(SelectedEntry.LastGoodState.RawDetails);
                     else
                         lvi.SubItems.Add("N/A");
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last warning state");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastWarningStateTime));
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last warning state details");
@@ -137,10 +177,12 @@ namespace QuickMon
                         lvi.SubItems.Add(SelectedEntry.LastWarningState.RawDetails);
                     else
                         lvi.SubItems.Add("N/A");
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last error state");
                     lvi.SubItems.Add(FormatDate( SelectedEntry.LastErrorStateTime));
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
                     lvi = new ListViewItem("Last error state details");
@@ -148,6 +190,7 @@ namespace QuickMon
                         lvi.SubItems.Add(SelectedEntry.LastErrorState.RawDetails);
                     else
                         lvi.SubItems.Add("N/A");
+                    lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
                 }
             }
@@ -212,6 +255,11 @@ namespace QuickMon
                 return "N/A";
             else
                return date.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshCollectorStats();
         }
     }
 }

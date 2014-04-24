@@ -184,7 +184,7 @@ namespace QuickMon
                 }
                 else if (IsFolder)
                 {
-                    LastMonitorState = CurrentState;
+                    LastMonitorState = CurrentState.Clone();
                     if (ServiceWindows.IsInTimeWindow())
                         CurrentState.State = CollectorState.Folder;
                     else
@@ -196,7 +196,7 @@ namespace QuickMon
                     {
                         //*********** Call actual collector GetState **********
                         LastStateCheckAttemptBegin = DateTime.Now;
-                        LastMonitorState = CurrentState;
+                        LastMonitorState = CurrentState.Clone();
                         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                         sw.Start();
                         if (OverrideRemoteAgentHost)
@@ -235,19 +235,19 @@ namespace QuickMon
                         PollCount++;
                         if (CurrentState.State == CollectorState.Good)
                         {
-                            LastGoodState = CurrentState;
+                            LastGoodState = CurrentState.Clone();
                             LastGoodStateTime = DateTime.Now;
                             GoodStateCount++;
                         }
                         else if (CurrentState.State == CollectorState.Warning)
                         {
-                            LastWarningState = CurrentState;
+                            LastWarningState = CurrentState.Clone();
                             LastWarningStateTime = DateTime.Now;
                             WarningStateCount++;
                         }
                         else if (CurrentState.State == CollectorState.Error)
                         {
-                            LastErrorState = CurrentState;
+                            LastErrorState = CurrentState.Clone();
                             LastErrorStateTime = DateTime.Now;
                             ErrorStateCount++;
                         }

@@ -124,6 +124,7 @@
             this.lstSearchServices.Sorted = true;
             this.lstSearchServices.TabIndex = 0;
             this.lstSearchServices.SelectedIndexChanged += new System.EventHandler(this.lstSearchServices_SelectedIndexChanged);
+            this.lstSearchServices.DoubleClick += new System.EventHandler(this.cmdAdd_Click);
             // 
             // lstServices
             // 
@@ -136,6 +137,7 @@
             this.lstServices.Sorted = true;
             this.lstServices.TabIndex = 1;
             this.lstServices.SelectedIndexChanged += new System.EventHandler(this.lstServices_SelectedIndexChanged);
+            this.lstServices.DoubleClick += new System.EventHandler(this.cmdRemove_Click);
             // 
             // panel1
             // 

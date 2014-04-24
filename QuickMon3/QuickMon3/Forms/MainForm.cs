@@ -199,6 +199,25 @@ namespace QuickMon
                 e.SuppressKeyPress = true;
                 openMonitorPackToolStripButton_ButtonClick(sender, e);
             }
+            else if (e.Control && e.KeyCode == Keys.T)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                recentMonitorPackToolStripMenuItem1_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.N)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                newMonitorPackToolStripMenuItem_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.E)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                generalSettingsToolStripSplitButton_ButtonClick(sender, e);
+            }
+            
         }
         #endregion
 
@@ -533,15 +552,25 @@ namespace QuickMon
         #region Private methods
         private void RefreshMonitorPack()
         {
+            bool timerEnabled = mainRefreshTimer.Enabled;
             DateTime abortStart = DateTime.Now;
-            while (refreshBackgroundWorker.IsBusy &&  abortStart.AddSeconds(5) > DateTime.Now)
+            try
             {
-                Application.DoEvents();
+                mainRefreshTimer.Enabled = false; //temporary stops it.
+                while (refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
+                {
+                    Application.DoEvents();
+                }
+                if (!refreshBackgroundWorker.IsBusy)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    refreshBackgroundWorker.RunWorkerAsync();
+                }
             }
-            if (!refreshBackgroundWorker.IsBusy)
+            catch { }
+            finally
             {
-                Cursor.Current = Cursors.WaitCursor;
-                refreshBackgroundWorker.RunWorkerAsync();
+                mainRefreshTimer.Enabled = timerEnabled;
             }
         }
         private void SetAppIcon(CollectorState state)
@@ -614,8 +643,8 @@ namespace QuickMon
                     Text += " - [Disabled]";
                 if (monitorPack.Name != null && monitorPack.Name.Length > 0)
                     Text += string.Format(" - [{0}]", monitorPack.Name);
-                if (monitorPack.MonitorPackPath != null && monitorPack.MonitorPackPath.Length > 0)
-                    Text += string.Format(" - {0}", System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath));
+                //if (monitorPack.MonitorPackPath != null && monitorPack.MonitorPackPath.Length > 0)
+                //    Text += string.Format(" - {0}", monitorPack.MonitorPackPath);
             }
         }
         private void CloseAllDetailWindows()
@@ -844,6 +873,7 @@ namespace QuickMon
         }
         private void SetMonitorPackNameDescription()
         {
+            toolTip1.SetToolTip(llblMonitorPack, "");
             if (monitorPack == null || monitorPack.Name == null)
             {
                 llblMonitorPack.Text = "No or new monitor pack. Please set name.";
@@ -852,6 +882,7 @@ namespace QuickMon
                 llblMonitorPack.Text = monitorPack.Name;
             else
             {
+                toolTip1.SetToolTip(llblMonitorPack, monitorPack.MonitorPackPath);
                 llblMonitorPack.Text = monitorPack.Name.Trim().Length == 0 ? System.IO.Path.GetFileName(monitorPack.MonitorPackPath) : monitorPack.Name;
                 if (!monitorPack.Enabled)
                     llblMonitorPack.Text += " (Disabled)";
@@ -2208,5 +2239,6 @@ namespace QuickMon
             SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
         }
         #endregion
+
     }
 }

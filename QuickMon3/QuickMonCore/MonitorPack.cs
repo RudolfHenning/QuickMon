@@ -517,16 +517,16 @@ namespace QuickMon
 
             //set global state
             //All disabled
-            if (Collectors.Count == Collectors.Count(c => c.LastMonitorState.State == CollectorState.Disabled || c.LastMonitorState.State == CollectorState.Folder))
+            if (Collectors.Count == Collectors.Count(c => c.CurrentState.State == CollectorState.Disabled || c.CurrentState.State == CollectorState.Folder))
                 globalState = CollectorState.Disabled;
             //All NotAvailable
-            else if (Collectors.Count == Collectors.Count(c => c.LastMonitorState.State == CollectorState.NotAvailable || c.LastMonitorState.State == CollectorState.Folder))
+            else if (Collectors.Count == Collectors.Count(c => c.CurrentState.State == CollectorState.NotAvailable || c.CurrentState.State == CollectorState.Folder))
                 globalState = CollectorState.NotAvailable;
             //All good
-            else if (Collectors.Count == Collectors.Count(c => c.LastMonitorState.State == CollectorState.Good || c.LastMonitorState.State == CollectorState.Disabled || c.LastMonitorState.State == CollectorState.NotAvailable || c.LastMonitorState.State == CollectorState.Folder))
+            else if (Collectors.Count == Collectors.Count(c => c.CurrentState.State == CollectorState.Good || c.CurrentState.State == CollectorState.Disabled || c.CurrentState.State == CollectorState.NotAvailable || c.CurrentState.State == CollectorState.Folder))
                 globalState = CollectorState.Good;
             //Error state
-            else if (Collectors.Count == Collectors.Count(c => c.LastMonitorState.State == CollectorState.Error || c.LastMonitorState.State == CollectorState.ConfigurationError || c.LastMonitorState.State == CollectorState.Disabled || c.LastMonitorState.State == CollectorState.Folder))
+            else if (Collectors.Count == Collectors.Count(c => c.CurrentState.State == CollectorState.Error || c.CurrentState.State == CollectorState.ConfigurationError || c.CurrentState.State == CollectorState.Disabled || c.CurrentState.State == CollectorState.Folder))
                 globalState = CollectorState.Error;
             else
                 globalState = CollectorState.Warning;
@@ -685,7 +685,7 @@ namespace QuickMon
                         RaiseRaiseCollectorError(collector, ex.Message);
                     }
 
-                    collector.LastMonitorState.State = currentState;
+                    //collector.LastMonitorState.State = currentState;
                 }
                 #endregion
 

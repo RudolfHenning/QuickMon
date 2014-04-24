@@ -54,11 +54,16 @@ namespace QuickMon.Collectors
                     }
                     foreach (ServiceStateInfo serviceEntry in serviceStates)
                     {
+                        plainTextDetails.AppendLine(string.Format("\t{0}: {1}", serviceEntry.DisplayName, serviceEntry.Status));
                         htmlTextTextDetails.AppendLine("<ul>");
                         if (serviceEntry.Status != System.ServiceProcess.ServiceControllerStatus.Running)
-                           htmlTextTextDetails.AppendLine(string.Format("<li>{0}: <b>{1}</b></li>", serviceEntry.DisplayName, serviceEntry.Status));
+                        {                            
+                            htmlTextTextDetails.AppendLine(string.Format("<li>{0}: <b>{1}</b></li>", serviceEntry.DisplayName, serviceEntry.Status));
+                        }
                         else
+                        {
                             htmlTextTextDetails.AppendLine(string.Format("<li>{0}: {1}</li>", serviceEntry.DisplayName, serviceEntry.Status));
+                        }
                         htmlTextTextDetails.AppendLine("</ul>");
                     } 
                     
