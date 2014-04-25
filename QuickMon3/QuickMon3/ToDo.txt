@@ -1,4 +1,11 @@
 ﻿CHANGES (considdered possible for next release)
+IIS Collector
+   App pools started/stopped (using performance counters and/or DirectoryEntry methods)
+DirectoryEntry Collector (Directory services)
+	Very generic querying at first (or it could become very complex)
+Import Collector Config window - double click must fire OK button
+Check Default 'Polling' entries on menus (default = 30sec, Slow = 60 sec, Fast = 5 Sec)
+
 Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
   Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
   When refreshing from UI client this setting gets override (so every refresh execute agent)??
