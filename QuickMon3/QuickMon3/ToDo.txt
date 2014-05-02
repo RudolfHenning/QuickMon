@@ -1,13 +1,9 @@
 ﻿CHANGES (considdered possible for next release)
-IIS Collector
-   App pools started/stopped (using performance counters and/or DirectoryEntry methods)
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
 Powershell script collector
 	Run a script and query result for some 'Text'. Could be powerfull and also dangerous.
-
-Import Collector Config window - double click must fire OK button
-Check Default 'Polling' entries on menus (default = 30sec, Slow = 60 sec, Fast = 5 Sec)
+Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
 
 Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
   Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
@@ -67,5 +63,12 @@ Fixed unknown bug where monitorpack used LastMonitorState in stead of CurrentSta
 Rearrange menu/toolbar so most important actions are first
 Add double click to windows services collector edit to add/remove selected services
 Set initial values for BizTalk suspended counts settings ( > 0)
+
+V3.8
+IIS Collector
+   App pools started/stopped (using performance counters and/or DirectoryEntry methods)
+'Enterprize' agents removed from main installer. Available as separate downloads.
+Import Collector Config window - double click must fire OK button
+Check Default 'Polling' entries on menus (default = 30sec, Slow = 60 sec, Fast = 5 Sec)
 -------------------------------------------------------------------------------------------------------
 

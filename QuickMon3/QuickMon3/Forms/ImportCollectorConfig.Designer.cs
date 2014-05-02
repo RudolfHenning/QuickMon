@@ -149,6 +149,7 @@
             this.lvwAgents.UseCompatibleStateImageBehavior = false;
             this.lvwAgents.View = System.Windows.Forms.View.Details;
             this.lvwAgents.SelectedIndexChanged += new System.EventHandler(this.lvwAgents_SelectedIndexChanged);
+            this.lvwAgents.DoubleClick += new System.EventHandler(this.cmdOK_Click);
             this.lvwAgents.Resize += new System.EventHandler(this.lvwAgents_Resize);
             // 
             // columnHeaderName

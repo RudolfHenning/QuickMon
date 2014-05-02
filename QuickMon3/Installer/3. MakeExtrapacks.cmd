@@ -1,8 +1,3 @@
-"C:\Program Files (x86)\WiX Toolset v3.8\bin\candle.exe" -out QuickMon3x64.winobj Productx64.wxs
-"C:\Program Files (x86)\WiX Toolset v3.8\bin\light.exe" -out QuickMon3x64.msi QuickMon3x64.winobj -ext WixUIExtension -ext WixUtilExtension -ext WixNetfxExtension
-"C:\Program Files (x86)\WiX Toolset v3.8\bin\candle.exe" -out QuickMon3.winobj Product.wxs
-"C:\Program Files (x86)\WiX Toolset v3.8\bin\light.exe" -out QuickMon3.msi QuickMon3.winobj -ext WixUIExtension -ext WixUtilExtension -ext WixNetfxExtension
-
 "C:\Program Files\7-Zip\7z.exe" a -mx9 IISAgents.zip QuickMonIISAgents.dll
 "C:\Program Files\7-Zip\7z.exe" a -mx9 IISAgents.zip ExtraAgentsReadme.txt
 "C:\Program Files\7-Zip\7z.exe" a -mx9 IISAgents.zip InstallIISAgents.cmd
@@ -26,4 +21,4 @@
 "C:\Program Files\7-Zip\7z.exe" a -mx9 MSSQLAgents.zip InstallMSSQLAgents.cmd
 "C:\Program Files\7-Zip\7z.exe" a -mx9 MSSQLAgents.zip CopyAsAdmin.exe
 "C:\Program Files\7-Zip\7z.exe" a -mx9 MSSQLAgents.zip CopyAsAdmin.exe.config
-pause
+WaitOrKey.exe 10

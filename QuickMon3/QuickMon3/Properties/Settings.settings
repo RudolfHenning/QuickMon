@@ -9,7 +9,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="PollFrequencySec" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="RecentQMConfigFiles" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />

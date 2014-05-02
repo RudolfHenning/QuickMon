@@ -325,14 +325,14 @@ namespace QuickMon
         private void pollingNormalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
-            mainRefreshTimer.Interval = 10000;
+            mainRefreshTimer.Interval = 30000;
             mainRefreshTimer.Enabled = true;
             toolStripStatusLabelStatus.Text = "Polling set to normal";
         }
         private void pollingFastToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
-            mainRefreshTimer.Interval = 1000;
+            mainRefreshTimer.Interval = 5000;
             mainRefreshTimer.Enabled = true;
             toolStripStatusLabelStatus.Text = "Polling set to fast";
         }

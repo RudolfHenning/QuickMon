@@ -1,0 +1,7 @@
+<config>
+<!--
+  <machine name="hostName" usePerfCounter="False">
+    <appPool name="DefaultAppPool" />
+  </machine>
+  -->
+</config>
