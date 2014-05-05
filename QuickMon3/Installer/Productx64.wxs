@@ -85,6 +85,7 @@
           Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch QuickMon 3" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Installation is complete. Please remember to check https://quickmon.codeplex.com for additional Collector packs." />
     <!-- Step 3: Include the custom action -->
     <Property Id="WixShellExecTarget" Value="[#QuickMonEXE]" />
     <CustomAction Id="LaunchApplication"
@@ -94,5 +95,6 @@
 
     <WixVariable Id="WixUIBannerBmp" Value="InstallBanner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="DialogBkground.bmp" />
+    
   </Product>
 </Wix>
