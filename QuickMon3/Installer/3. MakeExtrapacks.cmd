@@ -21,4 +21,10 @@
 "C:\Program Files\7-Zip\7z.exe" a -mx9 MSSQLAgents.zip InstallMSSQLAgents.cmd
 "C:\Program Files\7-Zip\7z.exe" a -mx9 MSSQLAgents.zip CopyAsAdmin.exe
 "C:\Program Files\7-Zip\7z.exe" a -mx9 MSSQLAgents.zip CopyAsAdmin.exe.config
+
+"C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip QuickMonPowerShellAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip ExtraAgentsReadme.txt
+"C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip InstallPowerShellAgents.cmd
+"C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip CopyAsAdmin.exe
+"C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip CopyAsAdmin.exe.config
 WaitOrKey.exe 10

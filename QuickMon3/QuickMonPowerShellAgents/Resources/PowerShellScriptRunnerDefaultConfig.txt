@@ -1,0 +1,10 @@
+<config>
+	<powerShellScripts>
+		<powerShellScriptRunner name="" returnCheckSequence="GWE">
+			<testScript></testScript>
+			<goodScript resultMatchType="match|contains|regex"></goodScript>
+			<warningScript resultMatchType="match|contains|regex"></warningScript>
+			<errorScript resultMatchType="match|contains|regex"></errorScript>
+		</powerShellScriptRunner>
+	</powerShellScripts>
+</config>
