@@ -60,17 +60,20 @@ namespace QuickMon
                         plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: N/A", ce.Name));
                         htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: N/A</li>", ce.Name));
                     }
-                    else if (ce.CurrentState.State == CollectorState.Good)
-                    {
-                        plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: {1}", ce.Name, ce.CurrentState.State));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: {1}</li>", ce.Name, ce.CurrentState.State));
-                    }
                     else
                     {
-                        plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: {1}", ce.Name, ce.CurrentState.State));
+                        //if (ce.CurrentState.State == CollectorState.Good)
+                        //{
+                            plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: {1}", ce.Name, ce.CurrentState.State));
+                            htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: {1}</li>", ce.Name, ce.CurrentState.State));
+                        //}
+                        //else
+                        //{
+                        //    plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: {1}", ce.Name, ce.CurrentState.State));                            
+                        //    htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: {1}</li>", ce.Name, ce.CurrentState.State));                            
+                        //}
                         if (ce.CurrentState.RawDetails != null && ce.CurrentState.RawDetails.Length > 0)
                             plainTextDetails.AppendLine(string.Format("\t\tDetails: {0}", ce.CurrentState.RawDetails.Replace("\r\n", "\r\n\t\t\t")));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: {1}</li>", ce.Name, ce.CurrentState.State));
                         if (ce.CurrentState.HtmlDetails != null && ce.CurrentState.HtmlDetails.Length > 0)
                             htmlTextTextDetails.AppendLine(string.Format("<br/>Details: {0}", ce.CurrentState.HtmlDetails));
                     }

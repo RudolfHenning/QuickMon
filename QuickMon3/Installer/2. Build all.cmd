@@ -32,4 +32,14 @@
 "C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip InstallPowerShellAgents.cmd
 "C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip CopyAsAdmin.exe
 "C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip CopyAsAdmin.exe.config
+
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonIISAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonBizTalkAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonOLEDBAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonSQLAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonPowerShellAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip ExtraAgentsReadme.txt
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip InstallAllAgents.cmd
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip CopyAsAdmin.exe
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip CopyAsAdmin.exe.config
 pause

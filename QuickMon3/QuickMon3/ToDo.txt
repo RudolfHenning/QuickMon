@@ -1,8 +1,6 @@
 ﻿CHANGES (considdered possible for next release)
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
-Powershell script collector
-	Run a script and query result for some 'Text'. Could be powerfull and also dangerous.
 Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
 
 Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
@@ -70,5 +68,9 @@ IIS Collector
 'Enterprize' agents removed from main installer. Available as separate downloads.
 Import Collector Config window - double click must fire OK button
 Check Default 'Polling' entries on menus (default = 30sec, Slow = 60 sec, Fast = 5 Sec)
+
+V3.9
+Powershell script collector
+	Run a script and query result for some 'Text'. Could be powerfull and also dangerous.
 -------------------------------------------------------------------------------------------------------
 
