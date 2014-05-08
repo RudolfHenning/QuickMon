@@ -1,1 +1,1 @@
-CopyAsAdmin.exe -Y -W QuickMonPowerShellAgents.dll "C:\Program Files\Hen IT\QuickMon 3\QuickMonPowerShellAgents.dll"
+CopyAsAdmin.exe -Y -W QuickMonPowerShellAgents.dll "C:\Program Files\Hen IT\QuickMon 3\QuickMonPowerShellAgents.dll" System.Management.Automation.dll "C:\Program Files\Hen IT\QuickMon 3\System.Management.Automation.dll"
