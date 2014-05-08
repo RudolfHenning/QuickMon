@@ -1,0 +1,46 @@
+<monitorPack name="Dummy monitor pack" enabled="True">
+  <collectorEntries>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40C7" name="Ping mmbiz1" collector="Ping" dependOnParent="" collectOnParentWarning="True" enabled="True">
+      <config>
+        <hosts>
+          <host hostName="mmbiz1" description="" maxTime="100" timeOut="5000" />
+          <host hostName="mmbiz2" description="" maxTime="100" timeOut="5000" />
+          <host hostName="mmbiz3" description="" maxTime="100" timeOut="5000" />
+          <host hostName="mmbiz4" description="" maxTime="100" timeOut="5000" />
+        </hosts>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40C8" name="MM Routing failure dump files" collector="FileCount" dependOnParent="7F42B116-0DCC-4577-89FF-3AAC2C1E40C7" collectOnParentWarning="False" enabled="True">
+      <config>
+        <directoryList>
+          <directory warningFileCountMax="5" errorFileCountMax="100" directoryPathFilter="\\mmbiz1\c$\Dump\RFR*.xml" />
+          <directory warningFileCountMax="5" errorFileCountMax="100" directoryPathFilter="\\mmbiz2\c$\Dump\RFR*.xml" />
+          <directory warningFileCountMax="5" errorFileCountMax="100" directoryPathFilter="\\mmbiz3\c$\Dump\RFR*.xml" />
+          <directory warningFileCountMax="5" errorFileCountMax="100" directoryPathFilter="\\mmbiz4\c$\Dump\RFR*.xml" />
+        </directoryList>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40C9" name="Ping biz3/4" collector="Ping" dependOnParent="" collectOnParentWarning="False" enabled="True">
+      <config>
+        <hosts>
+          <host hostName="biz3" description="" maxTime="100" timeOut="5000" />
+          <host hostName="biz4" description="" maxTime="100" timeOut="5000" />
+        </hosts>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40CA" name="Ping mmbizint64" collector="Ping" dependOnParent="" collectOnParentWarning="False" enabled="True">
+      <config>
+        <hosts>
+          <host hostName="mmbizint64" description="" maxTime="100" timeOut="5000" />
+        </hosts>
+      </config>
+    </collectorEntry>
+  </collectorEntries>
+  <notifierEntries>
+    <notifierEntry name="QuickMon log file" notifier="LogFile" enabled="True" alertLevel="Info" detailLevel="All">
+      <config>
+        <logFile path="C:\Users\rhenning\Documents\Visual Studio 2010\Projects\QuickMon\QMCmd\bin\Debug\QuickMon.log" />
+      </config>
+    </notifierEntry>
+  </notifierEntries>
+</monitorPack>

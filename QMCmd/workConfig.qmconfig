@@ -1,0 +1,130 @@
+<monitorPack name="Work Monitor Pack" enabled="True" agentRegistrationFile="C:\Users\rhenning.SHOPRITE\Documents\Visual Studio 2010\Projects\QuickMon\QMCmd\bin\Debug\RegisteredAgents.qmral">
+  <collectorEntries>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40C7" name="Ping mmbiz1" collector="Ping" dependOnParent="" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <hosts>
+          <host hostName="mmbiz1" description="" maxTime="100" timeOut="5000" />
+          <host hostName="mmbiz2" description="" maxTime="100" timeOut="5000" />
+          <host hostName="mmbiz3" description="" maxTime="100" timeOut="5000" />
+          <host hostName="mmbiz4" description="" maxTime="100" timeOut="5000" />
+        </hosts>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40C8" name="MM Routing failure dump files" collector="FileCount" dependOnParent="7F42B116-0DCC-4577-89FF-3AAC2C1E40C7" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <directoryList>
+          <directory directoryPathFilter="\\mmbiz1\c$\Dump\RFR*.xml" warningFileCountMax="5" errorFileCountMax="100" warningFileSizeMaxKB="0" errorFileSizeMaxKB="0" fileMaxAgeSec="0" fileMinAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" />
+          <directory directoryPathFilter="\\mmbiz2\c$\Dump\RFR*.xml" warningFileCountMax="5" errorFileCountMax="100" fileMaxAgeSec="0" fileMinAgeSec="0" />
+          <directory directoryPathFilter="\\mmbiz3\c$\Dump\RFR*.xml" warningFileCountMax="5" errorFileCountMax="100" fileMaxAgeSec="0" fileMinAgeSec="0" />
+          <directory directoryPathFilter="\\mmbiz4\c$\Dump\RFR*.xml" warningFileCountMax="5" errorFileCountMax="100" fileMaxAgeSec="0" fileMinAgeSec="0" />
+        </directoryList>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40CB" name="MM BizTalk Hosts" collector="ServiceState" dependOnParent="7F42B116-0DCC-4577-89FF-3AAC2C1E40C7" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <machine name="mmbiz1">
+          <service name="BizTalk Service BizTalk Group : BizTalkServerApplication" />
+          <service name="BizTalk Service BizTalk Group : BizTalkTracking" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarket" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketPriorityOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyTransfers" />
+          <service name="BizTalk Service BizTalk Group : SQLReceive" />
+          <service name="MoneyTransfer TCPService" />
+          <service name="Vendor Communication Service" />
+        </machine>
+        <machine name="mmbiz2">
+          <service name="BizTalk Service BizTalk Group : BizTalkServerApplication" />
+          <service name="BizTalk Service BizTalk Group : BizTalkTracking" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarket" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketPriorityOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyTransfers" />
+          <service name="MoneyTransfer TCPService" />
+          <service name="Vendor Communication Service" />
+        </machine>
+        <machine name="mmbiz3">
+          <service name="BizTalk Service BizTalk Group : BizTalkServerApplication" />
+          <service name="BizTalk Service BizTalk Group : BizTalkTracking" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketPriorityOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyTransfers" />
+          <service name="MoneyTransfer TCPService" />
+          <service name="Vendor Communication Service" />
+        </machine>
+        <machine name="mmbiz4">
+          <service name="BizTalk Service BizTalk Group : BizTalkServerApplication" />
+          <service name="BizTalk Service BizTalk Group : BizTalkTracking" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyMarketPriorityOrchestrations" />
+          <service name="BizTalk Service BizTalk Group : MoneyTransfers" />
+          <service name="MoneyTransfer TCPService" />
+          <service name="Vendor Communication Service" />
+        </machine>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40C9" name="Ping biz3/4" collector="Ping" dependOnParent="" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <hosts>
+          <host hostName="biz3" description="" maxTime="100" timeOut="5000" />
+          <host hostName="biz4" description="" maxTime="100" timeOut="5000" />
+        </hosts>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40CA" name="Ping mmbizint64" collector="Ping" dependOnParent="" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <hosts>
+          <host hostName="mmbizint64" description="" maxTime="100" timeOut="5000" />
+        </hosts>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40CC" name="RHenning services" collector="ServiceState" dependOnParent="" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <machine name="rhenning2">
+          <service name="Event scavenger" />
+          <service name="Event Collector" />
+          <service name="SQL Server (SQL2008)" />
+          <service name="SQL Server Agent (SQL2008)" />
+        </machine>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40CD" name="MM Suspended count" collector="BizTalkSuspendedCount" dependOnParent="7F42B116-0DCC-4577-89FF-3AAC2C1E40C7" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <bizTalkGroup sqlServer="mmprodsql" mgmtDb="BizTalkMgmtDb" instancesWarning="10" instancesError="50" showLastXDetails="10">
+          <hosts />
+          <apps />
+        </bizTalkGroup>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40CE" name="BC Suspended count" collector="BizTalkSuspendedCount" dependOnParent="7F42B116-0DCC-4577-89FF-3AAC2C1E40C9" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <bizTalkGroup sqlServer="odcsql1\odcprod1" mgmtDb="BTS06BizTalkMgmtDb" instancesWarning="1" instancesError="50" showLastXDetails="10">
+          <hosts />
+          <apps />
+        </bizTalkGroup>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40D0" name="BC Purchase order files" collector="FileCount" dependOnParent="7F42B116-0DCC-4577-89FF-3AAC2C1E40C9" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <directoryList>
+          <directory warningFileCountMax="1" errorFileCountMax="100" directoryPathFilter="\\odcfileshare\ODC\Data\BizTalk\PurchaseOrders\Pub\EP\PurchaseOrder*.xml" fileMaxAgeSec="0" fileMinAgeSec="300" />
+        </directoryList>
+      </config>
+    </collectorEntry>
+    <collectorEntry uniqueID="7F42B116-0DCC-4577-89FF-3AAC2C1E40D1" name="Test File age" collector="FileCount" dependOnParent="" collectOnParentWarning="False" enabled="True" repeatAlertInXMin="0">
+      <config>
+        <directoryList>
+          <directory directoryPathFilter="c:\temp\*.txt" warningFileCountMax="1" errorFileCountMax="100" warningFileSizeMaxKB="0" errorFileSizeMaxKB="0" fileMaxAgeSec="120" fileMinAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" />
+          <directory directoryPathFilter="c:\temp\*.*" warningFileCountMax="0" errorFileCountMax="0" warningFileSizeMaxKB="10240" errorFileSizeMaxKB="20480" fileMaxAgeSec="0" fileMinAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" />
+        </directoryList>
+      </config>
+    </collectorEntry>
+  </collectorEntries>
+  <notifierEntries>
+    <notifierEntry name="QuickMon log file" notifier="LogFile" enabled="True" alertLevel="Warning" detailLevel="Detail">
+      <config>
+        <logFile path="C:\Users\rhenning.Shoprite\Documents\Visual Studio 2010\Projects\QuickMon\QMCmd\bin\Debug\QuickMon.log" />
+      </config>
+    </notifierEntry>
+  </notifierEntries>
+</monitorPack>
