@@ -20,28 +20,38 @@ namespace CopyAsAdmin
             {
                 bool overwrite = cmdParser.IsCommand("-Y", "/Y");
                 bool waitOnExit = cmdParser.IsCommand("-W", "/W");
-                string sourceFile = args[args.Length - 2];
-                string destinationFile = args[args.Length - 1];
+                bool delayOnExit = cmdParser.IsCommand("-D", "/D");
+                string sourceFile = "";
+                string destinationFile = "";
+                int startIndex = -1;
 
-                if (!sourceFile.Contains("\\"))
+                for (int i = 0; i < args.Length; i++)
                 {
-                    sourceFile = System.IO.Path.Combine(Environment.CurrentDirectory, sourceFile);
-                }
-
-                try
-                {
-                    if (System.IO.File.Exists(sourceFile))
+                    if (!(args[i].StartsWith("/") || args[i].StartsWith("-")))
                     {
-                        System.IO.File.Copy(sourceFile, destinationFile, overwrite);
-                        Console.WriteLine("File copied.");
+                        startIndex = i;
+                        break;
                     }
-                    else
-                        Console.WriteLine("Source file could not be found!");
                 }
-                catch(Exception ex)
+                if (startIndex > -1)
                 {
-                    Console.WriteLine(ex.Message);                    
+                    for (int i = startIndex; i < args.Length - 1; i = i + 2)
+                    {
+                        sourceFile = args[i];
+                        destinationFile = args[i + 1];
+                        if (CopyFile(sourceFile, destinationFile, overwrite))
+                        {
+                            Console.WriteLine("  File copied successfully");
+                        }
+                        else
+                            Console.WriteLine("  File copy failed!");
+                        Console.WriteLine("  -----------------------------------"); //creates empty line
+                    }
                 }
+                if (delayOnExit)
+                {
+                    System.Threading.Thread.Sleep(3000);
+                }              
                 if (waitOnExit)
                 {
                     Console.WriteLine("Press any key to continue");
@@ -50,9 +60,34 @@ namespace CopyAsAdmin
             }
         }
 
+        private static bool CopyFile(string sourceFile, string destinationFile, bool overwrite)
+        {
+            bool success = false;
+            if (!sourceFile.Contains("\\"))
+            {
+                sourceFile = System.IO.Path.Combine(Environment.CurrentDirectory, sourceFile);
+            }
+            Console.WriteLine("Copying '{0}' to '{1}'", sourceFile, destinationFile);
+            try
+            {
+                if (System.IO.File.Exists(sourceFile))
+                {
+                    System.IO.File.Copy(sourceFile, destinationFile, overwrite);
+                    success = true;
+                }
+                else
+                    Console.WriteLine("Source file could not be found!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return success;
+        }
+
         private static void ShowHelp()
         {
-            Console.WriteLine("Usage: CopyAsdmin.exe [-Y] [-E] <sourceFile> <destinationFile>");
+            Console.WriteLine("Usage: CopyAsdmin.exe [-Y] [-E] <sourceFile> <destinationFile> [<sourceFile2> <destinationFile2>...]");
             Console.WriteLine("   where");
             Console.WriteLine("  -Y     : Do not prompt to overwrite");
             Console.WriteLine("  -W     : Wait on exit");

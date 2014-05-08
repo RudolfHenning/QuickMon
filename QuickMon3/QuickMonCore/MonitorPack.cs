@@ -709,10 +709,12 @@ namespace QuickMon
                         //if ForceRemoteExcuteOnChildCollectors is set then apply set ParentOverrideRemoteExcuteHostAddress and ParentOverrideRemoteExcutePort
                         if (collector.ForceRemoteExcuteOnChildCollectors)
                         {
+                            collector.OverrideForceRemoteExcuteOnChildCollectors = true;
                             SetChildCollectorRemoteExecuteDetails(collector, collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
                         }
-                        else
+                        else if (!collector.OverrideForceRemoteExcuteOnChildCollectors)
                         {
+                            collector.OverrideForceRemoteExcuteOnChildCollectors = false;
                             SetChildCollectorRemoteExecuteDetails(collector, "", 8181);
                         }
 
@@ -764,6 +766,7 @@ namespace QuickMon
                                where c.ParentCollectorId == collector.UniqueId
                                select c))
             {
+                childCollector.OverrideForceRemoteExcuteOnChildCollectors = collector.OverrideForceRemoteExcuteOnChildCollectors;
                 childCollector.OverrideRemoteAgentHost = remoteAgentHostAddress.Length > 0;
                 childCollector.OverrideRemoteAgentHostAddress = remoteAgentHostAddress;
                 childCollector.OverrideRemoteAgentHostPort = remoteAgentHostPort;

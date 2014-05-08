@@ -208,10 +208,7 @@ namespace QuickMon
                 {
                     EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
                         , EventLogEntryType.Information, 21);
-                    Process p = new Process();
-                    p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnWarningPath);
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
+                    RunCorrectiveScript(collector.CorrectiveScriptOnWarningPath);
                 }
             }
             catch (Exception ex)
@@ -228,10 +225,7 @@ namespace QuickMon
                 {
                     EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
                         , EventLogEntryType.Information, 22);
-                    Process p = new Process();
-                    p.StartInfo = new ProcessStartInfo(collector.CorrectiveScriptOnErrorPath);
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
+                    RunCorrectiveScript(collector.CorrectiveScriptOnErrorPath);
                 }
             }
             catch (Exception ex)
@@ -248,10 +242,7 @@ namespace QuickMon
                 {
                     EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the restoration script '{0}' for collector '{1}'", collector.RestorationScriptPath, collector.Name)
                         , EventLogEntryType.Information, 22);
-                    Process p = new Process();
-                    p.StartInfo = new ProcessStartInfo(collector.RestorationScriptPath);
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
+                    RunCorrectiveScript(collector.RestorationScriptPath);                    
                 }
             }
             catch (Exception ex)
@@ -259,6 +250,44 @@ namespace QuickMon
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
             }
         }
+        private void RunCorrectiveScript(string scriptPath)
+        {
+            if (scriptPath.ToLower().EndsWith(".ps1"))
+            {
+                RunPSScript(scriptPath);
+            }
+            else
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo(scriptPath);
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.Start();
+            }
+        }
+
+        #region PowerShell Runner
+        /// <summary>
+        /// Run PowerShell script. Cannot use System.Management.Automation as it may not be installed on older systems.
+        /// </summary>
+        /// <param name="testScript"></param>
+        /// <returns></returns>
+        private void RunPSScript(string testScript)
+        {
+            string psExe = System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+            if (System.IO.File.Exists(psExe))
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo(psExe);
+                p.StartInfo.Arguments = testScript;
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.Start();
+            }
+            else
+            {
+                throw new Exception("PowerShell not found! It may not be installed on this computer.");
+            }
+        }
+        #endregion
         #endregion
 
         #region Performance counters

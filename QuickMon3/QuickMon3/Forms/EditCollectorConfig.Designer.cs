@@ -70,6 +70,15 @@
             this.txtCorrectiveScriptOnError = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.numericUpDownRepeatAlertInXPolls = new System.Windows.Forms.NumericUpDown();
+            this.delayAlertPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AlertOnceInXPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownRepeatAlertInXMin = new System.Windows.Forms.NumericUpDown();
@@ -84,6 +93,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
             this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
             this.label17 = new System.Windows.Forms.Label();
             this.chkRemoteAgentEnabled = new System.Windows.Forms.CheckBox();
@@ -99,19 +109,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.numericUpDownRepeatAlertInXPolls = new System.Windows.Forms.NumericUpDown();
-            this.delayAlertPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.AlertOnceInXPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -122,6 +122,9 @@
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
@@ -129,9 +132,6 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -473,6 +473,8 @@
             // 
             this.txtRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRestorationScript.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtRestorationScript.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtRestorationScript.Location = new System.Drawing.Point(134, 75);
             this.txtRestorationScript.Name = "txtRestorationScript";
             this.txtRestorationScript.Size = new System.Drawing.Size(381, 20);
@@ -547,6 +549,8 @@
             // 
             this.txtCorrectiveScriptOnWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorrectiveScriptOnWarning.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtCorrectiveScriptOnWarning.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 23);
             this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
             this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(381, 20);
@@ -557,6 +561,8 @@
             // 
             this.txtCorrectiveScriptOnError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorrectiveScriptOnError.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtCorrectiveScriptOnError.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 49);
             this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
             this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(381, 20);
@@ -600,6 +606,96 @@
             this.groupBox5.Size = new System.Drawing.Size(561, 100);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(313, 48);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(239, 13);
+            this.label26.TabIndex = 17;
+            this.label26.Text = "Note that # of polls depends on polling frequency";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(269, 74);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(29, 13);
+            this.label25.TabIndex = 15;
+            this.label25.Text = "Polls";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(269, 48);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(29, 13);
+            this.label24.TabIndex = 10;
+            this.label24.Text = "Polls";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(269, 22);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(29, 13);
+            this.label23.TabIndex = 4;
+            this.label23.Text = "Polls";
+            // 
+            // numericUpDownRepeatAlertInXPolls
+            // 
+            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
+            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
+            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXPolls.TabIndex = 3;
+            // 
+            // delayAlertPollsNumericUpDown
+            // 
+            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 72);
+            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
+            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertPollsNumericUpDown.TabIndex = 14;
+            // 
+            // AlertOnceInXPollsNumericUpDown
+            // 
+            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 46);
+            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
+            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXPollsNumericUpDown.TabIndex = 9;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(313, 74);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(224, 13);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(313, 22);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(232, 13);
+            this.label21.TabIndex = 5;
+            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
             // 
             // label18
             // 
@@ -758,6 +854,17 @@
             this.groupBox2.Size = new System.Drawing.Size(561, 50);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            // 
+            // chkForceRemoteExcuteOnChildCollectors
+            // 
+            this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
+            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(249, 0);
+            this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
+            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
+            this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
+            this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
+            this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
             // 
             // llblRemoteAgentInstallHelp
             // 
@@ -924,98 +1031,8 @@
             // correctiveScriptOpenFileDialog
             // 
             this.correctiveScriptOpenFileDialog.DefaultExt = "cmd";
-            this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|All Files|*.*";
+            this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(313, 22);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(232, 13);
-            this.label21.TabIndex = 5;
-            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(313, 74);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(224, 13);
-            this.label22.TabIndex = 16;
-            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
-            // 
-            // numericUpDownRepeatAlertInXPolls
-            // 
-            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
-            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
-            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXPolls.TabIndex = 3;
-            // 
-            // delayAlertPollsNumericUpDown
-            // 
-            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 72);
-            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
-            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertPollsNumericUpDown.TabIndex = 14;
-            // 
-            // AlertOnceInXPollsNumericUpDown
-            // 
-            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 46);
-            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
-            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXPollsNumericUpDown.TabIndex = 9;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(269, 22);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(29, 13);
-            this.label23.TabIndex = 4;
-            this.label23.Text = "Polls";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(269, 48);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(29, 13);
-            this.label24.TabIndex = 10;
-            this.label24.Text = "Polls";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(269, 74);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(29, 13);
-            this.label25.TabIndex = 15;
-            this.label25.Text = "Polls";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(313, 48);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(239, 13);
-            this.label26.TabIndex = 17;
-            this.label26.Text = "Note that # of polls depends on polling frequency";
             // 
             // lvwEntries
             // 
@@ -1049,17 +1066,6 @@
             // 
             this.triggerColumnHeader.Text = "Alert triggers";
             this.triggerColumnHeader.Width = 249;
-            // 
-            // chkForceRemoteExcuteOnChildCollectors
-            // 
-            this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
-            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(249, 0);
-            this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
-            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
-            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
-            this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
-            this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
-            this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
             // 
             // EditCollectorConfig
             // 
@@ -1098,6 +1104,9 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
@@ -1108,9 +1117,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

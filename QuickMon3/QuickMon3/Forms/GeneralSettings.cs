@@ -18,6 +18,7 @@ namespace QuickMon
         }
 
         private bool loading = false;
+        private bool freChanging = false;
 
         public int PollingFrequencySec { get; set; }
         public bool PollingEnabled { get; set; }
@@ -31,10 +32,8 @@ namespace QuickMon
             chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
             chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
             chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists("QuickMon 3");
-            if (freqSecNumericUpDown.Maximum >= PollingFrequencySec)
-                freqSecNumericUpDown.Value = PollingFrequencySec;
-            else
-                freqSecNumericUpDown.Value = 10;
+            SetFrequency(PollingFrequencySec);
+            
             chkPollingEnabled.Checked = PollingEnabled;
             loading = false;
         }
@@ -113,5 +112,32 @@ namespace QuickMon
                 PollingEnabled = setTimerConfig.TimerEnabled;
             }
         }
+
+        private void freqSecNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            SetFrequency((int)freqSecNumericUpDown.Value);
+        }
+
+        private void freqSecTrackBar_Scroll(object sender, EventArgs e)
+        {
+            SetFrequency(freqSecTrackBar.Value);
+        }
+
+        private void SetFrequency(int frequency)
+        {
+            if (!freChanging)
+            {
+                freChanging = true;
+                if (frequency == 0)
+                    frequency = 1;
+                if (freqSecNumericUpDown.Maximum >= frequency)
+                    freqSecNumericUpDown.Value = frequency;
+                else
+                    freqSecNumericUpDown.Value = 10;
+                freqSecTrackBar.Value = (int)freqSecNumericUpDown.Value;
+                freChanging = false;
+            }
+        }
+
     }
 }

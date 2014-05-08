@@ -45,11 +45,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.freqSecTrackBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // concurrencyLevelNnumericUpDown
@@ -88,7 +90,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 186);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 231);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 4;
@@ -99,7 +101,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 186);
+            this.cmdOK.Location = new System.Drawing.Point(265, 231);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 3;
@@ -167,7 +169,7 @@
             this.groupBox1.Controls.Add(this.chkPinToTaskbar);
             this.groupBox1.Controls.Add(this.chkDesktopShortcut);
             this.groupBox1.Controls.Add(this.chkPinToStartMenu);
-            this.groupBox1.Location = new System.Drawing.Point(12, 123);
+            this.groupBox1.Location = new System.Drawing.Point(12, 170);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(409, 50);
             this.groupBox1.TabIndex = 2;
@@ -178,6 +180,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.freqSecTrackBar);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.freqSecNumericUpDown);
             this.groupBox2.Controls.Add(this.label1);
@@ -186,7 +189,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(12, 70);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 47);
+            this.groupBox2.Size = new System.Drawing.Size(409, 94);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Polling";
@@ -194,7 +197,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(166, 21);
+            this.label2.Location = new System.Drawing.Point(150, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 3;
@@ -202,7 +205,7 @@
             // 
             // freqSecNumericUpDown
             // 
-            this.freqSecNumericUpDown.Location = new System.Drawing.Point(101, 19);
+            this.freqSecNumericUpDown.Location = new System.Drawing.Point(85, 19);
             this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
             120,
             0,
@@ -221,11 +224,12 @@
             0,
             0,
             0});
+            this.freqSecNumericUpDown.ValueChanged += new System.EventHandler(this.freqSecNumericUpDown_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 21);
+            this.label1.Location = new System.Drawing.Point(11, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 1;
@@ -254,12 +258,25 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "General";
             // 
+            // freqSecTrackBar
+            // 
+            this.freqSecTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
+            this.freqSecTrackBar.Maximum = 120;
+            this.freqSecTrackBar.Name = "freqSecTrackBar";
+            this.freqSecTrackBar.Size = new System.Drawing.Size(384, 45);
+            this.freqSecTrackBar.TabIndex = 5;
+            this.freqSecTrackBar.TickFrequency = 5;
+            this.freqSecTrackBar.Value = 10;
+            this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 221);
+            this.ClientSize = new System.Drawing.Size(433, 266);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -281,6 +298,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -303,5 +321,6 @@
         private System.Windows.Forms.NumericUpDown freqSecNumericUpDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TrackBar freqSecTrackBar;
     }
 }

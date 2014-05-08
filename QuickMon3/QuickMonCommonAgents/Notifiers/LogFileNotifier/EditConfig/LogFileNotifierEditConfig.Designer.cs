@@ -107,6 +107,8 @@
             // 
             this.txtLogFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogFilePath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtLogFilePath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtLogFilePath.Location = new System.Drawing.Point(110, 12);
             this.txtLogFilePath.Name = "txtLogFilePath";
             this.txtLogFilePath.Size = new System.Drawing.Size(326, 20);

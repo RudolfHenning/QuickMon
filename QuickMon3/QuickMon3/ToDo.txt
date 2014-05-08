@@ -72,5 +72,8 @@ Check Default 'Polling' entries on menus (default = 30sec, Slow = 60 sec, Fast =
 V3.9
 Powershell script collector
 	Run a script and query result for some 'Text'. Could be powerfull and also dangerous.
+If MonitorPack changed in UI client add * to title
+Corrective script can also be Powershell scripts...
+Fixed Override remote host on child collectors
 -------------------------------------------------------------------------------------------------------
 

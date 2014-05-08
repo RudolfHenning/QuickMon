@@ -130,5 +130,20 @@ namespace QuickMon.Forms
         {
             cmdOK_Click(null, null);
         }
+
+        private void llblExtraAgents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string url = "https://quickmon.codeplex.com/";
+            try
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(url);
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

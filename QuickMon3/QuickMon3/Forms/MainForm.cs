@@ -58,6 +58,7 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
+            lblNoNotifiersYet.Dock = DockStyle.Fill;
             popedContainerForTreeView.cmdCopy.Enabled = false;
             popedContainerForTreeView.cmdPaste.Enabled = false;
             popedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
@@ -385,8 +386,7 @@ namespace QuickMon
             emc.SelectedMonitorPack = monitorPack;
             if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                monitorPackChanged = true;
-                UpdateAppTitle();
+                SetMonitorChanged();
                 SetMonitorPackNameDescription();
             }
         }
@@ -637,6 +637,8 @@ namespace QuickMon
         private void UpdateAppTitle()
         {
             Text = "QuickMon 3";
+            if (monitorPackChanged)
+                Text += "*";
             if (monitorPack != null)
             {
                 if (!monitorPack.Enabled)
@@ -682,6 +684,7 @@ namespace QuickMon
                 {
                     success = SaveAsMonitorPack();
                 }
+                UpdateAppTitle();
             }
             catch (Exception ex)
             {
@@ -1016,7 +1019,7 @@ namespace QuickMon
                     editCollectorEntry.SelectedEntry = collectorEntry;
                     if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                     {
-                        monitorPackChanged = true;
+                        SetMonitorChanged();
                         tvwCollectors.SelectedNode.Text = editCollectorEntry.SelectedEntry.Name;
                         if (editCollectorEntry.SelectedEntry.EnableRemoteExecute || editCollectorEntry.SelectedEntry.ForceRemoteExcuteOnChildCollectors)
                         {
@@ -1106,7 +1109,7 @@ namespace QuickMon
 
                     if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                     {
-                        monitorPackChanged = true;
+                        SetMonitorChanged();
                         monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
                         TreeNode root = tvwCollectors.Nodes[0];
                         if (parentCollectorEntry != null)
@@ -1232,8 +1235,7 @@ namespace QuickMon
 
                     if (copiedCollectorList != null && copiedCollectorList.Count > 0)
                     {
-                        monitorPackChanged = true;
-
+                        SetMonitorChanged();
                         for (int i = 0; i < copiedCollectorList.Count; i++)
                         {
                             string newId = Guid.NewGuid().ToString();
@@ -1309,6 +1311,11 @@ namespace QuickMon
             }
             foreach (TreeNode childNode in root.Nodes)
                 SetNodesToBeingRefreshed(childNode);
+        }
+        private void SetMonitorChanged()
+        {
+            monitorPackChanged = true;
+            UpdateAppTitle();
         }
         #endregion
 
@@ -1435,10 +1442,17 @@ namespace QuickMon
             {
                 if (System.IO.File.Exists(scriptPath))
                 {
-                    Process p = new Process();
-                    p.StartInfo = new ProcessStartInfo(scriptPath);
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
+                    if (scriptPath.ToLower().EndsWith(".ps1"))
+                    {
+                        RunPSScript(scriptPath);
+                    }
+                    else
+                    {
+                        Process p = new Process();
+                        p.StartInfo = new ProcessStartInfo(scriptPath);
+                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p.Start();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1539,7 +1553,7 @@ namespace QuickMon
             {
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
                 {
-                    monitorPackChanged = true;
+                    SetMonitorChanged();
                     CollectorEntry entry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
                     entry.Enabled = !entry.Enabled;
                     disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable collector" : "Enable collector";
@@ -1574,7 +1588,7 @@ namespace QuickMon
             {
                 if (MessageBox.Show("Are you sure you want to remove this collector agent(and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    monitorPackChanged = true;
+                    SetMonitorChanged();
                     RemoveCollector(currentNode);
                     RefreshMonitorPack();
                     if(currentNode.Parent != null)
@@ -1648,7 +1662,7 @@ namespace QuickMon
                 editNotifierEntry.SelectedEntry = n;
                 if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
-                    monitorPackChanged = true;
+                    SetMonitorChanged();
                     lvwNotifiers.SelectedItems[0].Text = n.Name;
                     lvwNotifiers.SelectedItems[0].ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
                     n.CloseViewer();                    
@@ -1664,7 +1678,7 @@ namespace QuickMon
                 editNotifierEntry.LaunchAddEntry = true;
                 if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
-                    monitorPackChanged = true;
+                    SetMonitorChanged();
                     monitorPack.Notifiers.Add(editNotifierEntry.SelectedEntry);
                     if (monitorPack.Notifiers.Count == 1)
                         monitorPack.DefaultViewerNotifier = editNotifierEntry.SelectedEntry;
@@ -1681,7 +1695,7 @@ namespace QuickMon
             HideNotifierContextMenu();
             if (lvwNotifiers.SelectedItems.Count > 0 && MessageBox.Show("Are you sure you want to remove the selected notifiers?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                monitorPackChanged = true;
+                SetMonitorChanged();
                 ListView.SelectedIndexCollection idxes = lvwNotifiers.SelectedIndices;
                 foreach (int i in idxes)
                 {
@@ -1831,7 +1845,7 @@ namespace QuickMon
                         else
                             ((CollectorEntry)dragNode.Tag).ParentCollectorId = "";
                     }
-                    monitorPackChanged = true;
+                    SetMonitorChanged();
                     DoAutoSave();
                 }
             }
@@ -2052,7 +2066,7 @@ namespace QuickMon
                 else
                     ((CollectorEntry)currentNode.Tag).ParentCollectorId = "";
 
-                monitorPackChanged = true;
+                SetMonitorChanged();
                 DoAutoSave();
             }
         }
@@ -2239,6 +2253,31 @@ namespace QuickMon
             SetCounterValue(selectedCollectorsQueryTime, time, "Selected collector query time (ms)");
         }
         #endregion
+
+        #region PowerShell Runner
+        /// <summary>
+        /// Run PowerShell script. Cannot use System.Management.Automation as it may not be installed on older systems.
+        /// </summary>
+        /// <param name="testScript"></param>
+        /// <returns></returns>
+        private void RunPSScript(string testScript)
+        {
+            string psExe = System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+            if (System.IO.File.Exists(psExe))
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo(psExe);
+                p.StartInfo.Arguments = testScript;
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.Start();
+            }
+            else
+            {
+                throw new Exception("PowerShell not found! It may not be installed on this computer.");
+            }
+        }
+        #endregion
+
 
     }
 }

@@ -159,6 +159,7 @@ namespace QuickMon
         public string RemoteAgentHostAddress { get; set; }
         public int RemoteAgentHostPort { get; set; }
         public bool ForceRemoteExcuteOnChildCollectors { get; set; }
+        public bool OverrideForceRemoteExcuteOnChildCollectors { get; set; }
         public bool OverrideRemoteAgentHost { get; set; }
         public string OverrideRemoteAgentHostAddress  { get; set; }
         public int OverrideRemoteAgentHostPort { get; set; }
@@ -199,19 +200,7 @@ namespace QuickMon
                         LastMonitorState = CurrentState.Clone();
                         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                         sw.Start();
-                        if (OverrideRemoteAgentHost)
-                        {
-                            try
-                            {
-                                CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
-                            }
-                            catch (Exception ex)
-                            {
-                                CurrentState.State = CollectorState.Error;
-                                CurrentState.RawDetails = ex.ToString();
-                            }
-                        }
-                        else if (EnableRemoteExecute)
+                        if (EnableRemoteExecute)
                         {
                             try
                             {
@@ -223,7 +212,19 @@ namespace QuickMon
                                 CurrentState.RawDetails = ex.ToString();
                             }
                         }
-                        else
+                        else if (OverrideRemoteAgentHost)
+                        {
+                            try
+                            {
+                                CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
+                            }
+                            catch (Exception ex)
+                            {
+                                CurrentState.State = CollectorState.Error;
+                                CurrentState.RawDetails = ex.ToString();
+                            }
+                        }
+                        else 
                             CurrentState = Collector.GetState();
                         sw.Stop();
 
