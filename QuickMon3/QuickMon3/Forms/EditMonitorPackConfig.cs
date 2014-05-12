@@ -26,6 +26,7 @@ namespace QuickMon
             txtName.Text = SelectedMonitorPack.Name;
             chkCorrectiveScripts.Checked = SelectedMonitorPack.RunCorrectiveScripts;
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
+            collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
             LoadNotifiers();
 
         }
@@ -48,6 +49,7 @@ namespace QuickMon
                 SelectedMonitorPack.Name = txtName.Text;
                 SelectedMonitorPack.RunCorrectiveScripts = chkCorrectiveScripts.Checked;
                 SelectedMonitorPack.Enabled = chkEnabled.Checked;
+                SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                 if (cboDefaultNotifier.SelectedIndex > -1)
                     SelectedMonitorPack.DefaultViewerNotifier = (NotifierEntry)cboDefaultNotifier.SelectedItem;
                 else

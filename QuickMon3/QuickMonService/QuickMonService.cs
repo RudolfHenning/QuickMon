@@ -152,6 +152,7 @@ namespace QuickMon
                 MonitorPack monitorPack = new MonitorPack();
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Starting QuickMon MonitorPack '{0}'", monitorPackPath), EventLogEntryType.Information, 0);
                 monitorPack.Load(monitorPackPath);
+                monitorPack.CollectorStateHistorySize = 0; //For service history is always disabled!!
                 if (monitorPack.Notifiers != null && monitorPack.Notifiers.Count > 0)
                 {
                     foreach (var notifier in monitorPack.Notifiers)

@@ -37,6 +37,10 @@
             this.chkCorrectiveScripts = new System.Windows.Forms.CheckBox();
             this.cboDefaultNotifier = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.collectorStateHistorySizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -44,10 +48,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(272, 104);
+            this.cmdCancel.Location = new System.Drawing.Point(272, 118);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 9;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -56,10 +60,10 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(191, 104);
+            this.cmdOK.Location = new System.Drawing.Point(191, 118);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 6;
+            this.cmdOK.TabIndex = 8;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -87,10 +91,10 @@
             // 
             this.chkEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.Location = new System.Drawing.Point(12, 108);
+            this.chkEnabled.Location = new System.Drawing.Point(12, 122);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(65, 17);
-            this.chkEnabled.TabIndex = 5;
+            this.chkEnabled.TabIndex = 7;
             this.chkEnabled.Text = "&Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
             // 
@@ -123,12 +127,45 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "&Default notifier";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 90);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Collector &history";
+            // 
+            // collectorStateHistorySizeNumericUpDown
+            // 
+            this.collectorStateHistorySizeNumericUpDown.Location = new System.Drawing.Point(103, 88);
+            this.collectorStateHistorySizeNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.collectorStateHistorySizeNumericUpDown.Name = "collectorStateHistorySizeNumericUpDown";
+            this.collectorStateHistorySizeNumericUpDown.Size = new System.Drawing.Size(55, 20);
+            this.collectorStateHistorySizeNumericUpDown.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(164, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(139, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "# of collector states to keep";
+            // 
             // EditMonitorPackConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(359, 139);
+            this.ClientSize = new System.Drawing.Size(359, 153);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.collectorStateHistorySizeNumericUpDown);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboDefaultNotifier);
             this.Controls.Add(this.chkCorrectiveScripts);
@@ -145,6 +182,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monitor pack config";
             this.Load += new System.EventHandler(this.EditMonitorPackConfig_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,5 +198,8 @@
         private System.Windows.Forms.CheckBox chkCorrectiveScripts;
         private System.Windows.Forms.ComboBox cboDefaultNotifier;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown collectorStateHistorySizeNumericUpDown;
+        private System.Windows.Forms.Label label3;
     }
 }

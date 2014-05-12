@@ -26,6 +26,7 @@ namespace QuickMon
             LastGoodState = null;
             LastWarningState = null;
             LastErrorState = null;
+            StateHistorySize = 1;
         }
 
         #region Private vars
@@ -105,7 +106,53 @@ namespace QuickMon
         /// Records when the last state change was
         /// </summary>
         public DateTime LastStateChange { get; set; }
+        #endregion
 
+        #region State history
+        public int StateHistorySize { get; set; }
+        private List<MonitorState> stateHistory = new List<MonitorState>();
+        public List<MonitorState> StateHistory
+        {
+            get
+            {
+                if (stateHistory.Count > StateHistorySize)
+                {
+                    DateTime? oldestDate = (from h in stateHistory
+                                            orderby h.LastStateChangeTime descending
+                                            select h.LastStateChangeTime).Take(StateHistorySize).Min();
+                    if (oldestDate != null)
+                    {
+                        stateHistory.RemoveAll(h => h.LastStateChangeTime < oldestDate.Value);
+                    }
+                }
+                return stateHistory;
+            }
+            private set
+            {
+                stateHistory = value;
+            }
+        }
+        private void AddState (MonitorState newState)
+        {
+            try
+            {
+                if (StateHistorySize > 1)
+                {
+                    if (stateHistory.Count > StateHistorySize)
+                    {
+                        DateTime? oldestDate = (from h in stateHistory
+                                                orderby h.LastStateChangeTime descending
+                                                select h.LastStateChangeTime).Take(StateHistorySize - 1).Min();
+                        if (oldestDate != null)
+                        {
+                            stateHistory.RemoveAll(h => h.LastStateChangeTime < oldestDate.Value);
+                        }
+                    }
+                    stateHistory.Add(newState);
+                }
+            }
+            catch { }
+        }
         #endregion
 
         #region Stats
@@ -261,6 +308,7 @@ namespace QuickMon
             {
                 CurrentState.State = CollectorState.ConfigurationError;
             }
+            AddState(CurrentState.Clone());
             return CurrentState;
         }
         /// <summary>

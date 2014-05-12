@@ -96,33 +96,43 @@ namespace QuickMon.Collectors
 
                 for (int i = listSize; i >= 0; i--)
                 {
-                    diag.EventLogEntry entry = log.Entries[i];
-
-                    if (WithInLastXEntries > 0 && WithInLastXEntries <= counter)
-                        break;
-                    if (WithInLastXMinutes > 0 && entry.TimeGenerated.AddMinutes(WithInLastXMinutes) < currentTime)
-                        break;
-
-                    EventLogEntryEx newentry = new EventLogEntryEx();
-                    newentry.Category = entry.Category;
-                    newentry.EntryType = entry.EntryType;
-                    newentry.EventId = (int)(entry.InstanceId & 65535);
-                    newentry.MachineName = entry.MachineName;
-                    newentry.LogName = EventLog;
-                    newentry.Source = entry.Source;
-                    newentry.Message = entry.Message;
-                    newentry.MessageSummary = newentry.Message.Length > 80 ? newentry.Message.Substring(0, 80) : newentry.Message;
-                    //if (TextFilter.Length > 0)
-                    //    newentry.Message = entry.Message;
-                    newentry.TimeGenerated = entry.TimeGenerated;
-                    newentry.UserName = entry.UserName;
-
-                    if (MatchEntry(newentry))
+                    try
                     {
-                        LastEntries.Add(newentry);
-                        result++;
+                        diag.EventLogEntry entry = log.Entries[i];
+
+                        if (WithInLastXEntries > 0 && WithInLastXEntries <= counter)
+                            break;
+                        if (WithInLastXMinutes > 0 && entry.TimeGenerated.AddMinutes(WithInLastXMinutes) < currentTime)
+                            break;
+
+                        EventLogEntryEx newentry = new EventLogEntryEx();
+                        newentry.Category = entry.Category;
+                        newentry.EntryType = entry.EntryType;
+                        newentry.EventId = (int)(entry.InstanceId & 65535);
+                        newentry.MachineName = entry.MachineName;
+                        newentry.LogName = EventLog;
+                        newentry.Source = entry.Source;
+                        newentry.Message = entry.Message;
+                        newentry.MessageSummary = newentry.Message.Length > 80 ? newentry.Message.Substring(0, 80) : newentry.Message;
+                        //if (TextFilter.Length > 0)
+                        //    newentry.Message = entry.Message;
+                        newentry.TimeGenerated = entry.TimeGenerated;
+                        newentry.UserName = entry.UserName;
+
+                        if (MatchEntry(newentry))
+                        {
+                            LastEntries.Add(newentry);
+                            result++;
+                        }
+                        counter++;
                     }
-                    counter++;                    
+                    catch (Exception ex)
+                    {
+                        if (!ex.ToString().Contains ("is out of bounds"))
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
             return result;
@@ -138,27 +148,37 @@ namespace QuickMon.Collectors
 
                 for (int i = listSize; i >= 0; i--)
                 {
-                    diag.EventLogEntry entry = log.Entries[i];
-                    if (WithInLastXEntries > 0 && WithInLastXEntries <= counter)
-                        break;
-                    if (WithInLastXMinutes > 0 && entry.TimeGenerated.AddMinutes(WithInLastXMinutes) < currentTime)
-                        break;
+                    try
+                    {
+                        diag.EventLogEntry entry = log.Entries[i];
+                        if (WithInLastXEntries > 0 && WithInLastXEntries <= counter)
+                            break;
+                        if (WithInLastXMinutes > 0 && entry.TimeGenerated.AddMinutes(WithInLastXMinutes) < currentTime)
+                            break;
 
-                    EventLogEntryEx newentry = new EventLogEntryEx();
-                    newentry.Category = entry.Category;
-                    newentry.EntryType = entry.EntryType;
-                    newentry.EventId = (int)(entry.InstanceId & 65535);
-                    newentry.MachineName = entry.MachineName;
-                    newentry.LogName = EventLog;
-                    newentry.Message = entry.Message;
-                    newentry.MessageSummary = newentry.Message.Length > 80 ? newentry.Message.Substring(0, 80) : newentry.Message;
-                    newentry.Source = entry.Source;
-                    newentry.TimeGenerated = entry.TimeGenerated;
-                    newentry.UserName = entry.UserName;
+                        EventLogEntryEx newentry = new EventLogEntryEx();
+                        newentry.Category = entry.Category;
+                        newentry.EntryType = entry.EntryType;
+                        newentry.EventId = (int)(entry.InstanceId & 65535);
+                        newentry.MachineName = entry.MachineName;
+                        newentry.LogName = EventLog;
+                        newentry.Message = entry.Message;
+                        newentry.MessageSummary = newentry.Message.Length > 80 ? newentry.Message.Substring(0, 80) : newentry.Message;
+                        newentry.Source = entry.Source;
+                        newentry.TimeGenerated = entry.TimeGenerated;
+                        newentry.UserName = entry.UserName;
 
-                    if (MatchEntry(newentry))
-                        list.Add(newentry);
-                    counter++;
+                        if (MatchEntry(newentry))
+                            list.Add(newentry);
+                        counter++;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!ex.ToString().Contains("is out of bounds"))
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
             return list;

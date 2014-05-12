@@ -192,6 +192,19 @@ namespace QuickMon
                         lvi.SubItems.Add("N/A");
                     lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
+
+                    ListViewGroup lvgHistory = new ListViewGroup("History");
+                    lvwProperties.Groups.Add(lvgHistory);
+                    foreach (var historyItem in (from h in SelectedEntry.StateHistory
+                                                 orderby h.LastStateChangeTime descending
+                                                 select h))
+                    {
+                        lvi = new ListViewItem(FormatDate(historyItem.LastStateChangeTime) + " State: " + historyItem.State.ToString());
+                        lvi.SubItems.Add("Details: " + historyItem.RawDetails);
+                        lvi.Group = lvgHistory;
+                        lvwProperties.Items.Add(lvi);
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -228,7 +241,7 @@ namespace QuickMon
                         }
                         else
                             rtfBuilder.Append("\t");
-                        rtfBuilder.AppendLine(lvi.SubItems[1].Text);
+                        rtfBuilder.AppendLine(lvi.SubItems[1].Text.Trim('\r', '\n'));
                     }
                 }
                 rtxDetails.Rtf = rtfBuilder.ToString();

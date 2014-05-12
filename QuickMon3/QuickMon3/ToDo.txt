@@ -3,17 +3,23 @@ DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
 Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
 
+--------------------------------------------------------------------------------------------------------
+BIG CHANGES (somewhere in future)
+(A)
+Detail views can/must use remote host dataset as source 
+  Will require interface changes (new method on all collectors to return something like DataSet)
+  Also new interface on WCF interface
+
+(B)
 Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
   Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
   When refreshing from UI client this setting gets override (so every refresh execute agent)??
-
---------------------------------------------------------------------------------------------------------
-BIG CHANGES (somewhere in future)
-Detail views can/must use remote host dataset as source 
+  ((Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)))
 Dynamic repolling (sliding scale). If warning/error state is returned the polling frequencyfor the resource must get slower (to avoid monitor to death scenario)
+
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Future advancement - Allow corrective scrpts to run on remote hosts
-Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)
+
 Allow multiple monitor packs in Windows client (different tabs...)
 Convert to WPF app (yeah right)
    First step is to remove/or separate all UI components from core parts. * Done
@@ -75,5 +81,9 @@ Powershell script collector
 If MonitorPack changed in UI client add * to title
 Corrective script can also be Powershell scripts...
 Fixed Override remote host on child collectors
+
+v3.10
+BUG: Event log collector trigger error when 'is out of bounds' is thrown - but collector trigger was not found.
+
 -------------------------------------------------------------------------------------------------------
 

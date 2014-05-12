@@ -35,7 +35,7 @@ namespace QuickMon.Collectors
                 {
                     lastAction = string.Format("Running PowerShell script for {0} - ", pssrEntry.Name);
                     sbTotalResults.AppendLine(pssrEntry.Name);
-                    plainTextDetails.Append(string.Format("\t\t{0} - ", pssrEntry.Name));
+                    plainTextDetails.Append(string.Format("\t{0} - ", pssrEntry.Name));
                     htmlTextTextDetails.Append(string.Format("<li>{0} - ", pssrEntry.Name));
 
                     string scriptResult = pssrEntry.RunScript();
@@ -43,19 +43,19 @@ namespace QuickMon.Collectors
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
-                        plainTextDetails.AppendLine(string.Format("Script '{0}' - Error\r\n\tResult: '{1}'", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
+                        plainTextDetails.AppendLine(string.Format("\t\tScript '{0}' - Error\r\n\t\t Result: '{1}'", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
                         htmlTextTextDetails.AppendLine(string.Format("<li>Script '{0}' - <b>Error</b><br>Result: <blockquote>{1}</blockquote></li>", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
                     }
                     else if (currentState == CollectorState.Warning)
                     {
                         warnings++;
-                        plainTextDetails.AppendLine(string.Format("Script '{0}' - Warning\r\n\tResult: '{1}'", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
+                        plainTextDetails.AppendLine(string.Format("\t\tScript '{0}' - Warning\r\n\t\t Result: '{1}'", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
                         htmlTextTextDetails.AppendLine(string.Format("<li>Script '{0}' - <b>Warning</b><br>Result: <blockquote>{1}</blockquote></li>", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
                     }
                     else
                     {
                         success++;
-                        plainTextDetails.AppendLine(string.Format("Script '{0}'\r\n\tResult: '{1}'", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
+                        plainTextDetails.AppendLine(string.Format("\t\tScript '{0}'\r\n\t\t Result: '{1}'", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
                         htmlTextTextDetails.AppendLine(string.Format("<li>Script '{0}'<br>Result: <blockquote>{1}</blockquote></li>", pssrEntry.Name, FormatUtils.N(scriptResult, "[null]")));
                     }
                     if (scriptResult != null)

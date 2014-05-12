@@ -37,6 +37,7 @@ namespace QuickMon
             //RegisteredAgents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             ConcurrencyLevel = 1;
             BusyPolling = false;
+            CollectorStateHistorySize = 1;
         }
 
         private string quickMonPCCategory = "QuickMon 3";
@@ -296,6 +297,8 @@ namespace QuickMon
         public bool BusyPolling { get; private set; }
         public bool AbortPolling { get; set; }        
         #endregion
+
+        public int CollectorStateHistorySize { get; set; }
         #endregion
 
         #region Performance counters
@@ -471,6 +474,10 @@ namespace QuickMon
             AbortPolling = false;
             BusyPolling = true;
             CollectorState globalState = CollectorState.Good;
+            foreach(CollectorEntry col in Collectors)
+            {
+                col.StateHistorySize = CollectorStateHistorySize;
+            }
             Stopwatch sw = new Stopwatch();
             sw.Start();
             //First get collectors with no dependancies
@@ -1127,6 +1134,11 @@ namespace QuickMon
             Name = root.Attributes.GetNamedItem("name").Value;
             this.Version = root.Attributes.GetNamedItem("version").Value;
             Enabled = bool.Parse(root.Attributes.GetNamedItem("enabled").Value);
+            try
+            {
+                CollectorStateHistorySize = int.Parse(root.ReadXmlElementAttr("collectorStateHistorySize", "1"));
+            }
+            catch { }
 
             string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
             RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
@@ -1209,6 +1221,7 @@ namespace QuickMon
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
                 Name, Enabled, defaultViewerNotifier,
                 RunCorrectiveScripts,
+                CollectorStateHistorySize,
                 GetConfigForCollectors(),
                 GetConfigForNotifiers());
             XmlDocument outputDoc = new XmlDocument();

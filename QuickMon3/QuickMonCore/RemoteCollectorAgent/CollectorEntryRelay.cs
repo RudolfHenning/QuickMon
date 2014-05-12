@@ -11,16 +11,6 @@ namespace QuickMon
         public static MonitorState GetRemoteAgentState(CollectorEntry entry)
         {
             return GetRemoteAgentState(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
-
-            //BasicHttpBinding myBinding = new BasicHttpBinding();
-            //EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort));
-            //ChannelFactory<ICollectorEntryRelay> myChannelFactory = new ChannelFactory<ICollectorEntryRelay>(myBinding, myEndpoint);
-            //ICollectorEntryRelay relay = myChannelFactory.CreateChannel();
-
-            //CollectorEntryRequest colReq = new CollectorEntryRequest();
-            //colReq.FromCollectorEntry(entry);
-            //colReq.ParentCollectorId = ""; //Since this mechanism  do no support nested collectors
-            //return relay.GetState(colReq);
         }
         public static MonitorState GetRemoteAgentState(CollectorEntry entry, string hostAddressOverride, int portNumberOverride)
         {
@@ -31,7 +21,7 @@ namespace QuickMon
 
             CollectorEntryRequest colReq = new CollectorEntryRequest();
             colReq.FromCollectorEntry(entry);
-            colReq.ParentCollectorId = ""; //Since this mechanism  do no support nested collectors
+            colReq.ParentCollectorId = ""; //Since this mechanism do no support nested collectors
             return relay.GetState(colReq);
         }
 
@@ -50,39 +40,28 @@ namespace QuickMon
                 MonitorPack m = new MonitorPack();
                 m.LoadXml(tempMonitorPack);
                 monitorState.State = m.RefreshStates();
-                htmlTextTextDetails.AppendLine("<ul>");
-                foreach (CollectorEntry ce in (from c in m.Collectors
-                                               where c.CurrentState != null
-                                               select c))
+
+                //there is only one...Collector
+                CollectorEntry ce = (from c in m.Collectors
+                                     select c).FirstOrDefault();
+                if (ce != null) //Just is case it is null
                 {
-                    if (ce.CurrentState == null)
-                    {
-                        plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: N/A", ce.Name));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: N/A</li>", ce.Name));
-                    }
-                    else
-                    {
-                        //if (ce.CurrentState.State == CollectorState.Good)
-                        //{
-                            plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: {1}", ce.Name, ce.CurrentState.State));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: {1}</li>", ce.Name, ce.CurrentState.State));
-                        //}
-                        //else
-                        //{
-                        //    plainTextDetails.AppendLine(string.Format("\tCollector: {0}, State: {1}", ce.Name, ce.CurrentState.State));                            
-                        //    htmlTextTextDetails.AppendLine(string.Format("<li>Collector: {0}, State: {1}</li>", ce.Name, ce.CurrentState.State));                            
-                        //}
-                        if (ce.CurrentState.RawDetails != null && ce.CurrentState.RawDetails.Length > 0)
-                            plainTextDetails.AppendLine(string.Format("\t\tDetails: {0}", ce.CurrentState.RawDetails.Replace("\r\n", "\r\n\t\t\t")));
-                        if (ce.CurrentState.HtmlDetails != null && ce.CurrentState.HtmlDetails.Length > 0)
-                            htmlTextTextDetails.AppendLine(string.Format("<br/>Details: {0}", ce.CurrentState.HtmlDetails));
-                    }
+                    plainTextDetails.AppendLine(string.Format("Collector: {0}, State: {1}", ce.Name, ce.CurrentState.State));
+                    htmlTextTextDetails.AppendLine(string.Format("<p>Collector: {0}, State: {1}</p>", ce.Name, ce.CurrentState.State));
+                    if (ce.CurrentState.RawDetails != null && ce.CurrentState.RawDetails.Length > 0)
+                        plainTextDetails.AppendLine(string.Format(" Details: {0}", ce.CurrentState.RawDetails.Trim('\r','\n').Replace("\t", "  ")));
+                    if (ce.CurrentState.HtmlDetails != null && ce.CurrentState.HtmlDetails.Length > 0)
+                        htmlTextTextDetails.AppendLine(string.Format("<blockquote>Details: {0}</blockquote>", ce.CurrentState.HtmlDetails));
                 }
-                htmlTextTextDetails.AppendLine("</ul>");
+                else
+                {
+                    plainTextDetails.AppendLine(string.Format("Collector: {0}, State: N/A", ce.Name));
+                    htmlTextTextDetails.AppendLine(string.Format("<p><b>Collector</b>: {0}, State: N/A</p>", ce.Name));
+                }
                 monitorState.RawDetails = plainTextDetails.ToString();
                 monitorState.HtmlDetails = htmlTextTextDetails.ToString();
                 Console.WriteLine(" State   : {0}", monitorState.State);
-                Console.WriteLine("  Details: {0}", monitorState.RawDetails);
+                Console.WriteLine(" Details : {0}", monitorState.RawDetails);
             }
             catch(Exception ex)
             {
@@ -90,7 +69,6 @@ namespace QuickMon
                 monitorState.State = CollectorState.Error;
                 monitorState.RawDetails = ex.ToString();
             }
-
             return monitorState;
         }
         #endregion
