@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuickMon.Forms;
 
 namespace QuickMon
 {
@@ -53,6 +54,7 @@ namespace QuickMon
         private QuickMon.Controls.PoperContainer poperContainerForListView;
 
         private List<CollectorEntry> copiedCollectorList = new List<CollectorEntry>();
+        private List<CollectorStats> collectorStatsWindows = new List<CollectorStats>();
         #endregion       
 
         #region Form events
@@ -258,6 +260,7 @@ namespace QuickMon
         private void newMonitorPackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
+            CloseAllDetailWindows();
             NewMonitorPack();            
         }
         private void saveAsMonitorPackToolStripMenuItem_Click(object sender, EventArgs e)
@@ -352,19 +355,7 @@ namespace QuickMon
         }
         private void closeAllChildWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (monitorPack != null)
-            {
-                if (monitorPack.Collectors != null)
-                    foreach (CollectorEntry entry in monitorPack.Collectors)
-                    {
-                        entry.CloseDetails();
-                    }
-                if (monitorPack.Notifiers != null)
-                    foreach (NotifierEntry entry in monitorPack.Notifiers)
-                    {
-                        entry.CloseViewer();
-                    }
-            }
+            CloseAllDetailWindows();
         }
         private void knownRemoteAgentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -651,14 +642,29 @@ namespace QuickMon
         }
         private void CloseAllDetailWindows()
         {
-            foreach (CollectorEntry entry in monitorPack.Collectors)
+            if (monitorPack != null)
             {
-                entry.CloseDetails();
+                if (monitorPack.Collectors != null)
+                {
+                    foreach (CollectorEntry entry in monitorPack.Collectors)
+                    {
+                        entry.CloseDetails();
+                    }
+                }
+                if (monitorPack.Notifiers != null)
+                {
+                    foreach (NotifierEntry entry in monitorPack.Notifiers)
+                    {
+                        entry.CloseViewer();
+                    }
+                }
             }
-            foreach (NotifierEntry entry in monitorPack.Notifiers)
+            foreach (var cs in collectorStatsWindows)
             {
-                entry.CloseViewer();
+                if (cs.IsStillVisible())
+                    cs.Close();
             }
+            collectorStatsWindows.Clear();
         }
         private void DoAutoSave()
         {
@@ -1016,6 +1022,8 @@ namespace QuickMon
                 {
                     CollectorEntry collectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
                     QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
+                    editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                           select krh).ToList();
                     editCollectorEntry.SelectedEntry = collectorEntry;
                     if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                     {
@@ -1052,6 +1060,10 @@ namespace QuickMon
                             editCollectorEntry.SelectedEntry.RefreshDetailsIfOpen();
 
                         DoAutoSave();
+
+                        Properties.Settings.Default.KnownRemoteHosts.AddRange((from string krh in editCollectorEntry.KnownRemoteHosts
+                                                                               where !Properties.Settings.Default.KnownRemoteHosts.Contains(krh)
+                                                                               select krh).ToArray());
                     }
                 }
             }
@@ -1606,9 +1618,31 @@ namespace QuickMon
                 HideCollectorContextMenu();
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
                 {
-                    CollectorStats collectorStats = new CollectorStats();
-                    collectorStats.SelectedEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
-                    collectorStats.ShowDialog();
+                    CollectorEntry ce = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                    CollectorStats collectorStats = (from cs in collectorStatsWindows
+                                                     where cs.SelectedEntry.UniqueId == ce.UniqueId
+                                                     select cs).FirstOrDefault();
+                    if (collectorStats != null && !collectorStats.IsStillVisible())
+                    {
+                        collectorStatsWindows.Remove(collectorStats);
+                        collectorStats = null;
+                    }
+                    if (collectorStats == null)
+                    {
+                        collectorStats = new CollectorStats();
+                        collectorStats.SelectedEntry = ce;
+                        collectorStatsWindows.Add(collectorStats);
+                        collectorStats.Show();
+                    }
+                    else
+                    {
+                        if (collectorStats.WindowState == FormWindowState.Minimized)
+                            collectorStats.WindowState = FormWindowState.Normal;
+                        collectorStats.Show();
+                        collectorStats.TopMost = true;
+                        collectorStats.TopMost = false;
+                    }
+                    
                 }
             }
             catch (Exception ex)

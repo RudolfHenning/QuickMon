@@ -203,17 +203,6 @@ namespace QuickMon.Management
                     backgroundWorkerCheckOk.RunWorkerAsync();
             }
         }
-        //private void configureEditButtonNotifier_ImportConfigurationClicked(object sender, EventArgs e)
-        //{
-        //    ImportCollectorConfig importCollectorConfig = new ImportCollectorConfig();
-        //    importCollectorConfig.IsCollector = false;
-        //    importCollectorConfig.MonitorPackPath = monitorPack.MonitorPackPath;
-        //    importCollectorConfig.AgentType = editingNotifierEntry.NotifierRegistrationName;
-        //    if (importCollectorConfig.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //        editingNotifierEntry.InitialConfiguration = importCollectorConfig.SelectedConfig;
-        //    }
-        //}
         #endregion
 
         #region Change checking

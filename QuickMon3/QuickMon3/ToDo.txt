@@ -1,7 +1,7 @@
 ﻿CHANGES (considdered possible for next release)
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
-Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
+Alert settings of Collector entry on separate tab
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -84,6 +84,8 @@ Fixed Override remote host on child collectors
 
 v3.10
 BUG: Event log collector trigger error when 'is out of bounds' is thrown - but collector trigger was not found.
+Collector stats windows not dialog - so you can launch multiples... like detail view
+Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
 
 -------------------------------------------------------------------------------------------------------
 

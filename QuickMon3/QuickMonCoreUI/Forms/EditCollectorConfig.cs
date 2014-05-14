@@ -34,6 +34,7 @@ namespace QuickMon.Forms
         public CollectorEntry SelectedEntry { get; set; }
         public bool LaunchAddEntry { get; set; }
         public bool ImportConfigAfterSelect { get; set; }
+        public List<string> KnownRemoteHosts { get; set; }
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
         {            
@@ -100,7 +101,7 @@ namespace QuickMon.Forms
             try
             {
                 txtRemoteAgentServer.AutoCompleteCustomSource = new AutoCompleteStringCollection();
-                txtRemoteAgentServer.AutoCompleteCustomSource.AddRange((from string s in Properties.Settings.Default.KnownRemoteHosts
+                txtRemoteAgentServer.AutoCompleteCustomSource.AddRange((from string s in KnownRemoteHosts
                                                                         select s).ToArray());
             }
             catch { }
@@ -480,12 +481,12 @@ namespace QuickMon.Forms
             SelectedEntry.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
             if (chkRemoteAgentEnabled.Checked && SelectedEntry.RemoteAgentHostAddress.Length > 0)
             {
-                if ((from string rh in Properties.Settings.Default.KnownRemoteHosts
+                if ((from string rh in KnownRemoteHosts
                          where rh.ToLower() == SelectedEntry.RemoteAgentHostAddress.ToLower() + ":" + SelectedEntry.RemoteAgentHostPort.ToString()
                          select rh).Count() == 0
                          )
                 {
-                    Properties.Settings.Default.KnownRemoteHosts.Add(SelectedEntry.RemoteAgentHostAddress + ":" + SelectedEntry.RemoteAgentHostPort.ToString());
+                    KnownRemoteHosts.Add(SelectedEntry.RemoteAgentHostAddress + ":" + SelectedEntry.RemoteAgentHostPort.ToString());
                 }
             }
 

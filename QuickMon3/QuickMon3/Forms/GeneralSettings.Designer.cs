@@ -40,18 +40,18 @@
             this.chkDesktopShortcut = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.freqSecTrackBar = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.freqSecTrackBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // concurrencyLevelNnumericUpDown
@@ -194,6 +194,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Polling";
             // 
+            // freqSecTrackBar
+            // 
+            this.freqSecTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
+            this.freqSecTrackBar.Maximum = 120;
+            this.freqSecTrackBar.Name = "freqSecTrackBar";
+            this.freqSecTrackBar.Size = new System.Drawing.Size(384, 45);
+            this.freqSecTrackBar.TabIndex = 5;
+            this.freqSecTrackBar.TickFrequency = 5;
+            this.freqSecTrackBar.Value = 10;
+            this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -258,19 +271,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "General";
             // 
-            // freqSecTrackBar
-            // 
-            this.freqSecTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
-            this.freqSecTrackBar.Maximum = 120;
-            this.freqSecTrackBar.Name = "freqSecTrackBar";
-            this.freqSecTrackBar.Size = new System.Drawing.Size(384, 45);
-            this.freqSecTrackBar.TabIndex = 5;
-            this.freqSecTrackBar.TickFrequency = 5;
-            this.freqSecTrackBar.Value = 10;
-            this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
-            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -295,10 +295,10 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }

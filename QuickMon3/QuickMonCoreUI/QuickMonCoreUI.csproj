@@ -82,8 +82,44 @@
     <Compile Include="Controls\TreeViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\AgentTypeSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AgentTypeSelect.Designer.cs">
+      <DependentUpon>AgentTypeSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BaseDetailView.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCollectorConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditCollectorConfig.Designer.cs">
+      <DependentUpon>EditCollectorConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditNotifierEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditNotifierEntry.Designer.cs">
+      <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditRAWMarkup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditRAWMarkup.Designer.cs">
+      <DependentUpon>EditRAWMarkup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditServiceWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditServiceWindows.Designer.cs">
+      <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImportCollectorConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportCollectorConfig.Designer.cs">
+      <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InputBox.cs">
       <SubType>Form</SubType>
@@ -93,6 +129,12 @@
     </Compile>
     <Compile Include="Forms\MiniDetailView.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectNotifierCollectors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectNotifierCollectors.Designer.cs">
+      <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SetTimerConfig.cs">
       <SubType>Form</SubType>
@@ -121,6 +163,7 @@
     <Compile Include="Utils\CSVEditor.Designer.cs">
       <DependentUpon>CSVEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\WinFormUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\ConfigureEditButton.resx">
@@ -132,8 +175,29 @@
     <EmbeddedResource Include="Controls\TreeList\TreeViewColumns.resx">
       <DependentUpon>TreeViewColumns.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AgentTypeSelect.resx">
+      <DependentUpon>AgentTypeSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditCollectorConfig.resx">
+      <DependentUpon>EditCollectorConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditNotifierEntry.resx">
+      <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditRAWMarkup.resx">
+      <DependentUpon>EditRAWMarkup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditServiceWindows.resx">
+      <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportCollectorConfig.resx">
+      <DependentUpon>ImportCollectorConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectNotifierCollectors.resx">
+      <DependentUpon>SelectNotifierCollectors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SetTimerConfig.resx">
       <DependentUpon>SetTimerConfig.cs</DependentUpon>
@@ -174,10 +238,23 @@
     <None Include="Resources\satelitedish.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
       <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\proc2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whack.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
