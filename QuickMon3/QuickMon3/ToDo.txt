@@ -86,6 +86,8 @@ v3.10
 BUG: Event log collector trigger error when 'is out of bounds' is thrown - but collector trigger was not found.
 Collector stats windows not dialog - so you can launch multiples... like detail view
 Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
+v3.10a
+Fixed KnownHostList bug on CollectorEdit window.
 
 -------------------------------------------------------------------------------------------------------
 

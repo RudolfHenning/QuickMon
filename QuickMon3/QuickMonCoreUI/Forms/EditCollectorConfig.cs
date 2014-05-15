@@ -37,7 +37,9 @@ namespace QuickMon.Forms
         public List<string> KnownRemoteHosts { get; set; }
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
-        {            
+        {
+            if (KnownRemoteHosts == null)
+                KnownRemoteHosts = new List<string>();
             if (SelectedEntry != null)
             {
                 this.monitorPack = monitorPack;
@@ -481,6 +483,8 @@ namespace QuickMon.Forms
             SelectedEntry.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
             if (chkRemoteAgentEnabled.Checked && SelectedEntry.RemoteAgentHostAddress.Length > 0)
             {
+                if (KnownRemoteHosts == null)
+                    KnownRemoteHosts = new List<string>();
                 if ((from string rh in KnownRemoteHosts
                          where rh.ToLower() == SelectedEntry.RemoteAgentHostAddress.ToLower() + ":" + SelectedEntry.RemoteAgentHostPort.ToString()
                          select rh).Count() == 0
