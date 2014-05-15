@@ -38,6 +38,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.chkImportConfigAfterSelect = new System.Windows.Forms.CheckBox();
             this.llblExtraAgents = new System.Windows.Forms.LinkLabel();
+            this.chkShowDetails = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -45,10 +46,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(496, 445);
+            this.cmdCancel.Location = new System.Drawing.Point(448, 430);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 4;
+            this.cmdCancel.TabIndex = 5;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -57,10 +58,10 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(415, 445);
+            this.cmdOK.Location = new System.Drawing.Point(367, 430);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 3;
+            this.cmdOK.TabIndex = 4;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -80,7 +81,7 @@
             this.lvwAgentType.Location = new System.Drawing.Point(0, 0);
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
-            this.lvwAgentType.Size = new System.Drawing.Size(583, 430);
+            this.lvwAgentType.Size = new System.Drawing.Size(535, 405);
             this.lvwAgentType.SmallImageList = this.imageList1;
             this.lvwAgentType.TabIndex = 0;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
@@ -97,7 +98,7 @@
             // detailsColumnHeader
             // 
             this.detailsColumnHeader.Text = "Details";
-            this.detailsColumnHeader.Width = 341;
+            this.detailsColumnHeader.Width = 264;
             // 
             // imageList1
             // 
@@ -112,10 +113,10 @@
             this.chkImportConfigAfterSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkImportConfigAfterSelect.AutoSize = true;
             this.chkImportConfigAfterSelect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkImportConfigAfterSelect.Location = new System.Drawing.Point(12, 449);
+            this.chkImportConfigAfterSelect.Location = new System.Drawing.Point(12, 434);
             this.chkImportConfigAfterSelect.Name = "chkImportConfigAfterSelect";
             this.chkImportConfigAfterSelect.Size = new System.Drawing.Size(268, 17);
-            this.chkImportConfigAfterSelect.TabIndex = 2;
+            this.chkImportConfigAfterSelect.TabIndex = 3;
             this.chkImportConfigAfterSelect.Text = "Show custom config after selection (Import possible)";
             this.chkImportConfigAfterSelect.UseVisualStyleBackColor = true;
             // 
@@ -124,7 +125,7 @@
             this.llblExtraAgents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblExtraAgents.AutoSize = true;
             this.llblExtraAgents.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblExtraAgents.Location = new System.Drawing.Point(12, 433);
+            this.llblExtraAgents.Location = new System.Drawing.Point(4, 408);
             this.llblExtraAgents.Name = "llblExtraAgents";
             this.llblExtraAgents.Size = new System.Drawing.Size(318, 13);
             this.llblExtraAgents.TabIndex = 1;
@@ -132,11 +133,24 @@
             this.llblExtraAgents.Text = "Please see https://quickmon.codeplex.com/ for more Agent types";
             this.llblExtraAgents.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExtraAgents_LinkClicked);
             // 
+            // chkShowDetails
+            // 
+            this.chkShowDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkShowDetails.AutoSize = true;
+            this.chkShowDetails.Location = new System.Drawing.Point(436, 407);
+            this.chkShowDetails.Name = "chkShowDetails";
+            this.chkShowDetails.Size = new System.Drawing.Size(86, 17);
+            this.chkShowDetails.TabIndex = 2;
+            this.chkShowDetails.Text = "Show details";
+            this.chkShowDetails.UseVisualStyleBackColor = true;
+            this.chkShowDetails.CheckedChanged += new System.EventHandler(this.chkShowDetails_CheckedChanged);
+            // 
             // AgentTypeSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 477);
+            this.ClientSize = new System.Drawing.Size(534, 462);
+            this.Controls.Add(this.chkShowDetails);
             this.Controls.Add(this.llblExtraAgents);
             this.Controls.Add(this.chkImportConfigAfterSelect);
             this.Controls.Add(this.lvwAgentType);
@@ -144,10 +158,12 @@
             this.Controls.Add(this.cmdOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "AgentTypeSelect";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agent Type Select";
+            this.Load += new System.EventHandler(this.AgentTypeSelect_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +179,6 @@
         private System.Windows.Forms.CheckBox chkImportConfigAfterSelect;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.LinkLabel llblExtraAgents;
+        private System.Windows.Forms.CheckBox chkShowDetails;
     }
 }

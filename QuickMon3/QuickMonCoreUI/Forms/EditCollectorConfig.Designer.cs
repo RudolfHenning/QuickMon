@@ -40,7 +40,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panCollectorConfigContainer = new System.Windows.Forms.Panel();
-            this.tvwEntries = new System.Windows.Forms.TreeView();
+            this.tvwEntries = new TreeViewEx();
             this.itemsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1168,7 +1168,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteItemToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.OpenFileDialog correctiveScriptOpenFileDialog;
-        private System.Windows.Forms.TreeView tvwEntries;
+        private TreeViewEx tvwEntries;
         private System.Windows.Forms.ImageList entriesImageList;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label19;

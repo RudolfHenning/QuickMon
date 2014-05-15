@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Collectors");
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.extrasToolStrip = new System.Windows.Forms.ToolStrip();
@@ -69,6 +69,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.adminModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
@@ -94,7 +95,7 @@
             this.treeImageList = new System.Windows.Forms.ImageList(this.components);
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tvwCollectors = new QuickMon.TreeViewEx();
+            this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.agentSeparatorBox = new System.Windows.Forms.PictureBox();
             this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
@@ -113,6 +114,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
+            this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.extrasToolStrip.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -158,7 +160,7 @@
             this.aboutToolStripMenuItem1});
             this.extrasToolStrip.Location = new System.Drawing.Point(3, 36);
             this.extrasToolStrip.Name = "extrasToolStrip";
-            this.extrasToolStrip.Size = new System.Drawing.Size(71, 31);
+            this.extrasToolStrip.Size = new System.Drawing.Size(102, 31);
             this.extrasToolStrip.TabIndex = 2;
             this.extrasToolStrip.TabStop = true;
             this.extrasToolStrip.Text = "toolStrip1";
@@ -169,7 +171,8 @@
             this.generalSettingsToolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pollingToolStripMenuItem1,
             this.knownRemoteAgentsToolStripMenuItem,
-            this.closeAllChildWindowsToolStripMenuItem});
+            this.closeAllChildWindowsToolStripMenuItem,
+            this.restartInAdminModeToolStripMenuItem});
             this.generalSettingsToolStripSplitButton1.Image = global::QuickMon.Properties.Resources.tools;
             this.generalSettingsToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.generalSettingsToolStripSplitButton1.Name = "generalSettingsToolStripSplitButton1";
@@ -189,7 +192,7 @@
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(203, 22);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(211, 30);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -231,7 +234,7 @@
             // 
             this.knownRemoteAgentsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Charon;
             this.knownRemoteAgentsToolStripMenuItem.Name = "knownRemoteAgentsToolStripMenuItem";
-            this.knownRemoteAgentsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.knownRemoteAgentsToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.knownRemoteAgentsToolStripMenuItem.Text = "Known Remote Agents";
             this.knownRemoteAgentsToolStripMenuItem.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
             // 
@@ -239,7 +242,7 @@
             // 
             this.closeAllChildWindowsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables;
             this.closeAllChildWindowsToolStripMenuItem.Name = "closeAllChildWindowsToolStripMenuItem";
-            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
             this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
             // 
@@ -489,6 +492,7 @@
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adminModeToolStripStatusLabel,
             this.toolStripStatusLabelStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 473);
             this.statusStrip1.Name = "statusStrip1";
@@ -496,10 +500,16 @@
             this.statusStrip1.TabIndex = 28;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // adminModeToolStripStatusLabel
+            // 
+            this.adminModeToolStripStatusLabel.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.adminModeToolStripStatusLabel.Name = "adminModeToolStripStatusLabel";
+            this.adminModeToolStripStatusLabel.Size = new System.Drawing.Size(16, 17);
+            // 
             // toolStripStatusLabelStatus
             // 
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(446, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(430, 17);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.Text = ".";
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -723,8 +733,11 @@
             // tvwCollectors
             // 
             this.tvwCollectors.AllowDrop = true;
+            this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
             this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tvwCollectors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
             this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwCollectors.FullRowSelect = true;
             this.tvwCollectors.HideSelection = false;
@@ -735,26 +748,18 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "Collectors";
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "Collectors";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
+            this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(448, 208);
             this.tvwCollectors.TabIndex = 0;
-            this.tvwCollectors.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvwCollectors_BeforeCollapse);
-            this.tvwCollectors.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvwCollectors_ItemDrag);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
             this.tvwCollectors.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwCollectors_NodeMouseDoubleClick);
-            this.tvwCollectors.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvwCollectors_DragDrop);
-            this.tvwCollectors.DragOver += new System.Windows.Forms.DragEventHandler(this.tvwCollectors_DragOver);
-            this.tvwCollectors.DragLeave += new System.EventHandler(this.tvwCollectors_DragLeave);
-            this.tvwCollectors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_KeyDown);
-            this.tvwCollectors.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_KeyUp);
-            this.tvwCollectors.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvwCollectors_MouseDown);
             this.tvwCollectors.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvwCollectors_MouseUp);
             // 
             // masterSplitContainer
@@ -832,7 +837,7 @@
             this.lvwNotifiers.Location = new System.Drawing.Point(17, 3);
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(444, 106);
+            this.lvwNotifiers.Size = new System.Drawing.Size(444, 100);
             this.lvwNotifiers.SmallImageList = this.notifiersImageList;
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
@@ -948,6 +953,14 @@
             // 
             this.showNotifierContextMenuTimer.Tick += new System.EventHandler(this.showNotifierContextMenuTimer_Tick);
             // 
+            // restartInAdminModeToolStripMenuItem
+            // 
+            this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
+            this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1011,7 +1024,7 @@
         private System.Windows.Forms.ToolStripMenuItem pollingDisabledToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
-        private QuickMon.TreeViewEx tvwCollectors;
+        private QuickMon.Controls.TreeViewExBase tvwCollectors;
         private System.Windows.Forms.ImageList treeImageList;
         private System.Windows.Forms.ContextMenuStrip collectorTreeContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem collectorTreeViewDetailsToolStripMenuItem;
@@ -1078,6 +1091,8 @@
         private System.Windows.Forms.ToolStripButton newMonitorPackToolStripMenuItem2;
         private System.Windows.Forms.ToolStripButton openMonitorPackToolStripButton;
         private System.Windows.Forms.ToolStripButton aboutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripStatusLabel adminModeToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem restartInAdminModeToolStripMenuItem;
     }
 }
 

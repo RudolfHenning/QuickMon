@@ -82,6 +82,9 @@
     <Compile Include="Controls\TreeViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TreeViewExBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\AgentTypeSelect.cs">
       <SubType>Form</SubType>
     </Compile>

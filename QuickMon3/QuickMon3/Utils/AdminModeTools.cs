@@ -10,9 +10,43 @@ namespace HenIT.Security
 {
     public static class AdminModeTools
     {
-        public static void RestartInAdminMode(bool noprompt)
+        #region External calls
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
+        [System.Runtime.InteropServices.DllImport("User32")]
+        private static extern int SetForegroundWindow(IntPtr hwnd);
+        #endregion
+
+        /// <summary>
+        /// Launch in Admin mode and make sure it has Focus!
+        /// </summary>
+        public static void RestartInAdminMode()
         {
-            
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            startInfo.UseShellExecute = true;
+            startInfo.WorkingDirectory = Environment.CurrentDirectory;
+            startInfo.FileName = Application.ExecutablePath;
+            startInfo.Verb = "runas";
+            try
+            {
+                Process p = Process.Start(startInfo);
+                System.Threading.Thread.Sleep(1000);
+                ShowWindow(p.MainWindowHandle, 5);
+                p.WaitForInputIdle(); //this is the key!!
+                System.Threading.Thread.Sleep(500);
+                SetForegroundWindow(p.MainWindowHandle);
+            }
+            catch (System.ComponentModel.Win32Exception) // ex)
+            {
+                return;
+            }
+
+            Application.Exit();
+        }
+
+        public static void RestartInAdminMode(bool noprompt)
+        {            
             if (noprompt || MessageBox.Show("Restart application in Administrative mode?", "Admin mode", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo();

@@ -23,8 +23,7 @@ namespace QuickMon.Forms
         {
             this.Text = "Select Notifier type";
             chkImportConfigAfterSelect.Visible = false;
-            lvwAgentType.AutoResizeColumnIndex = 1;
-            lvwAgentType.AutoResizeColumnEnabled = true;
+            SetDetailColumnSizing();
             lvwAgentType.Items.Clear();
             ListViewItem lvi;
             foreach (RegisteredAgent ar in (from a in RegisteredAgentCache.Agents
@@ -50,8 +49,7 @@ namespace QuickMon.Forms
         public DialogResult ShowCollectorSelection(string currentCollectorRegistrationName)
         {
             this.Text = "Select Collector type";
-            lvwAgentType.AutoResizeColumnIndex = 1;
-            lvwAgentType.AutoResizeColumnEnabled = true;
+            SetDetailColumnSizing();
             lvwAgentType.Items.Clear();
             lvwAgentType.Groups.Clear();
             
@@ -144,6 +142,38 @@ namespace QuickMon.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void AgentTypeSelect_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetDetailColumnSizing()
+        {
+            try
+            {
+                lvwAgentType.AutoResizeColumnEnabled = false;
+                if (chkShowDetails.Checked)
+                {
+                    lvwAgentType.AutoResizeColumnIndex = 1;                    
+                    lvwAgentType.Columns[0].Width = (int)(lvwAgentType.Width / 3.0);
+                }
+                else
+                {
+                    lvwAgentType.AutoResizeColumnIndex = 0;                    
+                    lvwAgentType.Columns[1].Width = 1;
+                }
+                this.Width -= 1;
+                lvwAgentType.AutoResizeColumnEnabled = true;
+                this.Width += 1;
+            }
+            catch { }
+        }
+
+        private void chkShowDetails_CheckedChanged(object sender, EventArgs e)
+        {
+            SetDetailColumnSizing();
         }
     }
 }

@@ -14,13 +14,6 @@ namespace QuickMon
 {
     public partial class MainForm : FadeSnapForm
     {
-        #region External calls
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
-        [System.Runtime.InteropServices.DllImport("User32")]
-        private static extern int SetForegroundWindow(IntPtr hwnd);
-        #endregion
-
         public MainForm()
         {
             InitializeComponent();
@@ -105,8 +98,16 @@ namespace QuickMon
             masterSplitContainer.Panel2Collapsed = true;
             MainForm_Resize(null, null);
             lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
+            tvwCollectors.EnableAutoScrollToSelectedNode = true;
+            tvwCollectors.TreeNodeMoved += tvwCollectors_TreeNodeMoved;
+            tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
+            tvwCollectors.RootAlwaysExpanded = true;
+            tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
+            adminModeToolStripStatusLabel.Visible = HenIT.Security.AdminModeTools.IsInAdminMode();
+            restartInAdminModeToolStripMenuItem.Visible = !HenIT.Security.AdminModeTools.IsInAdminMode();
         }
-                
+
+        
         private void MainForm_Resize(object sender, EventArgs e)
         {
             //mainToolStrip.Left = (this.ClientSize.Width - mainToolStrip.Width) / 2;
@@ -146,47 +147,9 @@ namespace QuickMon
             tvwCollectors.Focus();
             mainRefreshTimer.Enabled = true;
         }
-        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                if (monitorPackChanged)
-                {
-                    if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        SaveAsMonitorPack();                      
-                    }
-                }
-
-                toolStripStatusLabelStatus.Text = "Shutting down...";
-                Application.DoEvents();
-                if (mainRefreshTimer.Enabled)
-                {
-                    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
-                }
-                mainRefreshTimer.Enabled = false;
-                CloseAllDetailWindows();
-                if (monitorPack.BusyPolling)
-                {
-                    monitorPack.AbortPolling = true;
-                    DateTime abortStart = DateTime.Now;
-                    while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
-                    {
-                        Application.DoEvents();
-                    }
-                    Cursor.Current = Cursors.WaitCursor;
-                    ClosePerformanceCounters();
-                }
-
-                if (WindowState == FormWindowState.Normal)
-                {
-                    Properties.Settings.Default.MainWindowLocation = this.Location;
-                    Properties.Settings.Default.MainWindowSize = this.Size;
-                }
-                Properties.Settings.Default.Save();
-            }
-            catch { }
+            PerformCleanShutdown();
         }
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -357,6 +320,12 @@ namespace QuickMon
         {
             CloseAllDetailWindows();
         }
+        private void restartInAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!PerformCleanShutdown(true))
+                return;
+            HenIT.Security.AdminModeTools.RestartInAdminMode();
+        }
         private void knownRemoteAgentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QuickMon.Forms.RemoteAgentsManager ram = new Forms.RemoteAgentsManager();
@@ -389,6 +358,24 @@ namespace QuickMon
         #endregion
 
         #region Collector TreeView events
+        private void tvwCollectors_TreeNodeMoved(TreeNode dragNode)
+        {
+            if (dragNode != null)
+            {
+                //set Collector Parent if needed
+                if (dragNode.Tag is CollectorEntry)
+                {
+                    if (dragNode.Parent.Tag is CollectorEntry)
+                    {
+                        ((CollectorEntry)dragNode.Tag).ParentCollectorId = ((CollectorEntry)dragNode.Parent.Tag).UniqueId;
+                    }
+                    else
+                        ((CollectorEntry)dragNode.Tag).ParentCollectorId = "";
+                }
+                SetMonitorChanged();
+                DoAutoSave();
+            }
+        }
         private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (Control.ModifierKeys == Keys.Control)
@@ -396,26 +383,32 @@ namespace QuickMon
             else
                 ShowCollectorDetails();
         }
-        private void tvwCollectors_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
-        {
-            if (!(e.Node.Tag is CollectorEntry))
-            {
-                e.Cancel = true;
-                
-            }
-        }
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
             CheckCollectorContextMenuEnables();
         }
-        private void tvwCollectors_MouseDown(object sender, MouseEventArgs e)
+        private void tvwCollectors_ContextMenuShowUp()
         {
-            tvwCollectors.SelectedNode = tvwCollectors.GetNodeAt(e.X, e.Y);
+            Point topabsolute = this.PointToScreen(tvwCollectors.Location);
+            Point topRelative = this.PointToClient(tvwCollectors.Location);
+            Point calcPoint;
+            if (tvwCollectors.SelectedNode != null)
+            {
+                calcPoint = new Point(tvwCollectors.Location.X + tvwCollectors.SelectedNode.Bounds.Location.X, GetControlLocationWithinParent(tvwCollectors).Y + tvwCollectors.SelectedNode.Bounds.Location.Y + 20 - this.Top);
+            }
+            else
+            {
+                calcPoint = new Point(tvwCollectors.Location.X + (tvwCollectors.Width / 2), tvwCollectors.Location.Y + (tvwCollectors.Height / 2));
+            }
+            CheckCollectorContextMenuEnables();
+            collectorContextMenuLaunchPoint = calcPoint;
+            showCollectorContextMenuTimer.Enabled = false;
+            showCollectorContextMenuTimer.Enabled = true;
         }
         private void tvwCollectors_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
-            {   
+            {
                 Point topabsolute = this.PointToScreen(panel1.Location);
                 Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
                 Point calcPoint = new Point(Cursor.Position.X - tvwCollectors.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
@@ -426,57 +419,15 @@ namespace QuickMon
                 showCollectorContextMenuTimer.Enabled = true;
             }
         }
-        private void tvwCollectors_KeyDown(object sender, KeyEventArgs e)
+        private void tvwCollectors_EnterKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.Control)
             {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-                if (e.Control)
-                {
-                    collectorTreeEditConfigToolStripMenuItem_Click(null, null);
-                }
-                else
-                {
-                    collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
-                }
+                collectorTreeEditConfigToolStripMenuItem_Click(null, null);
             }
-        }
-        private void tvwCollectors_KeyUp(object sender, KeyEventArgs e)
-        {            
-            if ((e.Shift && e.KeyCode == Keys.F10) || e.KeyCode == Keys.Apps)
+            else
             {
-                Point topabsolute = this.PointToScreen(tvwCollectors.Location);
-                Point topRelative = this.PointToClient(tvwCollectors.Location);
-                Point calcPoint;
-                if (tvwCollectors.SelectedNode != null)
-                {
-                    calcPoint = new Point(tvwCollectors.Location.X + tvwCollectors.SelectedNode.Bounds.Location.X, GetControlLocationWithinParent(tvwCollectors).Y + tvwCollectors.SelectedNode.Bounds.Location.Y + 20 - this.Top);
-                }
-                else
-                {
-                    calcPoint = new Point(tvwCollectors.Location.X + (tvwCollectors.Width / 2), tvwCollectors.Location.Y + (tvwCollectors.Height / 2));
-                }
-                CheckCollectorContextMenuEnables();
-                collectorContextMenuLaunchPoint = calcPoint;
-                showCollectorContextMenuTimer.Enabled = false;
-                showCollectorContextMenuTimer.Enabled = true;
-            }
-            else if (e.Control && e.KeyCode == Keys.Up)
-            {
-                MoveCollectorUpInTree();
-            }
-            else if (e.Control && e.KeyCode == Keys.Down)
-            {
-                MoveCollectorDownInTree();
-            }
-            else if (e.Control && e.KeyCode == Keys.Left)
-            {
-                MoveCollectorLeftInTree();
-            }
-            else if (e.Control && e.KeyCode == Keys.Right)
-            {
-                MoveCollectorRightInTree();
+                collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
             }
         }
         private Point GetControlLocationWithinParent(Control control)
@@ -1331,6 +1282,50 @@ namespace QuickMon
             monitorPackChanged = true;
             UpdateAppTitle();
         }
+        private bool PerformCleanShutdown(bool abortAllowed = false)
+        {
+            bool notAborted = true;
+            try
+            {
+                if (monitorPackChanged)
+                {
+                    if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        if (!SaveAsMonitorPack() && abortAllowed)
+                            return false;
+                    }
+                }
+
+                toolStripStatusLabelStatus.Text = "Shutting down...";
+                Application.DoEvents();
+                if (mainRefreshTimer.Enabled)
+                {
+                    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
+                }
+                mainRefreshTimer.Enabled = false;
+                CloseAllDetailWindows();
+                if (monitorPack.BusyPolling)
+                {
+                    monitorPack.AbortPolling = true;
+                    DateTime abortStart = DateTime.Now;
+                    while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                    {
+                        Application.DoEvents();
+                    }
+                    Cursor.Current = Cursors.WaitCursor;
+                    ClosePerformanceCounters();
+                }
+
+                if (WindowState == FormWindowState.Normal)
+                {
+                    Properties.Settings.Default.MainWindowLocation = this.Location;
+                    Properties.Settings.Default.MainWindowSize = this.Size;
+                }
+                Properties.Settings.Default.Save();
+            }
+            catch { }
+            return notAborted;
+        }
         #endregion
 
         #region Monitor pack events
@@ -1826,337 +1821,6 @@ namespace QuickMon
                  
         #endregion
 
-        #region Collector tree drag and dropping
-        private TreeNode dragNode = null;
-        private void tvwCollectors_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
-            {
-                Point pt = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
-                TreeNode targetNode = tvwCollectors.GetNodeAt(pt);
-                if (AllowTreeNodeDrop(dragNode, targetNode))
-                {
-                    TreeNode oldParent = dragNode.Parent;
-                    if (oldParent == null) //for completenes sake
-                    {
-                        //do nothing
-                    }
-                    else if (targetNode == null)
-                    {
-                        oldParent.Nodes.Remove(dragNode);
-                        tvwCollectors.Nodes[0].Nodes.Add(dragNode);
-                    }
-                    else if (dragNode == targetNode) //dropped on itself
-                    {
-                        //do nothing
-                    }
-                    else if (dragNode != targetNode)
-                    {
-                        oldParent.Nodes.Remove(dragNode);
-                        int index = targetNode.Index;
-                        targetNode.Nodes.Insert(index - 1, dragNode);
-                    }
-                    else if (oldParent.LastNode != dragNode) //append to parent
-                    {
-                        oldParent.Nodes.Remove(dragNode);
-                        oldParent.Nodes.Add(dragNode);
-                    }
-                    else if (oldParent.Parent == null) // oldParent.Parent.Text == "Monitor Pack Agent Instances")
-                    {
-                        //do nothing
-                    }
-                    else //append to parent's parent
-                    {
-                        oldParent.Nodes.Remove(dragNode);
-                        oldParent.Parent.Nodes.Add(dragNode);
-                    }
-                    tvwCollectors.SelectedNode = dragNode;
-                    //set Collector Parent if needed
-                    if (dragNode.Tag is CollectorEntry)
-                    {
-                        if (dragNode.Parent.Tag is CollectorEntry)
-                        {
-                            ((CollectorEntry)dragNode.Tag).ParentCollectorId = ((CollectorEntry)dragNode.Parent.Tag).UniqueId;
-                        }
-                        else
-                            ((CollectorEntry)dragNode.Tag).ParentCollectorId = "";
-                    }
-                    SetMonitorChanged();
-                    DoAutoSave();
-                }
-            }
-            ClearBackground();
-        }
-
-        private void tvwCollectors_ItemDrag(object sender, ItemDragEventArgs e)
-        {
-            dragNode = (TreeNode)e.Item;
-            if (dragNode.ImageIndex != rootImgIndex)
-                DoDragDrop(e.Item, DragDropEffects.Move);
-
-        }
-
-        private void tvwCollectors_DragOver(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
-            {
-                Point pt = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
-                TreeNode targetNode = tvwCollectors.GetNodeAt(pt);
-
-                if (targetNode != null)
-                {
-                    if (targetNode.PrevVisibleNode != null)
-                    {
-                        if (!targetNode.PrevVisibleNode.Equals(tvwCollectors.Nodes[0]))
-                            targetNode.PrevVisibleNode.BackColor = Color.White;
-                    }
-                    if (targetNode.NextVisibleNode != null)
-                    {
-                        if (!targetNode.NextVisibleNode.Equals(tvwCollectors.Nodes[0]))
-                            targetNode.NextVisibleNode.BackColor = Color.White;
-                    }
-                    if (!targetNode.Equals(tvwCollectors.Nodes[0]))
-                        targetNode.BackColor = Color.Aquamarine;
-                }
-                else
-                    ClearBackground();
-
-                //Select the node currently under the cursor
-                if (AllowTreeNodeDrop(dragNode, targetNode))
-                {
-                    e.Effect = DragDropEffects.Move;
-                    return;
-                }
-
-
-            }
-            e.Effect = DragDropEffects.None;
-        }
-        private bool AllowTreeNodeDrop(TreeNode dragItem, TreeNode targetItem)
-        { 
-            int dragImgIndex = dragItem.ImageIndex;
-            if (dragImgIndex == rootImgIndex)
-                return false;
-            if (targetItem == null) // blank area
-                return true;
-
-            int targetImgIndex = targetItem.ImageIndex;
-            //is collector
-            if (dragImgIndex != rootImgIndex)
-            {
-                if (targetImgIndex == rootImgIndex)
-                    return true;
-                else //if (targetImgIndex == folderImgIndex || targetImgIndex == collectorImgIndex)
-                {
-                    //check that targetItem is not a child of dragItem
-                    TreeNode parent = targetItem.Parent;
-                    while (parent != null)
-                    {
-                        if (parent == dragItem)
-                            return false;
-                        parent = parent.Parent;
-                    }
-                    return true;
-                }
-                //else
-                //    return false;
-            }
-            //else if (dragImgIndex == notifierImgIndex)
-            //{
-            //    if (targetImgIndex == notifierRootImgIndex)
-            //        return true;
-            //    else
-            //        return false;
-            //}
-            else
-                return true;// false;
-        }
-        private void tvwCollectors_DragLeave(object sender, EventArgs e)
-        {
-            ClearBackground();
-        }
-        private void ClearBackground(TreeNodeCollection nodes = null)
-        {
-            if (nodes == null)
-                nodes = tvwCollectors.Nodes;
-            foreach (TreeNode node in nodes)
-            {
-                if (!node.Equals(tvwCollectors.Nodes[0]))
-                    node.BackColor = Color.White;
-                ClearBackground(node.Nodes);
-            }
-        }
-        #endregion   
-
-        #region Collector tree node Keyboard movement
-        private void MoveCollectorRightInTree()
-        {
-            try
-            {
-                TreeNode currentNode = tvwCollectors.SelectedNode;
-                if (currentNode != null && currentNode.Parent != null)
-                {
-                    TreeNode parentNode = currentNode.Parent;
-                    int currentIndex = currentNode.Index;
-                    if (currentIndex > 0)
-                    {
-                        if (currentNode.PrevNode != null)
-                        {
-                            TreeNode preSibling = currentNode.PrevNode;
-                            parentNode.Nodes.Remove(currentNode);
-                            preSibling.Nodes.Add(currentNode);
-                            tvwCollectors.SelectedNode = currentNode;
-                            SetCollectorParent(currentNode);
-                            currentNode.EnsureVisible();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                toolStripStatusLabelStatus.Text = ex.Message;
-            }
-        }
-        private void MoveCollectorLeftInTree()
-        {
-            try
-            {
-                TreeNode currentNode = tvwCollectors.SelectedNode;
-                if (currentNode != null && currentNode.Parent != null)
-                {
-                    TreeNode parentNode = currentNode.Parent;
-                    if (parentNode != tvwCollectors.Nodes[0])
-                    {
-                        int parentIndex = parentNode.Index;
-                        TreeNode parentParentNode = parentNode.Parent;
-                        parentNode.Nodes.Remove(currentNode);
-                        parentParentNode.Nodes.Insert(parentIndex + 1, currentNode);
-                        tvwCollectors.SelectedNode = currentNode;
-                        SetCollectorParent(currentNode);
-                        currentNode.EnsureVisible();
-                    }                   
-                }
-            }
-            catch (Exception ex)
-            {
-                toolStripStatusLabelStatus.Text = ex.Message;
-            }
-        }
-        private void MoveCollectorDownInTree()
-        {
-            try
-            {
-                TreeNode currentNode = tvwCollectors.SelectedNode;
-                if (currentNode != null && currentNode.Parent != null)
-                {
-                    TreeNode parentNode = currentNode.Parent;
-                    int currentIndex = currentNode.Index;
-                    if (currentIndex < parentNode.Nodes.Count - 1)
-                    {
-                        parentNode.Nodes.Remove(currentNode);
-                        parentNode.Nodes.Insert(currentIndex + 1, currentNode);
-                        tvwCollectors.SelectedNode = currentNode;
-                        SetCollectorParent(currentNode);
-                        currentNode.EnsureVisible();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                toolStripStatusLabelStatus.Text = ex.Message;
-            }
-        }
-        private void MoveCollectorUpInTree()
-        {
-            try
-            {
-                TreeNode currentNode = tvwCollectors.SelectedNode;
-                if (currentNode != null && currentNode.Parent != null)
-                {
-                    TreeNode parentNode = currentNode.Parent;
-                    int currentIndex = currentNode.Index;
-                    if (currentIndex > 0 && currentNode != parentNode.Nodes[0])
-                    {
-                        parentNode.Nodes.Remove(currentNode);
-                        parentNode.Nodes.Insert(currentIndex - 1, currentNode);
-                        tvwCollectors.SelectedNode = currentNode;
-                        SetCollectorParent(currentNode);
-                        currentNode.EnsureVisible();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                toolStripStatusLabelStatus.Text = ex.Message;
-            }
-        }
-        private void SetCollectorParent(TreeNode currentNode)
-        {
-            //set Collector Parent if needed
-            if (currentNode.Tag is CollectorEntry)
-            {
-                if (currentNode.Parent.Tag is CollectorEntry)
-                {
-                    ((CollectorEntry)currentNode.Tag).ParentCollectorId = ((CollectorEntry)currentNode.Parent.Tag).UniqueId;
-                }
-                else
-                    ((CollectorEntry)currentNode.Tag).ParentCollectorId = "";
-
-                SetMonitorChanged();
-                DoAutoSave();
-            }
-        }
-        #endregion
-
-        #region Admin Mode utils
-        bool IsAdmin()
-        {
-            string strIdentity;
-            try
-            {
-                AppDomain.CurrentDomain.SetPrincipalPolicy(System.Security.Principal.PrincipalPolicy.WindowsPrincipal);
-                System.Security.Principal.WindowsIdentity wi = System.Security.Principal.WindowsIdentity.GetCurrent();
-                System.Security.Principal.WindowsPrincipal wp = new System.Security.Principal.WindowsPrincipal(wi);
-                strIdentity = wp.Identity.Name;
-
-                if (wp.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator))
-                    return true;
-                else
-                    return false;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
-        private void RestartInAdminMode()
-        {
-            Properties.Settings.Default.Save();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = ProcessWindowStyle.Normal;
-            startInfo.UseShellExecute = true;
-            startInfo.WorkingDirectory = Environment.CurrentDirectory;
-            startInfo.FileName = Application.ExecutablePath;
-            startInfo.Verb = "runas";
-            try
-            {
-                Process p = Process.Start(startInfo);
-                System.Threading.Thread.Sleep(1000);
-                ShowWindow(p.MainWindowHandle, 5);
-                p.WaitForInputIdle(); //this is the key!!
-                System.Threading.Thread.Sleep(500);
-                SetForegroundWindow(p.MainWindowHandle);
-            }
-            catch (System.ComponentModel.Win32Exception) // ex)
-            {
-                return;
-            }
-
-            Application.Exit();
-        }
-        #endregion
-
         #region Performance counters
         private void InitializeGlobalPerformanceCounters()
         {
@@ -2203,12 +1867,13 @@ namespace QuickMon
             {
                 if (ex.Message.Contains("Requested registry access is not allowed"))
                 {
-                    if (IsAdmin())
+                    if (HenIT.Security.AdminModeTools.IsInAdminMode())
                         MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else //try launching in admin mode
                     {
                         MessageBox.Show("QuickMon 3 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RestartInAdminMode();
+                        Properties.Settings.Default.Save();
+                        HenIT.Security.AdminModeTools.RestartInAdminMode();
                     }
                 }
                 else
@@ -2313,7 +1978,6 @@ namespace QuickMon
             }
         }
         #endregion
-
 
     }
 }
