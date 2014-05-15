@@ -1080,6 +1080,7 @@ namespace QuickMon
                 if (folder || agentTypeSelect.ShowCollectorSelection("") == System.Windows.Forms.DialogResult.OK)
                 {
                     CollectorEntry newCollectorEntry = new CollectorEntry();
+                   
                     if (folder)
                     {
                         newCollectorEntry.IsFolder = true;
@@ -1115,7 +1116,8 @@ namespace QuickMon
 
                     QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
                     editCollectorEntry.SelectedEntry = newCollectorEntry;
-
+                    editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                          select krh).ToList();
                     editCollectorEntry.LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect;
                     editCollectorEntry.ImportConfigAfterSelect = agentTypeSelect.ImportConfigAfterSelect;
 
