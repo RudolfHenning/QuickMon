@@ -38,9 +38,8 @@
             this.lblId = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.agentSettingstabPage = new System.Windows.Forms.TabPage();
             this.panCollectorConfigContainer = new System.Windows.Forms.Panel();
-            this.tvwEntries = new TreeViewEx();
             this.itemsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +55,26 @@
             this.llblCollectorType = new System.Windows.Forms.LinkLabel();
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
+            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.chkRemoteAgentEnabled = new System.Windows.Forms.CheckBox();
+            this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtRemoteAgentServer = new System.Windows.Forms.TextBox();
+            this.cmdRemoteAgentTest = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboParentCollector = new System.Windows.Forms.ComboBox();
+            this.chkCollectOnParentWarning = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.alertsTabPage = new System.Windows.Forms.TabPage();
+            this.correctiveScriptsGroupBox = new System.Windows.Forms.GroupBox();
             this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
             this.cmdBrowseForRestorationScript = new System.Windows.Forms.Button();
             this.txtRestorationScript = new System.Windows.Forms.TextBox();
@@ -69,7 +87,7 @@
             this.txtCorrectiveScriptOnWarning = new System.Windows.Forms.TextBox();
             this.txtCorrectiveScriptOnError = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.alertSuppressionGroupBox = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -89,49 +107,59 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
-            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.chkRemoteAgentEnabled = new System.Windows.Forms.CheckBox();
-            this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtRemoteAgentServer = new System.Windows.Forms.TextBox();
-            this.cmdRemoteAgentTest = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboParentCollector = new System.Windows.Forms.ComboBox();
-            this.chkCollectOnParentWarning = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.tvwEntries = new QuickMon.TreeViewEx();
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pollingOverridesGroupBox = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.chkEnablePollingOverride = new System.Windows.Forms.CheckBox();
+            this.onlyAllowUpdateOncePerXSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
             this.itemsContextMenuStrip.SuspendLayout();
             this.collectorEditToolStrip.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.alertsTabPage.SuspendLayout();
+            this.correctiveScriptsGroupBox.SuspendLayout();
+            this.alertSuppressionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.pollingOverridesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -139,7 +167,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(497, 457);
+            this.cmdCancel.Location = new System.Drawing.Point(497, 432);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 7;
@@ -151,7 +179,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(416, 457);
+            this.cmdOK.Location = new System.Drawing.Point(416, 432);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 6;
@@ -188,7 +216,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 462);
+            this.label6.Location = new System.Drawing.Point(12, 437);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
             this.label6.TabIndex = 4;
@@ -198,7 +226,7 @@
             // 
             this.lblId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblId.AutoSize = true;
-            this.lblId.Location = new System.Drawing.Point(34, 462);
+            this.lblId.Location = new System.Drawing.Point(34, 437);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(16, 13);
             this.lblId.TabIndex = 5;
@@ -219,27 +247,28 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.agentSettingstabPage);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.alertsTabPage);
             this.tabControl1.Location = new System.Drawing.Point(1, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(582, 413);
+            this.tabControl1.Size = new System.Drawing.Size(582, 388);
             this.tabControl1.TabIndex = 3;
             // 
-            // tabPage1
+            // agentSettingstabPage
             // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.panCollectorConfigContainer);
-            this.tabPage1.Controls.Add(this.panel2);
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(574, 387);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Collector settings";
+            this.agentSettingstabPage.AutoScroll = true;
+            this.agentSettingstabPage.BackColor = System.Drawing.SystemColors.Control;
+            this.agentSettingstabPage.Controls.Add(this.panCollectorConfigContainer);
+            this.agentSettingstabPage.Controls.Add(this.panel2);
+            this.agentSettingstabPage.Controls.Add(this.panel1);
+            this.agentSettingstabPage.Location = new System.Drawing.Point(4, 22);
+            this.agentSettingstabPage.Name = "agentSettingstabPage";
+            this.agentSettingstabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.agentSettingstabPage.Size = new System.Drawing.Size(574, 387);
+            this.agentSettingstabPage.TabIndex = 0;
+            this.agentSettingstabPage.Text = "Agent settings";
             // 
             // panCollectorConfigContainer
             // 
@@ -252,22 +281,6 @@
             this.panCollectorConfigContainer.Name = "panCollectorConfigContainer";
             this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 329);
             this.panCollectorConfigContainer.TabIndex = 1;
-            // 
-            // tvwEntries
-            // 
-            this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
-            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwEntries.FullRowSelect = true;
-            this.tvwEntries.ImageIndex = 0;
-            this.tvwEntries.ImageList = this.entriesImageList;
-            this.tvwEntries.Location = new System.Drawing.Point(0, 160);
-            this.tvwEntries.Name = "tvwEntries";
-            this.tvwEntries.SelectedImageIndex = 0;
-            this.tvwEntries.Size = new System.Drawing.Size(568, 169);
-            this.tvwEntries.TabIndex = 2;
-            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
-            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
-            this.tvwEntries.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwEntries_KeyUp);
             // 
             // itemsContextMenuStrip
             // 
@@ -413,390 +426,16 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Controls.Add(this.pollingOverridesGroupBox);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(574, 387);
+            this.tabPage2.Size = new System.Drawing.Size(574, 362);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Advanced settings";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
-            this.groupBox4.Controls.Add(this.cmdBrowseForRestorationScript);
-            this.groupBox4.Controls.Add(this.txtRestorationScript);
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.label19);
-            this.groupBox4.Controls.Add(this.cmdBrowseForWarningCorrectiveScript);
-            this.groupBox4.Controls.Add(this.chkCorrectiveScriptDisabled);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.cmdBrowseForErrorCorrectiveScript);
-            this.groupBox4.Controls.Add(this.txtCorrectiveScriptOnWarning);
-            this.groupBox4.Controls.Add(this.txtCorrectiveScriptOnError);
-            this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Location = new System.Drawing.Point(7, 274);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(560, 105);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            // 
-            // chkOnlyRunCorrectiveScriptsOnStateChange
-            // 
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(307, 2);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(166, 17);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only run when state change *";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
-            // 
-            // cmdBrowseForRestorationScript
-            // 
-            this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(520, 73);
-            this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
-            this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForRestorationScript.TabIndex = 11;
-            this.cmdBrowseForRestorationScript.Text = "- - -";
-            this.cmdBrowseForRestorationScript.UseVisualStyleBackColor = true;
-            this.cmdBrowseForRestorationScript.Click += new System.EventHandler(this.cmdBrowseForRestorationScript_Click);
-            // 
-            // txtRestorationScript
-            // 
-            this.txtRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRestorationScript.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtRestorationScript.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtRestorationScript.Location = new System.Drawing.Point(134, 75);
-            this.txtRestorationScript.Name = "txtRestorationScript";
-            this.txtRestorationScript.Size = new System.Drawing.Size(381, 20);
-            this.txtRestorationScript.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.txtRestorationScript, "Only runs once when state change from Warning/Error to Good");
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 78);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(116, 13);
-            this.label20.TabIndex = 9;
-            this.label20.Text = "Restoration (only once)";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(6, 1);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(106, 13);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "Corrective scripts";
-            // 
-            // cmdBrowseForWarningCorrectiveScript
-            // 
-            this.cmdBrowseForWarningCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseForWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(520, 21);
-            this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
-            this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 5;
-            this.cmdBrowseForWarningCorrectiveScript.Text = "- - -";
-            this.cmdBrowseForWarningCorrectiveScript.UseVisualStyleBackColor = true;
-            this.cmdBrowseForWarningCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForWarningCorrectiveScript_Click);
-            // 
-            // chkCorrectiveScriptDisabled
-            // 
-            this.chkCorrectiveScriptDisabled.AutoSize = true;
-            this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(134, 2);
-            this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
-            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(144, 17);
-            this.chkCorrectiveScriptDisabled.TabIndex = 1;
-            this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
-            this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
-            this.chkCorrectiveScriptDisabled.CheckedChanged += new System.EventHandler(this.chkCorrectiveScriptDisabled_CheckedChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 26);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(71, 13);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "On Warning *";
-            // 
-            // cmdBrowseForErrorCorrectiveScript
-            // 
-            this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseForErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(520, 47);
-            this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
-            this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 8;
-            this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
-            this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
-            this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
-            // 
-            // txtCorrectiveScriptOnWarning
-            // 
-            this.txtCorrectiveScriptOnWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCorrectiveScriptOnWarning.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtCorrectiveScriptOnWarning.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 23);
-            this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
-            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(381, 20);
-            this.txtCorrectiveScriptOnWarning.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnWarning, "Corrective script that runs every time a state of \'Warning\' is returned.\r\n");
-            // 
-            // txtCorrectiveScriptOnError
-            // 
-            this.txtCorrectiveScriptOnError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCorrectiveScriptOnError.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtCorrectiveScriptOnError.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 49);
-            this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
-            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(381, 20);
-            this.txtCorrectiveScriptOnError.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnError, "Corrective script that runs every time a state of \'Error\' is returned.\r\n");
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 52);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 13);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "On Error *";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.label26);
-            this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Controls.Add(this.label24);
-            this.groupBox5.Controls.Add(this.label23);
-            this.groupBox5.Controls.Add(this.numericUpDownRepeatAlertInXPolls);
-            this.groupBox5.Controls.Add(this.delayAlertPollsNumericUpDown);
-            this.groupBox5.Controls.Add(this.AlertOnceInXPollsNumericUpDown);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Controls.Add(this.numericUpDownRepeatAlertInXMin);
-            this.groupBox5.Controls.Add(this.delayAlertSecNumericUpDown);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Controls.Add(this.label5);
-            this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.AlertOnceInXMinNumericUpDown);
-            this.groupBox5.Location = new System.Drawing.Point(7, 168);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(561, 100);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(313, 48);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(239, 13);
-            this.label26.TabIndex = 17;
-            this.label26.Text = "Note that # of polls depends on polling frequency";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(269, 74);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(29, 13);
-            this.label25.TabIndex = 15;
-            this.label25.Text = "Polls";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(269, 48);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(29, 13);
-            this.label24.TabIndex = 10;
-            this.label24.Text = "Polls";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(269, 22);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(29, 13);
-            this.label23.TabIndex = 4;
-            this.label23.Text = "Polls";
-            // 
-            // numericUpDownRepeatAlertInXPolls
-            // 
-            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
-            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
-            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXPolls.TabIndex = 3;
-            // 
-            // delayAlertPollsNumericUpDown
-            // 
-            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 72);
-            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
-            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertPollsNumericUpDown.TabIndex = 14;
-            // 
-            // AlertOnceInXPollsNumericUpDown
-            // 
-            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 46);
-            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
-            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXPollsNumericUpDown.TabIndex = 9;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(313, 74);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(224, 13);
-            this.label22.TabIndex = 16;
-            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(313, 22);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(232, 13);
-            this.label21.TabIndex = 5;
-            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(6, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(98, 13);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "Alert suppresion";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Repeat alert after";
-            // 
-            // numericUpDownRepeatAlertInXMin
-            // 
-            this.numericUpDownRepeatAlertInXMin.Location = new System.Drawing.Point(107, 20);
-            this.numericUpDownRepeatAlertInXMin.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.numericUpDownRepeatAlertInXMin.Name = "numericUpDownRepeatAlertInXMin";
-            this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXMin.TabIndex = 1;
-            // 
-            // delayAlertSecNumericUpDown
-            // 
-            this.delayAlertSecNumericUpDown.Location = new System.Drawing.Point(107, 72);
-            this.delayAlertSecNumericUpDown.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.delayAlertSecNumericUpDown.Name = "delayAlertSecNumericUpDown";
-            this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertSecNumericUpDown.TabIndex = 12;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 48);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Only alert once in";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(162, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(49, 13);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Seconds";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(162, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Minutes";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 74);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 13);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Delay alert";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(162, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Minutes";
-            // 
-            // AlertOnceInXMinNumericUpDown
-            // 
-            this.AlertOnceInXMinNumericUpDown.Location = new System.Drawing.Point(107, 46);
-            this.AlertOnceInXMinNumericUpDown.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.AlertOnceInXMinNumericUpDown.Name = "AlertOnceInXMinNumericUpDown";
-            this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXMinNumericUpDown.TabIndex = 7;
+            this.tabPage2.Text = "Operational settings";
             // 
             // groupBox3
             // 
@@ -805,9 +444,9 @@
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.linkLabelServiceWindows);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(7, 65);
+            this.groupBox3.Location = new System.Drawing.Point(6, 68);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(560, 41);
+            this.groupBox3.Size = new System.Drawing.Size(560, 54);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             // 
@@ -829,7 +468,7 @@
             this.linkLabelServiceWindows.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelServiceWindows.Location = new System.Drawing.Point(3, 16);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(554, 22);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(554, 35);
             this.linkLabelServiceWindows.TabIndex = 1;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
@@ -849,19 +488,19 @@
             this.groupBox2.Controls.Add(this.txtRemoteAgentServer);
             this.groupBox2.Controls.Add(this.cmdRemoteAgentTest);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(7, 112);
+            this.groupBox2.Location = new System.Drawing.Point(7, 128);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(561, 50);
+            this.groupBox2.Size = new System.Drawing.Size(561, 75);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
             // chkForceRemoteExcuteOnChildCollectors
             // 
             this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
-            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(249, 0);
+            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(177, 23);
             this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
             this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
-            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 3;
             this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
             this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
             this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -874,7 +513,7 @@
             this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 3;
+            this.llblRemoteAgentInstallHelp.TabIndex = 1;
             this.llblRemoteAgentInstallHelp.TabStop = true;
             this.llblRemoteAgentInstallHelp.Text = "Install help";
             this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
@@ -893,11 +532,11 @@
             // chkRemoteAgentEnabled
             // 
             this.chkRemoteAgentEnabled.AutoSize = true;
-            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(107, 0);
+            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(25, 23);
             this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
-            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(136, 17);
-            this.chkRemoteAgentEnabled.TabIndex = 1;
-            this.chkRemoteAgentEnabled.Text = "Enable for this collector";
+            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
+            this.chkRemoteAgentEnabled.TabIndex = 2;
+            this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
             this.chkRemoteAgentEnabled.UseVisualStyleBackColor = true;
             this.chkRemoteAgentEnabled.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
             // 
@@ -905,7 +544,7 @@
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remoteportNumericUpDown.Enabled = false;
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(372, 24);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(372, 49);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -928,7 +567,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 26);
+            this.label13.Location = new System.Drawing.Point(15, 51);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 13);
             this.label13.TabIndex = 4;
@@ -938,7 +577,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(340, 26);
+            this.label14.Location = new System.Drawing.Point(340, 51);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 6;
@@ -951,7 +590,7 @@
             this.txtRemoteAgentServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtRemoteAgentServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRemoteAgentServer.Enabled = false;
-            this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
+            this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 48);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
             this.txtRemoteAgentServer.Size = new System.Drawing.Size(196, 20);
             this.txtRemoteAgentServer.TabIndex = 5;
@@ -962,7 +601,7 @@
             this.cmdRemoteAgentTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoteAgentTest.Enabled = false;
             this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 21);
+            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 46);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
             this.cmdRemoteAgentTest.TabIndex = 8;
@@ -981,7 +620,7 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(7, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(561, 50);
+            this.groupBox1.Size = new System.Drawing.Size(561, 53);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -1006,16 +645,16 @@
             this.cboParentCollector.Location = new System.Drawing.Point(108, 19);
             this.cboParentCollector.Name = "cboParentCollector";
             this.cboParentCollector.Size = new System.Drawing.Size(447, 21);
-            this.cboParentCollector.TabIndex = 3;
+            this.cboParentCollector.TabIndex = 2;
             // 
             // chkCollectOnParentWarning
             // 
             this.chkCollectOnParentWarning.AutoSize = true;
             this.chkCollectOnParentWarning.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkCollectOnParentWarning.Location = new System.Drawing.Point(110, -1);
+            this.chkCollectOnParentWarning.Location = new System.Drawing.Point(109, -1);
             this.chkCollectOnParentWarning.Name = "chkCollectOnParentWarning";
             this.chkCollectOnParentWarning.Size = new System.Drawing.Size(270, 17);
-            this.chkCollectOnParentWarning.TabIndex = 1;
+            this.chkCollectOnParentWarning.TabIndex = 3;
             this.chkCollectOnParentWarning.Text = "Continue checking dependant collectors on warning";
             this.chkCollectOnParentWarning.UseVisualStyleBackColor = true;
             // 
@@ -1025,14 +664,415 @@
             this.label2.Location = new System.Drawing.Point(7, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 1;
             this.label2.Text = "Parent collector";
+            // 
+            // alertsTabPage
+            // 
+            this.alertsTabPage.BackColor = System.Drawing.SystemColors.Control;
+            this.alertsTabPage.Controls.Add(this.correctiveScriptsGroupBox);
+            this.alertsTabPage.Controls.Add(this.alertSuppressionGroupBox);
+            this.alertsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.alertsTabPage.Name = "alertsTabPage";
+            this.alertsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.alertsTabPage.Size = new System.Drawing.Size(574, 362);
+            this.alertsTabPage.TabIndex = 2;
+            this.alertsTabPage.Text = "Alerting settings";
+            // 
+            // correctiveScriptsGroupBox
+            // 
+            this.correctiveScriptsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.correctiveScriptsGroupBox.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
+            this.correctiveScriptsGroupBox.Controls.Add(this.cmdBrowseForRestorationScript);
+            this.correctiveScriptsGroupBox.Controls.Add(this.txtRestorationScript);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label20);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label19);
+            this.correctiveScriptsGroupBox.Controls.Add(this.cmdBrowseForWarningCorrectiveScript);
+            this.correctiveScriptsGroupBox.Controls.Add(this.chkCorrectiveScriptDisabled);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label7);
+            this.correctiveScriptsGroupBox.Controls.Add(this.cmdBrowseForErrorCorrectiveScript);
+            this.correctiveScriptsGroupBox.Controls.Add(this.txtCorrectiveScriptOnWarning);
+            this.correctiveScriptsGroupBox.Controls.Add(this.txtCorrectiveScriptOnError);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label12);
+            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(10, 117);
+            this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
+            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(557, 138);
+            this.correctiveScriptsGroupBox.TabIndex = 1;
+            this.correctiveScriptsGroupBox.TabStop = false;
+            // 
+            // chkOnlyRunCorrectiveScriptsOnStateChange
+            // 
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(134, 85);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(260, 17);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 8;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only run when state change (warnings and errors)\r\n";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
+            // 
+            // cmdBrowseForRestorationScript
+            // 
+            this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(517, 108);
+            this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
+            this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForRestorationScript.TabIndex = 11;
+            this.cmdBrowseForRestorationScript.Text = "- - -";
+            this.cmdBrowseForRestorationScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForRestorationScript.Click += new System.EventHandler(this.cmdBrowseForRestorationScript_Click);
+            // 
+            // txtRestorationScript
+            // 
+            this.txtRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRestorationScript.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtRestorationScript.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtRestorationScript.Location = new System.Drawing.Point(134, 110);
+            this.txtRestorationScript.Name = "txtRestorationScript";
+            this.txtRestorationScript.Size = new System.Drawing.Size(378, 20);
+            this.txtRestorationScript.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.txtRestorationScript, "Only runs once when state change from Warning/Error to Good");
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(9, 113);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(116, 13);
+            this.label20.TabIndex = 9;
+            this.label20.Text = "Restoration (only once)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(6, 1);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(106, 13);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Corrective scripts";
+            // 
+            // cmdBrowseForWarningCorrectiveScript
+            // 
+            this.cmdBrowseForWarningCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(517, 31);
+            this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
+            this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 4;
+            this.cmdBrowseForWarningCorrectiveScript.Text = "- - -";
+            this.cmdBrowseForWarningCorrectiveScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForWarningCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForWarningCorrectiveScript_Click);
+            // 
+            // chkCorrectiveScriptDisabled
+            // 
+            this.chkCorrectiveScriptDisabled.AutoSize = true;
+            this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(134, 2);
+            this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
+            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(144, 17);
+            this.chkCorrectiveScriptDisabled.TabIndex = 1;
+            this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
+            this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
+            this.chkCorrectiveScriptDisabled.CheckedChanged += new System.EventHandler(this.chkCorrectiveScriptDisabled_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 36);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "On Warning";
+            // 
+            // cmdBrowseForErrorCorrectiveScript
+            // 
+            this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseForErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(517, 57);
+            this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
+            this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
+            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 7;
+            this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
+            this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
+            this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
+            // 
+            // txtCorrectiveScriptOnWarning
+            // 
+            this.txtCorrectiveScriptOnWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorrectiveScriptOnWarning.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtCorrectiveScriptOnWarning.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 33);
+            this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
+            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(378, 20);
+            this.txtCorrectiveScriptOnWarning.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnWarning, "Corrective script that runs every time a state of \'Warning\' is returned.\r\n");
+            // 
+            // txtCorrectiveScriptOnError
+            // 
+            this.txtCorrectiveScriptOnError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorrectiveScriptOnError.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtCorrectiveScriptOnError.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 59);
+            this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
+            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(378, 20);
+            this.txtCorrectiveScriptOnError.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnError, "Corrective script that runs every time a state of \'Error\' is returned.\r\n");
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 62);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(46, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "On Error";
+            // 
+            // alertSuppressionGroupBox
+            // 
+            this.alertSuppressionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.alertSuppressionGroupBox.Controls.Add(this.label26);
+            this.alertSuppressionGroupBox.Controls.Add(this.label25);
+            this.alertSuppressionGroupBox.Controls.Add(this.label24);
+            this.alertSuppressionGroupBox.Controls.Add(this.label23);
+            this.alertSuppressionGroupBox.Controls.Add(this.numericUpDownRepeatAlertInXPolls);
+            this.alertSuppressionGroupBox.Controls.Add(this.delayAlertPollsNumericUpDown);
+            this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXPollsNumericUpDown);
+            this.alertSuppressionGroupBox.Controls.Add(this.label22);
+            this.alertSuppressionGroupBox.Controls.Add(this.label21);
+            this.alertSuppressionGroupBox.Controls.Add(this.label18);
+            this.alertSuppressionGroupBox.Controls.Add(this.label4);
+            this.alertSuppressionGroupBox.Controls.Add(this.numericUpDownRepeatAlertInXMin);
+            this.alertSuppressionGroupBox.Controls.Add(this.delayAlertSecNumericUpDown);
+            this.alertSuppressionGroupBox.Controls.Add(this.label8);
+            this.alertSuppressionGroupBox.Controls.Add(this.label10);
+            this.alertSuppressionGroupBox.Controls.Add(this.label5);
+            this.alertSuppressionGroupBox.Controls.Add(this.label11);
+            this.alertSuppressionGroupBox.Controls.Add(this.label9);
+            this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXMinNumericUpDown);
+            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(10, 9);
+            this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
+            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(557, 100);
+            this.alertSuppressionGroupBox.TabIndex = 0;
+            this.alertSuppressionGroupBox.TabStop = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(313, 48);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(239, 13);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "Note that # of polls depends on polling frequency";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(269, 74);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(29, 13);
+            this.label25.TabIndex = 17;
+            this.label25.Text = "Polls";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(269, 48);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(29, 13);
+            this.label24.TabIndex = 11;
+            this.label24.Text = "Polls";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(269, 22);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(29, 13);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "Polls";
+            // 
+            // numericUpDownRepeatAlertInXPolls
+            // 
+            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
+            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
+            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXPolls.TabIndex = 4;
+            // 
+            // delayAlertPollsNumericUpDown
+            // 
+            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 72);
+            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
+            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertPollsNumericUpDown.TabIndex = 16;
+            // 
+            // AlertOnceInXPollsNumericUpDown
+            // 
+            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 46);
+            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
+            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXPollsNumericUpDown.TabIndex = 10;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(313, 74);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(224, 13);
+            this.label22.TabIndex = 18;
+            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(313, 22);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(232, 13);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(6, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(98, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Alert suppresion";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(89, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Repeat alert after";
+            // 
+            // numericUpDownRepeatAlertInXMin
+            // 
+            this.numericUpDownRepeatAlertInXMin.Location = new System.Drawing.Point(107, 20);
+            this.numericUpDownRepeatAlertInXMin.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.numericUpDownRepeatAlertInXMin.Name = "numericUpDownRepeatAlertInXMin";
+            this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXMin.TabIndex = 2;
+            // 
+            // delayAlertSecNumericUpDown
+            // 
+            this.delayAlertSecNumericUpDown.Location = new System.Drawing.Point(107, 72);
+            this.delayAlertSecNumericUpDown.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.delayAlertSecNumericUpDown.Name = "delayAlertSecNumericUpDown";
+            this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertSecNumericUpDown.TabIndex = 14;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 48);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Only alert once in";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(162, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Seconds";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(162, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Minutes";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 74);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 13);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Delay alert";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(162, 48);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Minutes";
+            // 
+            // AlertOnceInXMinNumericUpDown
+            // 
+            this.AlertOnceInXMinNumericUpDown.Location = new System.Drawing.Point(107, 46);
+            this.AlertOnceInXMinNumericUpDown.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.AlertOnceInXMinNumericUpDown.Name = "AlertOnceInXMinNumericUpDown";
+            this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXMinNumericUpDown.TabIndex = 8;
             // 
             // correctiveScriptOpenFileDialog
             // 
             this.correctiveScriptOpenFileDialog.DefaultExt = "cmd";
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
+            // 
+            // tvwEntries
+            // 
+            this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
+            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwEntries.FullRowSelect = true;
+            this.tvwEntries.ImageIndex = 0;
+            this.tvwEntries.ImageList = this.entriesImageList;
+            this.tvwEntries.Location = new System.Drawing.Point(0, 160);
+            this.tvwEntries.Name = "tvwEntries";
+            this.tvwEntries.SelectedImageIndex = 0;
+            this.tvwEntries.Size = new System.Drawing.Size(568, 169);
+            this.tvwEntries.TabIndex = 2;
+            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
+            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
+            this.tvwEntries.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwEntries_KeyUp);
             // 
             // lvwEntries
             // 
@@ -1067,11 +1107,285 @@
             this.triggerColumnHeader.Text = "Alert triggers";
             this.triggerColumnHeader.Width = 249;
             // 
+            // pollingOverridesGroupBox
+            // 
+            this.pollingOverridesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown4);
+            this.pollingOverridesGroupBox.Controls.Add(this.label36);
+            this.pollingOverridesGroupBox.Controls.Add(this.label37);
+            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
+            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown3);
+            this.pollingOverridesGroupBox.Controls.Add(this.label34);
+            this.pollingOverridesGroupBox.Controls.Add(this.label35);
+            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown2);
+            this.pollingOverridesGroupBox.Controls.Add(this.label32);
+            this.pollingOverridesGroupBox.Controls.Add(this.label33);
+            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown1);
+            this.pollingOverridesGroupBox.Controls.Add(this.label30);
+            this.pollingOverridesGroupBox.Controls.Add(this.label31);
+            this.pollingOverridesGroupBox.Controls.Add(this.checkBox1);
+            this.pollingOverridesGroupBox.Controls.Add(this.checkBox2);
+            this.pollingOverridesGroupBox.Controls.Add(this.onlyAllowUpdateOncePerXSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label28);
+            this.pollingOverridesGroupBox.Controls.Add(this.label29);
+            this.pollingOverridesGroupBox.Controls.Add(this.label27);
+            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(7, 209);
+            this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
+            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(561, 147);
+            this.pollingOverridesGroupBox.TabIndex = 3;
+            this.pollingOverridesGroupBox.TabStop = false;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(6, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(101, 13);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Polling overrides";
+            // 
+            // chkEnablePollingOverride
+            // 
+            this.chkEnablePollingOverride.AutoSize = true;
+            this.chkEnablePollingOverride.Location = new System.Drawing.Point(117, -1);
+            this.chkEnablePollingOverride.Name = "chkEnablePollingOverride";
+            this.chkEnablePollingOverride.Size = new System.Drawing.Size(65, 17);
+            this.chkEnablePollingOverride.TabIndex = 1;
+            this.chkEnablePollingOverride.Text = "Enabled";
+            this.chkEnablePollingOverride.UseVisualStyleBackColor = true;
+            // 
+            // onlyAllowUpdateOncePerXSecNumericUpDown
+            // 
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(177, 25);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Name = "onlyAllowUpdateOncePerXSecNumericUpDown";
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Size = new System.Drawing.Size(65, 20);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.TabIndex = 5;
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(248, 27);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(49, 13);
+            this.label28.TabIndex = 6;
+            this.label28.Text = "Seconds";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(11, 27);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(109, 13);
+            this.label29.TabIndex = 4;
+            this.label29.Text = "Only update once per";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.checkBox2.Location = new System.Drawing.Point(351, -2);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(186, 17);
+            this.checkBox2.TabIndex = 3;
+            this.checkBox2.Text = "Continue checking child collectors";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(191, -1);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(149, 17);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Frequency sliding enabled";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(177, 51);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDown1.TabIndex = 11;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(248, 53);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(49, 13);
+            this.label30.TabIndex = 12;
+            this.label30.Text = "Seconds";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(11, 53);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(124, 13);
+            this.label31.TabIndex = 10;
+            this.label31.Text = "Poll slide after first repeat";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(177, 77);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDown2.TabIndex = 14;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(248, 79);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(49, 13);
+            this.label32.TabIndex = 15;
+            this.label32.Text = "Seconds";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(11, 79);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(143, 13);
+            this.label33.TabIndex = 13;
+            this.label33.Text = "Poll slide after second repeat";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(177, 103);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDown3.TabIndex = 17;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(248, 105);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(49, 13);
+            this.label34.TabIndex = 18;
+            this.label34.Text = "Seconds";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(11, 105);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(128, 13);
+            this.label35.TabIndex = 16;
+            this.label35.Text = "Poll slide after third repeat";
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(426, 25);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDown4.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.numericUpDown4, "Even if a previous instance is still updating a new state check must be started");
+            this.numericUpDown4.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(497, 27);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(49, 13);
+            this.label36.TabIndex = 9;
+            this.label36.Text = "Seconds";
+            // 
+            // label37
+            // 
+            this.label37.Location = new System.Drawing.Point(325, 27);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(95, 13);
+            this.label37.TabIndex = 7;
+            this.label37.Text = "Must update in";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 487);
+            this.ClientSize = new System.Drawing.Size(584, 462);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
@@ -1082,14 +1396,14 @@
             this.Controls.Add(this.txtName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(600, 525);
+            this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "EditCollectorConfig";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Collector Config";
             this.Load += new System.EventHandler(this.EditCollectorConfig_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.agentSettingstabPage.ResumeLayout(false);
             this.panCollectorConfigContainer.ResumeLayout(false);
             this.panCollectorConfigContainer.PerformLayout();
             this.itemsContextMenuStrip.ResumeLayout(false);
@@ -1100,16 +1414,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1117,6 +1421,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.alertsTabPage.ResumeLayout(false);
+            this.correctiveScriptsGroupBox.ResumeLayout(false);
+            this.correctiveScriptsGroupBox.PerformLayout();
+            this.alertSuppressionGroupBox.ResumeLayout(false);
+            this.alertSuppressionGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXPollsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
+            this.pollingOverridesGroupBox.ResumeLayout(false);
+            this.pollingOverridesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1132,7 +1454,7 @@
         private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage agentSettingstabPage;
         private System.Windows.Forms.Panel panCollectorConfigContainer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.LinkLabel llblRawEdit;
@@ -1170,7 +1492,7 @@
         private System.Windows.Forms.OpenFileDialog correctiveScriptOpenFileDialog;
         private TreeViewEx tvwEntries;
         private System.Windows.Forms.ImageList entriesImageList;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox correctiveScriptsGroupBox;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button cmdBrowseForWarningCorrectiveScript;
         private System.Windows.Forms.CheckBox chkCorrectiveScriptDisabled;
@@ -1179,7 +1501,7 @@
         private System.Windows.Forms.TextBox txtCorrectiveScriptOnWarning;
         private System.Windows.Forms.TextBox txtCorrectiveScriptOnError;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox alertSuppressionGroupBox;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownRepeatAlertInXMin;
@@ -1206,5 +1528,26 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.CheckBox chkForceRemoteExcuteOnChildCollectors;
+        private System.Windows.Forms.TabPage alertsTabPage;
+        private System.Windows.Forms.GroupBox pollingOverridesGroupBox;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.CheckBox chkEnablePollingOverride;
+        private System.Windows.Forms.NumericUpDown onlyAllowUpdateOncePerXSecNumericUpDown;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label37;
     }
 }

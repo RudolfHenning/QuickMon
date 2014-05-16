@@ -193,6 +193,11 @@
     <None Include="Resources\doc_stats.png" />
     <None Include="Resources\scroll.png" />
     <None Include="Resources\OUTLLIBR_9825.ico" />
+    <None Include="Resources\CometSeparatorOrange.png" />
+    <None Include="Resources\infoOrange.png" />
+    <None Include="Resources\BlankMonitorPack.txt" />
+    <None Include="Resources\folderWLightning.png" />
+    <None Include="Resources\folderWLightning.ico" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

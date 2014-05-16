@@ -98,6 +98,7 @@ namespace QuickMon
             masterSplitContainer.Panel2Collapsed = true;
             MainForm_Resize(null, null);
             lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
+            toolTip1.SetToolTip(lblVersion, string.Format("v{0} ({1})", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyy-MM-dd")));
             tvwCollectors.EnableAutoScrollToSelectedNode = true;
             tvwCollectors.TreeNodeMoved += tvwCollectors_TreeNodeMoved;
             tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
@@ -724,11 +725,13 @@ namespace QuickMon
             }
             catch { }
             monitorPack = new MonitorPack();
+            monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
             monitorPack.MonitorPackPath = "";
             LoadTreeFromMonitorPack();
             monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
             monitorPack.CollectorCurrentStateReported += monitorPack_CollectorCurrentStateReported;
-            lblNoNotifiersYet.Visible = true;
+            if (monitorPack.Notifiers != null && monitorPack.Notifiers.Count == 0)
+                lblNoNotifiersYet.Visible = true;
             mainRefreshTimer.Enabled = true;
             monitorPackChanged = false;
         }
@@ -834,19 +837,25 @@ namespace QuickMon
         private void SetMonitorPackNameDescription()
         {
             toolTip1.SetToolTip(llblMonitorPack, "");
-            if (monitorPack == null || monitorPack.Name == null)
+            llblMonitorPack.Text = "";
+            if (monitorPack == null || ((monitorPack.Name == null || monitorPack.Name.Trim().Length == 0)))
             {
-                llblMonitorPack.Text = "No or new monitor pack. Please set name.";
+                llblMonitorPack.Text = "Click here to set the monitor pack name.";
             }
-            else if (monitorPack.MonitorPackPath == null)
-                llblMonitorPack.Text = monitorPack.Name;
             else
+            {                
+                llblMonitorPack.Text = monitorPack.Name;
+            }
+            if (monitorPack != null)
             {
-                toolTip1.SetToolTip(llblMonitorPack, monitorPack.MonitorPackPath);
-                llblMonitorPack.Text = monitorPack.Name.Trim().Length == 0 ? System.IO.Path.GetFileName(monitorPack.MonitorPackPath) : monitorPack.Name;
+                if (monitorPack.MonitorPackPath != null)
+                    toolTip1.SetToolTip(llblMonitorPack, monitorPack.MonitorPackPath);
                 if (!monitorPack.Enabled)
                     llblMonitorPack.Text += " (Disabled)";
             }
+            //if still after all of this...
+            if (llblMonitorPack.Text == "")
+                llblMonitorPack.Text = "Click here to set the monitor pack name.";
         }
         private void LoadNotifiersList()
         {

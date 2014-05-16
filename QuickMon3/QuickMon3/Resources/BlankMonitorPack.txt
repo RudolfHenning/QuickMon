@@ -1,0 +1,12 @@
+<monitorPack version="3.0.0.0" name="" enabled="True" defaultViewerNotifier="In Memory" runCorrectiveScripts="False" collectorStateHistorySize="1">
+  <collectorEntries>
+  </collectorEntries>
+  <notifierEntries>
+    <notifierEntry name="In Memory" notifier="InMemoryNotifier" enabled="True" alertLevel="Warning" detailLevel="Detail">
+      <config>
+        <inMemory maxEntryCount="99999" />
+      </config>
+      <collectors />
+    </notifierEntry>
+  </notifierEntries>
+</monitorPack>

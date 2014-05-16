@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Collectors");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.extrasToolStrip = new System.Windows.Forms.ToolStrip();
@@ -43,6 +43,7 @@
             this.customPollingFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knownRemoteAgentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
             this.lblVersion = new System.Windows.Forms.Label();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
@@ -114,7 +115,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
-            this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.extrasToolStrip.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -160,7 +160,7 @@
             this.aboutToolStripMenuItem1});
             this.extrasToolStrip.Location = new System.Drawing.Point(3, 36);
             this.extrasToolStrip.Name = "extrasToolStrip";
-            this.extrasToolStrip.Size = new System.Drawing.Size(102, 31);
+            this.extrasToolStrip.Size = new System.Drawing.Size(71, 31);
             this.extrasToolStrip.TabIndex = 2;
             this.extrasToolStrip.TabStop = true;
             this.extrasToolStrip.Text = "toolStrip1";
@@ -246,10 +246,18 @@
             this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
             this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
             // 
+            // restartInAdminModeToolStripMenuItem
+            // 
+            this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
+            this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.aboutToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.info;
+            this.aboutToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.infoOrange;
             this.aboutToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
             this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(28, 28);
@@ -260,6 +268,7 @@
             // 
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblVersion.ForeColor = System.Drawing.SystemColors.GrayText;
             this.lblVersion.Location = new System.Drawing.Point(417, 41);
             this.lblVersion.Name = "lblVersion";
@@ -267,6 +276,7 @@
             this.lblVersion.TabIndex = 3;
             this.lblVersion.Text = "vX.X";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblVersion.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // mainToolStrip
             // 
@@ -314,7 +324,7 @@
             // recentMonitorPackToolStripMenuItem2
             // 
             this.recentMonitorPackToolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.recentMonitorPackToolStripMenuItem2.Image = global::QuickMon.Properties.Resources.folder_favor;
+            this.recentMonitorPackToolStripMenuItem2.Image = global::QuickMon.Properties.Resources.folderWLightning;
             this.recentMonitorPackToolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.recentMonitorPackToolStripMenuItem2.Name = "recentMonitorPackToolStripMenuItem2";
             this.recentMonitorPackToolStripMenuItem2.Size = new System.Drawing.Size(36, 36);
@@ -687,8 +697,8 @@
             // 
             this.treeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeImageList.ImageStream")));
             this.treeImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.treeImageList.Images.SetKeyName(0, "Files.ico");
-            this.treeImageList.Images.SetKeyName(1, "tangerine.ico");
+            this.treeImageList.Images.SetKeyName(0, "OrangeRedFolder2.ico");
+            this.treeImageList.Images.SetKeyName(1, "OrangeFolder.ico");
             this.treeImageList.Images.SetKeyName(2, "bullet_ball_glass_blue.ico");
             this.treeImageList.Images.SetKeyName(3, "ok.png");
             this.treeImageList.Images.SetKeyName(4, "triang_yellow.png");
@@ -717,7 +727,7 @@
             this.llblMonitorPack.Size = new System.Drawing.Size(461, 23);
             this.llblMonitorPack.TabIndex = 2;
             this.llblMonitorPack.TabStop = true;
-            this.llblMonitorPack.Text = "No name specified";
+            this.llblMonitorPack.Text = "Click here to set the monitor pack name.";
             this.llblMonitorPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblMonitorPack_LinkClicked);
             // 
             // panel3
@@ -748,11 +758,11 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "Collectors";
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "Collectors";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -788,7 +798,7 @@
             // 
             this.agentSeparatorBox.BackColor = System.Drawing.Color.Transparent;
             this.agentSeparatorBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.agentSeparatorBox.Image = global::QuickMon.Properties.Resources.CometSeparator;
+            this.agentSeparatorBox.Image = global::QuickMon.Properties.Resources.CometSeparatorOrange;
             this.agentSeparatorBox.Location = new System.Drawing.Point(0, 216);
             this.agentSeparatorBox.Name = "agentSeparatorBox";
             this.agentSeparatorBox.Size = new System.Drawing.Size(461, 10);
@@ -837,7 +847,7 @@
             this.lvwNotifiers.Location = new System.Drawing.Point(17, 3);
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(444, 100);
+            this.lvwNotifiers.Size = new System.Drawing.Size(444, 78);
             this.lvwNotifiers.SmallImageList = this.notifiersImageList;
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
@@ -925,7 +935,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Image = global::QuickMon.Properties.Resources.CometSeparator;
+            this.pictureBox1.Image = global::QuickMon.Properties.Resources.CometSeparatorOrange;
             this.pictureBox1.Location = new System.Drawing.Point(0, 463);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(461, 10);
@@ -937,7 +947,7 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox2.Image = global::QuickMon.Properties.Resources.CometSeparator;
+            this.pictureBox2.Image = global::QuickMon.Properties.Resources.CometSeparatorOrange;
             this.pictureBox2.Location = new System.Drawing.Point(0, 90);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(461, 10);
@@ -952,14 +962,6 @@
             // showNotifierContextMenuTimer
             // 
             this.showNotifierContextMenuTimer.Tick += new System.EventHandler(this.showNotifierContextMenuTimer_Tick);
-            // 
-            // restartInAdminModeToolStripMenuItem
-            // 
-            this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
-            this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
-            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
-            this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
-            this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
             // 
             // MainForm
             // 

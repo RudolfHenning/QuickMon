@@ -91,6 +91,26 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;3.0.0.0&quot; name=&quot;&quot; enabled=&quot;True&quot; defaultViewerNotifier=&quot;In Memory&quot; runCorrectiveScripts=&quot;False&quot; collectorStateHistorySize=&quot;1&quot;&gt;
+        ///  &lt;collectorEntries&gt;
+        ///  &lt;/collectorEntries&gt;
+        ///  &lt;notifierEntries&gt;
+        ///    &lt;notifierEntry name=&quot;In Memory&quot; notifier=&quot;InMemoryNotifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot;&gt;
+        ///      &lt;config&gt;
+        ///        &lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;
+        ///      &lt;/config&gt;
+        ///      &lt;collectors /&gt;
+        ///    &lt;/notifierEntry&gt;
+        ///  &lt;/notifierEntries&gt;
+        ///&lt;/monitorPack&gt;.
+        /// </summary>
+        internal static string BlankMonitorPack {
+            get {
+                return ResourceManager.GetString("BlankMonitorPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Charon {
@@ -136,6 +156,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap CometSeparator {
             get {
                 object obj = ResourceManager.GetObject("CometSeparator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CometSeparatorOrange {
+            get {
+                object obj = ResourceManager.GetObject("CometSeparatorOrange", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -305,6 +335,26 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folderWLightning {
+            get {
+                object obj = ResourceManager.GetObject("folderWLightning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon folderWLightning1 {
+            get {
+                object obj = ResourceManager.GetObject("folderWLightning1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap info {
             get {
                 object obj = ResourceManager.GetObject("info", resourceCulture);
@@ -318,6 +368,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap info16x16 {
             get {
                 object obj = ResourceManager.GetObject("info16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap infoOrange {
+            get {
+                object obj = ResourceManager.GetObject("infoOrange", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

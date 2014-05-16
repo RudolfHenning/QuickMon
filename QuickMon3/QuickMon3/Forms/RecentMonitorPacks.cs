@@ -16,7 +16,7 @@ namespace QuickMon
             f.SuspendLayout();
             f.Name = "RecentFilesWindow";
             f.Text = "Recently opened QuickMon config files";
-            f.Icon = Properties.Resources._319;
+            f.Icon = Properties.Resources.folderWLightning1;
             f.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             f.MaximizeBox = false;
             f.MinimizeBox = false;
