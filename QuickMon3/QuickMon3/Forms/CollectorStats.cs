@@ -111,6 +111,11 @@ namespace QuickMon
                     lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
+                    lvi = new ListViewItem("# of times refreshed");
+                    lvi.SubItems.Add(SelectedEntry.RefreshCount.ToString());
+                    lvi.Group = lvgPolling;
+                    lvwProperties.Items.Add(lvi);
+
                     lvi = new ListViewItem("First polled time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.FirstStateUpdate));
                     lvi.Group = lvgPolling;

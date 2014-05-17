@@ -20,6 +20,7 @@ namespace QuickMon
             //LastStateUpdate = new DateTime(2000, 1, 1);
             //FirstStateUpdate = new DateTime(2000, 1, 1);
             PollCount = 0;
+            RefreshCount = 0;
             GoodStateCount = 0;
             WarningStateCount = 0;
             ErrorStateCount = 0;
@@ -27,12 +28,23 @@ namespace QuickMon
             LastWarningState = null;
             LastErrorState = null;
             StateHistorySize = 1;
+
+            //Polling overrides
+            EnabledPollingOverride = false;
+            OnlyAllowUpdateOncePerXSec = 1;
+            EnablePollFrequencySliding =  false;
+            PollSlideFrequencyAfterFirstRepeatSec = 2;
+            PollSlideFrequencyAfterSecondRepeatSec = 5;
+            PollSlideFrequencyAfterThirdRepeatSec = 30;
         }
 
         #region Private vars
         private bool waitAlertTimeErrWarnInMinFlagged = false;
         private DateTime delayErrWarnAlertTime = new DateTime(2000, 1, 1);
         private int numberOfPollingsInErrWarn = 0;
+        private bool stagnantStateFirstRepeat = false;
+        private bool stagnantStateSecondRepeat = false;
+        private bool stagnantStateThirdRepeat = false;
         #endregion
 
         #region Properties
@@ -132,7 +144,7 @@ namespace QuickMon
                 stateHistory = value;
             }
         }
-        private void AddState (MonitorState newState)
+        private void AddStateToHistory (MonitorState newState)
         {
             try
             {
@@ -169,7 +181,14 @@ namespace QuickMon
         public DateTime LastStateCheckAttemptBegin { get; set; }
         public DateTime LastStateUpdate { get; set; }
         public long LastStateCheckDurationMS { get; set; }
+        /// <summary>
+        /// Number of times Collector Agent has been executed
+        /// </summary>
         public int PollCount { get; set; }
+        /// <summary>
+        /// Number of times this Collector 's GetCurrentState method has been called
+        /// </summary>
+        public int RefreshCount { get; set; }
         public DateTime FirstStateUpdate { get; set; }
         public int GoodStateCount { get; set; }
         public int WarningStateCount { get; set; }
@@ -211,6 +230,15 @@ namespace QuickMon
         public string OverrideRemoteAgentHostAddress  { get; set; }
         public int OverrideRemoteAgentHostPort { get; set; }
         #endregion
+
+        #region Polling override
+        public bool EnabledPollingOverride { get; set; }
+        public int OnlyAllowUpdateOncePerXSec { get; set; }
+        public bool EnablePollFrequencySliding { get; set; }
+        public int PollSlideFrequencyAfterFirstRepeatSec { get; set; }
+        public int PollSlideFrequencyAfterSecondRepeatSec { get; set; }
+        public int PollSlideFrequencyAfterThirdRepeatSec { get; set; }
+        #endregion
         #endregion
 
         #region Refreshing state and getting alerts
@@ -218,97 +246,146 @@ namespace QuickMon
         /// Queries the agent to get the latest state.
         /// </summary>
         /// <returns>True or False but not both I hope</returns>
-        public MonitorState GetCurrentState()
+        public MonitorState GetCurrentState(bool disablePollingOverrides = false)
         {
+            RefreshCount++;
             if (LastMonitorState == null)
                 LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
             if (CurrentState == null)
+            {
                 CurrentState = new MonitorState() { State = CollectorState.NotAvailable };
+                LastStateUpdate = DateTime.Now;
+            }
+            //if (LastStateUpdate < (new DateTime(2000, 1, 1)))
+            //    LastStateUpdate = DateTime.Now;
             if (LastMonitorState.State != CollectorState.ConfigurationError)            
             {                
                 if (!Enabled)
                 {
                     CurrentState.State = CollectorState.Disabled;
+                    stagnantStateFirstRepeat = false;
+                    stagnantStateSecondRepeat = false;
+                    stagnantStateThirdRepeat = false;
+                }
+                else if (!ServiceWindows.IsInTimeWindow())
+                {
+                    LastMonitorState = CurrentState.Clone();
+                    CurrentState.State = CollectorState.Disabled;
+                    stagnantStateFirstRepeat = false;
+                    stagnantStateSecondRepeat = false;
+                    stagnantStateThirdRepeat = false;
                 }
                 else if (IsFolder)
                 {
                     LastMonitorState = CurrentState.Clone();
-                    if (ServiceWindows.IsInTimeWindow())
-                        CurrentState.State = CollectorState.Folder;
-                    else
-                        CurrentState.State = CollectorState.Disabled;
+                    CurrentState.State = CollectorState.Folder;
+                    stagnantStateFirstRepeat = false;
+                    stagnantStateSecondRepeat = false;
+                    stagnantStateThirdRepeat = false;
+                }
+                else if (!disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
+                {
+                    //Not time yet for update
+                }
+                else if (!disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding && 
+                    (
+                        (stagnantStateThirdRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec) > DateTime.Now)) ||
+                        (!stagnantStateThirdRepeat && stagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec) > DateTime.Now)) ||
+                        (!stagnantStateThirdRepeat && !stagnantStateSecondRepeat && stagnantStateFirstRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec) > DateTime.Now)) ||
+                        (!stagnantStateFirstRepeat && !stagnantStateThirdRepeat && !stagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
+                    )
+                   )
+                {
+                    //Not time yet for update
                 }
                 else
                 {
-                    if (ServiceWindows.IsInTimeWindow())
+                    //*********** Call actual collector GetState **********
+                    LastStateCheckAttemptBegin = DateTime.Now;
+                    LastMonitorState = CurrentState.Clone();
+                    System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+                    sw.Start();
+                    if (EnableRemoteExecute)
                     {
-                        //*********** Call actual collector GetState **********
-                        LastStateCheckAttemptBegin = DateTime.Now;
-                        LastMonitorState = CurrentState.Clone();
-                        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-                        sw.Start();
-                        if (EnableRemoteExecute)
+                        try
                         {
-                            try
-                            {
-                                CurrentState = CollectorEntryRelay.GetRemoteAgentState(this);
-                            }
-                            catch(Exception ex)
-                            {
-                                CurrentState.State = CollectorState.Error;
-                                CurrentState.RawDetails = ex.ToString();
-                            }
+                            CurrentState = CollectorEntryRelay.GetRemoteAgentState(this);
                         }
-                        else if (OverrideRemoteAgentHost)
+                        catch (Exception ex)
                         {
-                            try
-                            {
-                                CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
-                            }
-                            catch (Exception ex)
-                            {
-                                CurrentState.State = CollectorState.Error;
-                                CurrentState.RawDetails = ex.ToString();
-                            }
+                            CurrentState.State = CollectorState.Error;
+                            CurrentState.RawDetails = ex.ToString();
                         }
-                        else 
-                            CurrentState = Collector.GetState();
-                        sw.Stop();
-
-                        //Updating stats
-                        LastStateCheckDurationMS = sw.ElapsedMilliseconds;
-                        LastStateUpdate = DateTime.Now;
-                        if (FirstStateUpdate <  (new DateTime(2000, 1, 1)))
-                            FirstStateUpdate = DateTime.Now;
-                        PollCount++;
-                        if (CurrentState.State == CollectorState.Good)
+                    }
+                    else if (OverrideRemoteAgentHost)
+                    {
+                        try
                         {
-                            LastGoodState = CurrentState.Clone();
-                            LastGoodStateTime = DateTime.Now;
-                            GoodStateCount++;
+                            CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
                         }
-                        else if (CurrentState.State == CollectorState.Warning)
+                        catch (Exception ex)
                         {
-                            LastWarningState = CurrentState.Clone();
-                            LastWarningStateTime = DateTime.Now;
-                            WarningStateCount++;
-                        }
-                        else if (CurrentState.State == CollectorState.Error)
-                        {
-                            LastErrorState = CurrentState.Clone();
-                            LastErrorStateTime = DateTime.Now;
-                            ErrorStateCount++;
+                            CurrentState.State = CollectorState.Error;
+                            CurrentState.RawDetails = ex.ToString();
                         }
                     }
                     else
-                        CurrentState.State = CollectorState.Disabled;
+                        CurrentState = Collector.GetState();
+                    sw.Stop();
+
+                    if (LastMonitorState.State != CurrentState.State)
+                    {
+                        stagnantStateFirstRepeat = false;
+                        stagnantStateSecondRepeat = false;
+                        stagnantStateThirdRepeat = false;
+                    }
+                    else if (!stagnantStateFirstRepeat)
+                    {
+                        stagnantStateFirstRepeat = true;
+                        stagnantStateSecondRepeat = false;
+                        stagnantStateThirdRepeat = false;
+                    }
+                    else if (!stagnantStateSecondRepeat)
+                    {
+                        stagnantStateSecondRepeat = true;
+                        stagnantStateThirdRepeat = false;
+                    }
+                    else if (!stagnantStateThirdRepeat)
+                    {
+                        stagnantStateThirdRepeat = true;
+                    }
+
+                    //Updating stats
+                    LastStateCheckDurationMS = sw.ElapsedMilliseconds;
+                    LastStateUpdate = DateTime.Now;
+                    if (FirstStateUpdate < (new DateTime(2000, 1, 1)))
+                        FirstStateUpdate = DateTime.Now;
+                    PollCount++;
+                    if (CurrentState.State == CollectorState.Good)
+                    {
+                        LastGoodState = CurrentState.Clone();
+                        LastGoodStateTime = DateTime.Now;
+                        GoodStateCount++;
+                    }
+                    else if (CurrentState.State == CollectorState.Warning)
+                    {
+                        LastWarningState = CurrentState.Clone();
+                        LastWarningStateTime = DateTime.Now;
+                        WarningStateCount++;
+                    }
+                    else if (CurrentState.State == CollectorState.Error)
+                    {
+                        LastErrorState = CurrentState.Clone();
+                        LastErrorStateTime = DateTime.Now;
+                        ErrorStateCount++;
+                    }
+                    AddStateToHistory(CurrentState.Clone());
                 }
             }
             else
             {
                 CurrentState.State = CollectorState.ConfigurationError;
             }
-            AddState(CurrentState.Clone());
             return CurrentState;
         }
         /// <summary>
@@ -393,6 +470,14 @@ namespace QuickMon
             collectorEntry.RemoteAgentHostAddress = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostAddress");
             collectorEntry.RemoteAgentHostPort = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostPort", 8181);
 
+            //Polling overrides
+            collectorEntry.EnabledPollingOverride = xmlCollectorEntry.ReadXmlElementAttr("enabledPollingOverride", false);
+            collectorEntry.OnlyAllowUpdateOncePerXSec = xmlCollectorEntry.ReadXmlElementAttr("onlyAllowUpdateOncePerXSec", 1);
+            collectorEntry.EnablePollFrequencySliding = xmlCollectorEntry.ReadXmlElementAttr("enablePollFrequencySliding", false);
+            collectorEntry.PollSlideFrequencyAfterFirstRepeatSec = xmlCollectorEntry.ReadXmlElementAttr("pollSlideFrequencyAfterFirstRepeatSec", 2);
+            collectorEntry.PollSlideFrequencyAfterSecondRepeatSec = xmlCollectorEntry.ReadXmlElementAttr("pollSlideFrequencyAfterSecondRepeatSec", 5);
+            collectorEntry.PollSlideFrequencyAfterThirdRepeatSec = xmlCollectorEntry.ReadXmlElementAttr("pollSlideFrequencyAfterThirdRepeatSec", 30);
+
             //Service windows config
             collectorEntry.ServiceWindows = new ServiceWindows();
             XmlNode serviceWindowsNode = xmlCollectorEntry.SelectSingleNode("serviceWindows");
@@ -453,7 +538,7 @@ namespace QuickMon
                 ParentCollectorId,
                 CollectOnParentWarning,
                 RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec,
-                RepeatAlertInXPolls, AlertOnceInXPolls,  DelayErrWarnAlertForXPolls,
+                RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls,
                 CorrectiveScriptDisabled,
                 CorrectiveScriptOnWarningPath,
                 CorrectiveScriptOnErrorPath,
@@ -463,6 +548,14 @@ namespace QuickMon
                 ForceRemoteExcuteOnChildCollectors,
                 RemoteAgentHostAddress,
                 RemoteAgentHostPort,
+
+                EnabledPollingOverride,
+                OnlyAllowUpdateOncePerXSec,
+                EnablePollFrequencySliding,
+                PollSlideFrequencyAfterFirstRepeatSec,
+                PollSlideFrequencyAfterSecondRepeatSec,
+                PollSlideFrequencyAfterThirdRepeatSec,
+
                 collectorConfig,
                 ServiceWindows.ToConfig());
             return config;
@@ -509,6 +602,12 @@ namespace QuickMon
                 bool forceRemoteExcuteOnChildCollectors,
                 string remoteAgentHostAddress,
                 int remoteAgentHostPort,
+                bool enabledPollingOverride,
+                int onlyAllowUpdateOncePerXSec,
+                bool enablePollFrequencySliding,
+                int pollSlideFrequencyAfterFirstRepeatSec,
+                int pollSlideFrequencyAfterSecondRepeatSec,
+                int pollSlideFrequencyAfterThirdRepeatSec,
                 string collectorConfig,
                 string serviceWindows)
         {
@@ -531,6 +630,12 @@ namespace QuickMon
                 forceRemoteExcuteOnChildCollectors,
                 remoteAgentHostAddress,
                 remoteAgentHostPort,
+                enabledPollingOverride,
+                onlyAllowUpdateOncePerXSec,
+                enablePollFrequencySliding,
+                pollSlideFrequencyAfterFirstRepeatSec,
+                pollSlideFrequencyAfterSecondRepeatSec,
+                pollSlideFrequencyAfterThirdRepeatSec,
                 collectorConfig,
                 serviceWindows);
             return config;

@@ -55,14 +55,26 @@ namespace QuickMon.Forms
                 chkRemoteAgentEnabled.Checked = currentEditingEntry.EnableRemoteExecute;
                 chkForceRemoteExcuteOnChildCollectors.Checked = currentEditingEntry.ForceRemoteExcuteOnChildCollectors;
                 txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
-                remoteportNumericUpDown.Value = currentEditingEntry.RemoteAgentHostPort;
+                remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
 
-                numericUpDownRepeatAlertInXMin.Value = currentEditingEntry.RepeatAlertInXMin;
-                numericUpDownRepeatAlertInXPolls.Value = currentEditingEntry.RepeatAlertInXPolls;
-                AlertOnceInXMinNumericUpDown.Value = currentEditingEntry.AlertOnceInXMin;
-                AlertOnceInXPollsNumericUpDown.Value = currentEditingEntry.AlertOnceInXPolls;
-                delayAlertSecNumericUpDown.Value = currentEditingEntry.DelayErrWarnAlertForXSec;
-                delayAlertPollsNumericUpDown.Value = currentEditingEntry.DelayErrWarnAlertForXPolls;
+                try
+                {
+                    chkEnablePollingOverride.Checked = currentEditingEntry.EnabledPollingOverride;
+                    onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(currentEditingEntry.OnlyAllowUpdateOncePerXSec);
+                    chkEnablePollingFrequencySliding.Checked = currentEditingEntry.EnablePollFrequencySliding;
+                    pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterThirdRepeatSec);
+                    pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterSecondRepeatSec);
+                    pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterFirstRepeatSec);                    
+                }
+                catch { }
+                PollingOverrideControlsEnable();
+
+                numericUpDownRepeatAlertInXMin.SaveValueSet(currentEditingEntry.RepeatAlertInXMin);
+                numericUpDownRepeatAlertInXPolls.SaveValueSet(currentEditingEntry.RepeatAlertInXPolls);
+                AlertOnceInXMinNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXMin);
+                AlertOnceInXPollsNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXPolls);
+                delayAlertSecNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXSec);
+                delayAlertPollsNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXPolls);
 
                 chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
 
@@ -494,6 +506,21 @@ namespace QuickMon.Forms
                 }
             }
 
+            //Polling overrides
+            if (onlyAllowUpdateOncePerXSecNumericUpDown.Value >= pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value)
+                pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = onlyAllowUpdateOncePerXSecNumericUpDown.Value + 1;
+            if (pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value)
+                pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value + 1;
+            if (pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value)
+                pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value + 1;
+
+            SelectedEntry.EnabledPollingOverride = chkEnablePollingOverride.Checked;
+            SelectedEntry.OnlyAllowUpdateOncePerXSec = (int)onlyAllowUpdateOncePerXSecNumericUpDown.Value;
+            SelectedEntry.EnablePollFrequencySliding = chkEnablePollingFrequencySliding.Checked;
+            SelectedEntry.PollSlideFrequencyAfterFirstRepeatSec = (int)pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value;
+            SelectedEntry.PollSlideFrequencyAfterSecondRepeatSec = (int)pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value;
+            SelectedEntry.PollSlideFrequencyAfterThirdRepeatSec = (int)pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value;
+
             //Alert suppresion
             SelectedEntry.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
             SelectedEntry.RepeatAlertInXPolls = (int)numericUpDownRepeatAlertInXPolls.Value;
@@ -566,11 +593,11 @@ namespace QuickMon.Forms
         }
         private void cmdRemoteAgentTest_Click(object sender, EventArgs e)
         {
-            CollectorEntry textCollector = new CollectorEntry();
-            textCollector.UniqueId = lblId.Text;
-            textCollector.Name = txtName.Text.Trim();
-            textCollector.Enabled = chkEnabled.Checked;
-            textCollector.IsFolder = currentEditingEntry.IsFolder;
+            CollectorEntry testCollector = new CollectorEntry();
+            testCollector.UniqueId = lblId.Text;
+            testCollector.Name = txtName.Text.Trim();
+            testCollector.Enabled = chkEnabled.Checked;
+            testCollector.IsFolder = currentEditingEntry.IsFolder;
 
             if (cboParentCollector.SelectedIndex > 0)
             {
@@ -581,29 +608,30 @@ namespace QuickMon.Forms
                 SelectedEntry.ParentCollectorId = "";
 
             if (currentEditingEntry.IsFolder)
-                textCollector.CollectorRegistrationName = "Folder";
+                testCollector.CollectorRegistrationName = "Folder";
             else
             {
                 //Collector type
-                textCollector.CollectorRegistrationName = currentEditingEntry.CollectorRegistrationName;
-                textCollector.CollectorRegistrationDisplayName = currentEditingEntry.CollectorRegistrationDisplayName;
+                testCollector.CollectorRegistrationName = currentEditingEntry.CollectorRegistrationName;
+                testCollector.CollectorRegistrationDisplayName = currentEditingEntry.CollectorRegistrationDisplayName;
 
-                textCollector.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
+                testCollector.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
             }
-            textCollector.CollectOnParentWarning = chkCollectOnParentWarning.Checked && !currentEditingEntry.IsFolder;
-            textCollector.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
-            textCollector.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
-            textCollector.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
-            textCollector.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
-            textCollector.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
-            textCollector.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
-            textCollector.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
-            textCollector.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
-            textCollector.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+            testCollector.CollectOnParentWarning = chkCollectOnParentWarning.Checked && !currentEditingEntry.IsFolder;
+            testCollector.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
+            testCollector.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
+            testCollector.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
+            testCollector.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
+            testCollector.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
+            testCollector.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
+            testCollector.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
+            testCollector.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
+            testCollector.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+            testCollector.EnabledPollingOverride = false;
 
             try
             {
-                MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(textCollector);
+                MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(testCollector);
                 if (testState.State == CollectorState.Good)
                 {
                     MessageBox.Show("Success", "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -675,6 +703,48 @@ namespace QuickMon.Forms
             }
         }
         #endregion
+
+        #region Polling overrides
+        private void PollingOverrideControlsEnable()
+        {
+            chkEnablePollingFrequencySliding.Enabled = chkEnablePollingOverride.Checked;
+            onlyAllowUpdateOncePerXSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked;
+            pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked && chkEnablePollingFrequencySliding.Checked;
+            pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked && chkEnablePollingFrequencySliding.Checked;
+            pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked && chkEnablePollingFrequencySliding.Checked;
+        }
+        private void chkEnablePollingOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            PollingOverrideControlsEnable();
+        }
+        private void chkEnablePollingFrequencySliding_CheckedChanged(object sender, EventArgs e)
+        {
+            PollingOverrideControlsEnable();
+        }
+        private void onlyAllowUpdateOncePerXSecNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            //if (onlyAllowUpdateOncePerXSecNumericUpDown.Value >= pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value)
+            //    pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = onlyAllowUpdateOncePerXSecNumericUpDown.Value + 1;
+        }
+        private void pollSlideFrequencyAfterFirstRepeatSecNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+            //if (pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value <= onlyAllowUpdateOncePerXSecNumericUpDown.Value)
+            //    onlyAllowUpdateOncePerXSecNumericUpDown.Value = pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value - 1;
+        }
+        private void pollSlideFrequencyAfterSecondRepeatSecNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void pollSlideFrequencyAfterThirdRepeatSecNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+
+
+
 
 
     }

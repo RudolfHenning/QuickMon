@@ -55,6 +55,22 @@
             this.llblCollectorType = new System.Windows.Forms.LinkLabel();
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pollingOverridesGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkEnablePollingOverride = new System.Windows.Forms.CheckBox();
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.chkEnablePollingFrequencySliding = new System.Windows.Forms.CheckBox();
+            this.onlyAllowUpdateOncePerXSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
@@ -113,26 +129,6 @@
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pollingOverridesGroupBox = new System.Windows.Forms.GroupBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.chkEnablePollingOverride = new System.Windows.Forms.CheckBox();
-            this.onlyAllowUpdateOncePerXSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -141,6 +137,11 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.pollingOverridesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
@@ -154,12 +155,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
-            this.pollingOverridesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -266,7 +261,7 @@
             this.agentSettingstabPage.Location = new System.Drawing.Point(4, 22);
             this.agentSettingstabPage.Name = "agentSettingstabPage";
             this.agentSettingstabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.agentSettingstabPage.Size = new System.Drawing.Size(574, 387);
+            this.agentSettingstabPage.Size = new System.Drawing.Size(574, 362);
             this.agentSettingstabPage.TabIndex = 0;
             this.agentSettingstabPage.Text = "Agent settings";
             // 
@@ -279,7 +274,7 @@
             this.panCollectorConfigContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panCollectorConfigContainer.Location = new System.Drawing.Point(3, 29);
             this.panCollectorConfigContainer.Name = "panCollectorConfigContainer";
-            this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 329);
+            this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 304);
             this.panCollectorConfigContainer.TabIndex = 1;
             // 
             // itemsContextMenuStrip
@@ -372,7 +367,7 @@
             // 
             this.panel2.Controls.Add(this.llblRawEdit);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 358);
+            this.panel2.Location = new System.Drawing.Point(3, 333);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(568, 26);
             this.panel2.TabIndex = 1;
@@ -437,6 +432,228 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Operational settings";
             // 
+            // pollingOverridesGroupBox
+            // 
+            this.pollingOverridesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
+            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label34);
+            this.pollingOverridesGroupBox.Controls.Add(this.label35);
+            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label32);
+            this.pollingOverridesGroupBox.Controls.Add(this.label33);
+            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label30);
+            this.pollingOverridesGroupBox.Controls.Add(this.label31);
+            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingFrequencySliding);
+            this.pollingOverridesGroupBox.Controls.Add(this.onlyAllowUpdateOncePerXSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label28);
+            this.pollingOverridesGroupBox.Controls.Add(this.label29);
+            this.pollingOverridesGroupBox.Controls.Add(this.label27);
+            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(7, 68);
+            this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
+            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(561, 136);
+            this.pollingOverridesGroupBox.TabIndex = 1;
+            this.pollingOverridesGroupBox.TabStop = false;
+            // 
+            // chkEnablePollingOverride
+            // 
+            this.chkEnablePollingOverride.AutoSize = true;
+            this.chkEnablePollingOverride.Location = new System.Drawing.Point(117, -1);
+            this.chkEnablePollingOverride.Name = "chkEnablePollingOverride";
+            this.chkEnablePollingOverride.Size = new System.Drawing.Size(65, 17);
+            this.chkEnablePollingOverride.TabIndex = 1;
+            this.chkEnablePollingOverride.Text = "Enabled";
+            this.chkEnablePollingOverride.UseVisualStyleBackColor = true;
+            this.chkEnablePollingOverride.CheckedChanged += new System.EventHandler(this.chkEnablePollingOverride_CheckedChanged);
+            // 
+            // pollSlideFrequencyAfterThirdRepeatSecNumericUpDown
+            // 
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Location = new System.Drawing.Point(165, 101);
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
+            3603,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterThirdRepeatSecNumericUpDown";
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Size = new System.Drawing.Size(60, 20);
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.TabIndex = 13;
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.ValueChanged += new System.EventHandler(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown_ValueChanged);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(231, 103);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(49, 13);
+            this.label34.TabIndex = 14;
+            this.label34.Text = "Seconds";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(11, 103);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(85, 13);
+            this.label35.TabIndex = 12;
+            this.label35.Text = "After third repeat";
+            // 
+            // pollSlideFrequencyAfterSecondRepeatSecNumericUpDown
+            // 
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Location = new System.Drawing.Point(426, 75);
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
+            3602,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterSecondRepeatSecNumericUpDown";
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Size = new System.Drawing.Size(60, 20);
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.TabIndex = 10;
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.ValueChanged += new System.EventHandler(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown_ValueChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(492, 77);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(49, 13);
+            this.label32.TabIndex = 11;
+            this.label32.Text = "Seconds";
+            // 
+            // label33
+            // 
+            this.label33.Location = new System.Drawing.Point(295, 77);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(125, 13);
+            this.label33.TabIndex = 9;
+            this.label33.Text = "After second repeat";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // pollSlideFrequencyAfterFirstRepeatSecNumericUpDown
+            // 
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Location = new System.Drawing.Point(165, 75);
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
+            3601,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterFirstRepeatSecNumericUpDown";
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Size = new System.Drawing.Size(60, 20);
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.TabIndex = 7;
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.ValueChanged += new System.EventHandler(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown_ValueChanged);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(231, 77);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(49, 13);
+            this.label30.TabIndex = 8;
+            this.label30.Text = "Seconds";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(11, 77);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(133, 13);
+            this.label31.TabIndex = 6;
+            this.label31.Text = "Frequency after first repeat";
+            // 
+            // chkEnablePollingFrequencySliding
+            // 
+            this.chkEnablePollingFrequencySliding.AutoSize = true;
+            this.chkEnablePollingFrequencySliding.Location = new System.Drawing.Point(14, 53);
+            this.chkEnablePollingFrequencySliding.Name = "chkEnablePollingFrequencySliding";
+            this.chkEnablePollingFrequencySliding.Size = new System.Drawing.Size(370, 17);
+            this.chkEnablePollingFrequencySliding.TabIndex = 5;
+            this.chkEnablePollingFrequencySliding.Text = "Enable frequency sliding - (Frequency decrease if state does not change)";
+            this.chkEnablePollingFrequencySliding.UseVisualStyleBackColor = true;
+            this.chkEnablePollingFrequencySliding.CheckedChanged += new System.EventHandler(this.chkEnablePollingFrequencySliding_CheckedChanged);
+            // 
+            // onlyAllowUpdateOncePerXSecNumericUpDown
+            // 
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(165, 25);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Name = "onlyAllowUpdateOncePerXSecNumericUpDown";
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Size = new System.Drawing.Size(60, 20);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.TabIndex = 3;
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.ValueChanged += new System.EventHandler(this.onlyAllowUpdateOncePerXSecNumericUpDown_ValueChanged);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(231, 27);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(49, 13);
+            this.label28.TabIndex = 4;
+            this.label28.Text = "Seconds";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(11, 27);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(120, 13);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "Only update once every";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(6, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(101, 13);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Polling overrides";
+            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -444,10 +661,10 @@
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.linkLabelServiceWindows);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(6, 68);
+            this.groupBox3.Location = new System.Drawing.Point(7, 291);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(560, 54);
-            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             // 
             // label16
@@ -488,7 +705,7 @@
             this.groupBox2.Controls.Add(this.txtRemoteAgentServer);
             this.groupBox2.Controls.Add(this.cmdRemoteAgentTest);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(7, 128);
+            this.groupBox2.Location = new System.Drawing.Point(7, 210);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(561, 75);
             this.groupBox2.TabIndex = 2;
@@ -500,7 +717,7 @@
             this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(177, 23);
             this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
             this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
-            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 3;
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
             this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
             this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
             this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -513,7 +730,7 @@
             this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 1;
+            this.llblRemoteAgentInstallHelp.TabIndex = 0;
             this.llblRemoteAgentInstallHelp.TabStop = true;
             this.llblRemoteAgentInstallHelp.Text = "Install help";
             this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
@@ -523,7 +740,7 @@
             this.label17.AutoSize = true;
             this.label17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(8, 1);
+            this.label17.Location = new System.Drawing.Point(6, 1);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(86, 13);
             this.label17.TabIndex = 0;
@@ -535,7 +752,7 @@
             this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(25, 23);
             this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
             this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
-            this.chkRemoteAgentEnabled.TabIndex = 2;
+            this.chkRemoteAgentEnabled.TabIndex = 1;
             this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
             this.chkRemoteAgentEnabled.UseVisualStyleBackColor = true;
             this.chkRemoteAgentEnabled.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -557,7 +774,7 @@
             0});
             this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
-            this.remoteportNumericUpDown.TabIndex = 7;
+            this.remoteportNumericUpDown.TabIndex = 6;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
             8181,
             0,
@@ -570,7 +787,7 @@
             this.label13.Location = new System.Drawing.Point(15, 51);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 13);
-            this.label13.TabIndex = 4;
+            this.label13.TabIndex = 3;
             this.label13.Text = "Remote server name";
             // 
             // label14
@@ -580,7 +797,7 @@
             this.label14.Location = new System.Drawing.Point(340, 51);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
-            this.label14.TabIndex = 6;
+            this.label14.TabIndex = 5;
             this.label14.Text = "Port";
             // 
             // txtRemoteAgentServer
@@ -593,7 +810,7 @@
             this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 48);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
             this.txtRemoteAgentServer.Size = new System.Drawing.Size(196, 20);
-            this.txtRemoteAgentServer.TabIndex = 5;
+            this.txtRemoteAgentServer.TabIndex = 4;
             this.txtRemoteAgentServer.Leave += new System.EventHandler(this.txtRemoteAgentServer_Leave);
             // 
             // cmdRemoteAgentTest
@@ -604,7 +821,7 @@
             this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 46);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
-            this.cmdRemoteAgentTest.TabIndex = 8;
+            this.cmdRemoteAgentTest.TabIndex = 7;
             this.cmdRemoteAgentTest.Text = "Test";
             this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
             this.cmdRemoteAgentTest.Click += new System.EventHandler(this.cmdRemoteAgentTest_Click);
@@ -645,7 +862,7 @@
             this.cboParentCollector.Location = new System.Drawing.Point(108, 19);
             this.cboParentCollector.Name = "cboParentCollector";
             this.cboParentCollector.Size = new System.Drawing.Size(447, 21);
-            this.cboParentCollector.TabIndex = 2;
+            this.cboParentCollector.TabIndex = 3;
             // 
             // chkCollectOnParentWarning
             // 
@@ -654,7 +871,7 @@
             this.chkCollectOnParentWarning.Location = new System.Drawing.Point(109, -1);
             this.chkCollectOnParentWarning.Name = "chkCollectOnParentWarning";
             this.chkCollectOnParentWarning.Size = new System.Drawing.Size(270, 17);
-            this.chkCollectOnParentWarning.TabIndex = 3;
+            this.chkCollectOnParentWarning.TabIndex = 1;
             this.chkCollectOnParentWarning.Text = "Continue checking dependant collectors on warning";
             this.chkCollectOnParentWarning.UseVisualStyleBackColor = true;
             // 
@@ -664,7 +881,7 @@
             this.label2.Location = new System.Drawing.Point(7, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Parent collector";
             // 
             // alertsTabPage
@@ -695,9 +912,9 @@
             this.correctiveScriptsGroupBox.Controls.Add(this.txtCorrectiveScriptOnWarning);
             this.correctiveScriptsGroupBox.Controls.Add(this.txtCorrectiveScriptOnError);
             this.correctiveScriptsGroupBox.Controls.Add(this.label12);
-            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(10, 117);
+            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(7, 117);
             this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
-            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(557, 138);
+            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(560, 138);
             this.correctiveScriptsGroupBox.TabIndex = 1;
             this.correctiveScriptsGroupBox.TabStop = false;
             // 
@@ -715,7 +932,7 @@
             // 
             this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(517, 108);
+            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(520, 108);
             this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
             this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
             this.cmdBrowseForRestorationScript.TabIndex = 11;
@@ -731,7 +948,7 @@
             this.txtRestorationScript.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtRestorationScript.Location = new System.Drawing.Point(134, 110);
             this.txtRestorationScript.Name = "txtRestorationScript";
-            this.txtRestorationScript.Size = new System.Drawing.Size(378, 20);
+            this.txtRestorationScript.Size = new System.Drawing.Size(381, 20);
             this.txtRestorationScript.TabIndex = 10;
             this.toolTip1.SetToolTip(this.txtRestorationScript, "Only runs once when state change from Warning/Error to Good");
             // 
@@ -759,7 +976,7 @@
             // 
             this.cmdBrowseForWarningCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(517, 31);
+            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(520, 31);
             this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
             this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
             this.cmdBrowseForWarningCorrectiveScript.TabIndex = 4;
@@ -791,7 +1008,7 @@
             // 
             this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(517, 57);
+            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(520, 57);
             this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
             this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
             this.cmdBrowseForErrorCorrectiveScript.TabIndex = 7;
@@ -807,7 +1024,7 @@
             this.txtCorrectiveScriptOnWarning.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 33);
             this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
-            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(378, 20);
+            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(381, 20);
             this.txtCorrectiveScriptOnWarning.TabIndex = 3;
             this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnWarning, "Corrective script that runs every time a state of \'Warning\' is returned.\r\n");
             // 
@@ -819,7 +1036,7 @@
             this.txtCorrectiveScriptOnError.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 59);
             this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
-            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(378, 20);
+            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(381, 20);
             this.txtCorrectiveScriptOnError.TabIndex = 6;
             this.toolTip1.SetToolTip(this.txtCorrectiveScriptOnError, "Corrective script that runs every time a state of \'Error\' is returned.\r\n");
             // 
@@ -855,9 +1072,9 @@
             this.alertSuppressionGroupBox.Controls.Add(this.label11);
             this.alertSuppressionGroupBox.Controls.Add(this.label9);
             this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXMinNumericUpDown);
-            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(10, 9);
+            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(7, 9);
             this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
-            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(557, 100);
+            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(560, 100);
             this.alertSuppressionGroupBox.TabIndex = 0;
             this.alertSuppressionGroupBox.TabStop = false;
             // 
@@ -1068,7 +1285,7 @@
             this.tvwEntries.Location = new System.Drawing.Point(0, 160);
             this.tvwEntries.Name = "tvwEntries";
             this.tvwEntries.SelectedImageIndex = 0;
-            this.tvwEntries.Size = new System.Drawing.Size(568, 169);
+            this.tvwEntries.Size = new System.Drawing.Size(568, 144);
             this.tvwEntries.TabIndex = 2;
             this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
             this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
@@ -1107,280 +1324,6 @@
             this.triggerColumnHeader.Text = "Alert triggers";
             this.triggerColumnHeader.Width = 249;
             // 
-            // pollingOverridesGroupBox
-            // 
-            this.pollingOverridesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown4);
-            this.pollingOverridesGroupBox.Controls.Add(this.label36);
-            this.pollingOverridesGroupBox.Controls.Add(this.label37);
-            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
-            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown3);
-            this.pollingOverridesGroupBox.Controls.Add(this.label34);
-            this.pollingOverridesGroupBox.Controls.Add(this.label35);
-            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown2);
-            this.pollingOverridesGroupBox.Controls.Add(this.label32);
-            this.pollingOverridesGroupBox.Controls.Add(this.label33);
-            this.pollingOverridesGroupBox.Controls.Add(this.numericUpDown1);
-            this.pollingOverridesGroupBox.Controls.Add(this.label30);
-            this.pollingOverridesGroupBox.Controls.Add(this.label31);
-            this.pollingOverridesGroupBox.Controls.Add(this.checkBox1);
-            this.pollingOverridesGroupBox.Controls.Add(this.checkBox2);
-            this.pollingOverridesGroupBox.Controls.Add(this.onlyAllowUpdateOncePerXSecNumericUpDown);
-            this.pollingOverridesGroupBox.Controls.Add(this.label28);
-            this.pollingOverridesGroupBox.Controls.Add(this.label29);
-            this.pollingOverridesGroupBox.Controls.Add(this.label27);
-            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(7, 209);
-            this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
-            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(561, 147);
-            this.pollingOverridesGroupBox.TabIndex = 3;
-            this.pollingOverridesGroupBox.TabStop = false;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(6, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(101, 13);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Polling overrides";
-            // 
-            // chkEnablePollingOverride
-            // 
-            this.chkEnablePollingOverride.AutoSize = true;
-            this.chkEnablePollingOverride.Location = new System.Drawing.Point(117, -1);
-            this.chkEnablePollingOverride.Name = "chkEnablePollingOverride";
-            this.chkEnablePollingOverride.Size = new System.Drawing.Size(65, 17);
-            this.chkEnablePollingOverride.TabIndex = 1;
-            this.chkEnablePollingOverride.Text = "Enabled";
-            this.chkEnablePollingOverride.UseVisualStyleBackColor = true;
-            // 
-            // onlyAllowUpdateOncePerXSecNumericUpDown
-            // 
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(177, 25);
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Name = "onlyAllowUpdateOncePerXSecNumericUpDown";
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Size = new System.Drawing.Size(65, 20);
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.TabIndex = 5;
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(248, 27);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(49, 13);
-            this.label28.TabIndex = 6;
-            this.label28.Text = "Seconds";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(11, 27);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(109, 13);
-            this.label29.TabIndex = 4;
-            this.label29.Text = "Only update once per";
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.checkBox2.Location = new System.Drawing.Point(351, -2);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(186, 17);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.Text = "Continue checking child collectors";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(191, -1);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(149, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Frequency sliding enabled";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(177, 51);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown1.TabIndex = 11;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(248, 53);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(49, 13);
-            this.label30.TabIndex = 12;
-            this.label30.Text = "Seconds";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(11, 53);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(124, 13);
-            this.label31.TabIndex = 10;
-            this.label31.Text = "Poll slide after first repeat";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(177, 77);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown2.TabIndex = 14;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(248, 79);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(49, 13);
-            this.label32.TabIndex = 15;
-            this.label32.Text = "Seconds";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(11, 79);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(143, 13);
-            this.label33.TabIndex = 13;
-            this.label33.Text = "Poll slide after second repeat";
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(177, 103);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown3.TabIndex = 17;
-            this.numericUpDown3.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(248, 105);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(49, 13);
-            this.label34.TabIndex = 18;
-            this.label34.Text = "Seconds";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(11, 105);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(128, 13);
-            this.label35.TabIndex = 16;
-            this.label35.Text = "Poll slide after third repeat";
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(426, 25);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown4.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.numericUpDown4, "Even if a previous instance is still updating a new state check must be started");
-            this.numericUpDown4.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(497, 27);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(49, 13);
-            this.label36.TabIndex = 9;
-            this.label36.Text = "Seconds";
-            // 
-            // label37
-            // 
-            this.label37.Location = new System.Drawing.Point(325, 27);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(95, 13);
-            this.label37.TabIndex = 7;
-            this.label37.Text = "Must update in";
-            this.label37.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1414,6 +1357,12 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.pollingOverridesGroupBox.ResumeLayout(false);
+            this.pollingOverridesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1432,13 +1381,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
-            this.pollingOverridesGroupBox.ResumeLayout(false);
-            this.pollingOverridesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1535,19 +1477,15 @@
         private System.Windows.Forms.NumericUpDown onlyAllowUpdateOncePerXSecNumericUpDown;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.CheckBox chkEnablePollingFrequencySliding;
+        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterThirdRepeatSecNumericUpDown;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterSecondRepeatSecNumericUpDown;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterFirstRepeatSecNumericUpDown;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label37;
     }
 }

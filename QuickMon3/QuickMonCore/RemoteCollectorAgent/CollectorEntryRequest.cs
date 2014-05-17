@@ -66,6 +66,14 @@ namespace QuickMon
                 false, //No child collectors to worry about
                 "", //for Remote Agent there is no further nested Remote host.
                 8181, //for Remote Agent there is no further nested Remote host.
+
+                false, //enabledPollingOverride not used in Remote collectors
+                1, //onlyAllowUpdateOncePerXSec not used in Remote collectors
+                false, //enablePollFrequencySliding not used in Remote collectors
+                0, //pollSlideFrequencyAfterFirstRepeatSec not used in Remote collectors
+                0, //pollSlideFrequencyAfterSecondRepeatSec not used in Remote collectors
+                0, //pollSlideFrequencyAfterThirdRepeatSec not used in Remote collectors
+
                 ConfigString,
                 ""  //No service windows for remote agent
                 );

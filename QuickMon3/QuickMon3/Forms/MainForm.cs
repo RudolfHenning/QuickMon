@@ -106,9 +106,7 @@ namespace QuickMon
             tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
             adminModeToolStripStatusLabel.Visible = HenIT.Security.AdminModeTools.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !HenIT.Security.AdminModeTools.IsInAdminMode();
-        }
-
-        
+        }        
         private void MainForm_Resize(object sender, EventArgs e)
         {
             //mainToolStrip.Left = (this.ClientSize.Width - mainToolStrip.Width) / 2;
@@ -158,7 +156,7 @@ namespace QuickMon
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
-                RefreshMonitorPack();
+                RefreshMonitorPack(true);
             }
             else if (e.Control && e.KeyCode == Keys.O)
             {
@@ -244,7 +242,7 @@ namespace QuickMon
         private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            RefreshMonitorPack();
+            RefreshMonitorPack(true);
         }
         private void showDefaultNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -479,43 +477,8 @@ namespace QuickMon
         }
         #endregion
 
-        #region Timer events
-        private void mainRefreshTimer_Tick(object sender, EventArgs e)
-        {
-            RefreshMonitorPack();
-            //DateTime waitTimeout = DateTime.Now;
-            //while (autoRefrshBackgroundWorker.IsBusy && waitTimeout.AddSeconds(5) > DateTime.Now)
-            //{
-            //    Application.DoEvents();
-            //}
-            //autoRefrshBackgroundWorker.RunWorkerAsync();
-        }
-        #endregion
-
         #region Private methods
-        private void RefreshMonitorPack()
-        {
-            bool timerEnabled = mainRefreshTimer.Enabled;
-            DateTime abortStart = DateTime.Now;
-            try
-            {
-                mainRefreshTimer.Enabled = false; //temporary stops it.
-                while (refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
-                {
-                    Application.DoEvents();
-                }
-                if (!refreshBackgroundWorker.IsBusy)
-                {
-                    Cursor.Current = Cursors.WaitCursor;
-                    refreshBackgroundWorker.RunWorkerAsync();
-                }
-            }
-            catch { }
-            finally
-            {
-                mainRefreshTimer.Enabled = timerEnabled;
-            }
-        }
+
         private void SetAppIcon(CollectorState state)
         {
             refreshCycleCounter++;
@@ -1765,9 +1728,42 @@ namespace QuickMon
         }
         #endregion
 
+        #region Timer events
+        private void mainRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshMonitorPack();
+        }
+        #endregion
+
         #region Refreshing
+        private void RefreshMonitorPack(bool disablePollingOverride = false)
+        {
+            bool timerEnabled = mainRefreshTimer.Enabled;
+            DateTime abortStart = DateTime.Now;
+            try
+            {
+                mainRefreshTimer.Enabled = false; //temporary stops it.
+                while (refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
+                {
+                    Application.DoEvents();
+                }
+                if (!refreshBackgroundWorker.IsBusy)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    refreshBackgroundWorker.RunWorkerAsync(disablePollingOverride);
+                }
+            }
+            catch { }
+            finally
+            {
+                mainRefreshTimer.Enabled = timerEnabled;
+            }
+        }
         private void refreshBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            bool disablePollingOverride = false;
+            if (e.Argument != null && e.Argument is bool)
+                disablePollingOverride = (bool)e.Argument;
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -1804,7 +1800,7 @@ namespace QuickMon
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
                     Cursor.Current = Cursors.WaitCursor;
-                    CollectorState globalState = monitorPack.RefreshStates();
+                    CollectorState globalState = monitorPack.RefreshStates(disablePollingOverride);
                     sw.Stop();
                     Cursor.Current = Cursors.WaitCursor;
                     PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
@@ -1825,9 +1821,7 @@ namespace QuickMon
             {
                 Cursor.Current = Cursors.Default;
             }
-        }
-
-                 
+        }                 
         #endregion
 
         #region Performance counters

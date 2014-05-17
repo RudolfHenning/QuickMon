@@ -469,12 +469,12 @@ namespace QuickMon
         #endregion
 
         #region Refreshing states
-        public CollectorState RefreshStates()
+        public CollectorState RefreshStates(bool disablePollingOverrides = false)
         {
             AbortPolling = false;
             BusyPolling = true;
             CollectorState globalState = CollectorState.Good;
-            foreach(CollectorEntry col in Collectors)
+            foreach (CollectorEntry col in Collectors)
             {
                 col.StateHistorySize = CollectorStateHistorySize;
             }
@@ -496,7 +496,7 @@ namespace QuickMon
                 {
                     MaxDegreeOfParallelism = ConcurrencyLevel
                 };
-                ParallelLoopResult parResult = Parallel.ForEach(noDependantCollectors, po, collector => RefreshCollectorState(collector));
+                ParallelLoopResult parResult = Parallel.ForEach(noDependantCollectors, po, collector => RefreshCollectorState(collector, disablePollingOverrides));
                 if (!parResult.IsCompleted)
                 {
                     SendNotifierAlert(new AlertRaised()
@@ -513,7 +513,7 @@ namespace QuickMon
                 //Refresh states
                 foreach (CollectorEntry collector in noDependantCollectors)
                 {
-                    RefreshCollectorState(collector);
+                    RefreshCollectorState(collector, disablePollingOverrides);
                 }
             }
             sw.Stop();
@@ -562,7 +562,7 @@ namespace QuickMon
             CurrentState = globalState;
             return globalState;
         }
-        private void RefreshCollectorState(CollectorEntry collector)
+        private void RefreshCollectorState(CollectorEntry collector, bool disablePollingOverrides)
         {
             if (!AbortPolling)
             {
@@ -582,7 +582,11 @@ namespace QuickMon
                         ApplyCollectorConfig(collector);
                     }
 
-                    currentState = collector.GetCurrentState().State;
+                    if (disablePollingOverrides)
+                        currentState = collector.GetCurrentState(true).State;
+                    else
+                        currentState = collector.GetCurrentState().State;
+
                     if (currentState == CollectorState.Good ||
                         currentState == CollectorState.Warning ||
                         currentState == CollectorState.Error)
@@ -733,7 +737,7 @@ namespace QuickMon
                             };
                             ParallelLoopResult parResult = Parallel.ForEach((from c in Collectors
                                                                              where c.ParentCollectorId == collector.UniqueId
-                                                                             select c), po, childCollector => RefreshCollectorState(childCollector));
+                                                                             select c), po, childCollector => RefreshCollectorState(childCollector, disablePollingOverrides));
                             if (!parResult.IsCompleted)
                             {
                                 SendNotifierAlert(new AlertRaised()
@@ -751,7 +755,7 @@ namespace QuickMon
                                                                        where c.ParentCollectorId == collector.UniqueId
                                                                        select c))
                             {
-                                RefreshCollectorState(childCollector);
+                                RefreshCollectorState(childCollector, disablePollingOverrides);
                             }
                         }
                     }
@@ -765,7 +769,7 @@ namespace QuickMon
                 }
                 #endregion
             }
-        }
+        } 
 
         private void SetChildCollectorRemoteExecuteDetails(CollectorEntry collector, string remoteAgentHostAddress, int remoteAgentHostPort)
         {
@@ -782,8 +786,6 @@ namespace QuickMon
                 SetChildCollectorRemoteExecuteDetails(childCollector, remoteAgentHostAddress, remoteAgentHostPort);
             }
         }
-
-        
         private void SetChildCollectorStates(CollectorEntry collector, CollectorState childState)
         {
             try
