@@ -22,8 +22,10 @@ namespace QuickMon
         private void CollectorStats_Load(object sender, EventArgs e)
         {
             RefreshCollectorStats();
-            lvwProperties.AutoResizeColumnEnabled = true;
             lvwProperties.AutoResizeColumnIndex = 1;
+            lvwProperties.AutoResizeColumnEnabled = true;
+            lvwHistory.AutoResizeColumnIndex = 1;
+            lvwHistory.AutoResizeColumnEnabled = true;
             splitContainer1.Panel2Collapsed = true;
         }
 
@@ -40,8 +42,10 @@ namespace QuickMon
             try
             {
                 lvwProperties.Items.Clear();
+                lvwHistory.Items.Clear();
                 lvwProperties.Groups.Clear();
                 lvwProperties.BeginUpdate();
+                lvwHistory.BeginUpdate();
                 if (SelectedEntry != null)
                 {
                     this.Text = "Collector statistics - " + SelectedEntry.Name;
@@ -115,6 +119,46 @@ namespace QuickMon
                     lvi.SubItems.Add(SelectedEntry.RefreshCount.ToString());
                     lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
+                    
+                    lvi = new ListViewItem("Polling override enabled");
+                    lvi.SubItems.Add(SelectedEntry.EnabledPollingOverride ? "Yes" : "No");
+                    lvi.Group = lvgPolling;
+                    lvwProperties.Items.Add(lvi);
+
+                    if (SelectedEntry.EnabledPollingOverride)
+                    {
+                        lvi = new ListViewItem("Poll frequency sliding enabled");
+                        lvi.SubItems.Add(SelectedEntry.EnablePollFrequencySliding ? "Yes" : "No");
+                        lvi.Group = lvgPolling;
+                        lvwProperties.Items.Add(lvi);
+
+                        lvi = new ListViewItem("Current poll frequency (Sec)");
+                        if (SelectedEntry.EnablePollFrequencySliding)
+                        {
+                            if (SelectedEntry.StagnantStateThirdRepeat)
+                            {
+                                lvi.SubItems.Add(SelectedEntry.PollSlideFrequencyAfterThirdRepeatSec.ToString());
+                            }
+                            else if (SelectedEntry.StagnantStateSecondRepeat)
+                            {
+                                lvi.SubItems.Add(SelectedEntry.PollSlideFrequencyAfterSecondRepeatSec.ToString());
+                            }
+                            else if (SelectedEntry.StagnantStateFirstRepeat)
+                            {
+                                lvi.SubItems.Add(SelectedEntry.PollSlideFrequencyAfterFirstRepeatSec.ToString());
+                            }
+                            else
+                                lvi.SubItems.Add(SelectedEntry.OnlyAllowUpdateOncePerXSec.ToString());
+                        }
+                        else
+                        {
+                            lvi.SubItems.Add(SelectedEntry.OnlyAllowUpdateOncePerXSec.ToString());
+                        }
+
+                        lvi.Group = lvgPolling;
+                        lvwProperties.Items.Add(lvi);
+                    }
+                    
 
                     lvi = new ListViewItem("First polled time");
                     lvi.SubItems.Add(FormatDate(SelectedEntry.FirstStateUpdate));
@@ -198,16 +242,26 @@ namespace QuickMon
                     lvi.Group = lvgPolling;
                     lvwProperties.Items.Add(lvi);
 
-                    ListViewGroup lvgHistory = new ListViewGroup("History");
-                    lvwProperties.Groups.Add(lvgHistory);
+                    //ListViewGroup lvgHistory = new ListViewGroup("History");
+                    //lvwProperties.Groups.Add(lvgHistory);
                     foreach (var historyItem in (from h in SelectedEntry.StateHistory
                                                  orderby h.LastStateChangeTime descending
                                                  select h))
                     {
                         lvi = new ListViewItem(FormatDate(historyItem.LastStateChangeTime) + " State: " + historyItem.State.ToString());
                         lvi.SubItems.Add("Details: " + historyItem.RawDetails);
-                        lvi.Group = lvgHistory;
-                        lvwProperties.Items.Add(lvi);
+                        if (historyItem.State == CollectorState.Folder)
+                            lvi.ImageIndex = 0;
+                        else if (historyItem.State == CollectorState.Good)
+                            lvi.ImageIndex = 2;
+                        else if (historyItem.State == CollectorState.Warning)
+                            lvi.ImageIndex = 3;
+                        else if (historyItem.State == CollectorState.Error)
+                            lvi.ImageIndex = 4;
+                        else 
+                            lvi.ImageIndex = 1;
+                        //lvi.Group = lvgHistory;
+                        lvwHistory.Items.Add(lvi);
                     }
                     
                 }
@@ -219,6 +273,7 @@ namespace QuickMon
             finally
             {
                 lvwProperties.EndUpdate();
+                lvwHistory.EndUpdate();
             }
         }
 
@@ -227,17 +282,21 @@ namespace QuickMon
             try
             {
                 RTFBuilder rtfBuilder = new RTFBuilder();
-                if (lvwProperties.SelectedItems.Count > 0)
+                ListViewEx currentListView;
+                if (tabControl1.SelectedIndex == 0)
+                    currentListView = lvwProperties;
+                else
+                    currentListView = lvwHistory;
+                if (currentListView.SelectedItems.Count > 0)
                 {
                     int maxlen = 35;
-                    foreach (ListViewItem lvi in lvwProperties.Items)
+                    foreach (ListViewItem lvi in currentListView.Items)
                     {
                         if (lvi.Text.Length + 2 > maxlen)
                             maxlen = lvi.Text.Length + 2;
                     }
 
-
-                    foreach (ListViewItem lvi in lvwProperties.SelectedItems)
+                    foreach (ListViewItem lvi in currentListView.SelectedItems)
                     {
                         rtfBuilder.FontStyle(FontStyle.Bold).Append((lvi.Text + ":").PadRight(maxlen));
                         if (lvi.SubItems[1].Text.Contains("\r"))

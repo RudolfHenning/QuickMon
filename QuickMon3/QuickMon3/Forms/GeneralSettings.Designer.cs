@@ -40,6 +40,8 @@
             this.chkDesktopShortcut = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.chkOverridesMonitorPackFrequency = new System.Windows.Forms.CheckBox();
             this.freqSecTrackBar = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -90,7 +92,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 231);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 259);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 4;
@@ -101,7 +103,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 231);
+            this.cmdOK.Location = new System.Drawing.Point(265, 259);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 3;
@@ -169,7 +171,7 @@
             this.groupBox1.Controls.Add(this.chkPinToTaskbar);
             this.groupBox1.Controls.Add(this.chkDesktopShortcut);
             this.groupBox1.Controls.Add(this.chkPinToStartMenu);
-            this.groupBox1.Location = new System.Drawing.Point(12, 170);
+            this.groupBox1.Location = new System.Drawing.Point(12, 190);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(409, 50);
             this.groupBox1.TabIndex = 2;
@@ -180,6 +182,8 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.chkOverridesMonitorPackFrequency);
             this.groupBox2.Controls.Add(this.freqSecTrackBar);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.freqSecNumericUpDown);
@@ -189,10 +193,29 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(12, 70);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 94);
-            this.groupBox2.TabIndex = 1;
+            this.groupBox2.Size = new System.Drawing.Size(409, 114);
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Polling";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 93);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(300, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "If Monitor pack has no frequency specified this setting is used.";
+            // 
+            // chkOverridesMonitorPackFrequency
+            // 
+            this.chkOverridesMonitorPackFrequency.AutoSize = true;
+            this.chkOverridesMonitorPackFrequency.Location = new System.Drawing.Point(144, 0);
+            this.chkOverridesMonitorPackFrequency.Name = "chkOverridesMonitorPackFrequency";
+            this.chkOverridesMonitorPackFrequency.Size = new System.Drawing.Size(197, 17);
+            this.chkOverridesMonitorPackFrequency.TabIndex = 1;
+            this.chkOverridesMonitorPackFrequency.Text = "Overrides frequency in Monitor pack";
+            this.chkOverridesMonitorPackFrequency.UseVisualStyleBackColor = true;
             // 
             // freqSecTrackBar
             // 
@@ -202,7 +225,7 @@
             this.freqSecTrackBar.Maximum = 120;
             this.freqSecTrackBar.Name = "freqSecTrackBar";
             this.freqSecTrackBar.Size = new System.Drawing.Size(384, 45);
-            this.freqSecTrackBar.TabIndex = 5;
+            this.freqSecTrackBar.TabIndex = 6;
             this.freqSecTrackBar.TickFrequency = 5;
             this.freqSecTrackBar.Value = 10;
             this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
@@ -213,7 +236,7 @@
             this.label2.Location = new System.Drawing.Point(150, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 4;
             this.label2.Text = "(sec)";
             // 
             // freqSecNumericUpDown
@@ -231,7 +254,7 @@
             0});
             this.freqSecNumericUpDown.Name = "freqSecNumericUpDown";
             this.freqSecNumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.freqSecNumericUpDown.TabIndex = 2;
+            this.freqSecNumericUpDown.TabIndex = 3;
             this.freqSecNumericUpDown.Value = new decimal(new int[] {
             10,
             0,
@@ -245,7 +268,7 @@
             this.label1.Location = new System.Drawing.Point(11, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 2;
             this.label1.Text = "Frequency";
             // 
             // chkPollingEnabled
@@ -276,7 +299,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 266);
+            this.ClientSize = new System.Drawing.Size(433, 294);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -322,5 +345,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TrackBar freqSecTrackBar;
+        private System.Windows.Forms.CheckBox chkOverridesMonitorPackFrequency;
+        private System.Windows.Forms.Label label4;
     }
 }

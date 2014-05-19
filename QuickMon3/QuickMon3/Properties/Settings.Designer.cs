@@ -140,5 +140,17 @@ namespace QuickMon.Properties {
                 this["KnownRemoteHosts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OverridesMonitorPackFrequency {
+            get {
+                return ((bool)(this["OverridesMonitorPackFrequency"]));
+            }
+            set {
+                this["OverridesMonitorPackFrequency"] = value;
+            }
+        }
     }
 }

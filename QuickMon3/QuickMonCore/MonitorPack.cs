@@ -270,16 +270,15 @@ namespace QuickMon
         public bool RunCorrectiveScripts { get; set; }
         public NotifierEntry DefaultViewerNotifier { get; set; }
         public string MonitorPackPath { get; set; }
-        //private int concurrencyLevel = 1;
         public int ConcurrencyLevel { get; set; }
-        //{
-        //    get { return concurrencyLevel; }
-        //    set { concurrencyLevel = value; }
-        //}
         /// <summary>
         /// Polling frequency for background operations. Measured in milliseconds. Default 1 Second
         /// </summary>
         public int PollingFreq { get; set; }
+        /// <summary>
+        /// Overridding polling frequency as specified in config. If 0 then PollingFreq is used.
+        /// </summary>
+        public int PollingFrequencyOverrideSec { get; set; }
         public bool PreloadCollectorInstances { get; set; }
         #endregion
 
@@ -729,6 +728,17 @@ namespace QuickMon
                             SetChildCollectorRemoteExecuteDetails(collector, "", 8181);
                         }
 
+                        //check if polling overrides apply - if it does then apply to child collectors
+                        if (collector.EnabledPollingOverride)
+                        {
+                            foreach (CollectorEntry childCollector in (from c in Collectors
+                                                                       where c.ParentCollectorId == collector.UniqueId
+                                                                       select c))
+                            {
+                                SetChildCollectorPollingOverrides(collector, childCollector);
+                            }
+                        }
+
                         if (ConcurrencyLevel > 1)
                         {
                             ParallelOptions po = new ParallelOptions()
@@ -768,6 +778,31 @@ namespace QuickMon
                     }
                 }
                 #endregion
+            }
+        }
+
+        private void SetChildCollectorPollingOverrides(CollectorEntry parentCollector, CollectorEntry collector)
+        {
+            if (!collector.EnabledPollingOverride)
+            {
+                collector.OnlyAllowUpdateOncePerXSec = parentCollector.OnlyAllowUpdateOncePerXSec;
+                //to make sure child collector does not miss the poll event
+                collector.LastStateUpdate = parentCollector.LastStateUpdate;
+            }
+            else
+                if (collector.OnlyAllowUpdateOncePerXSec < parentCollector.OnlyAllowUpdateOncePerXSec)
+                {
+                    collector.OnlyAllowUpdateOncePerXSec = parentCollector.OnlyAllowUpdateOncePerXSec;
+                    //to make sure child collector does not miss the poll event
+                    collector.LastStateUpdate = parentCollector.LastStateUpdate;
+                }
+            collector.EnabledPollingOverride = true;
+            
+            foreach (CollectorEntry childCollector in (from c in Collectors
+                                                       where c.ParentCollectorId == collector.UniqueId
+                                                       select c))
+            {
+                SetChildCollectorPollingOverrides(collector, childCollector);
             }
         } 
 
@@ -909,6 +944,8 @@ namespace QuickMon
         public void StartPolling()
         {
             IsPollingEnabled = true;
+            if (PollingFrequencyOverrideSec > 0)
+                PollingFreq = PollingFrequencyOverrideSec * 1000;
             ThreadPool.QueueUserWorkItem(new WaitCallback(BackgroundPolling));
         }
         private void BackgroundPolling(object o)
@@ -1141,6 +1178,11 @@ namespace QuickMon
                 CollectorStateHistorySize = int.Parse(root.ReadXmlElementAttr("collectorStateHistorySize", "1"));
             }
             catch { }
+            try
+            {
+                PollingFrequencyOverrideSec = int.Parse(root.ReadXmlElementAttr("pollingFreqSecOverride", "0"));
+            }
+            catch { }
 
             string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
             RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
@@ -1224,6 +1266,7 @@ namespace QuickMon
                 Name, Enabled, defaultViewerNotifier,
                 RunCorrectiveScripts,
                 CollectorStateHistorySize,
+                PollingFrequencyOverrideSec,
                 GetConfigForCollectors(),
                 GetConfigForNotifiers());
             XmlDocument outputDoc = new XmlDocument();

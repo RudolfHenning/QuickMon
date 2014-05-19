@@ -125,6 +125,7 @@
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label36 = new System.Windows.Forms.Label();
             this.tvwEntries = new QuickMon.TreeViewEx();
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -436,6 +437,7 @@
             // 
             this.pollingOverridesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pollingOverridesGroupBox.Controls.Add(this.label36);
             this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
             this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown);
             this.pollingOverridesGroupBox.Controls.Add(this.label34);
@@ -470,7 +472,7 @@
             // 
             // pollSlideFrequencyAfterThirdRepeatSecNumericUpDown
             // 
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Location = new System.Drawing.Point(165, 101);
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Location = new System.Drawing.Point(155, 101);
             this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
             3603,
             0,
@@ -494,7 +496,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(231, 103);
+            this.label34.Location = new System.Drawing.Point(218, 103);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(49, 13);
             this.label34.TabIndex = 14;
@@ -552,7 +554,7 @@
             // 
             // pollSlideFrequencyAfterFirstRepeatSecNumericUpDown
             // 
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Location = new System.Drawing.Point(165, 75);
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Location = new System.Drawing.Point(155, 75);
             this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
             3601,
             0,
@@ -576,7 +578,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(231, 77);
+            this.label30.Location = new System.Drawing.Point(218, 77);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(49, 13);
             this.label30.TabIndex = 8;
@@ -604,7 +606,7 @@
             // 
             // onlyAllowUpdateOncePerXSecNumericUpDown
             // 
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(165, 25);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(155, 25);
             this.onlyAllowUpdateOncePerXSecNumericUpDown.Maximum = new decimal(new int[] {
             3600,
             0,
@@ -628,7 +630,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(231, 27);
+            this.label28.Location = new System.Drawing.Point(218, 27);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(49, 13);
             this.label28.TabIndex = 4;
@@ -1275,6 +1277,15 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
+            // label36
+            // 
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(271, 28);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(284, 22);
+            this.label36.TabIndex = 15;
+            this.label36.Text = "Child collectors will Inherit setting unless overridden by higher value";
+            // 
             // tvwEntries
             // 
             this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
@@ -1487,5 +1498,6 @@
         private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterFirstRepeatSecNumericUpDown;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label36;
     }
 }

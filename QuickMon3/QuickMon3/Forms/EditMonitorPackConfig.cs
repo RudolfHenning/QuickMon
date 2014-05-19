@@ -18,6 +18,8 @@ namespace QuickMon
 
         public MonitorPack SelectedMonitorPack { get; set; }
 
+        private bool freChanging = false;
+
         private void EditMonitorPackConfig_Load(object sender, EventArgs e)
         {
             if (SelectedMonitorPack == null)
@@ -27,8 +29,8 @@ namespace QuickMon
             chkCorrectiveScripts.Checked = SelectedMonitorPack.RunCorrectiveScripts;
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
             collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
+            SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
             LoadNotifiers();
-
         }
 
         private void LoadNotifiers()
@@ -50,6 +52,7 @@ namespace QuickMon
                 SelectedMonitorPack.RunCorrectiveScripts = chkCorrectiveScripts.Checked;
                 SelectedMonitorPack.Enabled = chkEnabled.Checked;
                 SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
+                SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
                 if (cboDefaultNotifier.SelectedIndex > -1)
                     SelectedMonitorPack.DefaultViewerNotifier = (NotifierEntry)cboDefaultNotifier.SelectedItem;
                 else
@@ -77,6 +80,30 @@ namespace QuickMon
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             CheckOkEnable();
+        }
+
+        private void freqSecNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            SetFrequency((int)freqSecNumericUpDown.Value);
+        }
+
+        private void freqSecTrackBar_Scroll(object sender, EventArgs e)
+        {
+            SetFrequency(freqSecTrackBar.Value);
+        }
+
+        private void SetFrequency(int frequency)
+        {
+            if (!freChanging)
+            {
+                freChanging = true;
+                if (freqSecNumericUpDown.Maximum >= frequency)
+                    freqSecNumericUpDown.Value = frequency;
+                else
+                    freqSecNumericUpDown.Value = 10;
+                freqSecTrackBar.Value = (int)freqSecNumericUpDown.Value;
+                freChanging = false;
+            }
         }
 
 

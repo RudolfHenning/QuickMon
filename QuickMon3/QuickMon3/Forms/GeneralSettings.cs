@@ -29,6 +29,7 @@ namespace QuickMon
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
             chkSnapToDesktop.Checked = Properties.Settings.Default.MainFormSnap;
             chkAutosaveChanges.Checked = Properties.Settings.Default.AutosaveChanges;
+            chkOverridesMonitorPackFrequency.Checked = Properties.Settings.Default.OverridesMonitorPackFrequency;
             chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
             chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
             chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists("QuickMon 3");
@@ -45,6 +46,7 @@ namespace QuickMon
             Properties.Settings.Default.ConcurrencyLevel = (int)concurrencyLevelNnumericUpDown.Value;
             Properties.Settings.Default.MainFormSnap = chkSnapToDesktop.Checked;
             Properties.Settings.Default.AutosaveChanges = chkAutosaveChanges.Checked;
+            Properties.Settings.Default.OverridesMonitorPackFrequency = chkOverridesMonitorPackFrequency.Checked;
             Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();

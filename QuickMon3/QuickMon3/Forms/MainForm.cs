@@ -109,7 +109,7 @@ namespace QuickMon
         }        
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            //mainToolStrip.Left = (this.ClientSize.Width - mainToolStrip.Width) / 2;
+
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -144,7 +144,7 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             tvwCollectors.Focus();
-            mainRefreshTimer.Enabled = true;
+            SetPollingFrequency();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -261,7 +261,7 @@ namespace QuickMon
             bool timerEnabled = mainRefreshTimer.Enabled;
             HideCollectorContextMenu();
             GeneralSettings generalSettings = new GeneralSettings();
-            generalSettings.PollingFrequencySec = mainRefreshTimer.Interval / 1000;
+            generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
             generalSettings.PollingEnabled = timerEnabled;
             mainRefreshTimer.Enabled = false; //temporary stops it.
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -269,14 +269,14 @@ namespace QuickMon
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
-                mainRefreshTimer.Interval = generalSettings.PollingFrequencySec * 1000;
+
+                Properties.Settings.Default.PollFrequencySec = generalSettings.PollingFrequencySec;                
                 timerEnabled = generalSettings.PollingEnabled;                
             }
-            mainRefreshTimer.Enabled = timerEnabled;
+            SetPollingFrequency(timerEnabled);
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             mainRefreshTimer.Enabled = false;
             SetAppIcon(CollectorState.NotAvailable);
             toolStripStatusLabelStatus.Text = "Polling disabled";
@@ -284,22 +284,31 @@ namespace QuickMon
         private void pollingSlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
-            mainRefreshTimer.Interval = 60000;
-            mainRefreshTimer.Enabled = true;
+            Properties.Settings.Default.OverridesMonitorPackFrequency = true;
+            Properties.Settings.Default.PollFrequencySec = 60000;
+            SetPollingFrequency();
+            //mainRefreshTimer.Interval = 60000;
+            //mainRefreshTimer.Enabled = true;
             toolStripStatusLabelStatus.Text = "Polling set to slow";
         }
         private void pollingNormalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
-            mainRefreshTimer.Interval = 30000;
-            mainRefreshTimer.Enabled = true;
+            Properties.Settings.Default.OverridesMonitorPackFrequency = true;
+            Properties.Settings.Default.PollFrequencySec = 30000;
+            SetPollingFrequency();
+            //mainRefreshTimer.Interval = 30000;
+            //mainRefreshTimer.Enabled = true;
             toolStripStatusLabelStatus.Text = "Polling set to normal";
         }
         private void pollingFastToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
-            mainRefreshTimer.Interval = 5000;
-            mainRefreshTimer.Enabled = true;
+            Properties.Settings.Default.OverridesMonitorPackFrequency = true;
+            Properties.Settings.Default.PollFrequencySec = 5000;
+            SetPollingFrequency();
+            //mainRefreshTimer.Interval = 5000;
+            //mainRefreshTimer.Enabled = true;
             toolStripStatusLabelStatus.Text = "Polling set to fast";
         }
         private void customPollingFrequencyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -341,13 +350,16 @@ namespace QuickMon
         #region Label clicks
         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            bool timerEnabled = mainRefreshTimer.Enabled;
+            mainRefreshTimer.Enabled = false; //temporary stops it.
             EditMonitorPackConfig emc = new EditMonitorPackConfig();
             emc.SelectedMonitorPack = monitorPack;
             if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SetMonitorChanged();
-                SetMonitorPackNameDescription();
+                SetMonitorPackNameDescription();                
             }
+            SetPollingFrequency(timerEnabled);
         }
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -478,7 +490,15 @@ namespace QuickMon
         #endregion
 
         #region Private methods
-
+        private void SetPollingFrequency(bool enabledAfterWards = true)
+        {
+            mainRefreshTimer.Enabled = false;
+            if (Properties.Settings.Default.OverridesMonitorPackFrequency || monitorPack == null || monitorPack.PollingFrequencyOverrideSec == 0)
+                mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
+            else
+                mainRefreshTimer.Interval = monitorPack.PollingFrequencyOverrideSec * 1000;
+            mainRefreshTimer.Enabled = enabledAfterWards;
+        }
         private void SetAppIcon(CollectorState state)
         {
             refreshCycleCounter++;
@@ -1270,10 +1290,10 @@ namespace QuickMon
 
                 toolStripStatusLabelStatus.Text = "Shutting down...";
                 Application.DoEvents();
-                if (mainRefreshTimer.Enabled)
-                {
-                    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
-                }
+                //if (mainRefreshTimer.Enabled)
+                //{
+                //    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
+                //}
                 mainRefreshTimer.Enabled = false;
                 CloseAllDetailWindows();
                 if (monitorPack.BusyPolling)

@@ -42,9 +42,6 @@ namespace QuickMon
         private bool waitAlertTimeErrWarnInMinFlagged = false;
         private DateTime delayErrWarnAlertTime = new DateTime(2000, 1, 1);
         private int numberOfPollingsInErrWarn = 0;
-        private bool stagnantStateFirstRepeat = false;
-        private bool stagnantStateSecondRepeat = false;
-        private bool stagnantStateThirdRepeat = false;
         #endregion
 
         #region Properties
@@ -238,6 +235,9 @@ namespace QuickMon
         public int PollSlideFrequencyAfterFirstRepeatSec { get; set; }
         public int PollSlideFrequencyAfterSecondRepeatSec { get; set; }
         public int PollSlideFrequencyAfterThirdRepeatSec { get; set; }
+        public bool StagnantStateFirstRepeat { get; private set; }
+        public bool StagnantStateSecondRepeat { get; private set; }
+        public bool StagnantStateThirdRepeat { get; private set; }
         #endregion
         #endregion
 
@@ -263,36 +263,36 @@ namespace QuickMon
                 if (!Enabled)
                 {
                     CurrentState.State = CollectorState.Disabled;
-                    stagnantStateFirstRepeat = false;
-                    stagnantStateSecondRepeat = false;
-                    stagnantStateThirdRepeat = false;
+                    StagnantStateFirstRepeat = false;
+                    StagnantStateSecondRepeat = false;
+                    StagnantStateThirdRepeat = false;
                 }
                 else if (!ServiceWindows.IsInTimeWindow())
                 {
                     LastMonitorState = CurrentState.Clone();
                     CurrentState.State = CollectorState.Disabled;
-                    stagnantStateFirstRepeat = false;
-                    stagnantStateSecondRepeat = false;
-                    stagnantStateThirdRepeat = false;
+                    StagnantStateFirstRepeat = false;
+                    StagnantStateSecondRepeat = false;
+                    StagnantStateThirdRepeat = false;
                 }
                 else if (IsFolder)
                 {
                     LastMonitorState = CurrentState.Clone();
                     CurrentState.State = CollectorState.Folder;
-                    stagnantStateFirstRepeat = false;
-                    stagnantStateSecondRepeat = false;
-                    stagnantStateThirdRepeat = false;
+                    StagnantStateFirstRepeat = false;
+                    StagnantStateSecondRepeat = false;
+                    StagnantStateThirdRepeat = false;
                 }
-                else if (!disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
+                else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
                 {
                     //Not time yet for update
                 }
-                else if (!disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding && 
+                else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding && 
                     (
-                        (stagnantStateThirdRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec) > DateTime.Now)) ||
-                        (!stagnantStateThirdRepeat && stagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec) > DateTime.Now)) ||
-                        (!stagnantStateThirdRepeat && !stagnantStateSecondRepeat && stagnantStateFirstRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec) > DateTime.Now)) ||
-                        (!stagnantStateFirstRepeat && !stagnantStateThirdRepeat && !stagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
+                        (StagnantStateThirdRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec) > DateTime.Now)) ||
+                        (!StagnantStateThirdRepeat && StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec) > DateTime.Now)) ||
+                        (!StagnantStateThirdRepeat && !StagnantStateSecondRepeat && StagnantStateFirstRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec) > DateTime.Now)) ||
+                        (!StagnantStateFirstRepeat && !StagnantStateThirdRepeat && !StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
                     )
                    )
                 {
@@ -335,24 +335,24 @@ namespace QuickMon
 
                     if (LastMonitorState.State != CurrentState.State)
                     {
-                        stagnantStateFirstRepeat = false;
-                        stagnantStateSecondRepeat = false;
-                        stagnantStateThirdRepeat = false;
+                        StagnantStateFirstRepeat = false;
+                        StagnantStateSecondRepeat = false;
+                        StagnantStateThirdRepeat = false;
                     }
-                    else if (!stagnantStateFirstRepeat)
+                    else if (!StagnantStateFirstRepeat)
                     {
-                        stagnantStateFirstRepeat = true;
-                        stagnantStateSecondRepeat = false;
-                        stagnantStateThirdRepeat = false;
+                        StagnantStateFirstRepeat = true;
+                        StagnantStateSecondRepeat = false;
+                        StagnantStateThirdRepeat = false;
                     }
-                    else if (!stagnantStateSecondRepeat)
+                    else if (!StagnantStateSecondRepeat)
                     {
-                        stagnantStateSecondRepeat = true;
-                        stagnantStateThirdRepeat = false;
+                        StagnantStateSecondRepeat = true;
+                        StagnantStateThirdRepeat = false;
                     }
-                    else if (!stagnantStateThirdRepeat)
+                    else if (!StagnantStateThirdRepeat)
                     {
-                        stagnantStateThirdRepeat = true;
+                        StagnantStateThirdRepeat = true;
                     }
 
                     //Updating stats
