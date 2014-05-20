@@ -12,6 +12,8 @@ namespace QuickMon.Collectors
         public string DirectoryPath { get; set; }
         public string FileFilter { get; set; }
         public bool DirectoryExistOnly { get; set; }
+        public bool FilesExistOnly { get; set; }
+        public bool ErrorOnFilesExist { get; set; }
         /// <summary>
         /// File max age in seconds
         /// </summary>
@@ -71,6 +73,10 @@ namespace QuickMon.Collectors
                 string filterSummary = "";
                 if (DirectoryExistOnly)
                     filterSummary = "Dir existance";
+                else if (ErrorOnFilesExist)
+                    filterSummary = "Err if file(s) exist";
+                else if (FilesExistOnly)
+                    filterSummary = "File(s) existance";
                 else
                 {
                     if (CountWarningIndicator > 0 || CountErrorIndicator > 0)
@@ -95,6 +101,10 @@ namespace QuickMon.Collectors
             {
                 directory = path.Substring(0, path.LastIndexOf('\\')).Trim();
             }
+            else
+            {
+                directory = Path.GetDirectoryName(path);
+            }
             return directory;
         }
         public static string GetFilterFromPath(string path)
@@ -103,6 +113,10 @@ namespace QuickMon.Collectors
             if (path.Contains("*"))
             {
                 filter = path.Substring(path.LastIndexOf('\\') + 1).Trim();
+            }
+            else
+            {
+                filter = Path.GetFileName(path);
             }
             return filter;
         }
@@ -159,16 +173,23 @@ namespace QuickMon.Collectors
             {
                 returnState = CollectorState.Error;
                 LastErrorMsg = string.Format("Directory '{0}' not found or not accessible!", DirectoryPath);
-
             }
             else if (DirectoryExistOnly)
             {
                 returnState = CollectorState.Good;
-            }
+            }            
             else if (fileInfo.FileCount == -1)
             {
                 returnState = CollectorState.Error;
                 LastErrorMsg = string.Format("An error occured while accessing '{0}'\r\n\t{1}", FilterFullPath, LastErrorMsg);
+            }
+            else if (ErrorOnFilesExist)
+            {
+                returnState = fileInfo.FileCount > 0 ? CollectorState.Error : CollectorState.Good;
+            }
+            else if (FilesExistOnly)
+            {
+                returnState = fileInfo.FileCount > 0 ? CollectorState.Good : CollectorState.Error;
             }
             else
             {
@@ -195,7 +216,5 @@ namespace QuickMon.Collectors
             }
             return returnState;
         }
-
-
     }
 }

@@ -107,6 +107,24 @@ namespace QuickMon
                     lvi.Group = lvgPrevious;
                     lvwProperties.Items.Add(lvi);
 
+                    ListViewGroup lvgRemoteHost = new ListViewGroup("Remote agent host");
+                    lvwProperties.Groups.Add(lvgRemoteHost);
+                    lvi = new ListViewItem("Remote agent host enabled");
+                    if (SelectedEntry.EnableRemoteExecute || SelectedEntry.ForceRemoteExcuteOnChildCollectors || SelectedEntry.OverrideRemoteAgentHost)
+                        lvi.SubItems.Add("Yes");
+                    else
+                        lvi.SubItems.Add("No");
+                    lvi.Group = lvgRemoteHost;
+                    lvwProperties.Items.Add(lvi);
+
+                    if (SelectedEntry.EnableRemoteExecute || SelectedEntry.ForceRemoteExcuteOnChildCollectors || SelectedEntry.OverrideRemoteAgentHost)
+                    {
+                        lvi = new ListViewItem("Remote agent host");
+                        lvi.SubItems.Add(SelectedEntry.ToRemoteHostName());
+                        lvi.Group = lvgRemoteHost;
+                        lvwProperties.Items.Add(lvi);
+                    }
+
                     ListViewGroup lvgPolling = new ListViewGroup("Polling details");
                     lvwProperties.Groups.Add(lvgPolling);
 

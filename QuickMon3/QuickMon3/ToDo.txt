@@ -1,7 +1,6 @@
 ﻿CHANGES (considdered possible for next release)
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
-Alert settings of Collector entry on separate tab
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -9,13 +8,6 @@ BIG CHANGES (somewhere in future)
 Detail views can/must use remote host dataset as source 
   Will require interface changes (new method on all collectors to return something like DataSet)
   Also new interface on WCF interface
-
-(B)
-Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
-  Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
-  When refreshing from UI client this setting gets override (so every refresh execute agent)??
-  ((Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)))
-Dynamic repolling (sliding scale). If warning/error state is returned the polling frequencyfor the resource must get slower (to avoid monitor to death scenario)
 
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Future advancement - Allow corrective scrpts to run on remote hosts
@@ -86,8 +78,19 @@ v3.10
 BUG: Event log collector trigger error when 'is out of bounds' is thrown - but collector trigger was not found.
 Collector stats windows not dialog - so you can launch multiples... like detail view
 Collector stats must show more than current and previous. Have a history 'size' setting in the UI app that sets a run-time setting for each Collector Entry to keep history.
+
 v3.10a
 Fixed KnownHostList bug on CollectorEdit window.
 
+v3.11
+Added FilesExistOnly and ErrorOnFilesExist properties to File system collector
+Monitor pack has overriding polling frequency
+Add setting per collector entry level to specify that it should only 'refresh' with X seconds no matter the main polling frequency (obviously must be larger than polling frequency)
+  Default is 'Unspecified' which means it will get refreshed every time main process do a heart-beat (polling).
+  When refreshing from UI client this setting gets override (so every refresh execute agent)??
+  ((Also add a way for a collector to overwrite/supress the polling frequency. Something like only allow state update every X seconds (or return previous state if polled earlier.)))
+  Dynamic repolling (sliding scale). If warning/error state is returned the polling frequencyfor the resource must get slower (to avoid monitor to death scenario)
+Edit Collector config: Alert settings on separate tab
+Collector history on separate tab in stats
 -------------------------------------------------------------------------------------------------------
 

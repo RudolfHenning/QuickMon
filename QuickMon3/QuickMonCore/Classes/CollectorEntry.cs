@@ -703,6 +703,15 @@ namespace QuickMon
         {
             return string.Format("{0} ({1})", Name, CollectorRegistrationName);
         }
+        public string ToRemoteHostName()
+        {
+            if (EnableRemoteExecute)
+                return string.Format("{0}:{1}", RemoteAgentHostAddress, RemoteAgentHostPort);
+            else if (OverrideRemoteAgentHost)
+                return string.Format("{0}:{1}", OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
+            else
+                return "";
+        }
         /// <summary>
         /// Creates a new copy of the current Collector Entry
         /// </summary>

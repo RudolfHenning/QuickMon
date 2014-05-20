@@ -38,8 +38,10 @@ namespace QuickMon.Collectors
                 selectedEntry = (FileSystemDirectoryFilterEntry)SelectedFilterEntry;
 
             txtDirectory.Text = selectedEntry.DirectoryPath;
-            txtFilter.Text = selectedEntry.FileFilter;
             chkDirectoryExistOnly.Checked = selectedEntry.DirectoryExistOnly;
+            txtFilter.Text = selectedEntry.FileFilter;
+            chkCheckIfFilesExistOnly.Checked = selectedEntry.FilesExistOnly;
+            chkErrorOnFilesExist.Checked = selectedEntry.ErrorOnFilesExist;            
             numericUpDownCountWarningIndicator.Value = selectedEntry.CountWarningIndicator;
             numericUpDownCountErrorIndicator.Value = selectedEntry.CountErrorIndicator;
             numericUpDownSizeWarningIndicator.Value = selectedEntry.SizeKBWarningIndicator;
@@ -62,15 +64,23 @@ namespace QuickMon.Collectors
         private void chkDirectoryExistOnly_CheckedChanged(object sender, EventArgs e)
         {
             txtFilter.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownCountWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownCountErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownSizeWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownSizeErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownFileAgeMin.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownFileAgeMax.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownFileSizeMin.Enabled = !chkDirectoryExistOnly.Checked;
-            numericUpDownFileSizeMax.Enabled = !chkDirectoryExistOnly.Checked;
+            numericUpDownCountWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownCountErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownSizeWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownSizeErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownFileAgeMin.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownFileAgeMax.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownFileSizeMin.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            numericUpDownFileSizeMax.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
+            if (chkCheckIfFilesExistOnly.Checked)
+                chkErrorOnFilesExist.Checked = false;
             CheckOKEnabled();
+        }
+        private void chkErrorOnFilesExist_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkErrorOnFilesExist.Checked)
+                chkCheckIfFilesExistOnly.Checked = false;
+            chkDirectoryExistOnly_CheckedChanged(sender, e);
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -89,11 +99,11 @@ namespace QuickMon.Collectors
             {
                 MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (!chkDirectoryExistOnly.Checked && numericUpDownCountWarningIndicator.Value > numericUpDownCountErrorIndicator.Value)
+            else if (!chkDirectoryExistOnly.Checked && !chkCheckIfFilesExistOnly.Checked && !chkErrorOnFilesExist.Checked && numericUpDownCountWarningIndicator.Value > numericUpDownCountErrorIndicator.Value)
             {
                 MessageBox.Show("Error file count cannot be less than warning file count!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (!chkDirectoryExistOnly.Checked && numericUpDownSizeWarningIndicator.Value > numericUpDownSizeErrorIndicator.Value)
+            else if (!chkDirectoryExistOnly.Checked && !chkCheckIfFilesExistOnly.Checked && !chkErrorOnFilesExist.Checked && numericUpDownSizeWarningIndicator.Value > numericUpDownSizeErrorIndicator.Value)
             {
                 MessageBox.Show("Error file size cannot be less than warning file size!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -110,7 +120,10 @@ namespace QuickMon.Collectors
                 }
 
                 selectedEntry.DirectoryPath = txtDirectory.Text;
+                selectedEntry.DirectoryExistOnly = chkDirectoryExistOnly.Checked;
                 selectedEntry.FileFilter = txtFilter.Text;
+                selectedEntry.FilesExistOnly = chkCheckIfFilesExistOnly.Checked;
+                selectedEntry.ErrorOnFilesExist = chkErrorOnFilesExist.Checked;            
                 selectedEntry.CountWarningIndicator = Convert.ToInt32(numericUpDownCountWarningIndicator.Value);
                 selectedEntry.CountErrorIndicator = Convert.ToInt32(numericUpDownCountErrorIndicator.Value);
                 selectedEntry.SizeKBWarningIndicator = (int)numericUpDownSizeWarningIndicator.Value;
@@ -118,8 +131,7 @@ namespace QuickMon.Collectors
                 selectedEntry.FileMinAgeSec = (int)numericUpDownFileAgeMin.Value;
                 selectedEntry.FileMaxAgeSec = (int)numericUpDownFileAgeMax.Value;
                 selectedEntry.FileMinSizeKB = (int)numericUpDownFileSizeMin.Value;
-                selectedEntry.FileMaxSizeKB = (int)numericUpDownFileSizeMax.Value;
-                selectedEntry.DirectoryExistOnly = chkDirectoryExistOnly.Checked;
+                selectedEntry.FileMaxSizeKB = (int)numericUpDownFileSizeMax.Value;               
 
                 SelectedEntry = selectedEntry;
 
@@ -176,7 +188,7 @@ namespace QuickMon.Collectors
         {
             cmdOK.Enabled = txtDirectory.Text.Length > 0 && System.IO.Directory.Exists(txtDirectory.Text) &&
                     txtFilter.Text.Length > 0 &&
-                    (chkDirectoryExistOnly.Checked ||
+                    (chkDirectoryExistOnly.Checked || chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked ||
                         (numericUpDownCountWarningIndicator.Value > 0 && numericUpDownCountErrorIndicator.Value > 0) ||
                         (numericUpDownSizeWarningIndicator.Value > 0 && numericUpDownSizeErrorIndicator.Value > 0) ||
                         (numericUpDownFileAgeMin.Value > 0 || numericUpDownFileAgeMax.Value > 0) ||
@@ -184,5 +196,7 @@ namespace QuickMon.Collectors
                         );
         }
         #endregion
+
+ 
     }
 }

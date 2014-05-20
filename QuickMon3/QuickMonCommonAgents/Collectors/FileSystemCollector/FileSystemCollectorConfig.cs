@@ -33,6 +33,8 @@ namespace QuickMon.Collectors
                 FileSystemDirectoryFilterEntry directoryFilterEntry = new FileSystemDirectoryFilterEntry();
                 directoryFilterEntry.FilterFullPath = host.Attributes.GetNamedItem("directoryPathFilter").Value;
                 directoryFilterEntry.DirectoryExistOnly = bool.Parse(host.ReadXmlElementAttr("testDirectoryExistOnly", "False"));
+                directoryFilterEntry.FilesExistOnly = bool.Parse(host.ReadXmlElementAttr("testFilesExistOnly", "False"));
+                directoryFilterEntry.ErrorOnFilesExist = bool.Parse(host.ReadXmlElementAttr("errorOnFilesExist", "False"));
 
                 int tmp = 0;
                 if (int.TryParse(host.ReadXmlElementAttr("warningFileCountMax", "0"), out tmp))
@@ -69,6 +71,8 @@ namespace QuickMon.Collectors
 
                 directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("directoryPathFilter", de.FilterFullPath));
                 directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("testDirectoryExistOnly", de.DirectoryExistOnly));
+                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("testFilesExistOnly", de.FilesExistOnly));
+                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("errorOnFilesExist", de.ErrorOnFilesExist));
                 directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("warningFileCountMax", de.CountWarningIndicator));
                 directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("errorFileCountMax", de.CountErrorIndicator));
                 directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("warningFileSizeMaxKB", de.SizeKBWarningIndicator));

@@ -473,10 +473,7 @@ namespace QuickMon
             AbortPolling = false;
             BusyPolling = true;
             CollectorState globalState = CollectorState.Good;
-            foreach (CollectorEntry col in Collectors)
-            {
-                col.StateHistorySize = CollectorStateHistorySize;
-            }
+            ResetAllOverrides();
             Stopwatch sw = new Stopwatch();
             sw.Start();
             //First get collectors with no dependancies
@@ -560,7 +557,7 @@ namespace QuickMon
             BusyPolling = false;
             CurrentState = globalState;
             return globalState;
-        }
+        } 
         private void RefreshCollectorState(CollectorEntry collector, bool disablePollingOverrides)
         {
             if (!AbortPolling)
@@ -722,11 +719,11 @@ namespace QuickMon
                             collector.OverrideForceRemoteExcuteOnChildCollectors = true;
                             SetChildCollectorRemoteExecuteDetails(collector, collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
                         }
-                        else if (!collector.OverrideForceRemoteExcuteOnChildCollectors)
-                        {
-                            collector.OverrideForceRemoteExcuteOnChildCollectors = false;
-                            SetChildCollectorRemoteExecuteDetails(collector, "", 8181);
-                        }
+                        //else if (!collector.OverrideForceRemoteExcuteOnChildCollectors)
+                        //{
+                        //    collector.OverrideForceRemoteExcuteOnChildCollectors = false;
+                        //    SetChildCollectorRemoteExecuteDetails(collector, "", 8181);
+                        //}
 
                         //check if polling overrides apply - if it does then apply to child collectors
                         if (collector.EnabledPollingOverride)
@@ -781,6 +778,29 @@ namespace QuickMon
             }
         }
 
+        #region Recursively set child properties
+        private void ResetAllOverrides(CollectorEntry parentCollector = null)
+        {
+            List<CollectorEntry> collectors = null;
+            if (parentCollector == null)
+                collectors = (from c in Collectors
+                              where c.ParentCollectorId.Length == 0
+                              select c).ToList();
+            else
+                collectors = (from c in Collectors
+                              where c.ParentCollectorId == parentCollector.UniqueId
+                              select c).ToList();
+            foreach (CollectorEntry childCollector in collectors)
+            {
+                childCollector.StateHistorySize = CollectorStateHistorySize;
+                //Remote agent host
+                childCollector.OverrideForceRemoteExcuteOnChildCollectors = false;
+                childCollector.OverrideRemoteAgentHost = false;
+                childCollector.OverrideRemoteAgentHostAddress = "";
+                childCollector.OverrideRemoteAgentHostPort = 8181;
+                ResetAllOverrides(childCollector);
+            }
+        }
         private void SetChildCollectorPollingOverrides(CollectorEntry parentCollector, CollectorEntry collector)
         {
             if (!collector.EnabledPollingOverride)
@@ -797,20 +817,19 @@ namespace QuickMon
                     collector.LastStateUpdate = parentCollector.LastStateUpdate;
                 }
             collector.EnabledPollingOverride = true;
-            
+
             foreach (CollectorEntry childCollector in (from c in Collectors
                                                        where c.ParentCollectorId == collector.UniqueId
                                                        select c))
             {
                 SetChildCollectorPollingOverrides(collector, childCollector);
             }
-        } 
-
+        }
         private void SetChildCollectorRemoteExecuteDetails(CollectorEntry collector, string remoteAgentHostAddress, int remoteAgentHostPort)
         {
-            foreach ( CollectorEntry childCollector in (from c in Collectors
-                               where c.ParentCollectorId == collector.UniqueId
-                               select c))
+            foreach (CollectorEntry childCollector in (from c in Collectors
+                                                       where c.ParentCollectorId == collector.UniqueId
+                                                       select c))
             {
                 childCollector.OverrideForceRemoteExcuteOnChildCollectors = collector.OverrideForceRemoteExcuteOnChildCollectors;
                 childCollector.OverrideRemoteAgentHost = remoteAgentHostAddress.Length > 0;
@@ -839,7 +858,9 @@ namespace QuickMon
                 if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
                     throw;
             }
-        }
+        } 
+        #endregion
+
         private void SendNotifierAlert(AlertRaised alertRaised)
         {
             Stopwatch sw = new Stopwatch();
@@ -863,51 +884,6 @@ namespace QuickMon
             sw.Stop();
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
         }
-        //private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel, string generalMessage)
-        //{
-        //    Stopwatch sw = new Stopwatch();
-        //    sw.Start();
-        //    foreach (NotifierEntry notifierEntry in (from n in Notifiers
-        //                                             where n.Enabled && (int)n.AlertLevel <= (int)alertLevel &&
-        //                                                (detailLevel == DetailLevel.All || detailLevel == n.DetailLevel)
-        //                                             select n))
-        //    {
-        //        try
-        //        {
-        //            PCRaiseNotifiersCalled();
-        //            notifierEntry.Notifier.RecordMessage(alertLevel, generalMessage);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            RaiseRaiseNotifierError(notifierEntry, ex.ToString());
-        //        }
-        //    }
-        //    sw.Stop();
-        //    PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
-        //}
-        //private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel, CollectorEntry collectorEntry)
-        //{
-        //    Stopwatch sw = new Stopwatch();
-        //    sw.Start();
-        //    foreach (NotifierEntry notifierEntry in (from n in Notifiers
-        //                                             where n.Enabled && (int)n.AlertLevel <= (int)alertLevel &&
-        //                                                (detailLevel == DetailLevel.All || detailLevel == n.DetailLevel) &&
-        //                                                (n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(collectorEntry.Name))
-        //                                             select n))
-        //    {
-        //        try
-        //        {
-        //            PCRaiseNotifiersCalled();
-        //            notifierEntry.Notifier.RecordMessage(alertLevel, collectorEntry);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            RaiseRaiseNotifierError(notifierEntry, ex.ToString());
-        //        }
-        //    }
-        //    sw.Stop();
-        //    PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
-        //}
         private void SendNotifierAlert(AlertLevel level, DetailLevel detailLevel, CollectorEntry collectorEntry, MonitorState state)
         {
             SendNotifierAlert(new AlertRaised()

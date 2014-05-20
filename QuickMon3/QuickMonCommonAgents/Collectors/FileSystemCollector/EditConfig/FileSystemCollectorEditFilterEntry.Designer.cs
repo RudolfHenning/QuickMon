@@ -61,6 +61,8 @@
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.txtDirectory = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.chkCheckIfFilesExistOnly = new System.Windows.Forms.CheckBox();
+            this.chkErrorOnFilesExist = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileAgeMax)).BeginInit();
@@ -85,16 +87,16 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(11, 237);
+            this.label15.Location = new System.Drawing.Point(11, 259);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(399, 13);
-            this.label15.TabIndex = 24;
+            this.label15.TabIndex = 26;
             this.label15.Text = "File size - File size in KB must be between min/max to be included. 0 means no li" +
     "mit.";
             // 
             // numericUpDownFileSizeMax
             // 
-            this.numericUpDownFileSizeMax.Location = new System.Drawing.Point(214, 253);
+            this.numericUpDownFileSizeMax.Location = new System.Drawing.Point(214, 275);
             this.numericUpDownFileSizeMax.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -102,21 +104,21 @@
             0});
             this.numericUpDownFileSizeMax.Name = "numericUpDownFileSizeMax";
             this.numericUpDownFileSizeMax.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileSizeMax.TabIndex = 28;
+            this.numericUpDownFileSizeMax.TabIndex = 30;
             this.numericUpDownFileSizeMax.ValueChanged += new System.EventHandler(this.numericUpDownFileSizeMax_ValueChanged);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(159, 255);
+            this.label16.Location = new System.Drawing.Point(159, 277);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 27;
+            this.label16.TabIndex = 29;
             this.label16.Text = "Maximum";
             // 
             // numericUpDownFileSizeMin
             // 
-            this.numericUpDownFileSizeMin.Location = new System.Drawing.Point(66, 253);
+            this.numericUpDownFileSizeMin.Location = new System.Drawing.Point(66, 275);
             this.numericUpDownFileSizeMin.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -124,31 +126,31 @@
             0});
             this.numericUpDownFileSizeMin.Name = "numericUpDownFileSizeMin";
             this.numericUpDownFileSizeMin.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileSizeMin.TabIndex = 26;
+            this.numericUpDownFileSizeMin.TabIndex = 28;
             this.numericUpDownFileSizeMin.ValueChanged += new System.EventHandler(this.numericUpDownFileSizeMin_ValueChanged);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 255);
+            this.label17.Location = new System.Drawing.Point(11, 277);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(48, 13);
-            this.label17.TabIndex = 25;
+            this.label17.TabIndex = 27;
             this.label17.Text = "Minimum";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 187);
+            this.label6.Location = new System.Drawing.Point(11, 209);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(425, 13);
-            this.label6.TabIndex = 19;
+            this.label6.TabIndex = 21;
             this.label6.Text = "File age - File age in seconds must be between min/max to be included. 0 means no" +
     " limit.";
             // 
             // numericUpDownFileAgeMax
             // 
-            this.numericUpDownFileAgeMax.Location = new System.Drawing.Point(214, 203);
+            this.numericUpDownFileAgeMax.Location = new System.Drawing.Point(214, 225);
             this.numericUpDownFileAgeMax.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -156,21 +158,21 @@
             0});
             this.numericUpDownFileAgeMax.Name = "numericUpDownFileAgeMax";
             this.numericUpDownFileAgeMax.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileAgeMax.TabIndex = 23;
+            this.numericUpDownFileAgeMax.TabIndex = 25;
             this.numericUpDownFileAgeMax.ValueChanged += new System.EventHandler(this.numericUpDownFileAgeMax_ValueChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(159, 205);
+            this.label7.Location = new System.Drawing.Point(159, 227);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 13);
-            this.label7.TabIndex = 22;
+            this.label7.TabIndex = 24;
             this.label7.Text = "Maximum";
             // 
             // numericUpDownFileAgeMin
             // 
-            this.numericUpDownFileAgeMin.Location = new System.Drawing.Point(66, 203);
+            this.numericUpDownFileAgeMin.Location = new System.Drawing.Point(66, 225);
             this.numericUpDownFileAgeMin.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -178,48 +180,48 @@
             0});
             this.numericUpDownFileAgeMin.Name = "numericUpDownFileAgeMin";
             this.numericUpDownFileAgeMin.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileAgeMin.TabIndex = 21;
+            this.numericUpDownFileAgeMin.TabIndex = 23;
             this.numericUpDownFileAgeMin.ValueChanged += new System.EventHandler(this.numericUpDownFileAgeMin_ValueChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(11, 205);
+            this.label14.Location = new System.Drawing.Point(11, 227);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(48, 13);
-            this.label14.TabIndex = 20;
+            this.label14.TabIndex = 22;
             this.label14.Text = "Minimum";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 139);
+            this.label9.Location = new System.Drawing.Point(11, 161);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(305, 13);
-            this.label9.TabIndex = 12;
+            this.label9.TabIndex = 14;
             this.label9.Text = "Total Size - Total size of all files before specified condition is set";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(280, 157);
+            this.label10.Location = new System.Drawing.Point(280, 179);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(21, 13);
-            this.label10.TabIndex = 18;
+            this.label10.TabIndex = 20;
             this.label10.Text = "KB";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(131, 157);
+            this.label11.Location = new System.Drawing.Point(131, 179);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(21, 13);
-            this.label11.TabIndex = 15;
+            this.label11.TabIndex = 17;
             this.label11.Text = "KB";
             // 
             // numericUpDownSizeErrorIndicator
             // 
-            this.numericUpDownSizeErrorIndicator.Location = new System.Drawing.Point(214, 155);
+            this.numericUpDownSizeErrorIndicator.Location = new System.Drawing.Point(214, 177);
             this.numericUpDownSizeErrorIndicator.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -227,21 +229,21 @@
             0});
             this.numericUpDownSizeErrorIndicator.Name = "numericUpDownSizeErrorIndicator";
             this.numericUpDownSizeErrorIndicator.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownSizeErrorIndicator.TabIndex = 17;
+            this.numericUpDownSizeErrorIndicator.TabIndex = 19;
             this.numericUpDownSizeErrorIndicator.ValueChanged += new System.EventHandler(this.numericUpDownSizeErrorIndicator_ValueChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(159, 157);
+            this.label12.Location = new System.Drawing.Point(159, 179);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(34, 13);
-            this.label12.TabIndex = 16;
+            this.label12.TabIndex = 18;
             this.label12.Text = "Errors";
             // 
             // numericUpDownSizeWarningIndicator
             // 
-            this.numericUpDownSizeWarningIndicator.Location = new System.Drawing.Point(66, 155);
+            this.numericUpDownSizeWarningIndicator.Location = new System.Drawing.Point(66, 177);
             this.numericUpDownSizeWarningIndicator.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -249,25 +251,25 @@
             0});
             this.numericUpDownSizeWarningIndicator.Name = "numericUpDownSizeWarningIndicator";
             this.numericUpDownSizeWarningIndicator.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownSizeWarningIndicator.TabIndex = 14;
+            this.numericUpDownSizeWarningIndicator.TabIndex = 16;
             this.numericUpDownSizeWarningIndicator.ValueChanged += new System.EventHandler(this.numericUpDownSizeWarningIndicator_ValueChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 157);
+            this.label13.Location = new System.Drawing.Point(11, 179);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(52, 13);
-            this.label13.TabIndex = 13;
+            this.label13.TabIndex = 15;
             this.label13.Text = "Warnings";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 89);
+            this.label8.Location = new System.Drawing.Point(11, 111);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(332, 13);
-            this.label8.TabIndex = 7;
+            this.label8.TabIndex = 9;
             this.label8.Text = "Total Count - Smallest number of files before specified condition is set";
             // 
             // cmdCancel
@@ -275,10 +277,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(376, 286);
+            this.cmdCancel.Location = new System.Drawing.Point(376, 302);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 30;
+            this.cmdCancel.TabIndex = 32;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -286,17 +288,17 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(295, 286);
+            this.cmdOK.Location = new System.Drawing.Point(295, 302);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 29;
+            this.cmdOK.TabIndex = 31;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // numericUpDownCountErrorIndicator
             // 
-            this.numericUpDownCountErrorIndicator.Location = new System.Drawing.Point(214, 105);
+            this.numericUpDownCountErrorIndicator.Location = new System.Drawing.Point(214, 127);
             this.numericUpDownCountErrorIndicator.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -304,21 +306,21 @@
             0});
             this.numericUpDownCountErrorIndicator.Name = "numericUpDownCountErrorIndicator";
             this.numericUpDownCountErrorIndicator.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownCountErrorIndicator.TabIndex = 11;
+            this.numericUpDownCountErrorIndicator.TabIndex = 13;
             this.numericUpDownCountErrorIndicator.ValueChanged += new System.EventHandler(this.numericUpDownCountErrorIndicator_ValueChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(159, 107);
+            this.label5.Location = new System.Drawing.Point(159, 129);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 10;
+            this.label5.TabIndex = 12;
             this.label5.Text = "Errors";
             // 
             // numericUpDownCountWarningIndicator
             // 
-            this.numericUpDownCountWarningIndicator.Location = new System.Drawing.Point(66, 105);
+            this.numericUpDownCountWarningIndicator.Location = new System.Drawing.Point(66, 127);
             this.numericUpDownCountWarningIndicator.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -326,22 +328,22 @@
             0});
             this.numericUpDownCountWarningIndicator.Name = "numericUpDownCountWarningIndicator";
             this.numericUpDownCountWarningIndicator.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownCountWarningIndicator.TabIndex = 9;
+            this.numericUpDownCountWarningIndicator.TabIndex = 11;
             this.numericUpDownCountWarningIndicator.ValueChanged += new System.EventHandler(this.numericUpDownCountWarningIndicator_ValueChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 107);
+            this.label4.Location = new System.Drawing.Point(11, 129);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 8;
+            this.label4.TabIndex = 10;
             this.label4.Text = "Warnings";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(173, 65);
+            this.label3.Location = new System.Drawing.Point(211, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 13);
             this.label3.TabIndex = 6;
@@ -351,7 +353,7 @@
             // 
             this.txtFilter.Location = new System.Drawing.Point(66, 62);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(101, 20);
+            this.txtFilter.Size = new System.Drawing.Size(139, 20);
             this.txtFilter.TabIndex = 5;
             this.txtFilter.Text = "*.*";
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
@@ -398,11 +400,35 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Directory";
             // 
+            // chkCheckIfFilesExistOnly
+            // 
+            this.chkCheckIfFilesExistOnly.AutoSize = true;
+            this.chkCheckIfFilesExistOnly.Location = new System.Drawing.Point(66, 88);
+            this.chkCheckIfFilesExistOnly.Name = "chkCheckIfFilesExistOnly";
+            this.chkCheckIfFilesExistOnly.Size = new System.Drawing.Size(144, 17);
+            this.chkCheckIfFilesExistOnly.TabIndex = 7;
+            this.chkCheckIfFilesExistOnly.Text = "Only check if file(s) exists";
+            this.chkCheckIfFilesExistOnly.UseVisualStyleBackColor = true;
+            this.chkCheckIfFilesExistOnly.CheckedChanged += new System.EventHandler(this.chkDirectoryExistOnly_CheckedChanged);
+            // 
+            // chkErrorOnFilesExist
+            // 
+            this.chkErrorOnFilesExist.AutoSize = true;
+            this.chkErrorOnFilesExist.Location = new System.Drawing.Point(216, 88);
+            this.chkErrorOnFilesExist.Name = "chkErrorOnFilesExist";
+            this.chkErrorOnFilesExist.Size = new System.Drawing.Size(107, 17);
+            this.chkErrorOnFilesExist.TabIndex = 8;
+            this.chkErrorOnFilesExist.Text = "Error if file(s) exist";
+            this.chkErrorOnFilesExist.UseVisualStyleBackColor = true;
+            this.chkErrorOnFilesExist.CheckedChanged += new System.EventHandler(this.chkErrorOnFilesExist_CheckedChanged);
+            // 
             // FileSystemCollectorEditFilterEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 320);
+            this.ClientSize = new System.Drawing.Size(462, 336);
+            this.Controls.Add(this.chkErrorOnFilesExist);
+            this.Controls.Add(this.chkCheckIfFilesExistOnly);
             this.Controls.Add(this.chkDirectoryExistOnly);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.numericUpDownFileSizeMax);
@@ -440,7 +466,7 @@
             this.MinimizeBox = false;
             this.Name = "FileSystemCollectorEditFilterEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Edit Filte rEntry";
+            this.Text = "Edit Filter Entry";
             this.Load += new System.EventHandler(this.FileSystemCollectorEditFilterEntry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).EndInit();
@@ -489,5 +515,7 @@
         private System.Windows.Forms.Button cmdBrowse;
         private System.Windows.Forms.TextBox txtDirectory;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkCheckIfFilesExistOnly;
+        private System.Windows.Forms.CheckBox chkErrorOnFilesExist;
     }
 }

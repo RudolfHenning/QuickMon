@@ -1107,9 +1107,8 @@ namespace QuickMon
                 disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable" : "Enable";
 
                 popedContainerForTreeView.cmdCopy.Enabled = true;
-                popedContainerForTreeView.cmdStats.Enabled = true;
-                collectorStatisticsToolStripMenuItem.Enabled = true;
-                //popedContainerForTreeView.cmdPaste.Enabled = true;
+                popedContainerForTreeView.cmdStats.Enabled = !entry.IsFolder;
+                collectorStatisticsToolStripMenuItem.Enabled = !entry.IsFolder;
             }
             else
             {
@@ -1130,7 +1129,6 @@ namespace QuickMon
                 popedContainerForTreeView.cmdCopy.Enabled = false;
                 popedContainerForTreeView.cmdStats.Enabled = false;
                 collectorStatisticsToolStripMenuItem.Enabled = false;
-                //popedContainerForTreeView.cmdPaste.Enabled = false;
             }
         }
         private void CheckNotifierContextMenuEnables()
