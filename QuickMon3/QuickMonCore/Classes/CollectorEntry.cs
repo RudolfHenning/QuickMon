@@ -356,6 +356,7 @@ namespace QuickMon
                     }
 
                     //Updating stats
+                    CurrentState.CallDurationMS = (int)sw.ElapsedMilliseconds;
                     LastStateCheckDurationMS = sw.ElapsedMilliseconds;
                     LastStateUpdate = DateTime.Now;
                     if (FirstStateUpdate < (new DateTime(2000, 1, 1)))

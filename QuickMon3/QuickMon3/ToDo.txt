@@ -92,5 +92,15 @@ Add setting per collector entry level to specify that it should only 'refresh' w
   Dynamic repolling (sliding scale). If warning/error state is returned the polling frequencyfor the resource must get slower (to avoid monitor to death scenario)
 Edit Collector config: Alert settings on separate tab
 Collector history on separate tab in stats
+
+v3.12
+Press delete key on Collector treeview on main window must fire delete function
+Background image on about screen stretch - on high dpi displays.
+Fix toolStripStatusLabelStatus text that grew big on notifier error
+Add tooltip text to statusbar so long text can be viewed
+Fixed polling frequency quick links (5/30/60 seconds was set to 5000/30000/60000 but setting work in secs)
+Set default polling frequency to 30 if too large value was set.
+MonitorState now stores call duration as well
+Collector stats history list view displays time, state, duration and details in separate columns
 -------------------------------------------------------------------------------------------------------
 

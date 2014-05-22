@@ -24,7 +24,7 @@ namespace QuickMon
             RefreshCollectorStats();
             lvwProperties.AutoResizeColumnIndex = 1;
             lvwProperties.AutoResizeColumnEnabled = true;
-            lvwHistory.AutoResizeColumnIndex = 1;
+            lvwHistory.AutoResizeColumnIndex = 3;
             lvwHistory.AutoResizeColumnEnabled = true;
             splitContainer1.Panel2Collapsed = true;
         }
@@ -69,8 +69,6 @@ namespace QuickMon
 
                     ListViewGroup lvgCurrent = new ListViewGroup("Current state");
                     lvwProperties.Groups.Add(lvgCurrent);
-                    ListViewGroup lvgPrevious = new ListViewGroup("Previous state");
-                    lvwProperties.Groups.Add(lvgPrevious);
 
                     lvi = new ListViewItem("Current state");
                     lvi.SubItems.Add(SelectedEntry.CurrentState.State.ToString());
@@ -92,6 +90,9 @@ namespace QuickMon
                     lvi.Group = lvgCurrent;
                     lvwProperties.Items.Add(lvi);
 
+                    ListViewGroup lvgPrevious = new ListViewGroup("Previous state");
+                    lvwProperties.Groups.Add(lvgPrevious);
+
                     lvi = new ListViewItem("Previous state");
                     lvi.SubItems.Add(SelectedEntry.LastMonitorState.State.ToString());
                     lvi.Group = lvgPrevious;
@@ -99,6 +100,11 @@ namespace QuickMon
 
                     lvi = new ListViewItem("Previous state details");
                     lvi.SubItems.Add(SelectedEntry.LastMonitorState.RawDetails);
+                    lvi.Group = lvgPrevious;
+                    lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Previous state check duration (ms)");
+                    lvi.SubItems.Add(SelectedEntry.LastMonitorState.CallDurationMS.ToString());
                     lvi.Group = lvgPrevious;
                     lvwProperties.Items.Add(lvi);
 
@@ -266,8 +272,10 @@ namespace QuickMon
                                                  orderby h.LastStateChangeTime descending
                                                  select h))
                     {
-                        lvi = new ListViewItem(FormatDate(historyItem.LastStateChangeTime) + " State: " + historyItem.State.ToString());
-                        lvi.SubItems.Add("Details: " + historyItem.RawDetails);
+                        lvi = new ListViewItem(FormatDate(historyItem.LastStateChangeTime));
+                        lvi.SubItems.Add(historyItem.State.ToString());
+                        lvi.SubItems.Add(historyItem.CallDurationMS.ToString());
+                        lvi.SubItems.Add(historyItem.RawDetails);
                         if (historyItem.State == CollectorState.Folder)
                             lvi.ImageIndex = 0;
                         else if (historyItem.State == CollectorState.Good)
@@ -301,10 +309,10 @@ namespace QuickMon
             {
                 RTFBuilder rtfBuilder = new RTFBuilder();
                 ListViewEx currentListView;
-                if (tabControl1.SelectedIndex == 0)
+                //if (tabControl1.SelectedIndex == 0)
                     currentListView = lvwProperties;
-                else
-                    currentListView = lvwHistory;
+                //else
+                //    currentListView = lvwHistory;
                 if (currentListView.SelectedItems.Count > 0)
                 {
                     int maxlen = 35;
@@ -336,6 +344,37 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                RTFBuilder rtfBuilder = new RTFBuilder();
+                ListViewEx currentListView;
+                currentListView = lvwHistory;
+                if (currentListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem lvi in currentListView.SelectedItems)
+                    {
+                        rtfBuilder.FontStyle(FontStyle.Bold).Append("Time:");
+                        rtfBuilder.AppendLine(lvi.Text);
+                        rtfBuilder.FontStyle(FontStyle.Bold).Append("State:");
+                        rtfBuilder.AppendLine(lvi.SubItems[1].Text);
+                        rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration:");
+                        rtfBuilder.AppendLine(lvi.SubItems[2].Text + " ms");
+                        rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details:");
+                        rtfBuilder.AppendLine(lvi.SubItems[3].Text);
+                    }                    
+                }
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void cmdViewDetails_Click(object sender, EventArgs e)
         {
@@ -356,5 +395,7 @@ namespace QuickMon
         {
             RefreshCollectorStats();
         }
+
+
     }
 }

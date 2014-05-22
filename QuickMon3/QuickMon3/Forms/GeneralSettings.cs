@@ -135,7 +135,7 @@ namespace QuickMon
                 if (freqSecNumericUpDown.Maximum >= frequency)
                     freqSecNumericUpDown.Value = frequency;
                 else
-                    freqSecNumericUpDown.Value = 10;
+                    freqSecNumericUpDown.Value = 30;
                 freqSecTrackBar.Value = (int)freqSecNumericUpDown.Value;
                 freChanging = false;
             }

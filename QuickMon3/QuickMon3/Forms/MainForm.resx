@@ -126,6 +126,12 @@
   <metadata name="mainToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 17</value>
   </metadata>
+  <metadata name="extrasToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>477, 56</value>
+  </metadata>
+  <metadata name="mainToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 17</value>
+  </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>159, 17</value>
   </metadata>
@@ -152,7 +158,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAS
-        egAAAk1TRnQBSQFMAgEBEgEAAbABBAGwAQQBGAEAARgBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        egAAAk1TRnQBSQFMAgEBEgEAAbgBBAG4AQQBGAEAARgBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABeAMAAQEBAAEYBgABhz8AA/8D/gP8A/oD9ALpAeoC2AHeAtsB3AP1LQAD/wP+A/wD+gP0AukB6wHT
         AdQB4QLZAd0D9a4AA/8G/gP7A/UD6QLTAdUBtgG3AcQBnQGeAcABhwGKAbsBdQF4AbMBYgFmAbEBeAF7
         AawCxQHKHgAD/wb+A/sD9QPpAtIB1gGrAa0ByQGBAYMBzwFfAWIB0gFBAUcBzAEjASkB0AFNAVIDwQHN
@@ -683,7 +689,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACG
-        CAAAAk1TRnQBSQFMAgEBAwEAATABBAEwAQQBEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CAAAAk1TRnQBSQFMAgEBAwEAATgBBAE4AQQBEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEYBgABDCcAAYQBggGEAwABhAGCAoQBggGErgABhAGCAYQDAAHGAcMBxgGEAYIChAGC
         AYQDAAGEAYIChAGCAYQMAAFoAaoBxwEAAXwBrwEAAYQBtwEAAYwBvwEAAZUByAEAAZwBzwEAAaIB1QEA
         AaIB1QEAAZwBzwEAAZUByAEAAXcBqnUAAYQBggGEAwABxgHDAsYBwwLGAcMBxgGEAYIChAGCAoQBggKE

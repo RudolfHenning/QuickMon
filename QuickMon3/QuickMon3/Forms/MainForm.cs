@@ -279,37 +279,31 @@ namespace QuickMon
         {
             mainRefreshTimer.Enabled = false;
             SetAppIcon(CollectorState.NotAvailable);
-            toolStripStatusLabelStatus.Text = "Polling disabled";
+            UpdateStatusbar("Polling disabled");            
         }
         private void pollingSlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
             Properties.Settings.Default.OverridesMonitorPackFrequency = true;
-            Properties.Settings.Default.PollFrequencySec = 60000;
+            Properties.Settings.Default.PollFrequencySec = 60;
             SetPollingFrequency();
-            //mainRefreshTimer.Interval = 60000;
-            //mainRefreshTimer.Enabled = true;
-            toolStripStatusLabelStatus.Text = "Polling set to slow";
+            UpdateStatusbar("Polling set to slow");
         }
         private void pollingNormalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
             Properties.Settings.Default.OverridesMonitorPackFrequency = true;
-            Properties.Settings.Default.PollFrequencySec = 30000;
+            Properties.Settings.Default.PollFrequencySec = 30;
             SetPollingFrequency();
-            //mainRefreshTimer.Interval = 30000;
-            //mainRefreshTimer.Enabled = true;
-            toolStripStatusLabelStatus.Text = "Polling set to normal";
+            UpdateStatusbar("Polling set to normal");
         }
         private void pollingFastToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefreshTimer.Enabled = false;
             Properties.Settings.Default.OverridesMonitorPackFrequency = true;
-            Properties.Settings.Default.PollFrequencySec = 5000;
+            Properties.Settings.Default.PollFrequencySec = 5;
             SetPollingFrequency();
-            //mainRefreshTimer.Interval = 5000;
-            //mainRefreshTimer.Enabled = true;
-            toolStripStatusLabelStatus.Text = "Polling set to fast";
+            UpdateStatusbar("Polling set to fast");
         }
         private void customPollingFrequencyToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -454,6 +448,10 @@ namespace QuickMon
                 location = control.Location;
             }
             return location;
+        }
+        private void tvwCollectors_DeleteKeyPressed()
+        {
+            DeleteCollector();
         }
         #endregion
 
@@ -807,9 +805,9 @@ namespace QuickMon
                 showDefaultNotifierToolStripMenuItem.Enabled = false;
                 if (monitorPack != null)
                 {
-                    toolStripStatusLabelStatus.Text = string.Format("{0} collector(s), {1} notifier(s)",
+                    UpdateStatusbar(string.Format("{0} collector(s), {1} notifier(s)",
                          monitorPack.Collectors.Count,
-                         monitorPack.Notifiers.Count);
+                         monitorPack.Notifiers.Count));
                     showDefaultNotifierToolStripMenuItem.Enabled = monitorPack.DefaultViewerNotifier != null;
                 }
             }
@@ -917,10 +915,14 @@ namespace QuickMon
                         this.Invoke((MethodInvoker)delegate
                         {
                             toolStripStatusLabelStatus.Text = msg;
+                            toolTip1.SetToolTip(statusStrip1, msg);                            
                         });
                     }
                     else
+                    {
                         toolStripStatusLabelStatus.Text = msg;
+                        toolTip1.SetToolTip(statusStrip1, msg);
+                    }
                 }
             }
             catch { }
@@ -1082,6 +1084,24 @@ namespace QuickMon
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void DeleteCollector()
+        {
+            TreeNode currentNode = tvwCollectors.SelectedNode;
+            if (currentNode.Tag is CollectorEntry)
+            {
+                if (MessageBox.Show("Are you sure you want to remove this collector agent(and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    SetMonitorChanged();
+                    RemoveCollector(currentNode);
+                    RefreshMonitorPack();
+                    if (currentNode.Parent != null)
+                    {
+                        currentNode.Parent.Nodes.Remove(currentNode);
+                    }
+                    DoAutoSave();
+                }
             }
         }
         private void CheckCollectorContextMenuEnables()
@@ -1286,7 +1306,7 @@ namespace QuickMon
                     }
                 }
 
-                toolStripStatusLabelStatus.Text = "Shutting down...";
+                UpdateStatusbar( "Shutting down...");
                 Application.DoEvents();
                 //if (mainRefreshTimer.Enabled)
                 //{
@@ -1413,12 +1433,12 @@ namespace QuickMon
         }
         private void monitorPack_CollecterLoading(string collectorName)
         {
-            toolStripStatusLabelStatus.Text = collectorName;
+            UpdateStatusbar(collectorName);
             Application.DoEvents();
         }
         private void monitorPack_RaiseNotifierError(NotifierEntry notifier, string errorMessage)
         {
-            toolStripStatusLabelStatus.Text = string.Format("Notifier error: {0} - {1}", notifier.Name, errorMessage);
+            UpdateStatusbar( string.Format("Notifier error: {0} - {1}", notifier.Name, errorMessage));
         }
         private void monitorPack_RunCollectorCorrectiveErrorScript(CollectorEntry collectorEntry)
         {
@@ -1456,7 +1476,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                toolStripStatusLabelStatus.Text = "Corrective script error:" + ex.Message;
+                UpdateStatusbar("Corrective script error:" + ex.Message);
             }
         }
         private void monitorPack_CollectorCalled(CollectorEntry collectorEntry)
@@ -1582,21 +1602,7 @@ namespace QuickMon
         private void removeCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            TreeNode currentNode = tvwCollectors.SelectedNode;
-            if (currentNode.Tag is CollectorEntry)
-            {
-                if (MessageBox.Show("Are you sure you want to remove this collector agent(and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    SetMonitorChanged();
-                    RemoveCollector(currentNode);
-                    RefreshMonitorPack();
-                    if(currentNode.Parent != null)
-                    {
-                        currentNode.Parent.Nodes.Remove(currentNode);
-                    }
-                    DoAutoSave();
-                }
-            }
+            DeleteCollector();
         }
         private void cmdStats_Click(object sender, EventArgs e)
         {
@@ -1823,7 +1829,12 @@ namespace QuickMon
                     Cursor.Current = Cursors.WaitCursor;
                     PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
                     SetAppIcon(monitorPack.CurrentState);
-                    UpdateStatusbar(string.Format("Global state: {0}, Updated: {1}, Duration: {2} sec", globalState, DateTime.Now.ToString("HH:mm:ss"), (sw.ElapsedMilliseconds / 1000.00).ToString("F2")));
+                    UpdateStatusbar(string.Format("Global state: {0}, Updated: {1}, Duration: {2} sec, Cur Freq: {3}", 
+                        globalState, 
+                        DateTime.Now.ToString("HH:mm:ss"), 
+                        (sw.ElapsedMilliseconds / 1000.00).ToString("F2"),
+                        (mainRefreshTimer.Interval / 1000).ToString()
+                        ));
                 }
                 else
                 {
@@ -1920,7 +1931,7 @@ namespace QuickMon
             {
                 if (counter == null)
                 {
-                    toolStripStatusLabelStatus.Text = "Performance counter not set up or installed! : " + description;
+                    UpdateStatusbar( "Performance counter not set up or installed! : " + description);
                 }
                 else
                 {
@@ -1929,7 +1940,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                toolStripStatusLabelStatus.Text = string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString());
+                UpdateStatusbar(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
             }
         }
         private void IncrementCounter(PerformanceCounter counter, string description)
@@ -1938,7 +1949,7 @@ namespace QuickMon
             {
                 if (counter == null)
                 {
-                    toolStripStatusLabelStatus.Text = "Performance counter not set up or installed! : " + description;
+                    UpdateStatusbar("Performance counter not set up or installed! : " + description);
                 }
                 else
                 {
@@ -1947,7 +1958,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                toolStripStatusLabelStatus.Text = string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString());
+                UpdateStatusbar(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
             }
         }
         private void PCRaiseCollectorSuccessState()
@@ -1999,6 +2010,8 @@ namespace QuickMon
             }
         }
         #endregion
+
+
 
     }
 }

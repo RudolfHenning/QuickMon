@@ -18,6 +18,7 @@ namespace QuickMon
         public string RawDetails { get; set; }
         public string HtmlDetails { get; set; }
         public DateTime LastStateChangeTime { get; internal set; }
+        public int CallDurationMS { get; set; }
 
         public MonitorState Clone()
         {
@@ -27,7 +28,8 @@ namespace QuickMon
                 CurrentValue = this.CurrentValue,
                 RawDetails = this.RawDetails,
                 HtmlDetails = this.HtmlDetails,
-                LastStateChangeTime = this.LastStateChangeTime
+                LastStateChangeTime = this.LastStateChangeTime,
+                CallDurationMS = this.CallDurationMS
             };
         }
 
@@ -42,6 +44,7 @@ namespace QuickMon
             XmlElement root = xdoc.DocumentElement;
             root.SetAttributeValue("state", State.ToString());
             root.SetAttributeValue("lastStateChangeTime", LastStateChangeTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
             if (CurrentValue != null)
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
             else
@@ -64,6 +67,11 @@ namespace QuickMon
             try
             {
                 LastStateChangeTime = DateTime.Parse(root.ReadXmlElementAttr("lastStateChangeTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+            }
+            catch { }
+            try
+            {
+                CallDurationMS = root.ReadXmlElementAttr("callDurationMS", 0);
             }
             catch { }
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
