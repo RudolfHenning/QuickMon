@@ -748,12 +748,9 @@
             this.treeImageList.Images.SetKeyName(3, "ok.png");
             this.treeImageList.Images.SetKeyName(4, "triang_yellow.png");
             this.treeImageList.Images.SetKeyName(5, "Error24x24.png");
-            this.treeImageList.Images.SetKeyName(6, "bullet_ball_glass_green.ico");
-            this.treeImageList.Images.SetKeyName(7, "bullet_ball_glass_yellow.ico");
-            this.treeImageList.Images.SetKeyName(8, "bullet_ball_glass_red.ico");
-            this.treeImageList.Images.SetKeyName(9, "ok3.png");
-            this.treeImageList.Images.SetKeyName(10, "triang_yellow2.png");
-            this.treeImageList.Images.SetKeyName(11, "Error2_24x24.png");
+            this.treeImageList.Images.SetKeyName(6, "ok3.png");
+            this.treeImageList.Images.SetKeyName(7, "triang_yellow2.png");
+            this.treeImageList.Images.SetKeyName(8, "Error2_24x24.png");
             // 
             // llblMonitorPack
             // 
@@ -889,7 +886,7 @@
             this.lvwNotifiers.Location = new System.Drawing.Point(17, 3);
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(444, 72);
+            this.lvwNotifiers.Size = new System.Drawing.Size(444, 68);
             this.lvwNotifiers.SmallImageList = this.notifiersImageList;
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
