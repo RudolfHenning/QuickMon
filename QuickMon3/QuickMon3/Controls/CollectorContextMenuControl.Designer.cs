@@ -229,7 +229,7 @@
             this.cmdLoadRecentMonitorPack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdLoadRecentMonitorPack.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdLoadRecentMonitorPack.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdLoadRecentMonitorPack.Image = global::QuickMon.Properties.Resources.folder_favor16x16;
+            this.cmdLoadRecentMonitorPack.Image = global::QuickMon.Properties.Resources.folderWLightning16x16;
             this.cmdLoadRecentMonitorPack.Location = new System.Drawing.Point(64, 0);
             this.cmdLoadRecentMonitorPack.Name = "cmdLoadRecentMonitorPack";
             this.cmdLoadRecentMonitorPack.Padding = new System.Windows.Forms.Padding(2);

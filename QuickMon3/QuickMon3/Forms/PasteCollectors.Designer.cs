@@ -30,11 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasteCollectors));
-            this.treeImageList = new System.Windows.Forms.ImageList(this.components);
             this.cmdPaste = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.cmdParse = new System.Windows.Forms.Button();
             this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,26 +40,9 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findReplaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdParse = new System.Windows.Forms.Button();
             this.configEditContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // treeImageList
-            // 
-            this.treeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeImageList.ImageStream")));
-            this.treeImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.treeImageList.Images.SetKeyName(0, "Files.ico");
-            this.treeImageList.Images.SetKeyName(1, "tangerine.ico");
-            this.treeImageList.Images.SetKeyName(2, "bullet_ball_glass_blue.ico");
-            this.treeImageList.Images.SetKeyName(3, "ok.png");
-            this.treeImageList.Images.SetKeyName(4, "triang_yellow.png");
-            this.treeImageList.Images.SetKeyName(5, "error.png");
-            this.treeImageList.Images.SetKeyName(6, "23_6.ico");
-            this.treeImageList.Images.SetKeyName(7, "Folder.ico");
-            this.treeImageList.Images.SetKeyName(8, "Reaper2.png");
-            this.treeImageList.Images.SetKeyName(9, "folder.png");
-            this.treeImageList.Images.SetKeyName(10, "bullet_ball_glass_green.ico");
-            this.treeImageList.Images.SetKeyName(11, "bullet_ball_glass_yellow.ico");
-            this.treeImageList.Images.SetKeyName(12, "bullet_ball_glass_red.ico");
             // 
             // cmdPaste
             // 
@@ -107,18 +88,6 @@
             this.txtConfig.TabIndex = 0;
             this.txtConfig.WordWrap = true;
             // 
-            // cmdParse
-            // 
-            this.cmdParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdParse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdParse.Location = new System.Drawing.Point(409, 395);
-            this.cmdParse.Name = "cmdParse";
-            this.cmdParse.Size = new System.Drawing.Size(75, 23);
-            this.cmdParse.TabIndex = 1;
-            this.cmdParse.Text = "Parse";
-            this.cmdParse.UseVisualStyleBackColor = true;
-            this.cmdParse.Click += new System.EventHandler(this.cmdParse_Click);
-            // 
             // configEditContextMenuStrip
             // 
             this.configEditContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -129,26 +98,26 @@
             this.findToolStripMenuItem,
             this.findReplaceToolStripMenuItem});
             this.configEditContextMenuStrip.Name = "configEditContextMenuStrip";
-            this.configEditContextMenuStrip.Size = new System.Drawing.Size(155, 142);
+            this.configEditContextMenuStrip.Size = new System.Drawing.Size(155, 120);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
@@ -171,6 +140,18 @@
             this.findReplaceToolStripMenuItem.Text = "Find && Replace";
             this.findReplaceToolStripMenuItem.Click += new System.EventHandler(this.findReplaceToolStripMenuItem_Click);
             // 
+            // cmdParse
+            // 
+            this.cmdParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdParse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdParse.Location = new System.Drawing.Point(409, 395);
+            this.cmdParse.Name = "cmdParse";
+            this.cmdParse.Size = new System.Drawing.Size(75, 23);
+            this.cmdParse.TabIndex = 1;
+            this.cmdParse.Text = "Parse";
+            this.cmdParse.UseVisualStyleBackColor = true;
+            this.cmdParse.Click += new System.EventHandler(this.cmdParse_Click);
+            // 
             // PasteCollectors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,7 +173,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ImageList treeImageList;
         private System.Windows.Forms.Button cmdPaste;
         private System.Windows.Forms.Button cmdCancel;
         private FastColoredTextBoxNS.FastColoredTextBox txtConfig;

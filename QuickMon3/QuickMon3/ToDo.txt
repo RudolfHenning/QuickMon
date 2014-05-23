@@ -1,13 +1,18 @@
 ﻿CHANGES (considdered possible for next release)
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
+Add WCF method on remote host to return version number of QuickMon
+'In memory notifier has no function in Windows Service'. Perhaps add property on notifier that indicates if supports running 'unattended' - if not it won't be loaded by service
+   Perhaps have 'Property' on Notifier Entry that indicate if it should function 'Only attended'/'Unattended'/Both. Memory notifier will have default of 'Only attended'.
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
 (A)
 Detail views can/must use remote host dataset as source 
   Will require interface changes (new method on all collectors to return something like DataSet)
+     Will have to be a method that returns a DataSet with possibly multiple 'Tables' for Collectors like SQL and WMI query
   Also new interface on WCF interface
+  Additional this change could mean the 'Detail viewer' could be simplyfied to a DataSet viewer (not sure about the 'multiple' datasets yet)
 
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Future advancement - Allow corrective scrpts to run on remote hosts
@@ -102,5 +107,7 @@ Fixed polling frequency quick links (5/30/60 seconds was set to 5000/30000/60000
 Set default polling frequency to 30 if too large value was set.
 MonitorState now stores call duration as well
 Collector stats history list view displays time, state, duration and details in separate columns
+Fix bug: In Collector stats if ForceRemoteExcuteOnChildCollectors was set selected collector 'Remote agent host enabled' value was set Yes.
+Add drop down box on main Window (visible nly on mouse hover) for Recent monitor packs
 -------------------------------------------------------------------------------------------------------
 

@@ -62,6 +62,7 @@
     <Compile Include="Controls\CollectorContextMenuControl.Designer.cs">
       <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ComboItem.cs" />
     <Compile Include="Controls\NotifierContextMenuControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -172,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QM3.ico" />
-    <Content Include="QuickMon3.ico" />
     <None Include="Resources\AboutBkgrnd.png" />
     <None Include="Resources\Charon.png" />
     <None Include="Resources\copy.png" />
@@ -199,6 +199,7 @@
     <None Include="Resources\folderWLightning.png" />
     <None Include="Resources\folderWLightning.ico" />
     <None Include="Resources\infoOrange16x16.png" />
+    <None Include="Resources\folderWLightning16x16.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

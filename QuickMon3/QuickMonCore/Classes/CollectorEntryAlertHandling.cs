@@ -20,7 +20,7 @@ namespace QuickMon
                 CurrentState.State == CollectorState.Disabled)
             {
                 raiseAlert = false;
-                LastStateChange = DateTime.Now;
+                LastStateChange = DateTime.Now;                
                 waitAlertTimeErrWarnInMinFlagged = false;
             }
             else

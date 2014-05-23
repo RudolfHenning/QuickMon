@@ -51,11 +51,11 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Running.ico");
-            this.imageList1.Images.SetKeyName(1, "Stopped.ico");
-            this.imageList1.Images.SetKeyName(2, "Busy.ico");
-            this.imageList1.Images.SetKeyName(3, "Unknown.ico");
-            this.imageList1.Images.SetKeyName(4, "Paused.ico");
+            this.imageList1.Images.SetKeyName(0, "GRunning.ico");
+            this.imageList1.Images.SetKeyName(1, "GStopped.ico");
+            this.imageList1.Images.SetKeyName(2, "GBusy.ico");
+            this.imageList1.Images.SetKeyName(3, "GUnknown.ico");
+            this.imageList1.Images.SetKeyName(4, "GPaused.ico");
             // 
             // ServiceStateCollectorDetailView
             // 

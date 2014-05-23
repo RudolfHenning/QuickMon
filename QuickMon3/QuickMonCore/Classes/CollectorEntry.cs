@@ -127,11 +127,11 @@ namespace QuickMon
                 if (stateHistory.Count > StateHistorySize)
                 {
                     DateTime? oldestDate = (from h in stateHistory
-                                            orderby h.LastStateChangeTime descending
-                                            select h.LastStateChangeTime).Take(StateHistorySize).Min();
+                                            orderby h.Timestamp descending
+                                            select h.Timestamp).Take(StateHistorySize).Min();
                     if (oldestDate != null)
                     {
-                        stateHistory.RemoveAll(h => h.LastStateChangeTime < oldestDate.Value);
+                        stateHistory.RemoveAll(h => h.Timestamp < oldestDate.Value);
                     }
                 }
                 return stateHistory;
@@ -150,11 +150,11 @@ namespace QuickMon
                     if (stateHistory.Count > StateHistorySize)
                     {
                         DateTime? oldestDate = (from h in stateHistory
-                                                orderby h.LastStateChangeTime descending
-                                                select h.LastStateChangeTime).Take(StateHistorySize - 1).Min();
+                                                orderby h.Timestamp descending
+                                                select h.Timestamp).Take(StateHistorySize - 1).Min();
                         if (oldestDate != null)
                         {
-                            stateHistory.RemoveAll(h => h.LastStateChangeTime < oldestDate.Value);
+                            stateHistory.RemoveAll(h => h.Timestamp < oldestDate.Value);
                         }
                     }
                     stateHistory.Add(newState);
@@ -177,7 +177,7 @@ namespace QuickMon
         public DateTime LastErrorStateTime { get; set; }
         public DateTime LastStateCheckAttemptBegin { get; set; }
         public DateTime LastStateUpdate { get; set; }
-        public long LastStateCheckDurationMS { get; set; }
+        //public long LastStateCheckDurationMS { get; set; } //replaced by CurrentState.CallDurationMS
         /// <summary>
         /// Number of times Collector Agent has been executed
         /// </summary>
@@ -256,8 +256,6 @@ namespace QuickMon
                 CurrentState = new MonitorState() { State = CollectorState.NotAvailable };
                 LastStateUpdate = DateTime.Now;
             }
-            //if (LastStateUpdate < (new DateTime(2000, 1, 1)))
-            //    LastStateUpdate = DateTime.Now;
             if (LastMonitorState.State != CollectorState.ConfigurationError)            
             {                
                 if (!Enabled)
@@ -357,7 +355,6 @@ namespace QuickMon
 
                     //Updating stats
                     CurrentState.CallDurationMS = (int)sw.ElapsedMilliseconds;
-                    LastStateCheckDurationMS = sw.ElapsedMilliseconds;
                     LastStateUpdate = DateTime.Now;
                     if (FirstStateUpdate < (new DateTime(2000, 1, 1)))
                         FirstStateUpdate = DateTime.Now;

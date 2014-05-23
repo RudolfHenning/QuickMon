@@ -8,16 +8,21 @@ namespace QuickMon
 {
     public class MonitorState
     {
+        public MonitorState()
+        {
+            Timestamp = DateTime.Now;
+        }
         private CollectorState state = CollectorState.NotAvailable;
         public CollectorState State
         {
             get { return state; }
-            set { state = value; LastStateChangeTime = DateTime.Now; }
+            set { state = value; StateChangedTime = DateTime.Now; }
         }
         public object CurrentValue { get; set; }
         public string RawDetails { get; set; }
         public string HtmlDetails { get; set; }
-        public DateTime LastStateChangeTime { get; internal set; }
+        public DateTime Timestamp { get; set; }
+        public DateTime StateChangedTime { get; set; }
         public int CallDurationMS { get; set; }
 
         public MonitorState Clone()
@@ -28,7 +33,8 @@ namespace QuickMon
                 CurrentValue = this.CurrentValue,
                 RawDetails = this.RawDetails,
                 HtmlDetails = this.HtmlDetails,
-                LastStateChangeTime = this.LastStateChangeTime,
+                Timestamp = this.Timestamp,
+                StateChangedTime = this.StateChangedTime,
                 CallDurationMS = this.CallDurationMS
             };
         }
@@ -43,7 +49,8 @@ namespace QuickMon
             xdoc.LoadXml("<monitorState state=\"NotAvailable\" currentValue=\"\" lastStateChangeTime=\"\" />");
             XmlElement root = xdoc.DocumentElement;
             root.SetAttributeValue("state", State.ToString());
-            root.SetAttributeValue("lastStateChangeTime", LastStateChangeTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            root.SetAttributeValue("stateChangedTime", StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
             if (CurrentValue != null)
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
@@ -66,7 +73,12 @@ namespace QuickMon
             State = CollectorStateConverter.GetCollectorStateFromText(root.ReadXmlElementAttr("state", "NotAvailable"));
             try
             {
-                LastStateChangeTime = DateTime.Parse(root.ReadXmlElementAttr("lastStateChangeTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                StateChangedTime = DateTime.Parse(root.ReadXmlElementAttr("stateChangedTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+            }
+            catch { }
+            try
+            {
+                Timestamp = DateTime.Parse(root.ReadXmlElementAttr("timeStamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
             }
             catch { }
             try

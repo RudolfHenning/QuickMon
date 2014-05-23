@@ -24,10 +24,22 @@ namespace QuickMon
             poperContainerForListView = new Controls.PoperContainer(popedContainerForListView);
         }
 
+        #region TreeNodeImage contants
+        private readonly int collectorRootImage = 0;
+        private readonly int collectorFolderImage = 1;
+        private readonly int collectorNAstateImage = 2;
+        private readonly int collectorGoodStateImage1 = 3;
+        private readonly int collectorGoodStateImage2 = 6;
+        private readonly int collectorWarningStateImage1 = 4;
+        private readonly int collectorWarningStateImage2 = 7;
+        private readonly int collectorErrorStateImage1 = 5;
+        private readonly int collectorErrorStateImage2 = 8;
+        #endregion
+
         #region Private vars
         private int refreshCycleCounter = 0;
         private bool monitorPackChanged = false;
-        private int rootImgIndex = -1;
+        //private int rootImgIndex = -1;
         private MonitorPack monitorPack;
         private string quickMonPCCategory = "QuickMon 3 UI Client";
         private Point collectorContextMenuLaunchPoint = new Point();
@@ -53,6 +65,8 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
+            cboRecentMonitorPacks.Visible = false;
+            LoadRecentMonitorPackList();
             lblNoNotifiersYet.Dock = DockStyle.Fill;
             popedContainerForTreeView.cmdCopy.Enabled = false;
             popedContainerForTreeView.cmdPaste.Enabled = false;
@@ -106,10 +120,14 @@ namespace QuickMon
             tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
             adminModeToolStripStatusLabel.Visible = HenIT.Security.AdminModeTools.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !HenIT.Security.AdminModeTools.IsInAdminMode();
-        }        
+        }
+
+        
         private void MainForm_Resize(object sender, EventArgs e)
         {
-
+            cboRecentMonitorPacks.DropDownWidth = this.ClientSize.Width - cboRecentMonitorPacks.Left - recentMonitorPacksPanel.Left;
+            resizeRecentDropDownListWidthTimer.Enabled = false;
+            resizeRecentDropDownListWidthTimer.Enabled = true;
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -903,6 +921,7 @@ namespace QuickMon
                 Properties.Settings.Default.RecentQMConfigFiles.Add(monitorPackPath);
             }
             Properties.Settings.Default.LastMonitorPack = monitorPackPath;
+            LoadRecentMonitorPackList();
         }
         private void UpdateStatusbar(string msg)
         {
@@ -1267,20 +1286,20 @@ namespace QuickMon
                 if (!collector.IsFolder && collector.Enabled)
                 {
                     //root.ForeColor = Color.DarkRed; //13,14,15
-                    if (root.ImageIndex == 3)
+                    if (root.ImageIndex == collectorGoodStateImage1)
                     {
-                        root.ImageIndex = 13;
-                        root.SelectedImageIndex = 13;
+                        root.ImageIndex = collectorGoodStateImage2;
+                        root.SelectedImageIndex = collectorGoodStateImage2;
                     }
-                    else if (root.ImageIndex == 4)
+                    else if (root.ImageIndex == collectorWarningStateImage1)
                     {
-                        root.ImageIndex = 14;
-                        root.SelectedImageIndex = 14;
+                        root.ImageIndex = collectorWarningStateImage2;
+                        root.SelectedImageIndex = collectorWarningStateImage2;
                     }
-                    else if (root.ImageIndex == 5)
+                    else if (root.ImageIndex == collectorErrorStateImage1)
                     {
-                        root.ImageIndex = 15;
-                        root.SelectedImageIndex = 15;
+                        root.ImageIndex = collectorErrorStateImage2;
+                        root.SelectedImageIndex = collectorErrorStateImage2;
                     }
                 }                
             }
@@ -1336,6 +1355,31 @@ namespace QuickMon
             catch { }
             return notAborted;
         }
+        private void LoadRecentMonitorPackList()
+        {
+            cboRecentMonitorPacks.Items.Clear();
+            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem("",""));
+
+            foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
+                                         orderby s
+                                         select s))
+            {
+                if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(filePath + "........", cboRecentMonitorPacks.Font).Width)
+                {
+                    string ellipseText = filePath.Substring(0, 20) + "....";
+                    string tmpStr = filePath.Substring(4);
+                    while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
+                    {
+                        tmpStr = tmpStr.Substring(1);
+                    }
+                    cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, filePath));
+                }
+                else
+                {
+                    cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(filePath, filePath));
+                }
+            }
+        }
         #endregion
 
         #region Monitor pack events
@@ -1367,51 +1411,51 @@ namespace QuickMon
 
                             if (collectorEntry.IsFolder || collectorEntry.CurrentState.State == CollectorState.Folder)
                             {
-                                if (currentTreeNode.ImageIndex != 1)
+                                if (currentTreeNode.ImageIndex != collectorFolderImage)
                                 {
                                     nodeChanged = true;
-                                    imageIndex = 1;
+                                    imageIndex = collectorFolderImage;
                                 }
                             }
                             else if (!collectorEntry.Enabled || collectorEntry.CurrentState.State == CollectorState.Disabled)
                             {
-                                if (currentTreeNode.ImageIndex != 2)
+                                if (currentTreeNode.ImageIndex != collectorNAstateImage)
                                 {
                                     nodeChanged = true;
-                                    imageIndex = 2;
+                                    imageIndex = collectorNAstateImage;
                                 }
                             }
                             else if (collectorEntry.CurrentState.State == CollectorState.Error || collectorEntry.CurrentState.State == CollectorState.ConfigurationError)
                             {
-                                if (currentTreeNode.ImageIndex != 5)
+                                if (currentTreeNode.ImageIndex != collectorErrorStateImage1)
                                 {
                                     nodeChanged = true;
-                                    imageIndex = 5;
+                                    imageIndex = collectorErrorStateImage1;
                                     PCRaiseCollectorErrorState();
                                 }
                             }
                             else if (collectorEntry.CurrentState.State == CollectorState.Warning)
                             {
-                                if (currentTreeNode.ImageIndex != 4)
+                                if (currentTreeNode.ImageIndex != collectorWarningStateImage1)
                                 {
                                     nodeChanged = true;
-                                    imageIndex = 4;
+                                    imageIndex = collectorWarningStateImage1;
                                     PCRaiseCollectorWarningState();
                                 }
                             }
                             else if (collectorEntry.CurrentState.State == CollectorState.Good)
                             {
-                                if (currentTreeNode.ImageIndex != 3)
+                                if (currentTreeNode.ImageIndex != collectorGoodStateImage1)
                                 {
                                     nodeChanged = true;
-                                    imageIndex = 3;
+                                    imageIndex = collectorGoodStateImage1;
                                     PCRaiseCollectorSuccessState();
                                 }
                             }
-                            else if (currentTreeNode.ImageIndex != 2)
+                            else if (currentTreeNode.ImageIndex != collectorNAstateImage)
                             {
                                 nodeChanged = true;
-                                imageIndex = 2;
+                                imageIndex = collectorNAstateImage;
                             }
                             if (nodeChanged)
                             {
@@ -1579,8 +1623,8 @@ namespace QuickMon
                     tvwCollectors.SelectedNode.ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;
                     if (!entry.Enabled)
                     {
-                        tvwCollectors.SelectedNode.ImageIndex = 2;
-                        tvwCollectors.SelectedNode.SelectedImageIndex = 2;
+                        tvwCollectors.SelectedNode.ImageIndex = collectorNAstateImage;
+                        tvwCollectors.SelectedNode.SelectedImageIndex = collectorNAstateImage;
                     }
                 }
             }
@@ -2011,6 +2055,72 @@ namespace QuickMon
         }
         #endregion
 
+        #region Recent monitor packs drop down and toolbar effects
+        private void mainToolStrip_MouseLeave(object sender, EventArgs e)
+        {
+            mainToolbarShrinkTimer.Enabled = false;
+            mainToolbarShrinkTimer.Enabled = true;
+        }
+        private void mainToolStrip_MouseEnter(object sender, EventArgs e)
+        {
+            mainToolbarShrinkTimer.Enabled = false;
+            mainToolStrip.BackColor = Color.FromArgb(64, Color.White);
+            recentMonitorPacksVisibleTimer.Enabled = false;
+            recentMonitorPacksVisibleTimer.Enabled = true;
+        }
+        private void mainToolbarShrinkTimer_Tick(object sender, EventArgs e)
+        {
+            mainToolbarShrinkTimer.Enabled = false;
+            mainToolStrip.BackColor = Color.Transparent;
+        }
+        private void recentMonitorPacksVisibleTimer_Tick(object sender, EventArgs e)
+        {
+            recentMonitorPacksVisibleTimer.Enabled = false;
+            System.Threading.Thread.Sleep(100);
+            cboRecentMonitorPacks.Visible = false;
+        }
+        private void recentMonitorPacksPanel_MouseEnter(object sender, EventArgs e)
+        {
+            recentMonitorPacksVisibleTimer.Enabled = false;
+            cboRecentMonitorPacks.Visible = true;
+        }
+        private void recentMonitorPacksPanel_MouseLeave(object sender, EventArgs e)
+        {
+            //recentMonitorPacksVisibleTimer.Enabled = false;
+
+        }
+        private void cboRecentMonitorPacks_MouseHover(object sender, EventArgs e)
+        {
+            recentMonitorPacksVisibleTimer.Enabled = false;
+        }
+        private void cboRecentMonitorPacks_MouseLeave(object sender, EventArgs e)
+        {
+            recentMonitorPacksVisibleTimer.Enabled = false;
+            recentMonitorPacksVisibleTimer.Enabled = true;
+        }
+        private void cboRecentMonitorPacks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboRecentMonitorPacks.SelectedIndex > 0 && cboRecentMonitorPacks.SelectedItem is QuickMon.Controls.ComboItem)
+            {
+                CloseAllDetailWindows();
+                LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
+                RefreshMonitorPack();
+            }
+            recentMonitorPacksVisibleTimer.Enabled = false;
+            recentMonitorPacksVisibleTimer.Enabled = true;
+        }
+        private void tvwCollectors_MouseMove(object sender, MouseEventArgs e)
+        {
+            recentMonitorPacksVisibleTimer.Enabled = false;
+            recentMonitorPacksVisibleTimer.Enabled = true;
+            
+        } 
+        private void resizeRecentDropDownListWidthTimer_Tick(object sender, EventArgs e)
+        {
+            resizeRecentDropDownListWidthTimer.Enabled = false;
+            LoadRecentMonitorPackList();
+        }
+        #endregion
 
 
     }
