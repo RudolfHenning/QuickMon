@@ -108,6 +108,7 @@ Set default polling frequency to 30 if too large value was set.
 MonitorState now stores call duration as well
 Collector stats history list view displays time, state, duration and details in separate columns
 Fix bug: In Collector stats if ForceRemoteExcuteOnChildCollectors was set selected collector 'Remote agent host enabled' value was set Yes.
-Add drop down box on main Window (visible nly on mouse hover) for Recent monitor packs
+Add drop down box on main Window (visible only on mouse hover) for Recent monitor packs
+Changed the main toolbar to hide the border
 -------------------------------------------------------------------------------------------------------
 

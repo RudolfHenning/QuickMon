@@ -1,4 +1,5 @@
-﻿namespace QuickMon
+﻿using QuickMon.Controls;
+namespace QuickMon
 {
     partial class MainForm
     {
@@ -35,7 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
-            this.extrasToolStrip = new System.Windows.Forms.ToolStrip();
+            this.extrasToolStrip = new QuickMon.Controls.ToolStripEx();
             this.generalSettingsToolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.pollingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pollingDisabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +49,7 @@
             this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.mainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.mainToolStrip = new QuickMon.Controls.ToolStripEx();
             this.newMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
             this.openMonitorPackToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.recentMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
@@ -119,8 +120,9 @@
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.mainToolbarShrinkTimer = new System.Windows.Forms.Timer(this.components);
-            this.recentMonitorPacksVisibleTimer = new System.Windows.Forms.Timer(this.components);
+            this.recentMonitorPacksHideTimer = new System.Windows.Forms.Timer(this.components);
             this.resizeRecentDropDownListWidthTimer = new System.Windows.Forms.Timer(this.components);
+            this.recentMonitorPacksShowTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.recentMonitorPacksPanel.SuspendLayout();
             this.extrasToolStrip.SuspendLayout();
@@ -196,7 +198,7 @@
             this.aboutToolStripMenuItem1});
             this.extrasToolStrip.Location = new System.Drawing.Point(261, 0);
             this.extrasToolStrip.Name = "extrasToolStrip";
-            this.extrasToolStrip.Size = new System.Drawing.Size(63, 27);
+            this.extrasToolStrip.Size = new System.Drawing.Size(94, 27);
             this.extrasToolStrip.TabIndex = 2;
             this.extrasToolStrip.TabStop = true;
             this.extrasToolStrip.Text = "toolStrip1";
@@ -330,7 +332,6 @@
             this.defaultNotifierViewerToolStripSplitButton});
             this.mainToolStrip.Location = new System.Drawing.Point(4, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.mainToolStrip.Size = new System.Drawing.Size(257, 35);
             this.mainToolStrip.TabIndex = 0;
             this.mainToolStrip.TabStop = true;
@@ -424,7 +425,7 @@
             // 
             this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(200, 34);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
             this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
@@ -432,7 +433,7 @@
             // 
             this.addFolderCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_add;
             this.addFolderCollectorToolStripMenuItem.Name = "addFolderCollectorToolStripMenuItem";
-            this.addFolderCollectorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.addFolderCollectorToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.addFolderCollectorToolStripMenuItem.Text = "Add Folder Collector";
             this.addFolderCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorFolderToolStripMenuItem_Click);
             // 
@@ -440,7 +441,7 @@
             // 
             this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
             this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.editCollectorToolStripMenuItem.Text = "Edit Collector";
             this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeEditConfigToolStripMenuItem_Click);
             // 
@@ -448,20 +449,20 @@
             // 
             this.removeCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
             this.removeCollectorToolStripMenuItem1.Name = "removeCollectorToolStripMenuItem1";
-            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
+            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(200, 34);
             this.removeCollectorToolStripMenuItem1.Text = "Remove Collector";
             this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(185, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(197, 6);
             // 
             // viewCollectorDetailsToolStripMenuItem
             // 
             this.viewCollectorDetailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
             this.viewCollectorDetailsToolStripMenuItem.Name = "viewCollectorDetailsToolStripMenuItem";
-            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.viewCollectorDetailsToolStripMenuItem.Text = "View Collector Details";
             this.viewCollectorDetailsToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeViewDetailsToolStripMenuItem_Click);
             // 
@@ -469,7 +470,7 @@
             // 
             this.collectorStatisticsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_stats;
             this.collectorStatisticsToolStripMenuItem.Name = "collectorStatisticsToolStripMenuItem";
-            this.collectorStatisticsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.collectorStatisticsToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.collectorStatisticsToolStripMenuItem.Text = "Collector statistics";
             this.collectorStatisticsToolStripMenuItem.Click += new System.EventHandler(this.cmdStats_Click);
             // 
@@ -744,13 +745,14 @@
             this.treeImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.treeImageList.Images.SetKeyName(0, "OrangeRedFolder2.ico");
             this.treeImageList.Images.SetKeyName(1, "OrangeFolder.ico");
-            this.treeImageList.Images.SetKeyName(2, "bullet_ball_glass_blue.ico");
+            this.treeImageList.Images.SetKeyName(2, "helpbwy24x24.png");
             this.treeImageList.Images.SetKeyName(3, "ok.png");
             this.treeImageList.Images.SetKeyName(4, "triang_yellow.png");
             this.treeImageList.Images.SetKeyName(5, "Error24x24.png");
             this.treeImageList.Images.SetKeyName(6, "ok3.png");
             this.treeImageList.Images.SetKeyName(7, "triang_yellow2.png");
             this.treeImageList.Images.SetKeyName(8, "Error2_24x24.png");
+            this.treeImageList.Images.SetKeyName(9, "bullet_ball_glass_blue.ico");
             // 
             // llblMonitorPack
             // 
@@ -886,7 +888,7 @@
             this.lvwNotifiers.Location = new System.Drawing.Point(17, 3);
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(444, 68);
+            this.lvwNotifiers.Size = new System.Drawing.Size(444, 60);
             this.lvwNotifiers.SmallImageList = this.notifiersImageList;
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
@@ -1006,15 +1008,20 @@
             // 
             this.mainToolbarShrinkTimer.Tick += new System.EventHandler(this.mainToolbarShrinkTimer_Tick);
             // 
-            // recentMonitorPacksVisibleTimer
+            // recentMonitorPacksHideTimer
             // 
-            this.recentMonitorPacksVisibleTimer.Interval = 500;
-            this.recentMonitorPacksVisibleTimer.Tick += new System.EventHandler(this.recentMonitorPacksVisibleTimer_Tick);
+            this.recentMonitorPacksHideTimer.Interval = 500;
+            this.recentMonitorPacksHideTimer.Tick += new System.EventHandler(this.recentMonitorPacksVisibleTimer_Tick);
             // 
             // resizeRecentDropDownListWidthTimer
             // 
             this.resizeRecentDropDownListWidthTimer.Interval = 300;
             this.resizeRecentDropDownListWidthTimer.Tick += new System.EventHandler(this.resizeRecentDropDownListWidthTimer_Tick);
+            // 
+            // recentMonitorPacksShowTimer
+            // 
+            this.recentMonitorPacksShowTimer.Interval = 200;
+            this.recentMonitorPacksShowTimer.Tick += new System.EventHandler(this.recentMonitorPacksShowTimer_Tick);
             // 
             // MainForm
             // 
@@ -1068,7 +1075,7 @@
         private System.Windows.Forms.Timer mainRefreshTimer;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStrip mainToolStrip;
+        private ToolStripEx mainToolStrip;
         private System.Windows.Forms.ToolStripButton refreshToolStripButton1;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -1139,7 +1146,7 @@
         private System.Windows.Forms.ToolStripSplitButton saveAsMonitorPackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.ToolStrip extrasToolStrip;
+        private ToolStripEx extrasToolStrip;
         private System.Windows.Forms.ToolStripMenuItem collectorStatisticsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton recentMonitorPackToolStripMenuItem2;
         private System.Windows.Forms.ToolStripSplitButton generalSettingsToolStripSplitButton1;
@@ -1153,8 +1160,9 @@
         private System.Windows.Forms.Timer mainToolbarShrinkTimer;
         private System.Windows.Forms.Panel recentMonitorPacksPanel;
         private System.Windows.Forms.ComboBox cboRecentMonitorPacks;
-        private System.Windows.Forms.Timer recentMonitorPacksVisibleTimer;
+        private System.Windows.Forms.Timer recentMonitorPacksHideTimer;
         private System.Windows.Forms.Timer resizeRecentDropDownListWidthTimer;
+        private System.Windows.Forms.Timer recentMonitorPacksShowTimer;
     }
 }
 

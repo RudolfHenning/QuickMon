@@ -73,6 +73,9 @@
     <Compile Include="Controls\supercontextmenu\PoperContainer.Designer.cs">
       <DependentUpon>PoperContainer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ToolStripEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TreeList\TreeViewColumns.cs">
       <SubType>UserControl</SubType>
     </Compile>

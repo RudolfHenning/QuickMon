@@ -2065,8 +2065,9 @@ namespace QuickMon
         {
             mainToolbarShrinkTimer.Enabled = false;
             mainToolStrip.BackColor = Color.FromArgb(64, Color.White);
-            recentMonitorPacksVisibleTimer.Enabled = false;
-            recentMonitorPacksVisibleTimer.Enabled = true;
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = true;
+            recentMonitorPacksShowTimer.Enabled = false;
         }
         private void mainToolbarShrinkTimer_Tick(object sender, EventArgs e)
         {
@@ -2075,14 +2076,14 @@ namespace QuickMon
         }
         private void recentMonitorPacksVisibleTimer_Tick(object sender, EventArgs e)
         {
-            recentMonitorPacksVisibleTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = false;
             System.Threading.Thread.Sleep(100);
             cboRecentMonitorPacks.Visible = false;
         }
         private void recentMonitorPacksPanel_MouseEnter(object sender, EventArgs e)
         {
-            recentMonitorPacksVisibleTimer.Enabled = false;
-            cboRecentMonitorPacks.Visible = true;
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksShowTimer.Enabled = true;
         }
         private void recentMonitorPacksPanel_MouseLeave(object sender, EventArgs e)
         {
@@ -2091,12 +2092,13 @@ namespace QuickMon
         }
         private void cboRecentMonitorPacks_MouseHover(object sender, EventArgs e)
         {
-            recentMonitorPacksVisibleTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = false;
         }
         private void cboRecentMonitorPacks_MouseLeave(object sender, EventArgs e)
         {
-            recentMonitorPacksVisibleTimer.Enabled = false;
-            recentMonitorPacksVisibleTimer.Enabled = true;
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = true;
+            recentMonitorPacksShowTimer.Enabled = false;
         }
         private void cboRecentMonitorPacks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2106,13 +2108,15 @@ namespace QuickMon
                 LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
                 RefreshMonitorPack();
             }
-            recentMonitorPacksVisibleTimer.Enabled = false;
-            recentMonitorPacksVisibleTimer.Enabled = true;
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = true;
+            recentMonitorPacksShowTimer.Enabled = false;
         }
         private void tvwCollectors_MouseMove(object sender, MouseEventArgs e)
         {
-            recentMonitorPacksVisibleTimer.Enabled = false;
-            recentMonitorPacksVisibleTimer.Enabled = true;
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = true;
+            recentMonitorPacksShowTimer.Enabled = false;
             
         } 
         private void resizeRecentDropDownListWidthTimer_Tick(object sender, EventArgs e)
@@ -2120,7 +2124,13 @@ namespace QuickMon
             resizeRecentDropDownListWidthTimer.Enabled = false;
             LoadRecentMonitorPackList();
         }
+        private void recentMonitorPacksShowTimer_Tick(object sender, EventArgs e)
+        {
+            recentMonitorPacksShowTimer.Enabled = false;
+            cboRecentMonitorPacks.Visible = true;
+        }
         #endregion
+
 
 
     }
