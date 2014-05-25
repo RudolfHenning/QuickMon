@@ -125,9 +125,13 @@ namespace QuickMon
         
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            cboRecentMonitorPacks.DropDownWidth = this.ClientSize.Width - cboRecentMonitorPacks.Left - recentMonitorPacksPanel.Left;
-            resizeRecentDropDownListWidthTimer.Enabled = false;
-            resizeRecentDropDownListWidthTimer.Enabled = true;
+            try
+            {
+                cboRecentMonitorPacks.DropDownWidth = this.ClientSize.Width - cboRecentMonitorPacks.Left - recentMonitorPacksPanel.Left;
+                resizeRecentDropDownListWidthTimer.Enabled = false;
+                resizeRecentDropDownListWidthTimer.Enabled = true;
+            }
+            catch { }
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {

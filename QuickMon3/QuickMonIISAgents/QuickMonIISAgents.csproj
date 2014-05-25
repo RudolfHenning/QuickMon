@@ -39,7 +39,7 @@
     <Reference Include="Microsoft.Web.Administration, Version=7.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\System32\inetsrv\Microsoft.Web.Administration.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="QuickMonCore">
       <HintPath>C:\Program Files\Hen IT\QuickMon 3\QuickMonCore.dll</HintPath>
