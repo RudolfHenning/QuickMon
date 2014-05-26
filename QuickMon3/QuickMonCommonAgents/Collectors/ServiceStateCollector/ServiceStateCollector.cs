@@ -71,9 +71,9 @@ namespace QuickMon.Collectors
                 returnState.RawDetails = plainTextDetails.ToString().TrimEnd('\r', '\n');
                 returnState.HtmlDetails = htmlTextTextDetails.ToString();
 
-                if (errors > 0) // any errors
+                if (errors > 0 && warnings == 0 && success == 0) // all errors
                     returnState.State = CollectorState.Error;
-                else if (warnings > 0) //any warnings
+                else if (errors > 0 || warnings > 0) //any error or warnings
                     returnState.State = CollectorState.Warning;
                 else
                     returnState.State = CollectorState.Good;
