@@ -179,6 +179,7 @@ namespace QuickMon.Management
                 SelectedEntry.AlertForCollectors.Clear();
                 if (editingNotifierEntry.AlertForCollectors != null && editingNotifierEntry.AlertForCollectors.Count > 0)
                     SelectedEntry.AlertForCollectors.AddRange(editingNotifierEntry.AlertForCollectors.ToArray());
+                SelectedEntry.AttendedOptionOverride = (AttendedOption)cboAttendedOptionOverride.SelectedIndex;
 
                 monitorPack.ApplyNotifierConfig(SelectedEntry);
                 DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -346,6 +347,7 @@ namespace QuickMon.Management
         private void LoadConfig()
         {
             cmdConfigure.Enabled = editingNotifierEntry == null;
+            cboAttendedOptionOverride.SelectedIndex = 0;
             if (editingNotifierEntry != null)
             {
                 txtName.Text = editingNotifierEntry.Name;
@@ -362,8 +364,16 @@ namespace QuickMon.Management
                 if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
                 {
                     INotifierConfig config = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
-                    lblConfigSummary.Text = config.ConfigSummary;                    
+                    lblConfigSummary.Text = config.ConfigSummary;
+                    if (editingNotifierEntry.Notifier.AttendedRunOption != AttendedOption.AttendedAndUnAttended)
+                    {
+                        editingNotifierEntry.AttendedOptionOverride = editingNotifierEntry.Notifier.AttendedRunOption;
+                        cboAttendedOptionOverride.Enabled = false;
+                    }
+                    else
+                        cboAttendedOptionOverride.Enabled = true;
                 }
+                cboAttendedOptionOverride.SelectedIndex = (int)editingNotifierEntry.AttendedOptionOverride;
                 SetAlertForCollectors();
                 CheckOkEnable();
             }

@@ -11,10 +11,6 @@ namespace QuickMon.Notifiers
         public abstract void RecordMessage(AlertRaised alertRaised);
         public abstract bool HasViewer { get; }
         public abstract INotivierViewer GetNotivierViewer();
-        /// <summary>
-        /// Not used anymore (at least for Collectors)
-        /// </summary>
-        /// <returns></returns>
         public abstract IEditConfigWindow GetEditConfigWindow();
         public virtual bool ShowEditConfiguration(string title)
         {
@@ -29,6 +25,7 @@ namespace QuickMon.Notifiers
             }
             return accepted;
         }
+        public abstract AttendedOption AttendedRunOption { get; }
         #endregion
     }
 }

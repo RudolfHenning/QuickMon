@@ -12,6 +12,7 @@ namespace QuickMon
         public NotifierEntry()
         {
             AlertForCollectors = new List<string>();
+            AttendedOptionOverride = AttendedOption.AttendedAndUnAttended;
         }
 
         #region Properties
@@ -23,6 +24,7 @@ namespace QuickMon
         public DetailLevel DetailLevel { get; set; }
         public string InitialConfiguration { get; set; }
         public List<string> AlertForCollectors { get; private set; }
+        public AttendedOption AttendedOptionOverride { get; set; }
         #endregion
 
         #region Get/Set configuration
@@ -38,8 +40,9 @@ namespace QuickMon
             notifierEntry.Name = xmlNotifierEntry.Attributes.GetNamedItem("name").Value;
             notifierEntry.NotifierRegistrationName = xmlNotifierEntry.Attributes.GetNamedItem("notifier").Value;
             notifierEntry.Enabled = bool.Parse(xmlNotifierEntry.Attributes.GetNamedItem("enabled").Value);
-            notifierEntry.AlertLevel = (AlertLevel)Enum.Parse(typeof(AlertLevel), xmlNotifierEntry.Attributes.GetNamedItem("alertLevel").Value);
-            notifierEntry.DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), xmlNotifierEntry.Attributes.GetNamedItem("detailLevel").Value);
+            notifierEntry.AlertLevel = (AlertLevel)Enum.Parse(typeof(AlertLevel), xmlNotifierEntry.ReadXmlElementAttr("alertLevel", "Warning"));
+            notifierEntry.DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), xmlNotifierEntry.ReadXmlElementAttr("detailLevel", "Detail"));
+            notifierEntry.AttendedOptionOverride = (AttendedOption)Enum.Parse(typeof(AttendedOption), xmlNotifierEntry.ReadXmlElementAttr("attendedOptionOverride", "AttendedAndUnAttended"));
             if (xmlNotifierEntry.SelectSingleNode("config") != null)
                 notifierEntry.InitialConfiguration = xmlNotifierEntry.SelectSingleNode("config").OuterXml;
 
@@ -64,6 +67,7 @@ namespace QuickMon
                 Enabled,
                 Enum.GetName(typeof(QuickMon.AlertLevel), this.AlertLevel),
                 Enum.GetName(typeof(QuickMon.DetailLevel), this.DetailLevel),
+                AttendedOptionOverride.ToString(),
                 InitialConfiguration,
                 AlertForCollectorsConfig());
             return config;

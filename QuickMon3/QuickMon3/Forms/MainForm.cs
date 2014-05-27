@@ -65,6 +65,8 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
+            extrasToolStrip.Left = mainToolStrip.Width+5;
+
             cboRecentMonitorPacks.Visible = false;
             LoadRecentMonitorPackList();
             lblNoNotifiersYet.Dock = DockStyle.Fill;
@@ -793,6 +795,7 @@ namespace QuickMon
                 monitorPack.RunRestorationScript += monitorPack_RunRestorationScript;
                 monitorPack.CollectorCalled += monitorPack_CollectorCalled;
                 monitorPack.CollectorExecutionTimeEvent += monitorPack_CollectorExecutionTimeEvent;
+                monitorPack.RunningAttended = AttendedOption.OnlyAttended;
 
                 Cursor.Current = Cursors.Default;
                 tvwCollectors.Nodes[0].Text = "Collectors";
@@ -2060,6 +2063,12 @@ namespace QuickMon
         #endregion
 
         #region Recent monitor packs drop down and toolbar effects
+        private void HideRecentDropDownList (object sender, EventArgs e)
+        {
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = true;
+            recentMonitorPacksShowTimer.Enabled = false;
+        }
         private void mainToolStrip_MouseLeave(object sender, EventArgs e)
         {
             mainToolbarShrinkTimer.Enabled = false;
@@ -2069,9 +2078,7 @@ namespace QuickMon
         {
             mainToolbarShrinkTimer.Enabled = false;
             mainToolStrip.BackColor = Color.FromArgb(64, Color.White);
-            recentMonitorPacksHideTimer.Enabled = false;
-            recentMonitorPacksHideTimer.Enabled = true;
-            recentMonitorPacksShowTimer.Enabled = false;
+            HideRecentDropDownList(sender, e);
         }
         private void mainToolbarShrinkTimer_Tick(object sender, EventArgs e)
         {
@@ -2100,9 +2107,7 @@ namespace QuickMon
         }
         private void cboRecentMonitorPacks_MouseLeave(object sender, EventArgs e)
         {
-            recentMonitorPacksHideTimer.Enabled = false;
-            recentMonitorPacksHideTimer.Enabled = true;
-            recentMonitorPacksShowTimer.Enabled = false;
+            HideRecentDropDownList(sender, e);
         }
         private void cboRecentMonitorPacks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2112,16 +2117,11 @@ namespace QuickMon
                 LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
                 RefreshMonitorPack();
             }
-            recentMonitorPacksHideTimer.Enabled = false;
-            recentMonitorPacksHideTimer.Enabled = true;
-            recentMonitorPacksShowTimer.Enabled = false;
+            HideRecentDropDownList(sender, e);
         }
         private void tvwCollectors_MouseMove(object sender, MouseEventArgs e)
         {
-            recentMonitorPacksHideTimer.Enabled = false;
-            recentMonitorPacksHideTimer.Enabled = true;
-            recentMonitorPacksShowTimer.Enabled = false;
-            
+            HideRecentDropDownList(sender, e);
         } 
         private void resizeRecentDropDownListWidthTimer_Tick(object sender, EventArgs e)
         {
@@ -2133,9 +2133,10 @@ namespace QuickMon
             recentMonitorPacksShowTimer.Enabled = false;
             cboRecentMonitorPacks.Visible = true;
         }
+        private void llblMonitorPack_MouseEnter(object sender, EventArgs e)
+        {
+            HideRecentDropDownList(sender, e);
+        }
         #endregion
-
-
-
     }
 }

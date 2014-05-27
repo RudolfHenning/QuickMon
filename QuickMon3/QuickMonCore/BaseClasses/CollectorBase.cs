@@ -12,10 +12,20 @@ namespace QuickMon.Collectors
         public abstract ICollectorDetailView GetCollectorDetailView();
         #endregion
 
-        //public new ICollectorConfig AgentConfig { get; set; }
-        //public new virtual void SetConfigurationFromXmlString(string configurationString)
-        //{
-        //    AgentConfig.ReadConfiguration(configurationString);
-        //}
+        public virtual bool ShowEditEntry(ref ICollectorConfigEntry entry)
+        {
+            bool accepted = false;
+            IEditConfigEntryWindow editConfig = GetEditConfigEntryWindow();
+            editConfig.SelectedEntry = entry;
+            //editConfig.SetTitle(title); //"Edit " + Name + " config");
+            if (editConfig != null && editConfig.ShowEditEntry() == QuickMonDialogResult.Ok)
+            {
+                //entry = (ICollectorConfigEntry)editConfig.SelectedEntry;
+                entry = editConfig.SelectedEntry;
+                accepted = true;
+            }
+            return accepted;
+        }
+        public abstract IEditConfigEntryWindow GetEditConfigEntryWindow();
     }
 }

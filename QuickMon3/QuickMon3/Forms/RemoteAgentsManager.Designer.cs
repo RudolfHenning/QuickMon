@@ -33,15 +33,13 @@
             this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.lvwRemoteHosts = new QuickMon.ListViewEx();
-            this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.attemptToStartAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblComputer = new System.Windows.Forms.Label();
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
@@ -49,6 +47,9 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
+            this.lvwRemoteHosts = new QuickMon.ListViewEx();
+            this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -89,31 +90,6 @@
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
-            // 
-            // lvwRemoteHosts
-            // 
-            this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwRemoteHosts.AutoResizeColumnEnabled = false;
-            this.lvwRemoteHosts.AutoResizeColumnIndex = 0;
-            this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.remoteAgentColumnHeader});
-            this.lvwRemoteHosts.ContextMenuStrip = this.contextMenuStrip1;
-            this.lvwRemoteHosts.FullRowSelect = true;
-            this.lvwRemoteHosts.Location = new System.Drawing.Point(12, 12);
-            this.lvwRemoteHosts.Name = "lvwRemoteHosts";
-            this.lvwRemoteHosts.Size = new System.Drawing.Size(399, 228);
-            this.lvwRemoteHosts.SmallImageList = this.imageList1;
-            this.lvwRemoteHosts.TabIndex = 0;
-            this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
-            this.lvwRemoteHosts.View = System.Windows.Forms.View.Details;
-            this.lvwRemoteHosts.SelectedIndexChanged += new System.EventHandler(this.lvwRemoteHosts_SelectedIndexChanged);
-            // 
-            // remoteAgentColumnHeader
-            // 
-            this.remoteAgentColumnHeader.Text = "Remote agent";
-            this.remoteAgentColumnHeader.Width = 334;
             // 
             // contextMenuStrip1
             // 
@@ -164,15 +140,16 @@
             this.imageList1.Images.SetKeyName(3, "GUnknown.ico");
             this.imageList1.Images.SetKeyName(4, "GPaused.ico");
             // 
-            // label1
+            // lblComputer
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 251);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Computer";
+            this.lblComputer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblComputer.AutoSize = true;
+            this.lblComputer.Location = new System.Drawing.Point(12, 251);
+            this.lblComputer.Name = "lblComputer";
+            this.lblComputer.Size = new System.Drawing.Size(52, 13);
+            this.lblComputer.TabIndex = 1;
+            this.lblComputer.Text = "Computer";
+            this.lblComputer.DoubleClick += new System.EventHandler(this.lblComputer_DoubleClick);
             // 
             // txtComputer
             // 
@@ -255,6 +232,37 @@
             this.llblFirewallRule.Text = "Try to add Firewall rule for port 8181";
             this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
             // 
+            // lvwRemoteHosts
+            // 
+            this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwRemoteHosts.AutoResizeColumnEnabled = false;
+            this.lvwRemoteHosts.AutoResizeColumnIndex = 0;
+            this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.remoteAgentColumnHeader,
+            this.versionColumnHeader});
+            this.lvwRemoteHosts.ContextMenuStrip = this.contextMenuStrip1;
+            this.lvwRemoteHosts.FullRowSelect = true;
+            this.lvwRemoteHosts.Location = new System.Drawing.Point(12, 12);
+            this.lvwRemoteHosts.Name = "lvwRemoteHosts";
+            this.lvwRemoteHosts.Size = new System.Drawing.Size(399, 228);
+            this.lvwRemoteHosts.SmallImageList = this.imageList1;
+            this.lvwRemoteHosts.TabIndex = 0;
+            this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
+            this.lvwRemoteHosts.View = System.Windows.Forms.View.Details;
+            this.lvwRemoteHosts.SelectedIndexChanged += new System.EventHandler(this.lvwRemoteHosts_SelectedIndexChanged);
+            // 
+            // remoteAgentColumnHeader
+            // 
+            this.remoteAgentColumnHeader.Text = "Remote agent";
+            this.remoteAgentColumnHeader.Width = 259;
+            // 
+            // versionColumnHeader
+            // 
+            this.versionColumnHeader.Text = "Version";
+            this.versionColumnHeader.Width = 97;
+            // 
             // RemoteAgentsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,7 +273,7 @@
             this.Controls.Add(this.remoteportNumericUpDown);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txtComputer);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblComputer);
             this.Controls.Add(this.lvwRemoteHosts);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -295,7 +303,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblComputer;
         private System.Windows.Forms.TextBox txtComputer;
         private System.Windows.Forms.NumericUpDown remoteportNumericUpDown;
         private System.Windows.Forms.Label label14;
@@ -306,5 +314,6 @@
         private System.Windows.Forms.ToolStripMenuItem attemptToStartAgentToolStripMenuItem;
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.LinkLabel llblFirewallRule;
+        private System.Windows.Forms.ColumnHeader versionColumnHeader;
     }
 }

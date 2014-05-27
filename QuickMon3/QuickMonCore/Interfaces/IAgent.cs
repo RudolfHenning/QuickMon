@@ -15,7 +15,5 @@ namespace QuickMon
         //In case some agents needs to close some resources
         void Close();
 
-        bool ShowEditEntry(ref ICollectorConfigEntry entry);
-        
     }
 }

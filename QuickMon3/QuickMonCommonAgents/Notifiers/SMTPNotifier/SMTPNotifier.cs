@@ -108,6 +108,7 @@ namespace QuickMon.Notifiers
         {
             get { return false; }
         }
+        public override AttendedOption AttendedRunOption { get { return AttendedOption.AttendedAndUnAttended; } }
         public override INotivierViewer GetNotivierViewer()
         {
             return null;
@@ -119,11 +120,6 @@ namespace QuickMon.Notifiers
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.SMTPNotifierDefaultConfig;
-        }
-
-        public override IEditConfigEntryWindow GetEditConfigEntryWindow()
-        {
-            return new SMTPNotifierEditConfig();
         }
     }
 }

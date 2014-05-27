@@ -90,6 +90,7 @@ namespace QuickMon.Notifiers
         {
             get { return true; }
         }
+        public override AttendedOption AttendedRunOption { get { return AttendedOption.AttendedAndUnAttended; } }
         public override INotivierViewer GetNotivierViewer()
         {
             return new LogFileNotifierShowViewer();
@@ -101,11 +102,6 @@ namespace QuickMon.Notifiers
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.LogFileNotifierDefaultConfig;
-        }
-
-        public override IEditConfigEntryWindow GetEditConfigEntryWindow()
-        {
-            return new LogFileNotifierEditConfig();
         }
     }
 }

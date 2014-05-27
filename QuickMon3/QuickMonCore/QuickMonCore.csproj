@@ -68,6 +68,7 @@
     <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
     <Compile Include="Controls\RTF\RTFFont.cs" />
     <Compile Include="Enums\AlertLevel.cs" />
+    <Compile Include="Enums\AttendedOption.cs" />
     <Compile Include="Enums\CollectorState.cs" />
     <Compile Include="Enums\DetailLevel.cs" />
     <Compile Include="Enums\QuickMonDialogResult.cs" />

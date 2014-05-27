@@ -11,5 +11,8 @@ namespace QuickMon
     {
         [OperationContract]
         MonitorState GetState(CollectorEntryRequest entry);
+
+        [OperationContract]
+        string GetQuickMonCoreVersion();
     }
 }

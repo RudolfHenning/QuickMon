@@ -38,6 +38,7 @@ namespace QuickMon
             ConcurrencyLevel = 1;
             BusyPolling = false;
             CollectorStateHistorySize = 1;
+            RunningAttended = AttendedOption.AttendedAndUnAttended;
         }
 
         private string quickMonPCCategory = "QuickMon 3";
@@ -298,6 +299,7 @@ namespace QuickMon
         #endregion
 
         public int CollectorStateHistorySize { get; set; }
+        public AttendedOption RunningAttended { get; set; }
         #endregion
 
         #region Performance counters
@@ -873,8 +875,23 @@ namespace QuickMon
             {
                 try
                 {
-                    PCRaiseNotifiersCalled();
-                    notifierEntry.Notifier.RecordMessage(alertRaised);
+                    bool allowedToRun = true;
+                    if (RunningAttended != AttendedOption.AttendedAndUnAttended)
+                    {
+                        if (RunningAttended != notifierEntry.Notifier.AttendedRunOption && notifierEntry.Notifier.AttendedRunOption != AttendedOption.AttendedAndUnAttended)
+                            allowedToRun = false;
+                    }
+                    if (notifierEntry.AttendedOptionOverride != AttendedOption.AttendedAndUnAttended)
+                    {
+                        if (notifierEntry.AttendedOptionOverride != notifierEntry.Notifier.AttendedRunOption)
+                            allowedToRun = false;
+                    }
+
+                    if (allowedToRun)
+                    {
+                        PCRaiseNotifiersCalled();
+                        notifierEntry.Notifier.RecordMessage(alertRaised);
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -200,6 +200,7 @@
     <None Include="Resources\folderWLightning.ico" />
     <None Include="Resources\infoOrange16x16.png" />
     <None Include="Resources\folderWLightning16x16.png" />
+    <None Include="Resources\LeftShade.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

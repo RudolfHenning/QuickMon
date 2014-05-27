@@ -15,6 +15,9 @@ namespace QuickMon.Notifiers
             AgentConfig = new InMemoryNotifierConfig();
         }
 
+        public override bool HasViewer { get { return true; } }
+        public override AttendedOption AttendedRunOption { get { return AttendedOption.OnlyAttended; } }
+
         public override void RecordMessage(AlertRaised alertRaised)
         {
             Alerts.Add(alertRaised);
@@ -28,7 +31,6 @@ namespace QuickMon.Notifiers
                 }
             }
         }
-        public override bool HasViewer { get { return true; } }
         public override INotivierViewer GetNotivierViewer()
         {
             return new InMemoryNotifierViewer();
@@ -44,11 +46,6 @@ namespace QuickMon.Notifiers
         public override void SetConfigurationFromXmlString(string configurationString)
         {
             AgentConfig.ReadConfiguration(configurationString);
-        }
-
-        public override IEditConfigEntryWindow GetEditConfigEntryWindow()
-        {
-            return new InMemoryNotifierConfigEditor();
         }
     }
 }

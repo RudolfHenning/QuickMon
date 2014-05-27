@@ -167,6 +167,7 @@ namespace QuickMon
                 monitorPack.RunRestorationScript += new RaiseCollectorCalledDelegate(monitorPack_RunRestorationScript);
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
                 monitorPack.ConcurrencyLevel = concurrencyLevel;
+                monitorPack.RunningAttended = AttendedOption.OnlyUnAttended;
                 packs.Add(monitorPack);
                 monitorPack.StartPolling();
                 PCSetMonitorPacksLoaded(packs.Count);
@@ -175,9 +176,7 @@ namespace QuickMon
             {
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Error loading/starting MonitorPack '{0}'\r\n{1}", monitorPackPath, ex.Message), EventLogEntryType.Error, 11);
             }
-        }
-
-        
+        }        
         #endregion
 
         #region Monitor pack events

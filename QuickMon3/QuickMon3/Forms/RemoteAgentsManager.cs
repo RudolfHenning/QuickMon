@@ -27,7 +27,7 @@ namespace QuickMon.Forms
         public RemoteAgentsManager()
         {
             InitializeComponent();
-            lvwRemoteHosts.AutoResizeColumnIndex = 0;
+            lvwRemoteHosts.AutoResizeColumnIndex = 1;
             lvwRemoteHosts.AutoResizeColumnEnabled = true;
         }
 
@@ -84,6 +84,7 @@ namespace QuickMon.Forms
                         if (rh.Substring(computerNameOnly.Length + 1).IsNumber())
                             ri.PortNumber = int.Parse(rh.Substring(computerNameOnly.Length + 1));
                     }
+                    lvi.SubItems.Add(""); //Version info to be added afterwards
                     ri.Computer = computerNameOnly;
 
                     lvi.Tag = ri;
@@ -346,6 +347,19 @@ namespace QuickMon.Forms
             });
         } 
         #endregion
+
+        private void lblComputer_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(txtComputer.Text, (int)remoteportNumericUpDown.Value);
+                MessageBox.Show("Version Info: " + versionInfo, "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
 

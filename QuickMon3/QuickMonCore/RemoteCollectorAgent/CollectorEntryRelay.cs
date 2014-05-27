@@ -24,8 +24,20 @@ namespace QuickMon
             colReq.ParentCollectorId = ""; //Since this mechanism do no support nested collectors
             return relay.GetState(colReq);
         }
+        public static string GetRemoteAgentHostVersion(string hostAddress, int portNumber)
+        {
+            BasicHttpBinding myBinding = new BasicHttpBinding();
+            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", hostAddress, portNumber));
+            ChannelFactory<ICollectorEntryRelay> myChannelFactory = new ChannelFactory<ICollectorEntryRelay>(myBinding, myEndpoint);
+            ICollectorEntryRelay relay = myChannelFactory.CreateChannel();            
+            return relay.GetQuickMonCoreVersion();
+        }        
 
         #region ICollectorEntryRelay Members
+        public string GetQuickMonCoreVersion()
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
         public MonitorState GetState(CollectorEntryRequest entry)
         {
             MonitorState monitorState = new MonitorState();

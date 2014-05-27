@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMon", "QuickMon3\QuickMon.csproj", "{401F6EC8-9013-49E7-BDF5-FA2ECD76FFAF}"
 EndProject
@@ -29,9 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopyAsAdmin", "CopyAsdmin\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonPowerShellAgents", "QuickMonPowerShellAgents\QuickMonPowerShellAgents.csproj", "{7FBEDEC5-AC73-442E-934F-C8C20262C2AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonAudioNotifier", "QuickMonAudioNotifier\QuickMonAudioNotifier.csproj", "{4C88D3AF-AE41-4DB4-924F-0F899C43581C}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
+		SccNumberOfProjects = 15
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -74,6 +76,9 @@ Global
 		SccProjectUniqueName13 = QuickMonPowerShellAgents\\QuickMonPowerShellAgents.csproj
 		SccProjectName13 = QuickMonPowerShellAgents
 		SccLocalPath13 = QuickMonPowerShellAgents
+		SccProjectUniqueName14 = QuickMonAudioNotifier\\QuickMonAudioNotifier.csproj
+		SccProjectName14 = QuickMonAudioNotifier
+		SccLocalPath14 = QuickMonAudioNotifier
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,6 +137,10 @@ Global
 		{7FBEDEC5-AC73-442E-934F-C8C20262C2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FBEDEC5-AC73-442E-934F-C8C20262C2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FBEDEC5-AC73-442E-934F-C8C20262C2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

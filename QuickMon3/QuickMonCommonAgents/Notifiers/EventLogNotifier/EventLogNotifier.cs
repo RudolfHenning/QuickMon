@@ -14,6 +14,12 @@ namespace QuickMon.Notifiers.EventLogNotifier
         {
             AgentConfig = new EventLogNotifierConfig();
         }
+        public override bool HasViewer
+        {
+            get { return true; }
+        }
+        public override AttendedOption AttendedRunOption { get { return AttendedOption.AttendedAndUnAttended; } }
+
         public override void RecordMessage(AlertRaised alertRaised)
         {
             string lastStep = "";
@@ -90,30 +96,17 @@ namespace QuickMon.Notifiers.EventLogNotifier
                 //eventLogWriteMutex.ReleaseMutex();
             }
         }
-
-        public override bool HasViewer
-        {
-            get { return true; }
-        }
-
         public override INotivierViewer GetNotivierViewer()
         {
             return new EventLogNotifierShowViewer();
         }
-
         public override IEditConfigWindow GetEditConfigWindow()
         {
             return new EventLogNotifierEditConfig();
         }
-
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.EventLogNotifierDefaultConfig;
-        }
-
-        public override IEditConfigEntryWindow GetEditConfigEntryWindow()
-        {
-            return new EventLogNotifierEditConfig();
         }
     }
 }

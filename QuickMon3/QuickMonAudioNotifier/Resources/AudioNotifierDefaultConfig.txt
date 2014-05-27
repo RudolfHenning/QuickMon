@@ -1,0 +1,7 @@
+<config>
+  <audioConfig>
+	<goodState enabled="false" useSystemSounds="true" soundPath="" systemSound="1" soundRepeatCount="1" soundVolumePerc="-1" />
+	<warningState enabled="true" useSystemSounds="true" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" />
+	<errorState enabled="true" useSystemSounds="true" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" />
+  </audioConfig>
+</config>

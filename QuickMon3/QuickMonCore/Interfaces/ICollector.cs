@@ -8,7 +8,8 @@ namespace QuickMon
     public interface ICollector : IAgent
     {
         MonitorState GetState();
-        ICollectorDetailView GetCollectorDetailView();        
+        ICollectorDetailView GetCollectorDetailView();
+        bool ShowEditEntry(ref ICollectorConfigEntry entry);
     }
     
 }

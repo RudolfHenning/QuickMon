@@ -56,6 +56,8 @@
             this.lblConfigSummary = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboAttendedOptionOverride = new System.Windows.Forms.ComboBox();
             this.configEditContextMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -76,10 +78,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(395, 264);
+            this.cmdCancel.Location = new System.Drawing.Point(395, 286);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 10;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -88,10 +90,10 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(314, 264);
+            this.cmdOK.Location = new System.Drawing.Point(314, 286);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 9;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -256,7 +258,7 @@
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblRawEdit.AutoSize = true;
             this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(12, 72);
+            this.llblRawEdit.Location = new System.Drawing.Point(12, 78);
             this.llblRawEdit.Name = "llblRawEdit";
             this.llblRawEdit.Size = new System.Drawing.Size(92, 13);
             this.llblRawEdit.TabIndex = 2;
@@ -269,7 +271,7 @@
             this.cmdConfigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdConfigure.Enabled = false;
             this.cmdConfigure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdConfigure.Location = new System.Drawing.Point(385, 67);
+            this.cmdConfigure.Location = new System.Drawing.Point(385, 73);
             this.cmdConfigure.Name = "cmdConfigure";
             this.cmdConfigure.Size = new System.Drawing.Size(75, 23);
             this.cmdConfigure.TabIndex = 3;
@@ -286,11 +288,11 @@
             this.groupBox1.Controls.Add(this.lblConfigSummary);
             this.groupBox1.Controls.Add(this.cmdConfigure);
             this.groupBox1.Controls.Add(this.llblRawEdit);
-            this.groupBox1.Location = new System.Drawing.Point(12, 65);
+            this.groupBox1.Location = new System.Drawing.Point(12, 81);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.groupBox1.Size = new System.Drawing.Size(468, 96);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.Size = new System.Drawing.Size(468, 102);
+            this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
             // label1
@@ -310,7 +312,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblConfigSummary.Location = new System.Drawing.Point(12, 20);
             this.lblConfigSummary.Name = "lblConfigSummary";
-            this.lblConfigSummary.Size = new System.Drawing.Size(448, 44);
+            this.lblConfigSummary.Size = new System.Drawing.Size(448, 50);
             this.lblConfigSummary.TabIndex = 1;
             this.lblConfigSummary.Text = "N/A";
             // 
@@ -325,10 +327,10 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.alertForCollectorslinkLabel);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(12, 167);
+            this.groupBox2.Location = new System.Drawing.Point(12, 189);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(468, 91);
-            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
             // label7
@@ -341,12 +343,39 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Alert handling";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.854546F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(11, 61);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Run attended";
+            // 
+            // cboAttendedOptionOverride
+            // 
+            this.cboAttendedOptionOverride.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAttendedOptionOverride.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboAttendedOptionOverride.FormattingEnabled = true;
+            this.cboAttendedOptionOverride.Items.AddRange(new object[] {
+            "Attended or Unattended",
+            "Only Attended (with UI)",
+            "Only UnAttended (e.g. under a service)"});
+            this.cboAttendedOptionOverride.Location = new System.Drawing.Point(109, 58);
+            this.cboAttendedOptionOverride.Name = "cboAttendedOptionOverride";
+            this.cboAttendedOptionOverride.Size = new System.Drawing.Size(302, 21);
+            this.cboAttendedOptionOverride.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.cboAttendedOptionOverride, "Should this notifier \'fire\' for only \'Attended\' or \'Unattended\' or \'Both\'");
+            // 
             // EditNotifierEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(492, 299);
+            this.ClientSize = new System.Drawing.Size(492, 321);
+            this.Controls.Add(this.cboAttendedOptionOverride);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.llblNotifierType);
@@ -404,5 +433,7 @@
         private System.Windows.Forms.Label lblConfigSummary;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cboAttendedOptionOverride;
     }
 }

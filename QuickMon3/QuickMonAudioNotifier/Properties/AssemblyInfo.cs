@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuickMon 3")]
-[assembly: AssemblyDescription("QuickMon 3 Windows Client")]
+[assembly: AssemblyTitle("QuickMon Audio Notifier")]
+[assembly: AssemblyDescription("Audio/Sound Notifier")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("QuickMon")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ba3bd87c-11c0-44de-b325-5763101c8adb")]
+[assembly: Guid("87c10e72-ab76-4fe2-92d4-ffaf2585ade0")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("3.13.0527.2014")]
-[assembly: AssemblyFileVersion("3.13.0527.2014")]
+[assembly: AssemblyFileVersion("3.13.0527.0527")]

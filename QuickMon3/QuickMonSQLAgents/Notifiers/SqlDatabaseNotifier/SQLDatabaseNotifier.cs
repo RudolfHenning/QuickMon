@@ -18,6 +18,9 @@ namespace QuickMon.Notifiers
         }
 
         private SqlConnection cacheConn = null;
+        public override bool HasViewer { get { return true; } }
+        public override AttendedOption AttendedRunOption { get { return AttendedOption.AttendedAndUnAttended; } }
+
         public override void RecordMessage(AlertRaised alertRaised)
         {
             string lastStep = "";
@@ -52,12 +55,12 @@ namespace QuickMon.Notifiers
                         }
                     }
                 }
-                
+
                 //using (SqlConnection conn = new SqlConnection(currentConfig.GetConnectionString()))
                 {
-                    
 
-//                    conn.Open();
+
+                    //                    conn.Open();
                     lastStep = string.Format("Inserting test message into database {0}\\{1}", currentConfig.SqlServer, currentConfig.Database);
 
                     string alertParamName = currentConfig.AlertFieldName.Replace("'", "''").Replace("@", "");
@@ -122,12 +125,6 @@ namespace QuickMon.Notifiers
                 throw new Exception("Error recording message in Database notifier\r\nLast step: " + lastStep, ex);
             }
         }
-
-        public override bool HasViewer
-        {
-            get { return true; }
-        }
-
         public override INotivierViewer GetNotivierViewer()
         {
             return new SqlDatabaseNotifierShowViewer();
@@ -136,20 +133,13 @@ namespace QuickMon.Notifiers
         {
             return new SqlDatabaseNotifierEditConfig();
         }
-
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.SqlDatabaseNotifierDefaultConfig;
         }
-
         public override void SetConfigurationFromXmlString(string configurationString)
         {
             AgentConfig.ReadConfiguration(configurationString);
-        }
-
-        public override IEditConfigEntryWindow GetEditConfigEntryWindow()
-        {
-            return new SqlDatabaseNotifierEditConfig();
         }
     }
 }

@@ -2,10 +2,6 @@
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
 Add WCF method on remote host to return version number of QuickMon
-'In memory notifier has no function in Windows Service'. Perhaps add property on notifier that indicates if supports running 'unattended' - if not it won't be loaded by service
-   Perhaps have 'Property' on Notifier Entry that indicate if it should function 'Only attended'/'Unattended'/Both. Memory notifier will have default of 'Only attended'.
-   Some notifiers will only support 'Only attended' - like in memory.
-Play sound notifier (error/warning sounds)
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -113,5 +109,12 @@ Fix bug: In Collector stats if ForceRemoteExcuteOnChildCollectors was set select
 Add drop down box on main Window (visible only on mouse hover) for Recent monitor packs
 Changed the main toolbar to hide the border
 Fixed/change Window service collector to report error ONLY when all services from all machines are down (and not when all services r down from any one of the machines in the list)
+
+v3.13
+Added Audio notifier
+Fix Notifier interface to remove duplicate Edit config window
+'In memory notifier has no function in Windows Service'. Perhaps add property on notifier that indicates if supports running 'unattended' - if not it won't be loaded by service
+   Perhaps have 'Property' on Notifier Entry that indicate if it should function 'Only attended'/'Unattended'/Both. Memory notifier will have default of 'Only attended'.
+   Some notifiers will only support 'Only attended' - like in memory.
 -------------------------------------------------------------------------------------------------------
 
