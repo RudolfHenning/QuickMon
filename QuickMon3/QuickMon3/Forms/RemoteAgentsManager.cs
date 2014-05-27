@@ -126,6 +126,7 @@ namespace QuickMon.Forms
                             ri.Computer = txtComputer.Text;
                             ri.PortNumber = (int)remoteportNumericUpDown.Value;
                             ListViewItem lvi = new ListViewItem(txtComputer.Text + ":" + remoteportNumericUpDown.Value.ToString());
+                            lvi.SubItems.Add(""); //Version info to be added afterwards
                             lvi.Tag = ri;
                             lvi.ImageIndex = 3;
                             lvwRemoteHosts.Items.Add(lvi);
@@ -273,32 +274,57 @@ namespace QuickMon.Forms
             int imageIndex = 0;
             ListViewItem lvi = (ListViewItem)o;
             try
-            {                
-                RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
-                CollectorEntry ce = new CollectorEntry();
-                ce.EnableRemoteExecute = true;
-                ce.RemoteAgentHostAddress = ri.Computer;
-                ce.RemoteAgentHostPort = ri.PortNumber;
-                ce.CollectorRegistrationName = "PingCollector";
-                ce.CollectorRegistrationDisplayName = "Ping Collector";
-                ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
-
-                bool hostExists = false;
-                lock (this)
+            {
+                lvwRemoteHosts.Invoke((MethodInvoker)delegate
                 {
-                    hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
-                }
-                if (!hostExists)
-                    imageIndex = 3;
-                else
-                {
-                    MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
+                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                    CollectorEntry ce = new CollectorEntry();
+                    ce.EnableRemoteExecute = true;
+                    ce.RemoteAgentHostAddress = ri.Computer;
+                    ce.RemoteAgentHostPort = ri.PortNumber;
+                    ce.CollectorRegistrationName = "PingCollector";
+                    ce.CollectorRegistrationDisplayName = "Ping Collector";
+                    ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
 
-                    if (testState.State == CollectorState.Good)
-                        imageIndex = 0;
+                    bool hostExists = false;
+                    lock (this)
+                    {
+                        hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
+                    }
+                    if (!hostExists)
+                    {
+                        imageIndex = 3;
+                        lvi.SubItems[1].Text = "N/A";
+                    }
                     else
-                        imageIndex = 2;
-                }
+                    {
+                        MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
+
+                        if (testState.State == CollectorState.Good)
+                        {
+                            imageIndex = 0;
+                            try
+                            {
+                                string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
+                                lvi.SubItems[1].Text = versionInfo;
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex.Message.Contains("ContractFilter"))
+                                {
+                                    lvi.SubItems[1].Text = "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.";
+                                }
+                                else
+                                    lvi.SubItems[1].Text = ex.Message;
+                            }
+                        }
+                        else
+                        {
+                            imageIndex = 2;
+                            lvi.SubItems[1].Text = "N/A";
+                        }
+                    }
+                });
             }
             catch (Exception riEx)
             {
@@ -352,16 +378,31 @@ namespace QuickMon.Forms
         {
             try
             {
-                string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(txtComputer.Text, (int)remoteportNumericUpDown.Value);
-                MessageBox.Show("Version Info: " + versionInfo, "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (txtComputer.Text.Length > 0)
+                {
+                    string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(txtComputer.Text, (int)remoteportNumericUpDown.Value);
+
+                    //CollectorEntry ce = new CollectorEntry();
+                    //ce.EnableRemoteExecute = true;
+                    //ce.RemoteAgentHostAddress = txtComputer.Text;
+                    //ce.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+                    //ce.CollectorRegistrationName = "PingCollector";
+                    //ce.CollectorRegistrationDisplayName = "Ping Collector";
+                    //ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
+                    //System.Data.DataSet ds = CollectorEntryRelay.GetRemoteHostAgentDetails(ce);
+                    //if (ds != null && ds.Tables.Count > 0)
+                    //{
+                    //    versionInfo += "\r\n" + ds.Tables[0].Rows[0][0].ToString();
+                    //}
+
+
+                    MessageBox.Show("Version Info: " + versionInfo, "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Version", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
     }
 }

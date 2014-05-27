@@ -14,5 +14,8 @@ namespace QuickMon
 
         [OperationContract]
         string GetQuickMonCoreVersion();
+
+        [OperationContract]
+        System.Data.DataSet GetDetails(CollectorEntryRequest entry);
     }
 }

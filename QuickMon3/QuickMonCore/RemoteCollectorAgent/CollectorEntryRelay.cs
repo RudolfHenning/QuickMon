@@ -31,12 +31,31 @@ namespace QuickMon
             ChannelFactory<ICollectorEntryRelay> myChannelFactory = new ChannelFactory<ICollectorEntryRelay>(myBinding, myEndpoint);
             ICollectorEntryRelay relay = myChannelFactory.CreateChannel();            
             return relay.GetQuickMonCoreVersion();
-        }        
+        }
+
+        public static System.Data.DataSet GetRemoteHostAgentDetails(CollectorEntry entry)
+        {
+            return GetRemoteHostAgentDetails(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
+        }
+        public static System.Data.DataSet GetRemoteHostAgentDetails(CollectorEntry entry, string hostAddressOverride, int portNumberOverride)
+        {
+            BasicHttpBinding myBinding = new BasicHttpBinding();
+            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", hostAddressOverride, portNumberOverride));
+            ChannelFactory<ICollectorEntryRelay> myChannelFactory = new ChannelFactory<ICollectorEntryRelay>(myBinding, myEndpoint);
+            ICollectorEntryRelay relay = myChannelFactory.CreateChannel();
+
+            CollectorEntryRequest colReq = new CollectorEntryRequest();
+            colReq.FromCollectorEntry(entry);
+            colReq.ParentCollectorId = ""; //Since this mechanism do no support nested collectors
+            return relay.GetDetails(colReq);
+        }
 
         #region ICollectorEntryRelay Members
         public string GetQuickMonCoreVersion()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string versionInfo = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Console.WriteLine("Version request response: {0}", versionInfo);
+            return versionInfo;
         }
         public MonitorState GetState(CollectorEntryRequest entry)
         {
@@ -82,6 +101,17 @@ namespace QuickMon
                 monitorState.RawDetails = ex.ToString();
             }
             return monitorState;
+        }
+        public System.Data.DataSet GetDetails(CollectorEntryRequest entry)
+        {
+            System.Data.DataSet ds = new System.Data.DataSet();
+            System.Data.DataTable dt = new System.Data.DataTable("Test");
+            dt.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
+            dt.Columns.Add(new System.Data.DataColumn("Value", typeof(int)));
+            dt.Rows.Add("Test", 1);
+            ds.Tables.Add(dt);
+            Console.WriteLine("DataSet response: {0} rows", ds.Tables[0].Rows.Count);
+            return ds;
         }
         #endregion
     }
