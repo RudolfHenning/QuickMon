@@ -37,9 +37,9 @@ namespace QuickMon
         public static NotifierEntry FromConfig(XmlElement xmlNotifierEntry)
         {
             NotifierEntry notifierEntry = new NotifierEntry();
-            notifierEntry.Name = xmlNotifierEntry.Attributes.GetNamedItem("name").Value;
-            notifierEntry.NotifierRegistrationName = xmlNotifierEntry.Attributes.GetNamedItem("notifier").Value;
-            notifierEntry.Enabled = bool.Parse(xmlNotifierEntry.Attributes.GetNamedItem("enabled").Value);
+            notifierEntry.Name = xmlNotifierEntry.ReadXmlElementAttr("name");
+            notifierEntry.NotifierRegistrationName = xmlNotifierEntry.ReadXmlElementAttr("notifier");
+            notifierEntry.Enabled = xmlNotifierEntry.ReadXmlElementAttr("enabled", false);
             notifierEntry.AlertLevel = (AlertLevel)Enum.Parse(typeof(AlertLevel), xmlNotifierEntry.ReadXmlElementAttr("alertLevel", "Warning"));
             notifierEntry.DetailLevel = (DetailLevel)Enum.Parse(typeof(DetailLevel), xmlNotifierEntry.ReadXmlElementAttr("detailLevel", "Detail"));
             notifierEntry.AttendedOptionOverride = (AttendedOption)Enum.Parse(typeof(AttendedOption), xmlNotifierEntry.ReadXmlElementAttr("attendedOptionOverride", "AttendedAndUnAttended"));

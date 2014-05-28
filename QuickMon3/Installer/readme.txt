@@ -29,3 +29,8 @@ Remote host functionality
 -------------------------
 To connect to a 'QuickMon Remote host' either the Windows service must be installed (and running) on that machine OR you can run the command line version. They cannot be run simultaneously for the same port number on the same machine.
 Take note that the command line version requires an user to be logged into the remote machine running QuickMonRemoteHostCMD.exe. The Windows service can run without anyone logged onto the machine.
+
+---------------------
+Example Monitor packs
+---------------------
+Some example monitor packs are included in the installer. Please see the application install directory (default C:\Program Files\Hen IT\QuickMon 3\SamplePacks)

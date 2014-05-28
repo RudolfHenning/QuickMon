@@ -129,7 +129,7 @@
             // openFileDialogOpen
             // 
             this.openFileDialogOpen.DefaultExt = "qmconfig";
-            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmconfig";
+            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmconfig;*.qmp";
             // 
             // lvwAgents
             // 

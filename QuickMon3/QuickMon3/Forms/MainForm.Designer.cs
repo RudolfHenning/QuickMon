@@ -545,7 +545,7 @@ namespace QuickMon
             // openFileDialogOpen
             // 
             this.openFileDialogOpen.DefaultExt = "qmconfig";
-            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmconfig";
+            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmp;*.qmconfig";
             // 
             // statusStrip1
             // 
@@ -581,7 +581,7 @@ namespace QuickMon
             // saveFileDialogSave
             // 
             this.saveFileDialogSave.DefaultExt = "qmconfig";
-            this.saveFileDialogSave.Filter = "QuickMon config files|*.qmconfig";
+            this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp;*.qmconfig";
             // 
             // collectorTreeContextMenuStrip
             // 

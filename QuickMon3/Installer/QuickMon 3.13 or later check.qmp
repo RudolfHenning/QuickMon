@@ -1,0 +1,46 @@
+<monitorPack version="3.13.527.2014" name="" enabled="True" defaultViewerNotifier="In Memory" runCorrectiveScripts="False" collectorStateHistorySize="1" pollingFreqSecOverride="0">
+  <collectorEntries>
+    <collectorEntry uniqueID="4621634c-1bf4-4916-b241-3dfcd5d877d7" name="QuickMon version test for 3.13 or later" enabled="True" isFolder="False" collector="PowerShellScriptRunnerCollector" dependOnParent="" collectOnParentWarning="False" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="8181" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30">
+      <!-- custom config -->
+      <config>
+        <powerShellScripts>
+          <powerShellScriptRunner name="Get QuickMon version (&gt; 3.13)" returnCheckSequence="GWE">
+            <testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
+if (Test-Path $filePath){
+    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion
+    $versionArray = $versionInfo.Split(".")
+    $major = [int]$versionArray[0]
+    $minor = [int]$versionArray[1]
+    if ($major -eq 3 -and $minor -ge 13)
+    {
+       "Version check OK - "  + $versionInfo.ToString()
+    }
+    else
+    {        
+        "Version check fail -" + $versionInfo.ToString()
+    }  
+      
+}
+else {
+    "'" + $filePath + "' does not exist!"
+}</testScript>
+            <goodScript resultMatchType="Contains">Version check OK</goodScript>
+            <warningScript resultMatchType="Contains">Version check fail</warningScript>
+            <errorScript resultMatchType="Match">[any]</errorScript>
+          </powerShellScriptRunner>
+        </powerShellScripts>
+      </config>
+      <!-- ServiceWindows -->
+      <serviceWindows>
+      </serviceWindows>
+    </collectorEntry>
+  </collectorEntries>
+  <notifierEntries>
+    <notifierEntry name="In Memory" notifier="InMemoryNotifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+      <config>
+        <inMemory maxEntryCount="99999" />
+      </config>
+      <collectors />
+    </notifierEntry>
+  </notifierEntries>
+</monitorPack>

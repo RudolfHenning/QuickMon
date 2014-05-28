@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.13.0527.2014" Manufacturer="Hen IT"
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.13.0528.2014" Manufacturer="Hen IT"
        UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
     <Feature Id="ProductFeature" Title="QuickMon 3" Level="1" Description="QuickMon 3" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
       <ComponentRef Id='ProductComponent' />
+      <ComponentRef Id='QuickMonConfigFiles' />
       <ComponentRef Id='readmetxt' />
+      <ComponentRef Id='sampleFiles' />
       <ComponentRef Id='ProgramMenuDir' />
     </Feature>
 
-    <MajorUpgrade       
-      AllowSameVersionUpgrades="yes"
-      DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." /> 
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." /> 
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
@@ -26,10 +26,11 @@
                 <Shortcut Id="startmenuQuickMon3" Directory="ProgramMenuDir" Name="QuickMon 3"
 													WorkingDirectory="INSTALLDIR" Icon="QuickMon.exe" IconIndex="0" Advertise="yes" />
               </File>
-              <ProgId Id="QuickMon3" Advertise="yes">
+              <ProgId Id="QuickMon3" Advertise="yes" Icon='QuickMon.exe'>
                 <Extension Id="qmconfig" Advertise="yes" ContentType="application/text">
                   <Verb Id="open" Sequence="10" Command="Open"  Argument="&quot;%1&quot;" />
                 </Extension>
+                <Extension Id="qmp" Advertise="yes" ContentType="application/text" />
               </ProgId>              
               <File Id="QuickMonRemoteHostCMDEXE" Name="QuickMonRemoteHostCMD.exe" Source="QuickMonRemoteHostCMD.exe" KeyPath="no" />
               <File Id="QuickMonServiceEXE" Name="QuickMonService.exe" Source="QuickMonService.exe" KeyPath="no" />
@@ -40,17 +41,25 @@
               <File Id="QuickMonCoreUIDll" Name="QuickMonCoreUI.dll" Source="QuickMonCoreUI.dll" KeyPath="no" />              
               <File Id="MonitorPackListtxt" Name="MonitorPackListExample.txt" Source="MonitorPackListExample.txt" KeyPath="no" />              
             </Component>
-            <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5C08-41ca30000000" Feature="ProductFeature" NeverOverwrite="yes" Permanent="yes">
+            <Component Id="QuickMonConfigFiles" Guid="59162023-5478-4668-5C08-41ca30000000" NeverOverwrite="yes" Permanent="yes">
               <File Id="QuickMonEXEConfig" Name="QuickMon.exe.config" Source="QuickMon.exe.config" KeyPath="no" />
               <File Id="QuickMonServiceEXEConfig" Name="QuickMonService.exe.config" Source="QuickMonService.exe.config" KeyPath="no" />
               <File Id="QuickMonRemoteHostCMDEXEConfig" Name="QuickMonRemoteHostCMD.exe.config" Source="QuickMonRemoteHostCMD.exe.config" KeyPath="no" />
             </Component>
             <Component Id="readmetxt" Guid="59162023-5478-4668-A278-41cc30000000">
                 <File Id="readme.txt" Source="readme.txt" KeyPath="yes">
-                  <Shortcut Id="startmenuQuickMon3readme" Directory="ProgramMenuDir" Name="QuickMon 3 read me"
-													WorkingDirectory="INSTALLDIR" Advertise="yes" />
+                  <Shortcut Id="startmenuQuickMon3readme" Directory="ProgramMenuDir" Name="QuickMon 3 read me" WorkingDirectory="INSTALLDIR" Advertise="yes" />
                 </File>
             </Component>
+            <Directory Id="SAMPLEPACKSDIRECTORY" Name="SamplePacks">              
+              <Component Id="sampleFiles" Guid="59162023-5478-4668-A278-41cd30000000" KeyPath="yes">
+                <File Id="LocalSystemHealthPack" Source="LocalSystemHealth.qmp" KeyPath="no">
+                </File>
+                <File Id="QuickMon3_13checkPack" Source="QuickMon 3.13 or later check.qmp" KeyPath="no">
+                </File>                
+              </Component>
+            </Directory>
+            
           </Directory>
         </Directory>
       </Directory>
@@ -66,12 +75,9 @@
 
     <Icon Id="QuickMon.exe" SourceFile="QuickMon.exe" />
     <Property Id="ARPPRODUCTICON" Value="QuickMon.exe" />
-
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
-    <!--<UIRef Id="WixUI_InstallDir" />-->
-
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
-    <Condition Message="This setup requires the .NET Framework 4.0 (Client) to be installed.">
+    <Condition Message="This setup requires the .NET Framework 4.0 to be installed.">
       <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
     </Condition>
 

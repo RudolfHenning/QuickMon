@@ -34,7 +34,7 @@ namespace QuickMon
             Application.SetCompatibleTextRenderingDefault(false);
 
             //if application is launched with qmconfig file set it as last Monitor pack
-            if (args.Length > 0 && System.IO.File.Exists(args[0]) && args[0].ToLower().EndsWith(".qmconfig"))
+            if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmconfig") || args[0].ToLower().EndsWith(".qmp")))
                 Properties.Settings.Default.LastMonitorPack = args[0];
 
             Application.Run(new MainForm());

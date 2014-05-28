@@ -1,0 +1,25 @@
+<monitorPack version="3.13.527.2014" name="" enabled="True" defaultViewerNotifier="In Memory" runCorrectiveScripts="False" collectorStateHistorySize="1" pollingFreqSecOverride="0">
+  <collectorEntries>
+    <collectorEntry uniqueID="9fc87888-8ce0-4ce0-b4ee-2833a27c1d8e" name="System health" enabled="True" isFolder="False" collector="PerfCounterCollector" dependOnParent="" collectOnParentWarning="False" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="8181" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30">
+      <!-- custom config -->
+      <config>
+        <performanceCounters>
+          <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="95" errorValue="99" />
+          <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="10" errorValue="5" />
+          <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="90" errorValue="95" />
+        </performanceCounters>
+      </config>
+      <!-- ServiceWindows -->
+      <serviceWindows>
+      </serviceWindows>
+    </collectorEntry>
+  </collectorEntries>
+  <notifierEntries>
+    <notifierEntry name="Log file" notifier="LogFileNotifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+      <config>
+        <logFile path="C:\ProgramData\Hen IT\QuickMon3\SystemHealth.log" createNewFileSizeKB="0" />
+      </config>
+      <collectors />
+    </notifierEntry>
+  </notifierEntries>
+</monitorPack>

@@ -1,11 +1,9 @@
 ﻿CHANGES (considdered possible for next release)
-DirectoryEntry Collector (Directory services)
-	Very generic querying at first (or it could become very complex)
-Add WCF method on remote host to return version number of QuickMon
+Add 'Sample' monitor packs to installers
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
-(A)
+(A) (dummy interface method added in 3.13 but not used yet)
 Detail views can/must use remote host dataset as source 
   Will require interface changes (new method on all collectors to return something like DataSet)
      Will have to be a method that returns a DataSet with possibly multiple 'Tables' for Collectors like SQL and WMI query
@@ -26,6 +24,8 @@ Collector (Entry) must support method to indicate if config is 'complete'/valid 
 Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
 Add some way Collector/Agent types have its own Icon that can be displayed in select collector type window.
 Add 'Pause' property on Collector (not the same as Disable). It returns the previous state - whatever it was.
+DirectoryEntry Collector (Directory services)
+	Very generic querying at first (or it could become very complex)
 
 -------------------------------------------------------------------------------------------------------
 DONE CHANGES
@@ -113,8 +113,11 @@ Fixed/change Window service collector to report error ONLY when all services fro
 v3.13
 Added Audio notifier
 Fix Notifier interface to remove duplicate Edit config window
-'In memory notifier has no function in Windows Service'. Perhaps add property on notifier that indicates if supports running 'unattended' - if not it won't be loaded by service
+Added Attended/NotAttended options to Notifiers:
+   'In memory notifier has no function in Windows Service'. Perhaps add property on notifier that indicates if supports running 'unattended' - if not it won't be loaded by service
    Perhaps have 'Property' on Notifier Entry that indicate if it should function 'Only attended'/'Unattended'/Both. Memory notifier will have default of 'Only attended'.
    Some notifiers will only support 'Only attended' - like in memory.
+Add WCF method on remote host to return version number of QuickMon
+  Visible in Remote agent manage window
 -------------------------------------------------------------------------------------------------------
 
