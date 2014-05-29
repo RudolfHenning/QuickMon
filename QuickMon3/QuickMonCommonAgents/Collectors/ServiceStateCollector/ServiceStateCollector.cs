@@ -91,18 +91,25 @@ namespace QuickMon.Collectors
         {
             return new ServiceStateCollectorDetailView();
         }
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new ServiceStateCollectorEditConfig();
-        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.ServiceStateCollectorDefaultConfig;
         }
-
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new ServiceStateCollectorEditEntry();
+        }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            List<AgentPresetConfig> list = new List<AgentPresetConfig>();
+            list.Add(new AgentPresetConfig()
+            {
+                AgentDefaultName = "QuickMon Service running",
+                Description = "Is QuickMon Service running",
+                Config = "<config><machine name=\"" + System.Net.Dns.GetHostName() + "\"><service name=\"QuickMon 3 Service\" /></machine></config>"
+
+            });
+            return list;
         }
     }
 }

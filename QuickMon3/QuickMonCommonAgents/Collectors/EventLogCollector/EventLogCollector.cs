@@ -84,18 +84,17 @@ namespace QuickMon.Collectors
         {
             return new EventLogCollectorViewDetails();
         }
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new EventLogCollectorEditConfig();
-        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.EventLogCollectorDefaultConfig;
         }
-
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new EventLogCollectorEditEntry();
+        }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            return new List<AgentPresetConfig>();
         }
     }
 }

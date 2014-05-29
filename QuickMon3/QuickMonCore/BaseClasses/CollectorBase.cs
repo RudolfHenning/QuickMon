@@ -9,7 +9,7 @@ namespace QuickMon.Collectors
     {
         #region ICollector Members
         public abstract MonitorState GetState();
-        public abstract ICollectorDetailView GetCollectorDetailView();
+        public abstract ICollectorDetailView GetCollectorDetailView();        
         #endregion
 
         public virtual bool ShowEditEntry(ref ICollectorConfigEntry entry)

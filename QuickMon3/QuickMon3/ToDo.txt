@@ -1,5 +1,4 @@
 ﻿CHANGES (considdered possible for next release)
-Add 'Sample' monitor packs to installers
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -7,8 +6,10 @@ BIG CHANGES (somewhere in future)
 Detail views can/must use remote host dataset as source 
   Will require interface changes (new method on all collectors to return something like DataSet)
      Will have to be a method that returns a DataSet with possibly multiple 'Tables' for Collectors like SQL and WMI query
-  Also new interface on WCF interface
+  Also new interface on WCF interface (Done)
   Additional this change could mean the 'Detail viewer' could be simplyfied to a DataSet viewer (not sure about the 'multiple' datasets yet)
+  Each collector agent must specify if it supports simple/single dataset, multiple datasets (not linked), multiple/nested that are linked with parent/child key relation
+    for multiple/nested datasets some special columns might have to be added (Column name:linked, value: table name with detail)
 
 Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Future advancement - Allow corrective scrpts to run on remote hosts
@@ -119,5 +120,11 @@ Added Attended/NotAttended options to Notifiers:
    Some notifiers will only support 'Only attended' - like in memory.
 Add WCF method on remote host to return version number of QuickMon
   Visible in Remote agent manage window
+Add 'Sample' monitor packs to installers
+
+v3.14
+Agent preset configs (work in progress)
+  add presets based on xml file *.qps
+Fix: press delete key on notifier list fire delete notifier event
 -------------------------------------------------------------------------------------------------------
 

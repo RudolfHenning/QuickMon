@@ -148,5 +148,9 @@ namespace QuickMon
         {
             return new BizTalkPortsAndOrchsEditConfig();
         }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            return new List<AgentPresetConfig>();
+        }
     }
 }

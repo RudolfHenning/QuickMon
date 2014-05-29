@@ -36,16 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Administration, Version=7.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\System32\inetsrv\Microsoft.Web.Administration.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="QuickMonCore">
-      <HintPath>C:\Program Files\Hen IT\QuickMon 3\QuickMonCore.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickMonCoreUI">
-      <HintPath>C:\Program Files\Hen IT\QuickMon 3\QuickMonCoreUI.dll</HintPath>
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\QuickMon3\bin\Debug\Microsoft.Web.Administration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -95,6 +87,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IISAppPoolCollectorDefaultConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickMonCoreUI\QuickMonCoreUI.csproj">
+      <Project>{8001d615-e0f8-40c4-875c-ae65c150bb04}</Project>
+      <Name>QuickMonCoreUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonCore\QuickMonCore.csproj">
+      <Project>{4781e610-e87e-448f-95df-41a2d356df2d}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

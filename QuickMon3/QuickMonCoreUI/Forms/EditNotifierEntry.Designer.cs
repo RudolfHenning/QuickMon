@@ -42,6 +42,7 @@
             this.cboDetailLevel = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.alertForCollectorslinkLabel = new System.Windows.Forms.LinkLabel();
+            this.cboAttendedOptionOverride = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +58,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.cboAttendedOptionOverride = new System.Windows.Forms.ComboBox();
+            this.llblUsePreset = new System.Windows.Forms.LinkLabel();
             this.configEditContextMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -195,6 +196,21 @@
             this.toolTip1.SetToolTip(this.alertForCollectorslinkLabel, "Specify for which collectors alerts will be raised/logged");
             this.alertForCollectorslinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.alertForCollectorslinkLabel_LinkClicked);
             // 
+            // cboAttendedOptionOverride
+            // 
+            this.cboAttendedOptionOverride.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAttendedOptionOverride.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboAttendedOptionOverride.FormattingEnabled = true;
+            this.cboAttendedOptionOverride.Items.AddRange(new object[] {
+            "Attended or Unattended",
+            "Only Attended (with UI)",
+            "Only UnAttended (e.g. under a service)"});
+            this.cboAttendedOptionOverride.Location = new System.Drawing.Point(109, 58);
+            this.cboAttendedOptionOverride.Name = "cboAttendedOptionOverride";
+            this.cboAttendedOptionOverride.Size = new System.Drawing.Size(302, 21);
+            this.cboAttendedOptionOverride.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.cboAttendedOptionOverride, "Should this notifier \'fire\' for only \'Attended\' or \'Unattended\' or \'Both\'");
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -274,7 +290,7 @@
             this.cmdConfigure.Location = new System.Drawing.Point(385, 73);
             this.cmdConfigure.Name = "cmdConfigure";
             this.cmdConfigure.Size = new System.Drawing.Size(75, 23);
-            this.cmdConfigure.TabIndex = 3;
+            this.cmdConfigure.TabIndex = 4;
             this.cmdConfigure.Text = "Configure";
             this.cmdConfigure.UseVisualStyleBackColor = true;
             this.cmdConfigure.Click += new System.EventHandler(this.cmdConfigure_Click);
@@ -284,6 +300,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.llblUsePreset);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lblConfigSummary);
             this.groupBox1.Controls.Add(this.cmdConfigure);
@@ -353,20 +370,18 @@
             this.label8.TabIndex = 5;
             this.label8.Text = "Run attended";
             // 
-            // cboAttendedOptionOverride
+            // llblUsePreset
             // 
-            this.cboAttendedOptionOverride.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboAttendedOptionOverride.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboAttendedOptionOverride.FormattingEnabled = true;
-            this.cboAttendedOptionOverride.Items.AddRange(new object[] {
-            "Attended or Unattended",
-            "Only Attended (with UI)",
-            "Only UnAttended (e.g. under a service)"});
-            this.cboAttendedOptionOverride.Location = new System.Drawing.Point(109, 58);
-            this.cboAttendedOptionOverride.Name = "cboAttendedOptionOverride";
-            this.cboAttendedOptionOverride.Size = new System.Drawing.Size(302, 21);
-            this.cboAttendedOptionOverride.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.cboAttendedOptionOverride, "Should this notifier \'fire\' for only \'Attended\' or \'Unattended\' or \'Both\'");
+            this.llblUsePreset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblUsePreset.AutoSize = true;
+            this.llblUsePreset.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblUsePreset.Location = new System.Drawing.Point(134, 78);
+            this.llblUsePreset.Name = "llblUsePreset";
+            this.llblUsePreset.Size = new System.Drawing.Size(90, 13);
+            this.llblUsePreset.TabIndex = 3;
+            this.llblUsePreset.TabStop = true;
+            this.llblUsePreset.Text = "Use preset config";
+            this.llblUsePreset.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblUsePreset_LinkClicked);
             // 
             // EditNotifierEntry
             // 
@@ -435,5 +450,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cboAttendedOptionOverride;
+        private System.Windows.Forms.LinkLabel llblUsePreset;
     }
 }

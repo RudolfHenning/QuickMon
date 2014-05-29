@@ -13,7 +13,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new SqlQueryCollectorConfig();
         }
-
         public override MonitorState GetState()
         {
             MonitorState returnState = new MonitorState() { State = CollectorState.Good };
@@ -76,25 +75,21 @@ namespace QuickMon.Collectors
             }
             return returnState;
         }
-
         public override ICollectorDetailView GetCollectorDetailView()
         {
             return new SqlQueryCollectorShowDetails();
         }
-
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new SqlQueryCollectorEditConfig();
-        //}
-
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.SqlQueryCollectorDefaultConfig;
         }
-
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new SqlQueryCollectorEditEntry();
+        }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            return new List<AgentPresetConfig>();
         }
     }
 }

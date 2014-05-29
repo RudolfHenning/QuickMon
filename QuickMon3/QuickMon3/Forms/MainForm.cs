@@ -509,6 +509,10 @@ namespace QuickMon
                 CheckNotifierContextMenuEnables();
             }
         }
+        private void lvwNotifiers_DeleteKeyPressed()
+        {
+            removeNotifierToolStripMenuItem_Click(null, null);
+        }
         #endregion
 
         #region Private methods
@@ -1089,8 +1093,9 @@ namespace QuickMon
                     editCollectorEntry.SelectedEntry = newCollectorEntry;
                     editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
                                                           select krh).ToList();
-                    editCollectorEntry.LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect;
-                    editCollectorEntry.ImportConfigAfterSelect = agentTypeSelect.ImportConfigAfterSelect;
+                    editCollectorEntry.LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect && !agentTypeSelect.UsePresetAfterSelect;
+                    editCollectorEntry.ShowRawEditOnStart = agentTypeSelect.ImportConfigAfterSelect;
+                    editCollectorEntry.ShowSelectPresetOnStart = agentTypeSelect.UsePresetAfterSelect;
 
                     if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                     {
@@ -1135,6 +1140,7 @@ namespace QuickMon
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
             {
                 CollectorEntry entry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                //System.Diagnostics.Trace.WriteLine(entry.Collector.ChildClassName());
 
                 popedContainerForTreeView.cmdViewDetails.Enabled = !entry.IsFolder;
                 popedContainerForTreeView.cmdEditCollector.Enabled = true;
@@ -1754,6 +1760,7 @@ namespace QuickMon
             {
                 Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
                 editNotifierEntry.LaunchAddEntry = true;
+
                 if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
                     SetMonitorChanged();

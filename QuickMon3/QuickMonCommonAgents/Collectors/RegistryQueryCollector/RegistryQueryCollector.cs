@@ -88,18 +88,17 @@ namespace QuickMon.Collectors
         {
             return new RegistryQueryCollectorShowDetails();
         }
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new RegistryQueryCollectorEditConfig();
-        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.RegistryQueryCollectorDefaultConfig;
         }
-
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new RegistryQueryCollectorEditInstance();
+        }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            return new List<AgentPresetConfig>();
         }
     }
 }

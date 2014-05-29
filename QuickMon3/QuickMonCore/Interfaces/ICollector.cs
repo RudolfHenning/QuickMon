@@ -10,6 +10,7 @@ namespace QuickMon
         MonitorState GetState();
         ICollectorDetailView GetCollectorDetailView();
         bool ShowEditEntry(ref ICollectorConfigEntry entry);
+        
     }
     
 }

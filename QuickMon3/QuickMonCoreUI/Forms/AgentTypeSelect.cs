@@ -18,11 +18,11 @@ namespace QuickMon.Forms
         }
         public RegisteredAgent SelectedAgent { get; set; }
         public bool ImportConfigAfterSelect { get; set; }
+        public bool UsePresetAfterSelect { get; set; }
 
         public DialogResult ShowNotifierSelection(string currentNotifierRegistrationName)
         {
             this.Text = "Select Notifier type";
-            chkImportConfigAfterSelect.Visible = false;
             SetDetailColumnSizing();
             lvwAgentType.Items.Clear();
             ListViewItem lvi;
@@ -111,6 +111,31 @@ namespace QuickMon.Forms
         private void lvwAgentType_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmdOK.Enabled = lvwAgentType.SelectedItems.Count == 1;
+
+            bool presets = false;
+            try
+            {
+                if (lvwAgentType.SelectedItems.Count > 0 && lvwAgentType.SelectedItems[0].Tag is RegisteredAgent)
+                {
+                    RegisteredAgent ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
+                    if (ra.IsCollector)
+                    {
+                        ICollector col = CollectorEntry.CreateCollectorEntry(ra);
+                        if (col.GetPresets().Count > 0)
+                            presets = true;
+                    }
+                    else if (ra.IsNotifier)
+                    {
+                        INotifier not = NotifierEntry.CreateNotifierEntry(ra);
+                        if (not.GetPresets().Count > 0)
+                            presets = true;
+                    }
+                }
+            }
+            catch { }
+            optSelectPreset.Enabled = presets;
+            if (optSelectPreset.Checked && !presets)
+                optShowConfigEditor.Checked = true;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -118,7 +143,8 @@ namespace QuickMon.Forms
             if (lvwAgentType.SelectedItems.Count ==1)
             {
                 SelectedAgent = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
-                ImportConfigAfterSelect = chkImportConfigAfterSelect.Checked;
+                ImportConfigAfterSelect = optCustomConfig.Checked;
+                UsePresetAfterSelect = optSelectPreset.Checked;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }

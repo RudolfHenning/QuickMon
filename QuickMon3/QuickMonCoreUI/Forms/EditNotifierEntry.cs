@@ -16,15 +16,6 @@ namespace QuickMon.Management
         public EditNotifierEntry()
         {
             InitializeComponent();
-            //SelectedEntry = new NotifierEntry();
-            //SelectedEntry.Enabled = true;
-            //SelectedEntry.AlertLevel = AlertLevel.Warning;
-            //SelectedEntry.DetailLevel = DetailLevel.Detail;
-
-            //editingNotifierEntry = new NotifierEntry();
-            //editingNotifierEntry.Enabled = true;
-            //editingNotifierEntry.AlertLevel = AlertLevel.Warning;
-            //editingNotifierEntry.DetailLevel = DetailLevel.Detail;
         }
 
         private MonitorPack monitorPack;
@@ -34,6 +25,8 @@ namespace QuickMon.Management
 
         public NotifierEntry SelectedEntry { get; set; }
         public bool LaunchAddEntry { get; set; }
+        public bool ShowRawEditOnStart { get; set; }
+        public bool ShowSelectPresetOnStart { get; set; }
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
         {
@@ -52,6 +45,10 @@ namespace QuickMon.Management
                     editingNotifierEntry.Enabled = true;
                     editingNotifierEntry.AlertLevel = AlertLevel.Warning;
                     editingNotifierEntry.DetailLevel = DetailLevel.Detail;
+
+                    LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect && !agentTypeSelect.UsePresetAfterSelect;
+                    ShowRawEditOnStart = agentTypeSelect.ImportConfigAfterSelect;
+                    ShowSelectPresetOnStart = agentTypeSelect.UsePresetAfterSelect;
                 }
                 else
                     return System.Windows.Forms.DialogResult.No;
@@ -70,6 +67,15 @@ namespace QuickMon.Management
             {
                 cmdConfigure_Click(null, null);
             }
+            else if (ShowRawEditOnStart && editingNotifierEntry != null && editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
+            {
+                llblRawEdit_LinkClicked(null, null);
+            }
+            else if (ShowSelectPresetOnStart && editingNotifierEntry != null && editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.GetPresets().Count > 0)
+            {
+                llblUsePreset_LinkClicked(null, null);
+            }
+
         }
         private void EditNotifierEntry_Shown(object sender, EventArgs e)
         {
@@ -442,6 +448,27 @@ namespace QuickMon.Management
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format("Error setting configuration\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void llblUsePreset_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (editingNotifierEntry != null && editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.GetPresets().Count > 0)
+            {
+                INotifierConfig currentConfig = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
+                
+                    AddFromCollectorPreset addFromCollectorPreset = new AddFromCollectorPreset();
+                    addFromCollectorPreset.AvailablePresets = editingNotifierEntry.Notifier.GetPresets();
+                    if (addFromCollectorPreset.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
+                        {
+                            txtName.Text = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
+                            editingNotifierEntry.Name = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
+                            editingNotifierEntry.Notifier.SetConfigurationFromXmlString(addFromCollectorPreset.SelectedPreset.Config);
+                        }
+                    }
+                
             }
         }
         

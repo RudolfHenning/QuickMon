@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using QuickMon.Collectors;
 
 namespace QuickMon
 {
@@ -17,6 +18,12 @@ namespace QuickMon
             AgentConfig.ReadConfiguration(configurationString);
         }
         public virtual void Close() { }
+        public abstract List<AgentPresetConfig> GetPresets();
+
+        //public string ChildClassName()
+        //{
+        //    return this.ToString();
+        //}
         #endregion
     }
 }

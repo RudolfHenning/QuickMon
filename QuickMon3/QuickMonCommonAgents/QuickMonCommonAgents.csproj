@@ -104,12 +104,6 @@
     <Compile Include="Collectors\LoopbackCollector\LoopbackCollectorConfig.cs" />
     <Compile Include="Collectors\PerfCounterCollector\PerfCounterCollectorHostEntry.cs" />
     <Compile Include="Collectors\PerfCounterCollector\PerfCounterCollectorConfig.cs" />
-    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditConfig.Designer.cs">
-      <DependentUpon>PerfCounterEditConfig.cs</DependentUpon>
-    </Compile>
     <Compile Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditAlert.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -343,9 +337,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\LoopbackCollector\ShowDetails\LoopbackCollectorShowDetails.resx">
       <DependentUpon>LoopbackCollectorShowDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditConfig.resx">
-      <DependentUpon>PerfCounterEditConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\PerfCounterCollector\EditConfig\PerfCounterEditAlert.resx">
       <DependentUpon>PerfCounterEditAlert.cs</DependentUpon>

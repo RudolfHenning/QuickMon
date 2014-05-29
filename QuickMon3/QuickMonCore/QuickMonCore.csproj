@@ -52,6 +52,7 @@
     <Compile Include="BaseClasses\CollectorBase.cs" />
     <Compile Include="Classes\AlertRaised.cs" />
     <Compile Include="Classes\CollectorEntryAlertHandling.cs" />
+    <Compile Include="Classes\AgentPresetConfig.cs" />
     <Compile Include="Classes\CollectorStateConverter.cs" />
     <Compile Include="Classes\MonitorState.cs" />
     <Compile Include="BaseClasses\NotifierBase.cs" />

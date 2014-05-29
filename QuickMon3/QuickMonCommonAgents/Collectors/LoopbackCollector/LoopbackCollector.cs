@@ -21,24 +21,21 @@ namespace QuickMon.Collectors
             returnedState.RawDetails = "Returning a test state of " + returnedState.State.ToString();
             return returnedState;
         }
-
         public override ICollectorDetailView GetCollectorDetailView()
         {
             return new LoopbackCollectorShowDetails();
         }
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new LoopbackCollectorEditConfig();
-        //}
-
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.LoopbackCollectorDefaultConfig;
         }
-
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new LoopbackCollectorEditConfig();
+        }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            return new List<AgentPresetConfig>();
         }
     }
 }

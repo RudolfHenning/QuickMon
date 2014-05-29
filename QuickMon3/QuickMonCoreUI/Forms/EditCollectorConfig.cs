@@ -33,7 +33,9 @@ namespace QuickMon.Forms
 
         public CollectorEntry SelectedEntry { get; set; }
         public bool LaunchAddEntry { get; set; }
-        public bool ImportConfigAfterSelect { get; set; }
+        public bool ShowRawEditOnStart { get; set; }
+        public bool ShowSelectPresetOnStart { get; set; }
+        //public bool 
         public List<string> KnownRemoteHosts { get; set; }
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
@@ -98,6 +100,7 @@ namespace QuickMon.Forms
         {
             lvwEntries.AutoResizeColumnIndex = 1;
             lvwEntries.AutoResizeColumnEnabled = true;
+            addPresetToolStripButton.Visible = false;
             if (LaunchAddEntry && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
             {
                 if (((ICollectorConfig)SelectedEntry.Collector.AgentConfig).Entries.Count == 0)
@@ -108,15 +111,21 @@ namespace QuickMon.Forms
                     editCollectorConfigEntryToolStripButton_Click(null, null);
                 }
             }
-            else if (ImportConfigAfterSelect && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
+            else if (ShowRawEditOnStart && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
             {
                 llblRawEdit_LinkClicked(null, null);
+            }
+            else if (ShowSelectPresetOnStart && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.GetPresets().Count > 0)
+            {
+                addPresetToolStripButton_Click(null, null);
             }
             try
             {
                 txtRemoteAgentServer.AutoCompleteCustomSource = new AutoCompleteStringCollection();
                 txtRemoteAgentServer.AutoCompleteCustomSource.AddRange((from string s in KnownRemoteHosts
                                                                         select s).ToArray());
+
+                addPresetToolStripButton.Visible = SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.GetPresets().Count > 0;
             }
             catch { }
         }
@@ -157,7 +166,8 @@ namespace QuickMon.Forms
                         lvwEntries.Enabled = !currentEditingEntry.IsFolder;
                         lvwEntries.Dock = DockStyle.Fill;
                         LoadCollectorEntriesList();
-                    }                    
+                    }
+                    addPresetToolStripButton.Visible = currentEditingEntry != null && currentEditingEntry.Collector != null && currentEditingEntry.Collector.GetPresets().Count > 0;
                     llblRawEdit.Enabled = true;
                 }
                 CheckOkEnabled();
@@ -396,6 +406,28 @@ namespace QuickMon.Forms
                     if (entry != null)  
                         currentConfig.Entries.Add(entry);
                     ApplyConfig();
+                }
+            }
+        }
+        private void addPresetToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (currentEditingEntry != null && currentEditingEntry.Collector != null && currentEditingEntry.Collector.GetPresets().Count > 0)
+            {
+                ICollectorConfig currentConfig = (ICollectorConfig)currentEditingEntry.Collector.AgentConfig;
+                if (currentConfig.Entries.Count == 0 ||  MessageBox.Show("Are you sure you want to replace existing configuration with a predefined config?", "Preset",  MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    AddFromCollectorPreset addFromCollectorPreset = new AddFromCollectorPreset();
+                    addFromCollectorPreset.AvailablePresets = currentEditingEntry.Collector.GetPresets();
+                    if (addFromCollectorPreset.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (currentEditingEntry.Collector != null && currentEditingEntry.Collector.AgentConfig != null)
+                        {
+                            txtName.Text = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
+                            currentEditingEntry.Name = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
+                            currentEditingEntry.Collector.AgentConfig.ReadConfiguration(addFromCollectorPreset.SelectedPreset.Config);
+                            ApplyConfig();
+                        }
+                    }
                 }
             }
         }
@@ -741,11 +773,6 @@ namespace QuickMon.Forms
 
         }
         #endregion
-
-
-
-
-
 
     }
 }

@@ -84,23 +84,21 @@ namespace QuickMon.Collectors
             
             return returnState;
         }
-
         public override ICollectorDetailView GetCollectorDetailView()
         {
             return new PingCollectorShowDetails();
         }
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new PingCollectorEditConfig();
-        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.PingCollectorDefaultConfig;
         }
-
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new PingCollectorEditHostAddress();
+        }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            return new List<AgentPresetConfig>();
         }
     }
 }

@@ -108,5 +108,17 @@ namespace QuickMon.Notifiers.EventLogNotifier
         {
             return Properties.Resources.EventLogNotifierDefaultConfig;
         }
+        public override List<AgentPresetConfig> GetPresets()
+        {
+            List<AgentPresetConfig> list = new List<AgentPresetConfig>();
+            list.Add(new AgentPresetConfig()
+            {
+                Description = "This computer, Event source: QuickMon",
+                AgentDefaultName = "Event Log",
+                Config = @"<config><eventLog computer=""" + System.Net.Dns.GetHostName()  + @""" eventSource=""QuickMon"" successEventID=""0"" warningEventID=""1"" errorEventID=""2"" /></config>"
+            });
+
+            return list;
+        }
     }
 }

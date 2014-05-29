@@ -88,6 +88,12 @@
     <Compile Include="Controls\TreeViewExBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\AddFromCollectorPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddFromCollectorPreset.Designer.cs">
+      <DependentUpon>AddFromCollectorPreset.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AgentTypeSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     <EmbeddedResource Include="Controls\TreeList\TreeViewColumns.resx">
       <DependentUpon>TreeViewColumns.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddFromCollectorPreset.resx">
+      <DependentUpon>AddFromCollectorPreset.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AgentTypeSelect.resx">
       <DependentUpon>AgentTypeSelect.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +270,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\whack.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlusExcl16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

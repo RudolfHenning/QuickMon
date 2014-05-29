@@ -36,9 +36,13 @@
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.chkImportConfigAfterSelect = new System.Windows.Forms.CheckBox();
             this.llblExtraAgents = new System.Windows.Forms.LinkLabel();
             this.chkShowDetails = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.optSelectPreset = new System.Windows.Forms.RadioButton();
+            this.optCustomConfig = new System.Windows.Forms.RadioButton();
+            this.optShowConfigEditor = new System.Windows.Forms.RadioButton();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -81,7 +85,7 @@
             this.lvwAgentType.Location = new System.Drawing.Point(0, 0);
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
-            this.lvwAgentType.Size = new System.Drawing.Size(535, 405);
+            this.lvwAgentType.Size = new System.Drawing.Size(535, 359);
             this.lvwAgentType.SmallImageList = this.imageList1;
             this.lvwAgentType.TabIndex = 0;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
@@ -108,27 +112,15 @@
             this.imageList1.Images.SetKeyName(1, "5_50.ico");
             this.imageList1.Images.SetKeyName(2, "59.ico");
             // 
-            // chkImportConfigAfterSelect
-            // 
-            this.chkImportConfigAfterSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkImportConfigAfterSelect.AutoSize = true;
-            this.chkImportConfigAfterSelect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkImportConfigAfterSelect.Location = new System.Drawing.Point(12, 434);
-            this.chkImportConfigAfterSelect.Name = "chkImportConfigAfterSelect";
-            this.chkImportConfigAfterSelect.Size = new System.Drawing.Size(268, 17);
-            this.chkImportConfigAfterSelect.TabIndex = 3;
-            this.chkImportConfigAfterSelect.Text = "Show custom config after selection (Import possible)";
-            this.chkImportConfigAfterSelect.UseVisualStyleBackColor = true;
-            // 
             // llblExtraAgents
             // 
             this.llblExtraAgents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblExtraAgents.AutoSize = true;
             this.llblExtraAgents.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblExtraAgents.Location = new System.Drawing.Point(4, 408);
+            this.llblExtraAgents.Location = new System.Drawing.Point(4, 435);
             this.llblExtraAgents.Name = "llblExtraAgents";
             this.llblExtraAgents.Size = new System.Drawing.Size(318, 13);
-            this.llblExtraAgents.TabIndex = 1;
+            this.llblExtraAgents.TabIndex = 3;
             this.llblExtraAgents.TabStop = true;
             this.llblExtraAgents.Text = "Please see https://quickmon.codeplex.com/ for more Agent types";
             this.llblExtraAgents.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExtraAgents_LinkClicked);
@@ -137,33 +129,82 @@
             // 
             this.chkShowDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowDetails.AutoSize = true;
-            this.chkShowDetails.Location = new System.Drawing.Point(436, 407);
+            this.chkShowDetails.Location = new System.Drawing.Point(436, 365);
             this.chkShowDetails.Name = "chkShowDetails";
             this.chkShowDetails.Size = new System.Drawing.Size(86, 17);
-            this.chkShowDetails.TabIndex = 2;
+            this.chkShowDetails.TabIndex = 1;
             this.chkShowDetails.Text = "Show details";
             this.chkShowDetails.UseVisualStyleBackColor = true;
             this.chkShowDetails.CheckedChanged += new System.EventHandler(this.chkShowDetails_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.optSelectPreset);
+            this.groupBox1.Controls.Add(this.optCustomConfig);
+            this.groupBox1.Controls.Add(this.optShowConfigEditor);
+            this.groupBox1.Location = new System.Drawing.Point(0, 382);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(535, 42);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "After select action";
+            // 
+            // optSelectPreset
+            // 
+            this.optSelectPreset.AutoSize = true;
+            this.optSelectPreset.Enabled = false;
+            this.optSelectPreset.Location = new System.Drawing.Point(138, 19);
+            this.optSelectPreset.Name = "optSelectPreset";
+            this.optSelectPreset.Size = new System.Drawing.Size(87, 17);
+            this.optSelectPreset.TabIndex = 1;
+            this.optSelectPreset.Text = "Select preset";
+            this.optSelectPreset.UseVisualStyleBackColor = true;
+            // 
+            // optCustomConfig
+            // 
+            this.optCustomConfig.AutoSize = true;
+            this.optCustomConfig.Location = new System.Drawing.Point(242, 19);
+            this.optCustomConfig.Name = "optCustomConfig";
+            this.optCustomConfig.Size = new System.Drawing.Size(200, 17);
+            this.optCustomConfig.TabIndex = 2;
+            this.optCustomConfig.Text = "Custom config Editor (import possible)";
+            this.optCustomConfig.UseVisualStyleBackColor = true;
+            // 
+            // optShowConfigEditor
+            // 
+            this.optShowConfigEditor.AutoSize = true;
+            this.optShowConfigEditor.Checked = true;
+            this.optShowConfigEditor.Location = new System.Drawing.Point(17, 19);
+            this.optShowConfigEditor.Name = "optShowConfigEditor";
+            this.optShowConfigEditor.Size = new System.Drawing.Size(114, 17);
+            this.optShowConfigEditor.TabIndex = 0;
+            this.optShowConfigEditor.TabStop = true;
+            this.optShowConfigEditor.Text = "Show config Editor";
+            this.optShowConfigEditor.UseVisualStyleBackColor = true;
             // 
             // AgentTypeSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 462);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chkShowDetails);
             this.Controls.Add(this.llblExtraAgents);
-            this.Controls.Add(this.chkImportConfigAfterSelect);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(500, 500);
+            this.MinimumSize = new System.Drawing.Size(550, 500);
             this.Name = "AgentTypeSelect";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agent Type Select";
             this.Load += new System.EventHandler(this.AgentTypeSelect_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,9 +217,12 @@
         private ListViewEx lvwAgentType;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ColumnHeader detailsColumnHeader;
-        private System.Windows.Forms.CheckBox chkImportConfigAfterSelect;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.LinkLabel llblExtraAgents;
         private System.Windows.Forms.CheckBox chkShowDetails;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton optSelectPreset;
+        private System.Windows.Forms.RadioButton optCustomConfig;
+        private System.Windows.Forms.RadioButton optShowConfigEditor;
     }
 }

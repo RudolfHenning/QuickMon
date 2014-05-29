@@ -105,7 +105,7 @@ namespace QuickMon
             this.agentSeparatorBox = new System.Windows.Forms.PictureBox();
             this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
             this.lblNoNotifiersYet = new System.Windows.Forms.Label();
-            this.lvwNotifiers = new System.Windows.Forms.ListView();
+            this.lvwNotifiers = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.notifiersImageList = new System.Windows.Forms.ImageList(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
@@ -884,6 +884,8 @@ namespace QuickMon
             // 
             // lvwNotifiers
             // 
+            this.lvwNotifiers.AutoResizeColumnEnabled = false;
+            this.lvwNotifiers.AutoResizeColumnIndex = 0;
             this.lvwNotifiers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvwNotifiers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader});
@@ -899,6 +901,7 @@ namespace QuickMon
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
             this.lvwNotifiers.View = System.Windows.Forms.View.List;
+            this.lvwNotifiers.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwNotifiers_DeleteKeyPressed);
             this.lvwNotifiers.SelectedIndexChanged += new System.EventHandler(this.lvwNotifiers_SelectedIndexChanged);
             this.lvwNotifiers.DoubleClick += new System.EventHandler(this.lvwNotifiers_DoubleClick);
             this.lvwNotifiers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvwNotifiers_MouseUp);
@@ -1112,7 +1115,7 @@ namespace QuickMon
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.SplitContainer masterSplitContainer;
         private System.Windows.Forms.LinkLabel llblNotifierViewToggle;
-        private System.Windows.Forms.ListView lvwNotifiers;
+        private ListViewEx lvwNotifiers;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ContextMenuStrip notifiersContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem notifierViewerToolStripMenuItem;

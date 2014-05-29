@@ -117,44 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="satelitedish" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\satelitedish.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clockBW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clockBW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DnArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DnArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="edit_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\edit-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="whack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Plus16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Plus16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PlusExcl16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlusExcl16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAIAEBAAAAEAIABoBAAAJgAAABAQAAABAAgAaAUAAI4EAAAoAAAAEAAAACAAAAABACAAAAAAAAAI
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAABAAAAAGAAA
+        AAAAAP5xAAD+fAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAav//AGr//wAA
+        AGAAAP88AAD9/gAA//8AAP5dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAGr//wBq
+        //8AAABgAAD+OAAA//8AAP34AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYABq
+        //8Aav//AAAAYAAAAAAAAP5YAAD+aAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AGAAav//AGr//wAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAABgAGr//wBq//8AAACAAAAAAAAA//8AAP//AAAAAAAAAAAAAAAAAAAAQAAAAIAAAACAAAAAgAAA
+        AIAAAACAAAAAsABq//8Aav//AAAAwAAAK4wAAP//AADx8wAAAIAAAACAAAAAMAAAAKgAav//AGr//wBq
+        //8Aav//AGr//wBq//8Aav//AGr//wBq//8AQv7/AAD//wAE/v8AK/7/AGr//wAAAG8AAACIAGr//wBq
+        //8Aav//AGr//wBq//8Aav//AGr//wBq//8Aav//ABH+/wAA//8AAP//AAP+/wBq//8AAABKAAAAGAAA
+        AEAAAABAAAAAQAAAAEAAAABAAAAAiABq//8Aav//AAAMowAA//8AAP//AAD7/AAA//8AAFxYAAAACAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAav//AGr//wAAZqAAAP//AAD//wAA/PAAAP//AAD/UAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAGr//wBq//8AAHKlAAD//wAA//8AAPzjAAD//wAA
+        /3gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYABq//8Aav//AAAAgAAA/ZcAAP//AAD91wAA
+        /ncAAP8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAav//AGr//wAAAIAAAP9gAAD//wAA
+        /NIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAcAAAAJQAAABAAAD/GAAA
+        /6AAAP3dAAD/CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAP5wAAD+OAAAAAAAAAAAAAAAAP//AAD+ZwAA/mcAAP5/AAD+PwAA/icAAIABAAAAAQAAAAEAAPwD
+        AAD+AwAA/gMAAP4HAAD+JwAA/2cAAP//AAAoAAAAEAAAACAAAAABAAgAAAAAAAACAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAA/wAADP8AACv/AABc/wAAZv8AAHP/AADx/wAA/v8AA/7/AAT+/wAR/v8AK/7/AEL+/wBq
+        //8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAAAP//////////////////////////////DQ3///8H/////////////w0N//8H////////
+        //////8NDf//////////////////DQ3//////////////////w0N//8HB/////////////8NDf//B///
+        ////DQ0NDQ0NDQ0NDAcJCw3//w0NDQ0NDQ0NDQoHBwgN//////////8NDf8HB/8H////////////DQ3/
+        Bwf/B////////////w0N/wcH/wf///////////8NDf//B///////////////DQ3//wf/////////////
+        /////////////////////////////////////wAA/mcAAP5nAAD+fwAA/j8AAP4nAACAAQAAAAEAAAAB
+        AAD8AwAA/gMAAP4DAAD+BwAA/icAAP9nAAD//wAA
+</value>
   </data>
 </root>
