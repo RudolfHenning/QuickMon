@@ -580,7 +580,7 @@ namespace QuickMon
             // 
             // saveFileDialogSave
             // 
-            this.saveFileDialogSave.DefaultExt = "qmconfig";
+            this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp;*.qmconfig";
             // 
             // collectorTreeContextMenuStrip

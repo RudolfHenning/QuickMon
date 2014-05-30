@@ -1,0 +1,60 @@
+﻿<?xml version="1.0"  encoding="UTF-8"?>
+<qmpresets>
+<preset class="PowerShellScriptRunnerCollector" name="Check QuickMon version" description="Check QuickMon version &gt;= 3.14">
+<config><powerShellScripts><powerShellScriptRunner name="Get QuickMon version (&gt; 3.14)" returnCheckSequence="GWE">
+<testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
+if (Test-Path $filePath){
+    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion
+    $versionArray = $versionInfo.Split(".")
+    $major = [int]$versionArray[0]
+    $minor = [int]$versionArray[1]
+    if ($major -eq 3 -and $minor -ge 14)
+    {
+       "Version check OK - "  + $versionInfo.ToString()
+    }
+    else
+    {
+        "Version check fail - " + $versionInfo.ToString()
+    }
+}
+else {
+    "'" + $filePath + "' does not exist!"
+}</testScript>
+<goodScript resultMatchType="Contains">Version check OK</goodScript>
+<warningScript resultMatchType="Contains">Version check fail</warningScript>
+<errorScript resultMatchType="Match">[any]</errorScript>
+</powerShellScriptRunner>
+</powerShellScripts>
+</config>
+</preset>
+<preset class="PowerShellScriptRunnerCollector" name="PowerShell 2 installed" description="Is PowerShell 2 (or later) installed">
+<config><powerShellScripts><powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE">
+<testScript>if ($host.Version.Major -ge 2){
+   "Success. Version: " + $host.Version.ToString()
+}
+else {
+   "Fail. Version: " + $host.Version.Major
+}</testScript>
+<goodScript resultMatchType="Contains">Success</goodScript>
+<warningScript resultMatchType="Match">[null]</warningScript>
+<errorScript resultMatchType="Match">[any]</errorScript>
+</powerShellScriptRunner>
+</powerShellScripts>
+</config>
+</preset>
+<preset class="PowerShellScriptRunnerCollector" name="PowerShell 4 installed" description="Is PowerShell 4 installed">
+<config><powerShellScripts><powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE">
+<testScript>if ($host.Version.Major -ge 4){
+   "Success. Version: " + $host.Version.ToString()
+}
+else {
+   "Fail. Version: " + $host.Version.Major
+}</testScript>
+<goodScript resultMatchType="Contains">Success</goodScript>
+<warningScript resultMatchType="Match">[null]</warningScript>
+<errorScript resultMatchType="Match">[any]</errorScript>
+</powerShellScriptRunner>
+</powerShellScripts>
+</config>
+</preset>
+</qmpresets>

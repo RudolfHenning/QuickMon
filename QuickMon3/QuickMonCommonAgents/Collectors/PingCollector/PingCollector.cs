@@ -96,9 +96,5 @@ namespace QuickMon.Collectors
         {
             return new PingCollectorEditHostAddress();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

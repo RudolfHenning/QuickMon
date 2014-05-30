@@ -33,9 +33,9 @@ namespace QuickMon.Collectors
         {
             return new LoopbackCollectorEditConfig();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
+        //public override List<AgentPresetConfig> GetPresets()
+        //{
+        //    return new List<AgentPresetConfig>();
+        //}
     }
 }

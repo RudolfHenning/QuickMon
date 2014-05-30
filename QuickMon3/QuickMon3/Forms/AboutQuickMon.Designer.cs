@@ -35,8 +35,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblVersionInfo = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblThree = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -58,7 +60,7 @@
             this.lblCreateDate.BackColor = System.Drawing.Color.Transparent;
             this.lblCreateDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCreateDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblCreateDate.Location = new System.Drawing.Point(25, 214);
+            this.lblCreateDate.Location = new System.Drawing.Point(25, 235);
             this.lblCreateDate.Name = "lblCreateDate";
             this.lblCreateDate.Size = new System.Drawing.Size(86, 21);
             this.lblCreateDate.TabIndex = 3;
@@ -71,7 +73,7 @@
             this.lblCompany.BackColor = System.Drawing.Color.Transparent;
             this.lblCompany.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompany.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblCompany.Location = new System.Drawing.Point(25, 185);
+            this.lblCompany.Location = new System.Drawing.Point(25, 206);
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(85, 21);
             this.lblCompany.TabIndex = 2;
@@ -95,7 +97,7 @@
             this.lblVersionInfo.BackColor = System.Drawing.Color.Transparent;
             this.lblVersionInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersionInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblVersionInfo.Location = new System.Drawing.Point(25, 159);
+            this.lblVersionInfo.Location = new System.Drawing.Point(25, 180);
             this.lblVersionInfo.Name = "lblVersionInfo";
             this.lblVersionInfo.Size = new System.Drawing.Size(63, 21);
             this.lblVersionInfo.TabIndex = 1;
@@ -116,17 +118,29 @@
             this.linkLabel1.Text = "Get latest version here (CodePlex)";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // label2
+            // lblThree
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe Print", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(47, 46);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 57);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "3";
+            this.lblThree.AutoSize = true;
+            this.lblThree.BackColor = System.Drawing.Color.Transparent;
+            this.lblThree.Font = new System.Drawing.Font("Segoe Print", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThree.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lblThree.Location = new System.Drawing.Point(49, 40);
+            this.lblThree.Name = "lblThree";
+            this.lblThree.Size = new System.Drawing.Size(48, 57);
+            this.lblThree.TabIndex = 5;
+            this.lblThree.Text = "3";
+            this.lblThree.Click += new System.EventHandler(this.lblThree_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImage = global::QuickMon.Properties.Resources._47655348_pie2_466;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Location = new System.Drawing.Point(5, 100);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(125, 75);
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
             // 
             // AboutQuickMon
             // 
@@ -136,7 +150,8 @@
             this.BackgroundImage = global::QuickMon.Properties.Resources.AboutBkgrnd;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(300, 300);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.lblThree);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblCreateDate);
@@ -155,6 +170,7 @@
             this.Click += new System.EventHandler(this.AboutQuickMon_Click);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AboutQuickMon_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,6 +184,7 @@
         private System.Windows.Forms.Label lblCreateDate;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblThree;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"  encoding="UTF-8"?>
+<qmpresets>
+<preset class="WMIQueryCollector" name="C drive free space" description="C drive free space">
+<config><wmiQueries><wmiQuery name="C drive space left" namespace="root\CIMV2" machineName=".">
+<stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" />
+<detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" columnNames="" />
+</wmiQuery>
+</wmiQueries>
+</config>
+</preset>
+<preset class="WMIQueryCollector" name="Is network up" description="Is network up">
+<config><wmiQueries>
+<wmiQuery name="Is network up" namespace="root\CIMV2" machineName=".">
+		<stateQuery syntax="select NetConnectionStatus  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" returnValueIsInt="False" returnValueInverted="False" warningValue="0" errorValue="[any]" successValue="2" useRowCountAsValue="False" />
+		<detailQuery syntax="select Caption, Speed, NetEnabled, NetConnectionStatus, MACAddress  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" columnNames="" />
+</wmiQuery></wmiQueries></config>
+</preset>
+</qmpresets>

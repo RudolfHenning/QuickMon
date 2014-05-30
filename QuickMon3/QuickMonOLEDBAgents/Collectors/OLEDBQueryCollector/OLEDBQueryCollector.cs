@@ -87,19 +87,9 @@ namespace QuickMon.Collectors
         {
             return new OLEDBQueryCollectorEditEntry();
         }
-
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.OLEDBQueryCollectorDefaultConfig;
-        }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
         }
     }
 }

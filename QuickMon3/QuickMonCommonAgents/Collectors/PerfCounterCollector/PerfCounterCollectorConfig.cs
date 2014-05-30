@@ -28,6 +28,8 @@ namespace QuickMon.Collectors
         #region IAgentConfig Members
         public void ReadConfiguration(string configurationString)
         {
+            if (configurationString == null || configurationString.Length == 0)
+                return;
             XmlDocument config = new XmlDocument();
             config.LoadXml(configurationString);
             XmlElement root = config.DocumentElement;

@@ -98,9 +98,5 @@ namespace QuickMon.Collectors
         {
             return new IISAppPoolCollectorEditEntry();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

@@ -16,9 +16,12 @@ namespace QuickMon.Forms
         {
             InitializeComponent();
         }
+
+        #region Properties
         public RegisteredAgent SelectedAgent { get; set; }
         public bool ImportConfigAfterSelect { get; set; }
-        public bool UsePresetAfterSelect { get; set; }
+        public bool UsePresetAfterSelect { get; set; } 
+        #endregion
 
         public DialogResult ShowNotifierSelection(string currentNotifierRegistrationName)
         {
@@ -108,6 +111,28 @@ namespace QuickMon.Forms
             return this.ShowDialog();
         }
 
+        #region Form events
+        private void AgentTypeSelect_Load(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Button events
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            if (lvwAgentType.SelectedItems.Count == 1)
+            {
+                SelectedAgent = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
+                ImportConfigAfterSelect = optCustomConfig.Checked;
+                UsePresetAfterSelect = optSelectPreset.Checked;
+                DialogResult = System.Windows.Forms.DialogResult.OK;
+                Close();
+            }
+        } 
+        #endregion
+
+        #region ListView events
         private void lvwAgentType_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmdOK.Enabled = lvwAgentType.SelectedItems.Count == 1;
@@ -118,18 +143,8 @@ namespace QuickMon.Forms
                 if (lvwAgentType.SelectedItems.Count > 0 && lvwAgentType.SelectedItems[0].Tag is RegisteredAgent)
                 {
                     RegisteredAgent ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
-                    if (ra.IsCollector)
-                    {
-                        ICollector col = CollectorEntry.CreateCollectorEntry(ra);
-                        if (col.GetPresets().Count > 0)
-                            presets = true;
-                    }
-                    else if (ra.IsNotifier)
-                    {
-                        INotifier not = NotifierEntry.CreateNotifierEntry(ra);
-                        if (not.GetPresets().Count > 0)
-                            presets = true;
-                    }
+                    List<AgentPresetConfig> existingPresets = AgentPresetConfig.GetPresetsForClass(ra.Name);
+                    presets = (existingPresets != null && existingPresets.Count > 0);
                 }
             }
             catch { }
@@ -137,23 +152,11 @@ namespace QuickMon.Forms
             if (optSelectPreset.Checked && !presets)
                 optShowConfigEditor.Checked = true;
         }
-
-        private void cmdOK_Click(object sender, EventArgs e)
-        {
-            if (lvwAgentType.SelectedItems.Count ==1)
-            {
-                SelectedAgent = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
-                ImportConfigAfterSelect = optCustomConfig.Checked;
-                UsePresetAfterSelect = optSelectPreset.Checked;
-                DialogResult = System.Windows.Forms.DialogResult.OK;
-                Close();
-            }
-        }
-
         private void lvwAgentType_EnterKeyPressed()
         {
             cmdOK_Click(null, null);
-        }
+        } 
+        #endregion
 
         private void llblExtraAgents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -169,12 +172,12 @@ namespace QuickMon.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void AgentTypeSelect_Load(object sender, EventArgs e)
+        private void chkShowDetails_CheckedChanged(object sender, EventArgs e)
         {
-
+            SetDetailColumnSizing();
         }
 
+        #region Private methods
         private void SetDetailColumnSizing()
         {
             try
@@ -182,12 +185,12 @@ namespace QuickMon.Forms
                 lvwAgentType.AutoResizeColumnEnabled = false;
                 if (chkShowDetails.Checked)
                 {
-                    lvwAgentType.AutoResizeColumnIndex = 1;                    
+                    lvwAgentType.AutoResizeColumnIndex = 1;
                     lvwAgentType.Columns[0].Width = (int)(lvwAgentType.Width / 3.0);
                 }
                 else
                 {
-                    lvwAgentType.AutoResizeColumnIndex = 0;                    
+                    lvwAgentType.AutoResizeColumnIndex = 0;
                     lvwAgentType.Columns[1].Width = 1;
                 }
                 this.Width -= 1;
@@ -195,11 +198,8 @@ namespace QuickMon.Forms
                 this.Width += 1;
             }
             catch { }
-        }
+        } 
+        #endregion
 
-        private void chkShowDetails_CheckedChanged(object sender, EventArgs e)
-        {
-            SetDetailColumnSizing();
-        }
     }
 }

@@ -95,76 +95,79 @@ namespace QuickMon.Collectors
         {
             return new PowerShellScriptRunnerShowDetails();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            List<AgentPresetConfig> list = new List<AgentPresetConfig>();
-            list.Add(new AgentPresetConfig()
-                {
-                    AgentDefaultName = "Check QuickMon version",
-                    Description = "Check QuickMon version >= 3.14",
-                    Config = "<config><powerShellScripts><powerShellScriptRunner name=\"Get QuickMon version (&gt; 3.14)\" returnCheckSequence=\"GWE\">\r\n" +
-                        "<testScript>$filePath = \"C:\\Program Files\\Hen IT\\QuickMon 3\\Quickmon.exe\"\r\n" +
-                        "if (Test-Path $filePath){\r\n" +
-                        "    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion\r\n" +
-                        "    $versionArray = $versionInfo.Split(\".\")\r\n" +
-                        "    $major = [int]$versionArray[0]\r\n" +
-                        "    $minor = [int]$versionArray[1]\r\n" +
-                        "    if ($major -eq 3 -and $minor -ge 14)\r\n" +
-                        "    {\r\n" +
-                        "       \"Version check OK - \"  + $versionInfo.ToString()\r\n" +
-                        "    }\r\n" +
-                        "    else\r\n" +
-                        "    {\r\n" +
-                        "        \"Version check fail - \" + $versionInfo.ToString()\r\n" +
-                        "    }\r\n" +
-                        "}\r\n" +
-                        "else {\r\n" +
-                        "    \"'\" + $filePath + \"' does not exist!\"\r\n" +
-                        "}</testScript>\r\n" +
-                        "<goodScript resultMatchType=\"Contains\">Version check OK</goodScript>\r\n" +
-                        "<warningScript resultMatchType=\"Contains\">Version check fail</warningScript>\r\n" +
-                        "<errorScript resultMatchType=\"Match\">[any]</errorScript>\r\n" +
-                        "</powerShellScriptRunner>\r\n" +
-                        "</powerShellScripts>\r\n" +
-                        "</config>"
-                });
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "PowerShell 2 installed",
-                Description = "Is PowerShell 2 (or later) installed",
-                Config = "<config><powerShellScripts><powerShellScriptRunner name=\"PowerShell 4\" returnCheckSequence=\"GWE\">\r\n" +
-                        "<testScript>if ($host.Version.Major -ge 2){\r\n" +
-                        "   \"Success. Version: \" + $host.Version.ToString()\r\n" +
-                        "}\r\n" +
-                        "else {\r\n" +
-                        "   \"Fail. Version: \" + $host.Version.Major\r\n" +
-                        "}</testScript>\r\n" +
-                        "<goodScript resultMatchType=\"Contains\">Success</goodScript>\r\n" +
-                        "<warningScript resultMatchType=\"Match\">[null]</warningScript>\r\n" +
-                        "<errorScript resultMatchType=\"Match\">[any]</errorScript>\r\n" +
-                        "</powerShellScriptRunner>\r\n" +
-                        "</powerShellScripts>\r\n" +
-                        "</config>"
-            });
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "PowerShell 4 installed",
-                Description = "Is PowerShell 4 installed",
-                Config = "<config><powerShellScripts><powerShellScriptRunner name=\"PowerShell 4\" returnCheckSequence=\"GWE\">\r\n" +
-						"<testScript>if ($host.Version.Major -ge 4){\r\n" +
-                        "   \"Success. Version: \" + $host.Version.ToString()\r\n" +
-                        "}\r\n" +
-                        "else {\r\n" +
-                        "   \"Fail. Version: \" + $host.Version.Major\r\n" +
-                        "}</testScript>\r\n" +
-	                    "<goodScript resultMatchType=\"Contains\">Success</goodScript>\r\n" +
-	                    "<warningScript resultMatchType=\"Match\">[null]</warningScript>\r\n" +
-	                    "<errorScript resultMatchType=\"Match\">[any]</errorScript>\r\n" +
-	                    "</powerShellScriptRunner>\r\n" +
-	                    "</powerShellScripts>\r\n" +
-	                    "</config>"
-            });
-            return list;
-        }
+        //public override List<AgentPresetConfig> GetPresets()
+        //{
+        //    List<AgentPresetConfig> list = new List<AgentPresetConfig>();
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "Check QuickMon version",
+        //        Description = "Check QuickMon version >= 3.14",
+        //        Config = "<config><powerShellScripts><powerShellScriptRunner name=\"Get QuickMon version (&gt; 3.14)\" returnCheckSequence=\"GWE\">\r\n" +
+        //            "<testScript>$filePath = \"C:\\Program Files\\Hen IT\\QuickMon 3\\Quickmon.exe\"\r\n" +
+        //            "if (Test-Path $filePath){\r\n" +
+        //            "    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion\r\n" +
+        //            "    $versionArray = $versionInfo.Split(\".\")\r\n" +
+        //            "    $major = [int]$versionArray[0]\r\n" +
+        //            "    $minor = [int]$versionArray[1]\r\n" +
+        //            "    if ($major -eq 3 -and $minor -ge 14)\r\n" +
+        //            "    {\r\n" +
+        //            "       \"Version check OK - \"  + $versionInfo.ToString()\r\n" +
+        //            "    }\r\n" +
+        //            "    else\r\n" +
+        //            "    {\r\n" +
+        //            "        \"Version check fail - \" + $versionInfo.ToString()\r\n" +
+        //            "    }\r\n" +
+        //            "}\r\n" +
+        //            "else {\r\n" +
+        //            "    \"'\" + $filePath + \"' does not exist!\"\r\n" +
+        //            "}</testScript>\r\n" +
+        //            "<goodScript resultMatchType=\"Contains\">Version check OK</goodScript>\r\n" +
+        //            "<warningScript resultMatchType=\"Contains\">Version check fail</warningScript>\r\n" +
+        //            "<errorScript resultMatchType=\"Match\">[any]</errorScript>\r\n" +
+        //            "</powerShellScriptRunner>\r\n" +
+        //            "</powerShellScripts>\r\n" +
+        //            "</config>"
+        //    });
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "PowerShell 2 installed",
+        //        Description = "Is PowerShell 2 (or later) installed",
+        //        Config = "<config><powerShellScripts><powerShellScriptRunner name=\"PowerShell 4\" returnCheckSequence=\"GWE\">\r\n" +
+        //                "<testScript>if ($host.Version.Major -ge 2){\r\n" +
+        //                "   \"Success. Version: \" + $host.Version.ToString()\r\n" +
+        //                "}\r\n" +
+        //                "else {\r\n" +
+        //                "   \"Fail. Version: \" + $host.Version.Major\r\n" +
+        //                "}</testScript>\r\n" +
+        //                "<goodScript resultMatchType=\"Contains\">Success</goodScript>\r\n" +
+        //                "<warningScript resultMatchType=\"Match\">[null]</warningScript>\r\n" +
+        //                "<errorScript resultMatchType=\"Match\">[any]</errorScript>\r\n" +
+        //                "</powerShellScriptRunner>\r\n" +
+        //                "</powerShellScripts>\r\n" +
+        //                "</config>"
+        //    });
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "PowerShell 4 installed",
+        //        Description = "Is PowerShell 4 installed",
+        //        Config = "<config><powerShellScripts><powerShellScriptRunner name=\"PowerShell 4\" returnCheckSequence=\"GWE\">\r\n" +
+        //                "<testScript>if ($host.Version.Major -ge 4){\r\n" +
+        //                "   \"Success. Version: \" + $host.Version.ToString()\r\n" +
+        //                "}\r\n" +
+        //                "else {\r\n" +
+        //                "   \"Fail. Version: \" + $host.Version.Major\r\n" +
+        //                "}</testScript>\r\n" +
+        //                "<goodScript resultMatchType=\"Contains\">Success</goodScript>\r\n" +
+        //                "<warningScript resultMatchType=\"Match\">[null]</warningScript>\r\n" +
+        //                "<errorScript resultMatchType=\"Match\">[any]</errorScript>\r\n" +
+        //                "</powerShellScriptRunner>\r\n" +
+        //                "</powerShellScripts>\r\n" +
+        //                "</config>"
+        //    });
+        //    return list;
+        //}
     }
 }

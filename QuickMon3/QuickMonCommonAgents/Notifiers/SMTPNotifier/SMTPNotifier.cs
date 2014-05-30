@@ -121,9 +121,5 @@ namespace QuickMon.Notifiers
         {
             return Properties.Resources.SMTPNotifierDefaultConfig;
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

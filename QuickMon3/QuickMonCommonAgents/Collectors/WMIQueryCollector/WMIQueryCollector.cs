@@ -95,32 +95,34 @@ namespace QuickMon.Collectors
         {
             return new WMIQueryCollectorEditEntry();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            List<AgentPresetConfig> list = new List<AgentPresetConfig>();
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "C drive free space",
-                Description = "C drive free space",
-                Config = "<config><wmiQueries><wmiQuery name=\"C drive space left\" namespace=\"root\\CIMV2\" machineName=\".\">\r\n" +
-                        "<stateQuery syntax=\"select FreeSpace from Win32_LogicalDisk where Caption = 'C:'\" returnValueIsInt=\"True\" returnValueInverted=\"True\" warningValue=\"16106127360\" errorValue=\"10737418240\" successValue=\"[any]\" useRowCountAsValue=\"False\" />\r\n" +
-                        "<detailQuery syntax=\"select FreeSpace from Win32_LogicalDisk where Caption = 'C:'\" columnNames=\"\" />\r\n" +
-                        "</wmiQuery>\r\n" +
-                        "</wmiQueries>\r\n" +
-                        "</config>"
-            });
+        //public override List<AgentPresetConfig> GetPresets()
+        //{
+        //    List<AgentPresetConfig> list = new List<AgentPresetConfig>();
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "C drive free space",
+        //        Description = "C drive free space",
+        //        Config = "<config><wmiQueries><wmiQuery name=\"C drive space left\" namespace=\"root\\CIMV2\" machineName=\".\">\r\n" +
+        //                "<stateQuery syntax=\"select FreeSpace from Win32_LogicalDisk where Caption = 'C:'\" returnValueIsInt=\"True\" returnValueInverted=\"True\" warningValue=\"16106127360\" errorValue=\"10737418240\" successValue=\"[any]\" useRowCountAsValue=\"False\" />\r\n" +
+        //                "<detailQuery syntax=\"select FreeSpace from Win32_LogicalDisk where Caption = 'C:'\" columnNames=\"\" />\r\n" +
+        //                "</wmiQuery>\r\n" +
+        //                "</wmiQueries>\r\n" +
+        //                "</config>"
+        //    });
 
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "Is network up",
-                Description = "Is network up",
-                Config = "<config><wmiQueries>\r\n" +
-				"<wmiQuery name=\"Is network up\" namespace=\"root\\CIMV2\" machineName=\".\">\r\n" +
-				"		<stateQuery syntax=\"select NetConnectionStatus  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'\" returnValueIsInt=\"False\" returnValueInverted=\"False\" warningValue=\"0\" errorValue=\"[any]\" successValue=\"2\" useRowCountAsValue=\"False\" />\r\n" +
-				"		<detailQuery syntax=\"select Caption, Speed, NetEnabled, NetConnectionStatus, MACAddress  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'\" columnNames=\"\" />\r\n" +
-				"</wmiQuery></wmiQueries></config>"
-                });
-            return list;
-        }
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "Is network up",
+        //        Description = "Is network up",
+        //        Config = "<config><wmiQueries>\r\n" +
+        //        "<wmiQuery name=\"Is network up\" namespace=\"root\\CIMV2\" machineName=\".\">\r\n" +
+        //        "		<stateQuery syntax=\"select NetConnectionStatus  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'\" returnValueIsInt=\"False\" returnValueInverted=\"False\" warningValue=\"0\" errorValue=\"[any]\" successValue=\"2\" useRowCountAsValue=\"False\" />\r\n" +
+        //        "		<detailQuery syntax=\"select Caption, Speed, NetEnabled, NetConnectionStatus, MACAddress  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'\" columnNames=\"\" />\r\n" +
+        //        "</wmiQuery></wmiQueries></config>"
+        //    });
+        //    return list;
+        //}
     }
 }

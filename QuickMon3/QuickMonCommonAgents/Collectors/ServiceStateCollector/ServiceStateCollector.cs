@@ -99,17 +99,18 @@ namespace QuickMon.Collectors
         {
             return new ServiceStateCollectorEditEntry();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            List<AgentPresetConfig> list = new List<AgentPresetConfig>();
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "QuickMon Service running",
-                Description = "Is QuickMon Service running",
-                Config = "<config><machine name=\"" + System.Net.Dns.GetHostName() + "\"><service name=\"QuickMon 3 Service\" /></machine></config>"
+        //public override List<AgentPresetConfig> GetPresets()
+        //{
+        //    List<AgentPresetConfig> list = new List<AgentPresetConfig>();
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "QuickMon Service running",
+        //        Description = "Is QuickMon Service running",
+        //        Config = "<config><machine name=\".\"><service name=\"QuickMon 3 Service\" /></machine></config>"
 
-            });
-            return list;
-        }
+        //    });
+        //    return list;
+        //}
     }
 }

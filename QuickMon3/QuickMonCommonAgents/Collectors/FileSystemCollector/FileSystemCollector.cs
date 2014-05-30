@@ -137,9 +137,5 @@ namespace QuickMon.Collectors
         {
             return new FileSystemCollectorEditFilterEntry();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

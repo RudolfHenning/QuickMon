@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"  encoding="UTF-8"?>
+<qmpresets>
+<preset class="EventLogNotifier" name="Event Log" description="This computer, Event source: QuickMon">
+<config><eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" /></config>
+</preset>
+</qmpresets>

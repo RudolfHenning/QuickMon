@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.14.0529.2014" Manufacturer="Hen IT"
-       UpgradeCode="59162023-5478-4668-A278-41c930000000">
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.14.0530.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
 
     <Feature Id="ProductFeature" Title="QuickMon 3" Level="1" Description="QuickMon 3" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
       <ComponentRef Id='ProductComponent' />
       <ComponentRef Id='QuickMonConfigFiles' />
-      <ComponentRef Id='readmetxt' />
-      <ComponentRef Id='sampleFiles' />
+      <ComponentRef Id='readmetxt' />      
+      <ComponentRef Id='presets' />
       <ComponentRef Id='ProgramMenuDir' />
+      <Feature Id="ExamplePacksFeature" Title="Example monitor packs" Level="2" Description="Example monitor packs" Display="expand" ConfigurableDirectory="SAMPLEPACKSDIRECTORY" TypicalDefault="advertise">
+        <ComponentRef Id='sampleFiles' />
+      </Feature>
+      <Feature Id="ExtraAgentsFeature" Title="Extra Agents" Level="2" Description="Extra Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+        <Feature Id="BizTalkAgentsFeature" Title="BizTalk Agents" Level="3" Description="BizTalk Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+          <ComponentRef Id='bizTalkAgents' />
+        </Feature>
+        <Feature Id="IISAgentsFeature" Title="IIS Agents" Level="3" Description="IIS Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+          <ComponentRef Id='iisAgents' />
+        </Feature>
+        <Feature Id="OLEDBAgentsFeature" Title="OLEDb Agents" Level="3" Description="OLEDb Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+          <ComponentRef Id='oledbAgents' />
+        </Feature>
+        <Feature Id="PowerShellAgentsFeature" Title="PowerShell Agents" Level="3" Description="PowerShell Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+          <ComponentRef Id='powerShellAgents' />
+        </Feature>
+        <Feature Id="MSSQLAgentsFeature" Title="MSSQL Agents" Level="3" Description="MSSQL Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+          <ComponentRef Id='mssqlAgents' />
+        </Feature>        
+      </Feature>     
     </Feature>
 
     <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." /> 
@@ -23,8 +42,7 @@
           <Directory Id="INSTALLLOCATION" Name="QuickMon 3">
             <Component Id="ProductComponent" Guid="59162023-5478-4668-A278-41ca30000000" Win64="yes" >
               <File Id="QuickMonEXE" Name="QuickMon.exe" Source="QuickMon.exe" KeyPath="yes" ProcessorArchitecture='x64' >
-                <Shortcut Id="startmenuQuickMon3" Directory="ProgramMenuDir" Name="QuickMon 3"
-													WorkingDirectory="INSTALLDIR" Icon="QuickMon.exe" IconIndex="0" Advertise="yes" />
+                <Shortcut Id="startmenuQuickMon3" Directory="ProgramMenuDir" Name="QuickMon 3" WorkingDirectory="INSTALLDIR" Icon="QuickMon.exe" IconIndex="0" Advertise="yes" />
               </File>
               <ProgId Id="QuickMon3" Advertise="yes" Icon='QuickMon.exe'>
                 <Extension Id="qmconfig" Advertise="yes" ContentType="application/text">
@@ -51,6 +69,23 @@
                   <Shortcut Id="startmenuQuickMon3readme" Directory="ProgramMenuDir" Name="QuickMon 3 read me" WorkingDirectory="INSTALLDIR" Advertise="yes" />
                 </File>
             </Component>            
+            <Component Id="bizTalkAgents" Guid="59162023-5478-4668-A278-41cc3b124a14" Win64="yes">
+                <File Id="QuickMonBizTalkAgents.dll" Source="QuickMonBizTalkAgents.dll"  KeyPath="no" />                
+            </Component>
+            <Component Id="iisAgents" Guid="59162023-5478-4668-A278-41cc31150000" Win64="yes">
+                <File Id="QuickMonIISAgents.dll" Source="QuickMonIISAgents.dll"  KeyPath="no" />                
+            </Component>
+            <Component Id="oledbAgents" Guid="59162023-5478-4668-A278-41cc301edb00" Win64="yes">
+                <File Id="QuickMonOLEDBAgents.dll" Source="QuickMonOLEDBAgents.dll"  KeyPath="no" />                
+            </Component>
+            <Component Id="powerShellAgents" Guid="59162023-5478-4668-A278-41cc390Ee400" Win64="yes">
+                <File Id="QuickMonPowerShellAgents.dll" Source="QuickMonPowerShellAgents.dll"  KeyPath="no" />
+                <File Id="System.Management.Automation.dll" Source="System.Management.Automation.dll"  KeyPath="no" />
+            </Component>
+            <Component Id="mssqlAgents" Guid="59162023-5478-4668-A278-41cc33556100" Win64="yes">
+                <File Id="QuickMonSQLAgents.dll" Source="QuickMonSQLAgents.dll"  KeyPath="no" />                
+            </Component>
+            
             <Directory Id="SAMPLEPACKSDIRECTORY" Name="SamplePacks">              
               <Component Id="sampleFiles" Guid="59162023-5478-4668-A278-41cd30000000" Win64="yes" KeyPath="yes">
                 <File Id="LocalSystemHealthPack" Source="LocalSystemHealth.qmp" KeyPath="no">
@@ -60,6 +95,37 @@
               </Component>
             </Directory>
             
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="CommonAppDataComp" Name="Hen IT">
+          <Directory Id="CommonAppDataQM3" Name="QuickMon 3">
+             <Component Id="presets" Guid="59162023-5478-4668-A278-41cc40000000">
+              <File Id="AudioNotifierPreset" Source="Presets\AudioNotifier.qps" KeyPath="no" />
+              <File Id="BizTalkPortAndOrchsCollectorPreset" Source="Presets\BizTalkPortAndOrchsCollector.qps" KeyPath="no" />
+              <File Id="BizTalkSuspendedCountCollectorPreset" Source="Presets\BizTalkSuspendedCountCollector.qps" KeyPath="no" />
+              <File Id="EventLogCollectorPreset" Source="Presets\EventLogCollector.qps" KeyPath="no" />
+              <File Id="EventLogNotifierPreset" Source="Presets\EventLogNotifier.qps" KeyPath="no" />
+              <File Id="FileSystemCollectorPreset" Source="Presets\FileSystemCollector.qps" KeyPath="no" />
+              <File Id="IISAppPoolCollectorPreset" Source="Presets\IISAppPoolCollector.qps" KeyPath="no" />
+              <File Id="InMemoryNotifierPreset" Source="Presets\InMemoryNotifier.qps" KeyPath="no" />
+              <File Id="LogFileNotifierPreset" Source="Presets\LogFileNotifier.qps" KeyPath="no" />
+              <File Id="LoopbackCollectorPreset" Source="Presets\LoopbackCollector.qps" KeyPath="no" />
+              <File Id="OLEDBQueryCollectorPreset" Source="Presets\OLEDBQueryCollector.qps" KeyPath="no" />
+              <File Id="PerfCounterCollectorPreset" Source="Presets\PerfCounterCollector.qps" KeyPath="no" />
+              <File Id="PingCollectorPreset" Source="Presets\PingCollector.qps" KeyPath="no" />
+              <File Id="PowerShellScriptRunnerCollectorPreset" Source="Presets\PowerShellScriptRunnerCollector.qps" KeyPath="no" />
+              <File Id="RegistryQueryCollectorPreset" Source="Presets\RegistryQueryCollector.qps" KeyPath="no" />
+              <File Id="ServiceStateCollectorPreset" Source="Presets\ServiceStateCollector.qps" KeyPath="no" />
+              <File Id="SMTPNotifierPreset" Source="Presets\SMTPNotifier.qps" KeyPath="no" />
+              <File Id="SoapWebServicePingCollectorPreset" Source="Presets\SoapWebServicePingCollector.qps" KeyPath="no" />
+              <File Id="SQLDatabaseNotifierPreset" Source="Presets\SQLDatabaseNotifier.qps" KeyPath="no" />
+              <File Id="SqlDatabaseSizeCollectorPreset" Source="Presets\SqlDatabaseSizeCollector.qps" KeyPath="no" />
+              <File Id="SqlQueryCollectorPreset" Source="Presets\SqlQueryCollector.qps" KeyPath="no" />
+              <File Id="SqlTableSizeCollectorPreset" Source="Presets\SqlTableSizeCollector.qps" KeyPath="no" />
+              <File Id="WMIQueryCollectorPreset" Source="Presets\WMIQueryCollector.qps" KeyPath="no" />
+             </Component>
           </Directory>
         </Directory>
       </Directory>
@@ -82,10 +148,12 @@
     </Condition>
 
     <UI>
-      <UIRef Id="WixUI_InstallDir" />
+      <UIRef Id="WixUI_InstallDir" />      
 
-      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="CustomizeDlg" Order="2">1</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="2">1</Publish>     
 
       <!-- Show Launch app checkbox -->
       <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction"

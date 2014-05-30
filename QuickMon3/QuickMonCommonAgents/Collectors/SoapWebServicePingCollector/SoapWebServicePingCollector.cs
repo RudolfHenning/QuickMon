@@ -94,10 +94,6 @@ namespace QuickMon.Collectors
         {
             return new SoapWebServicePingCollectorShowDetails();
         }
-        //public override IEditConfigWindow GetEditConfigWindow()
-        //{
-        //    return new SoapWebServicePingCollectorEditConfig();
-        //}
         public override string GetDefaultOrEmptyConfigString()
         {
             return Properties.Resources.SoapWebServicePingCollectorDefaultConfig;
@@ -105,10 +101,6 @@ namespace QuickMon.Collectors
         public override IEditConfigEntryWindow GetEditConfigEntryWindow()
         {
             return new SoapWebServicePingCollectorEditEntry();
-        }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
         }
     }
 }

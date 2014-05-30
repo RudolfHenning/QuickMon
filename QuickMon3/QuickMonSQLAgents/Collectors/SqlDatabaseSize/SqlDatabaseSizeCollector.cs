@@ -86,9 +86,5 @@ namespace QuickMon.Collectors
         {
             return new SqlDatabaseSizeCollectorEditEntry();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

@@ -103,9 +103,5 @@ namespace QuickMon.Notifiers
         {
             return Properties.Resources.LogFileNotifierDefaultConfig;
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

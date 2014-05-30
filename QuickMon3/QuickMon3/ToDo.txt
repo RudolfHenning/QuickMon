@@ -1,4 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
+Event Scavenger collector set
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -11,7 +12,6 @@ Detail views can/must use remote host dataset as source
   Each collector agent must specify if it supports simple/single dataset, multiple datasets (not linked), multiple/nested that are linked with parent/child key relation
     for multiple/nested datasets some special columns might have to be added (Column name:linked, value: table name with detail)
 
-Some way to add predefined sets of collector settings (like set of perf counters for system health)
 Future advancement - Allow corrective scrpts to run on remote hosts
 
 Allow multiple monitor packs in Windows client (different tabs...)
@@ -124,7 +124,10 @@ Add 'Sample' monitor packs to installers
 
 v3.14
 Agent preset configs (work in progress)
-  add presets based on xml file *.qps
+  add presets based on xml file *.qps 
+  (Addressing: Some way to add predefined sets of collector settings (like set of perf counters for system health))
 Fix: press delete key on notifier list fire delete notifier event
+Fix: delete of multiple notifiers caused out of index exception
+Installer now has treeview with optional agents that can be selected to be installed or not
 -------------------------------------------------------------------------------------------------------
 

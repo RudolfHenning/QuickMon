@@ -1719,7 +1719,6 @@ namespace QuickMon
             }
             catch { }
         }
-
         private void notifierViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideNotifierContextMenu();
@@ -1782,7 +1781,9 @@ namespace QuickMon
             {
                 SetMonitorChanged();
                 ListView.SelectedIndexCollection idxes = lvwNotifiers.SelectedIndices;
-                foreach (int i in idxes)
+                foreach (int i in (from int id in idxes
+                                       orderby id descending
+                                       select id))
                 {
                     ListViewItem lvi = lvwNotifiers.Items[i];
                     if (lvi.Tag is NotifierEntry)

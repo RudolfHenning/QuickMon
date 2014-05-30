@@ -95,5 +95,34 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void lblThree_Click(object sender, EventArgs e)
+        {
+//#if DEBUG
+//            string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
+//            try
+//            {
+//                System.IO.Directory.CreateDirectory(progDataPath);
+//            }
+//            catch { }
+
+//            foreach (RegisteredAgent ra in RegisteredAgentCache.Agents)
+//            {
+//                IAgent c;
+//                if (ra.IsCollector)
+//                    c = CollectorEntry.CreateCollectorEntry(ra);
+//                else
+//                    c = NotifierEntry.CreateNotifierEntry(ra);
+
+//                string presetfile = System.IO.Path.Combine(progDataPath, ra.Name + ".qps");
+//                List<AgentPresetConfig> apcs = c.GetPresets();
+//                foreach (AgentPresetConfig apc in apcs)
+//                {
+//                    apc.AgentClassName = ra.Name;
+//                }
+//                AgentPresetConfig.SavePresetsToFile(presetfile, apcs);
+//            }
+//#endif
+        }
     }
 }

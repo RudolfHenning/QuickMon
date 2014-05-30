@@ -16,6 +16,15 @@ namespace QuickMon
                 .Replace("<", "&lt;")
                 .Replace(">", "&gt;");
         }
+        public static string UnEscapeXml(this string s)
+        {
+            if (s == null)
+                s = "";
+            return s.Replace("&amp;", "&")
+                .Replace("&quot;", "\"")
+                .Replace("&lt;", "<")
+                .Replace("&gt;", ">");
+        }
 
         public static string NormalizeXML(string unformattedXML)
         {

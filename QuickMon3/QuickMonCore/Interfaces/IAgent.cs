@@ -14,9 +14,10 @@ namespace QuickMon
         void SetConfigurationFromXmlString(string configurationString);
         //In case some agents needs to close some resources
         void Close();
-        List<AgentPresetConfig> GetPresets();
-
-        //Testing
-        //string ChildClassName();
+        /// <summary>
+        /// this Method is only intended for helping while developing presets
+        /// </summary>
+        /// <returns></returns>
+        //List<AgentPresetConfig> GetPresets();
     }
 }

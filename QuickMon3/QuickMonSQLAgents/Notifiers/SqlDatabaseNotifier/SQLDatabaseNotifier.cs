@@ -141,9 +141,5 @@ namespace QuickMon.Notifiers
         {
             AgentConfig.ReadConfiguration(configurationString);
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            return new List<AgentPresetConfig>();
-        }
     }
 }

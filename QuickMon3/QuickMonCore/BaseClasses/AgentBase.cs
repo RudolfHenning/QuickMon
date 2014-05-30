@@ -18,12 +18,7 @@ namespace QuickMon
             AgentConfig.ReadConfiguration(configurationString);
         }
         public virtual void Close() { }
-        public abstract List<AgentPresetConfig> GetPresets();
-
-        //public string ChildClassName()
-        //{
-        //    return this.ToString();
-        //}
+        //public abstract List<AgentPresetConfig> GetPresets();
         #endregion
     }
 }

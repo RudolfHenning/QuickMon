@@ -101,48 +101,52 @@ namespace QuickMon.Collectors
         {
             return new PerfCounterEditAlert();
         }
-        public override List<AgentPresetConfig> GetPresets()
-        {
-            List<AgentPresetConfig> list = new List<AgentPresetConfig>();
-            list.Add(new AgentPresetConfig() 
-            {
-                AgentDefaultName = "System health",
-                Description = "System health (all)",
-                Config = @"<config>" + 
-                @"<performanceCounters>" + 
-                    @"<performanceCounter computer=""."" category=""Processor"" counter=""% Processor Time"" instance=""_Total"" returnValueInverted=""False"" warningValue=""90"" errorValue=""99"" />" + 
-                    @"<performanceCounter computer=""."" category=""Memory"" counter=""% Committed Bytes In Use"" instance="""" returnValueInverted=""False"" warningValue=""80"" errorValue=""90"" />" + 
-                    @"<performanceCounter computer=""."" category=""LogicalDisk"" counter=""% Free Space"" instance=""C:"" returnValueInverted=""True"" warningValue=""15"" errorValue=""5"" />" + 
-                    "</performanceCounters></config>" });
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "System health",
-                Description = "System health (CPU)",
-                Config = @"<config>" +
-                    @"<performanceCounters>" +
-                    @"<performanceCounter computer=""."" category=""Processor"" counter=""% Processor Time"" instance=""_Total"" returnValueInverted=""False"" warningValue=""90"" errorValue=""99"" />" +
-                    "</performanceCounters></config>"
-            });
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "System health",
-                Description = "System health (CPU + MEM)",
-                Config = @"<config>" +
-                    @"<performanceCounters>" +
-                    @"<performanceCounter computer=""."" category=""Processor"" counter=""% Processor Time"" instance=""_Total"" returnValueInverted=""False"" warningValue=""90"" errorValue=""99"" />" +
-                    @"<performanceCounter computer=""."" category=""Memory"" counter=""% Committed Bytes In Use"" instance="""" returnValueInverted=""False"" warningValue=""80"" errorValue=""90"" />" +
-                    "</performanceCounters></config>"
-            });
-            list.Add(new AgentPresetConfig()
-            {
-                AgentDefaultName = "System health",
-                Description = "System health (MEM)",
-                Config = @"<config>" +
-                    @"<performanceCounters>" +
-                    @"<performanceCounter computer=""."" category=""Memory"" counter=""% Committed Bytes In Use"" instance="""" returnValueInverted=""False"" warningValue=""80"" errorValue=""90"" />" +
-                    "</performanceCounters></config>"
-            });
-            return list;
-        }
+        //public override List<AgentPresetConfig> GetPresets()
+        //{
+        //    List<AgentPresetConfig> list = new List<AgentPresetConfig>();
+        //    list.Add(new AgentPresetConfig() 
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "System health",
+        //        Description = "System health (all)",
+        //        Config = @"<config>" + 
+        //        @"<performanceCounters>" + 
+        //            @"<performanceCounter computer=""."" category=""Processor"" counter=""% Processor Time"" instance=""_Total"" returnValueInverted=""False"" warningValue=""90"" errorValue=""99"" />" + 
+        //            @"<performanceCounter computer=""."" category=""Memory"" counter=""% Committed Bytes In Use"" instance="""" returnValueInverted=""False"" warningValue=""80"" errorValue=""90"" />" + 
+        //            @"<performanceCounter computer=""."" category=""LogicalDisk"" counter=""% Free Space"" instance=""C:"" returnValueInverted=""True"" warningValue=""15"" errorValue=""5"" />" + 
+        //            "</performanceCounters></config>" });
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "System health",
+        //        Description = "System health (CPU)",
+        //        Config = @"<config>" +
+        //            @"<performanceCounters>" +
+        //            @"<performanceCounter computer=""."" category=""Processor"" counter=""% Processor Time"" instance=""_Total"" returnValueInverted=""False"" warningValue=""90"" errorValue=""99"" />" +
+        //            "</performanceCounters></config>"
+        //    });
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "System health",
+        //        Description = "System health (CPU + MEM)",
+        //        Config = @"<config>" +
+        //            @"<performanceCounters>" +
+        //            @"<performanceCounter computer=""."" category=""Processor"" counter=""% Processor Time"" instance=""_Total"" returnValueInverted=""False"" warningValue=""90"" errorValue=""99"" />" +
+        //            @"<performanceCounter computer=""."" category=""Memory"" counter=""% Committed Bytes In Use"" instance="""" returnValueInverted=""False"" warningValue=""80"" errorValue=""90"" />" +
+        //            "</performanceCounters></config>"
+        //    });
+        //    list.Add(new AgentPresetConfig()
+        //    {
+        //        AgentClassName = this.GetType().Name,
+        //        AgentDefaultName = "System health",
+        //        Description = "System health (MEM)",
+        //        Config = @"<config>" +
+        //            @"<performanceCounters>" +
+        //            @"<performanceCounter computer=""."" category=""Memory"" counter=""% Committed Bytes In Use"" instance="""" returnValueInverted=""False"" warningValue=""80"" errorValue=""90"" />" +
+        //            "</performanceCounters></config>"
+        //    });
+        //    return list;
+        //}
     }
 }
