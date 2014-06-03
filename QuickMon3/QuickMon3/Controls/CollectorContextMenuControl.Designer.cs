@@ -317,7 +317,7 @@
             this.cmdDisableCollector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cmdDisableCollector.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdDisableCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.okGray;
+            this.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.Forbidden32x32;
             this.cmdDisableCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdDisableCollector.Location = new System.Drawing.Point(0, 0);
             this.cmdDisableCollector.Name = "cmdDisableCollector";

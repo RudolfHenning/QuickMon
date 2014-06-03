@@ -33,6 +33,36 @@ namespace QuickMon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            //Copy installed presets to user's application data directory
+            try
+            {
+                string commonAppData = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
+                string userAppData = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
+                if(System.IO.Directory.Exists(commonAppData))
+                {
+                    if (!System.IO.Directory.Exists(userAppData))
+                    {
+                        //attempt to create directory
+                        System.IO.Directory.CreateDirectory(userAppData);
+                    }
+
+                    //Now copy any non existing preset files
+                    if (System.IO.Directory.Exists(userAppData))
+                    {
+                        foreach(string commonPresetFilePath in System.IO.Directory.GetFiles(commonAppData, "*.qps"))
+                        {
+                            string fileNameOnly = System.IO.Path.GetFileName(commonPresetFilePath);
+                            string userPresetFilePath = System.IO.Path.Combine(userAppData, fileNameOnly);
+                            if (!System.IO.File.Exists(userPresetFilePath))
+                            {
+                                System.IO.File.Copy(commonPresetFilePath, userPresetFilePath);
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
             //if application is launched with qmconfig file set it as last Monitor pack
             if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmconfig") || args[0].ToLower().EndsWith(".qmp")))
                 Properties.Settings.Default.LastMonitorPack = args[0];

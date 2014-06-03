@@ -1140,14 +1140,14 @@ namespace QuickMon
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
             {
                 CollectorEntry entry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
-                //System.Diagnostics.Trace.WriteLine(entry.Collector.ChildClassName());
 
                 popedContainerForTreeView.cmdViewDetails.Enabled = !entry.IsFolder;
                 popedContainerForTreeView.cmdEditCollector.Enabled = true;
                 popedContainerForTreeView.cmdDeleteCollector.Enabled = true;
                 popedContainerForTreeView.cmdDisableCollector.Enabled = true;
-                popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.DarkGray;
+                popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.WhiteSmoke;
                 popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
+                popedContainerForTreeView.cmdDisableCollector.Image = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden32x32 : global::QuickMon.Properties.Resources.okGray;
 
                 collectorTreeViewDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
                 viewCollectorDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
@@ -1174,7 +1174,7 @@ namespace QuickMon
                 collectorTreeEditConfigToolStripMenuItem.Enabled = false;
                 editCollectorToolStripMenuItem.Enabled = false;
                 disableCollectorTreeToolStripMenuItem.Enabled = false;
-                popedContainerForTreeView.cmdDisableCollector.BackColor = Color.DarkGray;
+                popedContainerForTreeView.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.okGray;
                 removeCollectorToolStripMenuItem.Enabled = false;
                 removeCollectorToolStripMenuItem1.Enabled = false;
 
@@ -1633,7 +1633,7 @@ namespace QuickMon
                     CollectorEntry entry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
                     entry.Enabled = !entry.Enabled;
                     disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable collector" : "Enable collector";
-                    tvwCollectors.SelectedNode.ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;
+                    tvwCollectors.SelectedNode.ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;                    
                     if (!entry.Enabled)
                     {
                         tvwCollectors.SelectedNode.ImageIndex = collectorNAstateImage;

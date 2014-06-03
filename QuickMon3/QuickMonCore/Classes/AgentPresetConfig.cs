@@ -25,8 +25,9 @@ namespace QuickMon
         public static List<AgentPresetConfig> GetPresetsForClass(string agentClass)
         {
             List<AgentPresetConfig> presets = new List<AgentPresetConfig>();
-
-            string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
+            string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
+            //string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
+            
             foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(progDataPath))
             {
                 if (apc.AgentClassName == agentClass)

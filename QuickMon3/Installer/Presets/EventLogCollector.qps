@@ -1,3 +1,15 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="EventLogCollector" name="Disk with bad blocks" description="Check for bad blocks on disk">
+<config>
+		<eventlogs>
+				<log computer="%LocalHost%" eventLog="System" typeInfo="False" typeWarn="True" typeErr="True" containsText="True" textFilter="bad" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10">
+						<sources>
+								<source>disk</source>
+						</sources>
+						<eventIds />
+				</log>
+		</eventlogs>
+</config>
+</preset>
 </qmpresets>
