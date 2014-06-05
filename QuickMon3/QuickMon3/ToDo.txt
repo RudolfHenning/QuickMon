@@ -10,6 +10,7 @@ COLLECTOR/NOTIFIER IDEAS
 Event Scavenger collector set
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
+SOAP collector must be moved to separate dll (and generic WCF one added as well)
 
 --------------------------------------------------------------------------------------------------------
 NEXT VERSION CHANGES
@@ -150,5 +151,7 @@ Fix: delete of multiple notifiers caused out of index exception
 Installer now has treeview with optional agents that can be selected to be installed or not
 
 v3.15
+Fix registery collector - allow blank key name (for 'Default' values)
+On Saving monitorpack only option should be qmp file type (old qmconfig only visible on load)
 -------------------------------------------------------------------------------------------------------
 

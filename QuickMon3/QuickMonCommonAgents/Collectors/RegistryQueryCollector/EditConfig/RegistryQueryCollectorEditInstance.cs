@@ -217,8 +217,8 @@ namespace QuickMon.Collectors
                     throw new InPutValidationException("The Registry Hive must be specified!", cboRegistryHive);
                 if (txtPath.Text.Trim().Length == 0)
                     throw new InPutValidationException("The Path must be specified!", txtPath);
-                if (txtKey.Text.Trim().Length == 0)
-                    throw new InPutValidationException("The Key must be specified!", txtKey);
+                //if (txtKey.Text.Trim().Length == 0)
+                //    throw new InPutValidationException("The Key must be specified!", txtKey);
                 if (cboSuccessValue.Text == cboWarningValue.Text || cboWarningValue.Text == cboErrorValue.Text)
                 {
                     throw new InPutValidationException("Success, Warning and error values must be unique!", cboSuccessValue);
@@ -299,8 +299,8 @@ namespace QuickMon.Collectors
         }
         private void CheckOKEnabled()
         {
-            cmdOK.Enabled = txtName.Text.Length > 0 && txtPath.Text.Length > 0 && txtKey.Text.Length > 0;
-            cmdTest.Enabled = txtName.Text.Length > 0 && txtPath.Text.Length > 0 && txtKey.Text.Length > 0;
+            cmdOK.Enabled = txtName.Text.Length > 0 && txtPath.Text.Length > 0;// && txtKey.Text.Length > 0;
+            cmdTest.Enabled = txtName.Text.Length > 0 && txtPath.Text.Length > 0;// && txtKey.Text.Length > 0;
         }
         #endregion
 

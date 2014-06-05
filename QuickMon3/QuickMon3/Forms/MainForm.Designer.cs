@@ -124,6 +124,7 @@ namespace QuickMon
             this.recentMonitorPacksHideTimer = new System.Windows.Forms.Timer(this.components);
             this.resizeRecentDropDownListWidthTimer = new System.Windows.Forms.Timer(this.components);
             this.recentMonitorPacksShowTimer = new System.Windows.Forms.Timer(this.components);
+            this.testAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.recentMonitorPacksPanel.SuspendLayout();
             this.extrasToolStrip.SuspendLayout();
@@ -336,7 +337,7 @@ namespace QuickMon
             this.defaultNotifierViewerToolStripSplitButton});
             this.mainToolStrip.Location = new System.Drawing.Point(4, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(257, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(288, 35);
             this.mainToolStrip.TabIndex = 0;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -418,7 +419,8 @@ namespace QuickMon
             this.removeCollectorToolStripMenuItem1,
             this.toolStripMenuItem5,
             this.viewCollectorDetailsToolStripMenuItem,
-            this.collectorStatisticsToolStripMenuItem});
+            this.collectorStatisticsToolStripMenuItem,
+            this.testAddToolStripMenuItem});
             this.collectorToolStripDropDownButton.Image = global::QuickMon.Properties.Resources.comp_search;
             this.collectorToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.collectorToolStripDropDownButton.Name = "collectorToolStripDropDownButton";
@@ -429,7 +431,7 @@ namespace QuickMon
             // 
             this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(200, 34);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
             this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
@@ -437,7 +439,7 @@ namespace QuickMon
             // 
             this.addFolderCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_add;
             this.addFolderCollectorToolStripMenuItem.Name = "addFolderCollectorToolStripMenuItem";
-            this.addFolderCollectorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.addFolderCollectorToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.addFolderCollectorToolStripMenuItem.Text = "Add Folder Collector";
             this.addFolderCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorFolderToolStripMenuItem_Click);
             // 
@@ -445,7 +447,7 @@ namespace QuickMon
             // 
             this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
             this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.editCollectorToolStripMenuItem.Text = "Edit Collector";
             this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeEditConfigToolStripMenuItem_Click);
             // 
@@ -453,20 +455,20 @@ namespace QuickMon
             // 
             this.removeCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
             this.removeCollectorToolStripMenuItem1.Name = "removeCollectorToolStripMenuItem1";
-            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
+            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(200, 34);
             this.removeCollectorToolStripMenuItem1.Text = "Remove Collector";
             this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(185, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(197, 6);
             // 
             // viewCollectorDetailsToolStripMenuItem
             // 
             this.viewCollectorDetailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
             this.viewCollectorDetailsToolStripMenuItem.Name = "viewCollectorDetailsToolStripMenuItem";
-            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.viewCollectorDetailsToolStripMenuItem.Text = "View Collector Details";
             this.viewCollectorDetailsToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeViewDetailsToolStripMenuItem_Click);
             // 
@@ -474,7 +476,7 @@ namespace QuickMon
             // 
             this.collectorStatisticsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_stats;
             this.collectorStatisticsToolStripMenuItem.Name = "collectorStatisticsToolStripMenuItem";
-            this.collectorStatisticsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.collectorStatisticsToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.collectorStatisticsToolStripMenuItem.Text = "Collector statistics";
             this.collectorStatisticsToolStripMenuItem.Click += new System.EventHandler(this.cmdStats_Click);
             // 
@@ -544,8 +546,8 @@ namespace QuickMon
             // 
             // openFileDialogOpen
             // 
-            this.openFileDialogOpen.DefaultExt = "qmconfig";
-            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmp;*.qmconfig";
+            this.openFileDialogOpen.DefaultExt = "qmp";
+            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmp|Old QuickMon config files|*.qmconfig";
             // 
             // statusStrip1
             // 
@@ -581,7 +583,7 @@ namespace QuickMon
             // saveFileDialogSave
             // 
             this.saveFileDialogSave.DefaultExt = "qmp";
-            this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp;*.qmconfig";
+            this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp|Old QuickMon config files|*.qmconfig";
             // 
             // collectorTreeContextMenuStrip
             // 
@@ -1040,6 +1042,13 @@ namespace QuickMon
             this.recentMonitorPacksShowTimer.Interval = 200;
             this.recentMonitorPacksShowTimer.Tick += new System.EventHandler(this.recentMonitorPacksShowTimer_Tick);
             // 
+            // testAddToolStripMenuItem
+            // 
+            this.testAddToolStripMenuItem.Name = "testAddToolStripMenuItem";
+            this.testAddToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
+            this.testAddToolStripMenuItem.Text = "Test add";
+            this.testAddToolStripMenuItem.Click += new System.EventHandler(this.testAddToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1181,6 +1190,7 @@ namespace QuickMon
         private System.Windows.Forms.Timer resizeRecentDropDownListWidthTimer;
         private System.Windows.Forms.Timer recentMonitorPacksShowTimer;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripMenuItem testAddToolStripMenuItem;
     }
 }
 

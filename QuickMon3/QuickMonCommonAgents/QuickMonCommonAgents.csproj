@@ -161,12 +161,6 @@
     <Compile Include="Collectors\RegistryQueryCollector\ShowDetails\RegistryQueryCollectorShowDetails.Designer.cs">
       <DependentUpon>RegistryQueryCollectorShowDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditConfig.Designer.cs">
-      <DependentUpon>RegistryQueryCollectorEditConfig.cs</DependentUpon>
-    </Compile>
     <Compile Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditInstance.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -355,9 +349,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\PingCollector\ShowDetails\PingCollectorShowDetails.resx">
       <DependentUpon>PingCollectorShowDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditConfig.resx">
-      <DependentUpon>RegistryQueryCollectorEditConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\RegistryQueryCollector\EditConfig\RegistryQueryCollectorEditInstance.resx">
       <DependentUpon>RegistryQueryCollectorEditInstance.cs</DependentUpon>

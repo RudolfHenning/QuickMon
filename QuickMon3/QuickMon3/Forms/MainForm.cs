@@ -671,7 +671,11 @@ namespace QuickMon
                 if (monitorPack.MonitorPackPath != null && System.IO.File.Exists(monitorPack.MonitorPackPath))
                 {
                     canAutoSave = Properties.Settings.Default.AutosaveChanges;
-                    saveFileDialogSave.FileName = monitorPack.MonitorPackPath;                    
+                    saveFileDialogSave.FileName = monitorPack.MonitorPackPath;
+                    if (saveFileDialogSave.FileName.ToLower().EndsWith(".qmconfig"))
+                    {
+                        saveFileDialogSave.FileName = saveFileDialogSave.FileName.Replace(".qmconfig", ".qmp");
+                    }
                     try
                     {
                         saveFileDialogSave.InitialDirectory = System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath);
@@ -2146,5 +2150,78 @@ namespace QuickMon
             HideRecentDropDownList(sender, e);
         }
         #endregion
+
+        private void testAddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+            selectNewAgentType.InitialRegistrationName = "";
+            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            {
+                CollectorEntry newCollectorEntry = new CollectorEntry();
+                RegisteredAgent ar = null;
+                if (selectNewAgentType.SelectedPreset != null)
+                {
+                    ar = (from a in RegisteredAgentCache.Agents
+                          where a.IsCollector &&
+                            a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
+                          orderby a.Name
+                          select a).FirstOrDefault();
+                    newCollectorEntry.InitialConfiguration = selectNewAgentType.SelectedPreset.Config;
+                }
+                else if (selectNewAgentType.SelectedAgent != null)
+                {
+                    ar = selectNewAgentType.SelectedAgent;
+                }
+                else
+                    return;
+
+                if (ar == null)
+                    return;
+                else if (ar.ClassName != "QuickMon.Collectors.Folder")
+                {
+                    ICollector c = CollectorEntry.CreateCollectorEntry(ar);
+                    newCollectorEntry.Collector = c;
+                    if (selectNewAgentType.SelectedPreset == null)
+                        newCollectorEntry.InitialConfiguration = c.GetDefaultOrEmptyConfigString();
+                    else
+                        newCollectorEntry.Collector.AgentConfig.ReadConfiguration( selectNewAgentType.SelectedPreset.Config);
+                }
+                else
+                {
+                    newCollectorEntry.IsFolder = true;
+                }
+                newCollectorEntry.CollectorRegistrationDisplayName = ar.DisplayName;
+                newCollectorEntry.CollectorRegistrationName = ar.Name;
+
+                CollectorEntry parentCollectorEntry = null;
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                {
+                    parentCollectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                    newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
+                }
+
+                QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
+                editCollectorEntry.SelectedEntry = newCollectorEntry;
+                editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                       select krh).ToList();
+
+                editCollectorEntry.LaunchAddEntry = selectNewAgentType.SelectedPreset == null;
+                editCollectorEntry.ShowRawEditOnStart = selectNewAgentType.ImportConfigAfterSelect;
+
+                if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                {
+                    SetMonitorChanged();
+                    monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
+                    TreeNode root = tvwCollectors.Nodes[0];
+                    if (parentCollectorEntry != null)
+                    {
+                        root = tvwCollectors.SelectedNode;
+                    }
+                    LoadCollectorNode(root, editCollectorEntry.SelectedEntry);
+                    root.Expand();
+                    DoAutoSave();
+                }
+            }
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace QuickMon.Forms
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
             foreach(string categoryName in (from a in RegisteredAgentCache.Agents
-                                            where a.IsCollector && a.CategoryName != "Test"
+                                            where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
                                             group a by a.CategoryName into g
                                             select g.Key))
             {

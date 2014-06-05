@@ -17,6 +17,30 @@ namespace QuickMon
         {
             return AgentClassName + "-" + AgentDefaultName + "-" + Description;
         }
+        public static List<AgentPresetConfig> GetAllPresets()
+        {
+            List<AgentPresetConfig> presets = new List<AgentPresetConfig>();
+            string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
+
+            foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(progDataPath))
+            {
+                if ((from p in presets
+                     where p.AgentDefaultName == apc.AgentDefaultName && p.Description == apc.Description
+                     select p).FirstOrDefault() == null)
+                    presets.Add(apc);
+            }
+
+            //search current directory as well
+            string presetPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(presetPath))
+            {
+                if ((from p in presets
+                     where p.AgentDefaultName == apc.AgentDefaultName && p.Description == apc.Description
+                     select p).FirstOrDefault() == null)
+                    presets.Add(apc);
+            }
+            return presets;
+        }
         /// <summary>
         /// Agent can call this static method to get all presets stored in current directory (files with *.qps name)
         /// </summary>
@@ -26,7 +50,6 @@ namespace QuickMon
         {
             List<AgentPresetConfig> presets = new List<AgentPresetConfig>();
             string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
-            //string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
             
             foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(progDataPath))
             {
