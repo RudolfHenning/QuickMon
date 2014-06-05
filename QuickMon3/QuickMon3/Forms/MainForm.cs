@@ -2153,74 +2153,107 @@ namespace QuickMon
 
         private void testAddToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            selectNewAgentType.InitialRegistrationName = "";
-            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            HideNotifierContextMenu();
+            try
             {
-                CollectorEntry newCollectorEntry = new CollectorEntry();
-                RegisteredAgent ar = null;
-                if (selectNewAgentType.SelectedPreset != null)
+                AgentSelectionSettings agentSelectionSettings = AgentHelper.SelectNewCollector();
+                if (agentSelectionSettings != null && agentSelectionSettings.SelectedCollectorEntry != null)
                 {
-                    ar = (from a in RegisteredAgentCache.Agents
-                          where a.IsCollector &&
-                            a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
-                          orderby a.Name
-                          select a).FirstOrDefault();
-                    newCollectorEntry.InitialConfiguration = selectNewAgentType.SelectedPreset.Config;
-                }
-                else if (selectNewAgentType.SelectedAgent != null)
-                {
-                    ar = selectNewAgentType.SelectedAgent;
-                }
-                else
-                    return;
-
-                if (ar == null)
-                    return;
-                else if (ar.ClassName != "QuickMon.Collectors.Folder")
-                {
-                    ICollector c = CollectorEntry.CreateCollectorEntry(ar);
-                    newCollectorEntry.Collector = c;
-                    if (selectNewAgentType.SelectedPreset == null)
-                        newCollectorEntry.InitialConfiguration = c.GetDefaultOrEmptyConfigString();
-                    else
-                        newCollectorEntry.Collector.AgentConfig.ReadConfiguration( selectNewAgentType.SelectedPreset.Config);
-                }
-                else
-                {
-                    newCollectorEntry.IsFolder = true;
-                }
-                newCollectorEntry.CollectorRegistrationDisplayName = ar.DisplayName;
-                newCollectorEntry.CollectorRegistrationName = ar.Name;
-
-                CollectorEntry parentCollectorEntry = null;
-                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
-                {
-                    parentCollectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
-                    newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
-                }
-
-                QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
-                editCollectorEntry.SelectedEntry = newCollectorEntry;
-                editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
-                                                       select krh).ToList();
-
-                editCollectorEntry.LaunchAddEntry = selectNewAgentType.SelectedPreset == null;
-                editCollectorEntry.ShowRawEditOnStart = selectNewAgentType.ImportConfigAfterSelect;
-
-                if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-                {
-                    SetMonitorChanged();
-                    monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
-                    TreeNode root = tvwCollectors.Nodes[0];
-                    if (parentCollectorEntry != null)
+                    CollectorEntry newCollectorEntry = agentSelectionSettings.SelectedCollectorEntry;
+                    CollectorEntry parentCollectorEntry = null;
+                    if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
                     {
-                        root = tvwCollectors.SelectedNode;
+                        parentCollectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                        newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
                     }
-                    LoadCollectorNode(root, editCollectorEntry.SelectedEntry);
-                    root.Expand();
-                    DoAutoSave();
+
+                    QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
+                    editCollectorEntry.SelectedEntry = newCollectorEntry;
+                    editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                           select krh).ToList();
+
+                    editCollectorEntry.LaunchAddEntry = !agentSelectionSettings.UsedPreset;
+                    editCollectorEntry.ShowRawEditOnStart = agentSelectionSettings.RawEditAllowed;
+
+                    if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        SetMonitorChanged();
+                        monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
+                        TreeNode root = tvwCollectors.Nodes[0];
+                        if (parentCollectorEntry != null)
+                        {
+                            root = tvwCollectors.SelectedNode;
+                        }
+                        LoadCollectorNode(root, editCollectorEntry.SelectedEntry);
+                        root.Expand();
+                        DoAutoSave();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HideNotifierContextMenu();
+            try
+            {
+                SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+                selectNewAgentType.InitialRegistrationName = "";
+                if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
+                {
+                    NotifierEntry newNotifierEntry = new NotifierEntry();                    
+                    RegisteredAgent ar = null;
+                    if (selectNewAgentType.SelectedPreset != null)
+                    {
+                        ar = (from a in RegisteredAgentCache.Agents
+                              where a.IsNotifier &&
+                                a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
+                              orderby a.Name
+                              select a).FirstOrDefault();
+                        newNotifierEntry.InitialConfiguration = selectNewAgentType.SelectedPreset.Config;
+                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.AgentDefaultName;
+                    }
+                    else if (selectNewAgentType.SelectedAgent != null)
+                    {
+                        ar = selectNewAgentType.SelectedAgent;
+                    }
+                    else
+                        return;
+
+                    if (ar == null)
+                        return;
+                    else
+                    {
+                        INotifier n = NotifierEntry.CreateNotifierEntry(ar);
+                        newNotifierEntry.Notifier = n;
+                        if (selectNewAgentType.SelectedPreset == null)
+                            newNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
+                        else
+                            newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(selectNewAgentType.SelectedPreset.Config);
+                    }
+
+                    newNotifierEntry.NotifierRegistrationName = ar.Name;
+                    Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
+                    editNotifierEntry.SelectedEntry = newNotifierEntry;
+                    editNotifierEntry.LaunchAddEntry = selectNewAgentType.SelectedPreset == null;
+                    editNotifierEntry.ShowRawEditOnStart = selectNewAgentType.ImportConfigAfterSelect;
+                    if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        SetMonitorChanged();
+                        monitorPack.Notifiers.Add(editNotifierEntry.SelectedEntry);
+                        if (monitorPack.Notifiers.Count == 1)
+                            monitorPack.DefaultViewerNotifier = editNotifierEntry.SelectedEntry;
+                        LoadNotifiersList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

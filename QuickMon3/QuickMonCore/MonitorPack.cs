@@ -37,7 +37,7 @@ namespace QuickMon
             //RegisteredAgents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             ConcurrencyLevel = 1;
             BusyPolling = false;
-            CollectorStateHistorySize = 1;
+            CollectorStateHistorySize = 100;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
         }
 

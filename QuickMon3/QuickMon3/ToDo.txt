@@ -19,6 +19,7 @@ Future advancement - Allow corrective scrpts to run on remote hosts
 Detail views use dataset as source (so remote host stuff can work)
 Separate all UI components from Agents (so the Edit/View windows are in separate dll)
 Group presets (bundling presets with different types of agents)
+RAW edit of agent config must include 'Entry' config as well
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -153,5 +154,6 @@ Installer now has treeview with optional agents that can be selected to be insta
 v3.15
 Fix registery collector - allow blank key name (for 'Default' values)
 On Saving monitorpack only option should be qmp file type (old qmconfig only visible on load)
+Set default history size in monitor packs to 100
 -------------------------------------------------------------------------------------------------------
 

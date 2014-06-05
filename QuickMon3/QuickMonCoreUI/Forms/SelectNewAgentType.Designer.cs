@@ -50,7 +50,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(528, 428);
+            this.cmdCancel.Location = new System.Drawing.Point(427, 387);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 6;
@@ -62,7 +62,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(447, 428);
+            this.cmdOK.Location = new System.Drawing.Point(346, 387);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 5;
@@ -75,12 +75,13 @@
             this.llblExtraAgents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblExtraAgents.AutoSize = true;
             this.llblExtraAgents.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblExtraAgents.Location = new System.Drawing.Point(12, 433);
+            this.llblExtraAgents.Location = new System.Drawing.Point(12, 392);
             this.llblExtraAgents.Name = "llblExtraAgents";
             this.llblExtraAgents.Size = new System.Drawing.Size(318, 13);
             this.llblExtraAgents.TabIndex = 4;
             this.llblExtraAgents.TabStop = true;
             this.llblExtraAgents.Text = "Please see https://quickmon.codeplex.com/ for more Agent types";
+            this.llblExtraAgents.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExtraAgents_LinkClicked);
             // 
             // groupBox1
             // 
@@ -90,7 +91,7 @@
             this.groupBox1.Controls.Add(this.optShowConfigEditor);
             this.groupBox1.Location = new System.Drawing.Point(6, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(603, 42);
+            this.groupBox1.Size = new System.Drawing.Size(502, 42);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "How to choose Agent";
@@ -124,7 +125,7 @@
             this.chkShowCustomConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkShowCustomConfig.AutoSize = true;
             this.chkShowCustomConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkShowCustomConfig.Location = new System.Drawing.Point(6, 405);
+            this.chkShowCustomConfig.Location = new System.Drawing.Point(6, 364);
             this.chkShowCustomConfig.Name = "chkShowCustomConfig";
             this.chkShowCustomConfig.Size = new System.Drawing.Size(218, 17);
             this.chkShowCustomConfig.TabIndex = 2;
@@ -146,7 +147,7 @@
             this.lvwAgentType.Location = new System.Drawing.Point(6, 51);
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
-            this.lvwAgentType.Size = new System.Drawing.Size(611, 348);
+            this.lvwAgentType.Size = new System.Drawing.Size(510, 307);
             this.lvwAgentType.SmallImageList = this.imageList1;
             this.lvwAgentType.TabIndex = 1;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
@@ -175,7 +176,7 @@
             // 
             this.chkShowDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowDetails.AutoSize = true;
-            this.chkShowDetails.Location = new System.Drawing.Point(517, 405);
+            this.chkShowDetails.Location = new System.Drawing.Point(416, 364);
             this.chkShowDetails.Name = "chkShowDetails";
             this.chkShowDetails.Size = new System.Drawing.Size(86, 17);
             this.chkShowDetails.TabIndex = 3;
@@ -187,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 463);
+            this.ClientSize = new System.Drawing.Size(514, 422);
             this.Controls.Add(this.chkShowDetails);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.chkShowCustomConfig);
@@ -198,6 +199,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(530, 460);
             this.Name = "SelectNewAgentType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectNewAgentType";

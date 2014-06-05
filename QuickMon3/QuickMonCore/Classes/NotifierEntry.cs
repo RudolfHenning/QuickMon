@@ -13,6 +13,9 @@ namespace QuickMon
         {
             AlertForCollectors = new List<string>();
             AttendedOptionOverride = AttendedOption.AttendedAndUnAttended;
+            Enabled = true;
+            AlertLevel = AlertLevel.Warning;
+            DetailLevel = DetailLevel.Detail;
         }
 
         #region Properties

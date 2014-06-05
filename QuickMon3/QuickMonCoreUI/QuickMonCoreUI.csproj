@@ -175,6 +175,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AgentHelper.cs" />
     <Compile Include="Utils\CSVEditor.cs">
       <SubType>Form</SubType>
     </Compile>

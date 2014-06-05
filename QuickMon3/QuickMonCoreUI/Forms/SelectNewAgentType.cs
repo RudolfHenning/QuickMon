@@ -25,6 +25,16 @@ namespace QuickMon.Forms
         public bool ImportConfigAfterSelect { get; set; } 
         #endregion
 
+        public DialogResult ShowNotifierSelection()
+        {
+            this.Text = "Select Notifier type";
+            selectingCollectors = false;
+            SetDetailColumnSizing();
+            lvwAgentType.Items.Clear();
+            lvwAgentType.Groups.Clear();
+            LoadPresetAgents();
+            return this.ShowDialog();
+        }
         public DialogResult ShowCollectorSelection()
         {
             this.Text = "Select Collector type";
@@ -211,6 +221,21 @@ namespace QuickMon.Forms
                 ImportConfigAfterSelect = chkShowCustomConfig.Checked;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
+            }
+        }
+
+        private void llblExtraAgents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string url = "https://quickmon.codeplex.com/";
+            try
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(url);
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
