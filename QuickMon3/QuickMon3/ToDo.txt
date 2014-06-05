@@ -1,5 +1,23 @@
 ﻿CHANGES (considdered possible for next release)
+Extend Presets/Templates
+	"Add agent" window list Presets/Templates first (with option to load 'RAW' empty agent as well) with their friendly names
+		All agents must have 'default' preset ;) 
+		Only for 'available'/registered agents of course
+		"Add agent" window still have option to 'edit' raw config afterwards before show old 'Edit' agent (collector/notifier)
+
+--------------------------------------------------------------------------------------------------------
+COLLECTOR/NOTIFIER IDEAS
 Event Scavenger collector set
+DirectoryEntry Collector (Directory services)
+	Very generic querying at first (or it could become very complex)
+
+--------------------------------------------------------------------------------------------------------
+NEXT VERSION CHANGES
+Allow multiple monitor packs in Windows client (different tabs...)
+Future advancement - Allow corrective scrpts to run on remote hosts
+Detail views use dataset as source (so remote host stuff can work)
+Separate all UI components from Agents (so the Edit/View windows are in separate dll)
+Group presets (bundling presets with different types of agents)
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -12,21 +30,22 @@ Detail views can/must use remote host dataset as source
   Each collector agent must specify if it supports simple/single dataset, multiple datasets (not linked), multiple/nested that are linked with parent/child key relation
     for multiple/nested datasets some special columns might have to be added (Column name:linked, value: table name with detail)
 
-Future advancement - Allow corrective scrpts to run on remote hosts
-
-Allow multiple monitor packs in Windows client (different tabs...)
-Convert to WPF app (yeah right)
+Convert to WPF app (yeah right) (Next version +1)
    First step is to remove/or separate all UI components from core parts. * Done
 
 --------------------------------------------------------------------------------------------------------
 POSSIBLE CHANGES (might be just nice to have)
+Separate all UI components from Agents (so the Edit/View windows are in separate dll)
+	Some form of class name matching will have to be done (so no hard reference)
+
 Variable names like %Server% in things like performance counters, Services etc - CollectorEntry add property for 'ServerName'
+
 Collector (Entry) must support method to indicate if config is 'complete'/valid so Edit window can enable/disable OK button
+	Public method something like IsConfigValid()
+
 Add some way to have UI client save collapsed/expand state of tree nodes in qmconfig file.
 Add some way Collector/Agent types have its own Icon that can be displayed in select collector type window.
 Add 'Pause' property on Collector (not the same as Disable). It returns the previous state - whatever it was.
-DirectoryEntry Collector (Directory services)
-	Very generic querying at first (or it could become very complex)
 
 -------------------------------------------------------------------------------------------------------
 DONE CHANGES
@@ -129,5 +148,7 @@ Agent preset configs (work in progress)
 Fix: press delete key on notifier list fire delete notifier event
 Fix: delete of multiple notifiers caused out of index exception
 Installer now has treeview with optional agents that can be selected to be installed or not
+
+v3.15
 -------------------------------------------------------------------------------------------------------
 
