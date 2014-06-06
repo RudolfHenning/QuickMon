@@ -85,7 +85,7 @@
             this.cmdDeleteNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdDeleteNotifier.Image = global::QuickMon.Properties.Resources.stop;
             this.cmdDeleteNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDeleteNotifier.Location = new System.Drawing.Point(4, 182);
+            this.cmdDeleteNotifier.Location = new System.Drawing.Point(4, 200);
             this.cmdDeleteNotifier.Name = "cmdDeleteNotifier";
             this.cmdDeleteNotifier.Size = new System.Drawing.Size(210, 44);
             this.cmdDeleteNotifier.TabIndex = 8;
@@ -100,7 +100,7 @@
             this.cmdDisableNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdDisableNotifier.Location = new System.Drawing.Point(4, 156);
             this.cmdDisableNotifier.Name = "cmdDisableNotifier";
-            this.cmdDisableNotifier.Size = new System.Drawing.Size(210, 26);
+            this.cmdDisableNotifier.Size = new System.Drawing.Size(210, 44);
             this.cmdDisableNotifier.TabIndex = 7;
             this.cmdDisableNotifier.Text = "Disable";
             this.toolTip1.SetToolTip(this.cmdDisableNotifier, "Enable or disable notifier");
@@ -148,7 +148,7 @@
             this.Controls.Add(this.label7);
             this.Name = "NotifierContextMenuControl";
             this.Padding = new System.Windows.Forms.Padding(4);
-            this.Size = new System.Drawing.Size(218, 229);
+            this.Size = new System.Drawing.Size(218, 248);
             this.ResumeLayout(false);
 
         }

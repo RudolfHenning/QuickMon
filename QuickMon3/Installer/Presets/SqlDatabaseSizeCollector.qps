@@ -1,3 +1,10 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="SqlDatabaseSizeCollector" name="QuickMon 3 database size" description="Check QuickMon 3 database size">
+<config>
+		<databases>
+				<database name="QuickMon3" server="%LocalHost%" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="60" warningValueMB="100" errorValueMB="1024" />
+		</databases>
+</config>
+</preset>
 </qmpresets>

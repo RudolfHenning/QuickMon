@@ -1,3 +1,13 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="OLEDBQueryCollector" name="BizTalk suspended instances" description="SQL with ODBC">
+<config>
+		<queries>
+				<query name="Local SQL with ODBC" connectionString="Provider=sqloledb;Data Source=%LocalHost%;Initial Catalog=master;Server=%LocalHost%;Database=master;Trusted_Connection=yes;" cmndTimeOut="60" usePersistentConnection="False">
+						<summaryQuery useSP="False" returnValueIsNumber="False" returnValueInverted="False" warningValue="[any]" errorValue="[null]" successValue="1" useRowCountAsValue="False" useExecuteTimeAsValue="False">select 1</summaryQuery>
+						<detailQuery useSP="False">select 'Yah!' as [Success]</detailQuery>
+				</query>
+		</queries>
+</config>
+<preset>
 </qmpresets>

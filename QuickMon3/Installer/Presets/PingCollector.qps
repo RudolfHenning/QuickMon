@@ -1,3 +1,17 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="PingCollector" name="Ping Google" description="Ping Google">
+<config>
+		<hostAddress>
+				<entry pingMethod="Http" address="http://www.google.com" description="" maxTimeMS="2000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" />
+		</hostAddress>
+</config>
+</preset>
+<preset class="PingCollector" name="Ping Microsoft" description="Ping Microsoft">
+<config>
+		<hostAddress>
+				<entry pingMethod="Http" address="http://www.Microsoft.com" description="" maxTimeMS="2000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" />
+		</hostAddress>
+</config>
+</preset>
 </qmpresets>

@@ -1,3 +1,10 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="FileSystemCollector" name="QuickMon 3 installed" description="Is QuickMon 3 installed">
+<config>
+		<directoryList>
+				<directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 3\*.config" testDirectoryExistOnly="True" testFilesExistOnly="True" errorOnFilesExist="False" warningFileCountMax="0" errorFileCountMax="0" warningFileSizeMaxKB="0" errorFileSizeMaxKB="0" fileMinAgeSec="0" fileMaxAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" />
+		</directoryList>
+</config>
+</preset>
 </qmpresets>

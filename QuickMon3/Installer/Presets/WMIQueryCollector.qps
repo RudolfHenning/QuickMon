@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
-<preset class="WMIQueryCollector" name="C drive free space" description="C drive free space">
+<preset class="WMIQueryCollector" name="C drive free space (WMI)" description="C drive free space (WMI)">
 <config><wmiQueries><wmiQuery name="C drive space left" namespace="root\CIMV2" machineName=".">
 <stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" />
 <detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" columnNames="" />

@@ -1,3 +1,11 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="BizTalkSuspendedCountCollector" name="BizTalk suspended instances" description="Check BizTalk for any suspended instances">
+<config>
+		<bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" instancesWarning="1" instancesError="10" allHostsApps="True" showLastXDetails="10" raiseHtmlAlerts="True">
+				<hosts />
+				<apps />
+		</bizTalkGroup>
+</config>
+</preset>
 </qmpresets>

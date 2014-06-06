@@ -1,3 +1,10 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="RegistryQueryCollector" name="QuickMon Monitor pack file type registered" description="Is QuickMon Monitor pack file type registered">
+<config>
+		<queries>
+				<query name="QuickMon Monitor pack file type registered" useRemoteServer="False" server="" registryHive="ClassesRoot" path="QuickMon3\shell\open\command" keyName="" expandEnvironmentNames="False" returnValueIsNumber="False" successValue="[exists]" warningValue="[any]" errorValue="[notExists]" returnValueInARange="False" returnValueInverted="False" />
+		</queries>
+</config>
+</preset>
 </qmpresets>

@@ -1,3 +1,8 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="LogFileNotifier" name="Log File" description="Log File">
+<config>
+		<logFile path="c:\QuickMon.log" createNewFileSizeKB="0" />
+</config>
+</preset>
 </qmpresets>

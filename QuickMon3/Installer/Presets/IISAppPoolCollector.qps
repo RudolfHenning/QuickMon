@@ -1,3 +1,10 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="IISAppPoolCollector" name="IIS - Is default App pool running" description="IIS - Is default App pool running">
+<config>
+		<machine name="localhost" usePerfCounter="True">
+				<appPool name="DefaultAppPool" />
+		</machine>
+</config>
+</preset>
 </qmpresets>

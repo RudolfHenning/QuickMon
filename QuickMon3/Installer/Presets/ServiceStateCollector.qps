@@ -3,4 +3,11 @@
 <preset class="ServiceStateCollector" name="QuickMon Service running" description="Is QuickMon Service running">
 <config><machine name="."><service name="QuickMon 3 Service" /></machine></config>
 </preset>
+<preset class="ServiceStateCollector" name="MSSQL Service running" description="Is MSSQL Service running">
+<config>
+		<machine name=".">
+				<service name="SQL Server" />
+		</machine>
+</config>
+</preset>
 </qmpresets>

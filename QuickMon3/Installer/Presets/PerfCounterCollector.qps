@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
-<preset class="PerfCounterCollector" name="System health" description="System health (all)">
+<preset class="PerfCounterCollector" name="General System health" description="General System health">
 <config><performanceCounters><performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /><performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /><performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" /></performanceCounters></config>
 </preset>
 <preset class="PerfCounterCollector" name="System health Localhost" description="System health (Localhost)">
@@ -11,14 +11,5 @@
     <performanceCounter computer="%LocalHost%" category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" />
   </performanceCounters>
 </config>
-</preset>
-<preset class="PerfCounterCollector" name="System health" description="System health (CPU)">
-<config><performanceCounters><performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /></performanceCounters></config>
-</preset>
-<preset class="PerfCounterCollector" name="System health" description="System health (CPU + MEM)">
-<config><performanceCounters><performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /><performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /></performanceCounters></config>
-</preset>
-<preset class="PerfCounterCollector" name="System health" description="System health (MEM)">
-<config><performanceCounters><performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /></performanceCounters></config>
 </preset>
 </qmpresets>

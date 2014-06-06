@@ -368,18 +368,16 @@ namespace QuickMon.Forms
         {
             if (MessageBox.Show("Are you sure you want to change the Collector type?\r\n\r\nIf you continue this will reset any existing configuration.", "Collector type", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
-                AgentTypeSelect agentTypeSelect = new AgentTypeSelect();
-                if (agentTypeSelect.ShowCollectorSelection(currentEditingEntry.CollectorRegistrationName) == System.Windows.Forms.DialogResult.OK)
+                CollectorEntry newCollector = AgentHelper.CreateNewCollector((from c in monitorPack.Collectors
+                                                                    where c.UniqueId == currentEditingEntry.ParentCollectorId
+                                                                    select c).FirstOrDefault());
+                if (newCollector != null)
                 {
-                    RegisteredAgent ar = agentTypeSelect.SelectedAgent;
-                    currentEditingEntry.CollectorRegistrationDisplayName = ar.DisplayName;
-                    currentEditingEntry.CollectorRegistrationName = ar.Name;
-                    currentEditingEntry.IsFolder = ar.Name == "Folder";
+                    currentEditingEntry = null;
+                    currentEditingEntry = newCollector;
                     llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
-
                     ApplyConfig();
                 }
-
             }
         }
         private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -473,20 +471,10 @@ namespace QuickMon.Forms
             else if (tvwEntries.SelectedNode != null)
                 entry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Tag;
 
-            //ICollectorConfig cc = (ICollectorConfig)currentEditingEntry.Collector.AgentConfig;
-            //ICollectorConfigEntry entry2 = (from ce in cc.Entries
-            //         where ce.Description == entry.Description && ce.TriggerSummary == entry.TriggerSummary
-            //         select ce).FirstOrDefault();
-
             if (entry != null)
             {
-                if (SelectedEntry.ShowEditConfigEntry(ref entry))
+                if (currentEditingEntry.ShowEditConfigEntry(ref entry))
                 {
-                    //entry2 = entry;
-                    //currentEditingEntry.Collector.AgentConfig = cc;
-
-                    //ICollectorConfig cnf = ((ICollectorConfig)currentEditingEntry.Collector.AgentConfig);
-                    //cnf.ReadConfiguration(cnf.ToConfig());
                     ApplyConfig();
                 }
             }

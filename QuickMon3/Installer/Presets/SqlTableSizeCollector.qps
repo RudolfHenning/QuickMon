@@ -1,3 +1,12 @@
 ﻿<?xml version="1.0"  encoding="UTF-8"?>
 <qmpresets>
+<preset class="SqlTableSizeCollector" name="QuickMon AlertMessages table size" description="Check QuickMon AlertMessages table size in SQL Server">
+<config>
+		<databases>
+				<database name="QuickMon3" server="%LocalHost%" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="60">
+						<table name="AlertMessages" warningValue="100000" errorValue="1000000" />
+				</database>
+		</databases>
+</config>
+</preset>
 </qmpresets>

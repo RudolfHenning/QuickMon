@@ -1,9 +1,6 @@
 ﻿CHANGES (considdered possible for next release)
-Extend Presets/Templates
-	"Add agent" window list Presets/Templates first (with option to load 'RAW' empty agent as well) with their friendly names
-		All agents must have 'default' preset ;) 
-		Only for 'available'/registered agents of course
-		"Add agent" window still have option to 'edit' raw config afterwards before show old 'Edit' agent (collector/notifier)
+Editing Presets
+   Also "reset' option from installed set
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -155,5 +152,10 @@ v3.15
 Fix registery collector - allow blank key name (for 'Default' values)
 On Saving monitorpack only option should be qmp file type (old qmconfig only visible on load)
 Set default history size in monitor packs to 100
+Extend Presets/Templates
+	"Add agent" window list Presets/Templates first (with option to load 'RAW' empty agent as well) with their friendly names
+		All agents must have 'default' preset ;) (ok just some that can...)
+		Only for 'available'/registered agents of course
+		"Add agent" window still have option to 'edit' raw config afterwards before show old 'Edit' agent (collector/notifier)
 -------------------------------------------------------------------------------------------------------
 

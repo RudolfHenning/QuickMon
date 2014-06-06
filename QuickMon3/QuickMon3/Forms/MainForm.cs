@@ -97,7 +97,6 @@ namespace QuickMon
             popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
             popedContainerForListView.cmdEditNotifier.Click += new System.EventHandler(notifierConfigurationToolStripMenuItem_Click);
             popedContainerForListView.cmdDisableNotifier.Click += new System.EventHandler(disableNotifierToolStripMenuItem_Click);
-            popedContainerForListView.cmdDisableNotifier.BackColor = Color.DarkGray;
             popedContainerForListView.cmdDeleteNotifier.Click += new System.EventHandler(removeNotifierToolStripMenuItem_Click);
 
             if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
@@ -999,56 +998,116 @@ namespace QuickMon
             {
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
                 {
-                    CollectorEntry collectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
-                    QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
-                    editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
-                                                           select krh).ToList();
-                    editCollectorEntry.SelectedEntry = collectorEntry;
-                    if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    TreeNode currentNode = tvwCollectors.SelectedNode;
+                    CollectorEntry collectorEntry = (CollectorEntry)currentNode.Tag;
+                    AgentHelper.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                    select krh).ToList();
+                    if (AgentHelper.EditCollectorEntry(collectorEntry, monitorPack) == System.Windows.Forms.DialogResult.OK)
                     {
                         SetMonitorChanged();
-                        tvwCollectors.SelectedNode.Text = editCollectorEntry.SelectedEntry.Name;
-                        if (editCollectorEntry.SelectedEntry.EnableRemoteExecute || editCollectorEntry.SelectedEntry.ForceRemoteExcuteOnChildCollectors)
+                        currentNode.Text = collectorEntry.Name;
+                        if (collectorEntry.EnableRemoteExecute || collectorEntry.ForceRemoteExcuteOnChildCollectors)
                         {
-                            tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (editCollectorEntry.SelectedEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + editCollectorEntry.SelectedEntry.RemoteAgentHostAddress, editCollectorEntry.SelectedEntry.RemoteAgentHostPort);
+                            tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (collectorEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collectorEntry.RemoteAgentHostAddress, collectorEntry.RemoteAgentHostPort);
                         }
 
-                        //check if parent collector has changed
-                        TreeNode currentNode = tvwCollectors.SelectedNode;
-                        if (editCollectorEntry.SelectedEntry.ParentCollectorId == null || editCollectorEntry.SelectedEntry.ParentCollectorId == "")
+                        //correcting for parent node changes
+                        if (collectorEntry.ParentCollectorId == null || collectorEntry.ParentCollectorId == "")
                         {
                             if (currentNode.Parent != tvwCollectors.Nodes[0])
                             {
                                 currentNode.Parent.Nodes.Remove(currentNode);
-                                tvwCollectors.Nodes[0].Nodes.Add(currentNode);
+                                tvwCollectors.Nodes[0].Nodes.Add(currentNode);                               
                             }
                         }
                         else
                         {
-                            if (currentNode.Parent == tvwCollectors.Nodes[0])
+                            TreeNode parentNode = GetNodeByCollectorId(collectorEntry.ParentCollectorId);
+                            if (currentNode.Parent != parentNode)
                             {
-                                LoadTreeFromMonitorPack();
-                            }
-                            else if (((CollectorEntry)currentNode.Parent.Tag).UniqueId != editCollectorEntry.SelectedEntry.ParentCollectorId)
-                            {
-                                LoadTreeFromMonitorPack();
+                                currentNode.Parent.Nodes.Remove(currentNode);
+                                parentNode.Nodes.Add(currentNode);
                             }
                         }
+                        //Ensure it is still visible and selected
+                        currentNode.EnsureVisible();
+                        tvwCollectors.SelectedNode = currentNode;
 
-                        if (!editCollectorEntry.SelectedEntry.IsFolder)
-                            editCollectorEntry.SelectedEntry.RefreshDetailsIfOpen();
+                        if (!collectorEntry.IsFolder)
+                            collectorEntry.RefreshDetailsIfOpen();
 
+                        //if autosaving is enabled
                         DoAutoSave();
 
-                        Properties.Settings.Default.KnownRemoteHosts.AddRange((from string krh in editCollectorEntry.KnownRemoteHosts
-                                                                               where !Properties.Settings.Default.KnownRemoteHosts.Contains(krh)
-                                                                               select krh).ToArray());
-                    }
+                        //add any new remote host entries
+                        if (collectorEntry.RemoteAgentHostAddress != null && collectorEntry.RemoteAgentHostAddress.Length > 0 && collectorEntry.EnableRemoteExecute)
+                        {
+                            if (!Properties.Settings.Default.KnownRemoteHosts.Contains(collectorEntry.ToRemoteHostName()))
+                                Properties.Settings.Default.KnownRemoteHosts.Add(collectorEntry.ToRemoteHostName());
+                        }                        
+                    }                    
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CreateNewCollector(bool folder = false)
+        {
+            try
+            {
+                HideCollectorContextMenu();
+                CollectorEntry newCollectorEntry = new CollectorEntry();
+                AgentHelper.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                select krh).ToList();
+                
+                //In case there is a parent Collector
+                CollectorEntry parentCollectorEntry = null;
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
+                {
+                    parentCollectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
+                    newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
+                }
+
+                if (folder)
+                {
+                    newCollectorEntry.IsFolder = true;
+                    newCollectorEntry.Collector = null;
+                    newCollectorEntry.Name = "New Folder";
+                    newCollectorEntry.CollectorRegistrationDisplayName = "Folder";
+                    newCollectorEntry.CollectorRegistrationName = "Folder";
+                    newCollectorEntry.InitialConfiguration = "";
+
+                    if (AgentHelper.EditCollectorEntry(newCollectorEntry, monitorPack) != System.Windows.Forms.DialogResult.OK)
+                    {
+                        newCollectorEntry = null;
+                    }
+                }
+                else
+                {                    
+                    newCollectorEntry = AgentHelper.CreateAndEditNewCollector(monitorPack, parentCollectorEntry);
+                }
+                //if new collectorEntry is valid add it to monitorPack
+                if (newCollectorEntry != null)
+                {
+                    SetMonitorChanged();
+                    monitorPack.Collectors.Add(newCollectorEntry);
+                    TreeNode parentNode = tvwCollectors.Nodes[0];
+                    if (newCollectorEntry.ParentCollectorId != null && newCollectorEntry.ParentCollectorId.Length > 0)
+                    {
+                        parentNode = GetNodeByCollectorId(newCollectorEntry.ParentCollectorId);
+                        if (parentNode == null)
+                            parentNode = tvwCollectors.Nodes[0];
+                    }
+                    LoadCollectorNode(parentNode, newCollectorEntry);
+                    parentNode.Expand();
+                    DoAutoSave();
+                } 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "New Collector", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ShowAddCollector(bool folder = false)
@@ -1195,6 +1254,7 @@ namespace QuickMon
                 entry = (NotifierEntry)lvwNotifiers.SelectedItems[0].Tag;
                 disableNotifierToolStripMenuItem.Text = entry.Enabled ? "Disable notifier" : "Enable notifier";
                 popedContainerForListView.cmdDisableNotifier.Text = entry.Enabled ? "Disable" : "Enable";
+                popedContainerForListView.cmdDisableNotifier.Image = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden32x32 : global::QuickMon.Properties.Resources.okGray;
             }
             notifierViewerToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].ImageIndex > 0;
             notifierConfigurationToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
@@ -1202,6 +1262,7 @@ namespace QuickMon
             removeNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count > 0;
             removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
             disableNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
+            
 
             popedContainerForListView.cmdViewDetails.Enabled = lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].ImageIndex > 0;
             popedContainerForListView.cmdEditNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
@@ -1344,10 +1405,6 @@ namespace QuickMon
 
                 UpdateStatusbar( "Shutting down...");
                 Application.DoEvents();
-                //if (mainRefreshTimer.Enabled)
-                //{
-                //    Properties.Settings.Default.PollFrequencySec = mainRefreshTimer.Interval / 1000;
-                //}
                 mainRefreshTimer.Enabled = false;
                 CloseAllDetailWindows();
                 if (monitorPack.BusyPolling)
@@ -1396,6 +1453,26 @@ namespace QuickMon
                     cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(filePath, filePath));
                 }
             }
+        }
+        private TreeNode GetNodeByCollectorId(string uniqueId, TreeNode root = null)
+        {
+            if (root == null)
+            {
+                root = tvwCollectors.Nodes[0];
+            }
+            foreach (TreeNode childNode in root.Nodes)
+            {
+                if (childNode.Tag != null && childNode.Tag is CollectorEntry)
+                {
+                    CollectorEntry theEntry = (CollectorEntry)childNode.Tag;
+                    if (theEntry.UniqueId == uniqueId)
+                        return childNode;
+                }
+                TreeNode testGrandChild = GetNodeByCollectorId(uniqueId, childNode);
+                if (testGrandChild != null)
+                    return testGrandChild;
+            }
+            return null;
         }
         #endregion
 
@@ -1601,6 +1678,7 @@ namespace QuickMon
             catch { }
         }
 
+        #region Copy and paste
         private void collectorContextMenuCmdCopy_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
@@ -1610,12 +1688,14 @@ namespace QuickMon
         {
             HideCollectorContextMenu();
             PasteSelectedCollectorAndDependant(false);
-        }  
+        }
         private void collectorContextMenuCmdPasteWithEdit_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
             PasteSelectedCollectorAndDependant(true);
-        }  
+        }   
+        #endregion
+
         private void collectorTreeViewDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
@@ -1653,12 +1733,12 @@ namespace QuickMon
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            ShowAddCollector();
+            CreateNewCollector();
         }
         private void addCollectorFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            ShowAddCollector(true);
+            CreateNewCollector(true);
         }
         private void removeCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1745,13 +1825,12 @@ namespace QuickMon
             if (lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].Tag is NotifierEntry)
             {
                 NotifierEntry n = (NotifierEntry)lvwNotifiers.SelectedItems[0].Tag;
-                Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
-                editNotifierEntry.SelectedEntry = n;
-                if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-                {
+                if (AgentHelper.EditNotifierEntry(n, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                { 
                     SetMonitorChanged();
                     lvwNotifiers.SelectedItems[0].Text = n.Name;
                     lvwNotifiers.SelectedItems[0].ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
+                    lvwNotifiers.SelectedItems[0].ImageIndex = (n.Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
                     n.CloseViewer();                    
                 }
             }
@@ -1761,17 +1840,27 @@ namespace QuickMon
             HideNotifierContextMenu();
             try
             {
-                Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
-                editNotifierEntry.LaunchAddEntry = true;
-
-                if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                NotifierEntry newNotifierEntry = AgentHelper.CreateAndEditNewNotifier(monitorPack);
+                if (newNotifierEntry != null)
                 {
                     SetMonitorChanged();
-                    monitorPack.Notifiers.Add(editNotifierEntry.SelectedEntry);
+                    monitorPack.Notifiers.Add(newNotifierEntry);
                     if (monitorPack.Notifiers.Count == 1)
-                        monitorPack.DefaultViewerNotifier = editNotifierEntry.SelectedEntry;
+                        monitorPack.DefaultViewerNotifier = newNotifierEntry;
                     LoadNotifiersList();
                 }
+
+                //Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
+                //editNotifierEntry.LaunchAddEntry = true;
+
+                //if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
+                //{
+                //    SetMonitorChanged();
+                //    monitorPack.Notifiers.Add(editNotifierEntry.SelectedEntry);
+                //    if (monitorPack.Notifiers.Count == 1)
+                //        monitorPack.DefaultViewerNotifier = editNotifierEntry.SelectedEntry;
+                //    LoadNotifiersList();
+                //}
             }
             catch (Exception ex)
             {
@@ -1810,7 +1899,8 @@ namespace QuickMon
                 NotifierEntry entry = (NotifierEntry)lvwNotifiers.SelectedItems[0].Tag;
                 entry.Enabled = !entry.Enabled;
                 lvwNotifiers.SelectedItems[0].ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;
-                disableNotifierToolStripMenuItem.Text = entry.Enabled ? "Disable notifier" : "Enable notifier";
+                CheckNotifierContextMenuEnables();
+                SetMonitorChanged();
             }
         }
         #endregion
@@ -2150,111 +2240,5 @@ namespace QuickMon
             HideRecentDropDownList(sender, e);
         }
         #endregion
-
-        private void testAddToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HideNotifierContextMenu();
-            try
-            {
-                AgentSelectionSettings agentSelectionSettings = AgentHelper.SelectNewCollector();
-                if (agentSelectionSettings != null && agentSelectionSettings.SelectedCollectorEntry != null)
-                {
-                    CollectorEntry newCollectorEntry = agentSelectionSettings.SelectedCollectorEntry;
-                    CollectorEntry parentCollectorEntry = null;
-                    if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
-                    {
-                        parentCollectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
-                        newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
-                    }
-
-                    QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
-                    editCollectorEntry.SelectedEntry = newCollectorEntry;
-                    editCollectorEntry.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
-                                                           select krh).ToList();
-
-                    editCollectorEntry.LaunchAddEntry = !agentSelectionSettings.UsedPreset;
-                    editCollectorEntry.ShowRawEditOnStart = agentSelectionSettings.RawEditAllowed;
-
-                    if (editCollectorEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-                    {
-                        SetMonitorChanged();
-                        monitorPack.Collectors.Add(editCollectorEntry.SelectedEntry);
-                        TreeNode root = tvwCollectors.Nodes[0];
-                        if (parentCollectorEntry != null)
-                        {
-                            root = tvwCollectors.SelectedNode;
-                        }
-                        LoadCollectorNode(root, editCollectorEntry.SelectedEntry);
-                        root.Expand();
-                        DoAutoSave();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HideNotifierContextMenu();
-            try
-            {
-                SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-                selectNewAgentType.InitialRegistrationName = "";
-                if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
-                {
-                    NotifierEntry newNotifierEntry = new NotifierEntry();                    
-                    RegisteredAgent ar = null;
-                    if (selectNewAgentType.SelectedPreset != null)
-                    {
-                        ar = (from a in RegisteredAgentCache.Agents
-                              where a.IsNotifier &&
-                                a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
-                              orderby a.Name
-                              select a).FirstOrDefault();
-                        newNotifierEntry.InitialConfiguration = selectNewAgentType.SelectedPreset.Config;
-                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.AgentDefaultName;
-                    }
-                    else if (selectNewAgentType.SelectedAgent != null)
-                    {
-                        ar = selectNewAgentType.SelectedAgent;
-                    }
-                    else
-                        return;
-
-                    if (ar == null)
-                        return;
-                    else
-                    {
-                        INotifier n = NotifierEntry.CreateNotifierEntry(ar);
-                        newNotifierEntry.Notifier = n;
-                        if (selectNewAgentType.SelectedPreset == null)
-                            newNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
-                        else
-                            newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(selectNewAgentType.SelectedPreset.Config);
-                    }
-
-                    newNotifierEntry.NotifierRegistrationName = ar.Name;
-                    Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
-                    editNotifierEntry.SelectedEntry = newNotifierEntry;
-                    editNotifierEntry.LaunchAddEntry = selectNewAgentType.SelectedPreset == null;
-                    editNotifierEntry.ShowRawEditOnStart = selectNewAgentType.ImportConfigAfterSelect;
-                    if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-                    {
-                        SetMonitorChanged();
-                        monitorPack.Notifiers.Add(editNotifierEntry.SelectedEntry);
-                        if (monitorPack.Notifiers.Count == 1)
-                            monitorPack.DefaultViewerNotifier = editNotifierEntry.SelectedEntry;
-                        LoadNotifiersList();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }
