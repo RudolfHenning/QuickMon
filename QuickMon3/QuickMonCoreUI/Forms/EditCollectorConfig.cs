@@ -102,18 +102,18 @@ namespace QuickMon.Forms
             lvwEntries.AutoResizeColumnIndex = 1;
             lvwEntries.AutoResizeColumnEnabled = true;
             addPresetToolStripButton.Visible = false;
-            bool presetsAvailable = false;
-            List<AgentPresetConfig> presets = null;
-            try
-            {
-                presets = AgentPresetConfig.GetPresetsForClass(SelectedEntry.Collector.GetType().Name);
-                presetsAvailable = (presets != null && presets.Count > 0);
-            }
-            catch { }
-            if (presetsAvailable)
-            {
-                addPresetToolStripButton.Visible = true;
-            }
+            //bool presetsAvailable = false;
+            //List<AgentPresetConfig> presets = null;
+            //try
+            //{
+            //    presets = AgentPresetConfig.GetPresetsForClass(SelectedEntry.Collector.GetType().Name);
+            //    presetsAvailable = (presets != null && presets.Count > 0);
+            //}
+            //catch { }
+            //if (presetsAvailable)
+            //{
+            //    addPresetToolStripButton.Visible = true;
+            //}
 
             if (LaunchAddEntry && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
             {
@@ -129,13 +129,13 @@ namespace QuickMon.Forms
             {
                 llblRawEdit_LinkClicked(null, null);
             }
-            else if (ShowSelectPresetOnStart && SelectedEntry != null && SelectedEntry.Collector != null) // && SelectedEntry.Collector.GetPresets().Count > 0)
-            {                
-                if (presetsAvailable)
-                {
-                    addPresetToolStripButton_Click(null, null);
-                }
-            }
+            //else if (ShowSelectPresetOnStart && SelectedEntry != null && SelectedEntry.Collector != null) // && SelectedEntry.Collector.GetPresets().Count > 0)
+            //{                
+            //    if (presetsAvailable)
+            //    {
+            //        addPresetToolStripButton_Click(null, null);
+            //    }
+            //}
             try
             {
                 txtRemoteAgentServer.AutoCompleteCustomSource = new AutoCompleteStringCollection();

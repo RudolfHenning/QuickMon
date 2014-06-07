@@ -203,6 +203,8 @@
     <None Include="Resources\LeftShade.png" />
     <None Include="Resources\_47655348_pie2.466.jpg" />
     <None Include="Resources\Forbidden32x32.png" />
+    <None Include="Resources\tables1.png" />
+    <None Include="Resources\doc_new.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

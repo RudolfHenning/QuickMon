@@ -1069,6 +1069,7 @@ namespace QuickMon
                     parentCollectorEntry = (CollectorEntry)tvwCollectors.SelectedNode.Tag;
                     newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
                 }
+                AgentHelper.LastCreateAgentOption = Properties.Settings.Default.LastCreateAgentOption;
 
                 if (folder)
                 {
@@ -1078,7 +1079,7 @@ namespace QuickMon
                     newCollectorEntry.CollectorRegistrationDisplayName = "Folder";
                     newCollectorEntry.CollectorRegistrationName = "Folder";
                     newCollectorEntry.InitialConfiguration = "";
-
+                    
                     if (AgentHelper.EditCollectorEntry(newCollectorEntry, monitorPack) != System.Windows.Forms.DialogResult.OK)
                     {
                         newCollectorEntry = null;
@@ -1088,6 +1089,7 @@ namespace QuickMon
                 {                    
                     newCollectorEntry = AgentHelper.CreateAndEditNewCollector(monitorPack, parentCollectorEntry);
                 }
+                Properties.Settings.Default.LastCreateAgentOption = AgentHelper.LastCreateAgentOption;
                 //if new collectorEntry is valid add it to monitorPack
                 if (newCollectorEntry != null)
                 {

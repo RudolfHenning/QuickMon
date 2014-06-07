@@ -53,12 +53,12 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.cmdConfigure = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.llblUsePreset = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblConfigSummary = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.llblUsePreset = new System.Windows.Forms.LinkLabel();
             this.configEditContextMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -312,6 +312,20 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
+            // llblUsePreset
+            // 
+            this.llblUsePreset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblUsePreset.AutoSize = true;
+            this.llblUsePreset.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblUsePreset.Location = new System.Drawing.Point(134, 78);
+            this.llblUsePreset.Name = "llblUsePreset";
+            this.llblUsePreset.Size = new System.Drawing.Size(105, 13);
+            this.llblUsePreset.TabIndex = 3;
+            this.llblUsePreset.TabStop = true;
+            this.llblUsePreset.Text = "Use Template config";
+            this.llblUsePreset.Visible = false;
+            this.llblUsePreset.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblUsePreset_LinkClicked);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -369,19 +383,6 @@
             this.label8.Size = new System.Drawing.Size(84, 13);
             this.label8.TabIndex = 5;
             this.label8.Text = "Run attended";
-            // 
-            // llblUsePreset
-            // 
-            this.llblUsePreset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblUsePreset.AutoSize = true;
-            this.llblUsePreset.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblUsePreset.Location = new System.Drawing.Point(134, 78);
-            this.llblUsePreset.Name = "llblUsePreset";
-            this.llblUsePreset.Size = new System.Drawing.Size(90, 13);
-            this.llblUsePreset.TabIndex = 3;
-            this.llblUsePreset.TabStop = true;
-            this.llblUsePreset.Text = "Use preset config";
-            this.llblUsePreset.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblUsePreset_LinkClicked);
             // 
             // EditNotifierEntry
             // 

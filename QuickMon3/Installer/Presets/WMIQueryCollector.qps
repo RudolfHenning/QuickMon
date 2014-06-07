@@ -15,4 +15,14 @@
 		<detailQuery syntax="select Caption, Speed, NetEnabled, NetConnectionStatus, MACAddress  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" columnNames="" />
 </wmiQuery></wmiQueries></config>
 </preset>
+<preset class="WMIQueryCollector" name="QuickMon 3 installed" description="Is QuickMon 3 installed (WMI)">
+<config>
+		<wmiQueries>
+				<wmiQuery name="Is QuickMon 3 installed (WMI)" namespace="root\CIMV2" machineName="RUDOLF8">
+						<stateQuery syntax="select * from Win32_Product&#xD;&#xA;where Caption = 'QuickMon 3'" returnValueIsInt="True" returnValueInverted="True" warningValue="0" errorValue="[any]" successValue="1" useRowCountAsValue="True" />
+						<detailQuery syntax="select * from Win32_Product&#xD;&#xA;where Caption = 'QuickMon 3'" columnNames="" />
+				</wmiQuery>
+		</wmiQueries>
+</config>
+</preset>
 </qmpresets>

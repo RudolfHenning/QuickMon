@@ -1,4 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
+
 Editing Presets
    Also "reset' option from installed set
 
@@ -157,5 +158,6 @@ Extend Presets/Templates
 		All agents must have 'default' preset ;) (ok just some that can...)
 		Only for 'available'/registered agents of course
 		"Add agent" window still have option to 'edit' raw config afterwards before show old 'Edit' agent (collector/notifier)
+	App setting for preference to select agents by preset or type first
 -------------------------------------------------------------------------------------------------------
 

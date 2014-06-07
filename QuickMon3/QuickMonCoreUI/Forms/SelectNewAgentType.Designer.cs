@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectNewAgentType));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -40,7 +39,7 @@
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList();
             this.chkShowDetails = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -102,10 +101,10 @@
             this.optSelectPreset.Checked = true;
             this.optSelectPreset.Location = new System.Drawing.Point(20, 19);
             this.optSelectPreset.Name = "optSelectPreset";
-            this.optSelectPreset.Size = new System.Drawing.Size(119, 17);
+            this.optSelectPreset.Size = new System.Drawing.Size(120, 17);
             this.optSelectPreset.TabIndex = 0;
             this.optSelectPreset.TabStop = true;
-            this.optSelectPreset.Text = "By Preset/Template";
+            this.optSelectPreset.Text = "By Template(Preset)";
             this.optSelectPreset.UseVisualStyleBackColor = true;
             this.optSelectPreset.CheckedChanged += new System.EventHandler(this.optSelectPreset_CheckedChanged);
             // 
@@ -203,6 +202,7 @@
             this.Name = "SelectNewAgentType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectNewAgentType";
+            this.Load += new System.EventHandler(this.SelectNewAgentType_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

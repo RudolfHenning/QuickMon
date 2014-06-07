@@ -9,6 +9,7 @@ namespace QuickMon
     public static class AgentHelper
     {
         public static List<string> KnownRemoteHosts = new List<string>();
+        public static int LastCreateAgentOption;
 
         #region Collectors
         public static CollectorEntry CreateNewCollector(CollectorEntry parentCollectorEntry = null)

@@ -219,6 +219,7 @@ namespace QuickMon.Forms
                 else if (lvwAgentType.SelectedItems[0].Tag is AgentPresetConfig)
                     SelectedPreset = (AgentPresetConfig)lvwAgentType.SelectedItems[0].Tag;
                 ImportConfigAfterSelect = chkShowCustomConfig.Checked;
+                AgentHelper.LastCreateAgentOption = optShowConfigEditor.Checked ? 1 : 0;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
@@ -237,6 +238,12 @@ namespace QuickMon.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void SelectNewAgentType_Load(object sender, EventArgs e)
+        {
+            optSelectPreset.Checked = AgentHelper.LastCreateAgentOption == 0;
+            optShowConfigEditor.Checked = AgentHelper.LastCreateAgentOption == 1;
         }
     }
 }

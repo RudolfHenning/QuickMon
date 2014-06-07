@@ -131,6 +131,7 @@
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -376,7 +377,8 @@
             this.addCollectorConfigEntryToolStripButton,
             this.addPresetToolStripButton,
             this.editCollectorConfigEntryToolStripButton,
-            this.deleteCollectorConfigEntryToolStripButton});
+            this.deleteCollectorConfigEntryToolStripButton,
+            this.toolStripButton1});
             this.collectorEditToolStrip.Location = new System.Drawing.Point(0, 0);
             this.collectorEditToolStrip.Name = "collectorEditToolStrip";
             this.collectorEditToolStrip.Size = new System.Drawing.Size(568, 25);
@@ -401,7 +403,7 @@
             this.addPresetToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addPresetToolStripButton.Name = "addPresetToolStripButton";
             this.addPresetToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addPresetToolStripButton.Text = "Set from preset";
+            this.addPresetToolStripButton.Text = "Set from template";
             this.addPresetToolStripButton.Click += new System.EventHandler(this.addPresetToolStripButton_Click);
             // 
             // editCollectorConfigEntryToolStripButton
@@ -1347,6 +1349,15 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1512,5 +1523,6 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ToolStripButton addPresetToolStripButton;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

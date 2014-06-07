@@ -75,7 +75,7 @@ namespace QuickMon
         public static void SavePresetsToFile(string filePath, List<AgentPresetConfig> list )
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<?xml version=\"1.0\"  encoding=\"UTF-8\"?>");
+            sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             sb.AppendLine("<qmpresets>");
             foreach(AgentPresetConfig preset in list)
             {
@@ -122,7 +122,11 @@ namespace QuickMon
                                 apc.AgentDefaultName = presetNode.ReadXmlElementAttr("name", "");
                                 apc.Description = presetNode.ReadXmlElementAttr("description", "");
                                 apc.Config = presetNode.InnerXml; //all of it e.g. <config>...</config>
-                                presets.Add(apc);
+                                //to nmake sure only 'available' agents get loaded
+                                if ((from r in RegistrationHelper.GetAllAvailableAgents()
+                                     where r.ClassName.EndsWith(apc.AgentClassName)
+                                     select r).Count() > 0)
+                                    presets.Add(apc);
                             }
                             catch (Exception nodeEx)
                             {
