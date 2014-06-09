@@ -47,7 +47,7 @@ namespace QuickMon
                         newCollectorEntry.InitialConfiguration = c.GetDefaultOrEmptyConfigString();
                     else
                     {
-                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.AgentDefaultName;
+                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
                         newCollectorEntry.Collector.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                     }
                 }
@@ -95,7 +95,7 @@ namespace QuickMon
                         newCollectorEntry.InitialConfiguration = c.GetDefaultOrEmptyConfigString();
                     else
                     {
-                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.AgentDefaultName;
+                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
                         newCollectorEntry.Collector.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                     }
                 }
@@ -164,7 +164,7 @@ namespace QuickMon
                         newNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
                     else
                     {
-                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.AgentDefaultName;
+                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
                         newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                     }
                 }
@@ -205,7 +205,7 @@ namespace QuickMon
                         newNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
                     else
                     {
-                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.AgentDefaultName;
+                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
                         newNotifierEntry.InitialConfiguration = AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config);
                         
                     }

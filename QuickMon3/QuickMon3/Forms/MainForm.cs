@@ -215,9 +215,9 @@ namespace QuickMon
             HideCollectorContextMenu();
             try
             {
-                string startUpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
-                if (!System.IO.Directory.Exists(startUpPath))
-                    System.IO.Directory.CreateDirectory(startUpPath);
+                string startUpPath = MonitorPack.GetQuickMonUserDataDirectory();// System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
+                //if (!System.IO.Directory.Exists(startUpPath))
+                //    System.IO.Directory.CreateDirectory(startUpPath);
                 openFileDialogOpen.InitialDirectory = startUpPath;
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -350,6 +350,11 @@ namespace QuickMon
             if (!PerformCleanShutdown(true))
                 return;
             HenIT.Security.AdminModeTools.RestartInAdminMode();
+        }
+        private void manageTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditPresets editPresets = new EditPresets();
+            editPresets.Show();
         }
         private void knownRemoteAgentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2242,5 +2247,7 @@ namespace QuickMon
             HideRecentDropDownList(sender, e);
         }
         #endregion
+
+
     }
 }

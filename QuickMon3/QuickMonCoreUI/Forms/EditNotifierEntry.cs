@@ -250,8 +250,8 @@ namespace QuickMon.Management
                     {
                         if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
                         {
-                            txtName.Text = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
-                            editingNotifierEntry.Name = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
+                            txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
+                            editingNotifierEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
                             editingNotifierEntry.Notifier.SetConfigurationFromXmlString(AgentPresetConfig.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
                             LoadConfig();
                         }

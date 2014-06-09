@@ -29,8 +29,8 @@ namespace QuickMon.Collectors
         {
             try
             {
-                string outputPath = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify);
-                outputPath = System.IO.Path.Combine(outputPath, "Hen IT\\QuickMon");
+                string outputPath = MonitorPack.GetQuickMonUserDataDirectory();// System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify);
+                //outputPath = System.IO.Path.Combine(outputPath, "Hen IT\\QuickMon");
                 if (!System.IO.Directory.Exists(outputPath))
                     System.IO.Directory.CreateDirectory(outputPath);
                 outputPath = System.IO.Path.Combine(outputPath, "SQLQueryTips.htm");

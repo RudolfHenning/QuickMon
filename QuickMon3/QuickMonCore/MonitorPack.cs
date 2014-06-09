@@ -1291,5 +1291,25 @@ namespace QuickMon
             return sb.ToString();
         }
         #endregion 
+
+        #region Global settings
+        public static string GetQuickMonUserDataDirectory()
+        {
+            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 3");
+            try
+            {
+                if (!System.IO.Directory.Exists(dataDir))
+                {
+                    System.IO.Directory.CreateDirectory(dataDir);
+                }
+            }
+            catch { }
+            return dataDir;
+        }
+        public static string GetQuickMonUserDataTemplatesFile()
+        {
+            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QuickMon3Templates.qps");
+        }
+        #endregion
     }
 }

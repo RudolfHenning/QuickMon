@@ -287,6 +287,7 @@ namespace QuickMon
             this.manageTemplatesToolStripMenuItem.Name = "manageTemplatesToolStripMenuItem";
             this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             this.manageTemplatesToolStripMenuItem.Text = "Manage Templates";
+            this.manageTemplatesToolStripMenuItem.Click += new System.EventHandler(this.manageTemplatesToolStripMenuItem_Click);
             // 
             // closeAllChildWindowsToolStripMenuItem
             // 

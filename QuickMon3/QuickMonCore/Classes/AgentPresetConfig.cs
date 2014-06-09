@@ -9,37 +9,38 @@ namespace QuickMon
     public class AgentPresetConfig
     {
         public string AgentClassName { get; set; }
-        public string Description { get; set; }
-        public string AgentDefaultName { get; set; }        
+        public string Description { get; set; }  
         public string Config { get; set; }
 
         public override string ToString()
         {
-            return AgentClassName + "-" + AgentDefaultName + "-" + Description;
+            return AgentClassName + "-" + Description;
         }
         public static List<AgentPresetConfig> GetAllPresets()
         {
             List<AgentPresetConfig> presets = new List<AgentPresetConfig>();
-            string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
+            return ReadPresetsFromFile(MonitorPack.GetQuickMonUserDataTemplatesFile());
 
-            foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(progDataPath))
-            {
-                if ((from p in presets
-                     where p.AgentDefaultName == apc.AgentDefaultName && p.Description == apc.Description
-                     select p).FirstOrDefault() == null)
-                    presets.Add(apc);
-            }
+            //string progDataPath = MonitorPack.GetQuickMonUserDataDirectory();// System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
 
-            //search current directory as well
-            string presetPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(presetPath))
-            {
-                if ((from p in presets
-                     where p.AgentDefaultName == apc.AgentDefaultName && p.Description == apc.Description
-                     select p).FirstOrDefault() == null)
-                    presets.Add(apc);
-            }
-            return presets;
+            //foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(progDataPath))
+            //{
+            //    if ((from p in presets
+            //         where p.Description == apc.Description && p.AgentClassName == apc.AgentClassName
+            //         select p).FirstOrDefault() == null)
+            //        presets.Add(apc);
+            //}
+
+            ////search current directory as well
+            //string presetPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(presetPath))
+            //{
+            //    if ((from p in presets
+            //         where p.Description == apc.Description && p.AgentClassName == apc.AgentClassName
+            //         select p).FirstOrDefault() == null)
+            //        presets.Add(apc);
+            //}
+            //return presets;
         }
         /// <summary>
         /// Agent can call this static method to get all presets stored in current directory (files with *.qps name)
@@ -49,28 +50,43 @@ namespace QuickMon
         public static List<AgentPresetConfig> GetPresetsForClass(string agentClass)
         {
             List<AgentPresetConfig> presets = new List<AgentPresetConfig>();
-            string progDataPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
+            //string progDataPath = MonitorPack.GetQuickMonUserDataDirectory(); // System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
             
-            foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(progDataPath))
+            foreach (AgentPresetConfig apc in GetAllPresets())// ReadPresetsFromDirectory(progDataPath))
             {
                 if (apc.AgentClassName == agentClass)
                     if ((from p in presets
-                         where p.AgentClassName == agentClass && p.AgentDefaultName == apc.AgentDefaultName && p.Description == apc.Description
+                         where p.AgentClassName == agentClass && p.Description == apc.Description
                          select p).FirstOrDefault() == null)
                         presets.Add(apc);
             }
 
-            //search current directory as well
-            string presetPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(presetPath))
-            {
-                if (apc.AgentClassName == agentClass)
-                    if ((from p in presets
-                         where p.AgentClassName == agentClass && p.AgentDefaultName == apc.AgentDefaultName && p.Description == apc.Description
-                         select p).FirstOrDefault() == null)
-                    presets.Add(apc);
-            }
+            ////search current directory as well
+            //string presetPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //foreach (AgentPresetConfig apc in ReadPresetsFromDirectory(presetPath))
+            //{
+            //    if (apc.AgentClassName == agentClass)
+            //        if ((from p in presets
+            //             where p.AgentClassName == agentClass && p.Description == apc.Description
+            //             select p).FirstOrDefault() == null)
+            //        presets.Add(apc);
+            //}
             return presets;
+        }
+        public static void SaveAllPresetsToFile(List<AgentPresetConfig> list)
+        {
+            SavePresetsToFile(MonitorPack.GetQuickMonUserDataTemplatesFile(), list);
+
+            //string progDataPath = MonitorPack.GetQuickMonUserDataDirectory(); // System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
+            //foreach(string agentClass in (from ps in list
+            //                                  group ps by ps.AgentClassName.ToLower() into g
+            //                                  select g.Key))
+            //{
+            //    string presetFilePath = System.IO.Path.Combine(progDataPath, agentClass + ".qps");
+            //    SavePresetsToFile(presetFilePath, (from presetsByAgentType in list
+            //                                       where presetsByAgentType.AgentClassName.ToLower() == agentClass.ToLower()
+            //                                       select presetsByAgentType).ToList());
+            //}
         }
         public static void SavePresetsToFile(string filePath, List<AgentPresetConfig> list )
         {
@@ -83,7 +99,6 @@ namespace QuickMon
                 {
                     sb.Append("<preset ");
                     sb.Append("class=\"" + XmlFormattingUtils.EscapeXml(preset.AgentClassName) + "\" ");
-                    sb.Append("name=\"" + XmlFormattingUtils.EscapeXml(preset.AgentDefaultName) + "\" ");
                     sb.Append("description=\"" + XmlFormattingUtils.EscapeXml(preset.Description) + "\"");
                     sb.AppendLine(">");
 
@@ -119,7 +134,6 @@ namespace QuickMon
                             {
                                 AgentPresetConfig apc = new AgentPresetConfig();
                                 apc.AgentClassName = presetNode.ReadXmlElementAttr("class", "");
-                                apc.AgentDefaultName = presetNode.ReadXmlElementAttr("name", "");
                                 apc.Description = presetNode.ReadXmlElementAttr("description", "");
                                 apc.Config = presetNode.InnerXml; //all of it e.g. <config>...</config>
                                 //to nmake sure only 'available' agents get loaded
@@ -156,6 +170,12 @@ namespace QuickMon
                 }
             }
             return presets;
+        }
+        public static void ResetAllPresets()
+        {
+            string commonAppData = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
+            List<AgentPresetConfig> presets = AgentPresetConfig.ReadPresetsFromDirectory(commonAppData);
+            SaveAllPresetsToFile(presets);
         }
 
         public static string FormatVariables(string input)

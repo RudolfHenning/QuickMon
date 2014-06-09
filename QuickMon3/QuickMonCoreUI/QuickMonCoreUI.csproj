@@ -55,6 +55,7 @@
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ListViewGroupUtils.cs" />
     <Compile Include="Controls\RichTextControlEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -114,6 +115,12 @@
     </Compile>
     <Compile Include="Forms\EditNotifierEntry.Designer.cs">
       <DependentUpon>EditNotifierEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditPresets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditPresets.Designer.cs">
+      <DependentUpon>EditPresets.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\EditRAWMarkup.cs">
       <SubType>Form</SubType>
@@ -206,6 +213,9 @@
     <EmbeddedResource Include="Forms\EditNotifierEntry.resx">
       <DependentUpon>EditNotifierEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditPresets.resx">
+      <DependentUpon>EditPresets.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditRAWMarkup.resx">
       <DependentUpon>EditRAWMarkup.cs</DependentUpon>
     </EmbeddedResource>
@@ -283,6 +293,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PlusExcl16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_doc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

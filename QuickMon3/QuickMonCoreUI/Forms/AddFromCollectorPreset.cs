@@ -26,9 +26,9 @@ namespace QuickMon.Forms
 
             if (AvailablePresets != null)
             {
-                foreach(AgentPresetConfig preset in (from p in AvailablePresets
-                                                                                 orderby p.AgentDefaultName
-                                                                                 select p))
+                foreach (AgentPresetConfig preset in (from p in AvailablePresets
+                                                      orderby p.Description
+                                                      select p))
                 {
                     ListViewItem lvi = new ListViewItem(preset.Description);
                     lvi.SubItems.Add(preset.Config);

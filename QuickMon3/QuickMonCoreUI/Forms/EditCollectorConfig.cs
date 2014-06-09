@@ -454,8 +454,8 @@ namespace QuickMon.Forms
                     {
                         if (currentEditingEntry.Collector != null && currentEditingEntry.Collector.AgentConfig != null)
                         {
-                            txtName.Text = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
-                            currentEditingEntry.Name = addFromCollectorPreset.SelectedPreset.AgentDefaultName;
+                            txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
+                            currentEditingEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
                             currentEditingEntry.Collector.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
                             ApplyConfig();
                         }
