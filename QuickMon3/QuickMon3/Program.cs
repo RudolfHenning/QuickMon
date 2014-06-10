@@ -42,31 +42,6 @@ namespace QuickMon
                     List<AgentPresetConfig> presets = AgentPresetConfig.ReadPresetsFromDirectory(commonAppData);
                     AgentPresetConfig.SaveAllPresetsToFile(presets);
                 }
-
-                //string commonAppData = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Hen IT\\QuickMon 3");
-                //string userAppData = MonitorPack.GetQuickMonUserDataDirectory();// System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\QuickMon 3");
-                //if(System.IO.Directory.Exists(commonAppData))
-                //{
-                //    if (!System.IO.Directory.Exists(userAppData))
-                //    {
-                //        //attempt to create directory
-                //        System.IO.Directory.CreateDirectory(userAppData);
-                //    }
-
-                //    //Now copy any non existing preset files
-                //    if (System.IO.Directory.Exists(userAppData))
-                //    {
-                //        foreach(string commonPresetFilePath in System.IO.Directory.GetFiles(commonAppData, "*.qps"))
-                //        {
-                //            string fileNameOnly = System.IO.Path.GetFileName(commonPresetFilePath);
-                //            string userPresetFilePath = System.IO.Path.Combine(userAppData, fileNameOnly);
-                //            if (!System.IO.File.Exists(userPresetFilePath))
-                //            {
-                //                System.IO.File.Copy(commonPresetFilePath, userPresetFilePath);
-                //            }
-                //        }
-                //    }
-                //}
             }
             catch { }
 

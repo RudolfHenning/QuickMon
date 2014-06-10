@@ -53,12 +53,12 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.cmdConfigure = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.llblUsePreset = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblConfigSummary = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
             this.configEditContextMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -300,7 +300,6 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.llblUsePreset);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lblConfigSummary);
             this.groupBox1.Controls.Add(this.cmdConfigure);
@@ -311,20 +310,6 @@
             this.groupBox1.Size = new System.Drawing.Size(468, 102);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            // 
-            // llblUsePreset
-            // 
-            this.llblUsePreset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblUsePreset.AutoSize = true;
-            this.llblUsePreset.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblUsePreset.Location = new System.Drawing.Point(134, 78);
-            this.llblUsePreset.Name = "llblUsePreset";
-            this.llblUsePreset.Size = new System.Drawing.Size(105, 13);
-            this.llblUsePreset.TabIndex = 3;
-            this.llblUsePreset.TabStop = true;
-            this.llblUsePreset.Text = "Use Template config";
-            this.llblUsePreset.Visible = false;
-            this.llblUsePreset.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblUsePreset_LinkClicked);
             // 
             // label1
             // 
@@ -384,12 +369,26 @@
             this.label8.TabIndex = 5;
             this.label8.Text = "Run attended";
             // 
+            // llblExportConfigAsTemplate
+            // 
+            this.llblExportConfigAsTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblExportConfigAsTemplate.AutoSize = true;
+            this.llblExportConfigAsTemplate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(12, 291);
+            this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
+            this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
+            this.llblExportConfigAsTemplate.TabIndex = 11;
+            this.llblExportConfigAsTemplate.TabStop = true;
+            this.llblExportConfigAsTemplate.Text = "Export config as template";
+            this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
+            // 
             // EditNotifierEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(492, 321);
+            this.Controls.Add(this.llblExportConfigAsTemplate);
             this.Controls.Add(this.cboAttendedOptionOverride);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox2);
@@ -451,6 +450,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cboAttendedOptionOverride;
-        private System.Windows.Forms.LinkLabel llblUsePreset;
+        private System.Windows.Forms.LinkLabel llblExportConfigAsTemplate;
     }
 }

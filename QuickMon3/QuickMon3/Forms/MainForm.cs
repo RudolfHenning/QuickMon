@@ -216,8 +216,6 @@ namespace QuickMon
             try
             {
                 string startUpPath = MonitorPack.GetQuickMonUserDataDirectory();// System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon");
-                //if (!System.IO.Directory.Exists(startUpPath))
-                //    System.IO.Directory.CreateDirectory(startUpPath);
                 openFileDialogOpen.InitialDirectory = startUpPath;
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -2247,7 +2245,5 @@ namespace QuickMon
             HideRecentDropDownList(sender, e);
         }
         #endregion
-
-
     }
 }

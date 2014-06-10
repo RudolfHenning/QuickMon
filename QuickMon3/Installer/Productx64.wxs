@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.14.0603.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.15.0610.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
 
@@ -102,29 +102,11 @@
         <Directory Id="CommonAppDataComp" Name="Hen IT">
           <Directory Id="CommonAppDataQM3" Name="QuickMon 3">
              <Component Id="presets" Guid="59162023-5478-4668-A278-41cc40000000">
-              <File Id="AudioNotifierPreset" Source="Presets\AudioNotifier.qps" KeyPath="no" />
-              <File Id="BizTalkPortAndOrchsCollectorPreset" Source="Presets\BizTalkPortAndOrchsCollector.qps" KeyPath="no" />
-              <File Id="BizTalkSuspendedCountCollectorPreset" Source="Presets\BizTalkSuspendedCountCollector.qps" KeyPath="no" />
-              <File Id="EventLogCollectorPreset" Source="Presets\EventLogCollector.qps" KeyPath="no" />
-              <File Id="EventLogNotifierPreset" Source="Presets\EventLogNotifier.qps" KeyPath="no" />
-              <File Id="FileSystemCollectorPreset" Source="Presets\FileSystemCollector.qps" KeyPath="no" />
-              <File Id="IISAppPoolCollectorPreset" Source="Presets\IISAppPoolCollector.qps" KeyPath="no" />
-              <File Id="InMemoryNotifierPreset" Source="Presets\InMemoryNotifier.qps" KeyPath="no" />
-              <File Id="LogFileNotifierPreset" Source="Presets\LogFileNotifier.qps" KeyPath="no" />
-              <File Id="LoopbackCollectorPreset" Source="Presets\LoopbackCollector.qps" KeyPath="no" />
-              <File Id="OLEDBQueryCollectorPreset" Source="Presets\OLEDBQueryCollector.qps" KeyPath="no" />
-              <File Id="PerfCounterCollectorPreset" Source="Presets\PerfCounterCollector.qps" KeyPath="no" />
-              <File Id="PingCollectorPreset" Source="Presets\PingCollector.qps" KeyPath="no" />
-              <File Id="PowerShellScriptRunnerCollectorPreset" Source="Presets\PowerShellScriptRunnerCollector.qps" KeyPath="no" />
-              <File Id="RegistryQueryCollectorPreset" Source="Presets\RegistryQueryCollector.qps" KeyPath="no" />
-              <File Id="ServiceStateCollectorPreset" Source="Presets\ServiceStateCollector.qps" KeyPath="no" />
-              <File Id="SMTPNotifierPreset" Source="Presets\SMTPNotifier.qps" KeyPath="no" />
-              <File Id="SoapWebServicePingCollectorPreset" Source="Presets\SoapWebServicePingCollector.qps" KeyPath="no" />
-              <File Id="SQLDatabaseNotifierPreset" Source="Presets\SQLDatabaseNotifier.qps" KeyPath="no" />
-              <File Id="SqlDatabaseSizeCollectorPreset" Source="Presets\SqlDatabaseSizeCollector.qps" KeyPath="no" />
-              <File Id="SqlQueryCollectorPreset" Source="Presets\SqlQueryCollector.qps" KeyPath="no" />
-              <File Id="SqlTableSizeCollectorPreset" Source="Presets\SqlTableSizeCollector.qps" KeyPath="no" />
-              <File Id="WMIQueryCollectorPreset" Source="Presets\WMIQueryCollector.qps" KeyPath="no" />
+              <File Id="CommonAgentTemplates" Source="Presets\CommonAgentTemplates.qps" KeyPath="no" />
+              <File Id="PowerShellAgentTemplates" Source="Presets\PowerShellAgentTemplates.qps" KeyPath="no" />
+              <File Id="IISAgentTemplates" Source="Presets\IISAgentTemplates.qps" KeyPath="no" />
+              <File Id="MSSqlAgentTemplates" Source="Presets\MSSqlAgentTemplates.qps" KeyPath="no" />
+              <File Id="BizTalkAgentTemplates" Source="Presets\BizTalkAgentTemplates.qps" KeyPath="no" />
              </Component>
           </Directory>
         </Directory>

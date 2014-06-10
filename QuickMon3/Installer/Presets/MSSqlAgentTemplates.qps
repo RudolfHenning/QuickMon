@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<qmpresets>
+<preset class="SqlDatabaseSizeCollector" description="Check QuickMon 3 database size">
+<config>
+		<databases>
+				<database name="QuickMon3" server="%LocalHost%" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="60" warningValueMB="100" errorValueMB="1024" />
+		</databases>
+</config>
+</preset>
+<preset class="SqlTableSizeCollector" description="Check QuickMon AlertMessages table size in SQL Server">
+<config>
+		<databases>
+				<database name="QuickMon3" server="%LocalHost%" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="60">
+						<table name="AlertMessages" warningValue="100000" errorValue="1000000" />
+				</database>
+		</databases>
+</config>
+</preset>
+<preset class="SqlQueryCollector" description="Check QuickMon AlertMessages Warnings/Errors count in SQL Server">
+<config>
+		<queries>
+				<query name="QuickMon test" sqlServer="%LocalHost%" database="QuickMon3" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName="">
+						<summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="100000" errorValue="1000000" successValue="" useRowCountAsValue="False" useExecuteTimeAsValue="False">select count(*) from AlertMessages where AlertLevel &gt; 1</summaryQuery>
+						<detailQuery useSP="False">select count(*) as [Rows] from AlertMessages where AlertLevel &gt; 1</detailQuery>
+				</query>
+		</queries>
+</config>
+</preset>
+<preset class="SQLDatabaseNotifier" description="QuickMon Database">
+<config>
+		<connection sqlServer="%LocalHost%" database="QuickMon3" integratedSec="True" userName="" password="">
+				<command cmndTimeOut="60" useSP="True" value="InsertMessage" alertFieldName="AlertLevel" collectorTypeFieldName="CollectorType" categoryFieldName="Category" previousStateFieldName="PreviousState" currentStateFieldName="CurrentState" detailsFieldName="Details" useSPForViewer="True" viewer="QueryMessages" dateTimeFieldName="InsertDate" />
+		</connection>
+</config>
+</preset>
+</qmpresets>

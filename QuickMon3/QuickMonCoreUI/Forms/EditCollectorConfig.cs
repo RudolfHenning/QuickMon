@@ -157,6 +157,7 @@ namespace QuickMon.Forms
                     lvwEntries.Enabled = false;
                     lvwEntries.Dock = DockStyle.Fill;
                     llblRawEdit.Enabled = false;
+                    llblExportConfigAsTemplate.Enabled = false;
                     lvwEntries.Items.Clear();
                     tvwEntries.Visible = false;
                 }
@@ -194,6 +195,7 @@ namespace QuickMon.Forms
 
                     addPresetToolStripButton.Visible = presetsAvailable;
                     llblRawEdit.Enabled = true;
+                    llblExportConfigAsTemplate.Enabled = true;
                 }
                 CheckOkEnabled();
             }
@@ -795,6 +797,48 @@ namespace QuickMon.Forms
 
         }
         #endregion
+
+        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (currentEditingEntry != null && currentEditingEntry.Collector != null && txtName.Text.Trim().Length > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to export the current config as a template?\r\nThe collector entry name will be used as name for the template.", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        AgentPresetConfig newPreset = new AgentPresetConfig();
+                        newPreset.AgentClassName = currentEditingEntry.CollectorRegistrationName;
+                        newPreset.Description = txtName.Text;
+                        newPreset.Config = currentEditingEntry.Collector.AgentConfig.ToConfig();
+                        List<AgentPresetConfig> allExistingPresets = AgentPresetConfig.GetAllPresets();
+
+                        if ((from p in allExistingPresets
+                             where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
+                             select p).Count() > 0)
+                        {
+                            if (MessageBox.Show("A template with the name '" + newPreset.Description + "' already exist!\r\nDo you want to replace it?", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                AgentPresetConfig existingEntry = (from p in allExistingPresets
+                                                                   where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
+                                                                   select p).FirstOrDefault();
+                                existingEntry.Config = newPreset.Config;
+                            }
+                        }
+                        else
+                            allExistingPresets.Add(newPreset);
+                        AgentPresetConfig.SaveAllPresetsToFile(allExistingPresets);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
 
     }
 }

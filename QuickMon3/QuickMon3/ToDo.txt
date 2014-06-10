@@ -1,7 +1,6 @@
 ﻿CHANGES (considdered possible for next release)
 
-Editing Presets
-   Also "reset' option from installed set
+
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -159,5 +158,7 @@ Extend Presets/Templates
 		Only for 'available'/registered agents of course
 		"Add agent" window still have option to 'edit' raw config afterwards before show old 'Edit' agent (collector/notifier)
 	App setting for preference to select agents by preset or type first
+	Editing Presets
+    Also "reset' option from installed set
 -------------------------------------------------------------------------------------------------------
 

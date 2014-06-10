@@ -33,25 +33,7 @@ namespace QuickMon.Management
             this.monitorPack = monitorPack;
             if (SelectedEntry == null)
             {
-                //QuickMon.Forms.AgentTypeSelect agentTypeSelect = new QuickMon.Forms.AgentTypeSelect();
-                //if (agentTypeSelect.ShowNotifierSelection("") == System.Windows.Forms.DialogResult.OK)
-                //{
-                //    RegisteredAgent ar = agentTypeSelect.SelectedAgent;
-                //    INotifier n = NotifierEntry.CreateNotifierEntry(ar);
-                //    editingNotifierEntry = new NotifierEntry();
-                //    editingNotifierEntry.Notifier = n;
-                //    editingNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
-                //    editingNotifierEntry.NotifierRegistrationName = ar.Name;
-                //    editingNotifierEntry.Enabled = true;
-                //    editingNotifierEntry.AlertLevel = AlertLevel.Warning;
-                //    editingNotifierEntry.DetailLevel = DetailLevel.Detail;
-
-                //    LaunchAddEntry = !agentTypeSelect.ImportConfigAfterSelect && !agentTypeSelect.UsePresetAfterSelect;
-                //    ShowRawEditOnStart = agentTypeSelect.ImportConfigAfterSelect;
-                //    ShowSelectPresetOnStart = agentTypeSelect.UsePresetAfterSelect;
-                //}
-                //else
-                    return System.Windows.Forms.DialogResult.No;
+                return System.Windows.Forms.DialogResult.No;
             }
             else
                 editingNotifierEntry = NotifierEntry.FromConfig(SelectedEntry.ToConfig());
@@ -63,16 +45,6 @@ namespace QuickMon.Management
         #region Form events
         private void EditNotifierEntry_Load(object sender, EventArgs e)
         {
-            //bool presetsAvailable = false;
-            //List<AgentPresetConfig> presets = null;
-            //try
-            //{
-            //    presets = AgentPresetConfig.GetPresetsForClass(editingNotifierEntry.Notifier.GetType().Name);
-            //    presetsAvailable = (presets != null && presets.Count > 0);
-            //}
-            //catch { }
-            //llblUsePreset.Visible = presetsAvailable;
-
             if (LaunchAddEntry)
             {
                 cmdConfigure_Click(null, null);
@@ -81,13 +53,6 @@ namespace QuickMon.Management
             {
                 llblRawEdit_LinkClicked(null, null);
             }
-            //else if (ShowSelectPresetOnStart && editingNotifierEntry != null && editingNotifierEntry.Notifier != null)
-            //{               
-            //    if (presetsAvailable)
-            //    {
-            //        llblUsePreset_LinkClicked(null, null);
-            //    }
-            //}
         }
         private void EditNotifierEntry_Shown(object sender, EventArgs e)
         {
@@ -259,6 +224,47 @@ namespace QuickMon.Management
                 }
             }
         }
+        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (editingNotifierEntry != null && editingNotifierEntry.Notifier != null && txtName.Text.Trim().Length > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to export the current config as a template?\r\nThe notifier entry name will be used as name for the template.", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        AgentPresetConfig newPreset = new AgentPresetConfig();
+                        newPreset.AgentClassName = editingNotifierEntry.NotifierRegistrationName;
+                        newPreset.Description = txtName.Text;
+                        newPreset.Config = editingNotifierEntry.Notifier.AgentConfig.ToConfig();
+                        List<AgentPresetConfig> allExistingPresets = AgentPresetConfig.GetAllPresets();
+
+                        if ((from p in allExistingPresets
+                                 where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
+                             select p).Count() > 0)
+                        {
+                            if (MessageBox.Show("A template with the name '" + newPreset.Description + "' already exist!\r\nDo you want to replace it?", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                AgentPresetConfig existingEntry = (from p in allExistingPresets
+                                                                   where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
+                                                                   select p).FirstOrDefault();
+                                existingEntry.Config = newPreset.Config;
+                            }
+                        }
+                        else
+                            allExistingPresets.Add(newPreset);
+                        AgentPresetConfig.SaveAllPresetsToFile(allExistingPresets);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
         #endregion
 
         #region Change checking
@@ -345,15 +351,15 @@ namespace QuickMon.Management
                 txtName.Text = editingNotifierEntry.Name;
                 chkEnabled.Checked = editingNotifierEntry.Enabled;
 
-                bool presetsAvailable = false;
-                List<AgentPresetConfig> presets = null;
-                try
-                {
-                    presets = AgentPresetConfig.GetPresetsForClass(editingNotifierEntry.NotifierRegistrationName);
-                    presetsAvailable = (presets != null && presets.Count > 0);
-                }
-                catch { }
-                llblUsePreset.Visible = presetsAvailable;
+                //bool presetsAvailable = false;
+                //List<AgentPresetConfig> presets = null;
+                //try
+                //{
+                //    presets = AgentPresetConfig.GetPresetsForClass(editingNotifierEntry.NotifierRegistrationName);
+                //    presetsAvailable = (presets != null && presets.Count > 0);
+                //}
+                //catch { }
+                //llblUsePreset.Visible = presetsAvailable;
 
                 RegisteredAgent ar = (from a in RegisteredAgentCache.Agents 
                                       where a.IsNotifier && a.Name == editingNotifierEntry.NotifierRegistrationName
@@ -382,6 +388,8 @@ namespace QuickMon.Management
             }
         }
         #endregion        
+
+
 
         #region Manual config edit context menu events
         //private void copyToolStripMenuItem_Click(object sender, EventArgs e)

@@ -33,6 +33,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.addTemplateToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deletePresetToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.resetToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -42,8 +43,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lvwPresets = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.chkWrapText = new System.Windows.Forms.CheckBox();
             this.cmdSaveTemplate = new System.Windows.Forms.Button();
@@ -54,12 +53,23 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
+            this.saveTemplateFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.listViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportSelectedTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lvwPresets = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.listViewContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -69,6 +79,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addTemplateToolStripButton,
             this.deletePresetToolStripButton,
+            this.exportToolStripButton,
             this.toolStripSeparator1,
             this.importToolStripButton,
             this.resetToolStripButton,
@@ -99,8 +110,19 @@
             this.deletePresetToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deletePresetToolStripButton.Name = "deletePresetToolStripButton";
             this.deletePresetToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.deletePresetToolStripButton.Text = "Delete template";
+            this.deletePresetToolStripButton.Text = "Delete selected templates";
             this.deletePresetToolStripButton.Click += new System.EventHandler(this.deletePresetToolStripButton_Click);
+            // 
+            // exportToolStripButton
+            // 
+            this.exportToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.exportToolStripButton.Enabled = false;
+            this.exportToolStripButton.Image = global::QuickMon.Properties.Resources.doc_export;
+            this.exportToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportToolStripButton.Name = "exportToolStripButton";
+            this.exportToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.exportToolStripButton.Text = "Export selected templates";
+            this.exportToolStripButton.Click += new System.EventHandler(this.exportToolStripButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -194,28 +216,6 @@
             this.splitContainer1.SplitterDistance = 314;
             this.splitContainer1.TabIndex = 1;
             // 
-            // lvwPresets
-            // 
-            this.lvwPresets.AutoResizeColumnEnabled = false;
-            this.lvwPresets.AutoResizeColumnIndex = 0;
-            this.lvwPresets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader});
-            this.lvwPresets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwPresets.Location = new System.Drawing.Point(0, 0);
-            this.lvwPresets.Name = "lvwPresets";
-            this.lvwPresets.Size = new System.Drawing.Size(314, 416);
-            this.lvwPresets.SmallImageList = this.imageList1;
-            this.lvwPresets.TabIndex = 0;
-            this.lvwPresets.UseCompatibleStateImageBehavior = false;
-            this.lvwPresets.View = System.Windows.Forms.View.Details;
-            this.lvwPresets.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwPresets_DeleteKeyPressed);
-            this.lvwPresets.SelectedIndexChanged += new System.EventHandler(this.lvwPresets_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Description";
-            this.nameColumnHeader.Width = 277;
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -265,6 +265,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 15);
+            this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.HTML;
             this.txtConfig.Location = new System.Drawing.Point(6, 78);
@@ -321,6 +322,94 @@
             this.openFileDialogOpen.DefaultExt = "qps";
             this.openFileDialogOpen.Filter = "QuickMon Template files|*.qps";
             // 
+            // saveTemplateFileDialog
+            // 
+            this.saveTemplateFileDialog.DefaultExt = "qps";
+            this.saveTemplateFileDialog.Filter = "QuickMon Template files|*.qps";
+            // 
+            // listViewContextMenuStrip
+            // 
+            this.listViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addTemplateToolStripMenuItem,
+            this.deleteTemplateToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exportSelectedTemplatesToolStripMenuItem,
+            this.saveTemplatesToolStripMenuItem,
+            this.refreshTemplatesToolStripMenuItem});
+            this.listViewContextMenuStrip.Name = "listViewContextMenuStrip";
+            this.listViewContextMenuStrip.Size = new System.Drawing.Size(158, 120);
+            // 
+            // addTemplateToolStripMenuItem
+            // 
+            this.addTemplateToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_add;
+            this.addTemplateToolStripMenuItem.Name = "addTemplateToolStripMenuItem";
+            this.addTemplateToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.addTemplateToolStripMenuItem.Text = "Add template";
+            this.addTemplateToolStripMenuItem.Click += new System.EventHandler(this.addTemplateToolStripButton_Click);
+            // 
+            // deleteTemplateToolStripMenuItem
+            // 
+            this.deleteTemplateToolStripMenuItem.Enabled = false;
+            this.deleteTemplateToolStripMenuItem.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteTemplateToolStripMenuItem.Name = "deleteTemplateToolStripMenuItem";
+            this.deleteTemplateToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.deleteTemplateToolStripMenuItem.Text = "Delete template";
+            this.deleteTemplateToolStripMenuItem.Click += new System.EventHandler(this.deletePresetToolStripButton_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 6);
+            // 
+            // exportSelectedTemplatesToolStripMenuItem
+            // 
+            this.exportSelectedTemplatesToolStripMenuItem.Enabled = false;
+            this.exportSelectedTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_export;
+            this.exportSelectedTemplatesToolStripMenuItem.Name = "exportSelectedTemplatesToolStripMenuItem";
+            this.exportSelectedTemplatesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.exportSelectedTemplatesToolStripMenuItem.Text = "Export";
+            this.exportSelectedTemplatesToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripButton_Click);
+            // 
+            // saveTemplatesToolStripMenuItem
+            // 
+            this.saveTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
+            this.saveTemplatesToolStripMenuItem.Name = "saveTemplatesToolStripMenuItem";
+            this.saveTemplatesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.saveTemplatesToolStripMenuItem.Text = "Save";
+            this.saveTemplatesToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
+            // refreshTemplatesToolStripMenuItem
+            // 
+            this.refreshTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.refresh;
+            this.refreshTemplatesToolStripMenuItem.Name = "refreshTemplatesToolStripMenuItem";
+            this.refreshTemplatesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshTemplatesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.refreshTemplatesToolStripMenuItem.Text = "Refresh";
+            this.refreshTemplatesToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripButton_Click);
+            // 
+            // lvwPresets
+            // 
+            this.lvwPresets.AutoResizeColumnEnabled = false;
+            this.lvwPresets.AutoResizeColumnIndex = 0;
+            this.lvwPresets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader});
+            this.lvwPresets.ContextMenuStrip = this.listViewContextMenuStrip;
+            this.lvwPresets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwPresets.Location = new System.Drawing.Point(0, 0);
+            this.lvwPresets.Name = "lvwPresets";
+            this.lvwPresets.Size = new System.Drawing.Size(314, 416);
+            this.lvwPresets.SmallImageList = this.imageList1;
+            this.lvwPresets.TabIndex = 0;
+            this.lvwPresets.UseCompatibleStateImageBehavior = false;
+            this.lvwPresets.View = System.Windows.Forms.View.Details;
+            this.lvwPresets.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwPresets_DeleteKeyPressed);
+            this.lvwPresets.SelectedIndexChanged += new System.EventHandler(this.lvwPresets_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Description";
+            this.nameColumnHeader.Width = 277;
+            // 
             // EditPresets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,6 +433,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.listViewContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,5 +465,14 @@
         private System.Windows.Forms.CheckBox chkWrapText;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
+        private System.Windows.Forms.ToolStripButton exportToolStripButton;
+        private System.Windows.Forms.SaveFileDialog saveTemplateFileDialog;
+        private System.Windows.Forms.ContextMenuStrip listViewContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem addTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exportSelectedTemplatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveTemplatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshTemplatesToolStripMenuItem;
     }
 }

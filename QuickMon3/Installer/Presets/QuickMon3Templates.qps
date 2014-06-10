@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<qmpresets>
+<preset class="WMIQueryCollector" description="C drive free space (WMI)">
+<config><wmiQueries><wmiQuery name="C drive space left" namespace="root\CIMV2" machineName="."><stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" /><detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" columnNames="" /></wmiQuery></wmiQueries></config>
+</preset>
+<preset class="BizTalkPortAndOrchsCollector" description="Check all BizTalk Ports and Orchs are running">
+<config><bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" allReceiveLocations="True" allSendPorts="True" allOrchestrations="True"><receiveLocations></receiveLocations><sendPorts></sendPorts><orchestrations></orchestrations></bizTalkGroup></config>
+</preset>
+<preset class="BizTalkSuspendedCountCollector" description="Check BizTalk for any suspended instances">
+<config><bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" instancesWarning="5" instancesError="10" allHostsApps="True" showLastXDetails="10" raiseHtmlAlerts="True"><hosts /><apps /></bizTalkGroup></config>
+</preset>
+<preset class="EventLogCollector" description="Check for bad blocks on disk">
+<config><eventlogs><log computer="%LocalHost%" eventLog="System" typeInfo="False" typeWarn="True" typeErr="True" containsText="True" textFilter="bad" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10"><sources><source>disk</source></sources><eventIds /></log></eventlogs></config>
+</preset>
+<preset class="SqlDatabaseSizeCollector" description="Check QuickMon 3 database size">
+<config><databases><database name="QuickMon3" server="%LocalHost%" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="60" warningValueMB="100" errorValueMB="1024" /></databases></config>
+</preset>
+<preset class="SqlTableSizeCollector" description="Check QuickMon AlertMessages table size in SQL Server">
+<config><databases><database name="QuickMon3" server="%LocalHost%" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="60"><table name="AlertMessages" warningValue="100000" errorValue="1000000" /></database></databases></config>
+</preset>
+<preset class="SqlQueryCollector" description="Check QuickMon AlertMessages Warnings/Errors count in SQL Server">
+<config><queries><query name="QuickMon test" sqlServer="%LocalHost%" database="QuickMon3" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName=""><summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="100000" errorValue="1000000" successValue="" useRowCountAsValue="False" useExecuteTimeAsValue="False">select count(*) from AlertMessages where AlertLevel &gt; 1</summaryQuery><detailQuery useSP="False">select count(*) as [Rows] from AlertMessages where AlertLevel &gt; 1</detailQuery></query></queries></config>
+</preset>
+<preset class="PowerShellScriptRunnerCollector" description="Check QuickMon version &gt;= 3.14">
+<config>
+		<powerShellScripts>
+				<powerShellScriptRunner name="Get QuickMon version (&gt; 3.14)" returnCheckSequence="GWE">
+						<testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
+if (Test-Path $filePath){
+    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion
+    $versionArray = $versionInfo.Split(".")
+    $major = [int]$versionArray[0]
+    $minor = [int]$versionArray[1]
+    if ($major -eq 3 -and $minor -ge 14)
+    {
+       "Version check OK - "  + $versionInfo.ToString()
+    }
+    else
+    {
+        "Version check fail - " + $versionInfo.ToString()
+    }
+}
+else {
+    "'" + $filePath + "' does not exist!"
+}
+						</testScript>
+						<goodScript resultMatchType="Contains">Version check OK</goodScript>
+						<warningScript resultMatchType="Contains">Version check fail</warningScript>
+						<errorScript resultMatchType="Match">[any]</errorScript>
+				</powerShellScriptRunner>
+		</powerShellScripts>
+</config>
+</preset>
+<preset class="WMIQueryCollector" description="D drive free space (WMI)">
+<config><wmiQueries><wmiQuery name="D drive space left" namespace="root\CIMV2" machineName="."><stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'D:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" /><detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'D:'" columnNames="" /></wmiQuery></wmiQueries></config>
+</preset>
+<preset class="WMIQueryCollector" description="E drive free space (WMI)">
+<config><wmiQueries><wmiQuery name="E drive space left" namespace="root\CIMV2" machineName="."><stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'E:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" /><detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'E:'" columnNames="" /></wmiQuery></wmiQueries></config>
+</preset>
+<preset class="PerfCounterCollector" description="General System health">
+<config><performanceCounters><performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /><performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /><performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" /></performanceCounters></config>
+</preset>
+<preset class="IISAppPoolCollector" description="IIS - Is default App pool running">
+<config><machine name="localhost" usePerfCounter="True"><appPool name="DefaultAppPool" /></machine></config>
+</preset>
+<preset class="ServiceStateCollector" description="Is MSSQL Service running">
+<config><machine name="."><service name="SQL Server" /></machine></config>
+</preset>
+<preset class="WMIQueryCollector" description="Is network up">
+<config><wmiQueries><wmiQuery name="Is network up" namespace="root\CIMV2" machineName="."><stateQuery syntax="select NetConnectionStatus  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" returnValueIsInt="False" returnValueInverted="False" warningValue="0" errorValue="[any]" successValue="2" useRowCountAsValue="False" /><detailQuery syntax="select Caption, Speed, NetEnabled, NetConnectionStatus, MACAddress  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" columnNames="" /></wmiQuery></wmiQueries></config>
+</preset>
+<preset class="PowerShellScriptRunnerCollector" description="Is PowerShell 2 (or later) installed">
+<config>
+		<powerShellScripts>
+				<powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE">
+						<testScript>if ($host.Version.Major -ge 2){
+   "Success. Version: " + $host.Version.ToString()
+}
+else {
+   "Fail. Version: " + $host.Version.Major
+}
+</testScript>
+								<goodScript resultMatchType="Contains">Success</goodScript>
+								<warningScript resultMatchType="Match">[null]</warningScript>
+								<errorScript resultMatchType="Match">[any]</errorScript>
+						</powerShellScriptRunner>
+				</powerShellScripts>
+		</config>
+
+</preset>
+<preset class="PowerShellScriptRunnerCollector" description="Is PowerShell 4 installed">
+<config>
+		<powerShellScripts>
+				<powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE">
+						<testScript>if ($host.Version.Major -ge 4){
+   "Success. Version: " + $host.Version.ToString()
+}
+else {
+   "Fail. Version: " + $host.Version.Major
+}
+						</testScript>
+						<goodScript resultMatchType="Contains">Success</goodScript>
+						<warningScript resultMatchType="Match">[null]</warningScript>
+						<errorScript resultMatchType="Match">[any]</errorScript>
+				</powerShellScriptRunner>
+		</powerShellScripts>
+</config>
+</preset>
+<preset class="FileSystemCollector" description="Is QuickMon 3 installed">
+<config><directoryList><directory directoryPathFilter="C:\Program Files\Hen IT\QuickMon 3\*.config" testDirectoryExistOnly="True" testFilesExistOnly="True" errorOnFilesExist="False" warningFileCountMax="0" errorFileCountMax="0" warningFileSizeMaxKB="0" errorFileSizeMaxKB="0" fileMinAgeSec="0" fileMaxAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" /></directoryList></config>
+</preset>
+<preset class="RegistryQueryCollector" description="Is QuickMon Monitor pack file type registered">
+<config><queries><query name="QuickMon Monitor pack file type registered" useRemoteServer="False" server="" registryHive="ClassesRoot" path="QuickMon3\shell\open\command" keyName="" expandEnvironmentNames="False" returnValueIsNumber="False" successValue="[exists]" warningValue="[any]" errorValue="[notExists]" returnValueInARange="False" returnValueInverted="False" /></queries></config>
+</preset>
+<preset class="ServiceStateCollector" description="Is QuickMon Service running">
+<config><machine name="."><service name="QuickMon 3 Service" /></machine></config>
+</preset>
+<preset class="LogFileNotifier" description="Log File">
+<config><logFile path="c:\QuickMon.log" createNewFileSizeKB="0" /></config>
+</preset>
+<preset class="PingCollector" description="Ping Google">
+<config><hostAddress><entry pingMethod="Http" address="http://www.google.com" description="" maxTimeMS="2000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" /></hostAddress></config>
+</preset>
+<preset class="PingCollector" description="Ping Microsoft">
+<config><hostAddress><entry pingMethod="Http" address="http://www.Microsoft.com" description="" maxTimeMS="2000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" /></hostAddress></config>
+</preset>
+<preset class="SQLDatabaseNotifier" description="QuickMon Database">
+<config><connection sqlServer="%LocalHost%" database="QuickMon3" integratedSec="True" userName="" password=""><command cmndTimeOut="60" useSP="True" value="InsertMessage" alertFieldName="AlertLevel" collectorTypeFieldName="CollectorType" categoryFieldName="Category" previousStateFieldName="PreviousState" currentStateFieldName="CurrentState" detailsFieldName="Details" useSPForViewer="True" viewer="QueryMessages" dateTimeFieldName="InsertDate" /></connection></config>
+</preset>
+<preset class="PerfCounterCollector" description="System health (Localhost)">
+<config><performanceCounters><performanceCounter computer="%LocalHost%" category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /><performanceCounter computer="%LocalHost%" category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /><performanceCounter computer="%LocalHost%" category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" /></performanceCounters></config>
+</preset>
+<preset class="EventLogNotifier" description="This computer, Event source: QuickMon">
+<config><eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" /></config>
+</preset>
+</qmpresets>
