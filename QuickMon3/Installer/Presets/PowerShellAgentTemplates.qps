@@ -1,10 +1,36 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <qmpresets>
+<preset class="PowerShellScriptRunnerCollector" description="Check CGI object count">
+<config><powerShellScripts><powerShellScriptRunner name="Get GDI object count" returnCheckSequence="GWE"><testScript>#"Number of GUI handles per process"
+$sig = @'
+[DllImport("User32.dll")]
+public static extern int GetGuiResources(IntPtr hProcess, int uiFlags);
+'@
+
+Add-Type -MemberDefinition $sig -name NativeMethods -namespace Win32
+
+$processes = [System.Diagnostics.Process]::GetProcesses()
+[int]$gdiHandleCount = 0
+ForEach ($p in $processes)
+{
+    try{
+        $gdiHandles = [Win32.NativeMethods]::GetGuiResources($p.Handle, 0)
+        $gdiHandleCount += $gdiHandles
+        #$p.Name + " : " + $gdiHandles.ToString()   
+    }
+    catch {
+
+    }
+}
+if ( $gdiHandleCount -le 5000){
+   "OK - " + $gdiHandleCount.ToString()
+}
+else {
+   "Fail - " + $gdiHandleCount.ToString()
+}</testScript><goodScript resultMatchType="Contains">OK</goodScript><warningScript resultMatchType="Contains">Fail</warningScript><errorScript resultMatchType="Match">[any]</errorScript></powerShellScriptRunner></powerShellScripts></config>
+</preset>
 <preset class="PowerShellScriptRunnerCollector" description="Check QuickMon version &gt;= 3.14">
-<config>
-		<powerShellScripts>
-				<powerShellScriptRunner name="Get QuickMon version (&gt; 3.14)" returnCheckSequence="GWE">
-						<testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
+<config><powerShellScripts><powerShellScriptRunner name="Get QuickMon version (&gt; 3.14)" returnCheckSequence="GWE"><testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
 if (Test-Path $filePath){
     $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion
     $versionArray = $versionInfo.Split(".")
@@ -22,49 +48,24 @@ if (Test-Path $filePath){
 else {
     "'" + $filePath + "' does not exist!"
 }
-						</testScript>
-						<goodScript resultMatchType="Contains">Version check OK</goodScript>
-						<warningScript resultMatchType="Contains">Version check fail</warningScript>
-						<errorScript resultMatchType="Match">[any]</errorScript>
-				</powerShellScriptRunner>
-		</powerShellScripts>
-</config>
+						</testScript><goodScript resultMatchType="Contains">Version check OK</goodScript><warningScript resultMatchType="Contains">Version check fail</warningScript><errorScript resultMatchType="Match">[any]</errorScript></powerShellScriptRunner></powerShellScripts></config>
 </preset>
 <preset class="PowerShellScriptRunnerCollector" description="Is PowerShell 2 (or later) installed">
-<config>
-		<powerShellScripts>
-				<powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE">
-						<testScript>if ($host.Version.Major -ge 2){
+<config><powerShellScripts><powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE"><testScript>if ($host.Version.Major -ge 2){
    "Success. Version: " + $host.Version.ToString()
 }
 else {
    "Fail. Version: " + $host.Version.Major
 }
-</testScript>
-								<goodScript resultMatchType="Contains">Success</goodScript>
-								<warningScript resultMatchType="Match">[null]</warningScript>
-								<errorScript resultMatchType="Match">[any]</errorScript>
-						</powerShellScriptRunner>
-				</powerShellScripts>
-		</config>
-
+</testScript><goodScript resultMatchType="Contains">Success</goodScript><warningScript resultMatchType="Match">[null]</warningScript><errorScript resultMatchType="Match">[any]</errorScript></powerShellScriptRunner></powerShellScripts></config>
 </preset>
 <preset class="PowerShellScriptRunnerCollector" description="Is PowerShell 4 installed">
-<config>
-		<powerShellScripts>
-				<powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE">
-						<testScript>if ($host.Version.Major -ge 4){
+<config><powerShellScripts><powerShellScriptRunner name="PowerShell 4" returnCheckSequence="GWE"><testScript>if ($host.Version.Major -ge 4){
    "Success. Version: " + $host.Version.ToString()
 }
 else {
    "Fail. Version: " + $host.Version.Major
 }
-						</testScript>
-						<goodScript resultMatchType="Contains">Success</goodScript>
-						<warningScript resultMatchType="Match">[null]</warningScript>
-						<errorScript resultMatchType="Match">[any]</errorScript>
-				</powerShellScriptRunner>
-		</powerShellScripts>
-</config>
+						</testScript><goodScript resultMatchType="Contains">Success</goodScript><warningScript resultMatchType="Match">[null]</warningScript><errorScript resultMatchType="Match">[any]</errorScript></powerShellScriptRunner></powerShellScripts></config>
 </preset>
 </qmpresets>

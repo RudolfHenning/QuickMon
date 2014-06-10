@@ -1,23 +1,9 @@
-<?xml version="1.0"  encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <qmpresets>
-<preset class="BizTalkPortAndOrchsCollector" name="BizTalk Ports and Orchs" description="Check all BizTalk Ports and Orchs are running">
-<config>
-		<bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" allReceiveLocations="True" allSendPorts="True" allOrchestrations="True">
-				<receiveLocations>
-				</receiveLocations>
-				<sendPorts>
-				</sendPorts>
-				<orchestrations>
-				</orchestrations>
-		</bizTalkGroup>
-</config>
+<preset class="BizTalkPortAndOrchsCollector" description="Check all BizTalk Ports and Orchs are running">
+<config><bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" allReceiveLocations="True" allSendPorts="True" allOrchestrations="True"><receiveLocations></receiveLocations><sendPorts></sendPorts><orchestrations></orchestrations></bizTalkGroup></config>
 </preset>
-<preset class="BizTalkSuspendedCountCollector" name="BizTalk suspended instances" description="Check BizTalk for any suspended instances">
-<config>
-		<bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" instancesWarning="1" instancesError="10" allHostsApps="True" showLastXDetails="10" raiseHtmlAlerts="True">
-				<hosts />
-				<apps />
-		</bizTalkGroup>
-</config>
+<preset class="BizTalkSuspendedCountCollector" description="Check BizTalk for any suspended instances">
+<config><bizTalkGroup sqlServer="%LocalHost%" mgmtDb="BizTalkMgmtDb" instancesWarning="1" instancesError="10" allHostsApps="True" showLastXDetails="10" raiseHtmlAlerts="True"><hosts /><apps /></bizTalkGroup></config>
 </preset>
 </qmpresets>

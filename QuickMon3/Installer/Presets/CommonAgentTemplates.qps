@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <qmpresets>
+<preset class="PerfCounterCollector" description="% Page File usage">
+<config><performanceCounters><performanceCounter computer="." category="Paging File" counter="% Usage" instance="_Total" returnValueInverted="False" warningValue="50" errorValue="70" /></performanceCounters></config>
+</preset>
 <preset class="WMIQueryCollector" description="C drive free space (WMI)">
 <config><wmiQueries><wmiQuery name="C drive space left" namespace="root\CIMV2" machineName="."><stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" /><detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" columnNames="" /></wmiQuery></wmiQueries></config>
 </preset>
@@ -9,8 +12,8 @@
 <preset class="PerfCounterCollector" description="General System health">
 <config><performanceCounters><performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /><performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /><performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" /></performanceCounters></config>
 </preset>
-<preset class="ServiceStateCollector" description="Is MSSQL Service running">
-<config><machine name="."><service name="SQL Server" /></machine></config>
+<preset class="InMemoryNotifier" description="In Memory">
+<config><inMemory maxEntryCount="99999" /></config>
 </preset>
 <preset class="WMIQueryCollector" description="Is network up">
 <config><wmiQueries><wmiQuery name="Is network up" namespace="root\CIMV2" machineName="."><stateQuery syntax="select NetConnectionStatus  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" returnValueIsInt="False" returnValueInverted="False" warningValue="0" errorValue="[any]" successValue="2" useRowCountAsValue="False" /><detailQuery syntax="select Caption, Speed, NetEnabled, NetConnectionStatus, MACAddress  from Win32_NetworkAdapter where NetConnectionID = 'Local Area Connection'" columnNames="" /></wmiQuery></wmiQueries></config>
@@ -21,17 +24,23 @@
 <preset class="RegistryQueryCollector" description="Is QuickMon Monitor pack file type registered">
 <config><queries><query name="QuickMon Monitor pack file type registered" useRemoteServer="False" server="" registryHive="ClassesRoot" path="QuickMon3\shell\open\command" keyName="" expandEnvironmentNames="False" returnValueIsNumber="False" successValue="[exists]" warningValue="[any]" errorValue="[notExists]" returnValueInARange="False" returnValueInverted="False" /></queries></config>
 </preset>
-<preset class="ServiceStateCollector" description="Is QuickMon Service running">
-<config><machine name="."><service name="QuickMon 3 Service" /></machine></config>
-</preset>
 <preset class="LogFileNotifier" description="Log File">
 <config><logFile path="c:\QuickMon.log" createNewFileSizeKB="0" /></config>
+</preset>
+<preset class="WMIQueryCollector" description="Page file hog processes">
+<config><wmiQueries><wmiQuery name="Page file hog processes" namespace="root\CIMV2" machineName="."><stateQuery syntax="select * from Win32_Process where PageFileUsage &gt; 500000" returnValueIsInt="True" returnValueInverted="False" warningValue="1" errorValue="2" successValue="0" useRowCountAsValue="True" /><detailQuery syntax="select PageFileUsage,&#xD;&#xA;CommandLine,CreationClassName,CSCreationClassName,CSName,Description,ExecutablePath,ExecutionState,Handle,HandleCount,InstallDate,KernelModeTime,MaximumWorkingSetSize,MinimumWorkingSetSize,Name,OSCreationClassName,OSName,OtherOperationCount,OtherTransferCount,PageFaults,ParentProcessId,PeakPageFileUsage,PeakVirtualSize,PeakWorkingSetSize,Priority,PrivatePageCount,ProcessId,QuotaNonPagedPoolUsage,QuotaPagedPoolUsage,QuotaPeakNonPagedPoolUsage,QuotaPeakPagedPoolUsage,ReadOperationCount,ReadTransferCount,SessionId,Status,TerminationDate,ThreadCount,UserModeTime,VirtualSize,WindowsVersion,WorkingSetSize,WriteOperationCount,WriteTransferCount&#xD;&#xA;from Win32_Process where PageFileUsage &gt; 500000" columnNames="PageFileUsage, CommandLine, CreationClassName, CSCreationClassName, CSName, Description, ExecutablePath, ExecutionState, Handle, HandleCount, InstallDate, KernelModeTime, MaximumWorkingSetSize, MinimumWorkingSetSize, Name, OSCreationClassName, OSName, OtherOperationCount, OtherTransferCount, PageFaults, ParentProcessId, PeakPageFileUsage, PeakVirtualSize, PeakWorkingSetSize, Priority, PrivatePageCount, ProcessId, QuotaNonPagedPoolUsage, QuotaPagedPoolUsage, QuotaPeakNonPagedPoolUsage, QuotaPeakPagedPoolUsage, ReadOperationCount, ReadTransferCount, SessionId, Status, TerminationDate, ThreadCount, UserModeTime, VirtualSize, WindowsVersion, WorkingSetSize, WriteOperationCount, WriteTransferCount" /></wmiQuery></wmiQueries></config>
 </preset>
 <preset class="PingCollector" description="Ping Google">
 <config><hostAddress><entry pingMethod="Http" address="http://www.google.com" description="" maxTimeMS="2000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" /></hostAddress></config>
 </preset>
 <preset class="PingCollector" description="Ping Microsoft">
 <config><hostAddress><entry pingMethod="Http" address="http://www.Microsoft.com" description="" maxTimeMS="2000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" /></hostAddress></config>
+</preset>
+<preset class="AudioNotifier" description="QuickMon sound alerts">
+<config><audioConfig><goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="0" soundRepeatCount="1" soundVolumePerc="0" audioFilePath="" repeatCount="1" /><warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" /><errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" /></audioConfig></config>
+</preset>
+<preset class="WMIQueryCollector" description="System cooling fans">
+<config><wmiQueries><wmiQuery name="System cooling fans running" namespace="root\CIMV2" machineName="."><stateQuery syntax="select * from Win32_Fan where (Status != 'OK')" returnValueIsInt="True" returnValueInverted="False" warningValue="1" errorValue="[any]" successValue="0" useRowCountAsValue="True" /><detailQuery syntax="select * from Win32_Fan where (Status = 'OK')" columnNames="" /></wmiQuery></wmiQueries></config>
 </preset>
 <preset class="EventLogNotifier" description="This computer, Event source: QuickMon">
 <config><eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" /></config>

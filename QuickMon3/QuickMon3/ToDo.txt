@@ -1,5 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
-
+Collector history to include which alerts (notifiers) fired.
 
 
 --------------------------------------------------------------------------------------------------------
