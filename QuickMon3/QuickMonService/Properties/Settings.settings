@@ -24,5 +24,8 @@
     <Setting Name="WcfServiceURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:8181/QMRemoteAgent</Value>
     </Setting>
+    <Setting Name="WcfEnableMetadata" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

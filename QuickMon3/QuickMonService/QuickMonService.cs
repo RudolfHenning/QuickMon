@@ -103,6 +103,15 @@ namespace QuickMon
                     wcfServiceHost.Close();
                 }
                 wcfServiceHost = new ServiceHost(typeof(CollectorEntryRelay), baseAddress);
+                if (Properties.Settings.Default.WcfEnableMetadata)
+                {
+                    // Enable metadata publishing.
+                    System.ServiceModel.Description.ServiceMetadataBehavior smb = new System.ServiceModel.Description.ServiceMetadataBehavior();
+                    smb.HttpGetEnabled = true;
+                    smb.MetadataExporter.PolicyVersion = System.ServiceModel.Description.PolicyVersion.Policy15;
+                    wcfServiceHost.Description.Behaviors.Add(smb);
+                    wcfServiceHost.AddServiceEndpoint(typeof(ICollectorEntryRelay), new BasicHttpBinding(), baseAddress);
+                }
                 wcfServiceHost.Open();
             }
         }

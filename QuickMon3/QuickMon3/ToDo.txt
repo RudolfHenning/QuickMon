@@ -160,5 +160,8 @@ Extend Presets/Templates
 	App setting for preference to select agents by preset or type first
 	Editing Presets
     Also "reset' option from installed set
+
+v3.16
+Add WcfEnableMetadata setting to Windows service
 -------------------------------------------------------------------------------------------------------
 
