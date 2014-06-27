@@ -245,5 +245,10 @@ namespace QuickMon.Forms
             optSelectPreset.Checked = AgentHelper.LastCreateAgentOption == 0;
             optShowConfigEditor.Checked = AgentHelper.LastCreateAgentOption == 1;
         }
+
+        private void lvwAgentType_EnterKeyPressed()
+        {
+            cmdOK_Click(null, null);
+        }
     }
 }

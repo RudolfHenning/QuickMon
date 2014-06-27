@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuickMonCoreUI")]
-[assembly: AssemblyDescription("Core component of QuickMon (Winform UI)")]
+[assembly: AssemblyTitle("QuickMon Web Service Agents")]
+[assembly: AssemblyDescription("Web Service Agents")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("QuickMon")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("eae0ac9d-d4f0-447b-a878-a1aabde739eb")]
+[assembly: Guid("6e6a661b-74cb-4d11-a9bf-51d1366b87fe")]
 
 // Version information for an assembly consists of the following four values:
 //

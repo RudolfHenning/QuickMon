@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectNewAgentType));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -39,7 +40,7 @@
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.chkShowDetails = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -151,7 +152,9 @@
             this.lvwAgentType.TabIndex = 1;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
             this.lvwAgentType.View = System.Windows.Forms.View.Details;
+            this.lvwAgentType.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwAgentType_EnterKeyPressed);
             this.lvwAgentType.SelectedIndexChanged += new System.EventHandler(this.lvwAgentType_SelectedIndexChanged);
+            this.lvwAgentType.DoubleClick += new System.EventHandler(this.cmdOK_Click);
             // 
             // nameColumnHeader
             // 

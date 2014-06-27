@@ -163,5 +163,6 @@ Extend Presets/Templates
 
 v3.16
 Add WcfEnableMetadata setting to Windows service
+Adding Dynamic Web Service Collector (to replace SOAP web service collector )
 -------------------------------------------------------------------------------------------------------
 

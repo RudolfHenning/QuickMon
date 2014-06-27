@@ -31,9 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonPowerShellAgents", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonAudioNotifier", "QuickMonAudioNotifier\QuickMonAudioNotifier.csproj", "{4C88D3AF-AE41-4DB4-924F-0F899C43581C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonWebServiceAgents", "QuickMonWebServiceAgents\QuickMonWebServiceAgents.csproj", "{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 15
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -79,6 +81,9 @@ Global
 		SccProjectUniqueName14 = QuickMonAudioNotifier\\QuickMonAudioNotifier.csproj
 		SccProjectName14 = QuickMonAudioNotifier
 		SccLocalPath14 = QuickMonAudioNotifier
+		SccProjectUniqueName15 = QuickMonWebServiceAgents\\QuickMonWebServiceAgents.csproj
+		SccProjectName15 = QuickMonWebServiceAgents
+		SccLocalPath15 = QuickMonWebServiceAgents
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +146,10 @@ Global
 		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C88D3AF-AE41-4DB4-924F-0F899C43581C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

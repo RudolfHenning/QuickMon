@@ -1,0 +1,10 @@
+<config>
+  <webServices>
+    <!--
+      <webService url="" serviceBindingName="" method="" paramatersCSV=""         
+        resultIsSuccess="True" 
+		valueExpectedReturnType="0" macroFormatType="0" arrayIndex="0" columnIndex="0"
+		valueOrMacro="" useRegEx="False" />
+      -->
+  </webServices>
+</config>
