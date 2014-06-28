@@ -42,6 +42,7 @@ rem "C:\Program Files\7-Zip\7z.exe" a -mx9 PowerShellAgents.zip CopyAsAdmin.exe.
 "C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonOLEDBAgents.dll
 "C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonSQLAgents.dll
 "C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonPowerShellAgents.dll
+"C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip QuickMonWebServiceAgents.dll
 "C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip System.Management.Automation.dll
 "C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip ExtraAgentsReadme.txt
 "C:\Program Files\7-Zip\7z.exe" a -mx9 AllAgents.zip InstallAllAgents.cmd
