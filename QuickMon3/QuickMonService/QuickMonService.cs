@@ -102,6 +102,12 @@ namespace QuickMon
                 {
                     wcfServiceHost.Close();
                 }
+                if (Properties.Settings.Default.WcfRenameLocalHostNameToRealHost)
+                {
+                    if (Properties.Settings.Default.WcfServiceURL.Contains("localhost"))
+                        baseAddress = new Uri(Properties.Settings.Default.WcfServiceURL.Replace("localhost", System.Net.Dns.GetHostName()));
+                }
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Starting Remote Agent Host service for : " + baseAddress.OriginalString, EventLogEntryType.Information, 0);
                 wcfServiceHost = new ServiceHost(typeof(CollectorEntryRelay), baseAddress);
                 if (Properties.Settings.Default.WcfEnableMetadata)
                 {

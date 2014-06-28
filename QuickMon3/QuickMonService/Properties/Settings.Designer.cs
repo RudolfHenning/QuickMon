@@ -110,13 +110,25 @@ namespace QuickMon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool WcfEnableMetadata {
             get {
                 return ((bool)(this["WcfEnableMetadata"]));
             }
             set {
                 this["WcfEnableMetadata"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WcfRenameLocalHostNameToRealHost {
+            get {
+                return ((bool)(this["WcfRenameLocalHostNameToRealHost"]));
+            }
+            set {
+                this["WcfRenameLocalHostNameToRealHost"] = value;
             }
         }
     }

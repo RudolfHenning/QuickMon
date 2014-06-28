@@ -25,7 +25,10 @@
       <Value Profile="(Default)">http://localhost:8181/QMRemoteAgent</Value>
     </Setting>
     <Setting Name="WcfEnableMetadata" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="WcfRenameLocalHostNameToRealHost" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

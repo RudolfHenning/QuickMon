@@ -114,8 +114,11 @@ namespace QuickMon.Forms
             //{
             //    addPresetToolStripButton.Visible = true;
             //}
-
-            if (LaunchAddEntry && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
+            if (ShowRawEditOnStart && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
+            {
+                llblRawEdit_LinkClicked(null, null);
+            }
+            else if (LaunchAddEntry && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
             {
                 if (((ICollectorConfig)SelectedEntry.Collector.AgentConfig).Entries.Count == 0)
                     addCollectorConfigEntryToolStripButton_Click(null, null);
@@ -125,10 +128,7 @@ namespace QuickMon.Forms
                     editCollectorConfigEntryToolStripButton_Click(null, null);
                 }
             }
-            else if (ShowRawEditOnStart && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
-            {
-                llblRawEdit_LinkClicked(null, null);
-            }
+            
             //else if (ShowSelectPresetOnStart && SelectedEntry != null && SelectedEntry.Collector != null) // && SelectedEntry.Collector.GetPresets().Count > 0)
             //{                
             //    if (presetsAvailable)
