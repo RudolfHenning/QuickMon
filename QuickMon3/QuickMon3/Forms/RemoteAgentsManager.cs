@@ -298,30 +298,41 @@ namespace QuickMon.Forms
                     }
                     else
                     {
-                        MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
-
-                        if (testState.State == CollectorState.Good)
+                        try
                         {
-                            imageIndex = 0;
-                            try
+                            MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
+
+                            if (testState.State == CollectorState.Good)
                             {
-                                string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
-                                lvi.SubItems[1].Text = versionInfo;
-                            }
-                            catch (Exception ex)
-                            {
-                                if (ex.Message.Contains("ContractFilter"))
+                                imageIndex = 0;
+                                try
                                 {
-                                    lvi.SubItems[1].Text = "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.";
+                                    string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
+                                    lvi.SubItems[1].Text = versionInfo;
                                 }
-                                else
-                                    lvi.SubItems[1].Text = ex.Message;
+                                catch (Exception ex)
+                                {
+                                    if (ex.Message.Contains("ContractFilter"))
+                                    {
+                                        lvi.SubItems[1].Text = "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.";
+                                    }
+                                    else
+                                        lvi.SubItems[1].Text = ex.Message;
+                                }
+                            }
+                            else
+                            {
+                                imageIndex = 2;
+                                lvi.SubItems[1].Text = "N/A";
                             }
                         }
-                        else
+                        catch (Exception delegateEx)
                         {
-                            imageIndex = 2;
-                            lvi.SubItems[1].Text = "N/A";
+                            imageIndex = 3;
+                            if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
+                                lvi.SubItems[1].Text = "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.";
+                            else
+                                lvi.SubItems[1].Text = delegateEx.Message;
                         }
                     }
                 });

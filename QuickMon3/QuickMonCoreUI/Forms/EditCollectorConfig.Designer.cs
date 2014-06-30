@@ -40,17 +40,22 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.agentSettingstabPage = new System.Windows.Forms.TabPage();
             this.panCollectorConfigContainer = new System.Windows.Forms.Panel();
+            this.tvwEntries = new QuickMon.TreeViewEx();
             this.itemsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entriesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.lvwEntries = new QuickMon.ListViewEx();
+            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.addPresetToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.llblCollectorType = new System.Windows.Forms.LinkLabel();
@@ -127,11 +132,7 @@
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
-            this.tvwEntries = new QuickMon.TreeViewEx();
-            this.lvwEntries = new QuickMon.ListViewEx();
-            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -280,6 +281,22 @@
             this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 304);
             this.panCollectorConfigContainer.TabIndex = 1;
             // 
+            // tvwEntries
+            // 
+            this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
+            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwEntries.FullRowSelect = true;
+            this.tvwEntries.ImageIndex = 0;
+            this.tvwEntries.ImageList = this.entriesImageList;
+            this.tvwEntries.Location = new System.Drawing.Point(0, 160);
+            this.tvwEntries.Name = "tvwEntries";
+            this.tvwEntries.SelectedImageIndex = 0;
+            this.tvwEntries.Size = new System.Drawing.Size(568, 144);
+            this.tvwEntries.TabIndex = 2;
+            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
+            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
+            this.tvwEntries.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwEntries_KeyUp);
+            // 
             // itemsContextMenuStrip
             // 
             this.itemsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -320,6 +337,39 @@
             this.entriesImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.entriesImageList.Images.SetKeyName(0, "5_50.ico");
             this.entriesImageList.Images.SetKeyName(1, "243.ico");
+            // 
+            // lvwEntries
+            // 
+            this.lvwEntries.AutoResizeColumnEnabled = false;
+            this.lvwEntries.AutoResizeColumnIndex = 0;
+            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.entriesColumnHeader,
+            this.triggerColumnHeader});
+            this.lvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
+            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lvwEntries.FullRowSelect = true;
+            this.lvwEntries.HideSelection = false;
+            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
+            this.lvwEntries.Name = "lvwEntries";
+            this.lvwEntries.Size = new System.Drawing.Size(568, 135);
+            this.lvwEntries.SmallImageList = this.entriesImageList;
+            this.lvwEntries.TabIndex = 1;
+            this.lvwEntries.UseCompatibleStateImageBehavior = false;
+            this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
+            // 
+            // entriesColumnHeader
+            // 
+            this.entriesColumnHeader.Text = "Entries";
+            this.entriesColumnHeader.Width = 293;
+            // 
+            // triggerColumnHeader
+            // 
+            this.triggerColumnHeader.Text = "Alert triggers";
+            this.triggerColumnHeader.Width = 249;
             // 
             // collectorEditToolStrip
             // 
@@ -386,6 +436,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(568, 26);
             this.panel2.TabIndex = 1;
+            // 
+            // llblExportConfigAsTemplate
+            // 
+            this.llblExportConfigAsTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblExportConfigAsTemplate.AutoSize = true;
+            this.llblExportConfigAsTemplate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(123, 10);
+            this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
+            this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
+            this.llblExportConfigAsTemplate.TabIndex = 12;
+            this.llblExportConfigAsTemplate.TabStop = true;
+            this.llblExportConfigAsTemplate.Text = "Export config as template";
+            this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
             // 
             // llblRawEdit
             // 
@@ -720,6 +783,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chkBlockParentRHOverride);
             this.groupBox2.Controls.Add(this.chkForceRemoteExcuteOnChildCollectors);
             this.groupBox2.Controls.Add(this.llblRemoteAgentInstallHelp);
             this.groupBox2.Controls.Add(this.label17);
@@ -742,7 +806,7 @@
             this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(177, 23);
             this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
             this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
-            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 3;
             this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
             this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
             this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -755,7 +819,7 @@
             this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 0;
+            this.llblRemoteAgentInstallHelp.TabIndex = 1;
             this.llblRemoteAgentInstallHelp.TabStop = true;
             this.llblRemoteAgentInstallHelp.Text = "Install help";
             this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
@@ -777,7 +841,7 @@
             this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(25, 23);
             this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
             this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
-            this.chkRemoteAgentEnabled.TabIndex = 1;
+            this.chkRemoteAgentEnabled.TabIndex = 2;
             this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
             this.chkRemoteAgentEnabled.UseVisualStyleBackColor = true;
             this.chkRemoteAgentEnabled.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -799,7 +863,7 @@
             0});
             this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
-            this.remoteportNumericUpDown.TabIndex = 6;
+            this.remoteportNumericUpDown.TabIndex = 8;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
             8181,
             0,
@@ -812,7 +876,7 @@
             this.label13.Location = new System.Drawing.Point(15, 51);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 13);
-            this.label13.TabIndex = 3;
+            this.label13.TabIndex = 5;
             this.label13.Text = "Remote server name";
             // 
             // label14
@@ -822,7 +886,7 @@
             this.label14.Location = new System.Drawing.Point(340, 51);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
-            this.label14.TabIndex = 5;
+            this.label14.TabIndex = 7;
             this.label14.Text = "Port";
             // 
             // txtRemoteAgentServer
@@ -835,7 +899,7 @@
             this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 48);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
             this.txtRemoteAgentServer.Size = new System.Drawing.Size(196, 20);
-            this.txtRemoteAgentServer.TabIndex = 4;
+            this.txtRemoteAgentServer.TabIndex = 6;
             this.txtRemoteAgentServer.Leave += new System.EventHandler(this.txtRemoteAgentServer_Leave);
             // 
             // cmdRemoteAgentTest
@@ -846,7 +910,7 @@
             this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 46);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
-            this.cmdRemoteAgentTest.TabIndex = 7;
+            this.cmdRemoteAgentTest.TabIndex = 9;
             this.cmdRemoteAgentTest.Text = "Test";
             this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
             this.cmdRemoteAgentTest.Click += new System.EventHandler(this.cmdRemoteAgentTest_Click);
@@ -1300,67 +1364,15 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // llblExportConfigAsTemplate
+            // chkBlockParentRHOverride
             // 
-            this.llblExportConfigAsTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblExportConfigAsTemplate.AutoSize = true;
-            this.llblExportConfigAsTemplate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(123, 10);
-            this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
-            this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
-            this.llblExportConfigAsTemplate.TabIndex = 12;
-            this.llblExportConfigAsTemplate.TabStop = true;
-            this.llblExportConfigAsTemplate.Text = "Export config as template";
-            this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
-            // 
-            // tvwEntries
-            // 
-            this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
-            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwEntries.FullRowSelect = true;
-            this.tvwEntries.ImageIndex = 0;
-            this.tvwEntries.ImageList = this.entriesImageList;
-            this.tvwEntries.Location = new System.Drawing.Point(0, 160);
-            this.tvwEntries.Name = "tvwEntries";
-            this.tvwEntries.SelectedImageIndex = 0;
-            this.tvwEntries.Size = new System.Drawing.Size(568, 144);
-            this.tvwEntries.TabIndex = 2;
-            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
-            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
-            this.tvwEntries.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwEntries_KeyUp);
-            // 
-            // lvwEntries
-            // 
-            this.lvwEntries.AutoResizeColumnEnabled = false;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
-            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.entriesColumnHeader,
-            this.triggerColumnHeader});
-            this.lvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
-            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lvwEntries.FullRowSelect = true;
-            this.lvwEntries.HideSelection = false;
-            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
-            this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(568, 135);
-            this.lvwEntries.SmallImageList = this.entriesImageList;
-            this.lvwEntries.TabIndex = 1;
-            this.lvwEntries.UseCompatibleStateImageBehavior = false;
-            this.lvwEntries.View = System.Windows.Forms.View.Details;
-            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
-            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
-            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
-            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
-            // 
-            // entriesColumnHeader
-            // 
-            this.entriesColumnHeader.Text = "Entries";
-            this.entriesColumnHeader.Width = 293;
-            // 
-            // triggerColumnHeader
-            // 
-            this.triggerColumnHeader.Text = "Alert triggers";
-            this.triggerColumnHeader.Width = 249;
+            this.chkBlockParentRHOverride.AutoSize = true;
+            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(322, 23);
+            this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
+            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
+            this.chkBlockParentRHOverride.TabIndex = 4;
+            this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
+            this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
             // 
             // EditCollectorConfig
             // 
@@ -1528,5 +1540,6 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ToolStripButton addPresetToolStripButton;
         private System.Windows.Forms.LinkLabel llblExportConfigAsTemplate;
+        private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
     }
 }

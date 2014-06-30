@@ -256,7 +256,7 @@
             // remoteAgentColumnHeader
             // 
             this.remoteAgentColumnHeader.Text = "Remote agent";
-            this.remoteAgentColumnHeader.Width = 259;
+            this.remoteAgentColumnHeader.Width = 184;
             // 
             // versionColumnHeader
             // 

@@ -91,6 +91,7 @@ namespace QuickMon
                     plainTextDetails.AppendLine(string.Format("Collector: {0}, State: N/A", ce.Name));
                     htmlTextTextDetails.AppendLine(string.Format("<p><b>Collector</b>: {0}, State: N/A</p>", ce.Name));
                 }
+                monitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                 monitorState.RawDetails = plainTextDetails.ToString();
                 monitorState.HtmlDetails = htmlTextTextDetails.ToString();
                 Console.WriteLine(" State   : {0}", monitorState.State);

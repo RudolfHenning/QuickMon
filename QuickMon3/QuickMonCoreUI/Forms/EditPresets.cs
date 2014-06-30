@@ -133,44 +133,47 @@ namespace QuickMon.Forms
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     int importCount = 0;
-                    List<AgentPresetConfig> newPresets = AgentPresetConfig.ReadPresetsFromFile(openFileDialogOpen.FileName);
-
-                    foreach (string agentType in (from p in newPresets
-                                                  group p by p.AgentClassName into g
-                                                  select g.Key))
+                    foreach (string fileName in openFileDialogOpen.FileNames)
                     {
-                        if ((from ListViewGroup gr in lvwPresets.Groups
-                             where gr.Header == agentType
-                             select gr).Count() == 0)
-                            lvwPresets.Groups.Add(new ListViewGroup(agentType));
-                    }
+                        List<AgentPresetConfig> newPresets = AgentPresetConfig.ReadPresetsFromFile(fileName);
 
-                    foreach (AgentPresetConfig preset in newPresets)
-                    {
-                        ListViewItem lvi = (from ListViewItem lv in lvwPresets.Items
-                                            where lv.Tag is AgentPresetConfig &&
-                                                ((AgentPresetConfig)lv.Tag).AgentClassName == preset.AgentClassName &&
-                                                lv.Text.ToLower() == preset.Description.ToLower()
-                                            select lv).FirstOrDefault();
-
-                        if (lvi == null)
+                        foreach (string agentType in (from p in newPresets
+                                                      group p by p.AgentClassName into g
+                                                      select g.Key))
                         {
-                            lvi = new ListViewItem(preset.Description);
-                            lvi.ImageIndex = 0;
-                            lvi.Group = (from ListViewGroup gr in lvwPresets.Groups
-                                         where gr.Header == preset.AgentClassName
-                                         select gr).FirstOrDefault();
-                            lvi.Tag = preset;
-                            lvwPresets.Items.Add(lvi);
-                            importCount++;
+                            if ((from ListViewGroup gr in lvwPresets.Groups
+                                 where gr.Header == agentType
+                                 select gr).Count() == 0)
+                                lvwPresets.Groups.Add(new ListViewGroup(agentType));
                         }
-                        else if (r == System.Windows.Forms.DialogResult.Yes)
+
+                        foreach (AgentPresetConfig preset in newPresets)
                         {
-                            lvi.Group = (from ListViewGroup gr in lvwPresets.Groups
-                                         where gr.Header == preset.AgentClassName
-                                         select gr).FirstOrDefault();
-                            lvi.Tag = preset;                            
-                            importCount++;
+                            ListViewItem lvi = (from ListViewItem lv in lvwPresets.Items
+                                                where lv.Tag is AgentPresetConfig &&
+                                                    ((AgentPresetConfig)lv.Tag).AgentClassName == preset.AgentClassName &&
+                                                    lv.Text.ToLower() == preset.Description.ToLower()
+                                                select lv).FirstOrDefault();
+
+                            if (lvi == null)
+                            {
+                                lvi = new ListViewItem(preset.Description);
+                                lvi.ImageIndex = 0;
+                                lvi.Group = (from ListViewGroup gr in lvwPresets.Groups
+                                             where gr.Header == preset.AgentClassName
+                                             select gr).FirstOrDefault();
+                                lvi.Tag = preset;
+                                lvwPresets.Items.Add(lvi);
+                                importCount++;
+                            }
+                            else if (r == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                lvi.Group = (from ListViewGroup gr in lvwPresets.Groups
+                                             where gr.Header == preset.AgentClassName
+                                             select gr).FirstOrDefault();
+                                lvi.Tag = preset;
+                                importCount++;
+                            }
                         }
                     }
                     //SetTitleChanged();

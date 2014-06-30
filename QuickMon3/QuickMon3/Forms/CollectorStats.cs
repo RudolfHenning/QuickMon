@@ -25,8 +25,8 @@ namespace QuickMon
             RefreshCollectorStats();
             lvwProperties.AutoResizeColumnIndex = 1;
             lvwProperties.AutoResizeColumnEnabled = true;
-            lvwHistory.AutoResizeColumnIndex = 3;
-            lvwHistory.AutoResizeColumnEnabled = true;
+            //lvwHistory.AutoResizeColumnIndex = 3;
+            //lvwHistory.AutoResizeColumnEnabled = true;
             splitContainer1.Panel2Collapsed = true;
         }
         private void CollectorStats_KeyDown(object sender, KeyEventArgs e)
@@ -91,14 +91,29 @@ namespace QuickMon
                 {
                     foreach (ListViewItem lvi in currentListView.SelectedItems)
                     {
-                        rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
-                        rtfBuilder.AppendLine(lvi.Text);
-                        rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
-                        rtfBuilder.AppendLine(lvi.SubItems[1].Text);
-                        rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ");
-                        rtfBuilder.AppendLine(lvi.SubItems[2].Text + " ms");
-                        rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
-                        rtfBuilder.AppendLine(lvi.SubItems[3].Text);
+                        if (lvi.Tag is MonitorState)
+                        {
+                            MonitorState historyItem = (MonitorState)lvi.Tag;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
+                            rtfBuilder.AppendLine(lvi.Text);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[1].Text);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[2].Text + " ms");
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[3].Text.TrimEnd('\r', '\n'));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed by: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[4].Text);                            
+                            if (historyItem.AlertsRaised.Count > 0)
+                            {
+                                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Alerts: ");
+                                foreach(string alertEntry in historyItem.AlertsRaised)
+                                {
+                                    rtfBuilder.AppendLine("  " + alertEntry);
+                                }
+                            }
+                            rtfBuilder.AppendLine(new string('-', 80));
+                        }
                     }
                 }
                 rtxDetails.Rtf = rtfBuilder.ToString();
@@ -170,6 +185,16 @@ namespace QuickMon
                     lvi.SubItems.Add(SelectedEntry.CurrentState.RawDetails);
                     lvi.Group = lvgCurrent;
                     lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Executed on");
+                    lvi.SubItems.Add(SelectedEntry.CurrentState.ExecutedOnHostComputer);
+                    lvi.Group = lvgCurrent;
+                    lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Alert(s) raised");
+                    lvi.SubItems.Add(SelectedEntry.CurrentState.AlertsRaised.Count > 0 ? "Yes" : "No");
+                    lvi.Group = lvgCurrent;
+                    lvwProperties.Items.Add(lvi);
                     #endregion
 
                     #region Previous state
@@ -195,20 +220,30 @@ namespace QuickMon
                     lvi.SubItems.Add(SelectedEntry.LastMonitorState.RawDetails);
                     lvi.Group = lvgPrevious;
                     lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Executed on");
+                    lvi.SubItems.Add(SelectedEntry.LastMonitorState.ExecutedOnHostComputer);
+                    lvi.Group = lvgPrevious;
+                    lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Alert(s) raised");
+                    lvi.SubItems.Add(SelectedEntry.LastMonitorState.AlertsRaised.Count > 0 ? "Yes" : "No");
+                    lvi.Group = lvgPrevious;
+                    lvwProperties.Items.Add(lvi);
                     #endregion
 
                     #region Remote host details
                     ListViewGroup lvgRemoteHost = new ListViewGroup("Remote agent host");
                     lvwProperties.Groups.Add(lvgRemoteHost);
                     lvi = new ListViewItem("Remote agent host enabled");
-                    if (SelectedEntry.EnableRemoteExecute || SelectedEntry.OverrideRemoteAgentHost) //|| SelectedEntry.ForceRemoteExcuteOnChildCollectors
+                    if (SelectedEntry.EnableRemoteExecute || (SelectedEntry.OverrideRemoteAgentHost && !SelectedEntry.BlockParentOverrideRemoteAgentHostSettings)) //|| SelectedEntry.ForceRemoteExcuteOnChildCollectors
                         lvi.SubItems.Add("Yes");
                     else
                         lvi.SubItems.Add("No");
                     lvi.Group = lvgRemoteHost;
                     lvwProperties.Items.Add(lvi);
 
-                    if (SelectedEntry.EnableRemoteExecute || SelectedEntry.OverrideRemoteAgentHost) //|| SelectedEntry.ForceRemoteExcuteOnChildCollectors
+                    if (SelectedEntry.EnableRemoteExecute || (SelectedEntry.OverrideRemoteAgentHost && !SelectedEntry.BlockParentOverrideRemoteAgentHostSettings)) //|| SelectedEntry.ForceRemoteExcuteOnChildCollectors
                     {
                         lvi = new ListViewItem("Remote agent host");
                         lvi.SubItems.Add(SelectedEntry.ToRemoteHostName());
@@ -356,7 +391,7 @@ namespace QuickMon
                     #endregion
 
                     #region History
-                    foreach (var historyItem in (from h in SelectedEntry.StateHistory
+                    foreach (MonitorState historyItem in (from h in SelectedEntry.StateHistory
                                                  orderby h.Timestamp descending
                                                  select h))
                     {
@@ -364,6 +399,8 @@ namespace QuickMon
                         lvi.SubItems.Add(historyItem.State.ToString());
                         lvi.SubItems.Add(historyItem.CallDurationMS.ToString());
                         lvi.SubItems.Add(historyItem.RawDetails);
+                        lvi.SubItems.Add(historyItem.ExecutedOnHostComputer);
+                        lvi.SubItems.Add(historyItem.AlertsRaised.Count.ToString());
                         if (historyItem.State == CollectorState.Folder)
                             lvi.ImageIndex = 0;
                         else if (historyItem.State == CollectorState.Good)
@@ -374,6 +411,7 @@ namespace QuickMon
                             lvi.ImageIndex = 4;
                         else
                             lvi.ImageIndex = 1;
+                        lvi.Tag = historyItem;
                         lvwHistory.Items.Add(lvi);
                     }
                     #endregion
@@ -411,6 +449,15 @@ namespace QuickMon
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RefreshCollectorStats();
+        }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.Focus();
+            rtxDetails.SelectAll();
+        }
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtxDetails.Copy();
         } 
         #endregion
 

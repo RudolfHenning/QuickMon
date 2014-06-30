@@ -59,6 +59,7 @@ namespace QuickMon.Forms
                 chkForceRemoteExcuteOnChildCollectors.Checked = currentEditingEntry.ForceRemoteExcuteOnChildCollectors;
                 txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
                 remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
+                chkBlockParentRHOverride.Checked = currentEditingEntry.BlockParentOverrideRemoteAgentHostSettings;
 
                 try
                 {
@@ -357,6 +358,9 @@ namespace QuickMon.Forms
         {
             txtRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
+            chkBlockParentRHOverride.Enabled = !chkRemoteAgentEnabled.Checked;
+            if (chkRemoteAgentEnabled.Checked)
+                chkBlockParentRHOverride.Checked = false;
             CheckOkEnabled();
         }
         private void chkEnabled_CheckedChanged(object sender, EventArgs e)
@@ -549,6 +553,7 @@ namespace QuickMon.Forms
             SelectedEntry.ForceRemoteExcuteOnChildCollectors = chkForceRemoteExcuteOnChildCollectors.Checked;
             SelectedEntry.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
             SelectedEntry.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+            SelectedEntry.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
             if (chkRemoteAgentEnabled.Checked && SelectedEntry.RemoteAgentHostAddress.Length > 0)
             {
                 if (KnownRemoteHosts == null)

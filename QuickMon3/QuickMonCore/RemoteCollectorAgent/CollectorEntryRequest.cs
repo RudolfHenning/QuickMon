@@ -1,28 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace QuickMon
 {
-    [Serializable]
+    [Serializable, DataContract]
     public class CollectorEntryRequest
     {
         #region Properties
+        [DataMember(Name = "Name")]
         public string Name { get; set; }
+        [DataMember(Name = "UniqueId")]
         public string UniqueId { get; set; }
+        [DataMember(Name = "ParentCollectorId")]
         public string ParentCollectorId { get; set; }
+        [DataMember(Name = "IsFolder")]
         public bool IsFolder { get; set; }
+        [DataMember(Name = "Enabled")]
         public bool Enabled { get; set; }
+        [DataMember(Name = "ProcessChildrenOnWarning")]
         public bool ProcessChildrenOnWarning { get; set; }
+        [DataMember(Name = "CollectorTypeName")]
         public string CollectorTypeName { get; set; }
+        [DataMember(Name = "ConfigString")]
         public string ConfigString { get; set; }
 
         #region CorrectiveScripts
+        [DataMember(Name = "CorrectiveScriptDisabled")]
         public bool CorrectiveScriptDisabled { get; set; }
+        [DataMember(Name = "CorrectiveScriptOnWarningPath")]
         public string CorrectiveScriptOnWarningPath { get; set; }
+        [DataMember(Name = "CorrectiveScriptOnErrorPath")]
         public string CorrectiveScriptOnErrorPath { get; set; }
+        [DataMember(Name = "RestorationScriptPath")]
         public string RestorationScriptPath { get; set; }
+        [DataMember(Name = "CorrectiveScriptsOnlyOnStateChange")]
         public bool CorrectiveScriptsOnlyOnStateChange { get; set; }
         #endregion
 
@@ -30,18 +44,24 @@ namespace QuickMon
         /// <summary>
         /// Repeat raising alert after X minutes if state remains in error/warning
         /// </summary>
+        [DataMember(Name = "RepeatAlertInXMin")]
         public int RepeatAlertInXMin { get; set; }
+        [DataMember(Name = "RepeatAlertInXPolls")]
         public int RepeatAlertInXPolls { get; set; }
         /// <summary>
         /// Only raise an alert once in X minutes. Used in conjunction with LastAlertTime
         /// </summary>
+        [DataMember(Name = "AlertOnceInXMin")]
         public int AlertOnceInXMin { get; set; }
+        [DataMember(Name = "AlertOnceInXPolls")]
         public int AlertOnceInXPolls { get; set; }
         /// <summary>
         /// Only raise an alert if the LastMonitorState remains Error or Warning.
         /// After each alert is generated this time gets updated
         /// </summary>
+        [DataMember(Name = "DelayErrWarnAlertForXSec")]
         public int DelayErrWarnAlertForXSec { get; set; }
+        [DataMember(Name = "DelayErrWarnAlertForXPolls")]
         public int DelayErrWarnAlertForXPolls { get; set; }
         #endregion 
         #endregion
@@ -66,6 +86,7 @@ namespace QuickMon
                 false, //No child collectors to worry about
                 "", //for Remote Agent there is no further nested Remote host.
                 8181, //for Remote Agent there is no further nested Remote host.
+                false,//for Remote Agent there is no need for blocking of parent host override.
 
                 false, //enabledPollingOverride not used in Remote collectors
                 1, //onlyAllowUpdateOncePerXSec not used in Remote collectors

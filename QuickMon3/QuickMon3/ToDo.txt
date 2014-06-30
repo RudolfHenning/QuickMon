@@ -1,13 +1,11 @@
 ﻿CHANGES (considdered possible for next release)
-Collector history to include which alerts (notifiers) fired.
-
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
 Event Scavenger collector set
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
-SOAP collector must be moved to separate dll (and generic WCF one added as well)
+SOAP collector to be removed (replaced by dynamic WS collector)
 
 --------------------------------------------------------------------------------------------------------
 NEXT VERSION CHANGES
@@ -164,5 +162,14 @@ Extend Presets/Templates
 v3.16
 Add WcfEnableMetadata setting to Windows service
 Adding Dynamic Web Service Collector (to replace SOAP web service collector )
+
+v3.17
+CollectorEntryRequest class must be decorated with [DataContract] and [DataMember] (aka http://www.integratedwebsystems.com/2009/05/wcf-data-contracts-and-k__backingfield-property-naming/)
+  Note that this breaks remote agent host queries to previous versions... as serialiazed string returned has different property names (wrong before)
+Template manage: allow import of multiple files.
+Block remote host inheritance on child collectors (if parent has override on but child must NOT use it.)
+Collector history to include which alerts (notifiers) fired.
+Collector history to include on which 'host machine name' it ran
+Collector history - Details rich text box have copy shortcut menu
 -------------------------------------------------------------------------------------------------------
 

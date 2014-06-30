@@ -162,6 +162,18 @@ namespace QuickMon
             }
             catch { }
         }
+        public void UpdateLatestHistoryWithAlertDetails(MonitorState currentState)
+        {
+            try
+            {
+                if (StateHistorySize > 1)
+                {
+                    stateHistory[stateHistory.Count - 1].AlertsRaised = new List<string>();
+                    stateHistory[stateHistory.Count - 1].AlertsRaised.AddRange(currentState.AlertsRaised.ToArray());
+                }
+            }
+            catch { }
+        }
         #endregion
 
         #region Stats
@@ -218,14 +230,43 @@ namespace QuickMon
         #endregion
 
         #region Remote Execution
+        /// <summary>
+        /// Enable remote agent execution on THIS collector using RemoteAgentHostAddress:RemoteAgentHostAddress.
+        /// This automatically overrides any remote agent host settings from parent collectorEntry 
+        /// </summary>
         public bool EnableRemoteExecute { get; set; }
+        /// <summary>
+        /// The remote agent host URL to be used for THIS collector Entry
+        /// </summary>
         public string RemoteAgentHostAddress { get; set; }
+        /// <summary>
+        /// The remote agent host PORT to be used for THIS collector Entry
+        /// </summary>
         public int RemoteAgentHostPort { get; set; }
+        /// <summary>
+        /// Automatically use THIS collector's RemoteAgentHostAddress:RemoteAgentHostAddress for child collectorEntries
+        /// </summary>
         public bool ForceRemoteExcuteOnChildCollectors { get; set; }
+        /// <summary>
+        /// Set at run-time. Indication that the parent collectorEntry has overrided remote agent host settings
+        /// </summary>
         public bool OverrideForceRemoteExcuteOnChildCollectors { get; set; }
+        /// <summary>
+        /// Set at run-time. Indication that the parent collectorEntry has overrided remote agent host settings
+        /// </summary>
         public bool OverrideRemoteAgentHost { get; set; }
+        /// <summary>
+        /// Set at run-time. Indication that the parent collectorEntry has overrided remote agent host settings
+        /// </summary>
         public string OverrideRemoteAgentHostAddress  { get; set; }
+        /// <summary>
+        /// Set at run-time. Indication that the parent collectorEntry has overrided remote agent host settings
+        /// </summary>
         public int OverrideRemoteAgentHostPort { get; set; }
+        /// <summary>
+        /// If set to true any override remote agent host settings are ignored for THIS collector (but still applies to grandchildren of parent)
+        /// </summary>
+        public bool BlockParentOverrideRemoteAgentHostSettings { get; set; }
         #endregion
 
         #region Polling override
@@ -299,8 +340,8 @@ namespace QuickMon
                 else
                 {
                     //*********** Call actual collector GetState **********
-                    LastStateCheckAttemptBegin = DateTime.Now;
-                    LastMonitorState = CurrentState.Clone();
+                    LastStateCheckAttemptBegin = DateTime.Now;                    
+                    LastMonitorState = CurrentState.Clone();                    
                     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                     sw.Start();
                     if (EnableRemoteExecute)
@@ -311,11 +352,13 @@ namespace QuickMon
                         }
                         catch (Exception ex)
                         {
+                            CurrentState.Timestamp = DateTime.Now;
                             CurrentState.State = CollectorState.Error;
                             CurrentState.RawDetails = ex.ToString();
+                            CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                         }
                     }
-                    else if (OverrideRemoteAgentHost)
+                    else if (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)
                     {
                         try
                         {
@@ -323,12 +366,17 @@ namespace QuickMon
                         }
                         catch (Exception ex)
                         {
+                            CurrentState.Timestamp = DateTime.Now;
                             CurrentState.State = CollectorState.Error;
                             CurrentState.RawDetails = ex.ToString();
+                            CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                         }
                     }
-                    else
+                    else //Use LOCAL execution
+                    {
                         CurrentState = Collector.GetState();
+                        CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                    }
                     sw.Stop();
 
                     if (LastMonitorState.State != CurrentState.State)
@@ -377,7 +425,7 @@ namespace QuickMon
                         LastErrorStateTime = DateTime.Now;
                         ErrorStateCount++;
                     }
-                    AddStateToHistory(CurrentState.Clone());
+                    AddStateToHistory(CurrentState.Clone()); //add details for historic details - still missing alert details though....hmmm
                 }
             }
             else
@@ -386,6 +434,8 @@ namespace QuickMon
             }
             return CurrentState;
         }
+
+
         /// <summary>
         /// Check if the Collector state changed from previous poll
         /// </summary>
@@ -467,6 +517,7 @@ namespace QuickMon
             collectorEntry.ForceRemoteExcuteOnChildCollectors = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("forceRemoteExcuteOnChildCollectors", "False"));
             collectorEntry.RemoteAgentHostAddress = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostAddress");
             collectorEntry.RemoteAgentHostPort = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostPort", 8181);
+            collectorEntry.BlockParentOverrideRemoteAgentHostSettings = xmlCollectorEntry.ReadXmlElementAttr("blockParentRemoteAgentHostSettings", false);
 
             //Polling overrides
             collectorEntry.EnabledPollingOverride = xmlCollectorEntry.ReadXmlElementAttr("enabledPollingOverride", false);
@@ -546,6 +597,7 @@ namespace QuickMon
                 ForceRemoteExcuteOnChildCollectors,
                 RemoteAgentHostAddress,
                 RemoteAgentHostPort,
+                BlockParentOverrideRemoteAgentHostSettings,
 
                 EnabledPollingOverride,
                 OnlyAllowUpdateOncePerXSec,
@@ -600,6 +652,7 @@ namespace QuickMon
                 bool forceRemoteExcuteOnChildCollectors,
                 string remoteAgentHostAddress,
                 int remoteAgentHostPort,
+                bool blockParentOverrideRemoteAgentHostSettings,
                 bool enabledPollingOverride,
                 int onlyAllowUpdateOncePerXSec,
                 bool enablePollFrequencySliding,
@@ -628,6 +681,7 @@ namespace QuickMon
                 forceRemoteExcuteOnChildCollectors,
                 remoteAgentHostAddress,
                 remoteAgentHostPort,
+                blockParentOverrideRemoteAgentHostSettings,
                 enabledPollingOverride,
                 onlyAllowUpdateOncePerXSec,
                 enablePollFrequencySliding,
@@ -705,7 +759,7 @@ namespace QuickMon
         {
             if (EnableRemoteExecute)
                 return string.Format("{0}:{1}", RemoteAgentHostAddress, RemoteAgentHostPort);
-            else if (OverrideRemoteAgentHost)
+            else if (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)
                 return string.Format("{0}:{1}", OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
             else
                 return "";

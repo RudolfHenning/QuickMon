@@ -867,6 +867,10 @@ namespace QuickMon
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
+            if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
+            {
+                alertRaised.RaisedFor.CurrentState.AlertsRaised = new List<string>();
+            }
             foreach (NotifierEntry notifierEntry in (from n in Notifiers
                                                      where n.Enabled && (int)n.AlertLevel <= (int)alertRaised.Level &&
                                                         (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
@@ -891,12 +895,20 @@ namespace QuickMon
                     {
                         PCRaiseNotifiersCalled();
                         notifierEntry.Notifier.RecordMessage(alertRaised);
+                        if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
+                        {
+                            alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(string.Format("{0} ({1})", notifierEntry.Name, notifierEntry.NotifierRegistrationName));
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     RaiseRaiseNotifierError(notifierEntry, ex.ToString());
                 }
+            }
+            if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
+            {
+                alertRaised.RaisedFor.UpdateLatestHistoryWithAlertDetails(alertRaised.RaisedFor.CurrentState);
             }
             sw.Stop();
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);

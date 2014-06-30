@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.16.0627.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.17.0630.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
@@ -108,11 +108,7 @@
         <Directory Id="CommonAppDataComp" Name="Hen IT">
           <Directory Id="CommonAppDataQM3" Name="QuickMon 3">
              <Component Id="presets" Guid="59162023-5478-4668-A278-41cc40000000">
-              <File Id="CommonAgentTemplates" Source="Presets\CommonAgentTemplates.qps" KeyPath="no" />
-              <File Id="PowerShellAgentTemplates" Source="Presets\PowerShellAgentTemplates.qps" KeyPath="no" />
-              <File Id="IISAgentTemplates" Source="Presets\IISAgentTemplates.qps" KeyPath="no" />
-              <File Id="MSSqlAgentTemplates" Source="Presets\MSSqlAgentTemplates.qps" KeyPath="no" />
-              <File Id="BizTalkAgentTemplates" Source="Presets\BizTalkAgentTemplates.qps" KeyPath="no" />
+              <File Id="QuickMon3Templates" Source="Presets\QuickMon3Templates.qps" KeyPath="no" />              
              </Component>
           </Directory>
         </Directory>

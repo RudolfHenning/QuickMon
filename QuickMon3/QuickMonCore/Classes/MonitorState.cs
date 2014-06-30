@@ -1,32 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 
 namespace QuickMon
 {
+    [DataContract]
     public class MonitorState
     {
         public MonitorState()
         {
             Timestamp = DateTime.Now;
+            AlertsRaised = new List<string>();
         }
         private CollectorState state = CollectorState.NotAvailable;
+         [DataMember(Name = "State")]
         public CollectorState State
         {
             get { return state; }
             set { state = value; StateChangedTime = DateTime.Now; }
         }
+        [DataMember(Name = "CurrentValue")]
         public object CurrentValue { get; set; }
+        [DataMember(Name = "RawDetails")]
         public string RawDetails { get; set; }
+        [DataMember(Name = "HtmlDetails")]
         public string HtmlDetails { get; set; }
+        [DataMember(Name = "Timestamp")]
         public DateTime Timestamp { get; set; }
+        [DataMember(Name = "StateChangedTime")]
         public DateTime StateChangedTime { get; set; }
+        [DataMember(Name = "CallDurationMS")]
         public int CallDurationMS { get; set; }
+        [DataMember(Name = "ExecutedOnHostComputer")]
+        public string ExecutedOnHostComputer { get; set; }
+        [DataMember(Name = "AlertsRaised")]
+        public List<string> AlertsRaised { get; set; }
 
         public MonitorState Clone()
         {
+            List<string> cloneAlerts = new List<string>();
+            cloneAlerts.AddRange(AlertsRaised.ToArray());
             return new MonitorState()
             {
                 State = this.State,
@@ -35,7 +51,9 @@ namespace QuickMon
                 HtmlDetails = this.HtmlDetails,
                 Timestamp = this.Timestamp,
                 StateChangedTime = this.StateChangedTime,
-                CallDurationMS = this.CallDurationMS
+                CallDurationMS = this.CallDurationMS,
+                ExecutedOnHostComputer = this.ExecutedOnHostComputer,
+                AlertsRaised = cloneAlerts
             };
         }
 
@@ -56,6 +74,7 @@ namespace QuickMon
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
             else
                 root.SetAttributeValue("currentValue", "");
+            root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
 
             XmlElement rawDetailsNode = xdoc.CreateElement("rawDetails");
             rawDetailsNode.InnerText = RawDetails;
@@ -63,6 +82,14 @@ namespace QuickMon
             XmlElement htmlDetailsNode = xdoc.CreateElement("htmlDetails");
             htmlDetailsNode.InnerText = HtmlDetails;
             root.AppendChild(htmlDetailsNode);
+            XmlElement alerts = xdoc.CreateElement("alerts");
+            foreach(string alert in AlertsRaised)
+            {
+                XmlElement alertNode = xdoc.CreateElement("alert");
+                alertNode.InnerText = alert;
+                alerts.AppendChild(alertNode);
+            }
+            root.AppendChild(alerts);
             return xdoc.OuterXml;
         }
         public void FromXml(string content)
@@ -87,8 +114,15 @@ namespace QuickMon
             }
             catch { }
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
+            ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
             RawDetails = root.SelectSingleNode("rawDetails").InnerText;
             HtmlDetails = root.SelectSingleNode("htmlDetails").InnerText;
+            XmlNodeList alertNodes = root.SelectNodes("alerts");
+            AlertsRaised = new List<string>();
+            foreach (XmlNode alertNode in alertNodes)
+            {
+                AlertsRaised.Add(alertNode.InnerText);
+            }
         }
     }
 }
