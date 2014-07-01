@@ -897,9 +897,10 @@ namespace QuickMon
                     {
                         PCRaiseNotifiersCalled();
                         notifierEntry.Notifier.RecordMessage(alertRaised);
-                        if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
+                        if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null && notifierEntry.Notifier.AgentConfig != null)
                         {
-                            alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(string.Format("{0} ({1})", notifierEntry.Name, notifierEntry.NotifierRegistrationName));
+                            string configSummary = ((INotifierConfig)notifierEntry.Notifier.AgentConfig).ConfigSummary;
+                            alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(string.Format("{0} ({1}) {2}", notifierEntry.Name, notifierEntry.NotifierRegistrationName, configSummary));
                         }
                     }
                 }
@@ -1089,23 +1090,17 @@ namespace QuickMon
                     collectorEntry.Collector = null;
 
                 currentRA = (from r in RegisteredAgentCache.Agents
-                                  where r.IsCollector && r.ClassName.EndsWith("." + collectorEntry.CollectorRegistrationName)
-                                  select r).FirstOrDefault();
-
-                //if (RegisteredAgents != null)
-                //    currentCollector = (from o in RegisteredAgents
-                //                        where o.IsCollector && 
-                //                            (o.Name == collectorEntry.CollectorRegistrationName)
-                //                        select o).FirstOrDefault();
-                
+                             where r.IsCollector && r.ClassName.EndsWith("." + collectorEntry.CollectorRegistrationName)
+                             select r).FirstOrDefault();
 
                 if (currentRA != null)
                 {
                     try
                     {
-                        collectorEntry.Collector = CollectorEntry.CreateCollectorEntry(currentRA);
-                        collectorEntry.Collector.SetConfigurationFromXmlString(collectorEntry.InitialConfiguration);
-                        collectorEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
+                        collectorEntry.CreateAndConfigureEntry(currentRA);
+                        //collectorEntry.Collector = CollectorEntry.CreateAndConfigureEntry(currentRA, collectorEntry.InitialConfiguration);//.CreateCollectorEntry(currentRA);
+                        //collectorEntry.Collector.SetConfigurationFromXmlString(collectorEntry.InitialConfiguration);
+                        //collectorEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
                     }
                     catch (Exception ex)
                     {
@@ -1128,8 +1123,8 @@ namespace QuickMon
             if (notifierEntry == null)
                 return;
             RegisteredAgent currentNotifier = null;
-            
-                //first clear/release any existing references
+
+            //first clear/release any existing references
             if (notifierEntry.Notifier != null)
                 notifierEntry.Notifier = null;
 
@@ -1137,33 +1132,24 @@ namespace QuickMon
             currentNotifier = (from n in RegisteredAgentCache.Agents
                                where n.IsNotifier && n.Name == notifierEntry.NotifierRegistrationName
                                select n).FirstOrDefault();
-                //if (RegisteredAgents != null)
-                //    currentNotifier = (from o in RegisteredAgents
-                //                        where o.IsNotifier &&
-                //                            (o.Name == notifierEntry.NotifierRegistrationName)
-                //                        select o).FirstOrDefault();
-                if (currentNotifier != null)
-                {
-                    try
-                    {
-                        notifierEntry.Notifier = NotifierEntry.CreateNotifierEntry(currentNotifier);
-                        notifierEntry.Notifier.SetConfigurationFromXmlString(notifierEntry.InitialConfiguration);
-                    }
-                    catch// (Exception ex)
-                    {
 
-                        notifierEntry.Enabled = false;
-                        //notifierEntry.l.LastMonitorState.RawDetails = ex.Message;
-                    }
-                }
-                else
+            if (currentNotifier != null)
+            {
+                try
                 {
-                    //notifierEntry.LastMonitorState.State = CollectorState.ConfigurationError;
-                    notifierEntry.Enabled = false;
-                    //notifierEntry.LastMonitorState.RawDetails = string.Format("Collector '{0}' cannot be loaded as the type '{1}' is not registered!", collectorEntry.Name, collectorEntry.CollectorRegistrationName);
-                    RaiseRaiseMonitorPackError(string.Format("Notifier '{0}' cannot be loaded as the type '{1}' is not registered!", notifierEntry.Name, notifierEntry.NotifierRegistrationName));
+                    notifierEntry.Notifier = NotifierEntry.CreateNotifierEntry(currentNotifier);
+                    notifierEntry.Notifier.SetConfigurationFromXmlString(notifierEntry.InitialConfiguration);
                 }
-            
+                catch// (Exception ex)
+                {
+                    notifierEntry.Enabled = false;
+                }
+            }
+            else
+            {
+                notifierEntry.Enabled = false;
+                RaiseRaiseMonitorPackError(string.Format("Notifier '{0}' cannot be loaded as the type '{1}' is not registered!", notifierEntry.Name, notifierEntry.NotifierRegistrationName));
+            }
         }
         public void LoadXml(string xmlConfig)
         {

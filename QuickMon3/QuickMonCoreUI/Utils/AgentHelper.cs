@@ -41,14 +41,12 @@ namespace QuickMon
                     return null;
                 else if (ar.ClassName != "QuickMon.Collectors.Folder")
                 {
-                    ICollector c = CollectorEntry.CreateCollectorEntry(ar);
-                    newCollectorEntry.Collector = c;
                     if (selectNewAgentType.SelectedPreset == null)
-                        newCollectorEntry.InitialConfiguration = c.GetDefaultOrEmptyConfigString();
+                        newCollectorEntry.CreateAndConfigureEntry(ar);
                     else
                     {
+                        newCollectorEntry.Collector = CollectorEntry.CreateAndConfigureEntry(ar, AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                         newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                        newCollectorEntry.Collector.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                     }
                 }
                 else

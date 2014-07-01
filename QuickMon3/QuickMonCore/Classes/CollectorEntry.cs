@@ -456,6 +456,28 @@ namespace QuickMon
         #endregion
 
         #region Get/Set configuration
+        public void CreateAndConfigureEntry(RegisteredAgent ra)
+        {
+            if (InitialConfiguration != null && InitialConfiguration.Length > 0)
+                Collector = CreateAndConfigureEntry(ra, InitialConfiguration);
+            else
+            {
+                Collector = CreateCollectorEntry(ra);
+                if (Collector != null)
+                    Collector.AgentConfig.ReadConfiguration(Collector.GetDefaultOrEmptyConfigString());
+            }
+            CollectorRegistrationDisplayName = ra.DisplayName;
+        }
+        public static ICollector CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig)
+        {
+            ICollector newEntry = CreateCollectorEntry(ra);
+            if (newEntry != null)
+            {
+                newEntry.AgentConfig.ReadConfiguration(appliedConfig);
+            }
+            return newEntry;
+        }
+
         /// <summary>
         /// Create a new instance of the collector agent
         /// </summary>
