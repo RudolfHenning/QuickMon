@@ -1,8 +1,8 @@
-<monitorPack version="{0}" name="{1}" enabled="{2}" defaultViewerNotifier="{3}" runCorrectiveScripts="{4}" collectorStateHistorySize="{5}" pollingFreqSecOverride="{6}">
+<monitorPack version="{0}" name="{1}" typeName="{2}" enabled="{3}" defaultViewerNotifier="{4}" runCorrectiveScripts="{5}" collectorStateHistorySize="{6}" pollingFreqSecOverride="{7}">
   <collectorEntries>
-    {7}
+    {8}
   </collectorEntries>
   <notifierEntries>
-    {8}
+    {9}
   </notifierEntries>
 </monitorPack>

@@ -164,5 +164,17 @@ namespace QuickMon.Properties {
                 this["LastCreateAgentOption"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*,!Test")]
+        public string RecentQMConfigFileFilters {
+            get {
+                return ((string)(this["RecentQMConfigFileFilters"]));
+            }
+            set {
+                this["RecentQMConfigFileFilters"] = value;
+            }
+        }
     }
 }

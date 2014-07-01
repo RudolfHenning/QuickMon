@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeneralSettings));
             this.concurrencyLevelNnumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,12 +49,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // concurrencyLevelNnumericUpDown
@@ -92,10 +99,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 259);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 311);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 4;
+            this.cmdCancel.TabIndex = 5;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -103,10 +110,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 259);
+            this.cmdOK.Location = new System.Drawing.Point(265, 311);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 3;
+            this.cmdOK.TabIndex = 4;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -194,7 +201,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 70);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(409, 114);
-            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Polling";
             // 
@@ -294,12 +301,53 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "General";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.cmdEditQuickSelectTypeFilters);
+            this.groupBox4.Controls.Add(this.txtRecentMonitorPackFilter);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Location = new System.Drawing.Point(12, 246);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(409, 48);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Recent Montor pack file list";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(149, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Quick select Type Filters (csv)";
+            // 
+            // txtRecentMonitorPackFilter
+            // 
+            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(169, 19);
+            this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
+            this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(186, 20);
+            this.txtRecentMonitorPackFilter.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.txtRecentMonitorPackFilter, "* - All, use ~ for exclude");
+            // 
+            // cmdEditQuickSelectTypeFilters
+            // 
+            this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(361, 17);
+            this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
+            this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
+            this.cmdEditQuickSelectTypeFilters.TabIndex = 2;
+            this.cmdEditQuickSelectTypeFilters.Text = "- - -";
+            this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
+            this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 294);
+            this.ClientSize = new System.Drawing.Size(433, 346);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -322,6 +370,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -347,5 +397,10 @@
         private System.Windows.Forms.TrackBar freqSecTrackBar;
         private System.Windows.Forms.CheckBox chkOverridesMonitorPackFrequency;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox txtRecentMonitorPackFilter;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button cmdEditQuickSelectTypeFilters;
     }
 }

@@ -289,7 +289,7 @@ namespace QuickMon
         public CollectorState CurrentState { get; set; }
         public MonitorState LastGlobalState { get; set; }
 
-        #region Poling related properties
+        #region Polling related properties
         /// <summary>
         /// Is background polling active
         /// </summary>
@@ -300,6 +300,8 @@ namespace QuickMon
 
         public int CollectorStateHistorySize { get; set; }
         public AttendedOption RunningAttended { get; set; }
+
+        public string TypeName { get; set; }
         #endregion
 
         #region Performance counters
@@ -1176,8 +1178,9 @@ namespace QuickMon
             sw.Start();
             XmlElement root = configurationXml.DocumentElement;
             Name = root.Attributes.GetNamedItem("name").Value;
-            this.Version = root.Attributes.GetNamedItem("version").Value;
-            Enabled = bool.Parse(root.Attributes.GetNamedItem("enabled").Value);
+            TypeName = root.ReadXmlElementAttr("typeName", "");
+            this.Version = root.ReadXmlElementAttr("version","3.0.0.0");
+            Enabled = root.ReadXmlElementAttr("enabled", true);
             try
             {
                 CollectorStateHistorySize = int.Parse(root.ReadXmlElementAttr("collectorStateHistorySize", "1"));
@@ -1268,7 +1271,7 @@ namespace QuickMon
                 defaultViewerNotifier = DefaultViewerNotifier.Name;
             string outputXml = string.Format(Properties.Resources.MonitorPackXml,
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
-                Name, Enabled, defaultViewerNotifier,
+                Name, TypeName, Enabled, defaultViewerNotifier,
                 RunCorrectiveScripts,
                 CollectorStateHistorySize,
                 PollingFrequencyOverrideSec,

@@ -68,7 +68,7 @@ namespace QuickMon
             extrasToolStrip.Left = mainToolStrip.Width+5;
 
             cboRecentMonitorPacks.Visible = false;
-            LoadRecentMonitorPackList();
+            //LoadRecentMonitorPackList();
             lblNoNotifiersYet.Dock = DockStyle.Fill;
             popedContainerForTreeView.cmdCopy.Enabled = false;
             popedContainerForTreeView.cmdPaste.Enabled = false;
@@ -287,6 +287,7 @@ namespace QuickMon
             mainRefreshTimer.Enabled = false; //temporary stops it.
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
@@ -734,7 +735,6 @@ namespace QuickMon
             try
             {
                 monitorPack.CollectorCurrentStateReported -= monitorPack_CollectorCurrentStateReported;
-
                 monitorPack.ClosePerformanceCounters();
                 monitorPack = null;
             }
@@ -1439,24 +1439,64 @@ namespace QuickMon
             cboRecentMonitorPacks.Items.Clear();
             cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem("",""));
 
-            foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
-                                         orderby s
-                                         select s))
+            try
             {
-                if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(filePath + "........", cboRecentMonitorPacks.Font).Width)
+                List<string> allowFilters = new List<string>();
+                List<string> disallowFilters = new List<string>();
+                string typeFilters = Properties.Settings.Default.RecentQMConfigFileFilters;
+                if (typeFilters.Trim().Length == 0)
+                    typeFilters = "*";
+                foreach (string typeFilter in typeFilters.Split(','))
                 {
-                    string ellipseText = filePath.Substring(0, 20) + "....";
-                    string tmpStr = filePath.Substring(4);
-                    while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
+                    if (typeFilter.Trim().StartsWith("!"))
+                        disallowFilters.Add(typeFilter.Trim(' ', '!'));
+                    else
+                        allowFilters.Add(typeFilter.Trim());
+                }
+
+                foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
+                                             orderby s
+                                             select s))
+                {
+                    bool mpVisible = false;
+                    if (System.IO.File.Exists(filePath))
                     {
-                        tmpStr = tmpStr.Substring(1);
+                        MonitorPack recentPack = new MonitorPack();
+                        recentPack.Load(filePath);
+                        if ((from string s in allowFilters
+                             where s == "*" || s.ToLower() == recentPack.TypeName.ToLower()
+                             select s).Count() > 0)
+                            mpVisible = true;
+                        if ((from string s in disallowFilters
+                             where s.ToLower() == recentPack.TypeName.ToLower()
+                             select s).Count() > 0)
+                            mpVisible = false;
                     }
-                    cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, filePath));
+                    else
+                        mpVisible = false;
+
+                    if (mpVisible)
+                    {
+                        if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(filePath + "........", cboRecentMonitorPacks.Font).Width)
+                        {
+                            string ellipseText = filePath.Substring(0, 20) + "....";
+                            string tmpStr = filePath.Substring(4);
+                            while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
+                            {
+                                tmpStr = tmpStr.Substring(1);
+                            }
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, filePath));
+                        }
+                        else
+                        {
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(filePath, filePath));
+                        }
+                    }
                 }
-                else
-                {
-                    cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(filePath, filePath));
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private TreeNode GetNodeByCollectorId(string uniqueId, TreeNode root = null)

@@ -33,6 +33,10 @@ namespace QuickMon
             chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
             chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
             chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists("QuickMon 3");
+            if (Properties.Settings.Default.RecentQMConfigFileFilters == null || Properties.Settings.Default.RecentQMConfigFileFilters.Trim() == "")
+                txtRecentMonitorPackFilter.Text = "*";
+            else
+                txtRecentMonitorPackFilter.Text = Properties.Settings.Default.RecentQMConfigFileFilters;
             SetFrequency(PollingFrequencySec);
             
             chkPollingEnabled.Checked = PollingEnabled;
@@ -47,6 +51,10 @@ namespace QuickMon
             Properties.Settings.Default.MainFormSnap = chkSnapToDesktop.Checked;
             Properties.Settings.Default.AutosaveChanges = chkAutosaveChanges.Checked;
             Properties.Settings.Default.OverridesMonitorPackFrequency = chkOverridesMonitorPackFrequency.Checked;
+            if (txtRecentMonitorPackFilter.Text.Trim().Length == 0)
+                Properties.Settings.Default.RecentQMConfigFileFilters = "*";
+            else 
+                Properties.Settings.Default.RecentQMConfigFileFilters = txtRecentMonitorPackFilter.Text;
             Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
@@ -138,6 +146,16 @@ namespace QuickMon
                     freqSecNumericUpDown.Value = 30;
                 freqSecTrackBar.Value = (int)freqSecNumericUpDown.Value;
                 freChanging = false;
+            }
+        }
+
+        private void cmdEditQuickSelectTypeFilters_Click(object sender, EventArgs e)
+        {
+            Forms.CSVEditor csvEdit = new Forms.CSVEditor();
+            csvEdit.CSVData = txtRecentMonitorPackFilter.Text;
+            if (csvEdit.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtRecentMonitorPackFilter.Text = csvEdit.CSVData;
             }
         }
 

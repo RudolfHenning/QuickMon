@@ -171,5 +171,8 @@ Block remote host inheritance on child collectors (if parent has override on but
 Collector history to include which alerts (notifiers) fired.
 Collector history to include on which 'host machine name' it ran
 Collector history - Details rich text box have copy shortcut menu
+MonitorPack - add Type property. 
+  App settings (string array) of Monitor pack types that are visible in quick recent drop down list 
+     One list for Include, one list for exclude
 -------------------------------------------------------------------------------------------------------
 

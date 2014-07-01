@@ -1,4 +1,4 @@
-<monitorPack version="3.0.0.0" name="" enabled="True" defaultViewerNotifier="In Memory" runCorrectiveScripts="False" collectorStateHistorySize="1">
+<monitorPack version="3.0.0.0" name="" enabled="True" defaultViewerNotifier="In Memory" runCorrectiveScripts="False" collectorStateHistorySize="100">
   <collectorEntries>
   </collectorEntries>
   <notifierEntries>
