@@ -47,9 +47,22 @@ namespace QuickMon.Forms
             {
                 this.monitorPack = monitorPack;
                 currentEditingEntry = CollectorEntry.FromConfig(SelectedEntry.ToConfig());
-                if (monitorPack != null && currentEditingEntry != null)
-                    monitorPack.ApplyCollectorConfig(currentEditingEntry);
-                ApplyConfig();
+                RegisteredAgent currentRA = (from r in RegisteredAgentCache.Agents
+                                             where r.IsCollector && r.ClassName.EndsWith("." + SelectedEntry.CollectorRegistrationName)
+                             select r).FirstOrDefault();
+                if (currentRA != null)
+                {
+                    currentEditingEntry.Collector = CollectorEntry.CreateAndConfigureEntry(currentRA, SelectedEntry.InitialConfiguration);
+                    currentEditingEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
+                }
+                else
+                {
+                    MessageBox.Show("The specified Collector type '" + SelectedEntry.CollectorRegistrationName + "' is not registered or invalid!", "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                //if (monitorPack != null && currentEditingEntry != null)
+                //    monitorPack.ApplyCollectorConfig(currentEditingEntry);
+                ApplyConfigToControls();
 
                 txtName.Text = currentEditingEntry.Name;
                 chkEnabled.Checked = currentEditingEntry.Enabled;
@@ -103,18 +116,6 @@ namespace QuickMon.Forms
             lvwEntries.AutoResizeColumnIndex = 1;
             lvwEntries.AutoResizeColumnEnabled = true;
             addPresetToolStripButton.Visible = false;
-            //bool presetsAvailable = false;
-            //List<AgentPresetConfig> presets = null;
-            //try
-            //{
-            //    presets = AgentPresetConfig.GetPresetsForClass(SelectedEntry.Collector.GetType().Name);
-            //    presetsAvailable = (presets != null && presets.Count > 0);
-            //}
-            //catch { }
-            //if (presetsAvailable)
-            //{
-            //    addPresetToolStripButton.Visible = true;
-            //}
             if (ShowRawEditOnStart && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
             {
                 llblRawEdit_LinkClicked(null, null);
@@ -129,14 +130,6 @@ namespace QuickMon.Forms
                     editCollectorConfigEntryToolStripButton_Click(null, null);
                 }
             }
-            
-            //else if (ShowSelectPresetOnStart && SelectedEntry != null && SelectedEntry.Collector != null) // && SelectedEntry.Collector.GetPresets().Count > 0)
-            //{                
-            //    if (presetsAvailable)
-            //    {
-            //        addPresetToolStripButton_Click(null, null);
-            //    }
-            //}
             try
             {
                 txtRemoteAgentServer.AutoCompleteCustomSource = new AutoCompleteStringCollection();
@@ -148,7 +141,7 @@ namespace QuickMon.Forms
         #endregion
 
         #region Private methods
-        private void ApplyConfig()
+        private void ApplyConfigToControls()
         {
             if (currentEditingEntry != null)
             {   
@@ -374,6 +367,9 @@ namespace QuickMon.Forms
         {
             if (MessageBox.Show("Are you sure you want to change the Collector type?\r\n\r\nIf you continue this will reset any existing configuration.", "Collector type", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
+                List<ConfigVariable> configVars = new List<ConfigVariable>();
+                foreach (ConfigVariable cv in currentEditingEntry.ConfigVariables)
+                    configVars.Add(cv.Clone());
                 CollectorEntry newCollector = AgentHelper.CreateNewCollector((from c in monitorPack.Collectors
                                                                     where c.UniqueId == currentEditingEntry.ParentCollectorId
                                                                     select c).FirstOrDefault());
@@ -381,8 +377,9 @@ namespace QuickMon.Forms
                 {
                     currentEditingEntry = null;
                     currentEditingEntry = newCollector;
+                    currentEditingEntry.ConfigVariables = configVars;
                     llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
-                    ApplyConfig();
+                    ApplyConfigToControls();
                 }
             }
         }
@@ -399,7 +396,7 @@ namespace QuickMon.Forms
                     if (editRaw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         currentEditingEntry.Collector.SetConfigurationFromXmlString(editRaw.SelectedMarkup);
-                        ApplyConfig();
+                        ApplyConfigToControls();
                     }
                 }
             }
@@ -408,6 +405,66 @@ namespace QuickMon.Forms
                 MessageBox.Show(string.Format("Error setting configuration\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             CheckOkEnabled();
+        }
+        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (currentEditingEntry != null && currentEditingEntry.Collector != null && txtName.Text.Trim().Length > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to export the current config as a template?\r\nThe collector entry name will be used as name for the template.", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        AgentPresetConfig newPreset = new AgentPresetConfig();
+                        newPreset.AgentClassName = currentEditingEntry.CollectorRegistrationName;
+                        newPreset.Description = txtName.Text;
+                        newPreset.Config = currentEditingEntry.Collector.AgentConfig.ToConfig();
+                        List<AgentPresetConfig> allExistingPresets = AgentPresetConfig.GetAllPresets();
+
+                        if ((from p in allExistingPresets
+                             where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
+                             select p).Count() > 0)
+                        {
+                            if (MessageBox.Show("A template with the name '" + newPreset.Description + "' already exist!\r\nDo you want to replace it?", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                AgentPresetConfig existingEntry = (from p in allExistingPresets
+                                                                   where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
+                                                                   select p).FirstOrDefault();
+                                existingEntry.Config = newPreset.Config;
+                            }
+                        }
+                        else
+                            allExistingPresets.Add(newPreset);
+                        AgentPresetConfig.SaveAllPresetsToFile(allExistingPresets);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void llblEditConfigVars_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (currentEditingEntry != null)
+                {
+                    EditConfigVariables editConfigVariables = new EditConfigVariables();
+                    editConfigVariables.SelectedConfigVariables = currentEditingEntry.ConfigVariables;
+                    if (editConfigVariables.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        currentEditingEntry.ConfigVariables = editConfigVariables.SelectedConfigVariables;
+                    }                   
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
         private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -434,7 +491,7 @@ namespace QuickMon.Forms
                 {
                     if (entry != null)  
                         currentConfig.Entries.Add(entry);
-                    ApplyConfig();
+                    ApplyConfigToControls();
                 }
             }
         }
@@ -462,8 +519,8 @@ namespace QuickMon.Forms
                         {
                             txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
                             currentEditingEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
-                            currentEditingEntry.Collector.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
-                            ApplyConfig();
+                            currentEditingEntry.Collector.AgentConfig.ReadConfiguration(MacroVariables.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
+                            ApplyConfigToControls();
                         }
                     }
                 }
@@ -481,7 +538,7 @@ namespace QuickMon.Forms
             {
                 if (currentEditingEntry.ShowEditConfigEntry(ref entry))
                 {
-                    ApplyConfig();
+                    ApplyConfigToControls();
                 }
             }
         }
@@ -597,6 +654,9 @@ namespace QuickMon.Forms
             SelectedEntry.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
             //Service windows
             SelectedEntry.ServiceWindows.CreateFromConfig(currentEditingEntry.ServiceWindows.ToConfig());
+            SelectedEntry.ConfigVariables = new List<ConfigVariable>();
+            SelectedEntry.ConfigVariables.AddRange((from ConfigVariable cv in currentEditingEntry.ConfigVariables
+                                                    select cv.Clone()).ToArray());
 
             if (SelectedEntry.IsFolder)
             {
@@ -613,9 +673,7 @@ namespace QuickMon.Forms
                 {
                     try
                     {
-                        SelectedEntry.Collector = CollectorEntry.CreateCollectorEntry(currentRA);
-                        SelectedEntry.Collector.SetConfigurationFromXmlString(SelectedEntry.InitialConfiguration);
-                        SelectedEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
+                        SelectedEntry.CreateAndConfigureEntry(currentRA);
                     }
                     catch (Exception ex)
                     {
@@ -802,48 +860,6 @@ namespace QuickMon.Forms
 
         }
         #endregion
-
-        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (currentEditingEntry != null && currentEditingEntry.Collector != null && txtName.Text.Trim().Length > 0)
-            {
-                if (MessageBox.Show("Are you sure you want to export the current config as a template?\r\nThe collector entry name will be used as name for the template.", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    try
-                    {
-                        AgentPresetConfig newPreset = new AgentPresetConfig();
-                        newPreset.AgentClassName = currentEditingEntry.CollectorRegistrationName;
-                        newPreset.Description = txtName.Text;
-                        newPreset.Config = currentEditingEntry.Collector.AgentConfig.ToConfig();
-                        List<AgentPresetConfig> allExistingPresets = AgentPresetConfig.GetAllPresets();
-
-                        if ((from p in allExistingPresets
-                             where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
-                             select p).Count() > 0)
-                        {
-                            if (MessageBox.Show("A template with the name '" + newPreset.Description + "' already exist!\r\nDo you want to replace it?", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
-                            {
-                                return;
-                            }
-                            else
-                            {
-                                AgentPresetConfig existingEntry = (from p in allExistingPresets
-                                                                   where p.AgentClassName == newPreset.AgentClassName && p.Description == newPreset.Description
-                                                                   select p).FirstOrDefault();
-                                existingEntry.Config = newPreset.Config;
-                            }
-                        }
-                        else
-                            allExistingPresets.Add(newPreset);
-                        AgentPresetConfig.SaveAllPresetsToFile(allExistingPresets);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
 
     }
 }

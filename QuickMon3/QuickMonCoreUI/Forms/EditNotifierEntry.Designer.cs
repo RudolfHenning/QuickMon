@@ -59,6 +59,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
+            this.llblEditConfigVars = new System.Windows.Forms.LinkLabel();
             this.configEditContextMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,7 +83,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(395, 286);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 10;
+            this.cmdCancel.TabIndex = 12;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -94,7 +95,7 @@
             this.cmdOK.Location = new System.Drawing.Point(314, 286);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 9;
+            this.cmdOK.TabIndex = 11;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -377,10 +378,22 @@
             this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(12, 291);
             this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
             this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
-            this.llblExportConfigAsTemplate.TabIndex = 11;
+            this.llblExportConfigAsTemplate.TabIndex = 9;
             this.llblExportConfigAsTemplate.TabStop = true;
             this.llblExportConfigAsTemplate.Text = "Export config as template";
             this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
+            // 
+            // llblEditConfigVars
+            // 
+            this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblEditConfigVars.AutoSize = true;
+            this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblEditConfigVars.Location = new System.Drawing.Point(154, 291);
+            this.llblEditConfigVars.Name = "llblEditConfigVars";
+            this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
+            this.llblEditConfigVars.TabIndex = 10;
+            this.llblEditConfigVars.TabStop = true;
+            this.llblEditConfigVars.Text = "Manage Config Variables";
             // 
             // EditNotifierEntry
             // 
@@ -388,6 +401,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(492, 321);
+            this.Controls.Add(this.llblEditConfigVars);
             this.Controls.Add(this.llblExportConfigAsTemplate);
             this.Controls.Add(this.cboAttendedOptionOverride);
             this.Controls.Add(this.label8);
@@ -451,5 +465,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cboAttendedOptionOverride;
         private System.Windows.Forms.LinkLabel llblExportConfigAsTemplate;
+        private System.Windows.Forms.LinkLabel llblEditConfigVars;
     }
 }

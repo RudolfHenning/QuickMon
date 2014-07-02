@@ -17,8 +17,6 @@ namespace QuickMon
             Enabled = true;
             UniqueId = Guid.NewGuid().ToString();
             RemoteAgentHostPort = 8181;
-            //LastStateUpdate = new DateTime(2000, 1, 1);
-            //FirstStateUpdate = new DateTime(2000, 1, 1);
             PollCount = 0;
             RefreshCount = 0;
             GoodStateCount = 0;
@@ -36,6 +34,7 @@ namespace QuickMon
             PollSlideFrequencyAfterFirstRepeatSec = 2;
             PollSlideFrequencyAfterSecondRepeatSec = 5;
             PollSlideFrequencyAfterThirdRepeatSec = 30;
+            ConfigVariables = new List<ConfigVariable>();
         }
 
         #region Private vars
@@ -280,6 +279,10 @@ namespace QuickMon
         public bool StagnantStateSecondRepeat { get; private set; }
         public bool StagnantStateThirdRepeat { get; private set; }
         #endregion
+
+        #region Dynamic Config Variables
+        public List<ConfigVariable> ConfigVariables { get; set; }
+        #endregion
         #endregion
 
         #region Refreshing state and getting alerts
@@ -459,20 +462,26 @@ namespace QuickMon
         public void CreateAndConfigureEntry(RegisteredAgent ra)
         {
             if (InitialConfiguration != null && InitialConfiguration.Length > 0)
-                Collector = CreateAndConfigureEntry(ra, InitialConfiguration);
+                Collector = CreateAndConfigureEntry(ra, InitialConfiguration, ConfigVariables);
             else
             {
-                Collector = CreateCollectorEntry(ra);
-                if (Collector != null)
-                    Collector.AgentConfig.ReadConfiguration(Collector.GetDefaultOrEmptyConfigString());
+                Collector = CreateAndConfigureEntry(ra, "", ConfigVariables);
             }
             CollectorRegistrationDisplayName = ra.DisplayName;
         }
-        public static ICollector CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig)
+        public static ICollector CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig = "", List<ConfigVariable> configVariables = null)
         {
             ICollector newEntry = CreateCollectorEntry(ra);
             if (newEntry != null)
             {
+                if (appliedConfig.Length == 0)
+                    appliedConfig = newEntry.GetDefaultOrEmptyConfigString();
+                if (configVariables != null && configVariables.Count > 0)
+                {
+                    foreach (ConfigVariable vc in configVariables)
+                        if (vc.Name.Length > 0)
+                            appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
+                }
                 newEntry.AgentConfig.ReadConfiguration(appliedConfig);
             }
             return newEntry;
@@ -584,6 +593,14 @@ namespace QuickMon
                     collectorEntry.LastMonitorState.State = CollectorState.ConfigurationError;
                     collectorEntry.InitialConfiguration = "";
                 }
+                XmlNode configVarsNode = xmlCollectorEntry.SelectSingleNode("configVars");
+                if (configVarsNode != null)
+                { 
+                    foreach(XmlNode configVarNode in configVarsNode.SelectNodes("configVar"))
+                    {
+                        collectorEntry.ConfigVariables.Add(ConfigVariable.FromXml(configVarNode.OuterXml));
+                    }
+                }
             }
             else
             {
@@ -600,7 +617,14 @@ namespace QuickMon
         /// <returns>XML config string</returns>
         public string ToConfig()
         {
-            string collectorConfig = Collector == null ? InitialConfiguration : Collector.AgentConfig.ToConfig();
+            string collectorConfig = (InitialConfiguration == null || InitialConfiguration.Length == 0) && (Collector != null) && (Collector.AgentConfig != null) ? Collector.AgentConfig.ToConfig() : InitialConfiguration;
+            StringBuilder configVarXml = new StringBuilder();
+            configVarXml.AppendLine("<configVars>");
+            foreach (ConfigVariable cv in ConfigVariables)
+            {
+                configVarXml.AppendLine(cv.ToXml());
+            }
+            configVarXml.AppendLine("</configVars>");
             string config = ToConfig(UniqueId,
                 Name.EscapeXml(),
                 Enabled,
@@ -629,7 +653,9 @@ namespace QuickMon
                 PollSlideFrequencyAfterThirdRepeatSec,
 
                 collectorConfig,
-                ServiceWindows.ToConfig());
+                ServiceWindows.ToConfig(),
+                configVarXml.ToString()
+                );
             return config;
         }
         /// <summary>
@@ -682,7 +708,8 @@ namespace QuickMon
                 int pollSlideFrequencyAfterSecondRepeatSec,
                 int pollSlideFrequencyAfterThirdRepeatSec,
                 string collectorConfig,
-                string serviceWindows)
+                string serviceWindows,
+                string configVariablesXml)
         {
             string config = string.Format(Properties.Resources.CollectorEntryXml,
                 uniqueId,
@@ -711,7 +738,8 @@ namespace QuickMon
                 pollSlideFrequencyAfterSecondRepeatSec,
                 pollSlideFrequencyAfterThirdRepeatSec,
                 collectorConfig,
-                serviceWindows);
+                serviceWindows,
+                configVariablesXml);
             return config;
         }
         #endregion

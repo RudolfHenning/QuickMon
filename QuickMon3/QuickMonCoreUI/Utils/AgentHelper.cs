@@ -45,7 +45,7 @@ namespace QuickMon
                         newCollectorEntry.CreateAndConfigureEntry(ar);
                     else
                     {
-                        newCollectorEntry.Collector = CollectorEntry.CreateAndConfigureEntry(ar, AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
+                        newCollectorEntry.Collector = CollectorEntry.CreateAndConfigureEntry(ar, MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                         newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
                     }
                 }
@@ -87,15 +87,17 @@ namespace QuickMon
                     return null;
                 else if (ar.ClassName != "QuickMon.Collectors.Folder")
                 {
-                    ICollector c = CollectorEntry.CreateCollectorEntry(ar);
-                    newCollectorEntry.Collector = c;
-                    if (selectNewAgentType.SelectedPreset == null)
-                        newCollectorEntry.InitialConfiguration = c.GetDefaultOrEmptyConfigString();
-                    else
+                    string initialConfig = "";
+                    string entryName = "";
+                    if (selectNewAgentType.SelectedPreset != null)
                     {
-                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                        newCollectorEntry.Collector.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
+                        initialConfig = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
+                        entryName = selectNewAgentType.SelectedPreset.Description; ;
                     }
+                    ICollector c = CollectorEntry.CreateAndConfigureEntry(ar, initialConfig);
+                    newCollectorEntry.InitialConfiguration = initialConfig.Length == 0 ? c.GetDefaultOrEmptyConfigString() : initialConfig;
+                    newCollectorEntry.Collector = c;
+                    newCollectorEntry.Name = entryName;
                 }
                 else
                 {
@@ -163,7 +165,7 @@ namespace QuickMon
                     else
                     {
                         newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                        newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config));
+                        newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                     }
                 }
                 newNotifierEntry.NotifierRegistrationName = ar.Name;
@@ -204,7 +206,7 @@ namespace QuickMon
                     else
                     {
                         newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                        newNotifierEntry.InitialConfiguration = AgentPresetConfig.FormatVariables(selectNewAgentType.SelectedPreset.Config);
+                        newNotifierEntry.InitialConfiguration = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
                         
                     }
                     newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(newNotifierEntry.InitialConfiguration);

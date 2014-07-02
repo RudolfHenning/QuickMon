@@ -217,7 +217,7 @@ namespace QuickMon.Management
                         {
                             txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
                             editingNotifierEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
-                            editingNotifierEntry.Notifier.SetConfigurationFromXmlString(AgentPresetConfig.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
+                            editingNotifierEntry.Notifier.SetConfigurationFromXmlString(MacroVariables.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
                             LoadConfig();
                         }
                     }

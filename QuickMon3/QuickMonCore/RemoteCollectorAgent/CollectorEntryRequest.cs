@@ -26,6 +26,8 @@ namespace QuickMon
         public string CollectorTypeName { get; set; }
         [DataMember(Name = "ConfigString")]
         public string ConfigString { get; set; }
+        [DataMember(Name = "ConfigVarsString")]
+        public string ConfigVarsString { get; set; }
 
         #region CorrectiveScripts
         [DataMember(Name = "CorrectiveScriptDisabled")]
@@ -96,8 +98,8 @@ namespace QuickMon
                 0, //pollSlideFrequencyAfterThirdRepeatSec not used in Remote collectors
 
                 ConfigString,
-                ""  //No service windows for remote agent
-                );
+                "",  //No service windows for remote agent
+                ConfigVarsString);
         }
         public void FromCollectorEntry(CollectorEntry fullEntry)
         {
@@ -117,6 +119,19 @@ namespace QuickMon
             AlertOnceInXMin = fullEntry.AlertOnceInXMin;
             DelayErrWarnAlertForXSec = fullEntry.DelayErrWarnAlertForXSec;
             ConfigString = fullEntry.InitialConfiguration;
+            if (fullEntry.ConfigVariables != null)
+            {
+                StringBuilder configVarXml = new StringBuilder();
+                configVarXml.AppendLine("<configVar>");
+                foreach (ConfigVariable cv in fullEntry.ConfigVariables)
+                {
+                    configVarXml.AppendLine(cv.ToXml());
+                }
+                configVarXml.AppendLine("</configVar>");
+                ConfigVarsString = configVarXml.ToString();
+            }
+            else
+                ConfigVarsString = "";
         }
     }
 }

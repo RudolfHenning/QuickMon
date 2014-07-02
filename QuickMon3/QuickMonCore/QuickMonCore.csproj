@@ -55,6 +55,7 @@
     <Compile Include="Classes\CollectorEntryAlertHandling.cs" />
     <Compile Include="Classes\AgentPresetConfig.cs" />
     <Compile Include="Classes\CollectorStateConverter.cs" />
+    <Compile Include="Classes\ConfigVariable.cs" />
     <Compile Include="Classes\MonitorState.cs" />
     <Compile Include="BaseClasses\NotifierBase.cs" />
     <Compile Include="Classes\RegisteredAgent.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Utils\CSVExtensions.cs" />
     <Compile Include="Utils\FormatUtils.cs" />
     <Compile Include="Utils\InPutValidationException.cs" />
+    <Compile Include="Utils\MacroVariables.cs" />
     <Compile Include="Utils\RegistrationHelper.cs" />
     <Compile Include="Utils\Security.cs" />
     <Compile Include="Utils\SerializationUtils.cs" />

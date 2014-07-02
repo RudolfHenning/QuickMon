@@ -9,4 +9,6 @@
   {29}
   <!-- ServiceWindows -->
   {30}
+  <!-- Config variables -->
+  {31}
 </collectorEntry>

@@ -1,5 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
-CollectorEntry (class) to have array of Dynamic Config Variables (with value to search for, value to replace with)
+CollectorEntry (class) to have array of Dynamic Config Variables (with 'value to search for', 'value to replace with')
     Will be used to replace 'value to search for' in config stream with 'value to replace with' at run-time (when creating instance)
 	Potential to later add Global Dynamic Config Variables (at MonitorPack level)
 --------------------------------------------------------------------------------------------------------

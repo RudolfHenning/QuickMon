@@ -82,6 +82,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
             this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
             this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
             this.label17 = new System.Windows.Forms.Label();
@@ -132,7 +133,7 @@
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
+            this.llblEditConfigVars = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -429,6 +430,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.llblEditConfigVars);
             this.panel2.Controls.Add(this.llblExportConfigAsTemplate);
             this.panel2.Controls.Add(this.llblRawEdit);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -445,7 +447,7 @@
             this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(123, 10);
             this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
             this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
-            this.llblExportConfigAsTemplate.TabIndex = 12;
+            this.llblExportConfigAsTemplate.TabIndex = 1;
             this.llblExportConfigAsTemplate.TabStop = true;
             this.llblExportConfigAsTemplate.Text = "Export config as template";
             this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
@@ -799,6 +801,16 @@
             this.groupBox2.Size = new System.Drawing.Size(561, 75);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            // 
+            // chkBlockParentRHOverride
+            // 
+            this.chkBlockParentRHOverride.AutoSize = true;
+            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(322, 23);
+            this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
+            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
+            this.chkBlockParentRHOverride.TabIndex = 4;
+            this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
+            this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
             // 
             // chkForceRemoteExcuteOnChildCollectors
             // 
@@ -1364,15 +1376,18 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // chkBlockParentRHOverride
+            // llblEditConfigVars
             // 
-            this.chkBlockParentRHOverride.AutoSize = true;
-            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(322, 23);
-            this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
-            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
-            this.chkBlockParentRHOverride.TabIndex = 4;
-            this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
-            this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
+            this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblEditConfigVars.AutoSize = true;
+            this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblEditConfigVars.Location = new System.Drawing.Point(266, 10);
+            this.llblEditConfigVars.Name = "llblEditConfigVars";
+            this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
+            this.llblEditConfigVars.TabIndex = 2;
+            this.llblEditConfigVars.TabStop = true;
+            this.llblEditConfigVars.Text = "Manage Config Variables";
+            this.llblEditConfigVars.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblEditConfigVars_LinkClicked);
             // 
             // EditCollectorConfig
             // 
@@ -1541,5 +1556,6 @@
         private System.Windows.Forms.ToolStripButton addPresetToolStripButton;
         private System.Windows.Forms.LinkLabel llblExportConfigAsTemplate;
         private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
+        private System.Windows.Forms.LinkLabel llblEditConfigVars;
     }
 }

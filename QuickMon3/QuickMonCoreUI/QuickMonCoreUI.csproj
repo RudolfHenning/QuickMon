@@ -110,6 +110,12 @@
     <Compile Include="Forms\EditCollectorConfig.Designer.cs">
       <DependentUpon>EditCollectorConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditConfigVariables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditConfigVariables.Designer.cs">
+      <DependentUpon>EditConfigVariables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditNotifierEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditCollectorConfig.resx">
       <DependentUpon>EditCollectorConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditConfigVariables.resx">
+      <DependentUpon>EditConfigVariables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditNotifierEntry.resx">
       <DependentUpon>EditNotifierEntry.cs</DependentUpon>

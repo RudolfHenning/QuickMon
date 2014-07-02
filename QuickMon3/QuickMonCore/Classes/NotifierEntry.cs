@@ -28,6 +28,9 @@ namespace QuickMon
         public string InitialConfiguration { get; set; }
         public List<string> AlertForCollectors { get; private set; }
         public AttendedOption AttendedOptionOverride { get; set; }
+        #region Dynamic Config Variables
+        public List<ConfigVariable> ConfigVariables { get; set; }
+        #endregion
         #endregion
 
         #region Get/Set configuration
@@ -59,11 +62,25 @@ namespace QuickMon
                         notifierEntry.AlertForCollectors.Add(collectorName);
                 }
             }
-
+            XmlNode configVarsNode = xmlNotifierEntry.SelectSingleNode("configVars");
+            if (configVarsNode != null)
+            {
+                foreach (XmlNode configVarNode in configVarsNode.SelectNodes("configVar"))
+                {
+                    notifierEntry.ConfigVariables.Add(ConfigVariable.FromXml(configVarNode.OuterXml));
+                }
+            }
             return notifierEntry;
         }
         public string ToConfig()
         {
+            StringBuilder configVarXml = new StringBuilder();
+            configVarXml.AppendLine("<configVars>");
+            foreach (ConfigVariable cv in ConfigVariables)
+            {
+                configVarXml.AppendLine(cv.ToXml());
+            }
+            configVarXml.AppendLine("</configVars>");
             string config = string.Format(Properties.Resources.NotifierEntryXml,
                 Name.EscapeXml(),
                 NotifierRegistrationName,
@@ -72,7 +89,9 @@ namespace QuickMon
                 Enum.GetName(typeof(QuickMon.DetailLevel), this.DetailLevel),
                 AttendedOptionOverride.ToString(),
                 InitialConfiguration,
-                AlertForCollectorsConfig());
+                AlertForCollectorsConfig(),
+                configVarXml.ToString()
+                );
             return config;
         }
 
