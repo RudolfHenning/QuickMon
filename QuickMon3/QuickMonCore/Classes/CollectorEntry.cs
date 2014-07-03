@@ -458,7 +458,35 @@ namespace QuickMon
         }
         #endregion
 
-        #region Get/Set configuration
+        #region Create Collector Instance
+        public void CreateAndConfigureEntry(string agentClassName, bool useConfigVars = true, string overrideWithConfig = "")
+        {
+            RegisteredAgent ra = null;
+            if (agentClassName == "Folder")
+                return;
+            ra = (from a in RegisteredAgentCache.Agents
+                  where a.IsCollector && a.ClassName.EndsWith(agentClassName)
+                  orderby a.Name
+                  select a).FirstOrDefault();
+            if (ra == null) //in case agent is not loaded or available
+                throw new Exception("Collector '" + Name + "' with type of '" + agentClassName + "' cannot be loaded! No Assembly of this Agent type found!");
+            else
+            {
+                if (overrideWithConfig.Trim().Length > 0)
+                    Collector = CreateAndConfigureEntry(ra, overrideWithConfig, (useConfigVars ? ConfigVariables : null));
+                else if (InitialConfiguration != null && InitialConfiguration.Length > 0)
+                    Collector = CreateAndConfigureEntry(ra, InitialConfiguration, (useConfigVars ? ConfigVariables : null));
+                else
+                {
+                    Collector = CreateAndConfigureEntry(ra, "", (useConfigVars ? ConfigVariables : null));
+                }
+                CollectorRegistrationDisplayName = ra.DisplayName;
+                CollectorRegistrationName = ra.Name;
+                if (InitialConfiguration == null && InitialConfiguration.Length == 0 && Collector != null)
+                    InitialConfiguration = overrideWithConfig.Trim().Length == 0 ? Collector.GetDefaultOrEmptyConfigString() : overrideWithConfig;
+            }
+        }
+
         public void CreateAndConfigureEntry(RegisteredAgent ra)
         {
             if (InitialConfiguration != null && InitialConfiguration.Length > 0)
@@ -486,7 +514,6 @@ namespace QuickMon
             }
             return newEntry;
         }
-
         /// <summary>
         /// Create a new instance of the collector agent
         /// </summary>
@@ -514,6 +541,9 @@ namespace QuickMon
             newCollectorEntry.Name = className.Replace("QuickMon.Collectors.","");
             return newCollectorEntry;
         }
+        #endregion
+
+        #region Get/Set configuration
         /// <summary>
         /// Create CollectorEntry instance based on configuration string
         /// </summary>

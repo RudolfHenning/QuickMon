@@ -1461,14 +1461,15 @@ namespace QuickMon
                     bool mpVisible = false;
                     if (System.IO.File.Exists(filePath))
                     {
-                        MonitorPack recentPack = new MonitorPack();
-                        recentPack.Load(filePath);
+                        //MonitorPack recentPack = new MonitorPack();
+                        //recentPack.Load(filePath);
+                        string typeName = MonitorPack.GetMonitorPackTypeName(filePath);
                         if ((from string s in allowFilters
-                             where s == "*" || s.ToLower() == recentPack.TypeName.ToLower()
+                             where s == "*" || s.ToLower() == typeName.ToLower()
                              select s).Count() > 0)
                             mpVisible = true;
                         if ((from string s in disallowFilters
-                             where s.ToLower() == recentPack.TypeName.ToLower()
+                             where s.ToLower() == typeName.ToLower()
                              select s).Count() > 0)
                             mpVisible = false;
                     }
@@ -1894,18 +1895,6 @@ namespace QuickMon
                         monitorPack.DefaultViewerNotifier = newNotifierEntry;
                     LoadNotifiersList();
                 }
-
-                //Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
-                //editNotifierEntry.LaunchAddEntry = true;
-
-                //if (editNotifierEntry.ShowDialog(monitorPack) == System.Windows.Forms.DialogResult.OK)
-                //{
-                //    SetMonitorChanged();
-                //    monitorPack.Notifiers.Add(editNotifierEntry.SelectedEntry);
-                //    if (monitorPack.Notifiers.Count == 1)
-                //        monitorPack.DefaultViewerNotifier = editNotifierEntry.SelectedEntry;
-                //    LoadNotifiersList();
-                //}
             }
             catch (Exception ex)
             {

@@ -19,8 +19,6 @@ namespace QuickMon.Management
         }
 
         private MonitorPack monitorPack;
-        private Size collapsedSize = new Size(500, 250);
-        private Size expandedSize = new Size(500, 400);
         private NotifierEntry editingNotifierEntry;
 
         public NotifierEntry SelectedEntry { get; set; }
@@ -30,16 +28,27 @@ namespace QuickMon.Management
 
         public DialogResult ShowDialog(MonitorPack monitorPack)
         {
-            this.monitorPack = monitorPack;
             if (SelectedEntry == null)
             {
-                return System.Windows.Forms.DialogResult.No;
+                return System.Windows.Forms.DialogResult.Cancel;
             }
             else
+            {
+                this.monitorPack = monitorPack;
                 editingNotifierEntry = NotifierEntry.FromConfig(SelectedEntry.ToConfig());
 
-            monitorPack.ApplyNotifierConfig(editingNotifierEntry);             
-            return ShowDialog();
+                try
+                {
+                    //Create Notifier instance but do not apply Config Variables!
+                    editingNotifierEntry.CreateAndConfigureEntry(editingNotifierEntry.NotifierRegistrationName, false);
+                    return ShowDialog();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return System.Windows.Forms.DialogResult.Cancel;
+                }               
+            }
         }
 
         #region Form events
@@ -49,14 +58,14 @@ namespace QuickMon.Management
             {
                 cmdConfigure_Click(null, null);
             }
-            else if (ShowRawEditOnStart && editingNotifierEntry != null && editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
+            else if (ShowRawEditOnStart && editingNotifierEntry != null && editingNotifierEntry.InitialConfiguration != null)
             {
                 llblRawEdit_LinkClicked(null, null);
             }
         }
         private void EditNotifierEntry_Shown(object sender, EventArgs e)
         {
-            LoadConfig();
+            ApplyConfigToControls();
         }        
         #endregion
 
@@ -72,13 +81,15 @@ namespace QuickMon.Management
                 SelectedEntry.AlertLevel = (AlertLevel)cboAlertLevel.SelectedIndex;
                 SelectedEntry.DetailLevel = (DetailLevel)cboDetailLevel.SelectedIndex;
                 SelectedEntry.NotifierRegistrationName = editingNotifierEntry.NotifierRegistrationName;
-                SelectedEntry.InitialConfiguration = editingNotifierEntry.Notifier.AgentConfig.ToConfig();
+                SelectedEntry.InitialConfiguration = editingNotifierEntry.InitialConfiguration;
                 SelectedEntry.AlertForCollectors.Clear();
                 if (editingNotifierEntry.AlertForCollectors != null && editingNotifierEntry.AlertForCollectors.Count > 0)
                     SelectedEntry.AlertForCollectors.AddRange(editingNotifierEntry.AlertForCollectors.ToArray());
                 SelectedEntry.AttendedOptionOverride = (AttendedOption)cboAttendedOptionOverride.SelectedIndex;
-
-                monitorPack.ApplyNotifierConfig(SelectedEntry);
+                SelectedEntry.ConfigVariables = new List<ConfigVariable>();
+                SelectedEntry.ConfigVariables.AddRange((from ConfigVariable cv in editingNotifierEntry.ConfigVariables
+                                                        select cv.Clone()).ToArray());
+                SelectedEntry.CreateAndConfigureEntry(SelectedEntry.NotifierRegistrationName);
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
@@ -107,37 +118,19 @@ namespace QuickMon.Management
             {
                 try
                 {
-                    RegisteredAgent ar = (from a in RegisteredAgentCache.Agents // monitorPack.RegisteredAgents
-                                      where a.IsNotifier && a.Name == editingNotifierEntry.NotifierRegistrationName
-                                      select a).FirstOrDefault();
-                    if (ar != null)
+                    INotifier tmpnotifier = editingNotifierEntry.Notifier;
+                    if (tmpnotifier != null)
                     {
-                        INotifier tmpnotifier;
-                        tmpnotifier = NotifierEntry.CreateNotifierEntry(ar);
-                        if (tmpnotifier != null)
+                        if (txtName.Text.Length == 0)
+                            txtName.Text = "No Name";
+                        if (tmpnotifier.ShowEditConfiguration("Edit '" + txtName.Text + "' Config"))
                         {
-                            if (editingNotifierEntry.Notifier != null &&
-                                ar.Name == editingNotifierEntry.NotifierRegistrationName)
+                            editingNotifierEntry.Notifier = tmpnotifier;
+                            editingNotifierEntry.InitialConfiguration = tmpnotifier.AgentConfig.ToConfig();
+                            if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
                             {
-                                tmpnotifier.SetConfigurationFromXmlString(editingNotifierEntry.Notifier.AgentConfig.ToConfig());
-                            }
-                            else
-                            {
-                                tmpnotifier.SetConfigurationFromXmlString(tmpnotifier.GetDefaultOrEmptyConfigString());
-                            }
-                            if (txtName.Text.Length == 0)
-                                txtName.Text = "No Name";
-                            if (tmpnotifier.ShowEditConfiguration("Edit '" + txtName.Text + "' Config"))
-                            {
-                                editingNotifierEntry.Notifier = tmpnotifier;
-                                editingNotifierEntry.InitialConfiguration = tmpnotifier.AgentConfig.ToConfig();
-                                editingNotifierEntry.NotifierRegistrationName = ar.Name;
-
-                                if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
-                                {
-                                    INotifierConfig config = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
-                                    lblConfigSummary.Text = config.ConfigSummary;
-                                }
+                                INotifierConfig config = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
+                                lblConfigSummary.Text = config.ConfigSummary;
                             }
                         }
                         CheckOkEnable();
@@ -153,75 +146,45 @@ namespace QuickMon.Management
         {
             if (MessageBox.Show("Are you sure you want to change the Notifier type?\r\n\r\nIf you continue this will reset any existing configuration.", "Notifier type", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
+                List<ConfigVariable> configVars = new List<ConfigVariable>();
+                foreach (ConfigVariable cv in editingNotifierEntry.ConfigVariables)
+                    configVars.Add(cv.Clone());
                 NotifierEntry newNotifierEntry = AgentHelper.CreateNewNotifier();
                 if (newNotifierEntry != null)
                 {
                     editingNotifierEntry = null;
                     editingNotifierEntry = newNotifierEntry;
-                    LoadConfig();
+                    editingNotifierEntry.ConfigVariables = configVars;
+                    ApplyConfigToControls();
                 }
-
-                //AgentTypeSelect agentTypeSelect = new AgentTypeSelect();
-                //if (agentTypeSelect.ShowNotifierSelection(editingNotifierEntry.NotifierRegistrationName) == System.Windows.Forms.DialogResult.OK)
-                //{
-                //    RegisteredAgent ar = agentTypeSelect.SelectedAgent;
-                //    editingNotifierEntry.NotifierRegistrationName = ar.Name;
-                //    llblNotifierType.Text = ar.DisplayName;
-
-                //    LoadConfig();
-                //}
             }
         }
         private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
-                if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
+                if (editingNotifierEntry.InitialConfiguration != null)
                 {
                     EditRAWMarkup editRaw = new EditRAWMarkup();
-                    editRaw.SelectedMarkup = XmlFormattingUtils.NormalizeXML(editingNotifierEntry.Notifier.AgentConfig.ToConfig());
+                    editRaw.SelectedMarkup = XmlFormattingUtils.NormalizeXML(editingNotifierEntry.InitialConfiguration);
                     editRaw.AgentType = editingNotifierEntry.NotifierRegistrationName;
                     editRaw.UseNotifierType = true;
                     editRaw.CurrentMonitorPack = monitorPack;
                     if (editRaw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        editingNotifierEntry.Notifier.SetConfigurationFromXmlString(editRaw.SelectedMarkup);
+                        editingNotifierEntry.InitialConfiguration = editRaw.SelectedMarkup;
+                        editingNotifierEntry.CreateAndConfigureEntry(editingNotifierEntry.NotifierRegistrationName, false);
+                        if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
+                        {
+                            INotifierConfig config = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
+                            lblConfigSummary.Text = config.ConfigSummary;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format("Error setting configuration\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-        private void llblUsePreset_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (editingNotifierEntry != null && editingNotifierEntry.Notifier != null)
-            {
-                bool presetsAvailable = false;
-                List<AgentPresetConfig> presets = null;
-                try
-                {
-                    presets = AgentPresetConfig.GetPresetsForClass(editingNotifierEntry.Notifier.GetType().Name);
-                    presetsAvailable = (presets != null && presets.Count > 0);
-                }
-                catch { }
-                if (presetsAvailable)
-                {
-                    INotifierConfig currentConfig = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
-                    AddFromCollectorPreset addFromCollectorPreset = new AddFromCollectorPreset();
-                    addFromCollectorPreset.AvailablePresets = presets;
-                    if (addFromCollectorPreset.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
-                        {
-                            txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
-                            editingNotifierEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
-                            editingNotifierEntry.Notifier.SetConfigurationFromXmlString(MacroVariables.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
-                            LoadConfig();
-                        }
-                    }
-                }
             }
         }
         private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -235,7 +198,7 @@ namespace QuickMon.Management
                         AgentPresetConfig newPreset = new AgentPresetConfig();
                         newPreset.AgentClassName = editingNotifierEntry.NotifierRegistrationName;
                         newPreset.Description = txtName.Text;
-                        newPreset.Config = editingNotifierEntry.Notifier.AgentConfig.ToConfig();
+                        newPreset.Config = editingNotifierEntry.InitialConfiguration;
                         List<AgentPresetConfig> allExistingPresets = AgentPresetConfig.GetAllPresets();
 
                         if ((from p in allExistingPresets
@@ -263,6 +226,25 @@ namespace QuickMon.Management
                         MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+        private void llblEditConfigVars_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (editingNotifierEntry != null)
+                {
+                    EditConfigVariables editConfigVariables = new EditConfigVariables();
+                    editConfigVariables.SelectedConfigVariables = editingNotifierEntry.ConfigVariables;
+                    if (editConfigVariables.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        editingNotifierEntry.ConfigVariables = editConfigVariables.SelectedConfigVariables;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         #endregion
@@ -341,8 +323,8 @@ namespace QuickMon.Management
                 if (editingNotifierEntry.AlertForCollectors.Count > 100)
                     alertForCollectorslinkLabel.Text += "...";
             }
-        } 
-        private void LoadConfig()
+        }
+        private void ApplyConfigToControls()
         {
             cmdConfigure.Enabled = editingNotifierEntry == null;
             cboAttendedOptionOverride.SelectedIndex = 0;
@@ -350,16 +332,6 @@ namespace QuickMon.Management
             {
                 txtName.Text = editingNotifierEntry.Name;
                 chkEnabled.Checked = editingNotifierEntry.Enabled;
-
-                //bool presetsAvailable = false;
-                //List<AgentPresetConfig> presets = null;
-                //try
-                //{
-                //    presets = AgentPresetConfig.GetPresetsForClass(editingNotifierEntry.NotifierRegistrationName);
-                //    presetsAvailable = (presets != null && presets.Count > 0);
-                //}
-                //catch { }
-                //llblUsePreset.Visible = presetsAvailable;
 
                 RegisteredAgent ar = (from a in RegisteredAgentCache.Agents 
                                       where a.IsNotifier && a.Name == editingNotifierEntry.NotifierRegistrationName
@@ -387,9 +359,7 @@ namespace QuickMon.Management
                 CheckOkEnable();
             }
         }
-        #endregion        
-
-
+        #endregion
 
         #region Manual config edit context menu events
         //private void copyToolStripMenuItem_Click(object sender, EventArgs e)

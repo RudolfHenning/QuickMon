@@ -10,6 +10,8 @@ namespace QuickMon
     {
         public static List<string> KnownRemoteHosts = new List<string>();
         public static int LastCreateAgentOption;
+        public static bool LastLaunchAddEntryOption;
+        public static bool LastShowRawEditOnStartOption;
 
         #region Collectors
         public static CollectorEntry CreateNewCollector(CollectorEntry parentCollectorEntry = null)
@@ -19,52 +21,8 @@ namespace QuickMon
             selectNewAgentType.InitialRegistrationName = "";
             if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
             {
-                newCollectorEntry = new CollectorEntry();
-                if (parentCollectorEntry != null)
-                    newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
-                RegisteredAgent ar = null;
-                if (selectNewAgentType.SelectedPreset != null)
-                {
-                    ar = (from a in RegisteredAgentCache.Agents
-                          where a.IsCollector && a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
-                          orderby a.Name
-                          select a).FirstOrDefault();
-                }
-                else if (selectNewAgentType.SelectedAgent != null)
-                {
-                    ar = selectNewAgentType.SelectedAgent;
-                }
-                else
-                    return null;
-
-                if (ar == null) //in case agent is not loaded or available
-                    return null;
-                else if (ar.ClassName != "QuickMon.Collectors.Folder")
-                {
-                    if (selectNewAgentType.SelectedPreset == null)
-                        newCollectorEntry.CreateAndConfigureEntry(ar);
-                    else
-                    {
-                        newCollectorEntry.Collector = CollectorEntry.CreateAndConfigureEntry(ar, MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config));
-                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                    }
-                }
-                else
-                {
-                    newCollectorEntry.IsFolder = true;
-                }
-                newCollectorEntry.CollectorRegistrationDisplayName = ar.DisplayName;
-                newCollectorEntry.CollectorRegistrationName = ar.Name;
-            }
-            return newCollectorEntry;
-        }
-        public static CollectorEntry CreateAndEditNewCollector(MonitorPack monitorPack, CollectorEntry parentCollectorEntry = null)
-        {
-            CollectorEntry newCollectorEntry = null;
-            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            selectNewAgentType.InitialRegistrationName = "";
-            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
-            {
+                LastLaunchAddEntryOption = selectNewAgentType.SelectedPreset == null;
+                LastShowRawEditOnStartOption = selectNewAgentType.ImportConfigAfterSelect;
                 newCollectorEntry = new CollectorEntry();
                 if (parentCollectorEntry != null)
                     newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
@@ -88,30 +46,33 @@ namespace QuickMon
                 else if (ar.ClassName != "QuickMon.Collectors.Folder")
                 {
                     string initialConfig = "";
-                    string entryName = "";
                     if (selectNewAgentType.SelectedPreset != null)
                     {
                         initialConfig = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
-                        entryName = selectNewAgentType.SelectedPreset.Description; ;
+                        newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
                     }
-                    ICollector c = CollectorEntry.CreateAndConfigureEntry(ar, initialConfig);
-                    newCollectorEntry.InitialConfiguration = initialConfig.Length == 0 ? c.GetDefaultOrEmptyConfigString() : initialConfig;
-                    newCollectorEntry.Collector = c;
-                    newCollectorEntry.Name = entryName;
+                    newCollectorEntry.InitialConfiguration = initialConfig.Length > 0 ? initialConfig : newCollectorEntry.Collector.GetDefaultOrEmptyConfigString();
+                    newCollectorEntry.CreateAndConfigureEntry(ar.ClassName, false, initialConfig);
                 }
                 else
                 {
                     newCollectorEntry.IsFolder = true;
+                    newCollectorEntry.CollectorRegistrationDisplayName = ar.DisplayName;
+                    newCollectorEntry.CollectorRegistrationName = ar.Name;
                 }
-                newCollectorEntry.CollectorRegistrationDisplayName = ar.DisplayName;
-                newCollectorEntry.CollectorRegistrationName = ar.Name;
-
+            }
+            return newCollectorEntry;
+        }
+        public static CollectorEntry CreateAndEditNewCollector(MonitorPack monitorPack, CollectorEntry parentCollectorEntry = null)
+        {
+            CollectorEntry newCollectorEntry = CreateNewCollector(parentCollectorEntry);
+            if (newCollectorEntry != null)
+            {
                 QuickMon.Forms.EditCollectorConfig editCollectorEntry = new Forms.EditCollectorConfig();
                 editCollectorEntry.SelectedEntry = newCollectorEntry;
                 editCollectorEntry.KnownRemoteHosts = KnownRemoteHosts;
-
-                editCollectorEntry.LaunchAddEntry = selectNewAgentType.SelectedPreset == null;
-                editCollectorEntry.ShowRawEditOnStart = selectNewAgentType.ImportConfigAfterSelect;
+                editCollectorEntry.LaunchAddEntry = LastLaunchAddEntryOption;
+                editCollectorEntry.ShowRawEditOnStart = LastShowRawEditOnStartOption;
 
                 if (editCollectorEntry.ShowDialog(monitorPack) != System.Windows.Forms.DialogResult.OK)
                 {
@@ -138,6 +99,8 @@ namespace QuickMon
             selectNewAgentType.InitialRegistrationName = "";
             if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
             {
+                LastLaunchAddEntryOption = selectNewAgentType.SelectedPreset == null;
+                LastShowRawEditOnStartOption = selectNewAgentType.ImportConfigAfterSelect;
                 newNotifierEntry = new NotifierEntry();
                 RegisteredAgent ar = null;
                 if (selectNewAgentType.SelectedPreset != null)
@@ -157,66 +120,28 @@ namespace QuickMon
                 if (ar == null) //in case agent is not loaded or available
                     return null;
                 else
-                {
-                    INotifier n = NotifierEntry.CreateNotifierEntry(ar);
-                    newNotifierEntry.Notifier = n;
-                    if (selectNewAgentType.SelectedPreset == null)
-                        newNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
-                    else
+                {                    
+                    string initialConfig = "";
+                    if (selectNewAgentType.SelectedPreset != null)
                     {
+                        initialConfig = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
                         newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                        newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config));
                     }
-                }
-                newNotifierEntry.NotifierRegistrationName = ar.Name;
+                    newNotifierEntry.InitialConfiguration = initialConfig.Length > 0 ? initialConfig : newNotifierEntry.Notifier.GetDefaultOrEmptyConfigString();
+                    newNotifierEntry.CreateAndConfigureEntry(ar.ClassName, false, initialConfig);                    
+                }                
             }
             return newNotifierEntry;
         }
         public static NotifierEntry CreateAndEditNewNotifier(MonitorPack monitorPack)
         {
-            NotifierEntry newNotifierEntry = null;
-            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            selectNewAgentType.InitialRegistrationName = "";
-            if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
+            NotifierEntry newNotifierEntry = CreateNewNotifier();
+            if (newNotifierEntry != null)
             {
-                newNotifierEntry = new NotifierEntry();
-                RegisteredAgent ar = null;
-                if (selectNewAgentType.SelectedPreset != null)
-                {
-                    ar = (from a in RegisteredAgentCache.Agents
-                          where a.IsNotifier && a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
-                          orderby a.Name
-                          select a).FirstOrDefault();
-                }
-                else if (selectNewAgentType.SelectedAgent != null)
-                {
-                    ar = selectNewAgentType.SelectedAgent;
-                }
-                else
-                    return null;
-
-                if (ar == null) //in case agent is not loaded or available
-                    return null;
-                else
-                {
-                    INotifier n = NotifierEntry.CreateNotifierEntry(ar);
-                    newNotifierEntry.Notifier = n;
-                    if (selectNewAgentType.SelectedPreset == null)
-                        newNotifierEntry.InitialConfiguration = n.GetDefaultOrEmptyConfigString();
-                    else
-                    {
-                        newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                        newNotifierEntry.InitialConfiguration = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
-                        
-                    }
-                    newNotifierEntry.Notifier.AgentConfig.ReadConfiguration(newNotifierEntry.InitialConfiguration);
-                }
-                newNotifierEntry.NotifierRegistrationName = ar.Name;
-
                 Management.EditNotifierEntry editNotifierEntry = new Management.EditNotifierEntry();
                 editNotifierEntry.SelectedEntry = newNotifierEntry;
-                editNotifierEntry.LaunchAddEntry = selectNewAgentType.SelectedPreset == null;
-                editNotifierEntry.ShowRawEditOnStart = selectNewAgentType.ImportConfigAfterSelect;
+                editNotifierEntry.LaunchAddEntry = LastLaunchAddEntryOption;
+                editNotifierEntry.ShowRawEditOnStart = LastShowRawEditOnStartOption;
 
                 if (editNotifierEntry.ShowDialog(monitorPack) != System.Windows.Forms.DialogResult.OK)
                 {

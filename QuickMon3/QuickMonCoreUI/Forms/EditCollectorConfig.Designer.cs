@@ -51,10 +51,10 @@
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addPresetToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.llblEditConfigVars = new System.Windows.Forms.LinkLabel();
             this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -133,7 +133,6 @@
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.llblEditConfigVars = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -377,7 +376,6 @@
             this.collectorEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.collectorEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCollectorConfigEntryToolStripButton,
-            this.addPresetToolStripButton,
             this.editCollectorConfigEntryToolStripButton,
             this.deleteCollectorConfigEntryToolStripButton});
             this.collectorEditToolStrip.Location = new System.Drawing.Point(0, 0);
@@ -396,16 +394,6 @@
             this.addCollectorConfigEntryToolStripButton.Text = "Add Collector entry";
             this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
             this.addCollectorConfigEntryToolStripButton.Click += new System.EventHandler(this.addCollectorConfigEntryToolStripButton_Click);
-            // 
-            // addPresetToolStripButton
-            // 
-            this.addPresetToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addPresetToolStripButton.Image = global::QuickMon.Properties.Resources.PlusExcl16x16;
-            this.addPresetToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addPresetToolStripButton.Name = "addPresetToolStripButton";
-            this.addPresetToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addPresetToolStripButton.Text = "Set from template";
-            this.addPresetToolStripButton.Click += new System.EventHandler(this.addPresetToolStripButton_Click);
             // 
             // editCollectorConfigEntryToolStripButton
             // 
@@ -438,6 +426,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(568, 26);
             this.panel2.TabIndex = 1;
+            // 
+            // llblEditConfigVars
+            // 
+            this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblEditConfigVars.AutoSize = true;
+            this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblEditConfigVars.Location = new System.Drawing.Point(266, 10);
+            this.llblEditConfigVars.Name = "llblEditConfigVars";
+            this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
+            this.llblEditConfigVars.TabIndex = 2;
+            this.llblEditConfigVars.TabStop = true;
+            this.llblEditConfigVars.Text = "Manage Config Variables";
+            this.llblEditConfigVars.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblEditConfigVars_LinkClicked);
             // 
             // llblExportConfigAsTemplate
             // 
@@ -1376,19 +1377,6 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // llblEditConfigVars
-            // 
-            this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblEditConfigVars.AutoSize = true;
-            this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblEditConfigVars.Location = new System.Drawing.Point(266, 10);
-            this.llblEditConfigVars.Name = "llblEditConfigVars";
-            this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
-            this.llblEditConfigVars.TabIndex = 2;
-            this.llblEditConfigVars.TabStop = true;
-            this.llblEditConfigVars.Text = "Manage Config Variables";
-            this.llblEditConfigVars.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblEditConfigVars_LinkClicked);
-            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1553,7 +1541,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.ToolStripButton addPresetToolStripButton;
         private System.Windows.Forms.LinkLabel llblExportConfigAsTemplate;
         private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
         private System.Windows.Forms.LinkLabel llblEditConfigVars;

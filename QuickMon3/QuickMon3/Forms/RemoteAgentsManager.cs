@@ -287,19 +287,20 @@ namespace QuickMon.Forms
                     ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
 
                     bool hostExists = false;
-                    lock (this)
+                    try
                     {
-                        hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
-                    }
-                    if (!hostExists)
-                    {
-                        imageIndex = 3;
-                        lvi.SubItems[1].Text = "N/A";
-                    }
-                    else
-                    {
-                        try
+                        lock (this)
                         {
+                            hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
+                        }
+                        if (!hostExists)
+                        {
+                            imageIndex = 3;
+                            lvi.SubItems[1].Text = "N/A";
+                        }
+                        else
+                        {
+
                             MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
 
                             if (testState.State == CollectorState.Good)
@@ -326,14 +327,14 @@ namespace QuickMon.Forms
                                 lvi.SubItems[1].Text = "N/A";
                             }
                         }
-                        catch (Exception delegateEx)
-                        {
-                            imageIndex = 3;
-                            if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
-                                lvi.SubItems[1].Text = "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.";
-                            else
-                                lvi.SubItems[1].Text = delegateEx.Message;
-                        }
+                    }
+                    catch (Exception delegateEx)
+                    {
+                        imageIndex = 3;
+                        if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
+                            lvi.SubItems[1].Text = "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.";
+                        else
+                            lvi.SubItems[1].Text = delegateEx.Message;
                     }
                 });
             }

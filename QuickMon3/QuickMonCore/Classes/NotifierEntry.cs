@@ -16,6 +16,7 @@ namespace QuickMon
             Enabled = true;
             AlertLevel = AlertLevel.Warning;
             DetailLevel = DetailLevel.Detail;
+            ConfigVariables = new List<ConfigVariable>();
         }
 
         #region Properties
@@ -31,6 +32,65 @@ namespace QuickMon
         #region Dynamic Config Variables
         public List<ConfigVariable> ConfigVariables { get; set; }
         #endregion
+        #endregion
+
+        #region Create Notifier Instance
+        public void CreateAndConfigureEntry(string agentClassName, bool useConfigVars = true, string overrideWithConfig = "")
+        {
+            RegisteredAgent ra = null;
+            ra = (from a in RegisteredAgentCache.Agents
+                  where a.IsNotifier && a.ClassName.EndsWith(agentClassName)
+                  orderby a.Name
+                  select a).FirstOrDefault();
+            if (ra == null) //in case agent is not loaded or available
+                throw new Exception("Notifier '" + Name + "' with type of '" + agentClassName + "' cannot be loaded! No Assembly of this Agent type found!");
+            else
+            {
+                if (overrideWithConfig.Trim().Length > 0)
+                    Notifier = CreateAndConfigureEntry(ra, overrideWithConfig, (useConfigVars ? ConfigVariables : null));
+                else if (InitialConfiguration != null && InitialConfiguration.Length > 0)
+                    Notifier = CreateAndConfigureEntry(ra, InitialConfiguration, (useConfigVars ? ConfigVariables : null));
+                else
+                {
+                    Notifier = CreateAndConfigureEntry(ra, "", (useConfigVars ? ConfigVariables : null));
+                }
+                NotifierRegistrationName = ra.Name;
+                if (InitialConfiguration == null && InitialConfiguration.Length == 0)
+                    InitialConfiguration = overrideWithConfig.Trim().Length == 0 ? Notifier.GetDefaultOrEmptyConfigString() : overrideWithConfig;
+            }
+        }
+        private INotifier CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig = "", List<ConfigVariable> configVariables = null)
+        {
+            INotifier newEntry = CreateNotifierEntry(ra);
+            if (newEntry != null)
+            {
+                if (appliedConfig.Length == 0)
+                    appliedConfig = newEntry.GetDefaultOrEmptyConfigString();
+                if (configVariables != null && configVariables.Count > 0)
+                {
+                    foreach (ConfigVariable vc in configVariables)
+                        if (vc.Name.Length > 0)
+                            appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
+                }
+                newEntry.AgentConfig.ReadConfiguration(appliedConfig);
+            }
+            return newEntry;
+        }
+        public static INotifier CreateNotifierEntry(RegisteredAgent ra)
+        {
+            if (ra != null)
+            {
+                return CreateNotifierEntry(ra.AssemblyPath, ra.ClassName);
+            }
+            else
+                return null;
+        }
+        private static INotifier CreateNotifierEntry(string assemblyPath, string className)
+        {
+            Assembly notifierEntryAssembly = Assembly.LoadFile(assemblyPath);
+            INotifier newNotifierEntry = (INotifier)notifierEntryAssembly.CreateInstance(className);
+            return newNotifierEntry;
+        }
         #endregion
 
         #region Get/Set configuration
@@ -94,7 +154,6 @@ namespace QuickMon
                 );
             return config;
         }
-
         private string AlertForCollectorsConfig()
         {
             XmlDocument config = new XmlDocument();
@@ -106,22 +165,6 @@ namespace QuickMon
                 config.DocumentElement.AppendChild(colNode);
             }
             return config.OuterXml;
-        }
-
-        public static INotifier CreateNotifierEntry(RegisteredAgent ra)
-        {
-            if (ra != null)
-            {
-                return CreateNotifierEntry(ra.AssemblyPath, ra.ClassName);
-            }
-            else
-                return null;
-        }
-        private static INotifier CreateNotifierEntry(string assemblyPath, string className)
-        {
-            Assembly notifierEntryAssembly = Assembly.LoadFile(assemblyPath);
-            INotifier newNotifierEntry = (INotifier)notifierEntryAssembly.CreateInstance(className);
-            return newNotifierEntry;
         }
         #endregion
 

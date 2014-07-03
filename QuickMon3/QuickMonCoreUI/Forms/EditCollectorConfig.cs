@@ -43,71 +43,136 @@ namespace QuickMon.Forms
         {
             if (KnownRemoteHosts == null)
                 KnownRemoteHosts = new List<string>();
-            if (SelectedEntry != null)
+            if (SelectedEntry == null)
+            {
+                return System.Windows.Forms.DialogResult.Cancel;
+            }
+            else
             {
                 this.monitorPack = monitorPack;
                 currentEditingEntry = CollectorEntry.FromConfig(SelectedEntry.ToConfig());
-                RegisteredAgent currentRA = (from r in RegisteredAgentCache.Agents
-                                             where r.IsCollector && r.ClassName.EndsWith("." + SelectedEntry.CollectorRegistrationName)
-                             select r).FirstOrDefault();
-                if (currentRA != null)
-                {
-                    currentEditingEntry.Collector = CollectorEntry.CreateAndConfigureEntry(currentRA, SelectedEntry.InitialConfiguration);
-                    currentEditingEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
-                }
-                else
-                {
-                    MessageBox.Show("The specified Collector type '" + SelectedEntry.CollectorRegistrationName + "' is not registered or invalid!", "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                //if (monitorPack != null && currentEditingEntry != null)
-                //    monitorPack.ApplyCollectorConfig(currentEditingEntry);
-                ApplyConfigToControls();
-
-                txtName.Text = currentEditingEntry.Name;
-                chkEnabled.Checked = currentEditingEntry.Enabled;
-                lblId.Text = currentEditingEntry.UniqueId;
-                llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
-                chkRemoteAgentEnabled.Checked = currentEditingEntry.EnableRemoteExecute;
-                chkForceRemoteExcuteOnChildCollectors.Checked = currentEditingEntry.ForceRemoteExcuteOnChildCollectors;
-                txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
-                remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
-                chkBlockParentRHOverride.Checked = currentEditingEntry.BlockParentOverrideRemoteAgentHostSettings;
-
                 try
                 {
-                    chkEnablePollingOverride.Checked = currentEditingEntry.EnabledPollingOverride;
-                    onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(currentEditingEntry.OnlyAllowUpdateOncePerXSec);
-                    chkEnablePollingFrequencySliding.Checked = currentEditingEntry.EnablePollFrequencySliding;
-                    pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterThirdRepeatSec);
-                    pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterSecondRepeatSec);
-                    pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterFirstRepeatSec);                    
+                    //Create Collector instance but do not apply Config Variables!
+                    currentEditingEntry.CreateAndConfigureEntry(currentEditingEntry.CollectorRegistrationName, false);
+
+                    ApplyConfigToControls();
+
+                    txtName.Text = currentEditingEntry.Name;
+                    chkEnabled.Checked = currentEditingEntry.Enabled;
+                    lblId.Text = currentEditingEntry.UniqueId;
+                    llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
+                    chkRemoteAgentEnabled.Checked = currentEditingEntry.EnableRemoteExecute;
+                    chkForceRemoteExcuteOnChildCollectors.Checked = currentEditingEntry.ForceRemoteExcuteOnChildCollectors;
+                    txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
+                    remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
+                    chkBlockParentRHOverride.Checked = currentEditingEntry.BlockParentOverrideRemoteAgentHostSettings;
+
+                    try
+                    {
+                        chkEnablePollingOverride.Checked = currentEditingEntry.EnabledPollingOverride;
+                        onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(currentEditingEntry.OnlyAllowUpdateOncePerXSec);
+                        chkEnablePollingFrequencySliding.Checked = currentEditingEntry.EnablePollFrequencySliding;
+                        pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterThirdRepeatSec);
+                        pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterSecondRepeatSec);
+                        pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterFirstRepeatSec);
+                    }
+                    catch { }
+                    PollingOverrideControlsEnable();
+
+                    numericUpDownRepeatAlertInXMin.SaveValueSet(currentEditingEntry.RepeatAlertInXMin);
+                    numericUpDownRepeatAlertInXPolls.SaveValueSet(currentEditingEntry.RepeatAlertInXPolls);
+                    AlertOnceInXMinNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXMin);
+                    AlertOnceInXPollsNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXPolls);
+                    delayAlertSecNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXSec);
+                    delayAlertPollsNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXPolls);
+
+                    chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
+
+                    chkCorrectiveScriptDisabled.Checked = currentEditingEntry.CorrectiveScriptDisabled;
+                    txtCorrectiveScriptOnWarning.Text = currentEditingEntry.CorrectiveScriptOnWarningPath;
+                    txtCorrectiveScriptOnError.Text = currentEditingEntry.CorrectiveScriptOnErrorPath;
+                    txtRestorationScript.Text = currentEditingEntry.RestorationScriptPath;
+                    chkOnlyRunCorrectiveScriptsOnStateChange.Checked = currentEditingEntry.CorrectiveScriptsOnlyOnStateChange;
+                    linkLabelServiceWindows.Text = currentEditingEntry.ServiceWindows.ToString();
+
+                    LoadParentCollectorList();
+                    CheckOkEnabled();
+                    return ShowDialog();
                 }
-                catch { }
-                PollingOverrideControlsEnable();
-
-                numericUpDownRepeatAlertInXMin.SaveValueSet(currentEditingEntry.RepeatAlertInXMin);
-                numericUpDownRepeatAlertInXPolls.SaveValueSet(currentEditingEntry.RepeatAlertInXPolls);
-                AlertOnceInXMinNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXMin);
-                AlertOnceInXPollsNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXPolls);
-                delayAlertSecNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXSec);
-                delayAlertPollsNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXPolls);
-
-                chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
-
-                chkCorrectiveScriptDisabled.Checked = currentEditingEntry.CorrectiveScriptDisabled;
-                txtCorrectiveScriptOnWarning.Text = currentEditingEntry.CorrectiveScriptOnWarningPath;
-                txtCorrectiveScriptOnError.Text = currentEditingEntry.CorrectiveScriptOnErrorPath;
-                txtRestorationScript.Text = currentEditingEntry.RestorationScriptPath;
-                chkOnlyRunCorrectiveScriptsOnStateChange.Checked = currentEditingEntry.CorrectiveScriptsOnlyOnStateChange;
-                linkLabelServiceWindows.Text = currentEditingEntry.ServiceWindows.ToString();                 
-                
-                LoadParentCollectorList();
-                CheckOkEnabled();
-                return ShowDialog();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return System.Windows.Forms.DialogResult.Cancel;
+                }   
             }
-            else
-                return System.Windows.Forms.DialogResult.Cancel;
+
+
+            //if (SelectedEntry != null)
+            //{
+            //    this.monitorPack = monitorPack;
+            //    currentEditingEntry = CollectorEntry.FromConfig(SelectedEntry.ToConfig());
+            //    RegisteredAgent currentRA = (from r in RegisteredAgentCache.Agents
+            //                                 where r.IsCollector && r.ClassName.EndsWith("." + SelectedEntry.CollectorRegistrationName)
+            //                 select r).FirstOrDefault();
+            //    if (currentRA != null)
+            //    {
+            //        currentEditingEntry.Collector = CollectorEntry.CreateAndConfigureEntry(currentRA, SelectedEntry.InitialConfiguration);
+            //        currentEditingEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("The specified Collector type '" + SelectedEntry.CollectorRegistrationName + "' is not registered or invalid!", "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+
+            //    //if (monitorPack != null && currentEditingEntry != null)
+            //    //    monitorPack.ApplyCollectorConfig(currentEditingEntry);
+            //    ApplyConfigToControls();
+
+            //    txtName.Text = currentEditingEntry.Name;
+            //    chkEnabled.Checked = currentEditingEntry.Enabled;
+            //    lblId.Text = currentEditingEntry.UniqueId;
+            //    llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
+            //    chkRemoteAgentEnabled.Checked = currentEditingEntry.EnableRemoteExecute;
+            //    chkForceRemoteExcuteOnChildCollectors.Checked = currentEditingEntry.ForceRemoteExcuteOnChildCollectors;
+            //    txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
+            //    remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
+            //    chkBlockParentRHOverride.Checked = currentEditingEntry.BlockParentOverrideRemoteAgentHostSettings;
+
+            //    try
+            //    {
+            //        chkEnablePollingOverride.Checked = currentEditingEntry.EnabledPollingOverride;
+            //        onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(currentEditingEntry.OnlyAllowUpdateOncePerXSec);
+            //        chkEnablePollingFrequencySliding.Checked = currentEditingEntry.EnablePollFrequencySliding;
+            //        pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterThirdRepeatSec);
+            //        pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterSecondRepeatSec);
+            //        pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterFirstRepeatSec);                    
+            //    }
+            //    catch { }
+            //    PollingOverrideControlsEnable();
+
+            //    numericUpDownRepeatAlertInXMin.SaveValueSet(currentEditingEntry.RepeatAlertInXMin);
+            //    numericUpDownRepeatAlertInXPolls.SaveValueSet(currentEditingEntry.RepeatAlertInXPolls);
+            //    AlertOnceInXMinNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXMin);
+            //    AlertOnceInXPollsNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXPolls);
+            //    delayAlertSecNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXSec);
+            //    delayAlertPollsNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXPolls);
+
+            //    chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
+
+            //    chkCorrectiveScriptDisabled.Checked = currentEditingEntry.CorrectiveScriptDisabled;
+            //    txtCorrectiveScriptOnWarning.Text = currentEditingEntry.CorrectiveScriptOnWarningPath;
+            //    txtCorrectiveScriptOnError.Text = currentEditingEntry.CorrectiveScriptOnErrorPath;
+            //    txtRestorationScript.Text = currentEditingEntry.RestorationScriptPath;
+            //    chkOnlyRunCorrectiveScriptsOnStateChange.Checked = currentEditingEntry.CorrectiveScriptsOnlyOnStateChange;
+            //    linkLabelServiceWindows.Text = currentEditingEntry.ServiceWindows.ToString();                 
+                
+            //    LoadParentCollectorList();
+            //    CheckOkEnabled();
+            //    return ShowDialog();
+            //}
+            //else
+            //    return System.Windows.Forms.DialogResult.Cancel;
         }
 
         #region Form events
@@ -115,8 +180,8 @@ namespace QuickMon.Forms
         {
             lvwEntries.AutoResizeColumnIndex = 1;
             lvwEntries.AutoResizeColumnEnabled = true;
-            addPresetToolStripButton.Visible = false;
-            if (ShowRawEditOnStart && SelectedEntry != null && SelectedEntry.Collector != null && SelectedEntry.Collector.AgentConfig != null)
+            //addPresetToolStripButton.Visible = false;
+            if (ShowRawEditOnStart && SelectedEntry != null && SelectedEntry.InitialConfiguration != null)
             {
                 llblRawEdit_LinkClicked(null, null);
             }
@@ -154,6 +219,7 @@ namespace QuickMon.Forms
                     llblExportConfigAsTemplate.Enabled = false;
                     lvwEntries.Items.Clear();
                     tvwEntries.Visible = false;
+                    llblEditConfigVars.Enabled = false;
                 }
                 else
                 {
@@ -177,19 +243,9 @@ namespace QuickMon.Forms
                         lvwEntries.Dock = DockStyle.Fill;
                         LoadCollectorEntriesList();
                     }
-
-                    bool presetsAvailable = false;
-                    List<AgentPresetConfig> presets = null;
-                    try
-                    {
-                        presets = AgentPresetConfig.GetPresetsForClass(currentEditingEntry.Collector.GetType().Name);
-                        presetsAvailable = (presets != null && presets.Count > 0);
-                    }
-                    catch { }
-
-                    addPresetToolStripButton.Visible = presetsAvailable;
                     llblRawEdit.Enabled = true;
                     llblExportConfigAsTemplate.Enabled = true;
+                    llblEditConfigVars.Enabled = true;
                 }
                 CheckOkEnabled();
             }
@@ -371,8 +427,8 @@ namespace QuickMon.Forms
                 foreach (ConfigVariable cv in currentEditingEntry.ConfigVariables)
                     configVars.Add(cv.Clone());
                 CollectorEntry newCollector = AgentHelper.CreateNewCollector((from c in monitorPack.Collectors
-                                                                    where c.UniqueId == currentEditingEntry.ParentCollectorId
-                                                                    select c).FirstOrDefault());
+                                                                              where c.UniqueId == currentEditingEntry.ParentCollectorId
+                                                                              select c).FirstOrDefault());
                 if (newCollector != null)
                 {
                     currentEditingEntry = null;
@@ -387,15 +443,16 @@ namespace QuickMon.Forms
         {
             try
             {
-                if (currentEditingEntry.Collector != null && currentEditingEntry.Collector.AgentConfig != null)
+                if (currentEditingEntry.InitialConfiguration != null)
                 {
                     EditRAWMarkup editRaw = new EditRAWMarkup();
-                    editRaw.SelectedMarkup = XmlFormattingUtils.NormalizeXML(currentEditingEntry.Collector.AgentConfig.ToConfig());
+                    editRaw.SelectedMarkup = XmlFormattingUtils.NormalizeXML(currentEditingEntry.InitialConfiguration);
                     editRaw.AgentType = currentEditingEntry.CollectorRegistrationName;
                     editRaw.CurrentMonitorPack = monitorPack;
                     if (editRaw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        currentEditingEntry.Collector.SetConfigurationFromXmlString(editRaw.SelectedMarkup);
+                        currentEditingEntry.InitialConfiguration = editRaw.SelectedMarkup;
+                        currentEditingEntry.CreateAndConfigureEntry(currentEditingEntry.CollectorRegistrationName, false);
                         ApplyConfigToControls();
                     }
                 }
@@ -417,7 +474,7 @@ namespace QuickMon.Forms
                         AgentPresetConfig newPreset = new AgentPresetConfig();
                         newPreset.AgentClassName = currentEditingEntry.CollectorRegistrationName;
                         newPreset.Description = txtName.Text;
-                        newPreset.Config = currentEditingEntry.Collector.AgentConfig.ToConfig();
+                        newPreset.Config = currentEditingEntry.InitialConfiguration;
                         List<AgentPresetConfig> allExistingPresets = AgentPresetConfig.GetAllPresets();
 
                         if ((from p in allExistingPresets
@@ -491,41 +548,42 @@ namespace QuickMon.Forms
                 {
                     if (entry != null)  
                         currentConfig.Entries.Add(entry);
+                    currentEditingEntry.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
                     ApplyConfigToControls();
                 }
             }
         }
-        private void addPresetToolStripButton_Click(object sender, EventArgs e)
-        {
-            if (currentEditingEntry != null && currentEditingEntry.Collector != null)
-            {
-                bool presetsAvailable = false;
-                List<AgentPresetConfig> presets = null;
-                try
-                {
-                    presets = AgentPresetConfig.GetPresetsForClass(currentEditingEntry.Collector.GetType().Name);
-                    presetsAvailable = (presets != null && presets.Count > 0);
-                }
-                catch { }
+        //private void addPresetToolStripButton_Click(object sender, EventArgs e)
+        //{
+        //    if (currentEditingEntry != null && currentEditingEntry.Collector != null)
+        //    {
+        //        bool presetsAvailable = false;
+        //        List<AgentPresetConfig> presets = null;
+        //        try
+        //        {
+        //            presets = AgentPresetConfig.GetPresetsForClass(currentEditingEntry.Collector.GetType().Name);
+        //            presetsAvailable = (presets != null && presets.Count > 0);
+        //        }
+        //        catch { }
 
-                ICollectorConfig currentConfig = (ICollectorConfig)currentEditingEntry.Collector.AgentConfig;
-                if (presetsAvailable && (currentConfig.Entries.Count == 0 ||  MessageBox.Show("Are you sure you want to replace existing configuration with a predefined config?", "Preset",  MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes))
-                {
-                    AddFromCollectorPreset addFromCollectorPreset = new AddFromCollectorPreset();
-                    addFromCollectorPreset.AvailablePresets = presets;
-                    if (addFromCollectorPreset.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        if (currentEditingEntry.Collector != null && currentEditingEntry.Collector.AgentConfig != null)
-                        {
-                            txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
-                            currentEditingEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
-                            currentEditingEntry.Collector.AgentConfig.ReadConfiguration(MacroVariables.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
-                            ApplyConfigToControls();
-                        }
-                    }
-                }
-            }
-        }
+        //        ICollectorConfig currentConfig = (ICollectorConfig)currentEditingEntry.Collector.AgentConfig;
+        //        if (presetsAvailable && (currentConfig.Entries.Count == 0 ||  MessageBox.Show("Are you sure you want to replace existing configuration with a predefined config?", "Preset",  MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes))
+        //        {
+        //            AddFromCollectorPreset addFromCollectorPreset = new AddFromCollectorPreset();
+        //            addFromCollectorPreset.AvailablePresets = presets;
+        //            if (addFromCollectorPreset.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //            {
+        //                if (currentEditingEntry.Collector != null && currentEditingEntry.Collector.AgentConfig != null)
+        //                {
+        //                    txtName.Text = addFromCollectorPreset.SelectedPreset.Description;
+        //                    currentEditingEntry.Name = addFromCollectorPreset.SelectedPreset.Description;
+        //                    currentEditingEntry.Collector.AgentConfig.ReadConfiguration(MacroVariables.FormatVariables(addFromCollectorPreset.SelectedPreset.Config));
+        //                    ApplyConfigToControls();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
         private void editCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
         {
             ICollectorConfigEntry entry = null;
@@ -538,6 +596,7 @@ namespace QuickMon.Forms
             {
                 if (currentEditingEntry.ShowEditConfigEntry(ref entry))
                 {
+                    currentEditingEntry.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
                     ApplyConfigToControls();
                 }
             }
@@ -570,7 +629,7 @@ namespace QuickMon.Forms
                     else
                     {
                         ICollectorConfigEntry entry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Parent.Tag;
-                        ICollectorConfigSubEntry subEntry = (from ent in entry.SubItems //   (ICollectorConfigSubEntry)tvwEntries.SelectedNode.Tag;
+                        ICollectorConfigSubEntry subEntry = (from ent in entry.SubItems
                                                              where ent.Description == tvwEntries.SelectedNode.Text
                                                              select ent).FirstOrDefault();
                         if (subEntry != null)
@@ -578,6 +637,7 @@ namespace QuickMon.Forms
                     }
                     tvwEntries.Nodes.Remove(tvwEntries.SelectedNode);
                 }
+                currentEditingEntry.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
                 CheckOkEnabled(); 
             }
         } 
@@ -664,7 +724,7 @@ namespace QuickMon.Forms
             }
             else
             {
-                SelectedEntry.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
+                SelectedEntry.InitialConfiguration = currentEditingEntry.InitialConfiguration;
                 RegisteredAgent currentRA = null;
                 currentRA = (from r in RegisteredAgentCache.Agents
                              where r.IsCollector && r.ClassName.EndsWith("." + SelectedEntry.CollectorRegistrationName)
@@ -734,7 +794,7 @@ namespace QuickMon.Forms
                 testCollector.CollectorRegistrationName = currentEditingEntry.CollectorRegistrationName;
                 testCollector.CollectorRegistrationDisplayName = currentEditingEntry.CollectorRegistrationDisplayName;
 
-                testCollector.InitialConfiguration = currentEditingEntry.Collector.AgentConfig.ToConfig();
+                testCollector.InitialConfiguration = currentEditingEntry.InitialConfiguration;
             }
             testCollector.CollectOnParentWarning = chkCollectOnParentWarning.Checked && !currentEditingEntry.IsFolder;
             testCollector.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;

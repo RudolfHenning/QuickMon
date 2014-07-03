@@ -394,6 +394,7 @@
             this.llblEditConfigVars.TabIndex = 10;
             this.llblEditConfigVars.TabStop = true;
             this.llblEditConfigVars.Text = "Manage Config Variables";
+            this.llblEditConfigVars.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblEditConfigVars_LinkClicked);
             // 
             // EditNotifierEntry
             // 
