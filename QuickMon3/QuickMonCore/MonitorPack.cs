@@ -34,7 +34,6 @@ namespace QuickMon
             CurrentState = CollectorState.NotAvailable;
             LastGlobalState = new MonitorState() { State = CollectorState.NotAvailable };
             DefaultViewerNotifier = null;
-            //RegisteredAgents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             ConcurrencyLevel = 1;
             BusyPolling = false;
             CollectorStateHistorySize = 100;
@@ -1089,18 +1088,12 @@ namespace QuickMon
                 if (collectorEntry.Collector != null)
                     collectorEntry.Collector = null;
 
-                currentRA = (from r in RegisteredAgentCache.Agents
-                             where r.IsCollector && r.ClassName.EndsWith("." + collectorEntry.CollectorRegistrationName)
-                             select r).FirstOrDefault();
-
+                currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + collectorEntry.CollectorRegistrationName);
                 if (currentRA != null)
                 {
                     try
                     {
                         collectorEntry.CreateAndConfigureEntry(currentRA);
-                        //collectorEntry.Collector = CollectorEntry.CreateAndConfigureEntry(currentRA, collectorEntry.InitialConfiguration);//.CreateCollectorEntry(currentRA);
-                        //collectorEntry.Collector.SetConfigurationFromXmlString(collectorEntry.InitialConfiguration);
-                        //collectorEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
                     }
                     catch (Exception ex)
                     {
@@ -1122,7 +1115,6 @@ namespace QuickMon
         {
             if (notifierEntry == null)
                 return;
-            //RegisteredAgent currentNotifier = null;
 
             //first clear/release any existing references
             if (notifierEntry.Notifier != null)
@@ -1137,29 +1129,6 @@ namespace QuickMon
                 notifierEntry.Enabled = false;
                 RaiseRaiseMonitorPackError(ex.Message);
             }
-
-            //currentNotifier = (from n in RegisteredAgentCache.Agents
-            //                   where n.IsNotifier && n.Name == notifierEntry.NotifierRegistrationName
-            //                   select n).FirstOrDefault();
-
-            //if (currentNotifier != null)
-            //{
-            //    try
-            //    {
-            //        notifierEntry.CreateAndConfigureEntry(currentNotifier);
-            //        //notifierEntry.Notifier = NotifierEntry.CreateNotifierEntry(currentNotifier);
-            //        //notifierEntry.Notifier.SetConfigurationFromXmlString(notifierEntry.InitialConfiguration);
-            //    }
-            //    catch// (Exception ex)
-            //    {
-            //        notifierEntry.Enabled = false;
-            //    }
-            //}
-            //else
-            //{
-            //    notifierEntry.Enabled = false;
-            //    RaiseRaiseMonitorPackError(string.Format("Notifier '{0}' cannot be loaded as the type '{1}' is not registered!", notifierEntry.Name, notifierEntry.NotifierRegistrationName));
-            //}
         }
         public static string GetMonitorPackTypeName(string filePath)
         {
@@ -1215,28 +1184,15 @@ namespace QuickMon
             foreach (XmlElement xmlNotifierEntry in root.SelectNodes("notifierEntries/notifierEntry"))
             {
                 NotifierEntry newNotifierEntry = NotifierEntry.FromConfig(xmlNotifierEntry);
-                //RegisteredAgent currentNotifier = null;
-                //currentNotifier = (from n in RegisteredAgentCache.Agents
-                //                   where n.IsNotifier && n.Name == newNotifierEntry.NotifierRegistrationName
-                //                   select n).FirstOrDefault();
 
-                //if (currentNotifier != null)
-                //{
-                    try
-                    {
-                        newNotifierEntry.CreateAndConfigureEntry(newNotifierEntry.NotifierRegistrationName);
-                        //newNotifierEntry.Notifier = NotifierEntry.CreateNotifierEntry(currentNotifier);
-                        //newNotifierEntry.Notifier.SetConfigurationFromXmlString(newNotifierEntry.InitialConfiguration);
-                    }
-                    catch // (Exception ex)
-                    {
-                        newNotifierEntry.Enabled = false;
-                    }
-                //}
-                //else
-                //{
-                //    newNotifierEntry.Enabled = false;
-                //}
+                try
+                {
+                    newNotifierEntry.CreateAndConfigureEntry(newNotifierEntry.NotifierRegistrationName);
+                }
+                catch // (Exception ex)
+                {
+                    newNotifierEntry.Enabled = false;
+                }
                 Notifiers.Add(newNotifierEntry);
                 if (newNotifierEntry.Name.ToUpper() == defaultViewerNotifierName.ToUpper())
                     DefaultViewerNotifier = newNotifierEntry;

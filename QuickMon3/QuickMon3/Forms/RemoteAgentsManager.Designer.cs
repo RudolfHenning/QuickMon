@@ -50,6 +50,7 @@
             this.lvwRemoteHosts = new QuickMon.ListViewEx();
             this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -241,6 +242,7 @@
             this.lvwRemoteHosts.AutoResizeColumnIndex = 0;
             this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.remoteAgentColumnHeader,
+            this.portColumnHeader,
             this.versionColumnHeader});
             this.lvwRemoteHosts.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwRemoteHosts.FullRowSelect = true;
@@ -256,12 +258,17 @@
             // remoteAgentColumnHeader
             // 
             this.remoteAgentColumnHeader.Text = "Remote agent";
-            this.remoteAgentColumnHeader.Width = 184;
+            this.remoteAgentColumnHeader.Width = 149;
             // 
             // versionColumnHeader
             // 
             this.versionColumnHeader.Text = "Version";
             this.versionColumnHeader.Width = 97;
+            // 
+            // portColumnHeader
+            // 
+            this.portColumnHeader.Text = "Port";
+            this.portColumnHeader.Width = 70;
             // 
             // RemoteAgentsManager
             // 
@@ -315,5 +322,6 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.LinkLabel llblFirewallRule;
         private System.Windows.Forms.ColumnHeader versionColumnHeader;
+        private System.Windows.Forms.ColumnHeader portColumnHeader;
     }
 }

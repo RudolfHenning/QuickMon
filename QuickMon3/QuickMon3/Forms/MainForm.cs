@@ -684,7 +684,11 @@ namespace QuickMon
                         saveFileDialogSave.InitialDirectory = System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath);
                     }
                     catch { }
-                }                
+                }
+                else
+                {
+                    saveFileDialogSave.InitialDirectory = MonitorPack.GetQuickMonUserDataDirectory();
+                }
                 if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     monitorPack.MonitorPackPath = saveFileDialogSave.FileName;

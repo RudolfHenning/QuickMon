@@ -2,7 +2,8 @@ QuickMon 3 Read me
 ---------------------------
 Quick installation overview
 ---------------------------
-The MSI installer basically only moves the executables (and dll's) to the installed machine at this time. To install the Windows service please see the 'How to install the Windows service' section.
+The MSI installer basically only moves the executables (and dll's) to the installed machine at this time. 
+To install the Windows service please see the 'How to install the Windows service' section.
 
 ------------------
 List of components

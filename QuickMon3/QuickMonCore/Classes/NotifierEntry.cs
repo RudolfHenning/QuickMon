@@ -35,36 +35,37 @@ namespace QuickMon
         #endregion
 
         #region Create Notifier Instance
-        public void CreateAndConfigureEntry(string agentClassName, bool useConfigVars = true, string overrideWithConfig = "")
+        public void CreateAndConfigureEntry(string agentClassName, string overrideWithConfig = "", bool setAsInitialConfig = false, bool useConfigVars = true)
         {
             RegisteredAgent ra = null;
-            ra = (from a in RegisteredAgentCache.Agents
-                  where a.IsNotifier && a.ClassName.EndsWith(agentClassName)
-                  orderby a.Name
-                  select a).FirstOrDefault();
+            ra = RegisteredAgentCache.GetRegisteredAgentByClassName(agentClassName, false);
             if (ra == null) //in case agent is not loaded or available
                 throw new Exception("Notifier '" + Name + "' with type of '" + agentClassName + "' cannot be loaded! No Assembly of this Agent type found!");
             else
             {
-                if (overrideWithConfig.Trim().Length > 0)
-                    Notifier = CreateAndConfigureEntry(ra, overrideWithConfig, (useConfigVars ? ConfigVariables : null));
-                else if (InitialConfiguration != null && InitialConfiguration.Length > 0)
-                    Notifier = CreateAndConfigureEntry(ra, InitialConfiguration, (useConfigVars ? ConfigVariables : null));
+                string appliedConfig = "";
+                if (overrideWithConfig != null && overrideWithConfig.Trim().Length > 0)
+                    appliedConfig = FormatUtils.N(overrideWithConfig);
                 else
+                    appliedConfig = FormatUtils.N(InitialConfiguration);
+                //Create Notifier instance
+                Notifier = CreateAndConfigureEntry(ra, appliedConfig, (useConfigVars ? ConfigVariables : null));
+                if (setAsInitialConfig)
                 {
-                    Notifier = CreateAndConfigureEntry(ra, "", (useConfigVars ? ConfigVariables : null));
+                    if (overrideWithConfig != null && overrideWithConfig.Length > 0)
+                        InitialConfiguration = overrideWithConfig;
+                    else if (Notifier != null)
+                        InitialConfiguration = Notifier.GetDefaultOrEmptyConfigString();
                 }
-                NotifierRegistrationName = ra.Name;
-                if (InitialConfiguration == null && InitialConfiguration.Length == 0)
-                    InitialConfiguration = overrideWithConfig.Trim().Length == 0 ? Notifier.GetDefaultOrEmptyConfigString() : overrideWithConfig;
+                NotifierRegistrationName = ra.Name;                
             }
         }
-        private INotifier CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig = "", List<ConfigVariable> configVariables = null)
+        private INotifier CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig, List<ConfigVariable> configVariables)
         {
             INotifier newEntry = CreateNotifierEntry(ra);
             if (newEntry != null)
             {
-                if (appliedConfig.Length == 0)
+                if (appliedConfig == null || appliedConfig.Length == 0)
                     appliedConfig = newEntry.GetDefaultOrEmptyConfigString();
                 if (configVariables != null && configVariables.Count > 0)
                 {

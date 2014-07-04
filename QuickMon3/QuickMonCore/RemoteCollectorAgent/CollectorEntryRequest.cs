@@ -118,20 +118,32 @@ namespace QuickMon
             RepeatAlertInXMin = fullEntry.RepeatAlertInXMin;
             AlertOnceInXMin = fullEntry.AlertOnceInXMin;
             DelayErrWarnAlertForXSec = fullEntry.DelayErrWarnAlertForXSec;
-            ConfigString = fullEntry.InitialConfiguration;
-            if (fullEntry.ConfigVariables != null)
+
+            string appliedConfig = fullEntry.InitialConfiguration;
+            if (fullEntry.ConfigVariables != null && fullEntry.ConfigVariables.Count > 0)
             {
-                StringBuilder configVarXml = new StringBuilder();
-                configVarXml.AppendLine("<configVar>");
-                foreach (ConfigVariable cv in fullEntry.ConfigVariables)
-                {
-                    configVarXml.AppendLine(cv.ToXml());
-                }
-                configVarXml.AppendLine("</configVar>");
-                ConfigVarsString = configVarXml.ToString();
+                foreach (ConfigVariable vc in fullEntry.ConfigVariables)
+                    if (vc.Name.Length > 0)
+                        appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
             }
-            else
-                ConfigVarsString = "";
+
+            ConfigString = appliedConfig;
+            //For remote agents the config variables have already been applied
+            ConfigVarsString = "";
+
+            //if (fullEntry.ConfigVariables != null)
+            //{
+            //    StringBuilder configVarXml = new StringBuilder();
+            //    configVarXml.AppendLine("<configVar>");
+            //    foreach (ConfigVariable cv in fullEntry.ConfigVariables)
+            //    {
+            //        configVarXml.AppendLine(cv.ToXml());
+            //    }
+            //    configVarXml.AppendLine("</configVar>");
+            //    ConfigVarsString = configVarXml.ToString();
+            //}
+            //else
+            //    ConfigVarsString = "";
         }
     }
 }

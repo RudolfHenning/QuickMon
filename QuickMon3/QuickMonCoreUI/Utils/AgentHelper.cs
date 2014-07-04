@@ -29,10 +29,7 @@ namespace QuickMon
                 RegisteredAgent ar = null;
                 if (selectNewAgentType.SelectedPreset != null)
                 {
-                    ar = (from a in RegisteredAgentCache.Agents
-                          where a.IsCollector && a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
-                          orderby a.Name
-                          select a).FirstOrDefault();
+                    ar = RegisteredAgentCache.GetRegisteredAgentByClassName(selectNewAgentType.SelectedPreset.AgentClassName);
                 }
                 else if (selectNewAgentType.SelectedAgent != null)
                 {
@@ -50,9 +47,8 @@ namespace QuickMon
                     {
                         initialConfig = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
                         newCollectorEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                    }
-                    newCollectorEntry.InitialConfiguration = initialConfig.Length > 0 ? initialConfig : newCollectorEntry.Collector.GetDefaultOrEmptyConfigString();
-                    newCollectorEntry.CreateAndConfigureEntry(ar.ClassName, false, initialConfig);
+                    }                    
+                    newCollectorEntry.CreateAndConfigureEntry(ar.ClassName, initialConfig, true, false);
                 }
                 else
                 {
@@ -105,10 +101,7 @@ namespace QuickMon
                 RegisteredAgent ar = null;
                 if (selectNewAgentType.SelectedPreset != null)
                 {
-                    ar = (from a in RegisteredAgentCache.Agents
-                          where a.IsNotifier && a.ClassName.EndsWith(selectNewAgentType.SelectedPreset.AgentClassName)
-                          orderby a.Name
-                          select a).FirstOrDefault();
+                    ar = RegisteredAgentCache.GetRegisteredAgentByClassName(selectNewAgentType.SelectedPreset.AgentClassName, false);                    
                 }
                 else if (selectNewAgentType.SelectedAgent != null)
                 {
@@ -126,9 +119,8 @@ namespace QuickMon
                     {
                         initialConfig = MacroVariables.FormatVariables(selectNewAgentType.SelectedPreset.Config);
                         newNotifierEntry.Name = selectNewAgentType.SelectedPreset.Description;
-                    }
-                    newNotifierEntry.InitialConfiguration = initialConfig.Length > 0 ? initialConfig : newNotifierEntry.Notifier.GetDefaultOrEmptyConfigString();
-                    newNotifierEntry.CreateAndConfigureEntry(ar.ClassName, false, initialConfig);                    
+                    }                    
+                    newNotifierEntry.CreateAndConfigureEntry(ar.ClassName, initialConfig, true, false);
                 }                
             }
             return newNotifierEntry;

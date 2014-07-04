@@ -1,7 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
-CollectorEntry/NotifierEntry (class) to have array of Dynamic Config Variables (with 'value to search for', 'value to replace with')
-    Will be used to replace 'value to search for' in config stream with 'value to replace with' at run-time (when creating instance)
-	Potential to later add Global Dynamic Config Variables (at MonitorPack level)
+
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
 Event Scavenger collector set
@@ -176,5 +174,9 @@ Collector history - Details rich text box have copy shortcut menu
 MonitorPack - add Type property. 
   App settings (string array) of Monitor pack types that are visible in quick recent drop down list 
      One list for Include, one list for exclude
+CollectorEntry/NotifierEntry (class) to have array of Dynamic Config Variables (with 'value to search for', 'value to replace with')
+    Will be used to replace 'value to search for' in config stream with 'value to replace with' at run-time (when creating instance)
+	Potential to later add Global Dynamic Config Variables (at MonitorPack level)
+Known Remote agent list to show port in separate column
 -------------------------------------------------------------------------------------------------------
 

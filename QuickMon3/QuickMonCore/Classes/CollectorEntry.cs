@@ -459,50 +459,40 @@ namespace QuickMon
         #endregion
 
         #region Create Collector Instance
-        public void CreateAndConfigureEntry(string agentClassName, bool useConfigVars = true, string overrideWithConfig = "")
+        public void CreateAndConfigureEntry(string agentClassName, string overrideWithConfig = "", bool setAsInitialConfig = false, bool useConfigVars = true)
         {
             RegisteredAgent ra = null;
             if (agentClassName == "Folder")
                 return;
-            ra = (from a in RegisteredAgentCache.Agents
-                  where a.IsCollector && a.ClassName.EndsWith(agentClassName)
-                  orderby a.Name
-                  select a).FirstOrDefault();
+            ra = RegisteredAgentCache.GetRegisteredAgentByClassName(agentClassName);            
             if (ra == null) //in case agent is not loaded or available
                 throw new Exception("Collector '" + Name + "' with type of '" + agentClassName + "' cannot be loaded! No Assembly of this Agent type found!");
             else
             {
-                if (overrideWithConfig.Trim().Length > 0)
-                    Collector = CreateAndConfigureEntry(ra, overrideWithConfig, (useConfigVars ? ConfigVariables : null));
-                else if (InitialConfiguration != null && InitialConfiguration.Length > 0)
-                    Collector = CreateAndConfigureEntry(ra, InitialConfiguration, (useConfigVars ? ConfigVariables : null));
+                string appliedConfig = "";
+                if (overrideWithConfig != null && overrideWithConfig.Trim().Length > 0)
+                    appliedConfig = FormatUtils.N(overrideWithConfig);
                 else
+                    appliedConfig = FormatUtils.N(InitialConfiguration);
+                //Create Collector instance
+                Collector = CreateAndConfigureEntry(ra, appliedConfig, (useConfigVars ? ConfigVariables : null));                
+                if (setAsInitialConfig)
                 {
-                    Collector = CreateAndConfigureEntry(ra, "", (useConfigVars ? ConfigVariables : null));
-                }
+                    if (overrideWithConfig != null && overrideWithConfig.Length > 0)
+                        InitialConfiguration = overrideWithConfig;
+                    else if (Collector != null)
+                        InitialConfiguration = Collector.GetDefaultOrEmptyConfigString();
+                }                
                 CollectorRegistrationDisplayName = ra.DisplayName;
                 CollectorRegistrationName = ra.Name;
-                if (InitialConfiguration == null && InitialConfiguration.Length == 0 && Collector != null)
-                    InitialConfiguration = overrideWithConfig.Trim().Length == 0 ? Collector.GetDefaultOrEmptyConfigString() : overrideWithConfig;
             }
         }
-
-        public void CreateAndConfigureEntry(RegisteredAgent ra)
-        {
-            if (InitialConfiguration != null && InitialConfiguration.Length > 0)
-                Collector = CreateAndConfigureEntry(ra, InitialConfiguration, ConfigVariables);
-            else
-            {
-                Collector = CreateAndConfigureEntry(ra, "", ConfigVariables);
-            }
-            CollectorRegistrationDisplayName = ra.DisplayName;
-        }
-        public static ICollector CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig = "", List<ConfigVariable> configVariables = null)
+        private static ICollector CreateAndConfigureEntry(RegisteredAgent ra, string appliedConfig, List<ConfigVariable> configVariables)
         {
             ICollector newEntry = CreateCollectorEntry(ra);
             if (newEntry != null)
             {
-                if (appliedConfig.Length == 0)
+                if (appliedConfig == null || appliedConfig.Length == 0)
                     appliedConfig = newEntry.GetDefaultOrEmptyConfigString();
                 if (configVariables != null && configVariables.Count > 0)
                 {
@@ -513,6 +503,16 @@ namespace QuickMon
                 newEntry.AgentConfig.ReadConfiguration(appliedConfig);
             }
             return newEntry;
+        }
+        public void CreateAndConfigureEntry(RegisteredAgent ra)
+        {
+            if (InitialConfiguration != null && InitialConfiguration.Length > 0)
+                Collector = CreateAndConfigureEntry(ra, InitialConfiguration, ConfigVariables);
+            else
+            {
+                Collector = CreateAndConfigureEntry(ra, "", ConfigVariables);
+            }
+            CollectorRegistrationDisplayName = ra.DisplayName;
         }
         /// <summary>
         /// Create a new instance of the collector agent

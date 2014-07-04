@@ -52,5 +52,12 @@ namespace QuickMon
             agents = new List<RegisteredAgent>();
             agents = RegistrationHelper.GetAllRegisteredAgentsByDirectory(agentsPath);
         }
+        public static RegisteredAgent GetRegisteredAgentByClassName(string className, bool collector = true)
+        {
+            return (from a in RegisteredAgentCache.Agents
+                    where ((collector && a.IsCollector) || (!collector && a.IsNotifier)) && a.ClassName.ToLower().EndsWith(className.ToLower())
+                    orderby a.Name
+                    select a).FirstOrDefault();
+        }
     }
 }

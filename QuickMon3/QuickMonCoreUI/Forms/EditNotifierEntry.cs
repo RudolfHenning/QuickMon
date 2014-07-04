@@ -40,7 +40,7 @@ namespace QuickMon.Management
                 try
                 {
                     //Create Notifier instance but do not apply Config Variables!
-                    editingNotifierEntry.CreateAndConfigureEntry(editingNotifierEntry.NotifierRegistrationName, false);
+                    editingNotifierEntry.CreateAndConfigureEntry(editingNotifierEntry.NotifierRegistrationName, "", false);
                     return ShowDialog();
                 }
                 catch(Exception ex)
@@ -156,6 +156,8 @@ namespace QuickMon.Management
                     editingNotifierEntry = newNotifierEntry;
                     editingNotifierEntry.ConfigVariables = configVars;
                     ApplyConfigToControls();
+                    if (AgentHelper.LastShowRawEditOnStartOption)
+                        llblRawEdit_LinkClicked(sender, e);
                 }
             }
         }
@@ -172,8 +174,7 @@ namespace QuickMon.Management
                     editRaw.CurrentMonitorPack = monitorPack;
                     if (editRaw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        editingNotifierEntry.InitialConfiguration = editRaw.SelectedMarkup;
-                        editingNotifierEntry.CreateAndConfigureEntry(editingNotifierEntry.NotifierRegistrationName, false);
+                        editingNotifierEntry.CreateAndConfigureEntry(editingNotifierEntry.NotifierRegistrationName, editRaw.SelectedMarkup, true, false);
                         if (editingNotifierEntry.Notifier != null && editingNotifierEntry.Notifier.AgentConfig != null)
                         {
                             INotifierConfig config = (INotifierConfig)editingNotifierEntry.Notifier.AgentConfig;
@@ -332,10 +333,7 @@ namespace QuickMon.Management
             {
                 txtName.Text = editingNotifierEntry.Name;
                 chkEnabled.Checked = editingNotifierEntry.Enabled;
-
-                RegisteredAgent ar = (from a in RegisteredAgentCache.Agents 
-                                      where a.IsNotifier && a.Name == editingNotifierEntry.NotifierRegistrationName
-                                      select a).FirstOrDefault();
+                RegisteredAgent ar = RegisteredAgentCache.GetRegisteredAgentByClassName(editingNotifierEntry.NotifierRegistrationName, false);
                 if (ar != null)
                 {
                     llblNotifierType.Text = ar.DisplayName;

@@ -54,7 +54,7 @@ namespace QuickMon.Forms
                 try
                 {
                     //Create Collector instance but do not apply Config Variables!
-                    currentEditingEntry.CreateAndConfigureEntry(currentEditingEntry.CollectorRegistrationName, false);
+                    currentEditingEntry.CreateAndConfigureEntry(currentEditingEntry.CollectorRegistrationName, "", false, false);
 
                     ApplyConfigToControls();
 
@@ -106,73 +106,6 @@ namespace QuickMon.Forms
                     return System.Windows.Forms.DialogResult.Cancel;
                 }   
             }
-
-
-            //if (SelectedEntry != null)
-            //{
-            //    this.monitorPack = monitorPack;
-            //    currentEditingEntry = CollectorEntry.FromConfig(SelectedEntry.ToConfig());
-            //    RegisteredAgent currentRA = (from r in RegisteredAgentCache.Agents
-            //                                 where r.IsCollector && r.ClassName.EndsWith("." + SelectedEntry.CollectorRegistrationName)
-            //                 select r).FirstOrDefault();
-            //    if (currentRA != null)
-            //    {
-            //        currentEditingEntry.Collector = CollectorEntry.CreateAndConfigureEntry(currentRA, SelectedEntry.InitialConfiguration);
-            //        currentEditingEntry.CollectorRegistrationDisplayName = currentRA.DisplayName;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("The specified Collector type '" + SelectedEntry.CollectorRegistrationName + "' is not registered or invalid!", "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-
-            //    //if (monitorPack != null && currentEditingEntry != null)
-            //    //    monitorPack.ApplyCollectorConfig(currentEditingEntry);
-            //    ApplyConfigToControls();
-
-            //    txtName.Text = currentEditingEntry.Name;
-            //    chkEnabled.Checked = currentEditingEntry.Enabled;
-            //    lblId.Text = currentEditingEntry.UniqueId;
-            //    llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
-            //    chkRemoteAgentEnabled.Checked = currentEditingEntry.EnableRemoteExecute;
-            //    chkForceRemoteExcuteOnChildCollectors.Checked = currentEditingEntry.ForceRemoteExcuteOnChildCollectors;
-            //    txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
-            //    remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
-            //    chkBlockParentRHOverride.Checked = currentEditingEntry.BlockParentOverrideRemoteAgentHostSettings;
-
-            //    try
-            //    {
-            //        chkEnablePollingOverride.Checked = currentEditingEntry.EnabledPollingOverride;
-            //        onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(currentEditingEntry.OnlyAllowUpdateOncePerXSec);
-            //        chkEnablePollingFrequencySliding.Checked = currentEditingEntry.EnablePollFrequencySliding;
-            //        pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterThirdRepeatSec);
-            //        pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterSecondRepeatSec);
-            //        pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.SaveValueSet(currentEditingEntry.PollSlideFrequencyAfterFirstRepeatSec);                    
-            //    }
-            //    catch { }
-            //    PollingOverrideControlsEnable();
-
-            //    numericUpDownRepeatAlertInXMin.SaveValueSet(currentEditingEntry.RepeatAlertInXMin);
-            //    numericUpDownRepeatAlertInXPolls.SaveValueSet(currentEditingEntry.RepeatAlertInXPolls);
-            //    AlertOnceInXMinNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXMin);
-            //    AlertOnceInXPollsNumericUpDown.SaveValueSet(currentEditingEntry.AlertOnceInXPolls);
-            //    delayAlertSecNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXSec);
-            //    delayAlertPollsNumericUpDown.SaveValueSet(currentEditingEntry.DelayErrWarnAlertForXPolls);
-
-            //    chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
-
-            //    chkCorrectiveScriptDisabled.Checked = currentEditingEntry.CorrectiveScriptDisabled;
-            //    txtCorrectiveScriptOnWarning.Text = currentEditingEntry.CorrectiveScriptOnWarningPath;
-            //    txtCorrectiveScriptOnError.Text = currentEditingEntry.CorrectiveScriptOnErrorPath;
-            //    txtRestorationScript.Text = currentEditingEntry.RestorationScriptPath;
-            //    chkOnlyRunCorrectiveScriptsOnStateChange.Checked = currentEditingEntry.CorrectiveScriptsOnlyOnStateChange;
-            //    linkLabelServiceWindows.Text = currentEditingEntry.ServiceWindows.ToString();                 
-                
-            //    LoadParentCollectorList();
-            //    CheckOkEnabled();
-            //    return ShowDialog();
-            //}
-            //else
-            //    return System.Windows.Forms.DialogResult.Cancel;
         }
 
         #region Form events
@@ -436,6 +369,9 @@ namespace QuickMon.Forms
                     currentEditingEntry.ConfigVariables = configVars;
                     llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
                     ApplyConfigToControls();
+
+                    if (AgentHelper.LastShowRawEditOnStartOption)
+                        llblRawEdit_LinkClicked(sender, e);
                 }
             }
         }
@@ -451,8 +387,7 @@ namespace QuickMon.Forms
                     editRaw.CurrentMonitorPack = monitorPack;
                     if (editRaw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        currentEditingEntry.InitialConfiguration = editRaw.SelectedMarkup;
-                        currentEditingEntry.CreateAndConfigureEntry(currentEditingEntry.CollectorRegistrationName, false);
+                        currentEditingEntry.CreateAndConfigureEntry(currentEditingEntry.CollectorRegistrationName, editRaw.SelectedMarkup, true, false);
                         ApplyConfigToControls();
                     }
                 }
@@ -726,9 +661,7 @@ namespace QuickMon.Forms
             {
                 SelectedEntry.InitialConfiguration = currentEditingEntry.InitialConfiguration;
                 RegisteredAgent currentRA = null;
-                currentRA = (from r in RegisteredAgentCache.Agents
-                             where r.IsCollector && r.ClassName.EndsWith("." + SelectedEntry.CollectorRegistrationName)
-                             select r).FirstOrDefault();
+                currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + SelectedEntry.CollectorRegistrationName);                
                 if (currentRA != null)
                 {
                     try

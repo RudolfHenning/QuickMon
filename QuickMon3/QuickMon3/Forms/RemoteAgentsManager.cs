@@ -22,12 +22,34 @@ namespace QuickMon.Forms
             }
             public string Computer { get; set; }
             public int PortNumber { get; set; }
+            public static RemoteAgentInfo FromString(string remoteAgentStr)
+            {
+                RemoteAgentInfo newRemoteAgentInfo = new RemoteAgentInfo();
+                if (remoteAgentStr.Contains(":"))
+                {
+                    newRemoteAgentInfo.Computer = remoteAgentStr.Substring(0, remoteAgentStr.IndexOf(":"));
+                    if (remoteAgentStr.Substring(newRemoteAgentInfo.Computer.Length + 1).IsNumber())
+                        newRemoteAgentInfo.PortNumber = int.Parse(remoteAgentStr.Substring(newRemoteAgentInfo.Computer.Length + 1));
+                    else
+                        newRemoteAgentInfo.PortNumber = 8181;
+                }
+                else
+                {
+                    newRemoteAgentInfo.Computer = remoteAgentStr;
+                    newRemoteAgentInfo.PortNumber = 8181;
+                }
+                return newRemoteAgentInfo;
+            }
+            public override string ToString()
+            {
+                return Computer + ":" + PortNumber.ToString();
+            }
         }
 
         public RemoteAgentsManager()
         {
             InitializeComponent();
-            lvwRemoteHosts.AutoResizeColumnIndex = 1;
+            lvwRemoteHosts.AutoResizeColumnIndex = 2;
             lvwRemoteHosts.AutoResizeColumnEnabled = true;
         }
 
@@ -74,22 +96,21 @@ namespace QuickMon.Forms
                                        orderby s
                                        select s))
                 {
-                    RemoteAgentInfo ri = new RemoteAgentInfo();
-
-                    lvi = new ListViewItem(rh);
-                    string computerNameOnly = rh;
-                    if (computerNameOnly.Contains(":"))
+                    try
                     {
-                        computerNameOnly = computerNameOnly.Substring(0, computerNameOnly.IndexOf(":"));
-                        if (rh.Substring(computerNameOnly.Length + 1).IsNumber())
-                            ri.PortNumber = int.Parse(rh.Substring(computerNameOnly.Length + 1));
-                    }
-                    lvi.SubItems.Add(""); //Version info to be added afterwards
-                    ri.Computer = computerNameOnly;
 
-                    lvi.Tag = ri;
-                    lvi.ImageIndex = 3;
-                    lvwRemoteHosts.Items.Add(lvi);
+                        RemoteAgentInfo ri = RemoteAgentInfo.FromString(rh);
+
+                        lvi = new ListViewItem(ri.Computer);
+                        lvi.SubItems.Add(ri.PortNumber.ToString());
+                        string computerNameOnly = rh;
+
+                        lvi.SubItems.Add(""); //Version info to be added afterwards
+                        lvi.Tag = ri;
+                        lvi.ImageIndex = 3;
+                        lvwRemoteHosts.Items.Add(lvi);
+                    }
+                    catch { }
                 }
             }
         } 
@@ -108,7 +129,8 @@ namespace QuickMon.Forms
                 try
                 {
                     if ((from ListViewItem lvi in lvwRemoteHosts.Items
-                         where lvi.Text.ToLower() == (txtComputer.Text + ":" + remoteportNumericUpDown.Value.ToString()).ToLower()
+                         where lvi.Text.ToLower() == txtComputer.Text.ToLower() &&
+                         lvi.SubItems[1].Text == remoteportNumericUpDown.Value.ToString()
                          select lvi).Count() > 0)
                     {
                         MessageBox.Show("Remote agent is already in the list!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -125,7 +147,8 @@ namespace QuickMon.Forms
                             RemoteAgentInfo ri = new RemoteAgentInfo();
                             ri.Computer = txtComputer.Text;
                             ri.PortNumber = (int)remoteportNumericUpDown.Value;
-                            ListViewItem lvi = new ListViewItem(txtComputer.Text + ":" + remoteportNumericUpDown.Value.ToString());
+                            ListViewItem lvi = new ListViewItem(txtComputer.Text);
+                            lvi.SubItems.Add(remoteportNumericUpDown.Value.ToString());
                             lvi.SubItems.Add(""); //Version info to be added afterwards
                             lvi.Tag = ri;
                             lvi.ImageIndex = 3;
@@ -139,7 +162,7 @@ namespace QuickMon.Forms
                 catch (Exception ex) 
                 {
                     if (ex.Message.Contains("The requested name is valid, but no data of the requested type was found"))
-                        MessageBox.Show("Computer inaccessible or name invalid!");
+                        MessageBox.Show("Computer inaccessible or name invalid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -150,7 +173,11 @@ namespace QuickMon.Forms
             Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
             foreach (ListViewItem lvi in lvwRemoteHosts.Items)
             {
-                Properties.Settings.Default.KnownRemoteHosts.Add(lvi.Text);
+                if (lvi.Tag is RemoteAgentInfo)
+                {
+
+                    Properties.Settings.Default.KnownRemoteHosts.Add(((RemoteAgentInfo)lvi.Tag).ToString());
+                }
             }
             Properties.Settings.Default.Save();
             Close();
@@ -158,6 +185,21 @@ namespace QuickMon.Forms
         #endregion
 
         #region Other control events
+        private void lblComputer_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtComputer.Text.Length > 0)
+                {
+                    string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(txtComputer.Text, (int)remoteportNumericUpDown.Value);
+                    MessageBox.Show("Version Info: " + versionInfo, "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void txtComputer_TextChanged(object sender, EventArgs e)
         {
             cmdAdd.Enabled = txtComputer.Text.Length > 0;
@@ -277,18 +319,18 @@ namespace QuickMon.Forms
             {
                 lvwRemoteHosts.Invoke((MethodInvoker)delegate
                 {
-                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
-                    CollectorEntry ce = new CollectorEntry();
-                    ce.EnableRemoteExecute = true;
-                    ce.RemoteAgentHostAddress = ri.Computer;
-                    ce.RemoteAgentHostPort = ri.PortNumber;
-                    ce.CollectorRegistrationName = "PingCollector";
-                    ce.CollectorRegistrationDisplayName = "Ping Collector";
-                    ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
-
-                    bool hostExists = false;
                     try
                     {
+                        bool hostExists = false;
+                        RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                        CollectorEntry ce = new CollectorEntry();
+                        ce.EnableRemoteExecute = true;
+                        ce.RemoteAgentHostAddress = ri.Computer;
+                        ce.RemoteAgentHostPort = ri.PortNumber;
+                        ce.CollectorRegistrationName = "PingCollector";
+                        ce.CollectorRegistrationDisplayName = "Ping Collector";
+                        ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
+                    
                         lock (this)
                         {
                             hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
@@ -296,7 +338,7 @@ namespace QuickMon.Forms
                         if (!hostExists)
                         {
                             imageIndex = 3;
-                            lvi.SubItems[1].Text = "N/A";
+                            lvi.SubItems[2].Text = "N/A";
                         }
                         else
                         {
@@ -309,22 +351,22 @@ namespace QuickMon.Forms
                                 try
                                 {
                                     string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
-                                    lvi.SubItems[1].Text = versionInfo;
+                                    lvi.SubItems[2].Text = versionInfo;
                                 }
                                 catch (Exception ex)
                                 {
                                     if (ex.Message.Contains("ContractFilter"))
                                     {
-                                        lvi.SubItems[1].Text = "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.";
+                                        lvi.SubItems[2].Text = "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.";
                                     }
                                     else
-                                        lvi.SubItems[1].Text = ex.Message;
+                                        lvi.SubItems[2].Text = ex.Message;
                                 }
                             }
                             else
                             {
                                 imageIndex = 2;
-                                lvi.SubItems[1].Text = "N/A";
+                                lvi.SubItems[2].Text = "N/A";
                             }
                         }
                     }
@@ -332,9 +374,9 @@ namespace QuickMon.Forms
                     {
                         imageIndex = 3;
                         if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
-                            lvi.SubItems[1].Text = "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.";
+                            lvi.SubItems[2].Text = "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.";
                         else
-                            lvi.SubItems[1].Text = delegateEx.Message;
+                            lvi.SubItems[2].Text = delegateEx.Message;
                     }
                 });
             }
@@ -385,36 +427,5 @@ namespace QuickMon.Forms
             });
         } 
         #endregion
-
-        private void lblComputer_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtComputer.Text.Length > 0)
-                {
-                    string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(txtComputer.Text, (int)remoteportNumericUpDown.Value);
-
-                    //CollectorEntry ce = new CollectorEntry();
-                    //ce.EnableRemoteExecute = true;
-                    //ce.RemoteAgentHostAddress = txtComputer.Text;
-                    //ce.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
-                    //ce.CollectorRegistrationName = "PingCollector";
-                    //ce.CollectorRegistrationDisplayName = "Ping Collector";
-                    //ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
-                    //System.Data.DataSet ds = CollectorEntryRelay.GetRemoteHostAgentDetails(ce);
-                    //if (ds != null && ds.Tables.Count > 0)
-                    //{
-                    //    versionInfo += "\r\n" + ds.Tables[0].Rows[0][0].ToString();
-                    //}
-
-
-                    MessageBox.Show("Version Info: " + versionInfo, "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Version", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }
