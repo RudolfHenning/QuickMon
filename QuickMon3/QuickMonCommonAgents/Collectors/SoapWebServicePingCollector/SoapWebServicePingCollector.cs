@@ -6,7 +6,7 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    [Description("Soap Web Service Query Collector"), Category("General"), Obsolete]
+    [Description("Soap Web Service Query Collector [Deprecated]"), Category("Web Service"), Obsolete]
     public class SoapWebServicePingCollector : CollectorBase
     {
         public SoapWebServicePingCollector()

@@ -168,14 +168,14 @@ namespace QuickMon.Collectors
                     CollectorState state = testQueryInstance.EvaluateValue(returnValue);
                     if (state == CollectorState.Good)
                     {
-                        MessageBox.Show(string.Format("Success!\r\nValue return: {0}", returnValue), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(string.Format("Success!\r\nValue return: {0}", FormatUtils.FormatArrayToString(returnValue)), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (state == CollectorState.Warning)
                     {
-                        MessageBox.Show(string.Format("Warning!\r\nValue return: {0}", returnValue), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(string.Format("Warning!\r\nValue return: {0}", FormatUtils.FormatArrayToString(returnValue)), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
-                        MessageBox.Show(string.Format("Error!\r\nValue return: {0}", returnValue), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format("Error!\r\nValue return: {0}", FormatUtils.FormatArrayToString(returnValue)), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
                 catch (Exception ex)

@@ -14,6 +14,8 @@ namespace QuickMon.Collectors
         public bool DirectoryExistOnly { get; set; }
         public bool FilesExistOnly { get; set; }
         public bool ErrorOnFilesExist { get; set; }
+        public string ContainsText { get; set; }
+        public bool UseRegEx { get; set; }
         /// <summary>
         /// File max age in seconds
         /// </summary>
@@ -145,9 +147,24 @@ namespace QuickMon.Collectors
                                         (FileMinSizeKB == 0 || fi.Length >= (FileMinSizeKB * 1024))
                                         )
                             {
-                                fileInfo.FileSize += fi.Length;
-                                fileInfo.FileCount += 1;
-                                fileInfo.FileInfos.Add(fi);
+                                bool match = true;
+                                if (ContainsText != null && ContainsText.Trim().Length > 0)
+                                {
+                                    string content = File.ReadAllText(filePath);
+                                    if (UseRegEx)
+                                    {
+                                        System.Text.RegularExpressions.Match regMatch = System.Text.RegularExpressions.Regex.Match(content, ContainsText, System.Text.RegularExpressions.RegexOptions.Multiline);
+                                        match = regMatch.Success;
+                                    }
+                                    else
+                                        match = content.Contains(ContainsText);
+                                }
+                                if (match)
+                                {
+                                    fileInfo.FileSize += fi.Length;
+                                    fileInfo.FileCount += 1;
+                                    fileInfo.FileInfos.Add(fi);
+                                }
                             }
                         }
                     }

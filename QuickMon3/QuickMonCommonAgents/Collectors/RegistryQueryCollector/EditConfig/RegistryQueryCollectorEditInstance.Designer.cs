@@ -92,7 +92,10 @@
             "[null]",
             "[any]",
             "[exists]",
-            "[notExists]"});
+            "[notExists]",
+            "[contains] <value>",
+            "[beginswith] <value>",
+            "[endswith] <value>"});
             this.cboErrorValue.Location = new System.Drawing.Point(424, 42);
             this.cboErrorValue.Name = "cboErrorValue";
             this.cboErrorValue.Size = new System.Drawing.Size(105, 21);
@@ -117,7 +120,10 @@
             "[null]",
             "[any]",
             "[exists]",
-            "[notExists]"});
+            "[notExists]",
+            "[contains] <value>",
+            "[beginswith] <value>",
+            "[endswith] <value>"});
             this.cboWarningValue.Location = new System.Drawing.Point(287, 42);
             this.cboWarningValue.Name = "cboWarningValue";
             this.cboWarningValue.Size = new System.Drawing.Size(96, 21);
@@ -131,7 +137,10 @@
             "[null]",
             "[any]",
             "[exists]",
-            "[notExists]"});
+            "[notExists]",
+            "[contains] <value>",
+            "[beginswith] <value>",
+            "[endswith] <value>"});
             this.cboSuccessValue.Location = new System.Drawing.Point(126, 42);
             this.cboSuccessValue.Name = "cboSuccessValue";
             this.cboSuccessValue.Size = new System.Drawing.Size(102, 21);

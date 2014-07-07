@@ -35,6 +35,8 @@ namespace QuickMon.Collectors
                 directoryFilterEntry.DirectoryExistOnly = bool.Parse(host.ReadXmlElementAttr("testDirectoryExistOnly", "False"));
                 directoryFilterEntry.FilesExistOnly = bool.Parse(host.ReadXmlElementAttr("testFilesExistOnly", "False"));
                 directoryFilterEntry.ErrorOnFilesExist = bool.Parse(host.ReadXmlElementAttr("errorOnFilesExist", "False"));
+                directoryFilterEntry.ContainsText = host.ReadXmlElementAttr("containsText", "");
+                directoryFilterEntry.UseRegEx = host.ReadXmlElementAttr("useRegEx", false);
 
                 int tmp = 0;
                 if (int.TryParse(host.ReadXmlElementAttr("warningFileCountMax", "0"), out tmp))
@@ -69,18 +71,20 @@ namespace QuickMon.Collectors
             {
                 XmlNode directoryXmlNode = config.CreateElement("directory");
 
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("directoryPathFilter", de.FilterFullPath));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("testDirectoryExistOnly", de.DirectoryExistOnly));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("testFilesExistOnly", de.FilesExistOnly));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("errorOnFilesExist", de.ErrorOnFilesExist));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("warningFileCountMax", de.CountWarningIndicator));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("errorFileCountMax", de.CountErrorIndicator));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("warningFileSizeMaxKB", de.SizeKBWarningIndicator));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("errorFileSizeMaxKB", de.SizeKBErrorIndicator));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("fileMinAgeSec", de.FileMinAgeSec));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("fileMaxAgeSec", de.FileMaxAgeSec));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("fileMinSizeKB", de.FileMinSizeKB));
-                directoryXmlNode.Attributes.Append(config.CreateAttributeWithValue("fileMaxSizeKB", de.FileMaxSizeKB));
+                directoryXmlNode.SetAttributeValue("directoryPathFilter", de.FilterFullPath);
+                directoryXmlNode.SetAttributeValue("testDirectoryExistOnly", de.DirectoryExistOnly);
+                directoryXmlNode.SetAttributeValue("testFilesExistOnly", de.FilesExistOnly);
+                directoryXmlNode.SetAttributeValue("errorOnFilesExist", de.ErrorOnFilesExist);
+                directoryXmlNode.SetAttributeValue("containsText", de.ContainsText);
+                directoryXmlNode.SetAttributeValue("useRegEx", de.UseRegEx);
+                directoryXmlNode.SetAttributeValue("warningFileCountMax", de.CountWarningIndicator);
+                directoryXmlNode.SetAttributeValue("errorFileCountMax", de.CountErrorIndicator);
+                directoryXmlNode.SetAttributeValue("warningFileSizeMaxKB", de.SizeKBWarningIndicator);
+                directoryXmlNode.SetAttributeValue("errorFileSizeMaxKB", de.SizeKBErrorIndicator);
+                directoryXmlNode.SetAttributeValue("fileMinAgeSec", de.FileMinAgeSec);
+                directoryXmlNode.SetAttributeValue("fileMaxAgeSec", de.FileMaxAgeSec);
+                directoryXmlNode.SetAttributeValue("fileMinSizeKB", de.FileMinSizeKB);
+                directoryXmlNode.SetAttributeValue("fileMaxSizeKB", de.FileMaxSizeKB);
 
                 directoryList.AppendChild(directoryXmlNode);
             }

@@ -33,6 +33,7 @@ namespace QuickMon.Collectors
         public List<string> Sources { get; set; }
         public List<int> EventIds { get; set; }
         public bool ContainsText { get; set; }
+        public bool UseRegEx { get; set; }
         public string TextFilter { get; set; }
         public int WithInLastXEntries { get; set; }
         public int WithInLastXMinutes { get; set; }
@@ -192,6 +193,11 @@ namespace QuickMon.Collectors
                 match = false;
             else if (EventIds.Count > 0 && !EventIds.Contains(entry.EventId))
                 match = false;
+            else if (TextFilter.Length > 0 && UseRegEx)
+            {
+                System.Text.RegularExpressions.Match regMatch = System.Text.RegularExpressions.Regex.Match(entry.Message, TextFilter, System.Text.RegularExpressions.RegexOptions.Multiline);
+                match = regMatch.Success;
+            }
             else if (TextFilter.Length > 0 && !ContainsText && (!entry.Message.StartsWith(TextFilter, StringComparison.CurrentCultureIgnoreCase)))
                 match = false;
             else if (TextFilter.Length > 0 && ContainsText && (!entry.Message.ToLower().Contains(TextFilter.ToLower())))

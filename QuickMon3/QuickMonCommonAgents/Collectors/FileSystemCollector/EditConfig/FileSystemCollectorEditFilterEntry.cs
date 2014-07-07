@@ -41,7 +41,9 @@ namespace QuickMon.Collectors
             chkDirectoryExistOnly.Checked = selectedEntry.DirectoryExistOnly;
             txtFilter.Text = selectedEntry.FileFilter;
             chkCheckIfFilesExistOnly.Checked = selectedEntry.FilesExistOnly;
-            chkErrorOnFilesExist.Checked = selectedEntry.ErrorOnFilesExist;            
+            chkErrorOnFilesExist.Checked = selectedEntry.ErrorOnFilesExist;
+            txtContains.Text = selectedEntry.ContainsText;
+            chkUseRegEx.Checked = selectedEntry.UseRegEx;
             numericUpDownCountWarningIndicator.Value = selectedEntry.CountWarningIndicator;
             numericUpDownCountErrorIndicator.Value = selectedEntry.CountErrorIndicator;
             numericUpDownSizeWarningIndicator.Value = selectedEntry.SizeKBWarningIndicator;
@@ -64,6 +66,11 @@ namespace QuickMon.Collectors
         private void chkDirectoryExistOnly_CheckedChanged(object sender, EventArgs e)
         {
             txtFilter.Enabled = !chkDirectoryExistOnly.Checked;
+            txtContains.Enabled = !chkDirectoryExistOnly.Checked;
+            chkUseRegEx.Enabled = !chkDirectoryExistOnly.Checked;
+            chkCheckIfFilesExistOnly.Enabled = !chkDirectoryExistOnly.Checked;
+            chkErrorOnFilesExist.Enabled = !chkDirectoryExistOnly.Checked;
+
             numericUpDownCountWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
             numericUpDownCountErrorIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
             numericUpDownSizeWarningIndicator.Enabled = !chkDirectoryExistOnly.Checked && !(chkCheckIfFilesExistOnly.Checked || chkErrorOnFilesExist.Checked);
@@ -123,7 +130,9 @@ namespace QuickMon.Collectors
                 selectedEntry.DirectoryExistOnly = chkDirectoryExistOnly.Checked;
                 selectedEntry.FileFilter = txtFilter.Text;
                 selectedEntry.FilesExistOnly = chkCheckIfFilesExistOnly.Checked;
-                selectedEntry.ErrorOnFilesExist = chkErrorOnFilesExist.Checked;            
+                selectedEntry.ErrorOnFilesExist = chkErrorOnFilesExist.Checked;
+                selectedEntry.ContainsText = txtContains.Text;
+                selectedEntry.UseRegEx = chkUseRegEx.Checked;
                 selectedEntry.CountWarningIndicator = Convert.ToInt32(numericUpDownCountWarningIndicator.Value);
                 selectedEntry.CountErrorIndicator = Convert.ToInt32(numericUpDownCountErrorIndicator.Value);
                 selectedEntry.SizeKBWarningIndicator = (int)numericUpDownSizeWarningIndicator.Value;

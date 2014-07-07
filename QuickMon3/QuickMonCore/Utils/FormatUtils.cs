@@ -93,5 +93,33 @@ namespace QuickMon
             }
 
         }
+        public static string FormatArrayToString(object value, string defaultValue = "")
+        {
+            if (value == null)
+                return defaultValue;
+            else if (value == DBNull.Value)
+                return defaultValue;
+            else if (value.GetType().IsArray)
+            {
+                StringBuilder sb = new StringBuilder();
+                if (value is Byte[]) //binary data
+                {
+                    Byte[] valArr = (Byte[])value;
+                    for (int i = 0; i < valArr.Length; i++)
+                    {
+                        sb.AppendFormat("{0:x2}", valArr[i]).Append(",");
+                    }
+                    value = sb.ToString().Trim(',');
+                }
+                else if (value is string[])
+                {
+                    string[] valArr = (string[])value;
+                    foreach (string line in valArr)
+                        sb.AppendLine(line);
+                    value = sb.ToString().TrimEnd('\r', '\n');
+                }
+            }
+            return value.ToString();
+        }
     }
 }

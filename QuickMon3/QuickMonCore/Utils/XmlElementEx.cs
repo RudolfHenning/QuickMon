@@ -61,6 +61,10 @@ namespace QuickMon
         {
             return SetAttributeValue((XmlElement)e, attrName, value.ToString());
         }
+        public static XmlAttribute SetAttributeValue(this XmlNode e, string attrName, long value)
+        {
+            return SetAttributeValue((XmlElement)e, attrName, value.ToString());
+        }
         public static XmlAttribute SetAttributeValue(this XmlNode e, string attrName, string value)
         {
             return SetAttributeValue((XmlElement)e, attrName, value);
@@ -70,6 +74,10 @@ namespace QuickMon
             return SetAttributeValue(e, attrName, value.ToString());
         }
         public static XmlAttribute SetAttributeValue(this XmlElement e, string attrName, int value)
+        {
+            return SetAttributeValue(e, attrName, value.ToString());
+        }
+        public static XmlAttribute SetAttributeValue(this XmlElement e, string attrName, long value)
         {
             return SetAttributeValue(e, attrName, value.ToString());
         }

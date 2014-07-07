@@ -48,6 +48,7 @@ namespace QuickMon.Forms
             foreach (string categoryName in (from a in RegisteredAgentCache.Agents
                                              where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
                                              group a by a.CategoryName into g
+                                             orderby g.Key
                                              select g.Key))
             {
                 lvwAgentType.Groups.Add(new ListViewGroup(categoryName));

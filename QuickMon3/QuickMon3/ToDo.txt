@@ -1,4 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
+Collector stats history saved to disk... somehow...
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -178,5 +179,11 @@ CollectorEntry/NotifierEntry (class) to have array of Dynamic Config Variables (
     Will be used to replace 'value to search for' in config stream with 'value to replace with' at run-time (when creating instance)
 	Potential to later add Global Dynamic Config Variables (at MonitorPack level)
 Known Remote agent list to show port in separate column
+
+v3.18
+Registry collector - add ability to handle binary and string array data types.
+SOAP web service collector marked as deprecated.
+Event log collector - text can be tested with Regular expression
+File collector - scan contents of files, plus use regex
 -------------------------------------------------------------------------------------------------------
 

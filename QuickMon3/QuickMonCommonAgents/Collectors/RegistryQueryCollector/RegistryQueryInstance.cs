@@ -105,6 +105,28 @@ namespace QuickMon.Collectors
             {
                 if (!ReturnValueIsNumber || !ReturnValueInARange) //so it's not a number
                 {
+                    if (value.GetType().IsArray)
+                    {
+                        value = FormatUtils.FormatArrayToString(value);
+                        //StringBuilder sb = new StringBuilder();
+                        //if (value is Byte[]) //binary data
+                        //{
+                        //    Byte[] valArr = (Byte[])value;                            
+                        //    for(int i = 0; i < valArr.Length; i++)
+                        //    {
+                        //        sb.AppendFormat("{0:x2}", valArr[i]).Append(",");
+                        //    }
+                        //    value = sb.ToString().Trim(',');
+                        //}
+                        //else if (value is string[])
+                        //{
+                        //    string[] valArr = (string[])value;
+                        //    foreach (string line in valArr)
+                        //        sb.AppendLine(line);
+                        //    value = sb.ToString().TrimEnd('\r','\n');
+                        //}
+                    }
+
                     //first eliminate matching values
                     if (SuccessValue == value.ToString())
                         result = CollectorState.Good;
@@ -112,6 +134,26 @@ namespace QuickMon.Collectors
                         result = CollectorState.Error;
                     else if (value.ToString() == WarningValue)
                         result = CollectorState.Warning;
+
+                    //test for [contains] <value>, [beginswith] <value> or [endswith] <value>
+                    else if (SuccessValue.StartsWith("[contains]") && value.ToString().Contains(SuccessValue.Substring(("[contains]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (SuccessValue.StartsWith("[beginswith]") && value.ToString().StartsWith(SuccessValue.Substring(("[beginswith]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (SuccessValue.StartsWith("[endswith]") && value.ToString().EndsWith(SuccessValue.Substring(("[endswith]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (WarningValue.StartsWith("[contains]") && value.ToString().Contains(WarningValue.Substring(("[contains]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (WarningValue.StartsWith("[beginswith]") && value.ToString().StartsWith(WarningValue.Substring(("[beginswith]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (WarningValue.StartsWith("[endswith]") && value.ToString().EndsWith(WarningValue.Substring(("[endswith]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (ErrorValue.StartsWith("[contains]") && value.ToString().Contains(ErrorValue.Substring(("[contains]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (ErrorValue.StartsWith("[beginswith]") && value.ToString().StartsWith(ErrorValue.Substring(("[beginswith]").Length).Trim()))
+                        result = CollectorState.Good;
+                    else if (ErrorValue.StartsWith("[endswith]") && value.ToString().EndsWith(ErrorValue.Substring(("[endswith]").Length).Trim()))
+                        result = CollectorState.Good;
 
                     //Existing tests
                     else if (ErrorValue == "[exists]")

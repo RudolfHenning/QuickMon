@@ -34,6 +34,7 @@ namespace QuickMon.Collectors
                 eventLogEntry.TypeWarn = bool.Parse(logNode.ReadXmlElementAttr("typeWarn", "True"));
                 eventLogEntry.TypeErr = bool.Parse(logNode.ReadXmlElementAttr("typeErr", "True"));
                 eventLogEntry.ContainsText = bool.Parse(logNode.ReadXmlElementAttr("containsText", "False"));
+                eventLogEntry.UseRegEx = logNode.ReadXmlElementAttr("useRegEx", false);
                 eventLogEntry.TextFilter = logNode.ReadXmlElementAttr("textFilter", "");
                 eventLogEntry.WithInLastXEntries = int.Parse(logNode.ReadXmlElementAttr("withInLastXEntries", "100"));
                 eventLogEntry.WithInLastXMinutes = int.Parse(logNode.ReadXmlElementAttr("withInLastXMinutes", "60"));
@@ -71,6 +72,7 @@ namespace QuickMon.Collectors
                 logNode.SetAttributeValue("typeWarn", eventLogEntry.TypeWarn);
                 logNode.SetAttributeValue("typeErr", eventLogEntry.TypeErr);
                 logNode.SetAttributeValue("containsText", eventLogEntry.ContainsText);
+                logNode.SetAttributeValue("useRegEx", eventLogEntry.UseRegEx);
                 logNode.SetAttributeValue("textFilter", eventLogEntry.TextFilter);
                 logNode.SetAttributeValue("withInLastXEntries", eventLogEntry.WithInLastXEntries);
                 logNode.SetAttributeValue("withInLastXMinutes", eventLogEntry.WithInLastXMinutes);

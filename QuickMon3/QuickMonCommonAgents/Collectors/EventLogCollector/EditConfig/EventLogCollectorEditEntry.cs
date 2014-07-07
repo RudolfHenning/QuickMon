@@ -53,6 +53,7 @@ namespace QuickMon.Collectors
                 chkErr.Checked = selectedEntry.TypeErr;
                 txtEventIds.Text = selectedEntry.EventIds.ToCSVString();
                 optTextContains.Checked = selectedEntry.ContainsText;
+                optUseRegEx.Checked = selectedEntry.UseRegEx;
                 txtText.Text = selectedEntry.TextFilter;
                 numericUpDownWithinLastXEntries.Value = selectedEntry.WithInLastXEntries;
                 numericUpDownWithLastMinutes.Value = selectedEntry.WithInLastXMinutes;
@@ -130,6 +131,7 @@ namespace QuickMon.Collectors
             (from ListViewItem l in lvwSources.CheckedItems
              select l.Text).ToList().ForEach(s => selectedEntry.Sources.Add(s));
             selectedEntry.ContainsText = optTextContains.Checked;
+            selectedEntry.UseRegEx = optUseRegEx.Checked;
             selectedEntry.TextFilter = txtText.Text;
             selectedEntry.WithInLastXEntries = (int)numericUpDownWithinLastXEntries.Value;
             selectedEntry.WithInLastXMinutes = (int)numericUpDownWithLastMinutes.Value;

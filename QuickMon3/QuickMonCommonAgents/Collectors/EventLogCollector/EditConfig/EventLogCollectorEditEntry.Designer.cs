@@ -74,6 +74,7 @@
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.optUseRegEx = new System.Windows.Forms.RadioButton();
             this.contextMenuStripQuickFind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWithLastMinutes)).BeginInit();
@@ -351,6 +352,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.optUseRegEx);
             this.groupBox1.Controls.Add(this.optTextContains);
             this.groupBox1.Controls.Add(this.optTextStartWith);
             this.groupBox1.Controls.Add(this.txtText);
@@ -368,7 +370,7 @@
             this.txtText.Location = new System.Drawing.Point(6, 38);
             this.txtText.Name = "txtText";
             this.txtText.Size = new System.Drawing.Size(445, 20);
-            this.txtText.TabIndex = 2;
+            this.txtText.TabIndex = 3;
             // 
             // cmdEditEventIds
             // 
@@ -585,6 +587,17 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
+            // optUseRegEx
+            // 
+            this.optUseRegEx.AutoSize = true;
+            this.optUseRegEx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optUseRegEx.Location = new System.Drawing.Point(178, 17);
+            this.optUseRegEx.Name = "optUseRegEx";
+            this.optUseRegEx.Size = new System.Drawing.Size(115, 17);
+            this.optUseRegEx.TabIndex = 2;
+            this.optUseRegEx.Text = "Regular Expression";
+            this.optUseRegEx.UseVisualStyleBackColor = true;
+            // 
             // EventLogCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -692,5 +705,6 @@
         private System.Windows.Forms.TextBox txtComputer;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
+        private System.Windows.Forms.RadioButton optUseRegEx;
     }
 }
