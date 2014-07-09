@@ -1,5 +1,12 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved to disk... somehow...
+CollctorEntry to have 'Category' (perhaps multiple). 
+  Can then be used to filter (visually) in UI client or so
+Copy/Paste of collector entry to clipboard so it can copied to another separate instance as well
+  Also include child collector entries when CTRL is pressed while copying
+monitor pack path visible (in small gray text) somewhere on app.
+Recent monitorpacks quick list only display name and not path (except when non standard location is used)
+	Perhaps add application setting to switch between showing full path and 'name only'
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
