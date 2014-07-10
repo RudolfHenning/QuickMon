@@ -40,11 +40,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.agentSettingstabPage = new System.Windows.Forms.TabPage();
             this.panCollectorConfigContainer = new System.Windows.Forms.Panel();
+            this.tvwEntries = new QuickMon.TreeViewEx();
             this.itemsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entriesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.lvwEntries = new QuickMon.ListViewEx();
+            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -129,10 +133,7 @@
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tvwEntries = new QuickMon.TreeViewEx();
-            this.lvwEntries = new QuickMon.ListViewEx();
-            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkExpandOnStart = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -169,7 +170,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(497, 432);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 8;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -181,7 +182,7 @@
             this.cmdOK.Location = new System.Drawing.Point(416, 432);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 6;
+            this.cmdOK.TabIndex = 7;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -193,7 +194,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(509, 13);
+            this.chkEnabled.Location = new System.Drawing.Point(480, 13);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
@@ -207,7 +208,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(62, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(441, 20);
+            this.txtName.Size = new System.Drawing.Size(412, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -218,7 +219,7 @@
             this.label6.Location = new System.Drawing.Point(12, 437);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
-            this.label6.TabIndex = 4;
+            this.label6.TabIndex = 5;
             this.label6.Text = "Id";
             // 
             // lblId
@@ -228,7 +229,7 @@
             this.lblId.Location = new System.Drawing.Point(34, 437);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(16, 13);
-            this.lblId.TabIndex = 5;
+            this.lblId.TabIndex = 6;
             this.lblId.Text = "Id";
             // 
             // label1
@@ -253,7 +254,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(582, 388);
-            this.tabControl1.TabIndex = 3;
+            this.tabControl1.TabIndex = 4;
             // 
             // agentSettingstabPage
             // 
@@ -280,6 +281,22 @@
             this.panCollectorConfigContainer.Name = "panCollectorConfigContainer";
             this.panCollectorConfigContainer.Size = new System.Drawing.Size(568, 304);
             this.panCollectorConfigContainer.TabIndex = 1;
+            // 
+            // tvwEntries
+            // 
+            this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
+            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwEntries.FullRowSelect = true;
+            this.tvwEntries.ImageIndex = 0;
+            this.tvwEntries.ImageList = this.entriesImageList;
+            this.tvwEntries.Location = new System.Drawing.Point(0, 160);
+            this.tvwEntries.Name = "tvwEntries";
+            this.tvwEntries.SelectedImageIndex = 0;
+            this.tvwEntries.Size = new System.Drawing.Size(568, 144);
+            this.tvwEntries.TabIndex = 2;
+            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
+            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
+            this.tvwEntries.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwEntries_KeyUp);
             // 
             // itemsContextMenuStrip
             // 
@@ -321,6 +338,39 @@
             this.entriesImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.entriesImageList.Images.SetKeyName(0, "5_50.ico");
             this.entriesImageList.Images.SetKeyName(1, "243.ico");
+            // 
+            // lvwEntries
+            // 
+            this.lvwEntries.AutoResizeColumnEnabled = false;
+            this.lvwEntries.AutoResizeColumnIndex = 0;
+            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.entriesColumnHeader,
+            this.triggerColumnHeader});
+            this.lvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
+            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lvwEntries.FullRowSelect = true;
+            this.lvwEntries.HideSelection = false;
+            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
+            this.lvwEntries.Name = "lvwEntries";
+            this.lvwEntries.Size = new System.Drawing.Size(568, 135);
+            this.lvwEntries.SmallImageList = this.entriesImageList;
+            this.lvwEntries.TabIndex = 1;
+            this.lvwEntries.UseCompatibleStateImageBehavior = false;
+            this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
+            // 
+            // entriesColumnHeader
+            // 
+            this.entriesColumnHeader.Text = "Entries";
+            this.entriesColumnHeader.Width = 293;
+            // 
+            // triggerColumnHeader
+            // 
+            this.triggerColumnHeader.Text = "Alert triggers";
+            this.triggerColumnHeader.Width = 249;
             // 
             // collectorEditToolStrip
             // 
@@ -1328,60 +1378,26 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // tvwEntries
+            // chkExpandOnStart
             // 
-            this.tvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
-            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwEntries.FullRowSelect = true;
-            this.tvwEntries.ImageIndex = 0;
-            this.tvwEntries.ImageList = this.entriesImageList;
-            this.tvwEntries.Location = new System.Drawing.Point(0, 160);
-            this.tvwEntries.Name = "tvwEntries";
-            this.tvwEntries.SelectedImageIndex = 0;
-            this.tvwEntries.Size = new System.Drawing.Size(568, 144);
-            this.tvwEntries.TabIndex = 2;
-            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
-            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
-            this.tvwEntries.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tvwEntries_KeyUp);
-            // 
-            // lvwEntries
-            // 
-            this.lvwEntries.AutoResizeColumnEnabled = false;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
-            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.entriesColumnHeader,
-            this.triggerColumnHeader});
-            this.lvwEntries.ContextMenuStrip = this.itemsContextMenuStrip;
-            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lvwEntries.FullRowSelect = true;
-            this.lvwEntries.HideSelection = false;
-            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
-            this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(568, 135);
-            this.lvwEntries.SmallImageList = this.entriesImageList;
-            this.lvwEntries.TabIndex = 1;
-            this.lvwEntries.UseCompatibleStateImageBehavior = false;
-            this.lvwEntries.View = System.Windows.Forms.View.Details;
-            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
-            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
-            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
-            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
-            // 
-            // entriesColumnHeader
-            // 
-            this.entriesColumnHeader.Text = "Entries";
-            this.entriesColumnHeader.Width = 293;
-            // 
-            // triggerColumnHeader
-            // 
-            this.triggerColumnHeader.Text = "Alert triggers";
-            this.triggerColumnHeader.Width = 249;
+            this.chkExpandOnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkExpandOnStart.AutoSize = true;
+            this.chkExpandOnStart.Checked = true;
+            this.chkExpandOnStart.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkExpandOnStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkExpandOnStart.Location = new System.Drawing.Point(480, 35);
+            this.chkExpandOnStart.Name = "chkExpandOnStart";
+            this.chkExpandOnStart.Size = new System.Drawing.Size(98, 17);
+            this.chkExpandOnStart.TabIndex = 3;
+            this.chkExpandOnStart.Text = "Expand on start";
+            this.chkExpandOnStart.UseVisualStyleBackColor = true;
             // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 462);
+            this.Controls.Add(this.chkExpandOnStart);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
@@ -1544,5 +1560,6 @@
         private System.Windows.Forms.LinkLabel llblExportConfigAsTemplate;
         private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
         private System.Windows.Forms.LinkLabel llblEditConfigVars;
+        private System.Windows.Forms.CheckBox chkExpandOnStart;
     }
 }

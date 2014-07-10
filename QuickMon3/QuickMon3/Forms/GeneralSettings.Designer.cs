@@ -50,10 +50,11 @@
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
+            this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -99,7 +100,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 311);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 330);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 5;
@@ -110,7 +111,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 311);
+            this.cmdOK.Location = new System.Drawing.Point(265, 330);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 4;
@@ -303,32 +304,16 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.chkDisplayFullPathForQuickRecentEntries);
             this.groupBox4.Controls.Add(this.cmdEditQuickSelectTypeFilters);
             this.groupBox4.Controls.Add(this.txtRecentMonitorPackFilter);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Location = new System.Drawing.Point(12, 246);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(409, 48);
+            this.groupBox4.Size = new System.Drawing.Size(409, 78);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Recent Montor pack file list";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Quick select Type Filters (csv)";
-            // 
-            // txtRecentMonitorPackFilter
-            // 
-            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(169, 19);
-            this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
-            this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(186, 20);
-            this.txtRecentMonitorPackFilter.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.txtRecentMonitorPackFilter, "* - All, use ~ for exclude");
             // 
             // cmdEditQuickSelectTypeFilters
             // 
@@ -341,12 +326,39 @@
             this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
             this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
             // 
+            // txtRecentMonitorPackFilter
+            // 
+            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(169, 19);
+            this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
+            this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(186, 20);
+            this.txtRecentMonitorPackFilter.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.txtRecentMonitorPackFilter, "* - All, use ~ for exclude");
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(149, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Quick select Type Filters (csv)";
+            // 
+            // chkDisplayFullPathForQuickRecentEntries
+            // 
+            this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
+            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(14, 45);
+            this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
+            this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(186, 17);
+            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 3;
+            this.chkDisplayFullPathForQuickRecentEntries.Text = "Display full path in quick select list";
+            this.chkDisplayFullPathForQuickRecentEntries.UseVisualStyleBackColor = true;
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 346);
+            this.ClientSize = new System.Drawing.Size(433, 365);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -402,5 +414,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cmdEditQuickSelectTypeFilters;
+        private System.Windows.Forms.CheckBox chkDisplayFullPathForQuickRecentEntries;
     }
 }

@@ -73,6 +73,7 @@ namespace QuickMon
             return CollectorEntry.ToConfig(UniqueId,
                 Name,
                 Enabled,
+                true, // ExpandOnStart not used for remote
                 IsFolder,
                 CollectorTypeName,
                 ParentCollectorId,

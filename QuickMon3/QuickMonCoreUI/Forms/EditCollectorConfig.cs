@@ -60,6 +60,7 @@ namespace QuickMon.Forms
 
                     txtName.Text = currentEditingEntry.Name;
                     chkEnabled.Checked = currentEditingEntry.Enabled;
+                    chkExpandOnStart.Checked = currentEditingEntry.ExpandOnStart;
                     lblId.Text = currentEditingEntry.UniqueId;
                     llblCollectorType.Text = currentEditingEntry.CollectorRegistrationDisplayName;
                     chkRemoteAgentEnabled.Checked = currentEditingEntry.EnableRemoteExecute;
@@ -586,6 +587,7 @@ namespace QuickMon.Forms
 
             SelectedEntry.Name = txtName.Text;
             SelectedEntry.Enabled = chkEnabled.Checked;
+            SelectedEntry.ExpandOnStart = chkExpandOnStart.Checked;
             SelectedEntry.IsFolder = currentEditingEntry.IsFolder;
             if (cboParentCollector.SelectedIndex > 0)
             {

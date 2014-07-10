@@ -1172,19 +1172,23 @@ namespace QuickMon
 
             string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
             RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
-            foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
+            XmlNode collectorEntriesNode = root.SelectSingleNode("collectorEntries");
+            if (collectorEntriesNode != null)
             {
-                RaiseCollecterLoading(xmlCollectorEntry.ReadXmlElementAttr("name", "").Trim());
-                CollectorEntry newCollectorEntry = CollectorEntry.FromConfig(xmlCollectorEntry);
-                if (PreloadCollectorInstances)
-                    ApplyCollectorConfig(newCollectorEntry);
-                Collectors.Add(newCollectorEntry);
-                RaiseCollecterLoaded(newCollectorEntry);
+                Collectors = CollectorEntry.GetCollectorEntriesFromString(collectorEntriesNode.OuterXml, PreloadCollectorInstances);
             }
+            //foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
+            //{
+            //    RaiseCollecterLoading(xmlCollectorEntry.ReadXmlElementAttr("name", "").Trim());
+            //    CollectorEntry newCollectorEntry = CollectorEntry.FromConfig(xmlCollectorEntry);
+            //    if (PreloadCollectorInstances)
+            //        ApplyCollectorConfig(newCollectorEntry);
+            //    Collectors.Add(newCollectorEntry);
+            //    RaiseCollecterLoaded(newCollectorEntry);
+            //}
             foreach (XmlElement xmlNotifierEntry in root.SelectNodes("notifierEntries/notifierEntry"))
             {
                 NotifierEntry newNotifierEntry = NotifierEntry.FromConfig(xmlNotifierEntry);
-
                 try
                 {
                     newNotifierEntry.CreateAndConfigureEntry(newNotifierEntry.NotifierRegistrationName);

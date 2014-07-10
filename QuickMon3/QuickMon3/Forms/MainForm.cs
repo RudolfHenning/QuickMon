@@ -122,8 +122,6 @@ namespace QuickMon
             adminModeToolStripStatusLabel.Visible = HenIT.Security.AdminModeTools.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !HenIT.Security.AdminModeTools.IsInAdminMode();
         }
-
-        
         private void MainForm_Resize(object sender, EventArgs e)
         {
             try
@@ -592,10 +590,13 @@ namespace QuickMon
         private void UpdateAppTitle()
         {
             Text = "QuickMon 3";
+            lblMonitorPackPath.Text = "";
             if (monitorPackChanged)
                 Text += "*";
             if (monitorPack != null)
             {
+                if (monitorPack.MonitorPackPath != null)    
+                    lblMonitorPackPath.Text = monitorPack.MonitorPackPath;
                 if (!monitorPack.Enabled)
                     Text += " - [Disabled]";
                 if (monitorPack.Name != null && monitorPack.Name.Length > 0)
@@ -763,7 +764,9 @@ namespace QuickMon
                     if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
                     {
                         if (!SaveAsMonitorPack())
+                        {
                             return;
+                        }
                     }
                 }
                 mainRefreshTimer.Enabled = false;
@@ -820,6 +823,7 @@ namespace QuickMon
                 lblNoNotifiersYet.Visible = monitorPack.Notifiers.Count == 0;
                 mainRefreshTimer.Enabled = true;
                 monitorPackChanged = false;
+                UpdateAppTitle();
             }
         }        
 
@@ -929,7 +933,7 @@ namespace QuickMon
                 LoadCollectorNode(collectorNode, childCollector);
             }
             root.Nodes.Add(collectorNode);
-            if (collector.Enabled)
+            if (collector.Enabled && collector.ExpandOnStart)
                 collectorNode.Expand();
         }
        
@@ -1254,6 +1258,26 @@ namespace QuickMon
                 popedContainerForTreeView.cmdStats.Enabled = false;
                 collectorStatisticsToolStripMenuItem.Enabled = false;
             }
+            popedContainerForTreeView.cmdPaste.Enabled = false;
+            popedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
+            if (Clipboard.ContainsText())
+            {
+                string clipboardTest = Clipboard.GetText().Trim(' ', '\r', '\n');
+                if (clipboardTest.StartsWith("<collectorEntries>") && clipboardTest.EndsWith("</collectorEntries>"))
+                {
+                    try
+                    {
+                        List<CollectorEntry> pastedCollectorEntries = CollectorEntry.GetCollectorEntriesFromString(clipboardTest);
+                        popedContainerForTreeView.cmdPaste.Enabled = true;
+                        popedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
+                        copiedCollectorList = pastedCollectorEntries;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(ex.ToString()); 
+                    }
+                }
+            }
         }
         private void CheckNotifierContextMenuEnables()
         {
@@ -1291,6 +1315,7 @@ namespace QuickMon
                     //Copy as is with same IDs
                     copiedCollectorList.Add(en.Clone());
                 }
+                Clipboard.SetText(CollectorEntry.EntriesConfigToString(copiedCollectorList));
 
                 popedContainerForTreeView.cmdPaste.Enabled = true;
                 popedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
@@ -1482,10 +1507,14 @@ namespace QuickMon
 
                     if (mpVisible)
                     {
-                        if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(filePath + "........", cboRecentMonitorPacks.Font).Width)
+                        string entryDisplayName = filePath;
+                        if (!Properties.Settings.Default.ShowFullPathForQuickRecentist)
+                            entryDisplayName = System.IO.Path.GetFileNameWithoutExtension(filePath);
+
+                        if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width)
                         {
-                            string ellipseText = filePath.Substring(0, 20) + "....";
-                            string tmpStr = filePath.Substring(4);
+                            string ellipseText = entryDisplayName.Substring(0, 20) + "....";
+                            string tmpStr = entryDisplayName.Substring(4);
                             while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
                             {
                                 tmpStr = tmpStr.Substring(1);
@@ -1494,7 +1523,7 @@ namespace QuickMon
                         }
                         else
                         {
-                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(filePath, filePath));
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, filePath));
                         }
                     }
                 }
@@ -2236,6 +2265,11 @@ namespace QuickMon
             recentMonitorPacksHideTimer.Enabled = false;
             recentMonitorPacksShowTimer.Enabled = true;
         }
+        private void lblMonitorPackPath_MouseEnter(object sender, EventArgs e)
+        {
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksShowTimer.Enabled = true;
+        }
         private void recentMonitorPacksPanel_MouseLeave(object sender, EventArgs e)
         {
             //recentMonitorPacksVisibleTimer.Enabled = false;
@@ -2278,5 +2312,6 @@ namespace QuickMon
             HideRecentDropDownList(sender, e);
         }
         #endregion
+
     }
 }

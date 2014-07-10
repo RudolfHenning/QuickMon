@@ -41,5 +41,8 @@
     <Setting Name="RecentQMConfigFileFilters" Type="System.String" Scope="User">
       <Value Profile="(Default)">*,!Test</Value>
     </Setting>
+    <Setting Name="ShowFullPathForQuickRecentist" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

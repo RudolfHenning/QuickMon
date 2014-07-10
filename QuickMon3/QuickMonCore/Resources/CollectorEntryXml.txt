@@ -1,14 +1,14 @@
-<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" isFolder="{3}" collector="{4}" dependOnParent="{5}" collectOnParentWarning="{6}" 
-  repeatAlertInXMin="{7}" alertOnceInXMin="{8}" delayErrWarnAlertForXSec="{9}"
-  repeatAlertInXPolls="{10}" alertOnceInXPolls="{11}" delayErrWarnAlertForXPolls="{12}"
-  correctiveScriptDisabled="{13}" correctiveScriptOnWarningPath="{14}" correctiveScriptOnErrorPath="{15}" restorationScriptPath="{16}" correctiveScriptsOnlyOnStateChange="{17}"
-  enableRemoteExecute="{18}" forceRemoteExcuteOnChildCollectors="{19}" remoteAgentHostAddress="{20}" remoteAgentHostPort="{21}" blockParentRemoteAgentHostSettings="{22}"
-  enabledPollingOverride="{23}" onlyAllowUpdateOncePerXSec="{24}" enablePollFrequencySliding="{25}"
-  pollSlideFrequencyAfterFirstRepeatSec="{26}" pollSlideFrequencyAfterSecondRepeatSec="{27}" pollSlideFrequencyAfterThirdRepeatSec="{28}">
+<collectorEntry uniqueID="{0}" name="{1}" enabled="{2}" expandOnStart="{3}" isFolder="{4}" collector="{5}" dependOnParent="{6}" collectOnParentWarning="{7}" 
+  repeatAlertInXMin="{8}" alertOnceInXMin="{9}" delayErrWarnAlertForXSec="{10}"
+  repeatAlertInXPolls="{11}" alertOnceInXPolls="{12}" delayErrWarnAlertForXPolls="{13}"
+  correctiveScriptDisabled="{14}" correctiveScriptOnWarningPath="{15}" correctiveScriptOnErrorPath="{16}" restorationScriptPath="{17}" correctiveScriptsOnlyOnStateChange="{18}"
+  enableRemoteExecute="{19}" forceRemoteExcuteOnChildCollectors="{20}" remoteAgentHostAddress="{21}" remoteAgentHostPort="{22}" blockParentRemoteAgentHostSettings="{23}"
+  enabledPollingOverride="{24}" onlyAllowUpdateOncePerXSec="{25}" enablePollFrequencySliding="{26}"
+  pollSlideFrequencyAfterFirstRepeatSec="{27}" pollSlideFrequencyAfterSecondRepeatSec="{28}" pollSlideFrequencyAfterThirdRepeatSec="{29}">
   <!-- custom config -->
-  {29}
-  <!-- ServiceWindows -->
   {30}
-  <!-- Config variables -->
+  <!-- ServiceWindows -->
   {31}
+  <!-- Config variables -->
+  {32}
 </collectorEntry>

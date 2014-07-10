@@ -2,12 +2,8 @@
 Collector stats history saved/persisted to disk... somehow...
 CollctorEntry to have 'Category' (perhaps multiple). 
   Can then be used to filter (visually) in UI client or autoexpand on load in UI client (monitorpack define which categories shown on first start)
-Copy/Paste of collector entry to clipboard so it can copied to another separate instance as well
-  Also include child collector entries when CTRL is pressed while copying
 monitor pack path visible (in small gray text) somewhere on app.
-Recent monitorpacks quick list only display name and not path (except when non standard location is used)
-	Perhaps add application setting to switch between showing full path and 'name only'
-BUG: After prompted for saving changes and selecting no then loading new pack does not remove '*' from title.
+Even with ExpandOnStart = false if childnode =warning/error parent node must be expanded.
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -193,5 +189,13 @@ Registry collector - add ability to handle binary and string array data types.
 SOAP web service collector marked as deprecated.
 Event log collector - text can be tested with Regular expression
 File collector - scan contents of files, plus use regex
+
+v3.19
+Copy/Paste of collector entry to clipboard so it can copied to another separate instance as well
+  Also include child collector entries when CTRL is pressed while copying
+BUG: After prompted for saving changes and selecting no then loading new pack does not remove '*' from title.
+Recent monitorpacks quick list only display name and not path (except when non standard location is used)
+	add application setting to switch between showing full path and 'name only'
+Collector Entry -add expand on start for tree nodes
 -------------------------------------------------------------------------------------------------------
 
