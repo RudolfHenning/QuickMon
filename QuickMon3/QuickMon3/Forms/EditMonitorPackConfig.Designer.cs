@@ -48,6 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtType = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.lblMonitorPackPath = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
@@ -59,7 +60,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(272, 259);
+            this.cmdCancel.Location = new System.Drawing.Point(312, 279);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 13;
@@ -71,7 +72,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(191, 259);
+            this.cmdOK.Location = new System.Drawing.Point(231, 279);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 12;
@@ -94,7 +95,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(103, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(244, 20);
+            this.txtName.Size = new System.Drawing.Size(284, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -102,7 +103,7 @@
             // 
             this.chkEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.Location = new System.Drawing.Point(12, 263);
+            this.chkEnabled.Location = new System.Drawing.Point(12, 283);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(65, 17);
             this.chkEnabled.TabIndex = 11;
@@ -121,12 +122,14 @@
             // 
             // cboDefaultNotifier
             // 
+            this.cboDefaultNotifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboDefaultNotifier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDefaultNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboDefaultNotifier.FormattingEnabled = true;
             this.cboDefaultNotifier.Location = new System.Drawing.Point(103, 90);
             this.cboDefaultNotifier.Name = "cboDefaultNotifier";
-            this.cboDefaultNotifier.Size = new System.Drawing.Size(244, 21);
+            this.cboDefaultNotifier.Size = new System.Drawing.Size(284, 21);
             this.cboDefaultNotifier.TabIndex = 6;
             // 
             // label1
@@ -179,7 +182,7 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Location = new System.Drawing.Point(15, 143);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(332, 110);
+            this.groupBox2.Size = new System.Drawing.Size(372, 110);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Polling";
@@ -200,7 +203,7 @@
             this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
             this.freqSecTrackBar.Maximum = 120;
             this.freqSecTrackBar.Name = "freqSecTrackBar";
-            this.freqSecTrackBar.Size = new System.Drawing.Size(307, 45);
+            this.freqSecTrackBar.Size = new System.Drawing.Size(347, 45);
             this.freqSecTrackBar.TabIndex = 3;
             this.freqSecTrackBar.TickFrequency = 5;
             this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
@@ -242,7 +245,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtType.Location = new System.Drawing.Point(103, 38);
             this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(244, 20);
+            this.txtType.Size = new System.Drawing.Size(284, 20);
             this.txtType.TabIndex = 3;
             this.txtType.TextChanged += new System.EventHandler(this.txtType_TextChanged);
             // 
@@ -255,12 +258,24 @@
             this.label7.TabIndex = 2;
             this.label7.Text = "&Type";
             // 
+            // lblMonitorPackPath
+            // 
+            this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DarkGray;
+            this.lblMonitorPackPath.Location = new System.Drawing.Point(10, 256);
+            this.lblMonitorPackPath.Name = "lblMonitorPackPath";
+            this.lblMonitorPackPath.Size = new System.Drawing.Size(377, 20);
+            this.lblMonitorPackPath.TabIndex = 14;
+            this.lblMonitorPackPath.Text = " ";
+            this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // EditMonitorPackConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(359, 294);
+            this.ClientSize = new System.Drawing.Size(399, 314);
+            this.Controls.Add(this.lblMonitorPackPath);
             this.Controls.Add(this.txtType);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox2);
@@ -314,5 +329,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtType;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblMonitorPackPath;
     }
 }

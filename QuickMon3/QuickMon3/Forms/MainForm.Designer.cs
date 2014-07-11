@@ -36,7 +36,6 @@ namespace QuickMon
             this.panel1 = new System.Windows.Forms.Panel();
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
-            this.lblMonitorPackPath = new System.Windows.Forms.Label();
             this.extrasToolStrip = new QuickMon.Controls.ToolStripEx();
             this.generalSettingsToolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.pollingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -170,7 +169,6 @@ namespace QuickMon
             | System.Windows.Forms.AnchorStyles.Right)));
             this.recentMonitorPacksPanel.BackColor = System.Drawing.Color.Transparent;
             this.recentMonitorPacksPanel.Controls.Add(this.cboRecentMonitorPacks);
-            this.recentMonitorPacksPanel.Controls.Add(this.lblMonitorPackPath);
             this.recentMonitorPacksPanel.Location = new System.Drawing.Point(4, 40);
             this.recentMonitorPacksPanel.Name = "recentMonitorPacksPanel";
             this.recentMonitorPacksPanel.Size = new System.Drawing.Size(400, 26);
@@ -192,19 +190,6 @@ namespace QuickMon
             this.cboRecentMonitorPacks.SelectedIndexChanged += new System.EventHandler(this.cboRecentMonitorPacks_SelectedIndexChanged);
             this.cboRecentMonitorPacks.MouseLeave += new System.EventHandler(this.cboRecentMonitorPacks_MouseLeave);
             this.cboRecentMonitorPacks.MouseHover += new System.EventHandler(this.cboRecentMonitorPacks_MouseHover);
-            // 
-            // lblMonitorPackPath
-            // 
-            this.lblMonitorPackPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 0);
-            this.lblMonitorPackPath.Name = "lblMonitorPackPath";
-            this.lblMonitorPackPath.Size = new System.Drawing.Size(400, 26);
-            this.lblMonitorPackPath.TabIndex = 5;
-            this.lblMonitorPackPath.Text = " ";
-            this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblMonitorPackPath.MouseEnter += new System.EventHandler(this.lblMonitorPackPath_MouseEnter);
             // 
             // extrasToolStrip
             // 
@@ -1207,7 +1192,6 @@ namespace QuickMon
         private System.Windows.Forms.Timer recentMonitorPacksShowTimer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem manageTemplatesToolStripMenuItem;
-        private System.Windows.Forms.Label lblMonitorPackPath;
     }
 }
 

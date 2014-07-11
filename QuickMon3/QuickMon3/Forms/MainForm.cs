@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuickMon.Forms;
+using QuickMon.Controls;
 
 namespace QuickMon
 {
@@ -39,7 +40,7 @@ namespace QuickMon
         #region Private vars
         private int refreshCycleCounter = 0;
         private bool monitorPackChanged = false;
-        //private int rootImgIndex = -1;
+        private bool firstRefresh = false;
         private MonitorPack monitorPack;
         private string quickMonPCCategory = "QuickMon 3 UI Client";
         private Point collectorContextMenuLaunchPoint = new Point();
@@ -177,7 +178,7 @@ namespace QuickMon
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
-                RefreshMonitorPack(true);
+                RefreshMonitorPack(true, true);
             }
             else if (e.Control && e.KeyCode == Keys.O)
             {
@@ -219,7 +220,7 @@ namespace QuickMon
                 {
                     CloseAllDetailWindows();
                     LoadMonitorPack(openFileDialogOpen.FileName);
-                    RefreshMonitorPack();
+                    RefreshMonitorPack(true,true);
                 }
             }
             catch (Exception ex)
@@ -235,7 +236,7 @@ namespace QuickMon
             {
                 CloseAllDetailWindows();
                 LoadMonitorPack(recentMonitorPacks.SelectedPack);
-                RefreshMonitorPack();
+                RefreshMonitorPack(true,true);
             }            
         }
         private void newMonitorPackToolStripMenuItem_Click(object sender, EventArgs e)
@@ -261,7 +262,7 @@ namespace QuickMon
         private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            RefreshMonitorPack(true);
+            RefreshMonitorPack(true, true);
         }
         private void showDefaultNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -282,7 +283,7 @@ namespace QuickMon
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
             generalSettings.PollingEnabled = timerEnabled;
-            mainRefreshTimer.Enabled = false; //temporary stops it.
+            mainRefreshTimer.Enabled = false; //temporary stops timer.
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadRecentMonitorPackList();
@@ -376,7 +377,8 @@ namespace QuickMon
             if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SetMonitorChanged();
-                SetMonitorPackNameDescription();                
+                SetMonitorPackNameDescription();
+                DoAutoSave();
             }
             SetPollingFrequency(timerEnabled);
         }
@@ -590,19 +592,14 @@ namespace QuickMon
         private void UpdateAppTitle()
         {
             Text = "QuickMon 3";
-            lblMonitorPackPath.Text = "";
             if (monitorPackChanged)
                 Text += "*";
             if (monitorPack != null)
-            {
-                if (monitorPack.MonitorPackPath != null)    
-                    lblMonitorPackPath.Text = monitorPack.MonitorPackPath;
+            {                
                 if (!monitorPack.Enabled)
                     Text += " - [Disabled]";
                 if (monitorPack.Name != null && monitorPack.Name.Length > 0)
                     Text += string.Format(" - [{0}]", monitorPack.Name);
-                //if (monitorPack.MonitorPackPath != null && monitorPack.MonitorPackPath.Length > 0)
-                //    Text += string.Format(" - {0}", monitorPack.MonitorPackPath);
             }
         }
         private void CloseAllDetailWindows()
@@ -634,7 +631,7 @@ namespace QuickMon
         private void DoAutoSave()
         {
             if (Properties.Settings.Default.AutosaveChanges)
-                SaveAsMonitorPack();
+                SaveMonitorPack();
         }
         private bool SaveMonitorPack()
         {
@@ -731,7 +728,7 @@ namespace QuickMon
             {
                 if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    if (!SaveAsMonitorPack())
+                    if (!SaveMonitorPack())
                         return;
                 }
             }
@@ -763,7 +760,7 @@ namespace QuickMon
                 {
                     if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        if (!SaveAsMonitorPack())
+                        if (!SaveMonitorPack())
                         {
                             return;
                         }
@@ -821,7 +818,7 @@ namespace QuickMon
                 AddMonitorPackFileToRecentList(monitorPackPath);
 
                 lblNoNotifiersYet.Visible = monitorPack.Notifiers.Count == 0;
-                mainRefreshTimer.Enabled = true;
+                SetPollingFrequency(true);
                 monitorPackChanged = false;
                 UpdateAppTitle();
             }
@@ -829,6 +826,7 @@ namespace QuickMon
 
         private void LoadTreeFromMonitorPack()
         {
+            firstRefresh = true;
             SetMonitorPackNameDescription();
             TreeNode root = tvwCollectors.Nodes[0];
             root.Nodes.Clear();
@@ -1202,7 +1200,7 @@ namespace QuickMon
                 {
                     SetMonitorChanged();
                     RemoveCollector(currentNode);
-                    RefreshMonitorPack();
+                    RefreshMonitorPack(true, true);
                     if (currentNode.Parent != null)
                     {
                         currentNode.Parent.Nodes.Remove(currentNode);
@@ -1432,7 +1430,7 @@ namespace QuickMon
                 {
                     if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        if (!SaveAsMonitorPack() && abortAllowed)
+                        if (!SaveMonitorPack() && abortAllowed)
                             return false;
                     }
                 }
@@ -1638,6 +1636,21 @@ namespace QuickMon
                                 {
                                     currentTreeNode.ImageIndex = imageIndex;
                                     currentTreeNode.SelectedImageIndex = imageIndex;
+                                    if (firstRefresh && (imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
+                                    {
+                                        TreeNode currentFocusNode = tvwCollectors.SelectedNode;
+                                        try
+                                        {   
+                                            tvwCollectors.BeginUpdate();
+                                            currentTreeNode.ExpandAllParents();
+                                        }
+                                        catch { }
+                                        finally
+                                        {
+                                            tvwCollectors.EndUpdate();
+                                        }
+                                        currentFocusNode.EnsureVisible();
+                                    }
                                 }
                             }
                         }
@@ -1910,7 +1923,8 @@ namespace QuickMon
                     lvwNotifiers.SelectedItems[0].Text = n.Name;
                     lvwNotifiers.SelectedItems[0].ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
                     lvwNotifiers.SelectedItems[0].ImageIndex = (n.Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
-                    n.CloseViewer();                    
+                    n.CloseViewer();
+                    DoAutoSave();
                 }
             }
         }
@@ -1980,18 +1994,18 @@ namespace QuickMon
         #endregion
 
         #region Refreshing
-        private void RefreshMonitorPack(bool disablePollingOverride = false)
+        private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
         {
             bool timerEnabled = mainRefreshTimer.Enabled;
             DateTime abortStart = DateTime.Now;
             try
             {
                 mainRefreshTimer.Enabled = false; //temporary stops it.
-                while (refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
+                while (!forceUpdateNow && refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
                 {
                     Application.DoEvents();
                 }
-                if (!refreshBackgroundWorker.IsBusy)
+                if (forceUpdateNow || !refreshBackgroundWorker.IsBusy)
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     refreshBackgroundWorker.RunWorkerAsync(disablePollingOverride);
@@ -2069,6 +2083,7 @@ namespace QuickMon
             finally
             {
                 Cursor.Current = Cursors.Default;
+                firstRefresh = false;
             }
         }                 
         #endregion
@@ -2289,7 +2304,7 @@ namespace QuickMon
             {
                 CloseAllDetailWindows();
                 LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
-                RefreshMonitorPack();
+                RefreshMonitorPack(true,true);
             }
             HideRecentDropDownList(sender, e);
         }

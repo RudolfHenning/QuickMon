@@ -169,7 +169,7 @@
             this.cmdAbout.Padding = new System.Windows.Forms.Padding(2);
             this.cmdAbout.Size = new System.Drawing.Size(32, 28);
             this.cmdAbout.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.cmdAbout, "Set polling frequency");
+            this.toolTip1.SetToolTip(this.cmdAbout, "About QuickMon 3");
             this.cmdAbout.UseVisualStyleBackColor = true;
             // 
             // cmdRemoteAgents
@@ -183,7 +183,7 @@
             this.cmdRemoteAgents.Padding = new System.Windows.Forms.Padding(2);
             this.cmdRemoteAgents.Size = new System.Drawing.Size(32, 28);
             this.cmdRemoteAgents.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.cmdRemoteAgents, "About QuickMon 3");
+            this.toolTip1.SetToolTip(this.cmdRemoteAgents, "Remote agent hosts");
             this.cmdRemoteAgents.UseVisualStyleBackColor = true;
             // 
             // cmdGeneralSettings

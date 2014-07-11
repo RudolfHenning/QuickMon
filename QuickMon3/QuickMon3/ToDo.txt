@@ -1,9 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved/persisted to disk... somehow...
-CollctorEntry to have 'Category' (perhaps multiple). 
-  Can then be used to filter (visually) in UI client or autoexpand on load in UI client (monitorpack define which categories shown on first start)
-monitor pack path visible (in small gray text) somewhere on app.
-Even with ExpandOnStart = false if childnode =warning/error parent node must be expanded.
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -197,5 +193,8 @@ BUG: After prompted for saving changes and selecting no then loading new pack do
 Recent monitorpacks quick list only display name and not path (except when non standard location is used)
 	add application setting to switch between showing full path and 'name only'
 Collector Entry -add expand on start for tree nodes
+monitor pack path visible in montor pack edit window.
+Even with ExpandOnStart = false if childnode =warning/error parent node must be expanded.
+Fix Auto saving
 -------------------------------------------------------------------------------------------------------
 

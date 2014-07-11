@@ -83,6 +83,7 @@
     <Compile Include="Controls\TreeList\TreeViewColumns.designer.cs">
       <DependentUpon>TreeViewColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeNodeEx.cs" />
     <Compile Include="Controls\TreeViewEx.cs">
       <SubType>Component</SubType>
     </Compile>

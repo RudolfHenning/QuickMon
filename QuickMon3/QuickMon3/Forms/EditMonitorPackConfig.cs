@@ -25,7 +25,22 @@ namespace QuickMon
         {
             if (SelectedMonitorPack == null)
                 SelectedMonitorPack = new MonitorPack();
+            if (SelectedMonitorPack.MonitorPackPath != null)
+            {
+                string pathString = SelectedMonitorPack.MonitorPackPath;
+                if (TextRenderer.MeasureText(pathString + "........", lblMonitorPackPath.Font).Width > lblMonitorPackPath.Width)
+                {
+                    string ellipseText = pathString.Substring(0, 20) + "....";
+                    string tmpStr = pathString.Substring(4);
+                    while (TextRenderer.MeasureText(ellipseText + tmpStr, lblMonitorPackPath.Font).Width > lblMonitorPackPath.Width)
+                    {
+                        tmpStr = tmpStr.Substring(1);
+                    }
+                    pathString = ellipseText + tmpStr;
+                }
 
+                lblMonitorPackPath.Text = pathString;
+            }
             txtName.Text = SelectedMonitorPack.Name;
             txtType.Text = SelectedMonitorPack.TypeName;
             chkCorrectiveScripts.Checked = SelectedMonitorPack.RunCorrectiveScripts;
