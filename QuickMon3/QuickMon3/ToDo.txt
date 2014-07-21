@@ -1,5 +1,6 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved/persisted to disk... somehow...
+known remote host view must be multi threaded (not seems to be hanging up if some hosts are down)
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
