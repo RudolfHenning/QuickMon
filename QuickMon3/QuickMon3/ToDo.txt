@@ -1,8 +1,7 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved/persisted to disk... somehow...
 known remote host view must be multi threaded (not seems to be hanging up if some hosts are down)
-enum ReturnCheckSequenceType moved to QuickMonCore (so it can be used by muntiple collectors)
-enum TextCompareMatchType moved to QuickMonCore
+PowerShellScriptRunner updated to use CollectorReturnValueCompareEngine
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -199,5 +198,9 @@ Collector Entry -add expand on start for tree nodes
 monitor pack path visible in montor pack edit window.
 Even with ExpandOnStart = false if childnode =warning/error parent node must be expanded.
 Fix Auto saving
+
+v3.20
+enum ReturnCheckSequenceType moved to QuickMonCore (so it can be used by muntiple collectors) (now in CollectorReturnValueCompareEngine)
+enum TextCompareMatchType moved to QuickMonCore (now in CollectorReturnValueCompareEngine)
 -------------------------------------------------------------------------------------------------------
 

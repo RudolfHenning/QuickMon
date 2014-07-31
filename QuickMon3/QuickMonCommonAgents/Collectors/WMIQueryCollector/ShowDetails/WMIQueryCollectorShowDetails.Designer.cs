@@ -40,6 +40,7 @@
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.timerSelectItem = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialogCSV = new System.Windows.Forms.SaveFileDialog();
+            this.statesImageList = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,6 +83,7 @@
             this.lvwResults.Location = new System.Drawing.Point(0, 0);
             this.lvwResults.Name = "lvwResults";
             this.lvwResults.Size = new System.Drawing.Size(674, 116);
+            this.lvwResults.SmallImageList = this.statesImageList;
             this.lvwResults.TabIndex = 7;
             this.lvwResults.UseCompatibleStateImageBehavior = false;
             this.lvwResults.View = System.Windows.Forms.View.Details;
@@ -146,6 +148,7 @@
             this.cmdViewDetails.TabIndex = 8;
             this.cmdViewDetails.Text = "ttt";
             this.cmdViewDetails.UseVisualStyleBackColor = false;
+            this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
             // 
             // rtxDetails
             // 
@@ -167,6 +170,15 @@
             this.saveFileDialogCSV.DefaultExt = "csv";
             this.saveFileDialogCSV.Filter = "CSV Files|*.csv";
             // 
+            // statesImageList
+            // 
+            this.statesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("statesImageList.ImageStream")));
+            this.statesImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.statesImageList.Images.SetKeyName(0, "GUnknown.ico");
+            this.statesImageList.Images.SetKeyName(1, "GRunning.ico");
+            this.statesImageList.Images.SetKeyName(2, "GPaused.ico");
+            this.statesImageList.Images.SetKeyName(3, "GStopped.ico");
+            // 
             // WMIQueryCollectorShowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,8 +188,8 @@
             this.ExportButtonVisible = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WMIQueryCollectorShowDetails";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Show Details";
+            this.Load += new System.EventHandler(this.WMIQueryCollectorShowDetails_Load);
             this.Controls.SetChildIndex(this.splitContainer1, 0);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -204,6 +216,7 @@
         private System.Windows.Forms.RichTextBox rtxDetails;
         private System.Windows.Forms.Timer timerSelectItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogCSV;
+        private System.Windows.Forms.ImageList statesImageList;
 
     }
 }

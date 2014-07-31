@@ -56,6 +56,7 @@
     <Compile Include="Classes\AgentPresetConfig.cs" />
     <Compile Include="Classes\CollectorEntryCreateEntry.cs" />
     <Compile Include="Classes\CollectorEntryStatic.cs" />
+    <Compile Include="Classes\CollectorReturnValueCompareEngine.cs" />
     <Compile Include="Classes\CollectorStateConverter.cs" />
     <Compile Include="Classes\ConfigVariable.cs" />
     <Compile Include="Classes\MonitorState.cs" />

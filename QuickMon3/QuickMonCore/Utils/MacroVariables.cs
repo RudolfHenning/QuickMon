@@ -21,7 +21,8 @@ namespace QuickMon
                 list.Add("%Day%");
                 list.Add("%Hour%");
                 list.Add("%Minute%");
-                list.Add("%Second%");                
+                list.Add("%Second%");
+                list.Add("%NowToFSDate%");
                 return list;
             }
         }
@@ -39,6 +40,7 @@ namespace QuickMon
                 .Replace("%Hour%", DateTime.Now.Hour.ToString())
                 .Replace("%Minute%", DateTime.Now.Minute.ToString())
                 .Replace("%Second%", DateTime.Now.Second.ToString())
+                .Replace("%NowToFSDate%", DateTime.Now.ToFileTime().ToString())
                 );
         }
     }

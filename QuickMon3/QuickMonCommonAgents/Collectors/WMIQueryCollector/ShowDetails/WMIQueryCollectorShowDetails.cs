@@ -274,7 +274,18 @@ namespace QuickMon.Collectors
                 Cursor.Current = Cursors.Default;
                 toolStripStatusLabelDetails.Text = oldStatusText;
             }
+        }
 
+        private void WMIQueryCollectorShowDetails_Load(object sender, EventArgs e)
+        {
+            splitContainerDetails.Panel2Collapsed = true;
+        }
+
+        private void cmdViewDetails_Click(object sender, EventArgs e)
+        {
+            splitContainerDetails.Panel2Collapsed = !splitContainerDetails.Panel2Collapsed;
+            cmdViewDetails.Text = splitContainerDetails.Panel2Collapsed ? "uuu" : "ttt";
+            splitContainerDetails.SplitterWidth = 6;
         } 
     }
 }

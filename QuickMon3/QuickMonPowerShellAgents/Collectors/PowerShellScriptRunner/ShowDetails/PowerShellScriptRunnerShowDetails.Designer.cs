@@ -32,16 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PowerShellScriptRunnerShowDetails));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvwScripts = new QuickMon.ListViewEx();
-            this.statesImageList = new System.Windows.Forms.ImageList(this.components);
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtPSScriptResults = new System.Windows.Forms.TextBox();
-            this.selectItemRefreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.statesImageList = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cmdRunScript = new System.Windows.Forms.Button();
             this.txtPSScript = new System.Windows.Forms.TextBox();
-            this.cmdViewDetails = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmdRunScript = new System.Windows.Forms.Button();
+            this.txtPSScriptResults = new System.Windows.Forms.TextBox();
+            this.cmdViewDetails = new System.Windows.Forms.Button();
+            this.selectItemRefreshTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -88,6 +88,11 @@
             this.lvwScripts.View = System.Windows.Forms.View.Details;
             this.lvwScripts.SelectedIndexChanged += new System.EventHandler(this.lvwScripts_SelectedIndexChanged);
             // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Script name";
+            this.nameColumnHeader.Width = 178;
+            // 
             // statesImageList
             // 
             this.statesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("statesImageList.ImageStream")));
@@ -96,28 +101,6 @@
             this.statesImageList.Images.SetKeyName(1, "GRunning.ico");
             this.statesImageList.Images.SetKeyName(2, "GPaused.ico");
             this.statesImageList.Images.SetKeyName(3, "GStopped.ico");
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Script name";
-            this.nameColumnHeader.Width = 178;
-            // 
-            // txtPSScriptResults
-            // 
-            this.txtPSScriptResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPSScriptResults.Location = new System.Drawing.Point(0, 16);
-            this.txtPSScriptResults.Multiline = true;
-            this.txtPSScriptResults.Name = "txtPSScriptResults";
-            this.txtPSScriptResults.ReadOnly = true;
-            this.txtPSScriptResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtPSScriptResults.Size = new System.Drawing.Size(463, 164);
-            this.txtPSScriptResults.TabIndex = 0;
-            this.txtPSScriptResults.WordWrap = false;
-            // 
-            // selectItemRefreshTimer
-            // 
-            this.selectItemRefreshTimer.Interval = 200;
-            this.selectItemRefreshTimer.Tick += new System.EventHandler(this.selectItemRefreshTimer_Tick);
             // 
             // splitContainer2
             // 
@@ -140,6 +123,17 @@
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 1;
             // 
+            // txtPSScript
+            // 
+            this.txtPSScript.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPSScript.Location = new System.Drawing.Point(0, 0);
+            this.txtPSScript.Multiline = true;
+            this.txtPSScript.Name = "txtPSScript";
+            this.txtPSScript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtPSScript.Size = new System.Drawing.Size(463, 159);
+            this.txtPSScript.TabIndex = 1;
+            this.txtPSScript.WordWrap = false;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label1);
@@ -149,6 +143,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(463, 25);
             this.panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Maroon;
+            this.label1.Location = new System.Drawing.Point(73, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(239, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Please note changes to the script are not saved.!";
             // 
             // cmdRunScript
             // 
@@ -162,16 +166,17 @@
             this.cmdRunScript.UseVisualStyleBackColor = true;
             this.cmdRunScript.Click += new System.EventHandler(this.cmdRunScript_Click);
             // 
-            // txtPSScript
+            // txtPSScriptResults
             // 
-            this.txtPSScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPSScript.Location = new System.Drawing.Point(0, 0);
-            this.txtPSScript.Multiline = true;
-            this.txtPSScript.Name = "txtPSScript";
-            this.txtPSScript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtPSScript.Size = new System.Drawing.Size(463, 159);
-            this.txtPSScript.TabIndex = 1;
-            this.txtPSScript.WordWrap = false;
+            this.txtPSScriptResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPSScriptResults.Location = new System.Drawing.Point(0, 16);
+            this.txtPSScriptResults.Multiline = true;
+            this.txtPSScriptResults.Name = "txtPSScriptResults";
+            this.txtPSScriptResults.ReadOnly = true;
+            this.txtPSScriptResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtPSScriptResults.Size = new System.Drawing.Size(463, 164);
+            this.txtPSScriptResults.TabIndex = 0;
+            this.txtPSScriptResults.WordWrap = false;
             // 
             // cmdViewDetails
             // 
@@ -189,15 +194,10 @@
             this.cmdViewDetails.UseVisualStyleBackColor = false;
             this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
             // 
-            // label1
+            // selectItemRefreshTimer
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Maroon;
-            this.label1.Location = new System.Drawing.Point(73, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(239, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Please note changes to the script are not saved.!";
+            this.selectItemRefreshTimer.Interval = 200;
+            this.selectItemRefreshTimer.Tick += new System.EventHandler(this.selectItemRefreshTimer_Tick);
             // 
             // PowerShellScriptRunnerShowDetails
             // 
