@@ -28,7 +28,7 @@ namespace QuickMon
         }
         public static string FormatVariables(string input)
         {
-            return input.Replace("%LocalHost%", System.Net.Dns.GetHostName()
+            return input.Replace("%LocalHost%", System.Net.Dns.GetHostName())
                 .Replace("%IPAddress%", FormatUtils.N((from adr in System.Net.Dns.GetHostAddresses(System.Net.Dns.GetHostName())
                                                        where adr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork
                                                        select adr).FirstOrDefault(), "Err getting IP"))
@@ -40,8 +40,7 @@ namespace QuickMon
                 .Replace("%Hour%", DateTime.Now.Hour.ToString())
                 .Replace("%Minute%", DateTime.Now.Minute.ToString())
                 .Replace("%Second%", DateTime.Now.Second.ToString())
-                .Replace("%NowToFSDate%", DateTime.Now.ToFileTime().ToString())
-                );
+                .Replace("%NowToFSDate%", DateTime.Now.ToFileTime().ToString());
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30626.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMon", "QuickMon3\QuickMon.csproj", "{401F6EC8-9013-49E7-BDF5-FA2ECD76FFAF}"
 EndProject
@@ -33,9 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonAudioNotifier", "Qu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonWebServiceAgents", "QuickMonWebServiceAgents\QuickMonWebServiceAgents.csproj", "{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonDirectoryServicesAgents", "QuickMonDirectoryServicesAgents\QuickMonDirectoryServicesAgents.csproj", "{F6574FC3-3AB7-4742-8B89-60B432EA670F}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 16
+		SccNumberOfProjects = 17
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -84,6 +86,9 @@ Global
 		SccProjectUniqueName15 = QuickMonWebServiceAgents\\QuickMonWebServiceAgents.csproj
 		SccProjectName15 = QuickMonWebServiceAgents
 		SccLocalPath15 = QuickMonWebServiceAgents
+		SccProjectUniqueName16 = QuickMonDirectoryServicesAgents\\QuickMonDirectoryServicesAgents.csproj
+		SccProjectName16 = QuickMonDirectoryServicesAgents
+		SccLocalPath16 = QuickMonDirectoryServicesAgents
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +155,10 @@ Global
 		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DF8C275-9B4A-4828-9D0A-2608040E7C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6574FC3-3AB7-4742-8B89-60B432EA670F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6574FC3-3AB7-4742-8B89-60B432EA670F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6574FC3-3AB7-4742-8B89-60B432EA670F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6574FC3-3AB7-4742-8B89-60B432EA670F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

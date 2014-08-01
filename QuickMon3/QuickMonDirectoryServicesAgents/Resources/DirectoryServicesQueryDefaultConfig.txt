@@ -1,0 +1,10 @@
+<config>
+	<directoryServices>
+		<query name="" domainController="" propertiesToLoad="sAMAccountName" useRowCountAsValue="false" maxRows="1" returnCheckSequence="gwe">
+			<queryFilter>(&amp;(objectCategory=person)(objectClass=user)(cn=BugsBunny))</queryFilter>
+			<goodCondition resultMatchType="match" />
+			<warningCondition resultMatchType="match" />
+			<errorCondition resultMatchType="match" />
+		</query>
+	</directoryServices>
+</config>

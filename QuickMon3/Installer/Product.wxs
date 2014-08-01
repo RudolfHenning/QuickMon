@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.19.0711.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
+  <Product Id="*" Name="QuickMon 3" Language="1033" Version="3.20.0801.2014" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c930000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 3 Installer" Comments='QuickMon 3 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
@@ -16,6 +16,9 @@
       <Feature Id="ExtraAgentsFeature" Title="Extra Agents" Level="2" Description="Extra Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
         <Feature Id="BizTalkAgentsFeature" Title="BizTalk Agents" Level="3" Description="BizTalk Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
           <ComponentRef Id='bizTalkAgents' />
+        </Feature>
+        <Feature Id="DirectoryServicesAgentsFeature" Title="Directory Services Agents" Level="3" Description="Directory Services Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+          <ComponentRef Id='directoryServicesAgents' />
         </Feature>
         <Feature Id="IISAgentsFeature" Title="IIS Agents" Level="3" Description="IIS Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
           <ComponentRef Id='iisAgents' />
@@ -75,6 +78,9 @@
             <Component Id="bizTalkAgents" Guid="59162023-5478-4668-A278-41cc3b124a14">
                 <File Id="QuickMonBizTalkAgents.dll" Source="QuickMonBizTalkAgents.dll"  KeyPath="no" />                
             </Component>
+            <Component Id="directoryServicesAgents" Guid="59162023-5478-4668-A278-41cc3d14ec10">
+                <File Id="QuickMonDirectoryServicesAgents.dll" Source="QuickMonDirectoryServicesAgents.dll"  KeyPath="no" />                
+            </Component>            
             <Component Id="iisAgents" Guid="59162023-5478-4668-A278-41cc31150000">
                 <File Id="QuickMonIISAgents.dll" Source="QuickMonIISAgents.dll"  KeyPath="no" />                
             </Component>
@@ -154,6 +160,5 @@
 
     <WixVariable Id="WixUIBannerBmp" Value="InstallBanner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="DialogBkground.bmp" />
-
   </Product>
 </Wix>

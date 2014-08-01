@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuickMonPowerShellAgents")]
-[assembly: AssemblyDescription("QuickMon PowerShell Agents")]
+[assembly: AssemblyTitle("QuickMon DirectoryServices Agents")]
+[assembly: AssemblyDescription("DirectoryServices Agents")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("QuickMon")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("085197b1-09f0-4ea1-bd34-72f555a4ac13")]
+[assembly: Guid("87ec4137-9fd0-450e-9b10-8c04407307bf")]
 
 // Version information for an assembly consists of the following four values:
 //

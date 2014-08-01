@@ -6,8 +6,6 @@ PowerShellScriptRunner updated to use CollectorReturnValueCompareEngine
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
 Event Scavenger collector set
-DirectoryEntry Collector (Directory services)
-	Very generic querying at first (or it could become very complex)
 SOAP collector to be removed (replaced by dynamic WS collector)
 
 --------------------------------------------------------------------------------------------------------
@@ -202,5 +200,7 @@ Fix Auto saving
 v3.20
 enum ReturnCheckSequenceType moved to QuickMonCore (so it can be used by muntiple collectors) (now in CollectorReturnValueCompareEngine)
 enum TextCompareMatchType moved to QuickMonCore (now in CollectorReturnValueCompareEngine)
+DirectoryEntry Collector (Directory services)
+	Very generic querying at first (or it could become very complex)
 -------------------------------------------------------------------------------------------------------
 

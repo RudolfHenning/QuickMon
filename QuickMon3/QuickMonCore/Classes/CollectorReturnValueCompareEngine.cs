@@ -47,6 +47,8 @@ namespace QuickMon.Collectors
                 return CollectorReturnValueCompareMatchType.StartsWith;
             else if (text.ToLower() == "endswith")
                 return CollectorReturnValueCompareMatchType.EndsWith;
+            else if (text.ToLower() == "between")
+                return CollectorReturnValueCompareMatchType.Between;
             else
                 return CollectorReturnValueCompareMatchType.Contains;
         }
