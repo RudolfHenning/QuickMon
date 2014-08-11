@@ -27,13 +27,26 @@ namespace QuickMon.Collectors
         private void PowerShellScriptRunnerEditEntry_Load(object sender, EventArgs e)
         {
             PowerShellScriptRunnerEntry selectedEntry = (PowerShellScriptRunnerEntry)SelectedEntry;
-            cboSuccessMatchType.SelectedIndex = 0;
-            cboWarningMatchType.SelectedIndex = 0;
-            cboErrorMatchType.SelectedIndex = 0;
+
+            #region Load Match types
+            cboSuccessMatchType.Items.Clear();
+            cboSuccessMatchType.Items.AddRange(CollectorReturnValueCompareEngine.ReturnValueCompareMatchTypesToList().ToArray());
+            if (cboSuccessMatchType.Items.Count > 0)
+                cboSuccessMatchType.SelectedIndex = 0;
+            cboWarningMatchType.Items.Clear();
+            cboWarningMatchType.Items.AddRange(CollectorReturnValueCompareEngine.ReturnValueCompareMatchTypesToList().ToArray());
+            if (cboWarningMatchType.Items.Count > 0)
+                cboWarningMatchType.SelectedIndex = 0;
+            cboErrorMatchType.Items.Clear();
+            cboErrorMatchType.Items.AddRange(CollectorReturnValueCompareEngine.ReturnValueCompareMatchTypesToList().ToArray());
+            if (cboErrorMatchType.Items.Count > 0)
+                cboErrorMatchType.SelectedIndex = 0;
+            #endregion
+
             if (selectedEntry != null)
             {
                 txtName.Text = selectedEntry.Name;
-                optEWG.Checked = selectedEntry.ReturnCheckSequence == ReturnCheckSequenceType.EWG;
+                optEWG.Checked = selectedEntry.ReturnCheckSequence == CollectorReturnValueCheckSequenceType.EWG;
                 txtScript.Text = selectedEntry.TestScript;
                 txtSuccess.Text = selectedEntry.GoodScriptText;
                 cboSuccessMatchType.SelectedIndex = (int)selectedEntry.GoodResultMatchType;
@@ -64,7 +77,21 @@ namespace QuickMon.Collectors
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                MessageBox.Show(PowerShellScriptRunnerEntry.RunScript(txtScript.Text), "Test script", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PowerShellScriptRunnerEntry testEntry = new PowerShellScriptRunnerEntry();
+                testEntry.Name = txtName.Text;
+                testEntry.ReturnCheckSequence = optGWE.Checked ? CollectorReturnValueCheckSequenceType.GWE : CollectorReturnValueCheckSequenceType.EWG;
+                testEntry.TestScript = txtScript.Text;
+                testEntry.GoodScriptText = txtSuccess.Text;
+                testEntry.GoodResultMatchType = (CollectorReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+                testEntry.WarningScriptText = txtWarning.Text;
+                testEntry.WarningResultMatchType = (CollectorReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+                testEntry.ErrorScriptText = txtError.Text;
+                testEntry.ErrorResultMatchType = (CollectorReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
+
+                string scriptResult = testEntry.RunScript();
+                CollectorState state = testEntry.GetState(scriptResult);
+
+                MessageBox.Show(scriptResult, "Test script", MessageBoxButtons.OK, state == CollectorState.Good ? MessageBoxIcon.Information : state == CollectorState.Warning ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -86,19 +113,20 @@ namespace QuickMon.Collectors
             selectedEntry = (PowerShellScriptRunnerEntry)SelectedEntry;
             selectedEntry.Name = txtName.Text;
 
-            selectedEntry.ReturnCheckSequence = optGWE.Checked ? ReturnCheckSequenceType.GWE : ReturnCheckSequenceType.EWG;
+            selectedEntry.ReturnCheckSequence = optGWE.Checked ? CollectorReturnValueCheckSequenceType.GWE : CollectorReturnValueCheckSequenceType.EWG;
             selectedEntry.TestScript = txtScript.Text;
             selectedEntry.GoodScriptText = txtSuccess.Text;
-            selectedEntry.GoodResultMatchType = (TextCompareMatchType)cboSuccessMatchType.SelectedIndex;
+            selectedEntry.GoodResultMatchType = (CollectorReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
             selectedEntry.WarningScriptText = txtWarning.Text;
-            selectedEntry.WarningResultMatchType = (TextCompareMatchType)cboWarningMatchType.SelectedIndex;
+            selectedEntry.WarningResultMatchType = (CollectorReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
             selectedEntry.ErrorScriptText = txtError.Text;
-            selectedEntry.ErrorResultMatchType = (TextCompareMatchType)cboErrorMatchType.SelectedIndex;
+            selectedEntry.ErrorResultMatchType = (CollectorReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
         #endregion
 
+        #region Change tracking
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             CheckOkEnabled();
@@ -123,6 +151,7 @@ namespace QuickMon.Collectors
         {
             cmdOK.Enabled = txtName.Text.Trim().Length > 0 && txtScript.Text.Trim().Length > 0 &&
                 txtSuccess.Text.Trim().Length > 0 && txtWarning.Text.Trim().Length > 0 && txtError.Text.Trim().Length > 0;
-        }
+        } 
+        #endregion
     }
 }

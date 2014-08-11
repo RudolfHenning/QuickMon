@@ -28,9 +28,22 @@ namespace QuickMon.Collectors
         private void DirectoryServicesQueryEditEntry_Load(object sender, EventArgs e)
         {
             DirectoryServicesQueryCollectorConfigEntry selectedEntry = (DirectoryServicesQueryCollectorConfigEntry)SelectedEntry;
-            cboSuccessMatchType.SelectedIndex = 0;
-            cboWarningMatchType.SelectedIndex = 0;
-            cboErrorMatchType.SelectedIndex = 0;
+
+            #region Load Match types
+            cboSuccessMatchType.Items.Clear();
+            cboSuccessMatchType.Items.AddRange(CollectorReturnValueCompareEngine.ReturnValueCompareMatchTypesToList().ToArray());
+            if (cboSuccessMatchType.Items.Count > 0)
+                cboSuccessMatchType.SelectedIndex = 0;
+            cboWarningMatchType.Items.Clear();
+            cboWarningMatchType.Items.AddRange(CollectorReturnValueCompareEngine.ReturnValueCompareMatchTypesToList().ToArray());
+            if (cboWarningMatchType.Items.Count > 0)
+                cboWarningMatchType.SelectedIndex = 0;
+            cboErrorMatchType.Items.Clear();
+            cboErrorMatchType.Items.AddRange(CollectorReturnValueCompareEngine.ReturnValueCompareMatchTypesToList().ToArray());
+            if (cboErrorMatchType.Items.Count > 0)
+                cboErrorMatchType.SelectedIndex = 0;
+            #endregion
+
             if (selectedEntry != null)
             {
                 txtName.Text = selectedEntry.Name;

@@ -21,12 +21,13 @@ namespace QuickMon
 
         public List<CollectorEntry> SelectedCollectors { get; set; }
 
+        #region Form events
         private void PasteCollectors_Load(object sender, EventArgs e)
         {
             if (SelectedCollectors != null)
             {
                 StringBuilder sb = new StringBuilder();
-                foreach(CollectorEntry entry in SelectedCollectors)
+                foreach (CollectorEntry entry in SelectedCollectors)
                 {
                     sb.AppendLine(entry.ToConfig());
                 }
@@ -34,8 +35,10 @@ namespace QuickMon
                 txtConfig.SelectionStart = 0;
                 txtConfig.DoCaretVisible();
             }
-        }
+        } 
+        #endregion
 
+        #region Button events
         private void cmdPaste_Click(object sender, EventArgs e)
         {
             if (ParseTest())
@@ -53,7 +56,12 @@ namespace QuickMon
                     Close();
                 }
             }
+        } 
+        private void cmdParse_Click(object sender, EventArgs e)
+        {
+            ParseTest(true);
         }
+        #endregion
 
         #region Manual config edit context menu events
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,11 +86,7 @@ namespace QuickMon
         }
         #endregion
 
-        private void cmdParse_Click(object sender, EventArgs e)
-        {
-            ParseTest(true);
-        }
-
+        #region Private methods
         private bool ParseTest(bool prompt = false)
         {
             //first check it it is valid XML
@@ -113,9 +117,8 @@ namespace QuickMon
                 return false;
             }
             return true;
-        }
-
-        
+        } 
+        #endregion
 
     }
 }

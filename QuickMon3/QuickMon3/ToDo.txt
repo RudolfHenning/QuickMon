@@ -1,7 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved/persisted to disk... somehow...
-known remote host view must be multi threaded (not seems to be hanging up if some hosts are down)
-PowerShellScriptRunner updated to use CollectorReturnValueCompareEngine
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -202,5 +200,10 @@ enum ReturnCheckSequenceType moved to QuickMonCore (so it can be used by muntipl
 enum TextCompareMatchType moved to QuickMonCore (now in CollectorReturnValueCompareEngine)
 DirectoryEntry Collector (Directory services)
 	Very generic querying at first (or it could become very complex)
+
+v3.21
+Fix Unattended mode alerts when using service.
+PowerShellScriptRunner updated to use CollectorReturnValueCompareEngine
+known remote host view must be multi threaded (not seems to be hanging up if some hosts are down)
 -------------------------------------------------------------------------------------------------------
 

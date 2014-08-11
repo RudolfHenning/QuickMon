@@ -28,6 +28,7 @@ namespace QuickMon
         {
             SnappingEnabled = false;
             lblVersionInfo.Text = string.Format("Version {0}", AssemblyVersion);
+            lblCoreVersion.Text = string.Format("Core {0}", CoreAssemblyVersion);
             lblCompany.Text = string.Format("Created by {0}", AssemblyCompany);
             lblCreateDate.Text = string.Format("Created on {0}", AssemblyDate);
         }
@@ -37,6 +38,13 @@ namespace QuickMon
             get
             {
                 return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
+        public string CoreAssemblyVersion
+        {
+            get
+            {
+                return Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString();
             }
         }
         public string AssemblyDate

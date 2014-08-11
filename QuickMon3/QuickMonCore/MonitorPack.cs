@@ -881,16 +881,23 @@ namespace QuickMon
                 try
                 {
                     bool allowedToRun = true;
-                    if (RunningAttended != AttendedOption.AttendedAndUnAttended)
+
+
+
+                    if (RunningAttended == AttendedOption.AttendedAndUnAttended) //no Attended option set on MonitorPack
                     {
-                        if (RunningAttended != notifierEntry.Notifier.AttendedRunOption && notifierEntry.Notifier.AttendedRunOption != AttendedOption.AttendedAndUnAttended)
+                        allowedToRun = true;
+                    }
+                    else if (RunningAttended == AttendedOption.OnlyAttended) //Running in Attended mode
+                    {
+                        if (notifierEntry.Notifier.AttendedRunOption == AttendedOption.OnlyUnAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyUnAttended)
                             allowedToRun = false;
                     }
-                    if (notifierEntry.AttendedOptionOverride != AttendedOption.AttendedAndUnAttended)
+                    else //unattended mode
                     {
-                        if (notifierEntry.AttendedOptionOverride != notifierEntry.Notifier.AttendedRunOption)
+                        if (notifierEntry.Notifier.AttendedRunOption == AttendedOption.OnlyAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyAttended)
                             allowedToRun = false;
-                    }
+                    }                    
 
                     if (allowedToRun)
                     {

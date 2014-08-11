@@ -3,6 +3,38 @@
 <preset class="PerfCounterCollector" description="% Page File usage">
 <config><performanceCounters><performanceCounter computer="." category="Paging File" counter="% Usage" instance="_Total" returnValueInverted="False" warningValue="50" errorValue="70" /></performanceCounters></config>
 </preset>
+<preset class="SqlQueryCollector" description="BizTalk tracking switched off">
+<config><queries><query name="Receive ports" sqlServer="{BizTalkMgmtDBSrverName}" database="BizTalkMgmtDb" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName=""><summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="1" errorValue="[null]" successValue="0" useRowCountAsValue="False" useExecuteTimeAsValue="False">SELECT count(*)
+  FROM [bts_receiveport]
+  where 
+	[nTracking] &gt; 0</summaryQuery><detailQuery useSP="False">SELECT nvcName, nTracking, DateModified
+  FROM [bts_receiveport]
+  where 
+	[nTracking] &gt; 0</detailQuery></query><query name="Send ports" sqlServer="{BizTalkMgmtDBSrverName}" database="BizTalkMgmtDb" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName=""><summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="1" errorValue="[any]" successValue="0" useRowCountAsValue="False" useExecuteTimeAsValue="False">select count(*)
+from [dbo].[bts_sendport]
+where nTracking &gt; 0</summaryQuery><detailQuery useSP="False">select [nvcName], nTracking, DateModified
+from [dbo].[bts_sendport]
+where nTracking &gt; 0</detailQuery></query><query name="Orchestrations" sqlServer="{BizTalkMgmtDBSrverName}" database="BizTalkMgmtDb" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName=""><summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="1" errorValue="[any]" successValue="0" useRowCountAsValue="False" useExecuteTimeAsValue="False">select count(*)
+from [dbo].[StaticTrackingInfo]
+where
+    cast(cast(imgdata as varbinary) as int) &gt; 0
+    and uidServiceId in (select uidGUID from [dbo].[bts_orchestration])</summaryQuery><detailQuery useSP="False">select strServiceName
+from [dbo].[StaticTrackingInfo]
+where  
+cast(cast(imgdata as varbinary) as int) &gt; 0
+and uidServiceId in (select uidGUID from [dbo].[bts_orchestration])</detailQuery></query><query name="Pipelines" sqlServer="{BizTalkMgmtDBSrverName}" database="BizTalkMgmtDb" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName=""><summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="1" errorValue="[any]" successValue="" useRowCountAsValue="False" useExecuteTimeAsValue="False">select count(*)
+from [dbo].[StaticTrackingInfo]
+where
+    cast(cast(imgdata as varbinary) as int) &gt; 0 
+	and cast(cast(imgdata as varbinary) as int) &lt;&gt; 268435456
+    and uidServiceId in (select [PipelineID] from [dbo].[bts_pipeline])</summaryQuery><detailQuery useSP="False">select strServiceName,
+	cast(cast(imgdata as varbinary) as int) as [Tracking]
+from [dbo].[StaticTrackingInfo]
+where
+    cast(cast(imgdata as varbinary) as int) &gt; 0 
+	and cast(cast(imgdata as varbinary) as int) &lt;&gt; 268435456
+    and uidServiceId in (select [PipelineID] from [dbo].[bts_pipeline])</detailQuery></query></queries></config>
+</preset>
 <preset class="WMIQueryCollector" description="C drive free space (WMI)">
 <config><wmiQueries><wmiQuery name="C drive space left" namespace="root\CIMV2" machineName="."><stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" /><detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'C:'" columnNames="" /></wmiQuery></wmiQueries></config>
 </preset>
@@ -53,27 +85,6 @@ else {
 <preset class="SqlQueryCollector" description="Check QuickMon AlertMessages Warnings/Errors count in SQL Server">
 <config><queries><query name="QuickMon test" sqlServer="%LocalHost%" database="QuickMon3" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName=""><summaryQuery useSP="False" returnValueIsNumber="True" returnValueInverted="False" warningValue="100000" errorValue="1000000" successValue="" useRowCountAsValue="False" useExecuteTimeAsValue="False">select count(*) from AlertMessages where AlertLevel &gt; 1</summaryQuery><detailQuery useSP="False">select count(*) as [Rows] from AlertMessages where AlertLevel &gt; 1</detailQuery></query></queries></config>
 </preset>
-<preset class="PowerShellScriptRunnerCollector" description="Check QuickMon version &gt;= 3.17">
-<config><powerShellScripts><powerShellScriptRunner name="Get QuickMon version (&gt; 3.17)" returnCheckSequence="GWE"><testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
-if (Test-Path $filePath){
-    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion
-    $versionArray = $versionInfo.Split(".")
-    $major = [int]$versionArray[0]
-    $minor = [int]$versionArray[1]
-    if ($major -eq 3 -and $minor -ge 17)
-    {
-       "Version check OK - "  + $versionInfo.ToString()
-    }
-    else
-    {
-        "Version check fail - " + $versionInfo.ToString()
-    }
-}
-else {
-    "'" + $filePath + "' does not exist!"
-}
-						</testScript><goodScript resultMatchType="Contains">Version check OK</goodScript><warningScript resultMatchType="Contains">Version check fail</warningScript><errorScript resultMatchType="Match">[any]</errorScript></powerShellScriptRunner></powerShellScripts></config>
-</preset>
 <preset class="WMIQueryCollector" description="D drive free space (WMI)">
 <config><wmiQueries><wmiQuery name="D drive space left" namespace="root\CIMV2" machineName="."><stateQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'D:'" returnValueIsInt="True" returnValueInverted="True" warningValue="16106127360" errorValue="10737418240" successValue="[any]" useRowCountAsValue="False" /><detailQuery syntax="select FreeSpace from Win32_LogicalDisk where Caption = 'D:'" columnNames="" /></wmiQuery></wmiQueries></config>
 </preset>
@@ -88,9 +99,6 @@ else {
 </preset>
 <preset class="InMemoryNotifier" description="In Memory">
 <config><inMemory maxEntryCount="99999" /></config>
-</preset>
-<preset class="FileSystemCollector" description="Is EventScavenger 5 installed">
-<config><directoryList><directory directoryPathFilter="C:\Program Files\Hen IT\Event Scavenger\*.*" testDirectoryExistOnly="True" testFilesExistOnly="True" errorOnFilesExist="False" warningFileCountMax="0" errorFileCountMax="0" warningFileSizeMaxKB="0" errorFileSizeMaxKB="0" fileMinAgeSec="0" fileMaxAgeSec="0" fileMinSizeKB="0" fileMaxSizeKB="0" /></directoryList></config>
 </preset>
 <preset class="ServiceStateCollector" description="Is MSSQL Service running">
 <config><machine name="."><service name="SQL Server" /></machine></config>
@@ -141,15 +149,50 @@ else {
 <config><connection sqlServer="%LocalHost%" database="QuickMon3" integratedSec="True" userName="" password=""><command cmndTimeOut="60" useSP="True" value="InsertMessage" alertFieldName="AlertLevel" collectorTypeFieldName="CollectorType" categoryFieldName="Category" previousStateFieldName="PreviousState" currentStateFieldName="CurrentState" detailsFieldName="Details" useSPForViewer="True" viewer="QueryMessages" dateTimeFieldName="InsertDate" /></connection></config>
 </preset>
 <preset class="AudioNotifier" description="QuickMon sound alerts">
-<config><audioConfig><goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="0" soundRepeatCount="1" soundVolumePerc="0" audioFilePath="" repeatCount="1" /><warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" /><errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" /></audioConfig></config>
+<config>
+		<audioConfig>
+				<goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+				<warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+				<errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+		</audioConfig>
+</config>
+
 </preset>
 <preset class="WMIQueryCollector" description="System cooling fans">
 <config><wmiQueries><wmiQuery name="System cooling fans running" namespace="root\CIMV2" machineName="."><stateQuery syntax="select * from Win32_Fan where (Status != 'OK')" returnValueIsInt="True" returnValueInverted="False" warningValue="1" errorValue="[any]" successValue="0" useRowCountAsValue="True" /><detailQuery syntax="select * from Win32_Fan where (Status = 'OK')" columnNames="" /></wmiQuery></wmiQueries></config>
 </preset>
-<preset class="PerfCounterCollector" description="System health (Localhost)">
-<config><performanceCounters><performanceCounter computer="%LocalHost%" category="Processor" counter="% Processor Time" instance="_Total" returnValueInverted="False" warningValue="90" errorValue="99" /><performanceCounter computer="%LocalHost%" category="Memory" counter="% Committed Bytes In Use" instance="" returnValueInverted="False" warningValue="80" errorValue="90" /><performanceCounter computer="%LocalHost%" category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" /></performanceCounters></config>
-</preset>
 <preset class="EventLogNotifier" description="This computer, Event source: QuickMon">
 <config><eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" /></config>
+</preset>
+<preset class="PowerShellScriptRunnerCollector" description="Check QuickMon version &gt;= 3.21">
+<config>
+		<powerShellScripts>
+				<powerShellScriptRunner name="Get QuickMon version (&gt; 3.21)" returnCheckSequence="GWE">
+						<testScript>$filePath = "C:\Program Files\Hen IT\QuickMon 3\Quickmon.exe"
+if (Test-Path $filePath){
+    $versionInfo = (Get-Command $filePath).FileVersionInfo.FileVersion
+    $versionArray = $versionInfo.Split(".")
+    $major = [int]$versionArray[0]
+    $minor = [int]$versionArray[1]
+    if ($major -eq 3 -and $minor -ge 21)
+    {
+       "Version check OK - "  + $versionInfo.ToString()
+    }
+    else
+    {
+        "Version check fail - " + $versionInfo.ToString()
+    }
+}
+else {
+    "'" + $filePath + "' does not exist!"
+}
+						</testScript>
+						<goodScript resultMatchType="Contains">Version check OK</goodScript>
+						<warningScript resultMatchType="Contains">Version check fail</warningScript>
+						<errorScript resultMatchType="Match">[any]</errorScript>
+				</powerShellScriptRunner>
+		</powerShellScripts>
+</config>
+
 </preset>
 </qmpresets>

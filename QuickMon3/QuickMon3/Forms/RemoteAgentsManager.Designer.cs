@@ -49,8 +49,8 @@
             this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
             this.lvwRemoteHosts = new QuickMon.ListViewEx();
             this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +76,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(336, 277);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 9;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -87,7 +87,7 @@
             this.cmdOK.Location = new System.Drawing.Point(255, 277);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 8;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -228,7 +228,7 @@
             this.llblFirewallRule.Location = new System.Drawing.Point(12, 292);
             this.llblFirewallRule.Name = "llblFirewallRule";
             this.llblFirewallRule.Size = new System.Drawing.Size(176, 13);
-            this.llblFirewallRule.TabIndex = 9;
+            this.llblFirewallRule.TabIndex = 7;
             this.llblFirewallRule.TabStop = true;
             this.llblFirewallRule.Text = "Try to add Firewall rule for port 8181";
             this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
@@ -246,9 +246,9 @@
             this.versionColumnHeader});
             this.lvwRemoteHosts.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwRemoteHosts.FullRowSelect = true;
-            this.lvwRemoteHosts.Location = new System.Drawing.Point(12, 12);
+            this.lvwRemoteHosts.Location = new System.Drawing.Point(1, 2);
             this.lvwRemoteHosts.Name = "lvwRemoteHosts";
-            this.lvwRemoteHosts.Size = new System.Drawing.Size(399, 228);
+            this.lvwRemoteHosts.Size = new System.Drawing.Size(424, 240);
             this.lvwRemoteHosts.SmallImageList = this.imageList1;
             this.lvwRemoteHosts.TabIndex = 0;
             this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
@@ -260,15 +260,15 @@
             this.remoteAgentColumnHeader.Text = "Remote agent";
             this.remoteAgentColumnHeader.Width = 149;
             // 
-            // versionColumnHeader
-            // 
-            this.versionColumnHeader.Text = "Version";
-            this.versionColumnHeader.Width = 97;
-            // 
             // portColumnHeader
             // 
             this.portColumnHeader.Text = "Port";
             this.portColumnHeader.Width = 70;
+            // 
+            // versionColumnHeader
+            // 
+            this.versionColumnHeader.Text = "Version";
+            this.versionColumnHeader.Width = 97;
             // 
             // RemoteAgentsManager
             // 

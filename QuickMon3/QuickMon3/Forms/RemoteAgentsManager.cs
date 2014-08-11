@@ -311,81 +311,82 @@ namespace QuickMon.Forms
             refreshTimer.Enabled = false;
             refreshTimer.Enabled = true;
         }
-        private void RefreshItem(object o)
+        private void UpdateListViewItem(ListViewItem lvi, int imageIndex, string statusText)
         {
-            int imageIndex = 0;
-            ListViewItem lvi = (ListViewItem)o;
             try
             {
                 lvwRemoteHosts.Invoke((MethodInvoker)delegate
                 {
-                    try
-                    {
-                        bool hostExists = false;
-                        RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
-                        CollectorEntry ce = new CollectorEntry();
-                        ce.EnableRemoteExecute = true;
-                        ce.RemoteAgentHostAddress = ri.Computer;
-                        ce.RemoteAgentHostPort = ri.PortNumber;
-                        ce.CollectorRegistrationName = "PingCollector";
-                        ce.CollectorRegistrationDisplayName = "Ping Collector";
-                        ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
-                    
-                        lock (this)
-                        {
-                            hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
-                        }
-                        if (!hostExists)
-                        {
-                            imageIndex = 3;
-                            lvi.SubItems[2].Text = "N/A";
-                        }
-                        else
-                        {
-
-                            MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
-
-                            if (testState.State == CollectorState.Good)
-                            {
-                                imageIndex = 0;
-                                try
-                                {
-                                    string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
-                                    lvi.SubItems[2].Text = versionInfo;
-                                }
-                                catch (Exception ex)
-                                {
-                                    if (ex.Message.Contains("ContractFilter"))
-                                    {
-                                        lvi.SubItems[2].Text = "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.";
-                                    }
-                                    else
-                                        lvi.SubItems[2].Text = ex.Message;
-                                }
-                            }
-                            else
-                            {
-                                imageIndex = 2;
-                                lvi.SubItems[2].Text = "N/A";
-                            }
-                        }
-                    }
-                    catch (Exception delegateEx)
-                    {
-                        imageIndex = 3;
-                        if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
-                            lvi.SubItems[2].Text = "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.";
-                        else
-                            lvi.SubItems[2].Text = delegateEx.Message;
-                    }
+                    lvi.ImageIndex = imageIndex;
+                    lvi.SubItems[2].Text = statusText;
                 });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
+        }
+        private void RefreshItem(object o)
+        {
+            ListViewItem lvi = (ListViewItem)o;
+            try
+            {
+                try
+                {
+                    bool hostExists = false;
+                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                    CollectorEntry ce = new CollectorEntry();
+                    ce.EnableRemoteExecute = true;
+                    ce.RemoteAgentHostAddress = ri.Computer;
+                    ce.RemoteAgentHostPort = ri.PortNumber;
+                    ce.CollectorRegistrationName = "PingCollector";
+                    ce.CollectorRegistrationDisplayName = "Ping Collector";
+                    ce.InitialConfiguration = "<config><hostAddress><entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpProxyServer=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" /></hostAddress></config>";
+
+
+                    hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;                    
+                    if (!hostExists)
+                    {
+                        UpdateListViewItem(lvi, 3, "N/A");
+                    }
+                    else
+                    {
+                        MonitorState testState = CollectorEntryRelay.GetRemoteAgentState(ce);
+                        if (testState.State == CollectorState.Good)
+                        {
+                            try
+                            {
+                                string versionInfo = CollectorEntryRelay.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
+                                UpdateListViewItem(lvi, 0, versionInfo);
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex.Message.Contains("ContractFilter"))
+                                {
+                                    UpdateListViewItem(lvi, 2, "Remote host does not support version info query! Check that QuickMon 3.13 or later is installed.");
+                                }
+                                else
+                                    UpdateListViewItem(lvi, 2, ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            UpdateListViewItem(lvi, 2, "N/A");
+                        }
+                    }
+                }
+                catch (Exception delegateEx)
+                {
+                    if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
+                        UpdateListViewItem(lvi, 3, "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.");
+                    else
+                        UpdateListViewItem(lvi, 3, delegateEx.Message);
+                }
             }
             catch (Exception riEx)
             {
-                imageIndex = 1;
-                System.Diagnostics.Trace.WriteLine(riEx.ToString());
+                UpdateListViewItem(lvi, 1, riEx.ToString());
             }
-            SetListViewItemIcon(lvi, imageIndex);
         }
         #endregion
 

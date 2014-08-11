@@ -30,21 +30,20 @@ namespace QuickMon.Collectors
             {
                 PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
                 entry.Name = powerShellScriptRunnerNode.ReadXmlElementAttr("name", "");
-                entry.ReturnCheckSequence = ReturnCheckSequenceTypeConverter.FromString(powerShellScriptRunnerNode.ReadXmlElementAttr("returnCheckSequence", "GWE"));
-
+                entry.ReturnCheckSequence = CollectorReturnValueCompareEngine.CheckSequenceTypeFromString(powerShellScriptRunnerNode.ReadXmlElementAttr("returnCheckSequence", "gwe"));
                 XmlNode testScriptNode = powerShellScriptRunnerNode.SelectSingleNode("testScript");
                 entry.TestScript = testScriptNode.InnerText;
 
                 XmlNode goodScriptNode = powerShellScriptRunnerNode.SelectSingleNode("goodScript");
-                entry.GoodResultMatchType = TextCompareMatchTypeConverter.FromString(goodScriptNode.ReadXmlElementAttr("resultMatchType", "match"));
+                entry.GoodResultMatchType = CollectorReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("resultMatchType", "match"));
                 entry.GoodScriptText = goodScriptNode.InnerText;
 
                 XmlNode warningScriptNode = powerShellScriptRunnerNode.SelectSingleNode("warningScript");
-                entry.WarningResultMatchType = TextCompareMatchTypeConverter.FromString(warningScriptNode.ReadXmlElementAttr("resultMatchType", "match"));
+                entry.WarningResultMatchType = CollectorReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("resultMatchType", "match"));
                 entry.WarningScriptText = warningScriptNode.InnerText;
 
                 XmlNode errorScriptNode = powerShellScriptRunnerNode.SelectSingleNode("errorScript");
-                entry.ErrorResultMatchType = TextCompareMatchTypeConverter.FromString(errorScriptNode.ReadXmlElementAttr("resultMatchType", "match"));
+                entry.ErrorResultMatchType = CollectorReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("resultMatchType", "match"));
                 entry.ErrorScriptText = errorScriptNode.InnerText;
 
                 Entries.Add(entry);

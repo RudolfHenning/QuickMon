@@ -233,7 +233,13 @@
             this.cboSuccessMatchType.Items.AddRange(new object[] {
             "Match",
             "Contains",
-            "Regex"});
+            "StartsWith",
+            "EndsWith",
+            "RegEx",
+            "IsNumber",
+            "LargerThan",
+            "SmallerThan",
+            "Between"});
             this.cboSuccessMatchType.Location = new System.Drawing.Point(432, 18);
             this.cboSuccessMatchType.Name = "cboSuccessMatchType";
             this.cboSuccessMatchType.Size = new System.Drawing.Size(110, 21);
@@ -271,7 +277,13 @@
             this.cboWarningMatchType.Items.AddRange(new object[] {
             "Match",
             "Contains",
-            "Regex"});
+            "StartsWith",
+            "EndsWith",
+            "RegEx",
+            "IsNumber",
+            "LargerThan",
+            "SmallerThan",
+            "Between"});
             this.cboWarningMatchType.Location = new System.Drawing.Point(433, 18);
             this.cboWarningMatchType.Name = "cboWarningMatchType";
             this.cboWarningMatchType.Size = new System.Drawing.Size(110, 21);
@@ -309,7 +321,13 @@
             this.cboErrorMatchType.Items.AddRange(new object[] {
             "Match",
             "Contains",
-            "Regex"});
+            "StartsWith",
+            "EndsWith",
+            "RegEx",
+            "IsNumber",
+            "LargerThan",
+            "SmallerThan",
+            "Between"});
             this.cboErrorMatchType.Location = new System.Drawing.Point(432, 18);
             this.cboErrorMatchType.Name = "cboErrorMatchType";
             this.cboErrorMatchType.Size = new System.Drawing.Size(110, 21);

@@ -8,39 +8,39 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    public enum TextCompareMatchType
-    {
-        Match,
-        Contains,
-        RegEx
-    }
-    public static class TextCompareMatchTypeConverter
-    {
-        public static TextCompareMatchType FromString(string text)
-        {
-            if (text.ToLower() == "match")
-                return TextCompareMatchType.Match;
-            else if (text.ToLower() == "regex")
-                return TextCompareMatchType.RegEx;
-            else
-                return TextCompareMatchType.Contains;
-        }
-    }
-    public enum ReturnCheckSequenceType
-    {
-        GWE, //Test first for Good then Warning and then assume Error
-        EWG  //Test first for Error then Warning and then assume good
-    }
-    public static class ReturnCheckSequenceTypeConverter
-    {
-        public static ReturnCheckSequenceType FromString(string text)
-        {
-            if (text.ToLower() == "gwe")
-                return ReturnCheckSequenceType.GWE;
-            else
-                return ReturnCheckSequenceType.EWG;
-        }
-    }
+    //public enum TextCompareMatchType
+    //{
+    //    Match,
+    //    Contains,
+    //    RegEx
+    //}
+    //public static class TextCompareMatchTypeConverter
+    //{
+    //    public static TextCompareMatchType FromString(string text)
+    //    {
+    //        if (text.ToLower() == "match")
+    //            return TextCompareMatchType.Match;
+    //        else if (text.ToLower() == "regex")
+    //            return TextCompareMatchType.RegEx;
+    //        else
+    //            return TextCompareMatchType.Contains;
+    //    }
+    //}
+    //public enum ReturnCheckSequenceType
+    //{
+    //    GWE, //Test first for Good then Warning and then assume Error
+    //    EWG  //Test first for Error then Warning and then assume good
+    //}
+    //public static class ReturnCheckSequenceTypeConverter
+    //{
+    //    public static ReturnCheckSequenceType FromString(string text)
+    //    {
+    //        if (text.ToLower() == "gwe")
+    //            return ReturnCheckSequenceType.GWE;
+    //        else
+    //            return ReturnCheckSequenceType.EWG;
+    //    }
+    //}
 
     public class PowerShellScriptRunnerEntry : ICollectorConfigEntry
     {
@@ -53,19 +53,19 @@ namespace QuickMon.Collectors
         {
             get {
                 StringBuilder sb = new StringBuilder();
-                if (ReturnCheckSequence == ReturnCheckSequenceType.GWE)
+                if (ReturnCheckSequence == CollectorReturnValueCheckSequenceType.GWE)
                 {
                     sb.Append("GWE:");
-                    sb.Append("{" + GoodScriptText + "}");
-                    sb.Append("{" + WarningScriptText + "}");
-                    sb.Append("{" + ErrorScriptText + "}");
+                    sb.Append("{" + GoodResultMatchType.ToString() + " : " + GoodScriptText + "}");
+                    sb.Append("{" + WarningResultMatchType.ToString() + " : " + WarningScriptText + "}");
+                    sb.Append("{" + ErrorResultMatchType.ToString() + " : " + ErrorScriptText + "}");
                 }
                 else
                 {
                     sb.Append("EWG:");
-                    sb.Append("{" + ErrorScriptText + "}");
-                    sb.Append("{" + WarningScriptText + "}");
-                    sb.Append("{" + GoodScriptText + "}");
+                    sb.Append("{" + ErrorResultMatchType.ToString() + " : " + ErrorScriptText + "}");
+                    sb.Append("{" + WarningResultMatchType.ToString() + " : " + WarningScriptText + "}");
+                    sb.Append("{" + GoodResultMatchType.ToString() + " : " + GoodScriptText + "}");
                 }
                 return sb.ToString();
             }
@@ -75,13 +75,13 @@ namespace QuickMon.Collectors
 
         #region Properties
         public string Name { get; set; }
-        public ReturnCheckSequenceType ReturnCheckSequence { get; set; }
+        public CollectorReturnValueCheckSequenceType ReturnCheckSequence { get; set; }
         public string TestScript { get; set; }
-        public TextCompareMatchType GoodResultMatchType { get; set; }
+        public CollectorReturnValueCompareMatchType GoodResultMatchType { get; set; }
         public string GoodScriptText { get; set; }
-        public TextCompareMatchType WarningResultMatchType { get; set; }
+        public CollectorReturnValueCompareMatchType WarningResultMatchType { get; set; }
         public string WarningScriptText { get; set; }
-        public TextCompareMatchType ErrorResultMatchType { get; set; }
+        public CollectorReturnValueCompareMatchType ErrorResultMatchType { get; set; }
         public string ErrorScriptText { get; set; }
         #endregion
 
@@ -162,56 +162,62 @@ namespace QuickMon.Collectors
 
         internal CollectorState GetState(string scriptResultText)
         {
-            CollectorState currentState = CollectorState.Good;
+            return CollectorReturnValueCompareEngine.GetState(ReturnCheckSequence,
+               GoodResultMatchType, GoodScriptText,
+               WarningResultMatchType, WarningScriptText,
+               ErrorResultMatchType, ErrorScriptText,
+               scriptResultText);
 
-            if (ReturnCheckSequence == ReturnCheckSequenceType.GWE)
-            {
-                if (MatchGoodResult(scriptResultText))
-                    currentState = CollectorState.Good;
-                else if (MatchWarningResult(scriptResultText))
-                    currentState = CollectorState.Warning;
-                else 
-                    currentState = CollectorState.Error;
-            }
-            else
-            {
-                if (MatchErrorResult(scriptResultText))
-                    currentState = CollectorState.Error;
-                else if (MatchWarningResult(scriptResultText))
-                    currentState = CollectorState.Warning;
-                else
-                    currentState = CollectorState.Good;
-            }
-            return currentState;
+            //CollectorState currentState = CollectorState.Good;
+
+            //if (ReturnCheckSequence == ReturnCheckSequenceType.GWE)
+            //{
+            //    if (MatchGoodResult(scriptResultText))
+            //        currentState = CollectorState.Good;
+            //    else if (MatchWarningResult(scriptResultText))
+            //        currentState = CollectorState.Warning;
+            //    else 
+            //        currentState = CollectorState.Error;
+            //}
+            //else
+            //{
+            //    if (MatchErrorResult(scriptResultText))
+            //        currentState = CollectorState.Error;
+            //    else if (MatchWarningResult(scriptResultText))
+            //        currentState = CollectorState.Warning;
+            //    else
+            //        currentState = CollectorState.Good;
+            //}
+            //return currentState;
         }
-        private bool MatchGoodResult(string scriptResultText)
-        {
-            return MatchResult(scriptResultText, GoodResultMatchType, GoodScriptText);            
-        }
-        private bool MatchWarningResult(string scriptResultText)
-        {
-            return MatchResult(scriptResultText, WarningResultMatchType, WarningScriptText);
-        }
-        private bool MatchErrorResult(string scriptResultText)
-        {
-            return MatchResult(scriptResultText, ErrorResultMatchType, ErrorScriptText);
-        }
-        private bool MatchResult(string scriptResultText, TextCompareMatchType matchType, string matchWith)
-        {
-            if (matchWith.ToLower() == "[any]")
-                return true;
-            else if (matchWith.ToLower() == "[null]" && (scriptResultText == null || scriptResultText == "[null]"))
-                return true;
-            else if (matchType == TextCompareMatchType.RegEx)
-            {
-                System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(scriptResultText, matchWith, System.Text.RegularExpressions.RegexOptions.Multiline); // | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                return match.Success;
-            }
-            else if (matchType == TextCompareMatchType.Contains)
-                return scriptResultText.Contains(matchWith);
-            else
-                return scriptResultText == matchWith;
-        }
+        //private bool MatchGoodResult(string scriptResultText)
+        //{
+        //    return MatchResult(scriptResultText, GoodResultMatchType, GoodScriptText);            
+        //}
+        //private bool MatchWarningResult(string scriptResultText)
+        //{
+        //    return MatchResult(scriptResultText, WarningResultMatchType, WarningScriptText);
+        //}
+        //private bool MatchErrorResult(string scriptResultText)
+        //{
+        //    return MatchResult(scriptResultText, ErrorResultMatchType, ErrorScriptText);
+        //}
+        //private bool MatchResult(string scriptResultText, CollectorReturnValueCompareMatchType matchType, string matchWith)
+        //{
+        //    if (matchWith.ToLower() == "[any]")
+        //        return true;
+        //    else if (matchWith.ToLower() == "[null]" && (scriptResultText == null || scriptResultText == "[null]"))
+        //        return true;
+        //    else if (matchType == TextCompareMatchType.RegEx)
+        //    {
+        //        System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(scriptResultText, matchWith, System.Text.RegularExpressions.RegexOptions.Multiline); // | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        //        return match.Success;
+        //    }
+        //    else if (matchType == TextCompareMatchType.Contains)
+        //        return scriptResultText.Contains(matchWith);
+        //    else
+        //        return scriptResultText == matchWith;
+        //}
 
     }
 }

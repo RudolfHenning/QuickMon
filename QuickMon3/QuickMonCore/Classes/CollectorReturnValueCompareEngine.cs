@@ -24,6 +24,15 @@ namespace QuickMon.Collectors
     }
     public static class CollectorReturnValueCompareEngine
     {
+        public static List<string> ReturnValueCompareMatchTypesToList()
+        {
+            List<string> list = new List<string>();
+            foreach(var e in Enum.GetNames(typeof(CollectorReturnValueCompareMatchType)))
+            {
+                list.Add(e);
+            }
+            return list;
+        }
         public static CollectorReturnValueCheckSequenceType CheckSequenceTypeFromString(string text)
         {
             if (text.ToLower() == "gwe")
