@@ -62,6 +62,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.nudPortNumber = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
+            this.chkIgnoreInvalidHTTPSCerts = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -78,7 +79,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(368, 335);
+            this.cmdCancel.Location = new System.Drawing.Point(368, 355);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 5;
@@ -90,7 +91,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(287, 335);
+            this.cmdOK.Location = new System.Drawing.Point(287, 355);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 4;
@@ -119,10 +120,10 @@
             // 
             // cmdTestAddress
             // 
-            this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTestAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdTestAddress.Enabled = false;
             this.cmdTestAddress.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestAddress.Location = new System.Drawing.Point(7, 335);
+            this.cmdTestAddress.Location = new System.Drawing.Point(7, 355);
             this.cmdTestAddress.Name = "cmdTestAddress";
             this.cmdTestAddress.Size = new System.Drawing.Size(67, 23);
             this.cmdTestAddress.TabIndex = 3;
@@ -279,11 +280,12 @@
             // 
             this.httpGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.httpGroupBox.Controls.Add(this.chkIgnoreInvalidHTTPSCerts);
             this.httpGroupBox.Controls.Add(this.label8);
             this.httpGroupBox.Controls.Add(this.txtHttpProxy);
             this.httpGroupBox.Location = new System.Drawing.Point(3, 162);
             this.httpGroupBox.Name = "httpGroupBox";
-            this.httpGroupBox.Size = new System.Drawing.Size(447, 53);
+            this.httpGroupBox.Size = new System.Drawing.Size(447, 74);
             this.httpGroupBox.TabIndex = 1;
             this.httpGroupBox.TabStop = false;
             this.httpGroupBox.Text = "HTTP(S) Ping";
@@ -319,7 +321,7 @@
             this.socketPingGroupBox.Controls.Add(this.label14);
             this.socketPingGroupBox.Controls.Add(this.nudPortNumber);
             this.socketPingGroupBox.Controls.Add(this.label15);
-            this.socketPingGroupBox.Location = new System.Drawing.Point(3, 221);
+            this.socketPingGroupBox.Location = new System.Drawing.Point(3, 242);
             this.socketPingGroupBox.Name = "socketPingGroupBox";
             this.socketPingGroupBox.Size = new System.Drawing.Size(447, 103);
             this.socketPingGroupBox.TabIndex = 2;
@@ -498,12 +500,23 @@
             this.label15.TabIndex = 0;
             this.label15.Text = "Port number";
             // 
+            // chkIgnoreInvalidHTTPSCerts
+            // 
+            this.chkIgnoreInvalidHTTPSCerts.AutoSize = true;
+            this.chkIgnoreInvalidHTTPSCerts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIgnoreInvalidHTTPSCerts.Location = new System.Drawing.Point(103, 47);
+            this.chkIgnoreInvalidHTTPSCerts.Name = "chkIgnoreInvalidHTTPSCerts";
+            this.chkIgnoreInvalidHTTPSCerts.Size = new System.Drawing.Size(180, 17);
+            this.chkIgnoreInvalidHTTPSCerts.TabIndex = 2;
+            this.chkIgnoreInvalidHTTPSCerts.Text = "Ignore invalid HTTPS certificates";
+            this.chkIgnoreInvalidHTTPSCerts.UseVisualStyleBackColor = true;
+            // 
             // PingCollectorEditHostAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(455, 370);
+            this.ClientSize = new System.Drawing.Size(455, 390);
             this.Controls.Add(this.socketPingGroupBox);
             this.Controls.Add(this.httpGroupBox);
             this.Controls.Add(this.groupBox1);
@@ -516,6 +529,7 @@
             this.Name = "PingCollectorEditHostAddress";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Ping entry details";
+            this.Load += new System.EventHandler(this.PingCollectorEditHostAddress_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -569,5 +583,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown nudPortNumber;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox chkIgnoreInvalidHTTPSCerts;
     }
 }

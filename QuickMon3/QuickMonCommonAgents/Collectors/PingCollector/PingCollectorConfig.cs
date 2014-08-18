@@ -51,6 +51,7 @@ namespace QuickMon.Collectors
                     hostEntry.UseTelnetLogin = btmp;
                 hostEntry.TelnetUserName = host.ReadXmlElementAttr("userName");
                 hostEntry.TelnetPassword = host.ReadXmlElementAttr("password");
+                hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
 
                 Entries.Add(hostEntry);
             }
@@ -89,7 +90,7 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("useTelnetLogin", hostEntry.UseTelnetLogin);
                 hostXmlNode.SetAttributeValue("userName", hostEntry.TelnetUserName);
                 hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
-
+                hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
                 hostsListNode.AppendChild(hostXmlNode);
             }
             return config.OuterXml;

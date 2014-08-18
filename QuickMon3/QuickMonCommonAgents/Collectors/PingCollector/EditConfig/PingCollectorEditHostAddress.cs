@@ -73,6 +73,7 @@ namespace QuickMon.Collectors
             nudExpextedTime.Value = HostEntry.MaxTimeMS;
             nudTimeOut.Value = HostEntry.TimeOutMS;
             txtHttpProxy.Text = HostEntry.HttpProxyServer;
+            chkIgnoreInvalidHTTPSCerts.Checked = HostEntry.IgnoreInvalidHTTPSCerts;
             nudPortNumber.Value = HostEntry.SocketPort;
             nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
             nudSendTimeout.Value = HostEntry.SendTimeOutMS;
@@ -102,7 +103,7 @@ namespace QuickMon.Collectors
                 HostEntry.MaxTimeMS = Convert.ToInt32(nudExpextedTime.Value);
                 HostEntry.TimeOutMS = Convert.ToInt32(nudTimeOut.Value);
                 HostEntry.HttpProxyServer = txtHttpProxy.Text;
-
+                HostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
                 HostEntry.SocketPort =(int) nudPortNumber.Value;
                 HostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
                 HostEntry.SendTimeOutMS = (int)nudSendTimeout.Value;
@@ -135,7 +136,7 @@ namespace QuickMon.Collectors
             tmpPingCollectorHostEntry.MaxTimeMS = Convert.ToInt32(nudExpextedTime.Value);
             tmpPingCollectorHostEntry.TimeOutMS = Convert.ToInt32(nudTimeOut.Value);
             tmpPingCollectorHostEntry.HttpProxyServer = txtHttpProxy.Text;
-
+            tmpPingCollectorHostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
             tmpPingCollectorHostEntry.SocketPort = (int)nudPortNumber.Value;
             tmpPingCollectorHostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
             tmpPingCollectorHostEntry.SendTimeOutMS = (int)nudSendTimeout.Value;
@@ -206,6 +207,11 @@ namespace QuickMon.Collectors
             CheckOkEnabled();
             txtUserName.Enabled = chkUseTelNetLogin.Checked;
             txtPassword.Enabled = chkUseTelNetLogin.Checked;
+        }
+
+        private void PingCollectorEditHostAddress_Load(object sender, EventArgs e)
+        {
+
         }
 
 

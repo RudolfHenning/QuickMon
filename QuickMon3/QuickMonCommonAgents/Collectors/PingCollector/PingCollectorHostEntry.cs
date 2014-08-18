@@ -61,6 +61,11 @@ namespace QuickMon.Collectors
 
     public class PingCollectorHostEntry : ICollectorConfigEntry
     {
+        public PingCollectorHostEntry()
+        {
+            IgnoreInvalidHTTPSCerts = false;
+        }
+
         #region ICollectorConfigEntry Members
         public string Description
         {
@@ -92,6 +97,7 @@ namespace QuickMon.Collectors
         public int MaxTimeMS { get { return maxTimeMS; } set { maxTimeMS = value; } }
         private int timeOutMS = 5000;
         public int TimeOutMS { get { return timeOutMS; } set { timeOutMS = value; } }
+        public bool IgnoreInvalidHTTPSCerts { get; set; }
         #endregion
 
         #region HTTP ping
@@ -183,11 +189,24 @@ namespace QuickMon.Collectors
         private PingCollectorResult PingHTTP()
         {
             PingCollectorResult result = new PingCollectorResult();
+            string lastStep = "[Create WebClientEx]";
             result.Success = false;
             result.PingTime = -1;
             result.ResponseDetails = "";
             try
             {
+                lastStep = "[HTTPSSetup]";
+                if (Address.ToLower().StartsWith("https://"))
+                {
+
+                    System.Net.ServicePointManager.Expect100Continue = true;
+                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3;
+                    if (IgnoreInvalidHTTPSCerts)
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    else
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate; // = delegate { return true; };
+                }
+
                 Stopwatch sw = new Stopwatch();
                 using (WebClientEx wc = new WebClientEx())
                 {
@@ -203,31 +222,26 @@ namespace QuickMon.Collectors
                         wc.Proxy = null;
                     }
                     wc.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.BypassCache);
-
                     sw.Start();
+                    
+                    lastStep = "[OpenRead]";
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
                     {
                         int chars = 0;
-                        //StringBuilder sb = new StringBuilder();
+                        lastStep = "[CanRead]";
                         if (webRequest.CanRead)
                         {
+                            lastStep = "[ReadByte]";
                             int readByte = webRequest.ReadByte();
-                            //if (readByte > 0 && readByte < 1114111)
-                            //    sb.Append(char.ConvertFromUtf32(readByte));
                             while (readByte != -1) // && chars < 256)
                             {
                                 readByte = webRequest.ReadByte();
-                                //webRequest.Length
-                                //if (readByte > 0 && readByte < 1114111)
-                                //    sb.Append(char.ConvertFromUtf32(readByte));
                                 chars++;
                                 if (sw.ElapsedMilliseconds > TimeOutMS)
                                 {
                                     break;
-                                    //throw new Exception("Operation timed out!");
                                 }
                             }
-                            //System.Diagnostics.Trace.WriteLine(sb.ToString());
                             result.ResponseDetails = "Characters returned:" + chars.ToString();
                         }
                         else
@@ -250,11 +264,28 @@ namespace QuickMon.Collectors
                 result.Success = false;
                 result.PingTime = -1;
                 if (ex.InnerException != null)
-                    result.ResponseDetails = ex.InnerException.Message;
+                    result.ResponseDetails = lastStep + " " + ex.InnerException.Message;
                 else
-                    result.ResponseDetails = ex.Message;
+                    result.ResponseDetails = lastStep + " " + ex.Message;
             }
             return result;
+        }
+        /// <summary>
+        /// Certificate validation callback.
+        /// </summary>
+        private static bool ValidateRemoteCertificate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate cert, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors error)
+        {
+            // If the certificate is a valid, signed certificate, return true.
+            if (error == System.Net.Security.SslPolicyErrors.None)
+            {
+                return true;
+            }
+
+            //Console.WriteLine("X509Certificate [{0}] Policy Error: '{1}'",
+            //    cert.Subject,
+            //    error.ToString());
+
+            return false;
         }
         private PingCollectorResult PingSocket()
         {

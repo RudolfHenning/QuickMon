@@ -122,12 +122,6 @@
     <Compile Include="Collectors\PerfCounterCollector\ShowDetails\PerfCounterShowDetails.Designer.cs">
       <DependentUpon>PerfCounterShowDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditConfig.Designer.cs">
-      <DependentUpon>PingCollectorEditConfig.cs</DependentUpon>
-    </Compile>
     <Compile Include="Collectors\PingCollector\EditConfig\PingCollectorEditHostAddress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -340,9 +334,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\PerfCounterCollector\ShowDetails\PerfCounterShowDetails.resx">
       <DependentUpon>PerfCounterShowDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Collectors\PingCollector\EditConfig\PingCollectorEditConfig.resx">
-      <DependentUpon>PingCollectorEditConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\PingCollector\EditConfig\PingCollectorEditHostAddress.resx">
       <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
