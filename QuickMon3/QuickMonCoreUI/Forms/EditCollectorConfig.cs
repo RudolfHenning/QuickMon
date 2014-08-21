@@ -668,7 +668,7 @@ namespace QuickMon.Forms
                 {
                     try
                     {
-                        SelectedEntry.CreateAndConfigureEntry(currentRA);
+                        SelectedEntry.CreateAndConfigureEntry(currentRA, monitorPack.ConfigVariables);
                     }
                     catch (Exception ex)
                     {

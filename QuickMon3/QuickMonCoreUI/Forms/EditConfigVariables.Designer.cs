@@ -138,8 +138,8 @@
             this.label3.Size = new System.Drawing.Size(431, 29);
             this.label3.TabIndex = 2;
             this.label3.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
-    "lue%. Be careful when using quotes/duoblequotes or any other characters that are" +
-    " special in XML.";
+    "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
+    " \'special\' in XML.";
             // 
             // lvwConfigVars
             // 

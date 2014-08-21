@@ -92,7 +92,7 @@ namespace QuickMon.Collectors
         {
             if (matchFilter.ToLower() == "[any]")
                 return true;
-            else if (matchFilter.ToLower() == "[null]" && (resultToTest == null || resultToTest == "[null]"))
+            else if (matchFilter.ToLower() == "[null]" && (resultToTest == null || resultToTest.ToString() == "[null]"))
                 return true;
             switch (tcmt)
             {

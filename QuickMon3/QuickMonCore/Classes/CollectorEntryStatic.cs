@@ -254,7 +254,7 @@ namespace QuickMon
             sb.AppendLine("</collectorEntries>");
             return sb.ToString();
         }
-        public static List<CollectorEntry> GetCollectorEntriesFromString(string xmlString, bool preloadCollectorInstances = false)
+        public static List<CollectorEntry> GetCollectorEntriesFromString(string xmlString, bool preloadCollectorInstances = false, List<ConfigVariable> monitorPackVars = null)
         {
             List<CollectorEntry> collectors = new List<CollectorEntry>();
             XmlDocument collectorEntryXml = new XmlDocument();
@@ -269,7 +269,7 @@ namespace QuickMon
                     RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + newCollectorEntry.CollectorRegistrationName);
                     if (currentRA != null)
                     {
-                        newCollectorEntry.CreateAndConfigureEntry(currentRA);
+                        newCollectorEntry.CreateAndConfigureEntry(currentRA, monitorPackVars);
                     }
                 }
                 collectors.Add(newCollectorEntry);

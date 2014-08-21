@@ -38,6 +38,7 @@ namespace QuickMon
             BusyPolling = false;
             CollectorStateHistorySize = 100;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
+            ConfigVariables = new List<ConfigVariable>();
         }
 
         private string quickMonPCCategory = "QuickMon 3";
@@ -301,6 +302,10 @@ namespace QuickMon
         public AttendedOption RunningAttended { get; set; }
 
         public string TypeName { get; set; }
+
+        #region Dynamic Config Variables
+        public List<ConfigVariable> ConfigVariables { get; set; }
+        #endregion
         #endregion
 
         #region Performance counters
@@ -1100,7 +1105,7 @@ namespace QuickMon
                 {
                     try
                     {
-                        collectorEntry.CreateAndConfigureEntry(currentRA);
+                        collectorEntry.CreateAndConfigureEntry(currentRA, ConfigVariables);
                     }
                     catch (Exception ex)
                     {
@@ -1179,20 +1184,28 @@ namespace QuickMon
 
             string defaultViewerNotifierName = root.ReadXmlElementAttr("defaultViewerNotifier");
             RunCorrectiveScripts = bool.Parse(root.ReadXmlElementAttr("runCorrectiveScripts", "false"));
+            /***************** Load config variables ****************/
+            #region Load config variables
+            XmlNode configVarsNode = root.SelectSingleNode("configVars");
+            ConfigVariables = new List<ConfigVariable>();
+            if (configVarsNode != null)
+            {
+                foreach (XmlElement configVarNodeEntry in configVarsNode.SelectNodes("configVar"))
+                {
+                    ConfigVariables.Add(ConfigVariable.FromXml(configVarNodeEntry.OuterXml));
+                }
+            } 
+            #endregion
+            /***************** Load Collectors ****************/
+            #region Load Collectors
             XmlNode collectorEntriesNode = root.SelectSingleNode("collectorEntries");
             if (collectorEntriesNode != null)
             {
-                Collectors = CollectorEntry.GetCollectorEntriesFromString(collectorEntriesNode.OuterXml, PreloadCollectorInstances);
-            }
-            //foreach (XmlElement xmlCollectorEntry in root.SelectNodes("collectorEntries/collectorEntry"))
-            //{
-            //    RaiseCollecterLoading(xmlCollectorEntry.ReadXmlElementAttr("name", "").Trim());
-            //    CollectorEntry newCollectorEntry = CollectorEntry.FromConfig(xmlCollectorEntry);
-            //    if (PreloadCollectorInstances)
-            //        ApplyCollectorConfig(newCollectorEntry);
-            //    Collectors.Add(newCollectorEntry);
-            //    RaiseCollecterLoaded(newCollectorEntry);
-            //}
+                Collectors = CollectorEntry.GetCollectorEntriesFromString(collectorEntriesNode.OuterXml, PreloadCollectorInstances, ConfigVariables);
+            } 
+            #endregion
+            /***************** Load Notifiers ****************/
+            #region Load Notifiers
             foreach (XmlElement xmlNotifierEntry in root.SelectNodes("notifierEntries/notifierEntry"))
             {
                 NotifierEntry newNotifierEntry = NotifierEntry.FromConfig(xmlNotifierEntry);
@@ -1207,7 +1220,8 @@ namespace QuickMon
                 Notifiers.Add(newNotifierEntry);
                 if (newNotifierEntry.Name.ToUpper() == defaultViewerNotifierName.ToUpper())
                     DefaultViewerNotifier = newNotifierEntry;
-            }
+            } 
+            #endregion
             sw.Stop();
             System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
             InitializeGlobalPerformanceCounters();
@@ -1252,6 +1266,7 @@ namespace QuickMon
                 RunCorrectiveScripts,
                 CollectorStateHistorySize,
                 PollingFrequencyOverrideSec,
+                GetConfigVarXml(),
                 GetConfigForCollectors(),
                 GetConfigForNotifiers());
             XmlDocument outputDoc = new XmlDocument();
@@ -1281,6 +1296,15 @@ namespace QuickMon
                 sb.AppendLine(collectorEntry.ToConfig());
             }
             return sb.ToString();
+        }
+        private string GetConfigVarXml()
+        {
+            StringBuilder configVarXml = new StringBuilder();
+            foreach (ConfigVariable cv in ConfigVariables)
+            {
+                configVarXml.AppendLine(cv.ToXml());
+            }
+            return configVarXml.ToString();
         }
         #endregion 
 

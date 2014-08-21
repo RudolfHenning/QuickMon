@@ -118,6 +118,12 @@
     <Compile Include="Forms\EditConfigVariables.Designer.cs">
       <DependentUpon>EditConfigVariables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditMonitorPackConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditMonitorPackConfig.Designer.cs">
+      <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditNotifierEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditConfigVariables.resx">
       <DependentUpon>EditConfigVariables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditMonitorPackConfig.resx">
+      <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditNotifierEntry.resx">
       <DependentUpon>EditNotifierEntry.cs</DependentUpon>

@@ -379,6 +379,14 @@ namespace QuickMon
                 SetMonitorChanged();
                 SetMonitorPackNameDescription();
                 DoAutoSave();
+                if (emc.RequestCollectorsRefresh)
+                {
+                    foreach(CollectorEntry entry in monitorPack.Collectors)
+                    {
+                        entry.RefreshCollectorConfig(monitorPack.ConfigVariables);
+                        entry.RefreshDetailsIfOpen();
+                    }
+                }
             }
             SetPollingFrequency(timerEnabled);
         }

@@ -54,13 +54,51 @@ namespace QuickMon
             }
             return newEntry;
         }
-        public void CreateAndConfigureEntry(RegisteredAgent ra)
+        public void RefreshCollectorConfig(List<ConfigVariable> monitorPackVars = null)
         {
+            if (!this.IsFolder && Collector != null)
+            {
+                List<ConfigVariable> allConfigVars = new List<ConfigVariable>();
+                string appliedConfig = "";
+                if (monitorPackVars != null)
+                {
+                    allConfigVars.AddRange(monitorPackVars.ToArray());
+                }
+                if (ConfigVariables != null)
+                {
+                    allConfigVars.AddRange(ConfigVariables.ToArray());
+                }
+                if (initialConfiguration != null && initialConfiguration.Length > 0)
+                    appliedConfig = initialConfiguration;
+                else
+                    appliedConfig = Collector.GetDefaultOrEmptyConfigString();
+                /***************** Now apply all config variables ****************/
+                if (allConfigVars != null && allConfigVars.Count > 0)
+                {
+                    foreach (ConfigVariable vc in allConfigVars)
+                        if (vc.Name.Length > 0)
+                            appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
+                }
+                /***************** Apply all config ****************/
+                Collector.AgentConfig.ReadConfiguration(appliedConfig);
+            }
+        }
+        public void CreateAndConfigureEntry(RegisteredAgent ra, List<ConfigVariable> monitorPackVars)
+        {
+            List<ConfigVariable> allConfigVars = new List<ConfigVariable>();
+            if (monitorPackVars != null)
+            {
+                allConfigVars.AddRange(monitorPackVars.ToArray());
+            }
+            if (ConfigVariables != null)
+            {
+                allConfigVars.AddRange(ConfigVariables.ToArray());
+            }
             if (InitialConfiguration != null && InitialConfiguration.Length > 0)
-                Collector = CreateAndConfigureEntry(ra, InitialConfiguration, ConfigVariables);
+                Collector = CreateAndConfigureEntry(ra, InitialConfiguration, allConfigVars);
             else
             {
-                Collector = CreateAndConfigureEntry(ra, "", ConfigVariables);
+                Collector = CreateAndConfigureEntry(ra, "", allConfigVars);
             }
             CollectorRegistrationDisplayName = ra.DisplayName;
         }

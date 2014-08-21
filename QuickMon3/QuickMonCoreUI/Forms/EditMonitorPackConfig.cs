@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using QuickMon.Forms;
 
 namespace QuickMon
 {
@@ -14,9 +15,11 @@ namespace QuickMon
         public EditMonitorPackConfig()
         {
             InitializeComponent();
+            RequestCollectorsRefresh = false;
         }
 
         public MonitorPack SelectedMonitorPack { get; set; }
+        public bool RequestCollectorsRefresh { get; set; }
 
         private bool freChanging = false;
 
@@ -135,6 +138,27 @@ namespace QuickMon
             }
         } 
         #endregion
+
+        private void llblEditConfigVars_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (SelectedMonitorPack != null)
+                {
+                    EditConfigVariables editConfigVariables = new EditConfigVariables();
+                    editConfigVariables.SelectedConfigVariables = SelectedMonitorPack.ConfigVariables;
+                    if (editConfigVariables.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        SelectedMonitorPack.ConfigVariables = editConfigVariables.SelectedConfigVariables;
+                        RequestCollectorsRefresh = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
 
     }
 }

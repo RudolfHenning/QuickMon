@@ -49,6 +49,7 @@
             this.txtType = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblMonitorPackPath = new System.Windows.Forms.Label();
+            this.llblEditConfigVars = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
@@ -63,7 +64,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(312, 279);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 13;
+            this.cmdCancel.TabIndex = 14;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -75,7 +76,7 @@
             this.cmdOK.Location = new System.Drawing.Point(231, 279);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 12;
+            this.cmdOK.TabIndex = 13;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -269,12 +270,26 @@
             this.lblMonitorPackPath.Text = " ";
             this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // llblEditConfigVars
+            // 
+            this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblEditConfigVars.AutoSize = true;
+            this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblEditConfigVars.Location = new System.Drawing.Point(97, 284);
+            this.llblEditConfigVars.Name = "llblEditConfigVars";
+            this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
+            this.llblEditConfigVars.TabIndex = 12;
+            this.llblEditConfigVars.TabStop = true;
+            this.llblEditConfigVars.Text = "Manage Config Variables";
+            this.llblEditConfigVars.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblEditConfigVars_LinkClicked);
+            // 
             // EditMonitorPackConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(399, 314);
+            this.Controls.Add(this.llblEditConfigVars);
             this.Controls.Add(this.lblMonitorPackPath);
             this.Controls.Add(this.txtType);
             this.Controls.Add(this.label7);
@@ -330,5 +345,6 @@
         private System.Windows.Forms.TextBox txtType;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblMonitorPackPath;
+        private System.Windows.Forms.LinkLabel llblEditConfigVars;
     }
 }

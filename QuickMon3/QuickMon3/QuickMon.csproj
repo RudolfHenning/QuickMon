@@ -80,12 +80,6 @@
     <Compile Include="Forms\CollectorStats.Designer.cs">
       <DependentUpon>CollectorStats.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditMonitorPackConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EditMonitorPackConfig.Designer.cs">
-      <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,9 +121,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CollectorStats.resx">
       <DependentUpon>CollectorStats.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditMonitorPackConfig.resx">
-      <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

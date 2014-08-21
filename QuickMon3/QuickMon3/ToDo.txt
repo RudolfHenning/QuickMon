@@ -205,5 +205,8 @@ v3.21
 Fix Unattended mode alerts when using service.
 PowerShellScriptRunner updated to use CollectorReturnValueCompareEngine
 known remote host view must be multi threaded (not seems to be hanging up if some hosts are down)
+
+v3.22
+MonitorPack level Dynamic Config Variables
 -------------------------------------------------------------------------------------------------------
 
