@@ -260,6 +260,14 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
             }
         }
+        public event RaiseMonitorPackErrorDelegate MonitorPackEventReported;
+        private void RaiseMonitorPackEventReported (string message)
+        {
+            if (MonitorPackEventReported != null)
+            {
+                MonitorPackEventReported(message);
+            }
+        }
         #endregion
         #endregion
 
@@ -969,6 +977,12 @@ namespace QuickMon
         }
         private void BackgroundPolling(object o)
         {
+            DateTime lastMonitorPackFileUpdate = DateTime.Now;
+            System.IO.FileInfo mfi = new System.IO.FileInfo(MonitorPackPath);
+            if (mfi.Exists)
+            {
+                lastMonitorPackFileUpdate = mfi.LastWriteTime;
+            }
             while (IsPollingEnabled)
             {
                 try
@@ -980,6 +994,22 @@ namespace QuickMon
                     RaiseRaiseMonitorPackError(ex.Message);
                 }
                 BackgroundWaitIsPolling(PollingFreq);
+                try
+                {
+                    //Update FileInfo object
+                    mfi.Refresh();
+                    if (mfi.Exists && (lastMonitorPackFileUpdate.AddSeconds(1) < mfi.LastWriteTime))
+                    {
+                        //Load everything over again
+                        Load();
+                        lastMonitorPackFileUpdate = mfi.LastWriteTime;
+                        RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    RaiseRaiseMonitorPackError(ex.Message);
+                }
             }
             ClosePerformanceCounters();
         }
@@ -1206,6 +1236,7 @@ namespace QuickMon
             #endregion
             /***************** Load Notifiers ****************/
             #region Load Notifiers
+            Notifiers = new List<NotifierEntry>();
             foreach (XmlElement xmlNotifierEntry in root.SelectNodes("notifierEntries/notifierEntry"))
             {
                 NotifierEntry newNotifierEntry = NotifierEntry.FromConfig(xmlNotifierEntry);

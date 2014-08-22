@@ -180,6 +180,7 @@ namespace QuickMon
                 monitorPack.RunCollectorCorrectiveWarningScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveWarningScript);
                 monitorPack.RunCollectorCorrectiveErrorScript += new RaiseCollectorCalledDelegate(monitorPack_RunCollectorCorrectiveErrorScript);
                 monitorPack.RunRestorationScript += new RaiseCollectorCalledDelegate(monitorPack_RunRestorationScript);
+                monitorPack.MonitorPackEventReported += monitorPack_MonitorPackEventReported;
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
                 monitorPack.ConcurrencyLevel = concurrencyLevel;
                 monitorPack.RunningAttended = AttendedOption.OnlyUnAttended;
@@ -277,6 +278,17 @@ namespace QuickMon
                 p.StartInfo = new ProcessStartInfo(scriptPath);
                 p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 p.Start();
+            }
+        }
+        private void monitorPack_MonitorPackEventReported(string message)
+        {
+            try
+            {
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, message, EventLogEntryType.Information, 5);
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Event Reported error:" + ex.Message, EventLogEntryType.Error, 24);
             }
         }
 

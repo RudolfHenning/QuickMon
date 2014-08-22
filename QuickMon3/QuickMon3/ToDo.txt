@@ -208,5 +208,6 @@ known remote host view must be multi threaded (not seems to be hanging up if som
 
 v3.22
 MonitorPack level Dynamic Config Variables
+QuickMon Service must automatically reload monitorpack if qmp file is updated.
 -------------------------------------------------------------------------------------------------------
 
