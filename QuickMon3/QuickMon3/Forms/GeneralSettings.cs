@@ -38,6 +38,7 @@ namespace QuickMon
             else
                 txtRecentMonitorPackFilter.Text = Properties.Settings.Default.RecentQMConfigFileFilters;
             chkDisplayFullPathForQuickRecentEntries.Checked = Properties.Settings.Default.ShowFullPathForQuickRecentist;
+            chkPausePollingDuringEditConfig.Checked = Properties.Settings.Default.PausePollingDuringEditConfig;
             SetFrequency(PollingFrequencySec);
             
             chkPollingEnabled.Checked = PollingEnabled;
@@ -53,6 +54,7 @@ namespace QuickMon
             Properties.Settings.Default.AutosaveChanges = chkAutosaveChanges.Checked;
             Properties.Settings.Default.OverridesMonitorPackFrequency = chkOverridesMonitorPackFrequency.Checked;
             Properties.Settings.Default.ShowFullPathForQuickRecentist = chkDisplayFullPathForQuickRecentEntries.Checked;
+            Properties.Settings.Default.PausePollingDuringEditConfig = chkPausePollingDuringEditConfig.Checked;
             if (txtRecentMonitorPackFilter.Text.Trim().Length == 0)
                 Properties.Settings.Default.RecentQMConfigFileFilters = "*";
             else 

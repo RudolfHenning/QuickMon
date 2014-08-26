@@ -66,7 +66,7 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
-            extrasToolStrip.Left = mainToolStrip.Width+5;
+            //extrasToolStrip.Left = mainToolStrip.Width+5;
 
             cboRecentMonitorPacks.Visible = false;
             //LoadRecentMonitorPackList();
@@ -278,7 +278,8 @@ namespace QuickMon
         }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
-            bool timerEnabled = mainRefreshTimer.Enabled;
+            PausePolling(true);
+            //bool timerEnabled = mainRefreshTimer.Enabled;
             HideCollectorContextMenu();
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
@@ -294,7 +295,8 @@ namespace QuickMon
                 Properties.Settings.Default.PollFrequencySec = generalSettings.PollingFrequencySec;                
                 timerEnabled = generalSettings.PollingEnabled;                
             }
-            SetPollingFrequency(timerEnabled);
+            ResumePolling();
+            //SetPollingFrequency(timerEnabled);
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -800,7 +802,7 @@ namespace QuickMon
                 TreeNode root = tvwCollectors.Nodes[0];
                 root.Nodes.Clear();
 
-                root.Text = "Collectors - Loading...";
+                root.Text = "COLLECTORS - Loading...";
                 Application.DoEvents();
                 Cursor.Current = Cursors.WaitCursor;
 
@@ -820,7 +822,7 @@ namespace QuickMon
                 monitorPack.RunningAttended = AttendedOption.OnlyAttended;
 
                 Cursor.Current = Cursors.Default;
-                tvwCollectors.Nodes[0].Text = "Collectors";
+                tvwCollectors.Nodes[0].Text = "COLLECTORS";
                 Application.DoEvents();
 
                 AddMonitorPackFileToRecentList(monitorPackPath);
@@ -1011,10 +1013,11 @@ namespace QuickMon
         }        
         private void ShowCollectorConfig()
         {
+            PausePolling();
             try
             {
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorEntry)
-                {
+                {                    
                     TreeNode currentNode = tvwCollectors.SelectedNode;
                     CollectorEntry collectorEntry = (CollectorEntry)currentNode.Tag;
                     AgentHelper.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
@@ -1069,6 +1072,21 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            ResumePolling();
+        }
+
+        private bool timerEnabled = false;
+        private void PausePolling(bool forcePause = false)
+        {
+            if (forcePause || Properties.Settings.Default.PausePollingDuringEditConfig)
+            {
+                timerEnabled = mainRefreshTimer.Enabled;
+                mainRefreshTimer.Enabled = false;
+            }
+        }
+        private void ResumePolling()
+        {
+            SetPollingFrequency(timerEnabled);
         }
         private void CreateNewCollector(bool folder = false)
         {
@@ -1922,6 +1940,7 @@ namespace QuickMon
         private void notifierConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideNotifierContextMenu();
+            PausePolling();
             if (lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].Tag is NotifierEntry)
             {
                 NotifierEntry n = (NotifierEntry)lvwNotifiers.SelectedItems[0].Tag;
@@ -1935,6 +1954,7 @@ namespace QuickMon
                     DoAutoSave();
                 }
             }
+            ResumePolling();
         }
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -188,5 +188,17 @@ namespace QuickMon.Properties {
                 this["ShowFullPathForQuickRecentist"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PausePollingDuringEditConfig {
+            get {
+                return ((bool)(this["PausePollingDuringEditConfig"]));
+            }
+            set {
+                this["PausePollingDuringEditConfig"] = value;
+            }
+        }
     }
 }

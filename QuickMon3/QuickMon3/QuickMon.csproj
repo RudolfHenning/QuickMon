@@ -192,6 +192,9 @@
     <None Include="Resources\Forbidden32x32.png" />
     <None Include="Resources\tables1.png" />
     <None Include="Resources\doc_new.png" />
+    <None Include="Resources\cubes2.png" />
+    <None Include="Resources\cubes3.png" />
+    <None Include="Resources\Yellow3DGearEdit.png" />
     <Content Include="ToDo.txt" />
     <None Include="Resources\proc2.gif" />
     <None Include="Resources\Plus16x16.png" />

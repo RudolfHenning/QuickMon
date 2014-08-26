@@ -31,12 +31,33 @@ namespace QuickMon
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Collectors");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
-            this.extrasToolStrip = new QuickMon.Controls.ToolStripEx();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.mainToolStrip = new QuickMon.Controls.ToolStripEx();
+            this.newMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
+            this.openMonitorPackToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.recentMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
+            this.saveAsMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripSplitButton();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.agentsToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.addCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFolderCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCollectorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.collectorStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.addNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showDefaultNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.generalSettingsToolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.pollingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pollingDisabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,29 +70,6 @@ namespace QuickMon
             this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.mainToolStrip = new QuickMon.Controls.ToolStripEx();
-            this.newMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
-            this.openMonitorPackToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.recentMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
-            this.saveAsMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripSplitButton();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.collectorToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.addCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addFolderCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.viewCollectorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.collectorStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultNotifierViewerToolStripSplitButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.addNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.showDefaultNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -127,7 +125,6 @@ namespace QuickMon
             this.recentMonitorPacksShowTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.recentMonitorPacksPanel.SuspendLayout();
-            this.extrasToolStrip.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.collectorTreeContextMenuStrip.SuspendLayout();
@@ -153,7 +150,6 @@ namespace QuickMon
             this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.OrangeHeader1;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.recentMonitorPacksPanel);
-            this.panel1.Controls.Add(this.extrasToolStrip);
             this.panel1.Controls.Add(this.lblVersion);
             this.panel1.Controls.Add(this.mainToolStrip);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -171,7 +167,7 @@ namespace QuickMon
             this.recentMonitorPacksPanel.Controls.Add(this.cboRecentMonitorPacks);
             this.recentMonitorPacksPanel.Location = new System.Drawing.Point(4, 40);
             this.recentMonitorPacksPanel.Name = "recentMonitorPacksPanel";
-            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(400, 26);
+            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(445, 26);
             this.recentMonitorPacksPanel.TabIndex = 4;
             this.recentMonitorPacksPanel.MouseEnter += new System.EventHandler(this.recentMonitorPacksPanel_MouseEnter);
             this.recentMonitorPacksPanel.MouseLeave += new System.EventHandler(this.recentMonitorPacksPanel_MouseLeave);
@@ -182,30 +178,243 @@ namespace QuickMon
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboRecentMonitorPacks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboRecentMonitorPacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboRecentMonitorPacks.FormattingEnabled = true;
             this.cboRecentMonitorPacks.Location = new System.Drawing.Point(3, 2);
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
-            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(394, 21);
+            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(439, 23);
             this.cboRecentMonitorPacks.TabIndex = 0;
             this.cboRecentMonitorPacks.SelectedIndexChanged += new System.EventHandler(this.cboRecentMonitorPacks_SelectedIndexChanged);
             this.cboRecentMonitorPacks.MouseLeave += new System.EventHandler(this.cboRecentMonitorPacks_MouseLeave);
             this.cboRecentMonitorPacks.MouseHover += new System.EventHandler(this.cboRecentMonitorPacks_MouseHover);
             // 
-            // extrasToolStrip
+            // lblVersion
             // 
-            this.extrasToolStrip.BackColor = System.Drawing.Color.Transparent;
-            this.extrasToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.extrasToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.extrasToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.extrasToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblVersion.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lblVersion.Location = new System.Drawing.Point(410, 15);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(51, 23);
+            this.lblVersion.TabIndex = 3;
+            this.lblVersion.Text = "vX.X";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblVersion.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.lblVersion.MouseEnter += new System.EventHandler(this.HideRecentDropDownList);
+            // 
+            // mainToolStrip
+            // 
+            this.mainToolStrip.BackColor = System.Drawing.Color.Transparent;
+            this.mainToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.mainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.mainToolStrip.ImageScalingSize = new System.Drawing.Size(28, 28);
+            this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newMonitorPackToolStripMenuItem2,
+            this.openMonitorPackToolStripButton,
+            this.recentMonitorPackToolStripMenuItem2,
+            this.saveAsMonitorPackToolStripMenuItem,
+            this.refreshToolStripButton1,
+            this.agentsToolStripButton,
             this.generalSettingsToolStripSplitButton1,
             this.aboutToolStripMenuItem1});
-            this.extrasToolStrip.Location = new System.Drawing.Point(283, 0);
-            this.extrasToolStrip.Name = "extrasToolStrip";
-            this.extrasToolStrip.Size = new System.Drawing.Size(63, 27);
-            this.extrasToolStrip.TabIndex = 2;
-            this.extrasToolStrip.TabStop = true;
-            this.extrasToolStrip.Text = "toolStrip1";
+            this.mainToolStrip.Location = new System.Drawing.Point(4, 0);
+            this.mainToolStrip.Name = "mainToolStrip";
+            this.mainToolStrip.Size = new System.Drawing.Size(292, 35);
+            this.mainToolStrip.TabIndex = 0;
+            this.mainToolStrip.TabStop = true;
+            this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
+            this.mainToolStrip.MouseLeave += new System.EventHandler(this.mainToolStrip_MouseLeave);
+            // 
+            // newMonitorPackToolStripMenuItem2
+            // 
+            this.newMonitorPackToolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newMonitorPackToolStripMenuItem2.Image = global::QuickMon.Properties.Resources.doc_new2;
+            this.newMonitorPackToolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newMonitorPackToolStripMenuItem2.Name = "newMonitorPackToolStripMenuItem2";
+            this.newMonitorPackToolStripMenuItem2.Size = new System.Drawing.Size(32, 32);
+            this.newMonitorPackToolStripMenuItem2.Text = "New";
+            this.newMonitorPackToolStripMenuItem2.ToolTipText = "Create new monitor pack (Ctrl + N)";
+            this.newMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.newMonitorPackToolStripMenuItem_Click);
+            // 
+            // openMonitorPackToolStripButton
+            // 
+            this.openMonitorPackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openMonitorPackToolStripButton.Image = global::QuickMon.Properties.Resources.folder;
+            this.openMonitorPackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openMonitorPackToolStripButton.Name = "openMonitorPackToolStripButton";
+            this.openMonitorPackToolStripButton.Size = new System.Drawing.Size(32, 32);
+            this.openMonitorPackToolStripButton.Text = "Monitor Pack Actions";
+            this.openMonitorPackToolStripButton.ToolTipText = "Monitor pack Actions (Ctrl + O)";
+            this.openMonitorPackToolStripButton.Click += new System.EventHandler(this.openMonitorPackToolStripButton_ButtonClick);
+            // 
+            // recentMonitorPackToolStripMenuItem2
+            // 
+            this.recentMonitorPackToolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.recentMonitorPackToolStripMenuItem2.Image = global::QuickMon.Properties.Resources.folderWLightning;
+            this.recentMonitorPackToolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.recentMonitorPackToolStripMenuItem2.Name = "recentMonitorPackToolStripMenuItem2";
+            this.recentMonitorPackToolStripMenuItem2.Size = new System.Drawing.Size(32, 32);
+            this.recentMonitorPackToolStripMenuItem2.Text = "Recent";
+            this.recentMonitorPackToolStripMenuItem2.ToolTipText = "View List of previously opened monitor packs (Ctrl + T)";
+            this.recentMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.recentMonitorPackToolStripMenuItem1_Click);
+            // 
+            // saveAsMonitorPackToolStripMenuItem
+            // 
+            this.saveAsMonitorPackToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveAsMonitorPackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveAsToolStripMenuItem});
+            this.saveAsMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
+            this.saveAsMonitorPackToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveAsMonitorPackToolStripMenuItem.Name = "saveAsMonitorPackToolStripMenuItem";
+            this.saveAsMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(44, 32);
+            this.saveAsMonitorPackToolStripMenuItem.Text = "Save Monitor Pack";
+            this.saveAsMonitorPackToolStripMenuItem.ButtonClick += new System.EventHandler(this.saveAsMonitorPackToolStripMenuItem_ButtonClick);
+            this.saveAsMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.saveAsMonitorPackToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Text = "Save as";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // refreshToolStripButton1
+            // 
+            this.refreshToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshToolStripButton1.Image = global::QuickMon.Properties.Resources.refresh;
+            this.refreshToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshToolStripButton1.Name = "refreshToolStripButton1";
+            this.refreshToolStripButton1.Size = new System.Drawing.Size(32, 32);
+            this.refreshToolStripButton1.Text = "Refresh";
+            this.refreshToolStripButton1.ToolTipText = "Refresh (F5)";
+            this.refreshToolStripButton1.Click += new System.EventHandler(this.refreshToolStripButton_Click);
+            // 
+            // agentsToolStripButton
+            // 
+            this.agentsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.agentsToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCollectorToolStripMenuItem1,
+            this.addFolderCollectorToolStripMenuItem,
+            this.editCollectorToolStripMenuItem,
+            this.removeCollectorToolStripMenuItem1,
+            this.viewCollectorDetailsToolStripMenuItem,
+            this.collectorStatisticsToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.addNotifierToolStripMenuItem1,
+            this.editNotifierToolStripMenuItem,
+            this.removeNotifierToolStripMenuItem1,
+            this.showDefaultNotifierToolStripMenuItem,
+            this.showAllNotifiersToolStripMenuItem,
+            this.toolStripMenuItem2});
+            this.agentsToolStripButton.Image = global::QuickMon.Properties.Resources.cubes3;
+            this.agentsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.agentsToolStripButton.Name = "agentsToolStripButton";
+            this.agentsToolStripButton.Size = new System.Drawing.Size(41, 32);
+            this.agentsToolStripButton.Text = "Agents";
+            // 
+            // addCollectorToolStripMenuItem1
+            // 
+            this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
+            this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
+            this.addCollectorToolStripMenuItem1.Text = "Add Collector";
+            this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
+            // 
+            // addFolderCollectorToolStripMenuItem
+            // 
+            this.addFolderCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_add;
+            this.addFolderCollectorToolStripMenuItem.Name = "addFolderCollectorToolStripMenuItem";
+            this.addFolderCollectorToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.addFolderCollectorToolStripMenuItem.Text = "Add Folder Collector";
+            this.addFolderCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorFolderToolStripMenuItem_Click);
+            // 
+            // editCollectorToolStripMenuItem
+            // 
+            this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
+            this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
+            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.editCollectorToolStripMenuItem.Text = "Edit Collector";
+            this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeEditConfigToolStripMenuItem_Click);
+            // 
+            // removeCollectorToolStripMenuItem1
+            // 
+            this.removeCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
+            this.removeCollectorToolStripMenuItem1.Name = "removeCollectorToolStripMenuItem1";
+            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
+            this.removeCollectorToolStripMenuItem1.Text = "Remove Collector";
+            this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem_Click);
+            // 
+            // viewCollectorDetailsToolStripMenuItem
+            // 
+            this.viewCollectorDetailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
+            this.viewCollectorDetailsToolStripMenuItem.Name = "viewCollectorDetailsToolStripMenuItem";
+            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.viewCollectorDetailsToolStripMenuItem.Text = "View Collector Details";
+            this.viewCollectorDetailsToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeViewDetailsToolStripMenuItem_Click);
+            // 
+            // collectorStatisticsToolStripMenuItem
+            // 
+            this.collectorStatisticsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_stats;
+            this.collectorStatisticsToolStripMenuItem.Name = "collectorStatisticsToolStripMenuItem";
+            this.collectorStatisticsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.collectorStatisticsToolStripMenuItem.Text = "Collector statistics";
+            this.collectorStatisticsToolStripMenuItem.Click += new System.EventHandler(this.cmdStats_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(226, 6);
+            // 
+            // addNotifierToolStripMenuItem1
+            // 
+            this.addNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
+            this.addNotifierToolStripMenuItem1.Name = "addNotifierToolStripMenuItem1";
+            this.addNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
+            this.addNotifierToolStripMenuItem1.Text = "Add Notifier";
+            this.addNotifierToolStripMenuItem1.Click += new System.EventHandler(this.addNotifierToolStripMenuItem_Click);
+            // 
+            // editNotifierToolStripMenuItem
+            // 
+            this.editNotifierToolStripMenuItem.Enabled = false;
+            this.editNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
+            this.editNotifierToolStripMenuItem.Name = "editNotifierToolStripMenuItem";
+            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.editNotifierToolStripMenuItem.Text = "Edit Notifier Config";
+            this.editNotifierToolStripMenuItem.Click += new System.EventHandler(this.notifierConfigurationToolStripMenuItem_Click);
+            // 
+            // removeNotifierToolStripMenuItem1
+            // 
+            this.removeNotifierToolStripMenuItem1.Enabled = false;
+            this.removeNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
+            this.removeNotifierToolStripMenuItem1.Name = "removeNotifierToolStripMenuItem1";
+            this.removeNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
+            this.removeNotifierToolStripMenuItem1.Text = "Remove Notifier";
+            this.removeNotifierToolStripMenuItem1.Click += new System.EventHandler(this.removeNotifierToolStripMenuItem_Click);
+            // 
+            // showDefaultNotifierToolStripMenuItem
+            // 
+            this.showDefaultNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
+            this.showDefaultNotifierToolStripMenuItem.Name = "showDefaultNotifierToolStripMenuItem";
+            this.showDefaultNotifierToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.showDefaultNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.showDefaultNotifierToolStripMenuItem.Text = "Show Default Notifier";
+            this.showDefaultNotifierToolStripMenuItem.Click += new System.EventHandler(this.showDefaultNotifierToolStripMenuItem_Click);
+            // 
+            // showAllNotifiersToolStripMenuItem
+            // 
+            this.showAllNotifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.thunderbolt;
+            this.showAllNotifiersToolStripMenuItem.Name = "showAllNotifiersToolStripMenuItem";
+            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.showAllNotifiersToolStripMenuItem.Text = "Show All Notifiers";
+            this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.showAllNotifiersToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 6);
             // 
             // generalSettingsToolStripSplitButton1
             // 
@@ -219,7 +428,7 @@ namespace QuickMon
             this.generalSettingsToolStripSplitButton1.Image = global::QuickMon.Properties.Resources.tools;
             this.generalSettingsToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.generalSettingsToolStripSplitButton1.Name = "generalSettingsToolStripSplitButton1";
-            this.generalSettingsToolStripSplitButton1.Size = new System.Drawing.Size(36, 24);
+            this.generalSettingsToolStripSplitButton1.Size = new System.Drawing.Size(44, 32);
             this.generalSettingsToolStripSplitButton1.Text = "Settings";
             this.generalSettingsToolStripSplitButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.generalSettingsToolStripSplitButton1.ToolTipText = "Settings (Ctrl + E)";
@@ -311,246 +520,9 @@ namespace QuickMon
             this.aboutToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.infoOrange;
             this.aboutToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(24, 24);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(32, 32);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblVersion.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblVersion.Location = new System.Drawing.Point(410, 41);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(51, 23);
-            this.lblVersion.TabIndex = 3;
-            this.lblVersion.Text = "vX.X";
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblVersion.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            this.lblVersion.MouseEnter += new System.EventHandler(this.HideRecentDropDownList);
-            // 
-            // mainToolStrip
-            // 
-            this.mainToolStrip.BackColor = System.Drawing.Color.Transparent;
-            this.mainToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.mainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.mainToolStrip.ImageScalingSize = new System.Drawing.Size(28, 28);
-            this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newMonitorPackToolStripMenuItem2,
-            this.openMonitorPackToolStripButton,
-            this.recentMonitorPackToolStripMenuItem2,
-            this.saveAsMonitorPackToolStripMenuItem,
-            this.refreshToolStripButton1,
-            this.collectorToolStripDropDownButton,
-            this.defaultNotifierViewerToolStripSplitButton});
-            this.mainToolStrip.Location = new System.Drawing.Point(4, 0);
-            this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(257, 35);
-            this.mainToolStrip.TabIndex = 0;
-            this.mainToolStrip.TabStop = true;
-            this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
-            this.mainToolStrip.MouseLeave += new System.EventHandler(this.mainToolStrip_MouseLeave);
-            // 
-            // newMonitorPackToolStripMenuItem2
-            // 
-            this.newMonitorPackToolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newMonitorPackToolStripMenuItem2.Image = global::QuickMon.Properties.Resources.doc_new2;
-            this.newMonitorPackToolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newMonitorPackToolStripMenuItem2.Name = "newMonitorPackToolStripMenuItem2";
-            this.newMonitorPackToolStripMenuItem2.Size = new System.Drawing.Size(32, 32);
-            this.newMonitorPackToolStripMenuItem2.Text = "New";
-            this.newMonitorPackToolStripMenuItem2.ToolTipText = "Create new monitor pack (Ctrl + N)";
-            this.newMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.newMonitorPackToolStripMenuItem_Click);
-            // 
-            // openMonitorPackToolStripButton
-            // 
-            this.openMonitorPackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openMonitorPackToolStripButton.Image = global::QuickMon.Properties.Resources.folder;
-            this.openMonitorPackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openMonitorPackToolStripButton.Name = "openMonitorPackToolStripButton";
-            this.openMonitorPackToolStripButton.Size = new System.Drawing.Size(32, 32);
-            this.openMonitorPackToolStripButton.Text = "Monitor Pack Actions";
-            this.openMonitorPackToolStripButton.ToolTipText = "Monitor pack Actions (Ctrl + O)";
-            this.openMonitorPackToolStripButton.Click += new System.EventHandler(this.openMonitorPackToolStripButton_ButtonClick);
-            // 
-            // recentMonitorPackToolStripMenuItem2
-            // 
-            this.recentMonitorPackToolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.recentMonitorPackToolStripMenuItem2.Image = global::QuickMon.Properties.Resources.folderWLightning;
-            this.recentMonitorPackToolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.recentMonitorPackToolStripMenuItem2.Name = "recentMonitorPackToolStripMenuItem2";
-            this.recentMonitorPackToolStripMenuItem2.Size = new System.Drawing.Size(32, 32);
-            this.recentMonitorPackToolStripMenuItem2.Text = "Recent";
-            this.recentMonitorPackToolStripMenuItem2.ToolTipText = "View List of previously opened monitor packs (Ctrl + T)";
-            this.recentMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.recentMonitorPackToolStripMenuItem1_Click);
-            // 
-            // saveAsMonitorPackToolStripMenuItem
-            // 
-            this.saveAsMonitorPackToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveAsMonitorPackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem});
-            this.saveAsMonitorPackToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
-            this.saveAsMonitorPackToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveAsMonitorPackToolStripMenuItem.Name = "saveAsMonitorPackToolStripMenuItem";
-            this.saveAsMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(44, 32);
-            this.saveAsMonitorPackToolStripMenuItem.Text = "Save Monitor Pack";
-            this.saveAsMonitorPackToolStripMenuItem.ButtonClick += new System.EventHandler(this.saveAsMonitorPackToolStripMenuItem_ButtonClick);
-            this.saveAsMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.saveAsMonitorPackToolStripMenuItem_Click);
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveAsToolStripMenuItem.Text = "Save as";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            // 
-            // refreshToolStripButton1
-            // 
-            this.refreshToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshToolStripButton1.Image = global::QuickMon.Properties.Resources.refresh;
-            this.refreshToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refreshToolStripButton1.Name = "refreshToolStripButton1";
-            this.refreshToolStripButton1.Size = new System.Drawing.Size(32, 32);
-            this.refreshToolStripButton1.Text = "Refresh";
-            this.refreshToolStripButton1.ToolTipText = "Refresh (F5)";
-            this.refreshToolStripButton1.Click += new System.EventHandler(this.refreshToolStripButton_Click);
-            // 
-            // collectorToolStripDropDownButton
-            // 
-            this.collectorToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.collectorToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCollectorToolStripMenuItem1,
-            this.addFolderCollectorToolStripMenuItem,
-            this.editCollectorToolStripMenuItem,
-            this.removeCollectorToolStripMenuItem1,
-            this.toolStripMenuItem5,
-            this.viewCollectorDetailsToolStripMenuItem,
-            this.collectorStatisticsToolStripMenuItem});
-            this.collectorToolStripDropDownButton.Image = global::QuickMon.Properties.Resources.comp_search;
-            this.collectorToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.collectorToolStripDropDownButton.Name = "collectorToolStripDropDownButton";
-            this.collectorToolStripDropDownButton.Size = new System.Drawing.Size(41, 32);
-            this.collectorToolStripDropDownButton.Text = "Collectors";
-            // 
-            // addCollectorToolStripMenuItem1
-            // 
-            this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
-            this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
-            this.addCollectorToolStripMenuItem1.Text = "Add Collector";
-            this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
-            // 
-            // addFolderCollectorToolStripMenuItem
-            // 
-            this.addFolderCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folder_add;
-            this.addFolderCollectorToolStripMenuItem.Name = "addFolderCollectorToolStripMenuItem";
-            this.addFolderCollectorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.addFolderCollectorToolStripMenuItem.Text = "Add Folder Collector";
-            this.addFolderCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorFolderToolStripMenuItem_Click);
-            // 
-            // editCollectorToolStripMenuItem
-            // 
-            this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
-            this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.editCollectorToolStripMenuItem.Text = "Edit Collector";
-            this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeEditConfigToolStripMenuItem_Click);
-            // 
-            // removeCollectorToolStripMenuItem1
-            // 
-            this.removeCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
-            this.removeCollectorToolStripMenuItem1.Name = "removeCollectorToolStripMenuItem1";
-            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
-            this.removeCollectorToolStripMenuItem1.Text = "Remove Collector";
-            this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(185, 6);
-            // 
-            // viewCollectorDetailsToolStripMenuItem
-            // 
-            this.viewCollectorDetailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
-            this.viewCollectorDetailsToolStripMenuItem.Name = "viewCollectorDetailsToolStripMenuItem";
-            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.viewCollectorDetailsToolStripMenuItem.Text = "View Collector Details";
-            this.viewCollectorDetailsToolStripMenuItem.Click += new System.EventHandler(this.collectorTreeViewDetailsToolStripMenuItem_Click);
-            // 
-            // collectorStatisticsToolStripMenuItem
-            // 
-            this.collectorStatisticsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_stats;
-            this.collectorStatisticsToolStripMenuItem.Name = "collectorStatisticsToolStripMenuItem";
-            this.collectorStatisticsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.collectorStatisticsToolStripMenuItem.Text = "Collector statistics";
-            this.collectorStatisticsToolStripMenuItem.Click += new System.EventHandler(this.cmdStats_Click);
-            // 
-            // defaultNotifierViewerToolStripSplitButton
-            // 
-            this.defaultNotifierViewerToolStripSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.defaultNotifierViewerToolStripSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNotifierToolStripMenuItem1,
-            this.editNotifierToolStripMenuItem,
-            this.removeNotifierToolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.showDefaultNotifierToolStripMenuItem,
-            this.showAllNotifiersToolStripMenuItem});
-            this.defaultNotifierViewerToolStripSplitButton.Image = global::QuickMon.Properties.Resources.scroll;
-            this.defaultNotifierViewerToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.defaultNotifierViewerToolStripSplitButton.Name = "defaultNotifierViewerToolStripSplitButton";
-            this.defaultNotifierViewerToolStripSplitButton.Size = new System.Drawing.Size(41, 32);
-            this.defaultNotifierViewerToolStripSplitButton.Text = "Notifiers";
-            // 
-            // addNotifierToolStripMenuItem1
-            // 
-            this.addNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
-            this.addNotifierToolStripMenuItem1.Name = "addNotifierToolStripMenuItem1";
-            this.addNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
-            this.addNotifierToolStripMenuItem1.Text = "Add Notifier";
-            this.addNotifierToolStripMenuItem1.Click += new System.EventHandler(this.addNotifierToolStripMenuItem_Click);
-            // 
-            // editNotifierToolStripMenuItem
-            // 
-            this.editNotifierToolStripMenuItem.Enabled = false;
-            this.editNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
-            this.editNotifierToolStripMenuItem.Name = "editNotifierToolStripMenuItem";
-            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.editNotifierToolStripMenuItem.Text = "Edit Notifier Config";
-            this.editNotifierToolStripMenuItem.Click += new System.EventHandler(this.notifierConfigurationToolStripMenuItem_Click);
-            // 
-            // removeNotifierToolStripMenuItem1
-            // 
-            this.removeNotifierToolStripMenuItem1.Enabled = false;
-            this.removeNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
-            this.removeNotifierToolStripMenuItem1.Name = "removeNotifierToolStripMenuItem1";
-            this.removeNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
-            this.removeNotifierToolStripMenuItem1.Text = "Remove Notifier";
-            this.removeNotifierToolStripMenuItem1.Click += new System.EventHandler(this.removeNotifierToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 6);
-            // 
-            // showDefaultNotifierToolStripMenuItem
-            // 
-            this.showDefaultNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
-            this.showDefaultNotifierToolStripMenuItem.Name = "showDefaultNotifierToolStripMenuItem";
-            this.showDefaultNotifierToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.showDefaultNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.showDefaultNotifierToolStripMenuItem.Text = "Show Default Notifier";
-            this.showDefaultNotifierToolStripMenuItem.Click += new System.EventHandler(this.showDefaultNotifierToolStripMenuItem_Click);
-            // 
-            // showAllNotifiersToolStripMenuItem
-            // 
-            this.showAllNotifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.thunderbolt;
-            this.showAllNotifiersToolStripMenuItem.Name = "showAllNotifiersToolStripMenuItem";
-            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.showAllNotifiersToolStripMenuItem.Text = "Show All Notifiers";
-            this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.showAllNotifiersToolStripMenuItem_Click);
             // 
             // openFileDialogOpen
             // 
@@ -807,6 +779,7 @@ namespace QuickMon
             this.tvwCollectors.HideSelection = false;
             this.tvwCollectors.ImageIndex = 0;
             this.tvwCollectors.ImageList = this.treeImageList;
+            this.tvwCollectors.Indent = 20;
             this.tvwCollectors.ItemHeight = 22;
             this.tvwCollectors.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
@@ -815,7 +788,7 @@ namespace QuickMon
             treeNode1.BackColor = System.Drawing.Color.White;
             treeNode1.Name = "root";
             treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "Collectors";
+            treeNode1.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
             this.tvwCollectors.RootAlwaysExpanded = false;
@@ -1064,7 +1037,7 @@ namespace QuickMon
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(350, 350);
+            this.MinimumSize = new System.Drawing.Size(360, 350);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "QuickMon 3";
@@ -1076,8 +1049,6 @@ namespace QuickMon
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.recentMonitorPacksPanel.ResumeLayout(false);
-            this.extrasToolStrip.ResumeLayout(false);
-            this.extrasToolStrip.PerformLayout();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -1141,13 +1112,11 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCollectorFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton collectorToolStripDropDownButton;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeCollectorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addFolderCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCollectorDetailsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton defaultNotifierViewerToolStripSplitButton;
         private System.Windows.Forms.ToolStripMenuItem showAllNotifiersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showDefaultNotifierToolStripMenuItem;
         private System.Windows.Forms.Label lblNoNotifiersYet;
@@ -1173,7 +1142,6 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripSplitButton saveAsMonitorPackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.Label lblVersion;
-        private ToolStripEx extrasToolStrip;
         private System.Windows.Forms.ToolStripMenuItem collectorStatisticsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton recentMonitorPackToolStripMenuItem2;
         private System.Windows.Forms.ToolStripSplitButton generalSettingsToolStripSplitButton1;
@@ -1192,6 +1160,7 @@ namespace QuickMon
         private System.Windows.Forms.Timer recentMonitorPacksShowTimer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem manageTemplatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton agentsToolStripButton;
     }
 }
 

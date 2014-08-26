@@ -110,7 +110,7 @@
             // 
             this.cmdEditNotifier.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdEditNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditNotifier.Image = global::QuickMon.Properties.Resources.doc_edit;
+            this.cmdEditNotifier.Image = global::QuickMon.Properties.Resources.Yellow3DGearEdit;
             this.cmdEditNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdEditNotifier.Location = new System.Drawing.Point(4, 112);
             this.cmdEditNotifier.Name = "cmdEditNotifier";

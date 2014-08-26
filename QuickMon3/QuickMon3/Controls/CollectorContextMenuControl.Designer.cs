@@ -404,7 +404,7 @@
             // 
             this.cmdEditCollector.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdEditCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditCollector.Image = global::QuickMon.Properties.Resources.doc_edit;
+            this.cmdEditCollector.Image = global::QuickMon.Properties.Resources.Yellow3DGearEdit;
             this.cmdEditCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdEditCollector.Location = new System.Drawing.Point(4, 193);
             this.cmdEditCollector.Name = "cmdEditCollector";
