@@ -1,5 +1,8 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved/persisted to disk... somehow...
+Add App setting to pause polling while editing collector/notifier config - user can choose to edit with/without updating
+Main window - merge toolbars - and set min width to always show toolbar
+   Perhaps combine Collectors & Notifiers into 'Agents' toolbar menu 
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
