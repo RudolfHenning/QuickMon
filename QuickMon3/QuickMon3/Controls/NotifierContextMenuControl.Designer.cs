@@ -36,7 +36,7 @@
             this.cmdDisableNotifier = new System.Windows.Forms.Button();
             this.cmdEditNotifier = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblNotifierHeading = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdViewDetails
@@ -120,20 +120,21 @@
             this.toolTip1.SetToolTip(this.cmdEditNotifier, "Edit notifier configuration");
             this.cmdEditNotifier.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // lblNotifierHeading
             // 
-            this.label7.BackColor = System.Drawing.Color.Gainsboro;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Image = global::QuickMon.Properties.Resources.MenuOrangeShade;
-            this.label7.Location = new System.Drawing.Point(4, 4);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(210, 20);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Notifier";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNotifierHeading.BackColor = System.Drawing.Color.Gainsboro;
+            this.lblNotifierHeading.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblNotifierHeading.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblNotifierHeading.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblNotifierHeading.ForeColor = System.Drawing.Color.Black;
+            this.lblNotifierHeading.Image = global::QuickMon.Properties.Resources.MenuOrangeShade;
+            this.lblNotifierHeading.Location = new System.Drawing.Point(4, 4);
+            this.lblNotifierHeading.Name = "lblNotifierHeading";
+            this.lblNotifierHeading.Size = new System.Drawing.Size(210, 20);
+            this.lblNotifierHeading.TabIndex = 9;
+            this.lblNotifierHeading.Text = "Notifier";
+            this.lblNotifierHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNotifierHeading.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblNotifierHeading_MouseDown);
             // 
             // NotifierContextMenuControl
             // 
@@ -145,7 +146,7 @@
             this.Controls.Add(this.cmdAddNotifier);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdViewDetails);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblNotifierHeading);
             this.Name = "NotifierContextMenuControl";
             this.Padding = new System.Windows.Forms.Padding(4);
             this.Size = new System.Drawing.Size(218, 248);
@@ -162,6 +163,6 @@
         public System.Windows.Forms.Button cmdDisableNotifier;
         public System.Windows.Forms.Button cmdEditNotifier;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblNotifierHeading;
     }
 }

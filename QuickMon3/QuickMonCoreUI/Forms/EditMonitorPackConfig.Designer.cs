@@ -61,7 +61,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(312, 279);
+            this.cmdCancel.Location = new System.Drawing.Point(312, 281);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 14;
@@ -73,7 +73,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(231, 279);
+            this.cmdOK.Location = new System.Drawing.Point(231, 281);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 13;
@@ -104,7 +104,7 @@
             // 
             this.chkEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.Location = new System.Drawing.Point(12, 283);
+            this.chkEnabled.Location = new System.Drawing.Point(12, 285);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(65, 17);
             this.chkEnabled.TabIndex = 11;
@@ -202,7 +202,7 @@
             this.freqSecTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
-            this.freqSecTrackBar.Maximum = 120;
+            this.freqSecTrackBar.Maximum = 300;
             this.freqSecTrackBar.Name = "freqSecTrackBar";
             this.freqSecTrackBar.Size = new System.Drawing.Size(347, 45);
             this.freqSecTrackBar.TabIndex = 3;
@@ -222,7 +222,7 @@
             // 
             this.freqSecNumericUpDown.Location = new System.Drawing.Point(85, 19);
             this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
-            120,
+            300,
             0,
             0,
             0});
@@ -269,13 +269,14 @@
             this.lblMonitorPackPath.TabIndex = 14;
             this.lblMonitorPackPath.Text = " ";
             this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMonitorPackPath.DoubleClick += new System.EventHandler(this.lblMonitorPackPath_DoubleClick);
             // 
             // llblEditConfigVars
             // 
             this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblEditConfigVars.AutoSize = true;
             this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblEditConfigVars.Location = new System.Drawing.Point(97, 284);
+            this.llblEditConfigVars.Location = new System.Drawing.Point(97, 286);
             this.llblEditConfigVars.Name = "llblEditConfigVars";
             this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
             this.llblEditConfigVars.TabIndex = 12;
@@ -288,7 +289,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(399, 314);
+            this.ClientSize = new System.Drawing.Size(399, 316);
             this.Controls.Add(this.llblEditConfigVars);
             this.Controls.Add(this.lblMonitorPackPath);
             this.Controls.Add(this.txtType);

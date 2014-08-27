@@ -213,6 +213,12 @@ QuickMon Service must automatically reload monitorpack if qmp file is updated.
 v3.23
 Main window - merge toolbars - and set min width to always show toolbar
    Perhaps combine Collectors & Notifiers into 'Agents' toolbar menu 
+move recent monitorpack button next to (recent)drop down
 Add App setting to pause polling while editing collector/notifier config - user can choose to edit with/without updating
+Collector and Notifier Context menus can now be moved/dragged around with mouse
+Rearringed general settings dialog with tab control
+Double click on the monitorpack path in Edit Monitor pack config opens explorer with file selected
+Maxinum polling time in app/monitorpack is now 300 Secs
+Folder Collectors show in Bold text in TreeView
 -------------------------------------------------------------------------------------------------------
 

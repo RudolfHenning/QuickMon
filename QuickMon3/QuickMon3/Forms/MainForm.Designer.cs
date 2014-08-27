@@ -35,6 +35,7 @@ namespace QuickMon
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
+            this.cmdRecentMonitorPacks = new System.Windows.Forms.Button();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
             this.lblVersion = new System.Windows.Forms.Label();
             this.mainToolStrip = new QuickMon.Controls.ToolStripEx();
@@ -164,13 +165,29 @@ namespace QuickMon
             this.recentMonitorPacksPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.recentMonitorPacksPanel.BackColor = System.Drawing.Color.Transparent;
+            this.recentMonitorPacksPanel.Controls.Add(this.cmdRecentMonitorPacks);
             this.recentMonitorPacksPanel.Controls.Add(this.cboRecentMonitorPacks);
-            this.recentMonitorPacksPanel.Location = new System.Drawing.Point(4, 40);
+            this.recentMonitorPacksPanel.Location = new System.Drawing.Point(5, 40);
             this.recentMonitorPacksPanel.Name = "recentMonitorPacksPanel";
-            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(445, 26);
+            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(438, 26);
             this.recentMonitorPacksPanel.TabIndex = 4;
             this.recentMonitorPacksPanel.MouseEnter += new System.EventHandler(this.recentMonitorPacksPanel_MouseEnter);
             this.recentMonitorPacksPanel.MouseLeave += new System.EventHandler(this.recentMonitorPacksPanel_MouseLeave);
+            // 
+            // cmdRecentMonitorPacks
+            // 
+            this.cmdRecentMonitorPacks.BackgroundImage = global::QuickMon.Properties.Resources.folderWLightning;
+            this.cmdRecentMonitorPacks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdRecentMonitorPacks.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cmdRecentMonitorPacks.FlatAppearance.BorderSize = 0;
+            this.cmdRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRecentMonitorPacks.Location = new System.Drawing.Point(0, 0);
+            this.cmdRecentMonitorPacks.Name = "cmdRecentMonitorPacks";
+            this.cmdRecentMonitorPacks.Size = new System.Drawing.Size(30, 26);
+            this.cmdRecentMonitorPacks.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.cmdRecentMonitorPacks, "View List of previously opened monitor packs (Ctrl + T)");
+            this.cmdRecentMonitorPacks.UseVisualStyleBackColor = true;
+            this.cmdRecentMonitorPacks.Click += new System.EventHandler(this.recentMonitorPackToolStripMenuItem1_Click);
             // 
             // cboRecentMonitorPacks
             // 
@@ -180,9 +197,9 @@ namespace QuickMon
             this.cboRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboRecentMonitorPacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboRecentMonitorPacks.FormattingEnabled = true;
-            this.cboRecentMonitorPacks.Location = new System.Drawing.Point(3, 2);
+            this.cboRecentMonitorPacks.Location = new System.Drawing.Point(30, 2);
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
-            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(439, 23);
+            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(405, 23);
             this.cboRecentMonitorPacks.TabIndex = 0;
             this.cboRecentMonitorPacks.SelectedIndexChanged += new System.EventHandler(this.cboRecentMonitorPacks_SelectedIndexChanged);
             this.cboRecentMonitorPacks.MouseLeave += new System.EventHandler(this.cboRecentMonitorPacks_MouseLeave);
@@ -245,7 +262,7 @@ namespace QuickMon
             this.openMonitorPackToolStripButton.Name = "openMonitorPackToolStripButton";
             this.openMonitorPackToolStripButton.Size = new System.Drawing.Size(32, 32);
             this.openMonitorPackToolStripButton.Text = "Monitor Pack Actions";
-            this.openMonitorPackToolStripButton.ToolTipText = "Monitor pack Actions (Ctrl + O)";
+            this.openMonitorPackToolStripButton.ToolTipText = "Open monitor pack file (Ctrl + O)";
             this.openMonitorPackToolStripButton.Click += new System.EventHandler(this.openMonitorPackToolStripButton_ButtonClick);
             // 
             // recentMonitorPackToolStripMenuItem2
@@ -269,6 +286,7 @@ namespace QuickMon
             this.saveAsMonitorPackToolStripMenuItem.Name = "saveAsMonitorPackToolStripMenuItem";
             this.saveAsMonitorPackToolStripMenuItem.Size = new System.Drawing.Size(44, 32);
             this.saveAsMonitorPackToolStripMenuItem.Text = "Save Monitor Pack";
+            this.saveAsMonitorPackToolStripMenuItem.ToolTipText = "Save monitor pack";
             this.saveAsMonitorPackToolStripMenuItem.ButtonClick += new System.EventHandler(this.saveAsMonitorPackToolStripMenuItem_ButtonClick);
             this.saveAsMonitorPackToolStripMenuItem.Click += new System.EventHandler(this.saveAsMonitorPackToolStripMenuItem_Click);
             // 
@@ -1161,6 +1179,7 @@ namespace QuickMon
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem manageTemplatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton agentsToolStripButton;
+        private System.Windows.Forms.Button cmdRecentMonitorPacks;
     }
 }
 

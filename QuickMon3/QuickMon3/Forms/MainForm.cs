@@ -66,10 +66,9 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //extrasToolStrip.Left = mainToolStrip.Width+5;
-
             cboRecentMonitorPacks.Visible = false;
-            //LoadRecentMonitorPackList();
+            cmdRecentMonitorPacks.Visible = false;
+            recentMonitorPackToolStripMenuItem2.Visible = false;
             lblNoNotifiersYet.Dock = DockStyle.Fill;
             popedContainerForTreeView.cmdCopy.Enabled = false;
             popedContainerForTreeView.cmdPaste.Enabled = false;
@@ -279,12 +278,10 @@ namespace QuickMon
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
             PausePolling(true);
-            //bool timerEnabled = mainRefreshTimer.Enabled;
             HideCollectorContextMenu();
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
             generalSettings.PollingEnabled = timerEnabled;
-            mainRefreshTimer.Enabled = false; //temporary stops timer.
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadRecentMonitorPackList();
@@ -296,7 +293,6 @@ namespace QuickMon
                 timerEnabled = generalSettings.PollingEnabled;                
             }
             ResumePolling();
-            //SetPollingFrequency(timerEnabled);
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -776,9 +772,10 @@ namespace QuickMon
                         }
                     }
                 }
-                mainRefreshTimer.Enabled = false;
+                PausePolling(true);
                 try
                 {
+                    WaitForPollingToFinish(5);
                     monitorPack.CollectorCurrentStateReported -= monitorPack_CollectorCurrentStateReported;
                     monitorPack.CollecterLoading -= monitorPack_CollecterLoading;
                     monitorPack.OnNotifierError -= monitorPack_RaiseNotifierError;
@@ -828,9 +825,23 @@ namespace QuickMon
                 AddMonitorPackFileToRecentList(monitorPackPath);
 
                 lblNoNotifiersYet.Visible = monitorPack.Notifiers.Count == 0;
-                SetPollingFrequency(true);
+                ResumePolling();
                 monitorPackChanged = false;
                 UpdateAppTitle();
+            }
+        }
+
+        private void WaitForPollingToFinish(int secondsToWait)
+        {
+            if (monitorPack != null && monitorPack.BusyPolling)
+            {
+                monitorPack.AbortPolling = true;
+                DateTime abortStart = DateTime.Now;
+                while (monitorPack.BusyPolling && abortStart.AddSeconds(secondsToWait) > DateTime.Now)
+                {
+                    Application.DoEvents();
+                    Cursor.Current = Cursors.WaitCursor;
+                }                
             }
         }        
 
@@ -923,7 +934,10 @@ namespace QuickMon
         {
             TreeNode collectorNode;
             if (collector.IsFolder)
+            {
                 collectorNode = new TreeNode(collector.Name, 1, 1);
+                collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            }
             else
                 collectorNode = new TreeNode(collector.Name, 2, 2);
             collectorNode.Tag = collector;
@@ -1841,6 +1855,7 @@ namespace QuickMon
                         tvwCollectors.SelectedNode.ImageIndex = collectorNAstateImage;
                         tvwCollectors.SelectedNode.SelectedImageIndex = collectorNAstateImage;
                     }
+                    DoAutoSave();
                 }
             }
             catch (Exception ex)
@@ -2024,11 +2039,10 @@ namespace QuickMon
         #region Refreshing
         private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
         {
-            bool timerEnabled = mainRefreshTimer.Enabled;
+            PausePolling();
             DateTime abortStart = DateTime.Now;
             try
             {
-                mainRefreshTimer.Enabled = false; //temporary stops it.
                 while (!forceUpdateNow && refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
                 {
                     Application.DoEvents();
@@ -2043,6 +2057,7 @@ namespace QuickMon
             finally
             {
                 mainRefreshTimer.Enabled = timerEnabled;
+                ResumePolling();
             }
         }
         private void refreshBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -2055,16 +2070,8 @@ namespace QuickMon
                 Cursor.Current = Cursors.WaitCursor;
                 if (monitorPack != null && monitorPack.Enabled)
                 {
-                    if (monitorPack.BusyPolling)
-                    {
-                        monitorPack.AbortPolling = true;
-                        DateTime abortStart = DateTime.Now;
-                        while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
-                        {
-                            Application.DoEvents();
-                        }
-                        Cursor.Current = Cursors.WaitCursor;
-                    }
+                    WaitForPollingToFinish(5);
+                    Cursor.Current = Cursors.WaitCursor;                    
 
                     tvwCollectors.Invoke((MethodInvoker)delegate
                     {
@@ -2302,6 +2309,7 @@ namespace QuickMon
             recentMonitorPacksHideTimer.Enabled = false;
             System.Threading.Thread.Sleep(100);
             cboRecentMonitorPacks.Visible = false;
+            cmdRecentMonitorPacks.Visible = false;
         }
         private void recentMonitorPacksPanel_MouseEnter(object sender, EventArgs e)
         {
@@ -2349,6 +2357,7 @@ namespace QuickMon
         {
             recentMonitorPacksShowTimer.Enabled = false;
             cboRecentMonitorPacks.Visible = true;
+            cmdRecentMonitorPacks.Visible = true;
         }
         private void llblMonitorPack_MouseEnter(object sender, EventArgs e)
         {

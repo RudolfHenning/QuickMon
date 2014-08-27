@@ -160,5 +160,19 @@ namespace QuickMon
             }
         }
 
+        private void lblMonitorPackPath_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SelectedMonitorPack != null && SelectedMonitorPack.MonitorPackPath.Length > 0 && System.IO.File.Exists(SelectedMonitorPack.MonitorPackPath))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + SelectedMonitorPack.MonitorPackPath);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
     }
 }

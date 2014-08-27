@@ -40,7 +40,7 @@
             this.chkPinToStartMenu = new System.Windows.Forms.CheckBox();
             this.chkDesktopShortcut = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkPausePollingDuringEditConfig = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.chkOverridesMonitorPackFrequency = new System.Windows.Forms.CheckBox();
             this.freqSecTrackBar = new System.Windows.Forms.TrackBar();
@@ -48,26 +48,28 @@
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
             this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
             this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkPausePollingDuringEditConfig = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // concurrencyLevelNnumericUpDown
             // 
-            this.concurrencyLevelNnumericUpDown.Location = new System.Drawing.Point(316, 19);
+            this.concurrencyLevelNnumericUpDown.Location = new System.Drawing.Point(104, 100);
             this.concurrencyLevelNnumericUpDown.Maximum = new decimal(new int[] {
             32,
             0,
@@ -80,7 +82,7 @@
             0});
             this.concurrencyLevelNnumericUpDown.Name = "concurrencyLevelNnumericUpDown";
             this.concurrencyLevelNnumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.concurrencyLevelNnumericUpDown.TabIndex = 5;
+            this.concurrencyLevelNnumericUpDown.TabIndex = 8;
             this.concurrencyLevelNnumericUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -90,10 +92,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(212, 21);
+            this.label3.Location = new System.Drawing.Point(6, 102);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 7;
             this.label3.Text = "Concurrency level";
             // 
             // cmdCancel
@@ -101,10 +103,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 365);
+            this.cmdCancel.Location = new System.Drawing.Point(372, 221);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 5;
+            this.cmdCancel.TabIndex = 1;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -112,10 +114,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 365);
+            this.cmdOK.Location = new System.Drawing.Point(291, 221);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 4;
+            this.cmdOK.TabIndex = 0;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -123,7 +125,7 @@
             // chkSnapToDesktop
             // 
             this.chkSnapToDesktop.AutoSize = true;
-            this.chkSnapToDesktop.Location = new System.Drawing.Point(29, 19);
+            this.chkSnapToDesktop.Location = new System.Drawing.Point(15, 13);
             this.chkSnapToDesktop.Name = "chkSnapToDesktop";
             this.chkSnapToDesktop.Size = new System.Drawing.Size(131, 17);
             this.chkSnapToDesktop.TabIndex = 0;
@@ -133,7 +135,7 @@
             // chkAutosaveChanges
             // 
             this.chkAutosaveChanges.AutoSize = true;
-            this.chkAutosaveChanges.Location = new System.Drawing.Point(169, 19);
+            this.chkAutosaveChanges.Location = new System.Drawing.Point(155, 13);
             this.chkAutosaveChanges.Name = "chkAutosaveChanges";
             this.chkAutosaveChanges.Size = new System.Drawing.Size(118, 17);
             this.chkAutosaveChanges.TabIndex = 1;
@@ -175,52 +177,41 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.chkPinToTaskbar);
             this.groupBox1.Controls.Add(this.chkDesktopShortcut);
             this.groupBox1.Controls.Add(this.chkPinToStartMenu);
-            this.groupBox1.Location = new System.Drawing.Point(12, 220);
+            this.groupBox1.Location = new System.Drawing.Point(15, 36);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(409, 50);
+            this.groupBox1.Size = new System.Drawing.Size(412, 50);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Shortcuts";
             // 
-            // groupBox2
+            // chkPausePollingDuringEditConfig
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.chkPausePollingDuringEditConfig);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.chkOverridesMonitorPackFrequency);
-            this.groupBox2.Controls.Add(this.freqSecTrackBar);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.freqSecNumericUpDown);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.chkPollingEnabled);
-            this.groupBox2.Controls.Add(this.concurrencyLevelNnumericUpDown);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 70);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 144);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Polling";
+            this.chkPausePollingDuringEditConfig.AutoSize = true;
+            this.chkPausePollingDuringEditConfig.Checked = true;
+            this.chkPausePollingDuringEditConfig.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPausePollingDuringEditConfig.Location = new System.Drawing.Point(86, 138);
+            this.chkPausePollingDuringEditConfig.Name = "chkPausePollingDuringEditConfig";
+            this.chkPausePollingDuringEditConfig.Size = new System.Drawing.Size(229, 17);
+            this.chkPausePollingDuringEditConfig.TabIndex = 9;
+            this.chkPausePollingDuringEditConfig.Text = "Pause polling while editing config of agents";
+            this.chkPausePollingDuringEditConfig.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 93);
+            this.label4.Location = new System.Drawing.Point(102, 76);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(300, 13);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 6;
             this.label4.Text = "If Monitor pack has no frequency specified this setting is used.";
             // 
             // chkOverridesMonitorPackFrequency
             // 
             this.chkOverridesMonitorPackFrequency.AutoSize = true;
-            this.chkOverridesMonitorPackFrequency.Location = new System.Drawing.Point(144, 0);
+            this.chkOverridesMonitorPackFrequency.Location = new System.Drawing.Point(104, 6);
             this.chkOverridesMonitorPackFrequency.Name = "chkOverridesMonitorPackFrequency";
             this.chkOverridesMonitorPackFrequency.Size = new System.Drawing.Size(197, 17);
             this.chkOverridesMonitorPackFrequency.TabIndex = 1;
@@ -231,11 +222,12 @@
             // 
             this.freqSecTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
-            this.freqSecTrackBar.Maximum = 120;
+            this.freqSecTrackBar.BackColor = System.Drawing.Color.White;
+            this.freqSecTrackBar.Location = new System.Drawing.Point(205, 31);
+            this.freqSecTrackBar.Maximum = 300;
             this.freqSecTrackBar.Name = "freqSecTrackBar";
-            this.freqSecTrackBar.Size = new System.Drawing.Size(384, 45);
-            this.freqSecTrackBar.TabIndex = 6;
+            this.freqSecTrackBar.Size = new System.Drawing.Size(229, 45);
+            this.freqSecTrackBar.TabIndex = 5;
             this.freqSecTrackBar.TickFrequency = 5;
             this.freqSecTrackBar.Value = 10;
             this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
@@ -243,7 +235,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(150, 21);
+            this.label2.Location = new System.Drawing.Point(169, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 4;
@@ -251,9 +243,9 @@
             // 
             // freqSecNumericUpDown
             // 
-            this.freqSecNumericUpDown.Location = new System.Drawing.Point(85, 19);
+            this.freqSecNumericUpDown.Location = new System.Drawing.Point(104, 34);
             this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
-            120,
+            300,
             0,
             0,
             0});
@@ -275,7 +267,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 21);
+            this.label1.Location = new System.Drawing.Point(6, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 2;
@@ -286,23 +278,12 @@
             this.chkPollingEnabled.AutoSize = true;
             this.chkPollingEnabled.Checked = true;
             this.chkPollingEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPollingEnabled.Location = new System.Drawing.Point(64, 0);
+            this.chkPollingEnabled.Location = new System.Drawing.Point(6, 6);
             this.chkPollingEnabled.Name = "chkPollingEnabled";
             this.chkPollingEnabled.Size = new System.Drawing.Size(65, 17);
             this.chkPollingEnabled.TabIndex = 0;
             this.chkPollingEnabled.Text = "Enabled";
             this.chkPollingEnabled.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.chkSnapToDesktop);
-            this.groupBox3.Controls.Add(this.chkAutosaveChanges);
-            this.groupBox3.Location = new System.Drawing.Point(12, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(409, 52);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "General";
             // 
             // groupBox4
             // 
@@ -310,9 +291,9 @@
             this.groupBox4.Controls.Add(this.cmdEditQuickSelectTypeFilters);
             this.groupBox4.Controls.Add(this.txtRecentMonitorPackFilter);
             this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Location = new System.Drawing.Point(12, 278);
+            this.groupBox4.Location = new System.Drawing.Point(15, 92);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(409, 78);
+            this.groupBox4.Size = new System.Drawing.Size(412, 78);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Recent Montor pack file list";
@@ -355,28 +336,60 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Quick select Type Filters (csv)";
             // 
-            // chkPausePollingDuringEditConfig
+            // tabControl1
             // 
-            this.chkPausePollingDuringEditConfig.AutoSize = true;
-            this.chkPausePollingDuringEditConfig.Checked = true;
-            this.chkPausePollingDuringEditConfig.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPausePollingDuringEditConfig.Location = new System.Drawing.Point(14, 118);
-            this.chkPausePollingDuringEditConfig.Name = "chkPausePollingDuringEditConfig";
-            this.chkPausePollingDuringEditConfig.Size = new System.Drawing.Size(229, 17);
-            this.chkPausePollingDuringEditConfig.TabIndex = 8;
-            this.chkPausePollingDuringEditConfig.Text = "Pause polling while editing config of agents";
-            this.chkPausePollingDuringEditConfig.UseVisualStyleBackColor = true;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(7, 5);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(448, 210);
+            this.tabControl1.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.chkPausePollingDuringEditConfig);
+            this.tabPage1.Controls.Add(this.chkPollingEnabled);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.chkOverridesMonitorPackFrequency);
+            this.tabPage1.Controls.Add(this.freqSecTrackBar);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.freqSecNumericUpDown);
+            this.tabPage1.Controls.Add(this.concurrencyLevelNnumericUpDown);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(440, 184);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Polling";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.chkSnapToDesktop);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.chkAutosaveChanges);
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(440, 184);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Application";
             // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 400);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(459, 256);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -390,14 +403,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -414,12 +428,10 @@
         private System.Windows.Forms.CheckBox chkPinToStartMenu;
         private System.Windows.Forms.CheckBox chkDesktopShortcut;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox chkPollingEnabled;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown freqSecNumericUpDown;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TrackBar freqSecTrackBar;
         private System.Windows.Forms.CheckBox chkOverridesMonitorPackFrequency;
         private System.Windows.Forms.Label label4;
@@ -430,5 +442,8 @@
         private System.Windows.Forms.Button cmdEditQuickSelectTypeFilters;
         private System.Windows.Forms.CheckBox chkDisplayFullPathForQuickRecentEntries;
         private System.Windows.Forms.CheckBox chkPausePollingDuringEditConfig;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
