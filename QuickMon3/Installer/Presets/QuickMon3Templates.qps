@@ -195,4 +195,51 @@ else {
 </config>
 
 </preset>
+<preset class="PowerShellScriptRunnerCollector" description="All drive spaces including mount points">
+<config><powerShellScripts><powerShellScriptRunner name="Drive spaces including mount points" returnCheckSequence="EWG"><testScript>$drives = @{}
+$volumes = Get-WmiObject -Query "select * from Win32_Volume where DriveType = 3 and not(Caption like '\\%')" | select Caption, Capacity, FreeSpace
+foreach ($row in $volumes) {
+    $driveLetter = $row.Caption.Substring(0,3)
+    if($drives.ContainsKey($driveLetter))
+    {
+        $obj = $drives[$driveLetter]
+        $obj.Capacity += $row.Capacity
+        $obj.FreeSpace += $row.FreeSpace
+        $drives[$driveLetter] = $obj
+    }
+    else
+    {
+        $props = @{
+            'DriveLetter' = $driveLetter
+            'Capacity' = $row.Capacity
+            'FreeSpace' = $row.FreeSpace
+            'PercFree' = 0
+            'CapacityFormatted' = ''
+            'FreeSpaceFormatted' = ''
+            'Status' = ''
+        }
+        $obj = New-Object -TypeName PSObject -Property $props
+        $drives.Add($driveLetter,$obj)
+    }
+}
+#$drives.Values
+foreach($drive in $drives.Values){
+    $drive.PercFree = ((100.0 * $drive.FreeSpace) / $drive.Capacity).ToString("0.00")
+    $drive.CapacityFormatted = ($drive.Capacity / 1073741824).ToString("0.00 GB")
+    $drive.FreeSpaceFormatted = ($drive.FreeSpace / 1073741824).ToString("0.00 GB")
+    if ([int]$drive.PercFree -le 5) {
+        $drive.Status = 'Error'
+    }
+    else {
+        if ([int]$drive.PercFree -le 15){
+            $drive.Status = 'Warning'
+        }
+        else {
+            $drive.Status = 'OK'
+        }
+    }
+}
+$drives.Values | select DriveLetter, CapacityFormatted, FreeSpaceFormatted, PercFree, Status | Sort-Object DriveLetter
+</testScript><goodScript resultMatchType="Contains">[any]</goodScript><warningScript resultMatchType="Contains">Warning</warningScript><errorScript resultMatchType="Contains">Error</errorScript></powerShellScriptRunner></powerShellScripts></config>
+</preset>
 </qmpresets>
