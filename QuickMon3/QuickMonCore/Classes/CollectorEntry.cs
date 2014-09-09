@@ -283,6 +283,7 @@ namespace QuickMon
         public bool StagnantStateFirstRepeat { get; private set; }
         public bool StagnantStateSecondRepeat { get; private set; }
         public bool StagnantStateThirdRepeat { get; private set; }
+        public bool CurrentPollAborted { get; set; }
         #endregion
 
         #region Dynamic Config Variables
@@ -298,6 +299,7 @@ namespace QuickMon
         public MonitorState GetCurrentState(bool disablePollingOverrides = false)
         {
             RefreshCount++;
+            CurrentPollAborted = false;
             if (LastMonitorState == null)
                 LastMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
             if (CurrentState == null)
@@ -333,6 +335,7 @@ namespace QuickMon
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
                 {
                     //Not time yet for update
+                    CurrentPollAborted = true;
                 }
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding && 
                     (
@@ -344,6 +347,7 @@ namespace QuickMon
                    )
                 {
                     //Not time yet for update
+                    CurrentPollAborted = true;
                 }
                 else
                 {

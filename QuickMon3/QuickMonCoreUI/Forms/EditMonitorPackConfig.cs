@@ -67,10 +67,6 @@ namespace QuickMon
         {
             SetFrequency((int)freqSecNumericUpDown.Value);
         }
-        private void freqSecTrackBar_Scroll(object sender, EventArgs e)
-        {
-            SetFrequency(freqSecTrackBar.Value);
-        }
         #endregion
 
         #region Button events
@@ -133,7 +129,7 @@ namespace QuickMon
                     freqSecNumericUpDown.Value = frequency;
                 else
                     freqSecNumericUpDown.Value = 10;
-                freqSecTrackBar.Value = (int)freqSecNumericUpDown.Value;
+                //freqSecTrackBar.Value = (int)freqSecNumericUpDown.Value;
                 freChanging = false;
             }
         } 

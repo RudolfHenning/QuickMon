@@ -42,7 +42,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.freqSecTrackBar = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -52,7 +51,6 @@
             this.llblEditConfigVars = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,7 +59,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(312, 281);
+            this.cmdCancel.Location = new System.Drawing.Point(312, 246);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 14;
@@ -73,7 +71,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(231, 281);
+            this.cmdOK.Location = new System.Drawing.Point(231, 246);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 13;
@@ -104,7 +102,7 @@
             // 
             this.chkEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.Location = new System.Drawing.Point(12, 285);
+            this.chkEnabled.Location = new System.Drawing.Point(12, 250);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(65, 17);
             this.chkEnabled.TabIndex = 11;
@@ -177,13 +175,12 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.freqSecTrackBar);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.freqSecNumericUpDown);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Location = new System.Drawing.Point(15, 143);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(372, 110);
+            this.groupBox2.Size = new System.Drawing.Size(372, 72);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Polling";
@@ -191,23 +188,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 84);
+            this.label4.Location = new System.Drawing.Point(85, 42);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(229, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "If frequency = 0 then application setting is used";
-            // 
-            // freqSecTrackBar
-            // 
-            this.freqSecTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.freqSecTrackBar.Location = new System.Drawing.Point(19, 45);
-            this.freqSecTrackBar.Maximum = 300;
-            this.freqSecTrackBar.Name = "freqSecTrackBar";
-            this.freqSecTrackBar.Size = new System.Drawing.Size(347, 45);
-            this.freqSecTrackBar.TabIndex = 3;
-            this.freqSecTrackBar.TickFrequency = 5;
-            this.freqSecTrackBar.Scroll += new System.EventHandler(this.freqSecTrackBar_Scroll);
             // 
             // label5
             // 
@@ -222,7 +207,7 @@
             // 
             this.freqSecNumericUpDown.Location = new System.Drawing.Point(85, 19);
             this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
-            300,
+            900,
             0,
             0,
             0});
@@ -263,7 +248,7 @@
             // 
             this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblMonitorPackPath.Location = new System.Drawing.Point(10, 256);
+            this.lblMonitorPackPath.Location = new System.Drawing.Point(13, 218);
             this.lblMonitorPackPath.Name = "lblMonitorPackPath";
             this.lblMonitorPackPath.Size = new System.Drawing.Size(377, 20);
             this.lblMonitorPackPath.TabIndex = 14;
@@ -276,7 +261,7 @@
             this.llblEditConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblEditConfigVars.AutoSize = true;
             this.llblEditConfigVars.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblEditConfigVars.Location = new System.Drawing.Point(97, 286);
+            this.llblEditConfigVars.Location = new System.Drawing.Point(97, 251);
             this.llblEditConfigVars.Name = "llblEditConfigVars";
             this.llblEditConfigVars.Size = new System.Drawing.Size(125, 13);
             this.llblEditConfigVars.TabIndex = 12;
@@ -289,7 +274,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(399, 316);
+            this.ClientSize = new System.Drawing.Size(399, 281);
             this.Controls.Add(this.llblEditConfigVars);
             this.Controls.Add(this.lblMonitorPackPath);
             this.Controls.Add(this.txtType);
@@ -317,7 +302,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.freqSecTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -338,7 +322,6 @@
         private System.Windows.Forms.NumericUpDown collectorStateHistorySizeNumericUpDown;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TrackBar freqSecTrackBar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown freqSecNumericUpDown;
         private System.Windows.Forms.Label label6;

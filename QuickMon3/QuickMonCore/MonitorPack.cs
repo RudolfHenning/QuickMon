@@ -665,7 +665,7 @@ namespace QuickMon
                         });
                         PCRaiseNotifierAlertSend();
                     }
-                    else //otherwise raise only Debug info
+                    else if (!collector.CurrentPollAborted) //otherwise raise only Debug info only if CurrentPollAborted is false
                     {
                         RaiseCollectorStateChanged(AlertLevel.Debug, collector);
                         SendNotifierAlert(new AlertRaised()
@@ -700,15 +700,12 @@ namespace QuickMon
                             {
                                 RaiseRunCollectorRestorationScript(collector);
                             }
-
                         }
                     }
                     catch (Exception ex)
                     {
                         RaiseRaiseCollectorError(collector, ex.Message);
                     }
-
-                    //collector.LastMonitorState.State = currentState;
                 }
                 #endregion
 

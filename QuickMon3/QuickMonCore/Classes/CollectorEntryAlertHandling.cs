@@ -25,65 +25,70 @@ namespace QuickMon
             }
             else
             {
-                bool stateChanged = (LastMonitorState.State != CurrentState.State);
-
-                if (stateChanged)
-                {
-                    if (LastMonitorState.State == CollectorState.Good)
-                        numberOfPollingsInErrWarn = 0;
-
-                    if (DelayErrWarnAlertForXSec > 0 || DelayErrWarnAlertForXPolls > 0) // alert should be delayed
-                    {
-                        delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
-                        numberOfPollingsInErrWarn = 0;
-                        waitAlertTimeErrWarnInMinFlagged = true;
-                    }                    
-                    else
-                    {
-                        raiseAlert = true;
-                    }
-                }
+                if (CurrentPollAborted)
+                    raiseAlert = false;
                 else
                 {
-                    if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
+                    bool stateChanged = (LastMonitorState.State != CurrentState.State);
+
+                    if (stateChanged)
                     {
-                        if (DelayErrWarnAlertForXSec > 0 && DateTime.Now > delayErrWarnAlertTime)
-                        {
-                            raiseAlert = true;
-                            waitAlertTimeErrWarnInMinFlagged = false;
+                        if (LastMonitorState.State == CollectorState.Good)
                             numberOfPollingsInErrWarn = 0;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
-                        }
-                        else if (DelayErrWarnAlertForXPolls > 0 && DelayErrWarnAlertForXPolls <= numberOfPollingsInErrWarn)
+
+                        if (DelayErrWarnAlertForXSec > 0 || DelayErrWarnAlertForXPolls > 0) // alert should be delayed
                         {
-                            raiseAlert = true;
-                            waitAlertTimeErrWarnInMinFlagged = false;
+                            delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
                             numberOfPollingsInErrWarn = 0;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
+                            waitAlertTimeErrWarnInMinFlagged = true;
                         }
                         else
                         {
-                            raiseAlert = false;
+                            raiseAlert = true;
                         }
                     }
                     else
                     {
-
-                        if (
-                                (RepeatAlertInXMin > 0 && (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)) ||
-                                (RepeatAlertInXPolls > 0 && RepeatAlertInXPolls <= numberOfPollingsInErrWarn)
-                            )
+                        if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
                         {
-                            raiseAlert = true;
-                            numberOfPollingsInErrWarn = 0;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
+                            if (DelayErrWarnAlertForXSec > 0 && DateTime.Now > delayErrWarnAlertTime)
+                            {
+                                raiseAlert = true;
+                                waitAlertTimeErrWarnInMinFlagged = false;
+                                numberOfPollingsInErrWarn = 0;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else if (DelayErrWarnAlertForXPolls > 0 && DelayErrWarnAlertForXPolls <= numberOfPollingsInErrWarn)
+                            {
+                                raiseAlert = true;
+                                waitAlertTimeErrWarnInMinFlagged = false;
+                                numberOfPollingsInErrWarn = 0;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else
+                            {
+                                raiseAlert = false;
+                            }
                         }
                         else
                         {
-                            raiseAlert = false;
+
+                            if (
+                                    (RepeatAlertInXMin > 0 && (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)) ||
+                                    (RepeatAlertInXPolls > 0 && RepeatAlertInXPolls <= numberOfPollingsInErrWarn)
+                                )
+                            {
+                                raiseAlert = true;
+                                numberOfPollingsInErrWarn = 0;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else
+                            {
+                                raiseAlert = false;
+                            }
                         }
                     }
                 }
