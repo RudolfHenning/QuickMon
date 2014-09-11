@@ -220,5 +220,8 @@ Rearringed general settings dialog with tab control
 Double click on the monitorpack path in Edit Monitor pack config opens explorer with file selected
 Maxinum polling time in app/monitorpack is now 300 Secs
 Folder Collectors show in Bold text in TreeView
+
+v3.24
+Fix Polling override and alert suppression combination bug
 -------------------------------------------------------------------------------------------------------
 
