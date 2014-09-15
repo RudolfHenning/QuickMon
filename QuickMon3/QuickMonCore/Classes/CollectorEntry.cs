@@ -96,6 +96,8 @@ namespace QuickMon
                 initialConfiguration = value;
             }
         }
+        //derived config based on initialConfiguration with config vars applied
+        public string ActiveConfiguration { get; set; }
         #endregion
 
         #region Corrective Script related

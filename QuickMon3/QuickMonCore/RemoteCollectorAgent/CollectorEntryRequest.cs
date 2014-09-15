@@ -120,15 +120,15 @@ namespace QuickMon
             AlertOnceInXMin = fullEntry.AlertOnceInXMin;
             DelayErrWarnAlertForXSec = fullEntry.DelayErrWarnAlertForXSec;
 
-            string appliedConfig = fullEntry.InitialConfiguration;
-            if (fullEntry.ConfigVariables != null && fullEntry.ConfigVariables.Count > 0)
-            {
-                foreach (ConfigVariable vc in fullEntry.ConfigVariables)
-                    if (vc.Name.Length > 0)
-                        appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
-            }
+            //string appliedConfig = fullEntry.ActiveConfiguration;//.InitialConfiguration;
+            //if (fullEntry.ConfigVariables != null && fullEntry.ConfigVariables.Count > 0)
+            //{
+            //    foreach (ConfigVariable vc in fullEntry.ConfigVariables)
+            //        if (vc.Name.Length > 0)
+            //            appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
+            //}
 
-            ConfigString = appliedConfig;
+            ConfigString = fullEntry.ActiveConfiguration;// appliedConfig;
             //For remote agents the config variables have already been applied
             ConfigVarsString = "";
 

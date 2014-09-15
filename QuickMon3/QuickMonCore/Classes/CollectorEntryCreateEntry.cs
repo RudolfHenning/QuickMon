@@ -94,12 +94,14 @@ namespace QuickMon
             {
                 allConfigVars.AddRange(ConfigVariables.ToArray());
             }
+
             if (InitialConfiguration != null && InitialConfiguration.Length > 0)
                 Collector = CreateAndConfigureEntry(ra, InitialConfiguration, allConfigVars);
             else
             {
                 Collector = CreateAndConfigureEntry(ra, "", allConfigVars);
             }
+            ActiveConfiguration = Collector.AgentConfig.ToConfig();
             CollectorRegistrationDisplayName = ra.DisplayName;
         }
         /// <summary>
