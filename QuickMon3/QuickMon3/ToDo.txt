@@ -1,5 +1,6 @@
 ﻿CHANGES (considdered possible for next release)
 Collector stats history saved/persisted to disk... somehow...
+Multi instance service - like Event Scavenger
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -223,5 +224,8 @@ Folder Collectors show in Bold text in TreeView
 
 v3.24
 Fix Polling override and alert suppression combination bug
+
+v3.25
+Fix Monitor Config variables that did not apply to collectors running on a remote host 
 -------------------------------------------------------------------------------------------------------
 

@@ -121,11 +121,11 @@
             // 
             this.lblThree.AutoSize = true;
             this.lblThree.BackColor = System.Drawing.Color.Transparent;
-            this.lblThree.Font = new System.Drawing.Font("Segoe Print", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThree.Font = new System.Drawing.Font("Segoe Print", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblThree.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblThree.Location = new System.Drawing.Point(49, 40);
+            this.lblThree.Location = new System.Drawing.Point(34, 37);
             this.lblThree.Name = "lblThree";
-            this.lblThree.Size = new System.Drawing.Size(48, 57);
+            this.lblThree.Size = new System.Drawing.Size(72, 85);
             this.lblThree.TabIndex = 5;
             this.lblThree.Text = "3";
             this.lblThree.Click += new System.EventHandler(this.lblThree_Click);

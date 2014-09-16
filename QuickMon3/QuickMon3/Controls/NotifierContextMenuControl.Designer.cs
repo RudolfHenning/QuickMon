@@ -140,6 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.cmdDeleteNotifier);
             this.Controls.Add(this.cmdDisableNotifier);
             this.Controls.Add(this.cmdEditNotifier);
