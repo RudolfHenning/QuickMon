@@ -2,6 +2,7 @@
 Collector stats history saved/persisted to disk... somehow...
 Multi instance service - like Event Scavenger
 Check that HTTP Activation of WCF Services in Windows features is enabled (.Net 4.x)
+Add option to check collector directly (local run) if remote host connection fail (might be slower first time, only change run-time config - on next edit config set back)
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
