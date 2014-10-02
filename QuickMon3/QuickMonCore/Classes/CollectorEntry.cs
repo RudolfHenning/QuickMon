@@ -367,8 +367,26 @@ namespace QuickMon
                         catch (Exception ex)
                         {
                             CurrentState.Timestamp = DateTime.Now;
-                            CurrentState.State = CollectorState.Error;
-                            CurrentState.RawDetails = ex.ToString();
+                            if (ex.Message.Contains("There was no endpoint listening"))
+                            {
+                                //attempting to run locally
+                                try
+                                {
+                                    CurrentState = Collector.GetState();
+                                    
+                                }
+                                catch (Exception exLocal)
+                                {
+                                    CurrentState.State = CollectorState.Error;
+                                    CurrentState.RawDetails = exLocal.ToString();
+                                }
+                                CurrentState.RawDetails = "Remote excution failed. Attempting to run locally\r\n" + CurrentState.RawDetails;
+                            }
+                            else
+                            {
+                                CurrentState.State = CollectorState.Error;
+                                CurrentState.RawDetails = ex.ToString();
+                            }
                             CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                         }
                     }
@@ -381,8 +399,26 @@ namespace QuickMon
                         catch (Exception ex)
                         {
                             CurrentState.Timestamp = DateTime.Now;
-                            CurrentState.State = CollectorState.Error;
-                            CurrentState.RawDetails = ex.ToString();
+                            if (ex.Message.Contains("There was no endpoint listening"))
+                            {
+                                //attempting to run locally
+                                try
+                                {
+                                    CurrentState = Collector.GetState();
+
+                                }
+                                catch (Exception exLocal)
+                                {
+                                    CurrentState.State = CollectorState.Error;
+                                    CurrentState.RawDetails = exLocal.ToString();
+                                }
+                                CurrentState.RawDetails = "Remote excution failed. Attempting to run locally\r\n" + CurrentState.RawDetails;
+                            }
+                            else
+                            {
+                                CurrentState.State = CollectorState.Error;
+                                CurrentState.RawDetails = ex.ToString();
+                            }
                             CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                         }
                     }

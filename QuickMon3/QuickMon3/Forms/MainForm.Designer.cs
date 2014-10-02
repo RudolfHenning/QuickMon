@@ -326,7 +326,8 @@ namespace QuickMon
             this.removeNotifierToolStripMenuItem1,
             this.showDefaultNotifierToolStripMenuItem,
             this.showAllNotifiersToolStripMenuItem,
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.closeAllChildWindowsToolStripMenuItem});
             this.agentsToolStripButton.Image = global::QuickMon.Properties.Resources.cubes3;
             this.agentsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.agentsToolStripButton.Name = "agentsToolStripButton";
@@ -441,7 +442,6 @@ namespace QuickMon
             this.pollingToolStripMenuItem1,
             this.knownRemoteAgentsToolStripMenuItem,
             this.manageTemplatesToolStripMenuItem,
-            this.closeAllChildWindowsToolStripMenuItem,
             this.restartInAdminModeToolStripMenuItem});
             this.generalSettingsToolStripSplitButton1.Image = global::QuickMon.Properties.Resources.tools;
             this.generalSettingsToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;

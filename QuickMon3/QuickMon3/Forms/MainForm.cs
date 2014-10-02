@@ -68,6 +68,7 @@ namespace QuickMon
         {
             cboRecentMonitorPacks.Visible = false;
             cmdRecentMonitorPacks.Visible = false;
+            knownRemoteAgentsToolStripMenuItem.Visible = false;
             recentMonitorPackToolStripMenuItem2.Visible = false;
             lblNoNotifiersYet.Dock = DockStyle.Fill;
             popedContainerForTreeView.cmdCopy.Enabled = false;

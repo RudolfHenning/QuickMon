@@ -1,10 +1,8 @@
 ﻿CHANGES (considdered possible for next release)
-Collector stats history saved/persisted to disk... somehow...
-Multi instance service - like Event Scavenger
 Check that HTTP Activation of WCF Services in Windows features is enabled (.Net 4.x)
 Add option to check collector directly (local run) if remote host connection fail (might be slower first time, only change run-time config - on next edit config set back)
 Add Notifier 'Service Windows' so notifier only sends/records alerts at specified times.
-Add some kind of 'hash' value in CollectorEntryRequest that remote host calls must pass so host can verify it is a valid request.
+  Seems to applyonly to server OSes
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -19,6 +17,9 @@ Detail views use dataset as source (so remote host stuff can work)
 Separate all UI components from Agents (so the Edit/View windows are in separate dll)
 Group presets (bundling presets with different types of agents)
 RAW edit of agent config must include 'Entry' config as well
+Multi instance service - like Event Scavenger
+Collector stats history saved/persisted to disk... somehow...
+Add some kind of 'hash' value in CollectorEntryRequest that remote host calls must pass so host can verify it is a valid request.
 
 --------------------------------------------------------------------------------------------------------
 BIG CHANGES (somewhere in future)
@@ -231,5 +232,8 @@ Fix Polling override and alert suppression combination bug
 
 v3.25
 Fix Monitor Config variables that did not apply to collectors running on a remote host 
+
+v3.26
+Combine application Settings and remote host dialog
 -------------------------------------------------------------------------------------------------------
 
