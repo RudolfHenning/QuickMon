@@ -593,11 +593,11 @@ namespace QuickMon
                     {
                         ApplyCollectorConfig(collector);
                     }
-
-                    if (disablePollingOverrides)
-                        currentState = collector.GetCurrentState(true).State;
-                    else
-                        currentState = collector.GetCurrentState().State;
+                    currentState = collector.GetCurrentState(disablePollingOverrides).State;
+                    //if (disablePollingOverrides)
+                    //    currentState = collector.GetCurrentState(true).State;
+                    //else
+                        
 
                     if (currentState == CollectorState.Good ||
                         currentState == CollectorState.Warning ||

@@ -358,54 +358,24 @@ namespace QuickMon
                     LastMonitorState = CurrentState.Clone();                    
                     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                     sw.Start();
-                    if (EnableRemoteExecute)
-                    {
-                        try
-                        {
-                            CurrentState = CollectorEntryRelay.GetRemoteAgentState(this);
-                        }
-                        catch (Exception ex)
-                        {
-                            CurrentState.Timestamp = DateTime.Now;
-                            if (ex.Message.Contains("There was no endpoint listening"))
-                            {
-                                //attempting to run locally
-                                try
-                                {
-                                    CurrentState = Collector.GetState();
-                                    
-                                }
-                                catch (Exception exLocal)
-                                {
-                                    CurrentState.State = CollectorState.Error;
-                                    CurrentState.RawDetails = exLocal.ToString();
-                                }
-                                CurrentState.RawDetails = "Remote excution failed. Attempting to run locally\r\n" + CurrentState.RawDetails;
-                            }
-                            else
-                            {
-                                CurrentState.State = CollectorState.Error;
-                                CurrentState.RawDetails = ex.ToString();
-                            }
-                            CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
-                        }
-                    }
-                    else if (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)
-                    {
-                        try
-                        {
-                            CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
-                        }
-                        catch (Exception ex)
-                        {
-                            CurrentState.Timestamp = DateTime.Now;
-                            if (ex.Message.Contains("There was no endpoint listening"))
-                            {
-                                //attempting to run locally
-                                try
-                                {
-                                    CurrentState = Collector.GetState();
 
+                    if (EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings))
+                    {
+                        string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+                        int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
+                        try
+                        {
+                            CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, currentHostAddress, currentHostPort);
+                        }
+                        catch (Exception ex)
+                        {
+                            CurrentState.Timestamp = DateTime.Now;
+                            if (ex.Message.Contains("There was no endpoint listening"))
+                            {
+                                //attempting to run locally
+                                try
+                                {
+                                    CurrentState = Collector.GetState();
                                 }
                                 catch (Exception exLocal)
                                 {
@@ -422,6 +392,69 @@ namespace QuickMon
                             CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                         }
                     }
+
+                    //if (EnableRemoteExecute)
+                    //{
+                    //    try
+                    //    {
+                    //        CurrentState = CollectorEntryRelay.GetRemoteAgentState(this);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        CurrentState.Timestamp = DateTime.Now;
+                    //        if (ex.Message.Contains("There was no endpoint listening"))
+                    //        {
+                    //            //attempting to run locally
+                    //            try
+                    //            {
+                    //                CurrentState = Collector.GetState();                                    
+                    //            }
+                    //            catch (Exception exLocal)
+                    //            {
+                    //                CurrentState.State = CollectorState.Error;
+                    //                CurrentState.RawDetails = exLocal.ToString();
+                    //            }
+                    //            CurrentState.RawDetails = "Remote excution failed. Attempting to run locally\r\n" + CurrentState.RawDetails;
+                    //        }
+                    //        else
+                    //        {
+                    //            CurrentState.State = CollectorState.Error;
+                    //            CurrentState.RawDetails = ex.ToString();
+                    //        }
+                    //        CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                    //    }
+                    //}
+                    //else if (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)
+                    //{
+                    //    try
+                    //    {
+                    //        CurrentState = CollectorEntryRelay.GetRemoteAgentState(this, OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        CurrentState.Timestamp = DateTime.Now;
+                    //        if (ex.Message.Contains("There was no endpoint listening"))
+                    //        {
+                    //            //attempting to run locally
+                    //            try
+                    //            {
+                    //                CurrentState = Collector.GetState();
+                    //            }
+                    //            catch (Exception exLocal)
+                    //            {
+                    //                CurrentState.State = CollectorState.Error;
+                    //                CurrentState.RawDetails = exLocal.ToString();
+                    //            }
+                    //            CurrentState.RawDetails = "Remote excution failed. Attempting to run locally\r\n" + CurrentState.RawDetails;
+                    //        }
+                    //        else
+                    //        {
+                    //            CurrentState.State = CollectorState.Error;
+                    //            CurrentState.RawDetails = ex.ToString();
+                    //        }
+                    //        CurrentState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                    //    }
+                    //}
                     else //Use LOCAL execution
                     {
                         CurrentState = Collector.GetState();
