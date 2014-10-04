@@ -134,6 +134,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chkExpandOnStart = new System.Windows.Forms.CheckBox();
+            this.chkRunLocalOnRemoteHostConnectionFailure = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -787,6 +788,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chkRunLocalOnRemoteHostConnectionFailure);
             this.groupBox2.Controls.Add(this.chkBlockParentRHOverride);
             this.groupBox2.Controls.Add(this.chkForceRemoteExcuteOnChildCollectors);
             this.groupBox2.Controls.Add(this.llblRemoteAgentInstallHelp);
@@ -807,20 +809,20 @@
             // chkBlockParentRHOverride
             // 
             this.chkBlockParentRHOverride.AutoSize = true;
-            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(322, 23);
+            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(28, 50);
             this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
             this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
-            this.chkBlockParentRHOverride.TabIndex = 4;
+            this.chkBlockParentRHOverride.TabIndex = 9;
             this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
             this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
             // 
             // chkForceRemoteExcuteOnChildCollectors
             // 
             this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
-            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(177, 23);
+            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(256, 0);
             this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
             this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
-            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 3;
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
             this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
             this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = true;
             this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -833,7 +835,7 @@
             this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(494, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 1;
+            this.llblRemoteAgentInstallHelp.TabIndex = 3;
             this.llblRemoteAgentInstallHelp.TabStop = true;
             this.llblRemoteAgentInstallHelp.Text = "Install help";
             this.llblRemoteAgentInstallHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRemoteAgentInstallHelp_LinkClicked);
@@ -852,10 +854,10 @@
             // chkRemoteAgentEnabled
             // 
             this.chkRemoteAgentEnabled.AutoSize = true;
-            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(25, 23);
+            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(108, 0);
             this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
             this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
-            this.chkRemoteAgentEnabled.TabIndex = 2;
+            this.chkRemoteAgentEnabled.TabIndex = 1;
             this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
             this.chkRemoteAgentEnabled.UseVisualStyleBackColor = true;
             this.chkRemoteAgentEnabled.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
@@ -864,7 +866,7 @@
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remoteportNumericUpDown.Enabled = false;
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(372, 49);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(372, 24);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -877,7 +879,7 @@
             0});
             this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
-            this.remoteportNumericUpDown.TabIndex = 8;
+            this.remoteportNumericUpDown.TabIndex = 7;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
             8181,
             0,
@@ -887,20 +889,20 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 51);
+            this.label13.Location = new System.Drawing.Point(15, 26);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(105, 13);
-            this.label13.TabIndex = 5;
+            this.label13.TabIndex = 4;
             this.label13.Text = "Remote server name";
             // 
             // label14
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(340, 51);
+            this.label14.Location = new System.Drawing.Point(340, 26);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
-            this.label14.TabIndex = 7;
+            this.label14.TabIndex = 6;
             this.label14.Text = "Port";
             // 
             // txtRemoteAgentServer
@@ -910,10 +912,10 @@
             this.txtRemoteAgentServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtRemoteAgentServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRemoteAgentServer.Enabled = false;
-            this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 48);
+            this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
             this.txtRemoteAgentServer.Size = new System.Drawing.Size(196, 20);
-            this.txtRemoteAgentServer.TabIndex = 6;
+            this.txtRemoteAgentServer.TabIndex = 5;
             this.txtRemoteAgentServer.Leave += new System.EventHandler(this.txtRemoteAgentServer_Leave);
             // 
             // cmdRemoteAgentTest
@@ -921,10 +923,10 @@
             this.cmdRemoteAgentTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoteAgentTest.Enabled = false;
             this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 46);
+            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(485, 21);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
-            this.cmdRemoteAgentTest.TabIndex = 9;
+            this.cmdRemoteAgentTest.TabIndex = 8;
             this.cmdRemoteAgentTest.Text = "Test";
             this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
             this.cmdRemoteAgentTest.Click += new System.EventHandler(this.cmdRemoteAgentTest_Click);
@@ -1392,6 +1394,16 @@
             this.chkExpandOnStart.Text = "Expand on start";
             this.chkExpandOnStart.UseVisualStyleBackColor = true;
             // 
+            // chkRunLocalOnRemoteHostConnectionFailure
+            // 
+            this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
+            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 53);
+            this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
+            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
+            this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
+            this.chkRunLocalOnRemoteHostConnectionFailure.Text = "Run locally if remote host connection fails";
+            this.chkRunLocalOnRemoteHostConnectionFailure.UseVisualStyleBackColor = true;
+            // 
             // EditCollectorConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1561,5 +1573,6 @@
         private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
         private System.Windows.Forms.LinkLabel llblEditConfigVars;
         private System.Windows.Forms.CheckBox chkExpandOnStart;
+        private System.Windows.Forms.CheckBox chkRunLocalOnRemoteHostConnectionFailure;
     }
 }

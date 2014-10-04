@@ -68,6 +68,7 @@ namespace QuickMon.Forms
                     txtRemoteAgentServer.Text = currentEditingEntry.RemoteAgentHostAddress;
                     remoteportNumericUpDown.SaveValueSet(currentEditingEntry.RemoteAgentHostPort);
                     chkBlockParentRHOverride.Checked = currentEditingEntry.BlockParentOverrideRemoteAgentHostSettings;
+                    chkRunLocalOnRemoteHostConnectionFailure.Checked = currentEditingEntry.RunLocalOnRemoteHostConnectionFailure;
 
                     try
                     {
@@ -608,6 +609,7 @@ namespace QuickMon.Forms
             SelectedEntry.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
             SelectedEntry.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
             SelectedEntry.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
+            SelectedEntry.RunLocalOnRemoteHostConnectionFailure = chkRunLocalOnRemoteHostConnectionFailure.Checked;
             if (chkRemoteAgentEnabled.Checked && SelectedEntry.RemoteAgentHostAddress.Length > 0)
             {
                 if (KnownRemoteHosts == null)

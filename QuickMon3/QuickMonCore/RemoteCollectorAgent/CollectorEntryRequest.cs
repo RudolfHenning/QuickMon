@@ -90,6 +90,7 @@ namespace QuickMon
                 "", //for Remote Agent there is no further nested Remote host.
                 8181, //for Remote Agent there is no further nested Remote host.
                 false,//for Remote Agent there is no need for blocking of parent host override.
+                false, //no running 'locally' if connection fails - since this instance is already on remote host
 
                 false, //enabledPollingOverride not used in Remote collectors
                 1, //onlyAllowUpdateOncePerXSec not used in Remote collectors

@@ -3,12 +3,13 @@
   repeatAlertInXPolls="{11}" alertOnceInXPolls="{12}" delayErrWarnAlertForXPolls="{13}"
   correctiveScriptDisabled="{14}" correctiveScriptOnWarningPath="{15}" correctiveScriptOnErrorPath="{16}" restorationScriptPath="{17}" correctiveScriptsOnlyOnStateChange="{18}"
   enableRemoteExecute="{19}" forceRemoteExcuteOnChildCollectors="{20}" remoteAgentHostAddress="{21}" remoteAgentHostPort="{22}" blockParentRemoteAgentHostSettings="{23}"
-  enabledPollingOverride="{24}" onlyAllowUpdateOncePerXSec="{25}" enablePollFrequencySliding="{26}"
-  pollSlideFrequencyAfterFirstRepeatSec="{27}" pollSlideFrequencyAfterSecondRepeatSec="{28}" pollSlideFrequencyAfterThirdRepeatSec="{29}">
+  runLocalOnRemoteHostConnectionFailure="{24}"
+  enabledPollingOverride="{25}" onlyAllowUpdateOncePerXSec="{26}" enablePollFrequencySliding="{27}"
+  pollSlideFrequencyAfterFirstRepeatSec="{28}" pollSlideFrequencyAfterSecondRepeatSec="{29}" pollSlideFrequencyAfterThirdRepeatSec="{30}">
   <!-- custom config -->
-  {30}
-  <!-- ServiceWindows -->
   {31}
-  <!-- Config variables -->
+  <!-- ServiceWindows -->
   {32}
+  <!-- Config variables -->
+  {33}
 </collectorEntry>

@@ -273,6 +273,10 @@ namespace QuickMon
         /// If set to true any override remote agent host settings are ignored for THIS collector (but still applies to grandchildren of parent)
         /// </summary>
         public bool BlockParentOverrideRemoteAgentHostSettings { get; set; }
+        /// <summary>
+        /// If enabled - if connection to remote host (WCF) fails the collector will be run locally as a backup
+        /// </summary>
+        public bool RunLocalOnRemoteHostConnectionFailure { get; set; }
         #endregion
 
         #region Polling override
@@ -370,7 +374,7 @@ namespace QuickMon
                         catch (Exception ex)
                         {
                             CurrentState.Timestamp = DateTime.Now;
-                            if (ex.Message.Contains("There was no endpoint listening"))
+                            if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
                             {
                                 //attempting to run locally
                                 try

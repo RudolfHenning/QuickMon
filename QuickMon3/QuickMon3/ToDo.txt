@@ -1,6 +1,5 @@
 ﻿CHANGES (considdered possible for next release)
 Check that HTTP Activation of WCF Services in Windows features is enabled (.Net 4.x)
-Add option to check collector directly (local run) if remote host connection fail (might be slower first time, only change run-time config - on next edit config set back)
 Add Notifier 'Service Windows' so notifier only sends/records alerts at specified times.
   Seems to applyonly to server OSes
 
@@ -235,5 +234,6 @@ Fix Monitor Config variables that did not apply to collectors running on a remot
 
 v3.26
 Combine application Settings and remote host dialog
+Add option to check collector directly (local run) if remote host connection fail (might be slower first time, only change run-time config - on next edit config set back)
 -------------------------------------------------------------------------------------------------------
 

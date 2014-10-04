@@ -45,6 +45,7 @@ namespace QuickMon
             collectorEntry.RemoteAgentHostAddress = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostAddress");
             collectorEntry.RemoteAgentHostPort = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostPort", 8181);
             collectorEntry.BlockParentOverrideRemoteAgentHostSettings = xmlCollectorEntry.ReadXmlElementAttr("blockParentRemoteAgentHostSettings", false);
+            collectorEntry.RunLocalOnRemoteHostConnectionFailure = xmlCollectorEntry.ReadXmlElementAttr("runLocalOnRemoteHostConnectionFailure", false);
 
             //Polling overrides
             collectorEntry.EnabledPollingOverride = xmlCollectorEntry.ReadXmlElementAttr("enabledPollingOverride", false);
@@ -141,6 +142,7 @@ namespace QuickMon
                 RemoteAgentHostAddress,
                 RemoteAgentHostPort,
                 BlockParentOverrideRemoteAgentHostSettings,
+                RunLocalOnRemoteHostConnectionFailure,
 
                 EnabledPollingOverride,
                 OnlyAllowUpdateOncePerXSec,
@@ -199,6 +201,7 @@ namespace QuickMon
                 string remoteAgentHostAddress,
                 int remoteAgentHostPort,
                 bool blockParentOverrideRemoteAgentHostSettings,
+                bool runLocalOnRemoteHostConnectionFailure,
                 bool enabledPollingOverride,
                 int onlyAllowUpdateOncePerXSec,
                 bool enablePollFrequencySliding,
@@ -230,6 +233,7 @@ namespace QuickMon
                 remoteAgentHostAddress,
                 remoteAgentHostPort,
                 blockParentOverrideRemoteAgentHostSettings,
+                runLocalOnRemoteHostConnectionFailure,
                 enabledPollingOverride,
                 onlyAllowUpdateOncePerXSec,
                 enablePollFrequencySliding,
