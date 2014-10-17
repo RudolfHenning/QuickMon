@@ -98,6 +98,7 @@ namespace QuickMon
                 0, //pollSlideFrequencyAfterFirstRepeatSec not used in Remote collectors
                 0, //pollSlideFrequencyAfterSecondRepeatSec not used in Remote collectors
                 0, //pollSlideFrequencyAfterThirdRepeatSec not used in Remote collectors
+                false, // alertPause not used by remote collectors (alerts raised by caller)
 
                 ConfigString,
                 "",  //No service windows for remote agent
@@ -121,31 +122,9 @@ namespace QuickMon
             AlertOnceInXMin = fullEntry.AlertOnceInXMin;
             DelayErrWarnAlertForXSec = fullEntry.DelayErrWarnAlertForXSec;
 
-            //string appliedConfig = fullEntry.ActiveConfiguration;//.InitialConfiguration;
-            //if (fullEntry.ConfigVariables != null && fullEntry.ConfigVariables.Count > 0)
-            //{
-            //    foreach (ConfigVariable vc in fullEntry.ConfigVariables)
-            //        if (vc.Name.Length > 0)
-            //            appliedConfig = appliedConfig.Replace(vc.Name, vc.Value);
-            //}
-
             ConfigString = fullEntry.ActiveConfiguration;// appliedConfig;
             //For remote agents the config variables have already been applied
             ConfigVarsString = "";
-
-            //if (fullEntry.ConfigVariables != null)
-            //{
-            //    StringBuilder configVarXml = new StringBuilder();
-            //    configVarXml.AppendLine("<configVar>");
-            //    foreach (ConfigVariable cv in fullEntry.ConfigVariables)
-            //    {
-            //        configVarXml.AppendLine(cv.ToXml());
-            //    }
-            //    configVarXml.AppendLine("</configVar>");
-            //    ConfigVarsString = configVarXml.ToString();
-            //}
-            //else
-            //    ConfigVarsString = "";
         }
     }
 }

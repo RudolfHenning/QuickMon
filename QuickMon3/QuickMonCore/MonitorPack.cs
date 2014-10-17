@@ -882,47 +882,52 @@ namespace QuickMon
             {
                 alertRaised.RaisedFor.CurrentState.AlertsRaised = new List<string>();
             }
-            foreach (NotifierEntry notifierEntry in (from n in Notifiers
-                                                     where n.Enabled && (int)n.AlertLevel <= (int)alertRaised.Level &&
-                                                        (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
-                                                        (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name))
-                                                     select n))
+            if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.AlertsPaused)
             {
-                try
+                //alertRaised.State.RawDetails += "\r\nAlerts are paused for this collector.";
+                //alertRaised.RaisedFor.CurrentState.AlertsRaised.Add("Alerts are paused for this collector");
+            }
+            else
+            {
+                foreach (NotifierEntry notifierEntry in (from n in Notifiers
+                                                         where n.Enabled && (int)n.AlertLevel <= (int)alertRaised.Level &&
+                                                            (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
+                                                            (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name))
+                                                         select n))
                 {
-                    bool allowedToRun = true;
-
-
-
-                    if (RunningAttended == AttendedOption.AttendedAndUnAttended) //no Attended option set on MonitorPack
+                    try
                     {
-                        allowedToRun = true;
-                    }
-                    else if (RunningAttended == AttendedOption.OnlyAttended) //Running in Attended mode
-                    {
-                        if (notifierEntry.Notifier.AttendedRunOption == AttendedOption.OnlyUnAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyUnAttended)
-                            allowedToRun = false;
-                    }
-                    else //unattended mode
-                    {
-                        if (notifierEntry.Notifier.AttendedRunOption == AttendedOption.OnlyAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyAttended)
-                            allowedToRun = false;
-                    }                    
-
-                    if (allowedToRun)
-                    {
-                        PCRaiseNotifiersCalled();
-                        notifierEntry.Notifier.RecordMessage(alertRaised);
-                        if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null && notifierEntry.Notifier.AgentConfig != null)
+                        bool allowedToRun = true;
+                        if (RunningAttended == AttendedOption.AttendedAndUnAttended) //no Attended option set on MonitorPack
                         {
-                            string configSummary = ((INotifierConfig)notifierEntry.Notifier.AgentConfig).ConfigSummary;
-                            alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(string.Format("{0} ({1}) {2}", notifierEntry.Name, notifierEntry.NotifierRegistrationName, configSummary));
+                            allowedToRun = true;
+                        }
+                        else if (RunningAttended == AttendedOption.OnlyAttended) //Running in Attended mode
+                        {
+                            if (notifierEntry.Notifier.AttendedRunOption == AttendedOption.OnlyUnAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyUnAttended)
+                                allowedToRun = false;
+                        }
+                        else //unattended mode
+                        {
+                            if (notifierEntry.Notifier.AttendedRunOption == AttendedOption.OnlyAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyAttended)
+                                allowedToRun = false;
+                        }
+
+                        if (allowedToRun)
+                        {
+                            PCRaiseNotifiersCalled();
+                            notifierEntry.Notifier.RecordMessage(alertRaised);
+                            if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null && notifierEntry.Notifier.AgentConfig != null)
+                            {
+                                string configSummary = ((INotifierConfig)notifierEntry.Notifier.AgentConfig).ConfigSummary;
+                                alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(string.Format("{0} ({1}) {2}", notifierEntry.Name, notifierEntry.NotifierRegistrationName, configSummary));
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    RaiseRaiseNotifierError(notifierEntry, ex.ToString());
+                    catch (Exception ex)
+                    {
+                        RaiseRaiseNotifierError(notifierEntry, ex.ToString());
+                    }
                 }
             }
             if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)

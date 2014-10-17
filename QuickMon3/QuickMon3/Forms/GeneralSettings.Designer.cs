@@ -58,7 +58,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPageRemoteHosts = new System.Windows.Forms.TabPage();
             this.cmdAdd = new System.Windows.Forms.Button();
+            this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
             this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
             this.label14 = new System.Windows.Forms.Label();
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.lblComputer = new System.Windows.Forms.Label();
@@ -72,8 +74,6 @@
             this.attemptToStartAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
-            this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
-            this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
@@ -410,6 +410,7 @@
             // 
             // tabPageRemoteHosts
             // 
+            this.tabPageRemoteHosts.BackColor = System.Drawing.Color.White;
             this.tabPageRemoteHosts.Controls.Add(this.cmdAdd);
             this.tabPageRemoteHosts.Controls.Add(this.llblFirewallRule);
             this.tabPageRemoteHosts.Controls.Add(this.remoteportNumericUpDown);
@@ -424,7 +425,6 @@
             this.tabPageRemoteHosts.Size = new System.Drawing.Size(440, 186);
             this.tabPageRemoteHosts.TabIndex = 2;
             this.tabPageRemoteHosts.Text = "Remote hosts";
-            this.tabPageRemoteHosts.UseVisualStyleBackColor = true;
             // 
             // cmdAdd
             // 
@@ -438,6 +438,19 @@
             this.cmdAdd.Text = "Add";
             this.cmdAdd.UseVisualStyleBackColor = true;
             this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
+            // 
+            // llblFirewallRule
+            // 
+            this.llblFirewallRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.llblFirewallRule.AutoSize = true;
+            this.llblFirewallRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblFirewallRule.Location = new System.Drawing.Point(222, 170);
+            this.llblFirewallRule.Name = "llblFirewallRule";
+            this.llblFirewallRule.Size = new System.Drawing.Size(212, 13);
+            this.llblFirewallRule.TabIndex = 7;
+            this.llblFirewallRule.TabStop = true;
+            this.llblFirewallRule.Text = "Add Remote Host Firewall rule for port 8181";
+            this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
             // 
             // remoteportNumericUpDown
             // 
@@ -461,6 +474,19 @@
             0,
             0,
             0});
+            // 
+            // llblLocalServiceRegistered
+            // 
+            this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblLocalServiceRegistered.AutoSize = true;
+            this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(6, 170);
+            this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
+            this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
+            this.llblLocalServiceRegistered.TabIndex = 6;
+            this.llblLocalServiceRegistered.TabStop = true;
+            this.llblLocalServiceRegistered.Text = "Register local \'Remote Agent/Service\'";
+            this.llblLocalServiceRegistered.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblLocalServiceRegistered_LinkClicked);
             // 
             // label14
             // 
@@ -580,32 +606,6 @@
             this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
             this.remoteHostStatusImageList.Images.SetKeyName(3, "GUnknown.ico");
             this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
-            // 
-            // llblFirewallRule
-            // 
-            this.llblFirewallRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.llblFirewallRule.AutoSize = true;
-            this.llblFirewallRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblFirewallRule.Location = new System.Drawing.Point(222, 170);
-            this.llblFirewallRule.Name = "llblFirewallRule";
-            this.llblFirewallRule.Size = new System.Drawing.Size(212, 13);
-            this.llblFirewallRule.TabIndex = 7;
-            this.llblFirewallRule.TabStop = true;
-            this.llblFirewallRule.Text = "Add Remote Host Firewall rule for port 8181";
-            this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
-            // 
-            // llblLocalServiceRegistered
-            // 
-            this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblLocalServiceRegistered.AutoSize = true;
-            this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(6, 170);
-            this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
-            this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
-            this.llblLocalServiceRegistered.TabIndex = 6;
-            this.llblLocalServiceRegistered.TabStop = true;
-            this.llblLocalServiceRegistered.Text = "Register local \'Remote Agent/Service\'";
-            this.llblLocalServiceRegistered.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblLocalServiceRegistered_LinkClicked);
             // 
             // refreshTimer
             // 

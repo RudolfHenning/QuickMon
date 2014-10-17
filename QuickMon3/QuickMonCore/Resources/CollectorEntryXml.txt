@@ -5,11 +5,12 @@
   enableRemoteExecute="{19}" forceRemoteExcuteOnChildCollectors="{20}" remoteAgentHostAddress="{21}" remoteAgentHostPort="{22}" blockParentRemoteAgentHostSettings="{23}"
   runLocalOnRemoteHostConnectionFailure="{24}"
   enabledPollingOverride="{25}" onlyAllowUpdateOncePerXSec="{26}" enablePollFrequencySliding="{27}"
-  pollSlideFrequencyAfterFirstRepeatSec="{28}" pollSlideFrequencyAfterSecondRepeatSec="{29}" pollSlideFrequencyAfterThirdRepeatSec="{30}">
+  pollSlideFrequencyAfterFirstRepeatSec="{28}" pollSlideFrequencyAfterSecondRepeatSec="{29}" pollSlideFrequencyAfterThirdRepeatSec="{30}"
+  alertsPaused="{31}" >
   <!-- custom config -->
-  {31}
-  <!-- ServiceWindows -->
   {32}
-  <!-- Config variables -->
+  <!-- ServiceWindows -->
   {33}
+  <!-- Config variables -->
+  {34}
 </collectorEntry>

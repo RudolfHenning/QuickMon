@@ -163,6 +163,10 @@ namespace QuickMon
                             stateHistory.RemoveAll(h => h.Timestamp < oldestDate.Value);
                         }
                     }
+#if DEBUG
+                    if (AlertsPaused)
+                        newState.RawDetails += "\r\n(Alerts are paused for this collector)";
+#endif
                     stateHistory.Add(newState);
                 }
             }
@@ -233,6 +237,10 @@ namespace QuickMon
         /// </summary>
         public int DelayErrWarnAlertForXSec { get; set; }
         public int DelayErrWarnAlertForXPolls { get; set; }
+
+        #region Alerts Paused (when alerting is temporarily disabled but child collectors can still be called when CollectOnParentWarning is on)
+        public bool AlertsPaused { get; set; }
+        #endregion
         #endregion
 
         #region Remote Execution
@@ -295,6 +303,7 @@ namespace QuickMon
         #region Dynamic Config Variables
         public List<ConfigVariable> ConfigVariables { get; set; }
         #endregion
+
         #endregion
 
         #region Refreshing state and getting alerts

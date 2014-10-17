@@ -82,6 +82,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkRunLocalOnRemoteHostConnectionFailure = new System.Windows.Forms.CheckBox();
             this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
             this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
             this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
@@ -134,7 +135,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chkExpandOnStart = new System.Windows.Forms.CheckBox();
-            this.chkRunLocalOnRemoteHostConnectionFailure = new System.Windows.Forms.CheckBox();
+            this.chkAlertsPaused = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -806,6 +807,16 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
+            // chkRunLocalOnRemoteHostConnectionFailure
+            // 
+            this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
+            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 53);
+            this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
+            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
+            this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
+            this.chkRunLocalOnRemoteHostConnectionFailure.Text = "Run locally if remote host connection fails";
+            this.chkRunLocalOnRemoteHostConnectionFailure.UseVisualStyleBackColor = true;
+            // 
             // chkBlockParentRHOverride
             // 
             this.chkBlockParentRHOverride.AutoSize = true;
@@ -1158,6 +1169,7 @@
             // 
             this.alertSuppressionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.alertSuppressionGroupBox.Controls.Add(this.chkAlertsPaused);
             this.alertSuppressionGroupBox.Controls.Add(this.label26);
             this.alertSuppressionGroupBox.Controls.Add(this.label25);
             this.alertSuppressionGroupBox.Controls.Add(this.label24);
@@ -1189,7 +1201,7 @@
             this.label26.Location = new System.Drawing.Point(313, 48);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(239, 13);
-            this.label26.TabIndex = 12;
+            this.label26.TabIndex = 13;
             this.label26.Text = "Note that # of polls depends on polling frequency";
             // 
             // label25
@@ -1198,7 +1210,7 @@
             this.label25.Location = new System.Drawing.Point(269, 74);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(29, 13);
-            this.label25.TabIndex = 17;
+            this.label25.TabIndex = 18;
             this.label25.Text = "Polls";
             // 
             // label24
@@ -1207,7 +1219,7 @@
             this.label24.Location = new System.Drawing.Point(269, 48);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(29, 13);
-            this.label24.TabIndex = 11;
+            this.label24.TabIndex = 12;
             this.label24.Text = "Polls";
             // 
             // label23
@@ -1216,7 +1228,7 @@
             this.label23.Location = new System.Drawing.Point(269, 22);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(29, 13);
-            this.label23.TabIndex = 5;
+            this.label23.TabIndex = 6;
             this.label23.Text = "Polls";
             // 
             // numericUpDownRepeatAlertInXPolls
@@ -1229,7 +1241,7 @@
             0});
             this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
             this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXPolls.TabIndex = 4;
+            this.numericUpDownRepeatAlertInXPolls.TabIndex = 5;
             // 
             // delayAlertPollsNumericUpDown
             // 
@@ -1241,7 +1253,7 @@
             0});
             this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
             this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertPollsNumericUpDown.TabIndex = 16;
+            this.delayAlertPollsNumericUpDown.TabIndex = 17;
             // 
             // AlertOnceInXPollsNumericUpDown
             // 
@@ -1253,7 +1265,7 @@
             0});
             this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
             this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXPollsNumericUpDown.TabIndex = 10;
+            this.AlertOnceInXPollsNumericUpDown.TabIndex = 11;
             // 
             // label22
             // 
@@ -1261,7 +1273,7 @@
             this.label22.Location = new System.Drawing.Point(313, 74);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(224, 13);
-            this.label22.TabIndex = 18;
+            this.label22.TabIndex = 19;
             this.label22.Text = "(Only raise alert if Error/Warning state persists)";
             // 
             // label21
@@ -1270,7 +1282,7 @@
             this.label21.Location = new System.Drawing.Point(313, 22);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(232, 13);
-            this.label21.TabIndex = 6;
+            this.label21.TabIndex = 7;
             this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
             // 
             // label18
@@ -1290,7 +1302,7 @@
             this.label4.Location = new System.Drawing.Point(10, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 13);
-            this.label4.TabIndex = 1;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Repeat alert after";
             // 
             // numericUpDownRepeatAlertInXMin
@@ -1303,7 +1315,7 @@
             0});
             this.numericUpDownRepeatAlertInXMin.Name = "numericUpDownRepeatAlertInXMin";
             this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXMin.TabIndex = 2;
+            this.numericUpDownRepeatAlertInXMin.TabIndex = 3;
             // 
             // delayAlertSecNumericUpDown
             // 
@@ -1315,7 +1327,7 @@
             0});
             this.delayAlertSecNumericUpDown.Name = "delayAlertSecNumericUpDown";
             this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertSecNumericUpDown.TabIndex = 14;
+            this.delayAlertSecNumericUpDown.TabIndex = 15;
             // 
             // label8
             // 
@@ -1323,7 +1335,7 @@
             this.label8.Location = new System.Drawing.Point(10, 48);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 7;
+            this.label8.TabIndex = 8;
             this.label8.Text = "Only alert once in";
             // 
             // label10
@@ -1332,7 +1344,7 @@
             this.label10.Location = new System.Drawing.Point(162, 74);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(49, 13);
-            this.label10.TabIndex = 15;
+            this.label10.TabIndex = 16;
             this.label10.Text = "Seconds";
             // 
             // label5
@@ -1341,7 +1353,7 @@
             this.label5.Location = new System.Drawing.Point(162, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 3;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Minutes";
             // 
             // label11
@@ -1350,7 +1362,7 @@
             this.label11.Location = new System.Drawing.Point(10, 74);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 13);
-            this.label11.TabIndex = 13;
+            this.label11.TabIndex = 14;
             this.label11.Text = "Delay alert";
             // 
             // label9
@@ -1359,7 +1371,7 @@
             this.label9.Location = new System.Drawing.Point(162, 48);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
-            this.label9.TabIndex = 9;
+            this.label9.TabIndex = 10;
             this.label9.Text = "Minutes";
             // 
             // AlertOnceInXMinNumericUpDown
@@ -1372,7 +1384,7 @@
             0});
             this.AlertOnceInXMinNumericUpDown.Name = "AlertOnceInXMinNumericUpDown";
             this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXMinNumericUpDown.TabIndex = 8;
+            this.AlertOnceInXMinNumericUpDown.TabIndex = 9;
             // 
             // correctiveScriptOpenFileDialog
             // 
@@ -1394,15 +1406,15 @@
             this.chkExpandOnStart.Text = "Expand on start";
             this.chkExpandOnStart.UseVisualStyleBackColor = true;
             // 
-            // chkRunLocalOnRemoteHostConnectionFailure
+            // chkAlertsPaused
             // 
-            this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
-            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 53);
-            this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
-            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
-            this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
-            this.chkRunLocalOnRemoteHostConnectionFailure.Text = "Run locally if remote host connection fails";
-            this.chkRunLocalOnRemoteHostConnectionFailure.UseVisualStyleBackColor = true;
+            this.chkAlertsPaused.AutoSize = true;
+            this.chkAlertsPaused.Location = new System.Drawing.Point(134, -1);
+            this.chkAlertsPaused.Name = "chkAlertsPaused";
+            this.chkAlertsPaused.Size = new System.Drawing.Size(208, 17);
+            this.chkAlertsPaused.TabIndex = 1;
+            this.chkAlertsPaused.Text = "Pause/ignore all alerts for this collector";
+            this.chkAlertsPaused.UseVisualStyleBackColor = true;
             // 
             // EditCollectorConfig
             // 
@@ -1574,5 +1586,6 @@
         private System.Windows.Forms.LinkLabel llblEditConfigVars;
         private System.Windows.Forms.CheckBox chkExpandOnStart;
         private System.Windows.Forms.CheckBox chkRunLocalOnRemoteHostConnectionFailure;
+        private System.Windows.Forms.CheckBox chkAlertsPaused;
     }
 }

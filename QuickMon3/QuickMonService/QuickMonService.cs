@@ -102,6 +102,17 @@ namespace QuickMon
                 {
                     wcfServiceHost.Close();
                 }
+                try
+                {
+                    if (!HTTPActivationTest.IsHTTPActivationEnabled())
+                    {
+                        EventLog.WriteEntry(Globals.ServiceEventSourceName, "WARNING: Server Feature WCF HTTP Activation is not installed! Remote host functionality may not work.", EventLogEntryType.Warning, 0);
+                    }
+                }
+                catch (Exception httpActEx)
+                {
+                    EventLog.WriteEntry(Globals.ServiceEventSourceName, "Server Feature WCF HTTP Activation Test failed: " + httpActEx.Message, EventLogEntryType.Error, 0);
+                }
                 if (Properties.Settings.Default.WcfRenameLocalHostNameToRealHost)
                 {
                     if (Properties.Settings.Default.WcfServiceURL.Contains("localhost"))

@@ -46,6 +46,7 @@ namespace QuickMon
             collectorEntry.RemoteAgentHostPort = xmlCollectorEntry.ReadXmlElementAttr("remoteAgentHostPort", 8181);
             collectorEntry.BlockParentOverrideRemoteAgentHostSettings = xmlCollectorEntry.ReadXmlElementAttr("blockParentRemoteAgentHostSettings", false);
             collectorEntry.RunLocalOnRemoteHostConnectionFailure = xmlCollectorEntry.ReadXmlElementAttr("runLocalOnRemoteHostConnectionFailure", false);
+            collectorEntry.AlertsPaused = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("alertsPaused", "False"));
 
             //Polling overrides
             collectorEntry.EnabledPollingOverride = xmlCollectorEntry.ReadXmlElementAttr("enabledPollingOverride", false);
@@ -150,6 +151,7 @@ namespace QuickMon
                 PollSlideFrequencyAfterFirstRepeatSec,
                 PollSlideFrequencyAfterSecondRepeatSec,
                 PollSlideFrequencyAfterThirdRepeatSec,
+                AlertsPaused,
 
                 collectorConfig,
                 ServiceWindows.ToConfig(),
@@ -208,6 +210,7 @@ namespace QuickMon
                 int pollSlideFrequencyAfterFirstRepeatSec,
                 int pollSlideFrequencyAfterSecondRepeatSec,
                 int pollSlideFrequencyAfterThirdRepeatSec,
+                bool alertsPaused,
                 string collectorConfig,
                 string serviceWindows,
                 string configVariablesXml)
@@ -240,6 +243,7 @@ namespace QuickMon
                 pollSlideFrequencyAfterFirstRepeatSec,
                 pollSlideFrequencyAfterSecondRepeatSec,
                 pollSlideFrequencyAfterThirdRepeatSec,
+                alertsPaused,
                 collectorConfig,
                 serviceWindows,
                 configVariablesXml);

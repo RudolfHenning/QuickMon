@@ -91,6 +91,7 @@ namespace QuickMon.Forms
 
                     chkCollectOnParentWarning.Checked = currentEditingEntry.CollectOnParentWarning;
 
+                    chkAlertsPaused.Checked = currentEditingEntry.AlertsPaused;
                     chkCorrectiveScriptDisabled.Checked = currentEditingEntry.CorrectiveScriptDisabled;
                     txtCorrectiveScriptOnWarning.Text = currentEditingEntry.CorrectiveScriptOnWarningPath;
                     txtCorrectiveScriptOnError.Text = currentEditingEntry.CorrectiveScriptOnErrorPath;
@@ -639,6 +640,7 @@ namespace QuickMon.Forms
             SelectedEntry.PollSlideFrequencyAfterThirdRepeatSec = (int)pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value;
 
             //Alert suppresion
+            SelectedEntry.AlertsPaused = chkAlertsPaused.Checked;
             SelectedEntry.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
             SelectedEntry.RepeatAlertInXPolls = (int)numericUpDownRepeatAlertInXPolls.Value;
             SelectedEntry.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;

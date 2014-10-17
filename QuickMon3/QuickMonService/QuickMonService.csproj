@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
+    <Compile Include="HTTPActivationTest.cs" />
     <Compile Include="InstallerForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -388,9 +388,15 @@ namespace QuickMon
                     lvi.SubItems.Add(FormatDate(SelectedEntry.LastErrorAlertTime));
                     lvi.Group = lvgAlerts;
                     lvwProperties.Items.Add(lvi);
+
+                    lvi = new ListViewItem("Alerts paused");
+                    lvi.SubItems.Add(SelectedEntry.AlertsPaused ? "Yes" : "No");
+                    lvi.Group = lvgAlerts;
+                    lvwProperties.Items.Add(lvi);
                     #endregion
 
                     #region History
+                    int totalAlertsRaised = 0;
                     foreach (MonitorState historyItem in (from h in SelectedEntry.StateHistory
                                                  orderby h.Timestamp descending
                                                  select h))
@@ -401,6 +407,7 @@ namespace QuickMon
                         lvi.SubItems.Add(historyItem.RawDetails);
                         lvi.SubItems.Add(historyItem.ExecutedOnHostComputer);
                         lvi.SubItems.Add(historyItem.AlertsRaised.Count.ToString());
+                        totalAlertsRaised += historyItem.AlertsRaised.Count;
                         if (historyItem.State == CollectorState.Folder)
                             lvi.ImageIndex = 0;
                         else if (historyItem.State == CollectorState.Good)
@@ -415,6 +422,11 @@ namespace QuickMon
                         lvwHistory.Items.Add(lvi);
                     }
                     #endregion
+
+                    lvi = new ListViewItem("Total alert count");
+                    lvi.SubItems.Add(totalAlertsRaised.ToString());
+                    lvi.Group = lvgAlerts;
+                    lvwProperties.Items.Add(lvi);
                 }
             }
             catch (Exception ex)
