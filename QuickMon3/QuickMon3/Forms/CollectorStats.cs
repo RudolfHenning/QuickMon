@@ -153,6 +153,8 @@ namespace QuickMon
 
                     lvi = new ListViewItem("Enabled");
                     lvi.SubItems.Add(SelectedEntry.Enabled ? "Yes" : "No");
+                    if (!SelectedEntry.ServiceWindows.IsInTimeWindow())
+                        lvi.SubItems[1].Text += " (Out of service window)";
                     lvi.Group = lvgGeneral;
                     lvwProperties.Items.Add(lvi);
 

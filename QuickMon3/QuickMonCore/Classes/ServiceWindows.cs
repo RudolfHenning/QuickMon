@@ -65,9 +65,9 @@ namespace QuickMon
             if (monday) newEntry.Days.Add(DayOfWeek.Monday);
             if (tuesday) newEntry.Days.Add(DayOfWeek.Tuesday);
             if (wednesday) newEntry.Days.Add(DayOfWeek.Wednesday);
-            if (thursday) newEntry.Days.Add(DayOfWeek.Thursday);
+            if (thursday) newEntry.Days.Add(DayOfWeek.Thursday);            
+            if (friday) newEntry.Days.Add(DayOfWeek.Friday);
             if (saturday) newEntry.Days.Add(DayOfWeek.Saturday);
-            if (monday) newEntry.Days.Add(DayOfWeek.Monday);
             newEntry.AllWeekDays = (sunday && monday && tuesday && wednesday && thursday && friday && saturday) ||
                                     !(sunday || monday || tuesday || wednesday || thursday || friday || saturday);
             Entries.Add(newEntry);

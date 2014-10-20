@@ -7,10 +7,12 @@ using System.Xml;
 
 namespace QuickMon
 {
-    public class NotifierEntry
+    public class NotifierEntry : AgentHostEntryBase
     {
         public NotifierEntry()
         {
+            ServiceWindows = new ServiceWindows();
+            ServiceWindows.CreateFromConfig("<serviceWindows/>");
             AlertForCollectors = new List<string>();
             AttendedOptionOverride = AttendedOption.AttendedAndUnAttended;
             Enabled = true;
@@ -20,8 +22,27 @@ namespace QuickMon
         }
 
         #region Properties
-        public string Name { get; set; }
-        public bool Enabled { get; set; }
+        //public string Name { get; set; }
+        #region Is this notifier entry enabled now
+        //public bool Enabled { get; set; }
+        /// <summary>
+        /// List if service windows when collector can operate
+        /// </summary>
+        //public ServiceWindows ServiceWindows { get; set; }
+        //public bool IsEnabledNow()
+        //{
+        //    if (Enabled)
+        //    {
+        //        if (ServiceWindows.IsInTimeWindow())
+        //            return true;
+        //        else
+        //            return false;
+        //    }
+        //    else
+        //        return false;
+        //}
+        #endregion
+
         public string NotifierRegistrationName { get; set; }
         public INotifier Notifier { get; set; }
         public AlertLevel AlertLevel { get; set; }
@@ -29,9 +50,9 @@ namespace QuickMon
         public string InitialConfiguration { get; set; }
         public List<string> AlertForCollectors { get; private set; }
         public AttendedOption AttendedOptionOverride { get; set; }
-        #region Dynamic Config Variables
-        public List<ConfigVariable> ConfigVariables { get; set; }
-        #endregion
+        //#region Dynamic Config Variables
+        //public List<ConfigVariable> ConfigVariables { get; set; }
+        //#endregion
         #endregion
 
         #region Create Notifier Instance
@@ -113,10 +134,20 @@ namespace QuickMon
             if (xmlNotifierEntry.SelectSingleNode("config") != null)
                 notifierEntry.InitialConfiguration = xmlNotifierEntry.SelectSingleNode("config").OuterXml;
 
-            XmlNode serviceWindowsNode = xmlNotifierEntry.SelectSingleNode("collectors");
-            if (serviceWindowsNode != null)
+            //Service windows config
+            notifierEntry.ServiceWindows = new ServiceWindows();
+            XmlNode serviceWindowsNode = xmlNotifierEntry.SelectSingleNode("serviceWindows");
+            if (serviceWindowsNode != null) //Load service windows info
+                notifierEntry.ServiceWindows.CreateFromConfig(serviceWindowsNode.OuterXml);
+            else
             {
-                foreach (XmlElement colNode in serviceWindowsNode.SelectNodes("collector"))
+                notifierEntry.ServiceWindows.CreateFromConfig("<serviceWindows />");
+            }
+
+            XmlNode collectorsNode = xmlNotifierEntry.SelectSingleNode("collectors");
+            if (collectorsNode != null)
+            {
+                foreach (XmlElement colNode in collectorsNode.SelectNodes("collector"))
                 {
                     string collectorName = colNode.ReadXmlElementAttr("name", "");
                     if (collectorName.Length > 0)
@@ -150,6 +181,7 @@ namespace QuickMon
                 Enum.GetName(typeof(QuickMon.DetailLevel), this.DetailLevel),
                 AttendedOptionOverride.ToString(),
                 InitialConfiguration,
+                ServiceWindows.ToConfig(),
                 AlertForCollectorsConfig(),
                 configVarXml.ToString()
                 );

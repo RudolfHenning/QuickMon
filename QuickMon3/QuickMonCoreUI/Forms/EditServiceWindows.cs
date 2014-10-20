@@ -77,8 +77,7 @@ namespace QuickMon.Forms
         {
             if (!checkChecking)
                 CheckChecking();
-        }
-
+        }        
         private void CheckChecking()
         {
             checkChecking = true;
@@ -89,44 +88,11 @@ namespace QuickMon.Forms
             }
             else
                 chkAll.Checked = false;
-            checkChecking = false;
+            
             cmdUpdate.Enabled = chkSun.Checked || chkMon.Checked || chkTue.Checked || chkWed.Checked || chkThur.Checked || chkFri.Checked || chkSat.Checked;
-        }
-
-        private void chkMon_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkChecking)
-                CheckChecking();
-        }
-
-        private void chkTue_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkChecking)
-                CheckChecking();
-        }
-
-        private void chkWed_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkChecking)
-                CheckChecking();
-        }
-
-        private void chkThur_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkChecking)
-                CheckChecking();
-        }
-
-        private void chkFri_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkChecking)
-                CheckChecking();
-        }
-
-        private void chkSat_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkChecking)
-                CheckChecking();
+            //if (cmdUpdate.Enabled && (lvwTimes.SelectedItems.Count == 1))
+            //    cmdUpdate_Click(null, null);
+            checkChecking = false;
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
@@ -141,10 +107,11 @@ namespace QuickMon.Forms
                 chkWed.Checked = chkAll.Checked;
                 chkThur.Checked = chkAll.Checked;
                 chkFri.Checked = chkAll.Checked;
-                chkSat.Checked = chkAll.Checked;
-
-                checkChecking = false;
+                chkSat.Checked = chkAll.Checked;                
                 cmdUpdate.Enabled = chkAll.Checked;
+                //if (cmdUpdate.Enabled && (lvwTimes.SelectedItems.Count == 1))
+                //    cmdUpdate_Click(null, null);
+                checkChecking = false;
             }
         }
 
@@ -222,6 +189,8 @@ namespace QuickMon.Forms
                 }
                 lvwTimes.Items.Add(lvi);
             }
+            else
+                lvi.Selected = true;
         }
 
         private void lvwTimes_SelectedIndexChanged(object sender, EventArgs e)

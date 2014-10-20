@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseClasses\AgentBase.cs" />
+    <Compile Include="BaseClasses\AgentHostEntryBase.cs" />
     <Compile Include="Classes\AgentMultiFormatInfoMsg.cs" />
     <Compile Include="Classes\AlertLevelConverter.cs" />
     <Compile Include="BaseClasses\CollectorBase.cs" />

@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace QuickMon
 {
-    public partial class CollectorEntry
+    public partial class CollectorEntry : AgentHostEntryBase
     {
         public CollectorEntry()
         {
@@ -46,7 +46,7 @@ namespace QuickMon
 
         #region Properties
         #region General properties
-        public string Name { get; set; }
+        //public string Name { get; set; }
         /// <summary>
         /// Any unique identifier for this collector entry. Used in collector parent-child relatioships
         /// </summary>
@@ -58,7 +58,7 @@ namespace QuickMon
         /// <summary>
         /// Any object you wish to link with this instance
         /// </summary>
-        public object Tag { get; set; }
+        //public object Tag { get; set; }
         #endregion
 
         #region UI specific
@@ -69,11 +69,23 @@ namespace QuickMon
         /// <summary>
         /// User/config based setting to disable this CollectorEntry
         /// </summary>
-        public bool Enabled { get; set; }
+        //public bool Enabled { get; set; }
         /// <summary>
         /// List if service windows when collector can operate
         /// </summary>
-        public ServiceWindows ServiceWindows { get; set; }
+        //public ServiceWindows ServiceWindows { get; set; }
+        //public bool IsEnabledNow()
+        //{
+        //    if (Enabled)
+        //    {
+        //        if (ServiceWindows.IsInTimeWindow())
+        //            return true;
+        //        else
+        //            return false;
+        //    }
+        //    else
+        //        return false;
+        //}
         #endregion
 
         #region Collector agent related
@@ -300,9 +312,9 @@ namespace QuickMon
         public bool CurrentPollAborted { get; set; }
         #endregion
 
-        #region Dynamic Config Variables
-        public List<ConfigVariable> ConfigVariables { get; set; }
-        #endregion
+        //#region Dynamic Config Variables
+        //public List<ConfigVariable> ConfigVariables { get; set; }
+        //#endregion
 
         #endregion
 
@@ -323,15 +335,8 @@ namespace QuickMon
                 LastStateUpdate = DateTime.Now;
             }
             if (LastMonitorState.State != CollectorState.ConfigurationError)            
-            {                
-                if (!Enabled)
-                {
-                    CurrentState.State = CollectorState.Disabled;
-                    StagnantStateFirstRepeat = false;
-                    StagnantStateSecondRepeat = false;
-                    StagnantStateThirdRepeat = false;
-                }
-                else if (!ServiceWindows.IsInTimeWindow())
+            {
+                if (!IsEnabledNow())
                 {
                     LastMonitorState = CurrentState.Clone();
                     CurrentState.State = CollectorState.Disabled;
@@ -339,6 +344,21 @@ namespace QuickMon
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
                 }
+                //if (!Enabled)
+                //{
+                //    CurrentState.State = CollectorState.Disabled;
+                //    StagnantStateFirstRepeat = false;
+                //    StagnantStateSecondRepeat = false;
+                //    StagnantStateThirdRepeat = false;
+                //}
+                //else if (!ServiceWindows.IsInTimeWindow())
+                //{
+                //    LastMonitorState = CurrentState.Clone();
+                //    CurrentState.State = CollectorState.Disabled;
+                //    StagnantStateFirstRepeat = false;
+                //    StagnantStateSecondRepeat = false;
+                //    StagnantStateThirdRepeat = false;
+                //}
                 else if (IsFolder)
                 {
                     LastMonitorState = CurrentState.Clone();

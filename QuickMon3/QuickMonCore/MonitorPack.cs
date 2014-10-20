@@ -594,10 +594,6 @@ namespace QuickMon
                         ApplyCollectorConfig(collector);
                     }
                     currentState = collector.GetCurrentState(disablePollingOverrides).State;
-                    //if (disablePollingOverrides)
-                    //    currentState = collector.GetCurrentState(true).State;
-                    //else
-                        
 
                     if (currentState == CollectorState.Good ||
                         currentState == CollectorState.Warning ||
@@ -890,7 +886,9 @@ namespace QuickMon
             else
             {
                 foreach (NotifierEntry notifierEntry in (from n in Notifiers
-                                                         where n.Enabled && (int)n.AlertLevel <= (int)alertRaised.Level &&
+                                                         where //n.Enabled && 
+                                                            n.IsEnabledNow() &&
+                                                            (int)n.AlertLevel <= (int)alertRaised.Level &&
                                                             (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
                                                             (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name))
                                                          select n))

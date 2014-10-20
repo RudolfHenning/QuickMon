@@ -1,6 +1,4 @@
 ﻿CHANGES (considdered possible for next release)
-Add Notifier 'Service Windows' so notifier only sends/records alerts at specified times.
-Collector entry property to ignore all alerts (like maintenance mode)
 
 --------------------------------------------------------------------------------------------------------
 COLLECTOR/NOTIFIER IDEAS
@@ -237,6 +235,9 @@ Add option to check collector directly (local run) if remote host connection fai
 
 v3.27
 Check that HTTP Activation of WCF Services in Windows features is enabled (.Net 4.x)
-  Seems to applyonly to server OSes
+  Seems to apply only to server OSes
+Fix Service window editing when only some days are selected then friday gets ignored... perhaps it should be..... ;)
+Collector entry property to ignore all alerts (like maintenance mode)
+Add Notifier 'Service Windows' so notifier only sends/records alerts at specified times.
 -------------------------------------------------------------------------------------------------------
 

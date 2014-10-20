@@ -162,7 +162,7 @@
             this.chkSat.Tag = "Saturday";
             this.chkSat.Text = "Sat";
             this.chkSat.UseVisualStyleBackColor = true;
-            this.chkSat.CheckedChanged += new System.EventHandler(this.chkSat_CheckedChanged);
+            this.chkSat.CheckedChanged += new System.EventHandler(this.chkSun_CheckedChanged);
             // 
             // chkFri
             // 
@@ -174,7 +174,7 @@
             this.chkFri.Tag = "Friday";
             this.chkFri.Text = "Fri";
             this.chkFri.UseVisualStyleBackColor = true;
-            this.chkFri.CheckedChanged += new System.EventHandler(this.chkFri_CheckedChanged);
+            this.chkFri.CheckedChanged += new System.EventHandler(this.chkSun_CheckedChanged);
             // 
             // chkThur
             // 
@@ -186,7 +186,7 @@
             this.chkThur.Tag = "Thursday";
             this.chkThur.Text = "Thu";
             this.chkThur.UseVisualStyleBackColor = true;
-            this.chkThur.CheckedChanged += new System.EventHandler(this.chkThur_CheckedChanged);
+            this.chkThur.CheckedChanged += new System.EventHandler(this.chkSun_CheckedChanged);
             // 
             // chkWed
             // 
@@ -198,7 +198,7 @@
             this.chkWed.Tag = "Wednesday";
             this.chkWed.Text = "Wed";
             this.chkWed.UseVisualStyleBackColor = true;
-            this.chkWed.CheckedChanged += new System.EventHandler(this.chkWed_CheckedChanged);
+            this.chkWed.CheckedChanged += new System.EventHandler(this.chkSun_CheckedChanged);
             // 
             // chkTue
             // 
@@ -210,7 +210,7 @@
             this.chkTue.Tag = "Tuesday";
             this.chkTue.Text = "Tue";
             this.chkTue.UseVisualStyleBackColor = true;
-            this.chkTue.CheckedChanged += new System.EventHandler(this.chkTue_CheckedChanged);
+            this.chkTue.CheckedChanged += new System.EventHandler(this.chkSun_CheckedChanged);
             // 
             // chkMon
             // 
@@ -222,7 +222,7 @@
             this.chkMon.Tag = "Monday";
             this.chkMon.Text = "Mon";
             this.chkMon.UseVisualStyleBackColor = true;
-            this.chkMon.CheckedChanged += new System.EventHandler(this.chkMon_CheckedChanged);
+            this.chkMon.CheckedChanged += new System.EventHandler(this.chkSun_CheckedChanged);
             // 
             // chkSun
             // 

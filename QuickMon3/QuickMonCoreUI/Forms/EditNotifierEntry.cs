@@ -86,6 +86,7 @@ namespace QuickMon.Management
                 if (editingNotifierEntry.AlertForCollectors != null && editingNotifierEntry.AlertForCollectors.Count > 0)
                     SelectedEntry.AlertForCollectors.AddRange(editingNotifierEntry.AlertForCollectors.ToArray());
                 SelectedEntry.AttendedOptionOverride = (AttendedOption)cboAttendedOptionOverride.SelectedIndex;
+                SelectedEntry.ServiceWindows.CreateFromConfig(editingNotifierEntry.ServiceWindows.ToConfig());
                 SelectedEntry.ConfigVariables = new List<ConfigVariable>();
                 SelectedEntry.ConfigVariables.AddRange((from ConfigVariable cv in editingNotifierEntry.ConfigVariables
                                                         select cv.Clone()).ToArray());
@@ -354,10 +355,24 @@ namespace QuickMon.Management
                 }
                 cboAttendedOptionOverride.SelectedIndex = (int)editingNotifierEntry.AttendedOptionOverride;
                 SetAlertForCollectors();
+                linkLabelServiceWindows.Text = editingNotifierEntry.ServiceWindows.ToString();
                 CheckOkEnable();
             }
         }
         #endregion
+
+        private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditServiceWindows editServiceWindows = new EditServiceWindows();
+            editServiceWindows.SelectedServiceWindows = editingNotifierEntry.ServiceWindows;
+            if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                editingNotifierEntry.ServiceWindows = editServiceWindows.SelectedServiceWindows;
+                linkLabelServiceWindows.Text = editServiceWindows.SelectedServiceWindows.ToString();
+                toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + editingNotifierEntry.ServiceWindows.ToString());
+                CheckOkEnable();
+            }
+        }
 
         #region Manual config edit context menu events
         //private void copyToolStripMenuItem_Click(object sender, EventArgs e)
