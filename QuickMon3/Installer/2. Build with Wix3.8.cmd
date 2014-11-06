@@ -1,4 +1,4 @@
-set WIXDIR=C:\Program Files (x86)\WiX Toolset v3.9\bin
+set WIXDIR=C:\Program Files (x86)\WiX Toolset v3.8\bin
 "%WIXDIR%\candle.exe" -out QuickMon3x64.winobj Productx64.wxs
 "%WIXDIR%\light.exe" -out QuickMon3x64.msi QuickMon3x64.winobj -ext WixUIExtension -ext WixUtilExtension -ext WixNetfxExtension
 "%WIXDIR%\candle.exe" -out QuickMon3.winobj Product.wxs
