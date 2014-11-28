@@ -47,6 +47,13 @@ namespace QuickMon
                 return agents;
             }
         }
+        /// <summary>
+        /// Force reload of all agents
+        /// </summary>
+        public static void LoadAgentsOverride()
+        {
+            LoadAgentsOverride(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        }
         public static void LoadAgentsOverride(string agentsPath)
         {
             cacheLoaded = false;
@@ -118,7 +125,7 @@ namespace QuickMon
                                                 agentRegistration.AssemblyPath = dllPath;
                                                 agentRegistration.ClassName = className;
                                                 agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(quickMonAssembly, className);
-                                                agentRegistration.IsNotifier = !agentRegistration.IsCollector;
+                                                agentRegistration.IsNotifier = RegistrationHelper.IsNotifierClass(quickMonAssembly, className);
                                                 list.Add(agentRegistration);
                                             }
                                         }
@@ -255,6 +262,23 @@ namespace QuickMon
                     foreach (Type interfaceType in type.GetInterfaces())
                     {
                         if (interfaceType.FullName == "QuickMon.ICollector")
+                            return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        }
+        public static bool IsNotifierClass(Assembly quickMonAssembly, string className)
+        {
+            Type[] types = quickMonAssembly.GetTypes();
+            foreach (Type type in types)
+            {
+                if (type.FullName == className)
+                {
+                    foreach (Type interfaceType in type.GetInterfaces())
+                    {
+                        if (interfaceType.FullName == "QuickMon.INotifier")
                             return true;
                     }
                     return false;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuickMon
 {
-    public abstract class CollectorAgentBase : AgentBase
+    public abstract class CollectorAgentBase : AgentBase, ICollector
     {
         #region ICollector Members
         public abstract MonitorState GetState();
