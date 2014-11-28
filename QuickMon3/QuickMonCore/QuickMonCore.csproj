@@ -37,11 +37,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -66,14 +64,6 @@
     <Compile Include="Classes\CollectorEntry.cs" />
     <Compile Include="Classes\ServiceWindows.cs" />
     <Compile Include="Constants\AutoFreshTimes.cs" />
-    <Compile Include="Controls\RTF\RTFBuilder.cs" />
-    <Compile Include="Controls\RTF\RTFBuilder.RawFonts.cs" />
-    <Compile Include="Controls\RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
-    <Compile Include="Controls\RTF\RTFBuilder.RTFFormatWrap.cs" />
-    <Compile Include="Controls\RTF\RTFBuilder.RTFImage.cs" />
-    <Compile Include="Controls\RTF\RTFBuilder.RTFParaWrap.cs" />
-    <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
-    <Compile Include="Controls\RTF\RTFFont.cs" />
     <Compile Include="Enums\AlertLevel.cs" />
     <Compile Include="Enums\AttendedOption.cs" />
     <Compile Include="Enums\CollectorState.cs" />
@@ -135,31 +125,7 @@
     <None Include="Resources\MonitorPackXml.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\doc_refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\satelitedish.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DnArrow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\clockBW.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\clock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\doc_add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\doc_edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\doc_remove.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\edit-32.png" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -130,6 +130,9 @@
   <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ForbiddenNot16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ForbiddenNot16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,14 +145,11 @@
   <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="folder_favor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder_favor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Forbidden16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Forbidden16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Forbidden32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Forbidden32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CometSeparatorOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CometSeparatorOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="doc_new16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doc_new16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,6 +196,9 @@
   <data name="tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="tables1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tables1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="QMstateErrorSml" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QMstateErrorSml.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -216,9 +219,6 @@
   </data>
   <data name="Checkmark2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Checkmark21.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="infoOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\infoOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="thunderbolt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\thunderbolt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -255,6 +255,9 @@
   </data>
   <data name="QMstateDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QMstateDisabled.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MenuOrangeShade" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MenuOrangeShade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cubes3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cubes3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -310,11 +313,17 @@
   <data name="_47655348_pie2.466" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_47655348_pie2.466.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Yellow3DGearEdit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Yellow3DGearEdit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="folderWLightning16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folderWLightning16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tables1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tables1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="folder_favor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_favor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CometSeparatorOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CometSeparatorOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="folderWLightning1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folderWLightning.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -322,13 +331,13 @@
   <data name="infoOrange16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\infoOrange16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MenuOrangeShade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MenuOrangeShade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="infoOrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\infoOrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FireWallRule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FireWallRule.reg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
-  <data name="Yellow3DGearEdit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Yellow3DGearEdit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ForbiddenNot32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ForbiddenNot32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

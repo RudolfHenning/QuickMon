@@ -405,9 +405,39 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Forbidden16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Forbidden16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Forbidden32x32 {
             get {
                 object obj = ResourceManager.GetObject("Forbidden32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ForbiddenNot16x16 {
+            get {
+                object obj = ResourceManager.GetObject("ForbiddenNot16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ForbiddenNot32x32 {
+            get {
+                object obj = ResourceManager.GetObject("ForbiddenNot32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

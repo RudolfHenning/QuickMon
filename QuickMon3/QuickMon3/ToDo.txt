@@ -8,7 +8,7 @@ SOAP collector to be removed (replaced by dynamic WS collector)
 --------------------------------------------------------------------------------------------------------
 NEXT VERSION CHANGES
 Allow multiple monitor packs in Windows client (different tabs...)
-Future advancement - Allow corrective scrpts to run on remote hosts
+Future advancement - Allow corrective scripts to run on remote hosts
 Detail views use dataset as source (so remote host stuff can work)
 Separate all UI components from Agents (so the Edit/View windows are in separate dll)
 Group presets (bundling presets with different types of agents)
@@ -239,5 +239,8 @@ Check that HTTP Activation of WCF Services in Windows features is enabled (.Net 
 Fix Service window editing when only some days are selected then friday gets ignored... perhaps it should be..... ;)
 Collector entry property to ignore all alerts (like maintenance mode)
 Add Notifier 'Service Windows' so notifier only sends/records alerts at specified times.
+
+v3.28
+Simplified collector/notifier context menus
 -------------------------------------------------------------------------------------------------------
 

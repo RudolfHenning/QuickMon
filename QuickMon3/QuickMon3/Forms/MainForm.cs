@@ -35,6 +35,7 @@ namespace QuickMon
         private readonly int collectorWarningStateImage2 = 7;
         private readonly int collectorErrorStateImage1 = 5;
         private readonly int collectorErrorStateImage2 = 8;
+        private readonly int collectorDisabled = 9;
         #endregion
 
         #region Private vars
@@ -91,7 +92,6 @@ namespace QuickMon
             popedContainerForTreeView.cmdLoadRecentMonitorPack.Click += new EventHandler(recentMonitorPackToolStripMenuItem1_Click);
             popedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_ButtonClick);
             popedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
-            popedContainerForTreeView.cmdRemoteAgents.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
             popedContainerForTreeView.cmdAbout.Click += new EventHandler(aboutToolStripMenuItem_Click);            
 
             popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
@@ -1261,8 +1261,8 @@ namespace QuickMon
                 popedContainerForTreeView.cmdDeleteCollector.Enabled = true;
                 popedContainerForTreeView.cmdDisableCollector.Enabled = true;
                 popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.WhiteSmoke;
-                popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
-                popedContainerForTreeView.cmdDisableCollector.Image = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden32x32 : global::QuickMon.Properties.Resources.okGray;
+                //popedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
+                popedContainerForTreeView.cmdDisableCollector.BackgroundImage = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden16x16 : global::QuickMon.Properties.Resources.ForbiddenNot16x16;
 
                 collectorTreeViewDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
                 viewCollectorDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
@@ -1289,7 +1289,7 @@ namespace QuickMon
                 collectorTreeEditConfigToolStripMenuItem.Enabled = false;
                 editCollectorToolStripMenuItem.Enabled = false;
                 disableCollectorTreeToolStripMenuItem.Enabled = false;
-                popedContainerForTreeView.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.okGray;
+                popedContainerForTreeView.cmdDisableCollector.BackgroundImage = global::QuickMon.Properties.Resources.ForbiddenNot16x16;
                 removeCollectorToolStripMenuItem.Enabled = false;
                 removeCollectorToolStripMenuItem1.Enabled = false;
 
@@ -1325,8 +1325,11 @@ namespace QuickMon
             {
                 entry = (NotifierEntry)lvwNotifiers.SelectedItems[0].Tag;
                 disableNotifierToolStripMenuItem.Text = entry.Enabled ? "Disable notifier" : "Enable notifier";
-                popedContainerForListView.cmdDisableNotifier.Text = entry.Enabled ? "Disable" : "Enable";
-                popedContainerForListView.cmdDisableNotifier.Image = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden32x32 : global::QuickMon.Properties.Resources.okGray;
+                popedContainerForListView.cmdDisableNotifier.BackgroundImage = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden32x32 : global::QuickMon.Properties.Resources.ForbiddenNot32x32;
+            }
+            else
+            {
+                popedContainerForListView.cmdDisableNotifier.BackgroundImage = global::QuickMon.Properties.Resources.ForbiddenNot32x32;
             }
             notifierViewerToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].ImageIndex > 0;
             notifierConfigurationToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
@@ -1334,8 +1337,8 @@ namespace QuickMon
             removeNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count > 0;
             removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
             disableNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            
 
+            popedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             popedContainerForListView.cmdViewDetails.Enabled = lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].ImageIndex > 0;
             popedContainerForListView.cmdEditNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             popedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
@@ -1631,10 +1634,10 @@ namespace QuickMon
                             }
                             else if (!collectorEntry.Enabled || collectorEntry.CurrentState.State == CollectorState.Disabled)
                             {
-                                if (currentTreeNode.ImageIndex != collectorNAstateImage)
+                                if (currentTreeNode.ImageIndex != collectorDisabled)
                                 {
                                     nodeChanged = true;
-                                    imageIndex = collectorNAstateImage;
+                                    imageIndex = collectorDisabled;
                                 }
                             }
                             else if (collectorEntry.CurrentState.State == CollectorState.Error || collectorEntry.CurrentState.State == CollectorState.ConfigurationError)
@@ -1853,8 +1856,8 @@ namespace QuickMon
                     tvwCollectors.SelectedNode.ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;                    
                     if (!entry.Enabled)
                     {
-                        tvwCollectors.SelectedNode.ImageIndex = collectorNAstateImage;
-                        tvwCollectors.SelectedNode.SelectedImageIndex = collectorNAstateImage;
+                        tvwCollectors.SelectedNode.ImageIndex = collectorDisabled;
+                        tvwCollectors.SelectedNode.SelectedImageIndex = collectorDisabled;
                     }
                     DoAutoSave();
                 }
@@ -1916,9 +1919,7 @@ namespace QuickMon
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            
+            }            
         }
         #endregion
 
@@ -2024,6 +2025,7 @@ namespace QuickMon
                 NotifierEntry entry = (NotifierEntry)lvwNotifiers.SelectedItems[0].Tag;
                 entry.Enabled = !entry.Enabled;
                 lvwNotifiers.SelectedItems[0].ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;
+
                 CheckNotifierContextMenuEnables();
                 SetMonitorChanged();
             }

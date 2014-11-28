@@ -31,7 +31,7 @@ namespace QuickMon
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
@@ -59,6 +59,7 @@ namespace QuickMon
             this.showDefaultNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalSettingsToolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.pollingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pollingDisabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,6 @@ namespace QuickMon
             this.customPollingFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knownRemoteAgentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -435,6 +435,14 @@ namespace QuickMon
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 6);
             // 
+            // closeAllChildWindowsToolStripMenuItem
+            // 
+            this.closeAllChildWindowsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables;
+            this.closeAllChildWindowsToolStripMenuItem.Name = "closeAllChildWindowsToolStripMenuItem";
+            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
+            this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
+            // 
             // generalSettingsToolStripSplitButton1
             // 
             this.generalSettingsToolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -462,7 +470,7 @@ namespace QuickMon
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(203, 22);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(202, 22);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -504,7 +512,7 @@ namespace QuickMon
             // 
             this.knownRemoteAgentsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Charon;
             this.knownRemoteAgentsToolStripMenuItem.Name = "knownRemoteAgentsToolStripMenuItem";
-            this.knownRemoteAgentsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.knownRemoteAgentsToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.knownRemoteAgentsToolStripMenuItem.Text = "Known Remote Agents";
             this.knownRemoteAgentsToolStripMenuItem.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
             // 
@@ -512,23 +520,15 @@ namespace QuickMon
             // 
             this.manageTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new;
             this.manageTemplatesToolStripMenuItem.Name = "manageTemplatesToolStripMenuItem";
-            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.manageTemplatesToolStripMenuItem.Text = "Manage Templates";
             this.manageTemplatesToolStripMenuItem.Click += new System.EventHandler(this.manageTemplatesToolStripMenuItem_Click);
-            // 
-            // closeAllChildWindowsToolStripMenuItem
-            // 
-            this.closeAllChildWindowsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables;
-            this.closeAllChildWindowsToolStripMenuItem.Name = "closeAllChildWindowsToolStripMenuItem";
-            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-            this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
-            this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
             // 
             // restartInAdminModeToolStripMenuItem
             // 
             this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
             this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
-            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
             this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
             // 
@@ -756,7 +756,8 @@ namespace QuickMon
             this.treeImageList.Images.SetKeyName(6, "ok3.png");
             this.treeImageList.Images.SetKeyName(7, "triang_yellow2.png");
             this.treeImageList.Images.SetKeyName(8, "Error2_24x24.png");
-            this.treeImageList.Images.SetKeyName(9, "bullet_ball_glass_blue.ico");
+            this.treeImageList.Images.SetKeyName(9, "ForbiddenNot16x16.png");
+            this.treeImageList.Images.SetKeyName(10, "bullet_ball_glass_blue.ico");
             // 
             // llblMonitorPack
             // 
@@ -803,12 +804,12 @@ namespace QuickMon
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
