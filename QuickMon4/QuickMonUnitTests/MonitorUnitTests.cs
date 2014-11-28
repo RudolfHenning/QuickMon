@@ -58,7 +58,7 @@ namespace QuickMon
             MonitorPack m = new MonitorPack();
             string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
                 "defaultNotifier=\"In Memory\" runCorrectiveScripts=\"True\" " +
-                "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
+                "stateHistorySize=\"101\" pollingFreqSecOverride=\"12\">\r\n" +
                 "<configVars />" +
                 "<collectorHosts />" +
                 "<notifierHosts />" +
@@ -71,11 +71,43 @@ namespace QuickMon
                 if (System.IO.File.Exists(outputFileName))
                     System.IO.File.Delete(outputFileName);
                 m.Save(outputFileName);
+                Assert.AreEqual("Test", m.Name, "Name is not set");
                 Assert.AreEqual(true, System.IO.File.Exists(outputFileName));
+                Assert.AreEqual("4.0.0", m.Version, "Version is not set");
+                Assert.AreEqual("TestType", m.TypeName, "Type is not set");
+                Assert.AreEqual(true, m.Enabled, "Enabled is not set");
+                Assert.AreEqual(true, m.RunCorrectiveScripts, "runCorrectiveScripts is not set");
+                Assert.AreEqual(101, m.CollectorStateHistorySize, string.Format("CollectorStateHistorySize is not set: {0}", m.CollectorStateHistorySize));
+                Assert.AreEqual(12, m.PollingFrequencyOverrideSec, string.Format("PollingFrequencyOverrideSec is not set: {0}", m.PollingFrequencyOverrideSec));
+                Assert.IsNotNull(m.ConfigVariables, "ConfigVariables is null");
+                if (m.ConfigVariables != null)
+                    Assert.AreEqual(0, m.ConfigVariables.Count, "ConfigVariables count should be 0");
+                Assert.IsNotNull(m.CollectorHosts, "CollectorHosts is null");
+                if (m.CollectorHosts != null)
+                    Assert.AreEqual(0, m.CollectorHosts.Count, "CollectorHosts count should be 0");
+                Assert.IsNotNull(m.NotifierHosts, "NotifierHosts is null");
+                if (m.NotifierHosts != null)
+                    Assert.AreEqual(0, m.NotifierHosts.Count, "NotifierHosts count should be 0");
 
                 m.Name = "Deliberately change name";
                 m.Load(outputFileName);
-                Assert.AreEqual("Test", m.Name, "Name is not set");
+                Assert.AreEqual("Test", m.Name, "Name is not set (2nd test)");
+                Assert.AreEqual(true, System.IO.File.Exists(outputFileName));
+                Assert.AreEqual("4.0.0.0", m.Version, "Version is not set (2nd test)");
+                Assert.AreEqual("TestType", m.TypeName, "Type is not set (2nd test)");
+                Assert.AreEqual(true, m.Enabled, "Enabled is not set (2nd test)");
+                Assert.AreEqual(true, m.RunCorrectiveScripts, "runCorrectiveScripts is not set (2nd test)");
+                Assert.AreEqual(101, m.CollectorStateHistorySize, string.Format("CollectorStateHistorySize is not set: {0} (2nd test)", m.CollectorStateHistorySize));
+                Assert.AreEqual(12, m.PollingFrequencyOverrideSec, string.Format("PollingFrequencyOverrideSec is not set: {0} (2nd test)", m.PollingFrequencyOverrideSec));
+                Assert.IsNotNull(m.ConfigVariables, "ConfigVariables is null (2nd test)");
+                if (m.ConfigVariables != null)
+                    Assert.AreEqual(0, m.ConfigVariables.Count, "ConfigVariables count should be 0 (2nd test)");
+                Assert.IsNotNull(m.CollectorHosts, "CollectorHosts is null (2nd test)");
+                if (m.CollectorHosts != null)
+                    Assert.AreEqual(0, m.CollectorHosts.Count, "CollectorHosts count should be 0 (2nd test)");
+                Assert.IsNotNull(m.NotifierHosts, "NotifierHosts is null (2nd test)");
+                if (m.NotifierHosts != null)
+                    Assert.AreEqual(0, m.NotifierHosts.Count, "NotifierHosts count should be 0 (2nd test)");
             }
         }
         [TestMethod, TestCategory("MonitorPack-IOTest")]
@@ -216,6 +248,64 @@ namespace QuickMon
 
                 }
             
+        }
+
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void LoadAgentTypes()
+        {
+            Assert.IsNotNull(RegisteredAgentCache.Agents, "Agents not loaded");
+            Assert.AreNotEqual(0, RegisteredAgentCache.Agents.Count, "No agents found!");
+        }
+
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void LoadPingCollectorTest()
+        {
+            string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                    "defaultNotifier=\"In Memory\" runCorrectiveScripts=\"True\" " +
+                    "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
+                    "<configVars />\r\n" +
+                    "<collectorHosts>\r\n" +
+                        "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                           "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                           "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                           "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
+                           "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
+                           "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
+                           "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" " +
+                           "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" " +
+                           "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
+                           "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
+                           "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                           "<collectorAgents>\r\n" +
+                               "<collectorAgent type=\"PingCollector\">\r\n" +
+                                    "<config>\r\n" +
+                                        "<entries>\r\n" +
+                                            "<entry pingMethod=\"Ping\" address=\"localhost\" />\r\n" +
+                                        "</entries>\r\n" +
+                                    "</config>\r\n" +
+                               "</collectorAgent>\r\n" +
+                           "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n" +
+                    "</collectorHosts>\r\n" +
+                    "<notifierHosts />\r\n" +
+                   "</monitorPack>";
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            if (m != null)
+            {
+                string outputFileName = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon4SaveTest.qmp");
+                if (System.IO.File.Exists(outputFileName))
+                    System.IO.File.Delete(outputFileName);
+                m.Save(outputFileName);
+                m.Load(outputFileName);
+
+                Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
+                if (m.CollectorHosts.Count == 1)
+                {
+                    Assert.AreEqual(1, m.CollectorHosts[0].CollectorAgents.Count, "1 Collector agent is expected");
+                }
+            }
         }
     }
 
