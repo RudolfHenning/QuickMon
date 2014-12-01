@@ -11,7 +11,7 @@ namespace QuickMon
         //public string Name { get; set; }
         public string AgentClassName { get; set; }
         public string InitialConfiguration { get; set; }
-        public string AppliedConfiguration { get; set; }
+        public string ActiveConfiguration { get; set; }
         public IAgentConfig AgentConfig { get; set; }
         public virtual void Close() { }        
         #endregion

@@ -14,6 +14,7 @@ namespace QuickMon
         {
             Timestamp = DateTime.Now;
             AlertsRaised = new List<string>();
+            ChildStates = new List<MonitorState>();
         }
         private CollectorState state = CollectorState.NotAvailable;
         [DataMember(Name = "State")]
@@ -90,7 +91,14 @@ namespace QuickMon
                 alerts.AppendChild(alertNode);
             }
             root.AppendChild(alerts);
-            return xdoc.OuterXml;
+            StringBuilder childStates = new StringBuilder();
+            childStates.AppendLine("<childStates>");
+            foreach(MonitorState childState in ChildStates)
+            {
+                childStates.AppendLine(childState.ToXml());
+            }
+            childStates.AppendLine("</childStates>");
+            return xdoc.OuterXml.Replace("</monitorState>", childStates.ToString() + "\r\n</monitorState>");
         }
         public void FromXml(string content)
         {
@@ -123,6 +131,16 @@ namespace QuickMon
             {
                 AlertsRaised.Add(alertNode.InnerText);
             }
+            ChildStates = new List<MonitorState>();
+            XmlNodeList childStates = root.SelectNodes("childStates");
+            foreach (XmlNode childStateNode in childStates)
+            {
+                MonitorState childState = new MonitorState();
+                childState.FromXml(childStateNode.OuterXml);
+                ChildStates.Add(childState);
+            }
         }
+
+        public List<MonitorState> ChildStates { get; set; }
     }
 }

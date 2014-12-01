@@ -9,13 +9,12 @@ namespace QuickMon
     {
 
         //http://stackoverflow.com/questions/937181/c-sharp-pattern-to-prevent-an-event-handler-hooked-twice
-        public CollectorHostDelegate alertGoodState;
         public event CollectorHostDelegate AlertGoodState;
         private void RaiseAlertGoodState()
         {
-            if (alertGoodState != null)
+            if (AlertGoodState != null)
             {
-                alertGoodState(this);
+                AlertGoodState(this);
             }
         }
         public event CollectorHostDelegate AlertWarningState;

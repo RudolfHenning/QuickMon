@@ -88,7 +88,7 @@ namespace QuickMon
                             }
                             string appliedConfig = MonitorPack.ApplyAgentConfigVars(newAgent.InitialConfiguration, monitorPackVars);
                             appliedConfig = MonitorPack.ApplyAgentConfigVars(newAgent.InitialConfiguration, newNotifierHost.ConfigVariables);
-                            newAgent.AppliedConfiguration = appliedConfig;
+                            newAgent.ActiveConfiguration = appliedConfig;
                             newNotifierHost.NotifierAgents.Add(newAgent);
 
                             newAgent.AgentConfig.FromConfig(appliedConfig);
