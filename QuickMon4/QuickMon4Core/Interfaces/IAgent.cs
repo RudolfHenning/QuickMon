@@ -9,7 +9,7 @@ namespace QuickMon
     {
         string AgentClassName { get; set; }
         string InitialConfiguration { get; set; }
-        string AppliedConfiguration { get; set; }
+        string ActiveConfiguration { get; set; }
         IAgentConfig AgentConfig { get; set; }
         //In case some agents needs to close some resources
         void Close();

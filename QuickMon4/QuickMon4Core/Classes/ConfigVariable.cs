@@ -46,4 +46,17 @@ namespace QuickMon
                 return configStr;
         }
     }
+    public static class ConfigVariables
+    {
+        public static string ApplyOn(this List<ConfigVariable> configVars, string configStr)
+        {
+            string appliedConfig = configStr;
+            if (configVars != null)
+                foreach (ConfigVariable cv in configVars)
+                    appliedConfig = cv.ApplyOn(appliedConfig);
+            if (appliedConfig.IndexOf("%LocalHost%", StringComparison.CurrentCultureIgnoreCase) > -1)
+                appliedConfig = appliedConfig.Replace("%LocalHost%", System.Net.Dns.GetHostName());
+            return appliedConfig;
+        }
+    }
 }

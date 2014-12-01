@@ -9,8 +9,8 @@ namespace QuickMon
     {
         OnlyRunOnSuccess,
         ContinueOnWarning,
-        ContinueOnWarningOrError,
-        IncludeChildStatus
+        ContinueOnWarningOrError//,
+        //IncludeChildStatus
     }
     public static class ChildCheckBehaviourConverter
     {
@@ -20,8 +20,8 @@ namespace QuickMon
                 return ChildCheckBehaviour.ContinueOnWarning;
             else if (s.ToLower() == "continueonwarningorerror")
                 return ChildCheckBehaviour.ContinueOnWarningOrError;
-            else if (s.ToLower() == "includechildstatus")
-                return ChildCheckBehaviour.IncludeChildStatus;
+            //else if (s.ToLower() == "includechildstatus")
+            //    return ChildCheckBehaviour.IncludeChildStatus;
             else
                 return ChildCheckBehaviour.OnlyRunOnSuccess;
         }

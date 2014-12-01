@@ -81,6 +81,7 @@ namespace QuickMon
                 CollectorHosts = CollectorHost.GetCollectorHostsFromString(collectorHostsNode.OuterXml, ConfigVariables);
                 foreach (CollectorHost collectorHost in CollectorHosts)
                 {
+                    collectorHost.ParentMonitorPack = this;
                     collectorHost.AlertGoodState += collectorHost_AlertGoodState;
                     collectorHost.AlertWarningState += collectorHost_AlertWarningState;
                     collectorHost.AlertErrorState += collectorHost_AlertErrorState;

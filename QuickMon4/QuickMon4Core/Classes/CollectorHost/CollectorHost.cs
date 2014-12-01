@@ -55,26 +55,17 @@ namespace QuickMon
         /// </summary>
         public string ParentCollectorId { get; set; }
         /// <summary>
+        /// Reference to containing MonitorPack
+        /// </summary>
+        public MonitorPack ParentMonitorPack { get; set; }
+        /// <summary>
         /// Any object you wish to link with this instance
         /// </summary>
+        public object Tag { get; set; }
         #endregion
 
         #region UI specific
         public bool ExpandOnStart { get; set; }
-        #endregion
-
-        #region Configuration
-        private string initialConfiguration = "";
-        public string InitialConfiguration
-        {
-            get { return initialConfiguration; }
-            set
-            {
-                initialConfiguration = value;
-            }
-        }
-        //derived config based on initialConfiguration with config vars applied
-        public string ActiveConfiguration { get; set; }
         #endregion
 
         #region Collector agents
@@ -97,7 +88,7 @@ namespace QuickMon
             get
             {
                 if (stateHistory == null || stateHistory.Count == 0)
-                    return new MonitorState() { State = CollectorState.NotAvailable };
+                    return new MonitorState() { State = CollectorState.NotAvailable, Timestamp = DateTime.Now };
                 else
                     return stateHistory[stateHistory.Count - 1];
             }

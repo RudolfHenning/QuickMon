@@ -113,9 +113,9 @@ namespace QuickMon
                                 else
                                     newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
                             }
-                            string appliedConfig = MonitorPack.ApplyAgentConfigVars(newAgent.InitialConfiguration, monitorPackVars);
-                            appliedConfig = MonitorPack.ApplyAgentConfigVars(newAgent.InitialConfiguration, newCollectorHost.ConfigVariables);
-                            newAgent.AppliedConfiguration = appliedConfig;
+                            string appliedConfig = monitorPackVars.ApplyOn(newAgent.InitialConfiguration);
+                            appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);
+                            newAgent.ActiveConfiguration = appliedConfig;
                             newCollectorHost.CollectorAgents.Add(newAgent);
 
                             newAgent.AgentConfig.FromConfig(appliedConfig);
