@@ -16,7 +16,7 @@ namespace QuickMon.Notifiers
             XmlDocument config = new XmlDocument();
             if (configurationString == null || configurationString.Length == 0)
             {
-                config.LoadXml(Properties.Resources.LoopbackCollectorDefaultConfig);
+                config.LoadXml(Properties.Resources.InMemoryNotifierDefaultConfig);
             }
             else
             {
