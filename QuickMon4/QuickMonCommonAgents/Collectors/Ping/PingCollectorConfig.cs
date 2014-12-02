@@ -20,7 +20,7 @@ namespace QuickMon.Collectors
         #endregion
 
         #region IAgentConfig Members
-        public void FromConfig(string configurationString)
+        public void FromXml(string configurationString)
         {
             XmlDocument config = new XmlDocument();
             config.LoadXml(configurationString);
@@ -55,10 +55,10 @@ namespace QuickMon.Collectors
                 Entries.Add(hostEntry);
             }            
         }
-        public string ToConfig()
+        public string ToXml()
         {
             XmlDocument config = new XmlDocument();
-            config.LoadXml(GetDefaultOrEmptyConfig());
+            config.LoadXml(GetDefaultOrEmptyXml());
             XmlNode hostsListNode = config.SelectSingleNode("config/entries");
             foreach (PingCollectorHostEntry hostEntry in Entries)
             {
@@ -80,9 +80,22 @@ namespace QuickMon.Collectors
             }
             return config.OuterXml;
         }
-        public string GetDefaultOrEmptyConfig()
+        public string GetDefaultOrEmptyXml()
         {
             return "<config><entries></entries></config>";
+        }
+        public string ConfigSummary
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(string.Format("Pinging {0} entries", Entries.Count));
+                foreach (ICollectorConfigEntry entry in Entries)
+                {
+                    sb.AppendLine(entry.ToString());
+                }
+                return sb.ToString();
+            }
         }
         #endregion
     }

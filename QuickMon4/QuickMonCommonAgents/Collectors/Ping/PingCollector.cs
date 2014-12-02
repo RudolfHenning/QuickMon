@@ -68,9 +68,9 @@ namespace QuickMon.Collectors
                 returnState.HtmlDetails = htmlTextTextDetails.ToString();
                 returnState.CurrentValue = pingTotalTime;
 
-                if (errors > 0) // any errors
+                if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;
-                else if (warnings > 0) //any warnings
+                else if (errors > 0 || warnings > 0) //any warnings
                     returnState.State = CollectorState.Warning;
                 else
                     returnState.State = CollectorState.Good;

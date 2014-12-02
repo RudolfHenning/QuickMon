@@ -58,10 +58,6 @@ namespace QuickMon
         /// Reference to containing MonitorPack
         /// </summary>
         public MonitorPack ParentMonitorPack { get; set; }
-        /// <summary>
-        /// Any object you wish to link with this instance
-        /// </summary>
-        public object Tag { get; set; }
         #endregion
 
         #region UI specific

@@ -15,6 +15,6 @@ namespace QuickMon
         public AlertLevel Level { get; set; }
         public DetailLevel DetailLevel { get; set; }
         public CollectorHost RaisedFor { get; set; }
-        public MonitorState State { get; set; }
+        //public MonitorState State { get; set; }
     }
 }

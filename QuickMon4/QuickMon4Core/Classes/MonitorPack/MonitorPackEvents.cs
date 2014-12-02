@@ -139,21 +139,35 @@ namespace QuickMon
         #endregion
 
         #region CollectorHost events
+        //to Bubble up the Collector host events
+        public event CollectorHostDelegate CollectorHost_AlertRaised_Good;
+        public event CollectorHostDelegate CollectorHost_AlertRaised_Warning;
+        public event CollectorHostDelegate CollectorHost_AlertRaised_Error;
+        public event CollectorHostDelegate CollectorHost_AlertRaised_NoStateChanged;
+
         private void collectorHost_AlertGoodState(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            if (CollectorHost_AlertRaised_Good != null)
+                CollectorHost_AlertRaised_Good(collectorHost);
+            SendNotifierAlert(AlertLevel.Info, DetailLevel.Detail, collectorHost);
         }
         private void collectorHost_AlertWarningState(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            if (CollectorHost_AlertRaised_Warning != null)
+                CollectorHost_AlertRaised_Warning(collectorHost);
+            SendNotifierAlert(AlertLevel.Warning, DetailLevel.Detail, collectorHost);
         }
         private void collectorHost_AlertErrorState(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            if (CollectorHost_AlertRaised_Error != null)
+                CollectorHost_AlertRaised_Error(collectorHost);
+
+            SendNotifierAlert(AlertLevel.Error, DetailLevel.Detail, collectorHost);
         }
         void collectorHost_NoStateChanged(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            if (CollectorHost_AlertRaised_NoStateChanged != null)
+                CollectorHost_AlertRaised_NoStateChanged(collectorHost);
         } 
         #endregion
     }

@@ -94,7 +94,7 @@ namespace QuickMon
             XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
             if (notifierHostsNode != null)
             {
-                NotifierHosts = NotifierHost.GetNotifierHostsFromString(collectorHostsNode.OuterXml, ConfigVariables);
+                NotifierHosts = NotifierHost.GetNotifierHostsFromString(notifierHostsNode.OuterXml, ConfigVariables);
                 foreach (NotifierHost newNotifierEntry in NotifierHosts)
                 {
                     if (newNotifierEntry.Name.ToUpper() == defaultNotifierName.ToUpper())
@@ -173,7 +173,7 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             foreach (CollectorHost collectorHost in CollectorHosts)
             {
-                sb.AppendLine(collectorHost.ToConfig());
+                sb.AppendLine(collectorHost.ToXml());
             }
             return sb.ToString();
         }
@@ -182,7 +182,7 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             foreach (NotifierHost notifierHost in NotifierHosts)
             {
-                sb.AppendLine(notifierHost.ToConfig());
+                sb.AppendLine(notifierHost.ToXml());
             }
             return sb.ToString();
         } 
