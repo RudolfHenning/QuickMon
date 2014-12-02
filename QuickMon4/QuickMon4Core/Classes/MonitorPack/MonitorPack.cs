@@ -81,6 +81,15 @@ namespace QuickMon
         #endregion
 
         #region Refreshing states
+        private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel, CollectorHost raisedFor)
+        {
+            SendNotifierAlert(new AlertRaised()
+                {
+                    Level = alertLevel,
+                    DetailLevel = detailLevel,
+                    RaisedFor = raisedFor
+                });
+        }
         private void SendNotifierAlert(AlertRaised alertRaised)
         {
             Stopwatch sw = new Stopwatch();
@@ -161,8 +170,8 @@ namespace QuickMon
             {
                 Level = collectorEntry.PreviousState.State == CollectorState.Warning ? AlertLevel.Warning : AlertLevel.Error,
                 DetailLevel = DetailLevel.Detail,
-                RaisedFor = collectorEntry,
-                State = collectorEntry.CurrentState.Clone()
+                RaisedFor = collectorEntry//,
+                //State = collectorEntry.CurrentState.Clone()
             });
         }
         private void LogCorrectiveScriptAction(CollectorHost collectorEntry, bool error)
@@ -173,8 +182,8 @@ namespace QuickMon
             {
                 Level = error ? AlertLevel.Error : AlertLevel.Warning,
                 DetailLevel = DetailLevel.Detail,
-                RaisedFor = collectorEntry,
-                State = collectorEntry.CurrentState.Clone()
+                RaisedFor = collectorEntry//,
+                //State = collectorEntry.CurrentState.Clone()
             });
         }
         #endregion

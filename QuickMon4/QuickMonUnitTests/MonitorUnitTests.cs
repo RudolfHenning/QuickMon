@@ -259,7 +259,7 @@ namespace QuickMon
         public void LoadPingCollectorTest()
         {
             string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
-                    "defaultNotifier=\"In Memory\" runCorrectiveScripts=\"True\" " +
+                    "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
                     "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
                     "<configVars />\r\n" +
                     "<collectorHosts>\r\n" +
@@ -285,7 +285,16 @@ namespace QuickMon
                            "</collectorAgents>\r\n" +
                         "</collectorHost>\r\n" +
                     "</collectorHosts>\r\n" +
-                    "<notifierHosts />\r\n" +
+                    "<notifierHosts>\r\n" +
+                        "<notifierHost name=\"Default notifiers\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
+                            "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+                            "<notifierAgents>\r\n" +
+                                "<notifierAgent type=\"InMemoryNotifier\">\r\n" +
+                                    "<config><inMemory maxEntryCount=\"99999\" /></config>\r\n" +
+                                "</notifierAgent>\r\n" +
+                            "</notifierAgents>\r\n" +
+                        "</notifierHost>\r\n" +
+                    "</notifierHosts>\r\n" +
                    "</monitorPack>";
             MonitorPack m = new MonitorPack();
             m.LoadXml(mconfig);
@@ -306,6 +315,7 @@ namespace QuickMon
                 }
             }
         }
+
     }
 
 }

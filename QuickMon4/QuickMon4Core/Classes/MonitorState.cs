@@ -92,13 +92,16 @@ namespace QuickMon
             }
             root.AppendChild(alerts);
             StringBuilder childStates = new StringBuilder();
-            childStates.AppendLine("<childStates>");
-            foreach(MonitorState childState in ChildStates)
+            if (ChildStates != null && ChildStates.Count > 0)
             {
-                childStates.AppendLine(childState.ToXml());
+                childStates.AppendLine("<childStates>");
+                foreach (MonitorState childState in ChildStates)
+                {
+                    childStates.AppendLine(childState.ToXml());
+                }
+                childStates.AppendLine("</childStates>");
             }
-            childStates.AppendLine("</childStates>");
-            return xdoc.OuterXml.Replace("</monitorState>", childStates.ToString() + "\r\n</monitorState>");
+            return xdoc.OuterXml.Replace("</monitorState>", childStates.ToString() + "</monitorState>");
         }
         public void FromXml(string content)
         {
@@ -129,10 +132,11 @@ namespace QuickMon
             AlertsRaised = new List<string>();
             foreach (XmlNode alertNode in alertNodes)
             {
-                AlertsRaised.Add(alertNode.InnerText);
+                if (alertNode.InnerText.Trim().Length > 0)
+                    AlertsRaised.Add(alertNode.InnerText);
             }
             ChildStates = new List<MonitorState>();
-            XmlNodeList childStates = root.SelectNodes("childStates");
+            XmlNodeList childStates = root.SelectNodes("childStates/monitorState");
             foreach (XmlNode childStateNode in childStates)
             {
                 MonitorState childState = new MonitorState();
@@ -142,5 +146,17 @@ namespace QuickMon
         }
 
         public List<MonitorState> ChildStates { get; set; }
+
+        public string ReadAllRawDetails()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (RawDetails != null && RawDetails.Length > 0)
+                sb.AppendLine(RawDetails);
+            foreach (MonitorState ms in ChildStates)
+            {
+                sb.Append(ms.ReadAllRawDetails());
+            }
+            return sb.ToString();
+        }
     }
 }

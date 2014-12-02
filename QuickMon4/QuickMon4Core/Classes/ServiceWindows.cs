@@ -139,7 +139,7 @@ namespace QuickMon
                 }
             }
         }
-        public string ToConfig()
+        public string ToXml()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("<serviceWindows>");

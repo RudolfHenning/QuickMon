@@ -82,7 +82,7 @@ namespace QuickMon
                             else
                             {
                                 if (newAgent.AgentConfig != null)
-                                    newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyConfig();
+                                    newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
                                 else
                                     newNotifierHost.Enabled = false;
                             }
@@ -91,7 +91,7 @@ namespace QuickMon
                             newAgent.ActiveConfiguration = appliedConfig;
                             newNotifierHost.NotifierAgents.Add(newAgent);
 
-                            newAgent.AgentConfig.FromConfig(appliedConfig);
+                            newAgent.AgentConfig.FromXml(appliedConfig);
                         }
                         catch (Exception ex)
                         {
@@ -123,7 +123,7 @@ namespace QuickMon
         /// Export current NotifierHost config as XML string
         /// </summary>
         /// <returns>XML config string</returns>
-        public string ToConfig()
+        public string ToXml()
         {
             StringBuilder configXml = new StringBuilder();
             configXml.AppendLine(string.Format("<notifierHost name=\"{0}\" enabled=\"{1}\" alertLevel=\"{2}\" " + 
@@ -139,7 +139,7 @@ namespace QuickMon
             configXml.AppendLine("</collectorHosts>");
 
             configXml.AppendLine("<!-- ServiceWindows -->");
-            configXml.AppendLine(ServiceWindows.ToConfig());
+            configXml.AppendLine(ServiceWindows.ToXml());
             configXml.AppendLine("<!-- Config variables -->");
             configXml.AppendLine("<configVars>");
             foreach (ConfigVariable cv in ConfigVariables)
@@ -153,7 +153,7 @@ namespace QuickMon
             foreach (INotifier notifierAgent in NotifierAgents)
             {
                 configXml.AppendLine(string.Format("<notifierAgent type=\"{0}\">", notifierAgent.AgentClassName));
-                configXml.AppendLine(notifierAgent.AgentConfig.ToConfig());
+                configXml.AppendLine(notifierAgent.AgentConfig.ToXml());
                 configXml.AppendLine("</notifierAgent>");
             }
             configXml.AppendLine("</notifierAgents>");

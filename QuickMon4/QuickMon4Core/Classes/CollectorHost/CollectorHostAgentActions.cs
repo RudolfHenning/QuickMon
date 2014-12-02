@@ -7,6 +7,136 @@ namespace QuickMon
 {
     public partial class CollectorHost
     {
+        public void UpdateCurrentCollectorState(CollectorState newState)
+        {
+            currentState.State = newState;
+        }
+        public void SetCurrentState(MonitorState newState)
+        {
+            bool raiseAlertNow = false;
+            if (currentState != null)
+            {
+                LastStateUpdate = DateTime.Now;
+                if (FirstStateUpdate < (new DateTime(2000, 1, 1)))
+                    FirstStateUpdate = DateTime.Now;
+
+                bool stateChanged = currentState.State != newState.State;
+                if (stateChanged)
+                    LastStateChange = DateTime.Now;
+
+                
+                #region Check if alert should be raised now
+                if (stateChanged)
+                {
+                    if (newState.State == CollectorState.Good)
+                        numberOfPollingsInErrWarn = 0;
+                    if (DelayErrWarnAlertForXSec > 0 || DelayErrWarnAlertForXPolls > 0) // alert should be delayed
+                    {
+                        delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
+                        numberOfPollingsInErrWarn = 0;
+                        waitAlertTimeErrWarnInMinFlagged = true;
+                    }
+                    else
+                    {
+                        raiseAlertNow = true;
+                    }
+                }
+                else
+                {
+                    if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
+                    {
+                        if (DelayErrWarnAlertForXSec > 0 && DateTime.Now > delayErrWarnAlertTime)
+                        {
+                            raiseAlertNow = true;
+                            waitAlertTimeErrWarnInMinFlagged = false;
+                            numberOfPollingsInErrWarn = 0;
+                            //handle further alerts as if it changed now again
+                            LastStateChange = DateTime.Now;
+                        }
+                        else if (DelayErrWarnAlertForXPolls > 0 && DelayErrWarnAlertForXPolls <= numberOfPollingsInErrWarn)
+                        {
+                            raiseAlertNow = true;
+                            waitAlertTimeErrWarnInMinFlagged = false;
+                            numberOfPollingsInErrWarn = 0;
+                            //handle further alerts as if it changed now again
+                            LastStateChange = DateTime.Now;
+                        }
+                        else
+                        {
+                            raiseAlertNow = false;
+                        }
+                    }
+                    else
+                    {
+                        if (
+                                (RepeatAlertInXMin > 0 && (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)) ||
+                                (RepeatAlertInXPolls > 0 && RepeatAlertInXPolls <= numberOfPollingsInErrWarn)
+                            )
+                        {
+                            raiseAlertNow = true;
+                            numberOfPollingsInErrWarn = 0;
+                            //handle further alerts as if it changed now again
+                            LastStateChange = DateTime.Now;
+                        }
+                        else
+                        {
+                            raiseAlertNow = false;
+                        }
+                    }
+                }
+                if (raiseAlertNow)
+                {
+                    //only allow repeat alert after specified minutes
+                    if (AlertOnceInXMin > 0 && LastAlertTime.AddMinutes(AlertOnceInXMin) > DateTime.Now)
+                    {
+                        raiseAlertNow = false; //cancel alert
+                    }
+                }
+                else
+                {
+                    if (newState.State == CollectorState.Warning || newState.State == CollectorState.Error)
+                        numberOfPollingsInErrWarn++;
+                    else
+                        numberOfPollingsInErrWarn = 0;
+                }
+                #endregion
+                   
+                AddStateToHistory(currentState);
+            }
+
+            currentState = newState;
+
+            #region Raise event for Alert to be handled by Monitorpack
+            if (raiseAlertNow)
+            {
+                LastAlertTime = DateTime.Now; //reset alert time
+                switch (newState.State)
+                {
+                    case CollectorState.Good:
+                        LastGoodState = newState;
+                        GoodStateCount++;
+                        RaiseAlertGoodState();
+                        break;
+                    case CollectorState.Warning:
+                        LastWarningState = newState;
+                        WarningStateCount++;
+                        RaiseAlertWarningState();
+                        break;
+                    case CollectorState.Error:
+                    case CollectorState.ConfigurationError:
+                        LastErrorState = newState;
+                        ErrorStateCount++;
+                        RaiseAlertErrorState();
+                        break;
+                    default:
+                        RaiseNoStateChanged();
+                        break;
+                }
+            }
+            else
+                RaiseNoStateChanged();
+            #endregion  
+        }
         public MonitorState RefreshCurrentState(bool disablePollingOverrides = false)
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
@@ -15,8 +145,7 @@ namespace QuickMon
             if (CurrentState.State != CollectorState.ConfigurationError)
             {
                 if (!IsEnabledNow())
-                {
-                    
+                {   
                     resultMonitorState.State = CollectorState.Disabled;
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
@@ -64,8 +193,10 @@ namespace QuickMon
                         {
                             MonitorState caMs = ca.GetState();
                             resultMonitorState.ChildStates.Add(caMs);
+                            //If we only care for the first success and find it don't look further
                             if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess && caMs.State== CollectorState.Good)
                                 break;
+                            //If we only care for the first error and find it don't look further
                             else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstError && caMs.State== CollectorState.Error)
                                 break;
                         }

@@ -7,13 +7,14 @@ namespace QuickMon
 {
     public interface IAgentConfig
     {
-        void FromConfig(string configurationString);
-        string ToConfig();
-        string GetDefaultOrEmptyConfig();
+        void FromXml(string configurationString);
+        string ToXml();
+        string GetDefaultOrEmptyXml();
+        string ConfigSummary { get; }
     }
     public interface INotifierConfig : IAgentConfig
     {
-        string ConfigSummary { get; }
+        
     }
     public interface ICollectorConfig : IAgentConfig
     {

@@ -109,7 +109,7 @@ namespace QuickMon
                             else
                             {
                                 if (newAgent.AgentConfig != null)
-                                    newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyConfig();
+                                    newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
                                 else
                                     newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
                             }
@@ -118,7 +118,7 @@ namespace QuickMon
                             newAgent.ActiveConfiguration = appliedConfig;
                             newCollectorHost.CollectorAgents.Add(newAgent);
 
-                            newAgent.AgentConfig.FromConfig(appliedConfig);
+                            newAgent.AgentConfig.FromXml(appliedConfig);
                         }
                         catch (Exception ex)
                         {
@@ -156,7 +156,7 @@ namespace QuickMon
         /// Export current CollectorHost config as XML string
         /// </summary>
         /// <returns>XML config string</returns>
-        public string ToConfig()
+        public string ToXml()
         {
             StringBuilder configXml = new StringBuilder();
             configXml.AppendLine(string.Format("<collectorHost uniqueId=\"{0}\" name=\"{1}\" enabled=\"{2}\" expandOnStart=\"{3}\" dependOnParentId=\"{4}\" " +
@@ -188,13 +188,13 @@ namespace QuickMon
             foreach (ICollector c in CollectorAgents)
             {
                 configXml.AppendLine(string.Format("<collectorAgent type=\"{0}\">", c.AgentClassName));                
-                configXml.AppendLine(c.AgentConfig.ToConfig());
+                configXml.AppendLine(c.AgentConfig.ToXml());
                 configXml.AppendLine("</collectorAgent>");
             }
             configXml.AppendLine("</collectorAgents>");
 
             configXml.AppendLine("<!-- ServiceWindows -->");
-            configXml.AppendLine(ServiceWindows.ToConfig());
+            configXml.AppendLine(ServiceWindows.ToXml().TrimEnd('\r','\n'));
             configXml.AppendLine("<!-- Config variables -->");
             configXml.AppendLine("<configVars>");
             foreach (ConfigVariable cv in ConfigVariables)
