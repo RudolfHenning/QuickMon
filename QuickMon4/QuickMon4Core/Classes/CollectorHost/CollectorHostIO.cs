@@ -87,7 +87,7 @@ namespace QuickMon
             XmlNode collectorAgentsNode = xmlCollectorEntry.SelectSingleNode("collectorAgents");
             if (collectorAgentsNode != null)
             {
-                newCollectorHost.SetCurrentState(new MonitorState() { State = CollectorState.Disabled });
+                //newCollectorHost.SetCurrentState(new MonitorState() { State = CollectorState.Disabled });
                 newCollectorHost.CollectorAgents = new List<ICollector>();
                 foreach (XmlElement collectorAgentNode in collectorAgentsNode.SelectNodes("collectorAgent"))
                 {
@@ -132,8 +132,8 @@ namespace QuickMon
                     }
 
                 }
-                if (newCollectorHost.currentState.State != CollectorState.ConfigurationError)
-                    newCollectorHost.UpdateCurrentCollectorState(CollectorState.Good);
+                //if (newCollectorHost.currentState.State != CollectorState.ConfigurationError)
+                //    newCollectorHost.UpdateCurrentCollectorState(CollectorState.Good);
             }
             return newCollectorHost;
         }
@@ -148,6 +148,7 @@ namespace QuickMon
                     Assembly collectorEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
                     currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(currentRA.ClassName);
                     currentAgent.AgentClassName = currentRA.ClassName.Replace("QuickMon.Collectors.", "");
+                    currentAgent.AgentClassDisplayName = currentRA.DisplayName;
                 }
             }
             return currentAgent;

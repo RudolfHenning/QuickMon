@@ -18,7 +18,7 @@ namespace QuickMon
             DetailLevel = QuickMon.DetailLevel.Detail;
             AttendedOptionOverride = AttendedOption.AttendedAndUnAttended;
         }
-        public string NotifierRegistrationName { get; set; }
+        //public string NotifierRegistrationName { get; set; }
         public AlertLevel AlertLevel { get; set; }
         public DetailLevel DetailLevel { get; set; }
         public List<string> AlertForCollectors { get; private set; }
