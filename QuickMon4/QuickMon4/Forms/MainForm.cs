@@ -296,6 +296,9 @@ namespace QuickMon
                                     "<notifierAgent type=\"InMemoryNotifier\">\r\n" +
                                         "<config><inMemory maxEntryCount=\"99999\" /></config>\r\n" +
                                     "</notifierAgent>\r\n" +
+                                    "<notifierAgent type=\"LogFileNotifier\">\r\n" +
+                                        "<config><logFile path=\"c:\\Temp\\QuickMon4Test.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
+                                    "</notifierAgent>\r\n" +
                                 "</notifierAgents>\r\n" +
                             "</notifierHost>\r\n" +
                         "</notifierHosts>\r\n" +
@@ -315,12 +318,13 @@ namespace QuickMon
             }
         }
 
+
+        private MonitorPack persistentTest = new MonitorPack();
         private void button6_Click(object sender, EventArgs e)
         {
             
             try
             {
-                MonitorPack m = new MonitorPack();
                 string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
                         "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
                         "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
@@ -328,7 +332,7 @@ namespace QuickMon
                         "<collectorHosts>\r\n" +
                             "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
                                "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
-                               "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                               "repeatAlertInXMin=\"1\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
                                "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
                                "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
                                "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
@@ -355,22 +359,77 @@ namespace QuickMon
                                     "<notifierAgent type=\"InMemoryNotifier\">\r\n" +
                                         "<config><inMemory maxEntryCount=\"99999\" /></config>\r\n" +
                                     "</notifierAgent>\r\n" +
+                                    "<notifierAgent type=\"LogFileNotifier\">\r\n" +
+                                        "<config><logFile path=\"c:\\Temp\\QuickMon4Test.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
+                                    "</notifierAgent>\r\n" +
+                                    "<notifierAgent type=\"EventLogNotifier\">\r\n" +
+                                        "<config><eventLog computer=\".\" eventSource=\"QuickMon4\" successEventID=\"0\" warningEventID=\"1\" errorEventID=\"2\" /></config>\r\n" +
+                                    "</notifierAgent>\r\n" +
                                 "</notifierAgents>\r\n" +
                             "</notifierHost>\r\n" +
                         "</notifierHosts>\r\n" +
                        "</monitorPack>";
-                m.LoadXml(mconfig);
-                m.CollectorHost_AlertRaised_Good += m_CollectorHost_AlertRaised_Good;
-                m.CollectorHost_AlertRaised_NoStateChanged += m_CollectorHost_AlertRaised_NoStateChanged;
-                m.CollectorHost_AlertRaised_Warning += m_CollectorHost_AlertRaised_Warning;
-                m.CollectorHost_AlertRaised_Error += m_CollectorHost_AlertRaised_Error;
+                persistentTest = new MonitorPack();
+                persistentTest.LoadXml(mconfig);
+                persistentTest.CollectorHost_AlertRaised_Good += m_CollectorHost_AlertRaised_Good;
+                persistentTest.CollectorHost_AlertRaised_NoStateChanged += m_CollectorHost_AlertRaised_NoStateChanged;
+                persistentTest.CollectorHost_AlertRaised_Warning += m_CollectorHost_AlertRaised_Warning;
+                persistentTest.CollectorHost_AlertRaised_Error += m_CollectorHost_AlertRaised_Error;
 
-                MonitorState ms = m.CollectorHosts[0].RefreshCurrentState();
+                MonitorState ms = persistentTest.CollectorHosts[0].RefreshCurrentState();
 
+                Application.DoEvents();
+                List<string> alertsRaised = ms.AlertsRaised;
+                StringBuilder alertSummary = new StringBuilder();
+                alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+                if (alertSummary.ToString().Length > 0) 
+                    MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ?  MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+
+                if (persistentTest.CollectorHosts[0].StateHistory.Count > 0)
+                {
+                    MessageBox.Show(string.Format("Previous state: {0}\r\nWait here for repeatAlertInXMin test", persistentTest.CollectorHosts[0].StateHistory.Last().State), "Previous", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                ////seconds time
+                //ms = persistentTest.CollectorHosts[0].RefreshCurrentState();
+
+                //Application.DoEvents();
+                //alertsRaised = ms.AlertsRaised;
+                //alertSummary = new StringBuilder();
+                //alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+                //if (alertSummary.ToString().Length > 0)
+                //    MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+
+                //if (persistentTest.CollectorHosts[0].StateHistory.Count > 0)
+                //{
+                //    MessageBox.Show(string.Format("Previous state: {0}", persistentTest.CollectorHosts[0].StateHistory.Last().State), "Previous", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (persistentTest.CollectorHosts.Count > 0)
+            {
+                persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml("<config>\r\n" +
+                                            "<entries>\r\n" +
+                                                "<entry pingMethod=\"Ping\" address=\"" + txtHostName.Text + "\" />\r\n" +
+                                            "</entries>\r\n" +
+                                        "</config>");
+                MonitorState ms = persistentTest.CollectorHosts[0].RefreshCurrentState();
+                List<string> alertsRaised = ms.AlertsRaised;
+                StringBuilder alertSummary = new StringBuilder();
+                alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+
+                MessageBox.Show(string.Format("Resulting state: {0}\r\nPrevious state: {1}\r\nAlert Info: {2}",
+                        ms.State,
+                        persistentTest.CollectorHosts[0].PreviousState.State,
+                        alertSummary.ToString()), "Result", MessageBoxButtons.OK,
+                        (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
             }
         }
     }

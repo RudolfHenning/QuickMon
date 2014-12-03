@@ -59,7 +59,7 @@ namespace QuickMon.Collectors
                     else
                     {
                         errors++;
-                        plainTextDetails.AppendLine(string.Format("\t{0} (Error)- {1}", host.Address, pingResult.ResponseDetails));
+                        plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1}", host.Address, pingResult.ResponseDetails));
                         htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
                     }
                 }

@@ -105,8 +105,9 @@ namespace QuickMon
             }
             else
             {
+                //First check each NotifierHost if it is enabled and should apply to the alert
                 foreach (NotifierHost notifierEntry in (from n in NotifierHosts
-                                                         where //n.Enabled && 
+                                                         where 
                                                             n.IsEnabledNow() &&
                                                             (int)n.AlertLevel <= (int)alertRaised.Level &&
                                                             (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
@@ -115,9 +116,11 @@ namespace QuickMon
                 {
                     try
                     {
+                        bool allowedToRun = true;
+                        List<string> alertsRecorded = new List<string>();
+
                         foreach (INotifier notifierAgent in notifierEntry.NotifierAgents)
                         {
-                            bool allowedToRun = true;
                             if (RunningAttended == AttendedOption.AttendedAndUnAttended) //no Attended option set on MonitorPack
                             {
                                 allowedToRun = true;
@@ -131,20 +134,30 @@ namespace QuickMon
                             {
                                 if (notifierAgent.AttendedRunOption == AttendedOption.OnlyAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyAttended)
                                     allowedToRun = false;
-                            }
+                            }                            
 
                             if (allowedToRun)
                             {
                                 PCRaiseNotifiersCalled();
                                 notifierAgent.RecordMessage(alertRaised);
-                                if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null && notifierAgent.AgentConfig != null)
+
+                                if (notifierAgent.AgentConfig != null)
                                 {
                                     string configSummary = ((INotifierConfig)notifierAgent.AgentConfig).ConfigSummary;
-                                    alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(string.Format("{0} ({1}) {2}", notifierEntry.Name, notifierEntry.NotifierRegistrationName, configSummary));
+                                    alertsRecorded.Add(string.Format("{0} ({1})", notifierAgent.AgentClassDisplayName, configSummary));
                                 }
                             }
                         }
-                      
+                        if (alertsRecorded.Count > 0)
+                        {
+                            if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
+                            {
+                                StringBuilder sbAlertsRaisedSummary = new StringBuilder();
+                                sbAlertsRaisedSummary.AppendLine(notifierEntry.Name);
+                                alertsRecorded.ForEach(araised=> sbAlertsRaisedSummary.AppendLine("  " + araised));
+                                alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(sbAlertsRaisedSummary.ToString());
+                            }
+                        }                      
                     }
                     catch (Exception ex)
                     {
@@ -152,10 +165,10 @@ namespace QuickMon
                     }
                 }
             }
-            if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
-            {
-                alertRaised.RaisedFor.UpdateLatestHistoryWithAlertDetails(alertRaised.RaisedFor.CurrentState);
-            }
+            //if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
+            //{
+            //    alertRaised.RaisedFor.UpdateLatestHistoryWithAlertDetails(alertRaised.RaisedFor.CurrentState);
+            //}
             sw.Stop();
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
         }

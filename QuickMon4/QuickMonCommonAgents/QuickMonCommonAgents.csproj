@@ -50,8 +50,12 @@
     <Compile Include="Collectors\Ping\Utility\WebClientEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Notifiers\EventLogNotifier\EventLogNotifier.cs" />
+    <Compile Include="Notifiers\EventLogNotifier\EventLogNotifierConfig.cs" />
     <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifier.cs" />
     <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifierConfig.cs" />
+    <Compile Include="Notifiers\LogFileNotifier\LogFileNotifier.cs" />
+    <Compile Include="Notifiers\LogFileNotifier\LogFileNotifierConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -115,6 +115,7 @@ namespace QuickMon
                     Assembly notifierEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
                     currentAgent = (INotifier)notifierEntryAssembly.CreateInstance(currentRA.ClassName);
                     currentAgent.AgentClassName = currentRA.ClassName.Replace("QuickMon.Notifiers.", "");
+                    currentAgent.AgentClassDisplayName = currentRA.DisplayName;
                 }
             }
             return currentAgent;
