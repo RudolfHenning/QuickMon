@@ -72,7 +72,6 @@ namespace QuickMon
                 }
             }
             #endregion
-
             /***************** Load Collectors ****************/
             #region Load Collectors
             XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
@@ -86,6 +85,7 @@ namespace QuickMon
                     collectorHost.AlertWarningState += collectorHost_AlertWarningState;
                     collectorHost.AlertErrorState += collectorHost_AlertErrorState;
                     collectorHost.NoStateChanged += collectorHost_NoStateChanged;
+                    collectorHost.StateUpdated += collectorHost_StateUpdated;
                 }
             }
             #endregion

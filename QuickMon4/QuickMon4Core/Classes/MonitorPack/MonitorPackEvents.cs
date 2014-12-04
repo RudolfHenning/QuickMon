@@ -60,12 +60,12 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseCollectorError: {0}", ex.Message));
             }
         }
-        public event SimpleMessageDelegate RaiseMonitorPackError;
-        private void RaiseRaiseMonitorPackError(string errorMessage)
+        public event SimpleMessageDelegate MonitorPackError;
+        private void RaiseMonitorPackError(string errorMessage)
         {
             try
             {
-                if (RaiseMonitorPackError != null)
+                if (MonitorPackError != null)
                     RaiseMonitorPackError(errorMessage);
             }
             catch (Exception ex)
@@ -139,32 +139,81 @@ namespace QuickMon
         #endregion
 
         #region CollectorHost events
+        /// <summary>
+        /// Event raised before Collector host state gets updated
+        /// </summary>
+        public event CollectorHostDelegate CollectorHostCalled;
+        private void RaiseCollectorHostCalled(CollectorHost collectorHost)
+        {
+            if (CollectorHostCalled != null)
+            {
+                CollectorHostCalled(collectorHost);
+            }
+        }
+        /// <summary>
+        /// Event raised agter Collector host state has been updated
+        /// </summary>
+        public event CollectorHostDelegate CollectorHostStateUpdated;
+
         //to Bubble up the Collector host events
         public event CollectorHostDelegate CollectorHost_AlertRaised_Good;
         public event CollectorHostDelegate CollectorHost_AlertRaised_Warning;
         public event CollectorHostDelegate CollectorHost_AlertRaised_Error;
         public event CollectorHostDelegate CollectorHost_AlertRaised_NoStateChanged;
 
+        private void collectorHost_StateUpdated(CollectorHost collectorHost)
+        {
+            PCRaiseCollectorHostsQueried();
+            
+            if (CollectorHostStateUpdated != null)
+                CollectorHostStateUpdated(collectorHost);
+            if (collectorHost != null)
+            {
+                if (collectorHost.CollectorAgents != null)
+                    PCRaiseCollectorAgentsQueried(collectorHost.CollectorAgents.Count);
+                switch (collectorHost.CurrentState.State)
+                {
+                    case CollectorState.NotAvailable:
+                        break;
+                    case CollectorState.Good:
+                        PCRaiseCollectorSuccessState();
+                        break;
+                    case CollectorState.Warning:
+                        PCRaiseCollectorWarningState();
+                        break;
+                    case CollectorState.Error:
+                    case CollectorState.ConfigurationError:
+                        PCRaiseCollectorErrorState();
+                        break;
+                    case CollectorState.Disabled:
+                        break;
+                    case CollectorState.None:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         private void collectorHost_AlertGoodState(CollectorHost collectorHost)
         {
             if (CollectorHost_AlertRaised_Good != null)
                 CollectorHost_AlertRaised_Good(collectorHost);
-            SendNotifierAlert(AlertLevel.Info, DetailLevel.Detail, collectorHost);
+            SendNotifierAlert(AlertLevel.Info, DetailLevel.Detail, collectorHost);            
         }
         private void collectorHost_AlertWarningState(CollectorHost collectorHost)
         {
             if (CollectorHost_AlertRaised_Warning != null)
                 CollectorHost_AlertRaised_Warning(collectorHost);
-            SendNotifierAlert(AlertLevel.Warning, DetailLevel.Detail, collectorHost);
+            SendNotifierAlert(AlertLevel.Warning, DetailLevel.Detail, collectorHost);            
         }
         private void collectorHost_AlertErrorState(CollectorHost collectorHost)
         {
             if (CollectorHost_AlertRaised_Error != null)
                 CollectorHost_AlertRaised_Error(collectorHost);
 
-            SendNotifierAlert(AlertLevel.Error, DetailLevel.Detail, collectorHost);
+            SendNotifierAlert(AlertLevel.Error, DetailLevel.Detail, collectorHost);            
         }
-        void collectorHost_NoStateChanged(CollectorHost collectorHost)
+        private void collectorHost_NoStateChanged(CollectorHost collectorHost)
         {
             if (CollectorHost_AlertRaised_NoStateChanged != null)
                 CollectorHost_AlertRaised_NoStateChanged(collectorHost);

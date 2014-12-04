@@ -10,6 +10,7 @@ namespace QuickMon
         public void UpdateCurrentCollectorState(CollectorState newState)
         {
             currentState.State = newState;
+            RaiseStateUpdated();
         }
         public void SetCurrentState(MonitorState newState)
         {
@@ -105,6 +106,7 @@ namespace QuickMon
             }
 
             currentState = newState;
+            RaiseStateUpdated();
 
             #region Raise event for Alert to be handled by Monitorpack
             if (raiseAlertNow)
@@ -204,7 +206,7 @@ namespace QuickMon
                     }
                     sw.Stop();
                     resultMonitorState.CallDurationMS = (int)sw.ElapsedMilliseconds;
-
+                    
                     #region Calculate summarized state
                     if (AgentCheckSequence == QuickMon.AgentCheckSequence.All)
                     {

@@ -158,5 +158,27 @@ namespace QuickMon
             }
             return sb.ToString();
         }
+        public string ReadAllHtmlDetails()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (HtmlDetails != null && HtmlDetails.Length > 0)
+            {
+                sb.AppendLine("<p>" + HtmlDetails.EscapeXml() + "</p>");
+            }
+            else if (RawDetails != null && RawDetails.Length > 0)
+            {
+                sb.AppendLine("<p>" + RawDetails.EscapeXml() + "</p>");
+            }
+            if (ChildStates != null && ChildStates.Count > 0)
+            {
+                sb.AppendLine("<ul>");
+                foreach (MonitorState ms in ChildStates)
+                {
+                    sb.Append("<li>" + ms.ReadAllHtmlDetails().EscapeXml() + "</li>");
+                }
+                sb.AppendLine("</ul>");
+            }
+            return sb.ToString();
+        }
     }
 }
