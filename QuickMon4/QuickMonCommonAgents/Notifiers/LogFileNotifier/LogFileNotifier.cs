@@ -42,7 +42,7 @@ namespace QuickMon.Notifiers
                 string collectorAgents = "None";
                 string oldState = "N/A";
                 string newState = "N/A";
-                string detailMessage = "N/A";
+                string detailMessage = alertRaised.MessageRaw;
                 string viaHost = "N/A";
                 if (alertRaised.RaisedFor != null)
                 {
@@ -56,7 +56,6 @@ namespace QuickMon.Notifiers
                     }
                     oldState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.PreviousState.State);
                     newState = Enum.GetName(typeof(CollectorState), alertRaised.RaisedFor.CurrentState.State);
-                    detailMessage = alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
                     if (alertRaised.RaisedFor.OverrideRemoteAgentHost)
                         viaHost = string.Format("{0}:{1}", alertRaised.RaisedFor.OverrideRemoteAgentHostAddress, alertRaised.RaisedFor.OverrideRemoteAgentHostPort);
                     else if (alertRaised.RaisedFor.EnableRemoteExecute)

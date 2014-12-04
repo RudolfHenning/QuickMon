@@ -36,6 +36,7 @@
             this.txtHostName = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.txtAlerts = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -90,9 +91,11 @@
             // 
             // txtHostName
             // 
+            this.txtHostName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHostName.Location = new System.Drawing.Point(93, 140);
             this.txtHostName.Name = "txtHostName";
-            this.txtHostName.Size = new System.Drawing.Size(90, 20);
+            this.txtHostName.Size = new System.Drawing.Size(98, 20);
             this.txtHostName.TabIndex = 5;
             this.txtHostName.Text = "localhost";
             // 
@@ -108,7 +111,8 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(189, 138);
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.Location = new System.Drawing.Point(197, 138);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 7;
@@ -116,11 +120,25 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // txtAlerts
+            // 
+            this.txtAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAlerts.Location = new System.Drawing.Point(12, 166);
+            this.txtAlerts.Multiline = true;
+            this.txtAlerts.Name = "txtAlerts";
+            this.txtAlerts.ReadOnly = true;
+            this.txtAlerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtAlerts.Size = new System.Drawing.Size(260, 84);
+            this.txtAlerts.TabIndex = 8;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.txtAlerts);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.txtHostName);
@@ -146,6 +164,7 @@
         private System.Windows.Forms.TextBox txtHostName;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox txtAlerts;
     }
 }
 

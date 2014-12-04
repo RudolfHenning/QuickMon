@@ -81,14 +81,191 @@ namespace QuickMon
         #endregion
 
         #region Refreshing states
+        public CollectorState RefreshStates(bool disablePollingOverrides = false)
+        {
+            AbortPolling = false;
+            BusyPolling = true;
+            CollectorState globalState = CollectorState.Good;
+            ResetAllOverrides();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            //First get collectors with no dependancies
+            List<CollectorHost> rootCollectorHosts = (from c in CollectorHosts
+                                                          where c.ParentCollectorId.Length == 0
+                                                          select c).ToList();
+            if (ConcurrencyLevel > 1)
+            {
+                ParallelOptions po = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = ConcurrencyLevel
+                };
+                ParallelLoopResult parResult = Parallel.ForEach(rootCollectorHosts, po, collectorHost =>
+                        CollectorHostRefreshCurrentState (collectorHost, disablePollingOverrides));
+                if (!parResult.IsCompleted)
+                {
+                    SendNotifierAlert(AlertLevel.Error, DetailLevel.All, "Error querying collectors in parralel");
+                }
+            }
+            else //use old single threaded way
+            {
+                //Refresh states
+                foreach (CollectorHost collectorHost in rootCollectorHosts)
+                {
+                    CollectorHostRefreshCurrentState(collectorHost, disablePollingOverrides);
+                }
+            }
+            sw.Stop();
+            PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
+#if DEBUG
+            Trace.WriteLine(string.Format("RefreshStates - Global time: {0}ms", sw.ElapsedMilliseconds));
+#endif
+
+            #region Get Global state
+            //All disabled
+            if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Disabled))
+                globalState = CollectorState.Disabled;
+            //All NotAvailable
+            else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.NotAvailable))
+                globalState = CollectorState.NotAvailable;
+            //All good
+            else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Good ||
+                                                                  c.CurrentState.State == CollectorState.None))
+                globalState = CollectorState.Good;
+            //Error state
+            else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Error ||
+                                                                c.CurrentState.State == CollectorState.ConfigurationError))
+                globalState = CollectorState.Error;
+            else
+                globalState = CollectorState.Warning;
+
+            AlertLevel globalAlertLevel = AlertLevel.Info;
+            if (globalState == CollectorState.Error)
+                globalAlertLevel = AlertLevel.Error;
+            else if (globalState == CollectorState.Warning)
+                globalAlertLevel = AlertLevel.Warning; 
+            #endregion
+
+            sw.Restart();
+            SendNotifierAlert(globalAlertLevel, DetailLevel.Summary, "GlobalState");
+            sw.Stop();
+            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
+            BusyPolling = false;
+            CurrentState = globalState;
+            return globalState;
+        }
+        private void CollectorHostRefreshCurrentState(CollectorHost collectorHost , bool disablePollingOverrides = false)
+        {
+            if (!AbortPolling)
+            {
+                RaiseCollectorHostCalled(collectorHost);
+                try
+                {
+                    MonitorState chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+
+                    #region Do/Check/Set dependant CollectorHosts
+                    if (chms.State == CollectorState.Error && collectorHost.ChildCheckBehaviour != ChildCheckBehaviour.ContinueOnWarningOrError)
+                        SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
+                    else if (chms.State == CollectorState.Warning && collectorHost.ChildCheckBehaviour == ChildCheckBehaviour.OnlyRunOnSuccess)
+                        SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
+                    else if (chms.State == CollectorState.Disabled || chms.State == CollectorState.ConfigurationError || !collectorHost.IsEnabledNow())
+                        SetDependantCollectorHostStates(collectorHost, CollectorState.Disabled);
+                    else
+                    {
+                        //Remote execute and dependant Collector Hosts
+                        if (collectorHost.ForceRemoteExcuteOnChildCollectors)
+                        {
+                            collectorHost.OverrideForceRemoteExcuteOnChildCollectors = true;
+                            SetChildCollectorHostRemoteExecuteDetails(collectorHost, collectorHost.RemoteAgentHostAddress, collectorHost.RemoteAgentHostPort);
+                        }
+                        //Polling overrides and dependant Collector Hosts
+                        if (collectorHost.EnabledPollingOverride)
+                        {
+                            SetChildCollectorHostPollingOverrides(collectorHost);                            
+                        }
+
+                        #region Loop through dependant CollectorHosts
+                        if (ConcurrencyLevel > 1)
+                        {
+                            ParallelOptions po = new ParallelOptions()
+                            {
+                                MaxDegreeOfParallelism = ConcurrencyLevel
+                            };
+                            ParallelLoopResult parResult = Parallel.ForEach((from c in CollectorHosts
+                                                                             where c.ParentCollectorId == collectorHost.UniqueId
+                                                                             select c),
+                                        po, dependentCollectorHost =>
+                                    CollectorHostRefreshCurrentState(dependentCollectorHost, disablePollingOverrides));
+                            if (!parResult.IsCompleted)
+                            {
+                                SendNotifierAlert(AlertLevel.Error, DetailLevel.All, "Error querying collectors in parralel");
+                            }
+                        }
+                        else //use old single threaded way
+                        {
+                            //Refresh states
+                            foreach (CollectorHost dependentCollectorHost in (from c in CollectorHosts
+                                                                              where c.ParentCollectorId == collectorHost.UniqueId
+                                                                              select c))
+                            {
+                                CollectorHostRefreshCurrentState(dependentCollectorHost, disablePollingOverrides);
+                            }
+                        } 
+                        #endregion
+                    }
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
+                        RaiseMonitorPackError("Internal error. Collector config was modified while in use!");
+                    else
+                        RaiseCollectorError(collectorHost, ex.Message);
+                }
+            }
+        }
+       
+        #endregion
+
+        #region Sending Alerts
+        /// <summary>
+        /// For sending generic alerts where no Collector is in volved
+        /// </summary>
+        /// <param name="alertLevel"></param>
+        /// <param name="detailLevel"></param>
+        /// <param name="statusMessage"></param>
+        /// <param name="collectorState"></param>
+        private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel, string messageRaw, string messageHtml = "")
+        {
+            if (messageHtml == null || messageHtml.Length == 0)
+                messageHtml = string.Format("<p>{0}</p>", messageRaw.EscapeXml());
+            SendNotifierAlert(new AlertRaised()
+            {
+                Level = alertLevel,
+                DetailLevel = detailLevel,
+                RaisedFor = null,
+                MessageRaw = messageRaw,
+                MessageHTML = messageHtml
+            });            
+        }
+        /// <summary>
+        /// For use when a CollectorHost raise an alert
+        /// </summary>
+        /// <param name="alertLevel"></param>
+        /// <param name="detailLevel"></param>
+        /// <param name="raisedFor"></param>
         private void SendNotifierAlert(AlertLevel alertLevel, DetailLevel detailLevel, CollectorHost raisedFor)
         {
-            SendNotifierAlert(new AlertRaised()
-                {
-                    Level = alertLevel,
-                    DetailLevel = detailLevel,
-                    RaisedFor = raisedFor
-                });
+            if (raisedFor != null)
+            {
+                SendNotifierAlert(new AlertRaised()
+                    {
+                        Level = alertLevel,
+                        DetailLevel = detailLevel,
+                        RaisedFor = raisedFor,
+                        MessageRaw = raisedFor.CurrentState.ReadAllRawDetails(),
+                        MessageHTML = raisedFor.CurrentState.ReadAllHtmlDetails()
+                    });
+            }
         }
         private void SendNotifierAlert(AlertRaised alertRaised)
         {
@@ -97,11 +274,15 @@ namespace QuickMon
             if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
             {
                 alertRaised.RaisedFor.CurrentState.AlertsRaised = new List<string>();
+                if (alertRaised.MessageRaw.Length == 0)
+                    alertRaised.MessageRaw = alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
+                if (alertRaised.MessageHTML.Length == 0)
+                    alertRaised.MessageHTML = alertRaised.RaisedFor.CurrentState.ReadAllHtmlDetails();
             }
+            //If alerts are paused for CollectorHost...
             if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.AlertsPaused)
             {
-                //alertRaised.State.RawDetails += "\r\nAlerts are paused for this collector.";
-                //alertRaised.RaisedFor.CurrentState.AlertsRaised.Add("Alerts are paused for this collector");
+                
             }
             else
             {
@@ -137,8 +318,8 @@ namespace QuickMon
                             }                            
 
                             if (allowedToRun)
-                            {
-                                PCRaiseNotifiersCalled();
+                            {                                
+                                PCRaiseNotifierAlertSend();
                                 notifierAgent.RecordMessage(alertRaised);
 
                                 if (notifierAgent.AgentConfig != null)
@@ -148,16 +329,13 @@ namespace QuickMon
                                 }
                             }
                         }
-                        if (alertsRecorded.Count > 0)
+                        if (alertsRecorded.Count > 0 && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
                         {
-                            if (alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
-                            {
-                                StringBuilder sbAlertsRaisedSummary = new StringBuilder();
-                                sbAlertsRaisedSummary.AppendLine(notifierEntry.Name);
-                                alertsRecorded.ForEach(araised=> sbAlertsRaisedSummary.AppendLine("  " + araised));
-                                alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(sbAlertsRaisedSummary.ToString());
-                            }
-                        }                      
+                            StringBuilder sbAlertsRaisedSummary = new StringBuilder();
+                            sbAlertsRaisedSummary.AppendLine(notifierEntry.Name);
+                            alertsRecorded.ForEach(araised => sbAlertsRaisedSummary.AppendLine("  " + araised));
+                            alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(sbAlertsRaisedSummary.ToString());
+                        }                   
                     }
                     catch (Exception ex)
                     {
@@ -171,6 +349,94 @@ namespace QuickMon
             //}
             sw.Stop();
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
+            PCRaiseNotifiersCalled();
+        }
+        #endregion
+
+        #region Recursively set child properties
+        private void ResetAllOverrides(CollectorHost parentCollector = null)
+        {
+            List<CollectorHost> collectors = null;
+            if (parentCollector == null)
+                collectors = (from c in CollectorHosts
+                              where c.ParentCollectorId.Length == 0
+                              select c).ToList();
+            else
+                collectors = (from c in CollectorHosts
+                              where c.ParentCollectorId == parentCollector.UniqueId
+                              select c).ToList();
+            foreach (CollectorHost childCollector in collectors)
+            {
+                childCollector.MaxStateHistorySize = CollectorStateHistorySize;
+                //Remote agent host
+                childCollector.OverrideForceRemoteExcuteOnChildCollectors = false;
+                childCollector.OverrideRemoteAgentHost = false;
+                childCollector.OverrideRemoteAgentHostAddress = "";
+                childCollector.OverrideRemoteAgentHostPort = GlobalConstants.DefaultRemoteHostPort;
+                ResetAllOverrides(childCollector);
+            }
+        }
+        private void SetDependantCollectorHostStates(CollectorHost collectorHost, CollectorState collectorState)
+        {
+            //Set states without adding to history
+            try
+            {
+                foreach (CollectorHost childCollectorHost in (from c in CollectorHosts
+                                                           where c.ParentCollectorId == collectorHost.UniqueId
+                                                           select c))
+                {
+                    childCollectorHost.UpdateCurrentCollectorState(collectorState);
+                    SetDependantCollectorHostStates(childCollectorHost, collectorState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
+                    throw;
+            }
+        }
+        private void SetChildCollectorHostRemoteExecuteDetails(CollectorHost collectorHost, string remoteAgentHostAddress, int remoteAgentHostPort)
+        {
+            foreach (CollectorHost childCollector in (from c in CollectorHosts
+                                                       where c.ParentCollectorId == collectorHost.UniqueId
+                                                       select c))
+            {
+                childCollector.OverrideForceRemoteExcuteOnChildCollectors = collectorHost.OverrideForceRemoteExcuteOnChildCollectors;
+                childCollector.OverrideRemoteAgentHost = remoteAgentHostAddress.Length > 0;
+                childCollector.OverrideRemoteAgentHostAddress = remoteAgentHostAddress;
+                childCollector.OverrideRemoteAgentHostPort = remoteAgentHostPort;
+
+                //Set grand children
+                SetChildCollectorHostRemoteExecuteDetails(childCollector, remoteAgentHostAddress, remoteAgentHostPort);
+            }
+        }
+        private void SetChildCollectorHostPollingOverrides(CollectorHost parentCollectorHost)
+        {
+            foreach (CollectorHost childCollector in (from c in CollectorHosts
+                                                      where c.ParentCollectorId == parentCollectorHost.UniqueId
+                                                      select c))
+            {
+                if (!childCollector.EnabledPollingOverride) //check that child does not have its own 
+                {
+                    childCollector.OnlyAllowUpdateOncePerXSec = parentCollectorHost.OnlyAllowUpdateOncePerXSec;
+                    //to make sure child collector does not miss the poll event
+                    childCollector.LastStateUpdate = parentCollectorHost.LastStateUpdate;
+                }
+                else
+                {
+                    if (childCollector.OnlyAllowUpdateOncePerXSec < parentCollectorHost.OnlyAllowUpdateOncePerXSec)
+                    {
+                        childCollector.OnlyAllowUpdateOncePerXSec = parentCollectorHost.OnlyAllowUpdateOncePerXSec;
+                        //to make sure child collector does not miss the poll event
+                        childCollector.LastStateUpdate = parentCollectorHost.LastStateUpdate;
+                    }
+                }
+                //force child settings permanently
+                childCollector.EnabledPollingOverride = true;
+
+                //Set grand children
+                SetChildCollectorHostPollingOverrides(childCollector);
+            }
         }
         #endregion
 

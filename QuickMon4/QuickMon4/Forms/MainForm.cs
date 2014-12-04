@@ -87,23 +87,37 @@ namespace QuickMon
 
         void m_CollectorHost_AlertRaised_Error(CollectorHost collectorHost)
         {
-            MessageBox.Show(string.Format("Error alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Error alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            txtAlerts.Text += string.Format("\r\nError:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
+            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+            txtAlerts.ScrollToCaret();
+
+            //MessageBox.Show(string.Format("Error alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Error alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         void m_CollectorHost_AlertRaised_Warning(CollectorHost collectorHost)
         {
-            MessageBox.Show(string.Format("Warning alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Warning alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            txtAlerts.Text += string.Format("\r\nWarning:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
+            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+            txtAlerts.ScrollToCaret();
+
+            //MessageBox.Show(string.Format("Warning alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Warning alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void m_CollectorHost_AlertRaised_NoStateChanged(CollectorHost collectorHost)
         {
-            MessageBox.Show(string.Format("No alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "No alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(string.Format("No alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "No alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            txtAlerts.Text += string.Format("\r\nNo Alert:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
+            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+            txtAlerts.ScrollToCaret();
         }
 
         private void m_CollectorHost_AlertRaised_Good(CollectorHost collectorHost)
         {
-            
-            MessageBox.Show(string.Format("Good alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Good alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            txtAlerts.Text += string.Format("\r\nGood:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
+            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+            txtAlerts.ScrollToCaret();
+
+            //MessageBox.Show(string.Format("Good alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Good alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -321,10 +335,10 @@ namespace QuickMon
 
         private MonitorPack persistentTest = new MonitorPack();
         private void button6_Click(object sender, EventArgs e)
-        {
-            
+        {            
             try
             {
+                txtAlerts.Text = "";
                 string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
                         "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
                         "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
@@ -362,6 +376,14 @@ namespace QuickMon
                                     "<notifierAgent type=\"LogFileNotifier\">\r\n" +
                                         "<config><logFile path=\"c:\\Temp\\QuickMon4Test.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
                                     "</notifierAgent>\r\n" +
+                                "</notifierAgents>\r\n" +
+                            "</notifierHost>\r\n" +
+                            "<notifierHost name=\"Non-Default notifiers\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
+                                "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+                                "<notifierAgents>\r\n" +
+                                    "<notifierAgent type=\"LogFileNotifier\">\r\n" +
+                                        "<config><logFile path=\"c:\\Temp\\QuickMon4ErrorTest.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
+                                    "</notifierAgent>\r\n" +
                                     "<notifierAgent type=\"EventLogNotifier\">\r\n" +
                                         "<config><eventLog computer=\".\" eventSource=\"QuickMon4\" successEventID=\"0\" warningEventID=\"1\" errorEventID=\"2\" /></config>\r\n" +
                                     "</notifierAgent>\r\n" +
@@ -376,18 +398,27 @@ namespace QuickMon
                 persistentTest.CollectorHost_AlertRaised_Warning += m_CollectorHost_AlertRaised_Warning;
                 persistentTest.CollectorHost_AlertRaised_Error += m_CollectorHost_AlertRaised_Error;
 
-                MonitorState ms = persistentTest.CollectorHosts[0].RefreshCurrentState();
+                persistentTest.RefreshStates(true);
+                MonitorState ms = persistentTest.CollectorHosts[0].CurrentState;
 
                 Application.DoEvents();
                 List<string> alertsRaised = ms.AlertsRaised;
                 StringBuilder alertSummary = new StringBuilder();
                 alertsRaised.ForEach(a => alertSummary.AppendLine(a));
-                if (alertSummary.ToString().Length > 0) 
-                    MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ?  MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                if (alertSummary.ToString().Length > 0)
+                {
+                    txtAlerts.Text += string.Format("\r\nAlerts raised\r\n{0}", alertSummary);
+                    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                    txtAlerts.ScrollToCaret();
 
+                    //MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                }
                 if (persistentTest.CollectorHosts[0].StateHistory.Count > 0)
                 {
-                    MessageBox.Show(string.Format("Previous state: {0}\r\nWait here for repeatAlertInXMin test", persistentTest.CollectorHosts[0].StateHistory.Last().State), "Previous", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtAlerts.Text += string.Format("\r\nPrevious state: {0}", persistentTest.CollectorHosts[0].StateHistory.Last().State);
+                    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                    txtAlerts.ScrollToCaret();
+                    //MessageBox.Show(string.Format("Previous state: {0}\r\nWait here for repeatAlertInXMin test", persistentTest.CollectorHosts[0].StateHistory.Last().State), "Previous", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 ////seconds time
@@ -415,21 +446,42 @@ namespace QuickMon
         {
             if (persistentTest.CollectorHosts.Count > 0)
             {
-                persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml("<config>\r\n" +
+                string newConfig = "<config>\r\n" +
                                             "<entries>\r\n" +
-                                                "<entry pingMethod=\"Ping\" address=\"" + txtHostName.Text + "\" />\r\n" +
                                             "</entries>\r\n" +
-                                        "</config>");
-                MonitorState ms = persistentTest.CollectorHosts[0].RefreshCurrentState();
+                                        "</config>";
+
+                if (txtHostName.Text.Trim().Length > 0)
+                {
+                    
+                    string[] hostnames = txtHostName.Text.Split(',', ' ');
+                    foreach (string hostname in hostnames)
+                    {
+                        if (hostname.Trim().Length > 0)
+                            newConfig = newConfig.Replace("</entries>", "<entry pingMethod=\"Ping\" address=\"" + hostname.Trim() + "\" />\r\n</entries>");
+                    }
+                }
+
+                persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml(newConfig);
+                persistentTest.RefreshStates();
+
+                MonitorState ms = persistentTest.CollectorHosts[0].CurrentState;
                 List<string> alertsRaised = ms.AlertsRaised;
                 StringBuilder alertSummary = new StringBuilder();
                 alertsRaised.ForEach(a => alertSummary.AppendLine(a));
 
-                MessageBox.Show(string.Format("Resulting state: {0}\r\nPrevious state: {1}\r\nAlert Info: {2}",
+                txtAlerts.Text += string.Format("\r\nResulting state: {0}\r\nPrevious state: {1}\r\nAlert Info: {2}",
                         ms.State,
                         persistentTest.CollectorHosts[0].PreviousState.State,
-                        alertSummary.ToString()), "Result", MessageBoxButtons.OK,
-                        (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                        alertSummary.ToString());
+                txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                txtAlerts.ScrollToCaret();
+
+                //MessageBox.Show(string.Format("Resulting state: {0}\r\nPrevious state: {1}\r\nAlert Info: {2}",
+//                        ms.State,
+                        //persistentTest.CollectorHosts[0].PreviousState.State,
+//                        alertSummary.ToString()), "Result", MessageBoxButtons.OK,
+                        //(ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
             }
         }
     }

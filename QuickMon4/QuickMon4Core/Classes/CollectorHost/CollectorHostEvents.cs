@@ -43,5 +43,14 @@ namespace QuickMon
                 NoStateChanged(this);
             }
         }
+
+        public event CollectorHostDelegate StateUpdated;
+        private void RaiseStateUpdated()
+        {
+            if (StateUpdated != null)
+            {
+                StateUpdated(this);
+            }
+        }
     }
 }
