@@ -339,33 +339,93 @@ namespace QuickMon
             try
             {
                 txtAlerts.Text = "";
-                string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                //string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                //        "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
+                //        "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
+                //        "<configVars />\r\n" +
+                //        "<collectorHosts>\r\n" +
+                //            "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                //               "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                //               "repeatAlertInXMin=\"1\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                //               "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
+                //               "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
+                //               "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
+                //               "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" " +
+                //               "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" " +
+                //               "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
+                //               "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
+                //               "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                //               "<collectorAgents>\r\n" +
+                //                   "<collectorAgent type=\"PingCollector\">\r\n" +
+                //                        "<config>\r\n" +
+                //                            "<entries>\r\n" +
+                //                                "<entry pingMethod=\"Ping\" address=\"" + txtHostName.Text + "\" />\r\n" +
+                //                            "</entries>\r\n" +
+                //                        "</config>\r\n" +
+                //                   "</collectorAgent>\r\n" +
+                //               "</collectorAgents>\r\n" +
+                //            "</collectorHost>\r\n" +
+                //        "</collectorHosts>\r\n" +
+                //        "<notifierHosts>\r\n" +
+                //            "<notifierHost name=\"Default notifiers\" enabled=\"True\" alertLevel=\"Info\" detailLevel=\"Detail\" " +
+                //                "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+                //                "<notifierAgents>\r\n" +
+                //                    "<notifierAgent type=\"InMemoryNotifier\">\r\n" +
+                //                        "<config><inMemory maxEntryCount=\"99999\" /></config>\r\n" +
+                //                    "</notifierAgent>\r\n" +
+                //                    "<notifierAgent type=\"LogFileNotifier\">\r\n" +
+                //                        "<config><logFile path=\"c:\\Temp\\QuickMon4Test.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
+                //                    "</notifierAgent>\r\n" +
+                //                "</notifierAgents>\r\n" +
+                //            "</notifierHost>\r\n" +
+                //            "<notifierHost name=\"Non-Default notifiers\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
+                //                "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+                //                "<notifierAgents>\r\n" +
+                //                    "<notifierAgent type=\"LogFileNotifier\">\r\n" +
+                //                        "<config><logFile path=\"c:\\Temp\\QuickMon4ErrorTest.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
+                //                    "</notifierAgent>\r\n" +
+                //                    "<notifierAgent type=\"EventLogNotifier\">\r\n" +
+                //                        "<config><eventLog computer=\".\" eventSource=\"QuickMon4\" successEventID=\"0\" warningEventID=\"1\" errorEventID=\"2\" /></config>\r\n" +
+                //                    "</notifierAgent>\r\n" +
+                //                "</notifierAgents>\r\n" +
+                //            "</notifierHost>\r\n" +
+                //        "</notifierHosts>\r\n" +
+                //       "</monitorPack>";
+
+                 string mconfig = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
                         "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
                         "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
                         "<configVars />\r\n" +
-                        "<collectorHosts>\r\n" +
-                            "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
-                               "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
-                               "repeatAlertInXMin=\"1\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
-                               "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
-                               "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
-                               "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
-                               "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" " +
-                               "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" " +
-                               "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
-                               "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
-                               "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
-                               "<collectorAgents>\r\n" +
-                                   "<collectorAgent type=\"PingCollector\">\r\n" +
-                                        "<config>\r\n" +
-                                            "<entries>\r\n" +
-                                                "<entry pingMethod=\"Ping\" address=\"" + txtHostName.Text + "\" />\r\n" +
-                                            "</entries>\r\n" +
-                                        "</config>\r\n" +
-                                   "</collectorAgent>\r\n" +
-                               "</collectorAgents>\r\n" +
-                            "</collectorHost>\r\n" +
-                        "</collectorHosts>\r\n" +
+                        "<collectorHosts>\r\n";
+                 if (txtHostName.Text.Trim().Length > 0)
+                 {
+                     string[] hostnames = txtHostName.Text.Split(',', ' ');
+                     foreach (string hostname in hostnames)
+                     {
+                         mconfig += "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                                "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                                "repeatAlertInXMin=\"1\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                                "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
+                                "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
+                                "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
+                                "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" " +
+                                "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" " +
+                                "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
+                                "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
+                                "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                                "<collectorAgents>\r\n" +
+                                    "<collectorAgent type=\"PingCollector\">\r\n" +
+                                         "<config>\r\n" +
+                                             "<entries>\r\n" +
+                                                 "<entry pingMethod=\"Ping\" address=\"" + hostname.EscapeXml().Trim() + "\" />\r\n" +
+                                             "</entries>\r\n" +
+                                         "</config>\r\n" +
+                                    "</collectorAgent>\r\n" +
+                                "</collectorAgents>\r\n" +
+                             "</collectorHost>\r\n";
+                     }
+                 }
+                 mconfig += "</collectorHosts>\r\n" +
                         "<notifierHosts>\r\n" +
                             "<notifierHost name=\"Default notifiers\" enabled=\"True\" alertLevel=\"Info\" detailLevel=\"Detail\" " +
                                 "attendedOptionOverride=\"OnlyAttended\">\r\n" +
@@ -391,12 +451,16 @@ namespace QuickMon
                             "</notifierHost>\r\n" +
                         "</notifierHosts>\r\n" +
                        "</monitorPack>";
+
+
                 persistentTest = new MonitorPack();
+                persistentTest.ConcurrencyLevel = (int)nudConcurency.Value;
                 persistentTest.LoadXml(mconfig);
                 persistentTest.CollectorHost_AlertRaised_Good += m_CollectorHost_AlertRaised_Good;
                 persistentTest.CollectorHost_AlertRaised_NoStateChanged += m_CollectorHost_AlertRaised_NoStateChanged;
                 persistentTest.CollectorHost_AlertRaised_Warning += m_CollectorHost_AlertRaised_Warning;
                 persistentTest.CollectorHost_AlertRaised_Error += m_CollectorHost_AlertRaised_Error;
+                Application.DoEvents();
 
                 persistentTest.RefreshStates(true);
                 MonitorState ms = persistentTest.CollectorHosts[0].CurrentState;
@@ -405,21 +469,28 @@ namespace QuickMon
                 List<string> alertsRaised = ms.AlertsRaised;
                 StringBuilder alertSummary = new StringBuilder();
                 alertsRaised.ForEach(a => alertSummary.AppendLine(a));
-                if (alertSummary.ToString().Length > 0)
-                {
-                    txtAlerts.Text += string.Format("\r\nAlerts raised\r\n{0}", alertSummary);
-                    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-                    txtAlerts.ScrollToCaret();
+                //if (alertSummary.ToString().Length > 0)
+                //{
+                //    txtAlerts.Text += string.Format("\r\nAlerts raised\r\n{0}", alertSummary);
+                //    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                //    txtAlerts.ScrollToCaret();
 
-                    //MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
-                }
-                if (persistentTest.CollectorHosts[0].StateHistory.Count > 0)
-                {
-                    txtAlerts.Text += string.Format("\r\nPrevious state: {0}", persistentTest.CollectorHosts[0].StateHistory.Last().State);
-                    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-                    txtAlerts.ScrollToCaret();
-                    //MessageBox.Show(string.Format("Previous state: {0}\r\nWait here for repeatAlertInXMin test", persistentTest.CollectorHosts[0].StateHistory.Last().State), "Previous", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                //    //MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                //}
+
+                txtAlerts.Text += string.Format("\r\nDuration: {0}ms\r\nResulting state: {1}\r\nPrevious state: {2}\r\nAlert Info: {3}",
+                        ms.CallDurationMS,
+                        ms.State,
+                        persistentTest.CollectorHosts[0].PreviousState.State,
+                        alertSummary.ToString());
+
+                //if (persistentTest.CollectorHosts[0].StateHistory.Count > 0)
+                //{
+                //    txtAlerts.Text += string.Format("\r\nPrevious state: {0}", persistentTest.CollectorHosts[0].StateHistory.Last().State);
+                //    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                //    txtAlerts.ScrollToCaret();
+                //    //MessageBox.Show(string.Format("Previous state: {0}\r\nWait here for repeatAlertInXMin test", persistentTest.CollectorHosts[0].StateHistory.Last().State), "Previous", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
 
                 ////seconds time
                 //ms = persistentTest.CollectorHosts[0].RefreshCurrentState();
@@ -446,32 +517,44 @@ namespace QuickMon
         {
             if (persistentTest.CollectorHosts.Count > 0)
             {
-                string newConfig = "<config>\r\n" +
-                                            "<entries>\r\n" +
-                                            "</entries>\r\n" +
-                                        "</config>";
+                
+                //string newConfig = "<config>\r\n" +
+                //                            "<entries>\r\n" +
+                //                            "</entries>\r\n" +
+                //                        "</config>";
 
-                if (txtHostName.Text.Trim().Length > 0)
-                {
+                //if (txtHostName.Text.Trim().Length > 0)
+                //{
                     
-                    string[] hostnames = txtHostName.Text.Split(',', ' ');
-                    foreach (string hostname in hostnames)
-                    {
-                        if (hostname.Trim().Length > 0)
-                            newConfig = newConfig.Replace("</entries>", "<entry pingMethod=\"Ping\" address=\"" + hostname.Trim() + "\" />\r\n</entries>");
-                    }
-                }
+                //    string[] hostnames = txtHostName.Text.Split(',', ' ');
+                //    foreach (string hostname in hostnames)
+                //    {
+                //        if (hostname.Trim().Length > 0)
+                //            newConfig = newConfig.Replace("</entries>", "<entry pingMethod=\"Ping\" address=\"" + hostname.Trim() + "\" />\r\n</entries>");
+                //    }
+                //}
 
-                persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml(newConfig);
+                txtAlerts.Text += "\r\n" + (new string('*', 80));
+                persistentTest.ConcurrencyLevel = (int)nudConcurency.Value;
+                //persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml(newConfig);
                 persistentTest.RefreshStates();
 
-                MonitorState ms = persistentTest.CollectorHosts[0].CurrentState;
-                List<string> alertsRaised = ms.AlertsRaised;
-                StringBuilder alertSummary = new StringBuilder();
-                alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+                //MonitorState ms = persistentTest.CurrentState;
 
-                txtAlerts.Text += string.Format("\r\nResulting state: {0}\r\nPrevious state: {1}\r\nAlert Info: {2}",
-                        ms.State,
+                StringBuilder alertSummary = new StringBuilder();
+                foreach (CollectorHost ch in persistentTest.CollectorHosts)
+                {
+                    List<string> alertsRaised = ch.CurrentState.AlertsRaised;
+                    if (alertsRaised.Count > 0)
+                    {
+                        alertSummary.AppendLine("Alerts raised by " + ch.Name);
+                        alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+                    }
+                }
+                txtAlerts.Text += string.Format("\r\n{0}\r\nDuration: {1}ms\r\nResulting state: {2}\r\nPrevious state: {3}\r\nAlert Info: {4}",
+                        (new string('-', 80)),
+                        persistentTest.LastRefreshDurationMS,
+                        persistentTest.CurrentState,
                         persistentTest.CollectorHosts[0].PreviousState.State,
                         alertSummary.ToString());
                 txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;

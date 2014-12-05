@@ -37,6 +37,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.txtAlerts = new System.Windows.Forms.TextBox();
+            this.nudConcurency = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -133,11 +135,29 @@
             this.txtAlerts.Size = new System.Drawing.Size(260, 84);
             this.txtAlerts.TabIndex = 8;
             // 
+            // nudConcurency
+            // 
+            this.nudConcurency.Location = new System.Drawing.Point(140, 114);
+            this.nudConcurency.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudConcurency.Name = "nudConcurency";
+            this.nudConcurency.Size = new System.Drawing.Size(51, 20);
+            this.nudConcurency.TabIndex = 9;
+            this.nudConcurency.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.nudConcurency);
             this.Controls.Add(this.txtAlerts);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -149,6 +169,7 @@
             this.Controls.Add(this.button1);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -165,6 +186,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox txtAlerts;
+        private System.Windows.Forms.NumericUpDown nudConcurency;
     }
 }
 
