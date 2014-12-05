@@ -68,6 +68,7 @@ namespace QuickMon
         public bool BusyPolling { get; private set; }
         public bool AbortPolling { get; set; }
         #endregion
+        public long LastRefreshDurationMS { get; private set; }
         #endregion
 
         #region Settings set by the hosting application
@@ -116,6 +117,7 @@ namespace QuickMon
             }
             sw.Stop();
             PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
+            LastRefreshDurationMS = sw.ElapsedMilliseconds;
 #if DEBUG
             Trace.WriteLine(string.Format("RefreshStates - Global time: {0}ms", sw.ElapsedMilliseconds));
 #endif
