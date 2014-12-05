@@ -85,39 +85,34 @@ namespace QuickMon
             }
         }
 
+        private void AppendOutput(string message)
+        {
+            lock (txtAlerts)
+            {
+                txtAlerts.Text += string.Format("\r\n{0}", message);
+                txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                txtAlerts.ScrollToCaret();
+            }
+        }
+
         void m_CollectorHost_AlertRaised_Error(CollectorHost collectorHost)
         {
-            txtAlerts.Text += string.Format("\r\nError:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
-            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-            txtAlerts.ScrollToCaret();
-
-            //MessageBox.Show(string.Format("Error alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Error alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            AppendOutput(string.Format("Error:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()));
         }
 
         void m_CollectorHost_AlertRaised_Warning(CollectorHost collectorHost)
         {
-            txtAlerts.Text += string.Format("\r\nWarning:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
-            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-            txtAlerts.ScrollToCaret();
-
-            //MessageBox.Show(string.Format("Warning alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Warning alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            AppendOutput(string.Format("Warning:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()));
         }
 
         private void m_CollectorHost_AlertRaised_NoStateChanged(CollectorHost collectorHost)
         {
-            //MessageBox.Show(string.Format("No alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "No alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            txtAlerts.Text += string.Format("\r\nNo Alert:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
-            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-            txtAlerts.ScrollToCaret();
+            //AppendOutput(string.Format("No State changed:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()));
         }
 
         private void m_CollectorHost_AlertRaised_Good(CollectorHost collectorHost)
         {
-            txtAlerts.Text += string.Format("\r\nGood:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails());
-            txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-            txtAlerts.ScrollToCaret();
-
-            //MessageBox.Show(string.Format("Good alert raised for {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()), "Good alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //AppendOutput(string.Format("Good:\r\nFor: {0}\r\nDetails: {1}", collectorHost.Name, collectorHost.CurrentState.ReadAllRawDetails()));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -402,7 +397,7 @@ namespace QuickMon
                      string[] hostnames = txtHostName.Text.Split(',', ' ');
                      foreach (string hostname in hostnames)
                      {
-                         mconfig += "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                         mconfig += "<collectorHost uniqueId=\"123\" name=\"Ping " + hostname.EscapeXml().Trim() + "\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
                                 "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
                                 "repeatAlertInXMin=\"1\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
                                 "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
@@ -433,9 +428,9 @@ namespace QuickMon
                                     "<notifierAgent type=\"InMemoryNotifier\">\r\n" +
                                         "<config><inMemory maxEntryCount=\"99999\" /></config>\r\n" +
                                     "</notifierAgent>\r\n" +
-                                    "<notifierAgent type=\"LogFileNotifier\">\r\n" +
-                                        "<config><logFile path=\"c:\\Temp\\QuickMon4Test.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
-                                    "</notifierAgent>\r\n" +
+                                    //"<notifierAgent type=\"LogFileNotifier\">\r\n" +
+                                    //    "<config><logFile path=\"c:\\Temp\\QuickMon4Test.log\" createNewFileSizeKB=\"0\" /></config>\r\n" +
+                                    //"</notifierAgent>\r\n" +
                                 "</notifierAgents>\r\n" +
                             "</notifierHost>\r\n" +
                             "<notifierHost name=\"Non-Default notifiers\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
@@ -463,26 +458,51 @@ namespace QuickMon
                 Application.DoEvents();
 
                 persistentTest.RefreshStates(true);
-                MonitorState ms = persistentTest.CollectorHosts[0].CurrentState;
 
                 Application.DoEvents();
-                List<string> alertsRaised = ms.AlertsRaised;
                 StringBuilder alertSummary = new StringBuilder();
-                alertsRaised.ForEach(a => alertSummary.AppendLine(a));
-                //if (alertSummary.ToString().Length > 0)
-                //{
-                //    txtAlerts.Text += string.Format("\r\nAlerts raised\r\n{0}", alertSummary);
-                //    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-                //    txtAlerts.ScrollToCaret();
+                foreach (CollectorHost ch in persistentTest.CollectorHosts)
+                {
+                    alertSummary.AppendLine(string.Format("\r\n\tCollector host: {0}\r\n\tState: {1}", ch.Name, ch.CurrentState.State));
+                    List<string> alertsRaised = ch.CurrentState.AlertsRaised;
+                    if (alertsRaised.Count > 0)
+                    {
+                        alertSummary.AppendLine("\tNotifiers:");
+                        alertsRaised.ForEach(a => alertSummary.AppendLine("\t\t" + a));
+                    }
+                }
+                AppendOutput(string.Format("{0}\r\nDuration: {1}ms\r\nResulting state: {2}\r\nAlert Info: {3}",
+                        (new string('-', 80)),
+                        persistentTest.LastRefreshDurationMS,
+                        persistentTest.CurrentState,
+                        alertSummary.ToString()));
 
-                //    //MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
-                //}
 
-                txtAlerts.Text += string.Format("\r\nDuration: {0}ms\r\nResulting state: {1}\r\nPrevious state: {2}\r\nAlert Info: {3}",
-                        ms.CallDurationMS,
-                        ms.State,
-                        persistentTest.CollectorHosts[0].PreviousState.State,
-                        alertSummary.ToString());
+                //MonitorState ms = persistentTest.CollectorHosts[0].CurrentState;
+
+                //Application.DoEvents();
+                //List<string> alertsRaised = ms.AlertsRaised;
+                //StringBuilder alertSummary = new StringBuilder();
+                //alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+                ////if (alertSummary.ToString().Length > 0)
+                ////{
+                ////    txtAlerts.Text += string.Format("\r\nAlerts raised\r\n{0}", alertSummary);
+                ////    txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                ////    txtAlerts.ScrollToCaret();
+
+                ////    //MessageBox.Show("Alerts raised\r\n" + alertSummary.ToString(), "Alerts raised", MessageBoxButtons.OK, (ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                ////}
+                //AppendOutput(string.Format("Duration: {0}ms\r\nResulting state: {1}\r\nPrevious state: {2}\r\nAlert Info: {3}",
+                //        ms.CallDurationMS,
+                //        ms.State,
+                //        persistentTest.CollectorHosts[0].PreviousState.State,
+                //        alertSummary.ToString()));
+
+                //txtAlerts.Text += string.Format("\r\nDuration: {0}ms\r\nResulting state: {1}\r\nPrevious state: {2}\r\nAlert Info: {3}",
+                //        ms.CallDurationMS,
+                //        ms.State,
+                //        persistentTest.CollectorHosts[0].PreviousState.State,
+                //        alertSummary.ToString());
 
                 //if (persistentTest.CollectorHosts[0].StateHistory.Count > 0)
                 //{
@@ -538,27 +558,34 @@ namespace QuickMon
                 persistentTest.ConcurrencyLevel = (int)nudConcurency.Value;
                 //persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml(newConfig);
                 persistentTest.RefreshStates();
+                Application.DoEvents();
 
                 //MonitorState ms = persistentTest.CurrentState;
 
                 StringBuilder alertSummary = new StringBuilder();
                 foreach (CollectorHost ch in persistentTest.CollectorHosts)
                 {
+                    alertSummary.AppendLine(string.Format("\r\n\tCollector host: {0}\r\n\tState: {1}", ch.Name, ch.CurrentState.State));
                     List<string> alertsRaised = ch.CurrentState.AlertsRaised;
                     if (alertsRaised.Count > 0)
                     {
-                        alertSummary.AppendLine("Alerts raised by " + ch.Name);
-                        alertsRaised.ForEach(a => alertSummary.AppendLine(a));
+                        alertSummary.AppendLine("\tNotifiers:");
+                        alertsRaised.ForEach(a => alertSummary.AppendLine("\t\t" + a));
                     }
                 }
-                txtAlerts.Text += string.Format("\r\n{0}\r\nDuration: {1}ms\r\nResulting state: {2}\r\nPrevious state: {3}\r\nAlert Info: {4}",
+                AppendOutput(string.Format("{0}\r\nDuration: {1}ms\r\nResulting state: {2}\r\nAlert Info: {3}",
                         (new string('-', 80)),
                         persistentTest.LastRefreshDurationMS,
                         persistentTest.CurrentState,
-                        persistentTest.CollectorHosts[0].PreviousState.State,
-                        alertSummary.ToString());
-                txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
-                txtAlerts.ScrollToCaret();
+                        alertSummary.ToString()));
+
+                //txtAlerts.Text += string.Format("\r\n{0}\r\nDuration: {1}ms\r\nResulting state: {2}\r\nAlert Info: {3}",
+                //        (new string('-', 80)),
+                //        persistentTest.LastRefreshDurationMS,
+                //        persistentTest.CurrentState,
+                //        alertSummary.ToString());
+                //txtAlerts.SelectionStart = txtAlerts.Text.Length - 1;
+                //txtAlerts.ScrollToCaret();
 
                 //MessageBox.Show(string.Format("Resulting state: {0}\r\nPrevious state: {1}\r\nAlert Info: {2}",
 //                        ms.State,
@@ -566,6 +593,11 @@ namespace QuickMon
 //                        alertSummary.ToString()), "Result", MessageBoxButtons.OK,
                         //(ms.State == CollectorState.Error) ? MessageBoxIcon.Error : (ms.State == CollectorState.Warning) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
             }
+        }
+
+        private void cmdClear_Click(object sender, EventArgs e)
+        {
+            txtAlerts.Text = "";
         }
     }
 }
