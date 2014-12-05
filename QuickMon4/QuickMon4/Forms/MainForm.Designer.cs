@@ -38,6 +38,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.txtAlerts = new System.Windows.Forms.TextBox();
             this.nudConcurency = new System.Windows.Forms.NumericUpDown();
+            this.cmdClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,7 +98,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHostName.Location = new System.Drawing.Point(93, 140);
             this.txtHostName.Name = "txtHostName";
-            this.txtHostName.Size = new System.Drawing.Size(98, 20);
+            this.txtHostName.Size = new System.Drawing.Size(238, 20);
             this.txtHostName.TabIndex = 5;
             this.txtHostName.Text = "localhost";
             // 
@@ -114,7 +115,7 @@
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(197, 138);
+            this.button7.Location = new System.Drawing.Point(337, 138);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 7;
@@ -132,12 +133,13 @@
             this.txtAlerts.Name = "txtAlerts";
             this.txtAlerts.ReadOnly = true;
             this.txtAlerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAlerts.Size = new System.Drawing.Size(260, 84);
+            this.txtAlerts.Size = new System.Drawing.Size(400, 199);
             this.txtAlerts.TabIndex = 8;
             // 
             // nudConcurency
             // 
-            this.nudConcurency.Location = new System.Drawing.Point(140, 114);
+            this.nudConcurency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudConcurency.Location = new System.Drawing.Point(280, 111);
             this.nudConcurency.Minimum = new decimal(new int[] {
             1,
             0,
@@ -152,11 +154,23 @@
             0,
             0});
             // 
+            // cmdClear
+            // 
+            this.cmdClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdClear.Location = new System.Drawing.Point(337, 108);
+            this.cmdClear.Name = "cmdClear";
+            this.cmdClear.Size = new System.Drawing.Size(75, 23);
+            this.cmdClear.TabIndex = 10;
+            this.cmdClear.Text = "Clear";
+            this.cmdClear.UseVisualStyleBackColor = true;
+            this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(424, 377);
+            this.Controls.Add(this.cmdClear);
             this.Controls.Add(this.nudConcurency);
             this.Controls.Add(this.txtAlerts);
             this.Controls.Add(this.button7);
@@ -187,6 +201,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox txtAlerts;
         private System.Windows.Forms.NumericUpDown nudConcurency;
+        private System.Windows.Forms.Button cmdClear;
     }
 }
 
