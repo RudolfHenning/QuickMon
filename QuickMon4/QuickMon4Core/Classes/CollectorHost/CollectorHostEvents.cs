@@ -52,5 +52,16 @@ namespace QuickMon
                 StateUpdated(this);
             }
         }
+
+        public event CollectorHostExecutionTimeDelegate AllAgentsExecutionTime;
+        private void RaiseAllAgentsExecutionTime(long msTime)
+        {
+            if (AllAgentsExecutionTime != null)
+                AllAgentsExecutionTime(this, msTime);
+        }
+
+        public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
+        public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
+        public event CollectorHostDelegate RunCollectorHostRestorationScript;
     }
 }

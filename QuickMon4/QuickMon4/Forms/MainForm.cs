@@ -40,7 +40,7 @@ namespace QuickMon
                                "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" " +
                                "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
                                "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
-                               "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                               "pollSlideFrequencyAfterThirdRepeatSec=\"30\" alertsPaused=\"False\">\r\n" +
                                "<collectorAgents>\r\n" +
                                    "<collectorAgent type=\"PingCollector\">\r\n" +
                                         "<config>\r\n" +
@@ -407,7 +407,7 @@ namespace QuickMon
                                 "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" " +
                                 "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
                                 "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
-                                "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                                "pollSlideFrequencyAfterThirdRepeatSec=\"30\" alertsPaused=\"" + (chkPauseAlerts.Checked ? "True" : "False") + "\">\r\n" +
                                 "<collectorAgents>\r\n" +
                                     "<collectorAgent type=\"PingCollector\">\r\n" +
                                          "<config>\r\n" +
@@ -556,6 +556,12 @@ namespace QuickMon
 
                 txtAlerts.Text += "\r\n" + (new string('*', 80));
                 persistentTest.ConcurrencyLevel = (int)nudConcurency.Value;
+
+                foreach (CollectorHost ch in persistentTest.CollectorHosts)
+                {
+                    ch.AlertsPaused = chkPauseAlerts.Checked;
+                }
+
                 //persistentTest.CollectorHosts[0].CollectorAgents[0].AgentConfig.FromXml(newConfig);
                 persistentTest.RefreshStates();
                 Application.DoEvents();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QuickMon
@@ -224,8 +225,90 @@ namespace QuickMon
                         RaiseCollectorError(collectorHost, ex.Message);
                 }
             }
+        }       
+        #endregion
+
+        #region Async refreshing
+        public void StartPolling()
+        {
+            IsPollingEnabled = true;
+            if (PollingFrequencyOverrideSec > 0)
+                PollingFreq = PollingFrequencyOverrideSec * 1000;
+            ThreadPool.QueueUserWorkItem(new WaitCallback(BackgroundPolling));
         }
-       
+        private void BackgroundPolling(object o)
+        {
+            DateTime lastMonitorPackFileUpdate = DateTime.Now;
+            System.IO.FileInfo mfi = new System.IO.FileInfo(MonitorPackPath);
+            if (mfi.Exists)
+            {
+                lastMonitorPackFileUpdate = mfi.LastWriteTime;
+            }
+            while (IsPollingEnabled)
+            {
+                try
+                {
+                    RefreshStates();
+                }
+                catch (Exception ex)
+                {
+                    RaiseMonitorPackError(ex.Message);
+                }
+                BackgroundWaitIsPolling(PollingFreq);
+                try
+                {
+                    //Update FileInfo object
+                    mfi.Refresh();
+                    if (mfi.Exists && (lastMonitorPackFileUpdate.AddSeconds(1) < mfi.LastWriteTime))
+                    {
+                        //Load everything over again
+                        Load();
+                        lastMonitorPackFileUpdate = mfi.LastWriteTime;
+                        RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    RaiseMonitorPackError(ex.Message);
+                }
+            }
+            ClosePerformanceCounters();
+        }
+        private void BackgroundWaitIsPolling(int nextWaitInterval)
+        {
+            int waitTimeRemaining;
+            int decrementBy = 2000;
+            if (IsPollingEnabled)
+            {
+                try
+                {
+                    if ((nextWaitInterval <= decrementBy) && (nextWaitInterval > 0))
+                    {
+                        Thread.Sleep(nextWaitInterval);
+                    }
+                    else
+                    {
+                        waitTimeRemaining = nextWaitInterval;
+                        while (IsPollingEnabled && (waitTimeRemaining > 0))
+                        {
+                            if (waitTimeRemaining <= decrementBy)
+                            {
+                                waitTimeRemaining = 0;
+                            }
+                            else
+                            {
+                                waitTimeRemaining -= decrementBy;
+                            }
+                            if (decrementBy > 0)
+                            {
+                                Thread.Sleep(decrementBy);
+                            }
+                        }
+                    }
+                }
+                catch { }
+            }
+        }
         #endregion
 
         #region Sending Alerts
