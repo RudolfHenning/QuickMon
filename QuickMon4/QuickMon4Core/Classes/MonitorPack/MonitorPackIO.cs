@@ -86,6 +86,10 @@ namespace QuickMon
                     collectorHost.AlertErrorState += collectorHost_AlertErrorState;
                     collectorHost.NoStateChanged += collectorHost_NoStateChanged;
                     collectorHost.StateUpdated += collectorHost_StateUpdated;
+                    collectorHost.AllAgentsExecutionTime += collectorHost_AllAgentsExecutionTime;
+                    collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;                    
+                    collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
+                    collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
                 }
             }
             #endregion
@@ -107,6 +111,7 @@ namespace QuickMon
             System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
             InitializeGlobalPerformanceCounters();
         }        
+        
         #endregion
 
         #region Saving

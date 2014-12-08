@@ -76,64 +76,52 @@ namespace QuickMon
         #endregion
 
         #region Corrective script events
-        public event CollectorHostDelegate RunCollectorCorrectiveWarningScript;
-        private void RaiseRunCollectorCorrectiveWarningScript(CollectorHost collectorHostEntry)
+        public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
+        public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
+        public event CollectorHostDelegate RunCollectorHostRestorationScript;
+        private void collectorHost_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
         {
             try
             {
-                if (RunCorrectiveScripts &&
-                    RunCollectorCorrectiveWarningScript != null &&
-                    collectorHostEntry != null &&
-                    !collectorHostEntry.CorrectiveScriptDisabled &&
-                    collectorHostEntry.CorrectiveScriptOnWarningPath.Length > 0)
+                if (RunCorrectiveScripts && RunCollectorHostCorrectiveErrorScript != null && collectorHost != null && collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnErrorPath.Length > 0)
                 {
-                    RunCollectorCorrectiveWarningScript(collectorHostEntry);
-                    LogCorrectiveScriptAction(collectorHostEntry, false);
+                    RunCollectorHostCorrectiveErrorScript(collectorHost);
+                    LogCorrectiveScriptAction(collectorHost, true);
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveWarningScript: {0}", ex.Message));
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveErrorScript: {0}", ex.ToString()));
             }
         }
-        public event CollectorHostDelegate RunCollectorCorrectiveErrorScript;
-        private void RaiseRunCollectorCorrectiveErrorScript(CollectorHost collectorHostEntry)
+        private void collectorHost_RunCollectorHostCorrectiveWarningScript(CollectorHost collectorHost)
         {
             try
             {
-                if (RunCorrectiveScripts &&
-                    RunCollectorCorrectiveErrorScript != null &&
-                    collectorHostEntry != null &&
-                    !collectorHostEntry.CorrectiveScriptDisabled &&
-                    collectorHostEntry.CorrectiveScriptOnErrorPath.Length > 0)
+                if (RunCorrectiveScripts && RunCollectorHostCorrectiveWarningScript != null && collectorHost != null && collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnWarningPath.Length > 0)
                 {
-                    RunCollectorCorrectiveErrorScript(collectorHostEntry);
-                    LogCorrectiveScriptAction(collectorHostEntry, true);
+                    RunCollectorHostCorrectiveWarningScript(collectorHost);
+                    LogCorrectiveScriptAction(collectorHost, false);
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveErrorScript: {0}", ex.ToString()));
             }
         }
-        public event CollectorHostDelegate RunRestorationScript;
-        private void RaiseRunCollectorRestorationScript(CollectorHost collectorHostEntry)
+        private void collectorHost_RunCollectorHostRestorationScript(CollectorHost collectorHost)
         {
             try
             {
-                if (RunCorrectiveScripts &&
-                    RunRestorationScript != null &&
-                    collectorHostEntry != null &&
-                    !collectorHostEntry.CorrectiveScriptDisabled &&
-                    collectorHostEntry.RestorationScriptPath.Length > 0)
+                if (RunCorrectiveScripts && RunCollectorHostRestorationScript != null && collectorHost != null && collectorHost.CorrectiveScriptDisabled && collectorHost.RestorationScriptPath.Length > 0)
                 {
-                    RunRestorationScript(collectorHostEntry);
-                    LogRestorationScriptAction(collectorHostEntry);
+                    RunCollectorHostRestorationScript(collectorHost);
+                    LogRestorationScriptAction(collectorHost);
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRunCollectorCorrectiveErrorScript: {0}", ex.Message));
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostRestorationScript: {0}", ex.ToString()));
             }
         }
         #endregion
@@ -154,6 +142,7 @@ namespace QuickMon
         /// Event raised agter Collector host state has been updated
         /// </summary>
         public event CollectorHostDelegate CollectorHostStateUpdated;
+        public event CollectorHostExecutionTimeDelegate CollectorHostAllAgentsExecutionTime;
 
         //to Bubble up the Collector host events
         public event CollectorHostDelegate CollectorHost_AlertRaised_Good;
@@ -218,6 +207,11 @@ namespace QuickMon
             if (CollectorHost_AlertRaised_NoStateChanged != null)
                 CollectorHost_AlertRaised_NoStateChanged(collectorHost);
         } 
+        private void collectorHost_AllAgentsExecutionTime(CollectorHost collectorHost, long msTime)
+        {
+            if (CollectorHostAllAgentsExecutionTime != null)
+                CollectorHostAllAgentsExecutionTime(collectorHost, msTime);
+        }
         #endregion
     }
 }

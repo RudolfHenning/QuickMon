@@ -39,6 +39,7 @@
             this.txtAlerts = new System.Windows.Forms.TextBox();
             this.nudConcurency = new System.Windows.Forms.NumericUpDown();
             this.cmdClear = new System.Windows.Forms.Button();
+            this.chkPauseAlerts = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.SuspendLayout();
             // 
@@ -165,11 +166,23 @@
             this.cmdClear.UseVisualStyleBackColor = true;
             this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
             // 
+            // chkPauseAlerts
+            // 
+            this.chkPauseAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkPauseAlerts.AutoSize = true;
+            this.chkPauseAlerts.Location = new System.Drawing.Point(280, 85);
+            this.chkPauseAlerts.Name = "chkPauseAlerts";
+            this.chkPauseAlerts.Size = new System.Drawing.Size(85, 17);
+            this.chkPauseAlerts.TabIndex = 11;
+            this.chkPauseAlerts.Text = "Pause Alerts";
+            this.chkPauseAlerts.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 377);
+            this.Controls.Add(this.chkPauseAlerts);
             this.Controls.Add(this.cmdClear);
             this.Controls.Add(this.nudConcurency);
             this.Controls.Add(this.txtAlerts);
@@ -202,6 +215,7 @@
         private System.Windows.Forms.TextBox txtAlerts;
         private System.Windows.Forms.NumericUpDown nudConcurency;
         private System.Windows.Forms.Button cmdClear;
+        private System.Windows.Forms.CheckBox chkPauseAlerts;
     }
 }
 

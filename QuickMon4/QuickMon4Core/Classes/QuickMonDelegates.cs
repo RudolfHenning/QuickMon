@@ -10,5 +10,6 @@ namespace QuickMon
     public delegate void NotifierHostDelegate(NotifierHost notifierHost);
     public delegate void CollectorHostWithMessageDelegate(CollectorHost collectorHost, string message);
     public delegate void NotifierHostWithMessageDelegate(NotifierHost notifierHost, string message);
+    public delegate void CollectorHostExecutionTimeDelegate(CollectorHost collectorHost, long msTime);
 
 }

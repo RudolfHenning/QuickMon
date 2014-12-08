@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace QuickMon
 {
     [TestClass]
-    public class CollectorHostTests
+    public class RemoteCollectorHostTests
     {
         [TestMethod]
-        public void CreateCollectorHostTest()
+        public void TestMethod1()
         {
             string configXml = "<collectorHosts>\r\n" +
-                        "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                        "<collectorHost uniqueId=\"1234\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
                            "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
                            "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
                            "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
@@ -37,22 +36,18 @@ namespace QuickMon
             List<CollectorHost> chList = CollectorHost.GetCollectorHostsFromString(configXml);
             Assert.IsNotNull(chList, "CollectorHost list is null");
             if (chList != null)
-            {                
-                Assert.IsNotNull(chList[0].ToXml(), "CollectorHost[0].ToXml is null");
-                string chXml = chList[0].ToXml();
-                Assert.AreNotEqual("", chXml, "CollectorHost[0].ToXml is empty");
-                StringBuilder rebuildXml = new StringBuilder();
-                rebuildXml.AppendLine("<collectorHosts>");
-                foreach (CollectorHost ch in chList)
+            {
+                RemoteCollectorHost rch = new RemoteCollectorHost();
+                rch.FromCollectorHost(chList[0]);
+                Assert.AreEqual(1, rch.Agents.Count, "Expected 1 Agent - " + rch.ToCollectorHostXml());
+                Assert.AreNotEqual("", rch.ToCollectorHostXml(), "RemoteCollectorHost.FromCollectorHost is empty");
+                if (rch.Agents.Count == 1)
                 {
-                    rebuildXml.AppendLine(ch.ToXml());
+                    Assert.AreEqual("PingCollector", rch.Agents[0].TypeName, "Type should be PingCollector");
+                    Assert.AreNotEqual(0, rch.Agents[0].ConfigString.Length, "Agent config must not be blank");
                 }
-                rebuildXml.AppendLine("</collectorHosts>");
-
-                chList = CollectorHost.GetCollectorHostsFromString(configXml);
-                Assert.IsNotNull(chList, "CollectorHost list is null (test 2)");
+                
             }
-            
         }
     }
 }

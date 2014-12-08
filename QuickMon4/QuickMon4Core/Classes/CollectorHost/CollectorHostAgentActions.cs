@@ -103,6 +103,19 @@ namespace QuickMon
                 #endregion
                    
                 AddStateToHistory(currentState);
+
+                if (!CorrectiveScriptDisabled)
+                {
+                    if (!CorrectiveScriptsOnlyOnStateChange || stateChanged)
+                    {
+                        if (newState.State == CollectorState.Error && RunCollectorHostCorrectiveErrorScript != null)
+                            RunCollectorHostCorrectiveErrorScript(this);
+                        else if (newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
+                            RunCollectorHostCorrectiveWarningScript(this);
+                        else if (newState.State == CollectorState.Good && RunCollectorHostCorrectiveWarningScript != null)
+                            RunCollectorHostCorrectiveWarningScript(this);
+                    }
+                }
             }
 
             currentState = newState;
@@ -206,6 +219,7 @@ namespace QuickMon
                     }
                     sw.Stop();
                     resultMonitorState.CallDurationMS = (int)sw.ElapsedMilliseconds;
+                    RaiseAllAgentsExecutionTime(sw.ElapsedMilliseconds);
                     
                     #region Calculate summarized state
                     if (AgentCheckSequence == QuickMon.AgentCheckSequence.All)
