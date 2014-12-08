@@ -79,7 +79,7 @@ namespace QuickMon
             }
             if (monitorPacksLoaded == 0)
             {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "No (valid) monitor pack specified in service config! This service will only operare as a Remote Agent. To hide this warning please add some MonitorPacks in QuickMonService.exe.config",
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "No (valid) monitor pack specified in service config! This service will only operate as a Remote Collector Host (if enabled). To hide this warning please add some MonitorPacks in QuickMonService.exe.config",
                     EventLogEntryType.Warning, 0);
             }
             else
