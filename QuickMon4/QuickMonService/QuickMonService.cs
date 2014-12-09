@@ -96,7 +96,7 @@ namespace QuickMon
                         baseAddress = new Uri(Properties.Settings.Default.WcfServiceURL.Replace("localhost", System.Net.Dns.GetHostName()));
                 }
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, "Starting Remote Collector Host service for : " + baseAddress.OriginalString, EventLogEntryType.Information, 0);
-                wcfServiceHost = new ServiceHost(typeof(RemoteCollectorChannel), baseAddress);
+                wcfServiceHost = new ServiceHost(typeof(RemoteCollectorHostService), baseAddress);
                 if (Properties.Settings.Default.WcfEnableMetadata)
                 {
                     // Enable metadata publishing.
@@ -104,7 +104,7 @@ namespace QuickMon
                     smb.HttpGetEnabled = true;
                     smb.MetadataExporter.PolicyVersion = System.ServiceModel.Description.PolicyVersion.Policy15;
                     wcfServiceHost.Description.Behaviors.Add(smb);
-                    wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorChannel), new BasicHttpBinding(), baseAddress);
+                    wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorHostService), new BasicHttpBinding(), baseAddress);
                 }
                 wcfServiceHost.Open();
             }
@@ -139,7 +139,7 @@ namespace QuickMon
                 {
                     wcfServiceHost.Close();
                 }
-                wcfServiceHost = new ServiceHost(typeof(RemoteCollectorChannel), baseAddress);
+                wcfServiceHost = new ServiceHost(typeof(RemoteCollectorHostService), baseAddress);
                 if (Properties.Settings.Default.WcfEnableMetadata)
                 {
                     // Enable metadata publishing.
@@ -147,7 +147,7 @@ namespace QuickMon
                     smb.HttpGetEnabled = true;
                     smb.MetadataExporter.PolicyVersion = System.ServiceModel.Description.PolicyVersion.Policy15;
                     wcfServiceHost.Description.Behaviors.Add(smb);
-                    wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorChannel), new BasicHttpBinding(), baseAddress);
+                    wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorHostService), new BasicHttpBinding(), baseAddress);
                 }
                 wcfServiceHost.Open();
             }

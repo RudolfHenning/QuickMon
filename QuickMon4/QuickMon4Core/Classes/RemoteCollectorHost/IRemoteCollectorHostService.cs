@@ -7,7 +7,7 @@ using System.Text;
 namespace QuickMon
 {
     [ServiceContract(Namespace = "http://HenIT/QuickMon")]
-    public interface IRemoteCollectorChannel
+    public interface IRemoteCollectorHostService
     {
         [OperationContract]
         MonitorState GetState(RemoteCollectorHost entry);

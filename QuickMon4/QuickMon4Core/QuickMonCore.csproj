@@ -66,8 +66,8 @@
     <Compile Include="Classes\NotifierHost\NotifierHostIO.cs" />
     <Compile Include="Classes\QuickMonDelegates.cs" />
     <Compile Include="Classes\RegisteredAgent.cs" />
-    <Compile Include="Classes\RemoteCollectorHost\IRemoteCollectorChannel.cs" />
-    <Compile Include="Classes\RemoteCollectorHost\RemoteCollectorChannel.cs" />
+    <Compile Include="Classes\RemoteCollectorHost\IRemoteCollectorHostService.cs" />
+    <Compile Include="Classes\RemoteCollectorHost\RemoteCollectorHostService.cs" />
     <Compile Include="Classes\RemoteCollectorHost\RemoteCollectorHost.cs" />
     <Compile Include="Classes\ServiceWindows.cs" />
     <Compile Include="Enums\AgentCheckSequence.cs" />

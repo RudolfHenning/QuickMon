@@ -618,8 +618,7 @@ namespace QuickMon
     }
 }
 
-// <monitorPack version="4.x" name="" typeName="" enabled="True" defaultNotifier="In Memory" runCorrectiveScripts="False" 
-//         collectorStateHistorySize="100" pollingFreqSecOverride="0">
+// <monitorPack version="4.x" name="" typeName="" enabled="True" defaultNotifier="In Memory" runCorrectiveScripts="False" collectorStateHistorySize="100" pollingFreqSecOverride="0">
 //   <configVars />
 //   <collectorHosts>
 //      <collectorHost uniqueId="..." name="..." enabled="True" expandOnStart="True" dependOnParentId="" 

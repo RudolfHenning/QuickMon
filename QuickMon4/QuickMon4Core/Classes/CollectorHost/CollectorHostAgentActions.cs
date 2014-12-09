@@ -200,7 +200,47 @@ namespace QuickMon
                     //first check if remote host exection is required
                     if (EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings))
                     {
-                        throw new NotImplementedException("remote host exection not done yet");
+                        string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+                        int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
+
+                        try
+                        {
+                            resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
+                        }
+                        catch (Exception ex)
+                        {
+                            resultMonitorState.Timestamp = DateTime.Now;
+                            if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
+                            {
+                                resultMonitorState.RawDetails = "Remote excution failed. Attempting to run locally.";
+                                //attempting to run locally
+                                try
+                                {
+                                    foreach (var ca in CollectorAgents)
+                                    {
+                                        MonitorState caMs = ca.GetState();
+                                        resultMonitorState.ChildStates.Add(caMs);
+                                        //If we only care for the first success and find it don't look further
+                                        if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess && caMs.State == CollectorState.Good)
+                                            break;
+                                        //If we only care for the first error and find it don't look further
+                                        else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstError && caMs.State == CollectorState.Error)
+                                            break;
+                                    }
+                                }
+                                catch (Exception exLocal)
+                                {
+                                    resultMonitorState.State = CollectorState.Error;
+                                    resultMonitorState.RawDetails = exLocal.ToString();
+                                }                                
+                            }
+                            else
+                            {
+                                resultMonitorState.State = CollectorState.Error;
+                                resultMonitorState.RawDetails = ex.ToString();
+                            }
+                            resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                        }
                     }
                     else
                     {
