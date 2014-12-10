@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,12 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collectors\PerfCounter\PerfCounterCollector.cs" />
+    <Compile Include="Collectors\PerfCounter\PerfCounterCollectorConfig.cs" />
+    <Compile Include="Collectors\PerfCounter\PerfCounterCollectorEntry.cs" />
     <Compile Include="Collectors\Ping\PingCollector.cs" />
     <Compile Include="Collectors\Ping\PingCollectorConfig.cs" />
     <Compile Include="Collectors\Ping\PingCollectorHostEntry.cs" />
     <Compile Include="Collectors\Ping\Utility\WebClientEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
+    <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateCollectorConfig.cs" />
+    <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateHostEntry.cs" />
     <Compile Include="Notifiers\EventLogNotifier\EventLogNotifier.cs" />
     <Compile Include="Notifiers\EventLogNotifier\EventLogNotifierConfig.cs" />
     <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifier.cs" />

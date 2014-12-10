@@ -40,6 +40,11 @@
             this.nudConcurency = new System.Windows.Forms.NumericUpDown();
             this.cmdClear = new System.Windows.Forms.Button();
             this.chkPauseAlerts = new System.Windows.Forms.CheckBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.chkFirstSuccess = new System.Windows.Forms.CheckBox();
+            this.chkFirstError = new System.Windows.Forms.CheckBox();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.SuspendLayout();
             // 
@@ -177,11 +182,66 @@
             this.chkPauseAlerts.Text = "Pause Alerts";
             this.chkPauseAlerts.UseVisualStyleBackColor = true;
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(174, 12);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 12;
+            this.button8.Text = "Remote";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // chkFirstSuccess
+            // 
+            this.chkFirstSuccess.AutoSize = true;
+            this.chkFirstSuccess.Location = new System.Drawing.Point(255, 16);
+            this.chkFirstSuccess.Name = "chkFirstSuccess";
+            this.chkFirstSuccess.Size = new System.Drawing.Size(84, 17);
+            this.chkFirstSuccess.TabIndex = 13;
+            this.chkFirstSuccess.Text = "1st Success";
+            this.chkFirstSuccess.UseVisualStyleBackColor = true;
+            // 
+            // chkFirstError
+            // 
+            this.chkFirstError.AutoSize = true;
+            this.chkFirstError.Location = new System.Drawing.Point(255, 39);
+            this.chkFirstError.Name = "chkFirstError";
+            this.chkFirstError.Size = new System.Drawing.Size(65, 17);
+            this.chkFirstError.TabIndex = 14;
+            this.chkFirstError.Text = "1st Error";
+            this.chkFirstError.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(93, 50);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.TabIndex = 15;
+            this.button9.Text = "Services";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(93, 79);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 16;
+            this.button10.Text = "PerfCountr";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 377);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.chkFirstError);
+            this.Controls.Add(this.chkFirstSuccess);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.chkPauseAlerts);
             this.Controls.Add(this.cmdClear);
             this.Controls.Add(this.nudConcurency);
@@ -216,6 +276,11 @@
         private System.Windows.Forms.NumericUpDown nudConcurency;
         private System.Windows.Forms.Button cmdClear;
         private System.Windows.Forms.CheckBox chkPauseAlerts;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.CheckBox chkFirstSuccess;
+        private System.Windows.Forms.CheckBox chkFirstError;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
     }
 }
 

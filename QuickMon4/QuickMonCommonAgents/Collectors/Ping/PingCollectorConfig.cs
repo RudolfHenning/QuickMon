@@ -14,9 +14,8 @@ namespace QuickMon.Collectors
         }
 
         #region ICollectorConfig Members
+        public bool SingleEntryOnly { get { return false; } }
         public List<ICollectorConfigEntry> Entries { get; set; }
-        public ConfigEntryType ConfigEntryType { get { return QuickMon.ConfigEntryType.Multiple; } }
-        public bool CanEdit { get { return true; } }
         #endregion
 
         #region IAgentConfig Members
@@ -89,12 +88,17 @@ namespace QuickMon.Collectors
             get
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine(string.Format("Pinging {0} entries", Entries.Count));
-                foreach (ICollectorConfigEntry entry in Entries)
+                sb.Append(string.Format("{0} entry(s): ", Entries.Count));
+                if (Entries.Count == 0)
+                    sb.Append("None");
+                else
                 {
-                    sb.AppendLine(entry.ToString());
+                    foreach (ICollectorConfigEntry entry in Entries)
+                    {
+                        sb.Append(entry.ToString() + ", ");
+                    }
                 }
-                return sb.ToString();
+                return sb.ToString().TrimEnd(' ', ',');
             }
         }
         #endregion

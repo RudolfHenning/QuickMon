@@ -262,45 +262,48 @@ namespace QuickMon
                     RaiseAllAgentsExecutionTime(sw.ElapsedMilliseconds);
                     
                     #region Calculate summarized state
-                    if (AgentCheckSequence == QuickMon.AgentCheckSequence.All)
+                    if (resultMonitorState.ChildStates != null && resultMonitorState.ChildStates.Count > 0)
                     {
-                        if (resultMonitorState.ChildStates.Count == (from cs in resultMonitorState.ChildStates
-                                                                     where cs.State == CollectorState.Good
-                                                                     select cs).Count())
-                            resultMonitorState.State = CollectorState.Good;
-                        else if (resultMonitorState.ChildStates.Count == (from cs in resultMonitorState.ChildStates
-                                                                          where cs.State == CollectorState.Error
-                                                                          select cs).Count())
-                            resultMonitorState.State = CollectorState.Error;
+                        if (AgentCheckSequence == QuickMon.AgentCheckSequence.All)
+                        {
+                            if (resultMonitorState.ChildStates.Count == (from cs in resultMonitorState.ChildStates
+                                                                         where cs.State == CollectorState.Good
+                                                                         select cs).Count())
+                                resultMonitorState.State = CollectorState.Good;
+                            else if (resultMonitorState.ChildStates.Count == (from cs in resultMonitorState.ChildStates
+                                                                              where cs.State == CollectorState.Error
+                                                                              select cs).Count())
+                                resultMonitorState.State = CollectorState.Error;
+                            else
+                                resultMonitorState.State = CollectorState.Warning;
+                        }
+                        else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess)
+                        {
+                            if ((from cs in resultMonitorState.ChildStates
+                                 where cs.State == CollectorState.Good
+                                 select cs).Count() > 0)
+                                resultMonitorState.State = CollectorState.Good;
+                            else if ((from cs in resultMonitorState.ChildStates
+                                      where cs.State == CollectorState.Warning
+                                      select cs).Count() > 0)
+                                resultMonitorState.State = CollectorState.Warning;
+                            else
+                                resultMonitorState.State = CollectorState.Error;
+                        }
                         else
-                            resultMonitorState.State = CollectorState.Warning;
+                        {
+                            if ((from cs in resultMonitorState.ChildStates
+                                 where cs.State == CollectorState.Error
+                                 select cs).Count() > 0)
+                                resultMonitorState.State = CollectorState.Error;
+                            else if ((from cs in resultMonitorState.ChildStates
+                                      where cs.State == CollectorState.Warning
+                                      select cs).Count() > 0)
+                                resultMonitorState.State = CollectorState.Warning;
+                            else
+                                resultMonitorState.State = CollectorState.Good;
+                        }
                     }
-                    else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess)
-                    {
-                        if ((from cs in resultMonitorState.ChildStates
-                             where cs.State == CollectorState.Good
-                             select cs).Count() > 0)
-                            resultMonitorState.State = CollectorState.Good;
-                        else if ((from cs in resultMonitorState.ChildStates
-                                  where cs.State == CollectorState.Warning
-                                  select cs).Count() > 0)
-                            resultMonitorState.State = CollectorState.Warning;
-                        else
-                            resultMonitorState.State = CollectorState.Error;
-                    }
-                    else
-                    {
-                        if ((from cs in resultMonitorState.ChildStates
-                             where cs.State == CollectorState.Error
-                             select cs).Count() > 0)
-                            resultMonitorState.State = CollectorState.Error;
-                        else if ((from cs in resultMonitorState.ChildStates
-                                  where cs.State == CollectorState.Warning
-                                  select cs).Count() > 0)
-                            resultMonitorState.State = CollectorState.Warning;
-                        else
-                            resultMonitorState.State = CollectorState.Good;
-                    } 
                     #endregion
 
                     #region Check if stagnant settings should be (re)set

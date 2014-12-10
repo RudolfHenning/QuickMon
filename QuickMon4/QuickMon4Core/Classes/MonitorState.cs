@@ -145,6 +145,7 @@ namespace QuickMon
             }
         }
 
+        [DataMember(Name = "ChildStates")]
         public List<MonitorState> ChildStates { get; set; }
 
         public string ReadAllRawDetails()
@@ -152,9 +153,12 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             if (RawDetails != null && RawDetails.Length > 0)
                 sb.AppendLine(RawDetails);
-            foreach (MonitorState ms in ChildStates)
+            if (ChildStates != null)
             {
-                sb.Append(ms.ReadAllRawDetails());
+                foreach (MonitorState ms in ChildStates)
+                {
+                    sb.Append(ms.ReadAllRawDetails());
+                }
             }
             return sb.ToString();
         }
@@ -172,9 +176,12 @@ namespace QuickMon
             if (ChildStates != null && ChildStates.Count > 0)
             {
                 sb.AppendLine("<ul>");
-                foreach (MonitorState ms in ChildStates)
+                if (ChildStates != null)
                 {
-                    sb.Append("<li>" + ms.ReadAllHtmlDetails().EscapeXml() + "</li>");
+                    foreach (MonitorState ms in ChildStates)
+                    {
+                        sb.Append("<li>" + ms.ReadAllHtmlDetails().EscapeXml() + "</li>");
+                    }
                 }
                 sb.AppendLine("</ul>");
             }

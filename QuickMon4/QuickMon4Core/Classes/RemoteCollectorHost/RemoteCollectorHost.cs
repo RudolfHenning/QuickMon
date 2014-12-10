@@ -85,7 +85,7 @@ namespace QuickMon
             sb.AppendLine("<collectorAgent type=\"" + TypeName.EscapeXml() + "\">");
             
             string configString = ConfigString;
-            if (!configString.Trim().StartsWith("<config", StringComparison.CurrentCultureIgnoreCase))
+            if (configString.Trim().StartsWith("<config", StringComparison.CurrentCultureIgnoreCase))
                 sb.AppendLine(configString);
             else
             {

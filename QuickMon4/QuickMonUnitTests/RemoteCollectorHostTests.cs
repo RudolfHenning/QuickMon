@@ -53,6 +53,7 @@ namespace QuickMon
         [TestMethod]
         public void CallCollectorHostThroughRemoteHost()
         {
+            //For this test to work the Remote host service (QuickMon 4 Service) must be started on the local machine
             string configXml = "<collectorHosts>\r\n" +
                         "<collectorHost uniqueId=\"1234\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
                            "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
@@ -83,9 +84,12 @@ namespace QuickMon
                 Assert.AreEqual(true, chList[0].EnableRemoteExecute, "Remote execute not enabled");
                 Assert.AreEqual(false, chList[0].RunLocalOnRemoteHostConnectionFailure, "RunLocalOnRemoteHostConnectionFailure should not be set");
                 MonitorState ms = chList[0].RefreshCurrentState();
-                Assert.AreEqual(CollectorState.Good, ms.State, "Could not ping localhost");
-                Assert.AreEqual("", ms.ReadAllRawDetails(), "Raw Details");
-                Assert.AreEqual("localhost", ms.ExecutedOnHostComputer, "Should run on localhost");
+                Assert.AreEqual(false, ms.ReadAllRawDetails().Contains("There was no endpoint"), "Remote host service not started!");
+                Assert.IsNotNull(ms.ChildStates, "No Child states");
+                Assert.AreEqual(1, ms.ChildStates.Count, "One child state expected");
+                Assert.AreEqual(CollectorState.Good, ms.ChildStates[0].State, "Child state should be good");
+                Assert.AreEqual(CollectorState.Good, ms.State, "Global state should be good");
+                Assert.AreEqual(System.Net.Dns.GetHostName(), ms.ExecutedOnHostComputer, "Should run on localhost");
             }
         }
     }

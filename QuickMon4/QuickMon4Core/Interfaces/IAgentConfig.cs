@@ -18,15 +18,18 @@ namespace QuickMon
     }
     public interface ICollectorConfig : IAgentConfig
     {
+        bool SingleEntryOnly { get; }
         List<ICollectorConfigEntry> Entries { get; set; }
         /// <summary>
         /// If set to Single the Collector can/must support only one entry. No Adding/deleting allowed.
         /// </summary>
-        ConfigEntryType ConfigEntryType { get; }
+        
+
+        // ConfigEntryType ConfigEntryType { get; }
         /// <summary>
         /// Can existing entries be edited? If not then Adding/deleting are the only options
         /// </summary>
-        bool CanEdit { get; }
+        //bool CanEdit { get; }
 
     }
     public interface ICollectorConfigEntry
