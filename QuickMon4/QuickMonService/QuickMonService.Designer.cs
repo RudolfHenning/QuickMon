@@ -37,7 +37,7 @@ namespace QuickMon
             // QuickMonService
             // 
             this.CanPauseAndContinue = true;
-            this.ServiceName = "QuickMon 3 Service";
+            this.ServiceName = "QuickMon 4 Service";
 
         }
 

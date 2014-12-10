@@ -51,8 +51,53 @@ namespace QuickMon
 
                 chList = CollectorHost.GetCollectorHostsFromString(configXml);
                 Assert.IsNotNull(chList, "CollectorHost list is null (test 2)");
+            }            
+        }
+        [TestMethod]
+        public void AgentCheckSequenceTest()
+        {
+            string configXml = "<collectorHosts>\r\n" +
+                        "<collectorHost uniqueId=\"123\" name=\"Ping test\" enabled=\"True\" " +
+                           "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" >\r\n" +
+                           "<collectorAgents>\r\n" +
+                               "<collectorAgent type=\"PingCollector\">\r\n" +
+                                    "<config>\r\n" +
+                                        "<entries>\r\n" +
+                                            "<entry pingMethod=\"Ping\" address=\"localhost\" />\r\n" +
+                                        "</entries>\r\n" +
+                                    "</config>\r\n" +
+                               "</collectorAgent>\r\n" +
+                               "<collectorAgent type=\"PingCollector\">\r\n" +
+                                    "<config>\r\n" +
+                                        "<entries>\r\n" +
+                                            "<entry pingMethod=\"Ping\" address=\"localhostInvalid\" />\r\n" +
+                                        "</entries>\r\n" +
+                                    "</config>\r\n" +
+                               "</collectorAgent>\r\n" +
+                               "<collectorAgent type=\"PingCollector\">\r\n" +
+                                    "<config>\r\n" +
+                                        "<entries>\r\n" +
+                                            "<entry pingMethod=\"Ping\" address=\"localhost\" />\r\n" +
+                                        "</entries>\r\n" +
+                                    "</config>\r\n" +
+                               "</collectorAgent>\r\n" +
+                           "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n" +
+                    "</collectorHosts>";
+            List<CollectorHost> chList = CollectorHost.GetCollectorHostsFromString(configXml);
+            Assert.IsNotNull(chList, "CollectorHost list is null");
+            if (chList != null && chList.Count == 1)
+            {
+                MonitorState ms = chList[0].RefreshCurrentState();
+                Assert.AreEqual(3, ms.ChildStates.Count, "All agents expected to execute");
+                chList[0].AgentCheckSequence = AgentCheckSequence.FirstSuccess;
+                ms = chList[0].RefreshCurrentState();
+                Assert.AreEqual(1, ms.ChildStates.Count, "Only first agent expected to execute");
+
+                chList[0].AgentCheckSequence = AgentCheckSequence.FirstError;
+                ms = chList[0].RefreshCurrentState();
+                Assert.AreEqual(2, ms.ChildStates.Count, "Second agent expected to execute");
             }
-            
         }
     }
 }

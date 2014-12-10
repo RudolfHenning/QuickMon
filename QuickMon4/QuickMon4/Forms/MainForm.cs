@@ -605,5 +605,137 @@ namespace QuickMon
         {
             txtAlerts.Text = "";
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string configXml = "<collectorHosts>\r\n" +
+                        "<collectorHost uniqueId=\"1234\" name=\"Ping test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                        "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                           "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                           "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
+                           "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
+                           "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"True\" " +
+                           "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"rhenning\" remoteAgentHostPort=\"48181\" " +
+                           "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" " +
+                           "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
+                           "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
+                           "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                           "<collectorAgents>\r\n";
+            if (txtHostName.Text.Trim().Length > 0)
+            {
+                string[] hostnames = txtHostName.Text.Split(',', ' ');
+                foreach (string hostname in hostnames)
+                {
+                    configXml +=
+                        "<collectorAgent type=\"PingCollector\">\r\n" +
+                            "<config>\r\n" +
+                                "<entries>\r\n" +
+                                    "<entry pingMethod=\"Ping\" address=\"" + hostname.EscapeXml() + "\" />\r\n" +
+                                    "</entries>\r\n" +
+                            "</config>\r\n" +
+                        "</collectorAgent>\r\n";
+                }
+            }
+
+            configXml += 
+                           "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n" +
+                    "</collectorHosts>";
+            List<CollectorHost> chList = CollectorHost.GetCollectorHostsFromString(configXml);
+            if (chList != null)
+            {
+                MonitorState ms = chList[0].RefreshCurrentState();
+                MessageBox.Show(ms.ToXml(), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string configXml = "<collectorHosts>\r\n" +
+                        "<collectorHost uniqueId=\"1234\" name=\"Services test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                        "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                           "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                           "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
+                           "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
+                           "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
+                           "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"rhenning\" remoteAgentHostPort=\"48181\" " +
+                           "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" " +
+                           "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
+                           "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
+                           "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                           "<collectorAgents>\r\n";
+            if (txtHostName.Text.Trim().Length > 0)
+            {
+                string[] hostnames = txtHostName.Text.Split(',', ' ');
+                foreach (string hostname in hostnames)
+                {
+                    configXml +=
+                        "<collectorAgent type=\"WindowsServiceStateCollector\">\r\n" +
+                            "<config>\r\n" +
+                                "<machine name=\"" + hostname.EscapeXml() + "\">\r\n" +
+                                    "<service name=\"QuickMon 3 Service\" />\r\n" +
+                                "</machine>\r\n" +
+                            "</config>\r\n" +
+                        "</collectorAgent>\r\n";
+                }
+            }
+
+            configXml +=
+                           "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n" +
+                    "</collectorHosts>";
+            List<CollectorHost> chList = CollectorHost.GetCollectorHostsFromString(configXml);
+            if (chList != null)
+            {
+                MonitorState ms = chList[0].RefreshCurrentState();
+                MessageBox.Show(XmlFormattingUtils.NormalizeXML(ms.ToXml()), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string configXml = "<collectorHosts>\r\n" +
+                        "<collectorHost uniqueId=\"1234\" name=\"PerfCounterCollector test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                        "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                           "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
+                           "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
+                           "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
+                           "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"False\" " +
+                           "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"rhenning\" remoteAgentHostPort=\"48181\" " +
+                           "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" " +
+                           "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
+                           "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
+                           "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
+                           "<collectorAgents>\r\n";
+            if (txtHostName.Text.Trim().Length > 0)
+            {
+                string[] hostnames = txtHostName.Text.Split(',', ' ');
+                foreach (string hostname in hostnames)
+                {
+                    configXml +=
+                        "<collectorAgent type=\"PerfCounterCollector\">\r\n" +
+                            "<config>\r\n" +
+                                "<performanceCounters>\r\n" +
+                                    "<performanceCounter computer=\"" + hostname.EscapeXml() + "\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" returnValueInverted=\"False\" warningValue=\"90\" errorValue=\"99\" />\r\n" +
+                                "</performanceCounters>\r\n" +
+                            "</config>\r\n" +
+                        "</collectorAgent>\r\n";
+                }
+            }
+
+            configXml +=
+                           "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n" +
+                    "</collectorHosts>";
+            List<CollectorHost> chList = CollectorHost.GetCollectorHostsFromString(configXml);
+            if (chList != null)
+            {
+                MonitorState ms = chList[0].RefreshCurrentState();
+                MessageBox.Show(string.Format("State: {0}\r\n{1}", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails())), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
     }
 }
