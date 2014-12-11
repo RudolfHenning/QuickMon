@@ -45,6 +45,7 @@
             this.chkFirstError = new System.Windows.Forms.CheckBox();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.txtRemoteHost = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,7 +196,7 @@
             // chkFirstSuccess
             // 
             this.chkFirstSuccess.AutoSize = true;
-            this.chkFirstSuccess.Location = new System.Drawing.Point(255, 16);
+            this.chkFirstSuccess.Location = new System.Drawing.Point(247, 41);
             this.chkFirstSuccess.Name = "chkFirstSuccess";
             this.chkFirstSuccess.Size = new System.Drawing.Size(84, 17);
             this.chkFirstSuccess.TabIndex = 13;
@@ -205,7 +206,7 @@
             // chkFirstError
             // 
             this.chkFirstError.AutoSize = true;
-            this.chkFirstError.Location = new System.Drawing.Point(255, 39);
+            this.chkFirstError.Location = new System.Drawing.Point(337, 41);
             this.chkFirstError.Name = "chkFirstError";
             this.chkFirstError.Size = new System.Drawing.Size(65, 17);
             this.chkFirstError.TabIndex = 14;
@@ -232,11 +233,22 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
+            // txtRemoteHost
+            // 
+            this.txtRemoteHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRemoteHost.Location = new System.Drawing.Point(255, 14);
+            this.txtRemoteHost.Name = "txtRemoteHost";
+            this.txtRemoteHost.Size = new System.Drawing.Size(128, 20);
+            this.txtRemoteHost.TabIndex = 17;
+            this.txtRemoteHost.Text = "localhost";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 377);
+            this.Controls.Add(this.txtRemoteHost);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.chkFirstError);
@@ -281,6 +293,7 @@
         private System.Windows.Forms.CheckBox chkFirstError;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.TextBox txtRemoteHost;
     }
 }
 

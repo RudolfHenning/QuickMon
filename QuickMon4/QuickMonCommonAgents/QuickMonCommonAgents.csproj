@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collectors\FileSystem\DirectoryFileInfo.cs" />
+    <Compile Include="Collectors\FileSystem\FileSystemCollector.cs" />
+    <Compile Include="Collectors\FileSystem\FileSystemCollectorConfig.cs" />
+    <Compile Include="Collectors\FileSystem\FileSystemDirectoryFilterEntry.cs" />
     <Compile Include="Collectors\PerfCounter\PerfCounterCollector.cs" />
     <Compile Include="Collectors\PerfCounter\PerfCounterCollectorConfig.cs" />
     <Compile Include="Collectors\PerfCounter\PerfCounterCollectorEntry.cs" />
