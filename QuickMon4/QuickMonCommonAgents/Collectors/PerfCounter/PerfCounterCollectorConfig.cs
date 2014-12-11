@@ -40,7 +40,6 @@ namespace QuickMon.Collectors
                 Entries.Add(entry);
             }
         }
-
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
@@ -62,12 +61,10 @@ namespace QuickMon.Collectors
             }
             return config.OuterXml;
         }
-
         public string GetDefaultOrEmptyXml()
         {
             return "<config>\r\n<performanceCounters>\r\n</performanceCounters></config>";
         }
-
         public string ConfigSummary
         {
             get

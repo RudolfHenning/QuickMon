@@ -128,6 +128,7 @@ namespace QuickMon
                     else
                     {
                         newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
+                        newCollectorHost.currentState.RawDetails = string.Format("The Collector Host type of '{0}' could not be loaded!", typeName);
                     }
 
                 }
