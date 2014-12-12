@@ -17,21 +17,16 @@ namespace QuickMon.Collectors
         public override MonitorState GetState()
         {
             MonitorState returnState = new MonitorState();
-            StringBuilder plainTextDetails = new StringBuilder();
-            StringBuilder htmlTextTextDetails = new StringBuilder();
             string lastAction = "";
             int errors = 0;
             int warnings = 0;
             int success = 0;
             string outputFormat = "F3";
-            string lastErrMsg = "";
             try
             {
                 PerfCounterCollectorConfig currentConfig = (PerfCounterCollectorConfig)AgentConfig;
-                plainTextDetails.AppendLine(string.Format("Querying {0} performance counters", currentConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<i>Querying {0} performance counters</i>", currentConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine("<ul>");
-
+                returnState.RawDetails = string.Format("Querying {0} performance counters", currentConfig.Entries.Count);
+                returnState.HtmlDetails = string.Format("<i>Querying {0} performance counters</i>", currentConfig.Entries.Count);
                 foreach (PerfCounterCollectorEntry entry in currentConfig.Entries)
                 {
                     CollectorState currentState = CollectorState.Good;
@@ -43,37 +38,49 @@ namespace QuickMon.Collectors
                         if (value > 9999)
                             outputFormat = "F1";
                         currentState = entry.GetState(value);
-                        lastErrMsg = "";
+
+                        if (currentState == CollectorState.Error)
+                        {
+                            errors++;
+                            returnState.ChildStates.Add(
+                                new MonitorState() { 
+                                    State = CollectorState.Error, 
+                                    CurrentValue = value,
+                                    RawDetails = string.Format("{0} - Val: '{1}' - Error (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat)),
+                                                     HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Error</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat))
+                            });
+                        }
+                        else if (currentState == CollectorState.Warning)
+                        {
+                            warnings++;
+                            returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    State = CollectorState.Warning,
+                                    CurrentValue = value,
+                                    RawDetails = string.Format("{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat)),
+                                    HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat))
+                                });
+                        }
+                        else
+                        {
+                            success++;
+                            returnState.ChildStates.Add(
+                                 new MonitorState()
+                                 {
+                                     State = CollectorState.Good,
+                                     CurrentValue = value,
+                                     RawDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat)),
+                                     HtmlDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat))
+                                 });
+                        }
                     }
                     catch (Exception ex)
                     {
-                        lastErrMsg = ex.Message;
-                        currentState = CollectorState.Error;
-                    }
-
-                    if (currentState == CollectorState.Error)
-                    {
                         errors++;
-                        plainTextDetails.AppendLine(string.Format("\t{0} - Val: '{1}' - Error (trigger '{2}') {3}", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat), lastErrMsg));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - Val: '{1}' - <b>Error</b> (trigger '{2}') {3} </li>", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat), lastErrMsg));
-                    }
-                    else if (currentState == CollectorState.Warning)
-                    {
-                        warnings++;
-                        plainTextDetails.AppendLine(string.Format("\t{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat)));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')</li>", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat)));
-                    }
-                    else
-                    {
-                        success++;
-                        plainTextDetails.AppendLine(string.Format("\t{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat)));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} - Val: '{1}'</li>", entry.Description, value.ToString(outputFormat)));
-                    }
+                        returnState.ChildStates.Add(new MonitorState() { State = CollectorState.Error, ForAgent = entry.Description, RawDetails = ex.Message});
+                    }                    
                 }
-                htmlTextTextDetails.AppendLine("</ul>");
-                returnState.RawDetails = plainTextDetails.ToString().TrimEnd('\r', '\n');
-                returnState.HtmlDetails = htmlTextTextDetails.ToString();
-
                 if (errors > 0 && warnings == 0 && success == 0)
                     returnState.State = CollectorState.Error;
                 else if (errors > 0 || warnings > 0)

@@ -65,7 +65,9 @@ namespace QuickMon
             {
                 foreach (XmlElement notifierAgentNode in notifierAgentsNode.SelectNodes("notifierAgent"))
                 {
+                    string name = notifierAgentNode.ReadXmlElementAttr("name", "");
                     string typeName = notifierAgentNode.ReadXmlElementAttr("type", "");
+                    bool enabled = notifierAgentNode.ReadXmlElementAttr("enabled", true);
                     string configXml = "";
                     XmlNode configNode = notifierAgentNode.SelectSingleNode("config");
                     if (configNode != null)
@@ -77,6 +79,8 @@ namespace QuickMon
                     {
                         try
                         {
+                            newAgent.Name = name;
+                            newAgent.Enabled = enabled;
                             if (configXml.Length > 0)
                                 newAgent.InitialConfiguration = configXml;
                             else
@@ -153,7 +157,7 @@ namespace QuickMon
             configXml.AppendLine("<notifierAgents>");
             foreach (INotifier notifierAgent in NotifierAgents)
             {
-                configXml.AppendLine(string.Format("<notifierAgent type=\"{0}\">", notifierAgent.AgentClassName));
+                configXml.AppendLine(string.Format("<notifierAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", notifierAgent.Name, notifierAgent.AgentClassName, notifierAgent.Enabled));
                 configXml.AppendLine(notifierAgent.AgentConfig.ToXml());
                 configXml.AppendLine("</notifierAgent>");
             }

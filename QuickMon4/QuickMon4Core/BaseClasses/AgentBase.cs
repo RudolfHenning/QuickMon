@@ -8,9 +8,10 @@ namespace QuickMon
     public abstract class AgentBase : IAgent
     {
         #region IAgent Members
-        //public string Name { get; set; }
+        public string Name { get; set; }
         public string AgentClassName { get; set; }
         public string AgentClassDisplayName { get; set; }
+        public bool Enabled { get; set; }
         public string InitialConfiguration { get; set; }
         public string ActiveConfiguration { get; set; }
         public IAgentConfig AgentConfig { get; set; }

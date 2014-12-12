@@ -173,6 +173,13 @@ namespace QuickMon
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
                 }
+                else if (CollectorAgents != null && CollectorAgents.Count == CollectorAgents.Count(ca=>!ca.Enabled))
+                {
+                    resultMonitorState.State = CollectorState.Disabled;
+                    StagnantStateFirstRepeat = false;
+                    StagnantStateSecondRepeat = false;
+                    StagnantStateThirdRepeat = false;
+                }
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
                 {
                     //Not time yet for update
@@ -200,62 +207,11 @@ namespace QuickMon
                     //first check if remote host exection is required
                     if (EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings))
                     {
-                        string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
-                        int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
-
-                        try
-                        {
-                            resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
-                        }
-                        catch (Exception ex)
-                        {
-                            resultMonitorState.Timestamp = DateTime.Now;
-                            if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
-                            {
-                                resultMonitorState.RawDetails = "Remote excution failed. Attempting to run locally.";
-                                //attempting to run locally
-                                try
-                                {
-                                    foreach (var ca in CollectorAgents)
-                                    {
-                                        MonitorState caMs = ca.GetState();
-                                        resultMonitorState.ChildStates.Add(caMs);
-                                        //If we only care for the first success and find it don't look further
-                                        if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess && caMs.State == CollectorState.Good)
-                                            break;
-                                        //If we only care for the first error and find it don't look further
-                                        else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstError && caMs.State == CollectorState.Error)
-                                            break;
-                                    }
-                                }
-                                catch (Exception exLocal)
-                                {
-                                    resultMonitorState.State = CollectorState.Error;
-                                    resultMonitorState.RawDetails = exLocal.ToString();
-                                }                                
-                            }
-                            else
-                            {
-                                resultMonitorState.State = CollectorState.Error;
-                                resultMonitorState.RawDetails = ex.ToString();
-                            }
-                            resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
-                        }
+                        resultMonitorState = GetRemoteState();
                     }
                     else
                     {
-                        foreach (var ca in CollectorAgents)
-                        {
-                            MonitorState caMs = ca.GetState();
-                            resultMonitorState.ChildStates.Add(caMs);
-                            //If we only care for the first success and find it don't look further
-                            if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess && caMs.State== CollectorState.Good)
-                                break;
-                            //If we only care for the first error and find it don't look further
-                            else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstError && caMs.State== CollectorState.Error)
-                                break;
-                        }
-                        resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                        resultMonitorState = GetStateFromLocal();
                     }
                     sw.Stop();
                     resultMonitorState.CallDurationMS = (int)sw.ElapsedMilliseconds;
@@ -264,41 +220,45 @@ namespace QuickMon
                     #region Calculate summarized state
                     if (resultMonitorState.ChildStates != null && resultMonitorState.ChildStates.Count > 0)
                     {
-                        if (AgentCheckSequence == QuickMon.AgentCheckSequence.All)
+                        int allCount = resultMonitorState.ChildStates.Count;
+                        int disabledCount = (from cs in resultMonitorState.ChildStates
+                                             where cs.State == CollectorState.Disabled
+                                             select cs).Count();
+                        int goodCount = (from cs in resultMonitorState.ChildStates
+                                         where cs.State == CollectorState.Good
+                                         select cs).Count();
+                        int warningCount = (from cs in resultMonitorState.ChildStates
+                                         where cs.State == CollectorState.Warning
+                                         select cs).Count();
+                        int errorCount = (from cs in resultMonitorState.ChildStates
+                                            where cs.State == CollectorState.Error
+                                            select cs).Count();
+
+                        if (allCount == disabledCount)
+                            resultMonitorState.State = CollectorState.Disabled;
+                        else if (AgentCheckSequence == QuickMon.AgentCheckSequence.All)
                         {
-                            if (resultMonitorState.ChildStates.Count == (from cs in resultMonitorState.ChildStates
-                                                                         where cs.State == CollectorState.Good
-                                                                         select cs).Count())
+                            if (allCount - disabledCount == goodCount)
                                 resultMonitorState.State = CollectorState.Good;
-                            else if (resultMonitorState.ChildStates.Count == (from cs in resultMonitorState.ChildStates
-                                                                              where cs.State == CollectorState.Error
-                                                                              select cs).Count())
+                            else if (allCount - disabledCount == errorCount)
                                 resultMonitorState.State = CollectorState.Error;
                             else
                                 resultMonitorState.State = CollectorState.Warning;
                         }
                         else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess)
                         {
-                            if ((from cs in resultMonitorState.ChildStates
-                                 where cs.State == CollectorState.Good
-                                 select cs).Count() > 0)
+                            if (goodCount > 0)
                                 resultMonitorState.State = CollectorState.Good;
-                            else if ((from cs in resultMonitorState.ChildStates
-                                      where cs.State == CollectorState.Warning
-                                      select cs).Count() > 0)
+                            else if (warningCount > 0)
                                 resultMonitorState.State = CollectorState.Warning;
                             else
                                 resultMonitorState.State = CollectorState.Error;
                         }
                         else
                         {
-                            if ((from cs in resultMonitorState.ChildStates
-                                 where cs.State == CollectorState.Error
-                                 select cs).Count() > 0)
+                            if (errorCount > 0)
                                 resultMonitorState.State = CollectorState.Error;
-                            else if ((from cs in resultMonitorState.ChildStates
-                                      where cs.State == CollectorState.Warning
-                                      select cs).Count() > 0)
+                            else if (warningCount > 0)
                                 resultMonitorState.State = CollectorState.Warning;
                             else
                                 resultMonitorState.State = CollectorState.Good;
@@ -339,5 +299,71 @@ namespace QuickMon
             SetCurrentState(resultMonitorState);
             return resultMonitorState;
         }
+
+        private MonitorState GetRemoteState()
+        {
+            MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
+            string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+            int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
+
+            try
+            {
+                resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
+            }
+            catch (Exception ex)
+            {
+                resultMonitorState.Timestamp = DateTime.Now;
+                if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
+                {                    
+                    //attempting to run locally
+                    resultMonitorState = GetStateFromLocal();
+                    resultMonitorState.RawDetails = string.Format("Remote excution failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
+                }
+                else
+                {
+                    resultMonitorState.State = CollectorState.Error;
+                    resultMonitorState.RawDetails = ex.ToString();
+                    resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+                }                
+            }
+            return resultMonitorState;
+        }
+
+        private MonitorState GetStateFromLocal()
+        {
+            MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
+            try
+            {
+                foreach (ICollector ca in CollectorAgents)
+                {
+                    MonitorState caMs;
+                    if (ca.Enabled)
+                    {
+                        caMs = ca.GetState();                        
+                    }
+                    else
+                    {
+                        caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
+                    }
+                    caMs.ForAgent = ca.Name;
+                    
+                    resultMonitorState.ChildStates.Add(caMs);
+                    //If we only care for the first success and find it don't look further
+                    if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess && caMs.State == CollectorState.Good)
+                        break;
+                    //If we only care for the first error and find it don't look further
+                    else if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstError && caMs.State == CollectorState.Error)
+                        break;
+                }
+            }
+            catch (Exception exLocal)
+            {
+                resultMonitorState.State = CollectorState.Error;
+                resultMonitorState.RawDetails = exLocal.ToString();
+            }
+            resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+            return resultMonitorState;
+        }
+
     }
 }

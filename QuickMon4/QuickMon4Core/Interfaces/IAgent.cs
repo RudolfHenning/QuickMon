@@ -7,8 +7,10 @@ namespace QuickMon
 {
     public interface IAgent
     {
+        string Name { get; set; }
         string AgentClassName { get; set; }
         string AgentClassDisplayName { get; set; }
+        bool Enabled { get; set; }
         string InitialConfiguration { get; set; }
         string ActiveConfiguration { get; set; }
         IAgentConfig AgentConfig { get; set; }

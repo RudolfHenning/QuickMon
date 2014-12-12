@@ -16,8 +16,8 @@ namespace QuickMon.Collectors
         public override MonitorState GetState()
         {
             MonitorState returnState = new MonitorState();
-            StringBuilder plainTextDetails = new StringBuilder();
-            StringBuilder htmlTextTextDetails = new StringBuilder();
+            //StringBuilder plainTextDetails = new StringBuilder();
+            //StringBuilder htmlTextTextDetails = new StringBuilder();
             string lastAction = "";
             long pingTotalTime = 0;
             int errors = 0;
@@ -27,9 +27,8 @@ namespace QuickMon.Collectors
             try
             {
                 PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
-                plainTextDetails.AppendLine(string.Format("Pinging {0} entries", currentConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine(string.Format("<b>Pinging {0} entries</b>", currentConfig.Entries.Count));
-                htmlTextTextDetails.AppendLine("<ul>");
+                returnState.RawDetails = string.Format("Pinging {0} entries", currentConfig.Entries.Count);
+                returnState.HtmlDetails = string.Format("<b>Pinging {0} entries</b>", currentConfig.Entries.Count);
                 foreach (PingCollectorHostEntry host in currentConfig.Entries)
                 {
                     PingCollectorResult pingResult = host.Ping();
@@ -40,32 +39,68 @@ namespace QuickMon.Collectors
                         if (currentState == CollectorState.Error)
                         {
                             errors++;
-                            plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1} ", host.Address, pingResult.ResponseDetails));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
+                            returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    State = CollectorState.Error,
+                                    CurrentValue = pingResult.PingTime,
+                                    RawDetails = string.Format("{0} {1} (Error)", host.Address, pingResult.ResponseDetails),
+                                    HtmlDetails = string.Format("{0} {1} (<b>Error</b>)", host.Address, pingResult.ResponseDetails)
+                                });
+
+                            //plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1} ", host.Address, pingResult.ResponseDetails));
+                            //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
                         }
                         else if (currentState == CollectorState.Warning)
                         {
                             warnings++;
-                            plainTextDetails.AppendLine(string.Format("\t{0} (Warning) - {1}ms - {2}", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Warning</b>) - {1}ms - {2}</li>", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
+                            returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    State = CollectorState.Error,
+                                    CurrentValue = pingResult.PingTime,
+                                    RawDetails = string.Format("{0} {1} {2}ms (Warning)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
+                                    HtmlDetails = string.Format("{0} {1} {2}ms (<b>Warning</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
+                                });
+
+                            //plainTextDetails.AppendLine(string.Format("\t{0} (Warning) - {1}ms - {2}", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
+                            //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Warning</b>) - {1}ms - {2}</li>", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
                         }
                         else
                         {
                             success++;
-                            plainTextDetails.AppendLine(string.Format("\t{0} (Success) - {1}ms - {2}", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
-                            htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Success</b>) - {1}ms - {2}</li>", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
+                            returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    State = CollectorState.Error,
+                                    CurrentValue = pingResult.PingTime,
+                                    RawDetails = string.Format("{0} {1} {2}ms (Success)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
+                                    HtmlDetails = string.Format("{0} {1} {2}ms (<b>Success</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
+                                });
+
+                            //plainTextDetails.AppendLine(string.Format("\t{0} (Success) - {1}ms - {2}", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
+                            //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Success</b>) - {1}ms - {2}</li>", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
                         }
                     }
                     else
                     {
                         errors++;
-                        plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1}", host.Address, pingResult.ResponseDetails));
-                        htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
+                        returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    State = CollectorState.Error,
+                                    CurrentValue = "",
+                                    RawDetails = string.Format("{0} {1} (Error)", host.Address, pingResult.ResponseDetails),
+                                    HtmlDetails = string.Format("{0} {1} (<b>Error</b>)", host.Address, pingResult.ResponseDetails)
+                                });
+
+                        //plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1}", host.Address, pingResult.ResponseDetails));
+                        //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
                     }
                 }
-                htmlTextTextDetails.AppendLine("</ul>");
-                returnState.RawDetails = plainTextDetails.ToString().TrimEnd('\r', '\n');
-                returnState.HtmlDetails = htmlTextTextDetails.ToString();
+                //htmlTextTextDetails.AppendLine("</ul>");
+                //returnState.RawDetails = plainTextDetails.ToString().TrimEnd('\r', '\n');
+                //returnState.HtmlDetails = htmlTextTextDetails.ToString();
                 returnState.CurrentValue = pingTotalTime;
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
