@@ -29,7 +29,7 @@ namespace QuickMon
             newCollectorHost.UniqueId = xmlCollectorEntry.ReadXmlElementAttr("uniqueId", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
             newCollectorHost.Enabled = xmlCollectorEntry.ReadXmlElementAttr("enabled", true);
             newCollectorHost.ExpandOnStart = xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", true);
-            newCollectorHost.ParentCollectorId = xmlCollectorEntry.ReadXmlElementAttr("dependOnParent");
+            newCollectorHost.ParentCollectorId = xmlCollectorEntry.ReadXmlElementAttr("dependOnParentId");
             newCollectorHost.AgentCheckSequence = AgentCheckSequenceConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("agentCheckSequence", "All")); //  "All|FirstSuccess|FirstError"
             newCollectorHost.ChildCheckBehaviour = ChildCheckBehaviourConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("childCheckBehaviour", "OnlyRunOnSuccess")); // "OnlyRunOnSuccess|ContinueOnWarning|ContinueOnWarningOrError|IncludeChildStatus"
 
@@ -90,7 +90,9 @@ namespace QuickMon
                 newCollectorHost.CollectorAgents = new List<ICollector>();
                 foreach (XmlElement collectorAgentNode in collectorAgentsNode.SelectNodes("collectorAgent"))
                 {
+                    string name = collectorAgentNode.ReadXmlElementAttr("name", "");
                     string typeName = collectorAgentNode.ReadXmlElementAttr("type", "");
+                    bool enabled = collectorAgentNode.ReadXmlElementAttr("enabled", true);
                     string configXml = "";
                     XmlNode configNode = collectorAgentNode.SelectSingleNode("config");
                     if (configNode != null)
@@ -103,6 +105,8 @@ namespace QuickMon
                     {
                         try
                         {
+                            newAgent.Name = name;
+                            newAgent.Enabled = enabled;
                             if (configXml.Length > 0)
                                 newAgent.InitialConfiguration = configXml;
                             else
@@ -130,10 +134,7 @@ namespace QuickMon
                         newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
                         newCollectorHost.currentState.RawDetails = string.Format("The Collector Host type of '{0}' could not be loaded!", typeName);
                     }
-
                 }
-                //if (newCollectorHost.currentState.State != CollectorState.ConfigurationError)
-                //    newCollectorHost.UpdateCurrentCollectorState(CollectorState.Good);
             }
             return newCollectorHost;
         }
@@ -159,59 +160,11 @@ namespace QuickMon
         /// <returns>XML config string</returns>
         public string ToXml()
         {
-            //StringBuilder configXml = new StringBuilder();
-            //configXml.AppendLine(string.Format("<collectorHost uniqueId=\"{0}\" name=\"{1}\" enabled=\"{2}\" expandOnStart=\"{3}\" dependOnParentId=\"{4}\" " +
-            //          "agentCheckSequence=\"{5}\" childCheckBehaviour=\"{6}\" " +
-            //          "repeatAlertInXMin=\"{7}\" alertOnceInXMin=\"{8}\" delayErrWarnAlertForXSec=\"{9}\" " +
-            //          "repeatAlertInXPolls=\"{10}\" alertOnceInXPolls=\"{11}\" delayErrWarnAlertForXPolls=\"{12}\" " +
-            //          "correctiveScriptDisabled=\"{13}\" correctiveScriptOnWarningPath=\"{14}\" correctiveScriptOnErrorPath=\"{15}\" " +
-            //          "restorationScriptPath=\"{16}\" correctiveScriptsOnlyOnStateChange=\"{17}\" enableRemoteExecute=\"{18}\" " +
-            //          "forceRemoteExcuteOnChildCollectors=\"{19}\" remoteAgentHostAddress=\"{20}\" remoteAgentHostPort=\"{21}\" " +
-            //          "blockParentRemoteAgentHostSettings=\"{22}\" runLocalOnRemoteHostConnectionFailure=\"{23}\" " +
-            //          "enabledPollingOverride=\"{24}\" onlyAllowUpdateOncePerXSec=\"{25}\" enablePollFrequencySliding=\"{26}\" " +
-            //          "pollSlideFrequencyAfterFirstRepeatSec=\"{27}\" pollSlideFrequencyAfterSecondRepeatSec=\"{28}\" pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\">",
-            //            UniqueId, Name.EscapeXml(), Enabled, ExpandOnStart, ParentCollectorId,
-            //            AgentCheckSequence, ChildCheckBehaviour,
-            //            RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec,
-            //            RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls,
-            //            CorrectiveScriptDisabled, CorrectiveScriptOnWarningPath, CorrectiveScriptOnErrorPath,
-            //            RestorationScriptPath, CorrectiveScriptsOnlyOnStateChange, EnableRemoteExecute,
-            //            ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort,
-            //            BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure,
-            //            EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding,
-            //            PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec,
-            //            AlertsPaused
-            //          )
-            //         );
-
-            //configXml.AppendLine("<!-- CollectorAgents -->");
-            //configXml.AppendLine("<collectorAgents>");
-            //foreach (ICollector c in CollectorAgents)
-            //{
-            //    configXml.AppendLine(string.Format("<collectorAgent type=\"{0}\">", c.AgentClassName));                
-            //    configXml.AppendLine(c.AgentConfig.ToXml());
-            //    configXml.AppendLine("</collectorAgent>");
-            //}
-            //configXml.AppendLine("</collectorAgents>");
-
-            //configXml.AppendLine("<!-- ServiceWindows -->");
-            //configXml.AppendLine(ServiceWindows.ToXml().TrimEnd('\r','\n'));
-            //configXml.AppendLine("<!-- Config variables -->");
-            //configXml.AppendLine("<configVars>");
-            //foreach (ConfigVariable cv in ConfigVariables)
-            //{
-            //    configXml.AppendLine(cv.ToXml());
-            //}
-            //configXml.AppendLine("</configVars>");
-            //configXml.AppendLine("</collectorHost>");            
-
-            //return configXml.ToString();
-
             StringBuilder collectorAgentsXml = new StringBuilder();
             collectorAgentsXml.AppendLine("<collectorAgents>");
             foreach (ICollector c in CollectorAgents)
             {
-                collectorAgentsXml.AppendLine(string.Format("<collectorAgent type=\"{0}\">", c.AgentClassName));                
+                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
                 collectorAgentsXml.AppendLine(c.AgentConfig.ToXml());
                 collectorAgentsXml.AppendLine("</collectorAgent>");
             }
@@ -265,24 +218,24 @@ namespace QuickMon
                 AgentCheckSequence agentCheckSequence,
                 ChildCheckBehaviour childCheckBehaviour,
                 int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
-                       int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls,
-                       bool correctiveScriptDisabled, string correctiveScriptOnWarningPath, string correctiveScriptOnErrorPath,
-                       string restorationScriptPath, bool correctiveScriptsOnlyOnStateChange, bool enableRemoteExecute,
-                       bool forceRemoteExcuteOnChildCollectors, string remoteAgentHostAddress, int remoteAgentHostPort,
-                       bool blockParentOverrideRemoteAgentHostSettings, bool runLocalOnRemoteHostConnectionFailure,
-                       bool enabledPollingOverride,
-                        int onlyAllowUpdateOncePerXSec,
-                        bool enablePollFrequencySliding,
-                        int pollSlideFrequencyAfterFirstRepeatSec,
-                        int pollSlideFrequencyAfterSecondRepeatSec,
-                        int pollSlideFrequencyAfterThirdRepeatSec,
-                        bool alertsPaused,
+                int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls,
+                bool correctiveScriptDisabled, string correctiveScriptOnWarningPath, string correctiveScriptOnErrorPath,
+                string restorationScriptPath, bool correctiveScriptsOnlyOnStateChange, bool enableRemoteExecute,
+                bool forceRemoteExcuteOnChildCollectors, string remoteAgentHostAddress, int remoteAgentHostPort,
+                bool blockParentOverrideRemoteAgentHostSettings, bool runLocalOnRemoteHostConnectionFailure,
+                bool enabledPollingOverride,
+                int onlyAllowUpdateOncePerXSec,
+                bool enablePollFrequencySliding,
+                int pollSlideFrequencyAfterFirstRepeatSec,
+                int pollSlideFrequencyAfterSecondRepeatSec,
+                int pollSlideFrequencyAfterThirdRepeatSec,
+                bool alertsPaused,
                 string collectorAgentsXml,
                 string serviceWindowsXml,
                 string configVariablesXml
             )
         {
-             StringBuilder configXml = new StringBuilder();
+            StringBuilder configXml = new StringBuilder();
             configXml.AppendLine(string.Format("<collectorHost uniqueId=\"{0}\" name=\"{1}\" enabled=\"{2}\" expandOnStart=\"{3}\" dependOnParentId=\"{4}\" " +
                       "agentCheckSequence=\"{5}\" childCheckBehaviour=\"{6}\" " +
                       "repeatAlertInXMin=\"{7}\" alertOnceInXMin=\"{8}\" delayErrWarnAlertForXSec=\"{9}\" " +
@@ -307,20 +260,11 @@ namespace QuickMon
                       )
                      );
             configXml.AppendLine("<!-- CollectorAgents -->");
-            //configXml.AppendLine("<collectorAgents>");
-            configXml.AppendLine(collectorAgentsXml);            
-            //configXml.AppendLine("</collectorAgents>");
-
+            configXml.AppendLine(collectorAgentsXml);
             configXml.AppendLine("<!-- ServiceWindows -->");
             configXml.AppendLine(serviceWindowsXml);
             configXml.AppendLine("<!-- Config variables -->");
             configXml.AppendLine(configVariablesXml);
-            //configXml.AppendLine(configXml.AppendLine("<configVars>");
-            //foreach (ConfigVariable cv in ConfigVariables)
-            //{
-            //    configXml.AppendLine(cv.ToXml());
-            //}
-            //configXml.AppendLine("</configVars>");
             configXml.AppendLine("</collectorHost>");
             return configXml.ToString();
         }

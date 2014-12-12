@@ -608,7 +608,7 @@ namespace QuickMon
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if (txtHostName.Text.Trim().Length > 0)
+            if (!chkRemoteHost.Checked || txtHostName.Text.Trim().Length > 0)
             {
 
                 string configXml = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
@@ -619,65 +619,82 @@ namespace QuickMon
                 string[] hostnames = txtHostName.Text.Split(',', ' ');
                 foreach (string hostname in hostnames)
                 {
-
-                    configXml += "<collectorHost uniqueId=\"" + hostname.EscapeXml() + "1234\" name=\"" + hostname.EscapeXml() + " tests\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                    configXml += "<collectorHost uniqueId=\"Ping" + hostname.EscapeXml() + "\" name=\"Ping " + hostname.EscapeXml() + " tests\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
                         "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
-                           "repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" " +
-                           "repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" " +
-                           "correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"\" correctiveScriptOnErrorPath=\"\" " +
-                           "restorationScriptPath=\"\" correctiveScriptsOnlyOnStateChange=\"True\" enableRemoteExecute=\"True\" " +
-                           "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"" + txtRemoteHost.Text.EscapeXml() + "\" remoteAgentHostPort=\"48181\" " +
-                           "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" " +
-                           "enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" " +
-                           "pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" " +
-                           "pollSlideFrequencyAfterThirdRepeatSec=\"30\">\r\n" +
-                           "<collectorAgents>\r\n";
+                           "enableRemoteExecute=\"" + (chkRemoteHost.Checked ? "True" : "False") + "\" " +
+                           "forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"" + txtRemoteHost.Text.EscapeXml() + "\" remoteAgentHostPort=\"48181\" " +
+                           "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" >\r\n" +
+                           "<collectorAgents>\r\n" +
+                                "<collectorAgent type=\"PingCollector\">\r\n" +
+                                    "<config>\r\n" +
+                                        "<entries>\r\n" +
+                                            "<entry pingMethod=\"Ping\" address=\"" + hostname.EscapeXml() + "\" />\r\n" +
+                                            "</entries>\r\n" +
+                                    "</config>\r\n" +
+                                "</collectorAgent>\r\n" +
+                            "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n";
+
+                    configXml += "<collectorHost uniqueId=\"Services" + hostname.EscapeXml() + "\" name=\"Services " + hostname.EscapeXml() + " tests\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"Ping" + hostname.EscapeXml() + "\" " +
+                       "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                          "enableRemoteExecute=\"" + (chkRemoteHost.Checked ? "True" : "False") + "\" " +
+                          "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"" + txtRemoteHost.Text.EscapeXml() + "\" remoteAgentHostPort=\"48181\" " +
+                          "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" >\r\n" +
+                          "<collectorAgents>\r\n" +
+                            "<collectorAgent type=\"WindowsServiceStateCollector\">\r\n" +
+                                "<config>\r\n" +
+                                    "<machine name=\"" + hostname.EscapeXml() + "\">\r\n" +
+                                        "<service name=\"QuickMon 3 Service\" />\r\n" +
+                                    "</machine>\r\n" +
+                                "</config>\r\n" +
+                            "</collectorAgent>\r\n" +
+                          "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n";
 
 
-                    configXml +=
-                        "<collectorAgent type=\"PingCollector\">\r\n" +
-                            "<config>\r\n" +
-                                "<entries>\r\n" +
-                                    "<entry pingMethod=\"Ping\" address=\"" + hostname.EscapeXml() + "\" />\r\n" +
-                                    "</entries>\r\n" +
-                            "</config>\r\n" +
-                        "</collectorAgent>\r\n";
-
-                    configXml +=
-                        "<collectorAgent type=\"WindowsServiceStateCollector\">\r\n" +
-                            "<config>\r\n" +
-                                "<machine name=\"" + hostname.EscapeXml() + "\">\r\n" +
-                                    "<service name=\"QuickMon 3 Service\" />\r\n" +
-                                "</machine>\r\n" +
-                            "</config>\r\n" +
-                        "</collectorAgent>\r\n";
-
-                    configXml +=
-                        "<collectorAgent type=\"PerfCounterCollector\">\r\n" +
-                            "<config>\r\n" +
-                                "<performanceCounters>\r\n" +
-                                    "<performanceCounter computer=\"" + hostname.EscapeXml() + "\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" returnValueInverted=\"False\" warningValue=\"90\" errorValue=\"99\" />\r\n" +
-                                "</performanceCounters>\r\n" +
-                            "</config>\r\n" +
-                        "</collectorAgent>\r\n";
+                    configXml += "<collectorHost uniqueId=\"Perf" + hostname.EscapeXml() + "\" name=\"Perfs " + hostname.EscapeXml() + " tests\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"Ping" + hostname.EscapeXml() + "\" " +
+                       "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                          "enableRemoteExecute=\"" + (chkRemoteHost.Checked ? "True" : "False") + "\" " +
+                          "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"" + txtRemoteHost.Text.EscapeXml() + "\" remoteAgentHostPort=\"48181\" " +
+                          "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" >\r\n" +
+                          "<collectorAgents>\r\n" +
+                            "<collectorAgent name=\"CPU\" type=\"PerfCounterCollector\" enabled=\"True\">\r\n" +
+                                "<config>\r\n" +
+                                    "<performanceCounters>\r\n" +
+                                        "<performanceCounter computer=\"" + hostname.EscapeXml() + "\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" returnValueInverted=\"False\" warningValue=\"90\" errorValue=\"99\" />\r\n" +
+                                    "</performanceCounters>\r\n" +
+                                "</config>\r\n" +
+                            "</collectorAgent>\r\n" +
+                            "<collectorAgent name=\"Memory\" type=\"PerfCounterCollector\" enabled=\"False\">\r\n" +
+                                "<config>\r\n" +
+                                    "<performanceCounters>\r\n" +
+                                        "<performanceCounter computer=\"" + hostname.EscapeXml() + "\" category=\"Memory\" counter=\"% Committed Bytes In Use\" instance=\"\" returnValueInverted=\"False\" warningValue=\"80\" errorValue=\"90\" />\r\n" +
+                                    "</performanceCounters>\r\n" +
+                                "</config>\r\n" +
+                            "</collectorAgent>\r\n" +
+                          "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n";
 
 
-                    configXml +=
-                        "<collectorAgent type=\"FileSystemCollector\">\r\n" +
-                            "<config>\r\n" +
-                                "<directoryList>\r\n" +
-                                    "<directory directoryPathFilter=\"\\\\" + hostname.EscapeXml() + "\\c$\\*.*\" testDirectoryExistOnly=\"True\" testFilesExistOnly=\"False\" " +
-                                    "errorOnFilesExist=\"False\" warningFileCountMax=\"0\" errorFileCountMax=\"0\" warningFileSizeMaxKB=\"0\" errorFileSizeMaxKB=\"0\" " +
-                                    "fileMinAgeSec=\"0\" fileMaxAgeSec=\"0\" fileMinSizeKB=\"0\" fileMaxSizeKB=\"0\" />\r\n" +
-                                "</directoryList>\r\n" +
-                            "</config>\r\n" +
-                        "</collectorAgent>\r\n";
-
-                    configXml +=
-                       "</collectorAgents>\r\n" +
-                     "</collectorHost>\r\n";
+                    configXml += "<collectorHost uniqueId=\"Folder" + hostname.EscapeXml() + "\" name=\"C drive " + hostname.EscapeXml() + " tests\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"Ping" + hostname.EscapeXml() + "\" " +
+                       "agentCheckSequence=\"" + (chkFirstSuccess.Checked ? "FirstSuccess" : chkFirstError.Checked ? "FirstError" : "All") + "\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
+                          "enableRemoteExecute=\"" + (chkRemoteHost.Checked ? "True" : "False") + "\" " +
+                          "forceRemoteExcuteOnChildCollectors=\"True\" remoteAgentHostAddress=\"" + txtRemoteHost.Text.EscapeXml() + "\" remoteAgentHostPort=\"48181\" " +
+                          "blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"True\" >\r\n" +
+                          "<collectorAgents>\r\n" +
+                            "<collectorAgent name=\"Does C drive exist\" type=\"FileSystemCollector\" enabled=\"True\">\r\n" +
+                                "<config>\r\n" +
+                                    "<directoryList>\r\n" +
+                                        "<directory directoryPathFilter=\"\\\\" + hostname.EscapeXml() + "\\c$\\*.*\" testDirectoryExistOnly=\"True\" testFilesExistOnly=\"False\" " +
+                                        "errorOnFilesExist=\"False\" warningFileCountMax=\"0\" errorFileCountMax=\"0\" warningFileSizeMaxKB=\"0\" errorFileSizeMaxKB=\"0\" " +
+                                        "fileMinAgeSec=\"0\" fileMaxAgeSec=\"0\" fileMinSizeKB=\"0\" fileMaxSizeKB=\"0\" />\r\n" +
+                                    "</directoryList>\r\n" +
+                                "</config>\r\n" +
+                            "</collectorAgent>\r\n" +
+                          "</collectorAgents>\r\n" +
+                        "</collectorHost>\r\n";
                 }
-                configXml +=  "</collectorHosts>" +
+                configXml += "</collectorHosts>" +
                             "<notifierHosts>\r\n" +
                             "<notifierHost name=\"Default notifiers\" enabled=\"True\" alertLevel=\"Info\" detailLevel=\"Detail\" " +
                                 "attendedOptionOverride=\"OnlyAttended\">\r\n" +
@@ -691,6 +708,7 @@ namespace QuickMon
                        "</monitorPack>";
 
                 MonitorPack m = new MonitorPack();
+                m.ConcurrencyLevel = 1;
                 m.LoadXml(configXml);
                 m.RefreshStates();
                 txtAlerts.Text = "";
@@ -698,18 +716,9 @@ namespace QuickMon
                 {
                     MonitorState ms = ch.CurrentState;
                     txtAlerts.Text += string.Format("Collector host: {0}\r\n", ch.Name);
-                    txtAlerts.Text += string.Format("\tState: {0}\t\r\n{1}\r\n", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails()));
-                }                
-
-                //List<CollectorHost> chList = CollectorHost.GetCollectorHostsFromString(configXml);
-                //if (chList != null)
-                //{
-                //    MonitorState ms = chList[0].RefreshCurrentState();
-                //    //MessageBox.Show(ms.ToXml(), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    txtAlerts.Text = string.Format("State: {0}\r\n{1}", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails()));
-                //    //MessageBox.Show(string.Format("State: {0}\r\n{1}", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails())), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                //}
+                    txtAlerts.Text += string.Format("Run on host: {0}\r\n", ms.ExecutedOnHostComputer);
+                    txtAlerts.Text += string.Format("State: {0}\r\n{1}\r\n", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails('\t')));
+                }
             }
         }
 

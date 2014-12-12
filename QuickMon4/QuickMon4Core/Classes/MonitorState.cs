@@ -25,6 +25,10 @@ namespace QuickMon
         }
         [DataMember(Name = "CurrentValue")]
         public object CurrentValue { get; set; }
+
+        [DataMember(Name = "ForAgent")]
+        public string ForAgent { get; set; }        
+
         [DataMember(Name = "RawDetails")]
         public string RawDetails { get; set; }
         [DataMember(Name = "HtmlDetails")]
@@ -48,6 +52,7 @@ namespace QuickMon
             {
                 State = this.State,
                 CurrentValue = this.CurrentValue,
+                ForAgent = this.ForAgent,
                 RawDetails = this.RawDetails,
                 HtmlDetails = this.HtmlDetails,
                 Timestamp = this.Timestamp,
@@ -65,10 +70,11 @@ namespace QuickMon
         public string ToXml()
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml("<monitorState state=\"NotAvailable\" currentValue=\"\" lastStateChangeTime=\"\" />");
+            xdoc.LoadXml("<monitorState state=\"NotAvailable\" currentValue=\"\" lastStateChangeTime=\"\" forAgent=\"\" />");
             XmlElement root = xdoc.DocumentElement;
             root.SetAttributeValue("state", State.ToString());
             root.SetAttributeValue("stateChangedTime", StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            root.SetAttributeValue("forAgent", ForAgent);
             root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
             if (CurrentValue != null)
@@ -124,6 +130,7 @@ namespace QuickMon
                 CallDurationMS = root.ReadXmlElementAttr("callDurationMS", 0);
             }
             catch { }
+            ForAgent = root.ReadXmlElementAttr("forAgent", "");
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
             RawDetails = root.SelectSingleNode("rawDetails").InnerText;
@@ -148,16 +155,22 @@ namespace QuickMon
         [DataMember(Name = "ChildStates")]
         public List<MonitorState> ChildStates { get; set; }
 
-        public string ReadAllRawDetails()
+        public string ReadAllRawDetails(char linePaddingChar = ' ', int linePaddingRepeat = 0)
         {
             StringBuilder sb = new StringBuilder();
             if (RawDetails != null && RawDetails.Length > 0)
-                sb.AppendLine(RawDetails);
+            {
+                sb.Append(new string(linePaddingChar, linePaddingRepeat));
+                if (ForAgent != null && ForAgent.Length > 0)
+                    sb.Append(string.Format("{0}: ", ForAgent));
+                sb.AppendLine(RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar));
+                linePaddingRepeat++;
+            }
             if (ChildStates != null)
             {
                 foreach (MonitorState ms in ChildStates)
                 {
-                    sb.Append(ms.ReadAllRawDetails());
+                    sb.Append(ms.ReadAllRawDetails(linePaddingChar, linePaddingRepeat));
                 }
             }
             return sb.ToString();
@@ -167,11 +180,17 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             if (HtmlDetails != null && HtmlDetails.Length > 0)
             {
-                sb.AppendLine("<p>" + HtmlDetails.EscapeXml() + "</p>");
+                sb.Append("<p>");
+                if (ForAgent != null && ForAgent.Length > 0)
+                    sb.Append(string.Format("{0}: ", ForAgent));
+                sb.AppendLine(HtmlDetails.EscapeXml() + "</p>");
             }
             else if (RawDetails != null && RawDetails.Length > 0)
             {
-                sb.AppendLine("<p>" + RawDetails.EscapeXml() + "</p>");
+                sb.Append("<p>");
+                if (ForAgent != null && ForAgent.Length > 0)
+                    sb.Append(string.Format("{0}: ", ForAgent));
+                sb.AppendLine(RawDetails.EscapeXml() + "</p>");
             }
             if (ChildStates != null && ChildStates.Count > 0)
             {
