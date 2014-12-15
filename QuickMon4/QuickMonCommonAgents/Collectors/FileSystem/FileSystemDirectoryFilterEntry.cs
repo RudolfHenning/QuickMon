@@ -9,30 +9,7 @@ namespace QuickMon.Collectors
     public class FileSystemDirectoryFilterEntry : ICollectorConfigEntry
     {
         #region Properties
-        public string DirectoryPath { get; set; }
-        public string FileFilter { get; set; }
-        public bool DirectoryExistOnly { get; set; }
-        public bool FilesExistOnly { get; set; }
-        public bool ErrorOnFilesExist { get; set; }
-        public string ContainsText { get; set; }
-        public bool UseRegEx { get; set; }
-        /// <summary>
-        /// File max age in seconds
-        /// </summary>
-        public long FileMaxAgeSec { get; set; }
-        /// <summary>
-        /// File min age in seconds
-        /// </summary>
-        public long FileMinAgeSec { get; set; }
-        /// <summary>
-        /// File minimum size in KB
-        /// </summary>
-        public long FileMinSizeKB { get; set; }
-        /// <summary>
-        /// File maximum size in KB
-        /// </summary>
-        public long FileMaxSizeKB { get; set; }
-
+        public string DirectoryPath { get; set; }   
         public string FilterFullPath
         {
             get
@@ -44,19 +21,66 @@ namespace QuickMon.Collectors
                 DirectoryPath = GetDirectoryFromPath(value);
                 FileFilter = GetFilterFromPath(value);
             }
-        }
+        }     
+        public bool DirectoryExistOnly { get; set; }
+        /// <summary>
+        /// If any files are found mathing filtering conditions it return a True
+        /// </summary>
+        public bool FilesExistOnly { get; set; }
+        /// <summary>
+        /// If any files are found mathing filtering conditions it return a True
+        /// </summary>
+        public bool ErrorOnFilesExist { get; set; }
 
+        #region File filters
+        public string FileFilter { get; set; }
+        /// <summary>
+        /// Does the file contain this text
+        /// </summary>
+        public string ContainsText { get; set; }
+        /// <summary>
+        /// Should Regular expressions be used for ContainsText
+        /// </summary>
+        public bool UseRegEx { get; set; }
+        /// <summary>
+        /// File max age in minutes
+        /// </summary>
+        public long FileMaxAgeMin { get; set; }
+        /// <summary>
+        /// File min age in minutes
+        /// </summary>
+        public long FileMinAgeMin { get; set; }
+        /// <summary>
+        /// File minimum size in KB
+        /// </summary>
+        public long FileMinSizeKB { get; set; }
+        /// <summary>
+        /// File maximum size in KB
+        /// </summary>
+        public long FileMaxSizeKB { get; set; }
+        #endregion
+        #region Summary trigger conditions
+        /// <summary>
+        /// If CountWarningIndicator < CountErrorIndicator then Good state is when count < CountWarningIndicator
+        /// Else Good > CountErrorIndicator
+        /// </summary>
         public int CountWarningIndicator { get; set; }
+        /// <summary>
+        /// If CountWarningIndicator < CountErrorIndicator then Good state is when count < CountWarningIndicator
+        /// Else Good > CountErrorIndicator
+        /// </summary>
         public int CountErrorIndicator { get; set; }
         /// <summary>
-        /// File size warning indicator (in KB)
+        /// Total File size warning indicator (in KB). If SizeKBWarningIndicator < SizeKBErrorIndicator then Good state is when total size < SizeKBWarningIndicator
+        /// Else Good > SizeKBErrorIndicator
         /// </summary>
         public long SizeKBWarningIndicator { get; set; }
         /// <summary>
-        /// File size error indicator (in KB)
+        /// Total File size warning indicator (in KB). If SizeKBWarningIndicator < SizeKBErrorIndicator then Good state is when total size < SizeKBWarningIndicator
+        /// Else Good > SizeKBErrorIndicator
         /// </summary>
         public long SizeKBErrorIndicator { get; set; }
-
+        #endregion
         public string LastErrorMsg { get; set; }
         #endregion
 
@@ -85,10 +109,10 @@ namespace QuickMon.Collectors
                         filterSummary += "File count: W:" + CountWarningIndicator + ", E:" + CountErrorIndicator;
                     if (SizeKBWarningIndicator > 0 || SizeKBErrorIndicator > 0)
                         filterSummary += (filterSummary.Length > 0 ? ", " : "") + "Total size: W:" + SizeKBWarningIndicator + "KB - E:" + SizeKBErrorIndicator + "KB";
-                    if (FileMaxAgeSec > 0 || FileMinAgeSec > 0)
-                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File age: " + FileMinAgeSec + "-" + FileMaxAgeSec;
+                    if (FileMaxAgeMin > 0 || FileMinAgeMin > 0)
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File age(min): " + FileMinAgeMin + "-" + FileMaxAgeMin;
                     if (FileMinSizeKB > 0 || FileMaxSizeKB > 0)
-                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File size: " + FileMinSizeKB + "-" + FileMaxSizeKB;
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File size(KB): " + FileMinSizeKB + "-" + FileMaxSizeKB;
                 }
                 return string.Format("{0}", filterSummary);
             }
@@ -123,26 +147,26 @@ namespace QuickMon.Collectors
             return filter;
         }
 
-        public DirectoryFileInfo GetDirFileInfo()
+        public DirectoryFileInfo GetFileListByFilters()
         {
             DirectoryFileInfo fileInfo;
-            fileInfo.Exists = false;
+            fileInfo.DirectoryExists = false;
             fileInfo.FileCount = 0;
-            fileInfo.FileSize = 0;
+            fileInfo.TotalFileSize = 0;
             fileInfo.FileInfos = new List<FileInfo>();
             try
             {
                 if (Directory.Exists(DirectoryPath))
                 {
-                    fileInfo.Exists = true;
+                    fileInfo.DirectoryExists = true;
                     if (!DirectoryExistOnly)
                     {
                         foreach (string filePath in System.IO.Directory.GetFiles(DirectoryPath, FileFilter))
                         {
                             System.IO.FileInfo fi = new System.IO.FileInfo(filePath);
 
-                            if ((FileMaxAgeSec == 0 || fi.LastWriteTime.AddSeconds(FileMaxAgeSec) > DateTime.Now) &&
-                                        (FileMinAgeSec == 0 || fi.LastWriteTime.AddSeconds(FileMinAgeSec) < DateTime.Now) &&
+                            if ((FileMaxAgeMin == 0 || fi.LastWriteTime.AddMinutes(FileMaxAgeMin) > DateTime.Now) &&
+                                        (FileMinAgeMin == 0 || fi.LastWriteTime.AddMinutes(FileMinAgeMin) < DateTime.Now) &&
                                         (FileMaxSizeKB == 0 || fi.Length <= (FileMaxSizeKB * 1024)) &&
                                         (FileMinSizeKB == 0 || fi.Length >= (FileMinSizeKB * 1024))
                                         )
@@ -161,7 +185,7 @@ namespace QuickMon.Collectors
                                 }
                                 if (match)
                                 {
-                                    fileInfo.FileSize += fi.Length;
+                                    fileInfo.TotalFileSize += fi.Length;
                                     fileInfo.FileCount += 1;
                                     fileInfo.FileInfos.Add(fi);
                                 }
@@ -171,22 +195,22 @@ namespace QuickMon.Collectors
                 }
                 else
                 {
-                    fileInfo.Exists = false;
+                    fileInfo.DirectoryExists = false;
                 }
             }
             catch (Exception ex)
             {
                 LastErrorMsg = ex.Message;
                 fileInfo.FileCount = -1;
-                fileInfo.FileSize = -1;
+                fileInfo.TotalFileSize = -1;
             }
             return fileInfo;
         }
         public CollectorState GetState(DirectoryFileInfo fileInfo)
         {
-            CollectorState returnState = CollectorState.Good;
+            CollectorState returnState = CollectorState.NotAvailable;
             LastErrorMsg = "";
-            if (!fileInfo.Exists)
+            if (!fileInfo.DirectoryExists)
             {
                 returnState = CollectorState.Error;
                 LastErrorMsg = string.Format("Directory '{0}' not found or not accessible!", DirectoryPath);
@@ -210,26 +234,54 @@ namespace QuickMon.Collectors
             }
             else
             {
-                if (
-                    (CountErrorIndicator > 0 && CountErrorIndicator <= fileInfo.FileCount) ||
-                    (SizeKBErrorIndicator > 0 && SizeKBErrorIndicator * 1024 <= fileInfo.FileSize)
-                   )
+                if ((CountErrorIndicator > 0 || CountWarningIndicator > 0) & CountWarningIndicator != CountErrorIndicator)
                 {
-                    returnState = CollectorState.Error;
-                    LastErrorMsg = string.Format("Error state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.FileSize));
+                    if (CountWarningIndicator < CountErrorIndicator)
+                    {
+                        if (fileInfo.FileCount < CountWarningIndicator)
+                            returnState = CollectorState.Good;
+                        else if (fileInfo.FileCount > CountErrorIndicator)
+                            returnState = CollectorState.Error;
+                        else
+                            returnState = CollectorState.Warning;
+                    }
+                    else
+                        if (fileInfo.FileCount > CountWarningIndicator)
+                            returnState = CollectorState.Good;
+                        else if (fileInfo.FileCount < CountErrorIndicator)
+                            returnState = CollectorState.Error;
+                        else
+                            returnState = CollectorState.Warning;
                 }
-                else if (
-                        (CountWarningIndicator > 0 && CountWarningIndicator <= fileInfo.FileCount) ||
-                        (SizeKBWarningIndicator > 0 && SizeKBWarningIndicator * 1024 <= fileInfo.FileSize)
-                       )
+
+                if (returnState == CollectorState.Good || returnState == CollectorState.NotAvailable)
                 {
-                    returnState = CollectorState.Warning;
-                    LastErrorMsg = string.Format("Warning state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.FileSize));
+                    if ((SizeKBWarningIndicator > 0 ||  SizeKBErrorIndicator > 0) && SizeKBWarningIndicator != SizeKBErrorIndicator)
+                    {
+                        if (SizeKBWarningIndicator < SizeKBErrorIndicator)
+                        {
+                            if (fileInfo.TotalFileSize * 1024 < SizeKBWarningIndicator)
+                                returnState = CollectorState.Good;
+                            else if (fileInfo.TotalFileSize * 1024 > SizeKBErrorIndicator)
+                                returnState = CollectorState.Error;
+                            else
+                                returnState = CollectorState.Warning;
+                        }
+                        else
+                        {
+                            if (fileInfo.TotalFileSize * 1024 > SizeKBWarningIndicator)
+                                returnState = CollectorState.Good;
+                            else if (fileInfo.TotalFileSize * 1024 < SizeKBErrorIndicator)
+                                returnState = CollectorState.Error;
+                            else
+                                returnState = CollectorState.Warning;
+                        }
+                    }
                 }
-                else
-                {
-                    returnState = CollectorState.Good;
-                }
+                if (returnState == CollectorState.Warning)
+                    LastErrorMsg = string.Format("Warning state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
+                else if (returnState == CollectorState.Error)
+                    LastErrorMsg = string.Format("Error state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
             }
             return returnState;
         }

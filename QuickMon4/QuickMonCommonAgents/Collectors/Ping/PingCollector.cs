@@ -16,8 +16,6 @@ namespace QuickMon.Collectors
         public override MonitorState GetState()
         {
             MonitorState returnState = new MonitorState();
-            //StringBuilder plainTextDetails = new StringBuilder();
-            //StringBuilder htmlTextTextDetails = new StringBuilder();
             string lastAction = "";
             long pingTotalTime = 0;
             int errors = 0;
@@ -44,12 +42,9 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Error,
                                     CurrentValue = pingResult.PingTime,
-                                    RawDetails = string.Format("{0} {1} (Error)", host.Address, pingResult.ResponseDetails),
-                                    HtmlDetails = string.Format("{0} {1} (<b>Error</b>)", host.Address, pingResult.ResponseDetails)
+                                    RawDetails = string.Format("'{0}': {1} (Error)", host.Address, pingResult.ResponseDetails),
+                                    HtmlDetails = string.Format("'{0}': {1} (<b>Error</b>)", host.Address, pingResult.ResponseDetails)
                                 });
-
-                            //plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1} ", host.Address, pingResult.ResponseDetails));
-                            //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
                         }
                         else if (currentState == CollectorState.Warning)
                         {
@@ -59,12 +54,9 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Error,
                                     CurrentValue = pingResult.PingTime,
-                                    RawDetails = string.Format("{0} {1} {2}ms (Warning)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
-                                    HtmlDetails = string.Format("{0} {1} {2}ms (<b>Warning</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
+                                    RawDetails = string.Format("'{0}': {1} {2}ms (Warning)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
+                                    HtmlDetails = string.Format("'{0}': {1} {2}ms (<b>Warning</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
                                 });
-
-                            //plainTextDetails.AppendLine(string.Format("\t{0} (Warning) - {1}ms - {2}", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
-                            //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Warning</b>) - {1}ms - {2}</li>", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
                         }
                         else
                         {
@@ -74,12 +66,9 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Error,
                                     CurrentValue = pingResult.PingTime,
-                                    RawDetails = string.Format("{0} {1} {2}ms (Success)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
-                                    HtmlDetails = string.Format("{0} {1} {2}ms (<b>Success</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
+                                    RawDetails = string.Format("'{0}': {1} {2}ms (Success)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
+                                    HtmlDetails = string.Format("'{0}': {1} {2}ms (<b>Success</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
                                 });
-
-                            //plainTextDetails.AppendLine(string.Format("\t{0} (Success) - {1}ms - {2}", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
-                            //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Success</b>) - {1}ms - {2}</li>", host.Address, pingResult.PingTime, pingResult.ResponseDetails));
                         }
                     }
                     else
@@ -90,17 +79,11 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Error,
                                     CurrentValue = "",
-                                    RawDetails = string.Format("{0} {1} (Error)", host.Address, pingResult.ResponseDetails),
-                                    HtmlDetails = string.Format("{0} {1} (<b>Error</b>)", host.Address, pingResult.ResponseDetails)
+                                    RawDetails = string.Format("'{0}': {1} (Error)", host.Address, pingResult.ResponseDetails),
+                                    HtmlDetails = string.Format("'{0}': {1} (<b>Error</b>)", host.Address, pingResult.ResponseDetails)
                                 });
-
-                        //plainTextDetails.AppendLine(string.Format("\t{0} (Error) - {1}", host.Address, pingResult.ResponseDetails));
-                        //htmlTextTextDetails.AppendLine(string.Format("<li>{0} (<b>Error</b>) - {1}</li>", host.Address, pingResult.ResponseDetails));
                     }
                 }
-                //htmlTextTextDetails.AppendLine("</ul>");
-                //returnState.RawDetails = plainTextDetails.ToString().TrimEnd('\r', '\n');
-                //returnState.HtmlDetails = htmlTextTextDetails.ToString();
                 returnState.CurrentValue = pingTotalTime;
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors

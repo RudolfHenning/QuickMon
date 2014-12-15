@@ -183,14 +183,14 @@ namespace QuickMon
                 sb.Append("<p>");
                 if (ForAgent != null && ForAgent.Length > 0)
                     sb.Append(string.Format("{0}: ", ForAgent));
-                sb.AppendLine(HtmlDetails.EscapeXml() + "</p>");
+                sb.AppendLine(HtmlDetails + "</p>");
             }
             else if (RawDetails != null && RawDetails.Length > 0)
             {
                 sb.Append("<p>");
                 if (ForAgent != null && ForAgent.Length > 0)
                     sb.Append(string.Format("{0}: ", ForAgent));
-                sb.AppendLine(RawDetails.EscapeXml() + "</p>");
+                sb.AppendLine(RawDetails + "</p>");
             }
             if (ChildStates != null && ChildStates.Count > 0)
             {
@@ -199,7 +199,7 @@ namespace QuickMon
                 {
                     foreach (MonitorState ms in ChildStates)
                     {
-                        sb.Append("<li>" + ms.ReadAllHtmlDetails().EscapeXml() + "</li>");
+                        sb.Append("<li>" + ms.ReadAllHtmlDetails() + "</li>");
                     }
                 }
                 sb.AppendLine("</ul>");

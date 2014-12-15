@@ -61,10 +61,37 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TestCollectorHostEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestCollectorHostEdit.Designer.cs">
+      <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestRun1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestRun1.Designer.cs">
+      <DependentUpon>TestRun1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestRun2Notifiers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestRun2Notifiers.Designer.cs">
+      <DependentUpon>TestRun2Notifiers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestCollectorHostEdit.resx">
+      <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestRun1.resx">
+      <DependentUpon>TestRun1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestRun2Notifiers.resx">
+      <DependentUpon>TestRun2Notifiers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -94,9 +121,17 @@
     <Content Include="QM3.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickMon4Core\QuickMonCore.csproj">
       <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
       <Name>QuickMonCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonUICoreForWinForms\QuickMonUICoreForWinForms.csproj">
+      <Project>{03204b22-96bc-42c6-a355-6cc29f1c0a2c}</Project>
+      <Name>QuickMonUICoreForWinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

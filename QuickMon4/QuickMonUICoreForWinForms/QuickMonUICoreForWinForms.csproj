@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,17 +46,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="GenericForms\EditCollectorHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditCollectorHost.Designer.cs">
+      <DependentUpon>EditCollectorHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ICollectorDetailView.cs" />
     <Compile Include="Interfaces\IEditConfigEntryWindow.cs" />
     <Compile Include="Interfaces\INotivierViewer.cs" />
     <Compile Include="Interfaces\SomeUIToAgentMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuickMon4Core\QuickMonCore.csproj">
       <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GenericForms\EditCollectorHost.resx">
+      <DependentUpon>EditCollectorHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\proc2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whack.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

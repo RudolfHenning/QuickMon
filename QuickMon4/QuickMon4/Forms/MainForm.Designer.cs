@@ -28,288 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.txtHostName = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.txtAlerts = new System.Windows.Forms.TextBox();
-            this.nudConcurency = new System.Windows.Forms.NumericUpDown();
-            this.cmdClear = new System.Windows.Forms.Button();
-            this.chkPauseAlerts = new System.Windows.Forms.CheckBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.chkFirstSuccess = new System.Windows.Forms.CheckBox();
-            this.chkFirstError = new System.Windows.Forms.CheckBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.txtRemoteHost = new System.Windows.Forms.TextBox();
-            this.chkRemoteHost = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
+            this.cmdTestRun1 = new System.Windows.Forms.Button();
+            this.cmdTestRun2 = new System.Windows.Forms.Button();
+            this.cmdTestEdit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // cmdTestRun1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cmdTestRun1.Location = new System.Drawing.Point(12, 12);
+            this.cmdTestRun1.Name = "cmdTestRun1";
+            this.cmdTestRun1.Size = new System.Drawing.Size(75, 23);
+            this.cmdTestRun1.TabIndex = 19;
+            this.cmdTestRun1.Text = "Test run 1";
+            this.cmdTestRun1.UseVisualStyleBackColor = true;
+            this.cmdTestRun1.Click += new System.EventHandler(this.cmdTestRun1_Click);
             // 
-            // button2
+            // cmdTestRun2
             // 
-            this.button2.Location = new System.Drawing.Point(93, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cmdTestRun2.Location = new System.Drawing.Point(93, 12);
+            this.cmdTestRun2.Name = "cmdTestRun2";
+            this.cmdTestRun2.Size = new System.Drawing.Size(75, 23);
+            this.cmdTestRun2.TabIndex = 20;
+            this.cmdTestRun2.Text = "Test run 2";
+            this.cmdTestRun2.UseVisualStyleBackColor = true;
+            this.cmdTestRun2.Click += new System.EventHandler(this.cmdTestRun2_Click);
             // 
-            // button3
+            // cmdTestEdit
             // 
-            this.button3.Location = new System.Drawing.Point(12, 50);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "MonitorState";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(12, 79);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Bad ping";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(12, 108);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Warning";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // txtHostName
-            // 
-            this.txtHostName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHostName.Location = new System.Drawing.Point(93, 140);
-            this.txtHostName.Name = "txtHostName";
-            this.txtHostName.Size = new System.Drawing.Size(238, 20);
-            this.txtHostName.TabIndex = 5;
-            this.txtHostName.Text = "localhost";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(12, 137);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Manual Ping";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(337, 138);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 7;
-            this.button7.Text = "Repeat";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // txtAlerts
-            // 
-            this.txtAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAlerts.Location = new System.Drawing.Point(12, 166);
-            this.txtAlerts.Multiline = true;
-            this.txtAlerts.Name = "txtAlerts";
-            this.txtAlerts.ReadOnly = true;
-            this.txtAlerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAlerts.Size = new System.Drawing.Size(400, 199);
-            this.txtAlerts.TabIndex = 8;
-            // 
-            // nudConcurency
-            // 
-            this.nudConcurency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudConcurency.Location = new System.Drawing.Point(280, 111);
-            this.nudConcurency.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudConcurency.Name = "nudConcurency";
-            this.nudConcurency.Size = new System.Drawing.Size(51, 20);
-            this.nudConcurency.TabIndex = 9;
-            this.nudConcurency.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // cmdClear
-            // 
-            this.cmdClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdClear.Location = new System.Drawing.Point(337, 108);
-            this.cmdClear.Name = "cmdClear";
-            this.cmdClear.Size = new System.Drawing.Size(75, 23);
-            this.cmdClear.TabIndex = 10;
-            this.cmdClear.Text = "Clear";
-            this.cmdClear.UseVisualStyleBackColor = true;
-            this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
-            // 
-            // chkPauseAlerts
-            // 
-            this.chkPauseAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkPauseAlerts.AutoSize = true;
-            this.chkPauseAlerts.Location = new System.Drawing.Point(280, 85);
-            this.chkPauseAlerts.Name = "chkPauseAlerts";
-            this.chkPauseAlerts.Size = new System.Drawing.Size(85, 17);
-            this.chkPauseAlerts.TabIndex = 11;
-            this.chkPauseAlerts.Text = "Pause Alerts";
-            this.chkPauseAlerts.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(174, 12);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 12;
-            this.button8.Text = "Remote";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // chkFirstSuccess
-            // 
-            this.chkFirstSuccess.AutoSize = true;
-            this.chkFirstSuccess.Location = new System.Drawing.Point(247, 41);
-            this.chkFirstSuccess.Name = "chkFirstSuccess";
-            this.chkFirstSuccess.Size = new System.Drawing.Size(84, 17);
-            this.chkFirstSuccess.TabIndex = 13;
-            this.chkFirstSuccess.Text = "1st Success";
-            this.chkFirstSuccess.UseVisualStyleBackColor = true;
-            // 
-            // chkFirstError
-            // 
-            this.chkFirstError.AutoSize = true;
-            this.chkFirstError.Location = new System.Drawing.Point(337, 41);
-            this.chkFirstError.Name = "chkFirstError";
-            this.chkFirstError.Size = new System.Drawing.Size(65, 17);
-            this.chkFirstError.TabIndex = 14;
-            this.chkFirstError.Text = "1st Error";
-            this.chkFirstError.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(93, 50);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 15;
-            this.button9.Text = "Services";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(93, 79);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 16;
-            this.button10.Text = "PerfCountr";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // txtRemoteHost
-            // 
-            this.txtRemoteHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRemoteHost.Location = new System.Drawing.Point(255, 14);
-            this.txtRemoteHost.Name = "txtRemoteHost";
-            this.txtRemoteHost.Size = new System.Drawing.Size(128, 20);
-            this.txtRemoteHost.TabIndex = 17;
-            this.txtRemoteHost.Text = "localhost";
-            // 
-            // chkRemoteHost
-            // 
-            this.chkRemoteHost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkRemoteHost.AutoSize = true;
-            this.chkRemoteHost.Checked = true;
-            this.chkRemoteHost.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRemoteHost.Location = new System.Drawing.Point(389, 16);
-            this.chkRemoteHost.Name = "chkRemoteHost";
-            this.chkRemoteHost.Size = new System.Drawing.Size(33, 17);
-            this.chkRemoteHost.TabIndex = 18;
-            this.chkRemoteHost.Text = "E";
-            this.chkRemoteHost.UseVisualStyleBackColor = true;
+            this.cmdTestEdit.Location = new System.Drawing.Point(174, 12);
+            this.cmdTestEdit.Name = "cmdTestEdit";
+            this.cmdTestEdit.Size = new System.Drawing.Size(75, 23);
+            this.cmdTestEdit.TabIndex = 21;
+            this.cmdTestEdit.Text = "Test edit";
+            this.cmdTestEdit.UseVisualStyleBackColor = true;
+            this.cmdTestEdit.Click += new System.EventHandler(this.cmdTestEdit_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 377);
-            this.Controls.Add(this.chkRemoteHost);
-            this.Controls.Add(this.txtRemoteHost);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.chkFirstError);
-            this.Controls.Add(this.chkFirstSuccess);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.chkPauseAlerts);
-            this.Controls.Add(this.cmdClear);
-            this.Controls.Add(this.nudConcurency);
-            this.Controls.Add(this.txtAlerts);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.txtHostName);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(324, 242);
+            this.Controls.Add(this.cmdTestEdit);
+            this.Controls.Add(this.cmdTestRun2);
+            this.Controls.Add(this.cmdTestRun1);
             this.Name = "MainForm";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox txtHostName;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.TextBox txtAlerts;
-        private System.Windows.Forms.NumericUpDown nudConcurency;
-        private System.Windows.Forms.Button cmdClear;
-        private System.Windows.Forms.CheckBox chkPauseAlerts;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.CheckBox chkFirstSuccess;
-        private System.Windows.Forms.CheckBox chkFirstError;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.TextBox txtRemoteHost;
-        private System.Windows.Forms.CheckBox chkRemoteHost;
+        private System.Windows.Forms.Button cmdTestRun1;
+        private System.Windows.Forms.Button cmdTestRun2;
+        private System.Windows.Forms.Button cmdTestEdit;
     }
 }
 
