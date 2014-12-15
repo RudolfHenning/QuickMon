@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collectors\EventLog\EventLogCollector.cs" />
+    <Compile Include="Collectors\EventLog\EventLogCollectorConfig.cs" />
+    <Compile Include="Collectors\EventLog\EventLogCollectorEntry.cs" />
+    <Compile Include="Collectors\EventLog\EventLogEntryEx.cs" />
     <Compile Include="Collectors\FileSystem\DirectoryFileInfo.cs" />
     <Compile Include="Collectors\FileSystem\FileSystemCollector.cs" />
     <Compile Include="Collectors\FileSystem\FileSystemCollectorConfig.cs" />
@@ -67,6 +71,8 @@
     <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifierConfig.cs" />
     <Compile Include="Notifiers\LogFileNotifier\LogFileNotifier.cs" />
     <Compile Include="Notifiers\LogFileNotifier\LogFileNotifierConfig.cs" />
+    <Compile Include="Notifiers\SMTP\SMTPNotifier.cs" />
+    <Compile Include="Notifiers\SMTP\SMTPNotifierConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,9 +8,9 @@ namespace QuickMon.Collectors
 {
     public struct DirectoryFileInfo
     {
-        public bool Exists;
+        public bool DirectoryExists;
         public int FileCount;
-        public long FileSize;
+        public long TotalFileSize;
         public List<FileInfo> FileInfos;
     }
 }
