@@ -113,6 +113,7 @@
             this.txtCorrectiveScriptOnError = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.alertSuppressionGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkAlertsPaused = new System.Windows.Forms.CheckBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -135,7 +136,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chkExpandOnStart = new System.Windows.Forms.CheckBox();
-            this.chkAlertsPaused = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.agentSettingstabPage.SuspendLayout();
             this.panCollectorConfigContainer.SuspendLayout();
@@ -1195,6 +1195,16 @@
             this.alertSuppressionGroupBox.TabIndex = 0;
             this.alertSuppressionGroupBox.TabStop = false;
             // 
+            // chkAlertsPaused
+            // 
+            this.chkAlertsPaused.AutoSize = true;
+            this.chkAlertsPaused.Location = new System.Drawing.Point(134, -1);
+            this.chkAlertsPaused.Name = "chkAlertsPaused";
+            this.chkAlertsPaused.Size = new System.Drawing.Size(208, 17);
+            this.chkAlertsPaused.TabIndex = 1;
+            this.chkAlertsPaused.Text = "Pause/ignore all alerts for this collector";
+            this.chkAlertsPaused.UseVisualStyleBackColor = true;
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -1405,16 +1415,6 @@
             this.chkExpandOnStart.TabIndex = 3;
             this.chkExpandOnStart.Text = "Expand on start";
             this.chkExpandOnStart.UseVisualStyleBackColor = true;
-            // 
-            // chkAlertsPaused
-            // 
-            this.chkAlertsPaused.AutoSize = true;
-            this.chkAlertsPaused.Location = new System.Drawing.Point(134, -1);
-            this.chkAlertsPaused.Name = "chkAlertsPaused";
-            this.chkAlertsPaused.Size = new System.Drawing.Size(208, 17);
-            this.chkAlertsPaused.TabIndex = 1;
-            this.chkAlertsPaused.Text = "Pause/ignore all alerts for this collector";
-            this.chkAlertsPaused.UseVisualStyleBackColor = true;
             // 
             // EditCollectorConfig
             // 
