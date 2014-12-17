@@ -55,9 +55,9 @@ namespace QuickMon
                             if (indentation > 0)
                                 indentation--;
                         }
-                        sb.AppendLine((new string('\t', indentation * 2)) + line);
+                        sb.AppendLine((new string('\t', indentation)) + line); //sb.AppendLine((new string('\t', indentation * 2)) + line);
 
-                        if (!(line.Contains("</") //if (line.StartsWith("</"))
+                        if (!(line.Contains("</")
                                 || line.EndsWith("/>")
                                 || line.StartsWith("<!--")
                                 || line.EndsWith("-->")

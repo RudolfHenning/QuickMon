@@ -22,7 +22,19 @@ namespace QuickMon
             }
             return collectorHosts;
         }
-        private static CollectorHost FromConfig(XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null)
+        public static CollectorHost FromXml(string xmlString, bool applyConfigVars = true)
+        {
+            if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
+            {
+                XmlDocument collectorHostDoc = new XmlDocument();
+                collectorHostDoc.LoadXml(xmlString);
+                XmlElement root = collectorHostDoc.DocumentElement;
+                return FromConfig(root, null);
+            }
+            else
+                return null;
+        }
+        private static CollectorHost FromConfig(XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
             CollectorHost newCollectorHost = new CollectorHost();
             newCollectorHost.Name = xmlCollectorEntry.ReadXmlElementAttr("name", "").Trim();
@@ -116,9 +128,13 @@ namespace QuickMon
                                 else
                                     newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
                             }
-                            string appliedConfig = monitorPackVars.ApplyOn(newAgent.InitialConfiguration);
-                            appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);
-                            newAgent.ActiveConfiguration = appliedConfig;
+                            string appliedConfig = newAgent.InitialConfiguration;
+                            if (applyConfigVars)
+                            {
+                                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
+                                appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);
+                                newAgent.ActiveConfiguration = appliedConfig;
+                            }
                             newCollectorHost.CollectorAgents.Add(newAgent);
 
                             newAgent.AgentConfig.FromXml(appliedConfig);

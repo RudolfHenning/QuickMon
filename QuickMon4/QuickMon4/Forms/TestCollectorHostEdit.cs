@@ -40,5 +40,15 @@ namespace QuickMon
         {
             txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            EditCollectorHost editCollectorHost = new EditCollectorHost();
+            editCollectorHost.SelectedConfig = txtConfig.Text;
+            if (editCollectorHost.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtConfig.Text =  XmlFormattingUtils.NormalizeXML(editCollectorHost.SelectedConfig);
+            }
+        }
     }
 }

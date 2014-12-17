@@ -50,6 +50,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\WinFormUtils.cs" />
     <Compile Include="GenericForms\EditCollectorHost.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\whack.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
