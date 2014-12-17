@@ -139,20 +139,23 @@
 </value>
   </data>
   <data name="txtConfig.Text" xml:space="preserve">
-    <value>&lt;collectorHost uniqueId="Ping" name="Ping Test" enabled="True" expandOnStart="True" dependOnParentId=""
-  agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess""
-  enableRemoteExecute="False" 
-  forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" 
-  blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="True" &gt; 
-        &lt;collectorAgents&gt; 
-                &lt;collectorAgent type="PingCollector"&gt; 
-                        &lt;config&gt;
-                                &lt;entries&gt;
-                                        &lt;entry pingMethod="Ping" address="localhost" /&gt;
-                                &lt;/entries&gt;
-                        &lt;/config&gt;
-                &lt;/collectorAgent&gt; 
-        &lt;/collectorAgents&gt;
+    <value>&lt;collectorHost uniqueId="Ping" name="Ping Test" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="C:\Test\FixWarning.cmd" correctiveScriptOnErrorPath="C:\Test\FixError.cmd" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="True" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False"&gt;
+    &lt;!-- CollectorAgents --&gt;
+    &lt;collectorAgents&gt;
+        &lt;collectorAgent name="Ping test" type="PingCollector" enabled="True"&gt;
+            &lt;config&gt;
+                &lt;entries&gt;
+                    &lt;entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" /&gt;
+                &lt;/entries&gt;
+            &lt;/config&gt;
+        &lt;/collectorAgent&gt;
+    &lt;/collectorAgents&gt;
+    &lt;!-- ServiceWindows --&gt;
+    &lt;serviceWindows&gt;
+    &lt;/serviceWindows&gt;
+    &lt;!-- Config variables --&gt;
+    &lt;configVars&gt;
+    &lt;/configVars&gt;
 &lt;/collectorHost&gt;</value>
   </data>
 </root>

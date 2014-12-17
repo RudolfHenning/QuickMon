@@ -63,6 +63,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Down16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Down16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Plus16x16 {
             get {
                 object obj = ResourceManager.GetObject("Plus16x16", resourceCulture);
@@ -76,6 +86,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap proc2 {
             get {
                 object obj = ResourceManager.GetObject("proc2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Up16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Up16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

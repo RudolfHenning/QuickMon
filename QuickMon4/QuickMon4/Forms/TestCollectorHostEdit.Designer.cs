@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestCollectorHostEdit));
             this.button1 = new System.Windows.Forms.Button();
             this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +48,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Edit Collector Host";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtConfig
             // 
@@ -67,7 +67,7 @@
         '\'',
         '\''};
             this.txtConfig.AutoIndentCharsPatterns = "";
-            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 280);
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 420);
             this.txtConfig.BackBrush = null;
             this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfig.CharHeight = 14;
@@ -87,7 +87,7 @@
             this.txtConfig.RightBracket2 = ')';
             this.txtConfig.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtConfig.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtConfig.ServiceColors")));
-            this.txtConfig.Size = new System.Drawing.Size(561, 388);
+            this.txtConfig.Size = new System.Drawing.Size(898, 458);
             this.txtConfig.TabIndex = 1;
             this.txtConfig.Text = resources.GetString("txtConfig.Text");
             this.txtConfig.WordWrap = true;
@@ -135,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 431);
+            this.ClientSize = new System.Drawing.Size(903, 501);
             this.Controls.Add(this.txtConfig);
             this.Controls.Add(this.button1);
             this.Name = "TestCollectorHostEdit";
