@@ -1044,7 +1044,7 @@
             this.cmdBrowseForWarningCorrectiveScript.TabIndex = 4;
             this.cmdBrowseForWarningCorrectiveScript.Text = "- - -";
             this.cmdBrowseForWarningCorrectiveScript.UseVisualStyleBackColor = true;
-            this.cmdBrowseForWarningCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForWarningCorrectiveScript_Click);
+            
             // 
             // chkCorrectiveScriptDisabled
             // 
@@ -1055,7 +1055,7 @@
             this.chkCorrectiveScriptDisabled.TabIndex = 1;
             this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
             this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
-            this.chkCorrectiveScriptDisabled.Click += new System.EventHandler(this.chkCorrectiveScriptDisabled_CheckedChanged);
+            
             // 
             // label7
             // 
@@ -1076,7 +1076,7 @@
             this.cmdBrowseForErrorCorrectiveScript.TabIndex = 7;
             this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
             this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
-            this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
+            
             // 
             // txtCorrectiveScriptOnWarning
             // 
@@ -1387,7 +1387,7 @@
             this.llblRawEdit.TabIndex = 1;
             this.llblRawEdit.TabStop = true;
             this.llblRawEdit.Text = "Edit RAW config";
-            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
+            
             // 
             // llblExportConfigAsTemplate
             // 
@@ -1444,7 +1444,7 @@
             this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.addConfigVarToolStripButton.Text = "Create new";
             this.addConfigVarToolStripButton.ToolTipText = "Add entry";
-            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
+            
             // 
             // deleteConfigVarToolStripButton
             // 
@@ -1455,7 +1455,7 @@
             this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
             this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
-            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
+            
             // 
             // toolStripSeparator1
             // 
@@ -1471,7 +1471,7 @@
             this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
             this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
-            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
+            
             // 
             // moveDownConfigVarToolStripButton
             // 
@@ -1482,7 +1482,7 @@
             this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
             this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
-            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
+            
             // 
             // label42
             // 
@@ -1503,7 +1503,7 @@
             this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
             this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
             this.txtConfigVarReplaceByValue.TabIndex = 6;
-            this.txtConfigVarReplaceByValue.TextChanged += new System.EventHandler(this.txtConfigVarReplaceByValue_TextChanged);
+            
             // 
             // label41
             // 
@@ -1522,7 +1522,7 @@
             this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
             this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
             this.txtConfigVarSearchFor.TabIndex = 4;
-            this.txtConfigVarSearchFor.TextChanged += new System.EventHandler(this.txtConfigVarSearchFor_TextChanged);
+            
             // 
             // label40
             // 
@@ -1605,7 +1605,7 @@
             this.lvwConfigVars.TabIndex = 2;
             this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
             this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            
             // 
             // nameColumnHeader
             // 
