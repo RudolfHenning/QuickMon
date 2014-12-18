@@ -6,12 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace QuickMon
-{
-    public interface IWinFormsUI
-    {
-        string NameOfAgentTypeToService { get; set; }
-    }
+namespace QuickMon.UI
+{    
     public class AgentUIThingies
     {
         public string Name { get; set; }

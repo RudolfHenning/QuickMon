@@ -67,7 +67,7 @@
         '\'',
         '\''};
             this.txtConfig.AutoIndentCharsPatterns = "";
-            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 420);
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 798);
             this.txtConfig.BackBrush = null;
             this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfig.CharHeight = 14;

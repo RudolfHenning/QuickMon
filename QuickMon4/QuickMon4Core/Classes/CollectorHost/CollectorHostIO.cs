@@ -29,7 +29,7 @@ namespace QuickMon
                 XmlDocument collectorHostDoc = new XmlDocument();
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
-                return FromConfig(root, null);
+                return FromConfig(root, null, applyConfigVars);
             }
             else
                 return null;
@@ -143,12 +143,13 @@ namespace QuickMon
                         {
                             System.Diagnostics.Trace.WriteLine(ex.ToString());
                             newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
+                            newCollectorHost.currentState.ChildStates.Add(new MonitorState() { RawDetails = string.Format("Error loading config for {0}: {1}", name, ex.Message), State = CollectorState.ConfigurationError });
                         }
                     }
                     else
                     {
                         newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
-                        newCollectorHost.currentState.RawDetails = string.Format("The Collector Host type of '{0}' could not be loaded!", typeName);
+                        newCollectorHost.currentState.ChildStates.Add(new MonitorState() { RawDetails = string.Format("The Collector Host type of '{0}' could not be loaded!", typeName), State = CollectorState.ConfigurationError });
                     }
                 }
             }
