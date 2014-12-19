@@ -27,15 +27,26 @@ namespace QuickMon.Collectors
 
         private void ServiceStateCollectorEditEntry_Load(object sender, EventArgs e)
         {
+            txtComputer.Text = "";
+            txtFilter.Text = "";
+            lstServices.Items.Clear();
+            lstSearchServices.Items.Clear();            
             if (SelectedEntry != null)
             {
                 WindowsServiceStateHostEntry selectedEntry = (WindowsServiceStateHostEntry)SelectedEntry;
-                txtComputer.Text = selectedEntry.MachineName;
-                lstServices.Items.Clear();
+                txtComputer.Text = selectedEntry.MachineName;                
                 foreach (ICollectorConfigSubEntry service in selectedEntry.SubItems)
                 {
                     lstServices.Items.Add(service.Description);
                 }
+                
+            }            
+        }   
+        private void ServiceStateCollectorEditEntry_Shown(object sender, EventArgs e)
+        {
+            if (txtComputer.Text.Length > 0 && lstServices.Items.Count > 0)
+            {
+                LoadServiceList();
             }
         }
 
@@ -181,5 +192,7 @@ namespace QuickMon.Collectors
                 LoadServiceList();
             }
         }
+
+
     }
 }
