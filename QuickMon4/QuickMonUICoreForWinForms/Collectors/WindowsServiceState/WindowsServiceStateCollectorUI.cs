@@ -6,9 +6,9 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    public class PingCollectorUI : IWinFormsUI
+    public class WindowsServiceStateCollectorUI : IWinFormsUI
     {
-        public string AgentType { get { return "PingCollector"; } }
+        public string AgentType { get { return "WindowsServiceStateCollector"; } }
         public string AgentName { get; set; }
         public bool AgentEnabled { get; set; }
         public string SelectedAgentConfig { get; set; }
@@ -25,7 +25,7 @@ namespace QuickMon.Collectors
                 agent.AgentConfig.FromXml(SelectedAgentConfig);
 
                 editCollectorAgentEntries.SelectedEntry = agent;
-                editCollectorAgentEntries.DetailEditor = new PingCollectorEditHostAddress();
+                editCollectorAgentEntries.DetailEditor = new ServiceStateCollectorEditEntry();
                 if (editCollectorAgentEntries.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     agent = editCollectorAgentEntries.SelectedEntry;
@@ -33,12 +33,15 @@ namespace QuickMon.Collectors
                     AgentEnabled = agent.Enabled;
                     SelectedAgentConfig = agent.AgentConfig.ToXml();
                     return true;
-                }                
+                }
             }
             return false;
         }
 
-        public bool HasDetailView { get { return true; } }
+        public bool HasDetailView
+        {
+            get { return true; }
+        }
 
         public void ShowCurrentDetails()
         {

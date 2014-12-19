@@ -267,35 +267,41 @@ namespace QuickMon
             //  thus each IAgent class name must be unique...
             //  each IWinFormsUI class must have a method to edit the IAgent class.  EditAgent(xmlConfigString) 
             //If no default editor can be found show raw xml editor...
-
-            if (lvwEntries.SelectedItems.Count == 1)
+            try
             {
-                ICollector agent = (ICollector)lvwEntries.SelectedItems[0].Tag;
-                IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-                if (agentEditor != null)
+                if (lvwEntries.SelectedItems.Count == 1)
                 {
-                    agentEditor.AgentName = agent.Name;
-                    agentEditor.AgentEnabled = agent.Enabled;
-                    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                    if (agentEditor.EditAgent())
+                    ICollector agent = (ICollector)lvwEntries.SelectedItems[0].Tag;
+                    IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                    if (agentEditor != null)
                     {
+                        agentEditor.AgentName = agent.Name;
+                        agentEditor.AgentEnabled = agent.Enabled;
+                        agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                        if (agentEditor.EditAgent())
+                        {
 
-                        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                        agent.Name = agentEditor.AgentName;
-                        agent.Enabled = agentEditor.AgentEnabled;
-                        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-                        lvwEntries.SelectedItems[0].Text = agent.Name;
-                        if (agent.Enabled)
-                            lvwEntries.SelectedItems[0].ImageIndex = 1;
-                        else
-                            lvwEntries.SelectedItems[0].ImageIndex = 0;
-                        lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
+                            agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                            agent.Name = agentEditor.AgentName;
+                            agent.Enabled = agentEditor.AgentEnabled;
+                            agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+                            lvwEntries.SelectedItems[0].Text = agent.Name;
+                            if (agent.Enabled)
+                                lvwEntries.SelectedItems[0].ImageIndex = 1;
+                            else
+                                lvwEntries.SelectedItems[0].ImageIndex = 0;
+                            lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void lvwEntries_DeleteKeyPressed()

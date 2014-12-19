@@ -117,32 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="whack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NoGo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NoGo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Plus16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Plus16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="246_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\246_7.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAQAAEABADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAwMDAAICAgAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
+        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAH//////94iAAAAAAAAACP/3d3d3d3eIiIAAAAAAAAj/93d3
+        d3d4iIgAAAAAAAAAiP/3d3d3iIgAAAAAAAAAAACIiHd3eIAAAAAAAAAAAAAAAIiIiIAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAACIiIiIiIiIiIiAAAiIiAAAj3d3d3d3dwB3cDMHeAAAAI9///////OwD/MzD3Az
+        AACPdERERERDsDADMwADMwAAj3BmZmZmY7AzM78DMzMAAI9wZmZmYAM7AzP7AzPzAACPcGZmZgMwv7AD
+        vzAPvwMwj3BmZmYDMwP7+/v7+zAzMI9wZmZmAzM/vwAAAL+wMzCPcGZmZjv7+/CPeIAL+/vwj3BmZmYz
+        M78Pj3iA8L8AAI9wZmZmZmA/8I94gAvzAACPcGZmZmZgP7+PeIC/swAAj3BmZmZmY/vzj3iAO/sAAI9w
+        ZmZmZmO/AI94gAC/AACPcGZmZmZjM2aIiIB4MwAAj3BmZmZmZmZmZmZPeIgAAI9wAAAAAAAAAAAAT3iI
+        AACPeIiIiIiIiIiIiI94iAAAj3d3d3d3d3d3d3d3eIgAAAj///////////////iIAAAAh3d3d3d3d3d3
+        d3d/iAAAAAh3d3d3d3d3d3d3d/gAAAAAiIiIiIiIiIiIiIiIAAD8AAf/8AAB/+AAAP/gAAD/8AAB//wA
+        B///AB//gAAADwAAAAcAAAAHAAAABwAAAAcAAAADAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAABwAA
+        AAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHgAAAB8AAAAfgAAAH8AAADw==
+</value>
   </data>
 </root>
