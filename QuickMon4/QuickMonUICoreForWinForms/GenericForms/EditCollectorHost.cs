@@ -88,6 +88,7 @@ namespace QuickMon
                 txtName.Text = editingCollectorHost.Name;
                 chkEnabled.Checked = editingCollectorHost.Enabled;
                 chkExpandOnStart.Checked = editingCollectorHost.ExpandOnStart;
+                agentCheckSequenceToolStripComboBox.SelectedIndex = (int)editingCollectorHost.AgentCheckSequence;
                 lblId.Text = editingCollectorHost.UniqueId;
                 cboChildCheckBehaviour.SelectedIndex = (int)editingCollectorHost.ChildCheckBehaviour;
                 chkEnablePollingOverride.Checked = editingCollectorHost.EnabledPollingOverride;
@@ -242,8 +243,16 @@ namespace QuickMon
             deleteCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
             moveUpAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
             moveDownAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;
-            enableAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
-            disableAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
+            enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
+            disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
+        }
+        private void lvwEntries_DoubleClick(object sender, EventArgs e)
+        {
+            editCollectorAgentToolStripButton_Click(null, null);
+        }
+        private void lvwEntries_EnterKeyPressed()
+        {
+            editCollectorAgentToolStripButton_Click(null, null);
         }
         private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
         {
@@ -261,15 +270,26 @@ namespace QuickMon
 
             if (lvwEntries.SelectedItems.Count == 1)
             {
-                IAgent agent = (IAgent)lvwEntries.SelectedItems[0].Tag;
+                ICollector agent = (ICollector)lvwEntries.SelectedItems[0].Tag;
                 IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
                 if (agentEditor != null)
                 {
-                    agentEditor.SelectedConfig = agent.InitialConfiguration;
+                    agentEditor.AgentName = agent.Name;
+                    agentEditor.AgentEnabled = agent.Enabled;
+                    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
                     if (agentEditor.EditAgent())
                     {
-                        agent.InitialConfiguration = agentEditor.SelectedConfig;
-                        agent.AgentConfig.FromXml(agentEditor.SelectedConfig);
+
+                        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                        agent.Name = agentEditor.AgentName;
+                        agent.Enabled = agentEditor.AgentEnabled;
+                        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+                        lvwEntries.SelectedItems[0].Text = agent.Name;
+                        if (agent.Enabled)
+                            lvwEntries.SelectedItems[0].ImageIndex = 1;
+                        else
+                            lvwEntries.SelectedItems[0].ImageIndex = 0;
+                        lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
                     }
                 }
                 else
@@ -277,6 +297,10 @@ namespace QuickMon
                     MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
+        }
+        private void lvwEntries_DeleteKeyPressed()
+        {
+            deleteCollectorAgentToolStripButton_Click(null, null);
         }
         private void deleteCollectorAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -565,88 +589,140 @@ namespace QuickMon
         #region Button events
         private void cmdOK_Click(object sender, EventArgs e)
         {
-
-            editingCollectorHost.Name = txtName.Text;
-            editingCollectorHost.Enabled = chkEnabled.Checked;
-            editingCollectorHost.ExpandOnStart = chkExpandOnStart.Checked;
-
-            if (cboParentCollector.SelectedIndex > 0)
+            try
             {
-                CollectorEntryDisplay ced = (CollectorEntryDisplay)cboParentCollector.SelectedItem;
-                editingCollectorHost.ParentCollectorId = ced.CH.UniqueId;
-            }
-            else
-                editingCollectorHost.ParentCollectorId = "";
-            editingCollectorHost.ChildCheckBehaviour = (ChildCheckBehaviour)cboChildCheckBehaviour.SelectedIndex;
-
-            //Remote agents
-            editingCollectorHost.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
-            editingCollectorHost.ForceRemoteExcuteOnChildCollectors = chkForceRemoteExcuteOnChildCollectors.Checked;
-            editingCollectorHost.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
-            editingCollectorHost.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
-            editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
-            editingCollectorHost.RunLocalOnRemoteHostConnectionFailure = chkRunLocalOnRemoteHostConnectionFailure.Checked;
-            if (chkRemoteAgentEnabled.Checked && editingCollectorHost.RemoteAgentHostAddress.Length > 0)
-            {
-                if (KnownRemoteHosts == null)
-                    KnownRemoteHosts = new List<string>();
-                if ((from string rh in KnownRemoteHosts
-                     where rh.ToLower() == editingCollectorHost.RemoteAgentHostAddress.ToLower() + ":" + editingCollectorHost.RemoteAgentHostPort.ToString()
-                     select rh).Count() == 0
-                         )
+                if (SetEditingCollectorHost())
                 {
-                    KnownRemoteHosts.Add(editingCollectorHost.RemoteAgentHostAddress + ":" + editingCollectorHost.RemoteAgentHostPort.ToString());
+                    SelectedConfig = editingCollectorHost.ToXml();
+                    DialogResult = System.Windows.Forms.DialogResult.OK;
+                    Close();
                 }
             }
-
-            //Polling overrides
-            if (onlyAllowUpdateOncePerXSecNumericUpDown.Value >= pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value)
-                pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = onlyAllowUpdateOncePerXSecNumericUpDown.Value + 1;
-            if (pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value)
-                pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value + 1;
-            if (pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value)
-                pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value + 1;
-
-            editingCollectorHost.EnabledPollingOverride = chkEnablePollingOverride.Checked;
-            editingCollectorHost.OnlyAllowUpdateOncePerXSec = (int)onlyAllowUpdateOncePerXSecNumericUpDown.Value;
-            editingCollectorHost.EnablePollFrequencySliding = chkEnablePollingFrequencySliding.Checked;
-            editingCollectorHost.PollSlideFrequencyAfterFirstRepeatSec = (int)pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value;
-            editingCollectorHost.PollSlideFrequencyAfterSecondRepeatSec = (int)pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value;
-            editingCollectorHost.PollSlideFrequencyAfterThirdRepeatSec = (int)pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value;
-
-            //Alert suppresion
-            editingCollectorHost.AlertsPaused = chkAlertsPaused.Checked;
-            editingCollectorHost.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
-            editingCollectorHost.RepeatAlertInXPolls = (int)numericUpDownRepeatAlertInXPolls.Value;
-            editingCollectorHost.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
-            editingCollectorHost.AlertOnceInXPolls = (int)AlertOnceInXPollsNumericUpDown.Value;
-            editingCollectorHost.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
-            editingCollectorHost.DelayErrWarnAlertForXPolls = (int)delayAlertPollsNumericUpDown.Value;
-            //Corrective scripts
-            editingCollectorHost.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
-            editingCollectorHost.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
-            editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
-            editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
-            editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
-            //Service windows - Done already            
-            editingCollectorHost.ConfigVariables = new List<ConfigVariable>();
-            foreach (ListViewItem lvi in lvwConfigVars.Items)
+            catch (Exception ex)
             {
-                editingCollectorHost.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());  
+                MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            editingCollectorHost.CollectorAgents.Clear();
-            foreach (ListViewItem lvi in lvwEntries.Items)
-            {
-                editingCollectorHost.CollectorAgents.Add((ICollector)lvi.Tag);
-            }
+        }
 
-            SelectedConfig = editingCollectorHost.ToXml();
-            DialogResult = System.Windows.Forms.DialogResult.OK;
-            Close();
+        private bool SetEditingCollectorHost()
+        {
+            bool success = false;
+            try
+            {
+                editingCollectorHost.Name = txtName.Text;
+                editingCollectorHost.Enabled = chkEnabled.Checked;
+                editingCollectorHost.ExpandOnStart = chkExpandOnStart.Checked;
+                editingCollectorHost.AgentCheckSequence = (AgentCheckSequence)agentCheckSequenceToolStripComboBox.SelectedIndex;
+
+                if (cboParentCollector.SelectedIndex > 0)
+                {
+                    CollectorEntryDisplay ced = (CollectorEntryDisplay)cboParentCollector.SelectedItem;
+                    editingCollectorHost.ParentCollectorId = ced.CH.UniqueId;
+                }
+                else
+                    editingCollectorHost.ParentCollectorId = "";
+                editingCollectorHost.ChildCheckBehaviour = (ChildCheckBehaviour)cboChildCheckBehaviour.SelectedIndex;
+
+                //Remote agents
+                editingCollectorHost.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
+                editingCollectorHost.ForceRemoteExcuteOnChildCollectors = chkForceRemoteExcuteOnChildCollectors.Checked;
+                editingCollectorHost.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
+                editingCollectorHost.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+                editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
+                editingCollectorHost.RunLocalOnRemoteHostConnectionFailure = chkRunLocalOnRemoteHostConnectionFailure.Checked;
+                if (chkRemoteAgentEnabled.Checked && editingCollectorHost.RemoteAgentHostAddress.Length > 0)
+                {
+                    if (KnownRemoteHosts == null)
+                        KnownRemoteHosts = new List<string>();
+                    if ((from string rh in KnownRemoteHosts
+                         where rh.ToLower() == editingCollectorHost.RemoteAgentHostAddress.ToLower() + ":" + editingCollectorHost.RemoteAgentHostPort.ToString()
+                         select rh).Count() == 0
+                             )
+                    {
+                        KnownRemoteHosts.Add(editingCollectorHost.RemoteAgentHostAddress + ":" + editingCollectorHost.RemoteAgentHostPort.ToString());
+                    }
+                }
+
+                //Polling overrides
+                if (onlyAllowUpdateOncePerXSecNumericUpDown.Value >= pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value)
+                    pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = onlyAllowUpdateOncePerXSecNumericUpDown.Value + 1;
+                if (pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value)
+                    pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value + 1;
+                if (pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value)
+                    pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value + 1;
+
+                editingCollectorHost.EnabledPollingOverride = chkEnablePollingOverride.Checked;
+                editingCollectorHost.OnlyAllowUpdateOncePerXSec = (int)onlyAllowUpdateOncePerXSecNumericUpDown.Value;
+                editingCollectorHost.EnablePollFrequencySliding = chkEnablePollingFrequencySliding.Checked;
+                editingCollectorHost.PollSlideFrequencyAfterFirstRepeatSec = (int)pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value;
+                editingCollectorHost.PollSlideFrequencyAfterSecondRepeatSec = (int)pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value;
+                editingCollectorHost.PollSlideFrequencyAfterThirdRepeatSec = (int)pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value;
+
+                //Alert suppresion
+                editingCollectorHost.AlertsPaused = chkAlertsPaused.Checked;
+                editingCollectorHost.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
+                editingCollectorHost.RepeatAlertInXPolls = (int)numericUpDownRepeatAlertInXPolls.Value;
+                editingCollectorHost.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
+                editingCollectorHost.AlertOnceInXPolls = (int)AlertOnceInXPollsNumericUpDown.Value;
+                editingCollectorHost.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
+                editingCollectorHost.DelayErrWarnAlertForXPolls = (int)delayAlertPollsNumericUpDown.Value;
+                //Corrective scripts
+                editingCollectorHost.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
+                editingCollectorHost.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
+                editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
+                editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
+                editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
+                //Service windows - Done already            
+                editingCollectorHost.ConfigVariables = new List<ConfigVariable>();
+                foreach (ListViewItem lvi in lvwConfigVars.Items)
+                {
+                    editingCollectorHost.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
+                }
+                editingCollectorHost.CollectorAgents.Clear();
+                foreach (ListViewItem lvi in lvwEntries.Items)
+                {
+                    editingCollectorHost.CollectorAgents.Add((ICollector)lvi.Tag);
+                }
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return success;
         }
         #endregion
 
+        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (SetEditingCollectorHost())
+            {
+                
+                RAWXmlEditor editor = new RAWXmlEditor();
+                string oldMarkUp = editingCollectorHost.ToXml();
+                editor.SelectedMarkup = oldMarkUp;
+                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        editingCollectorHost = CollectorHost.FromXml(editor.SelectedMarkup, false);
 
-
+                        if (editor.SelectedMarkup != null && editor.SelectedMarkup.Length > 0 && editingCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
+                        {
+                            if (MessageBox.Show("Editing the raw config resulted in a configuration error!\r\nDo you want to accept this?", "Configuration error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
+                            {
+                               editingCollectorHost = CollectorHost.FromXml(oldMarkUp, false);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    LoadControlData();
+                }
+            }
+        }
+        
     }
 }

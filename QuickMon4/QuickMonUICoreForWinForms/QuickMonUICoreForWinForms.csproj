@@ -47,10 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMapper\RegisteredAgentUIMapper.cs" />
+    <Compile Include="Collectors\Ping\PingCollectorEditHostAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\Ping\PingCollectorEditHostAddress.Designer.cs">
+      <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\Ping\PingCollectorUI.cs" />
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
     <Compile Include="GenericForms\EditCollectorHost.cs">
       <SubType>Form</SubType>
@@ -58,11 +68,23 @@
     <Compile Include="GenericForms\EditCollectorHost.Designer.cs">
       <DependentUpon>EditCollectorHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\EditCollectorAgentEntries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditCollectorAgentEntries.Designer.cs">
+      <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\EditServiceWindows.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GenericForms\EditServiceWindows.designer.cs">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericForms\RAWXmlEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\RAWXmlEditor.Designer.cs">
+      <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICollectorDetailView.cs" />
     <Compile Include="Interfaces\IEditConfigEntryWindow.cs" />
@@ -77,17 +99,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickMon4Core\QuickMonCore.csproj">
       <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuickMonCommonAgents\QuickMonCommonAgents.csproj">
+      <Project>{0cab16d3-61d0-4a40-80b3-78a245db7e22}</Project>
+      <Name>QuickMonCommonAgents</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Collectors\Ping\PingCollectorEditHostAddress.resx">
+      <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorHost.resx">
       <DependentUpon>EditCollectorHost.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
+      <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditServiceWindows.resx">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">
+      <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

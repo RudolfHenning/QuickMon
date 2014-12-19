@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="configEditContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="txtConfig.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFZGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yLjAs
@@ -138,48 +135,52 @@
         AAAAAAAAAACNAAEAAfj////8////CgAAAAAAAAAApAABAAH3/////P///woAAAAAAAAAAJYAAQAL
 </value>
   </data>
-  <data name="txtConfig.Text" xml:space="preserve">
-    <value>&lt;collectorHost uniqueId="Ping" name="Ping Test" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="C:\Test\FixWarning.cmd" correctiveScriptOnErrorPath="C:\Test\FixError.cmd" restorationScriptPath="C:\Test\GoodRestored.cmd" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="localhost" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False"&gt;
-    &lt;!-- CollectorAgents --&gt;
-    &lt;collectorAgents&gt;
-        &lt;collectorAgent name="Ping test 2" type="PingCollector" enabled="True"&gt;
-            &lt;config&gt;
-                &lt;entries&gt;
-                    &lt;entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" /&gt;
-                    &lt;entry pingMethod="Ping" address="localhost2" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" /&gt;
-                &lt;/entries&gt;
-            &lt;/config&gt;
-        &lt;/collectorAgent&gt;
-        &lt;collectorAgent name="Ping test 3" type="PingCollector" enabled="True"&gt;
-            &lt;config&gt;
-                &lt;entries&gt;
-                    &lt;entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" /&gt;
-                &lt;/entries&gt;
-            &lt;/config&gt;
-        &lt;/collectorAgent&gt;
-        &lt;collectorAgent name="Ping test" type="PingCollector" enabled="True"&gt;
-            &lt;config&gt;
-                &lt;entries&gt;
-                    &lt;entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" /&gt;
-                &lt;/entries&gt;
-            &lt;/config&gt;
-        &lt;/collectorAgent&gt;
-        &lt;collectorAgent name="QuickMon 3 service" type="WindowsServiceStateCollector" enabled="True"&gt;
-            &lt;config&gt;
-                &lt;machine name="localhost"&gt;
-                    &lt;service name="QuickMon 3 Service" /&gt;
-                &lt;/machine&gt;
-            &lt;/config&gt;
-        &lt;/collectorAgent&gt;
-    &lt;/collectorAgents&gt;
-    &lt;!-- ServiceWindows --&gt;
-    &lt;serviceWindows&gt;
-    &lt;/serviceWindows&gt;
-    &lt;!-- Config variables --&gt;
-    &lt;configVars&gt;
-        &lt;configVar find="findme" replace="you" /&gt;
-        &lt;configVar find="more" replace="there" /&gt;
-    &lt;/configVars&gt;
-&lt;/collectorHost&gt;</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAIAEBAAAAEAIABoBAAAJgAAABAQAAABAAgAaAUAAI4EAAAoAAAAEAAAACAAAAABACAAAAAAAAAI
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+ZAAX/jwAQ/pEAFf6VAB3+lQAd/5QAGP6L
+        AAsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+WABH+lAAk/pIAPf6UAEr/kwBV/pMAU/6S
+        AEn+lAA+/pMAJv+ZAA8AAAAAAAAAAAAAAAAAAAAAAAAADP6RABX/lgAz/pMAU+yJAHH+lAB9/pMAhf6T
+        AIP+kwB7/pQAbP6TAFH+kwA0/5YAEQAAAAAAAAAAAAAACAAAAP+SVABL/pIAXNJ5AIgAAAD/7IkApwAA
+        AP/+kwCtAAAA//6TAJMAAAD//pQAXf6TADQAAAD/AAAAAP9/AAYAAAD/MxwAs/6UAH1kOQDMAAAA//6T
+        AMUAAAD//pQAzQAAAP/9lACzAAAA//6TAHn/kgBQAAAA/wAAAAD/lgARn10AVQAAAP/ZfQCcAAAA/8p1
+        ANX+lADeAAAA//6TAOYAAAD//pIAzQAAAP/+kwCT/pQAaQAAAP//lAAM/pAAF/6UAEoAAAD/QCQA3wAA
+        AP/9lADe/pQA7QAAAP/9kwD1AAAA//6UANwAAAD//pMAov6UAHoAAAD//pEAFf6XABv+kwBRo18AngAA
+        AP+jXgDb/pMA5P2TAPUAAAD//ZQA/QAAAP/+kwDkAAAA//2UAKj/kwCAAAAA//+UABj+kQAc/pMAUZlY
+        AKEAAAD/oF0A2/6SAOX1jgD0AAAA/6ljAP4AAAD/pF8A7AAAAP/zjgCs/5MAgAAAAP/+lgAW/pAAF/6U
+        AEgAAAD/SSkA2wAAAP/+kwDb/pMA6wAAAP8AAAD/3H4A7QAAAP8AAAD//ZQAoP6TAHcAAAD//5kAFP+W
+        ABGQUgBTAAAA/+mGAJgAAAD/xHIA1v6UANr9lADj9owA5P6TANrzjQDL/pQAsf2TAJH+lABpAAAA//+U
+        AAz/mQAFAAAA/zggAK3+lAB6ZTkAyAAAAP/+kwDB/pMAyv6UAMn+lADC/ZMAsP6TAJb+kgB2/pMAUQAA
+        AP8AAAAAAAAABAAAAP+jXwBD/pQAVt+BAIAAAAD/8YoApP6TAKn/lACq/pMAn/6SAI/+kgB2/pMAWP6T
+        AC3+iwALAAAAAAAAAAAAAAAI/pMAE/6TAC3/kgBQ9Y0AZ/6UAHX+lAB//pMAfv6TAHT+lABl/pUATf6V
+        AC7/mQAPAAAAAAAAAAAAAAAAAAAAAAAAAAD+kQAO/48AIP6SADb+kgBC/pMATv6TAE7+lQBG/pMANP6V
+        AB3/lAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+ZAAX+kQAO/pEAFf6XABv+kAAX/pAAF/6c
+        AA3/qgADAAAAAAAAAAAAAAAAAAAAAP//AAD//wAA/n8AALANAACQDQAAwAUAAMAFAADAAQAAwAEAAMAF
+        AADABQAAkA0AALAfAAD//wAA//8AAP//AAAoAAAAEAAAACAAAAABAAgAAAAAAAACAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAA/zMdAP84IAD/QCUA/0kqAP9kOgD/ZjoA/5BTAP+RVAD/mVkA/59cAP+hXQD/o14A/6Rf
+        AP+qYwD/xXIA/8p1AP/SeQD/2X4A/91/AP/fgQD/6YcA/+yJAP/xiwD/844A//aNAP/0jgD/9Y4A//aO
+        AP/+kwD//5MA//6UAP//lAD//////wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAA
+        AP8AAAD/AAAA/yEhISEgHh8gHyAgISEhISEhISEgHx8eHiAeICAgISEhIQAgHx4WICAgIB8gICAhIQAA
+        CCARABYAIAAgAB8gACEfAAEfBQAeACAAHwAgIAAhIAoAEgAQIAAgAB4AICAAHiAgAAMAHyAAHwAgACAg
+        ACAgIAwADCAfAB8AIAAfIAAfHyAJAAseHAAOAA0AGCAAIB8fAAQAICAAABMAAB8gAB8gBwAVAA8gHxke
+        GiAdIAAgIAACIAYAICAgIB8gHSAAIQAADB4UABcgICAeHSAgICEhACAgIBsgICAeHx8eICEhISEhIB4g
+        ICAgICAeICEhISEhISEgICAfIB8gHyEhISH//wAA//8AAP5/AACwDQAAkA0AAMAFAADABQAAwAEAAMAB
+        AADABQAAwAUAAJANAACwHwAA//8AAP//AAD//wAA
+</value>
   </data>
 </root>
