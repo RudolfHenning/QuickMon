@@ -155,7 +155,7 @@ namespace QuickMon
             }
             return newCollectorHost;
         }
-        private static ICollector CreateCollectorFromClassName(string agentClassName)
+        public static ICollector CreateCollectorFromClassName(string agentClassName)
         {
             ICollector currentAgent = null;
             RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + agentClassName, true);

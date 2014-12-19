@@ -8,13 +8,21 @@ namespace QuickMon.UI
     public interface IWinFormsUI
     {
         /// <summary>
-        /// Agent type it can edit
+        /// Specify the Agent type this implemetation can edit.
         /// </summary>
-        string AgentType { get; set; }
+        string AgentType { get; }
         /// <summary>
-        /// Get or Set the agent configuration
+        /// Name of agent (for editing)
         /// </summary>
-        string SelectedConfig { get; set; }
+        string AgentName { get; set; }
+        /// <summary>
+        /// Is agent enabled (for editing)
+        /// </summary>
+        bool AgentEnabled { get; set; }
+        /// <summary>
+        /// Xml config to edit or return
+        /// </summary>
+        string SelectedAgentConfig { get; set; }
         /// <summary>
         /// Show the edit dialogbox
         /// </summary>

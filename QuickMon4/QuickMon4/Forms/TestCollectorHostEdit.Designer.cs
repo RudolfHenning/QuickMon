@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestCollectorHostEdit));
             this.button1 = new System.Windows.Forms.Button();
             this.txtConfig = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            this.configEditContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +68,7 @@
         '\'',
         '\''};
             this.txtConfig.AutoIndentCharsPatterns = "";
-            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 798);
+            this.txtConfig.AutoScrollMinSize = new System.Drawing.Size(0, 896);
             this.txtConfig.BackBrush = null;
             this.txtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfig.CharHeight = 14;
