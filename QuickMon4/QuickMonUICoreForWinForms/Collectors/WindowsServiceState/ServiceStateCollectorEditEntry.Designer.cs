@@ -38,11 +38,11 @@
             this.lstServices = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdRemove = new System.Windows.Forms.Button();
+            this.cmdAdd = new System.Windows.Forms.Button();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmdLoadServices = new System.Windows.Forms.Button();
-            this.cmdAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -163,6 +163,20 @@
             this.cmdRemove.UseVisualStyleBackColor = true;
             this.cmdRemove.Click += new System.EventHandler(this.cmdRemove_Click);
             // 
+            // cmdAdd
+            // 
+            this.cmdAdd.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cmdAdd.Enabled = false;
+            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAdd.Font = new System.Drawing.Font("Marlett", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAdd.Image = global::QuickMon.Properties.Resources.add;
+            this.cmdAdd.Location = new System.Drawing.Point(3, 104);
+            this.cmdAdd.Name = "cmdAdd";
+            this.cmdAdd.Size = new System.Drawing.Size(40, 40);
+            this.cmdAdd.TabIndex = 0;
+            this.cmdAdd.UseVisualStyleBackColor = true;
+            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
+            // 
             // txtFilter
             // 
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -203,20 +217,6 @@
             this.cmdLoadServices.UseVisualStyleBackColor = true;
             this.cmdLoadServices.Click += new System.EventHandler(this.cmdLoadServices_Click);
             // 
-            // cmdAdd
-            // 
-            this.cmdAdd.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cmdAdd.Enabled = false;
-            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAdd.Font = new System.Drawing.Font("Marlett", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAdd.Image = global::QuickMon.Properties.Resources.add;
-            this.cmdAdd.Location = new System.Drawing.Point(3, 104);
-            this.cmdAdd.Name = "cmdAdd";
-            this.cmdAdd.Size = new System.Drawing.Size(40, 40);
-            this.cmdAdd.TabIndex = 0;
-            this.cmdAdd.UseVisualStyleBackColor = true;
-            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
-            // 
             // ServiceStateCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +237,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Computer Services";
             this.Load += new System.EventHandler(this.ServiceStateCollectorEditEntry_Load);
+            this.Shown += new System.EventHandler(this.ServiceStateCollectorEditEntry_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
