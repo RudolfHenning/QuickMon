@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,6 +55,13 @@
       <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\Ping\PingCollectorUI.cs" />
+    <Compile Include="Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.Designer.cs">
+      <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateCollectorUI.cs" />
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,6 +124,9 @@
     <EmbeddedResource Include="Collectors\Ping\PingCollectorEditHostAddress.resx">
       <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
+      <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorHost.resx">
       <DependentUpon>EditCollectorHost.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\NoGo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
