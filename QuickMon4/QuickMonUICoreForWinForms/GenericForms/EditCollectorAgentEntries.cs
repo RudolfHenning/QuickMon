@@ -59,6 +59,7 @@ namespace QuickMon.UI
                         foreach (ICollectorConfigEntry item in ((ICollectorConfig)SelectedEntry.AgentConfig).Entries)
                         {
                             ListViewItem lvi = new ListViewItem(item.Description);
+                            lvi.ImageIndex = 1;
                             lvi.SubItems.Add(item.TriggerSummary);
                             lvi.Tag = item;
                             lvwEntries.Items.Add(lvi);
@@ -66,7 +67,24 @@ namespace QuickMon.UI
                     }
                     else //Treeview
                     {
-
+                        tvwEntries.Nodes.Clear();
+                        foreach (ICollectorConfigEntry entry in ((ICollectorConfig)SelectedEntry.AgentConfig).Entries)
+                        {
+                            TreeNode tni = new TreeNode(entry.Description);
+                            tni.ImageIndex = 0;
+                            tni.SelectedImageIndex = 0;
+                            tni.Tag = entry;
+                            foreach (var subEntry in entry.SubItems)
+                            {
+                                TreeNode tnisub = new TreeNode(subEntry.Description);
+                                tnisub.ImageIndex = 1;
+                                tnisub.SelectedImageIndex = 1;
+                                //tnisub.Tag = entry;
+                                tni.Nodes.Add(tnisub);
+                            }
+                            tni.Expand();
+                            tvwEntries.Nodes.Add(tni);
+                        }
                     }
                 }
             }
@@ -88,6 +106,11 @@ namespace QuickMon.UI
             editCollectorAgentEntryToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
             deleteCollectorAgentEntriesToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
         }
+        private void tvwEntries_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            editCollectorAgentEntryToolStripButton.Enabled = e.Node.ImageIndex > -1;
+            deleteCollectorAgentEntriesToolStripButton.Enabled = e.Node.ImageIndex > -1;
+        }
         private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
         {
             if (DetailEditor != null)
@@ -98,6 +121,7 @@ namespace QuickMon.UI
                     if (!ShowTreeView)
                     {
                         ListViewItem lvi = new ListViewItem(DetailEditor.SelectedEntry.Description);
+                        lvi.ImageIndex = 1;
                         lvi.SubItems.Add(DetailEditor.SelectedEntry.TriggerSummary);
                         lvi.Tag = DetailEditor.SelectedEntry;
                         lvwEntries.Items.Add(lvi);
@@ -119,9 +143,13 @@ namespace QuickMon.UI
         }
         private void editCollectorAgentEntryToolStripButton_Click(object sender, EventArgs e)
         {
-            if (DetailEditor != null && lvwEntries.SelectedItems.Count == 1)
+            EditEntry();
+        }
+        private void EditEntry()
+        {
+            if (DetailEditor != null)
             {
-                if (!ShowTreeView)
+                if (!ShowTreeView  && lvwEntries.SelectedItems.Count == 1)
                 {
                     ListViewItem lvi = lvwEntries.SelectedItems[0];
                     DetailEditor.SelectedEntry = (ICollectorConfigEntry)lvi.Tag;
@@ -130,6 +158,32 @@ namespace QuickMon.UI
                         lvi.Text = DetailEditor.SelectedEntry.Description;
                         lvi.SubItems[1].Text = DetailEditor.SelectedEntry.TriggerSummary;
                         lvi.Tag = DetailEditor.SelectedEntry;
+                    }
+                }
+                else if (ShowTreeView && tvwEntries.SelectedNode != null)
+                {
+                    if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
+                        DetailEditor.SelectedEntry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Tag;
+                    else
+                        DetailEditor.SelectedEntry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Parent.Tag;
+                    if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                    {
+                        TreeNode tni;
+                        if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
+                            tni = tvwEntries.SelectedNode;
+                        else
+                            tni = tvwEntries.SelectedNode.Parent;
+                        tni.Tag = DetailEditor.SelectedEntry;
+                        tni.Nodes.Clear();
+                        foreach (var subEntry in DetailEditor.SelectedEntry.SubItems)
+                        {
+                            TreeNode tnisub = new TreeNode(subEntry.Description);
+                            tnisub.ImageIndex = 1;
+                            tnisub.SelectedImageIndex = 1;
+                            tni.Nodes.Add(tnisub);
+                        }
+                        tni.Expand();
+                        tvwEntries.SelectedNode = tni;
                     }
                 }
             }
@@ -222,6 +276,8 @@ namespace QuickMon.UI
                 
             }
         }
+
+
 
     }
 }

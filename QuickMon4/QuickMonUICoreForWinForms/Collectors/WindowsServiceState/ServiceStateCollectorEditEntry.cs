@@ -29,22 +29,22 @@ namespace QuickMon.Collectors
         {
             txtComputer.Text = "";
             txtFilter.Text = "";
-            lstServices.Items.Clear();
-            lstSearchServices.Items.Clear();            
+            lstSelectedServices.Items.Clear();
+            lstAvailableServices.Items.Clear();
             if (SelectedEntry != null)
             {
                 WindowsServiceStateHostEntry selectedEntry = (WindowsServiceStateHostEntry)SelectedEntry;
-                txtComputer.Text = selectedEntry.MachineName;                
+                txtComputer.Text = selectedEntry.MachineName;
                 foreach (ICollectorConfigSubEntry service in selectedEntry.SubItems)
                 {
-                    lstServices.Items.Add(service.Description);
+                    lstSelectedServices.Items.Add(service.Description);
                 }
-                
-            }            
+            }
+            CheckOKEnabled();
         }   
         private void ServiceStateCollectorEditEntry_Shown(object sender, EventArgs e)
         {
-            if (txtComputer.Text.Length > 0 && lstServices.Items.Count > 0)
+            if (txtComputer.Text.Length > 0 && lstSelectedServices.Items.Count > 0)
             {
                 LoadServiceList();
             }
@@ -65,14 +65,8 @@ namespace QuickMon.Collectors
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                lstSearchServices.Items.Clear();
+                lstAvailableServices.Items.Clear();
                 LoadServiceList(txtComputer.Text.ToUpper());
-                //Cursor.Current = Cursors.WaitCursor;
-                //lstSearchServices.Items.Clear();
-                //foreach (string machineName in machine.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                //{
-                //    LoadServiceList(machineName.Trim());
-                //}
             }
             catch (Exception ex)
             {
@@ -83,11 +77,12 @@ namespace QuickMon.Collectors
                 Cursor.Current = Cursors.Default;
             }
             cmdAdd.Enabled = false;
+            CheckOKEnabled();
         }
         private void LoadServiceList(string machineName)
         {
             machineName = machineName.ToUpper();
-            lstSearchServices.Items.AddRange
+            lstAvailableServices.Items.AddRange
                     (
                         (from ServiceController controller in ServiceController.GetServices(machineName)
                          where (
@@ -95,7 +90,7 @@ namespace QuickMon.Collectors
                                     controller.DisplayName.ToUpper().Contains(txtFilter.Text.ToUpper())
                                 )
                                 && !ExcludeItem(controller.MachineName, controller.DisplayName)
-                                && (from string s in lstServices.Items
+                                && (from string s in lstSelectedServices.Items
                                     where s.ToUpper() == (controller.DisplayName).ToUpper()
                                     select s).Count() == 0
                          select controller.DisplayName).ToArray()
@@ -103,70 +98,71 @@ namespace QuickMon.Collectors
         }
         private bool ExcludeItem(string machineName, string displayName)
         {
-            return (from string excl in lstServices.Items
+            return (from string excl in lstSelectedServices.Items
                     where excl.ToUpper() == displayName.ToUpper()
                     select excl).Count() > 0;            
         }
 
         private void cmdAdd_Click(object sender, EventArgs e)
         {
-            foreach (string serviceName in lstSearchServices.SelectedItems)
+            foreach (string serviceName in lstAvailableServices.SelectedItems)
             {
-                if (!lstServices.Items.Contains(serviceName))
-                    lstServices.Items.Add(serviceName);
+                if (!lstSelectedServices.Items.Contains(serviceName))
+                    lstSelectedServices.Items.Add(serviceName);
             }
-            foreach (int index in (from int i in lstSearchServices.SelectedIndices
+            foreach (int index in (from int i in lstAvailableServices.SelectedIndices
                                    orderby i descending
                                    select i))
             {
-                lstSearchServices.Items.RemoveAt(index);
+                lstAvailableServices.Items.RemoveAt(index);
             }
             CheckOKEnabled();
         }
 
         private void CheckOKEnabled()
         {
-            cmdOK.Enabled = lstServices.Items.Count > 0;
+            txtComputer.Enabled = lstSelectedServices.Items.Count == 0;
+            cmdOK.Enabled = lstSelectedServices.Items.Count > 0;
         }
 
         private void cmdRemove_Click(object sender, EventArgs e)
         {
-            foreach (string serviceName in lstServices.SelectedItems)
+            foreach (string serviceName in lstSelectedServices.SelectedItems)
             {
-                if (!lstSearchServices.Items.Contains(serviceName))
-                    lstSearchServices.Items.Add(serviceName);
+                if (!lstAvailableServices.Items.Contains(serviceName))
+                    lstAvailableServices.Items.Add(serviceName);
             }
-            foreach (int index in (from int i in lstServices.SelectedIndices
+            foreach (int index in (from int i in lstSelectedServices.SelectedIndices
                                    orderby i descending
                                    select i))
             {
-                lstServices.Items.RemoveAt(index);
+                lstSelectedServices.Items.RemoveAt(index);
             }
             CheckOKEnabled();
         }
 
         private void lstSearchServices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmdAdd.Enabled = lstSearchServices.SelectedIndex != -1;
+            cmdAdd.Enabled = lstAvailableServices.SelectedIndex != -1;
         }
 
         private void lstServices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmdRemove.Enabled = lstServices.SelectedIndex != -1;
+            cmdRemove.Enabled = lstSelectedServices.SelectedIndex != -1;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            if (lstServices.Items.Count > 0)
+            if (lstSelectedServices.Items.Count > 0)
             {
                 if (SelectedEntry == null)
                     SelectedEntry = new WindowsServiceStateHostEntry();
                 WindowsServiceStateHostEntry selectedEntry = (WindowsServiceStateHostEntry)SelectedEntry;
                 selectedEntry.MachineName = txtComputer.Text;
                 selectedEntry.SubItems.Clear();
-                for (int i = 0; i < lstServices.Items.Count; i++)
+                for (int i = 0; i < lstSelectedServices.Items.Count; i++)
                 {
-                    selectedEntry.SubItems.Add(new WindowsServiceStateServiceEntry() { Description = lstServices.Items[i].ToString() });
+                    selectedEntry.SubItems.Add(new WindowsServiceStateServiceEntry() { Description = lstSelectedServices.Items[i].ToString() });
                 }
                 DialogResult = DialogResult.OK;
                 Close();
