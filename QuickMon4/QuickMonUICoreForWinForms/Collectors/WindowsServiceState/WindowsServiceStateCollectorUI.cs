@@ -21,6 +21,7 @@ namespace QuickMon.Collectors
                 agent.Name = AgentName;
                 agent.Enabled = AgentEnabled;
                 EditCollectorAgentEntries editCollectorAgentEntries = new EditCollectorAgentEntries();
+                editCollectorAgentEntries.ShowTreeView = true;
                 agent.InitialConfiguration = SelectedAgentConfig;
                 agent.AgentConfig.FromXml(SelectedAgentConfig);
 

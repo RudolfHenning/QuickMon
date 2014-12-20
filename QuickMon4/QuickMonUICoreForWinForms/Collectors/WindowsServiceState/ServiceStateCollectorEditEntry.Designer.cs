@@ -34,8 +34,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lstSearchServices = new System.Windows.Forms.ListBox();
-            this.lstServices = new System.Windows.Forms.ListBox();
+            this.lstAvailableServices = new System.Windows.Forms.ListBox();
+            this.lstSelectedServices = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdRemove = new System.Windows.Forms.Button();
             this.cmdAdd = new System.Windows.Forms.Button();
@@ -43,6 +43,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmdLoadServices = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,7 +59,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(640, 399);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 7;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -69,7 +70,7 @@
             this.cmdOK.Location = new System.Drawing.Point(552, 399);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 6;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -98,46 +99,48 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(76, 64);
+            this.splitContainer1.Location = new System.Drawing.Point(11, 64);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.lstSearchServices);
+            this.splitContainer1.Panel1.Controls.Add(this.lstAvailableServices);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.lstServices);
+            this.splitContainer1.Panel2.Controls.Add(this.lstSelectedServices);
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(639, 326);
-            this.splitContainer1.SplitterDistance = 278;
-            this.splitContainer1.TabIndex = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(704, 326);
+            this.splitContainer1.SplitterDistance = 306;
+            this.splitContainer1.TabIndex = 5;
             // 
-            // lstSearchServices
+            // lstAvailableServices
             // 
-            this.lstSearchServices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstSearchServices.FormattingEnabled = true;
-            this.lstSearchServices.Location = new System.Drawing.Point(0, 0);
-            this.lstSearchServices.Name = "lstSearchServices";
-            this.lstSearchServices.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstSearchServices.Size = new System.Drawing.Size(278, 326);
-            this.lstSearchServices.Sorted = true;
-            this.lstSearchServices.TabIndex = 0;
-            this.lstSearchServices.SelectedIndexChanged += new System.EventHandler(this.lstSearchServices_SelectedIndexChanged);
-            this.lstSearchServices.DoubleClick += new System.EventHandler(this.cmdAdd_Click);
+            this.lstAvailableServices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstAvailableServices.FormattingEnabled = true;
+            this.lstAvailableServices.Location = new System.Drawing.Point(0, 17);
+            this.lstAvailableServices.Name = "lstAvailableServices";
+            this.lstAvailableServices.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstAvailableServices.Size = new System.Drawing.Size(306, 309);
+            this.lstAvailableServices.Sorted = true;
+            this.lstAvailableServices.TabIndex = 0;
+            this.lstAvailableServices.SelectedIndexChanged += new System.EventHandler(this.lstSearchServices_SelectedIndexChanged);
+            this.lstAvailableServices.DoubleClick += new System.EventHandler(this.cmdAdd_Click);
             // 
-            // lstServices
+            // lstSelectedServices
             // 
-            this.lstServices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstServices.FormattingEnabled = true;
-            this.lstServices.Location = new System.Drawing.Point(48, 0);
-            this.lstServices.Name = "lstServices";
-            this.lstServices.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstServices.Size = new System.Drawing.Size(309, 326);
-            this.lstServices.Sorted = true;
-            this.lstServices.TabIndex = 1;
-            this.lstServices.SelectedIndexChanged += new System.EventHandler(this.lstServices_SelectedIndexChanged);
-            this.lstServices.DoubleClick += new System.EventHandler(this.cmdRemove_Click);
+            this.lstSelectedServices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstSelectedServices.FormattingEnabled = true;
+            this.lstSelectedServices.Location = new System.Drawing.Point(48, 17);
+            this.lstSelectedServices.Name = "lstSelectedServices";
+            this.lstSelectedServices.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstSelectedServices.Size = new System.Drawing.Size(346, 309);
+            this.lstSelectedServices.Sorted = true;
+            this.lstSelectedServices.TabIndex = 1;
+            this.lstSelectedServices.SelectedIndexChanged += new System.EventHandler(this.lstServices_SelectedIndexChanged);
+            this.lstSelectedServices.DoubleClick += new System.EventHandler(this.cmdRemove_Click);
             // 
             // panel1
             // 
@@ -198,12 +201,12 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 64);
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.Size = new System.Drawing.Size(306, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Services";
+            this.label2.Text = "Available Services";
             // 
             // cmdLoadServices
             // 
@@ -217,6 +220,15 @@
             this.cmdLoadServices.UseVisualStyleBackColor = true;
             this.cmdLoadServices.Click += new System.EventHandler(this.cmdLoadServices_Click);
             // 
+            // label4
+            // 
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(48, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(346, 17);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Selected Services";
+            // 
             // ServiceStateCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,7 +237,6 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.cmdLoadServices);
             this.Controls.Add(this.txtComputer);
             this.Controls.Add(this.label1);
@@ -235,7 +246,7 @@
             this.MinimizeBox = false;
             this.Name = "ServiceStateCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Computer Services";
+            this.Text = "Windows Services";
             this.Load += new System.EventHandler(this.ServiceStateCollectorEditEntry_Load);
             this.Shown += new System.EventHandler(this.ServiceStateCollectorEditEntry_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -255,8 +266,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtComputer;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox lstSearchServices;
-        private System.Windows.Forms.ListBox lstServices;
+        private System.Windows.Forms.ListBox lstAvailableServices;
+        private System.Windows.Forms.ListBox lstSelectedServices;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cmdRemove;
         private System.Windows.Forms.Button cmdAdd;
@@ -264,5 +275,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button cmdLoadServices;
+        private System.Windows.Forms.Label label4;
     }
 }
