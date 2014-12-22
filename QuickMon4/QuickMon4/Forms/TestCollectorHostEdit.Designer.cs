@@ -37,6 +37,8 @@
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdSave = new System.Windows.Forms.Button();
+            this.cmdRestore = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.txtConfig)).BeginInit();
             this.configEditContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -132,11 +134,33 @@
             this.formatToolStripMenuItem.Text = "Format";
             this.formatToolStripMenuItem.Click += new System.EventHandler(this.formatToolStripMenuItem_Click);
             // 
+            // cmdSave
+            // 
+            this.cmdSave.Location = new System.Drawing.Point(160, 12);
+            this.cmdSave.Name = "cmdSave";
+            this.cmdSave.Size = new System.Drawing.Size(75, 23);
+            this.cmdSave.TabIndex = 2;
+            this.cmdSave.Text = "Save";
+            this.cmdSave.UseVisualStyleBackColor = true;
+            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
+            // 
+            // cmdRestore
+            // 
+            this.cmdRestore.Location = new System.Drawing.Point(241, 12);
+            this.cmdRestore.Name = "cmdRestore";
+            this.cmdRestore.Size = new System.Drawing.Size(75, 23);
+            this.cmdRestore.TabIndex = 3;
+            this.cmdRestore.Text = "Restore";
+            this.cmdRestore.UseVisualStyleBackColor = true;
+            this.cmdRestore.Click += new System.EventHandler(this.cmdRestore_Click);
+            // 
             // TestCollectorHostEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(903, 501);
+            this.Controls.Add(this.cmdRestore);
+            this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.txtConfig);
             this.Controls.Add(this.button1);
             this.Name = "TestCollectorHostEdit";
@@ -157,5 +181,7 @@
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem formatToolStripMenuItem;
+        private System.Windows.Forms.Button cmdSave;
+        private System.Windows.Forms.Button cmdRestore;
     }
 }

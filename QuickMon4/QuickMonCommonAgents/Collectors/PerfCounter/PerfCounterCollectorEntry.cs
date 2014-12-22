@@ -103,5 +103,27 @@ namespace QuickMon.Collectors
             currentEntry.ErrorValue = ErrorValue;
             return currentEntry;
         }
+        public string PCNameWithoutComputerName
+        {
+            get { return string.Format("{0}\\{1}\\{2}", Category, Counter, Instance); }
+        }
+        public static PerfCounterCollectorEntry FromStringDefinition(string definition)
+        {
+            if (definition != null && definition.Length > 0 && definition.Contains('\\') && definition.Split('\\').Length >= 3)
+            {
+                PerfCounterCollectorEntry tmp = new PerfCounterCollectorEntry();
+                string[] arr = definition.Split('\\');
+                tmp.Computer = arr[0];
+                tmp.Category = arr[1];
+                tmp.Counter = arr[2];
+                if (arr.Length > 3)
+                    tmp.Instance = arr[3]; //for when there is no instance (like Category 'Memory')
+                else
+                    tmp.Instance = "";
+                return tmp;
+            }
+            else
+                return null;
+        }
     }
 }
