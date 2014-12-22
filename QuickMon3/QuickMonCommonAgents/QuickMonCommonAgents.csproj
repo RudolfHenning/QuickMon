@@ -84,12 +84,6 @@
     <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditFilterEntry.Designer.cs">
       <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditConfig.Designer.cs">
-      <DependentUpon>FileSystemCollectorEditConfig.cs</DependentUpon>
-    </Compile>
     <Compile Include="Collectors\FileSystemCollector\DirectoryFileInfo.cs" />
     <Compile Include="Collectors\FileSystemCollector\FileSystemCollector.cs" />
     <Compile Include="Collectors\FileSystemCollector\FileSystemCollectorConfig.cs" />
@@ -310,9 +304,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\EventLogCollector\ShowDetails\EventLogCollectorViewDetails.resx">
       <DependentUpon>EventLogCollectorViewDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditConfig.resx">
-      <DependentUpon>FileSystemCollectorEditConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\FileSystemCollector\EditConfig\FileSystemCollectorEditFilterEntry.resx">
       <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
