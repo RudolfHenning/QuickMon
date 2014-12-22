@@ -33,6 +33,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.entriesImageList = new System.Windows.Forms.ImageList(this.components);
             this.collectorEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -43,7 +44,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.txtAgentType = new System.Windows.Forms.TextBox();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
-            this.entriesImageList = new System.Windows.Forms.ImageList(this.components);
             this.tvwEntries = new QuickMon.TreeViewEx();
             this.lvwEntries = new QuickMon.ListViewEx();
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -90,6 +90,13 @@
             this.panel1.Size = new System.Drawing.Size(550, 305);
             this.panel1.TabIndex = 5;
             // 
+            // entriesImageList
+            // 
+            this.entriesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("entriesImageList.ImageStream")));
+            this.entriesImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.entriesImageList.Images.SetKeyName(0, "5_50.ico");
+            this.entriesImageList.Images.SetKeyName(1, "243.ico");
+            // 
             // collectorEditToolStrip
             // 
             this.collectorEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -101,6 +108,7 @@
             this.collectorEditToolStrip.Name = "collectorEditToolStrip";
             this.collectorEditToolStrip.Size = new System.Drawing.Size(550, 25);
             this.collectorEditToolStrip.TabIndex = 0;
+            this.collectorEditToolStrip.TabStop = true;
             this.collectorEditToolStrip.Text = "toolStrip1";
             // 
             // addCollectorConfigEntryToolStripButton
@@ -203,13 +211,6 @@
             this.llblRawEdit.Text = "Edit RAW config";
             this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
             // 
-            // entriesImageList
-            // 
-            this.entriesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("entriesImageList.ImageStream")));
-            this.entriesImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.entriesImageList.Images.SetKeyName(0, "5_50.ico");
-            this.entriesImageList.Images.SetKeyName(1, "243.ico");
-            // 
             // tvwEntries
             // 
             this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -221,7 +222,10 @@
             this.tvwEntries.SelectedImageIndex = 0;
             this.tvwEntries.Size = new System.Drawing.Size(550, 151);
             this.tvwEntries.TabIndex = 2;
+            this.tvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwEntries_EnterKeyPressed);
+            this.tvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwEntries_DeleteKeyPressed);
             this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
+            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
             // 
             // lvwEntries
             // 
@@ -248,7 +252,7 @@
             // entriesColumnHeader
             // 
             this.entriesColumnHeader.Text = "Entry";
-            this.entriesColumnHeader.Width = 185;
+            this.entriesColumnHeader.Width = 246;
             // 
             // triggerColumnHeader
             // 

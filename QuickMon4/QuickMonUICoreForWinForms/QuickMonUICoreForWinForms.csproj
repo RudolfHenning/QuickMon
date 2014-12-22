@@ -48,6 +48,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMapper\RegisteredAgentUIMapper.cs" />
+    <Compile Include="Collectors\FileSystem\FileSystemCollectorEditFilterEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\FileSystem\FileSystemCollectorEditFilterEntry.Designer.cs">
+      <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\FileSystem\FileSystemCollectorUI.cs" />
+    <Compile Include="Collectors\PerfCounter\PerfCounterCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PerfCounter\PerfCounterCollectorEditEntry.Designer.cs">
+      <DependentUpon>PerfCounterCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\PerfCounter\PerfCounterCollectorUI.cs" />
+    <Compile Include="Collectors\PerfCounter\PerfCounterEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\PerfCounter\PerfCounterEdit.designer.cs">
+      <DependentUpon>PerfCounterEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collectors\Ping\PingCollectorEditHostAddress.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +141,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Collectors\FileSystem\FileSystemCollectorEditFilterEntry.resx">
+      <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PerfCounter\PerfCounterCollectorEditEntry.resx">
+      <DependentUpon>PerfCounterCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\PerfCounter\PerfCounterEdit.resx">
+      <DependentUpon>PerfCounterEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Collectors\Ping\PingCollectorEditHostAddress.resx">
       <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
     </EmbeddedResource>

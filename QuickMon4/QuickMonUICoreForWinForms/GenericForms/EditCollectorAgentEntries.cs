@@ -126,10 +126,30 @@ namespace QuickMon.UI
                         lvi.Tag = DetailEditor.SelectedEntry;
                         lvwEntries.Items.Add(lvi);
                     }
+                    else
+                    {
+                        TreeNode tni = new TreeNode(DetailEditor.SelectedEntry.Description);
+                        tni.ImageIndex = 0;
+                        tni.SelectedImageIndex = 0;
+                        tni.Tag = DetailEditor.SelectedEntry;
+                        foreach (var subEntry in DetailEditor.SelectedEntry.SubItems)
+                        {
+                            TreeNode tnisub = new TreeNode(subEntry.Description);
+                            tnisub.ImageIndex = 1;
+                            tnisub.SelectedImageIndex = 1;
+                            tni.Nodes.Add(tnisub);
+                        }
+                        tni.Expand();
+                        tvwEntries.Nodes.Add(tni);
+                    }
                 }
             }
         }
         private void lvwEntries_EnterKeyPressed()
+        {
+            editCollectorAgentEntryToolStripButton_Click(null, null);
+        }
+        private void tvwEntries_EnterKeyPressed()
         {
             editCollectorAgentEntryToolStripButton_Click(null, null);
         }
@@ -138,6 +158,10 @@ namespace QuickMon.UI
             deleteCollectorAgentEntriesToolStripButton_Click(null, null);
         }
         private void lvwEntries_DoubleClick(object sender, EventArgs e)
+        {
+            editCollectorAgentEntryToolStripButton_Click(null, null);
+        }
+        private void tvwEntries_DoubleClick(object sender, EventArgs e)
         {
             editCollectorAgentEntryToolStripButton_Click(null, null);
         }
@@ -188,6 +212,10 @@ namespace QuickMon.UI
                 }
             }
         }
+        private void tvwEntries_DeleteKeyPressed()
+        {
+            deleteCollectorAgentEntriesToolStripButton_Click(null, null);
+        }
         private void deleteCollectorAgentEntriesToolStripButton_Click(object sender, EventArgs e)
         {
             if (!ShowTreeView)
@@ -201,9 +229,34 @@ namespace QuickMon.UI
                     }
                 }
             }
-            else
+            else if (tvwEntries.SelectedNode != null)
             {
-
+                if (MessageBox.Show("Are you sure you want to delete the seleted entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    TreeNode selectedNode = tvwEntries.SelectedNode;
+                    if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
+                    {
+                        tvwEntries.Nodes.Remove(selectedNode);
+                    }
+                    else
+                    {
+                        TreeNode parentNode = tvwEntries.SelectedNode.Parent;
+                        if (parentNode != null)
+                        {
+                            ICollectorConfigEntry entry = (ICollectorConfigEntry)parentNode.Tag;
+                            ICollectorConfigSubEntry subEntry = (from si in entry.SubItems
+                                                                 where si.Description == selectedNode.Text
+                                                                 select si).FirstOrDefault();
+                            if (subEntry != null)
+                                entry.SubItems.Remove(subEntry);
+                            tvwEntries.Nodes.Remove(selectedNode);
+                            if (parentNode.Nodes.Count == 0)
+                            {
+                                tvwEntries.Nodes.Remove(parentNode);
+                            }
+                        }
+                    }
+                }
             }
         } 
         #endregion
@@ -226,7 +279,10 @@ namespace QuickMon.UI
                 }
                 else //TreeView
                 {
-
+                    foreach(TreeNode nod in tvwEntries.Nodes)
+                    {
+                        conf.Entries.Add((ICollectorConfigEntry)nod.Tag);
+                    }
                 }
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
@@ -275,9 +331,7 @@ namespace QuickMon.UI
                 }
                 
             }
-        }
-
-
+        }  
 
     }
 }

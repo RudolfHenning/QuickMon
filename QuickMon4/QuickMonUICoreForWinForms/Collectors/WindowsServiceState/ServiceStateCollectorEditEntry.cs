@@ -58,8 +58,8 @@ namespace QuickMon.Collectors
         {
             if (txtComputer.Text.Length == 0)
                 txtComputer.Text = System.Net.Dns.GetHostName();
-            if ((txtComputer.Text == ".") || (txtComputer.Text == "localhost"))
-                txtComputer.Text = System.Net.Dns.GetHostName();
+            //if ((txtComputer.Text == ".") || (txtComputer.Text == "localhost"))
+            //    txtComputer.Text = System.Net.Dns.GetHostName();
             
             //machine = txtComputer.Text.ToUpper();
             try
@@ -82,6 +82,8 @@ namespace QuickMon.Collectors
         private void LoadServiceList(string machineName)
         {
             machineName = machineName.ToUpper();
+            if ((machineName == ".") || (machineName.ToLower() == "localhost"))
+                machineName = System.Net.Dns.GetHostName().ToUpper();
             lstAvailableServices.Items.AddRange
                     (
                         (from ServiceController controller in ServiceController.GetServices(machineName)
