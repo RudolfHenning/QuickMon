@@ -68,11 +68,11 @@
             // columnHeaderCategory
             // 
             this.columnHeaderCategory.Text = "Category";
-            this.columnHeaderCategory.Width = 179;
+            this.columnHeaderCategory.Width = 197;
             // 
             // lvwCounters
             // 
-            this.lvwCounters.AutoResizeColumnEnabled = true;
+            this.lvwCounters.AutoResizeColumnEnabled = false;
             this.lvwCounters.AutoResizeColumnIndex = 0;
             this.lvwCounters.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderCounter});
@@ -93,11 +93,11 @@
             // columnHeaderCounter
             // 
             this.columnHeaderCounter.Text = "Counter";
-            this.columnHeaderCounter.Width = 184;
+            this.columnHeaderCounter.Width = 207;
             // 
             // lvwInstances
             // 
-            this.lvwInstances.AutoResizeColumnEnabled = true;
+            this.lvwInstances.AutoResizeColumnEnabled = false;
             this.lvwInstances.AutoResizeColumnIndex = 0;
             this.lvwInstances.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderInstance});
@@ -118,11 +118,11 @@
             // columnHeaderInstance
             // 
             this.columnHeaderInstance.Text = "Instance";
-            this.columnHeaderInstance.Width = 394;
+            this.columnHeaderInstance.Width = 414;
             // 
             // lvwCategories
             // 
-            this.lvwCategories.AutoResizeColumnEnabled = true;
+            this.lvwCategories.AutoResizeColumnEnabled = false;
             this.lvwCategories.AutoResizeColumnIndex = 0;
             this.lvwCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderCategory});

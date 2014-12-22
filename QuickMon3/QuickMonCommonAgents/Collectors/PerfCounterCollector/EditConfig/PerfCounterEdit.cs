@@ -30,6 +30,12 @@ namespace QuickMon.Collectors
         private void EditPerfCounter_Load(object sender, EventArgs e)
         {
             txtComputer.Text = InitialMachine;
+            lvwCategories.AutoResizeColumnIndex = 0;
+            lvwCategories.AutoResizeColumnEnabled = true;
+            lvwCounters.AutoResizeColumnIndex = 0;
+            lvwCounters.AutoResizeColumnEnabled = true;
+            lvwInstances.AutoResizeColumnIndex = 0;
+            lvwInstances.AutoResizeColumnEnabled = true;
         }
         private void EditPerfCounter_Shown(object sender, EventArgs e)
         {
