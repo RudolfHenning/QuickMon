@@ -339,11 +339,12 @@ namespace QuickMon
                     MonitorState caMs;
                     if (ca.Enabled)
                     {
-                        caMs = ca.GetState();                        
+                        caMs = ca.GetState();
+                        caMs.ForAgent = ca.Name;
                     }
                     else
                     {
-                        caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
+                        caMs = new MonitorState() { ForAgent= ca.Name, State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
                     }
                     caMs.ForAgent = ca.Name;
                     

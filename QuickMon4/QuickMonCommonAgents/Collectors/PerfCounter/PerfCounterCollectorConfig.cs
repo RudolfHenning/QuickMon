@@ -34,7 +34,7 @@ namespace QuickMon.Collectors
                 entry.Category = pcNode.ReadXmlElementAttr("category", "Processor");
                 entry.Counter = pcNode.ReadXmlElementAttr("counter", "% Processor Time");
                 entry.Instance = pcNode.ReadXmlElementAttr("instance", "");
-                entry.ReturnValueInverted = bool.Parse(pcNode.ReadXmlElementAttr("returnValueInverted", "False"));
+                //entry.ReturnValueInverted = bool.Parse(pcNode.ReadXmlElementAttr("returnValueInverted", "False"));
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "100"));
                 Entries.Add(entry);
@@ -54,7 +54,7 @@ namespace QuickMon.Collectors
                 performanceCounterNode.SetAttributeValue("category", entry.Category);
                 performanceCounterNode.SetAttributeValue("counter", entry.Counter);
                 performanceCounterNode.SetAttributeValue("instance", entry.Instance);
-                performanceCounterNode.SetAttributeValue("returnValueInverted", entry.ReturnValueInverted);
+                //performanceCounterNode.SetAttributeValue("returnValueInverted", entry.ReturnValueInverted);
                 performanceCounterNode.SetAttributeValue("warningValue", entry.WarningValue);
                 performanceCounterNode.SetAttributeValue("errorValue", entry.ErrorValue);
                 performanceCountersNode.AppendChild(performanceCounterNode);

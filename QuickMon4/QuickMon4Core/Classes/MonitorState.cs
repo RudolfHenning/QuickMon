@@ -158,14 +158,40 @@ namespace QuickMon
         public string ReadAllRawDetails(char linePaddingChar = ' ', int linePaddingRepeat = 0)
         {
             StringBuilder sb = new StringBuilder();
-            if (RawDetails != null && RawDetails.Length > 0)
+            string prePadding = new string(linePaddingChar, linePaddingRepeat);
+            if (ForAgent != null && ForAgent.Length > 0)
             {
-                sb.Append(new string(linePaddingChar, linePaddingRepeat));
-                if (ForAgent != null && ForAgent.Length > 0)
-                    sb.Append(string.Format("{0}: ", ForAgent));
-                sb.AppendLine(RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar));
+                prePadding += string.Format("{0}: ", ForAgent);
+                if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
+                {
+                    prePadding += string.Format("({0}) ", State);
+                }
+            }
+            if (RawDetails != null && RawDetails.Length > 0)
+                prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);
+
+            if (prePadding.Trim(linePaddingChar).Length > 0)
+            {
+                sb.AppendLine(prePadding);                
                 linePaddingRepeat++;
             }
+
+            //if (RawDetails != null && RawDetails.Length > 0)
+            //{
+            //    sb.Append(new string(linePaddingChar, linePaddingRepeat));
+            //    if (ForAgent != null && ForAgent.Length > 0)
+            //        sb.Append(string.Format("{0}: ", ForAgent));
+            //    sb.AppendLine(RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar));                
+            //}
+            //else if (ForAgent != null && ForAgent.Length > 0)
+            //{
+            //    sb.Append(new string(linePaddingChar, linePaddingRepeat));
+            //    sb.AppendLine(string.Format("{0}", ForAgent));
+            //}
+            
+            //if (sb.Length > 0)
+            //    linePaddingRepeat++;
+
             if (ChildStates != null)
             {
                 foreach (MonitorState ms in ChildStates)

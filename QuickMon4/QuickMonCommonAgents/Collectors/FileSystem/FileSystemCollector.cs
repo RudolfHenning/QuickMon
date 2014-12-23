@@ -64,18 +64,23 @@ namespace QuickMon.Collectors
                                 }
                                 else
                                 {
-                                     int topCount = 10;
-                                     for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
-                                     {
-                                         FileInfo fi = directoryFileInfo.FileInfos[i];
-                                         returnState.ChildStates.Add(
-                                            new MonitorState()
-                                            {
-                                                State = CollectorState.Error,
-                                                RawDetails = string.Format("{0} - {1}", fi.Name, FormatUtils.FormatFileSize(fi.Length)),
-                                                HtmlDetails = string.Format("{0} - {1}", fi.Name, FormatUtils.FormatFileSize(fi.Length)),
-                                            });
-                                     }
+                                    returnState.RawDetails = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
+                                    returnState.HtmlDetails = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
+                                    if (directoryFilter.ShowFilenamesInDetails)
+                                    {
+                                        int topCount = 10;
+                                        for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
+                                        {
+                                            FileInfo fi = directoryFileInfo.FileInfos[i];
+                                            returnState.ChildStates.Add(
+                                               new MonitorState()
+                                               {
+                                                   State = CollectorState.None,
+                                                   RawDetails = string.Format("{0} - {1}", fi.Name, FormatUtils.FormatFileSize(fi.Length)),
+                                                   HtmlDetails = string.Format("{0} - {1}", fi.Name, FormatUtils.FormatFileSize(fi.Length)),
+                                               });
+                                        }
+                                    }
                                 }
                             }
                             else

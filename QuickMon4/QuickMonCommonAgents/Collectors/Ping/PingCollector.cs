@@ -40,6 +40,7 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
+                                    ForAgent = host.Address,
                                     State = CollectorState.Error,
                                     CurrentValue = pingResult.PingTime,
                                     RawDetails = string.Format("'{0}': {1} (Error)", host.Address, pingResult.ResponseDetails),
@@ -52,7 +53,8 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    State = CollectorState.Error,
+                                    ForAgent = host.Address,
+                                    State = CollectorState.Warning,
                                     CurrentValue = pingResult.PingTime,
                                     RawDetails = string.Format("'{0}': {1} {2}ms (Warning)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
                                     HtmlDetails = string.Format("'{0}': {1} {2}ms (<b>Warning</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
@@ -64,7 +66,8 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    State = CollectorState.Error,
+                                    ForAgent = host.Address,
+                                    State = CollectorState.Good,
                                     CurrentValue = pingResult.PingTime,
                                     RawDetails = string.Format("'{0}': {1} {2}ms (Success)", host.Address, pingResult.ResponseDetails, pingResult.PingTime),
                                     HtmlDetails = string.Format("'{0}': {1} {2}ms (<b>Success</b>)", host.Address, pingResult.ResponseDetails, pingResult.PingTime)
@@ -77,6 +80,7 @@ namespace QuickMon.Collectors
                         returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
+                                    ForAgent = host.Address,
                                     State = CollectorState.Error,
                                     CurrentValue = "",
                                     RawDetails = string.Format("'{0}': {1} (Error)", host.Address, pingResult.ResponseDetails),

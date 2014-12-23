@@ -17,7 +17,7 @@ namespace QuickMon.Collectors
         public string Category { get; set; }
         public string Counter { get; set; }
         public string Instance { get; set; }
-        public bool ReturnValueInverted { get; set; }
+        //public bool ReturnValueInverted { get; set; }
         public float WarningValue { get; set; }
         public float ErrorValue { get; set; }
         #endregion
@@ -76,7 +76,7 @@ namespace QuickMon.Collectors
         public CollectorState GetState(float value)
         {
             CollectorState state = CollectorState.Good;
-            if (!ReturnValueInverted)
+            if (WarningValue < ErrorValue)
             {
                 if (ErrorValue <= value)
                     state = CollectorState.Error;

@@ -39,6 +39,7 @@
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdSave = new System.Windows.Forms.Button();
             this.cmdRestore = new System.Windows.Forms.Button();
+            this.cmdTest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.txtConfig)).BeginInit();
             this.configEditContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -154,11 +155,22 @@
             this.cmdRestore.UseVisualStyleBackColor = true;
             this.cmdRestore.Click += new System.EventHandler(this.cmdRestore_Click);
             // 
+            // cmdTest
+            // 
+            this.cmdTest.Location = new System.Drawing.Point(322, 12);
+            this.cmdTest.Name = "cmdTest";
+            this.cmdTest.Size = new System.Drawing.Size(75, 23);
+            this.cmdTest.TabIndex = 4;
+            this.cmdTest.Text = "Test";
+            this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
+            // 
             // TestCollectorHostEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(903, 501);
+            this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.cmdRestore);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.txtConfig);
@@ -183,5 +195,6 @@
         private System.Windows.Forms.ToolStripMenuItem formatToolStripMenuItem;
         private System.Windows.Forms.Button cmdSave;
         private System.Windows.Forms.Button cmdRestore;
+        private System.Windows.Forms.Button cmdTest;
     }
 }

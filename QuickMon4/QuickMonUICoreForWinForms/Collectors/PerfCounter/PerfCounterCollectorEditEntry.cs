@@ -62,6 +62,27 @@ namespace QuickMon.Collectors
             warningNumericUpDown.Value = (decimal)currentEntry.WarningValue;
             errorNumericUpDown.Value = (decimal)currentEntry.ErrorValue;
         }
+        #region Private methods
+        private bool IsValid()
+        {
+            if (warningNumericUpDown.Value == errorNumericUpDown.Value)
+            {
+                MessageBox.Show("Warning and Error values vannot be the same!", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            else if (warningNumericUpDown.Value < errorNumericUpDown.Value && warningNumericUpDown.Value == 0)
+            {
+                MessageBox.Show("Warning value cannot be 0 if it is less than the Error value!", "Valid", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            return true;
+        } 
+        private void CheckOkEnabled()
+        {
+            cmdOK.Enabled = (optCommon.Checked && txtComputerName.Text.Length > 0 && cboPerformanceCounter.SelectedIndex > -1) ||
+                    (optCustom.Checked && txtPerfCounter.Text.Length > 0);
+        }
+        #endregion
 
         private void optCommon_CheckedChanged(object sender, EventArgs e)
         {
@@ -91,18 +112,10 @@ namespace QuickMon.Collectors
         {
             CheckOkEnabled();
         }
-
-        private void CheckOkEnabled()
-        {
-            cmdOK.Enabled = (optCommon.Checked && txtComputerName.Text.Length > 0 && cboPerformanceCounter.SelectedIndex > -1) ||
-                    (optCustom.Checked && txtPerfCounter.Text.Length > 0);
-        }
-
         private void cboPerformanceCounter_SelectedIndexChanged(object sender, EventArgs e)
         {
             CheckOkEnabled();
         }
-
         private void txtPerfCounter_TextChanged(object sender, EventArgs e)
         {
             CheckOkEnabled();
@@ -112,24 +125,28 @@ namespace QuickMon.Collectors
         {
             try
             {
-                PerfCounterCollectorEntry currentEntry = null;
-                if (optCommon.Checked)
+                if (IsValid())
                 {
-                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(txtComputerName.Text + "\\" + cboPerformanceCounter.Text);
-                }
-                else
-                {
-                    currentEntry = PerfCounterCollectorEntry.FromStringDefinition(txtPerfCounter.Text);
-                }
-                if (currentEntry == null || currentEntry.Computer.Length == 0)
-                    MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else
-                {
-                    currentEntry.WarningValue = (float)warningNumericUpDown.Value;
-                    currentEntry.ErrorValue = (float)errorNumericUpDown.Value;
-                    SelectedEntry = currentEntry;
-                    DialogResult = System.Windows.Forms.DialogResult.OK;
-                    Close();
+                    PerfCounterCollectorEntry currentEntry = null;
+                    if (optCommon.Checked)
+                    {
+                        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(txtComputerName.Text + "\\" + cboPerformanceCounter.Text);
+                    }
+                    else
+                    {
+                        currentEntry = PerfCounterCollectorEntry.FromStringDefinition(txtPerfCounter.Text);
+                    }
+                    if (currentEntry == null || currentEntry.Computer.Length == 0)
+                        MessageBox.Show("Performance counter definition could not be created!", "Definition", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                    {
+                        currentEntry.WarningValue = (float)warningNumericUpDown.Value;
+                        currentEntry.ErrorValue = (float)errorNumericUpDown.Value;
+                        //currentEntry.ReturnValueInverted = (warningNumericUpDown.Value > errorNumericUpDown.Value);
+                        SelectedEntry = currentEntry;
+                        DialogResult = System.Windows.Forms.DialogResult.OK;
+                        Close();
+                    }
                 }
             }
             catch (Exception ex)
