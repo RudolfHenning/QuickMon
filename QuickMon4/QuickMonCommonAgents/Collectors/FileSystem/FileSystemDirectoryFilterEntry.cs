@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickMon.MeansurementUnits;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,12 @@ namespace QuickMon.Collectors
 {
     public class FileSystemDirectoryFilterEntry : ICollectorConfigEntry
     {
+        public FileSystemDirectoryFilterEntry()
+        {
+            FileAgeUnit = TimeUnits.Minute;
+            FileSizeUnit = FileSizeUnits.KB;
+        }
+
         #region Properties
         public string DirectoryPath { get; set; }   
         public string FilterFullPath
@@ -43,21 +50,29 @@ namespace QuickMon.Collectors
         /// </summary>
         public bool UseRegEx { get; set; }
         /// <summary>
-        /// File max age in minutes
+        /// Unit type used for FileMinAge and FileMaxAge
         /// </summary>
-        public long FileMaxAgeMin { get; set; }
+        public TimeUnits FileAgeUnit { get; set; }
         /// <summary>
-        /// File min age in minutes
+        /// File max age
         /// </summary>
-        public long FileMinAgeMin { get; set; }
+        public long FileMaxAge { get; set; }
         /// <summary>
-        /// File minimum size in KB
+        /// File min age
         /// </summary>
-        public long FileMinSizeKB { get; set; }
+        public long FileMinAge { get; set; }
         /// <summary>
-        /// File maximum size in KB
+        /// Unit type of FileMinSize and FileMaxSize
         /// </summary>
-        public long FileMaxSizeKB { get; set; }
+        public FileSizeUnits FileSizeUnit { get; set; }
+        /// <summary>
+        /// File minimum size
+        /// </summary>
+        public long FileMinSize { get; set; }
+        /// <summary>
+        /// File maximum size
+        /// </summary>
+        public long FileMaxSize { get; set; }
         #endregion
         #region Summary trigger conditions
         /// <summary>
@@ -71,17 +86,25 @@ namespace QuickMon.Collectors
         /// </summary>
         public int CountErrorIndicator { get; set; }
         /// <summary>
-        /// Total File size warning indicator (in KB). If SizeKBWarningIndicator < SizeKBErrorIndicator then Good state is when total size < SizeKBWarningIndicator
-        /// Else Good > SizeKBErrorIndicator
+        /// Unit type of SizeWarningIndicator and SizeErrorIndicator
         /// </summary>
-        public long SizeKBWarningIndicator { get; set; }
+        public FileSizeUnits FileSizeIndicatorUnit { get; set; }
         /// <summary>
         /// Total File size warning indicator (in KB). If SizeKBWarningIndicator < SizeKBErrorIndicator then Good state is when total size < SizeKBWarningIndicator
         /// Else Good > SizeKBErrorIndicator
         /// </summary>
-        public long SizeKBErrorIndicator { get; set; }
+        public long SizeWarningIndicator { get; set; }
+        /// <summary>
+        /// Total File size warning indicator (in KB). If SizeKBWarningIndicator < SizeKBErrorIndicator then Good state is when total size < SizeKBWarningIndicator
+        /// Else Good > SizeKBErrorIndicator
+        /// </summary>
+        public long SizeErrorIndicator { get; set; }
         #endregion
         public string LastErrorMsg { get; set; }
+        /// <summary>
+        /// Show file names in RAW/Html details
+        /// </summary>
+        public bool ShowFilenamesInDetails { get; set; }
         #endregion
 
         #region ICollectorConfigEntry
@@ -99,20 +122,22 @@ namespace QuickMon.Collectors
                 string filterSummary = "";
                 if (DirectoryExistOnly)
                     filterSummary = "Dir existance";
-                else if (ErrorOnFilesExist)
-                    filterSummary = "Err if file(s) exist";
-                else if (FilesExistOnly)
-                    filterSummary = "File(s) existance";
                 else
                 {
+                    if (ErrorOnFilesExist)
+                        filterSummary = "Err if file(s) exist";
+                    else if (FilesExistOnly)
+                        filterSummary = "File(s) existance";
+
                     if (CountWarningIndicator > 0 || CountErrorIndicator > 0)
-                        filterSummary += "File count: W:" + CountWarningIndicator + ", E:" + CountErrorIndicator;
-                    if (SizeKBWarningIndicator > 0 || SizeKBErrorIndicator > 0)
-                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "Total size: W:" + SizeKBWarningIndicator + "KB - E:" + SizeKBErrorIndicator + "KB";
-                    if (FileMaxAgeMin > 0 || FileMinAgeMin > 0)
-                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File age(min): " + FileMinAgeMin + "-" + FileMaxAgeMin;
-                    if (FileMinSizeKB > 0 || FileMaxSizeKB > 0)
-                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File size(KB): " + FileMinSizeKB + "-" + FileMaxSizeKB;
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File count: W:" + CountWarningIndicator + ", E:" + CountErrorIndicator;
+                    if (SizeWarningIndicator > 0 || SizeErrorIndicator > 0)
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "Total size: W:" + SizeWarningIndicator + FileSizeIndicatorUnit.ToString() + " - E:" + SizeErrorIndicator + FileSizeIndicatorUnit.ToString();
+                    if (FileMaxAge > 0 || FileMinAge > 0)
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File age(" + FileAgeUnit.ToString() + "): " + FileMinAge + "-" + FileMaxAge;
+                    if (FileMinSize > 0 || FileMaxSize > 0)
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File size(" + FileAgeUnit.ToString() + "): " + FileMinSize + "-" + FileMaxSize;
+
                 }
                 return string.Format("{0}", filterSummary);
             }
@@ -165,10 +190,10 @@ namespace QuickMon.Collectors
                         {
                             System.IO.FileInfo fi = new System.IO.FileInfo(filePath);
 
-                            if ((FileMaxAgeMin == 0 || fi.LastWriteTime.AddMinutes(FileMaxAgeMin) > DateTime.Now) &&
-                                        (FileMinAgeMin == 0 || fi.LastWriteTime.AddMinutes(FileMinAgeMin) < DateTime.Now) &&
-                                        (FileMaxSizeKB == 0 || fi.Length <= (FileMaxSizeKB * 1024)) &&
-                                        (FileMinSizeKB == 0 || fi.Length >= (FileMinSizeKB * 1024))
+                            if ((FileMaxAge == 0 || TimeUnitsTools.AddTime(fi.LastWriteTime, FileMaxAge, FileAgeUnit) > DateTime.Now) &&
+                                        (FileMinAge == 0 || TimeUnitsTools.AddTime(fi.LastWriteTime, FileMinAge, FileAgeUnit) < DateTime.Now) &&
+                                        (FileMaxSize == 0 || fi.Length <= FileSizeUnitsTools.ToBytes(FileSizeUnit, FileMaxSize)) &&
+                                        (FileMinSize == 0 || fi.Length >= FileSizeUnitsTools.ToBytes(FileSizeUnit, FileMinSize))
                                         )
                             {
                                 bool match = true;
@@ -234,13 +259,13 @@ namespace QuickMon.Collectors
             }
             else
             {
-                if ((CountErrorIndicator > 0 || CountWarningIndicator > 0) & CountWarningIndicator != CountErrorIndicator)
+                if ((CountErrorIndicator > 0 || CountWarningIndicator > 0) && (CountWarningIndicator != CountErrorIndicator))
                 {
                     if (CountWarningIndicator < CountErrorIndicator)
                     {
                         if (fileInfo.FileCount < CountWarningIndicator)
                             returnState = CollectorState.Good;
-                        else if (fileInfo.FileCount > CountErrorIndicator)
+                        else if (fileInfo.FileCount >= CountErrorIndicator)
                             returnState = CollectorState.Error;
                         else
                             returnState = CollectorState.Warning;
@@ -248,7 +273,7 @@ namespace QuickMon.Collectors
                     else
                         if (fileInfo.FileCount > CountWarningIndicator)
                             returnState = CollectorState.Good;
-                        else if (fileInfo.FileCount < CountErrorIndicator)
+                        else if (fileInfo.FileCount <= CountErrorIndicator)
                             returnState = CollectorState.Error;
                         else
                             returnState = CollectorState.Warning;
@@ -256,22 +281,22 @@ namespace QuickMon.Collectors
 
                 if (returnState == CollectorState.Good || returnState == CollectorState.NotAvailable)
                 {
-                    if ((SizeKBWarningIndicator > 0 ||  SizeKBErrorIndicator > 0) && SizeKBWarningIndicator != SizeKBErrorIndicator)
+                    if ((SizeWarningIndicator > 0 ||  SizeErrorIndicator > 0) && SizeWarningIndicator != SizeErrorIndicator)
                     {
-                        if (SizeKBWarningIndicator < SizeKBErrorIndicator)
+                        if (SizeWarningIndicator < SizeErrorIndicator)
                         {
-                            if (fileInfo.TotalFileSize * 1024 < SizeKBWarningIndicator)
+                            if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeWarningIndicator) < fileInfo.TotalFileSize)
                                 returnState = CollectorState.Good;
-                            else if (fileInfo.TotalFileSize * 1024 > SizeKBErrorIndicator)
+                            else if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeErrorIndicator) > fileInfo.TotalFileSize)
                                 returnState = CollectorState.Error;
                             else
                                 returnState = CollectorState.Warning;
                         }
                         else
                         {
-                            if (fileInfo.TotalFileSize * 1024 > SizeKBWarningIndicator)
+                            if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeWarningIndicator) < fileInfo.TotalFileSize)
                                 returnState = CollectorState.Good;
-                            else if (fileInfo.TotalFileSize * 1024 < SizeKBErrorIndicator)
+                            else if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeErrorIndicator) > fileInfo.TotalFileSize)
                                 returnState = CollectorState.Error;
                             else
                                 returnState = CollectorState.Warning;

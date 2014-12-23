@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickMon.MeansurementUnits;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,19 +43,24 @@ namespace QuickMon.Collectors
                     directoryFilterEntry.CountErrorIndicator = tmp;
                 long tmpl;
 
-                if (long.TryParse(host.ReadXmlElementAttr("warningFileSizeMaxKB", "0"), out tmpl))
-                    directoryFilterEntry.SizeKBWarningIndicator = tmpl;
-                if (long.TryParse(host.ReadXmlElementAttr("errorFileSizeMaxKB", "0"), out tmpl))
-                    directoryFilterEntry.SizeKBErrorIndicator = tmpl;
+                directoryFilterEntry.FileSizeIndicatorUnit = (FileSizeUnits)Enum.Parse(typeof(FileSizeUnits), host.ReadXmlElementAttr("fileSizeIndicatorUnit", "KB"));
+                if (long.TryParse(host.ReadXmlElementAttr("warningFileSizeMax", "0"), out tmpl))
+                    directoryFilterEntry.SizeWarningIndicator = tmpl;
+                if (long.TryParse(host.ReadXmlElementAttr("errorFileSizeMax", "0"), out tmpl))
+                    directoryFilterEntry.SizeErrorIndicator = tmpl;
 
-                if (long.TryParse(host.ReadXmlElementAttr("fileMaxAgeMin", "0"), out tmpl))
-                    directoryFilterEntry.FileMaxAgeMin = tmpl;
-                if (long.TryParse(host.ReadXmlElementAttr("fileMinAgeMin", "0"), out tmpl))
-                    directoryFilterEntry.FileMinAgeMin = tmpl;
-                if (long.TryParse(host.ReadXmlElementAttr("fileMinSizeKB", "0"), out tmpl))
-                    directoryFilterEntry.FileMinSizeKB = tmpl;
-                if (long.TryParse(host.ReadXmlElementAttr("fileMaxSizeKB", "0"), out tmpl))
-                    directoryFilterEntry.FileMaxSizeKB = tmpl;
+                directoryFilterEntry.FileAgeUnit = (TimeUnits)Enum.Parse(typeof(TimeUnits), host.ReadXmlElementAttr("fileAgeUnit", "Minute"));
+                if (long.TryParse(host.ReadXmlElementAttr("fileMinAge", "0"), out tmpl))
+                    directoryFilterEntry.FileMinAge = tmpl;
+                if (long.TryParse(host.ReadXmlElementAttr("fileMaxAge", "0"), out tmpl))
+                    directoryFilterEntry.FileMaxAge = tmpl;
+                directoryFilterEntry.FileSizeUnit = (FileSizeUnits)Enum.Parse(typeof(FileSizeUnits), host.ReadXmlElementAttr("fileSizeUnit", "KB"));
+                if (long.TryParse(host.ReadXmlElementAttr("fileMinSize", "0"), out tmpl))
+                    directoryFilterEntry.FileMinSize = tmpl;
+                if (long.TryParse(host.ReadXmlElementAttr("fileMaxSize", "0"), out tmpl))
+                    directoryFilterEntry.FileMaxSize = tmpl;
+
+                directoryFilterEntry.ShowFilenamesInDetails = host.ReadXmlElementAttr("showFilenamesInDetails", false);
 
                 Entries.Add(directoryFilterEntry);
             }
@@ -76,12 +82,16 @@ namespace QuickMon.Collectors
                 directoryXmlNode.SetAttributeValue("useRegEx", de.UseRegEx);
                 directoryXmlNode.SetAttributeValue("warningFileCountMax", de.CountWarningIndicator);
                 directoryXmlNode.SetAttributeValue("errorFileCountMax", de.CountErrorIndicator);
-                directoryXmlNode.SetAttributeValue("warningFileSizeMaxKB", de.SizeKBWarningIndicator);
-                directoryXmlNode.SetAttributeValue("errorFileSizeMaxKB", de.SizeKBErrorIndicator);
-                directoryXmlNode.SetAttributeValue("fileMinAgeMin", de.FileMinAgeMin);
-                directoryXmlNode.SetAttributeValue("fileMaxAgeMin", de.FileMaxAgeMin);
-                directoryXmlNode.SetAttributeValue("fileMinSizeKB", de.FileMinSizeKB);
-                directoryXmlNode.SetAttributeValue("fileMaxSizeKB", de.FileMaxSizeKB);
+                directoryXmlNode.SetAttributeValue("fileSizeIndicatorUnit", de.FileSizeIndicatorUnit.ToString());
+                directoryXmlNode.SetAttributeValue("warningFileSizeMax", de.SizeWarningIndicator);
+                directoryXmlNode.SetAttributeValue("errorFileSizeMax", de.SizeErrorIndicator);
+                directoryXmlNode.SetAttributeValue("fileAgeUnit", de.FileAgeUnit.ToString());
+                directoryXmlNode.SetAttributeValue("fileMinAge", de.FileMinAge);
+                directoryXmlNode.SetAttributeValue("fileMaxAge", de.FileMaxAge);
+                directoryXmlNode.SetAttributeValue("fileSizeUnit", de.FileSizeUnit.ToString());
+                directoryXmlNode.SetAttributeValue("fileMinSize", de.FileMinSize);
+                directoryXmlNode.SetAttributeValue("fileMaxSize", de.FileMaxSize);
+                directoryXmlNode.SetAttributeValue("showFilenamesInDetails", de.ShowFilenamesInDetails);
 
                 directoryList.AppendChild(directoryXmlNode);
             }

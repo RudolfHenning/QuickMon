@@ -59,8 +59,8 @@ namespace QuickMon.Collectors
                                 new MonitorState()
                                 {
                                     State = CollectorState.Warning,
-                                    RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Warning (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue),
-                                    HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Warning</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue)
+                                    RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Warning (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue),
+                                    HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Warning</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue)
                                 });
                     }
                     else

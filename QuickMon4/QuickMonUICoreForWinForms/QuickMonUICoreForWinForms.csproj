@@ -48,6 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMapper\RegisteredAgentUIMapper.cs" />
+    <Compile Include="BaseClasses\WinFormsUIBase.cs" />
+    <Compile Include="Collectors\EventLog\EventLogCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\EventLog\EventLogCollectorEditEntry.Designer.cs">
+      <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\EventLog\EventLogCollectorUI.cs" />
+    <Compile Include="Collectors\EventLog\EventLogUtil.cs" />
     <Compile Include="Collectors\FileSystem\FileSystemCollectorEditFilterEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +99,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
+    <Compile Include="GenericForms\CSVEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\CSVEditor.designer.cs">
+      <DependentUpon>CSVEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\EditCollectorHost.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +156,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Collectors\EventLog\EventLogCollectorEditEntry.resx">
+      <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Collectors\FileSystem\FileSystemCollectorEditFilterEntry.resx">
       <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\CSVEditor.resx">
+      <DependentUpon>CSVEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorHost.resx">
       <DependentUpon>EditCollectorHost.cs</DependentUpon>
@@ -199,6 +220,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTLLIBR_9825.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

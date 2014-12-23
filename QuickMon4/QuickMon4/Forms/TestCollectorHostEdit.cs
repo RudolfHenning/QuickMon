@@ -105,6 +105,17 @@ namespace QuickMon
                     "                    </directoryList>\r\n" +
                     "            </config>\r\n" +
                     "        </collectorAgent>\r\n" +
+                    "        <collectorAgent name=\"Errors in Evewntlog\" type=\"EventLogCollector\" enabled=\"True\">\r\n" +
+                    "                <config>\r\n" +
+                    "                    <eventlogs>\r\n" +
+                    "                        <log computer=\"localhost\" eventLog=\"Application\" typeInfo=\"False\" typeWarn=\"True\" typeErr=\"True\" containsText=\"False\" textFilter=\"\" " +
+                    "                            withInLastXEntries=\"100\" withInLastXMinutes=\"1440\" warningValue=\"1\" errorValue=\"50\">\r\n" +
+                    "                            <sources />\r\n" +
+                    "                            <eventIds />\r\n" +
+                    "                         </log>\r\n" +
+                    "                    </eventlogs>\r\n" +
+                    "                </config>\r\n" +
+                    "            </collectorAgent>\r\n" +
                     "    </collectorAgents>\r\n" +
                     "    <!-- ServiceWindows -->\r\n" +
                     "    <serviceWindows>\r\n" +
@@ -123,6 +134,42 @@ namespace QuickMon
             if (System.IO.File.Exists(fileName))
                 System.IO.File.Delete(fileName);
             System.IO.File.WriteAllText(fileName, txtConfig.Text);
+        }
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            string configXml = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                        "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
+                        "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
+                        "<configVars />\r\n" +
+                        "<collectorHosts>\r\n";
+            configXml += txtConfig.Text;
+            configXml += "</collectorHosts>" +
+                         "<notifierHosts />\r\n" +
+                         "</monitorPack>";
+
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(configXml);
+            m.RefreshStates();
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(string.Format("Global state: {0}", m.CurrentState));
+            sb.AppendLine(new string('*', 30));
+            foreach (CollectorHost ch in m.CollectorHosts)
+            {
+                MonitorState ms = ch.CurrentState;
+                sb.AppendLine(string.Format("Collector host: {0}", ch.Name));
+                sb.AppendLine(string.Format("Time: {0}", ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")));
+                sb.AppendLine(string.Format("Duration: {0}ms", ms.CallDurationMS));
+                sb.AppendLine(string.Format("Run on host: {0}", ms.ExecutedOnHostComputer));
+                sb.AppendLine(string.Format("State: {0}", ms.State));
+                sb.AppendLine("DETAILS (agents)");
+                sb.AppendLine(string.Format("{0}",XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails())));
+                //sb.AppendLine(string.Format("\t\tState: {0}\r\n{1}", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails('\t', 3))));
+                sb.AppendLine(new string('*', 30));
+
+            }
+            MessageBox.Show(sb.ToString(), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

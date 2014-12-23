@@ -80,6 +80,7 @@
     <Compile Include="Enums\CollectorState.cs" />
     <Compile Include="Enums\ConfigEntryType.cs" />
     <Compile Include="Enums\DetailLevel.cs" />
+    <Compile Include="Enums\MeansurementUnits.cs" />
     <Compile Include="Enums\QuickMonDialogResult.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Interfaces\IAgent.cs" />
@@ -87,7 +88,9 @@
     <Compile Include="Interfaces\ICollector.cs" />
     <Compile Include="Interfaces\INotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CSVExtensions.cs" />
     <Compile Include="Utils\FormatUtils.cs" />
+    <Compile Include="Utils\Security.cs" />
     <Compile Include="Utils\XmlElementEx.cs" />
     <Compile Include="Utils\XmlFormattingUtils.cs" />
   </ItemGroup>
