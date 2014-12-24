@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -84,6 +85,13 @@
       <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\Ping\PingCollectorUI.cs" />
+    <Compile Include="Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.designer.cs">
+      <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\RegistryQuery\RegistryQueryCollectorUI.cs" />
     <Compile Include="Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +99,19 @@
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateCollectorUI.cs" />
+    <Compile Include="Collectors\WMIQuery\EditWMIQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WMIQuery\EditWMIQuery.designer.cs">
+      <DependentUpon>EditWMIQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\WMIQuery\WMIQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\WMIQuery\WMIQueryCollectorEditEntry.designer.cs">
+      <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\WMIQuery\WMIQueryCollectorUI.cs" />
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -171,8 +192,17 @@
     <EmbeddedResource Include="Collectors\Ping\PingCollectorEditHostAddress.resx">
       <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.resx">
+      <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WMIQuery\EditWMIQuery.resx">
+      <DependentUpon>EditWMIQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\WMIQuery\WMIQueryCollectorEditEntry.resx">
+      <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\CSVEditor.resx">
       <DependentUpon>CSVEditor.cs</DependentUpon>
@@ -223,6 +253,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\OUTLLIBR_9825.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
