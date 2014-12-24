@@ -117,38 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="whack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NoGo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NoGo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Plus16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Plus16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTLLIBR_9825" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTLLIBR_9825.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="246_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\246_7.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAMAICAQAAEABADoAgAANgAAABAQEAABAAQAKAEAAB4DAAAUFBAAAQAEAKgBAABGBAAAKAAAACAA
+        AABAAAAAAQAEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIAAAACAgACAAAAAgACAAICA
+        AADAwMAAgICAAAAA/wAA/wAAAP//AP8AAAD/AP8A//8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAiIiIiIiIiIiIiIiIgAAAB3d3d3d3d3d3d3d3dwcAAIiIiIiIiIiIiIiIiIj3AACH
+        ////////////////9wAAh/////////////////cAAIf/9E/////////////3AACH//RA////////////
+        9wAAh///CA////////////cAAIf//4eA///////////3AACH///4eAD/////////9wAAh////4bED///
+        //////cAAIf///9ObED////////3AACH////T+bED///////9wAAh/////T+bED///////cAAIf/////
+        T+bED//////3AACH//////T+bED/////9wAAh///////T+bED/////cAAIf///////T+bED////3AACH
+        ////////T+bED///9wAAh/////////T+bED///cAAIf/////////T+bED//3AACH//////////T+bED/
+        9wAAh3d3d3d3d3d3T+bEB3cAAIiIiIiIiIiIiIT+bECIAAAAAAAAAAAAAAAAT+bEAAAAAAAAAAAAAAAA
+        AAT+bEAAAAAAAAAAAAAAAAAAT+bAAAAAAAAAAAAAAAAAAAT+QAAAAAAAAAAAAAAAAAAARAAAAAAAAAAA
+        AAAAAAAAAAAAAP/////wAAAB4AAAAcAAAAGAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAA
+        AAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAAB///8B///
+        /gP///8D////h////8//////KAAAABAAAAAgAAAAAQAEAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAIAAAIAAAACAgACAAAAAgACAAICAAADAwMAAgICAAAAA/wAA/wAAAP//AP8AAAD/AP8A//8AAP//
+        /wAAAAAAAAAAAAB3d3d3d3cACIiIiIiIgHAI////////cAj0T/////9wCPQA/////3AI/4cA////cAj/
+        9MQP//9wCP/07ED//3AI//9OxA//cAj///TsQP9wCP///07ED3AIiIiIhOxAgAAAAAAATsQAAAAAAAAE
+        5AAAAAAAAABEAMAAAACAAAAAAAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAA
+        AAD/wQAA/+EAAP/zAAAoAAAAFAAAACgAAAABAAQAAAAAAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        gAAAgAAAAICAAIAAAACAAIAAgIAAAMDAwACAgIAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAA
+        AAAAAAAAAAAAAADMzMzMzMzMzAADAAAAAAAAAAAAAHAAAAD3d3d3d3d3d3AAAAD//////////3AAAAD/
+        RP///////3BkAQD/QA///////3ADAQD//3AP/////3ACAAD//wxA/////3DvAwD//w7ED////3DvAwD/
+        //DsQP///3DvAwD///8OxA///3DvAwD////w7ED//3DvAwD/////DsQP/3DvAwD/////8OxA/3DvAwAA
+        AAAAAA7EAADvAwAAAAAAAADsQADvAwAAAAAAAAAOxADvAwAAAAAAAAAA7ADSAgAAAAAAAAAAAAC3gcAA
+        DwOAAA//AAAP/4AADwOAAAzMgAAMzIAADwOAAA//gAAP/4AADwOAAAzMgAAM/4AADwOAAA//gAAP/4AA
+        DwP/+D////wf///+HwP//z//
+</value>
   </data>
 </root>

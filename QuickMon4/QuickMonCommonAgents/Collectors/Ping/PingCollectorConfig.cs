@@ -95,7 +95,7 @@ namespace QuickMon.Collectors
                 {
                     foreach (ICollectorConfigEntry entry in Entries)
                     {
-                        sb.Append(entry.ToString() + ", ");
+                        sb.Append(entry.Description + ", ");
                     }
                 }
                 return sb.ToString().TrimEnd(' ', ',');

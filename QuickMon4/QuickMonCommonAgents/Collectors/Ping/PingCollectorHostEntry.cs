@@ -439,10 +439,5 @@ namespace QuickMon.Collectors
             return result;
         }
         #endregion
-
-        public override string ToString()
-        {
-            return string.Format("[{0}] {1}", PingCollectorTypeHelper.ToString(pingType), address + (pingType == PingCollectorType.Socket ? (":" + socketPort.ToString()) : ""));
-        }
     }
 }

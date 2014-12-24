@@ -6,46 +6,48 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    public class FileSystemCollectorUI : IWinFormsUI
+    public class FileSystemCollectorUI : WinFormsUICollectorBase
     {
-        public string AgentType { get { return "FileSystemCollector"; } }
-        public string AgentName { get; set; }
-        public bool AgentEnabled { get; set; }
-        public string SelectedAgentConfig { get; set; }
+        public override string AgentType { get { return "FileSystemCollector"; } }
+        public override IAgentConfigEntryEditWindow DetailEditor { get { return new FileSystemCollectorEditFilterEntry(); } }
 
-        public bool EditAgent()
-        {
-            ICollector agent = CollectorHost.CreateCollectorFromClassName(AgentType);
-            if (agent != null)
-            {
-                agent.Name = AgentName;
-                agent.Enabled = AgentEnabled;
-                EditCollectorAgentEntries editCollectorAgentEntries = new EditCollectorAgentEntries();
-                agent.InitialConfiguration = SelectedAgentConfig;
-                agent.AgentConfig.FromXml(SelectedAgentConfig);
+        //public string AgentName { get; set; }
+        //public bool AgentEnabled { get; set; }
+        //public string SelectedAgentConfig { get; set; }
 
-                editCollectorAgentEntries.SelectedEntry = agent;
-                editCollectorAgentEntries.DetailEditor = new FileSystemCollectorEditFilterEntry();
-                if (editCollectorAgentEntries.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    agent = editCollectorAgentEntries.SelectedEntry;
-                    AgentName = agent.Name;
-                    AgentEnabled = agent.Enabled;
-                    SelectedAgentConfig = agent.AgentConfig.ToXml();
-                    return true;
-                }
-            }
-            return false;
-        }
+        //public bool EditAgent()
+        //{
+        //    ICollector agent = CollectorHost.CreateCollectorFromClassName(AgentType);
+        //    if (agent != null)
+        //    {
+        //        agent.Name = AgentName;
+        //        agent.Enabled = AgentEnabled;
+        //        EditCollectorAgentEntries editCollectorAgentEntries = new EditCollectorAgentEntries();
+        //        agent.InitialConfiguration = SelectedAgentConfig;
+        //        agent.AgentConfig.FromXml(SelectedAgentConfig);
 
-        public bool HasDetailView
-        {
-            get { throw new NotImplementedException(); }
-        }
+        //        editCollectorAgentEntries.SelectedEntry = agent;
+        //        editCollectorAgentEntries.DetailEditor = new FileSystemCollectorEditFilterEntry();
+        //        if (editCollectorAgentEntries.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            agent = editCollectorAgentEntries.SelectedEntry;
+        //            AgentName = agent.Name;
+        //            AgentEnabled = agent.Enabled;
+        //            SelectedAgentConfig = agent.AgentConfig.ToXml();
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
-        public void ShowCurrentDetails()
-        {
-            throw new NotImplementedException();
-        }
+        //public bool HasDetailView
+        //{
+        //    get { throw new NotImplementedException(); }
+        //}
+
+        //public void ShowCurrentDetails()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

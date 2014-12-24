@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,9 +63,16 @@
     <Compile Include="Collectors\Ping\Utility\WebClientEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Collectors\RegistryQuery\RegistryQueryCollector.cs" />
+    <Compile Include="Collectors\RegistryQuery\RegistryQueryCollectorConfig.cs" />
+    <Compile Include="Collectors\RegistryQuery\RegistryQueryCollectorConfigEntry.cs" />
     <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
     <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateCollectorConfig.cs" />
     <Compile Include="Collectors\WindowsServiceState\WindowsServiceStateHostEntry.cs" />
+    <Compile Include="Collectors\WMIQuery\WMIQueryCollector.cs" />
+    <Compile Include="Collectors\WMIQuery\WMIQueryCollectorConfig.cs" />
+    <Compile Include="Collectors\WMIQuery\WMIQueryCollectorConfigEntry.cs" />
+    <Compile Include="Collectors\WMIQuery\WMIQueryParser.cs" />
     <Compile Include="Notifiers\EventLogNotifier\EventLogNotifier.cs" />
     <Compile Include="Notifiers\EventLogNotifier\EventLogNotifierConfig.cs" />
     <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifier.cs" />
