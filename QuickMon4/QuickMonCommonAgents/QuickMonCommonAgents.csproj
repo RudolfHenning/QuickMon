@@ -73,6 +73,8 @@
     <Compile Include="Collectors\WMIQuery\WMIQueryCollectorConfig.cs" />
     <Compile Include="Collectors\WMIQuery\WMIQueryCollectorConfigEntry.cs" />
     <Compile Include="Collectors\WMIQuery\WMIQueryParser.cs" />
+    <Compile Include="Notifiers\Audio\AudioNotifier.cs" />
+    <Compile Include="Notifiers\Audio\AudioNotifierConfig.cs" />
     <Compile Include="Notifiers\EventLogNotifier\EventLogNotifier.cs" />
     <Compile Include="Notifiers\EventLogNotifier\EventLogNotifierConfig.cs" />
     <Compile Include="Notifiers\InMemoryNotifier\InMemoryNotifier.cs" />
@@ -88,6 +90,17 @@
       <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
