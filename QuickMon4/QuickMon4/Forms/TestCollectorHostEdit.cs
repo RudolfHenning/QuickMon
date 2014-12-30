@@ -168,7 +168,24 @@ namespace QuickMon
                         "<collectorHosts>\r\n";
             configXml += txtConfig.Text;
             configXml += "</collectorHosts>" +
-                         "<notifierHosts />\r\n" +
+                         "<notifierHosts>\r\n" +
+
+                         "<notifierHost name=\"AudioNotifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
+                               "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+                               "<notifierAgents>\r\n" +
+                                   "<notifierAgent type=\"AudioNotifier\">\r\n" +
+                                        "<config>\r\n" +
+                                          "<audioConfig>\r\n" +
+                                            "<goodState enabled=\"false\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"1\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                                            "<warningState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"3\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                                            "<errorState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"2\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                                          "</audioConfig>\r\n" +
+                                        "</config>\r\n" +
+                                   "</notifierAgent>\r\n" +
+                               "</notifierAgents>\r\n" +
+                           "</notifierHost>\r\n" +
+
+                         "</notifierHosts>\r\n" +
                          "</monitorPack>";
 
             MonitorPack m = new MonitorPack();

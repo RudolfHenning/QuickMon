@@ -34,7 +34,7 @@ namespace QuickMon
                                     "<config>\r\n" +
                                         "<entries>\r\n" +
                                             "<entry pingMethod=\"Ping\" address=\"NowhereSpecific\" />\r\n" +
-                                            "<entry pingMethod=\"Ping\" address=\"localhost\" />\r\n" +
+                                            (chkLocalhost.Checked ? "<entry pingMethod=\"Ping\" address=\"localhost\" />\r\n" : "") +
                                         "</entries>\r\n" +
                                     "</config>\r\n" +
                                 "</collectorAgent>\r\n" +
@@ -79,6 +79,23 @@ namespace QuickMon
                                     "</notifierAgent>\r\n" +
                     "</notifierAgents>\r\n" +
                 "</notifierHost>\r\n";
+            }
+            if (chkAudio.Checked)
+            {
+                configXml += "<notifierHost name=\"AudioNotifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
+                               "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+                               "<notifierAgents>\r\n" +
+                                   "<notifierAgent type=\"AudioNotifier\">\r\n" +
+                                        "<config>\r\n" +
+                                          "<audioConfig>\r\n" +
+                                            "<goodState enabled=\"false\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"1\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                                            "<warningState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"2\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                                            "<errorState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"3\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                                          "</audioConfig>\r\n" +
+                                        "</config>\r\n" +
+                                   "</notifierAgent>\r\n" +
+                               "</notifierAgents>\r\n" +
+                           "</notifierHost>\r\n";
             }
             configXml += "</notifierHosts>\r\n" +
                        "</monitorPack>";
