@@ -42,6 +42,8 @@
             this.txtAlerts = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.nudConcurency = new System.Windows.Forms.NumericUpDown();
+            this.chkAudio = new System.Windows.Forms.CheckBox();
+            this.chkLocalhost = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +62,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chkAudio);
             this.groupBox2.Controls.Add(this.txtEmailAddress);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtSMTPServer);
@@ -70,7 +73,7 @@
             this.groupBox2.Controls.Add(this.chkSMTP);
             this.groupBox2.Location = new System.Drawing.Point(23, 41);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(411, 122);
+            this.groupBox2.Size = new System.Drawing.Size(411, 140);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Agent types";
@@ -167,12 +170,12 @@
             this.txtAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAlerts.Location = new System.Drawing.Point(3, 169);
+            this.txtAlerts.Location = new System.Drawing.Point(3, 187);
             this.txtAlerts.Multiline = true;
             this.txtAlerts.Name = "txtAlerts";
             this.txtAlerts.ReadOnly = true;
             this.txtAlerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAlerts.Size = new System.Drawing.Size(443, 178);
+            this.txtAlerts.Size = new System.Drawing.Size(443, 160);
             this.txtAlerts.TabIndex = 11;
             // 
             // label3
@@ -201,11 +204,32 @@
             0,
             0});
             // 
+            // chkAudio
+            // 
+            this.chkAudio.AutoSize = true;
+            this.chkAudio.Location = new System.Drawing.Point(12, 111);
+            this.chkAudio.Name = "chkAudio";
+            this.chkAudio.Size = new System.Drawing.Size(53, 17);
+            this.chkAudio.TabIndex = 9;
+            this.chkAudio.Text = "Audio";
+            this.chkAudio.UseVisualStyleBackColor = true;
+            // 
+            // chkLocalhost
+            // 
+            this.chkLocalhost.AutoSize = true;
+            this.chkLocalhost.Location = new System.Drawing.Point(221, 18);
+            this.chkLocalhost.Name = "chkLocalhost";
+            this.chkLocalhost.Size = new System.Drawing.Size(72, 17);
+            this.chkLocalhost.TabIndex = 14;
+            this.chkLocalhost.Text = "Localhost";
+            this.chkLocalhost.UseVisualStyleBackColor = true;
+            // 
             // TestRun2Notifiers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 346);
+            this.Controls.Add(this.chkLocalhost);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nudConcurency);
             this.Controls.Add(this.cmdClear);
@@ -238,5 +262,7 @@
         private System.Windows.Forms.TextBox txtAlerts;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown nudConcurency;
+        private System.Windows.Forms.CheckBox chkAudio;
+        private System.Windows.Forms.CheckBox chkLocalhost;
     }
 }

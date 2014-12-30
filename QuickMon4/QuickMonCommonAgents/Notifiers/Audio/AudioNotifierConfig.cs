@@ -11,8 +11,8 @@ namespace QuickMon.Notifiers
         public AudioNotifierConfig()
         {
             GoodSoundSettings = new AudioSetting() { Enabled = false, UseSystemSounds = true };
-            WarningSoundSettings = new AudioSetting() { Enabled = true, UseSystemSounds = true, SystemSound = SystemSounds.Hand };
-            ErrorSoundSettings = new AudioSetting() { Enabled = true, UseSystemSounds = true, SystemSound = SystemSounds.Exclamation };
+            WarningSoundSettings = new AudioSetting() { Enabled = true, UseSystemSounds = true, SystemSound = SystemSounds.Exclamation };
+            ErrorSoundSettings = new AudioSetting() { Enabled = true, UseSystemSounds = true, SystemSound = SystemSounds.Hand };
         }
         public AudioSetting GoodSoundSettings { get; set; }
         public AudioSetting WarningSoundSettings { get; set; }

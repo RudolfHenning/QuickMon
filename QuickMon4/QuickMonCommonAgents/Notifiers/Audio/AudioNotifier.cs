@@ -18,7 +18,7 @@ namespace QuickMon.Notifiers
 
         public AudioNotifier()
         {
-            AgentConfig = new EventLogNotifierConfig();
+            AgentConfig = new AudioNotifierConfig();
         }
 
         public override void RecordMessage(AlertRaised alertRaised)
@@ -51,7 +51,7 @@ namespace QuickMon.Notifiers
             }
         }
 
-        public override AttendedOption AttendedRunOption { get { return AttendedOption.AttendedAndUnAttended; } }
+        public override AttendedOption AttendedRunOption { get { return AttendedOption.OnlyAttended; } }
 
         #region Play Sounds
         private void PlaySoundForState(AudioSetting audioSetting)
