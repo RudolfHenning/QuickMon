@@ -12,10 +12,12 @@ namespace QuickMon
     {
         public MonitorState()
         {
+            UniqueId = Guid.NewGuid().ToString();
             Timestamp = DateTime.Now;
             AlertsRaised = new List<string>();
             ChildStates = new List<MonitorState>();
         }
+        public string UniqueId { get; private set; }
         private CollectorState state = CollectorState.NotAvailable;
         [DataMember(Name = "State")]
         public CollectorState State
@@ -70,8 +72,9 @@ namespace QuickMon
         public string ToXml()
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml("<monitorState state=\"NotAvailable\" currentValue=\"\" lastStateChangeTime=\"\" forAgent=\"\" />");
+            xdoc.LoadXml("<monitorState uniqueId=\"\" state=\"NotAvailable\" currentValue=\"\" lastStateChangeTime=\"\" forAgent=\"\" />");
             XmlElement root = xdoc.DocumentElement;
+            root.SetAttributeValue("uniqueId", UniqueId);
             root.SetAttributeValue("state", State.ToString());
             root.SetAttributeValue("stateChangedTime", StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("forAgent", ForAgent);
@@ -114,6 +117,7 @@ namespace QuickMon
             XmlDocument xdoc = new XmlDocument();
             xdoc.LoadXml(content);
             XmlElement root = xdoc.DocumentElement;
+            UniqueId = root.ReadXmlElementAttr("uniqueId", Guid.NewGuid().ToString());
             State = CollectorStateConverter.GetCollectorStateFromText(root.ReadXmlElementAttr("state", "NotAvailable"));
             try
             {
