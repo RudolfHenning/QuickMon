@@ -112,11 +112,21 @@
       <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\WMIQuery\WMIQueryCollectorUI.cs" />
+    <Compile Include="Controls\ComboItem.cs" />
+    <Compile Include="Controls\FadeSnapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\ToolStripEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeViewExBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
