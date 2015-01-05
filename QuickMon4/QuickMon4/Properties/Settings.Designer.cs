@@ -22,5 +22,159 @@ namespace QuickMon.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MainFormSnap {
+            get {
+                return ((bool)(this["MainFormSnap"]));
+            }
+            set {
+                this["MainFormSnap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NewVersion {
+            get {
+                return ((bool)(this["NewVersion"]));
+            }
+            set {
+                this["NewVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int ConcurrencyLevel {
+            get {
+                return ((int)(this["ConcurrencyLevel"]));
+            }
+            set {
+                this["ConcurrencyLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int PollFrequencySec {
+            get {
+                return ((int)(this["PollFrequencySec"]));
+            }
+            set {
+                this["PollFrequencySec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection RecentQMConfigFiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["RecentQMConfigFiles"]));
+            }
+            set {
+                this["RecentQMConfigFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point MainWindowLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["MainWindowLocation"]));
+            }
+            set {
+                this["MainWindowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size MainWindowSize {
+            get {
+                return ((global::System.Drawing.Size)(this["MainWindowSize"]));
+            }
+            set {
+                this["MainWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutosaveChanges {
+            get {
+                return ((bool)(this["AutosaveChanges"]));
+            }
+            set {
+                this["AutosaveChanges"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection KnownRemoteHosts {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["KnownRemoteHosts"]));
+            }
+            set {
+                this["KnownRemoteHosts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OverridesMonitorPackFrequency {
+            get {
+                return ((bool)(this["OverridesMonitorPackFrequency"]));
+            }
+            set {
+                this["OverridesMonitorPackFrequency"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowFullPathForQuickRecentist {
+            get {
+                return ((bool)(this["ShowFullPathForQuickRecentist"]));
+            }
+            set {
+                this["ShowFullPathForQuickRecentist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PausePollingDuringEditConfig {
+            get {
+                return ((bool)(this["PausePollingDuringEditConfig"]));
+            }
+            set {
+                this["PausePollingDuringEditConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RecentQMConfigFileFilters {
+            get {
+                return ((string)(this["RecentQMConfigFileFilters"]));
+            }
+            set {
+                this["RecentQMConfigFileFilters"] = value;
+            }
+        }
     }
 }

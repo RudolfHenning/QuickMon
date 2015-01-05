@@ -55,6 +55,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AboutQuickMon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutQuickMon.Designer.cs">
+      <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GeneralSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GeneralSettings.designer.cs">
+      <DependentUpon>GeneralSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +93,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AboutQuickMon.resx">
+      <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GeneralSettings.resx">
+      <DependentUpon>GeneralSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +137,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QM3.ico" />
+    <None Include="Resources\tables.png" />
+    <None Include="Resources\thunderbolt.png" />
+    <None Include="Resources\comp_search.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\doc_edit.png" />
+    <None Include="Resources\folder_add.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\FireWallRule.txt" />
+    <None Include="Resources\QM4.png" />
+    <None Include="Resources\AboutBkgrnd.png" />
+    <None Include="Resources\doc_new.png" />
+    <None Include="Resources\clock.png" />
+    <None Include="Resources\OUTLLIBR_9825.ico" />
+    <None Include="Resources\MenuBlueShade.png" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\tools.png" />
+    <None Include="Resources\cubes3.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\folderWLightning.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\doc_new2.png" />
+    <None Include="Resources\BlueHeader1.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">

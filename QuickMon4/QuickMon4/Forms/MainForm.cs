@@ -10,13 +10,308 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class MainForm : Form
+    public partial class MainForm : FadeSnapForm
     {
         public MainForm()
         {
             InitializeComponent();
         }
 
+        #region Private vars
+        private bool monitorPackChanged = false;
+        #endregion
+
+        #region Form events
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            cboRecentMonitorPacks.Visible = false;
+            cmdRecentMonitorPacks.Visible = false;
+            lblNoNotifiersYet.Dock = DockStyle.Fill;
+            if ((Properties.Settings.Default.MainWindowLocation.X == 0) && (Properties.Settings.Default.MainWindowLocation.Y == 0)
+                && (Properties.Settings.Default.MainWindowSize.Width == 0))
+            {
+                this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+            }
+            else
+            {
+                this.Location = Properties.Settings.Default.MainWindowLocation;
+                this.Size = Properties.Settings.Default.MainWindowSize;
+            }
+            SnappingEnabled = Properties.Settings.Default.MainFormSnap;
+            masterSplitContainer.Panel2Collapsed = true;
+            MainForm_Resize(null, null);
+            lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
+            toolTip1.SetToolTip(lblVersion, string.Format("v{0} ({1})", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyy-MM-dd")));
+            tvwCollectors.EnableAutoScrollToSelectedNode = true;
+            tvwCollectors.TreeNodeMoved += tvwCollectors_TreeNodeMoved;
+            tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
+            tvwCollectors.RootAlwaysExpanded = true;
+            tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
+            adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
+            restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
+        }
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            try
+            {
+                cboRecentMonitorPacks.DropDownWidth = this.ClientSize.Width - cboRecentMonitorPacks.Left - recentMonitorPacksPanel.Left;
+                resizeRecentDropDownListWidthTimer.Enabled = false;
+                resizeRecentDropDownListWidthTimer.Enabled = true;
+            }
+            catch { }
+        }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PerformCleanShutdown();
+        }
+        #endregion
+
+        #region Collector TreeView events
+        private void tvwCollectors_TreeNodeMoved(TreeNode dragNode)
+        {
+            if (dragNode != null)
+            {
+                ////set Collector Parent if needed
+                //if (dragNode.Tag is CollectorEntry)
+                //{
+                //    if (dragNode.Parent.Tag is CollectorEntry)
+                //    {
+                //        ((CollectorEntry)dragNode.Tag).ParentCollectorId = ((CollectorEntry)dragNode.Parent.Tag).UniqueId;
+                //    }
+                //    else
+                //        ((CollectorEntry)dragNode.Tag).ParentCollectorId = "";
+                //}
+                //SetMonitorChanged();
+                //DoAutoSave();
+            }
+        }
+        private void tvwCollectors_EnterKeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.Control)
+            //{
+            //    collectorTreeEditConfigToolStripMenuItem_Click(null, null);
+            //}
+            //else
+            //{
+            //    collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
+            //}
+        }
+        private void tvwCollectors_ContextMenuShowUp()
+        {
+            Point topabsolute = this.PointToScreen(tvwCollectors.Location);
+            Point topRelative = this.PointToClient(tvwCollectors.Location);
+            Point calcPoint;
+            if (tvwCollectors.SelectedNode != null)
+            {
+                calcPoint = new Point(tvwCollectors.Location.X + tvwCollectors.SelectedNode.Bounds.Location.X, GetControlLocationWithinParent(tvwCollectors).Y + tvwCollectors.SelectedNode.Bounds.Location.Y + 20 - this.Top);
+            }
+            else
+            {
+                calcPoint = new Point(tvwCollectors.Location.X + (tvwCollectors.Width / 2), tvwCollectors.Location.Y + (tvwCollectors.Height / 2));
+            }
+            //CheckCollectorContextMenuEnables();
+            //collectorContextMenuLaunchPoint = calcPoint;
+            //showCollectorContextMenuTimer.Enabled = false;
+            //showCollectorContextMenuTimer.Enabled = true;
+        }
+        private Point GetControlLocationWithinParent(Control control)
+        {
+            Point location;
+            if (control.Parent != null)
+            {
+                Point parentLocation = GetControlLocationWithinParent(control.Parent);
+                location = new Point(parentLocation.X + control.Location.X, parentLocation.Y + control.Location.Y);
+            }
+            else
+            {
+                location = control.Location;
+            }
+            return location;
+        }
+        #endregion
+
+        #region Recent monitor packs drop down and toolbar effects
+        private void HideRecentDropDownList(object sender, EventArgs e)
+        {
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksHideTimer.Enabled = true;
+            recentMonitorPacksShowTimer.Enabled = false;
+        }
+        private void mainToolStrip_MouseLeave(object sender, EventArgs e)
+        {
+            mainToolbarShrinkTimer.Enabled = false;
+            mainToolbarShrinkTimer.Enabled = true;
+        }
+        private void mainToolStrip_MouseEnter(object sender, EventArgs e)
+        {
+            mainToolbarShrinkTimer.Enabled = false;
+            mainToolStrip.BackColor = Color.FromArgb(64, Color.White);
+            HideRecentDropDownList(sender, e);
+        }
+        private void recentMonitorPacksPanel_MouseEnter(object sender, EventArgs e)
+        {
+            recentMonitorPacksHideTimer.Enabled = false;
+            recentMonitorPacksShowTimer.Enabled = true;
+        }
+        //private void lblMonitorPackPath_MouseEnter(object sender, EventArgs e)
+        //{
+        //    recentMonitorPacksHideTimer.Enabled = false;
+        //    recentMonitorPacksShowTimer.Enabled = true;
+        //}
+        private void cboRecentMonitorPacks_MouseHover(object sender, EventArgs e)
+        {
+            recentMonitorPacksHideTimer.Enabled = false;
+        }
+        private void cboRecentMonitorPacks_MouseLeave(object sender, EventArgs e)
+        {
+            HideRecentDropDownList(sender, e);
+        }
+        private void cboRecentMonitorPacks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboRecentMonitorPacks.SelectedIndex > 0 && cboRecentMonitorPacks.SelectedItem is QuickMon.Controls.ComboItem)
+            {
+                //CloseAllDetailWindows();
+                //LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
+                //RefreshMonitorPack(true, true);
+            }
+            HideRecentDropDownList(sender, e);
+        }
+        private void tvwCollectors_MouseMove(object sender, MouseEventArgs e)
+        {
+            HideRecentDropDownList(sender, e);
+        }
+        private void llblMonitorPack_MouseEnter(object sender, EventArgs e)
+        {
+            HideRecentDropDownList(sender, e);
+        }
+        private void resizeRecentDropDownListWidthTimer_Tick(object sender, EventArgs e)
+        {
+            resizeRecentDropDownListWidthTimer.Enabled = false;
+            //LoadRecentMonitorPackList();
+        }
+        private void recentMonitorPacksShowTimer_Tick(object sender, EventArgs e)
+        {
+            recentMonitorPacksShowTimer.Enabled = false;
+            cboRecentMonitorPacks.Visible = true;
+            cmdRecentMonitorPacks.Visible = true;
+        }
+        private void recentMonitorPacksVisibleTimer_Tick(object sender, EventArgs e)
+        {
+            recentMonitorPacksHideTimer.Enabled = false;
+            System.Threading.Thread.Sleep(100);
+            cboRecentMonitorPacks.Visible = false;
+            cmdRecentMonitorPacks.Visible = false;
+        }
+        private void mainToolbarShrinkTimer_Tick(object sender, EventArgs e)
+        {
+            mainToolbarShrinkTimer.Enabled = false;
+            mainToolStrip.BackColor = Color.Transparent;
+        }
+        #endregion
+
+
+        #region Private methods
+        private bool PerformCleanShutdown(bool abortAllowed = false)
+        {
+            bool notAborted = true;
+            try
+            {
+                //if (monitorPackChanged)
+                //{
+                //    if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                //    {
+                //        if (!SaveMonitorPack() && abortAllowed)
+                //            return false;
+                //    }
+                //}
+
+                //UpdateStatusbar("Shutting down...");
+                //Application.DoEvents();
+                //mainRefreshTimer.Enabled = false;
+                //CloseAllDetailWindows();
+                //if (monitorPack.BusyPolling)
+                //{
+                //    monitorPack.AbortPolling = true;
+                //    DateTime abortStart = DateTime.Now;
+                //    while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                //    {
+                //        Application.DoEvents();
+                //    }
+                //    Cursor.Current = Cursors.WaitCursor;
+                //    ClosePerformanceCounters();
+                //}
+
+                if (WindowState == FormWindowState.Normal)
+                {
+                    Properties.Settings.Default.MainWindowLocation = this.Location;
+                    Properties.Settings.Default.MainWindowSize = this.Size;
+                }
+                Properties.Settings.Default.Save();
+            }
+            catch { }
+            return notAborted;
+        }
+        #endregion
+
+        #region Toolbar events
+        private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
+        {
+            //PausePolling(true);
+            //HideCollectorContextMenu();
+            GeneralSettings generalSettings = new GeneralSettings();
+            generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
+            //generalSettings.PollingEnabled = timerEnabled;
+            if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //LoadRecentMonitorPackList();
+                this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
+                //if (monitorPack != null)
+                //    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+
+                Properties.Settings.Default.PollFrequencySec = generalSettings.PollingFrequencySec;
+                //timerEnabled = generalSettings.PollingEnabled;
+            }
+            //ResumePolling();
+        }
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //HideCollectorContextMenu();
+            AboutQuickMon aboutQuickMon = new AboutQuickMon();
+            aboutQuickMon.ShowDialog();
+        }
+        #endregion
+
+        #region Label clicks
+        private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //bool timerEnabled = mainRefreshTimer.Enabled;
+            //mainRefreshTimer.Enabled = false; //temporary stops it.
+            //EditMonitorPackConfig emc = new EditMonitorPackConfig();
+            //emc.SelectedMonitorPack = monitorPack;
+            //if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    SetMonitorChanged();
+            //    SetMonitorPackNameDescription();
+            //    DoAutoSave();
+            //    if (emc.RequestCollectorsRefresh)
+            //    {
+            //        foreach (CollectorEntry entry in monitorPack.Collectors)
+            //        {
+            //            entry.RefreshCollectorConfig(monitorPack.ConfigVariables);
+            //            entry.RefreshDetailsIfOpen();
+            //        }
+            //    }
+            //}
+            //SetPollingFrequency(timerEnabled);
+        }
+        private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
+            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+        }
+        #endregion
+
+        #region Test stuff
         private void cmdTestRun1_Click(object sender, EventArgs e)
         {
             TestRun1 tr1 = new TestRun1();
@@ -32,7 +327,16 @@ namespace QuickMon
         {
             TestCollectorHostEdit tce = new TestCollectorHostEdit();
             tce.Show();
-        }
+        } 
+        #endregion
+
+
+
+
+
+
+
+
     }
 }
 
