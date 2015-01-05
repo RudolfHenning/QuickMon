@@ -67,7 +67,6 @@ namespace QuickMon
             this.pollingNormalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pollingFastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customPollingFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.knownRemoteAgentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
@@ -235,9 +234,9 @@ namespace QuickMon
             this.agentsToolStripButton,
             this.generalSettingsToolStripSplitButton1,
             this.aboutToolStripMenuItem1});
-            this.mainToolStrip.Location = new System.Drawing.Point(4, 0);
+            this.mainToolStrip.Location = new System.Drawing.Point(5, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(292, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(323, 35);
             this.mainToolStrip.TabIndex = 0;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -295,7 +294,7 @@ namespace QuickMon
             this.saveAsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -448,7 +447,6 @@ namespace QuickMon
             this.generalSettingsToolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.generalSettingsToolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pollingToolStripMenuItem1,
-            this.knownRemoteAgentsToolStripMenuItem,
             this.manageTemplatesToolStripMenuItem,
             this.restartInAdminModeToolStripMenuItem});
             this.generalSettingsToolStripSplitButton1.Image = global::QuickMon.Properties.Resources.tools;
@@ -507,14 +505,6 @@ namespace QuickMon
             this.customPollingFrequencyToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.customPollingFrequencyToolStripMenuItem.Text = "Custom Frequency";
             this.customPollingFrequencyToolStripMenuItem.Click += new System.EventHandler(this.customPollingFrequencyToolStripMenuItem_Click);
-            // 
-            // knownRemoteAgentsToolStripMenuItem
-            // 
-            this.knownRemoteAgentsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Charon;
-            this.knownRemoteAgentsToolStripMenuItem.Name = "knownRemoteAgentsToolStripMenuItem";
-            this.knownRemoteAgentsToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.knownRemoteAgentsToolStripMenuItem.Text = "Known Remote Agents";
-            this.knownRemoteAgentsToolStripMenuItem.Click += new System.EventHandler(this.knownRemoteAgentsToolStripMenuItem_Click);
             // 
             // manageTemplatesToolStripMenuItem
             // 
@@ -1157,7 +1147,6 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripMenuItem pollingFrequencyToolStripMenuItem;
         private System.Windows.Forms.Timer showCollectorContextMenuTimer;
         private System.Windows.Forms.Timer showNotifierContextMenuTimer;
-        private System.Windows.Forms.ToolStripMenuItem knownRemoteAgentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSplitButton saveAsMonitorPackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.Label lblVersion;
