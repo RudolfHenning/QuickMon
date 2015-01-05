@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QM3.ico" />
+    <None Include="Resources\BlueHeader2.png" />
     <None Include="Resources\tables.png" />
     <None Include="Resources\thunderbolt.png" />
     <None Include="Resources\comp_search.png" />

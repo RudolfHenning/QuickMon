@@ -83,7 +83,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe Print", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label1.Location = new System.Drawing.Point(5, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(122, 37);
@@ -108,7 +108,7 @@
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabel1.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.linkLabel1.LinkColor = System.Drawing.Color.Lavender;
             this.linkLabel1.Location = new System.Drawing.Point(26, 271);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(232, 18);
@@ -123,7 +123,7 @@
             this.lblThree.BackColor = System.Drawing.Color.Transparent;
             this.lblThree.Font = new System.Drawing.Font("Segoe Print", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblThree.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.lblThree.Location = new System.Drawing.Point(34, 37);
+            this.lblThree.Location = new System.Drawing.Point(34, 46);
             this.lblThree.Name = "lblThree";
             this.lblThree.Size = new System.Drawing.Size(72, 85);
             this.lblThree.TabIndex = 5;
@@ -151,13 +151,13 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(300, 300);
             this.Controls.Add(this.lblCoreVersion);
-            this.Controls.Add(this.lblThree);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblCreateDate);
             this.Controls.Add(this.lblCompany);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblVersionInfo);
+            this.Controls.Add(this.lblThree);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
