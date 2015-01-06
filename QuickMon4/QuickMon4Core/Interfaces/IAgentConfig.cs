@@ -8,6 +8,11 @@ namespace QuickMon
     public interface IAgentConfig
     {
         void FromXml(string configurationString);
+        /// <summary>
+        /// Get the 'current' config of agent. 
+        /// When using Config Variables this will give you the applied config (and not the initial config)
+        /// </summary>
+        /// <returns></returns>
         string ToXml();
         string GetDefaultOrEmptyXml();
         string ConfigSummary { get; }

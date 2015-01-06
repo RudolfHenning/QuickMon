@@ -148,6 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(589, 418);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConfig);
@@ -160,7 +161,7 @@
             this.MinimumSize = new System.Drawing.Size(450, 380);
             this.Name = "RAWXmlEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RAWXmlEditor";
+            this.Text = "Xml Editor";
             this.Load += new System.EventHandler(this.RAWXmlEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtConfig)).EndInit();
             this.ResumeLayout(false);

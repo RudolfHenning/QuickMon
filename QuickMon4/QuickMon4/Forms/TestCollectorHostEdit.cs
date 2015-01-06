@@ -47,17 +47,29 @@ namespace QuickMon
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EditCollectorHost editCollectorHost = new EditCollectorHost();
-            editCollectorHost.SelectedConfig = txtConfig.Text;
-            if (editCollectorHost.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            string configXml = txtConfig.Text;
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(configXml);
+            if (m.CollectorHosts.Count > 0)
             {
-                txtConfig.Text =  XmlFormattingUtils.NormalizeXML(editCollectorHost.SelectedConfig);
+                EditCollectorHost editCollectorHost = new EditCollectorHost();
+                editCollectorHost.SelectedConfig = m.CollectorHosts[0].ToXml();
+                if (editCollectorHost.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    m.CollectorHosts[0] = CollectorHost.FromXml(XmlFormattingUtils.NormalizeXML(editCollectorHost.SelectedConfig), false);
+                    txtConfig.Text = m.ToXml();
+                }
             }
         }
 
         private void cmdRestore_Click(object sender, EventArgs e)
         {
-            txtConfig.Text = "<collectorHost uniqueId=\"Ping\" name=\"Ping Test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"C:\\Test\\FixWarning.cmd\" correctiveScriptOnErrorPath=\"C:\\Test\\FixError.cmd\" restorationScriptPath=\"C:\\Test\\GoodRestored.cmd\" correctiveScriptsOnlyOnStateChange=\"False\" enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"localhost\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" alertsPaused=\"False\">\r\n" +
+            txtConfig.Text =
+                "<monitorPack version=\"4.0.0.0\" name=\"\" typeName=\"\" enabled=\"True\" defaultNotifier=\"Default Notifier\" runCorrectiveScripts=\"True\" stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
+                "<configVars />\r\n" +
+                " <collectorHosts>\r\n" +
+
+                "<collectorHost uniqueId=\"Ping\" name=\"Ping Test\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" correctiveScriptDisabled=\"False\" correctiveScriptOnWarningPath=\"C:\\Test\\FixWarning.cmd\" correctiveScriptOnErrorPath=\"C:\\Test\\FixError.cmd\" restorationScriptPath=\"C:\\Test\\GoodRestored.cmd\" correctiveScriptsOnlyOnStateChange=\"False\" enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"localhost\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" alertsPaused=\"False\">\r\n" +
             "    <!-- CollectorAgents -->\r\n" +
             "    <collectorAgents>\r\n" +
             "        <collectorAgent name=\"Ping test\" type=\"PingCollector\" enabled=\"True\">\r\n" +
@@ -148,8 +160,18 @@ namespace QuickMon
             "        <configVar find=\"findme\" replace=\"you\" />\r\n" +
             "        <configVar find=\"more\" replace=\"there\" />\r\n" +
             "    </configVars>\r\n" +
-            "</collectorHost>";
-        }
+            "  </collectorHost>\r\n" +
+            "    </collectorHosts>\r\n" +
+            "    <notifierHosts>\r\n" +
+            "		<notifierHost name=\"Default Notifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"OnlyAttended\">\r\n" +
+            "			<notifierAgents>\r\n" +
+            "				<notifierAgent type=\"InMemoryNotifier\">\r\n" +
+            "					<config><inMemory maxEntryCount=\"99999\" /></config>\r\n" +
+            "				</notifierAgent>\r\n" +
+            "			</notifierAgents>\r\n" +
+            "		</notifierHost>\r\n" +
+            "	</notifierHosts>\r\n" +
+            "</monitorPack>";        }
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
@@ -161,32 +183,33 @@ namespace QuickMon
 
         private void cmdTest_Click(object sender, EventArgs e)
         {
-            string configXml = "<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
-                        "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
-                        "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
-                        "<configVars />\r\n" +
-                        "<collectorHosts>\r\n";
-            configXml += txtConfig.Text;
-            configXml += "</collectorHosts>" +
-                         "<notifierHosts>\r\n" +
+            string configXml = txtConfig.Text; 
+            //"<monitorPack version=\"4.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+            //            "defaultNotifier=\"Default notifiers\" runCorrectiveScripts=\"True\" " +
+            //            "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
+            //            "<configVars />\r\n" +
+            //            "<collectorHosts>\r\n";
+            //configXml += txtConfig.Text;
+            //configXml += "</collectorHosts>" +
+            //             "<notifierHosts>\r\n" +
 
-                         "<notifierHost name=\"AudioNotifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
-                               "attendedOptionOverride=\"OnlyAttended\">\r\n" +
-                               "<notifierAgents>\r\n" +
-                                   "<notifierAgent type=\"AudioNotifier\">\r\n" +
-                                        "<config>\r\n" +
-                                          "<audioConfig>\r\n" +
-                                            "<goodState enabled=\"false\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"1\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
-                                            "<warningState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"3\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
-                                            "<errorState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"2\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
-                                          "</audioConfig>\r\n" +
-                                        "</config>\r\n" +
-                                   "</notifierAgent>\r\n" +
-                               "</notifierAgents>\r\n" +
-                           "</notifierHost>\r\n" +
+            //             "<notifierHost name=\"AudioNotifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" " +
+            //                   "attendedOptionOverride=\"OnlyAttended\">\r\n" +
+            //                   "<notifierAgents>\r\n" +
+            //                       "<notifierAgent type=\"AudioNotifier\">\r\n" +
+            //                            "<config>\r\n" +
+            //                              "<audioConfig>\r\n" +
+            //                                "<goodState enabled=\"false\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"1\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+            //                                "<warningState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"3\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+            //                                "<errorState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"2\" soundRepeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+            //                              "</audioConfig>\r\n" +
+            //                            "</config>\r\n" +
+            //                       "</notifierAgent>\r\n" +
+            //                   "</notifierAgents>\r\n" +
+            //               "</notifierHost>\r\n" +
 
-                         "</notifierHosts>\r\n" +
-                         "</monitorPack>";
+            //             "</notifierHosts>\r\n" +
+            //             "</monitorPack>";
 
             MonitorPack m = new MonitorPack();
             m.LoadXml(configXml);

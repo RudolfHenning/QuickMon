@@ -609,7 +609,6 @@ namespace QuickMon
                 MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private bool SetEditingCollectorHost()
         {
             bool success = false;
@@ -699,11 +698,12 @@ namespace QuickMon
         }
         #endregion
 
+        #region Raw editing of config
         private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (SetEditingCollectorHost())
             {
-                
+
                 RAWXmlEditor editor = new RAWXmlEditor();
                 string oldMarkUp = editingCollectorHost.ToXml();
                 editor.SelectedMarkup = oldMarkUp;
@@ -717,7 +717,7 @@ namespace QuickMon
                         {
                             if (MessageBox.Show("Editing the raw config resulted in a configuration error!\r\nDo you want to accept this?", "Configuration error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
                             {
-                               editingCollectorHost = CollectorHost.FromXml(oldMarkUp, false);
+                                editingCollectorHost = CollectorHost.FromXml(oldMarkUp, false);
                             }
                         }
                     }
@@ -728,7 +728,8 @@ namespace QuickMon
                     LoadControlData();
                 }
             }
-        }
+        } 
+        #endregion
         
     }
 }

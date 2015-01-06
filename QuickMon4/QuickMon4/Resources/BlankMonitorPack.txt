@@ -1,0 +1,14 @@
+<monitorPack version="4.0.0.0" name="" typeName="" enabled="True" defaultNotifier="Default Notifier" runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="12">
+	<configVars />
+    <collectorHosts>
+	</collectorHosts>
+    <notifierHosts>
+		<notifierHost name="Default Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+			<notifierAgents>
+				<notifierAgent type="InMemoryNotifier">
+					<config><inMemory maxEntryCount="99999" /></config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</notifierHosts>
+</monitorPack>
