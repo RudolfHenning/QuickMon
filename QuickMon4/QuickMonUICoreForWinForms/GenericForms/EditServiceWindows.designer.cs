@@ -90,9 +90,10 @@
             // chkAll
             // 
             this.chkAll.AutoSize = true;
+            this.chkAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkAll.Location = new System.Drawing.Point(363, 18);
             this.chkAll.Name = "chkAll";
-            this.chkAll.Size = new System.Drawing.Size(37, 17);
+            this.chkAll.Size = new System.Drawing.Size(35, 17);
             this.chkAll.TabIndex = 12;
             this.chkAll.Tag = "All";
             this.chkAll.Text = "All";
@@ -155,9 +156,10 @@
             // chkSat
             // 
             this.chkSat.AutoSize = true;
+            this.chkSat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkSat.Location = new System.Drawing.Point(318, 18);
             this.chkSat.Name = "chkSat";
-            this.chkSat.Size = new System.Drawing.Size(42, 17);
+            this.chkSat.Size = new System.Drawing.Size(40, 17);
             this.chkSat.TabIndex = 6;
             this.chkSat.Tag = "Saturday";
             this.chkSat.Text = "Sat";
@@ -167,9 +169,10 @@
             // chkFri
             // 
             this.chkFri.AutoSize = true;
+            this.chkFri.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkFri.Location = new System.Drawing.Point(275, 18);
             this.chkFri.Name = "chkFri";
-            this.chkFri.Size = new System.Drawing.Size(37, 17);
+            this.chkFri.Size = new System.Drawing.Size(35, 17);
             this.chkFri.TabIndex = 5;
             this.chkFri.Tag = "Friday";
             this.chkFri.Text = "Fri";
@@ -179,9 +182,10 @@
             // chkThur
             // 
             this.chkThur.AutoSize = true;
+            this.chkThur.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkThur.Location = new System.Drawing.Point(224, 18);
             this.chkThur.Name = "chkThur";
-            this.chkThur.Size = new System.Drawing.Size(45, 17);
+            this.chkThur.Size = new System.Drawing.Size(43, 17);
             this.chkThur.TabIndex = 4;
             this.chkThur.Tag = "Thursday";
             this.chkThur.Text = "Thu";
@@ -191,9 +195,10 @@
             // chkWed
             // 
             this.chkWed.AutoSize = true;
+            this.chkWed.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkWed.Location = new System.Drawing.Point(169, 18);
             this.chkWed.Name = "chkWed";
-            this.chkWed.Size = new System.Drawing.Size(49, 17);
+            this.chkWed.Size = new System.Drawing.Size(47, 17);
             this.chkWed.TabIndex = 3;
             this.chkWed.Tag = "Wednesday";
             this.chkWed.Text = "Wed";
@@ -203,9 +208,10 @@
             // chkTue
             // 
             this.chkTue.AutoSize = true;
+            this.chkTue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkTue.Location = new System.Drawing.Point(118, 18);
             this.chkTue.Name = "chkTue";
-            this.chkTue.Size = new System.Drawing.Size(45, 17);
+            this.chkTue.Size = new System.Drawing.Size(43, 17);
             this.chkTue.TabIndex = 2;
             this.chkTue.Tag = "Tuesday";
             this.chkTue.Text = "Tue";
@@ -215,9 +221,10 @@
             // chkMon
             // 
             this.chkMon.AutoSize = true;
+            this.chkMon.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkMon.Location = new System.Drawing.Point(65, 18);
             this.chkMon.Name = "chkMon";
-            this.chkMon.Size = new System.Drawing.Size(47, 17);
+            this.chkMon.Size = new System.Drawing.Size(45, 17);
             this.chkMon.TabIndex = 1;
             this.chkMon.Tag = "Monday";
             this.chkMon.Text = "Mon";
@@ -227,9 +234,10 @@
             // chkSun
             // 
             this.chkSun.AutoSize = true;
+            this.chkSun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.chkSun.Location = new System.Drawing.Point(14, 18);
             this.chkSun.Name = "chkSun";
-            this.chkSun.Size = new System.Drawing.Size(45, 17);
+            this.chkSun.Size = new System.Drawing.Size(43, 17);
             this.chkSun.TabIndex = 0;
             this.chkSun.Tag = "Sunday";
             this.chkSun.Text = "Sun";
@@ -266,10 +274,11 @@
             // 
             // listBoxHolidays
             // 
+            this.listBoxHolidays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBoxHolidays.FormattingEnabled = true;
             this.listBoxHolidays.Location = new System.Drawing.Point(14, 44);
             this.listBoxHolidays.Name = "listBoxHolidays";
-            this.listBoxHolidays.Size = new System.Drawing.Size(200, 56);
+            this.listBoxHolidays.Size = new System.Drawing.Size(200, 54);
             this.listBoxHolidays.Sorted = true;
             this.listBoxHolidays.TabIndex = 2;
             // 
@@ -350,6 +359,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwTimes.AutoResizeColumnEnabled = false;
             this.lvwTimes.AutoResizeColumnIndex = 0;
+            this.lvwTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvwTimes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderFrom,
             this.columnHeaderTo,
@@ -385,6 +395,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(433, 418);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cmdCancel);

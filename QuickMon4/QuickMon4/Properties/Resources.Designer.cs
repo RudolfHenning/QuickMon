@@ -81,6 +81,23 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;4.0.0.0&quot; name=&quot;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; defaultNotifier=&quot;Default Notifier&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;12&quot;&gt;
+        ///	&lt;configVars /&gt;
+        ///    &lt;collectorHosts&gt;
+        ///	&lt;/collectorHosts&gt;
+        ///    &lt;notifierHosts&gt;
+        ///		&lt;notifierHost name=&quot;Default Notifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
+        ///			&lt;notifierAgents&gt;
+        ///				&lt;notifierAgent type=&quot;InMemoryNotifier&quot;&gt;
+        ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BlankMonitorPack {
+            get {
+                return ResourceManager.GetString("BlankMonitorPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap BlueHeader1 {
@@ -188,6 +205,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap folder_add {
             get {
                 object obj = ResourceManager.GetObject("folder_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folderOpen {
+            get {
+                object obj = ResourceManager.GetObject("folderOpen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

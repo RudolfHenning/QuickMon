@@ -103,10 +103,11 @@
             this.lstItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstItem.FormattingEnabled = true;
             this.lstItem.Location = new System.Drawing.Point(12, 40);
             this.lstItem.Name = "lstItem";
-            this.lstItem.Size = new System.Drawing.Size(292, 147);
+            this.lstItem.Size = new System.Drawing.Size(292, 145);
             this.lstItem.Sorted = true;
             this.lstItem.TabIndex = 3;
             this.lstItem.SelectedIndexChanged += new System.EventHandler(this.lstItem_SelectedIndexChanged);
@@ -140,7 +141,7 @@
             // 
             this.lblTips.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTips.Location = new System.Drawing.Point(9, 204);
+            this.lblTips.Location = new System.Drawing.Point(17, 204);
             this.lblTips.Name = "lblTips";
             this.lblTips.Size = new System.Drawing.Size(206, 31);
             this.lblTips.TabIndex = 8;
@@ -178,6 +179,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(397, 243);
             this.Controls.Add(this.cmdMoveDown);

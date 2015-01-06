@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QM3.ico</ApplicationIcon>
+    <ApplicationIcon>QM4b.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -136,7 +136,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="QM3.ico" />
+    <Content Include="QM4-64x64.ico" />
+    <Content Include="QM4b.ico" />
+    <None Include="Resources\BlankMonitorPack.txt" />
+    <None Include="Resources\folderOpen.png" />
     <None Include="Resources\BlueHeader2.png" />
     <None Include="Resources\tables.png" />
     <None Include="Resources\thunderbolt.png" />

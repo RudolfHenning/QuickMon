@@ -182,7 +182,9 @@ namespace QuickMon
             foreach (ICollector c in CollectorAgents)
             {
                 collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
-                collectorAgentsXml.AppendLine(c.AgentConfig.ToXml());
+                System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
+                System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
+                collectorAgentsXml.AppendLine(c.InitialConfiguration); // .AgentConfig.ToXml());
                 collectorAgentsXml.AppendLine("</collectorAgent>");
             }
             collectorAgentsXml.AppendLine("</collectorAgents>");

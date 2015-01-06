@@ -176,5 +176,17 @@ namespace QuickMon.Properties {
                 this["RecentQMConfigFileFilters"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastMonitorPack {
+            get {
+                return ((string)(this["LastMonitorPack"]));
+            }
+            set {
+                this["LastMonitorPack"] = value;
+            }
+        }
     }
 }

@@ -33,7 +33,11 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tvwEntries = new QuickMon.TreeViewEx();
             this.entriesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.lvwEntries = new QuickMon.ListViewEx();
+            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -44,10 +48,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.txtAgentType = new System.Windows.Forms.TextBox();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
-            this.tvwEntries = new QuickMon.TreeViewEx();
-            this.lvwEntries = new QuickMon.ListViewEx();
-            this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.collectorEditToolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -90,12 +90,60 @@
             this.panel1.Size = new System.Drawing.Size(550, 305);
             this.panel1.TabIndex = 5;
             // 
+            // tvwEntries
+            // 
+            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwEntries.FullRowSelect = true;
+            this.tvwEntries.ImageIndex = 0;
+            this.tvwEntries.ImageList = this.entriesImageList;
+            this.tvwEntries.Location = new System.Drawing.Point(0, 154);
+            this.tvwEntries.Name = "tvwEntries";
+            this.tvwEntries.SelectedImageIndex = 0;
+            this.tvwEntries.Size = new System.Drawing.Size(550, 151);
+            this.tvwEntries.TabIndex = 2;
+            this.tvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwEntries_EnterKeyPressed);
+            this.tvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwEntries_DeleteKeyPressed);
+            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
+            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
+            // 
             // entriesImageList
             // 
             this.entriesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("entriesImageList.ImageStream")));
             this.entriesImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.entriesImageList.Images.SetKeyName(0, "5_50.ico");
             this.entriesImageList.Images.SetKeyName(1, "243.ico");
+            // 
+            // lvwEntries
+            // 
+            this.lvwEntries.AutoResizeColumnEnabled = false;
+            this.lvwEntries.AutoResizeColumnIndex = 0;
+            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.entriesColumnHeader,
+            this.triggerColumnHeader});
+            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lvwEntries.FullRowSelect = true;
+            this.lvwEntries.HideSelection = false;
+            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
+            this.lvwEntries.Name = "lvwEntries";
+            this.lvwEntries.Size = new System.Drawing.Size(550, 129);
+            this.lvwEntries.SmallImageList = this.entriesImageList;
+            this.lvwEntries.TabIndex = 1;
+            this.lvwEntries.UseCompatibleStateImageBehavior = false;
+            this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
+            // 
+            // entriesColumnHeader
+            // 
+            this.entriesColumnHeader.Text = "Entry";
+            this.entriesColumnHeader.Width = 246;
+            // 
+            // triggerColumnHeader
+            // 
+            this.triggerColumnHeader.Text = "Alert triggers";
+            this.triggerColumnHeader.Width = 215;
             // 
             // collectorEditToolStrip
             // 
@@ -211,58 +259,11 @@
             this.llblRawEdit.Text = "Edit RAW config";
             this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
             // 
-            // tvwEntries
-            // 
-            this.tvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwEntries.FullRowSelect = true;
-            this.tvwEntries.ImageIndex = 0;
-            this.tvwEntries.ImageList = this.entriesImageList;
-            this.tvwEntries.Location = new System.Drawing.Point(0, 154);
-            this.tvwEntries.Name = "tvwEntries";
-            this.tvwEntries.SelectedImageIndex = 0;
-            this.tvwEntries.Size = new System.Drawing.Size(550, 151);
-            this.tvwEntries.TabIndex = 2;
-            this.tvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwEntries_EnterKeyPressed);
-            this.tvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.tvwEntries_DeleteKeyPressed);
-            this.tvwEntries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwEntries_AfterSelect);
-            this.tvwEntries.DoubleClick += new System.EventHandler(this.tvwEntries_DoubleClick);
-            // 
-            // lvwEntries
-            // 
-            this.lvwEntries.AutoResizeColumnEnabled = false;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
-            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.entriesColumnHeader,
-            this.triggerColumnHeader});
-            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lvwEntries.FullRowSelect = true;
-            this.lvwEntries.HideSelection = false;
-            this.lvwEntries.Location = new System.Drawing.Point(0, 25);
-            this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(550, 129);
-            this.lvwEntries.SmallImageList = this.entriesImageList;
-            this.lvwEntries.TabIndex = 1;
-            this.lvwEntries.UseCompatibleStateImageBehavior = false;
-            this.lvwEntries.View = System.Windows.Forms.View.Details;
-            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
-            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
-            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
-            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
-            // 
-            // entriesColumnHeader
-            // 
-            this.entriesColumnHeader.Text = "Entry";
-            this.entriesColumnHeader.Width = 246;
-            // 
-            // triggerColumnHeader
-            // 
-            this.triggerColumnHeader.Text = "Alert triggers";
-            this.triggerColumnHeader.Width = 215;
-            // 
             // EditCollectorAgentEntries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(550, 408);
             this.Controls.Add(this.llblRawEdit);
             this.Controls.Add(this.txtAgentType);

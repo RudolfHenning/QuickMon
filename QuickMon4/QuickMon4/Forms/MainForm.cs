@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,18 @@ namespace QuickMon
 
         #region Private vars
         private bool monitorPackChanged = false;
+        private bool firstRefresh = true;
+        private bool timerWasEnabledBeforePausing = false;
+        private MonitorPack monitorPack;
+        private string quickMonPCCategory = "QuickMon 4 UI Client";
+        #region Performance Counter Vars
+        private PerformanceCounter collectorErrorStatePerSec = null;
+        private PerformanceCounter collectorWarningStatePerSec = null;
+        private PerformanceCounter collectorInfoStatePerSec = null;
+        private PerformanceCounter collectorsQueriedPerSecond = null;
+        private PerformanceCounter collectorsQueryTime = null;
+        private PerformanceCounter selectedCollectorsQueryTime = null;
+        #endregion
         #endregion
 
         #region Form events
@@ -49,6 +62,34 @@ namespace QuickMon
             tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
+        }
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            try
+            {
+                InitializeGlobalPerformanceCounters();
+
+                mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
+
+                if (Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
+                {
+                    LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
+                    System.Threading.Thread.Sleep(100);
+                    RefreshMonitorPack();
+                }
+                else
+                {
+                    monitorPack = null;
+                    NewMonitorPack();                    
+                }
+                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            tvwCollectors.Focus();
+            SetPollingFrequency();
         }
         private void MainForm_Resize(object sender, EventArgs e)
         {
@@ -170,9 +211,9 @@ namespace QuickMon
         {
             if (cboRecentMonitorPacks.SelectedIndex > 0 && cboRecentMonitorPacks.SelectedItem is QuickMon.Controls.ComboItem)
             {
-                //CloseAllDetailWindows();
-                //LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
-                //RefreshMonitorPack(true, true);
+                CloseAllDetailWindows();
+                LoadMonitorPack(((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value.ToString());
+                RefreshMonitorPack(true, true);
             }
             HideRecentDropDownList(sender, e);
         }
@@ -209,37 +250,495 @@ namespace QuickMon
         }
         #endregion
 
+        #region Monitor pack actions
+        private void NewMonitorPack()
+        {
+            if (monitorPack != null && System.IO.File.Exists(monitorPack.MonitorPackPath) && monitorPackChanged)
+            {
+                if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    if (!SaveMonitorPack())
+                        return;
+                }
+            }
+
+            mainRefreshTimer.Enabled = false;
+            try
+            {
+                monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
+                monitorPack.ClosePerformanceCounters();
+                monitorPack = null;
+            }
+            catch { }
+            monitorPack = new MonitorPack();
+            monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
+            monitorPack.MonitorPackPath = "";
+            LoadTreeFromMonitorPack();
+            monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+            monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
+            monitorPack.OnNotifierError += monitorPack_OnNotifierError;
+            monitorPack.RunCollectorHostCorrectiveWarningScript += monitorPack_RunCollectorHostCorrectiveWarningScript;
+            monitorPack.RunCollectorHostCorrectiveErrorScript += monitorPack_RunCollectorHostCorrectiveErrorScript;
+            monitorPack.RunCollectorHostRestorationScript += monitorPack_RunCollectorHostRestorationScript;
+            monitorPack.CollectorHostCalled += monitorPack_CollectorHostCalled;
+            monitorPack.CollectorHostAllAgentsExecutionTime += monitorPack_CollectorHostAllAgentsExecutionTime;
+            if (monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count == 0)
+                lblNoNotifiersYet.Visible = true;
+            else
+                lblNoNotifiersYet.Visible = false;
+            mainRefreshTimer.Enabled = true;
+            monitorPackChanged = false;
+        }        
+        private void LoadMonitorPack(string monitorPackPath)
+        {
+            if (System.IO.File.Exists(monitorPackPath))
+            {
+                if (monitorPackChanged)
+                {
+                    if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        if (!SaveMonitorPack())
+                        {
+                            return;
+                        }
+                    }
+                }
+                PausePolling(true);
+                if (monitorPack != null)
+                {
+                    try
+                    {
+                        WaitForPollingToFinish(5);
+                        //monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
+                        //monitorPack.OnNotifierError -= monitorPack_OnNotifierError;
+                        //monitorPack.RunCollectorHostCorrectiveWarningScript -= monitorPack_RunCollectorHostCorrectiveWarningScript;
+                        //monitorPack.RunCollectorHostCorrectiveErrorScript -= monitorPack_RunCollectorHostCorrectiveErrorScript;
+                        //monitorPack.RunCollectorHostRestorationScript -= monitorPack_RunCollectorHostRestorationScript;
+                        //monitorPack.CollectorHostCalled -= monitorPack_CollectorHostCalled;
+                        //monitorPack.CollectorHostAllAgentsExecutionTime -= monitorPack_CollectorHostAllAgentsExecutionTime;
+
+                        monitorPack.ClosePerformanceCounters();
+                    }
+                    catch { }
+                    finally
+                    {
+                        monitorPack = null;
+                    }
+                }
+
+                TreeNode root = tvwCollectors.Nodes[0];
+                root.Nodes.Clear();
+
+                root.Text = "COLLECTOR HOSTS - Loading...";
+                Application.DoEvents();
+                Cursor.Current = Cursors.WaitCursor;
+
+                monitorPack = new MonitorPack();
+                //monitorPack.CollecterLoading += monitorPack_CollecterLoading;
+
+                monitorPack.Load(monitorPackPath);
+                LoadTreeFromMonitorPack();
+                monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
+                monitorPack.OnNotifierError += monitorPack_OnNotifierError;
+                monitorPack.RunCollectorHostCorrectiveWarningScript += monitorPack_RunCollectorHostCorrectiveWarningScript;
+                monitorPack.RunCollectorHostCorrectiveErrorScript += monitorPack_RunCollectorHostCorrectiveErrorScript;
+                monitorPack.RunCollectorHostRestorationScript += monitorPack_RunCollectorHostRestorationScript;
+                monitorPack.CollectorHostCalled += monitorPack_CollectorHostCalled;
+                monitorPack.CollectorHostAllAgentsExecutionTime += monitorPack_CollectorHostAllAgentsExecutionTime;
+                monitorPack.RunningAttended = AttendedOption.OnlyAttended;
+
+                Cursor.Current = Cursors.Default;
+                tvwCollectors.Nodes[0].Text = "COLLECTOR HOSTS";
+                Application.DoEvents();
+
+                AddMonitorPackFileToRecentList(monitorPackPath);
+
+                lblNoNotifiersYet.Visible = monitorPack.NotifierHosts.Count == 0;
+                ResumePolling();
+                monitorPackChanged = false;
+                UpdateAppTitle();
+            }
+        }
+        private void LoadTreeFromMonitorPack()
+        {
+            firstRefresh = true;
+            SetMonitorPackNameDescription();
+            TreeNode root = tvwCollectors.Nodes[0];
+            root.Nodes.Clear();
+            List<CollectorHost> noDependantCollectors = (from c in monitorPack.CollectorHosts
+                                                          where c.ParentCollectorId.Length == 0
+                                                          select c).ToList();
+            foreach (CollectorHost collector in noDependantCollectors)
+            {
+                LoadCollectorNode(root, collector);
+            }
+            root.Expand();
+
+            UpdateAppTitle();
+            LoadNotifiersList();
+            try
+            {
+                showDefaultNotifierToolStripMenuItem.Enabled = false;
+                if (monitorPack != null)
+                {
+                    UpdateStatusbar(string.Format("{0} collector(s), {1} notifier(s)",
+                         monitorPack.CollectorHosts.Count,
+                         monitorPack.NotifierHosts.Count));
+                    showDefaultNotifierToolStripMenuItem.Enabled = monitorPack.DefaultViewerNotifier != null;
+                }
+            }
+            catch { }
+            tvwCollectors.SelectedNode = root;
+            root.EnsureVisible();
+        }
+        private void LoadCollectorNode(TreeNode root, CollectorHost collector)
+        {
+            TreeNode collectorNode;
+            if (collector.CollectorAgents == null || collector.CollectorAgents.Count == 0)
+            {
+                collectorNode = new TreeNode(collector.Name, 1, 1);
+                collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            }
+            else
+                collectorNode = new TreeNode(collector.Name, 2, 2);
+            collectorNode.Tag = collector;
+            collector.Tag = collectorNode;
+            collectorNode.ForeColor = collector.Enabled ? SystemColors.WindowText : Color.Gray;
+            if (collector.EnableRemoteExecute || collector.ForceRemoteExcuteOnChildCollectors)
+            {
+                collectorNode.Text += string.Format(" [{0}:{1}]", (collector.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
+            }
+            foreach (CollectorHost childCollector in (from c in monitorPack.CollectorHosts
+                                                       where c.ParentCollectorId == collector.UniqueId &&
+                                                       c.ParentCollectorId != c.UniqueId
+                                                       select c))
+            {
+                LoadCollectorNode(collectorNode, childCollector);
+            }
+            root.Nodes.Add(collectorNode);
+            if (collector.Enabled && collector.ExpandOnStart)
+                collectorNode.Expand();
+        }
+        private void LoadNotifiersList()
+        {
+            lvwNotifiers.Items.Clear();
+            if (monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
+            {
+                foreach (NotifierHost n in monitorPack.NotifierHosts)
+                {
+                    ListViewItem lvi = new ListViewItem(n.Name);
+                    lvi.ImageIndex = 0; // (n..Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
+                    lvi.Tag = n;
+                    lvi.ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
+                    lvwNotifiers.Items.Add(lvi);
+                }
+            }
+            lblNoNotifiersYet.Visible = monitorPack.NotifierHosts.Count == 0;
+        }
+        private void SetMonitorPackNameDescription()
+        {
+            toolTip1.SetToolTip(llblMonitorPack, "");
+            llblMonitorPack.Text = "";
+            if (monitorPack == null || ((monitorPack.Name == null || monitorPack.Name.Trim().Length == 0)))
+            {
+                llblMonitorPack.Text = "Click here to set the monitor pack name.";
+            }
+            else
+            {
+                llblMonitorPack.Text = monitorPack.Name;
+            }
+            if (monitorPack != null)
+            {
+                if (monitorPack.MonitorPackPath != null)
+                    toolTip1.SetToolTip(llblMonitorPack, monitorPack.MonitorPackPath);
+                if (!monitorPack.Enabled)
+                    llblMonitorPack.Text += " (Disabled)";
+            }
+            //if still after all of this...
+            if (llblMonitorPack.Text == "")
+                llblMonitorPack.Text = "Click here to set the monitor pack name.";
+        }
+        private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
+        {
+            //PausePolling();
+            //DateTime abortStart = DateTime.Now;
+            //try
+            //{
+            //    while (!forceUpdateNow && refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
+            //    {
+            //        Application.DoEvents();
+            //    }
+            //    if (forceUpdateNow || !refreshBackgroundWorker.IsBusy)
+            //    {
+            //        Cursor.Current = Cursors.WaitCursor;
+            //        refreshBackgroundWorker.RunWorkerAsync(disablePollingOverride);
+            //    }
+            //}
+            //catch { }
+            //finally
+            //{
+            //    mainRefreshTimer.Enabled = timerEnabled;
+            //    ResumePolling();
+            //}
+        }
+        private bool SaveMonitorPack()
+        {
+            bool success = false;
+            try
+            {
+                if (monitorPack != null && monitorPack.MonitorPackPath != null && monitorPack.MonitorPackPath.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath)))
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    SortItemsByTreeView();
+                    monitorPack.Save();
+                    Properties.Settings.Default.LastMonitorPack = monitorPack.MonitorPackPath;
+                    monitorPackChanged = false;
+                    success = true;
+                    AddMonitorPackFileToRecentList(monitorPack.MonitorPackPath);
+                }
+                else
+                {
+                    success = SaveAsMonitorPack();
+                }
+                UpdateAppTitle();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Cursor.Current = Cursors.Default;
+            return success;
+        }        
+        private bool SaveAsMonitorPack()
+        {
+            bool success = false;
+            try
+            {
+                bool canAutoSave = false;
+                if (monitorPack == null)
+                    monitorPack = new MonitorPack();
+                if (monitorPack.MonitorPackPath != null && System.IO.File.Exists(monitorPack.MonitorPackPath))
+                {
+                    canAutoSave = Properties.Settings.Default.AutosaveChanges;
+                    saveFileDialogSave.FileName = monitorPack.MonitorPackPath;
+                    if (saveFileDialogSave.FileName.ToLower().EndsWith(".qmconfig"))
+                    {
+                        saveFileDialogSave.FileName = saveFileDialogSave.FileName.Replace(".qmconfig", ".qmp");
+                    }
+                    try
+                    {
+                        saveFileDialogSave.InitialDirectory = System.IO.Path.GetDirectoryName(monitorPack.MonitorPackPath);
+                    }
+                    catch { }
+                }
+                else
+                {
+                    saveFileDialogSave.InitialDirectory = MonitorPack.GetQuickMonUserDataDirectory();
+                }
+                if (saveFileDialogSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    monitorPack.MonitorPackPath = saveFileDialogSave.FileName;
+                    success = SaveMonitorPack();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return success;
+        }
+        private void DoAutoSave()
+        {
+            if (Properties.Settings.Default.AutosaveChanges)
+                SaveMonitorPack();
+        }
+        private void SortItemsByTreeView()
+        {
+            
+        }
+        private void WaitForPollingToFinish(int secondsToWait)
+        {
+            if (monitorPack != null && monitorPack.BusyPolling)
+            {
+                monitorPack.AbortPolling = true;
+                DateTime abortStart = DateTime.Now;
+                while (monitorPack.BusyPolling && abortStart.AddSeconds(secondsToWait) > DateTime.Now)
+                {
+                    Application.DoEvents();
+                    Cursor.Current = Cursors.WaitCursor;
+                }
+            }
+        }
+        private void SetMonitorChanged()
+        {
+            monitorPackChanged = true;
+            UpdateAppTitle();
+        }
+        private void monitorPack_CollectorHostStateUpdated(CollectorHost collectorHost)
+        {
+            throw new NotImplementedException();
+        }
+        private void monitorPack_CollectorHostCalled(CollectorHost collectorHost)
+        {
+            throw new NotImplementedException();
+        }
+        private void monitorPack_RunCollectorHostRestorationScript(CollectorHost collectorHost)
+        {
+            throw new NotImplementedException();
+        }
+        private void monitorPack_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
+        {
+            throw new NotImplementedException();
+        }
+        private void monitorPack_RunCollectorHostCorrectiveWarningScript(CollectorHost collectorHost)
+        {
+            throw new NotImplementedException();
+        }
+        private void monitorPack_CollectorHostAllAgentsExecutionTime(CollectorHost collectorHost, long msTime)
+        {
+            throw new NotImplementedException();
+        }        
+        private void monitorPack_OnNotifierError(NotifierHost notifierHost, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region RecentMonitorPackList
+        private void AddMonitorPackFileToRecentList(string monitorPackPath)
+        {
+            if ((from string f in Properties.Settings.Default.RecentQMConfigFiles
+                 where f.ToUpper() == monitorPackPath.ToUpper()
+                 select f).Count() == 0)
+            {
+                Properties.Settings.Default.RecentQMConfigFiles.Add(monitorPackPath);
+            }
+            Properties.Settings.Default.LastMonitorPack = monitorPackPath;
+            LoadRecentMonitorPackList();
+        }
+        private void LoadRecentMonitorPackList()
+        {
+            cboRecentMonitorPacks.Items.Clear();
+            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem("", ""));
+
+            try
+            {
+                List<string> allowFilters = new List<string>();
+                List<string> disallowFilters = new List<string>();
+                string typeFilters = Properties.Settings.Default.RecentQMConfigFileFilters;
+                if (typeFilters.Trim().Length == 0)
+                    typeFilters = "*";
+                foreach (string typeFilter in typeFilters.Split(','))
+                {
+                    if (typeFilter.Trim().StartsWith("!"))
+                        disallowFilters.Add(typeFilter.Trim(' ', '!'));
+                    else
+                        allowFilters.Add(typeFilter.Trim());
+                }
+
+                foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
+                                             orderby s
+                                             select s))
+                {
+                    bool mpVisible = false;
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        string typeName = MonitorPack.GetMonitorPackTypeName(filePath);
+                        if ((from string s in allowFilters
+                             where s == "*" || s.ToLower() == typeName.ToLower()
+                             select s).Count() > 0)
+                            mpVisible = true;
+                        if ((from string s in disallowFilters
+                             where s.ToLower() == typeName.ToLower()
+                             select s).Count() > 0)
+                            mpVisible = false;
+                    }
+                    else
+                        mpVisible = false;
+
+                    if (mpVisible)
+                    {
+                        string entryDisplayName = filePath;
+                        if (!Properties.Settings.Default.ShowFullPathForQuickRecentist)
+                            entryDisplayName = System.IO.Path.GetFileNameWithoutExtension(filePath);
+
+                        if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width)
+                        {
+                            string ellipseText = entryDisplayName.Substring(0, 20) + "....";
+                            string tmpStr = entryDisplayName.Substring(4);
+                            while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
+                            {
+                                tmpStr = tmpStr.Substring(1);
+                            }
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, filePath));
+                        }
+                        else
+                        {
+                            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, filePath));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        } 
+        #endregion
 
         #region Private methods
+        private void PausePolling(bool forcePause = false)
+        {
+            if (forcePause || Properties.Settings.Default.PausePollingDuringEditConfig)
+            {
+                timerWasEnabledBeforePausing = mainRefreshTimer.Enabled;
+                mainRefreshTimer.Enabled = false;
+            }
+        }
+        private void ResumePolling()
+        {
+            SetPollingFrequency(timerWasEnabledBeforePausing);
+        }
+        private void SetPollingFrequency(bool enabledAfterWards = true)
+        {
+            mainRefreshTimer.Enabled = false;
+            if (Properties.Settings.Default.OverridesMonitorPackFrequency || monitorPack == null || monitorPack.PollingFrequencyOverrideSec == 0)
+                mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
+            else
+                mainRefreshTimer.Interval = monitorPack.PollingFrequencyOverrideSec * 1000;
+            mainRefreshTimer.Enabled = enabledAfterWards;
+        }
         private bool PerformCleanShutdown(bool abortAllowed = false)
         {
             bool notAborted = true;
             try
             {
-                //if (monitorPackChanged)
-                //{
-                //    if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
-                //    {
-                //        if (!SaveMonitorPack() && abortAllowed)
-                //            return false;
-                //    }
-                //}
+                if (monitorPackChanged)
+                {
+                    if (Properties.Settings.Default.AutosaveChanges || MessageBox.Show("Do you want to save changes to the current monitor pack?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        if (!SaveMonitorPack() && abortAllowed)
+                            return false;
+                    }
+                }
 
-                //UpdateStatusbar("Shutting down...");
-                //Application.DoEvents();
-                //mainRefreshTimer.Enabled = false;
-                //CloseAllDetailWindows();
-                //if (monitorPack.BusyPolling)
-                //{
-                //    monitorPack.AbortPolling = true;
-                //    DateTime abortStart = DateTime.Now;
-                //    while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
-                //    {
-                //        Application.DoEvents();
-                //    }
-                //    Cursor.Current = Cursors.WaitCursor;
-                //    ClosePerformanceCounters();
-                //}
+                UpdateStatusbar("Shutting down...");
+                Application.DoEvents();
+                mainRefreshTimer.Enabled = false;
+                CloseAllDetailWindows();
+                if (monitorPack.BusyPolling)
+                {
+                    monitorPack.AbortPolling = true;
+                    DateTime abortStart = DateTime.Now;
+                    while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                    {
+                        Application.DoEvents();
+                    }
+                    Cursor.Current = Cursors.WaitCursor;
+                    ClosePerformanceCounters();
+                }
 
                 if (WindowState == FormWindowState.Normal)
                 {
@@ -251,9 +750,133 @@ namespace QuickMon
             catch { }
             return notAborted;
         }
+        private void HideCollectorContextMenu()
+        {
+            
+        }  
+        private void CloseAllDetailWindows()
+        {
+        
+        }
+        private void UpdateAppTitle()
+        {
+            Text = "QuickMon 4";
+            if (monitorPackChanged)
+                Text += "*";
+            if (monitorPack != null)
+            {
+                if (!monitorPack.Enabled)
+                    Text += " - [Disabled]";
+                if (monitorPack.Name != null && monitorPack.Name.Length > 0)
+                    Text += string.Format(" - [{0}]", monitorPack.Name);
+            }
+        }
+        private void UpdateStatusbar(string msg)
+        {
+            try
+            {
+                if (this != null)
+                {
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            toolStripStatusLabelStatus.Text = msg;
+                            toolTip1.SetToolTip(statusStrip1, msg);
+                        });
+                    }
+                    else
+                    {
+                        toolStripStatusLabelStatus.Text = msg;
+                        toolTip1.SetToolTip(statusStrip1, msg);
+                    }
+                }
+            }
+            catch { }
+        }
         #endregion
 
         #region Toolbar events
+        private void newMonitorPackToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            CloseAllDetailWindows();
+            NewMonitorPack();   
+        }
+        private void openMonitorPackToolStripButton_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            try
+            {
+                string startUpPath = MonitorPack.GetQuickMonUserDataDirectory();
+                openFileDialogOpen.InitialDirectory = startUpPath;
+                if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    CloseAllDetailWindows();
+                    LoadMonitorPack(openFileDialogOpen.FileName);
+                    RefreshMonitorPack(true, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void saveAsMonitorPackToolStripMenuItem_ButtonClick(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            SaveMonitorPack();
+        }
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            SaveAsMonitorPack();
+        }
+        private void refreshToolStripButton1_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            RefreshMonitorPack(true, true);
+        }
+        private void addCollectorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void removeCollectorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void viewCollectorDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void addNotifierToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void editNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void removeNotifierToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void showDefaultNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void showAllNotifiersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void closeAllChildWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
             //PausePolling(true);
@@ -273,6 +896,36 @@ namespace QuickMon
             }
             //ResumePolling();
         }
+        private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void pollingSlowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void pollingNormalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void pollingFastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void customPollingFrequencyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void manageTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void restartInAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!PerformCleanShutdown(true))
+                return;
+            Security.RestartInAdminMode(Application.ExecutablePath);
+        }
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //HideCollectorContextMenu();
@@ -284,30 +937,140 @@ namespace QuickMon
         #region Label clicks
         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //bool timerEnabled = mainRefreshTimer.Enabled;
-            //mainRefreshTimer.Enabled = false; //temporary stops it.
-            //EditMonitorPackConfig emc = new EditMonitorPackConfig();
-            //emc.SelectedMonitorPack = monitorPack;
-            //if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    SetMonitorChanged();
-            //    SetMonitorPackNameDescription();
-            //    DoAutoSave();
-            //    if (emc.RequestCollectorsRefresh)
-            //    {
-            //        foreach (CollectorEntry entry in monitorPack.Collectors)
-            //        {
-            //            entry.RefreshCollectorConfig(monitorPack.ConfigVariables);
-            //            entry.RefreshDetailsIfOpen();
-            //        }
-            //    }
-            //}
-            //SetPollingFrequency(timerEnabled);
+            bool timerEnabled = mainRefreshTimer.Enabled;
+            mainRefreshTimer.Enabled = false; //temporary stops it.
+            EditMonitorPackConfig emc = new EditMonitorPackConfig();
+            emc.SelectedMonitorPack = monitorPack;
+            if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SetMonitorChanged();
+                SetMonitorPackNameDescription();
+                DoAutoSave();
+                if (emc.RequestCollectorsRefresh)
+                {
+                    foreach (CollectorHost entry in monitorPack.CollectorHosts)
+                    {
+                        //entry.RefreshCollectorConfig(monitorPack.ConfigVariables);
+                        //entry.RefreshDetailsIfOpen();
+                    }
+                }
+            }
+            SetPollingFrequency(timerEnabled);
         }
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
             llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+        }
+        #endregion
+
+        #region Performance counters
+        private void InitializeGlobalPerformanceCounters()
+        {
+            try
+            {
+                CounterCreationData[] quickMonCreationData = new CounterCreationData[]
+                    {
+                        new CounterCreationData("Collector Host success states/Sec", "Collector successful states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Host warning states/Sec", "Collector warning states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Host error states/Sec", "Collector error states per second", PerformanceCounterType.RateOfCountsPerSecond32),                        
+                        new CounterCreationData("Collector Hosts queried/Sec", "Number of Collectors queried per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Hosts query time", "Collector total query time (ms)", PerformanceCounterType.NumberOfItems32),
+                        new CounterCreationData("Selected Collector Host query time", "Selected Collector query time (ms)", PerformanceCounterType.NumberOfItems32)
+                    };
+
+                if (PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {
+                    PerformanceCounterCategory pcC = new PerformanceCounterCategory(quickMonPCCategory);
+                    if (pcC.GetCounters().Count() != quickMonCreationData.Length)
+                    {
+                        PerformanceCounterCategory.Delete(quickMonPCCategory);
+                    }
+                }
+
+                if (!PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {
+                    PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
+                }
+                try
+                {
+                    collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host error states/Sec");
+                    collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host warning states/Sec");
+                    collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host success states/Sec");
+                    collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collector Hosts queried/Sec");
+                    collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collector Hosts query time");
+                    selectedCollectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Selected Collector Host query time");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error initializing application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Requested registry access is not allowed"))
+                {
+                    if (Security.IsInAdminMode())
+                        MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else //try launching in admin mode
+                    {
+                        MessageBox.Show("QuickMon 3 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Properties.Settings.Default.Save();
+                        Security.RestartInAdminMode(Application.ExecutablePath);
+                    }
+                }
+                else
+                    MessageBox.Show("Error creating application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
+        {
+            PerformanceCounter counter = new PerformanceCounter(categoryName, counterName, false);
+            counter.BeginInit();
+            counter.RawValue = 0;
+            counter.EndInit();
+            return counter;
+        }
+        public void ClosePerformanceCounters()
+        {
+            SetCounterValue(collectorsQueryTime, 0, "Collector total query time (ms)");
+            SetCounterValue(selectedCollectorsQueryTime, 0, "Selected collector query time (ms)");
+        }
+        private void SetCounterValue(PerformanceCounter counter, long value, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    UpdateStatusbar("Performance counter not set up or installed! : " + description);
+                }
+                else
+                {
+                    counter.RawValue = value;
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
+        }
+        private void IncrementCounter(PerformanceCounter counter, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    UpdateStatusbar("Performance counter not set up or installed! : " + description);
+                }
+                else
+                {
+                    counter.Increment();
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
         }
         #endregion
 
@@ -330,11 +1093,79 @@ namespace QuickMon
         } 
         #endregion
 
+        private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            CheckCollectorContextMenuEnables();            
+        }
 
+        private void CheckCollectorContextMenuEnables()
+        {
+            //editCollectorToolStripMenuItem
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
 
+                //popedContainerForTreeView.cmdViewDetails.Enabled = !entry.IsFolder;
+                //popedContainerForTreeView.cmdEditCollector.Enabled = true;
+                //popedContainerForTreeView.cmdDeleteCollector.Enabled = true;
+                //popedContainerForTreeView.cmdDisableCollector.Enabled = true;
+                //popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.WhiteSmoke;
+                //popedContainerForTreeView.cmdDisableCollector.BackgroundImage = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden16x16 : global::QuickMon.Properties.Resources.ForbiddenNot16x16;
 
+                //collectorTreeViewDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
+                viewCollectorDetailsToolStripMenuItem.Enabled = true;
+                //collectorTreeEditConfigToolStripMenuItem.Enabled = true;
+                editCollectorToolStripMenuItem.Enabled = true;
+                removeCollectorToolStripMenuItem1.Enabled = true;
+                //disableCollectorTreeToolStripMenuItem.Enabled = true;
+                //removeCollectorToolStripMenuItem.Enabled = true;
+                //disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable" : "Enable";
 
+                //popedContainerForTreeView.cmdCopy.Enabled = true;
+                //popedContainerForTreeView.cmdStats.Enabled = !entry.IsFolder;
+                //collectorStatisticsToolStripMenuItem.Enabled = !entry.IsFolder;
+            }
+            else
+            {
+                //popedContainerForTreeView.cmdViewDetails.Enabled = false;
+                //popedContainerForTreeView.cmdEditCollector.Enabled = false;
+                //popedContainerForTreeView.cmdDeleteCollector.Enabled = false;
+                //popedContainerForTreeView.cmdDisableCollector.Enabled = false;
 
+                //collectorTreeViewDetailsToolStripMenuItem.Enabled = false;
+                viewCollectorDetailsToolStripMenuItem.Enabled = false;
+                //collectorTreeEditConfigToolStripMenuItem.Enabled = false;
+                editCollectorToolStripMenuItem.Enabled = false;
+                //disableCollectorTreeToolStripMenuItem.Enabled = false;
+                //popedContainerForTreeView.cmdDisableCollector.BackgroundImage = global::QuickMon.Properties.Resources.ForbiddenNot16x16;
+                //removeCollectorToolStripMenuItem.Enabled = false;
+                removeCollectorToolStripMenuItem1.Enabled = false;
+
+                //popedContainerForTreeView.cmdCopy.Enabled = false;
+                //popedContainerForTreeView.cmdStats.Enabled = false;
+                //collectorStatisticsToolStripMenuItem.Enabled = false;
+            }
+            //popedContainerForTreeView.cmdPaste.Enabled = false;
+            //popedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
+            if (Clipboard.ContainsText())
+            {
+                string clipboardTest = Clipboard.GetText().Trim(' ', '\r', '\n');
+                if (clipboardTest.StartsWith("<collectorHosts>") && clipboardTest.EndsWith("</collectorHosts>"))
+                {
+                    //try
+                    //{
+                    //    List<CollectorHost> pastedCollectorEntries = CollectorHost.GetCollectorEntriesFromString(clipboardTest);
+                    //    popedContainerForTreeView.cmdPaste.Enabled = true;
+                    //    popedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
+                    //    copiedCollectorList = pastedCollectorEntries;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    //}
+                }
+            }
+        }
 
 
     }

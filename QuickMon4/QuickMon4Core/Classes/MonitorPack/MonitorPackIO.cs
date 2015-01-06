@@ -164,6 +164,38 @@ namespace QuickMon
             MonitorPackPath = configurationFile;
             RaiseMonitorPackPathChanged(MonitorPackPath);
         }
+        public string ToXml()
+        {
+            string defaultViewerNotifier = "";
+            if (DefaultViewerNotifier != null)
+                defaultViewerNotifier = DefaultViewerNotifier.Name;
+            string outputXml = string.Format(
+                @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" defaultNotifier=""{4}"" " +
+                  @"runCorrectiveScripts=""{5}"" stateHistorySize=""{6}"" pollingFreqSecOverride=""{7}"">" + "\r\n" +
+                  "<configVars>\r\n" +
+                  "{8}\r\n" +
+                  "</configVars>\r\n" +
+                  "<collectorHosts>\r\n" +
+                  "{9}\r\n" +
+                  "</collectorHosts>\r\n" +
+                  "<notifierHosts>\r\n" +
+                  "{10}\r\n" +
+                  "</notifierHosts>\r\n" +
+                "</monitorPack>",
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
+                Name, TypeName, Enabled, defaultViewerNotifier,
+                RunCorrectiveScripts,
+                CollectorStateHistorySize,
+                PollingFrequencyOverrideSec,
+                GetConfigVarXml(),
+                GetConfigForCollectors(),
+                GetConfigForNotifiers());
+            //XmlDocument outputDoc = new XmlDocument();
+            //outputDoc.LoadXml(outputXml);
+            //outputDoc.PreserveWhitespace = false;
+            //outputDoc.Normalize();
+            return XmlFormattingUtils.NormalizeXML(outputXml);
+        }
         private string GetConfigVarXml()
         {
             StringBuilder configVarXml = new StringBuilder();
@@ -196,7 +228,7 @@ namespace QuickMon
         #region Global settings
         public static string GetQuickMonUserDataDirectory()
         {
-            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 3");
+            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 4");
             try
             {
                 if (!System.IO.Directory.Exists(dataDir))
