@@ -16,6 +16,10 @@ namespace QuickMon
         public MainForm()
         {
             InitializeComponent();
+            poppedContainerForTreeView = new Controls.CollectorContextMenuControl();
+            popperContainerForTreeView = new Controls.PopperContainer(poppedContainerForTreeView);
+            //poppedContainerForListView = new Controls.NotifierContextMenuControl();
+            //popperContainerForListView = new Controls.PopperContainer(popedContainerForListView);
         }
 
         #region Private vars
@@ -35,7 +39,7 @@ namespace QuickMon
 
         private Point collectorContextMenuLaunchPoint = new Point();
         private Point notifierContextMenuLaunchPoint = new Point();
-        private QuickMon.Controls.CollectorContextMenuControl popepdContainerForTreeView;
+        private QuickMon.Controls.CollectorContextMenuControl poppedContainerForTreeView;
         private QuickMon.Controls.PopperContainer popperContainerForTreeView;
         //private QuickMon.Controls.NotifierContextMenuControl popedContainerForListView;
         private QuickMon.Controls.PopperContainer poperContainerForListView;
@@ -165,6 +169,20 @@ namespace QuickMon
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
             CheckCollectorContextMenuEnables();            
+        }
+        private void tvwCollectors_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point topabsolute = this.PointToScreen(panel1.Location);
+                Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
+                Point calcPoint = new Point(Cursor.Position.X - tvwCollectors.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
+                collectorContextMenuLaunchPoint = calcPoint;
+                CheckCollectorContextMenuEnables();
+
+                showCollectorContextMenuTimer.Enabled = false;
+                showCollectorContextMenuTimer.Enabled = true;
+            }
         }
         private Point GetControlLocationWithinParent(Control control)
         {
@@ -1406,6 +1424,8 @@ namespace QuickMon
             showCollectorContextMenuTimer.Enabled = false;
             popperContainerForTreeView.Show(this, collectorContextMenuLaunchPoint);
         }
+
+
 
 
     }
