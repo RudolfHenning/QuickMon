@@ -82,7 +82,11 @@ namespace QuickMon
         }
         public void ClosePerformanceCounters()
         {
-            PCSetCollectorsQueryTime(0);
+            try
+            {
+                PCSetCollectorsQueryTime(0);
+            }
+            catch { }
         }
         private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
         {
@@ -117,7 +121,6 @@ namespace QuickMon
         {
             IncrementCounter(collectorAgentsQueriedPerSecond, "Collector Agents queried per second");
         }
-
         private void PCRaiseNotifierAlertSend()
         {
             IncrementCounter(notifierAlertSendPerSec, "Notifier alerts send per second");

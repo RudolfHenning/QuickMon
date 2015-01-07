@@ -247,5 +247,16 @@ namespace QuickMon
         #endregion 
         #endregion
 
+        #region Public util methods
+        public string ToRemoteHostName()
+        {
+            if (EnableRemoteExecute)
+                return string.Format("{0}:{1}", RemoteAgentHostAddress, RemoteAgentHostPort);
+            else if (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)
+                return string.Format("{0}:{1}", OverrideRemoteAgentHostAddress, OverrideRemoteAgentHostPort);
+            else
+                return "";
+        } 
+        #endregion
     }
 }

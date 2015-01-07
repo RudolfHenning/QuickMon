@@ -32,6 +32,13 @@ namespace QuickMon
         private PerformanceCounter collectorsQueryTime = null;
         private PerformanceCounter selectedCollectorsQueryTime = null;
         #endregion
+
+        private Point collectorContextMenuLaunchPoint = new Point();
+        private Point notifierContextMenuLaunchPoint = new Point();
+        private QuickMon.Controls.CollectorContextMenuControl popepdContainerForTreeView;
+        private QuickMon.Controls.PopperContainer popperContainerForTreeView;
+        //private QuickMon.Controls.NotifierContextMenuControl popedContainerForListView;
+        private QuickMon.Controls.PopperContainer poperContainerForListView;
         #endregion
 
         #region Form events
@@ -112,30 +119,30 @@ namespace QuickMon
         {
             if (dragNode != null)
             {
-                ////set Collector Parent if needed
-                //if (dragNode.Tag is CollectorEntry)
-                //{
-                //    if (dragNode.Parent.Tag is CollectorEntry)
-                //    {
-                //        ((CollectorEntry)dragNode.Tag).ParentCollectorId = ((CollectorEntry)dragNode.Parent.Tag).UniqueId;
-                //    }
-                //    else
-                //        ((CollectorEntry)dragNode.Tag).ParentCollectorId = "";
-                //}
-                //SetMonitorChanged();
-                //DoAutoSave();
+                //set Collector Parent if needed
+                if (dragNode.Tag is CollectorHost)
+                {
+                    if (dragNode.Parent.Tag is CollectorHost)
+                    {
+                        ((CollectorHost)dragNode.Tag).ParentCollectorId = ((CollectorHost)dragNode.Parent.Tag).UniqueId;
+                    }
+                    else
+                        ((CollectorHost)dragNode.Tag).ParentCollectorId = "";
+                }
+                SetMonitorChanged();
+                DoAutoSave();
             }
         }
         private void tvwCollectors_EnterKeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.Control)
-            //{
-            //    collectorTreeEditConfigToolStripMenuItem_Click(null, null);
-            //}
-            //else
-            //{
-            //    collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
-            //}
+            if (e.Control)
+            {
+                editCollectorToolStripMenuItem_Click(null, null);
+            }
+            else
+            {
+                //collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
+            }
         }
         private void tvwCollectors_ContextMenuShowUp()
         {
@@ -150,10 +157,14 @@ namespace QuickMon
             {
                 calcPoint = new Point(tvwCollectors.Location.X + (tvwCollectors.Width / 2), tvwCollectors.Location.Y + (tvwCollectors.Height / 2));
             }
-            //CheckCollectorContextMenuEnables();
-            //collectorContextMenuLaunchPoint = calcPoint;
-            //showCollectorContextMenuTimer.Enabled = false;
-            //showCollectorContextMenuTimer.Enabled = true;
+            CheckCollectorContextMenuEnables();
+            collectorContextMenuLaunchPoint = calcPoint;
+            showCollectorContextMenuTimer.Enabled = false;
+            showCollectorContextMenuTimer.Enabled = true;
+        }
+        private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            CheckCollectorContextMenuEnables();            
         }
         private Point GetControlLocationWithinParent(Control control)
         {
@@ -273,7 +284,7 @@ namespace QuickMon
             monitorPack = new MonitorPack();
             monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
             monitorPack.MonitorPackPath = "";
-            LoadTreeFromMonitorPack();
+            LoadControlsFromMonitorPack();
             monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
             monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
             monitorPack.OnNotifierError += monitorPack_OnNotifierError;
@@ -309,14 +320,6 @@ namespace QuickMon
                     try
                     {
                         WaitForPollingToFinish(5);
-                        //monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
-                        //monitorPack.OnNotifierError -= monitorPack_OnNotifierError;
-                        //monitorPack.RunCollectorHostCorrectiveWarningScript -= monitorPack_RunCollectorHostCorrectiveWarningScript;
-                        //monitorPack.RunCollectorHostCorrectiveErrorScript -= monitorPack_RunCollectorHostCorrectiveErrorScript;
-                        //monitorPack.RunCollectorHostRestorationScript -= monitorPack_RunCollectorHostRestorationScript;
-                        //monitorPack.CollectorHostCalled -= monitorPack_CollectorHostCalled;
-                        //monitorPack.CollectorHostAllAgentsExecutionTime -= monitorPack_CollectorHostAllAgentsExecutionTime;
-
                         monitorPack.ClosePerformanceCounters();
                     }
                     catch { }
@@ -325,19 +328,11 @@ namespace QuickMon
                         monitorPack = null;
                     }
                 }
-
-                TreeNode root = tvwCollectors.Nodes[0];
-                root.Nodes.Clear();
-
-                root.Text = "COLLECTOR HOSTS - Loading...";
-                Application.DoEvents();
-                Cursor.Current = Cursors.WaitCursor;
-
                 monitorPack = new MonitorPack();
                 //monitorPack.CollecterLoading += monitorPack_CollecterLoading;
 
                 monitorPack.Load(monitorPackPath);
-                LoadTreeFromMonitorPack();
+                LoadControlsFromMonitorPack();
                 monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
                 monitorPack.OnNotifierError += monitorPack_OnNotifierError;
@@ -348,35 +343,53 @@ namespace QuickMon
                 monitorPack.CollectorHostAllAgentsExecutionTime += monitorPack_CollectorHostAllAgentsExecutionTime;
                 monitorPack.RunningAttended = AttendedOption.OnlyAttended;
 
-                Cursor.Current = Cursors.Default;
-                tvwCollectors.Nodes[0].Text = "COLLECTOR HOSTS";
-                Application.DoEvents();
-
                 AddMonitorPackFileToRecentList(monitorPackPath);
-
-                lblNoNotifiersYet.Visible = monitorPack.NotifierHosts.Count == 0;
+                
                 ResumePolling();
                 monitorPackChanged = false;
-                UpdateAppTitle();
             }
         }
-        private void LoadTreeFromMonitorPack()
+        private void LoadControlsFromMonitorPack()
         {
             firstRefresh = true;
             SetMonitorPackNameDescription();
             TreeNode root = tvwCollectors.Nodes[0];
             root.Nodes.Clear();
-            List<CollectorHost> noDependantCollectors = (from c in monitorPack.CollectorHosts
-                                                          where c.ParentCollectorId.Length == 0
-                                                          select c).ToList();
-            foreach (CollectorHost collector in noDependantCollectors)
+            root.Text = "COLLECTORS - Loading...";
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+
+            #region Load Collectors
+            if (monitorPack != null)
             {
-                LoadCollectorNode(root, collector);
+                List<CollectorHost> noDependantCollectors = (from c in monitorPack.CollectorHosts
+                                                             where c.ParentCollectorId.Length == 0
+                                                             select c).ToList();
+                foreach (CollectorHost collector in noDependantCollectors)
+                {
+                    LoadCollectorNode(root, collector);
+                }                
             }
             root.Expand();
+            #endregion
+
+            #region Load Notifiers
+            lvwNotifiers.Items.Clear();
+            if (monitorPack != null && monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
+            {
+                foreach (NotifierHost n in monitorPack.NotifierHosts)
+                {
+                    ListViewItem lvi = new ListViewItem(n.Name);
+                    lvi.ImageIndex = 0; // (n..Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
+                    lvi.Tag = n;
+                    lvi.ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
+                    lvwNotifiers.Items.Add(lvi);
+                }
+            }
+            lblNoNotifiersYet.Visible = monitorPack.NotifierHosts.Count == 0;
+            #endregion
 
             UpdateAppTitle();
-            LoadNotifiersList();
             try
             {
                 showDefaultNotifierToolStripMenuItem.Enabled = false;
@@ -391,6 +404,10 @@ namespace QuickMon
             catch { }
             tvwCollectors.SelectedNode = root;
             root.EnsureVisible();
+
+            Cursor.Current = Cursors.Default;
+            root.Text = "COLLECTOR";
+            Application.DoEvents();
         }
         private void LoadCollectorNode(TreeNode root, CollectorHost collector)
         {
@@ -419,22 +436,6 @@ namespace QuickMon
             root.Nodes.Add(collectorNode);
             if (collector.Enabled && collector.ExpandOnStart)
                 collectorNode.Expand();
-        }
-        private void LoadNotifiersList()
-        {
-            lvwNotifiers.Items.Clear();
-            if (monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
-            {
-                foreach (NotifierHost n in monitorPack.NotifierHosts)
-                {
-                    ListViewItem lvi = new ListViewItem(n.Name);
-                    lvi.ImageIndex = 0; // (n..Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
-                    lvi.Tag = n;
-                    lvi.ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
-                    lvwNotifiers.Items.Add(lvi);
-                }
-            }
-            lblNoNotifiersYet.Visible = monitorPack.NotifierHosts.Count == 0;
         }
         private void SetMonitorPackNameDescription()
         {
@@ -555,15 +556,33 @@ namespace QuickMon
         }
         private void SortItemsByTreeView()
         {
-            
+            TreeNode collectorRootNode = tvwCollectors.Nodes[0];
+            List<CollectorHost> sortedCollectors = new List<CollectorHost>();
+            AppendSortedCollectors(collectorRootNode, sortedCollectors);
+            monitorPack.CollectorHosts.Clear();
+            foreach (CollectorHost c in sortedCollectors)
+            {
+                monitorPack.CollectorHosts.Add(c);
+            }
+        }
+        private void AppendSortedCollectors(TreeNode treeNode, List<CollectorHost> sortedCollectors)
+        {
+            foreach (TreeNode childNode in treeNode.Nodes)
+            {
+                if (childNode.Tag != null && childNode.Tag is CollectorHost)
+                {
+                    sortedCollectors.Add((CollectorHost)childNode.Tag);
+                    AppendSortedCollectors(childNode, sortedCollectors);
+                }
+            }
         }
         private void WaitForPollingToFinish(int secondsToWait)
         {
-            if (monitorPack != null && monitorPack.BusyPolling)
+            if (monitorPack != null && monitorPack.IsBusyPolling)
             {
                 monitorPack.AbortPolling = true;
                 DateTime abortStart = DateTime.Now;
-                while (monitorPack.BusyPolling && abortStart.AddSeconds(secondsToWait) > DateTime.Now)
+                while (monitorPack.IsBusyPolling && abortStart.AddSeconds(secondsToWait) > DateTime.Now)
                 {
                     Application.DoEvents();
                     Cursor.Current = Cursors.WaitCursor;
@@ -603,7 +622,206 @@ namespace QuickMon
         {
             throw new NotImplementedException();
         }
+        private void RemoveCollector(TreeNode parentNode)
+        {
+            foreach (TreeNode collectorNode in parentNode.Nodes)
+            {
+                RemoveCollector(collectorNode);
+            }
+            CollectorHost ce = (CollectorHost)parentNode.Tag;
+            monitorPack.CollectorHosts.Remove(ce);
+        }
+        #endregion
 
+        #region Collector editing actions
+        private void CreateNewCollector()
+        {
+            try
+            {
+                HideCollectorContextMenu();
+                CollectorHost newCollectorEntry = new CollectorHost();
+                EditCollectorHost editCollectorHost = new EditCollectorHost();
+                newCollectorEntry.ParentCollectorId = "";
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                {
+                    CollectorHost parentCollectorEntry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                    newCollectorEntry.ParentCollectorId = parentCollectorEntry.UniqueId;
+                }
+
+                editCollectorHost.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                      select krh).ToList();
+                if (editCollectorHost.ShowDialog(newCollectorEntry, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                {
+                    SetMonitorChanged();
+                    newCollectorEntry.ReconfigureFromXml(editCollectorHost.SelectedConfig, monitorPack.ConfigVariables, true);
+                    monitorPack.CollectorHosts.Add(newCollectorEntry);
+                    TreeNode parentNode = tvwCollectors.Nodes[0];
+                    if (newCollectorEntry.ParentCollectorId != null && newCollectorEntry.ParentCollectorId.Length > 0)
+                    {
+                        parentNode = GetNodeByCollectorId(newCollectorEntry.ParentCollectorId);
+                        if (parentNode == null)
+                            parentNode = tvwCollectors.Nodes[0];
+                    }
+                    LoadCollectorNode(parentNode, newCollectorEntry);
+                    parentNode.Expand();
+                    DoAutoSave();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "New Collector", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void EditCollectorConfig()
+        {
+            PausePolling();
+            try
+            {
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                {
+                    TreeNode currentNode = tvwCollectors.SelectedNode;
+                    CollectorHost collectorEntry = (CollectorHost)currentNode.Tag;
+                    EditCollectorHost editCollectorHost = new EditCollectorHost();
+                    editCollectorHost.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                    select krh).ToList();
+                    if (editCollectorHost.ShowDialog(collectorEntry, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        SetMonitorChanged();
+                        collectorEntry.ReconfigureFromXml(editCollectorHost.SelectedConfig, monitorPack.ConfigVariables, true);
+                        //currentNode.Tag = collectorEntry;
+                        currentNode.Text = collectorEntry.Name;
+                        if (collectorEntry.EnableRemoteExecute || collectorEntry.ForceRemoteExcuteOnChildCollectors)
+                        {
+                            tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (collectorEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collectorEntry.RemoteAgentHostAddress, collectorEntry.RemoteAgentHostPort);
+                        }
+                        //correcting for parent node changes
+                        if (collectorEntry.ParentCollectorId == null || collectorEntry.ParentCollectorId == "")
+                        {
+                            if (currentNode.Parent != tvwCollectors.Nodes[0])
+                            {
+                                currentNode.Parent.Nodes.Remove(currentNode);
+                                tvwCollectors.Nodes[0].Nodes.Add(currentNode);
+                            }
+                        }
+                        else
+                        {
+                            TreeNode parentNode = GetNodeByCollectorId(collectorEntry.ParentCollectorId);
+                            if (currentNode.Parent != parentNode)
+                            {
+                                currentNode.Parent.Nodes.Remove(currentNode);
+                                parentNode.Nodes.Add(currentNode);
+                            }
+                        }
+                        //Ensure it is still visible and selected
+                        currentNode.EnsureVisible();
+                        tvwCollectors.SelectedNode = currentNode;
+
+                        //if (!collectorEntry.IsFolder)
+                        //    collectorEntry.RefreshDetailsIfOpen();
+
+                        //if autosaving is enabled
+                        DoAutoSave();
+
+                        //add any new remote host entries
+                        if (collectorEntry.RemoteAgentHostAddress != null && collectorEntry.RemoteAgentHostAddress.Length > 0 && collectorEntry.EnableRemoteExecute)
+                        {
+                            if (!Properties.Settings.Default.KnownRemoteHosts.Contains(collectorEntry.ToRemoteHostName()))
+                                Properties.Settings.Default.KnownRemoteHosts.Add(collectorEntry.ToRemoteHostName());
+                        }
+                    }
+
+                    //AgentHelper.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
+                    //                                select krh).ToList();
+                    //if (AgentHelper.EditCollectorEntry(collectorEntry, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    //{
+                    //    SetMonitorChanged();
+                    //    currentNode.Text = collectorEntry.Name;
+                    //    if (collectorEntry.EnableRemoteExecute || collectorEntry.ForceRemoteExcuteOnChildCollectors)
+                    //    {
+                    //        tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (collectorEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collectorEntry.RemoteAgentHostAddress, collectorEntry.RemoteAgentHostPort);
+                    //    }
+
+                    //    //correcting for parent node changes
+                    //    if (collectorEntry.ParentCollectorId == null || collectorEntry.ParentCollectorId == "")
+                    //    {
+                    //        if (currentNode.Parent != tvwCollectors.Nodes[0])
+                    //        {
+                    //            currentNode.Parent.Nodes.Remove(currentNode);
+                    //            tvwCollectors.Nodes[0].Nodes.Add(currentNode);
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        TreeNode parentNode = GetNodeByCollectorId(collectorEntry.ParentCollectorId);
+                    //        if (currentNode.Parent != parentNode)
+                    //        {
+                    //            currentNode.Parent.Nodes.Remove(currentNode);
+                    //            parentNode.Nodes.Add(currentNode);
+                    //        }
+                    //    }
+                    //    //Ensure it is still visible and selected
+                    //    currentNode.EnsureVisible();
+                    //    tvwCollectors.SelectedNode = currentNode;
+
+                    //    if (!collectorEntry.IsFolder)
+                    //        collectorEntry.RefreshDetailsIfOpen();
+
+                    //    //if autosaving is enabled
+                    //    DoAutoSave();
+
+                    //    //add any new remote host entries
+                    //    if (collectorEntry.RemoteAgentHostAddress != null && collectorEntry.RemoteAgentHostAddress.Length > 0 && collectorEntry.EnableRemoteExecute)
+                    //    {
+                    //        if (!Properties.Settings.Default.KnownRemoteHosts.Contains(collectorEntry.ToRemoteHostName()))
+                    //            Properties.Settings.Default.KnownRemoteHosts.Add(collectorEntry.ToRemoteHostName());
+                    //    }
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            ResumePolling();
+        }
+        private void DeleteCollector()
+        {
+            TreeNode currentNode = tvwCollectors.SelectedNode;
+            if (currentNode.Tag is CollectorHost)
+            {
+                if (MessageBox.Show("Are you sure you want to remove this collector (and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    SetMonitorChanged();
+                    RemoveCollector(currentNode);
+                    RefreshMonitorPack(true, true);
+                    if (currentNode.Parent != null)
+                    {
+                        currentNode.Parent.Nodes.Remove(currentNode);
+                    }
+                    DoAutoSave();
+                }
+            }
+        }
+        private TreeNode GetNodeByCollectorId(string uniqueId, TreeNode root = null)
+        {
+            if (root == null)
+            {
+                root = tvwCollectors.Nodes[0];
+            }
+            foreach (TreeNode childNode in root.Nodes)
+            {
+                if (childNode.Tag != null && childNode.Tag is CollectorHost)
+                {
+                    CollectorHost theEntry = (CollectorHost)childNode.Tag;
+                    if (theEntry.UniqueId == uniqueId)
+                        return childNode;
+                }
+                TreeNode testGrandChild = GetNodeByCollectorId(uniqueId, childNode);
+                if (testGrandChild != null)
+                    return testGrandChild;
+            }
+            return null;
+        }
         #endregion
 
         #region RecentMonitorPackList
@@ -685,7 +903,18 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        } 
+        }
+        private void recentMonitorPackToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            QuickMon.Forms.RecentMonitorPacks recentMonitorPacks = new QuickMon.Forms.RecentMonitorPacks();
+            if (recentMonitorPacks.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                CloseAllDetailWindows();
+                LoadMonitorPack(recentMonitorPacks.SelectedPack);
+                RefreshMonitorPack(true, true);
+            }   
+        }
         #endregion
 
         #region Private methods
@@ -728,11 +957,11 @@ namespace QuickMon
                 Application.DoEvents();
                 mainRefreshTimer.Enabled = false;
                 CloseAllDetailWindows();
-                if (monitorPack.BusyPolling)
+                if (monitorPack.IsBusyPolling)
                 {
                     monitorPack.AbortPolling = true;
                     DateTime abortStart = DateTime.Now;
-                    while (monitorPack.BusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
+                    while (monitorPack.IsBusyPolling && abortStart.AddSeconds(5) > DateTime.Now)
                     {
                         Application.DoEvents();
                     }
@@ -839,15 +1068,18 @@ namespace QuickMon
         }
         private void addCollectorToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            HideCollectorContextMenu();
+            CreateNewCollector();
         }
         private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            HideCollectorContextMenu();
+            EditCollectorConfig();
         }
         private void removeCollectorToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            HideCollectorContextMenu();
+            DeleteCollector();
         }
         private void viewCollectorDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -879,22 +1111,22 @@ namespace QuickMon
         }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
-            //PausePolling(true);
-            //HideCollectorContextMenu();
+            PausePolling(true);
+            HideCollectorContextMenu();
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
-            //generalSettings.PollingEnabled = timerEnabled;
+            generalSettings.PollingEnabled = timerWasEnabledBeforePausing;
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //LoadRecentMonitorPackList();
+                LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
-                //if (monitorPack != null)
-                //    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                if (monitorPack != null)
+                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
 
                 Properties.Settings.Default.PollFrequencySec = generalSettings.PollingFrequencySec;
-                //timerEnabled = generalSettings.PollingEnabled;
+                timerWasEnabledBeforePausing = generalSettings.PollingEnabled;
             }
-            //ResumePolling();
+            ResumePolling();
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -939,22 +1171,29 @@ namespace QuickMon
         {
             bool timerEnabled = mainRefreshTimer.Enabled;
             mainRefreshTimer.Enabled = false; //temporary stops it.
+
+            UpdateStatusbar("Stopping polling...");
+            WaitForPollingToFinish(5);
+            UpdateStatusbar("Waiting for editing to finish");
+
             EditMonitorPackConfig emc = new EditMonitorPackConfig();
             emc.SelectedMonitorPack = monitorPack;
             if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                SetMonitorChanged();
-                SetMonitorPackNameDescription();
-                DoAutoSave();
-                if (emc.RequestCollectorsRefresh)
+            {                
+                SetMonitorChanged();                
+                if (emc.TriggerMonitorPackReload)
                 {
-                    foreach (CollectorHost entry in monitorPack.CollectorHosts)
-                    {
-                        //entry.RefreshCollectorConfig(monitorPack.ConfigVariables);
-                        //entry.RefreshDetailsIfOpen();
-                    }
+                    monitorPack = emc.SelectedMonitorPack;
+                    UpdateStatusbar("Reloading monitor pack...");
+                    LoadControlsFromMonitorPack();
                 }
+                SetMonitorPackNameDescription();                
+                DoAutoSave();
             }
+            if (timerEnabled)
+                UpdateStatusbar("Resuming polling...");
+            else
+                UpdateStatusbar("");
             SetPollingFrequency(timerEnabled);
         }
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1093,11 +1332,6 @@ namespace QuickMon
         } 
         #endregion
 
-        private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            CheckCollectorContextMenuEnables();            
-        }
-
         private void CheckCollectorContextMenuEnables()
         {
             //editCollectorToolStripMenuItem
@@ -1165,6 +1399,12 @@ namespace QuickMon
                     //}
                 }
             }
+        }
+
+        private void showCollectorContextMenuTimer_Tick(object sender, EventArgs e)
+        {
+            showCollectorContextMenuTimer.Enabled = false;
+            popperContainerForTreeView.Show(this, collectorContextMenuLaunchPoint);
         }
 
 

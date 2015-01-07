@@ -45,6 +45,12 @@
             this.lblMonitorPackPath = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneric = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pollingGroupBox = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.tabAdvancedConfig = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -58,26 +64,20 @@
             this.label41 = new System.Windows.Forms.Label();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.pollingGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lvwConfigVars = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label37 = new System.Windows.Forms.Label();
+            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneric.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.pollingGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.tabAdvancedConfig.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
-            this.pollingGroupBox.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -257,6 +257,77 @@
             this.tabGeneric.Text = "Generic";
             this.tabGeneric.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cboDefaultNotifier);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.collectorStateHistorySizeNumericUpDown);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.chkCorrectiveScripts);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Location = new System.Drawing.Point(6, 34);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(569, 99);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Collectors and Notifiers";
+            // 
+            // pollingGroupBox
+            // 
+            this.pollingGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pollingGroupBox.Controls.Add(this.label6);
+            this.pollingGroupBox.Controls.Add(this.label4);
+            this.pollingGroupBox.Controls.Add(this.label5);
+            this.pollingGroupBox.Controls.Add(this.freqSecNumericUpDown);
+            this.pollingGroupBox.Location = new System.Drawing.Point(6, 139);
+            this.pollingGroupBox.Name = "pollingGroupBox";
+            this.pollingGroupBox.Size = new System.Drawing.Size(569, 60);
+            this.pollingGroupBox.TabIndex = 3;
+            this.pollingGroupBox.TabStop = false;
+            this.pollingGroupBox.Text = "Polling";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Frequency";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(200, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(229, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "If frequency = 0 then application setting is used";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(153, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Sec";
+            // 
+            // freqSecNumericUpDown
+            // 
+            this.freqSecNumericUpDown.Location = new System.Drawing.Point(88, 18);
+            this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
+            this.freqSecNumericUpDown.Name = "freqSecNumericUpDown";
+            this.freqSecNumericUpDown.Size = new System.Drawing.Size(59, 20);
+            this.freqSecNumericUpDown.TabIndex = 1;
+            // 
             // tabAdvancedConfig
             // 
             this.tabAdvancedConfig.Controls.Add(this.groupBox5);
@@ -402,100 +473,6 @@
             this.label40.TabIndex = 2;
             this.label40.Text = "Search for";
             // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(6, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(98, 13);
-            this.label37.TabIndex = 0;
-            this.label37.Text = "Config variables";
-            // 
-            // llblRawEdit
-            // 
-            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblRawEdit.AutoSize = true;
-            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(9, 314);
-            this.llblRawEdit.Name = "llblRawEdit";
-            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
-            this.llblRawEdit.TabIndex = 4;
-            this.llblRawEdit.TabStop = true;
-            this.llblRawEdit.Text = "Edit RAW config";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(200, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(229, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "If frequency = 0 then application setting is used";
-            // 
-            // freqSecNumericUpDown
-            // 
-            this.freqSecNumericUpDown.Location = new System.Drawing.Point(88, 18);
-            this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
-            900,
-            0,
-            0,
-            0});
-            this.freqSecNumericUpDown.Name = "freqSecNumericUpDown";
-            this.freqSecNumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.freqSecNumericUpDown.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(153, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Sec";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Frequency";
-            // 
-            // pollingGroupBox
-            // 
-            this.pollingGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pollingGroupBox.Controls.Add(this.label6);
-            this.pollingGroupBox.Controls.Add(this.label4);
-            this.pollingGroupBox.Controls.Add(this.label5);
-            this.pollingGroupBox.Controls.Add(this.freqSecNumericUpDown);
-            this.pollingGroupBox.Location = new System.Drawing.Point(6, 139);
-            this.pollingGroupBox.Name = "pollingGroupBox";
-            this.pollingGroupBox.Size = new System.Drawing.Size(569, 60);
-            this.pollingGroupBox.TabIndex = 3;
-            this.pollingGroupBox.TabStop = false;
-            this.pollingGroupBox.Text = "Polling";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.cboDefaultNotifier);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.collectorStateHistorySizeNumericUpDown);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.chkCorrectiveScripts);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(6, 34);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(569, 99);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Collectors and Notifiers";
-            // 
             // lvwConfigVars
             // 
             this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -525,6 +502,30 @@
             this.valueColumnHeader.Text = "Replace by";
             this.valueColumnHeader.Width = 262;
             // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(6, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(98, 13);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "Config variables";
+            // 
+            // llblRawEdit
+            // 
+            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblRawEdit.AutoSize = true;
+            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRawEdit.Location = new System.Drawing.Point(9, 314);
+            this.llblRawEdit.Name = "llblRawEdit";
+            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
+            this.llblRawEdit.TabIndex = 4;
+            this.llblRawEdit.TabStop = true;
+            this.llblRawEdit.Text = "Edit RAW config";
+            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
+            // 
             // EditMonitorPackConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -551,16 +552,16 @@
             this.tabControl1.ResumeLayout(false);
             this.tabGeneric.ResumeLayout(false);
             this.tabGeneric.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.pollingGroupBox.ResumeLayout(false);
+            this.pollingGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             this.tabAdvancedConfig.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
-            this.pollingGroupBox.ResumeLayout(false);
-            this.pollingGroupBox.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

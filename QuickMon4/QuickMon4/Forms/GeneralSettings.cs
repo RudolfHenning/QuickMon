@@ -242,6 +242,31 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(ex.ToString());
             }
         }
+
+
+        #region Refresh statusses
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            refreshTimer.Enabled = false;
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                List<ListViewItem> items = new List<ListViewItem>();
+                items.AddRange((from ListViewItem lvi in lvwRemoteHosts.Items
+                                select lvi).ToArray());
+                foreach (ListViewItem lvi in lvwRemoteHosts.Items)
+                {
+                    SetListViewItemIcon(lvi, 3);
+                    lvi.SubItems[2].Text = "Loading...";
+                    System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Cursor.Current = Cursors.Default;
+        }
         private void RefreshItem(object o)
         {
             ListViewItem lvi = (ListViewItem)o;
@@ -275,7 +300,11 @@ namespace QuickMon
                     hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
                     if (!hostExists)
                     {
-                        UpdateListViewItem(lvi, 3, "N/A");
+                        UpdateListViewItem(lvi, 3, "Host not found");
+                    }
+                    else if (!CanPingHost(ri.Computer))
+                    {
+                        UpdateListViewItem(lvi, 3, "Host not pingable");
                     }
                     else
                     {
@@ -316,29 +345,20 @@ namespace QuickMon
                 UpdateListViewItem(lvi, 1, riEx.ToString());
             }
         }
-
-        #region Refresh statusses
-        private void refreshTimer_Tick(object sender, EventArgs e)
+        private bool CanPingHost(string hostName)
         {
-            refreshTimer.Enabled = false;
+            bool isPingable = false;
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                List<ListViewItem> items = new List<ListViewItem>();
-                items.AddRange((from ListViewItem lvi in lvwRemoteHosts.Items
-                                select lvi).ToArray());
-                foreach (ListViewItem lvi in lvwRemoteHosts.Items)
+                using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
                 {
-                    SetListViewItemIcon(lvi, 3);
-                    lvi.SubItems[2].Text = "Loading...";
-                    System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
+                    System.Net.NetworkInformation.PingReply reply = ping.Send(hostName, 2000);
+                    if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                        isPingable = true;
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            Cursor.Current = Cursors.Default;
+            catch { }
+            return isPingable;
         }
         private void SetListViewItemIcon(ListViewItem lvi, int imageIndex)
         {

@@ -55,6 +55,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextMenuControls\CollectorContextMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenuControls\CollectorContextMenuControl.Designer.cs">
+      <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContextMenuControls\PoppedContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenuControls\PopperContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\AboutQuickMon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +85,7 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RecentMonitorPacks.cs" />
     <Compile Include="Forms\TestCollectorHostEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +106,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ContextMenuControls\CollectorContextMenuControl.resx">
+      <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </EmbeddedResource>
@@ -138,6 +154,17 @@
   <ItemGroup>
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />
+    <None Include="Resources\save16x16.png" />
+    <None Include="Resources\tools16x16.png" />
+    <None Include="Resources\info16x16.png" />
+    <None Include="Resources\Blue3DGearEdit.png" />
+    <None Include="Resources\pastewithedit.png" />
+    <None Include="Resources\paste.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\ForbiddenGray16x16.png" />
+    <None Include="Resources\ForbiddenBue16x16.png" />
+    <None Include="Resources\animated.gif" />
+    <None Include="Resources\folderWLightning.ico" />
     <None Include="Resources\BlankMonitorPack.txt" />
     <None Include="Resources\folderOpen.png" />
     <None Include="Resources\BlueHeader2.png" />

@@ -46,10 +46,12 @@
             this.chkServices = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtHostName = new System.Windows.Forms.TextBox();
+            this.WaitingPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WaitingPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdRunTest
@@ -78,7 +80,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRemoteHost.Location = new System.Drawing.Point(121, 41);
             this.txtRemoteHost.Name = "txtRemoteHost";
-            this.txtRemoteHost.Size = new System.Drawing.Size(415, 20);
+            this.txtRemoteHost.Size = new System.Drawing.Size(449, 20);
             this.txtRemoteHost.TabIndex = 4;
             this.txtRemoteHost.Text = "localhost";
             // 
@@ -155,7 +157,7 @@
             // cmdClear
             // 
             this.cmdClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdClear.Location = new System.Drawing.Point(461, 144);
+            this.cmdClear.Location = new System.Drawing.Point(495, 144);
             this.cmdClear.Name = "cmdClear";
             this.cmdClear.Size = new System.Drawing.Size(75, 23);
             this.cmdClear.TabIndex = 8;
@@ -173,7 +175,7 @@
             this.txtAlerts.Name = "txtAlerts";
             this.txtAlerts.ReadOnly = true;
             this.txtAlerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAlerts.Size = new System.Drawing.Size(546, 193);
+            this.txtAlerts.Size = new System.Drawing.Size(580, 221);
             this.txtAlerts.TabIndex = 9;
             // 
             // groupBox2
@@ -236,7 +238,7 @@
             this.groupBox3.Controls.Add(this.txtHostName);
             this.groupBox3.Location = new System.Drawing.Point(241, 66);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(295, 41);
+            this.groupBox3.Size = new System.Drawing.Size(329, 41);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Run for computers";
@@ -247,15 +249,26 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHostName.Location = new System.Drawing.Point(6, 15);
             this.txtHostName.Name = "txtHostName";
-            this.txtHostName.Size = new System.Drawing.Size(283, 20);
+            this.txtHostName.Size = new System.Drawing.Size(317, 20);
             this.txtHostName.TabIndex = 0;
             this.txtHostName.Text = "localhost";
+            // 
+            // WaitingPictureBox
+            // 
+            this.WaitingPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.WaitingPictureBox.Image = global::QuickMon.Properties.Resources.animated;
+            this.WaitingPictureBox.Location = new System.Drawing.Point(224, 173);
+            this.WaitingPictureBox.Name = "WaitingPictureBox";
+            this.WaitingPictureBox.Size = new System.Drawing.Size(104, 102);
+            this.WaitingPictureBox.TabIndex = 10;
+            this.WaitingPictureBox.TabStop = false;
             // 
             // TestRun1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 368);
+            this.ClientSize = new System.Drawing.Size(582, 396);
+            this.Controls.Add(this.WaitingPictureBox);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cmdClear);
@@ -268,6 +281,7 @@
             this.Controls.Add(this.cmdRunTest);
             this.Name = "TestRun1";
             this.Text = "TestRun1";
+            this.Load += new System.EventHandler(this.TestRun1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurency)).EndInit();
@@ -275,6 +289,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WaitingPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,5 +315,6 @@
         private System.Windows.Forms.CheckBox chkPerfCounters;
         private System.Windows.Forms.CheckBox chkFileFolder;
         private System.Windows.Forms.CheckBox chkEventLog;
+        private System.Windows.Forms.PictureBox WaitingPictureBox;
     }
 }
