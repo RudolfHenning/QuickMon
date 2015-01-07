@@ -64,6 +64,26 @@ namespace QuickMon.UI
             }
         }
 
+        #region Manual config edit context menu events
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.Copy();
+        }
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.Paste();
+        }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.SelectAll();
+        }
+        private void formatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
+        }
+        #endregion
+
+
 
     }
 }
