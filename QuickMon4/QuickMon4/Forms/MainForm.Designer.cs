@@ -95,6 +95,7 @@
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.notifiersImageList = new System.Windows.Forms.ImageList(this.components);
+            this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).BeginInit();
             this.masterSplitContainer.Panel1.SuspendLayout();
             this.masterSplitContainer.Panel2.SuspendLayout();
@@ -226,6 +227,7 @@
             this.tvwCollectors.ShowRootLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(489, 213);
             this.tvwCollectors.TabIndex = 1;
+            this.tvwCollectors.EnterKeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_EnterKeyDown);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
             this.tvwCollectors.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tvwCollectors_MouseMove);
             // 
@@ -450,6 +452,8 @@
             this.cmdRecentMonitorPacks.Size = new System.Drawing.Size(30, 26);
             this.cmdRecentMonitorPacks.TabIndex = 5;
             this.cmdRecentMonitorPacks.UseVisualStyleBackColor = true;
+            this.cmdRecentMonitorPacks.Click += new System.EventHandler(this.recentMonitorPackToolStripMenuItem1_Click);
+            this.cmdRecentMonitorPacks.MouseHover += new System.EventHandler(this.cboRecentMonitorPacks_MouseHover);
             // 
             // cboRecentMonitorPacks
             // 
@@ -544,7 +548,7 @@
             this.saveAsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -585,7 +589,7 @@
             // 
             this.addCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
-            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(241, 34);
+            this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
             this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem1_Click);
             // 
@@ -594,7 +598,7 @@
             this.editCollectorToolStripMenuItem.Enabled = false;
             this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
             this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.editCollectorToolStripMenuItem.Text = "Edit Collector";
             this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.editCollectorToolStripMenuItem_Click);
             // 
@@ -603,7 +607,7 @@
             this.removeCollectorToolStripMenuItem1.Enabled = false;
             this.removeCollectorToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
             this.removeCollectorToolStripMenuItem1.Name = "removeCollectorToolStripMenuItem1";
-            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(241, 34);
+            this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.removeCollectorToolStripMenuItem1.Text = "Remove Collector";
             this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem1_Click);
             // 
@@ -612,20 +616,20 @@
             this.viewCollectorDetailsToolStripMenuItem.Enabled = false;
             this.viewCollectorDetailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
             this.viewCollectorDetailsToolStripMenuItem.Name = "viewCollectorDetailsToolStripMenuItem";
-            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.viewCollectorDetailsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.viewCollectorDetailsToolStripMenuItem.Text = "View Collector Details";
             this.viewCollectorDetailsToolStripMenuItem.Click += new System.EventHandler(this.viewCollectorDetailsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(238, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(226, 6);
             // 
             // addNotifierToolStripMenuItem1
             // 
             this.addNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
             this.addNotifierToolStripMenuItem1.Name = "addNotifierToolStripMenuItem1";
-            this.addNotifierToolStripMenuItem1.Size = new System.Drawing.Size(241, 34);
+            this.addNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.addNotifierToolStripMenuItem1.Text = "Add Notifier";
             this.addNotifierToolStripMenuItem1.Click += new System.EventHandler(this.addNotifierToolStripMenuItem1_Click);
             // 
@@ -634,7 +638,7 @@
             this.editNotifierToolStripMenuItem.Enabled = false;
             this.editNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
             this.editNotifierToolStripMenuItem.Name = "editNotifierToolStripMenuItem";
-            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.editNotifierToolStripMenuItem.Text = "Edit Notifier Config";
             this.editNotifierToolStripMenuItem.Click += new System.EventHandler(this.editNotifierToolStripMenuItem_Click);
             // 
@@ -643,7 +647,7 @@
             this.removeNotifierToolStripMenuItem1.Enabled = false;
             this.removeNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.stop;
             this.removeNotifierToolStripMenuItem1.Name = "removeNotifierToolStripMenuItem1";
-            this.removeNotifierToolStripMenuItem1.Size = new System.Drawing.Size(241, 34);
+            this.removeNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.removeNotifierToolStripMenuItem1.Text = "Remove Notifier";
             this.removeNotifierToolStripMenuItem1.Click += new System.EventHandler(this.removeNotifierToolStripMenuItem1_Click);
             // 
@@ -652,7 +656,7 @@
             this.showDefaultNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search;
             this.showDefaultNotifierToolStripMenuItem.Name = "showDefaultNotifierToolStripMenuItem";
             this.showDefaultNotifierToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.showDefaultNotifierToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.showDefaultNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.showDefaultNotifierToolStripMenuItem.Text = "Show Default Notifier";
             this.showDefaultNotifierToolStripMenuItem.Click += new System.EventHandler(this.showDefaultNotifierToolStripMenuItem_Click);
             // 
@@ -660,20 +664,20 @@
             // 
             this.showAllNotifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.thunderbolt;
             this.showAllNotifiersToolStripMenuItem.Name = "showAllNotifiersToolStripMenuItem";
-            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.showAllNotifiersToolStripMenuItem.Text = "Show All Notifiers";
             this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.showAllNotifiersToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(238, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 6);
             // 
             // closeAllChildWindowsToolStripMenuItem
             // 
             this.closeAllChildWindowsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables;
             this.closeAllChildWindowsToolStripMenuItem.Name = "closeAllChildWindowsToolStripMenuItem";
-            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.closeAllChildWindowsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.closeAllChildWindowsToolStripMenuItem.Text = "Close All Child Windows";
             this.closeAllChildWindowsToolStripMenuItem.Click += new System.EventHandler(this.closeAllChildWindowsToolStripMenuItem_Click);
             // 
@@ -703,7 +707,7 @@
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(214, 34);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(202, 22);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -745,7 +749,7 @@
             // 
             this.manageTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new;
             this.manageTemplatesToolStripMenuItem.Name = "manageTemplatesToolStripMenuItem";
-            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(214, 34);
+            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.manageTemplatesToolStripMenuItem.Text = "Manage Templates";
             this.manageTemplatesToolStripMenuItem.Click += new System.EventHandler(this.manageTemplatesToolStripMenuItem_Click);
             // 
@@ -753,7 +757,7 @@
             // 
             this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
             this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
-            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(214, 34);
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
             this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
             // 
@@ -788,6 +792,10 @@
             this.notifiersImageList.Images.SetKeyName(0, "graybox.ico");
             this.notifiersImageList.Images.SetKeyName(1, "042.png");
             this.notifiersImageList.Images.SetKeyName(2, "filesearch.ico");
+            // 
+            // showCollectorContextMenuTimer
+            // 
+            this.showCollectorContextMenuTimer.Tick += new System.EventHandler(this.showCollectorContextMenuTimer_Tick);
             // 
             // MainForm
             // 
@@ -896,6 +904,7 @@
         private System.Windows.Forms.Timer mainRefreshTimer;
         private System.Windows.Forms.ImageList notifiersImageList;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer showCollectorContextMenuTimer;
     }
 }
 

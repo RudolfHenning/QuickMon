@@ -22,7 +22,7 @@ namespace QuickMon
             PreviousState = CollectorState.NotAvailable;
             DefaultViewerNotifier = null;
             ConcurrencyLevel = 1;
-            BusyPolling = false;
+            IsBusyPolling = false;
             CollectorStateHistorySize = 100;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
             AgentLoadingErrors = "";
@@ -66,7 +66,7 @@ namespace QuickMon
         /// Is background polling active
         /// </summary>
         public bool IsPollingEnabled { get; set; }
-        public bool BusyPolling { get; private set; }
+        public bool IsBusyPolling { get; private set; }
         public bool AbortPolling { get; set; }
         #endregion
         public long LastRefreshDurationMS { get; private set; }
@@ -86,7 +86,7 @@ namespace QuickMon
         public CollectorState RefreshStates(bool disablePollingOverrides = false)
         {
             AbortPolling = false;
-            BusyPolling = true;
+            IsBusyPolling = true;
             CollectorState globalState = CollectorState.Good;
             ResetAllOverrides();
             Stopwatch sw = new Stopwatch();
@@ -152,7 +152,7 @@ namespace QuickMon
             SendNotifierAlert(globalAlertLevel, DetailLevel.Summary, "GlobalState");
             sw.Stop();
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
-            BusyPolling = false;
+            IsBusyPolling = false;
             CurrentState = globalState;
             return globalState;
         }

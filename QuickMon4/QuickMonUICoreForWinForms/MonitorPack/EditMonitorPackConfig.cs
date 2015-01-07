@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using QuickMon.Forms;
+using QuickMon.UI;
 
 namespace QuickMon
 {
@@ -15,11 +16,11 @@ namespace QuickMon
         public EditMonitorPackConfig()
         {
             InitializeComponent();
-            RequestCollectorsRefresh = false;
+            TriggerMonitorPackReload = false;
         }
 
         public MonitorPack SelectedMonitorPack { get; set; }
-        public bool RequestCollectorsRefresh { get; set; }
+        public bool TriggerMonitorPackReload { get; set; }
 
         private bool freChanging = false;
 
@@ -28,30 +29,7 @@ namespace QuickMon
         {
             if (SelectedMonitorPack == null)
                 SelectedMonitorPack = new MonitorPack();
-            if (SelectedMonitorPack.MonitorPackPath != null)
-            {
-                string pathString = SelectedMonitorPack.MonitorPackPath;
-                if (TextRenderer.MeasureText(pathString + "........", lblMonitorPackPath.Font).Width > lblMonitorPackPath.Width)
-                {
-                    string ellipseText = pathString.Substring(0, 20) + "....";
-                    string tmpStr = pathString.Substring(4);
-                    while (TextRenderer.MeasureText(ellipseText + tmpStr, lblMonitorPackPath.Font).Width > lblMonitorPackPath.Width)
-                    {
-                        tmpStr = tmpStr.Substring(1);
-                    }
-                    pathString = ellipseText + tmpStr;
-                }
-
-                lblMonitorPackPath.Text = pathString;
-            }
-            txtName.Text = SelectedMonitorPack.Name;
-            txtType.Text = SelectedMonitorPack.TypeName;
-            chkCorrectiveScripts.Checked = SelectedMonitorPack.RunCorrectiveScripts;
-            chkEnabled.Checked = SelectedMonitorPack.Enabled;
-            collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
-            SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
-            LoadNotifiers();
-            LoadConfigVars();
+            LoadFormControls();
         } 
         #endregion
 
@@ -97,6 +75,33 @@ namespace QuickMon
         #endregion
 
         #region Private methods
+        private void LoadFormControls()
+        {
+            if (SelectedMonitorPack.MonitorPackPath != null)
+            {
+                string pathString = SelectedMonitorPack.MonitorPackPath;
+                if (TextRenderer.MeasureText(pathString + "........", lblMonitorPackPath.Font).Width > lblMonitorPackPath.Width)
+                {
+                    string ellipseText = pathString.Substring(0, 20) + "....";
+                    string tmpStr = pathString.Substring(4);
+                    while (TextRenderer.MeasureText(ellipseText + tmpStr, lblMonitorPackPath.Font).Width > lblMonitorPackPath.Width)
+                    {
+                        tmpStr = tmpStr.Substring(1);
+                    }
+                    pathString = ellipseText + tmpStr;
+                }
+
+                lblMonitorPackPath.Text = pathString;
+            }
+            txtName.Text = SelectedMonitorPack.Name;
+            txtType.Text = SelectedMonitorPack.TypeName;
+            chkCorrectiveScripts.Checked = SelectedMonitorPack.RunCorrectiveScripts;
+            chkEnabled.Checked = SelectedMonitorPack.Enabled;
+            collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
+            SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
+            LoadNotifiers();
+            LoadConfigVars();
+        }
         private void LoadNotifiers()
         {
             cboDefaultNotifier.Items.Clear();
@@ -223,6 +228,7 @@ namespace QuickMon
                     lvwConfigVars.Items.Add(lvi);
                     lvi.Selected = true;
                 }
+                TriggerMonitorPackReload = true;
             }
         }
         private void addConfigVarToolStripButton_Click(object sender, EventArgs e)
@@ -300,6 +306,49 @@ namespace QuickMon
             }
         }
         #endregion
+
+        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (ValidateInput())
+                {
+                    SelectedMonitorPack.Name = txtName.Text;
+                    SelectedMonitorPack.TypeName = txtType.Text;
+                    SelectedMonitorPack.RunCorrectiveScripts = chkCorrectiveScripts.Checked;
+                    SelectedMonitorPack.Enabled = chkEnabled.Checked;
+                    SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
+                    SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
+                    if (cboDefaultNotifier.SelectedIndex > -1)
+                        SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
+                    else
+                        SelectedMonitorPack.DefaultViewerNotifier = null;
+                    SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
+                    foreach (ListViewItem lvi in lvwConfigVars.Items)
+                    {
+                        SelectedMonitorPack.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
+                    }
+                    RAWXmlEditor editor = new RAWXmlEditor();
+                    string oldMarkUp = SelectedMonitorPack.ToXml();
+                    editor.SelectedMarkup = oldMarkUp;
+                    if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        TriggerMonitorPackReload = true;
+                        MonitorPack newMP = new MonitorPack();
+                        newMP.LoadXml(editor.SelectedMarkup);
+                        newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
+                        SelectedMonitorPack = null;
+                        SelectedMonitorPack = newMP;
+                        LoadFormControls();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
 
     }
 }

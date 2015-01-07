@@ -120,6 +120,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\TabControlEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>

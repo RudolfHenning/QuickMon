@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuickMon
@@ -168,11 +169,52 @@ namespace QuickMon
                         "</notifierHosts>\r\n" +
                        "</monitorPack>";
 
+                WaitingPictureBox.BringToFront();
+                Application.DoEvents();
+                //this.WaitingPictureBox.Image = global::QuickMon.Properties.Resources.animated;
+                //Application.DoEvents();
+                txtAlerts.Text = "";
+
                 MonitorPack m = new MonitorPack();
                 m.ConcurrencyLevel = (int)nudConcurency.Value;
                 m.LoadXml(configXml);
-                m.RefreshStates();
-                txtAlerts.Text = "";
+                System.Threading.ThreadPool.QueueUserWorkItem(RefreshMonitorPack, m);
+
+
+                //ParallelOptions po = new ParallelOptions()
+                //{
+                //    MaxDegreeOfParallelism = 10
+                //};
+                //List<MonitorPack> mList = new List<MonitorPack>();
+                //MonitorPack m = new MonitorPack();
+                //m.ConcurrencyLevel = (int)nudConcurency.Value;
+                //m.LoadXml(configXml);
+                //mList.Add(m);
+                //ParallelLoopResult parResult = Parallel.ForEach(mList, po, mEntry => RefreshPack(mEntry));
+                
+                //foreach (CollectorHost ch in m.CollectorHosts)
+                //{
+                //    MonitorState ms = ch.CurrentState;
+                //    txtAlerts.Text += string.Format("Collector host: {0}\r\n", ch.Name);
+                //    txtAlerts.Text += string.Format("Time: {0}\r\n", ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                //    txtAlerts.Text += string.Format("Duration: {0}ms\r\n", ms.CallDurationMS);
+                //    txtAlerts.Text += string.Format("Run on host: {0}\r\n", ms.ExecutedOnHostComputer);
+                //    txtAlerts.Text += string.Format("State: {0}\r\n{1}\r\n", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails('\t')));
+                //}
+
+                ////WaitingPictureBox.Visible = false;
+                //WaitingPictureBox.SendToBack();
+                //Application.DoEvents();
+            }
+        }
+        private void RefreshMonitorPack(object o)
+        {
+            MonitorPack m = (MonitorPack)o;
+            m.RefreshStates();
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                WaitingPictureBox.SendToBack();
                 foreach (CollectorHost ch in m.CollectorHosts)
                 {
                     MonitorState ms = ch.CurrentState;
@@ -182,7 +224,17 @@ namespace QuickMon
                     txtAlerts.Text += string.Format("Run on host: {0}\r\n", ms.ExecutedOnHostComputer);
                     txtAlerts.Text += string.Format("State: {0}\r\n{1}\r\n", ms.State, XmlFormattingUtils.NormalizeXML(ms.ReadAllRawDetails('\t')));
                 }
-            }
+            });
+        }
+
+        private void RefreshPack(MonitorPack mEntry)
+        {
+            mEntry.RefreshStates();
+        }
+
+        private void TestRun1_Load(object sender, EventArgs e)
+        {
+            WaitingPictureBox.SendToBack();
         }
     }
 }

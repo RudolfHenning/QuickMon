@@ -40,6 +40,7 @@ namespace QuickMon
             if (ch != null)
             {
                 SelectedConfig = ch.ToXml();
+                HostingMonitorPack = hostingMonitorPack;
                 return ShowDialog();
             }
             else
@@ -53,7 +54,7 @@ namespace QuickMon
             {
                 if (SelectedConfig != null && SelectedConfig.Length > 0 && SelectedConfig.StartsWith("<collectorHost", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    editingCollectorHost = CollectorHost.FromXml(SelectedConfig, false);
+                    editingCollectorHost = CollectorHost.FromXml(SelectedConfig, null, false);
                 }
             }
             catch (Exception ex)
@@ -711,13 +712,13 @@ namespace QuickMon
                 {
                     try
                     {
-                        editingCollectorHost = CollectorHost.FromXml(editor.SelectedMarkup, false);
+                        editingCollectorHost = CollectorHost.FromXml(editor.SelectedMarkup, null, false);
 
                         if (editor.SelectedMarkup != null && editor.SelectedMarkup.Length > 0 && editingCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
                         {
                             if (MessageBox.Show("Editing the raw config resulted in a configuration error!\r\nDo you want to accept this?", "Configuration error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
                             {
-                                editingCollectorHost = CollectorHost.FromXml(oldMarkUp, false);
+                                editingCollectorHost = CollectorHost.FromXml(oldMarkUp, null, false);
                             }
                         }
                     }

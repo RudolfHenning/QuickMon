@@ -56,7 +56,7 @@ namespace QuickMon
                 editCollectorHost.SelectedConfig = m.CollectorHosts[0].ToXml();
                 if (editCollectorHost.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    m.CollectorHosts[0] = CollectorHost.FromXml(XmlFormattingUtils.NormalizeXML(editCollectorHost.SelectedConfig), false);
+                    m.CollectorHosts[0] = CollectorHost.FromXml(XmlFormattingUtils.NormalizeXML(editCollectorHost.SelectedConfig), null,  false);
                     txtConfig.Text = m.ToXml();
                 }
             }

@@ -17,26 +17,37 @@ namespace QuickMon
             XmlElement root = collectorHostsXml.DocumentElement;
             foreach (XmlElement xmlCollectorHost in root.SelectNodes("collectorHost"))
             {
-                CollectorHost newCollectorHost = CollectorHost.FromConfig(xmlCollectorHost, monitorPackVars);                
+                CollectorHost newCollectorHost = CollectorHost.FromConfig(null, xmlCollectorHost, monitorPackVars);                
                 collectorHosts.Add(newCollectorHost);
             }
             return collectorHosts;
         }
-        public static CollectorHost FromXml(string xmlString, bool applyConfigVars = true)
+        public static CollectorHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
         {
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
             {
                 XmlDocument collectorHostDoc = new XmlDocument();
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
-                return FromConfig(root, null, applyConfigVars);
+                return FromConfig(null, root, monitorPackVars, applyConfigVars);
             }
             else
                 return null;
         }
-        private static CollectorHost FromConfig(XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
-            CollectorHost newCollectorHost = new CollectorHost();
+            if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
+            {
+                XmlDocument collectorHostDoc = new XmlDocument();
+                collectorHostDoc.LoadXml(xmlString);
+                XmlElement root = collectorHostDoc.DocumentElement;
+                FromConfig(this, root, monitorPackVars, applyConfigVars);
+            }
+        }
+        private static CollectorHost FromConfig(CollectorHost newCollectorHost, XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        {
+            if (newCollectorHost == null)
+                newCollectorHost = new CollectorHost();
             newCollectorHost.Name = xmlCollectorEntry.ReadXmlElementAttr("name", "").Trim();
             newCollectorHost.UniqueId = xmlCollectorEntry.ReadXmlElementAttr("uniqueId", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
             newCollectorHost.Enabled = xmlCollectorEntry.ReadXmlElementAttr("enabled", true);
@@ -87,6 +98,7 @@ namespace QuickMon
                 newCollectorHost.ServiceWindows.CreateFromConfig("<serviceWindows />");
             }
             //Config vars
+            newCollectorHost.ConfigVariables = new List<ConfigVariable>();
             XmlNode configVarsNode = xmlCollectorEntry.SelectSingleNode("configVars");
             if (configVarsNode != null)
             {
@@ -172,7 +184,8 @@ namespace QuickMon
             return currentAgent;
         }
         /// <summary>
-        /// Export current CollectorHost config as XML string
+        /// Export current (Initial) CollectorHost config as XML string
+        /// This is the config before config variables have been applied
         /// </summary>
         /// <returns>XML config string</returns>
         public string ToXml()
