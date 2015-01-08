@@ -69,44 +69,48 @@ namespace QuickMon.Notifiers
         {
             if (audioFilePath.Length > 0 && System.IO.File.Exists(audioFilePath))
             {
-                if (CheckWMPInstalled())
+                //if (CheckWMPInstalled())
                 {
-                    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
-                    if (volumePerc > -1)
-                        wplayer.settings.volume = volumePerc;
-                    wplayer.settings.autoStart = false;
-                    wplayer.URL = audioFilePath;
-                    wplayer.controls.play();
-                    wplayer = null;
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(audioFilePath);
+                    player.Play();
+
+                    //WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+                    //if (volumePerc > -1)
+                    //    wplayer.settings.volume = volumePerc;
+                    //wplayer.settings.autoStart = false;
+                    //wplayer.URL = audioFilePath;
+                    //wplayer.controls.play();
+                    //wplayer = null;
                     if (repeats > 1)
                         for (int i = 1; i < repeats; i++)
                         {
+                            player.Play();
                             System.Threading.Thread.Sleep(500);
                             PlayCustomSound(audioFilePath, volumePerc, 1);
                         }
                 }
-                else
-                {
-                    throw new Exception("Notification cannot be raised! It appears Windows Media Player is not installed on this computer!");
-                }
+                //else
+                //{
+                //    throw new Exception("Notification cannot be raised! It appears Windows Media Player is not installed on this computer!");
+                //}
             }
         }
-        public static bool CheckWMPInstalled()
-        {
-            bool found = false;
-            try
-            {
-                Microsoft.Win32.RegistryKey wmpKey = Microsoft.Win32.RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, Microsoft.Win32.RegistryView.Default).OpenSubKey(@"Software\Microsoft\MediaPlayer\PlayerUpgrade");
-                string versionInfo = wmpKey.GetValue("PlayerVersion").ToString();
-                if (versionInfo.Contains(","))
-                {
-                    int majorVersion = int.Parse(versionInfo.Split(',')[0]);
-                    found = true;
-                }
-            }
-            catch { }
-            return found;
-        }
+        //public static bool CheckWMPInstalled()
+        //{
+        //    bool found = false;
+        //    try
+        //    {
+        //        Microsoft.Win32.RegistryKey wmpKey = Microsoft.Win32.RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, Microsoft.Win32.RegistryView.Default).OpenSubKey(@"Software\Microsoft\MediaPlayer\PlayerUpgrade");
+        //        string versionInfo = wmpKey.GetValue("PlayerVersion").ToString();
+        //        if (versionInfo.Contains(","))
+        //        {
+        //            int majorVersion = int.Parse(versionInfo.Split(',')[0]);
+        //            found = true;
+        //        }
+        //    }
+        //    catch { }
+        //    return found;
+        //}
         public static void PlaySystemSound(SystemSounds systemSounds, int volumePerc, int repeats)
         {
             uint oldVolume;
