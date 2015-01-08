@@ -154,6 +154,19 @@
   <ItemGroup>
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />
+    <None Include="Resources\QM4BlueStateWarnB.ico" />
+    <None Include="Resources\QM4BlueStateWarnA.ico" />
+    <None Include="Resources\QM4BlueStateNAB.ico" />
+    <None Include="Resources\QM4BlueStateNAA.ico" />
+    <None Include="Resources\QM4BlueStateGoodB.ico" />
+    <None Include="Resources\QM4BlueStateGoodA.ico" />
+    <None Include="Resources\QM4BlueStateErrB.ico" />
+    <None Include="Resources\QM4BlueStateErrA.ico" />
+    <None Include="Resources\refresh24x24.png" />
+    <None Include="Resources\stop16x16.png" />
+    <None Include="Resources\folderWLightning16x16.png" />
+    <None Include="Resources\folderOpen16x16.png" />
+    <None Include="Resources\doc_new16x16.png" />
     <None Include="Resources\save16x16.png" />
     <None Include="Resources\tools16x16.png" />
     <None Include="Resources\info16x16.png" />

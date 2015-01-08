@@ -215,7 +215,7 @@ namespace QuickMon
 
                         lvi.SubItems.Add(""); //Version info to be added afterwards
                         lvi.Tag = ri;
-                        lvi.ImageIndex = 3;
+                        lvi.ImageIndex = 0;
                         lvwRemoteHosts.Items.Add(lvi);
                     }
                     catch { }
@@ -256,7 +256,7 @@ namespace QuickMon
                                 select lvi).ToArray());
                 foreach (ListViewItem lvi in lvwRemoteHosts.Items)
                 {
-                    SetListViewItemIcon(lvi, 3);
+                    SetListViewItemIcon(lvi, 0);
                     lvi.SubItems[2].Text = "Loading...";
                     System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
                 }
@@ -296,15 +296,18 @@ namespace QuickMon
                     ce.EnableRemoteExecute = true;
                     ce.RemoteAgentHostAddress = ri.Computer;
                     ce.RemoteAgentHostPort = ri.PortNumber;
-
-                    hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
+                    try
+                    {
+                        hostExists = System.Net.Dns.GetHostAddresses(ri.Computer).Count() != 0;
+                    }
+                    catch { }
                     if (!hostExists)
                     {
-                        UpdateListViewItem(lvi, 3, "Host not found");
+                        UpdateListViewItem(lvi, 4, "Host not found");
                     }
                     else if (!CanPingHost(ri.Computer))
                     {
-                        UpdateListViewItem(lvi, 3, "Host not pingable");
+                        UpdateListViewItem(lvi, 4, "Host not pingable");
                     }
                     else
                     {
@@ -314,7 +317,7 @@ namespace QuickMon
                             try
                             {
                                 string versionInfo = RemoteCollectorHostService.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
-                                UpdateListViewItem(lvi, 0, versionInfo);
+                                UpdateListViewItem(lvi, 1, versionInfo);
                             }
                             catch (Exception ex)
                             {
@@ -328,7 +331,7 @@ namespace QuickMon
                         }
                         else
                         {
-                            UpdateListViewItem(lvi, 2, "N/A");
+                            UpdateListViewItem(lvi, 3, "N/A");
                         }
                     }
                 }
@@ -489,47 +492,58 @@ namespace QuickMon
 
         private void cmdAdd_Click(object sender, EventArgs e)
         {
+            bool accepted = false;
             if (txtComputer.Text.Length > 0)
             {
                 try
-                {
+                {                    
                     if ((from ListViewItem lvi in lvwRemoteHosts.Items
                          where lvi.Text.ToLower() == txtComputer.Text.ToLower() &&
                          lvi.SubItems[1].Text == remoteportNumericUpDown.Value.ToString()
                          select lvi).Count() > 0)
                     {
-                        MessageBox.Show("Remote agent is already in the list!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Remote host is already in the list!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        accepted = false;
                     }
                     else
                     {
                         System.Net.IPAddress[] aa = System.Net.Dns.GetHostAddresses(txtComputer.Text);
                         if (aa.Length == 0)
                         {
-                            MessageBox.Show("Computer not found or not available", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (MessageBox.Show("Computer not found or not available!\r\nAccept anyway?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Yes)
+                                accepted = true;
                         }
                         else
                         {
-                            RemoteAgentInfo ri = new RemoteAgentInfo();
-                            ri.Computer = txtComputer.Text;
-                            ri.PortNumber = (int)remoteportNumericUpDown.Value;
-                            ListViewItem lvi = new ListViewItem(txtComputer.Text);
-                            lvi.SubItems.Add(remoteportNumericUpDown.Value.ToString());
-                            lvi.SubItems.Add(""); //Version info to be added afterwards
-                            lvi.Tag = ri;
-                            lvi.ImageIndex = 3;
-                            lvwRemoteHosts.Items.Add(lvi);
-                            RefreshServiceStates();
-                            txtComputer.Text = "";
-                            txtComputer.Focus();
+                            accepted = true;                            
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     if (ex.Message.Contains("The requested name is valid, but no data of the requested type was found"))
-                        MessageBox.Show("Computer inaccessible or name invalid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        if (MessageBox.Show("Computer inaccessible or name invalid!\r\nAccept anyway?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            accepted = true;
+                        }                    }
                     else
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (accepted)
+                {
+                    RemoteAgentInfo ri = new RemoteAgentInfo();
+                    ri.Computer = txtComputer.Text;
+                    ri.PortNumber = (int)remoteportNumericUpDown.Value;
+                    ListViewItem lvi = new ListViewItem(txtComputer.Text);
+                    lvi.SubItems.Add(remoteportNumericUpDown.Value.ToString());
+                    lvi.SubItems.Add(""); //Version info to be added afterwards
+                    lvi.Tag = ri;
+                    lvi.ImageIndex = 3;
+                    lvwRemoteHosts.Items.Add(lvi);
+                    RefreshServiceStates();
+                    txtComputer.Text = "";
+                    txtComputer.Focus();
                 }
             }
         }

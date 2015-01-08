@@ -538,10 +538,10 @@
             // 
             this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
             this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.remoteHostStatusImageList.Images.SetKeyName(0, "GRunning.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(1, "GStopped.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
             this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(3, "GUnknown.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
             this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
             // 
             // refreshTimer
