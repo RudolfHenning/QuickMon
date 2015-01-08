@@ -200,6 +200,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap doc_new16x16 {
+            get {
+                object obj = ResourceManager.GetObject("doc_new16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap doc_new2 {
             get {
                 object obj = ResourceManager.GetObject("doc_new2", resourceCulture);
@@ -252,6 +262,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folderOpen16x16 {
+            get {
+                object obj = ResourceManager.GetObject("folderOpen16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folderWLightning {
             get {
                 object obj = ResourceManager.GetObject("folderWLightning", resourceCulture);
@@ -266,6 +286,16 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("folderWLightning1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folderWLightning16x16 {
+            get {
+                object obj = ResourceManager.GetObject("folderWLightning16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -360,11 +390,101 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateErrA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateErrA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateErrB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateErrB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateGoodA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateGoodA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateGoodB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateGoodB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateNAA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateNAA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateNAB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateNAB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateWarnA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateWarnA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateWarnB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateWarnB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap refresh {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh24x24 {
+            get {
+                object obj = ResourceManager.GetObject("refresh24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -395,6 +515,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap stop {
             get {
                 object obj = ResourceManager.GetObject("stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stop16x16 {
+            get {
+                object obj = ResourceManager.GetObject("stop16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

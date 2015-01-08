@@ -162,6 +162,7 @@
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabAgents.SuspendLayout();
             this.collectorAgentsEditToolStrip.SuspendLayout();
@@ -190,6 +191,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // chkExpandOnStart
@@ -199,7 +201,7 @@
             this.chkExpandOnStart.Checked = true;
             this.chkExpandOnStart.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExpandOnStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkExpandOnStart.Location = new System.Drawing.Point(474, 36);
+            this.chkExpandOnStart.Location = new System.Drawing.Point(437, 37);
             this.chkExpandOnStart.Name = "chkExpandOnStart";
             this.chkExpandOnStart.Size = new System.Drawing.Size(98, 17);
             this.chkExpandOnStart.TabIndex = 3;
@@ -223,7 +225,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(474, 12);
+            this.chkEnabled.Location = new System.Drawing.Point(437, 13);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
@@ -237,7 +239,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(60, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(408, 20);
+            this.txtName.Size = new System.Drawing.Size(371, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -766,7 +768,7 @@
             this.remoteportNumericUpDown.Enabled = false;
             this.remoteportNumericUpDown.Location = new System.Drawing.Point(374, 24);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
-            2147483647,
+            65536,
             0,
             0,
             0});
@@ -779,7 +781,7 @@
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
             this.remoteportNumericUpDown.TabIndex = 7;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
-            8181,
+            48181,
             0,
             0,
             0});
@@ -1703,6 +1705,16 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.BlueArcTopRight;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(544, -2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 34);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
             // EditCollectorHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1718,6 +1730,7 @@
             this.Controls.Add(this.chkEnabled);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 440);
@@ -1766,6 +1779,7 @@
             this.groupBox5.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1905,5 +1919,6 @@
         private System.Windows.Forms.ToolStripButton disableAgentToolStripButton;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox agentCheckSequenceToolStripComboBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

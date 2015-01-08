@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuickMon.Controls;
 
 namespace QuickMon
 {
@@ -26,6 +27,7 @@ namespace QuickMon
         private bool monitorPackChanged = false;
         private bool firstRefresh = true;
         private bool timerWasEnabledBeforePausing = false;
+        private bool refreshCycleA = true;
         private MonitorPack monitorPack;
         private string quickMonPCCategory = "QuickMon 4 UI Client";
         #region Performance Counter Vars
@@ -43,6 +45,19 @@ namespace QuickMon
         private QuickMon.Controls.PopperContainer popperContainerForTreeView;
         //private QuickMon.Controls.NotifierContextMenuControl popedContainerForListView;
         private QuickMon.Controls.PopperContainer poperContainerForListView;
+        #endregion
+
+        #region TreeNodeImage contants
+        private readonly int collectorRootImage = 0;
+        private readonly int collectorFolderImage = 1;
+        private readonly int collectorNAstateImage = 2;
+        private readonly int collectorGoodStateImage1 = 3;
+        private readonly int collectorGoodStateImage2 = 6;
+        private readonly int collectorWarningStateImage1 = 4;
+        private readonly int collectorWarningStateImage2 = 7;
+        private readonly int collectorErrorStateImage1 = 5;
+        private readonly int collectorErrorStateImage2 = 8;
+        private readonly int collectorDisabled = 9;
         #endregion
 
         #region Form events
@@ -73,7 +88,11 @@ namespace QuickMon
             tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
+
+            SetUpContextMenus();
         }
+
+
         private void MainForm_Shown(object sender, EventArgs e)
         {
             try
@@ -478,29 +497,6 @@ namespace QuickMon
             if (llblMonitorPack.Text == "")
                 llblMonitorPack.Text = "Click here to set the monitor pack name.";
         }
-        private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
-        {
-            //PausePolling();
-            //DateTime abortStart = DateTime.Now;
-            //try
-            //{
-            //    while (!forceUpdateNow && refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
-            //    {
-            //        Application.DoEvents();
-            //    }
-            //    if (forceUpdateNow || !refreshBackgroundWorker.IsBusy)
-            //    {
-            //        Cursor.Current = Cursors.WaitCursor;
-            //        refreshBackgroundWorker.RunWorkerAsync(disablePollingOverride);
-            //    }
-            //}
-            //catch { }
-            //finally
-            //{
-            //    mainRefreshTimer.Enabled = timerEnabled;
-            //    ResumePolling();
-            //}
-        }
         private bool SaveMonitorPack()
         {
             bool success = false;
@@ -614,31 +610,134 @@ namespace QuickMon
         }
         private void monitorPack_CollectorHostStateUpdated(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            this.Invoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    if (collectorHost != null && collectorHost.Tag is TreeNode)
+                    {
+                        System.Diagnostics.Trace.WriteLine("Updating " + collectorHost.Name);
+                        TreeNode currentTreeNode = (TreeNode)collectorHost.Tag;
+
+                        bool nodeChanged = false;
+                        Color foreColor = currentTreeNode.ForeColor;
+                        int imageIndex = currentTreeNode.ImageIndex;
+
+                        if (collectorHost.Enabled && currentTreeNode.ForeColor != SystemColors.WindowText)
+                        {
+                            nodeChanged = true;
+                            foreColor = SystemColors.WindowText;
+                        }
+                        else if (!collectorHost.Enabled && currentTreeNode.ForeColor != Color.Gray)
+                        {
+                            nodeChanged = true;
+                            foreColor = Color.Gray;
+                        }
+
+                        if (collectorHost.CollectorAgents.Count == 0 || collectorHost.CurrentState.State == CollectorState.None)
+                        {
+                            if (currentTreeNode.ImageIndex != collectorFolderImage)
+                            {
+                                nodeChanged = true;
+                                imageIndex = collectorFolderImage;
+                            }
+                        }
+                        else if (!collectorHost.Enabled || collectorHost.CurrentState.State == CollectorState.Disabled)
+                        {
+                            if (currentTreeNode.ImageIndex != collectorDisabled)
+                            {
+                                nodeChanged = true;
+                                imageIndex = collectorDisabled;
+                            }
+                        }
+                        else if (collectorHost.CurrentState.State == CollectorState.Error || collectorHost.CurrentState.State == CollectorState.ConfigurationError)
+                        {
+                            if (currentTreeNode.ImageIndex != collectorErrorStateImage1)
+                            {
+                                nodeChanged = true;
+                                imageIndex = collectorErrorStateImage1;
+                                //PCRaiseCollectorErrorState();
+                            }
+                        }
+                        else if (collectorHost.CurrentState.State == CollectorState.Warning)
+                        {
+                            if (currentTreeNode.ImageIndex != collectorWarningStateImage1)
+                            {
+                                nodeChanged = true;
+                                imageIndex = collectorWarningStateImage1;
+                                //PCRaiseCollectorWarningState();
+                            }
+                        }
+                        else if (collectorHost.CurrentState.State == CollectorState.Good)
+                        {
+                            if (currentTreeNode.ImageIndex != collectorGoodStateImage1)
+                            {
+                                nodeChanged = true;
+                                imageIndex = collectorGoodStateImage1;
+                                //PCRaiseCollectorSuccessState();
+                            }
+                        }
+                        else if (currentTreeNode.ImageIndex != collectorNAstateImage)
+                        {
+                            nodeChanged = true;
+                            imageIndex = collectorNAstateImage;
+                        }
+                        if (nodeChanged)
+                        {
+                            if (currentTreeNode.ForeColor != foreColor)
+                                currentTreeNode.ForeColor = foreColor;
+                            if (currentTreeNode.ImageIndex != imageIndex)
+                            {
+                                currentTreeNode.ImageIndex = imageIndex;
+                                currentTreeNode.SelectedImageIndex = imageIndex;
+                                if (firstRefresh && (imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
+                                {
+                                    TreeNode currentFocusNode = tvwCollectors.SelectedNode;
+                                    try
+                                    {
+                                        tvwCollectors.BeginUpdate();
+                                        currentTreeNode.ExpandAllParents();
+                                    }
+                                    catch { }
+                                    finally
+                                    {
+                                        tvwCollectors.EndUpdate();
+                                    }
+                                    currentFocusNode.EnsureVisible();
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine("Error " + collectorHost.Name + "->" + ex.Message);
+                }
+            });
         }
         private void monitorPack_CollectorHostCalled(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            
         }
         private void monitorPack_RunCollectorHostRestorationScript(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            
         }
         private void monitorPack_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            
         }
         private void monitorPack_RunCollectorHostCorrectiveWarningScript(CollectorHost collectorHost)
         {
-            throw new NotImplementedException();
+            
         }
         private void monitorPack_CollectorHostAllAgentsExecutionTime(CollectorHost collectorHost, long msTime)
         {
-            throw new NotImplementedException();
+            
         }        
         private void monitorPack_OnNotifierError(NotifierHost notifierHost, string message)
         {
-            throw new NotImplementedException();
+            
         }
         private void RemoveCollector(TreeNode parentNode)
         {
@@ -649,6 +748,184 @@ namespace QuickMon
             CollectorHost ce = (CollectorHost)parentNode.Tag;
             monitorPack.CollectorHosts.Remove(ce);
         }
+   
+        #region Refresh collector statusses
+        private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
+        {
+            PausePolling();
+            DateTime abortStart = DateTime.Now;
+            try
+            {
+                while (!forceUpdateNow && refreshBackgroundWorker.IsBusy && abortStart.AddSeconds(5) > DateTime.Now)
+                {
+                    Application.DoEvents();
+                }
+                if (forceUpdateNow || !refreshBackgroundWorker.IsBusy)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    refreshBackgroundWorker.RunWorkerAsync(disablePollingOverride);
+                }
+            }
+            catch { }
+            finally
+            {
+                mainRefreshTimer.Enabled = timerWasEnabledBeforePausing;
+                ResumePolling();
+            }
+        }
+        private void refreshBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bool disablePollingOverride = false;
+            if (e.Argument != null && e.Argument is bool)
+                disablePollingOverride = (bool)e.Argument;
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (monitorPack != null && monitorPack.Enabled)
+                {
+                    WaitForPollingToFinish(5);
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    tvwCollectors.Invoke((MethodInvoker)delegate
+                    {
+                        try
+                        {
+                            tvwCollectors.BeginUpdate();
+                            SetNodesToBeingRefreshed();
+                        }
+                        catch { }
+                        finally
+                        {
+                            tvwCollectors.EndUpdate();
+                            tvwCollectors.Refresh();
+                            Application.DoEvents();
+                            Cursor.Current = Cursors.WaitCursor;
+                        }
+                    });
+
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    Cursor.Current = Cursors.WaitCursor;
+                    CollectorState globalState = monitorPack.RefreshStates(disablePollingOverride);
+                    sw.Stop();
+                    Cursor.Current = Cursors.WaitCursor;
+                    //PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
+                    SetAppIcon(monitorPack.CurrentState);
+                    UpdateStatusbar(string.Format("Global state: {0}, Updated: {1}, Duration: {2} sec, Cur Freq: {3}",
+                        globalState,
+                        DateTime.Now.ToString("HH:mm:ss"),
+                        (sw.ElapsedMilliseconds / 1000.00).ToString("F2"),
+                        (mainRefreshTimer.Interval / 1000).ToString()
+                        ));
+                }
+                else
+                {
+                    SetAppIcon(CollectorState.NotAvailable);
+                    UpdateStatusbar("Polling disabled");
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar("Error: " + ex.Message);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                firstRefresh = false;
+            }
+        }
+        private void SetNodesToBeingRefreshed(TreeNode root = null)
+        {
+            if (root == null)
+                root = tvwCollectors.Nodes[0];
+
+            if (root.Tag != null && root.Tag is CollectorHost)
+            {
+                CollectorHost collector = (CollectorHost)root.Tag;
+                if (collector.CollectorAgents.Count > 0 && collector.Enabled)
+                {
+                    //root.ForeColor = Color.DarkRed; //13,14,15
+                    if (root.ImageIndex == collectorGoodStateImage1)
+                    {
+                        root.ImageIndex = collectorGoodStateImage2;
+                        root.SelectedImageIndex = collectorGoodStateImage2;
+                    }
+                    else if (root.ImageIndex == collectorWarningStateImage1)
+                    {
+                        root.ImageIndex = collectorWarningStateImage2;
+                        root.SelectedImageIndex = collectorWarningStateImage2;
+                    }
+                    else if (root.ImageIndex == collectorErrorStateImage1)
+                    {
+                        root.ImageIndex = collectorErrorStateImage2;
+                        root.SelectedImageIndex = collectorErrorStateImage2;
+                    }
+                }
+            }
+            foreach (TreeNode childNode in root.Nodes)
+                SetNodesToBeingRefreshed(childNode);
+        }
+        private void SetAppIcon(CollectorState state)
+        {
+            refreshCycleA = !refreshCycleA;            
+            try
+            {
+                Icon icon;
+                if (state == CollectorState.Error)
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateErrA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateErrB;
+                }
+                else if (state == CollectorState.Warning)
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateWarnA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateWarnB;
+                }
+                else if (state == CollectorState.Good)
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateGoodA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateGoodB;
+                }
+                else
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateNAA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateNAB;
+                }
+                Icon oldIcon = this.Icon;
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        this.Icon = icon;
+                    }
+                    );
+                }
+                else
+                {
+                    this.Icon = icon;
+                }
+                oldIcon.Dispose();
+            }
+            catch (Exception)
+            {
+                //to be added
+                if (refreshCycleA)
+                    this.Icon = Properties.Resources.QM4BlueStateNAA;
+                else
+                    this.Icon = Properties.Resources.QM4BlueStateNAB;
+            }
+        } 
+        #endregion
+        
+
         #endregion
 
         #region Collector editing actions
@@ -999,7 +1276,12 @@ namespace QuickMon
         }
         private void HideCollectorContextMenu()
         {
-            
+            try
+            {
+                if (popperContainerForTreeView != null)
+                    popperContainerForTreeView.Close();
+            }
+            catch { }
         }  
         private void CloseAllDetailWindows()
         {
@@ -1041,10 +1323,120 @@ namespace QuickMon
             }
             catch { }
         }
+        private void SetUpContextMenus()
+        {
+            poppedContainerForTreeView.cmdCopy.Enabled = false;
+            poppedContainerForTreeView.cmdPaste.Enabled = false;
+            poppedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
+            //poppedContainerForTreeView.cmdCopy.Click += new System.EventHandler(collectorContextMenuCmdCopy_Click);
+            //poppedContainerForTreeView.cmdPaste.Click += new System.EventHandler(collectorContextMenuCmdPaste_Click);
+            //poppedContainerForTreeView.cmdPasteWithEdit.Click += new System.EventHandler(collectorContextMenuCmdPasteWithEdit_Click);
+            //poppedContainerForTreeView.cmdViewDetails.Click += new System.EventHandler(collectorTreeViewDetailsToolStripMenuItem_Click);
+            poppedContainerForTreeView.cmdAddCollector.Click += new System.EventHandler(addCollectorToolStripMenuItem_Click);
+            poppedContainerForTreeView.cmdEditCollector.Click += new System.EventHandler(editCollectorToolStripMenuItem_Click);
+            poppedContainerForTreeView.cmdDisableCollector.Click += cmdDisableCollector_Click;
+            poppedContainerForTreeView.cmdDeleteCollector.Click += new System.EventHandler(removeCollectorToolStripMenuItem_Click);
+
+            poppedContainerForTreeView.cmdRefresh.Click += new EventHandler(refreshToolStripButton_Click);
+            poppedContainerForTreeView.cmdNewMonitorPack.Click += new EventHandler(newMonitorPackToolStripMenuItem_Click);
+            poppedContainerForTreeView.cmdLoadMonitorPack.Click += new EventHandler(openMonitorPackToolStripButton_Click);
+            poppedContainerForTreeView.cmdLoadRecentMonitorPack.Click += new EventHandler(recentMonitorPackToolStripMenuItem1_Click);
+            poppedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_ButtonClick);
+            poppedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
+            poppedContainerForTreeView.cmdAbout.Click += new EventHandler(aboutToolStripMenuItem_Click);
+
+            //popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
+            //popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
+            //popedContainerForListView.cmdEditNotifier.Click += new System.EventHandler(notifierConfigurationToolStripMenuItem_Click);
+            //popedContainerForListView.cmdDisableNotifier.Click += new System.EventHandler(disableNotifierToolStripMenuItem_Click);
+            //popedContainerForListView.cmdDeleteNotifier.Click += new System.EventHandler(removeNotifierToolStripMenuItem_Click);
+        }
+        private void CheckCollectorContextMenuEnables()
+        {
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+
+                poppedContainerForTreeView.cmdViewDetails.Enabled = true;
+                poppedContainerForTreeView.cmdEditCollector.Enabled = true;
+                poppedContainerForTreeView.cmdDeleteCollector.Enabled = true;
+                poppedContainerForTreeView.cmdDisableCollector.Enabled = true;
+                poppedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.WhiteSmoke;
+                poppedContainerForTreeView.cmdDisableCollector.Image = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                poppedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";                
+                viewCollectorDetailsToolStripMenuItem.Enabled = true;                
+                editCollectorToolStripMenuItem.Enabled = true;
+                removeCollectorToolStripMenuItem1.Enabled = true;
+                poppedContainerForTreeView.cmdCopy.Enabled = true;                
+            }
+            else
+            {
+                poppedContainerForTreeView.cmdViewDetails.Enabled = false;
+                poppedContainerForTreeView.cmdEditCollector.Enabled = false;
+                poppedContainerForTreeView.cmdDeleteCollector.Enabled = false;
+                poppedContainerForTreeView.cmdDisableCollector.Enabled = false;
+                viewCollectorDetailsToolStripMenuItem.Enabled = false;
+                editCollectorToolStripMenuItem.Enabled = false;
+                poppedContainerForTreeView.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                poppedContainerForTreeView.cmdDisableCollector.Text = "Disable";
+                removeCollectorToolStripMenuItem1.Enabled = false;
+                poppedContainerForTreeView.cmdCopy.Enabled = false;
+            }
+            poppedContainerForTreeView.cmdPaste.Enabled = false;
+            poppedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
+            if (Clipboard.ContainsText())
+            {
+                string clipboardTest = Clipboard.GetText().Trim(' ', '\r', '\n');
+                if (clipboardTest.StartsWith("<collectorHosts>") && clipboardTest.EndsWith("</collectorHosts>"))
+                {
+                    try
+                    {
+                        //List<CollectorHost> pastedCollectorEntries = CollectorHost.GetCollectorEntriesFromString(clipboardTest);
+                        poppedContainerForTreeView.cmdPaste.Enabled = true;
+                        poppedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
+                        //copiedCollectorList = pastedCollectorEntries;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    }
+                }
+            }
+        }
+        
+        #endregion
+
+        #region Context menu events
+        private void cmdDisableCollector_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            try
+            {
+                if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                {
+                    SetMonitorChanged();
+                    CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                    entry.Enabled = !entry.Enabled;
+                    poppedContainerForTreeView.cmdDisableCollector.Text = entry.Enabled ? "Disable" : "Enable";
+                    poppedContainerForTreeView.cmdDisableCollector.Image = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                    tvwCollectors.SelectedNode.ForeColor = entry.Enabled ? SystemColors.WindowText : Color.Gray;
+                    if (!entry.Enabled)
+                    {
+                        tvwCollectors.SelectedNode.ImageIndex = collectorDisabled;
+                        tvwCollectors.SelectedNode.SelectedImageIndex = collectorDisabled;
+                    }
+                    DoAutoSave();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Toolbar events
-        private void newMonitorPackToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void newMonitorPackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
             CloseAllDetailWindows();
@@ -1079,12 +1471,12 @@ namespace QuickMon
             HideCollectorContextMenu();
             SaveAsMonitorPack();
         }
-        private void refreshToolStripButton1_Click(object sender, EventArgs e)
+        private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
             RefreshMonitorPack(true, true);
         }
-        private void addCollectorToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
             CreateNewCollector();
@@ -1093,8 +1485,8 @@ namespace QuickMon
         {
             HideCollectorContextMenu();
             EditCollectorConfig();
-        }
-        private void removeCollectorToolStripMenuItem1_Click(object sender, EventArgs e)
+        }        
+        private void removeCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
             DeleteCollector();
@@ -1176,7 +1568,7 @@ namespace QuickMon
                 return;
             Security.RestartInAdminMode(Application.ExecutablePath);
         }
-        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //HideCollectorContextMenu();
             AboutQuickMon aboutQuickMon = new AboutQuickMon();
@@ -1350,81 +1742,11 @@ namespace QuickMon
         } 
         #endregion
 
-        private void CheckCollectorContextMenuEnables()
-        {
-            //editCollectorToolStripMenuItem
-            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
-            {
-                CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
-
-                //popedContainerForTreeView.cmdViewDetails.Enabled = !entry.IsFolder;
-                //popedContainerForTreeView.cmdEditCollector.Enabled = true;
-                //popedContainerForTreeView.cmdDeleteCollector.Enabled = true;
-                //popedContainerForTreeView.cmdDisableCollector.Enabled = true;
-                //popedContainerForTreeView.cmdDisableCollector.BackColor = entry.Enabled ? SystemColors.Control : Color.WhiteSmoke;
-                //popedContainerForTreeView.cmdDisableCollector.BackgroundImage = entry.Enabled ? global::QuickMon.Properties.Resources.Forbidden16x16 : global::QuickMon.Properties.Resources.ForbiddenNot16x16;
-
-                //collectorTreeViewDetailsToolStripMenuItem.Enabled = !entry.IsFolder;
-                viewCollectorDetailsToolStripMenuItem.Enabled = true;
-                //collectorTreeEditConfigToolStripMenuItem.Enabled = true;
-                editCollectorToolStripMenuItem.Enabled = true;
-                removeCollectorToolStripMenuItem1.Enabled = true;
-                //disableCollectorTreeToolStripMenuItem.Enabled = true;
-                //removeCollectorToolStripMenuItem.Enabled = true;
-                //disableCollectorTreeToolStripMenuItem.Text = entry.Enabled ? "Disable" : "Enable";
-
-                //popedContainerForTreeView.cmdCopy.Enabled = true;
-                //popedContainerForTreeView.cmdStats.Enabled = !entry.IsFolder;
-                //collectorStatisticsToolStripMenuItem.Enabled = !entry.IsFolder;
-            }
-            else
-            {
-                //popedContainerForTreeView.cmdViewDetails.Enabled = false;
-                //popedContainerForTreeView.cmdEditCollector.Enabled = false;
-                //popedContainerForTreeView.cmdDeleteCollector.Enabled = false;
-                //popedContainerForTreeView.cmdDisableCollector.Enabled = false;
-
-                //collectorTreeViewDetailsToolStripMenuItem.Enabled = false;
-                viewCollectorDetailsToolStripMenuItem.Enabled = false;
-                //collectorTreeEditConfigToolStripMenuItem.Enabled = false;
-                editCollectorToolStripMenuItem.Enabled = false;
-                //disableCollectorTreeToolStripMenuItem.Enabled = false;
-                //popedContainerForTreeView.cmdDisableCollector.BackgroundImage = global::QuickMon.Properties.Resources.ForbiddenNot16x16;
-                //removeCollectorToolStripMenuItem.Enabled = false;
-                removeCollectorToolStripMenuItem1.Enabled = false;
-
-                //popedContainerForTreeView.cmdCopy.Enabled = false;
-                //popedContainerForTreeView.cmdStats.Enabled = false;
-                //collectorStatisticsToolStripMenuItem.Enabled = false;
-            }
-            //popedContainerForTreeView.cmdPaste.Enabled = false;
-            //popedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
-            if (Clipboard.ContainsText())
-            {
-                string clipboardTest = Clipboard.GetText().Trim(' ', '\r', '\n');
-                if (clipboardTest.StartsWith("<collectorHosts>") && clipboardTest.EndsWith("</collectorHosts>"))
-                {
-                    //try
-                    //{
-                    //    List<CollectorHost> pastedCollectorEntries = CollectorHost.GetCollectorEntriesFromString(clipboardTest);
-                    //    popedContainerForTreeView.cmdPaste.Enabled = true;
-                    //    popedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
-                    //    copiedCollectorList = pastedCollectorEntries;
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    System.Diagnostics.Trace.WriteLine(ex.ToString());
-                    //}
-                }
-            }
-        }
-
         private void showCollectorContextMenuTimer_Tick(object sender, EventArgs e)
         {
             showCollectorContextMenuTimer.Enabled = false;
             popperContainerForTreeView.Show(this, collectorContextMenuLaunchPoint);
         }
-
 
 
 

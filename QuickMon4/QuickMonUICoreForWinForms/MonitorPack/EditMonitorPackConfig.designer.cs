@@ -54,21 +54,22 @@
             this.tabAdvancedConfig = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.label42 = new System.Windows.Forms.Label();
             this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.lvwConfigVars = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label37 = new System.Windows.Forms.Label();
-            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneric.SuspendLayout();
@@ -78,6 +79,7 @@
             this.tabAdvancedConfig.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -120,7 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(103, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(409, 20);
+            this.txtName.Size = new System.Drawing.Size(373, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -128,13 +130,16 @@
             // 
             this.chkEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkEnabled.AutoSize = true;
+            this.chkEnabled.BackColor = System.Drawing.Color.Transparent;
+            this.chkEnabled.Checked = true;
+            this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(518, 14);
+            this.chkEnabled.Location = new System.Drawing.Point(486, 15);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
             this.chkEnabled.Text = "&Enabled";
-            this.chkEnabled.UseVisualStyleBackColor = true;
+            this.chkEnabled.UseVisualStyleBackColor = false;
             // 
             // chkCorrectiveScripts
             // 
@@ -220,11 +225,13 @@
             // 
             this.lblMonitorPackPath.AutoEllipsis = true;
             this.lblMonitorPackPath.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblMonitorPackPath.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMonitorPackPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblMonitorPackPath.Location = new System.Drawing.Point(197, 35);
+            this.lblMonitorPackPath.Location = new System.Drawing.Point(3, 216);
             this.lblMonitorPackPath.Name = "lblMonitorPackPath";
-            this.lblMonitorPackPath.Size = new System.Drawing.Size(393, 20);
+            this.lblMonitorPackPath.Size = new System.Drawing.Size(575, 20);
             this.lblMonitorPackPath.TabIndex = 14;
             this.lblMonitorPackPath.Text = " ";
             this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -245,6 +252,7 @@
             // 
             // tabGeneric
             // 
+            this.tabGeneric.Controls.Add(this.lblMonitorPackPath);
             this.tabGeneric.Controls.Add(this.groupBox1);
             this.tabGeneric.Controls.Add(this.pollingGroupBox);
             this.tabGeneric.Controls.Add(this.txtType);
@@ -373,54 +381,10 @@
             this.toolStrip1.TabStop = true;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // addConfigVarToolStripButton
-            // 
-            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
-            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addConfigVarToolStripButton.Text = "Create new";
-            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
-            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
-            // 
-            // deleteConfigVarToolStripButton
-            // 
-            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteConfigVarToolStripButton.Enabled = false;
-            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
-            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
-            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
-            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // moveUpConfigVarToolStripButton
-            // 
-            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpConfigVarToolStripButton.Enabled = false;
-            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
-            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
-            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
-            // 
-            // moveDownConfigVarToolStripButton
-            // 
-            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownConfigVarToolStripButton.Enabled = false;
-            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
-            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
-            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
             // 
             // label42
             // 
@@ -473,6 +437,84 @@
             this.label40.TabIndex = 2;
             this.label40.Text = "Search for";
             // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(6, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(98, 13);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "Config variables";
+            // 
+            // llblRawEdit
+            // 
+            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblRawEdit.AutoSize = true;
+            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRawEdit.Location = new System.Drawing.Point(9, 314);
+            this.llblRawEdit.Name = "llblRawEdit";
+            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
+            this.llblRawEdit.TabIndex = 4;
+            this.llblRawEdit.TabStop = true;
+            this.llblRawEdit.Text = "Edit RAW config";
+            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.BlueArcTopRight;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(555, -2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 42);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // addConfigVarToolStripButton
+            // 
+            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
+            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addConfigVarToolStripButton.Text = "Create new";
+            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
+            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
+            // 
+            // deleteConfigVarToolStripButton
+            // 
+            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteConfigVarToolStripButton.Enabled = false;
+            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
+            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
+            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
+            // 
+            // moveUpConfigVarToolStripButton
+            // 
+            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpConfigVarToolStripButton.Enabled = false;
+            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
+            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
+            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
+            // 
+            // moveDownConfigVarToolStripButton
+            // 
+            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownConfigVarToolStripButton.Enabled = false;
+            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
+            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
+            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
+            // 
             // lvwConfigVars
             // 
             this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -502,37 +544,12 @@
             this.valueColumnHeader.Text = "Replace by";
             this.valueColumnHeader.Width = 262;
             // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(6, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(98, 13);
-            this.label37.TabIndex = 0;
-            this.label37.Text = "Config variables";
-            // 
-            // llblRawEdit
-            // 
-            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblRawEdit.AutoSize = true;
-            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(9, 314);
-            this.llblRawEdit.Name = "llblRawEdit";
-            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
-            this.llblRawEdit.TabIndex = 4;
-            this.llblRawEdit.TabStop = true;
-            this.llblRawEdit.Text = "Edit RAW config";
-            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
-            // 
             // EditMonitorPackConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(595, 344);
-            this.Controls.Add(this.lblMonitorPackPath);
             this.Controls.Add(this.llblRawEdit);
             this.Controls.Add(this.chkEnabled);
             this.Controls.Add(this.txtName);
@@ -540,6 +557,7 @@
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -562,6 +580,7 @@
             this.groupBox5.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -609,5 +628,6 @@
         private System.Windows.Forms.LinkLabel llblRawEdit;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox pollingGroupBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

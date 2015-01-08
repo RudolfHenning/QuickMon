@@ -126,6 +126,7 @@
     <Compile Include="Controls\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TreeNodeEx.cs" />
     <Compile Include="Controls\TreeViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -278,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\settings_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlueArcTopRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

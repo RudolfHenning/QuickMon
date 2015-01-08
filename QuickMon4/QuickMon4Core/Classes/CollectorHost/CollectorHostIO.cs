@@ -144,9 +144,9 @@ namespace QuickMon
                             if (applyConfigVars)
                             {
                                 appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
-                                appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);
-                                newAgent.ActiveConfiguration = appliedConfig;
+                                appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);                                
                             }
+                            newAgent.ActiveConfiguration = appliedConfig;                            
                             newCollectorHost.CollectorAgents.Add(newAgent);
 
                             newAgent.AgentConfig.FromXml(appliedConfig);

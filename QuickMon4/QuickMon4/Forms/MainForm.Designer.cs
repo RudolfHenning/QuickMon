@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.cmdTestRun1 = new System.Windows.Forms.Button();
             this.cmdTestRun2 = new System.Windows.Forms.Button();
@@ -96,6 +96,7 @@
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.notifiersImageList = new System.Windows.Forms.ImageList(this.components);
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
+            this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).BeginInit();
             this.masterSplitContainer.Panel1.SuspendLayout();
             this.masterSplitContainer.Panel2.SuspendLayout();
@@ -156,7 +157,7 @@
             this.llblMonitorPack.Location = new System.Drawing.Point(0, 72);
             this.llblMonitorPack.Name = "llblMonitorPack";
             this.llblMonitorPack.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
-            this.llblMonitorPack.Size = new System.Drawing.Size(502, 23);
+            this.llblMonitorPack.Size = new System.Drawing.Size(394, 23);
             this.llblMonitorPack.TabIndex = 23;
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "Click here to set the monitor pack name.";
@@ -182,8 +183,8 @@
             this.masterSplitContainer.Panel2.Controls.Add(this.lblNoNotifiersYet);
             this.masterSplitContainer.Panel2.Controls.Add(this.lvwNotifiers);
             this.masterSplitContainer.Panel2.Controls.Add(this.panel2);
-            this.masterSplitContainer.Size = new System.Drawing.Size(502, 371);
-            this.masterSplitContainer.SplitterDistance = 251;
+            this.masterSplitContainer.Size = new System.Drawing.Size(394, 294);
+            this.masterSplitContainer.SplitterDistance = 198;
             this.masterSplitContainer.SplitterWidth = 6;
             this.masterSplitContainer.TabIndex = 44;
             // 
@@ -194,7 +195,7 @@
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(10, 5, 3, 3);
-            this.panel3.Size = new System.Drawing.Size(502, 221);
+            this.panel3.Size = new System.Drawing.Size(394, 168);
             this.panel3.TabIndex = 1;
             // 
             // tvwCollectors
@@ -216,16 +217,16 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
-            this.tvwCollectors.Size = new System.Drawing.Size(489, 213);
+            this.tvwCollectors.Size = new System.Drawing.Size(381, 160);
             this.tvwCollectors.TabIndex = 1;
             this.tvwCollectors.EnterKeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_EnterKeyDown);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
@@ -254,9 +255,9 @@
             this.agentSeparatorBox.BackgroundImage = global::QuickMon.Properties.Resources.MenuBlueShade;
             this.agentSeparatorBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.agentSeparatorBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.agentSeparatorBox.Location = new System.Drawing.Point(0, 221);
+            this.agentSeparatorBox.Location = new System.Drawing.Point(0, 168);
             this.agentSeparatorBox.Name = "agentSeparatorBox";
-            this.agentSeparatorBox.Size = new System.Drawing.Size(502, 10);
+            this.agentSeparatorBox.Size = new System.Drawing.Size(394, 10);
             this.agentSeparatorBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.agentSeparatorBox.TabIndex = 39;
             this.agentSeparatorBox.TabStop = false;
@@ -267,10 +268,10 @@
             this.llblNotifierViewToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llblNotifierViewToggle.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.llblNotifierViewToggle.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 231);
+            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 178);
             this.llblNotifierViewToggle.Name = "llblNotifierViewToggle";
             this.llblNotifierViewToggle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.llblNotifierViewToggle.Size = new System.Drawing.Size(502, 20);
+            this.llblNotifierViewToggle.Size = new System.Drawing.Size(394, 20);
             this.llblNotifierViewToggle.TabIndex = 38;
             this.llblNotifierViewToggle.TabStop = true;
             this.llblNotifierViewToggle.Text = "Show Notifiers";
@@ -279,9 +280,9 @@
             // lblNoNotifiersYet
             // 
             this.lblNoNotifiersYet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblNoNotifiersYet.Location = new System.Drawing.Point(91, 12);
+            this.lblNoNotifiersYet.Location = new System.Drawing.Point(33, 0);
             this.lblNoNotifiersYet.Name = "lblNoNotifiersYet";
-            this.lblNoNotifiersYet.Size = new System.Drawing.Size(330, 90);
+            this.lblNoNotifiersYet.Size = new System.Drawing.Size(262, 71);
             this.lblNoNotifiersYet.TabIndex = 1;
             this.lblNoNotifiersYet.Text = "No Notifiers added yet!\r\nDouble-Click here to add a new Notifier.";
             this.lblNoNotifiersYet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -300,7 +301,7 @@
             this.lvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(497, 114);
+            this.lvwNotifiers.Size = new System.Drawing.Size(389, 90);
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
             this.lvwNotifiers.View = System.Windows.Forms.View.List;
@@ -315,7 +316,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(5, 114);
+            this.panel2.Size = new System.Drawing.Size(5, 90);
             this.panel2.TabIndex = 2;
             // 
             // statusStrip1
@@ -324,9 +325,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adminModeToolStripStatusLabel,
             this.toolStripStatusLabelStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 517);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 440);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(502, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(394, 22);
             this.statusStrip1.TabIndex = 46;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -340,7 +341,7 @@
             // 
             this.toolStripStatusLabelStatus.AutoSize = false;
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(471, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(363, 17);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.Text = ".";
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -351,9 +352,9 @@
             this.panelTest.Controls.Add(this.cmdTestRun1);
             this.panelTest.Controls.Add(this.cmdTestRun2);
             this.panelTest.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelTest.Location = new System.Drawing.Point(0, 476);
+            this.panelTest.Location = new System.Drawing.Point(0, 399);
             this.panelTest.Name = "panelTest";
-            this.panelTest.Size = new System.Drawing.Size(502, 31);
+            this.panelTest.Size = new System.Drawing.Size(394, 31);
             this.panelTest.TabIndex = 47;
             // 
             // recentMonitorPacksHideTimer
@@ -381,9 +382,9 @@
             this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.MenuBlueShade;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 507);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 430);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(502, 10);
+            this.pictureBox1.Size = new System.Drawing.Size(394, 10);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 45;
             this.pictureBox1.TabStop = false;
@@ -396,7 +397,7 @@
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox2.Location = new System.Drawing.Point(0, 95);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(502, 10);
+            this.pictureBox2.Size = new System.Drawing.Size(394, 10);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 43;
             this.pictureBox2.TabStop = false;
@@ -413,7 +414,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(502, 72);
+            this.panel1.Size = new System.Drawing.Size(394, 72);
             this.panel1.TabIndex = 22;
             this.panel1.MouseEnter += new System.EventHandler(this.HideRecentDropDownList);
             // 
@@ -437,7 +438,7 @@
             this.recentMonitorPacksPanel.Controls.Add(this.cboRecentMonitorPacks);
             this.recentMonitorPacksPanel.Location = new System.Drawing.Point(3, 43);
             this.recentMonitorPacksPanel.Name = "recentMonitorPacksPanel";
-            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(487, 26);
+            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(379, 26);
             this.recentMonitorPacksPanel.TabIndex = 5;
             this.recentMonitorPacksPanel.MouseEnter += new System.EventHandler(this.recentMonitorPacksPanel_MouseEnter);
             // 
@@ -466,7 +467,7 @@
             this.cboRecentMonitorPacks.FormattingEnabled = true;
             this.cboRecentMonitorPacks.Location = new System.Drawing.Point(30, 2);
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
-            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(454, 23);
+            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(346, 23);
             this.cboRecentMonitorPacks.TabIndex = 0;
             this.cboRecentMonitorPacks.SelectedIndexChanged += new System.EventHandler(this.cboRecentMonitorPacks_SelectedIndexChanged);
             this.cboRecentMonitorPacks.MouseLeave += new System.EventHandler(this.cboRecentMonitorPacks_MouseLeave);
@@ -478,13 +479,13 @@
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblVersion.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblVersion.Location = new System.Drawing.Point(448, 16);
+            this.lblVersion.Location = new System.Drawing.Point(340, 16);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(51, 23);
             this.lblVersion.TabIndex = 4;
             this.lblVersion.Text = "vX.X";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblVersion.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            this.lblVersion.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             this.lblVersion.MouseEnter += new System.EventHandler(this.HideRecentDropDownList);
             // 
             // mainToolStrip
@@ -518,7 +519,7 @@
             this.newMonitorPackToolStripMenuItem2.Size = new System.Drawing.Size(32, 32);
             this.newMonitorPackToolStripMenuItem2.Text = "New";
             this.newMonitorPackToolStripMenuItem2.ToolTipText = "Create new monitor pack (Ctrl + N)";
-            this.newMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.newMonitorPackToolStripMenuItem2_Click);
+            this.newMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.newMonitorPackToolStripMenuItem_Click);
             // 
             // openMonitorPackToolStripButton
             // 
@@ -562,7 +563,7 @@
             this.refreshToolStripButton1.Size = new System.Drawing.Size(32, 32);
             this.refreshToolStripButton1.Text = "Refresh";
             this.refreshToolStripButton1.ToolTipText = "Refresh (F5)";
-            this.refreshToolStripButton1.Click += new System.EventHandler(this.refreshToolStripButton1_Click);
+            this.refreshToolStripButton1.Click += new System.EventHandler(this.refreshToolStripButton_Click);
             // 
             // agentsToolStripButton
             // 
@@ -592,7 +593,7 @@
             this.addCollectorToolStripMenuItem1.Name = "addCollectorToolStripMenuItem1";
             this.addCollectorToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.addCollectorToolStripMenuItem1.Text = "Add Collector";
-            this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem1_Click);
+            this.addCollectorToolStripMenuItem1.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
             // editCollectorToolStripMenuItem
             // 
@@ -610,7 +611,7 @@
             this.removeCollectorToolStripMenuItem1.Name = "removeCollectorToolStripMenuItem1";
             this.removeCollectorToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.removeCollectorToolStripMenuItem1.Text = "Remove Collector";
-            this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem1_Click);
+            this.removeCollectorToolStripMenuItem1.Click += new System.EventHandler(this.removeCollectorToolStripMenuItem_Click);
             // 
             // viewCollectorDetailsToolStripMenuItem
             // 
@@ -770,7 +771,7 @@
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
             this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(32, 32);
             this.aboutToolStripMenuItem1.Text = "About";
-            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // openFileDialogOpen
             // 
@@ -798,12 +799,16 @@
             // 
             this.showCollectorContextMenuTimer.Tick += new System.EventHandler(this.showCollectorContextMenuTimer_Tick);
             // 
+            // refreshBackgroundWorker
+            // 
+            this.refreshBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refreshBackgroundWorker_DoWork);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(502, 539);
+            this.ClientSize = new System.Drawing.Size(394, 462);
             this.Controls.Add(this.masterSplitContainer);
             this.Controls.Add(this.panelTest);
             this.Controls.Add(this.pictureBox1);
@@ -812,6 +817,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(410, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuickMon 4";
@@ -906,6 +912,7 @@
         private System.Windows.Forms.ImageList notifiersImageList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer showCollectorContextMenuTimer;
+        private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
     }
 }
 
