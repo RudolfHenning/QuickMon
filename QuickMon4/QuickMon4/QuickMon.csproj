@@ -61,6 +61,12 @@
     <Compile Include="ContextMenuControls\CollectorContextMenuControl.Designer.cs">
       <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ContextMenuControls\NotifierContextMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenuControls\NotifierContextMenuControl.Designer.cs">
+      <DependentUpon>NotifierContextMenuControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ContextMenuControls\PoppedContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +98,12 @@
     <Compile Include="Forms\TestCollectorHostEdit.Designer.cs">
       <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TestMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestMenu.Designer.cs">
+      <DependentUpon>TestMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TestRun1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,9 @@
     <EmbeddedResource Include="ContextMenuControls\CollectorContextMenuControl.resx">
       <DependentUpon>CollectorContextMenuControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ContextMenuControls\NotifierContextMenuControl.resx">
+      <DependentUpon>NotifierContextMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestCollectorHostEdit.resx">
       <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestMenu.resx">
+      <DependentUpon>TestMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestRun1.resx">
       <DependentUpon>TestRun1.cs</DependentUpon>

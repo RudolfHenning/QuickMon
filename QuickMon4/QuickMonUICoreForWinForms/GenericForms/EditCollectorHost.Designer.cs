@@ -829,6 +829,7 @@
             this.cmdRemoteAgentTest.TabIndex = 8;
             this.cmdRemoteAgentTest.Text = "Test";
             this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
+            this.cmdRemoteAgentTest.Click += new System.EventHandler(this.cmdRemoteAgentTest_Click);
             // 
             // pollingOverridesGroupBox
             // 

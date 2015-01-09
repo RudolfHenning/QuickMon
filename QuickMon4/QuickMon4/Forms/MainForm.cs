@@ -19,8 +19,8 @@ namespace QuickMon
             InitializeComponent();
             poppedContainerForTreeView = new Controls.CollectorContextMenuControl();
             popperContainerForTreeView = new Controls.PopperContainer(poppedContainerForTreeView);
-            //poppedContainerForListView = new Controls.NotifierContextMenuControl();
-            //popperContainerForListView = new Controls.PopperContainer(popedContainerForListView);
+            poppedContainerForListView = new Controls.NotifierContextMenuControl();
+            popperContainerForListView = new Controls.PopperContainer(poppedContainerForListView);
         }
 
         #region Private vars
@@ -43,8 +43,13 @@ namespace QuickMon
         private Point notifierContextMenuLaunchPoint = new Point();
         private QuickMon.Controls.CollectorContextMenuControl poppedContainerForTreeView;
         private QuickMon.Controls.PopperContainer popperContainerForTreeView;
-        //private QuickMon.Controls.NotifierContextMenuControl popedContainerForListView;
-        private QuickMon.Controls.PopperContainer poperContainerForListView;
+        private QuickMon.Controls.NotifierContextMenuControl poppedContainerForListView;
+        private QuickMon.Controls.PopperContainer popperContainerForListView;
+
+        #region Copy and Paste of collector hosts
+        private List<CollectorHost> copiedCollectorList = new List<CollectorHost>();
+        //private List<CollectorStats> collectorStatsWindows = new List<CollectorStats>(); 
+        #endregion
         #endregion
 
         #region TreeNodeImage contants
@@ -216,6 +221,23 @@ namespace QuickMon
                 location = control.Location;
             }
             return location;
+        }
+        #endregion
+
+        #region Notifier ListView events
+        private void lvwNotifiers_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                showNotifierContextMenuTimer.Enabled = false;
+                showNotifierContextMenuTimer.Enabled = true;
+
+                Point topabsolute = this.PointToScreen(panel1.Location);
+                Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
+                Point calcPoint = new Point(Cursor.Position.X - lvwNotifiers.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
+                notifierContextMenuLaunchPoint = calcPoint;
+                CheckNotifierContextMenuEnables();
+            }
         }
         #endregion
 
@@ -399,9 +421,7 @@ namespace QuickMon
             #region Load Collectors
             if (monitorPack != null)
             {
-                List<CollectorHost> noDependantCollectors = (from c in monitorPack.CollectorHosts
-                                                             where c.ParentCollectorId.Length == 0
-                                                             select c).ToList();
+                List<CollectorHost> noDependantCollectors = monitorPack.GetRootCollectorHosts();
                 foreach (CollectorHost collector in noDependantCollectors)
                 {
                     LoadCollectorNode(root, collector);
@@ -480,7 +500,7 @@ namespace QuickMon
             llblMonitorPack.Text = "";
             if (monitorPack == null || ((monitorPack.Name == null || monitorPack.Name.Trim().Length == 0)))
             {
-                llblMonitorPack.Text = "Click here to set the monitor pack name.";
+                llblMonitorPack.Text = "Click here to set the monitor pack properties.";
             }
             else
             {
@@ -949,7 +969,7 @@ namespace QuickMon
                 {
                     SetMonitorChanged();
                     newCollectorEntry.ReconfigureFromXml(editCollectorHost.SelectedConfig, monitorPack.ConfigVariables, true);
-                    monitorPack.CollectorHosts.Add(newCollectorEntry);
+                    monitorPack.AddCollectorHost(newCollectorEntry);
                     TreeNode parentNode = tvwCollectors.Nodes[0];
                     if (newCollectorEntry.ParentCollectorId != null && newCollectorEntry.ParentCollectorId.Length > 0)
                     {
@@ -1328,29 +1348,22 @@ namespace QuickMon
             poppedContainerForTreeView.cmdCopy.Enabled = false;
             poppedContainerForTreeView.cmdPaste.Enabled = false;
             poppedContainerForTreeView.cmdPasteWithEdit.Enabled = false;
-            //poppedContainerForTreeView.cmdCopy.Click += new System.EventHandler(collectorContextMenuCmdCopy_Click);
-            //poppedContainerForTreeView.cmdPaste.Click += new System.EventHandler(collectorContextMenuCmdPaste_Click);
-            //poppedContainerForTreeView.cmdPasteWithEdit.Click += new System.EventHandler(collectorContextMenuCmdPasteWithEdit_Click);
-            //poppedContainerForTreeView.cmdViewDetails.Click += new System.EventHandler(collectorTreeViewDetailsToolStripMenuItem_Click);
+            poppedContainerForTreeView.cmdCopy.Click += cmdCopy_Click;
+            poppedContainerForTreeView.cmdPaste.Click += cmdPaste_Click;
+            poppedContainerForTreeView.cmdPasteWithEdit.Click += cmdPasteWithEdit_Click;
+            poppedContainerForTreeView.cmdViewDetails.Click += cmdViewDetails_Click;
             poppedContainerForTreeView.cmdAddCollector.Click += new System.EventHandler(addCollectorToolStripMenuItem_Click);
             poppedContainerForTreeView.cmdEditCollector.Click += new System.EventHandler(editCollectorToolStripMenuItem_Click);
             poppedContainerForTreeView.cmdDisableCollector.Click += cmdDisableCollector_Click;
-            poppedContainerForTreeView.cmdDeleteCollector.Click += new System.EventHandler(removeCollectorToolStripMenuItem_Click);
-
-            poppedContainerForTreeView.cmdRefresh.Click += new EventHandler(refreshToolStripButton_Click);
-            poppedContainerForTreeView.cmdNewMonitorPack.Click += new EventHandler(newMonitorPackToolStripMenuItem_Click);
-            poppedContainerForTreeView.cmdLoadMonitorPack.Click += new EventHandler(openMonitorPackToolStripButton_Click);
-            poppedContainerForTreeView.cmdLoadRecentMonitorPack.Click += new EventHandler(recentMonitorPackToolStripMenuItem1_Click);
-            poppedContainerForTreeView.cmdSaveMonitorPack.Click += new EventHandler(saveAsMonitorPackToolStripMenuItem_ButtonClick);
-            poppedContainerForTreeView.cmdGeneralSettings.Click += new EventHandler(generalSettingsToolStripSplitButton_ButtonClick);
-            poppedContainerForTreeView.cmdAbout.Click += new EventHandler(aboutToolStripMenuItem_Click);
+            poppedContainerForTreeView.cmdDeleteCollector.Click += new System.EventHandler(removeCollectorToolStripMenuItem_Click);            
 
             //popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
-            //popedContainerForListView.cmdAddNotifier.Click += new System.EventHandler(addNotifierToolStripMenuItem_Click);
-            //popedContainerForListView.cmdEditNotifier.Click += new System.EventHandler(notifierConfigurationToolStripMenuItem_Click);
-            //popedContainerForListView.cmdDisableNotifier.Click += new System.EventHandler(disableNotifierToolStripMenuItem_Click);
-            //popedContainerForListView.cmdDeleteNotifier.Click += new System.EventHandler(removeNotifierToolStripMenuItem_Click);
+            poppedContainerForListView.cmdAddNotifier.Click += cmdAddNotifier_Click;
+            poppedContainerForListView.cmdEditNotifier.Click += cmdEditNotifier_Click;
+            poppedContainerForListView.cmdDisableNotifier.Click += cmdDisableNotifier_Click;
+            poppedContainerForListView.cmdDeleteNotifier.Click += cmdDeleteNotifier_Click;
         }
+
         private void CheckCollectorContextMenuEnables()
         {
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
@@ -1403,10 +1416,130 @@ namespace QuickMon
                 }
             }
         }
-        
+        private void CheckNotifierContextMenuEnables()
+        {
+            NotifierHost entry = null;
+            if (lvwNotifiers.SelectedItems.Count > 0)
+            {
+                entry = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
+                poppedContainerForListView.cmdDisableNotifier.BackgroundImage = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+            }
+            else
+            {
+                poppedContainerForListView.cmdDisableNotifier.BackgroundImage = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
+            }
+            editNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
+            removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
+
+            poppedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
+            poppedContainerForListView.cmdViewDetails.Enabled = lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].ImageIndex > 0;
+            poppedContainerForListView.cmdEditNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
+            poppedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
+            poppedContainerForListView.cmdDeleteNotifier.Enabled = lvwNotifiers.SelectedItems.Count > 0;
+        }
+
+        private void CopySelectedCollectorAndDependants()
+        {
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                List<CollectorHost> sourceList = monitorPack.GetAllChildCollectorHosts(entry);
+                copiedCollectorList = new List<CollectorHost>();
+                copiedCollectorList.Add(entry.Clone());
+                foreach (CollectorHost en in sourceList)
+                {
+                    //Copy as is with same IDs
+                    copiedCollectorList.Add(en.Clone());
+                }
+                Clipboard.SetText(CollectorHost.CollectorHostListToString(copiedCollectorList));
+
+                poppedContainerForTreeView.cmdPaste.Enabled = true;
+                poppedContainerForTreeView.cmdPasteWithEdit.Enabled = true;
+            }
+        }
+        private void PasteSelectedCollectorAndDependant(bool showEditList)
+        {
+            try
+            {
+                if (copiedCollectorList != null && copiedCollectorList.Count > 0)
+                {
+                    if (showEditList)
+                    {
+                        //PasteCollectors pasteCollectors = new PasteCollectors();
+                        //pasteCollectors.SelectedCollectors = copiedCollectorList;
+                        //if (pasteCollectors.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        //{
+                        //    copiedCollectorList = pasteCollectors.SelectedCollectors;
+                        //}
+                        //else
+                        //    return;
+                    }
+
+                    if (copiedCollectorList != null && copiedCollectorList.Count > 0)
+                    {
+                        SetMonitorChanged();
+                        for (int i = 0; i < copiedCollectorList.Count; i++)
+                        {
+                            string newId = Guid.NewGuid().ToString();
+                            string oldId = copiedCollectorList[i].UniqueId;
+                            for (int j = 0; j < copiedCollectorList.Count; j++)
+                            {
+                                if (i != j && copiedCollectorList[j].ParentCollectorId == oldId)
+                                {
+                                    copiedCollectorList[j].ParentCollectorId = newId;
+                                }
+                            }
+                            copiedCollectorList[i].UniqueId = newId;
+                        }
+
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                        {
+                            copiedCollectorList[0].ParentCollectorId = ((CollectorHost)tvwCollectors.SelectedNode.Tag).UniqueId;
+                        }
+                        else
+                            copiedCollectorList[0].ParentCollectorId = "";
+                        CollectorHost rootChild = null;
+                        for (int i = 0; i < copiedCollectorList.Count; i++)
+                        {
+                            CollectorHost newChild = copiedCollectorList[i].Clone();
+                            if (rootChild == null)
+                                rootChild = newChild;
+                            monitorPack.AddCollectorHost(newChild);
+                        }
+                        TreeNode root = tvwCollectors.Nodes[0];
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                        {
+                            root = tvwCollectors.SelectedNode;
+                        }
+
+                        LoadCollectorNode(root, rootChild);
+                        root.Expand();
+                        DoAutoSave();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Context menu events
+        private void showCollectorContextMenuTimer_Tick(object sender, EventArgs e)
+        {
+            showCollectorContextMenuTimer.Enabled = false;
+            popperContainerForTreeView.Show(this, collectorContextMenuLaunchPoint);
+        }
+        private void showNotifierContextMenuTimer_Tick(object sender, EventArgs e)
+        {
+            showNotifierContextMenuTimer.Enabled = false;
+            popperContainerForListView.Show(this, notifierContextMenuLaunchPoint);
+        }
+        private void cmdViewDetails_Click(object sender, EventArgs e)
+        {
+            
+        }
         private void cmdDisableCollector_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
@@ -1432,6 +1565,37 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void cmdCopy_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            CopySelectedCollectorAndDependants();
+        }
+        private void cmdPaste_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            PasteSelectedCollectorAndDependant(false);
+        }
+        private void cmdPasteWithEdit_Click(object sender, EventArgs e)
+        {
+            HideCollectorContextMenu();
+            PasteSelectedCollectorAndDependant(true);
+        }
+        private void cmdAddNotifier_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cmdEditNotifier_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private void cmdDeleteNotifier_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private void cmdDisableNotifier_Click(object sender, EventArgs e)
+        {
+            
         }
         #endregion
 
@@ -1723,32 +1887,11 @@ namespace QuickMon
         }
         #endregion
 
-        #region Test stuff
-        private void cmdTestRun1_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            TestRun1 tr1 = new TestRun1();
-            tr1.Show();
+            QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
+            tm.Show();
         }
-        private void cmdTestRun2_Click(object sender, EventArgs e)
-        {
-            TestRun2Notifiers tr2 = new TestRun2Notifiers();
-            tr2.Show();
-        }
-
-        private void cmdTestEdit_Click(object sender, EventArgs e)
-        {
-            TestCollectorHostEdit tce = new TestCollectorHostEdit();
-            tce.Show();
-        } 
-        #endregion
-
-        private void showCollectorContextMenuTimer_Tick(object sender, EventArgs e)
-        {
-            showCollectorContextMenuTimer.Enabled = false;
-            popperContainerForTreeView.Show(this, collectorContextMenuLaunchPoint);
-        }
-
-
 
     }
 }

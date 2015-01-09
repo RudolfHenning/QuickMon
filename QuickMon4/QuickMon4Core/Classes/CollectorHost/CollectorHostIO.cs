@@ -300,5 +300,24 @@ namespace QuickMon
             configXml.AppendLine("</collectorHost>");
             return configXml.ToString();
         }
+
+        public static string CollectorHostListToString(List<CollectorHost> entries)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<collectorHosts>");
+            foreach (CollectorHost entry in entries)
+            {
+                sb.AppendLine(entry.ToXml());
+            }
+            sb.AppendLine("</collectorHosts>");
+            return sb.ToString();
+        }
+        public CollectorHost Clone(bool newId = false)
+        {
+            CollectorHost clone = FromXml(ToXml());
+            if (newId)
+                clone.UniqueId = Guid.NewGuid().ToString();
+            return clone;
+        }
     }
 }
