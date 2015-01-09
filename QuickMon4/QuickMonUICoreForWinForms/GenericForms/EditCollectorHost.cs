@@ -29,9 +29,11 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region Properties
         public string SelectedConfig { get; set; }
         public MonitorPack HostingMonitorPack { get; set; }
-        public List<string> KnownRemoteHosts { get; set; }
+        public List<string> KnownRemoteHosts { get; set; } 
+        #endregion
 
         private CollectorHost editingCollectorHost = new CollectorHost();
 
@@ -697,6 +699,21 @@ namespace QuickMon
             }
             return success;
         }
+        private void cmdRemoteAgentTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtRemoteAgentServer.Text.Length > 0)
+                {
+                    string versionInfo = RemoteCollectorHostService.GetRemoteAgentHostVersion(txtRemoteAgentServer.Text, (int)remoteportNumericUpDown.Value);
+                    MessageBox.Show("Success\r\nVersion Info: " + versionInfo, "Remote server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Remote server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Raw editing of config
@@ -731,6 +748,8 @@ namespace QuickMon
             }
         } 
         #endregion
+
+
         
     }
 }

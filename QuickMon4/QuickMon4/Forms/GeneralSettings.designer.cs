@@ -318,7 +318,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(456, 217);
+            this.tabControl1.Size = new System.Drawing.Size(456, 201);
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -337,7 +337,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(448, 191);
+            this.tabPage1.Size = new System.Drawing.Size(448, 175);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Polling";
             // 
@@ -350,7 +350,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(448, 191);
+            this.tabPage2.Size = new System.Drawing.Size(448, 175);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Application";
             // 
@@ -368,7 +368,7 @@
             this.tabPageRemoteHosts.Location = new System.Drawing.Point(4, 22);
             this.tabPageRemoteHosts.Name = "tabPageRemoteHosts";
             this.tabPageRemoteHosts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRemoteHosts.Size = new System.Drawing.Size(448, 191);
+            this.tabPageRemoteHosts.Size = new System.Drawing.Size(448, 175);
             this.tabPageRemoteHosts.TabIndex = 2;
             this.tabPageRemoteHosts.Text = "Remote hosts";
             // 
@@ -377,7 +377,7 @@
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAdd.Enabled = false;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAdd.Location = new System.Drawing.Point(389, 140);
+            this.cmdAdd.Location = new System.Drawing.Point(389, 124);
             this.cmdAdd.Name = "cmdAdd";
             this.cmdAdd.Size = new System.Drawing.Size(45, 23);
             this.cmdAdd.TabIndex = 5;
@@ -390,7 +390,7 @@
             this.llblFirewallRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.llblFirewallRule.AutoSize = true;
             this.llblFirewallRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblFirewallRule.Location = new System.Drawing.Point(222, 170);
+            this.llblFirewallRule.Location = new System.Drawing.Point(222, 154);
             this.llblFirewallRule.Name = "llblFirewallRule";
             this.llblFirewallRule.Size = new System.Drawing.Size(218, 13);
             this.llblFirewallRule.TabIndex = 7;
@@ -401,7 +401,7 @@
             // remoteportNumericUpDown
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(292, 143);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(292, 127);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -426,7 +426,7 @@
             this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblLocalServiceRegistered.AutoSize = true;
             this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(6, 170);
+            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(6, 154);
             this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
             this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
             this.llblLocalServiceRegistered.TabIndex = 6;
@@ -438,7 +438,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(260, 145);
+            this.label14.Location = new System.Drawing.Point(260, 129);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 3;
@@ -448,7 +448,7 @@
             // 
             this.txtComputer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComputer.Location = new System.Drawing.Point(85, 142);
+            this.txtComputer.Location = new System.Drawing.Point(85, 126);
             this.txtComputer.Name = "txtComputer";
             this.txtComputer.Size = new System.Drawing.Size(170, 20);
             this.txtComputer.TabIndex = 2;
@@ -459,7 +459,7 @@
             // 
             this.lblComputer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblComputer.AutoSize = true;
-            this.lblComputer.Location = new System.Drawing.Point(6, 145);
+            this.lblComputer.Location = new System.Drawing.Point(6, 129);
             this.lblComputer.Name = "lblComputer";
             this.lblComputer.Size = new System.Drawing.Size(73, 13);
             this.lblComputer.TabIndex = 1;
@@ -481,7 +481,7 @@
             this.lvwRemoteHosts.FullRowSelect = true;
             this.lvwRemoteHosts.Location = new System.Drawing.Point(0, 0);
             this.lvwRemoteHosts.Name = "lvwRemoteHosts";
-            this.lvwRemoteHosts.Size = new System.Drawing.Size(440, 134);
+            this.lvwRemoteHosts.Size = new System.Drawing.Size(440, 118);
             this.lvwRemoteHosts.SmallImageList = this.remoteHostStatusImageList;
             this.lvwRemoteHosts.TabIndex = 0;
             this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;

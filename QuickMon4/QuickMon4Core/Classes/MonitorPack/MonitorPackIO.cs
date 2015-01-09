@@ -111,7 +111,20 @@ namespace QuickMon
             System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
             InitializeGlobalPerformanceCounters();
         }        
-        
+        public void AddCollectorHost(CollectorHost collectorHost)
+        {
+            collectorHost.ParentMonitorPack = this;
+            collectorHost.AlertGoodState += collectorHost_AlertGoodState;
+            collectorHost.AlertWarningState += collectorHost_AlertWarningState;
+            collectorHost.AlertErrorState += collectorHost_AlertErrorState;
+            collectorHost.NoStateChanged += collectorHost_NoStateChanged;
+            collectorHost.StateUpdated += collectorHost_StateUpdated;
+            collectorHost.AllAgentsExecutionTime += collectorHost_AllAgentsExecutionTime;
+            collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;
+            collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
+            collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
+            CollectorHosts.Add(collectorHost);
+        }
         #endregion
 
         #region Saving
@@ -244,5 +257,6 @@ namespace QuickMon
             return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QuickMon3Templates.qps");
         }
         #endregion
+               
     }
 }
