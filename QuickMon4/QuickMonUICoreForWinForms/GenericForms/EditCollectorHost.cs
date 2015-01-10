@@ -261,6 +261,9 @@ namespace QuickMon
         {
             //Display a list of existing types of agents/by template...
             //Once type is selected load edit agent with default settings
+            //CollectorHost.GetCollectorAgentFromString()
+            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+            selectNewAgentType.ShowCollectorSelection();
         }
         private void editCollectorAgentToolStripButton_Click(object sender, EventArgs e)
         {

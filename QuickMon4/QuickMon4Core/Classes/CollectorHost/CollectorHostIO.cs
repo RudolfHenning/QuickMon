@@ -167,6 +167,66 @@ namespace QuickMon
             }
             return newCollectorHost;
         }
+        public static ICollector GetCollectorAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        {
+            if (xmlString.StartsWith("<collectorAgent"))
+            {
+                XmlDocument collectorAgentXml = new XmlDocument();
+                collectorAgentXml.LoadXml(xmlString);
+                return GetCollectorAgentFromString(collectorAgentXml.DocumentElement, configVars, applyConfigVars);
+            }
+            else
+                return null;
+        }
+
+        private static ICollector GetCollectorAgentFromString(XmlElement collectorAgentNode, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        {
+            string name = collectorAgentNode.ReadXmlElementAttr("name", "");
+            string typeName = collectorAgentNode.ReadXmlElementAttr("type", "");
+            bool enabled = collectorAgentNode.ReadXmlElementAttr("enabled", true);
+            string configXml = "";
+            XmlNode configNode = collectorAgentNode.SelectSingleNode("config");
+            if (configNode != null)
+            {
+                configXml = configNode.OuterXml;
+            }
+
+            ICollector newAgent = CreateCollectorFromClassName(typeName);
+            if (newAgent != null)
+            {
+                try
+                {
+                    newAgent.Name = name;
+                    newAgent.Enabled = enabled;
+                    if (configXml.Length > 0)
+                        newAgent.InitialConfiguration = configXml;
+                    else
+                    {
+                        if (newAgent.AgentConfig != null)
+                            newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
+                        else
+                            throw new Exception("Could not create AgentConfig!");
+                    }
+                    string appliedConfig = newAgent.InitialConfiguration;
+                    if (applyConfigVars)
+                    {
+                        appliedConfig = configVars.ApplyOn(appliedConfig);
+                    }
+                    newAgent.ActiveConfiguration = appliedConfig;
+                    newAgent.AgentConfig.FromXml(appliedConfig);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    throw new Exception(string.Format("Error loading config for {0}: {1}", name, ex.Message));                    
+                }
+            }
+            else
+            {
+                throw new Exception(string.Format("The Collector Host type of '{0}' could not be loaded!", typeName));
+            }
+            return newAgent;
+        }
         public static ICollector CreateCollectorFromClassName(string agentClassName)
         {
             ICollector currentAgent = null;
