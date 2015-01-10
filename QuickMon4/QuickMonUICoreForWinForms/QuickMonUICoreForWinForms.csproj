@@ -164,6 +164,12 @@
     <Compile Include="GenericForms\RAWXmlEditor.Designer.cs">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\SelectNewAgentType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\SelectNewAgentType.designer.cs">
+      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ICollectorDetailView.cs" />
     <Compile Include="Interfaces\IEditConfigEntryWindow.cs" />
     <Compile Include="Interfaces\INotivierViewer.cs" />
@@ -238,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
+      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MonitorPack\EditMonitorPackConfig.resx">
       <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
