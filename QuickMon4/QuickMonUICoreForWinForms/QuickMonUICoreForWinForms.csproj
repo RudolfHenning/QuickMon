@@ -152,6 +152,12 @@
     <Compile Include="GenericForms\EditCollectorAgentEntries.Designer.cs">
       <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\EditNotifierHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditNotifierHost.Designer.cs">
+      <DependentUpon>EditNotifierHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\EditServiceWindows.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
       <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditNotifierHost.resx">
+      <DependentUpon>EditNotifierHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditServiceWindows.resx">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>

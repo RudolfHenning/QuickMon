@@ -15,7 +15,7 @@ namespace QuickMon
         /// <returns></returns>
         string ToXml();
         string GetDefaultOrEmptyXml();
-        string ConfigSummary { get; }
+        string ConfigSummary { get; }        
     }
     public interface INotifierConfig : IAgentConfig
     {
@@ -24,20 +24,9 @@ namespace QuickMon
     public interface ICollectorConfig : IAgentConfig
     {
         bool SingleEntryOnly { get; }
-        List<ICollectorConfigEntry> Entries { get; set; }
-        /// <summary>
-        /// If set to Single the Collector can/must support only one entry. No Adding/deleting allowed.
-        /// </summary>
-        
-
-        // ConfigEntryType ConfigEntryType { get; }
-        /// <summary>
-        /// Can existing entries be edited? If not then Adding/deleting are the only options
-        /// </summary>
-        //bool CanEdit { get; }
-
+        List<ICollectorConfigEntry> Entries { get; set; }       
     }
-    public interface ICollectorConfigEntry
+    public interface ICollectorConfigEntry 
     {
         string Description { get; }
         string TriggerSummary { get; }

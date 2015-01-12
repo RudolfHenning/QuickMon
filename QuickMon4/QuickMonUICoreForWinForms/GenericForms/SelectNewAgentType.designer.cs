@@ -107,6 +107,7 @@
             this.optSelectPreset.TabStop = true;
             this.optSelectPreset.Text = "By Template";
             this.optSelectPreset.UseVisualStyleBackColor = true;
+            this.optSelectPreset.CheckedChanged += new System.EventHandler(this.optSelectPreset_CheckedChanged);
             // 
             // optShowConfigEditor
             // 
@@ -143,7 +144,7 @@
             this.detailsColumnHeader});
             this.lvwAgentType.FullRowSelect = true;
             this.lvwAgentType.HideSelection = false;
-            this.lvwAgentType.Location = new System.Drawing.Point(6, 51);
+            this.lvwAgentType.Location = new System.Drawing.Point(4, 51);
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
             this.lvwAgentType.Size = new System.Drawing.Size(510, 307);

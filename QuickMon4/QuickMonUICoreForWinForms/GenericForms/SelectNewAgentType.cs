@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickMon.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -95,37 +96,42 @@ namespace QuickMon.Forms
             ListViewGroup generalGroup = (from ListViewGroup gr in lvwAgentType.Groups
                                           where gr.Header.ToLower() == "general"
                                           select gr).FirstOrDefault();
-
-            foreach (QuickMonTemplate preset in (from p in QuickMonTemplate.GetAllTemplates()
+            List<QuickMonTemplate> allTemplates = (from p in QuickMonTemplate.GetAllTemplates()
                                                  where (selectingCollectors && p.TemplateType == TemplateType.CollectorAgent)
                                                       orderby p.Description
-                                                      select p))
+                                                      select p).ToList();
+            if (allTemplates == null || allTemplates.Count == 0)
+                optShowConfigEditor.Checked = true;
+            else
             {
-                try
+                foreach (QuickMonTemplate preset in allTemplates)
                 {
-                    RegisteredAgent ar = (from a in RegisteredAgentCache.Agents
-                                          where ((selectingCollectors && a.IsCollector) || (!selectingCollectors && a.IsNotifier)) &&
-                                            a.ClassName.EndsWith(preset.ForClass)
-                                          orderby a.Name
-                                          select a).FirstOrDefault();
-                    if (ar != null)
+                    try
                     {
-                        ListViewGroup agentGroup = (from ListViewGroup gr in lvwAgentType.Groups
-                                                    where gr.Header.ToLower() == ar.CategoryName.ToLower()
-                                                    select gr).FirstOrDefault();
-                        if (agentGroup == null)
-                            agentGroup = generalGroup;
+                        RegisteredAgent ar = (from a in RegisteredAgentCache.Agents
+                                              where ((selectingCollectors && a.IsCollector) || (!selectingCollectors && a.IsNotifier)) &&
+                                                a.ClassName.EndsWith(preset.ForClass)
+                                              orderby a.Name
+                                              select a).FirstOrDefault();
+                        if (ar != null)
+                        {
+                            ListViewGroup agentGroup = (from ListViewGroup gr in lvwAgentType.Groups
+                                                        where gr.Header.ToLower() == ar.CategoryName.ToLower()
+                                                        select gr).FirstOrDefault();
+                            if (agentGroup == null)
+                                agentGroup = generalGroup;
 
-                        lvi = new ListViewItem(preset.Description);
-                        string details = preset.Config;
-                        lvi.ImageIndex = 0;
-                        lvi.Group = agentGroup;
-                        lvi.SubItems.Add(details);
-                        lvi.Tag = preset;
-                        lvwAgentType.Items.Add(lvi);
+                            lvi = new ListViewItem(preset.Description);
+                            string details = preset.Config;
+                            lvi.ImageIndex = 0;
+                            lvi.Group = agentGroup;
+                            lvi.SubItems.Add(details);
+                            lvi.Tag = preset;
+                            lvwAgentType.Items.Add(lvi);
+                        }
                     }
+                    catch { }
                 }
-                catch { }
             }
         }
         private void LoadRawAgents()
@@ -189,36 +195,56 @@ namespace QuickMon.Forms
         }
         #endregion
 
+        #region Form events
+        private void SelectNewAgentType_Load(object sender, EventArgs e)
+        {
+            //optSelectPreset.Checked = AgentHelper.LastCreateAgentOption == 0;
+            //optShowConfigEditor.Checked = AgentHelper.LastCreateAgentOption == 1;
+        } 
+        #endregion
+
+        #region Control events
         private void optShowConfigEditor_CheckedChanged(object sender, EventArgs e)
         {
             LoadAgents();
         }
-
+        private void optSelectPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadAgents();
+        }
         private void chkShowDetails_CheckedChanged(object sender, EventArgs e)
         {
             SetDetailColumnSizing();
         }
+        #endregion
 
+        #region ListView events
         private void lvwAgentType_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmdOK.Enabled = lvwAgentType.SelectedItems.Count == 1;
         }
+        private void lvwAgentType_EnterKeyPressed()
+        {
+            cmdOK_Click(null, null);
+        } 
+        #endregion
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
             if (lvwAgentType.SelectedItems.Count == 1)
             {
                 RegisteredAgent ra = null;
+                string configToUse = "";
                 if (lvwAgentType.SelectedItems[0].Tag is RegisteredAgent)
                 {
-                    ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
-                    
+                    ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;                   
 
                 }
                 else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
                 {
                     QuickMonTemplate template = (QuickMonTemplate)lvwAgentType.SelectedItems[0].Tag;
                     ra = RegisteredAgentCache.GetRegisteredAgentByClassName(template.ForClass, selectingCollectors);
+                    configToUse = template.Config;
                 }
                 if (ra != null)
                 {
@@ -228,13 +254,35 @@ namespace QuickMon.Forms
                         SelectedAgent = (IAgent)collectorEntryAssembly.CreateInstance(ra.ClassName);
                         SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Collectors.", "");
                         SelectedAgent.AgentClassDisplayName = ra.DisplayName;
-                        DialogResult = System.Windows.Forms.DialogResult.OK;
-                        Close();
+                        if (configToUse.Length ==0)
+                        {
+                            configToUse = SelectedAgent.AgentConfig.GetDefaultOrEmptyXml();
+                        }
+                        if (chkShowCustomConfig.Checked)
+                        {
+                            RAWXmlEditor editor = new RAWXmlEditor();
+                            editor.SelectedMarkup = configToUse;
+                            if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                configToUse = editor.SelectedMarkup;
+                            }
+                        }
+                        try
+                        {
+                            SelectedAgent.AgentConfig.FromXml(configToUse);
+                            DialogResult = System.Windows.Forms.DialogResult.OK;
+                            Close();
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
                 }                
             }
         }
 
+        #region More agents link
         private void llblExtraAgents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string url = "https://quickmon.codeplex.com/";
@@ -248,17 +296,8 @@ namespace QuickMon.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void SelectNewAgentType_Load(object sender, EventArgs e)
-        {
-            //optSelectPreset.Checked = AgentHelper.LastCreateAgentOption == 0;
-            //optShowConfigEditor.Checked = AgentHelper.LastCreateAgentOption == 1;
-        }
-
-        private void lvwAgentType_EnterKeyPressed()
-        {
-            cmdOK_Click(null, null);
-        }
+        } 
+        #endregion
+ 
     }
 }
