@@ -26,6 +26,7 @@ namespace QuickMon.Notifiers
         public int Port { get; set; } 
         #endregion
 
+        #region IAgentConfig Members
         public void FromXml(string configurationString)
         {
             XmlDocument config = new XmlDocument();
@@ -48,7 +49,6 @@ namespace QuickMon.Notifiers
             Subject = connectionNode.ReadXmlElementAttr("subject", "");
             Body = connectionNode.ReadXmlElementAttr("body", "");
         }
-
         public string ToXml()
         {
             XmlDocument configXml = new XmlDocument();
@@ -72,7 +72,6 @@ namespace QuickMon.Notifiers
             connectionNode.SetAttributeValue("port", Port.ToString());
             return configXml.OuterXml;
         }
-
         public string GetDefaultOrEmptyXml()
         {
             return "<config>\r\n<smtp hostServer=\"\" useDefaultCredentials=\"True\" domain=\"\" userName=\"\" password=\"\" " +
@@ -83,7 +82,6 @@ namespace QuickMon.Notifiers
                      "&lt;b&gt;Agents:&lt;/b&gt; %CollectorAgents%&lt;br /&gt;\r\n" +
                      "&lt;b&gt;Details&lt;/b&gt;&lt;blockquote&gt;%Details%&lt;/blockquote&gt;\" />\r\n</config>";
         }
-
         public string ConfigSummary
         {
             get
@@ -96,5 +94,6 @@ namespace QuickMon.Notifiers
                 return summary;
             }
         }
+        #endregion
     }
 }

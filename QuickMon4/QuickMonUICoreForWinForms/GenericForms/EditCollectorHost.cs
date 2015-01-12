@@ -263,7 +263,38 @@ namespace QuickMon
             //Once type is selected load edit agent with default settings
             //CollectorHost.GetCollectorAgentFromString()
             SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            selectNewAgentType.ShowCollectorSelection();
+            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            {
+                ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;
+                IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                if (agentEditor != null)
+                {
+                    agentEditor.AgentName = agent.Name;
+                    agentEditor.AgentEnabled = true;
+                    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                    if (agentEditor.EditAgent())
+                    {
+                        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                        agent.Name = agentEditor.AgentName;
+                        agent.Enabled = agentEditor.AgentEnabled;
+                        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+
+                        ListViewItem lvi = new ListViewItem(agent.Name);
+                        if (agent.Enabled)
+                            lvi.ImageIndex = 1;
+                        else
+                            lvi.ImageIndex = 0;
+                        lvi.SubItems.Add(agent.AgentClassDisplayName);
+                        lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
+                        lvi.Tag = agent;
+                        lvwEntries.Items.Add(lvi);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
         }
         private void editCollectorAgentToolStripButton_Click(object sender, EventArgs e)
         {

@@ -17,14 +17,37 @@ namespace QuickMon
             XmlElement root = notifierHostsXml.DocumentElement;
             foreach (XmlElement xmlNotifierHost in root.SelectNodes("notifierHost"))
             {
-                NotifierHost newNotifierHost = NotifierHost.FromConfig(xmlNotifierHost, monitorPackVars);
+                NotifierHost newNotifierHost = NotifierHost.FromConfig(null, xmlNotifierHost, monitorPackVars);
                 notifierHosts.Add(newNotifierHost);
             }
             return notifierHosts;
         }
-        private static NotifierHost FromConfig(XmlElement xmlNotifierHost, List<ConfigVariable> monitorPackVars)
+        public static NotifierHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
         {
-            NotifierHost newNotifierHost = new NotifierHost();
+            if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<notifierHost"))
+            {
+                XmlDocument notifierHostDoc = new XmlDocument();
+                notifierHostDoc.LoadXml(xmlString);
+                XmlElement root = notifierHostDoc.DocumentElement;
+                return FromConfig(null, root, monitorPackVars, applyConfigVars);
+            }
+            else
+                return null;
+        }
+        public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        {
+            if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<notifierHost"))
+            {
+                XmlDocument notifierHostDoc = new XmlDocument();
+                notifierHostDoc.LoadXml(xmlString);
+                XmlElement root = notifierHostDoc.DocumentElement;
+                FromConfig(this, root, monitorPackVars, applyConfigVars);
+            }
+        }
+        private static NotifierHost FromConfig(NotifierHost newNotifierHost, XmlElement xmlNotifierHost, List<ConfigVariable> monitorPackVars, bool applyConfigVars = true)
+        {
+            if (newNotifierHost == null)
+                newNotifierHost = new NotifierHost();
             newNotifierHost.Name = xmlNotifierHost.ReadXmlElementAttr("name", "").Trim();
             newNotifierHost.Enabled = xmlNotifierHost.ReadXmlElementAttr("enabled", true);
             newNotifierHost.AlertLevel = (AlertLevel)Enum.Parse(typeof(AlertLevel), xmlNotifierHost.ReadXmlElementAttr("alertLevel", "Warning"));
@@ -90,8 +113,12 @@ namespace QuickMon
                                 else
                                     newNotifierHost.Enabled = false;
                             }
-                            string appliedConfig = MonitorPack.ApplyAgentConfigVars(newAgent.InitialConfiguration, monitorPackVars);
-                            appliedConfig = MonitorPack.ApplyAgentConfigVars(newAgent.InitialConfiguration, newNotifierHost.ConfigVariables);
+                            string appliedConfig = newAgent.InitialConfiguration;
+                            if (applyConfigVars)
+                            {
+                                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
+                                appliedConfig = newNotifierHost.ConfigVariables.ApplyOn(appliedConfig);
+                            }
                             newAgent.ActiveConfiguration = appliedConfig;
                             newNotifierHost.NotifierAgents.Add(newAgent);
 

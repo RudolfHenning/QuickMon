@@ -46,15 +46,8 @@
             this.configColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
-            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.enableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.disableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.agentCheckSequenceToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -138,17 +131,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.tabAdvanced = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label43 = new System.Windows.Forms.Label();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.label42 = new System.Windows.Forms.Label();
             this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
@@ -162,6 +149,17 @@
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.enableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.disableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabAgents.SuspendLayout();
@@ -188,7 +186,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
             this.tabAdvanced.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -247,17 +244,17 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 376);
+            this.label6.Location = new System.Drawing.Point(9, 187);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 13);
+            this.label6.Size = new System.Drawing.Size(86, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Id:";
+            this.label6.Text = "This Collector Id:";
             // 
             // lblId
             // 
             this.lblId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblId.AutoSize = true;
-            this.lblId.Location = new System.Drawing.Point(34, 376);
+            this.lblId.Location = new System.Drawing.Point(108, 187);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(16, 13);
             this.lblId.TabIndex = 6;
@@ -384,92 +381,15 @@
             this.collectorAgentsEditToolStrip.TabStop = true;
             this.collectorAgentsEditToolStrip.Text = "toolStrip1";
             // 
-            // addCollectorConfigEntryToolStripButton
-            // 
-            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
-            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
-            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
-            this.addCollectorConfigEntryToolStripButton.Click += new System.EventHandler(this.addCollectorConfigEntryToolStripButton_Click);
-            // 
-            // editCollectorAgentToolStripButton
-            // 
-            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editCollectorAgentToolStripButton.Enabled = false;
-            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.proc2;
-            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
-            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
-            this.editCollectorAgentToolStripButton.Click += new System.EventHandler(this.editCollectorAgentToolStripButton_Click);
-            // 
-            // deleteCollectorAgentToolStripButton
-            // 
-            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteCollectorAgentToolStripButton.Enabled = false;
-            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
-            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
-            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
-            this.deleteCollectorAgentToolStripButton.Click += new System.EventHandler(this.deleteCollectorAgentToolStripButton_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // moveUpAgentToolStripButton
-            // 
-            this.moveUpAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpAgentToolStripButton.Enabled = false;
-            this.moveUpAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
-            this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveUpAgentToolStripButton.Text = "Move selected item up";
-            this.moveUpAgentToolStripButton.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
-            // 
-            // moveDownAgentToolStripButton
-            // 
-            this.moveDownAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownAgentToolStripButton.Enabled = false;
-            this.moveDownAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
-            this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveDownAgentToolStripButton.Text = "Move selected item down";
-            this.moveDownAgentToolStripButton.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // enableAgentToolStripButton
-            // 
-            this.enableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.enableAgentToolStripButton.Enabled = false;
-            this.enableAgentToolStripButton.Image = global::QuickMon.Properties.Resources._246_7;
-            this.enableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
-            this.enableAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.enableAgentToolStripButton.Text = "Enable";
-            this.enableAgentToolStripButton.Click += new System.EventHandler(this.enableAgentToolStripButton_Click);
-            // 
-            // disableAgentToolStripButton
-            // 
-            this.disableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.disableAgentToolStripButton.Enabled = false;
-            this.disableAgentToolStripButton.Image = global::QuickMon.Properties.Resources.NoGo;
-            this.disableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
-            this.disableAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.disableAgentToolStripButton.Text = "Disable";
-            this.disableAgentToolStripButton.Click += new System.EventHandler(this.disableAgentToolStripButton_Click);
             // 
             // toolStripLabel1
             // 
@@ -499,8 +419,10 @@
             // tabDependencies
             // 
             this.tabDependencies.BackColor = System.Drawing.Color.White;
+            this.tabDependencies.Controls.Add(this.label6);
             this.tabDependencies.Controls.Add(this.groupBox4);
             this.tabDependencies.Controls.Add(this.groupBox1);
+            this.tabDependencies.Controls.Add(this.lblId);
             this.tabDependencies.Location = new System.Drawing.Point(4, 22);
             this.tabDependencies.Name = "tabDependencies";
             this.tabDependencies.Padding = new System.Windows.Forms.Padding(3);
@@ -1457,7 +1379,6 @@
             // tabAdvanced
             // 
             this.tabAdvanced.BackColor = System.Drawing.Color.White;
-            this.tabAdvanced.Controls.Add(this.groupBox6);
             this.tabAdvanced.Controls.Add(this.groupBox5);
             this.tabAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabAdvanced.Name = "tabAdvanced";
@@ -1466,36 +1387,12 @@
             this.tabAdvanced.TabIndex = 4;
             this.tabAdvanced.Text = "Advanced Config settings";
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.Controls.Add(this.label43);
-            this.groupBox6.Controls.Add(this.llblRawEdit);
-            this.groupBox6.Controls.Add(this.llblExportConfigAsTemplate);
-            this.groupBox6.Location = new System.Drawing.Point(6, 253);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(563, 42);
-            this.groupBox6.TabIndex = 3;
-            this.groupBox6.TabStop = false;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(6, 0);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(227, 13);
-            this.label43.TabIndex = 1;
-            this.label43.Text = "Collector Host Config variables actions";
-            // 
             // llblRawEdit
             // 
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblRawEdit.AutoSize = true;
             this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(11, 18);
+            this.llblRawEdit.Location = new System.Drawing.Point(12, 376);
             this.llblRawEdit.Name = "llblRawEdit";
             this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
             this.llblRawEdit.TabIndex = 1;
@@ -1508,7 +1405,7 @@
             this.llblExportConfigAsTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblExportConfigAsTemplate.AutoSize = true;
             this.llblExportConfigAsTemplate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(109, 18);
+            this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(110, 376);
             this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
             this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
             this.llblExportConfigAsTemplate.TabIndex = 2;
@@ -1530,7 +1427,7 @@
             this.groupBox5.Controls.Add(this.label37);
             this.groupBox5.Location = new System.Drawing.Point(7, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(562, 241);
+            this.groupBox5.Size = new System.Drawing.Size(562, 289);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             // 
@@ -1550,61 +1447,17 @@
             this.toolStrip1.TabStop = true;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // addConfigVarToolStripButton
-            // 
-            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
-            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addConfigVarToolStripButton.Text = "Create new";
-            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
-            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
-            // 
-            // deleteConfigVarToolStripButton
-            // 
-            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteConfigVarToolStripButton.Enabled = false;
-            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
-            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
-            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
-            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // moveUpConfigVarToolStripButton
-            // 
-            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpConfigVarToolStripButton.Enabled = false;
-            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
-            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
-            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
-            // 
-            // moveDownConfigVarToolStripButton
-            // 
-            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownConfigVarToolStripButton.Enabled = false;
-            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
-            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
-            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
             // 
             // label42
             // 
             this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(6, 209);
+            this.label42.Location = new System.Drawing.Point(6, 257);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(550, 29);
             this.label42.TabIndex = 7;
@@ -1615,7 +1468,7 @@
             // txtConfigVarReplaceByValue
             // 
             this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(335, 185);
+            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(335, 233);
             this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
             this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
             this.txtConfigVarReplaceByValue.TabIndex = 6;
@@ -1625,7 +1478,7 @@
             // 
             this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(260, 188);
+            this.label41.Location = new System.Drawing.Point(260, 236);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(69, 13);
             this.label41.TabIndex = 5;
@@ -1634,7 +1487,7 @@
             // txtConfigVarSearchFor
             // 
             this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(81, 185);
+            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(81, 233);
             this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
             this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
             this.txtConfigVarSearchFor.TabIndex = 4;
@@ -1644,7 +1497,7 @@
             // 
             this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(6, 188);
+            this.label40.Location = new System.Drawing.Point(6, 236);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(56, 13);
             this.label40.TabIndex = 3;
@@ -1663,7 +1516,7 @@
             this.lvwConfigVars.FullRowSelect = true;
             this.lvwConfigVars.Location = new System.Drawing.Point(3, 44);
             this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(553, 135);
+            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
             this.lvwConfigVars.TabIndex = 2;
             this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
             this.lvwConfigVars.View = System.Windows.Forms.View.Details;
@@ -1706,6 +1559,127 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
+            // addCollectorConfigEntryToolStripButton
+            // 
+            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
+            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
+            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
+            this.addCollectorConfigEntryToolStripButton.Click += new System.EventHandler(this.addCollectorConfigEntryToolStripButton_Click);
+            // 
+            // editCollectorAgentToolStripButton
+            // 
+            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editCollectorAgentToolStripButton.Enabled = false;
+            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.proc2;
+            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
+            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
+            this.editCollectorAgentToolStripButton.Click += new System.EventHandler(this.editCollectorAgentToolStripButton_Click);
+            // 
+            // deleteCollectorAgentToolStripButton
+            // 
+            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteCollectorAgentToolStripButton.Enabled = false;
+            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
+            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
+            this.deleteCollectorAgentToolStripButton.Click += new System.EventHandler(this.deleteCollectorAgentToolStripButton_Click);
+            // 
+            // moveUpAgentToolStripButton
+            // 
+            this.moveUpAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpAgentToolStripButton.Enabled = false;
+            this.moveUpAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
+            this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveUpAgentToolStripButton.Text = "Move selected item up";
+            this.moveUpAgentToolStripButton.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
+            // 
+            // moveDownAgentToolStripButton
+            // 
+            this.moveDownAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownAgentToolStripButton.Enabled = false;
+            this.moveDownAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
+            this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveDownAgentToolStripButton.Text = "Move selected item down";
+            this.moveDownAgentToolStripButton.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
+            // 
+            // enableAgentToolStripButton
+            // 
+            this.enableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.enableAgentToolStripButton.Enabled = false;
+            this.enableAgentToolStripButton.Image = global::QuickMon.Properties.Resources._246_7;
+            this.enableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
+            this.enableAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.enableAgentToolStripButton.Text = "Enable";
+            this.enableAgentToolStripButton.Click += new System.EventHandler(this.enableAgentToolStripButton_Click);
+            // 
+            // disableAgentToolStripButton
+            // 
+            this.disableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.disableAgentToolStripButton.Enabled = false;
+            this.disableAgentToolStripButton.Image = global::QuickMon.Properties.Resources.NoGo;
+            this.disableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
+            this.disableAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.disableAgentToolStripButton.Text = "Disable";
+            this.disableAgentToolStripButton.Click += new System.EventHandler(this.disableAgentToolStripButton_Click);
+            // 
+            // addConfigVarToolStripButton
+            // 
+            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
+            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addConfigVarToolStripButton.Text = "Create new";
+            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
+            this.addConfigVarToolStripButton.Click += new System.EventHandler(this.addConfigVarToolStripButton_Click);
+            // 
+            // deleteConfigVarToolStripButton
+            // 
+            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteConfigVarToolStripButton.Enabled = false;
+            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
+            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
+            this.deleteConfigVarToolStripButton.Click += new System.EventHandler(this.deleteConfigVarToolStripButton_Click);
+            // 
+            // moveUpConfigVarToolStripButton
+            // 
+            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpConfigVarToolStripButton.Enabled = false;
+            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
+            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
+            this.moveUpConfigVarToolStripButton.Click += new System.EventHandler(this.moveUpConfigVarToolStripButton_Click);
+            // 
+            // moveDownConfigVarToolStripButton
+            // 
+            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownConfigVarToolStripButton.Enabled = false;
+            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
+            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
+            this.moveDownConfigVarToolStripButton.Click += new System.EventHandler(this.moveDownConfigVarToolStripButton_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.BlueArcTopRight;
@@ -1722,8 +1696,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(584, 402);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblId);
+            this.Controls.Add(this.llblRawEdit);
+            this.Controls.Add(this.llblExportConfigAsTemplate);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.chkExpandOnStart);
@@ -1737,7 +1711,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 440);
             this.Name = "EditCollectorHost";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Edit Collector Host";
+            this.Text = "Edit Collector";
             this.Load += new System.EventHandler(this.EditCollectorHost_Load);
             this.Shown += new System.EventHandler(this.EditCollectorHost_Shown);
             this.tabControl1.ResumeLayout(false);
@@ -1746,6 +1720,7 @@
             this.collectorAgentsEditToolStrip.ResumeLayout(false);
             this.collectorAgentsEditToolStrip.PerformLayout();
             this.tabDependencies.ResumeLayout(false);
+            this.tabDependencies.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1774,8 +1749,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
             this.tabAdvanced.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -1909,8 +1882,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton moveUpAgentToolStripButton;
         private System.Windows.Forms.ToolStripButton moveDownAgentToolStripButton;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label43;
         private System.Windows.Forms.OpenFileDialog correctiveScriptOpenFileDialog;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ColumnHeader typeColumnHeader;

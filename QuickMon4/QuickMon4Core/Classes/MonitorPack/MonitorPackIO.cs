@@ -9,18 +9,36 @@ namespace QuickMon
 {
     public partial class MonitorPack
     {
-        public static string GetMonitorPackTypeName(string filePath)
+        public class NameAndTypeSummary
         {
-            string typeName = "";
+            public string Name { get; set; }
+            public string Path { get; set; }
+            public string TypeName { get; set; }
+            public string Version { get; set; }
+            public bool Enabled { get; set; }
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
+
+        public static NameAndTypeSummary GetMonitorPackTypeName(string filePath)
+        {
+            NameAndTypeSummary summaryInfo = new NameAndTypeSummary() { Name = System.IO.Path.GetFileNameWithoutExtension(filePath), Path = filePath,  Enabled = false, TypeName = "", Version = "4.0.0.0" };
             try
             {
                 XmlDocument configurationXml = new XmlDocument();
                 configurationXml.Load(filePath);
                 XmlElement root = configurationXml.DocumentElement;
-                typeName = root.ReadXmlElementAttr("typeName", "");
+                summaryInfo.Name = root.ReadXmlElementAttr("name", System.IO.Path.GetFileNameWithoutExtension(filePath));
+                if (summaryInfo.Name.Length == 0)
+                    summaryInfo.Name = System.IO.Path.GetFileNameWithoutExtension(filePath);
+                summaryInfo.TypeName = root.ReadXmlElementAttr("typeName", "");
+                summaryInfo.Version = root.ReadXmlElementAttr("version", "4.0.0.0");
+                summaryInfo.Enabled = root.ReadXmlElementAttr("enabled", true);
             }
             catch { }
-            return typeName;
+            return summaryInfo;
         }
 
         #region Loading
