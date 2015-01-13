@@ -11,7 +11,7 @@ using QuickMon.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class EventLogCollectorEditEntry : Form, IAgentConfigEntryEditWindow
+    public partial class EventLogCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
     {
         public EventLogCollectorEditEntry()
         {

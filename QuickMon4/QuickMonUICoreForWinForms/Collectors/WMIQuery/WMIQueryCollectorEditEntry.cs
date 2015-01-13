@@ -11,7 +11,7 @@ using QuickMon.Utils;
 
 namespace QuickMon.Collectors
 {
-    public partial class WMIQueryCollectorEditEntry : Form, IAgentConfigEntryEditWindow
+    public partial class WMIQueryCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
     {
         public WMIQueryCollectorEditEntry()
         {

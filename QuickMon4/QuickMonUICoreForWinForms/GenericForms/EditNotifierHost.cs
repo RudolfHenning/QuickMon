@@ -81,6 +81,9 @@ namespace QuickMon
             {
                 txtName.Text = editingNotifierHost.Name;
                 chkEnabled.Checked = editingNotifierHost.Enabled;
+                cboAlertLevel.SelectedIndex = (int)editingNotifierHost.AlertLevel;
+                cboDetailLevel.SelectedIndex = (int)editingNotifierHost.DetailLevel;
+                cboAttendedOptionOverride.SelectedIndex = (int)editingNotifierHost.AttendedOptionOverride;
 
                 if (editingNotifierHost.ServiceWindows != null)
                     linkLabelServiceWindows.Text = editingNotifierHost.ServiceWindows.ToString();
@@ -97,29 +100,33 @@ namespace QuickMon
         private void LoadCollectorList()
         {
             loading = true;
-            lvwCollectors.Items.Clear();
+            TreeNode root = tvwCollectors.Nodes[0];
+            root.Nodes.Clear();
             if (HostingMonitorPack != null)
             {
                 try
                 {
-                    lvwCollectors.BeginUpdate();
+                    txtMonitorPack.Text = string.Format("{0} ({1})", HostingMonitorPack.Name, HostingMonitorPack.MonitorPackPath);
+                    tvwCollectors.BeginUpdate();
                     List<CollectorHost> noDependantCollectors = (from c in HostingMonitorPack.CollectorHosts
                                                                   where c.ParentCollectorId.Length == 0
                                                                   select c).ToList();
                     foreach (CollectorHost col in noDependantCollectors)
                     {
-                        ListViewItem lvi = new ListViewItem(col.Name);
-                        lvi.SubItems.Add(col.CollectorAgents.Count().ToString());
-                        lvi.Tag = col;
+                        TreeNode tnode = new TreeNode(col.Name);
+                        tnode.Tag = col;
                         if (editingNotifierHost.AlertForCollectors.Contains(col.Name))
-                            lvi.Checked = true;
-                        if (col.CollectorAgents.Count() == 0)
-                            lvi.ImageIndex = folderImgIndex;
-                        else
-                            lvi.ImageIndex = collectorImgIndex;
-                        lvwCollectors.Items.Add(lvi);
-                        LoadCollectors(col, indentationChars);
+                            tnode.Checked = true;
+
+                        //if (col.CollectorAgents.Count() == 0)
+                        //    tnode.ImageIndex = folderImgIndex;
+                        //else
+                            tnode.ImageIndex = collectorImgIndex;
+                        root.Nodes.Add(tnode);
+                        LoadCollectors(tnode, col, indentationChars);
                     }
+                    if (editingNotifierHost.AlertForCollectors != null && editingNotifierHost.AlertForCollectors.Count == 0)
+                        allLinkLabel_LinkClicked(null, null);
                 }
                 catch (Exception ex)
                 {
@@ -127,31 +134,30 @@ namespace QuickMon
                 }
                 finally
                 {
-                    lvwCollectors.EndUpdate();
+                    tvwCollectors.EndUpdate();
+                    root.ExpandAll();
                 }
             }
             loading = false;
         }
-        private void LoadCollectors(CollectorHost collector, string indentation)
+        private void LoadCollectors(TreeNode parent, CollectorHost collector, string indentation)
         {
             foreach (CollectorHost childCollector in (from c in HostingMonitorPack.CollectorHosts
                                                        where c.ParentCollectorId == collector.UniqueId
                                                        select c))
             {
-                ListViewItem lvi = new ListViewItem(indentation + childCollector.Name);
-                lvi.SubItems.Add(collector.CollectorAgents.Count().ToString());
-                lvi.Tag = childCollector;
+                TreeNode tnode = new TreeNode(indentation + childCollector.Name);
+                tnode.Tag = childCollector;
                 if (editingNotifierHost.AlertForCollectors.Contains(childCollector.Name))
-                    lvi.Checked = true;
-                if (childCollector.CollectorAgents.Count() == 0)
-                    lvi.ImageIndex = folderImgIndex;
-                else
-                    lvi.ImageIndex = collectorImgIndex;
-                lvwCollectors.Items.Add(lvi);
-                LoadCollectors(childCollector, indentation + indentationChars);
+                    tnode.Checked = true;
+                //if (childCollector.CollectorAgents.Count() == 0)
+                //    lvi.ImageIndex = folderImgIndex;
+                //else
+                tnode.ImageIndex = collectorImgIndex;
+                parent.Nodes.Add(tnode);
+                LoadCollectors(tnode, childCollector, indentation + indentationChars);
             }
         }
-
         private void CheckOkEnabled()
         {
             bool isEnable = true;
@@ -183,23 +189,32 @@ namespace QuickMon
         }
         private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            editAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
+            deleteAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
+            moveUpAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
+            moveDownAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;
+            enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
+            disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
         }
         private void lvwEntries_DoubleClick(object sender, EventArgs e)
         {
-            editCollectorAgentToolStripButton_Click(null, null);
+            editAgentToolStripButton_Click(null, null);
         }
         private void lvwEntries_EnterKeyPressed()
         {
-            editCollectorAgentToolStripButton_Click(null, null);
+            editAgentToolStripButton_Click(null, null);
         }
-        private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
+        private void lvwEntries_DeleteKeyPressed()
+        {
+            deleteAgentToolStripButton_Click(null, null);
+        }
+        private void addAgentToolStripButton_Click(object sender, EventArgs e)
         {
             //Display a list of existing types of agents/by template...
             //Once type is selected load edit agent with default settings
             //CollectorHost.GetCollectorAgentFromString()
             SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
             {
                 INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
                 IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
@@ -232,7 +247,7 @@ namespace QuickMon
                 }
             }
         }
-        private void editCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        private void editAgentToolStripButton_Click(object sender, EventArgs e)
         {
             //Call local (in this assembly) utility that match editor type for agent class.
             //  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
@@ -277,11 +292,7 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void lvwEntries_DeleteKeyPressed()
-        {
-            deleteCollectorAgentToolStripButton_Click(null, null);
-        }
-        private void deleteCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        private void deleteAgentToolStripButton_Click(object sender, EventArgs e)
         {
             if (lvwEntries.SelectedItems.Count > 0)
             {
@@ -373,6 +384,10 @@ namespace QuickMon
             moveUpConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count == 1 && lvwConfigVars.SelectedItems[0].Index > 0;
             moveDownConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count == 1 && lvwConfigVars.SelectedItems[0].Index < lvwConfigVars.Items.Count - 1;
             deleteConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count > 0;
+        }
+        private void lvwConfigVars_DeleteKeyPressed()
+        {
+            deleteConfigVarToolStripButton_Click(null, null);
         }
         private void txtConfigVarSearchFor_TextChanged(object sender, EventArgs e)
         {
@@ -480,40 +495,151 @@ namespace QuickMon
         }
         #endregion
 
+        #region Notifier Collectors
         private void allLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             selfCheckingOn = true;
-            foreach (ListViewItem lvi in lvwCollectors.Items)
-                lvi.Checked = false;
+            TreeNode root = tvwCollectors.Nodes[0];
+            root.Checked = false;
+
+            tvwCollectors.CheckBoxEnhancements = true;
+            root.Checked = true;
+            tvwCollectors.CheckBoxEnhancements = false;
             selfCheckingOn = false;
         }
-        private void lvwCollectors_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void tvwCollectors_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            //if (selfCheckingOn || loading)
-            //    return;
-            //selfCheckingOn = true;
-            //ListViewItem lvi = e.Item;
-            //if (lvi.ImageIndex == folderImgIndex)
-            //{
-            //    string currentIndent = lvi.Text;
-            //    if (!currentIndent.StartsWith(" "))
-            //        currentIndent = indentationChars;
-            //    else
-            //    {
-            //        foreach (char c in lvi.Text.TakeWhile(cr => cr == ' '))
-            //        {
-            //            currentIndent += c.ToString();
-            //        }
-            //        currentIndent += indentationChars;
-            //    }
-            //    int currentIndex = lvi.Index;
-            //    //for (int i = currentIndex + 1; i < lvwCollectors.Items.Count && lvwCollectors.Items[i].Text.StartsWith(currentIndent); i++)
-            //    //{
-            //    //    lvwCollectors.Items[i].Checked = lvi.Checked;
-            //   // }
-            //}
-            //selfCheckingOn = false;
+            if (!selfCheckingOn && e.Node == tvwCollectors.Nodes[0] && tvwCollectors.Nodes[0].Checked)
+            {
+                selfCheckingOn = true;
+                TreeNode root = tvwCollectors.Nodes[0];
+                bool rootChecked = root.Checked;
+                root.Checked = !rootChecked;
+                tvwCollectors.CheckBoxEnhancements = true;
+                root.Checked = rootChecked;
+                tvwCollectors.CheckBoxEnhancements = false;
+                selfCheckingOn = false;
+            }
+        }         
+        #endregion
+
+        #region Button events
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SetEditingNotifierHost())
+                {
+                    SelectedConfig = editingNotifierHost.ToXml();
+                    DialogResult = System.Windows.Forms.DialogResult.OK;
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
+        private bool SetEditingNotifierHost()
+        {
+            bool success = false;
+            try
+            {
+                editingNotifierHost.Name = txtName.Text;
+                editingNotifierHost.Enabled = chkEnabled.Checked;
+                editingNotifierHost.AlertLevel = (AlertLevel)cboAlertLevel.SelectedIndex;
+                editingNotifierHost.DetailLevel = (DetailLevel)cboDetailLevel.SelectedIndex;
+                editingNotifierHost.AttendedOptionOverride = (AttendedOption)cboAttendedOptionOverride.SelectedIndex;
+                //Service windows - Done already            
+                editingNotifierHost.ConfigVariables = new List<ConfigVariable>();
+                foreach (ListViewItem lvi in lvwConfigVars.Items)
+                {
+                    editingNotifierHost.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
+                }
+
+                editingNotifierHost.NotifierAgents.Clear();
+                foreach (ListViewItem lvi in lvwEntries.Items)
+                {
+                    editingNotifierHost.NotifierAgents.Add((INotifier)lvi.Tag);
+                }
+                editingNotifierHost.AlertForCollectors.Clear();
+                if (!tvwCollectors.Nodes[0].Checked)
+                {
+                    SetAlertForCollectors(editingNotifierHost);
+                }
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return success;
+        }
+        private void SetAlertForCollectors(NotifierHost editingNotifierHost, TreeNode parent = null)
+        {
+            if (parent == null)
+                parent = tvwCollectors.Nodes[0];
+            foreach(TreeNode child in parent.Nodes)
+            {
+                if (child.Checked && child.Tag is CollectorHost)
+                {
+                    CollectorHost ch = (CollectorHost)child.Tag;
+                    editingNotifierHost.AlertForCollectors.Add(ch.Name);
+                }
+                SetAlertForCollectors(editingNotifierHost, child);
+            }
+        }
+        #endregion
+
+        #region Raw editing of config
+        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (SetEditingNotifierHost())
+            {
+
+                RAWXmlEditor editor = new RAWXmlEditor();
+                string oldMarkUp = editingNotifierHost.ToXml();
+                editor.SelectedMarkup = oldMarkUp;
+                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        editingNotifierHost = NotifierHost.FromXml(editor.SelectedMarkup, null, false);
+
+                        if (editor.SelectedMarkup == null || editor.SelectedMarkup.Length == 0)
+                        {
+                            if (MessageBox.Show("Editing the raw config resulted in a configuration error!\r\nDo you want to accept this?", "Configuration error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
+                            {
+                                editingNotifierHost = NotifierHost.FromXml(oldMarkUp, null, false);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    LoadControlData();
+                }
+            }
+        }
+        #endregion
+
+        #region Service Windows
+        private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditServiceWindows editServiceWindows = new EditServiceWindows();
+            editServiceWindows.SelectedServiceWindows = editingNotifierHost.ServiceWindows;
+            if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                editingNotifierHost.ServiceWindows = editServiceWindows.SelectedServiceWindows;
+                linkLabelServiceWindows.Text = editServiceWindows.SelectedServiceWindows.ToString();
+                toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + editingNotifierHost.ServiceWindows.ToString());
+                CheckOkEnabled();
+            }
+        }
+        #endregion
+
+
 
     }
 }

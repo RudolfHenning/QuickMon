@@ -9,7 +9,7 @@ namespace QuickMon.Collectors
     public class WindowsServiceStateCollectorUI : WinFormsUICollectorBase
     {
         public override string AgentType { get { return "WindowsServiceStateCollector"; } }
-        public override IAgentConfigEntryEditWindow DetailEditor { get { return new ServiceStateCollectorEditEntry(); } }
+        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new ServiceStateCollectorEditEntry(); } }
         //public string AgentType { get { return "WindowsServiceStateCollector"; } }
         //public string AgentName { get; set; }
         //public bool AgentEnabled { get; set; }

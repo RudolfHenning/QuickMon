@@ -9,7 +9,7 @@ namespace QuickMon.Collectors
     public  class EventLogCollectorUI : WinFormsUICollectorBase
     {
         public override string AgentType { get { return "EventLogCollector"; } }
-        public override IAgentConfigEntryEditWindow DetailEditor { get { return new EventLogCollectorEditEntry(); } }
+        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new EventLogCollectorEditEntry(); } }
 
         //public string AgentName { get; set; }
         //public bool AgentEnabled { get; set; }

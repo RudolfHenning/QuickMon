@@ -164,6 +164,8 @@ namespace QuickMon
             if (e.Control)
             {
                 editCollectorToolStripMenuItem_Click(null, null);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
             }
             else
             {
@@ -206,6 +208,18 @@ namespace QuickMon
                 showCollectorContextMenuTimer.Enabled = true;
             }
         }
+        private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                editCollectorToolStripMenuItem_Click(null, null);
+
+            }
+            else
+            {
+
+            }
+        }
         private Point GetControlLocationWithinParent(Control control)
         {
             Point location;
@@ -236,6 +250,10 @@ namespace QuickMon
                 notifierContextMenuLaunchPoint = calcPoint;
                 CheckNotifierContextMenuEnables();
             }
+        }
+        private void lvwNotifiers_DoubleClick(object sender, EventArgs e)
+        {
+            EditNotifierConfig();
         }
         #endregion
 
@@ -1403,11 +1421,11 @@ namespace QuickMon
             if (lvwNotifiers.SelectedItems.Count > 0)
             {
                 entry = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
-                poppedContainerForListView.cmdDisableNotifier.BackgroundImage = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                poppedContainerForListView.cmdDisableNotifier.Image = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
             }
             else
             {
-                poppedContainerForListView.cmdDisableNotifier.BackgroundImage = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
+                poppedContainerForListView.cmdDisableNotifier.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
             }
             editNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
@@ -1755,6 +1773,10 @@ namespace QuickMon
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
             llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+        }
+        private void llblNotifierViewToggle_DoubleClick(object sender, EventArgs e)
+        {
+            llblNotifierViewToggle_LinkClicked(null, null);
         }
         #endregion
 

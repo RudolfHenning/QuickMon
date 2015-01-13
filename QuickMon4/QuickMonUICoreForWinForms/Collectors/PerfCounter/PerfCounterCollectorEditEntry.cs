@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class PerfCounterCollectorEditEntry : Form, IAgentConfigEntryEditWindow
+    public partial class PerfCounterCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
     {
         public PerfCounterCollectorEditEntry()
         {

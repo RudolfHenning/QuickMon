@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class ServiceStateCollectorEditEntry : Form, IAgentConfigEntryEditWindow
+    public partial class ServiceStateCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
     {
         public ServiceStateCollectorEditEntry()
         {

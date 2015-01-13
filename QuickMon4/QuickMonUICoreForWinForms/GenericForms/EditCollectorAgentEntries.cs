@@ -16,7 +16,7 @@ namespace QuickMon.UI
             InitializeComponent();
         }
 
-        public IAgentConfigEntryEditWindow DetailEditor { get; set; }
+        public ICollectorConfigEntryEditWindow DetailEditor { get; set; }
         public ICollector SelectedEntry { get; set; }
         public bool ShowTreeView { get; set; }
 
@@ -132,7 +132,8 @@ namespace QuickMon.UI
                         tni.ImageIndex = 0;
                         tni.SelectedImageIndex = 0;
                         tni.Tag = DetailEditor.SelectedEntry;
-                        foreach (var subEntry in DetailEditor.SelectedEntry.SubItems)
+                        ICollectorConfigEntry configEntry = (ICollectorConfigEntry)DetailEditor.SelectedEntry;
+                        foreach (var subEntry in configEntry.SubItems)
                         {
                             TreeNode tnisub = new TreeNode(subEntry.Description);
                             tnisub.ImageIndex = 1;

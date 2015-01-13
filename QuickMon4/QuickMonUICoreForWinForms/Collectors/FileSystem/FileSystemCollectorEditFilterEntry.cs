@@ -12,7 +12,7 @@ using QuickMon.MeansurementUnits;
 
 namespace QuickMon.Collectors
 {
-    public partial class FileSystemCollectorEditFilterEntry : Form, IAgentConfigEntryEditWindow
+    public partial class FileSystemCollectorEditFilterEntry : Form, ICollectorConfigEntryEditWindow
     {
         public FileSystemCollectorEditFilterEntry()
         {
