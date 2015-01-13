@@ -38,6 +38,8 @@ namespace QuickMon.Controls
         public Color DragColor { get; set; }
         public bool EnableAutoScrollToSelectedNode { get; set; }
         public bool RootAlwaysExpanded { get; set; }
+        public bool DisableExpandOnDoubleClick { get; set; }
+        public bool DisableCollapseOnDoubleClick { get; set; }
 
         #region Overrides
         protected override void OnHandleCreated(EventArgs e)
@@ -80,6 +82,7 @@ namespace QuickMon.Controls
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 this.SelectedNode = this.GetNodeAt(e.X, e.Y);
+            dblClick = e.Button == MouseButtons.Left && e.Clicks == 2;
             base.OnMouseDown(e);
         }
         protected override void OnKeyUp(KeyEventArgs e)
@@ -162,6 +165,10 @@ namespace QuickMon.Controls
             {
                 e.Cancel = true;
             }
+            else if (DisableCollapseOnDoubleClick && e.Action == TreeViewAction.Collapse)
+            {
+                e.Cancel = dblClick;
+            }
             base.OnBeforeCollapse(e);
         }
         protected override void OnAfterSelect(TreeViewEventArgs e)
@@ -174,6 +181,13 @@ namespace QuickMon.Controls
 
             }
             base.OnAfterSelect(e);
+        }
+        private bool dblClick = false;
+        protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
+        {
+            if (DisableExpandOnDoubleClick && e.Action == TreeViewAction.Expand) 
+                e.Cancel = dblClick;
+            base.OnBeforeExpand(e);
         }
         #endregion
 
@@ -411,5 +425,75 @@ namespace QuickMon.Controls
                     this.SelectedNode.EnsureVisible();
             });
         }
+
+        #region Advanced Checkboxes
+        public bool CheckBoxEnhancements { get; set; }
+        private bool isBusyWithAdvancedCheckboxesChanges = false;
+        protected override void OnAfterCheck(TreeViewEventArgs e)
+        {
+            if (CheckBoxEnhancements)
+            {
+                if (!isBusyWithAdvancedCheckboxesChanges)
+                {
+                    isBusyWithAdvancedCheckboxesChanges = true;
+                    try
+                    {
+                        TreeNode currentNode = e.Node;
+                        if (currentNode.Nodes.Count > 0)
+                        {
+                            SetChildNodeCheckBoxes(currentNode);
+                        }
+                        CheckParentForAllChildChecks(currentNode);
+                    }
+                    catch { }
+
+                    isBusyWithAdvancedCheckboxesChanges = false;
+                }
+            }
+            base.OnAfterCheck(e);
+        }
+
+        private void CheckParentForAllChildChecks(TreeNode currentNode)
+        {
+             TreeNode parentNode = currentNode.Parent;
+             if (parentNode != null)
+             {
+                 int childrenWithDifferentCheck = (from TreeNode t in parentNode.Nodes
+                                                    where t.Checked != parentNode.Checked
+                                                    select t).Count();
+                 if (parentNode.Nodes.Count == childrenWithDifferentCheck)
+                 {
+                     parentNode.Checked = !parentNode.Checked;
+                     CheckParentForAllChildChecks(parentNode);
+                 }
+                 
+                 //bool allChildrenCheckedDifferent = true;
+                 //foreach (TreeNode child in parentNode.Nodes)
+                 //{
+                 //    if (child.Checked == parentNode.Checked)
+                 //    {
+                 //        allChildrenCheckedDifferent = false;
+                 //        break;
+                 //    }
+                 //}
+                 //if (allChildrenCheckedDifferent)
+                 //{
+                 //    parentNode.Checked = !parentNode.Checked;
+                 //}
+             }
+        }
+        private void SetChildNodeCheckBoxes(TreeNode currentNode)
+        {
+            bool checkedState = currentNode.Checked;
+            foreach(TreeNode childNode in currentNode.Nodes)
+            {
+                childNode.Checked = checkedState;
+                if (childNode.Nodes.Count > 0)
+                {
+                    SetChildNodeCheckBoxes(childNode);
+                }
+            }
+        }
+        #endregion
     }
 }

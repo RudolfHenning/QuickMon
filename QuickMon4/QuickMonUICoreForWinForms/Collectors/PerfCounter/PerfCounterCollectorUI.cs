@@ -9,7 +9,7 @@ namespace QuickMon.Collectors
     public class PerfCounterCollectorUI : WinFormsUICollectorBase
     {
         public override string AgentType { get { return "PerfCounterCollector"; } }
-        public override IAgentConfigEntryEditWindow DetailEditor { get { return new PerfCounterCollectorEditEntry(); } }
+        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new PerfCounterCollectorEditEntry(); } }
 
         //public string AgentName { get; set; }
         //public bool AgentEnabled { get; set; }

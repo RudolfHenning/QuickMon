@@ -10,7 +10,7 @@ using QuickMon.Utils;
 
 namespace QuickMon.Collectors
 {
-    public partial class RegistryQueryCollectorEditEntry : Form, IAgentConfigEntryEditWindow
+    public partial class RegistryQueryCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
     {
         public RegistryQueryCollectorEditEntry()
         {

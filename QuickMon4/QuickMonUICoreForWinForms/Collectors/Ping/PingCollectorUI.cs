@@ -9,7 +9,7 @@ namespace QuickMon.Collectors
     public class PingCollectorUI : WinFormsUICollectorBase
     {
         public override string AgentType { get { return "PingCollector"; } }
-        public override IAgentConfigEntryEditWindow DetailEditor { get { return new PingCollectorEditHostAddress(); } }
+        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new PingCollectorEditHostAddress(); } }
         //public string AgentName { get; set; }
         //public bool AgentEnabled { get; set; }
         //public string SelectedAgentConfig { get; set; }

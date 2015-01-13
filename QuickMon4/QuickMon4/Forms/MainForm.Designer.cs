@@ -41,6 +41,7 @@
             this.lblNoNotifiersYet = new System.Windows.Forms.Label();
             this.lvwNotifiers = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.notifiersImageList = new System.Windows.Forms.ImageList(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.adminModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -90,7 +91,6 @@
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.notifiersImageList = new System.Windows.Forms.ImageList(this.components);
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
@@ -163,6 +163,9 @@
             this.tvwCollectors.AllowDrop = true;
             this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
             this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwCollectors.CheckBoxEnhancements = false;
+            this.tvwCollectors.DisableCollapseOnDoubleClick = true;
+            this.tvwCollectors.DisableExpandOnDoubleClick = false;
             this.tvwCollectors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
@@ -189,7 +192,9 @@
             this.tvwCollectors.Size = new System.Drawing.Size(381, 180);
             this.tvwCollectors.TabIndex = 1;
             this.tvwCollectors.EnterKeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_EnterKeyDown);
+            this.tvwCollectors.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.DeleteCollector);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
+            this.tvwCollectors.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwCollectors_NodeMouseDoubleClick);
             this.tvwCollectors.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tvwCollectors_MouseMove);
             this.tvwCollectors.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvwCollectors_MouseUp);
             // 
@@ -236,6 +241,7 @@
             this.llblNotifierViewToggle.TabStop = true;
             this.llblNotifierViewToggle.Text = "Show Notifiers";
             this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
+            this.llblNotifierViewToggle.DoubleClick += new System.EventHandler(this.llblNotifierViewToggle_DoubleClick);
             // 
             // lblNoNotifiersYet
             // 
@@ -262,15 +268,24 @@
             this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
             this.lvwNotifiers.Name = "lvwNotifiers";
             this.lvwNotifiers.Size = new System.Drawing.Size(389, 101);
+            this.lvwNotifiers.SmallImageList = this.notifiersImageList;
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
             this.lvwNotifiers.View = System.Windows.Forms.View.List;
+            this.lvwNotifiers.DoubleClick += new System.EventHandler(this.lvwNotifiers_DoubleClick);
             this.lvwNotifiers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvwNotifiers_MouseUp);
             // 
             // nameColumnHeader
             // 
             this.nameColumnHeader.Text = "Name";
             this.nameColumnHeader.Width = 121;
+            // 
+            // notifiersImageList
+            // 
+            this.notifiersImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("notifiersImageList.ImageStream")));
+            this.notifiersImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.notifiersImageList.Images.SetKeyName(0, "SPEAKER.ICO");
+            this.notifiersImageList.Images.SetKeyName(1, "SPEAKER.ICO");
             // 
             // panel2
             // 
@@ -737,14 +752,6 @@
             // mainRefreshTimer
             // 
             this.mainRefreshTimer.Interval = 10000;
-            // 
-            // notifiersImageList
-            // 
-            this.notifiersImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("notifiersImageList.ImageStream")));
-            this.notifiersImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.notifiersImageList.Images.SetKeyName(0, "graybox.ico");
-            this.notifiersImageList.Images.SetKeyName(1, "042.png");
-            this.notifiersImageList.Images.SetKeyName(2, "filesearch.ico");
             // 
             // showCollectorContextMenuTimer
             // 

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class PingCollectorEditHostAddress : Form, IAgentConfigEntryEditWindow
+    public partial class PingCollectorEditHostAddress : Form, ICollectorConfigEntryEditWindow
     {
         public PingCollectorEditHostAddress()
         {

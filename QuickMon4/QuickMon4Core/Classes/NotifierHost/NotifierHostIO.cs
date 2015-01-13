@@ -67,6 +67,7 @@ namespace QuickMon
             XmlNode collectorsNode = xmlNotifierHost.SelectSingleNode("collectorHosts");
             if (collectorsNode != null)
             {
+                newNotifierHost.AlertForCollectors = new List<string>();
                 foreach (XmlElement colNode in collectorsNode.SelectNodes("collectorHost"))
                 {
                     string collectorName = colNode.ReadXmlElementAttr("name", "");
@@ -77,6 +78,7 @@ namespace QuickMon
             XmlNode configVarsNode = xmlNotifierHost.SelectSingleNode("configVars");
             if (configVarsNode != null)
             {
+                newNotifierHost.ConfigVariables = new List<ConfigVariable>();
                 foreach (XmlNode configVarNode in configVarsNode.SelectNodes("configVar"))
                 {
                     newNotifierHost.ConfigVariables.Add(ConfigVariable.FromXml(configVarNode.OuterXml));
@@ -86,6 +88,7 @@ namespace QuickMon
             XmlNode notifierAgentsNode = xmlNotifierHost.SelectSingleNode("notifierAgents");
             if (notifierAgentsNode != null)
             {
+                newNotifierHost.NotifierAgents = new List<INotifier>();
                 foreach (XmlElement notifierAgentNode in notifierAgentsNode.SelectNodes("notifierAgent"))
                 {
                     string name = notifierAgentNode.ReadXmlElementAttr("name", "");
@@ -135,7 +138,7 @@ namespace QuickMon
 
             return newNotifierHost;
         }
-        private static INotifier CreateNotifierFromClassName(string agentClassName)
+        public static INotifier CreateNotifierFromClassName(string agentClassName)
         {
             INotifier currentAgent = null;
             RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + agentClassName, false);

@@ -152,6 +152,12 @@
     <Compile Include="GenericForms\EditCollectorAgentEntries.Designer.cs">
       <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\EditNotifierAgentEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditNotifierAgentEntry.Designer.cs">
+      <DependentUpon>EditNotifierAgentEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\EditNotifierHost.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,13 @@
     <Compile Include="MonitorPack\EditMonitorPackConfig.designer.cs">
       <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notifiers\InMemory\InMemoryNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\InMemory\InMemoryNotifierEdit.Designer.cs">
+      <DependentUpon>InMemoryNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\InMemory\InMemoryNotifierUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -244,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
       <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditNotifierAgentEntry.resx">
+      <DependentUpon>EditNotifierAgentEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditNotifierHost.resx">
       <DependentUpon>EditNotifierHost.cs</DependentUpon>

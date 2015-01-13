@@ -42,10 +42,10 @@ namespace QuickMon.Controls
             this.cmdEditCollector = new System.Windows.Forms.Button();
             this.cmdAddCollector = new System.Windows.Forms.Button();
             this.cmdViewDetails = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lblCollectorHeading = new System.Windows.Forms.Label();
             this.cmdDisableCollector = new System.Windows.Forms.Button();
             this.cmdDeleteCollector = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblCollectorHeading = new System.Windows.Forms.Label();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,36 +157,9 @@ namespace QuickMon.Controls
             this.cmdViewDetails.Padding = new System.Windows.Forms.Padding(2);
             this.cmdViewDetails.Size = new System.Drawing.Size(228, 44);
             this.cmdViewDetails.TabIndex = 3;
-            this.cmdViewDetails.Text = "&Details";
+            this.cmdViewDetails.Text = "View &Details";
             this.toolTip1.SetToolTip(this.cmdViewDetails, "View collector details");
             this.cmdViewDetails.UseVisualStyleBackColor = true;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.cmdPasteWithEdit);
-            this.panel4.Controls.Add(this.cmdPaste);
-            this.panel4.Controls.Add(this.cmdCopy);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(4, 156);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(228, 27);
-            this.panel4.TabIndex = 4;
-            // 
-            // lblCollectorHeading
-            // 
-            this.lblCollectorHeading.BackColor = System.Drawing.Color.Gainsboro;
-            this.lblCollectorHeading.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblCollectorHeading.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblCollectorHeading.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblCollectorHeading.ForeColor = System.Drawing.Color.White;
-            this.lblCollectorHeading.Image = global::QuickMon.Properties.Resources.MenuBlueShade;
-            this.lblCollectorHeading.Location = new System.Drawing.Point(4, 4);
-            this.lblCollectorHeading.Name = "lblCollectorHeading";
-            this.lblCollectorHeading.Size = new System.Drawing.Size(228, 20);
-            this.lblCollectorHeading.TabIndex = 0;
-            this.lblCollectorHeading.Text = "Collector";
-            this.lblCollectorHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCollectorHeading.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblCollectorHeading_MouseDown);
             // 
             // cmdDisableCollector
             // 
@@ -219,6 +192,33 @@ namespace QuickMon.Controls
             this.cmdDeleteCollector.Text = "Delete";
             this.toolTip1.SetToolTip(this.cmdDeleteCollector, "Delete collector");
             this.cmdDeleteCollector.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.cmdPasteWithEdit);
+            this.panel4.Controls.Add(this.cmdPaste);
+            this.panel4.Controls.Add(this.cmdCopy);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(4, 156);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(228, 27);
+            this.panel4.TabIndex = 4;
+            // 
+            // lblCollectorHeading
+            // 
+            this.lblCollectorHeading.BackColor = System.Drawing.Color.Gainsboro;
+            this.lblCollectorHeading.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblCollectorHeading.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblCollectorHeading.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblCollectorHeading.ForeColor = System.Drawing.Color.White;
+            this.lblCollectorHeading.Image = global::QuickMon.Properties.Resources.MenuBlueShade;
+            this.lblCollectorHeading.Location = new System.Drawing.Point(4, 4);
+            this.lblCollectorHeading.Name = "lblCollectorHeading";
+            this.lblCollectorHeading.Size = new System.Drawing.Size(228, 20);
+            this.lblCollectorHeading.TabIndex = 0;
+            this.lblCollectorHeading.Text = "Collector";
+            this.lblCollectorHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCollectorHeading.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblCollectorHeading_MouseDown);
             // 
             // CollectorContextMenuControl
             // 

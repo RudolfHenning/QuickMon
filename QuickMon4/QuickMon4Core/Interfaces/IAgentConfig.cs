@@ -26,10 +26,15 @@ namespace QuickMon
         bool SingleEntryOnly { get; }
         List<ICollectorConfigEntry> Entries { get; set; }       
     }
-    public interface ICollectorConfigEntry 
+    public interface IAgentConfigEntry
     {
         string Description { get; }
         string TriggerSummary { get; }
+    }
+    public interface ICollectorConfigEntry : IAgentConfigEntry 
+    {
+        //string Description { get; }
+        //string TriggerSummary { get; }
         List<ICollectorConfigSubEntry> SubItems { get; set; }
     }
     public interface ICollectorConfigSubEntry

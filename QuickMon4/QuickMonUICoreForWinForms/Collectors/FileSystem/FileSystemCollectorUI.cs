@@ -9,7 +9,7 @@ namespace QuickMon.Collectors
     public class FileSystemCollectorUI : WinFormsUICollectorBase
     {
         public override string AgentType { get { return "FileSystemCollector"; } }
-        public override IAgentConfigEntryEditWindow DetailEditor { get { return new FileSystemCollectorEditFilterEntry(); } }
+        public override ICollectorConfigEntryEditWindow DetailEditor { get { return new FileSystemCollectorEditFilterEntry(); } }
 
         //public string AgentName { get; set; }
         //public bool AgentEnabled { get; set; }

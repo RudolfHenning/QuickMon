@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditNotifierHost));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("All COLLECTORS");
             this.alertSuppressionGroupBox = new System.Windows.Forms.GroupBox();
             this.cboAttendedOptionOverride = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.entriesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.triggerColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -70,9 +70,9 @@
             this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.editAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabAgents = new System.Windows.Forms.TabPage();
@@ -84,11 +84,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDependencies = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.collectorTreeImageList = new System.Windows.Forms.ImageList(this.components);
             this.allLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.lvwCollectors = new System.Windows.Forms.ListView();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorImageList = new System.Windows.Forms.ImageList(this.components);
             this.txtMonitorPack = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -102,6 +99,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertSuppressionGroupBox.SuspendLayout();
             this.tabAlerts.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -266,6 +267,7 @@
             this.linkLabelServiceWindows.TabIndex = 1;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
+            this.linkLabelServiceWindows.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelServiceWindows_LinkClicked);
             // 
             // moveUpConfigVarToolStripButton
             // 
@@ -372,24 +374,9 @@
             this.correctiveScriptOpenFileDialog.Filter = "Scripts|*.cmd;*.bat;*.exe|PowerShell scripts|*.ps1|All Files|*.*";
             this.correctiveScriptOpenFileDialog.Title = "Corrective script";
             // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(3, 44);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.BlueArcTopRight;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(544, -1);
@@ -436,13 +423,13 @@
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.lvwConfigVars);
             this.groupBox5.Controls.Add(this.toolStrip1);
             this.groupBox5.Controls.Add(this.label42);
             this.groupBox5.Controls.Add(this.txtConfigVarReplaceByValue);
             this.groupBox5.Controls.Add(this.label41);
             this.groupBox5.Controls.Add(this.txtConfigVarSearchFor);
             this.groupBox5.Controls.Add(this.label40);
-            this.groupBox5.Controls.Add(this.lvwConfigVars);
             this.groupBox5.Controls.Add(this.label37);
             this.groupBox5.Location = new System.Drawing.Point(7, 6);
             this.groupBox5.Name = "groupBox5";
@@ -477,6 +464,7 @@
             this.llblRawEdit.TabIndex = 1;
             this.llblRawEdit.TabStop = true;
             this.llblRawEdit.Text = "Edit RAW config";
+            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
             // 
             // llblExportConfigAsTemplate
             // 
@@ -508,6 +496,7 @@
             this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
             this.disableAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.disableAgentToolStripButton.Text = "Disable";
+            this.disableAgentToolStripButton.Click += new System.EventHandler(this.disableAgentToolStripButton_Click);
             // 
             // enableAgentToolStripButton
             // 
@@ -518,6 +507,7 @@
             this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
             this.enableAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.enableAgentToolStripButton.Text = "Enable";
+            this.enableAgentToolStripButton.Click += new System.EventHandler(this.enableAgentToolStripButton_Click);
             // 
             // toolStripSeparator3
             // 
@@ -533,6 +523,7 @@
             this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
             this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.moveDownAgentToolStripButton.Text = "Move selected item down";
+            this.moveDownAgentToolStripButton.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
             // 
             // moveUpAgentToolStripButton
             // 
@@ -543,49 +534,53 @@
             this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
             this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.moveUpAgentToolStripButton.Text = "Move selected item up";
+            this.moveUpAgentToolStripButton.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // deleteCollectorAgentToolStripButton
+            // deleteAgentToolStripButton
             // 
-            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteCollectorAgentToolStripButton.Enabled = false;
-            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
-            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
-            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
+            this.deleteAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteAgentToolStripButton.Enabled = false;
+            this.deleteAgentToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteAgentToolStripButton.Name = "deleteAgentToolStripButton";
+            this.deleteAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteAgentToolStripButton.Text = "Delete selected Agent(s)";
+            this.deleteAgentToolStripButton.Click += new System.EventHandler(this.deleteAgentToolStripButton_Click);
             // 
-            // editCollectorAgentToolStripButton
+            // editAgentToolStripButton
             // 
-            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editCollectorAgentToolStripButton.Enabled = false;
-            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.proc2;
-            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
-            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
+            this.editAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editAgentToolStripButton.Enabled = false;
+            this.editAgentToolStripButton.Image = global::QuickMon.Properties.Resources.proc2;
+            this.editAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editAgentToolStripButton.Name = "editAgentToolStripButton";
+            this.editAgentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.editAgentToolStripButton.Text = "Edit selected Agent";
+            this.editAgentToolStripButton.Click += new System.EventHandler(this.editAgentToolStripButton_Click);
             // 
-            // addCollectorConfigEntryToolStripButton
+            // addAgentEntryToolStripButton
             // 
-            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
-            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
-            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
+            this.addAgentEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addAgentEntryToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addAgentEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addAgentEntryToolStripButton.Name = "addAgentEntryToolStripButton";
+            this.addAgentEntryToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addAgentEntryToolStripButton.Text = "Add new Agent";
+            this.addAgentEntryToolStripButton.ToolTipText = "Add entry";
+            this.addAgentEntryToolStripButton.Click += new System.EventHandler(this.addAgentToolStripButton_Click);
             // 
             // collectorAgentsEditToolStrip
             // 
             this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCollectorConfigEntryToolStripButton,
-            this.editCollectorAgentToolStripButton,
-            this.deleteCollectorAgentToolStripButton,
+            this.addAgentEntryToolStripButton,
+            this.editAgentToolStripButton,
+            this.deleteAgentToolStripButton,
             this.toolStripSeparator2,
             this.moveUpAgentToolStripButton,
             this.moveDownAgentToolStripButton,
@@ -642,6 +637,7 @@
             this.cmdOK.TabIndex = 17;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // label1
             // 
@@ -707,8 +703,8 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.tvwCollectors);
             this.groupBox1.Controls.Add(this.allLinkLabel);
-            this.groupBox1.Controls.Add(this.lvwCollectors);
             this.groupBox1.Controls.Add(this.txtMonitorPack);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label3);
@@ -718,6 +714,13 @@
             this.groupBox1.Size = new System.Drawing.Size(566, 289);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // collectorTreeImageList
+            // 
+            this.collectorTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("collectorTreeImageList.ImageStream")));
+            this.collectorTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.collectorTreeImageList.Images.SetKeyName(0, "open_folder_blue.ico");
+            this.collectorTreeImageList.Images.SetKeyName(1, "my_documents2.ico");
             // 
             // allLinkLabel
             // 
@@ -730,44 +733,6 @@
             this.allLinkLabel.TabStop = true;
             this.allLinkLabel.Text = "All";
             this.allLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.allLinkLabel_LinkClicked);
-            // 
-            // lvwCollectors
-            // 
-            this.lvwCollectors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwCollectors.CheckBoxes = true;
-            this.lvwCollectors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderType});
-            this.lvwCollectors.FullRowSelect = true;
-            this.lvwCollectors.HideSelection = false;
-            this.lvwCollectors.Location = new System.Drawing.Point(6, 49);
-            this.lvwCollectors.MultiSelect = false;
-            this.lvwCollectors.Name = "lvwCollectors";
-            this.lvwCollectors.Size = new System.Drawing.Size(554, 216);
-            this.lvwCollectors.SmallImageList = this.collectorImageList;
-            this.lvwCollectors.TabIndex = 3;
-            this.lvwCollectors.UseCompatibleStateImageBehavior = false;
-            this.lvwCollectors.View = System.Windows.Forms.View.Details;
-            this.lvwCollectors.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvwCollectors_ItemChecked);
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Text = "Collector name";
-            this.columnHeaderName.Width = 274;
-            // 
-            // columnHeaderType
-            // 
-            this.columnHeaderType.Text = "Type";
-            this.columnHeaderType.Width = 152;
-            // 
-            // collectorImageList
-            // 
-            this.collectorImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("collectorImageList.ImageStream")));
-            this.collectorImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.collectorImageList.Images.SetKeyName(0, "open_folder_blue.ico");
-            this.collectorImageList.Images.SetKeyName(1, "my_documents2.ico");
             // 
             // txtMonitorPack
             // 
@@ -842,6 +807,10 @@
             this.lvwEntries.TabIndex = 3;
             this.lvwEntries.UseCompatibleStateImageBehavior = false;
             this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -857,6 +826,72 @@
             // 
             this.columnHeader3.Text = "Config summary";
             this.columnHeader3.Width = 222;
+            // 
+            // tvwCollectors
+            // 
+            this.tvwCollectors.AllowDrop = true;
+            this.tvwCollectors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvwCollectors.CheckBoxEnhancements = false;
+            this.tvwCollectors.CheckBoxes = true;
+            this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
+            this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwCollectors.FullRowSelect = true;
+            this.tvwCollectors.HideSelection = false;
+            this.tvwCollectors.ImageIndex = 0;
+            this.tvwCollectors.ImageList = this.collectorTreeImageList;
+            this.tvwCollectors.Indent = 20;
+            this.tvwCollectors.ItemHeight = 22;
+            this.tvwCollectors.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tvwCollectors.Location = new System.Drawing.Point(13, 51);
+            this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
+            this.tvwCollectors.Name = "tvwCollectors";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "All COLLECTORS";
+            this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.tvwCollectors.RootAlwaysExpanded = false;
+            this.tvwCollectors.SelectedImageIndex = 0;
+            this.tvwCollectors.ShowRootLines = false;
+            this.tvwCollectors.Size = new System.Drawing.Size(545, 217);
+            this.tvwCollectors.TabIndex = 5;
+            this.tvwCollectors.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterCheck);
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader5});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(4, 43);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
+            this.lvwConfigVars.TabIndex = 8;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Search for";
+            this.columnHeader4.Width = 243;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Replace by";
+            this.columnHeader5.Width = 262;
             // 
             // EditNotifierHost
             // 
@@ -924,7 +959,6 @@
         private System.Windows.Forms.ColumnHeader entriesColumnHeader;
         private System.Windows.Forms.ColumnHeader triggerColumnHeader;
         private System.Windows.Forms.OpenFileDialog correctiveScriptOpenFileDialog;
-        private ListViewEx lvwConfigVars;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripButton deleteConfigVarToolStripButton;
         private System.Windows.Forms.ToolStripButton addConfigVarToolStripButton;
@@ -940,9 +974,9 @@
         private System.Windows.Forms.ToolStripButton moveDownAgentToolStripButton;
         private System.Windows.Forms.ToolStripButton moveUpAgentToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton deleteCollectorAgentToolStripButton;
-        private System.Windows.Forms.ToolStripButton editCollectorAgentToolStripButton;
-        private System.Windows.Forms.ToolStripButton addCollectorConfigEntryToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteAgentToolStripButton;
+        private System.Windows.Forms.ToolStripButton editAgentToolStripButton;
+        private System.Windows.Forms.ToolStripButton addAgentEntryToolStripButton;
         private System.Windows.Forms.ToolStrip collectorAgentsEditToolStrip;
         private System.Windows.Forms.ImageList agentsImageList;
         private System.Windows.Forms.ColumnHeader configColumnHeader;
@@ -971,13 +1005,14 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.LinkLabel linkLabelServiceWindows;
         private System.Windows.Forms.LinkLabel allLinkLabel;
-        private System.Windows.Forms.ListView lvwCollectors;
-        private System.Windows.Forms.ColumnHeader columnHeaderName;
-        private System.Windows.Forms.ColumnHeader columnHeaderType;
-        private System.Windows.Forms.ImageList collectorImageList;
         private ListViewEx lvwEntries;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ImageList collectorTreeImageList;
+        private Controls.TreeViewExBase tvwCollectors;
+        private ListViewEx lvwConfigVars;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

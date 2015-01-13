@@ -438,6 +438,10 @@ namespace QuickMon
             moveDownConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count == 1 && lvwConfigVars.SelectedItems[0].Index < lvwConfigVars.Items.Count - 1;
             deleteConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count > 0;
         }
+        private void lvwConfigVars_DeleteKeyPressed()
+        {
+            deleteConfigVarToolStripButton_Click(null, null);
+        }
         private void txtConfigVarSearchFor_TextChanged(object sender, EventArgs e)
         {
             UpdateConfigVarListFromText();
@@ -782,6 +786,8 @@ namespace QuickMon
             }
         } 
         #endregion
+
+
 
 
         
