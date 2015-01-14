@@ -67,10 +67,22 @@ namespace QuickMon.Notifiers
         }
         public static void PlayCustomSound(string audioFilePath, int volumePerc, int repeats)
         {
+            uint oldVolume;
+            waveOutGetVolume(IntPtr.Zero, out oldVolume);
             if (audioFilePath.Length > 0 && System.IO.File.Exists(audioFilePath))
             {
                 //if (CheckWMPInstalled())
+                try
                 {
+
+
+                    // Calculate the volume that's being set. BTW: this is a trackbar!
+                    int newVolume = ((ushort.MaxValue / 100) * volumePerc);
+                    // Set the same volume for both the left and the right channels
+                    uint newVolumeAllChannels = (((uint)newVolume & 0x0000ffff) | ((uint)newVolume << 16));
+                    // Set the volume
+                    waveOutSetVolume(IntPtr.Zero, newVolumeAllChannels);
+
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(audioFilePath);
                     player.Play();
 
@@ -89,6 +101,11 @@ namespace QuickMon.Notifiers
                             PlayCustomSound(audioFilePath, volumePerc, 1);
                         }
                 }
+                finally
+                {
+                    waveOutSetVolume(IntPtr.Zero, oldVolume);
+                }
+                
                 //else
                 //{
                 //    throw new Exception("Notification cannot be raised! It appears Windows Media Player is not installed on this computer!");

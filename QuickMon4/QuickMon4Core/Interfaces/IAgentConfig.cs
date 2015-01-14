@@ -31,10 +31,10 @@ namespace QuickMon
         string Description { get; }
         string TriggerSummary { get; }
     }
-    public interface ICollectorConfigEntry : IAgentConfigEntry 
+    public interface ICollectorConfigEntry
     {
-        //string Description { get; }
-        //string TriggerSummary { get; }
+        string Description { get; }
+        string TriggerSummary { get; }
         List<ICollectorConfigSubEntry> SubItems { get; set; }
     }
     public interface ICollectorConfigSubEntry

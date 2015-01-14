@@ -18,7 +18,6 @@ namespace QuickMon.Collectors
 
         #region IEditConfigEntryWindow Members
         public ICollectorConfigEntry SelectedEntry { get; set; }
-
         public QuickMonDialogResult ShowEditEntry()
         {
             if (SelectedEntry == null)
@@ -49,7 +48,6 @@ namespace QuickMon.Collectors
             txtPassword.Text = HostEntry.TelnetPassword;
             return (QuickMonDialogResult)ShowDialog();
         }
-
         #endregion
 
         private PingCollectorHostEntry HostEntry { get; set; }
