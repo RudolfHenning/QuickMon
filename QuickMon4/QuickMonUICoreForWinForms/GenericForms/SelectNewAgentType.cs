@@ -138,21 +138,6 @@ namespace QuickMon.Forms
         {
             lvwAgentType.Items.Clear();
             ListViewItem lvi;
-            //if (selectingCollectors)
-            //{
-            //    RegisteredAgent folder = new RegisteredAgent() { ClassName = "QuickMon.Collectors.Folder", Name = "Folder", IsCollector = true, DisplayName = "Folder" };
-            //    lvi = new ListViewItem("Folder");
-            //    lvi.Group = (from ListViewGroup gr in lvwAgentType.Groups
-            //                 where gr.Header.ToLower() == "folder"
-            //                 select gr).FirstOrDefault();
-            //    lvi.ImageIndex = 1;
-            //    lvi.SubItems.Add("Container for child objects");
-            //    lvi.Tag = folder;
-            //    lvwAgentType.Items.Add(lvi);
-            //    if (InitialRegistrationName == "Folder")
-            //        lvi.Selected = true;
-            //}
-
             ListViewGroup generalGroup = (from ListViewGroup gr in lvwAgentType.Groups
                                           where gr.Header.ToLower() == "general"
                                           select gr).FirstOrDefault();
@@ -253,6 +238,7 @@ namespace QuickMon.Forms
                         Assembly collectorEntryAssembly = Assembly.LoadFile(ra.AssemblyPath);
                         SelectedAgent = (IAgent)collectorEntryAssembly.CreateInstance(ra.ClassName);
                         SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Collectors.", "");
+                        SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Notifiers.", "");
                         SelectedAgent.AgentClassDisplayName = ra.DisplayName;
                         if (configToUse.Length ==0)
                         {

@@ -7,7 +7,7 @@ namespace QuickMon
 {
     public interface IAgentConfigEntryEditWindow
     {
-        IAgentConfigEntry SelectedEntry { get; set; }
+        IAgentConfig SelectedEntry { get; set; }
         QuickMonDialogResult ShowEditEntry();
     }
     public interface ICollectorConfigEntryEditWindow

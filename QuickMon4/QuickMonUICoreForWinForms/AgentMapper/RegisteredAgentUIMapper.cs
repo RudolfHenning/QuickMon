@@ -32,7 +32,6 @@ namespace QuickMon.UI
             {
                 uiClass = (IWinFormsUI)winFormsUIEntry.ContainingAssembly.CreateInstance(winFormsUIEntry.UIClassName);
             }
-
             return uiClass;
         }
 
