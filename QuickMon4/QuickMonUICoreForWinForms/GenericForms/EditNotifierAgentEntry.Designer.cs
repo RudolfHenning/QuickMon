@@ -100,7 +100,7 @@
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llblRawEdit.AutoSize = true;
             this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(12, 106);
+            this.llblRawEdit.Location = new System.Drawing.Point(12, 118);
             this.llblRawEdit.Name = "llblRawEdit";
             this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
             this.llblRawEdit.TabIndex = 7;
@@ -113,7 +113,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(347, 101);
+            this.cmdCancel.Location = new System.Drawing.Point(347, 113);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
@@ -125,7 +125,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(266, 101);
+            this.cmdOK.Location = new System.Drawing.Point(266, 113);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -135,11 +135,11 @@
             // 
             // llblConfigure
             // 
-            this.llblConfigure.AutoSize = true;
+            this.llblConfigure.AutoEllipsis = true;
             this.llblConfigure.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.llblConfigure.Location = new System.Drawing.Point(105, 70);
             this.llblConfigure.Name = "llblConfigure";
-            this.llblConfigure.Size = new System.Drawing.Size(88, 13);
+            this.llblConfigure.Size = new System.Drawing.Size(317, 40);
             this.llblConfigure.TabIndex = 6;
             this.llblConfigure.TabStop = true;
             this.llblConfigure.Text = "Edit Agent config";
@@ -160,7 +160,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(434, 136);
+            this.ClientSize = new System.Drawing.Size(434, 148);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.llblConfigure);
             this.Controls.Add(this.llblRawEdit);

@@ -307,11 +307,17 @@
     <EmbeddedResource Include="Notifiers\Audio\AudioNotifierEdit.resx">
       <DependentUpon>AudioNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\EventLog\EventLogNotifierEdit.resx">
+      <DependentUpon>EventLogNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Notifiers\InMemory\InMemoryNotifierEdit.resx">
       <DependentUpon>InMemoryNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Notifiers\LogFile\LogFileNotifierEdit.resx">
       <DependentUpon>LogFileNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\SMTP\SMTPNotifierEdit.resx">
+      <DependentUpon>SMTPNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

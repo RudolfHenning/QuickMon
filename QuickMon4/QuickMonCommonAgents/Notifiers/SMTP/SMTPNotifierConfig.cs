@@ -8,6 +8,10 @@ namespace QuickMon.Notifiers
 {
     public class SMTPNotifierConfig : INotifierConfig
     {
+        public SMTPNotifierConfig()
+        {
+            MailPriority = 0;
+        }
         #region Properties
         public string HostServer { get; set; }
         public bool UseDefaultCredentials { get; set; }
@@ -43,7 +47,7 @@ namespace QuickMon.Notifiers
             FromAddress = connectionNode.ReadXmlElementAttr("fromAddress", "");
             SenderAddress = connectionNode.ReadXmlElementAttr("senderAddress", "");
             ReplyToAddress = connectionNode.ReadXmlElementAttr("replyToAddress", "");
-            MailPriority = int.Parse(connectionNode.ReadXmlElementAttr("mailPriority", "1"));
+            MailPriority = int.Parse(connectionNode.ReadXmlElementAttr("mailPriority", "0"));
             ToAddress = connectionNode.ReadXmlElementAttr("toAddress", "");
             IsBodyHtml = bool.Parse(connectionNode.ReadXmlElementAttr("isBodyHtml", "True"));
             Subject = connectionNode.ReadXmlElementAttr("subject", "");

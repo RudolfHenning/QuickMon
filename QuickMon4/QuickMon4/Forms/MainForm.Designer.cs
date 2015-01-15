@@ -90,7 +90,6 @@
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.mainRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
@@ -470,7 +469,7 @@
             this.aboutToolStripMenuItem1});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(260, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(291, 35);
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -675,7 +674,7 @@
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(202, 22);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(214, 34);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -711,7 +710,7 @@
             this.customPollingFrequencyToolStripMenuItem.Name = "customPollingFrequencyToolStripMenuItem";
             this.customPollingFrequencyToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.customPollingFrequencyToolStripMenuItem.Text = "Custom Frequency";
-            this.customPollingFrequencyToolStripMenuItem.Click += new System.EventHandler(this.customPollingFrequencyToolStripMenuItem_Click);
+            this.customPollingFrequencyToolStripMenuItem.Click += new System.EventHandler(this.generalSettingsToolStripSplitButton_ButtonClick);
             // 
             // manageTemplatesToolStripMenuItem
             // 
@@ -749,10 +748,6 @@
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp|Old QuickMon config files|*.qmconfig";
             // 
-            // mainRefreshTimer
-            // 
-            this.mainRefreshTimer.Interval = 10000;
-            // 
             // showCollectorContextMenuTimer
             // 
             this.showCollectorContextMenuTimer.Tick += new System.EventHandler(this.showCollectorContextMenuTimer_Tick);
@@ -778,6 +773,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(410, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -785,6 +781,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.masterSplitContainer.Panel1.ResumeLayout(false);
             this.masterSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).EndInit();
@@ -864,7 +861,6 @@
         private System.Windows.Forms.ImageList treeImageList;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
-        private System.Windows.Forms.Timer mainRefreshTimer;
         private System.Windows.Forms.ImageList notifiersImageList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer showCollectorContextMenuTimer;

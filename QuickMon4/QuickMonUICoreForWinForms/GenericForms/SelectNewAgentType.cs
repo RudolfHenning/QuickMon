@@ -236,9 +236,8 @@ namespace QuickMon.Forms
                     if (System.IO.File.Exists(ra.AssemblyPath))
                     {
                         Assembly collectorEntryAssembly = Assembly.LoadFile(ra.AssemblyPath);
-                        SelectedAgent = (IAgent)collectorEntryAssembly.CreateInstance(ra.ClassName);
-                        SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Collectors.", "");
-                        SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Notifiers.", "");
+                        SelectedAgent = (IAgent)collectorEntryAssembly.CreateInstance(ra.ClassName);                        
+                        SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Collectors.", "").Replace("QuickMon.Notifiers.", "");                        
                         SelectedAgent.AgentClassDisplayName = ra.DisplayName;
                         if (configToUse.Length ==0)
                         {

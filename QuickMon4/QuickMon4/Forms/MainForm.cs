@@ -21,12 +21,12 @@ namespace QuickMon
             popperContainerForTreeView = new Controls.PopperContainer(poppedContainerForTreeView);
             poppedContainerForListView = new Controls.NotifierContextMenuControl();
             popperContainerForListView = new Controls.PopperContainer(poppedContainerForListView);
+            autoRefreshTimer = new Timer() { Enabled = false, Interval = Properties.Settings.Default.PollFrequencySec * 1000 };
         }
 
         #region Private vars
         private bool monitorPackChanged = false;
-        private bool firstRefresh = true;
-        private bool timerWasEnabledBeforePausing = false;
+        private bool firstRefresh = true;        
         private bool refreshCycleA = true;
         private MonitorPack monitorPack;
         private string quickMonPCCategory = "QuickMon 4 UI Client";
@@ -49,6 +49,12 @@ namespace QuickMon
         #region Copy and Paste of collector hosts
         private List<CollectorHost> copiedCollectorList = new List<CollectorHost>();
         //private List<CollectorStats> collectorStatsWindows = new List<CollectorStats>(); 
+        #endregion
+
+        #region Main timer
+        private Timer autoRefreshTimer;
+        private bool isPollingPaused = false;
+        //private bool timerWasEnabledBeforePausing = false;
         #endregion
         #endregion
 
@@ -91,19 +97,17 @@ namespace QuickMon
             tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
             tvwCollectors.RootAlwaysExpanded = true;
             tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
+            lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
 
             SetUpContextMenus();
-        }
+        }        
         private void MainForm_Shown(object sender, EventArgs e)
         {
             try
             {
                 InitializeGlobalPerformanceCounters();
-
-                mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
-
                 if (Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                 {
                     LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
@@ -122,7 +126,7 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             tvwCollectors.Focus();
-            SetPollingFrequency();
+            ResumePolling();
         }
         private void MainForm_Resize(object sender, EventArgs e)
         {
@@ -137,6 +141,39 @@ namespace QuickMon
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             PerformCleanShutdown();
+        }
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                RefreshMonitorPack(true, true);
+            }
+            else if (e.Control && e.KeyCode == Keys.O)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                openMonitorPackToolStripButton_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.T)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                recentMonitorPackToolStripMenuItem1_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.N)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                newMonitorPackToolStripMenuItem_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.E)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                generalSettingsToolStripSplitButton_ButtonClick(sender, e);
+            }
         }
         #endregion
 
@@ -255,6 +292,10 @@ namespace QuickMon
         {
             EditNotifierConfig();
         }
+        private void lvwNotifiers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckNotifierContextMenuEnables();
+        }
         #endregion
 
         #region Recent monitor packs drop down and toolbar effects
@@ -348,8 +389,7 @@ namespace QuickMon
                         return;
                 }
             }
-
-            mainRefreshTimer.Enabled = false;
+            PausePolling();
             try
             {
                 monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
@@ -373,8 +413,8 @@ namespace QuickMon
                 lblNoNotifiersYet.Visible = true;
             else
                 lblNoNotifiersYet.Visible = false;
-            mainRefreshTimer.Enabled = true;
             monitorPackChanged = false;
+            ResumePolling();
         }        
         private void LoadMonitorPack(string monitorPackPath)
         {
@@ -390,7 +430,7 @@ namespace QuickMon
                         }
                     }
                 }
-                PausePolling(true);
+                PausePolling();
                 if (monitorPack != null)
                 {
                     try
@@ -806,7 +846,6 @@ namespace QuickMon
             catch { }
             finally
             {
-                mainRefreshTimer.Enabled = timerWasEnabledBeforePausing;
                 ResumePolling();
             }
         }
@@ -852,7 +891,7 @@ namespace QuickMon
                         globalState,
                         DateTime.Now.ToString("HH:mm:ss"),
                         (sw.ElapsedMilliseconds / 1000.00).ToString("F2"),
-                        (mainRefreshTimer.Interval / 1000).ToString()
+                        (autoRefreshTimer.Interval / 1000).ToString()
                         ));
                 }
                 else
@@ -968,9 +1007,11 @@ namespace QuickMon
         #region Collector editing actions
         private void CreateNewCollector()
         {
+            HideCollectorContextMenu();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                PausePolling();
             try
             {
-                HideCollectorContextMenu();
                 CollectorHost newCollectorEntry = new CollectorHost();
                 EditCollectorHost editCollectorHost = new EditCollectorHost();
                 newCollectorEntry.ParentCollectorId = "";
@@ -1003,10 +1044,13 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "New Collector", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                ResumePolling();
         }
         private void EditCollectorConfig()
         {
-            PausePolling();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                PausePolling();
             try
             {
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
@@ -1020,7 +1064,6 @@ namespace QuickMon
                     {
                         SetMonitorChanged();
                         collectorEntry.ReconfigureFromXml(editCollectorHost.SelectedConfig, monitorPack.ConfigVariables, true);
-                        //currentNode.Tag = collectorEntry;
                         currentNode.Text = collectorEntry.Name;
                         if (collectorEntry.EnableRemoteExecute || collectorEntry.ForceRemoteExcuteOnChildCollectors)
                         {
@@ -1067,10 +1110,14 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            ResumePolling();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                ResumePolling();
         }
         private void DeleteCollector()
         {
+            HideCollectorContextMenu();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                PausePolling();
             TreeNode currentNode = tvwCollectors.SelectedNode;
             if (currentNode.Tag is CollectorHost)
             {
@@ -1086,6 +1133,8 @@ namespace QuickMon
                     DoAutoSave();
                 }
             }
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                ResumePolling();
         }
         private TreeNode GetNodeByCollectorId(string uniqueId, TreeNode root = null)
         {
@@ -1110,9 +1159,43 @@ namespace QuickMon
         #endregion
 
         #region Notifier editing actions
+        private void CreateNewNotifier()
+        {
+            HideNotifierContextMenu();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                PausePolling();
+            try
+            {
+                NotifierHost newNotifierHost = new NotifierHost();
+                EditNotifierHost editNotifierHost = new EditNotifierHost();
+
+                if (editNotifierHost.ShowDialog(newNotifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                {
+                    SetMonitorChanged();
+                    newNotifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
+                    monitorPack.AddNotifierHost(newNotifierHost);
+
+                    ListViewItem lvi = new ListViewItem(newNotifierHost.Name);
+                    lvi.ImageIndex = 0; // (n..Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
+                    lvi.Tag = newNotifierHost;
+                    lvi.ForeColor = newNotifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
+                    lvwNotifiers.Items.Add(lvi);
+
+                    DoAutoSave();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "New Notifier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                ResumePolling();
+        }
         private void EditNotifierConfig()
         {
-            PausePolling();
+            HideNotifierContextMenu();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                PausePolling();
             try
             {
                 if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
@@ -1127,6 +1210,7 @@ namespace QuickMon
                         //currentNode.Tag = collectorEntry;
                         lvi.Text = notifierHost.Name;
                         lvi.Tag = notifierHost;
+                        lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
 
                         //if autosaving is enabled
                         DoAutoSave();
@@ -1137,6 +1221,58 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                ResumePolling();
+        }
+        private void DeleteNotifier()
+        {
+            HideNotifierContextMenu();
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                PausePolling();
+            if (lvwNotifiers.SelectedItems.Count > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to remove the selected notifier(s)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    SetMonitorChanged();
+                    foreach(ListViewItem lvi in lvwNotifiers.SelectedItems)
+                    {
+                        if (lvi.Tag is NotifierHost)
+                        {
+                            NotifierHost removedItem = (NotifierHost)lvi.Tag;
+                            monitorPack.NotifierHosts.Remove(removedItem);
+                            lvwNotifiers.Items.Remove(lvi);
+                        }
+                    }
+                    RefreshMonitorPack(true, true);
+                    DoAutoSave();
+                }
+            }
+            if (Properties.Settings.Default.PausePollingDuringEditConfig)
+                ResumePolling();
+        }
+        private void EnableDisableNotifier()
+        {
+            HideNotifierContextMenu();
+            PausePolling();
+            try
+            {
+                if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+                {
+                    SetMonitorChanged();
+                    ListViewItem lvi = lvwNotifiers.SelectedItems[0];
+                    NotifierHost notifierHost = (NotifierHost)lvi.Tag;
+                    notifierHost.Enabled = !notifierHost.Enabled;
+                    lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
+                    CheckNotifierContextMenuEnables();
+                    //if autosaving is enabled
+                    DoAutoSave();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             ResumePolling();
         }
         #endregion
@@ -1232,27 +1368,21 @@ namespace QuickMon
         #endregion
 
         #region Private methods
-        private void PausePolling(bool forcePause = false)
-        {
-            if (forcePause || Properties.Settings.Default.PausePollingDuringEditConfig)
-            {
-                timerWasEnabledBeforePausing = mainRefreshTimer.Enabled;
-                mainRefreshTimer.Enabled = false;
-            }
-        }
-        private void ResumePolling()
-        {
-            SetPollingFrequency(timerWasEnabledBeforePausing);
-        }
-        private void SetPollingFrequency(bool enabledAfterWards = true)
-        {
-            mainRefreshTimer.Enabled = false;
-            if (Properties.Settings.Default.OverridesMonitorPackFrequency || monitorPack == null || monitorPack.PollingFrequencyOverrideSec == 0)
-                mainRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
-            else
-                mainRefreshTimer.Interval = monitorPack.PollingFrequencyOverrideSec * 1000;
-            mainRefreshTimer.Enabled = enabledAfterWards;
-        }
+       
+        //private void SetPollingFrequency(bool enabledAfterWards = true)
+        //{
+        //    if (autoRefreshTimer != null)
+        //        autoRefreshTimer.Enabled = false;
+        //    autoRefreshTimer = null;
+
+        //    autoRefreshTimer = new Timer();
+            
+        //    if (Properties.Settings.Default.OverridesMonitorPackFrequency || monitorPack == null || monitorPack.PollingFrequencyOverrideSec == 0)
+        //        autoRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
+        //    else
+        //        autoRefreshTimer.Interval = monitorPack.PollingFrequencyOverrideSec * 1000;
+        //    autoRefreshTimer.Enabled = enabledAfterWards;
+        //}
         private bool PerformCleanShutdown(bool abortAllowed = false)
         {
             bool notAborted = true;
@@ -1269,7 +1399,7 @@ namespace QuickMon
 
                 UpdateStatusbar("Shutting down...");
                 Application.DoEvents();
-                mainRefreshTimer.Enabled = false;
+                PausePolling();
                 CloseAllDetailWindows();
                 if (monitorPack.IsBusyPolling)
                 {
@@ -1301,7 +1431,16 @@ namespace QuickMon
                     popperContainerForTreeView.Close();
             }
             catch { }
-        }  
+        }
+        private void HideNotifierContextMenu()
+        {
+            try
+            {
+                if (popperContainerForListView != null)
+                    popperContainerForListView.Close();
+            }
+            catch { }
+        }
         private void CloseAllDetailWindows()
         {
         
@@ -1422,10 +1561,12 @@ namespace QuickMon
             {
                 entry = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
                 poppedContainerForListView.cmdDisableNotifier.Image = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                poppedContainerForListView.cmdDisableNotifier.Text = entry.Enabled ? "Disable" : "Enabled";
             }
             else
             {
                 poppedContainerForListView.cmdDisableNotifier.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
+                poppedContainerForListView.cmdDisableNotifier.Text = "Disable";
             }
             editNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
@@ -1582,7 +1723,7 @@ namespace QuickMon
         }
         private void cmdAddNotifier_Click(object sender, EventArgs e)
         {
-
+            CreateNewNotifier();
         }
         private void cmdEditNotifier_Click(object sender, EventArgs e)
         {
@@ -1590,11 +1731,11 @@ namespace QuickMon
         }
         private void cmdDeleteNotifier_Click(object sender, EventArgs e)
         {
-            
+            DeleteNotifier();
         }
         private void cmdDisableNotifier_Click(object sender, EventArgs e)
         {
-            
+            EnableDisableNotifier();
         }
         #endregion
 
@@ -1640,8 +1781,7 @@ namespace QuickMon
             RefreshMonitorPack(true, true);
         }
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HideCollectorContextMenu();
+        {            
             CreateNewCollector();
         }
         private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1651,7 +1791,7 @@ namespace QuickMon
         }        
         private void removeCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HideCollectorContextMenu();
+            
             DeleteCollector();
         }
         private void viewCollectorDetailsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1660,15 +1800,15 @@ namespace QuickMon
         }
         private void addNotifierToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            CreateNewNotifier();
         }
         private void editNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            EditNotifierConfig();
         }
         private void removeNotifierToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            DeleteNotifier();
         }
         private void showDefaultNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1684,11 +1824,11 @@ namespace QuickMon
         }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
-            PausePolling(true);
             HideCollectorContextMenu();
+            PausePolling();            
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
-            generalSettings.PollingEnabled = timerWasEnabledBeforePausing;
+            generalSettings.PollingEnabled = !isPollingPaused;
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadRecentMonitorPackList();
@@ -1697,29 +1837,26 @@ namespace QuickMon
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
 
                 Properties.Settings.Default.PollFrequencySec = generalSettings.PollingFrequencySec;
-                timerWasEnabledBeforePausing = generalSettings.PollingEnabled;
+                isPollingPaused = !generalSettings.PollingEnabled;
             }
+
             ResumePolling();
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            PausePolling();
         }
         private void pollingSlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SetApplicationPollingFrequency(60);
         }
         private void pollingNormalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SetApplicationPollingFrequency(30);
         }
         private void pollingFastToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-        private void customPollingFrequencyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            SetApplicationPollingFrequency(5);
         }
         private void manageTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1733,7 +1870,6 @@ namespace QuickMon
         }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //HideCollectorContextMenu();
             AboutQuickMon aboutQuickMon = new AboutQuickMon();
             aboutQuickMon.ShowDialog();
         }
@@ -1742,10 +1878,11 @@ namespace QuickMon
         #region Label clicks
         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            bool timerEnabled = mainRefreshTimer.Enabled;
-            mainRefreshTimer.Enabled = false; //temporary stops it.
+            //bool timerEnabled = mainRefreshTimer.Enabled;
+            //mainRefreshTimer.Enabled = false; //temporary stops it.
 
             UpdateStatusbar("Stopping polling...");
+            PausePolling();
             WaitForPollingToFinish(5);
             UpdateStatusbar("Waiting for editing to finish");
 
@@ -1763,11 +1900,13 @@ namespace QuickMon
                 SetMonitorPackNameDescription();                
                 DoAutoSave();
             }
-            if (timerEnabled)
+            if (!isPollingPaused)
+            {
                 UpdateStatusbar("Resuming polling...");
+            }
             else
                 UpdateStatusbar("");
-            SetPollingFrequency(timerEnabled);
+            ResumePolling(true);
         }
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -1890,11 +2029,73 @@ namespace QuickMon
         }
         #endregion
 
+        #region Auto refreshing timer
+        private void autoRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshMonitorPack();
+        }
+        private void PausePolling()
+        {
+            if (autoRefreshTimer != null)
+            {
+                autoRefreshTimer.Enabled = false;
+                try
+                {
+                    autoRefreshTimer.Stop();
+                    autoRefreshTimer.Tick -= autoRefreshTimer_Tick;
+                }
+                catch { }
+                autoRefreshTimer = null;
+            }
+        }
+        private void ResumePolling(bool startImmediately = false)
+        {
+            if (autoRefreshTimer != null)
+            {
+                autoRefreshTimer.Enabled = false;
+                autoRefreshTimer = null;
+            }
+
+            if (!isPollingPaused)
+            {
+                if (startImmediately)
+                {
+                    RefreshMonitorPack(false, true);
+                }
+                else
+                {
+                    autoRefreshTimer = new Timer();
+
+                    if (Properties.Settings.Default.OverridesMonitorPackFrequency || monitorPack == null || monitorPack.PollingFrequencyOverrideSec == 0)
+                        autoRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
+                    else
+                        autoRefreshTimer.Interval = monitorPack.PollingFrequencyOverrideSec * 1000;
+                    autoRefreshTimer.Tick += autoRefreshTimer_Tick;
+                    autoRefreshTimer.Enabled = true;
+                    autoRefreshTimer.Start();
+                }
+            }
+        }
+        private void SetApplicationPollingFrequency(int frequencySec)
+        {
+            Properties.Settings.Default.OverridesMonitorPackFrequency = true;
+            if (frequencySec > 0)
+            {
+                Properties.Settings.Default.PollFrequencySec = frequencySec;
+                ResumePolling();
+            }
+            else
+                isPollingPaused = true;            
+        }
+        #endregion
+
         private void label1_Click(object sender, EventArgs e)
         {
             QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
             tm.Show();
         }
+
+
 
     }
 }
