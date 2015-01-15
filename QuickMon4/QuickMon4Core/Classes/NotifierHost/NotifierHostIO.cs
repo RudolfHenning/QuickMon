@@ -169,7 +169,7 @@ namespace QuickMon
             configXml.AppendLine("<collectorHosts>");
             foreach (string collectorHostName in AlertForCollectors)
             {
-                configXml.AppendLine(string.Format("<collectorHost name=\"{0}\">", collectorHostName));                
+                configXml.AppendLine(string.Format("<collectorHost name=\"{0}\" />", collectorHostName.EscapeXml()));
             }
             configXml.AppendLine("</collectorHosts>");
 
@@ -187,7 +187,8 @@ namespace QuickMon
             configXml.AppendLine("<notifierAgents>");
             foreach (INotifier notifierAgent in NotifierAgents)
             {
-                configXml.AppendLine(string.Format("<notifierAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", notifierAgent.Name, notifierAgent.AgentClassName, notifierAgent.Enabled));
+                configXml.AppendLine(string.Format("<notifierAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">",
+                    notifierAgent.Name.EscapeXml(), notifierAgent.AgentClassName.EscapeXml(), notifierAgent.Enabled));
                 configXml.AppendLine(notifierAgent.AgentConfig.ToXml());
                 configXml.AppendLine("</notifierAgent>");
             }

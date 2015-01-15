@@ -671,6 +671,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(371, 20);
             this.txtName.TabIndex = 11;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // tabControl1
             // 
@@ -837,6 +838,8 @@
             this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tvwCollectors.CheckBoxEnhancements = false;
             this.tvwCollectors.CheckBoxes = true;
+            this.tvwCollectors.DisableCollapseOnDoubleClick = false;
+            this.tvwCollectors.DisableExpandOnDoubleClick = false;
             this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
             this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

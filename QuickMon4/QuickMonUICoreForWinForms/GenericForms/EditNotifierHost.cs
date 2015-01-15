@@ -246,6 +246,7 @@ namespace QuickMon
                     MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
+            CheckOkEnabled();
         }
         private void editAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -291,6 +292,7 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            CheckOkEnabled();
         }
         private void deleteAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -301,6 +303,7 @@ namespace QuickMon
                     foreach (ListViewItem lvi in lvwEntries.SelectedItems)
                         lvwEntries.Items.Remove(lvi);
                 }
+                CheckOkEnabled();
             }
         }
         private void moveUpAgentToolStripButton_Click(object sender, EventArgs e)
@@ -638,6 +641,11 @@ namespace QuickMon
             }
         }
         #endregion
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            CheckOkEnabled();
+        }
 
 
 

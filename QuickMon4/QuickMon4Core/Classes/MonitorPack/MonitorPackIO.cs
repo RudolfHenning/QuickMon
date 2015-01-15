@@ -143,6 +143,12 @@ namespace QuickMon
             collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
             CollectorHosts.Add(collectorHost);
         }
+        public void AddNotifierHost(NotifierHost notifierHost)
+        {
+            if (NotifierHosts.Count == 0)
+                DefaultViewerNotifier = notifierHost;
+            NotifierHosts.Add(notifierHost);
+        }
         #endregion
 
         #region Saving
