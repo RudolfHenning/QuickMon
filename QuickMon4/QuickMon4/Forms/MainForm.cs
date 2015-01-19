@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuickMon.Controls;
 using QuickMon.Forms;
+using QuickMon.UI;
 
 namespace QuickMon
 {
@@ -1667,18 +1668,23 @@ namespace QuickMon
         {
             try
             {
+                if (Clipboard.ContainsText() && Clipboard.GetText().StartsWith("<collectorHosts"))
+                {
+                    copiedCollectorList = CollectorHost.GetCollectorHostsFromString(Clipboard.GetText());
+                }
+
                 if (copiedCollectorList != null && copiedCollectorList.Count > 0)
                 {
                     if (showEditList)
                     {
-                        //PasteCollectors pasteCollectors = new PasteCollectors();
-                        //pasteCollectors.SelectedCollectors = copiedCollectorList;
-                        //if (pasteCollectors.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                        //{
-                        //    copiedCollectorList = pasteCollectors.SelectedCollectors;
-                        //}
-                        //else
-                        //    return;
+                        RAWXmlEditor editor = new RAWXmlEditor();
+                        editor.SelectedMarkup = CollectorHost.CollectorHostListToString(copiedCollectorList);
+                        if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            copiedCollectorList = CollectorHost.GetCollectorHostsFromString(editor.SelectedMarkup);
+                        }
+                        else
+                            return;
                     }
 
                     if (copiedCollectorList != null && copiedCollectorList.Count > 0)
