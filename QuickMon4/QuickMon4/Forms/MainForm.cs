@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuickMon.Controls;
+using QuickMon.Forms;
 
 namespace QuickMon
 {
@@ -56,6 +57,8 @@ namespace QuickMon
         private bool isPollingPaused = false;
         //private bool timerWasEnabledBeforePausing = false;
         #endregion
+
+        private List<CollectorStatusViewer> collectorStatusViews = new List<CollectorStatusViewer>();
         #endregion
 
         #region TreeNodeImage contants
@@ -249,12 +252,11 @@ namespace QuickMon
         {
             if (ModifierKeys.HasFlag(Keys.Control))
             {
-                editCollectorToolStripMenuItem_Click(null, null);
-
+                EditCollectorConfig();
             }
             else
             {
-
+                ViewCollectorDetails();
             }
         }
         private Point GetControlLocationWithinParent(Control control)
@@ -392,6 +394,7 @@ namespace QuickMon
             PausePolling();
             try
             {
+                CloseAllCollectorStatusViews();
                 monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
                 monitorPack.ClosePerformanceCounters();
                 monitorPack = null;
@@ -435,6 +438,7 @@ namespace QuickMon
                 {
                     try
                     {
+                        CloseAllCollectorStatusViews();
                         WaitForPollingToFinish(5);
                         monitorPack.ClosePerformanceCounters();
                     }
@@ -1049,6 +1053,7 @@ namespace QuickMon
         }
         private void EditCollectorConfig()
         {
+            HideCollectorContextMenu();
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
                 PausePolling();
             try
@@ -1155,6 +1160,67 @@ namespace QuickMon
                     return testGrandChild;
             }
             return null;
+        }
+        #endregion
+
+        #region Collector viewing actions
+        private void ViewCollectorDetails()
+        {
+            HideCollectorContextMenu();
+            if (tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost currentCollectorHost = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                CleanCollectorStatusViews();
+                CollectorStatusViewer collectorStatusView = (from c in collectorStatusViews
+                                                             where c.SelectedCollectorHost.UniqueId == currentCollectorHost.UniqueId &&
+                                                                c.IsStillVisible()
+                                                             select c).FirstOrDefault();
+                if (collectorStatusView == null)
+                {
+                    collectorStatusView = new CollectorStatusViewer();
+                    collectorStatusView.SelectedCollectorHost = currentCollectorHost;
+                    collectorStatusViews.Add(collectorStatusView);
+                    collectorStatusView.Show();
+                }
+                else
+                {
+                    if (collectorStatusView.WindowState == FormWindowState.Minimized)
+                        collectorStatusView.WindowState = FormWindowState.Normal;
+                    collectorStatusView.Show();
+                    collectorStatusView.TopMost = true;
+                    collectorStatusView.TopMost = false;
+                }
+                collectorStatusView.RefreshStats();
+            }
+        }
+        private void CleanCollectorStatusViews()
+        {
+            if (collectorStatusViews == null)
+            {
+                collectorStatusViews = new List<CollectorStatusViewer>();
+            }
+
+            List<CollectorStatusViewer> viewsToRemove = (from v in collectorStatusViews
+                                                         where !v.IsStillVisible()
+                                                         select v).ToList();
+            foreach (CollectorStatusViewer collectorStatusView in viewsToRemove)
+            {
+                collectorStatusViews.Remove(collectorStatusView);
+            }            
+        }
+        private void CloseAllCollectorStatusViews()
+        {
+            if (collectorStatusViews == null)
+            {
+                collectorStatusViews = new List<CollectorStatusViewer>();
+            }
+            foreach (CollectorStatusViewer collectorStatusView in (from v in collectorStatusViews
+                                                                   where v.IsStillVisible()
+                                                                   select v).ToList())
+            {
+                collectorStatusView.Close();
+            }
+            collectorStatusViews = new List<CollectorStatusViewer>();
         }
         #endregion
 
@@ -1678,7 +1744,7 @@ namespace QuickMon
         }
         private void cmdViewDetails_Click(object sender, EventArgs e)
         {
-            
+            ViewCollectorDetails();
         }
         private void cmdDisableCollector_Click(object sender, EventArgs e)
         {
@@ -1785,8 +1851,7 @@ namespace QuickMon
             CreateNewCollector();
         }
         private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HideCollectorContextMenu();
+        {            
             EditCollectorConfig();
         }        
         private void removeCollectorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1796,7 +1861,7 @@ namespace QuickMon
         }
         private void viewCollectorDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ViewCollectorDetails();
         }
         private void addNotifierToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -1820,7 +1885,7 @@ namespace QuickMon
         }
         private void closeAllChildWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            CloseAllCollectorStatusViews();
         }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {

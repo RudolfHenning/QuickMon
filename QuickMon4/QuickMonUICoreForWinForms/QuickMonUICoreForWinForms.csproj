@@ -120,6 +120,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RawFonts.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFFormatWrap.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFImage.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFParaWrap.cs" />
+    <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
+    <Compile Include="Controls\RTF\RTFFont.cs" />
     <Compile Include="Controls\TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -134,6 +142,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
+    <Compile Include="GenericForms\CollectorStatusViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\CollectorStatusViewer.Designer.cs">
+      <DependentUpon>CollectorStatusViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\CSVEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +291,9 @@
     <EmbeddedResource Include="Collectors\WMIQuery\WMIQueryCollectorEditEntry.resx">
       <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\CollectorStatusViewer.resx">
+      <DependentUpon>CollectorStatusViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\CSVEditor.resx">
       <DependentUpon>CSVEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,6 +379,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TriangleRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuBlueShade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh24x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
