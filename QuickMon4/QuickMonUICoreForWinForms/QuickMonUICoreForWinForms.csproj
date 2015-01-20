@@ -386,6 +386,27 @@
   <ItemGroup>
     <None Include="Resources\refresh24x24.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FindDoc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FindDoc24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\helpbwy16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ForbiddenGray16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\triang_yellow16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop16x16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,5 +8,6 @@ namespace QuickMon
     public interface ICollector : IAgent
     {
         MonitorState GetState();
+        MonitorState CurrentState { get; set; }
     }
 }

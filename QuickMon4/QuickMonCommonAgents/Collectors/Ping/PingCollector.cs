@@ -13,7 +13,7 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new PingCollectorConfig();
         }
-        public override MonitorState GetState()
+        public override MonitorState RefreshState()
         {
             MonitorState returnState = new MonitorState();
             string lastAction = "";

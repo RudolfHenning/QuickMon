@@ -15,7 +15,7 @@ namespace QuickMon.Collectors
             AgentConfig = new FileSystemCollectorConfig();
         }
 
-        public override MonitorState GetState()
+        public override MonitorState RefreshState()
         {
             MonitorState returnState = new MonitorState();
             int errorCount = 0;

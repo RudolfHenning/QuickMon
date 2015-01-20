@@ -14,7 +14,7 @@ namespace QuickMon.Collectors
             AgentConfig = new EventLogCollectorConfig();
         }
 
-        public override MonitorState GetState()
+        public override MonitorState RefreshState()
         {
             MonitorState returnState = new MonitorState();            
             string lastAction = "Querying event logs";
