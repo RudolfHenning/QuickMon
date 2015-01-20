@@ -35,6 +35,38 @@ namespace QuickMon.Forms
                 txtName.Text = SelectedCollectorHost.Name;
                 Text = "Collector Status Viewer - " + SelectedCollectorHost.Name;
 
+                if (SelectedCollectorHost.IsEnabledNow())
+                {
+                    if (SelectedCollectorHost.CurrentState == null)
+                    {
+                        lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+                        lblCollectorHostStatusText.Text = "N/A";
+                    }
+                    else
+                    {
+                        lblCollectorHostStatusText.Text = SelectedCollectorHost.CurrentState.State.ToString();
+                        if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
+                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.ok16x16;
+                        else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
+                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.triang_yellow16x16;
+                        else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error)
+                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.stop16x16;
+                        else
+                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+                    }
+                    if (SelectedCollectorHost.AgentCheckSequence != AgentCheckSequence.All)
+                    {
+                        lblCollectorHostStatusText.Text += " (" + SelectedCollectorHost.AgentCheckSequence.ToString() + ")";
+                    }
+                }
+                else
+                {
+                    lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                    lblCollectorHostStatusText.Text = "Disabled";
+                }
+
+                LoadAgentStates();
+
                 AddUpdateListViewItem(lvwProperties, "General", "Enabled", (SelectedCollectorHost.Enabled ? "Yes" : "No") + (SelectedCollectorHost.ServiceWindows.IsInTimeWindow() ? "" : " (Out of service window)"));
                 AddUpdateListViewItem(lvwProperties, "General", "Agent count", SelectedCollectorHost.CollectorAgents.Count.ToString());
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state", SelectedCollectorHost.CurrentState.State.ToString());
@@ -123,11 +155,44 @@ namespace QuickMon.Forms
                 #endregion
 
                 if (tabControl1.SelectedTab == currentStatusTabPage)
+                    UpdateAgentsDetailView();
+                if (tabControl1.SelectedTab == currentStatusTabPage2)
                     UpdateDetailView(lvwProperties);
                 else if (tabControl1.SelectedTab == statisticsTabPage)
                     UpdateDetailView(lvwStatistics);
             }
         }
+
+        private void LoadAgentStates()
+        {
+            lvwAgents.Items.Clear();
+            if (SelectedCollectorHost != null && SelectedCollectorHost.CollectorAgents.Count > 0)
+            {
+                foreach (ICollector ca in SelectedCollectorHost.CollectorAgents)
+                {
+                    ListViewItem lvi = new ListViewItem(ca.Name);
+                    lvi.SubItems.Add(ca.AgentClassDisplayName);
+                    if (ca.CurrentState == null)
+                        lvi.ImageIndex = 0;
+                    else if (!ca.Enabled || ca.CurrentState == null)
+                        lvi.ImageIndex = 4;
+                    else if (ca.CurrentState.State == CollectorState.Good)
+                        lvi.ImageIndex = 1;
+                    else if (ca.CurrentState.State == CollectorState.Warning)
+                        lvi.ImageIndex = 2;
+                    else if (ca.CurrentState.State == CollectorState.Error)
+                        lvi.ImageIndex = 3;
+                    else if (ca.CurrentState.State == CollectorState.Disabled)
+                        lvi.ImageIndex = 4;
+                    else
+                        lvi.ImageIndex = 0;
+
+                    lvi.Tag = ca;
+                    lvwAgents.Items.Add(lvi);
+                }
+            }
+        }
+
 
         private void LoadCollectorStateHistory()
         {
@@ -315,6 +380,46 @@ namespace QuickMon.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void UpdateAgentsDetailView()
+        {
+            try
+            {
+                RTFBuilder rtfBuilder = new RTFBuilder();
+                ListViewEx currentListView;
+                currentListView = lvwAgents;
+                if (currentListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem lvi in currentListView.SelectedItems)
+                    {
+                        if (lvi.Tag is ICollector)
+                        {
+                            ICollector ca = (ICollector)lvi.Tag;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Agent name: ");
+                            rtfBuilder.AppendLine(lvi.Text);
+                            if (ca != null && ca.CurrentState != null)
+                            {
+                                rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
+                                rtfBuilder.AppendLine(FormatDate(ca.CurrentState.Timestamp));
+                                rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
+                                rtfBuilder.AppendLine(ca.CurrentState.State.ToString());
+                                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
+                                rtfBuilder.AppendLine(ca.CurrentState.ReadAllRawDetails());
+                            }
+                            
+                            rtfBuilder.AppendLine(new string('-', 80));
+                        }
+                    }
+                }
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void lvwProperties_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -329,6 +434,11 @@ namespace QuickMon.Forms
         private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDetailViewHistory();
+        }
+
+        private void lvwAgents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateAgentsDetailView();
         }
     }
 }

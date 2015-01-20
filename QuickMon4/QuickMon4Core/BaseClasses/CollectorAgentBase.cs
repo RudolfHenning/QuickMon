@@ -8,22 +8,14 @@ namespace QuickMon
     public abstract class CollectorAgentBase : AgentBase, ICollector
     {
         #region ICollector Members
-        public abstract MonitorState GetState();
-        //public abstract ICollectorDetailView GetCollectorDetailView();
+        public virtual MonitorState GetState()
+        {
+            CurrentState = RefreshState();
+            return CurrentState;
+        }
+        public virtual MonitorState CurrentState { get; set; }
         #endregion
 
-        //public virtual bool ShowEditEntry(ref ICollectorConfigEntry entry)
-        //{
-        //    bool accepted = false;
-        //    //IEditConfigEntryWindow editConfig = GetEditConfigEntryWindow();
-        //    //editConfig.SelectedEntry = entry;
-        //    //if (editConfig != null && editConfig.ShowEditEntry() == QuickMonDialogResult.Ok)
-        //    //{
-        //    //    entry = editConfig.SelectedEntry;
-        //    //    accepted = true;
-        //    //}
-        //    return accepted;
-        //}
-        //public abstract IAgentConfigEntryEditWindow GetEditConfigEntryWindow();
+        public abstract MonitorState RefreshState();
     }
 }

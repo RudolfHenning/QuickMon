@@ -308,6 +308,11 @@ namespace QuickMon
 
             try
             {
+                //First set blank/NA state
+                foreach (ICollector ca in CollectorAgents)
+                {
+                    ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "Remote agent used", HtmlDetails = "<p>Remote agent used</p>" };
+                }
                 resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
             }
             catch (Exception ex)
@@ -334,6 +339,11 @@ namespace QuickMon
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
             try
             {
+                //First set blank/NA state
+                foreach (ICollector ca in CollectorAgents)
+                {
+                    ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "N/A", HtmlDetails = "<p>N/A</p>" };
+                }
                 foreach (ICollector ca in CollectorAgents)
                 {
                     MonitorState caMs;

@@ -13,7 +13,7 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new WindowsServiceStateCollectorConfig();
         }
-        public override MonitorState GetState()
+        public override MonitorState RefreshState()
         {
             MonitorState returnState = new MonitorState();
             //StringBuilder plainTextDetails = new StringBuilder();
