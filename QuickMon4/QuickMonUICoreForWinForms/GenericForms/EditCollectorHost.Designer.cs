@@ -1664,6 +1664,7 @@
             this.llblExportConfigAsTemplate.TabIndex = 2;
             this.llblExportConfigAsTemplate.TabStop = true;
             this.llblExportConfigAsTemplate.Text = "Export config as template";
+            this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
             // 
             // entriesColumnHeader
             // 

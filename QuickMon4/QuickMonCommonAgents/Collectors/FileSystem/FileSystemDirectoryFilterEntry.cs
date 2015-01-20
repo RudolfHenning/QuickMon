@@ -285,9 +285,9 @@ namespace QuickMon.Collectors
                     {
                         if (SizeWarningIndicator < SizeErrorIndicator)
                         {
-                            if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeWarningIndicator) < fileInfo.TotalFileSize)
+                            if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeWarningIndicator) > fileInfo.TotalFileSize)
                                 returnState = CollectorState.Good;
-                            else if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeErrorIndicator) > fileInfo.TotalFileSize)
+                            else if (FileSizeUnitsTools.ToBytes(FileSizeIndicatorUnit, SizeErrorIndicator) < fileInfo.TotalFileSize)
                                 returnState = CollectorState.Error;
                             else
                                 returnState = CollectorState.Warning;

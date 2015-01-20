@@ -152,6 +152,7 @@ namespace QuickMon
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+                InitializeBackgroundWorker();
                 RefreshMonitorPack(true, true);
             }
             else if (e.Control && e.KeyCode == Keys.O)
@@ -435,6 +436,8 @@ namespace QuickMon
                     }
                 }
                 PausePolling();
+                InitializeBackgroundWorker();                
+
                 if (monitorPack != null)
                 {
                     try
@@ -450,7 +453,6 @@ namespace QuickMon
                     }
                 }
                 monitorPack = new MonitorPack();
-                //monitorPack.CollecterLoading += monitorPack_CollecterLoading;
 
                 monitorPack.Load(monitorPackPath);
                 LoadControlsFromMonitorPack();
@@ -525,7 +527,7 @@ namespace QuickMon
             root.EnsureVisible();
 
             Cursor.Current = Cursors.Default;
-            root.Text = "COLLECTOR";
+            root.Text = "COLLECTORS";
             Application.DoEvents();
         }
         private void LoadCollectorNode(TreeNode root, CollectorHost collector)
@@ -832,6 +834,18 @@ namespace QuickMon
         }
    
         #region Refresh collector statusses
+        private void InitializeBackgroundWorker()
+        {
+            try
+            {
+                if (refreshBackgroundWorker.IsBusy)
+                    refreshBackgroundWorker.CancelAsync();
+            }
+            catch { }
+            refreshBackgroundWorker = null;
+            refreshBackgroundWorker = new BackgroundWorker();
+            refreshBackgroundWorker.DoWork += refreshBackgroundWorker_DoWork;
+        }
         private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
         {
             PausePolling();
@@ -1850,6 +1864,7 @@ namespace QuickMon
         private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
+            InitializeBackgroundWorker();
             RefreshMonitorPack(true, true);
         }
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1931,7 +1946,7 @@ namespace QuickMon
         }
         private void manageTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void restartInAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2162,8 +2177,10 @@ namespace QuickMon
 
         private void label1_Click(object sender, EventArgs e)
         {
+#if DEBUG
             QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
             tm.Show();
+#endif
         }
 
 

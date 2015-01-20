@@ -787,6 +787,11 @@ namespace QuickMon
         } 
         #endregion
 
+        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
 
 
 
