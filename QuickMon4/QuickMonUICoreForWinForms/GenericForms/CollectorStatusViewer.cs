@@ -23,6 +23,8 @@ namespace QuickMon.Forms
         {
             lvwProperties.AutoResizeColumnIndex = 1;
             lvwProperties.AutoResizeColumnEnabled = true;
+            lvwStatistics.AutoResizeColumnIndex = 1;
+            lvwStatistics.AutoResizeColumnEnabled = true;
             splitContainer1.Panel2Collapsed = true;
         }
 
@@ -53,18 +55,16 @@ namespace QuickMon.Forms
 
                 bool remoteHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
                 AddUpdateListViewItem(lvwProperties, "Remote agent host", "Enabled", remoteHostEnabled ? "Yes" : "No");
-                AddUpdateListViewItem(lvwProperties, "Remote agent host", "Url", SelectedCollectorHost.ToRemoteHostName(),remoteHostEnabled);
+                AddUpdateListViewItem(lvwProperties, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(),remoteHostEnabled);
 
-                #region History
-                LoadCollectorStateHistory();                
-                #endregion
-
+                #region Polling metrics
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times refreshed", SelectedCollectorHost.RefreshCount.ToString());
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Polling override enabled", SelectedCollectorHost.EnabledPollingOverride ? "Yes" : "No");
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Poll frequency sliding enabled", SelectedCollectorHost.EnablePollFrequencySliding ? "Yes" : "No", SelectedCollectorHost.EnabledPollingOverride);
                 int currentPollFreq = 0;
-                if (SelectedCollectorHost.EnabledPollingOverride){
+                if (SelectedCollectorHost.EnabledPollingOverride)
+                {
                     if (SelectedCollectorHost.EnablePollFrequencySliding)
                     {
                         if (SelectedCollectorHost.StagnantStateThirdRepeat)
@@ -80,6 +80,47 @@ namespace QuickMon.Forms
                         currentPollFreq = SelectedCollectorHost.OnlyAllowUpdateOncePerXSec;
                 }
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Current poll frequency (Sec)", currentPollFreq.ToString(), SelectedCollectorHost.EnabledPollingOverride);
+                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "First polled time", FormatDate(SelectedCollectorHost.FirstStateUpdate));
+                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times good states", SelectedCollectorHost.GoodStateCount.ToString());
+                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times warning states", SelectedCollectorHost.WarningStateCount.ToString());
+                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times error states", SelectedCollectorHost.ErrorStateCount.ToString());
+                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last attempted polling time", FormatDate(SelectedCollectorHost.LastStateCheckAttemptBegin));
+
+                if (SelectedCollectorHost.LastGoodState != null)
+                {
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state time", FormatDate(SelectedCollectorHost.LastGoodState.Timestamp));
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state details", SelectedCollectorHost.LastGoodState.ReadAllRawDetails());
+                }
+                else
+                {
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state time", "N/A");
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state details", "N/A");
+                }
+                if (SelectedCollectorHost.LastWarningState != null)
+                {
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state time", FormatDate(SelectedCollectorHost.LastWarningState.Timestamp));
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state details", SelectedCollectorHost.LastWarningState.ReadAllRawDetails());
+                }
+                else
+                {
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state time", "N/A");
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state details", "N/A");
+                }
+                if (SelectedCollectorHost.LastErrorState != null)
+                {
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state time", FormatDate(SelectedCollectorHost.LastErrorState.Timestamp));
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state details", SelectedCollectorHost.LastErrorState.ReadAllRawDetails());
+                }
+                else
+                {
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state time", "N/A");
+                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state details", "N/A");
+                } 
+                #endregion
+
+                #region History
+                LoadCollectorStateHistory();                
+                #endregion
 
                 if (tabControl1.SelectedTab == currentStatusTabPage)
                     UpdateDetailView(lvwProperties);
@@ -125,6 +166,7 @@ namespace QuickMon.Forms
             }
             catch { }
             lvwHistory.EndUpdate();
+            AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Total alert count", totalAlertsRaised.ToString());
         }
         private void AddUpdateListViewItem(ListView lvw, string groupName, string propName, List<string> values, bool visible = true)
         {

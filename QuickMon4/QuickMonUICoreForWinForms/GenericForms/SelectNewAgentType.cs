@@ -19,6 +19,7 @@ namespace QuickMon.Forms
         }
 
         private bool selectingCollectors = true;
+        private bool firstChoice = true;
 
         #region Properties
         public string InitialRegistrationName { get; set; }
@@ -88,6 +89,7 @@ namespace QuickMon.Forms
             else
                 LoadRawAgents();
             cmdOK.Enabled = lvwAgentType.SelectedItems.Count == 1;
+            firstChoice = false;
         }
         private void LoadTemplates()
         {
@@ -100,10 +102,18 @@ namespace QuickMon.Forms
                                                  where (selectingCollectors && p.TemplateType == TemplateType.CollectorAgent)
                                                       orderby p.Description
                                                       select p).ToList();
+            if (!firstChoice)
+                /**************************/
+                MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                /**************************/
+
             if (allTemplates == null || allTemplates.Count == 0)
+            {
                 optShowConfigEditor.Checked = true;
+            }
             else
             {
+                
                 foreach (QuickMonTemplate preset in allTemplates)
                 {
                     try
@@ -195,7 +205,7 @@ namespace QuickMon.Forms
         }
         private void optSelectPreset_CheckedChanged(object sender, EventArgs e)
         {
-            LoadAgents();
+            LoadAgents();            
         }
         private void chkShowDetails_CheckedChanged(object sender, EventArgs e)
         {
