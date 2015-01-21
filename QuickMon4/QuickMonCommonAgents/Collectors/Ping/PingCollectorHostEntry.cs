@@ -415,7 +415,7 @@ namespace QuickMon.Collectors
         public CollectorState GetState(PingCollectorResult pingResult)
         {
             CollectorState result = CollectorState.Good;
-            if (pingResult.PingTime > -1)//  pingResult.Success)
+            if (pingResult.PingTime > -1)
             {
                 if (pingResult.PingTime > TimeOutMS)
                 {

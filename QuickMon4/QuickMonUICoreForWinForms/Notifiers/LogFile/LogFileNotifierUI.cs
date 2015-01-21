@@ -10,5 +10,6 @@ namespace QuickMon.Notifiers
     {
         public override string AgentType { get { return "LogFileNotifier"; } }
         public override IAgentConfigEntryEditWindow DetailEditor { get { return new LogFileNotifierEdit(); } }
+        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

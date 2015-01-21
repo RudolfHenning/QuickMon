@@ -5,16 +5,38 @@ using System.Text;
 
 namespace QuickMon.UI
 {
-    public abstract class WinFormsUICollectorBase : IWinFormsUI
+
+
+    public abstract class WinFormsUIBase : IWinFormsUI
     {
 
         public abstract string AgentType { get; }
         public string AgentName { get; set; }
         public bool AgentEnabled { get; set; }
         public string SelectedAgentConfig { get; set; }
-        public abstract ICollectorConfigEntryEditWindow DetailEditor { get; }
+        public abstract IAgentDetailWindow DetailViewWindow { get; }
+        public abstract bool EditAgent();
+        public abstract bool HasDetailView { get; }
+        public virtual void ShowAgentDetails(IAgent agent)
+        {
+            if (HasDetailView && DetailViewWindow != null && agent != null)
+            {
+                DetailViewWindow.SelectedAgent = agent;
+                DetailViewWindow.ShowDetailWindow();
+            }
+        }
+    }
+    public abstract class WinFormsUICollectorBase : WinFormsUIBase
+    {
 
-        public bool EditAgent()
+        //public abstract string AgentType { get; }
+        //public string AgentName { get; set; }
+        //public bool AgentEnabled { get; set; }
+        //public string SelectedAgentConfig { get; set; }
+        public abstract ICollectorConfigEntryEditWindow DetailEditor { get; }
+        //public abstract IAgentDetailWindow DetailViewWindow { get; }
+
+        public override bool EditAgent()
         {
             ICollector agent = CollectorHost.CreateCollectorFromClassName(AgentType);
             if (agent != null)
@@ -26,7 +48,6 @@ namespace QuickMon.UI
                 agent.AgentConfig.FromXml(SelectedAgentConfig);
 
                 editCollectorAgentEntries.SelectedEntry = agent;
-                //Type detailEditorType = DetailEditor.GetType();
                 editCollectorAgentEntries.DetailEditor = DetailEditor;
                 if (editCollectorAgentEntries.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -40,26 +61,31 @@ namespace QuickMon.UI
             return false;
         }
 
-        public bool HasDetailView
+        public override bool HasDetailView
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
-        public void ShowCurrentDetails()
-        {
-            throw new NotImplementedException();
-        }
+        //public void ShowAgentDetails(IAgent agent)
+        //{
+        //    if (HasDetailView && DetailViewWindow != null && agent != null)
+        //    {
+        //        DetailViewWindow.SelectedAgent = agent;
+        //        DetailViewWindow.ShowDetailWindow();
+        //    }
+        //}
     }
 
-    public abstract class WinFormsUINotifierBase : IWinFormsUI
+    public abstract class WinFormsUINotifierBase : WinFormsUIBase
     {
-        public abstract string AgentType { get; }
-        public string AgentName { get; set; }
-        public bool AgentEnabled { get; set; }
-        public string SelectedAgentConfig { get; set; }
+        //public abstract string AgentType { get; }
+        //public string AgentName { get; set; }
+        //public bool AgentEnabled { get; set; }
+        //public string SelectedAgentConfig { get; set; }
         public abstract IAgentConfigEntryEditWindow DetailEditor { get; }
+        //public abstract IAgentDetailWindow DetailViewWindow { get; }
 
-        public bool EditAgent()
+        public override bool EditAgent()
         {
             INotifier agent = NotifierHost.CreateNotifierFromClassName(AgentType);
             if (agent != null)
@@ -83,14 +109,18 @@ namespace QuickMon.UI
             return false;
         }
 
-        public bool HasDetailView
+        public override bool HasDetailView
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
-        public void ShowCurrentDetails()
-        {
-            throw new NotImplementedException();
-        }
+        //public void ShowAgentDetails(IAgent agent)
+        //{
+        //    if (HasDetailView && DetailViewWindow != null && agent != null)
+        //    {
+        //        DetailViewWindow.SelectedAgent = agent;
+        //        DetailViewWindow.ShowDetailWindow();
+        //    }
+        //}
     }
 }

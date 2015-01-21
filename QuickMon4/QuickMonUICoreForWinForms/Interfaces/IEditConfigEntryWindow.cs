@@ -5,6 +5,11 @@ using System.Text;
 
 namespace QuickMon
 {
+    public interface IAgentDetailWindow
+    {
+        IAgent SelectedAgent { get; set; }
+        void ShowDetailWindow();
+    }
     public interface IAgentConfigEntryEditWindow
     {
         IAgentConfig SelectedEntry { get; set; }

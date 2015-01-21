@@ -1,4 +1,4 @@
-<monitorPack version="4.0.0.0" name="" typeName="" enabled="True" defaultNotifier="Default Notifier" runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="12">
+<monitorPack version="4.0.0.0" name="" typeName="" enabled="True" defaultNotifier="Default Notifier" runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="30">
 	<configVars />
     <collectorHosts>
 	</collectorHosts>

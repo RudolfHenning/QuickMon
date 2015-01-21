@@ -10,5 +10,6 @@ namespace QuickMon.Notifiers
     {
         public override string AgentType { get { return "InMemoryNotifier"; } }
         public override IAgentConfigEntryEditWindow DetailEditor { get { return new InMemoryNotifierEdit(); } }
+        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }
