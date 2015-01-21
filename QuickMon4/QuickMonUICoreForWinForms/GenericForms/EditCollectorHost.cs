@@ -240,24 +240,7 @@ namespace QuickMon
                 }
             }
         } 
-        private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            editCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
-            deleteCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
-            moveUpAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
-            moveDownAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;
-            enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
-            disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
-        }
-        private void lvwEntries_DoubleClick(object sender, EventArgs e)
-        {
-            editCollectorAgentToolStripButton_Click(null, null);
-        }
-        private void lvwEntries_EnterKeyPressed()
-        {
-            editCollectorAgentToolStripButton_Click(null, null);
-        }
-        private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
+        private void CreateAgent()
         {
             //Display a list of existing types of agents/by template...
             //Once type is selected load edit agent with default settings
@@ -296,7 +279,7 @@ namespace QuickMon
                 }
             }
         }
-        private void editCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        private void EditAgent()
         {
             //Call local (in this assembly) utility that match editor type for agent class.
             //  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
@@ -341,11 +324,7 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void lvwEntries_DeleteKeyPressed()
-        {
-            deleteCollectorAgentToolStripButton_Click(null, null);
-        }
-        private void deleteCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        private void DeleteAgents()
         {
             if (lvwEntries.SelectedItems.Count > 0)
             {
@@ -355,6 +334,57 @@ namespace QuickMon
                         lvwEntries.Items.Remove(lvi);
                 }
             }
+        }
+        private void EnableAgents()
+        {
+            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            {
+                lvi.ImageIndex = 1;
+                ICollector agent = (ICollector)lvi.Tag;
+                agent.Enabled = true;
+            }
+        }
+        private void DisableAgents()
+        {
+            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            {
+                lvi.ImageIndex = 0;
+                ICollector agent = (ICollector)lvi.Tag;
+                agent.Enabled = false;
+            }
+        }
+        private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            editCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
+            deleteCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
+            moveUpAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
+            moveDownAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;
+            enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
+            disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
+        }
+        private void lvwEntries_DoubleClick(object sender, EventArgs e)
+        {
+            editCollectorAgentToolStripButton_Click(null, null);
+        }
+        private void lvwEntries_EnterKeyPressed()
+        {
+            editCollectorAgentToolStripButton_Click(null, null);
+        }
+        private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
+        {
+            CreateAgent();
+        }
+        private void editCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            EditAgent();
+        }
+        private void lvwEntries_DeleteKeyPressed()
+        {
+            DeleteAgents();
+        }
+        private void deleteCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            DeleteAgents();
         }
         private void moveUpAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -380,21 +410,11 @@ namespace QuickMon
         }
         private void enableAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            {
-                lvi.ImageIndex = 1;
-                ICollector agent = (ICollector)lvi.Tag;
-                agent.Enabled = true;
-            }
+            EnableAgents();
         }
         private void disableAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            {
-                lvi.ImageIndex = 0;
-                ICollector agent = (ICollector)lvi.Tag;
-                agent.Enabled = false;
-            }
+            DisableAgents();
         }
         #endregion
 

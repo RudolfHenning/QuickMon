@@ -419,7 +419,7 @@ namespace QuickMon
             else
                 lblNoNotifiersYet.Visible = false;
             monitorPackChanged = false;
-            ResumePolling();
+            EditMonitorSettings();
         }        
         private void LoadMonitorPack(string monitorPackPath)
         {
@@ -557,6 +557,35 @@ namespace QuickMon
             root.Nodes.Add(collectorNode);
             if (collector.Enabled && collector.ExpandOnStart)
                 collectorNode.Expand();
+        }
+        private void EditMonitorSettings()
+        {
+            UpdateStatusbar("Stopping polling...");
+            PausePolling();
+            WaitForPollingToFinish(5);
+            UpdateStatusbar("Waiting for editing to finish");
+
+            EditMonitorPackConfig emc = new EditMonitorPackConfig();
+            emc.SelectedMonitorPack = monitorPack;
+            if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SetMonitorChanged();
+                if (emc.TriggerMonitorPackReload)
+                {
+                    monitorPack = emc.SelectedMonitorPack;
+                    UpdateStatusbar("Reloading monitor pack...");
+                    LoadControlsFromMonitorPack();
+                }
+                SetMonitorPackNameDescription();
+                DoAutoSave();
+            }
+            if (!isPollingPaused)
+            {
+                UpdateStatusbar("Resuming polling...");
+            }
+            else
+                UpdateStatusbar("");
+            ResumePolling(true);
         }
         private void SetMonitorPackNameDescription()
         {
@@ -1018,8 +1047,7 @@ namespace QuickMon
                     this.Icon = Properties.Resources.QM4BlueStateNAB;
             }
         } 
-        #endregion
-        
+        #endregion        
 
         #endregion
 
@@ -1964,35 +1992,7 @@ namespace QuickMon
         #region Label clicks
         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //bool timerEnabled = mainRefreshTimer.Enabled;
-            //mainRefreshTimer.Enabled = false; //temporary stops it.
-
-            UpdateStatusbar("Stopping polling...");
-            PausePolling();
-            WaitForPollingToFinish(5);
-            UpdateStatusbar("Waiting for editing to finish");
-
-            EditMonitorPackConfig emc = new EditMonitorPackConfig();
-            emc.SelectedMonitorPack = monitorPack;
-            if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {                
-                SetMonitorChanged();                
-                if (emc.TriggerMonitorPackReload)
-                {
-                    monitorPack = emc.SelectedMonitorPack;
-                    UpdateStatusbar("Reloading monitor pack...");
-                    LoadControlsFromMonitorPack();
-                }
-                SetMonitorPackNameDescription();                
-                DoAutoSave();
-            }
-            if (!isPollingPaused)
-            {
-                UpdateStatusbar("Resuming polling...");
-            }
-            else
-                UpdateStatusbar("");
-            ResumePolling(true);
+            EditMonitorSettings();            
         }
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

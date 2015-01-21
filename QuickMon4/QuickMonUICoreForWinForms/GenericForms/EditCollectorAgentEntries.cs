@@ -93,6 +93,49 @@ namespace QuickMon.UI
         {
             cmdOK.Enabled = SelectedEntry != null && (txtName.Text.Length > 0);
         } 
+        private void EditEntry()
+        {
+            if (DetailEditor != null)
+            {
+                if (!ShowTreeView  && lvwEntries.SelectedItems.Count == 1)
+                {
+                    ListViewItem lvi = lvwEntries.SelectedItems[0];
+                    DetailEditor.SelectedEntry = (ICollectorConfigEntry)lvi.Tag;
+                    if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                    {
+                        lvi.Text = DetailEditor.SelectedEntry.Description;
+                        lvi.SubItems[1].Text = DetailEditor.SelectedEntry.TriggerSummary;
+                        lvi.Tag = DetailEditor.SelectedEntry;
+                    }
+                }
+                else if (ShowTreeView && tvwEntries.SelectedNode != null)
+                {
+                    if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
+                        DetailEditor.SelectedEntry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Tag;
+                    else
+                        DetailEditor.SelectedEntry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Parent.Tag;
+                    if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                    {
+                        TreeNode tni;
+                        if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
+                            tni = tvwEntries.SelectedNode;
+                        else
+                            tni = tvwEntries.SelectedNode.Parent;
+                        tni.Tag = DetailEditor.SelectedEntry;
+                        tni.Nodes.Clear();
+                        foreach (var subEntry in DetailEditor.SelectedEntry.SubItems)
+                        {
+                            TreeNode tnisub = new TreeNode(subEntry.Description);
+                            tnisub.ImageIndex = 1;
+                            tnisub.SelectedImageIndex = 1;
+                            tni.Nodes.Add(tnisub);
+                        }
+                        tni.Expand();
+                        tvwEntries.SelectedNode = tni;
+                    }
+                }
+            }
+        }
         #endregion
 
         private void txtName_TextChanged(object sender, EventArgs e)
@@ -169,49 +212,6 @@ namespace QuickMon.UI
         private void editCollectorAgentEntryToolStripButton_Click(object sender, EventArgs e)
         {
             EditEntry();
-        }
-        private void EditEntry()
-        {
-            if (DetailEditor != null)
-            {
-                if (!ShowTreeView  && lvwEntries.SelectedItems.Count == 1)
-                {
-                    ListViewItem lvi = lvwEntries.SelectedItems[0];
-                    DetailEditor.SelectedEntry = (ICollectorConfigEntry)lvi.Tag;
-                    if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
-                    {
-                        lvi.Text = DetailEditor.SelectedEntry.Description;
-                        lvi.SubItems[1].Text = DetailEditor.SelectedEntry.TriggerSummary;
-                        lvi.Tag = DetailEditor.SelectedEntry;
-                    }
-                }
-                else if (ShowTreeView && tvwEntries.SelectedNode != null)
-                {
-                    if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
-                        DetailEditor.SelectedEntry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Tag;
-                    else
-                        DetailEditor.SelectedEntry = (ICollectorConfigEntry)tvwEntries.SelectedNode.Parent.Tag;
-                    if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
-                    {
-                        TreeNode tni;
-                        if (tvwEntries.SelectedNode.Tag is ICollectorConfigEntry)
-                            tni = tvwEntries.SelectedNode;
-                        else
-                            tni = tvwEntries.SelectedNode.Parent;
-                        tni.Tag = DetailEditor.SelectedEntry;
-                        tni.Nodes.Clear();
-                        foreach (var subEntry in DetailEditor.SelectedEntry.SubItems)
-                        {
-                            TreeNode tnisub = new TreeNode(subEntry.Description);
-                            tnisub.ImageIndex = 1;
-                            tnisub.SelectedImageIndex = 1;
-                            tni.Nodes.Add(tnisub);
-                        }
-                        tni.Expand();
-                        tvwEntries.SelectedNode = tni;
-                    }
-                }
-            }
         }
         private void tvwEntries_DeleteKeyPressed()
         {

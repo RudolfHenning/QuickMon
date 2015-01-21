@@ -1,4 +1,5 @@
 ﻿using HenIT.RTF;
+using QuickMon.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -192,7 +193,6 @@ namespace QuickMon.Forms
                 }
             }
         }
-
 
         private void LoadCollectorStateHistory()
         {
@@ -425,20 +425,38 @@ namespace QuickMon.Forms
         {
             UpdateDetailView(lvwProperties);
         }
-
         private void lvwStatistics_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDetailView(lvwStatistics);
         }
-
         private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDetailViewHistory();
         }
-
         private void lvwAgents_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAgentsDetailView();
+        }
+        private void lvwAgents_DoubleClick(object sender, EventArgs e)
+        {
+            //Agent detail views
+            // 1. Display window/tool that shows the details of the same resource query type 
+            // 2. This calling window must retain some handle to the detail window so (1) only one instance is displayed and (2) it is closed when this window closes
+            // 3. The displayed window/view must be able to make use of the remote host functionality as well...
+
+            if (lvwAgents.SelectedItems.Count == 1)
+            {
+                ICollector agent = (ICollector)lvwAgents.SelectedItems[0].Tag;
+                IWinFormsUI agentUI = RegisteredAgentUIMapper.GetUIClass(agent);
+                if (agentUI != null)
+                {
+                    agentUI.ShowAgentDetails(agent);
+                }
+                else
+                {
+                    MessageBox.Show("There is no registered viewer for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
         }
     }
 }
