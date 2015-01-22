@@ -8,6 +8,9 @@ namespace QuickMon
     public interface IAgentDetailWindow
     {
         IAgent SelectedAgent { get; set; }
+        bool RemoteAgentHostEnabled { get; set; }
+        string RemoteAgentHostAddress { get; set; }
+        int RemoteAgentHostPort { get; set; }
         void ShowDetailWindow();
     }
     public interface IAgentConfigEntryEditWindow

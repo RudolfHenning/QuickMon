@@ -35,22 +35,21 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.treeImageList = new System.Windows.Forms.ImageList(this.components);
-            this.cmdAgentDetailViewer = new System.Windows.Forms.Button();
-            this.cmdRefresh = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.currentStatusTabPage = new System.Windows.Forms.TabPage();
             this.lblCollectorHostStatusText = new System.Windows.Forms.Label();
-            this.lblCollectorHostStatus = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.currentStatusTabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.statisticsTabPage = new System.Windows.Forms.TabPage();
+            this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.lvwAgents = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.currentStatusTabPage2 = new System.Windows.Forms.TabPage();
             this.lvwProperties = new QuickMon.ListViewEx();
             this.propertyNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lvwHistory = new QuickMon.ListViewEx();
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,12 +57,13 @@
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.executedOncolumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertsRaisedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statisticsTabPage = new System.Windows.Forms.TabPage();
             this.lvwStatistics = new QuickMon.ListViewEx();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmdCollectorHostDetailViewer = new System.Windows.Forms.Button();
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.lblCollectorHostStatus = new System.Windows.Forms.Label();
             this.cmdViewDetails = new System.Windows.Forms.Button();
-            this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -119,30 +119,6 @@
             this.treeImageList.Images.SetKeyName(2, "triang_yellow.png");
             this.treeImageList.Images.SetKeyName(3, "Error24x24.png");
             this.treeImageList.Images.SetKeyName(4, "ForbiddenGray16x16.png");
-            // 
-            // cmdAgentDetailViewer
-            // 
-            this.cmdAgentDetailViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAgentDetailViewer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdAgentDetailViewer.Enabled = false;
-            this.cmdAgentDetailViewer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAgentDetailViewer.Image = global::QuickMon.Properties.Resources.FindDoc24x24;
-            this.cmdAgentDetailViewer.Location = new System.Drawing.Point(476, 0);
-            this.cmdAgentDetailViewer.Name = "cmdAgentDetailViewer";
-            this.cmdAgentDetailViewer.Size = new System.Drawing.Size(39, 35);
-            this.cmdAgentDetailViewer.TabIndex = 3;
-            this.cmdAgentDetailViewer.UseVisualStyleBackColor = true;
-            // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRefresh.Image = global::QuickMon.Properties.Resources.refresh24x24;
-            this.cmdRefresh.Location = new System.Drawing.Point(2, 0);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(39, 35);
-            this.cmdRefresh.TabIndex = 0;
-            this.cmdRefresh.UseVisualStyleBackColor = true;
-            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // splitContainer1
             // 
@@ -201,16 +177,6 @@
             this.lblCollectorHostStatusText.TabIndex = 4;
             this.lblCollectorHostStatusText.Text = "Unknown";
             // 
-            // lblCollectorHostStatus
-            // 
-            this.lblCollectorHostStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.lblCollectorHostStatus.Location = new System.Drawing.Point(462, 3);
-            this.lblCollectorHostStatus.Name = "lblCollectorHostStatus";
-            this.lblCollectorHostStatus.Size = new System.Drawing.Size(40, 29);
-            this.lblCollectorHostStatus.TabIndex = 3;
-            this.lblCollectorHostStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -219,6 +185,50 @@
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Current state:";
+            // 
+            // currentStatusTabPage2
+            // 
+            this.currentStatusTabPage2.BackColor = System.Drawing.Color.White;
+            this.currentStatusTabPage2.Controls.Add(this.lvwProperties);
+            this.currentStatusTabPage2.Location = new System.Drawing.Point(4, 22);
+            this.currentStatusTabPage2.Name = "currentStatusTabPage2";
+            this.currentStatusTabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.currentStatusTabPage2.Size = new System.Drawing.Size(505, 219);
+            this.currentStatusTabPage2.TabIndex = 0;
+            this.currentStatusTabPage2.Text = "Current state details";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.lvwHistory);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(505, 219);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "History";
+            // 
+            // statisticsTabPage
+            // 
+            this.statisticsTabPage.BackColor = System.Drawing.Color.White;
+            this.statisticsTabPage.Controls.Add(this.lvwStatistics);
+            this.statisticsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.statisticsTabPage.Name = "statisticsTabPage";
+            this.statisticsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.statisticsTabPage.Size = new System.Drawing.Size(505, 219);
+            this.statisticsTabPage.TabIndex = 2;
+            this.statisticsTabPage.Text = "Statistics";
+            // 
+            // rtxDetails
+            // 
+            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxDetails.Location = new System.Drawing.Point(0, 0);
+            this.rtxDetails.Name = "rtxDetails";
+            this.rtxDetails.ReadOnly = true;
+            this.rtxDetails.Size = new System.Drawing.Size(513, 206);
+            this.rtxDetails.TabIndex = 0;
+            this.rtxDetails.Text = "";
             // 
             // lvwAgents
             // 
@@ -253,17 +263,6 @@
             this.typeColumnHeader.Text = "Type";
             this.typeColumnHeader.Width = 205;
             // 
-            // currentStatusTabPage2
-            // 
-            this.currentStatusTabPage2.BackColor = System.Drawing.Color.White;
-            this.currentStatusTabPage2.Controls.Add(this.lvwProperties);
-            this.currentStatusTabPage2.Location = new System.Drawing.Point(4, 22);
-            this.currentStatusTabPage2.Name = "currentStatusTabPage2";
-            this.currentStatusTabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.currentStatusTabPage2.Size = new System.Drawing.Size(505, 219);
-            this.currentStatusTabPage2.TabIndex = 0;
-            this.currentStatusTabPage2.Text = "Current state details";
-            // 
             // lvwProperties
             // 
             this.lvwProperties.AutoResizeColumnEnabled = false;
@@ -292,17 +291,6 @@
             // 
             this.valueColumnHeader.Text = "Value";
             this.valueColumnHeader.Width = 205;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.White;
-            this.tabPage2.Controls.Add(this.lvwHistory);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(505, 219);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "History";
             // 
             // lvwHistory
             // 
@@ -358,17 +346,6 @@
             this.alertsRaisedColumnHeader.Text = "Alerts";
             this.alertsRaisedColumnHeader.Width = 57;
             // 
-            // statisticsTabPage
-            // 
-            this.statisticsTabPage.BackColor = System.Drawing.Color.White;
-            this.statisticsTabPage.Controls.Add(this.lvwStatistics);
-            this.statisticsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.statisticsTabPage.Name = "statisticsTabPage";
-            this.statisticsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.statisticsTabPage.Size = new System.Drawing.Size(505, 219);
-            this.statisticsTabPage.TabIndex = 2;
-            this.statisticsTabPage.Text = "Statistics";
-            // 
             // lvwStatistics
             // 
             this.lvwStatistics.AutoResizeColumnEnabled = false;
@@ -398,6 +375,41 @@
             this.columnHeader2.Text = "Value";
             this.columnHeader2.Width = 205;
             // 
+            // cmdCollectorHostDetailViewer
+            // 
+            this.cmdCollectorHostDetailViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCollectorHostDetailViewer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdCollectorHostDetailViewer.Enabled = false;
+            this.cmdCollectorHostDetailViewer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdCollectorHostDetailViewer.Image = global::QuickMon.Properties.Resources.FindDoc24x24;
+            this.cmdCollectorHostDetailViewer.Location = new System.Drawing.Point(476, 0);
+            this.cmdCollectorHostDetailViewer.Name = "cmdCollectorHostDetailViewer";
+            this.cmdCollectorHostDetailViewer.Size = new System.Drawing.Size(39, 35);
+            this.cmdCollectorHostDetailViewer.TabIndex = 3;
+            this.cmdCollectorHostDetailViewer.UseVisualStyleBackColor = true;
+            this.cmdCollectorHostDetailViewer.Click += new System.EventHandler(this.cmdCollectorHostDetailViewer_Click);
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRefresh.Image = global::QuickMon.Properties.Resources.refresh24x24;
+            this.cmdRefresh.Location = new System.Drawing.Point(2, 0);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(39, 35);
+            this.cmdRefresh.TabIndex = 0;
+            this.cmdRefresh.UseVisualStyleBackColor = true;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // lblCollectorHostStatus
+            // 
+            this.lblCollectorHostStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.lblCollectorHostStatus.Location = new System.Drawing.Point(462, 3);
+            this.lblCollectorHostStatus.Name = "lblCollectorHostStatus";
+            this.lblCollectorHostStatus.Size = new System.Drawing.Size(40, 29);
+            this.lblCollectorHostStatus.TabIndex = 3;
+            this.lblCollectorHostStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // cmdViewDetails
             // 
             this.cmdViewDetails.BackColor = System.Drawing.Color.DarkGray;
@@ -415,24 +427,13 @@
             this.cmdViewDetails.UseVisualStyleBackColor = false;
             this.cmdViewDetails.Click += new System.EventHandler(this.cmdViewDetails_Click);
             // 
-            // rtxDetails
-            // 
-            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxDetails.Location = new System.Drawing.Point(0, 0);
-            this.rtxDetails.Name = "rtxDetails";
-            this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(513, 206);
-            this.rtxDetails.TabIndex = 0;
-            this.rtxDetails.Text = "";
-            // 
             // CollectorStatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(516, 512);
-            this.Controls.Add(this.cmdAgentDetailViewer);
+            this.Controls.Add(this.cmdCollectorHostDetailViewer);
             this.Controls.Add(this.cmdRefresh);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.txtName);
@@ -442,6 +443,7 @@
             this.Name = "CollectorStatusViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collector Status Viewer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CollectorStatusViewer_FormClosing);
             this.Load += new System.EventHandler(this.CollectorStatusViewer_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -487,7 +489,7 @@
         private System.Windows.Forms.ColumnHeader executedOncolumnHeader;
         private System.Windows.Forms.ColumnHeader alertsRaisedColumnHeader;
         private System.Windows.Forms.ImageList treeImageList;
-        private System.Windows.Forms.Button cmdAgentDetailViewer;
+        private System.Windows.Forms.Button cmdCollectorHostDetailViewer;
         private System.Windows.Forms.TabPage currentStatusTabPage;
         private ListViewEx lvwAgents;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;

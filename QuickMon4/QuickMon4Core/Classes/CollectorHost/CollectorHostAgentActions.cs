@@ -7,6 +7,7 @@ namespace QuickMon
 {
     public partial class CollectorHost
     {
+        #region MonitorState
         public void UpdateCurrentCollectorState(CollectorState newState)
         {
             currentState.State = newState;
@@ -25,7 +26,7 @@ namespace QuickMon
                 if (stateChanged)
                     LastStateChange = DateTime.Now;
 
-                
+
                 #region Check if alert should be raised now
                 if (stateChanged)
                 {
@@ -101,7 +102,7 @@ namespace QuickMon
                         numberOfPollingsInErrWarn = 0;
                 }
                 #endregion
-                   
+
                 AddStateToHistory(currentState);
 
                 if (!CorrectiveScriptDisabled)
@@ -150,7 +151,7 @@ namespace QuickMon
             }
             else
                 RaiseNoStateChanged();
-            #endregion  
+            #endregion
         }
         public MonitorState RefreshCurrentState(bool disablePollingOverrides = false)
         {
@@ -160,7 +161,7 @@ namespace QuickMon
             if (CurrentState.State != CollectorState.ConfigurationError)
             {
                 if (!IsEnabledNow())
-                {   
+                {
                     resultMonitorState.State = CollectorState.Disabled;
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
@@ -173,7 +174,7 @@ namespace QuickMon
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
                 }
-                else if (CollectorAgents != null && CollectorAgents.Count == CollectorAgents.Count(ca=>!ca.Enabled))
+                else if (CollectorAgents != null && CollectorAgents.Count == CollectorAgents.Count(ca => !ca.Enabled))
                 {
                     resultMonitorState.State = CollectorState.Disabled;
                     StagnantStateFirstRepeat = false;
@@ -216,7 +217,7 @@ namespace QuickMon
                     sw.Stop();
                     resultMonitorState.CallDurationMS = (int)sw.ElapsedMilliseconds;
                     RaiseAllAgentsExecutionTime(sw.ElapsedMilliseconds);
-                    
+
                     #region Calculate summarized state
                     if (resultMonitorState.ChildStates != null && resultMonitorState.ChildStates.Count > 0)
                     {
@@ -228,11 +229,11 @@ namespace QuickMon
                                          where cs.State == CollectorState.Good
                                          select cs).Count();
                         int warningCount = (from cs in resultMonitorState.ChildStates
-                                         where cs.State == CollectorState.Warning
-                                         select cs).Count();
-                        int errorCount = (from cs in resultMonitorState.ChildStates
-                                            where cs.State == CollectorState.Error
+                                            where cs.State == CollectorState.Warning
                                             select cs).Count();
+                        int errorCount = (from cs in resultMonitorState.ChildStates
+                                          where cs.State == CollectorState.Error
+                                          select cs).Count();
 
                         if (allCount == disabledCount)
                             resultMonitorState.State = CollectorState.Disabled;
@@ -287,7 +288,7 @@ namespace QuickMon
                     else if (!StagnantStateThirdRepeat)
                     {
                         StagnantStateThirdRepeat = true;
-                    } 
+                    }
                     #endregion
                 }
             }
@@ -299,7 +300,6 @@ namespace QuickMon
             SetCurrentState(resultMonitorState);
             return resultMonitorState;
         }
-
         private MonitorState GetRemoteState()
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
@@ -319,7 +319,7 @@ namespace QuickMon
             {
                 resultMonitorState.Timestamp = DateTime.Now;
                 if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
-                {                    
+                {
                     //attempting to run locally
                     resultMonitorState = GetStateFromLocal();
                     resultMonitorState.RawDetails = string.Format("Remote excution failed. Attempting to run locally. {0}", resultMonitorState.RawDetails);
@@ -329,11 +329,10 @@ namespace QuickMon
                     resultMonitorState.State = CollectorState.Error;
                     resultMonitorState.RawDetails = ex.ToString();
                     resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
-                }                
+                }
             }
             return resultMonitorState;
         }
-
         private MonitorState GetStateFromLocal()
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
@@ -354,10 +353,10 @@ namespace QuickMon
                     }
                     else
                     {
-                        caMs = new MonitorState() { ForAgent= ca.Name, State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
+                        caMs = new MonitorState() { ForAgent = ca.Name, State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
                     }
                     caMs.ForAgent = ca.Name;
-                    
+
                     resultMonitorState.ChildStates.Add(caMs);
                     //If we only care for the first success and find it don't look further
                     if (AgentCheckSequence == QuickMon.AgentCheckSequence.FirstSuccess && caMs.State == CollectorState.Good)
@@ -374,7 +373,19 @@ namespace QuickMon
             }
             resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
             return resultMonitorState;
-        }
+        } 
+        #endregion
 
+        #region Agent details
+        public System.Data.DataSet GetAllAgentDetails()
+        {
+            System.Data.DataSet result = new System.Data.DataSet();
+            foreach(ICollector ca in  CollectorAgents)
+            {
+                result.Tables.Add(ca.GetDetailDataTable());
+            }
+            return result;
+        }
+        #endregion
     }
 }

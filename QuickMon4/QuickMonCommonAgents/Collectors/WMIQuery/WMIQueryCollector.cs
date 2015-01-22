@@ -92,5 +92,21 @@ namespace QuickMon.Collectors
             }
             return returnState;
         }
+
+        public override System.Data.DataTable GetDetailDataTable()
+        {
+            System.Data.DataTable dt = new System.Data.DataTable(AgentClassName);
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+            }
+            return dt;
+        }
     }
 }

@@ -113,13 +113,20 @@
     </Compile>
     <Compile Include="Collectors\WMIQuery\WMIQueryCollectorUI.cs" />
     <Compile Include="Controls\ComboItem.cs" />
+    <Compile Include="Controls\DataTableViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DataTableViewerControl.Designer.cs">
+      <DependentUpon>DataTableViewerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\ListViewEx.cs">
+    <Compile Include="Controls\ListView\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\ListView\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\ListView\ListViewColumnSorter.cs" />
     <Compile Include="Controls\RTF\RTFBuilder.cs" />
     <Compile Include="Controls\RTF\RTFBuilder.RawFonts.cs" />
     <Compile Include="Controls\RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
@@ -142,6 +149,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
+    <Compile Include="GenericForms\CollectorAgentsDetailViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\CollectorAgentsDetailViewer.Designer.cs">
+      <DependentUpon>CollectorAgentsDetailViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\CollectorStatusViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +303,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\WMIQuery\WMIQueryCollectorEditEntry.resx">
       <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DataTableViewerControl.resx">
+      <DependentUpon>DataTableViewerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\CollectorAgentsDetailViewer.resx">
+      <DependentUpon>CollectorAgentsDetailViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\CollectorStatusViewer.resx">
       <DependentUpon>CollectorStatusViewer.cs</DependentUpon>

@@ -16,6 +16,9 @@ namespace QuickMon
         string GetQuickMonCoreVersion();
 
         [OperationContract]
-        System.Data.DataSet GetDetails(RemoteCollectorHost entry);
+        System.Data.DataSet GetCollectorHostDetails(RemoteCollectorHost entry);
+
+        [OperationContract]
+        System.Data.DataSet GetAgentDetails(string collectorAgentConfig);
     }
 }

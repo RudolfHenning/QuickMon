@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using QuickMon.Forms;
 using System.Windows.Forms;
 
 namespace QuickMon.Forms
@@ -19,6 +20,8 @@ namespace QuickMon.Forms
         }
 
         public CollectorHost SelectedCollectorHost { get; set; }
+
+        private CollectorAgentsDetailViewer detailViewer = null;
 
         private void CollectorStatusViewer_Load(object sender, EventArgs e)
         {
@@ -35,6 +38,7 @@ namespace QuickMon.Forms
             {
                 txtName.Text = SelectedCollectorHost.Name;
                 Text = "Collector Status Viewer - " + SelectedCollectorHost.Name;
+                cmdCollectorHostDetailViewer.Enabled = SelectedCollectorHost.CollectorAgents.Count > 0;
 
                 if (SelectedCollectorHost.IsEnabledNow())
                 {
@@ -444,19 +448,54 @@ namespace QuickMon.Forms
             // 2. This calling window must retain some handle to the detail window so (1) only one instance is displayed and (2) it is closed when this window closes
             // 3. The displayed window/view must be able to make use of the remote host functionality as well...
 
-            if (lvwAgents.SelectedItems.Count == 1)
+            if (SelectedCollectorHost!= null && lvwAgents.SelectedItems.Count == 1)
             {
                 ICollector agent = (ICollector)lvwAgents.SelectedItems[0].Tag;
                 IWinFormsUI agentUI = RegisteredAgentUIMapper.GetUIClass(agent);
+                bool remoteAgentHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
+                string remoteAgentHostAddress = SelectedCollectorHost.RemoteAgentHostAddress;
+                int remoteAgentHostPort = SelectedCollectorHost.RemoteAgentHostPort;
                 if (agentUI != null)
                 {
-                    agentUI.ShowAgentDetails(agent);
+                    agentUI.ShowAgentDetails(agent, remoteAgentHostEnabled, remoteAgentHostAddress, remoteAgentHostPort);
                 }
                 else
                 {
                     MessageBox.Show("There is no registered viewer for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
+        }
+
+        private void cmdCollectorHostDetailViewer_Click(object sender, EventArgs e)
+        {
+            if (detailViewer == null || !detailViewer.IsStillVisible())
+            {
+                detailViewer = new CollectorAgentsDetailViewer();
+                detailViewer.SelectedCollectorHost = SelectedCollectorHost;
+                detailViewer.Show();
+            }
+            else
+            {
+                if (detailViewer.WindowState == FormWindowState.Minimized)
+                    detailViewer.WindowState = FormWindowState.Normal;
+                detailViewer.Show();
+                detailViewer.TopMost = true;
+                detailViewer.TopMost = false;
+            }
+            detailViewer.RefreshViewer();
+        }
+
+        private void CollectorStatusViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (detailViewer != null)
+                {
+                    detailViewer.Close();
+                    detailViewer = null;
+                }
+            }
+            catch { }
         }
     }
 }

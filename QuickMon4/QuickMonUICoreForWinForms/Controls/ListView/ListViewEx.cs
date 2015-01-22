@@ -210,5 +210,13 @@ namespace QuickMon
             base.WndProc(ref m);
         } 
         #endregion
+
+        public void TriggerAutoColumnResize()
+        {
+            int currentSize = this.Width;
+            this.Width = this.Width - 1;
+            Application.DoEvents();
+            this.Width = currentSize;
+        }
     }
 }
