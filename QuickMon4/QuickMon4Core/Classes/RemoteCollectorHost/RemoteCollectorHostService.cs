@@ -61,10 +61,42 @@ namespace QuickMon
             Console.WriteLine("Version request response: {0}", versionInfo);
             return versionInfo;
         }
-        public System.Data.DataSet GetDetails(QuickMon.RemoteCollectorHost entry)
+        public System.Data.DataSet GetCollectorHostDetails(QuickMon.RemoteCollectorHost entry)
         {
-            throw new NotImplementedException();
-        } 
+            System.Data.DataSet result = new System.Data.DataSet();
+            try
+            {
+                CollectorHost ch = CollectorHost.FromXml(entry.ToCollectorHostXml());
+                result = ch.GetAllAgentDetails();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Error: {0}", ex);
+                System.Data.DataTable dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+                result.Tables.Add(dt);                
+            }
+            return result;
+        }
+        public System.Data.DataSet GetAgentDetails(string collectorAgentConfig)
+        {
+            System.Data.DataSet result = new System.Data.DataSet();
+            try
+            {
+                ICollector ca = CollectorHost.GetCollectorAgentFromString(collectorAgentConfig);
+                result.Tables.Add(ca.GetDetailDataTable());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Error: {0}", ex);
+                System.Data.DataTable dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+                result.Tables.Add(dt);
+            }
+            return result;
+        }
         #endregion
 
         #region Static methods
@@ -91,11 +123,11 @@ namespace QuickMon
             IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
             return relay.GetQuickMonCoreVersion();
         }
-        public static System.Data.DataSet GetRemoteHostAgentDetails(CollectorHost entry)
+        public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry)
         {
-            return GetRemoteHostAgentDetails(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
+            return GetRemoteHostAllAgentDetails(entry, entry.RemoteAgentHostAddress, entry.RemoteAgentHostPort);
         }
-        public static System.Data.DataSet GetRemoteHostAgentDetails(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
+        public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
         {
             BasicHttpBinding myBinding = new BasicHttpBinding();
             EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", hostAddressOverride, portNumberOverride));
@@ -104,8 +136,16 @@ namespace QuickMon
 
             RemoteCollectorHost colReq = new RemoteCollectorHost();
             colReq.FromCollectorHost(entry);
-            return relay.GetDetails(colReq);
+            return relay.GetCollectorHostDetails(colReq);
         } 
+        public static  System.Data.DataSet GetRemoteHostAgentDetails(string collectorAgentConfig, string hostAddressOverride, int portNumberOverride)
+        {
+            BasicHttpBinding myBinding = new BasicHttpBinding();
+            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QMRemoteAgent", hostAddressOverride, portNumberOverride));
+            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+            return relay.GetAgentDetails(collectorAgentConfig);
+        }
         #endregion
     }
 }

@@ -36,6 +36,6 @@ namespace QuickMon.UI
         /// When called it show custom detail Window for the type of agent.
         /// </summary>
         /// <returns></returns>
-        void ShowAgentDetails(IAgent agent);
+        void ShowAgentDetails(IAgent agent, bool remoteAgentHostEnabled, string remoteAgentHostAddress, int remoteAgentHostPort);
     }
 }
