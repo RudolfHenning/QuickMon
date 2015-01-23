@@ -9,6 +9,6 @@ namespace QuickMon
     {
         MonitorState GetState();
         MonitorState CurrentState { get; set; }
-        System.Data.DataTable GetDetailDataTable();
+        List<System.Data.DataTable> GetDetailDataTables();
     }
 }

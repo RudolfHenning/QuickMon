@@ -85,7 +85,8 @@ namespace QuickMon
             try
             {
                 ICollector ca = CollectorHost.GetCollectorAgentFromString(collectorAgentConfig);
-                result.Tables.Add(ca.GetDetailDataTable());
+                foreach (System.Data.DataTable dt in ca.GetDetailDataTables())
+                    result.Tables.Add(dt);
             }
             catch (Exception ex)
             {

@@ -55,19 +55,26 @@ namespace QuickMon.Controls
                     if (GroupByColumn == -1 || GroupByColumn != i)
                     {
                         DataColumn dcol = SelectedData.Columns[i];
-                        ColumnHeader lcol = lvwDataTable.Columns.Add(dcol.ColumnName);
-                        if (dcol.DataType.Name == "Int32")
+                        string columnName = dcol.ColumnName;
+                        if (dcol.ExtendedProperties.ContainsKey("groupby"))
                         {
-                            lcol.TextAlign = HorizontalAlignment.Right;
-                            sortTypes.Add(SortColumnType.NumberType);
-                        }
-                        else if (dcol.DataType.Name == "DateTime")
-                        {
-                            sortTypes.Add(SortColumnType.DateType);
-                        }
+                            GroupByColumn = lvwDataTable.Columns.Count;
+                        }                        
                         else
-                            sortTypes.Add(SortColumnType.StringType);
-
+                        {
+                            ColumnHeader lcol = lvwDataTable.Columns.Add(columnName);
+                            if (dcol.DataType.Name == "Int32")
+                            {
+                                lcol.TextAlign = HorizontalAlignment.Right;
+                                sortTypes.Add(SortColumnType.NumberType);
+                            }
+                            else if (dcol.DataType.Name == "DateTime")
+                            {
+                                sortTypes.Add(SortColumnType.DateType);
+                            }
+                            else
+                                sortTypes.Add(SortColumnType.StringType);
+                        }
                     }
                 }
                 listViewColumnSorter = new ListViewColumnSorter(lvwDataTable, true, sortTypes.ToArray());
@@ -107,7 +114,7 @@ namespace QuickMon.Controls
                         ListViewItem lvi = new ListViewItem(firstValue);
                         for (int i = 1; i < SelectedData.Columns.Count; i++)
                         {
-                            if (GroupByColumn != i)
+                            if (!(GroupByColumn == 0 && i == 1) && GroupByColumn != i) //first column is group by and second is already "firstvalue"
                             {
                                 string colVal = FormatField(drow[i]);
                                 lvi.SubItems.Add(colVal);

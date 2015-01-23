@@ -105,15 +105,16 @@ namespace QuickMon.Collectors
             }
             return returnState;
         }
-        public override System.Data.DataTable GetDetailDataTable()
+        public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            System.Data.DataTable dt = new System.Data.DataTable(Name + " ("+  AgentClassName + ")");
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
             try
             {
                 dt.Columns.Add(new System.Data.DataColumn("Host name", typeof(string)));
                 dt.Columns.Add(new System.Data.DataColumn("Success", typeof(bool)));
                 dt.Columns.Add(new System.Data.DataColumn("Ping time", typeof(int)));
-                dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));                
 
                 PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
                 foreach (PingCollectorHostEntry host in currentConfig.Entries)
@@ -128,7 +129,8 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
             }
-            return dt;
+            tables.Add(dt);
+            return tables;
         }
     }
 }

@@ -101,12 +101,33 @@ namespace QuickMon.Collectors
             return returnState;
         }
 
-        public override System.Data.DataTable GetDetailDataTable()
+        public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            System.Data.DataTable dt = new System.Data.DataTable(AgentClassName);
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
             try
             {
+                dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
+                dt.Columns[0].ExtendedProperties.Add("groupby", "true");
+                dt.Columns.Add(new System.Data.DataColumn("Service", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
 
+                WindowsServiceStateCollectorConfig currentConfig = (WindowsServiceStateCollectorConfig)AgentConfig;
+                foreach (WindowsServiceStateHostEntry host in currentConfig.Entries)
+                {
+                    try
+                    {
+                        List<ServiceStateInfo> services = host.GetServiceStates();
+                        foreach(ServiceStateInfo service in services)
+                        {
+                            dt.Rows.Add(host.MachineName, service.DisplayName, service.Status.ToString());
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        dt.Rows.Add(host.MachineName, "Error", ex.Message);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -114,7 +135,8 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
             }
-            return dt;
+            tables.Add(dt);
+            return tables;
         }
     }
 }

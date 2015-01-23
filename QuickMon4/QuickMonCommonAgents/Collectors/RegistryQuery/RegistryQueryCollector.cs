@@ -101,12 +101,27 @@ namespace QuickMon.Collectors
             return returnState;
         }
 
-        public override System.Data.DataTable GetDetailDataTable()
+        public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            System.Data.DataTable dt = new System.Data.DataTable(AgentClassName);
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
             try
             {
+                dt.Columns.Add(new System.Data.DataColumn("Path", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Value", typeof(string)));                
 
+                RegistryQueryCollectorConfig currentConfig = (RegistryQueryCollectorConfig)AgentConfig;
+                foreach (RegistryQueryCollectorConfigEntry entry in currentConfig.Entries)
+                {
+
+                    object value = entry.GetValue();
+                    if (value.GetType().IsArray)
+                    {
+                        value = FormatUtils.FormatArrayToString(value);
+                    }
+
+                    dt.Rows.Add(entry.Description, value);
+                }
             }
             catch (Exception ex)
             {
@@ -114,7 +129,8 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
             }
-            return dt;
+            tables.Add(dt);
+            return tables;
         }
     }
 }

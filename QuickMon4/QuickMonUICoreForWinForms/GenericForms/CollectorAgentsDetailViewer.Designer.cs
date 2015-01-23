@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorAgentsDetailViewer));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.summaryToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabDataSetViewer = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -44,19 +44,19 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 337);
+            this.summaryToolStripStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 418);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(542, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(638, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // summaryToolStripStatusLabel
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(527, 17);
-            this.toolStripStatusLabel1.Spring = true;
-            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.summaryToolStripStatusLabel.Name = "summaryToolStripStatusLabel";
+            this.summaryToolStripStatusLabel.Size = new System.Drawing.Size(623, 17);
+            this.summaryToolStripStatusLabel.Spring = true;
+            this.summaryToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabDataSetViewer
             // 
@@ -66,7 +66,7 @@
             this.tabDataSetViewer.Multiline = true;
             this.tabDataSetViewer.Name = "tabDataSetViewer";
             this.tabDataSetViewer.SelectedIndex = 0;
-            this.tabDataSetViewer.Size = new System.Drawing.Size(542, 306);
+            this.tabDataSetViewer.Size = new System.Drawing.Size(638, 387);
             this.tabDataSetViewer.TabIndex = 5;
             // 
             // tabPage1
@@ -74,7 +74,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(534, 280);
+            this.tabPage1.Size = new System.Drawing.Size(630, 361);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Data";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(542, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(638, 31);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -112,11 +112,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(542, 359);
+            this.ClientSize = new System.Drawing.Size(638, 440);
             this.Controls.Add(this.tabDataSetViewer);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "CollectorAgentsDetailViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collector Agents Detail Viewer";
@@ -133,7 +134,7 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel summaryToolStripStatusLabel;
         private System.Windows.Forms.TabControl tabDataSetViewer;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ToolStrip toolStrip1;

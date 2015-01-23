@@ -26,8 +26,14 @@ namespace QuickMon.UI
                 Text = "Collector Agents Detail Viewer - " + SelectedCollectorHost.Name;
                 try
                 {
-                    DataSet agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
+                    int previousTabIndex = -1;
+                    if (tabDataSetViewer.TabPages.Count > 0)
+                        previousTabIndex = tabDataSetViewer.SelectedIndex;                    
                     tabDataSetViewer.TabPages.Clear();
+                    Application.DoEvents();
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    DataSet agentDataSet = SelectedCollectorHost.GetAllAgentDetails();                    
                     foreach (DataTable dtab in agentDataSet.Tables)
                     {
                         string tabName = "Details";
@@ -40,13 +46,22 @@ namespace QuickMon.UI
                         tabPage.Controls.Add(dtvc);
                         tabDataSetViewer.TabPages.Add(tabPage);
                         dtvc.LoadColumns();
+                        dtvc.AutoResizeColumnIndex = dtvc.SelectedData.Columns.Count - 1;
                         dtvc.RefreshData(true);
                         dtvc.ListSelectedIndexChanged += dtvc_ListSelectedIndexChanged;
                     }
+                    if (previousTabIndex > -1 && tabDataSetViewer.TabPages.Count > previousTabIndex)
+                        tabDataSetViewer.SelectedIndex = previousTabIndex;
+                    summaryToolStripStatusLabel.Text = "Last updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    Application.DoEvents();
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }

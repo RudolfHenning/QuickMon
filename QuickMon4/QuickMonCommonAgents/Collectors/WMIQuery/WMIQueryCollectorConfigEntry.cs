@@ -239,6 +239,14 @@ namespace QuickMon.Collectors
             }
             return rows;
         }
+        public DataTable GetDetailDataTable()
+        {
+            DataTable dtab = new DataTable(Machinename);
+            dtab.Columns.AddRange(GetDetailQueryColumns().ToArray());
+            foreach (DataRow row in GetDetailQueryRows(dtab, Machinename))
+                dtab.Rows.Add(row);
+            return dtab;
+        }
         public DataSet RunDetailQuery()
         {
             DataSet results = new DataSet();

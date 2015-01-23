@@ -149,7 +149,7 @@ namespace QuickMon.Collectors
                         diag.EventLogEntry entry = log.Entries[i];
                         if (WithInLastXEntries > 0 && WithInLastXEntries <= counter)
                             break;
-                        if (WithInLastXMinutes > 0 && entry.TimeGenerated.AddMinutes(WithInLastXMinutes) > currentTime)
+                        if (WithInLastXMinutes > 0 && entry.TimeGenerated.AddMinutes(WithInLastXMinutes) < currentTime)
                             break;
 
                         EventLogEntryEx newentry = new EventLogEntryEx();
