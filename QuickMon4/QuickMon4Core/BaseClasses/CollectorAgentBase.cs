@@ -17,6 +17,6 @@ namespace QuickMon
         #endregion
 
         public abstract MonitorState RefreshState();
-        public abstract System.Data.DataTable GetDetailDataTable();
+        public abstract List<System.Data.DataTable> GetDetailDataTables();
     }
 }

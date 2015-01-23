@@ -92,12 +92,31 @@ namespace QuickMon.Collectors
             return returnState;
         }
 
-        public override System.Data.DataTable GetDetailDataTable()
+        public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            System.Data.DataTable dt = new System.Data.DataTable(AgentClassName);
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
             try
             {
+                dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
+                dt.Columns[0].ExtendedProperties.Add("groupby", "true");
+                dt.Columns.Add(new System.Data.DataColumn("Log", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Level", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Date", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Time", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Source", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Event ID", typeof(int)));
+                dt.Columns.Add(new System.Data.DataColumn("Summary", typeof(string)));
 
+                EventLogCollectorConfig currentConfig = (EventLogCollectorConfig)AgentConfig;
+                foreach (EventLogCollectorEntry eventLog in currentConfig.Entries)
+                {
+                    foreach(EventLogEntryEx entry in  eventLog.GetMatchingEventLogEntries())
+                    {
+                        dt.Rows.Add(entry.MachineName, entry.LogName, entry.EntryType.ToString(), entry.TimeGenerated.Date.ToString("yyyy-MM-dd"), entry.TimeGenerated.ToString("HH:mm:ss"),
+                            entry.Source, entry.EventId, entry.MessageSummary);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -105,7 +124,8 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
             }
-            return dt;
+            tables.Add(dt);
+            return tables;
         }
     }
 }

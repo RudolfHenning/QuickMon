@@ -95,7 +95,7 @@ namespace QuickMon.Forms
                 AddUpdateListViewItem(lvwProperties, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(),remoteHostEnabled);
 
                 #region Polling metrics
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
+                //AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times refreshed", SelectedCollectorHost.RefreshCount.ToString());
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Polling override enabled", SelectedCollectorHost.EnabledPollingOverride ? "Yes" : "No");
                 AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Poll frequency sliding enabled", SelectedCollectorHost.EnablePollFrequencySliding ? "Yes" : "No", SelectedCollectorHost.EnabledPollingOverride);

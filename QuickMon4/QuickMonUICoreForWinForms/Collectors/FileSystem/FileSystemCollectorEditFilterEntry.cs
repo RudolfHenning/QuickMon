@@ -17,8 +17,6 @@ namespace QuickMon.Collectors
         public FileSystemCollectorEditFilterEntry()
         {
             InitializeComponent();
-            SelectedFilterEntry = new FileSystemDirectoryFilterEntry();
-            SelectedFilterEntry.FileFilter = "*.*";
         }
 
         #region IEditConfigEntryWindow Members
@@ -29,17 +27,18 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-        public FileSystemDirectoryFilterEntry SelectedFilterEntry { get; set; }
+        //public FileSystemDirectoryFilterEntry SelectedFilterEntry { get; set; }
 
         private void FileSystemCollectorEditFilterEntry_Load(object sender, EventArgs e)
         {
             try
             {
                 FileSystemDirectoryFilterEntry selectedEntry;
-                if (SelectedEntry != null)
-                    selectedEntry = (FileSystemDirectoryFilterEntry)SelectedEntry;
-                else
-                    selectedEntry = (FileSystemDirectoryFilterEntry)SelectedFilterEntry;
+                if (SelectedEntry == null)
+                    SelectedEntry = new FileSystemDirectoryFilterEntry() { FileFilter = "*.*",  };
+                selectedEntry = (FileSystemDirectoryFilterEntry)SelectedEntry;
+                //else
+                //    selectedEntry = (FileSystemDirectoryFilterEntry)SelectedFilterEntry;
 
                 txtDirectory.Text = selectedEntry.DirectoryPath;
                 txtFilter.Text = selectedEntry.FileFilter;
@@ -52,6 +51,7 @@ namespace QuickMon.Collectors
                 numericUpDownFileSizeMin.SaveValueSet(selectedEntry.FileMinSize);
                 numericUpDownFileSizeMax.SaveValueSet(selectedEntry.FileMaxSize);
 
+                optCounts.Checked = true;
                 optDirectoryExistOnly.Checked = selectedEntry.DirectoryExistOnly;
                 optCheckIfFilesExistOnly.Checked = selectedEntry.FilesExistOnly;
                 optErrorOnFilesExist.Checked = selectedEntry.ErrorOnFilesExist;
@@ -113,14 +113,10 @@ namespace QuickMon.Collectors
             else
             {
                 FileSystemDirectoryFilterEntry selectedEntry;
-                if (SelectedEntry != null)
-                    selectedEntry = (FileSystemDirectoryFilterEntry)SelectedEntry;
-                else if (SelectedFilterEntry != null)
-                    selectedEntry = (FileSystemDirectoryFilterEntry)SelectedFilterEntry;
-                else
-                {
-                    selectedEntry = new FileSystemDirectoryFilterEntry();
-                }
+                if (SelectedEntry == null)
+                    SelectedEntry = new FileSystemDirectoryFilterEntry();
+
+                selectedEntry = (FileSystemDirectoryFilterEntry)SelectedEntry;               
 
                 selectedEntry.DirectoryPath = txtDirectory.Text;
                 selectedEntry.DirectoryExistOnly = optDirectoryExistOnly.Checked;

@@ -135,12 +135,37 @@ namespace QuickMon.Collectors
             return sb.ToString();
         }
 
-        public override System.Data.DataTable GetDetailDataTable()
+        public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            System.Data.DataTable dt = new System.Data.DataTable(AgentClassName);
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
             try
-            {
+            {                
+                dt.Columns.Add(new System.Data.DataColumn("Path", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Details", typeof(string)));
 
+                FileSystemCollectorConfig currentConfig = (FileSystemCollectorConfig)AgentConfig;
+                foreach (FileSystemDirectoryFilterEntry directoryFilter in currentConfig.Entries)
+                {
+                    DirectoryFileInfo directoryFileInfo = directoryFilter.GetFileListByFilters();
+                    string details = "";
+                    try
+                    {
+                        if (!directoryFileInfo.DirectoryExists)
+                            details = "Directory does not exists";
+                        else if (directoryFilter.DirectoryExistOnly)
+                            details = "Directory exists";
+                        else
+                        {
+                            details = directoryFileInfo.DirectoryExists ? directoryFileInfo.FileCount.ToString() + " file(s), " + FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize) : "Directory does not exists";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        details = ex.Message;
+                    }
+                    dt.Rows.Add(directoryFilter.Description, details);
+                }                
             }
             catch (Exception ex)
             {
@@ -148,7 +173,8 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
             }
-            return dt;
+            tables.Add(dt);
+            return tables;
         }
     }
 }

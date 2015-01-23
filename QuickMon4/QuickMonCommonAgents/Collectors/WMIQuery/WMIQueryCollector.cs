@@ -93,20 +93,27 @@ namespace QuickMon.Collectors
             return returnState;
         }
 
-        public override System.Data.DataTable GetDetailDataTable()
+        public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            System.Data.DataTable dt = new System.Data.DataTable(AgentClassName);
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
             try
             {
-
+                WMIQueryCollectorConfig currentConfig = (WMIQueryCollectorConfig)AgentConfig;
+                foreach (WMIQueryCollectorConfigEntry entry in currentConfig.Entries)
+                {
+                    System.Data.DataTable dt = entry.GetDetailDataTable();
+                    dt.TableName = Name + " (" + entry.Name + ")";
+                    tables.Add(dt);
+                }
             }
             catch (Exception ex)
             {
-                dt = new System.Data.DataTable("Exception");
+                System.Data.DataTable dt = new System.Data.DataTable("Exception");
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
+                tables.Add(dt);
             }
-            return dt;
+            return tables;
         }
     }
 }
