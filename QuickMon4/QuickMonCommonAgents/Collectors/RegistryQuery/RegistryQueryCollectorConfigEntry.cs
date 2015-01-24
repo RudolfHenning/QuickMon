@@ -13,7 +13,10 @@ namespace QuickMon.Collectors
         {
             get
             {
-                return (UseRemoteServer ? Server + "\\" : "") + GetRegistryHiveFromString(RegistryHive.ToString()).ToString() + "\\" + Path + "\\[" + KeyName + "]";
+                if (Name == null || Name.Length == 0)
+                    return (UseRemoteServer ? Server + "\\" : "") + GetRegistryHiveFromString(RegistryHive.ToString()).ToString() + "\\" + Path + "\\[" + KeyName + "]";
+                else
+                    return Name;
             }
         }
         public string TriggerSummary
