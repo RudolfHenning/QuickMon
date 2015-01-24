@@ -15,7 +15,7 @@ namespace QuickMon
             Enabled = true;
             UniqueId = Guid.NewGuid().ToString();
             CollectorAgents = new List<ICollector>();
-            RemoteAgentHostPort = 8181;
+            RemoteAgentHostPort = 48181;
 
             //Stats
             PollCount = 0;

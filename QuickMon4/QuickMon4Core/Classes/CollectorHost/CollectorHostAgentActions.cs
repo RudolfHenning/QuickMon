@@ -380,7 +380,34 @@ namespace QuickMon
         public System.Data.DataSet GetAllAgentDetails()
         {
             System.Data.DataSet result = new System.Data.DataSet();
-            foreach(ICollector ca in  CollectorAgents)
+            if (EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings))
+            {
+                result = GetAllAgentDetailsRemote();
+            }
+            else
+            {
+                result = GetAllAgentDetailsLocal();
+            }
+
+            //bool remoteHostEnabled = EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings);
+
+            //foreach(ICollector ca in  CollectorAgents)
+            //{
+            //    List<System.Data.DataTable> dts = ca.GetDetailDataTables();
+            //    foreach (System.Data.DataTable dt in dts)
+            //    {
+            //        if (dt.TableName.Length == 0)
+            //            dt.TableName = ca.Name;
+            //        result.Tables.Add(dt);
+            //    }
+            //}
+            return result;
+        }
+
+        private System.Data.DataSet GetAllAgentDetailsLocal()
+        {
+             System.Data.DataSet result = new System.Data.DataSet();
+            foreach (ICollector ca in CollectorAgents)
             {
                 List<System.Data.DataTable> dts = ca.GetDetailDataTables();
                 foreach (System.Data.DataTable dt in dts)
@@ -392,6 +419,32 @@ namespace QuickMon
             }
             return result;
         }
+
+        private System.Data.DataSet GetAllAgentDetailsRemote()
+        {
+            System.Data.DataSet result = new System.Data.DataSet();
+           string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+            int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
+
+            try
+            {
+                result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, currentHostAddress, currentHostPort);
+            }
+            catch (Exception ex)
+            {
+                if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
+                {
+                    //attempting to run locally
+                    result = GetAllAgentDetailsLocal();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return result;
+        }
+
         #endregion
     }
 }
