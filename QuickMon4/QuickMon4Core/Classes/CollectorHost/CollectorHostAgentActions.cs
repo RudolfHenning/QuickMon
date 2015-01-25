@@ -314,6 +314,13 @@ namespace QuickMon
                     ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "Remote agent used", HtmlDetails = "<p>Remote agent used</p>" };
                 }
                 resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
+                foreach (var agentState in resultMonitorState.ChildStates)
+                {
+                    if (agentState.ForAgentId > -1 && agentState.ForAgentId < CollectorAgents.Count)
+                    {
+                        CollectorAgents[agentState.ForAgentId].CurrentState.State = agentState.State;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -343,19 +350,21 @@ namespace QuickMon
                 {
                     ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "N/A", HtmlDetails = "<p>N/A</p>" };
                 }
+                int agentId = 0;
                 foreach (ICollector ca in CollectorAgents)
                 {
                     MonitorState caMs;
                     if (ca.Enabled)
                     {
                         caMs = ca.GetState();
-                        caMs.ForAgent = ca.Name;
                     }
                     else
                     {
-                        caMs = new MonitorState() { ForAgent = ca.Name, State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
+                        caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
                     }
                     caMs.ForAgent = ca.Name;
+                    caMs.ForAgentId = agentId;
+
 
                     resultMonitorState.ChildStates.Add(caMs);
                     //If we only care for the first success and find it don't look further

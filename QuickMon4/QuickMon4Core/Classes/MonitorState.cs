@@ -29,7 +29,9 @@ namespace QuickMon
         public object CurrentValue { get; set; }
 
         [DataMember(Name = "ForAgent")]
-        public string ForAgent { get; set; }        
+        public string ForAgent { get; set; }
+        [DataMember(Name = "ForAgentId")]
+        public int ForAgentId { get; set; }        
 
         [DataMember(Name = "RawDetails")]
         public string RawDetails { get; set; }
@@ -78,6 +80,7 @@ namespace QuickMon
             root.SetAttributeValue("state", State.ToString());
             root.SetAttributeValue("stateChangedTime", StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("forAgent", ForAgent);
+            root.SetAttributeValue("forAgentId", ForAgentId);
             root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
             if (CurrentValue != null)
@@ -135,6 +138,7 @@ namespace QuickMon
             }
             catch { }
             ForAgent = root.ReadXmlElementAttr("forAgent", "");
+            ForAgentId = root.ReadXmlElementAttr("forAgentId", -1);
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
             RawDetails = root.SelectSingleNode("rawDetails").InnerText;
