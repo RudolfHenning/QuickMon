@@ -42,6 +42,7 @@ namespace QuickMon
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
                 FromConfig(this, root, monitorPackVars, applyConfigVars);
+                SetCurrentState(new MonitorState() { State = CollectorState.ConfigurationChanged, RawDetails = "Reconfigured", HtmlDetails = "<p>Reconfigured</p>" });
             }
         }
         private static CollectorHost FromConfig(CollectorHost newCollectorHost, XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)

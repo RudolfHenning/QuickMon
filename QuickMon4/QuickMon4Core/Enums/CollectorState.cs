@@ -12,7 +12,9 @@ namespace QuickMon
         Warning,
         Error,
         Disabled,
+        ConfigurationChanged,
         ConfigurationError,
+        //RemoteHostError,
         None
         //, Folder  //Only for use by placebo Folder containers that house other collectors
     }
