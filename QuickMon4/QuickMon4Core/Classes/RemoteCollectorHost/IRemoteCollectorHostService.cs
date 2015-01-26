@@ -18,7 +18,7 @@ namespace QuickMon
         [OperationContract]
         System.Data.DataSet GetCollectorHostDetails(RemoteCollectorHost entry);
 
-        [OperationContract]
-        System.Data.DataSet GetAgentDetails(string collectorAgentConfig);
+        //[OperationContract]
+        //System.Data.DataSet GetAgentDetails(string collectorAgentConfig);
     }
 }
