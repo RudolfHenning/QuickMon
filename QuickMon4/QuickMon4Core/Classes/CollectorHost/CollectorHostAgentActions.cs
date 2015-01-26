@@ -318,6 +318,7 @@ namespace QuickMon
                 {
                     if (agentState.ForAgentId > -1 && agentState.ForAgentId < CollectorAgents.Count)
                     {
+                        CollectorAgents[agentState.ForAgentId].CurrentState.ForAgent = CollectorAgents[agentState.ForAgentId].Name;
                         CollectorAgents[agentState.ForAgentId].CurrentState.State = agentState.State;
                     }
                 }
@@ -364,7 +365,7 @@ namespace QuickMon
                     }
                     caMs.ForAgent = ca.Name;
                     caMs.ForAgentId = agentId;
-
+                    agentId++;
 
                     resultMonitorState.ChildStates.Add(caMs);
                     //If we only care for the first success and find it don't look further
@@ -432,7 +433,7 @@ namespace QuickMon
         private System.Data.DataSet GetAllAgentDetailsRemote()
         {
             System.Data.DataSet result = new System.Data.DataSet();
-           string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
+            string currentHostAddress = EnableRemoteExecute ? this.RemoteAgentHostAddress : OverrideRemoteAgentHostAddress;
             int currentHostPort = EnableRemoteExecute ? this.RemoteAgentHostPort : OverrideRemoteAgentHostPort;
 
             try
@@ -441,7 +442,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                if (RunLocalOnRemoteHostConnectionFailure && ex.Message.Contains("There was no endpoint listening"))
+                if (RunLocalOnRemoteHostConnectionFailure && ex.ToString().Contains("There was no endpoint listening"))
                 {
                     //attempting to run locally
                     result = GetAllAgentDetailsLocal();
@@ -453,7 +454,12 @@ namespace QuickMon
             }
             return result;
         }
-
+        public System.Data.DataSet GetAllAgentDetailsRemote(string hostAddress, int hostPort)
+        {
+            System.Data.DataSet result = new System.Data.DataSet();
+            result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, hostAddress, hostPort);
+            return result;
+        }
         #endregion
     }
 }
