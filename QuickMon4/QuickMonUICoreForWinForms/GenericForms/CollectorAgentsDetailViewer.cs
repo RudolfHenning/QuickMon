@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using QuickMon.Forms;
 using System.Windows.Forms;
 
 namespace QuickMon.UI
@@ -33,7 +34,28 @@ namespace QuickMon.UI
                     Application.DoEvents();
                     Cursor.Current = Cursors.WaitCursor;
 
-                    DataSet agentDataSet = SelectedCollectorHost.GetAllAgentDetails();                    
+                    DataSet agentDataSet;
+                    if (chkRemoteAgentEnabled.Checked)
+                    {
+                        try
+                        {
+                            agentDataSet = SelectedCollectorHost.GetAllAgentDetailsRemote(txtRemoteAgentServer.Text, (int)remoteportNumericUpDown.Value);
+                        }
+                        catch (Exception remEx)
+                        {
+                            if (remEx.Message.Contains("There was no endpoint listening"))
+                            {
+                                if (MessageBox.Show("Connection to the remote host failed! Do you want to try and run the agents locally?", "Remote host", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                                    agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
+                                else
+                                    return;
+                            }
+                            else
+                                throw;
+                        }
+                    }
+                    else
+                        agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
                     foreach (DataTable dtab in agentDataSet.Tables)
                     {
                         string tabName = "Details";
@@ -49,6 +71,7 @@ namespace QuickMon.UI
                         dtvc.AutoResizeColumnIndex = dtvc.SelectedData.Columns.Count - 1;
                         dtvc.RefreshData(true);
                         dtvc.ListSelectedIndexChanged += dtvc_ListSelectedIndexChanged;
+                        dtvc.ListContextMenu = agentsContextMenuStrip;
                     }
                     if (previousTabIndex > -1 && tabDataSetViewer.TabPages.Count > previousTabIndex)
                         tabDataSetViewer.SelectedIndex = previousTabIndex;
@@ -73,6 +96,22 @@ namespace QuickMon.UI
         private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
             RefreshViewer();
+        }
+
+        private void CollectorAgentsDetailViewer_Load(object sender, EventArgs e)
+        {
+            if (SelectedCollectorHost != null)
+            {
+                chkRemoteAgentEnabled.Checked = SelectedCollectorHost.EnableRemoteExecute;
+                txtRemoteAgentServer.Text = SelectedCollectorHost.RemoteAgentHostAddress;
+                remoteportNumericUpDown.SaveValueSet(SelectedCollectorHost.RemoteAgentHostPort);
+            }                
+        }
+
+        private void chkRemoteAgentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            txtRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked;
+            remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked;
         }
     }
 }

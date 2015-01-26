@@ -74,15 +74,19 @@ namespace QuickMon
     [Serializable, DataContract]
     public class RemoteCollectorAgent
     {
+        [DataMember(Name = "Name")]
+        public string Name { get; set; }
         [DataMember(Name = "Type")]
         public string TypeName { get; set; }
+        [DataMember(Name = "Enabled")]
+        public bool Enabled { get; set; }
         [DataMember(Name = "ConfigString")]
         public string ConfigString { get; set; }
 
         public string ToXml()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<collectorAgent type=\"" + TypeName.EscapeXml() + "\">");
+            sb.AppendLine("<collectorAgent name=\"" + Name.EscapeXml() + "\" type=\"" + TypeName.EscapeXml() + "\" enabled=\"" + Enabled.ToString() + "\">");
             
             string configString = ConfigString;
             if (configString.Trim().StartsWith("<config", StringComparison.CurrentCultureIgnoreCase))
@@ -102,7 +106,11 @@ namespace QuickMon
             XmlDocument configurationXml = new XmlDocument();
             configurationXml.LoadXml(xmlString);
             XmlElement root = configurationXml.DocumentElement;
-            TypeName = root.ReadXmlElementAttr("type", "");
+
+            Name = configurationXml.ReadXmlElementAttr("name", "");
+            TypeName = configurationXml.ReadXmlElementAttr("type", "");
+            Enabled = configurationXml.ReadXmlElementAttr("enabled", true);
+
             XmlNode configNode = root.SelectSingleNode("config");
             if (configNode != null)
             {
@@ -111,7 +119,9 @@ namespace QuickMon
         }
         public void FromICollector(ICollector c)
         {
+            Name = c.Name;
             TypeName = c.AgentClassName;
+            Enabled = c.Enabled;
             ConfigString = c.ActiveConfiguration;
         }
     }
