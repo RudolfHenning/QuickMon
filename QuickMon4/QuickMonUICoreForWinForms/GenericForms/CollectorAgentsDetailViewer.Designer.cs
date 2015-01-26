@@ -137,7 +137,7 @@
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remoteportNumericUpDown.Enabled = false;
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(519, 5);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(550, 5);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -149,7 +149,7 @@
             0,
             0});
             this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
-            this.remoteportNumericUpDown.Size = new System.Drawing.Size(107, 20);
+            this.remoteportNumericUpDown.Size = new System.Drawing.Size(76, 20);
             this.remoteportNumericUpDown.TabIndex = 4;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
             48181,
@@ -170,7 +170,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(487, 7);
+            this.label14.Location = new System.Drawing.Point(518, 7);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 3;
@@ -185,7 +185,7 @@
             this.txtRemoteAgentServer.Enabled = false;
             this.txtRemoteAgentServer.Location = new System.Drawing.Point(194, 4);
             this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
-            this.txtRemoteAgentServer.Size = new System.Drawing.Size(287, 20);
+            this.txtRemoteAgentServer.Size = new System.Drawing.Size(318, 20);
             this.txtRemoteAgentServer.TabIndex = 2;
             // 
             // chkRemoteAgentEnabled

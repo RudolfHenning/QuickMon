@@ -29,9 +29,9 @@ namespace QuickMon
                 if (m.CollectorHosts.Count == 1)
                 {
                     m.RefreshStates();
-                    //Since there are only one CollectorHost
+                    //Since there is only one CollectorHost
                     CollectorHost ch = m.CollectorHosts[0];
-                    monitorState = ch.CurrentState;
+                    monitorState = ch.CurrentState;                    
                 }
                 else
                 {
@@ -79,25 +79,25 @@ namespace QuickMon
             }
             return result;
         }
-        public System.Data.DataSet GetAgentDetails(string collectorAgentConfig)
-        {
-            System.Data.DataSet result = new System.Data.DataSet();
-            try
-            {
-                ICollector ca = CollectorHost.GetCollectorAgentFromString(collectorAgentConfig);
-                foreach (System.Data.DataTable dt in ca.GetDetailDataTables())
-                    result.Tables.Add(dt);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(" Error: {0}", ex);
-                System.Data.DataTable dt = new System.Data.DataTable("Exception");
-                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
-                dt.Rows.Add(ex.ToString());
-                result.Tables.Add(dt);
-            }
-            return result;
-        }
+        //public System.Data.DataSet GetAgentDetails(string collectorAgentConfig)
+        //{
+        //    System.Data.DataSet result = new System.Data.DataSet();
+        //    try
+        //    {
+        //        ICollector ca = CollectorHost.GetCollectorAgentFromString(collectorAgentConfig);
+        //        foreach (System.Data.DataTable dt in ca.GetDetailDataTables())
+        //            result.Tables.Add(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(" Error: {0}", ex);
+        //        System.Data.DataTable dt = new System.Data.DataTable("Exception");
+        //        dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+        //        dt.Rows.Add(ex.ToString());
+        //        result.Tables.Add(dt);
+        //    }
+        //    return result;
+        //}
         #endregion
 
         #region Static methods
@@ -139,14 +139,14 @@ namespace QuickMon
             colReq.FromCollectorHost(entry);
             return relay.GetCollectorHostDetails(colReq);
         } 
-        public static  System.Data.DataSet GetRemoteHostAgentDetails(string collectorAgentConfig, string hostAddressOverride, int portNumberOverride)
-        {
-            BasicHttpBinding myBinding = new BasicHttpBinding();
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
-            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
-            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
-            return relay.GetAgentDetails(collectorAgentConfig);
-        }
+        //public static System.Data.DataSet GetRemoteHostAgentDetails(string collectorAgentConfig, string hostAddressOverride, int portNumberOverride)
+        //{
+        //    BasicHttpBinding myBinding = new BasicHttpBinding();
+        //    EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
+        //    ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+        //    IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+        //    return relay.GetAgentDetails(collectorAgentConfig);
+        //}
         #endregion
     }
 }
