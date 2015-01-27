@@ -10,6 +10,6 @@ namespace QuickMon.Collectors
     {
         public override string AgentType { get { return "WindowsServiceStateCollector"; } }
         public override ICollectorConfigEntryEditWindow DetailEditor { get { return new ServiceStateCollectorEditEntry(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

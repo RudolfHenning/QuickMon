@@ -23,6 +23,7 @@ namespace QuickMon.Forms
 
         private CollectorAgentsDetailViewer detailViewer = null;
 
+        #region Form events
         private void CollectorStatusViewer_Load(object sender, EventArgs e)
         {
             lvwProperties.AutoResizeColumnIndex = 1;
@@ -30,8 +31,22 @@ namespace QuickMon.Forms
             lvwStatistics.AutoResizeColumnIndex = 1;
             lvwStatistics.AutoResizeColumnEnabled = true;
             splitContainer1.Panel2Collapsed = true;
+        } 
+        private void CollectorStatusViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (detailViewer != null)
+                {
+                    detailViewer.Close();
+                    detailViewer = null;
+                }
+            }
+            catch { }
         }
+        #endregion
 
+        #region Public Methods
         public void RefreshStats()
         {
             if (SelectedCollectorHost != null)
@@ -92,7 +107,7 @@ namespace QuickMon.Forms
 
                 bool remoteHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
                 AddUpdateListViewItem(lvwProperties, "Remote agent host", "Enabled", remoteHostEnabled ? "Yes" : "No");
-                AddUpdateListViewItem(lvwProperties, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(),remoteHostEnabled);
+                AddUpdateListViewItem(lvwProperties, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(), remoteHostEnabled);
 
                 #region Polling metrics
                 //AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
@@ -152,11 +167,11 @@ namespace QuickMon.Forms
                 {
                     AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state time", "N/A");
                     AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state details", "N/A");
-                } 
+                }
                 #endregion
 
                 #region History
-                LoadCollectorStateHistory();                
+                LoadCollectorStateHistory();
                 #endregion
 
                 if (tabControl1.SelectedTab == currentStatusTabPage)
@@ -166,8 +181,91 @@ namespace QuickMon.Forms
                 else if (tabControl1.SelectedTab == statisticsTabPage)
                     UpdateDetailView(lvwStatistics);
             }
-        }
+        } 
+        #endregion
 
+        #region Button events
+        private void cmdRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshStats();
+        }
+        private void cmdViewDetails_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
+            cmdViewDetails.Text = splitContainer1.Panel2Collapsed ? "ttt" : "uuu";
+            splitContainer1.SplitterWidth = 8;
+        }
+        private void cmdCollectorHostDetailViewer_Click(object sender, EventArgs e)
+        {
+            if (detailViewer == null || !detailViewer.IsStillVisible())
+            {
+                detailViewer = new CollectorAgentsDetailViewer();
+                detailViewer.SelectedCollectorHost = SelectedCollectorHost;
+                detailViewer.Show();
+            }
+            else
+            {
+                if (detailViewer.WindowState == FormWindowState.Minimized)
+                    detailViewer.WindowState = FormWindowState.Normal;
+                detailViewer.Show();
+                detailViewer.TopMost = true;
+                detailViewer.TopMost = false;
+            }
+            detailViewer.RefreshViewer();
+        }
+        #endregion
+
+        #region ListView events
+        private void lvwProperties_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDetailView(lvwProperties);
+        }
+        private void lvwStatistics_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDetailView(lvwStatistics);
+        }
+        private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDetailViewHistory();
+        }
+        private void lvwAgents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateAgentsDetailView();
+        }
+        private void lvwAgents_DoubleClick(object sender, EventArgs e)
+        {
+            //Agent detail views
+            // 1. Display window/tool that shows the details of the same resource query type 
+            // 2. This calling window must retain some handle to the detail window so (1) only one instance is displayed and (2) it is closed when this window closes
+            // 3. The displayed window/view must be able to make use of the remote host functionality as well...
+
+            //if (SelectedCollectorHost!= null && lvwAgents.SelectedItems.Count == 1)
+            //{
+            //    ICollector agent = (ICollector)lvwAgents.SelectedItems[0].Tag;
+            //    IWinFormsUI agentUI = RegisteredAgentUIMapper.GetUIClass(agent);
+            //    bool remoteAgentHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
+            //    string remoteAgentHostAddress = SelectedCollectorHost.RemoteAgentHostAddress;
+            //    int remoteAgentHostPort = SelectedCollectorHost.RemoteAgentHostPort;
+            //    if (agentUI != null)
+            //    {
+            //        agentUI.ShowAgentDetails(agent); //, remoteAgentHostEnabled, remoteAgentHostAddress, remoteAgentHostPort);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("There is no registered viewer for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    }
+            //}
+        }
+        #endregion
+
+        #region Context menu event
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshStats();
+        }
+        #endregion
+
+        #region Private methods
         private void LoadAgentStates()
         {
             lvwAgents.Items.Clear();
@@ -197,7 +295,6 @@ namespace QuickMon.Forms
                 }
             }
         }
-
         private void LoadCollectorStateHistory()
         {
             ListViewItem lvi;
@@ -280,26 +377,6 @@ namespace QuickMon.Forms
             else
                 return date.ToString("yyyy-MM-dd HH:mm:ss");
         }
-
-        private void cmdRefresh_Click(object sender, EventArgs e)
-        {
-            RefreshStats();
-        }
-
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RefreshStats();
-        }
-
-        #region Button events
-        private void cmdViewDetails_Click(object sender, EventArgs e)
-        {
-            splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
-            cmdViewDetails.Text = splitContainer1.Panel2Collapsed ? "ttt" : "uuu";
-            splitContainer1.SplitterWidth = 8;
-        }
-        #endregion
-
         private void UpdateDetailView(ListView currentListView)
         {
             try
@@ -409,7 +486,7 @@ namespace QuickMon.Forms
                                 rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
                                 rtfBuilder.AppendLine(ca.CurrentState.ReadAllRawDetails());
                             }
-                            
+
                             rtfBuilder.AppendLine(new string('-', 80));
                         }
                     }
@@ -423,79 +500,8 @@ namespace QuickMon.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
+        } 
+        #endregion
 
-        private void lvwProperties_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateDetailView(lvwProperties);
-        }
-        private void lvwStatistics_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateDetailView(lvwStatistics);
-        }
-        private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateDetailViewHistory();
-        }
-        private void lvwAgents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateAgentsDetailView();
-        }
-        private void lvwAgents_DoubleClick(object sender, EventArgs e)
-        {
-            //Agent detail views
-            // 1. Display window/tool that shows the details of the same resource query type 
-            // 2. This calling window must retain some handle to the detail window so (1) only one instance is displayed and (2) it is closed when this window closes
-            // 3. The displayed window/view must be able to make use of the remote host functionality as well...
-
-            if (SelectedCollectorHost!= null && lvwAgents.SelectedItems.Count == 1)
-            {
-                ICollector agent = (ICollector)lvwAgents.SelectedItems[0].Tag;
-                IWinFormsUI agentUI = RegisteredAgentUIMapper.GetUIClass(agent);
-                bool remoteAgentHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
-                string remoteAgentHostAddress = SelectedCollectorHost.RemoteAgentHostAddress;
-                int remoteAgentHostPort = SelectedCollectorHost.RemoteAgentHostPort;
-                if (agentUI != null)
-                {
-                    agentUI.ShowAgentDetails(agent, remoteAgentHostEnabled, remoteAgentHostAddress, remoteAgentHostPort);
-                }
-                else
-                {
-                    MessageBox.Show("There is no registered viewer for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
-        }
-
-        private void cmdCollectorHostDetailViewer_Click(object sender, EventArgs e)
-        {
-            if (detailViewer == null || !detailViewer.IsStillVisible())
-            {
-                detailViewer = new CollectorAgentsDetailViewer();
-                detailViewer.SelectedCollectorHost = SelectedCollectorHost;
-                detailViewer.Show();
-            }
-            else
-            {
-                if (detailViewer.WindowState == FormWindowState.Minimized)
-                    detailViewer.WindowState = FormWindowState.Normal;
-                detailViewer.Show();
-                detailViewer.TopMost = true;
-                detailViewer.TopMost = false;
-            }
-            detailViewer.RefreshViewer();
-        }
-
-        private void CollectorStatusViewer_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                if (detailViewer != null)
-                {
-                    detailViewer.Close();
-                    detailViewer = null;
-                }
-            }
-            catch { }
-        }
     }
 }

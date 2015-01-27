@@ -10,6 +10,6 @@ namespace QuickMon.Notifiers
     {
         public override string AgentType { get { return "SMTPNotifier"; } }
         public override IAgentConfigEntryEditWindow DetailEditor { get { return new SMTPNotifierEdit(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

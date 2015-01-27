@@ -34,6 +34,23 @@ namespace QuickMon.UI
             }
             return uiClass;
         }
+        public static WinFormsUINotifierBase GetNotifierUIClass(INotifier agent)
+        {
+            WinFormsUINotifierBase uiClass = null;
+            if (agentsCache == null || agentsCache.Count == 0)
+            {
+                LoadCache();
+            }
+            WinFormsUIEntry winFormsUIEntry = (from w in agentsCache
+                                               where w.AgentClassName == agent.AgentClassName 
+                                               && w.UIClassName.ToLower().Contains("notifier")
+                                               select w).FirstOrDefault();
+            if (winFormsUIEntry != null)
+            {
+                uiClass = (WinFormsUINotifierBase)winFormsUIEntry.ContainingAssembly.CreateInstance(winFormsUIEntry.UIClassName);
+            }
+            return uiClass;
+        }
 
         private static void LoadCache()
         {

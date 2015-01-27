@@ -14,20 +14,20 @@ namespace QuickMon.UI
         public string AgentName { get; set; }
         public bool AgentEnabled { get; set; }
         public string SelectedAgentConfig { get; set; }
-        public abstract IAgentDetailWindow DetailViewWindow { get; }
+        //public abstract IAgentDetailWindow DetailViewWindow { get; }
         public abstract bool EditAgent();
         public abstract bool HasDetailView { get; }
-        public virtual void ShowAgentDetails(IAgent agent, bool remoteAgentHostEnabled, string remoteAgentHostAddress, int remoteAgentHostPort)
-        {
-            if (HasDetailView && DetailViewWindow != null && agent != null)
-            {
-                DetailViewWindow.SelectedAgent = agent;
-                DetailViewWindow.RemoteAgentHostEnabled = remoteAgentHostEnabled;
-                DetailViewWindow.RemoteAgentHostAddress = remoteAgentHostAddress;
-                DetailViewWindow.RemoteAgentHostPort = remoteAgentHostPort;
-                DetailViewWindow.ShowDetailWindow();
-            }
-        }
+        //public virtual void ShowAgentDetails(IAgent agent)
+        //{
+        //    if (HasDetailView && DetailViewWindow != null && agent != null)
+        //    {
+        //        DetailViewWindow.SelectedAgent = agent;
+        //        //DetailViewWindow.RemoteAgentHostEnabled = remoteAgentHostEnabled;
+        //        //DetailViewWindow.RemoteAgentHostAddress = remoteAgentHostAddress;
+        //        //DetailViewWindow.RemoteAgentHostPort = remoteAgentHostPort;
+        //        DetailViewWindow.ShowDetailWindow();
+        //    }
+        //}
     }
     public abstract class WinFormsUICollectorBase : WinFormsUIBase
     {
@@ -67,7 +67,6 @@ namespace QuickMon.UI
     public abstract class WinFormsUINotifierBase : WinFormsUIBase
     {
         public abstract IAgentConfigEntryEditWindow DetailEditor { get; }
-
         public override bool EditAgent()
         {
             INotifier agent = NotifierHost.CreateNotifierFromClassName(AgentType);
@@ -91,10 +90,10 @@ namespace QuickMon.UI
             }
             return false;
         }
-
         public override bool HasDetailView
         {
             get { return false; }
         }
+        public virtual INotivierViewer Viewer { get { return null; } }
     }
 }

@@ -10,6 +10,6 @@ namespace QuickMon.Collectors
     {
         public override string AgentType { get { return "WMIQueryCollector"; } }
         public override ICollectorConfigEntryEditWindow DetailEditor { get { return new WMIQueryCollectorEditEntry(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }
