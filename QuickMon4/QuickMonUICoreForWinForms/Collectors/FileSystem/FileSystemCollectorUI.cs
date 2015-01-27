@@ -10,6 +10,6 @@ namespace QuickMon.Collectors
     {
         public override string AgentType { get { return "FileSystemCollector"; } }
         public override ICollectorConfigEntryEditWindow DetailEditor { get { return new FileSystemCollectorEditFilterEntry(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

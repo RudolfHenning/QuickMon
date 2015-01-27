@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -75,7 +75,6 @@
             this.editNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.showDefaultNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAllNotifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.closeAllChildWindowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalSettingsToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -179,12 +178,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -271,6 +270,7 @@
             this.lvwNotifiers.TabIndex = 0;
             this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
             this.lvwNotifiers.View = System.Windows.Forms.View.List;
+            this.lvwNotifiers.SelectedIndexChanged += new System.EventHandler(this.lvwNotifiers_SelectedIndexChanged);
             this.lvwNotifiers.DoubleClick += new System.EventHandler(this.lvwNotifiers_DoubleClick);
             this.lvwNotifiers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvwNotifiers_MouseUp);
             // 
@@ -469,7 +469,7 @@
             this.aboutToolStripMenuItem1});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(291, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(260, 35);
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -543,7 +543,6 @@
             this.editNotifierToolStripMenuItem,
             this.removeNotifierToolStripMenuItem1,
             this.showDefaultNotifierToolStripMenuItem,
-            this.showAllNotifiersToolStripMenuItem,
             this.toolStripMenuItem2,
             this.closeAllChildWindowsToolStripMenuItem});
             this.agentsToolStripButton.Image = global::QuickMon.Properties.Resources.cubes3;
@@ -627,14 +626,6 @@
             this.showDefaultNotifierToolStripMenuItem.Text = "Show Default Notifier";
             this.showDefaultNotifierToolStripMenuItem.Click += new System.EventHandler(this.showDefaultNotifierToolStripMenuItem_Click);
             // 
-            // showAllNotifiersToolStripMenuItem
-            // 
-            this.showAllNotifiersToolStripMenuItem.Image = global::QuickMon.Properties.Resources.thunderbolt;
-            this.showAllNotifiersToolStripMenuItem.Name = "showAllNotifiersToolStripMenuItem";
-            this.showAllNotifiersToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.showAllNotifiersToolStripMenuItem.Text = "Show All Notifiers";
-            this.showAllNotifiersToolStripMenuItem.Click += new System.EventHandler(this.showAllNotifiersToolStripMenuItem_Click);
-            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
@@ -674,7 +665,7 @@
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(214, 34);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(202, 22);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -821,7 +812,6 @@
         private System.Windows.Forms.ToolStripMenuItem editNotifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeNotifierToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem showDefaultNotifierToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showAllNotifiersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem closeAllChildWindowsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSplitButton generalSettingsToolStripSplitButton;

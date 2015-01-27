@@ -10,6 +10,6 @@ namespace QuickMon.Collectors
     {
         public override string AgentType { get { return "PerfCounterCollector"; } }
         public override ICollectorConfigEntryEditWindow DetailEditor { get { return new PerfCounterCollectorEditEntry(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

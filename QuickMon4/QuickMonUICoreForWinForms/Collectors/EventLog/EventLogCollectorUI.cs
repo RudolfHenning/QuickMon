@@ -10,6 +10,6 @@ namespace QuickMon.Collectors
     {
         public override string AgentType { get { return "EventLogCollector"; } }
         public override ICollectorConfigEntryEditWindow DetailEditor { get { return new EventLogCollectorEditEntry(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

@@ -60,6 +60,7 @@ namespace QuickMon
         #endregion
 
         private List<CollectorStatusViewer> collectorStatusViews = new List<CollectorStatusViewer>();
+        private List<NotifierAgentListViewer> notifierDetailViews = new List<NotifierAgentListViewer>();
         #endregion
 
         #region TreeNodeImage contants
@@ -101,7 +102,7 @@ namespace QuickMon
             tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
             tvwCollectors.RootAlwaysExpanded = true;
             tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
-            lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
+            //lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
 
@@ -294,7 +295,7 @@ namespace QuickMon
         }
         private void lvwNotifiers_DoubleClick(object sender, EventArgs e)
         {
-            EditNotifierConfig();
+            ViewNotifierDetails();
         }
         private void lvwNotifiers_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -396,7 +397,7 @@ namespace QuickMon
             PausePolling();
             try
             {
-                CloseAllCollectorStatusViews();
+                CloseAllDetailWindows();
                 monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
                 monitorPack.ClosePerformanceCounters();
                 monitorPack = null;
@@ -442,7 +443,7 @@ namespace QuickMon
                 {
                     try
                     {
-                        CloseAllCollectorStatusViews();
+                        CloseAllDetailWindows();
                         WaitForPollingToFinish(5);
                         monitorPack.ClosePerformanceCounters();
                     }
@@ -1249,7 +1250,7 @@ namespace QuickMon
             foreach (CollectorStatusViewer collectorStatusView in viewsToRemove)
             {
                 collectorStatusViews.Remove(collectorStatusView);
-            }            
+            }
         }
         private void CloseAllCollectorStatusViews()
         {
@@ -1386,6 +1387,68 @@ namespace QuickMon
         }
         #endregion
 
+        #region Notifier Viewer actions
+        private void ViewNotifierDetails()
+        {
+            HideNotifierContextMenu();
+            if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+            {
+                NotifierHost currentNotifierHost = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
+                CleanNotifierViewers();
+                NotifierAgentListViewer notifierAgentListViewer = (from c in notifierDetailViews
+                                                                   where c.SelectedNotifierHost == currentNotifierHost &&
+                                                                        c.IsStillVisible()
+                                                                   select c).FirstOrDefault();
+                if (notifierAgentListViewer == null)
+                {
+                    notifierAgentListViewer = new NotifierAgentListViewer();
+                    notifierAgentListViewer.SelectedNotifierHost = currentNotifierHost;
+                    notifierDetailViews.Add(notifierAgentListViewer);
+                    notifierAgentListViewer.Show();
+                }
+                else
+                {
+                    if (notifierAgentListViewer.WindowState == FormWindowState.Minimized)
+                        notifierAgentListViewer.WindowState = FormWindowState.Normal;
+                    notifierAgentListViewer.Show();
+                    notifierAgentListViewer.TopMost = true;
+                    notifierAgentListViewer.TopMost = false;
+                }
+                notifierAgentListViewer.RefreshNotifierDetails();
+            }
+        }
+
+        private void CleanNotifierViewers()
+        {
+            if (notifierDetailViews == null)
+            {
+                notifierDetailViews = new List<NotifierAgentListViewer>();
+            }
+
+            List<NotifierAgentListViewer> viewsToRemove = (from v in notifierDetailViews
+                                                         where !v.IsStillVisible()
+                                                         select v).ToList();
+            foreach (NotifierAgentListViewer notifierDetailViewer in viewsToRemove)
+            {
+                notifierDetailViews.Remove(notifierDetailViewer);
+            }       
+        }
+        private void CloseAllNotifierViewers()
+        {
+            if (notifierDetailViews == null)
+            {
+                notifierDetailViews = new List<NotifierAgentListViewer>();
+            }
+            foreach (NotifierAgentListViewer notifierDetailViewer in (from v in notifierDetailViews
+                                                                   where v.IsStillVisible()
+                                                                   select v).ToList())
+            {
+                notifierDetailViewer.Close();
+            }
+            notifierDetailViews = new List<NotifierAgentListViewer>();
+        }
+        #endregion
+
         #region RecentMonitorPackList
         private void AddMonitorPackFileToRecentList(string monitorPackPath)
         {
@@ -1476,8 +1539,7 @@ namespace QuickMon
         }
         #endregion
 
-        #region Private methods
-       
+        #region Private methods       
         //private void SetPollingFrequency(bool enabledAfterWards = true)
         //{
         //    if (autoRefreshTimer != null)
@@ -1552,7 +1614,8 @@ namespace QuickMon
         }
         private void CloseAllDetailWindows()
         {
-        
+            CloseAllCollectorStatusViews();
+            CloseAllNotifierViewers();
         }
         private void UpdateAppTitle()
         {
@@ -1602,9 +1665,9 @@ namespace QuickMon
             poppedContainerForTreeView.cmdAddCollector.Click += new System.EventHandler(addCollectorToolStripMenuItem_Click);
             poppedContainerForTreeView.cmdEditCollector.Click += new System.EventHandler(editCollectorToolStripMenuItem_Click);
             poppedContainerForTreeView.cmdDisableCollector.Click += cmdDisableCollector_Click;
-            poppedContainerForTreeView.cmdDeleteCollector.Click += new System.EventHandler(removeCollectorToolStripMenuItem_Click);            
+            poppedContainerForTreeView.cmdDeleteCollector.Click += new System.EventHandler(removeCollectorToolStripMenuItem_Click);
 
-            //popedContainerForListView.cmdViewDetails.Click += new System.EventHandler(notifierViewerToolStripMenuItem_Click);
+            poppedContainerForListView.cmdViewDetails.Click += cmdShowNortifierViewer_Click; 
             poppedContainerForListView.cmdAddNotifier.Click += cmdAddNotifier_Click;
             poppedContainerForListView.cmdEditNotifier.Click += cmdEditNotifier_Click;
             poppedContainerForListView.cmdDisableNotifier.Click += cmdDisableNotifier_Click;
@@ -1681,7 +1744,7 @@ namespace QuickMon
             removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
 
             poppedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            poppedContainerForListView.cmdViewDetails.Enabled = lvwNotifiers.SelectedItems.Count > 0 && lvwNotifiers.SelectedItems[0].ImageIndex > 0;
+            poppedContainerForListView.cmdViewDetails.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             poppedContainerForListView.cmdEditNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             poppedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
             poppedContainerForListView.cmdDeleteNotifier.Enabled = lvwNotifiers.SelectedItems.Count > 0;
@@ -1793,6 +1856,10 @@ namespace QuickMon
         private void cmdViewDetails_Click(object sender, EventArgs e)
         {
             ViewCollectorDetails();
+        }
+        private void cmdShowNortifierViewer_Click(object sender, EventArgs e)
+        {
+            ViewNotifierDetails();
         }
         private void cmdDisableCollector_Click(object sender, EventArgs e)
         {
@@ -1928,13 +1995,9 @@ namespace QuickMon
         {
 
         }
-        private void showAllNotifiersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
         private void closeAllChildWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CloseAllCollectorStatusViews();
+            CloseAllDetailWindows();
         }
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {

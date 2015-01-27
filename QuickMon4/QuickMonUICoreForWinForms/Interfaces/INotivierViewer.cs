@@ -7,12 +7,8 @@ namespace QuickMon
 {
     public interface INotivierViewer
     {
-        void ShowNotifierViewer(INotifier notifier);
-        void RefreshConfig(INotifier notifier);
-        bool IsStillVisible();
-        void SetWindowTitle(string title);
-        void CloseWindow();
-        void LoadDisplayData();
-        void RefreshDisplayData();
+        INotifier SelectedNotifier { get; set; }
+        void ShowNotifierViewer();        
+        bool IsViewerStillVisible();
     }
 }

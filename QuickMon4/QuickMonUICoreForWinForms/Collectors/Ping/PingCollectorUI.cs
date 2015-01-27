@@ -10,6 +10,6 @@ namespace QuickMon.Collectors
     {
         public override string AgentType { get { return "PingCollector"; } }
         public override ICollectorConfigEntryEditWindow DetailEditor { get { return new PingCollectorEditHostAddress(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }

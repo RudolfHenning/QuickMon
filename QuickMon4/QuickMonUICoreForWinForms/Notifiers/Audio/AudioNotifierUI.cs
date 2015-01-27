@@ -10,6 +10,6 @@ namespace QuickMon.Notifiers.Audio
     {
         public override string AgentType { get { return "AudioNotifier"; } }
         public override IAgentConfigEntryEditWindow DetailEditor { get { return new AudioNotifierEdit(); } }
-        public override IAgentDetailWindow DetailViewWindow { get { return null; } }
+        //public override IAgentDetailWindow DetailViewWindow { get { return null; } }
     }
 }
