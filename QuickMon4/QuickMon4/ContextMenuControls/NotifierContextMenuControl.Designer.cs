@@ -32,11 +32,11 @@
             this.cmdViewDetails = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdEditNotifier = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblNotifierHeading = new System.Windows.Forms.Label();
+            this.notifierToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.cmdAddNotifier = new System.Windows.Forms.Button();
             this.cmdDeleteNotifier = new System.Windows.Forms.Button();
             this.cmdDisableNotifier = new System.Windows.Forms.Button();
+            this.lblNotifierHeading = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdViewDetails
@@ -50,8 +50,8 @@
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Size = new System.Drawing.Size(210, 43);
             this.cmdViewDetails.TabIndex = 2;
-            this.cmdViewDetails.Text = "View Details";
-            this.toolTip1.SetToolTip(this.cmdViewDetails, "View recorded alerts by this notifier ");
+            this.cmdViewDetails.Text = "View";
+            this.notifierToolTip.SetToolTip(this.cmdViewDetails, "View recorded alerts");
             this.cmdViewDetails.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -75,9 +75,54 @@
             this.cmdEditNotifier.Name = "cmdEditNotifier";
             this.cmdEditNotifier.Size = new System.Drawing.Size(210, 42);
             this.cmdEditNotifier.TabIndex = 3;
-            this.cmdEditNotifier.Text = "Edit Configuration";
-            this.toolTip1.SetToolTip(this.cmdEditNotifier, "Edit notifier configuration");
+            this.cmdEditNotifier.Text = "Edit";
+            this.notifierToolTip.SetToolTip(this.cmdEditNotifier, "Edit configuration");
             this.cmdEditNotifier.UseVisualStyleBackColor = true;
+            // 
+            // cmdAddNotifier
+            // 
+            this.cmdAddNotifier.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAddNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAddNotifier.Image = global::QuickMon.Properties.Resources.add;
+            this.cmdAddNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAddNotifier.Location = new System.Drawing.Point(4, 25);
+            this.cmdAddNotifier.Name = "cmdAddNotifier";
+            this.cmdAddNotifier.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.cmdAddNotifier.Size = new System.Drawing.Size(210, 41);
+            this.cmdAddNotifier.TabIndex = 4;
+            this.cmdAddNotifier.Text = "Add";
+            this.notifierToolTip.SetToolTip(this.cmdAddNotifier, "Add new");
+            this.cmdAddNotifier.UseVisualStyleBackColor = true;
+            // 
+            // cmdDeleteNotifier
+            // 
+            this.cmdDeleteNotifier.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdDeleteNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdDeleteNotifier.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.cmdDeleteNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDeleteNotifier.Location = new System.Drawing.Point(4, 178);
+            this.cmdDeleteNotifier.Name = "cmdDeleteNotifier";
+            this.cmdDeleteNotifier.Size = new System.Drawing.Size(210, 24);
+            this.cmdDeleteNotifier.TabIndex = 5;
+            this.cmdDeleteNotifier.Text = "Delete";
+            this.notifierToolTip.SetToolTip(this.cmdDeleteNotifier, "Delete");
+            this.cmdDeleteNotifier.UseVisualStyleBackColor = true;
+            // 
+            // cmdDisableNotifier
+            // 
+            this.cmdDisableNotifier.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdDisableNotifier.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdDisableNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdDisableNotifier.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
+            this.cmdDisableNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDisableNotifier.Location = new System.Drawing.Point(4, 151);
+            this.cmdDisableNotifier.Name = "cmdDisableNotifier";
+            this.cmdDisableNotifier.Padding = new System.Windows.Forms.Padding(2);
+            this.cmdDisableNotifier.Size = new System.Drawing.Size(210, 27);
+            this.cmdDisableNotifier.TabIndex = 6;
+            this.cmdDisableNotifier.Text = "Disable";
+            this.notifierToolTip.SetToolTip(this.cmdDisableNotifier, "Enable/Disable");
+            this.cmdDisableNotifier.UseVisualStyleBackColor = true;
             // 
             // lblNotifierHeading
             // 
@@ -94,51 +139,6 @@
             this.lblNotifierHeading.Text = "Notifier";
             this.lblNotifierHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblNotifierHeading.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblNotifierHeading_MouseDown);
-            // 
-            // cmdAddNotifier
-            // 
-            this.cmdAddNotifier.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdAddNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAddNotifier.Image = global::QuickMon.Properties.Resources.add;
-            this.cmdAddNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddNotifier.Location = new System.Drawing.Point(4, 25);
-            this.cmdAddNotifier.Name = "cmdAddNotifier";
-            this.cmdAddNotifier.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.cmdAddNotifier.Size = new System.Drawing.Size(210, 41);
-            this.cmdAddNotifier.TabIndex = 4;
-            this.cmdAddNotifier.Text = "Add new";
-            this.toolTip1.SetToolTip(this.cmdAddNotifier, "Add new notifier");
-            this.cmdAddNotifier.UseVisualStyleBackColor = true;
-            // 
-            // cmdDeleteNotifier
-            // 
-            this.cmdDeleteNotifier.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdDeleteNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdDeleteNotifier.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.cmdDeleteNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDeleteNotifier.Location = new System.Drawing.Point(4, 178);
-            this.cmdDeleteNotifier.Name = "cmdDeleteNotifier";
-            this.cmdDeleteNotifier.Size = new System.Drawing.Size(210, 24);
-            this.cmdDeleteNotifier.TabIndex = 5;
-            this.cmdDeleteNotifier.Text = "Delete";
-            this.toolTip1.SetToolTip(this.cmdDeleteNotifier, "Delete notifier");
-            this.cmdDeleteNotifier.UseVisualStyleBackColor = true;
-            // 
-            // cmdDisableNotifier
-            // 
-            this.cmdDisableNotifier.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdDisableNotifier.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdDisableNotifier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdDisableNotifier.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
-            this.cmdDisableNotifier.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDisableNotifier.Location = new System.Drawing.Point(4, 151);
-            this.cmdDisableNotifier.Name = "cmdDisableNotifier";
-            this.cmdDisableNotifier.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdDisableNotifier.Size = new System.Drawing.Size(210, 27);
-            this.cmdDisableNotifier.TabIndex = 6;
-            this.cmdDisableNotifier.Text = "Disable";
-            this.toolTip1.SetToolTip(this.cmdDisableNotifier, "Enable/Disable");
-            this.cmdDisableNotifier.UseVisualStyleBackColor = true;
             // 
             // NotifierContextMenuControl
             // 
@@ -164,10 +164,10 @@
         public System.Windows.Forms.Button cmdViewDetails;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Button cmdEditNotifier;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label lblNotifierHeading;
+        public System.Windows.Forms.Label lblNotifierHeading;
         public System.Windows.Forms.Button cmdAddNotifier;
         public System.Windows.Forms.Button cmdDeleteNotifier;
         public System.Windows.Forms.Button cmdDisableNotifier;
+        public System.Windows.Forms.ToolTip notifierToolTip;
     }
 }

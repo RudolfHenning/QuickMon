@@ -206,6 +206,7 @@ namespace QuickMon
         {
             if (CollectorHost_AlertRaised_NoStateChanged != null)
                 CollectorHost_AlertRaised_NoStateChanged(collectorHost);
+            SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collectorHost);
         } 
         private void collectorHost_AllAgentsExecutionTime(CollectorHost collectorHost, long msTime)
         {

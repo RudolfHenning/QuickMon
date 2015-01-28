@@ -96,5 +96,10 @@ namespace QuickMon.UI
         {
             RefreshDisplayData();
         }
+        
+        public void CloseViewer()
+        {
+            Close();
+        }
     }
 }

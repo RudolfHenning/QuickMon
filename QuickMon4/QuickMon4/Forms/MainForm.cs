@@ -60,7 +60,8 @@ namespace QuickMon
         #endregion
 
         private List<CollectorStatusViewer> collectorStatusViews = new List<CollectorStatusViewer>();
-        private List<NotifierAgentListViewer> notifierDetailViews = new List<NotifierAgentListViewer>();
+        private List<INotivierViewer> agentDetailViews = new List<INotivierViewer>();
+        //private List<NotifierAgentListViewer> notifierDetailViews = new List<NotifierAgentListViewer>();
         #endregion
 
         #region TreeNodeImage contants
@@ -101,7 +102,8 @@ namespace QuickMon
             tvwCollectors.TreeNodeMoved += tvwCollectors_TreeNodeMoved;
             tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
             tvwCollectors.RootAlwaysExpanded = true;
-            tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
+            //tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
+            tvwNotifiers.RootAlwaysExpanded = true;
             //lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
@@ -215,24 +217,24 @@ namespace QuickMon
                 //collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
             }
         }
-        private void tvwCollectors_ContextMenuShowUp()
-        {
-            Point topabsolute = this.PointToScreen(tvwCollectors.Location);
-            Point topRelative = this.PointToClient(tvwCollectors.Location);
-            Point calcPoint;
-            if (tvwCollectors.SelectedNode != null)
-            {
-                calcPoint = new Point(tvwCollectors.Location.X + tvwCollectors.SelectedNode.Bounds.Location.X, GetControlLocationWithinParent(tvwCollectors).Y + tvwCollectors.SelectedNode.Bounds.Location.Y + 20 - this.Top);
-            }
-            else
-            {
-                calcPoint = new Point(tvwCollectors.Location.X + (tvwCollectors.Width / 2), tvwCollectors.Location.Y + (tvwCollectors.Height / 2));
-            }
-            CheckCollectorContextMenuEnables();
-            collectorContextMenuLaunchPoint = calcPoint;
-            showCollectorContextMenuTimer.Enabled = false;
-            showCollectorContextMenuTimer.Enabled = true;
-        }
+        //private void tvwCollectors_ContextMenuShowUp()
+        //{
+        //    Point topabsolute = this.PointToScreen(tvwCollectors.Location);
+        //    Point topRelative = this.PointToClient(tvwCollectors.Location);
+        //    Point calcPoint;
+        //    if (tvwCollectors.SelectedNode != null)
+        //    {
+        //        calcPoint = new Point(tvwCollectors.Location.X + tvwCollectors.SelectedNode.Bounds.Location.X, GetControlLocationWithinParent(tvwCollectors).Y + tvwCollectors.SelectedNode.Bounds.Location.Y + 20 - this.Top);
+        //    }
+        //    else
+        //    {
+        //        calcPoint = new Point(tvwCollectors.Location.X + (tvwCollectors.Width / 2), tvwCollectors.Location.Y + (tvwCollectors.Height / 2));
+        //    }
+        //    CheckCollectorContextMenuEnables();
+        //    collectorContextMenuLaunchPoint = calcPoint;
+        //    showCollectorContextMenuTimer.Enabled = false;
+        //    showCollectorContextMenuTimer.Enabled = true;
+        //}
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
             CheckCollectorContextMenuEnables();            
@@ -278,26 +280,25 @@ namespace QuickMon
         }
         #endregion
 
-        #region Notifier ListView events
-        private void lvwNotifiers_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                showNotifierContextMenuTimer.Enabled = false;
-                showNotifierContextMenuTimer.Enabled = true;
-
-                Point topabsolute = this.PointToScreen(panel1.Location);
-                Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
-                Point calcPoint = new Point(Cursor.Position.X - lvwNotifiers.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
-                notifierContextMenuLaunchPoint = calcPoint;
-                CheckNotifierContextMenuEnables();
-            }
-        }
-        private void lvwNotifiers_DoubleClick(object sender, EventArgs e)
+        #region Notifier TreeView events
+        private void tvwNotifiers_DoubleClick(object sender, EventArgs e)
         {
             ViewNotifierDetails();
         }
-        private void lvwNotifiers_SelectedIndexChanged(object sender, EventArgs e)
+        private void tvwNotifiers_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point topabsolute = this.PointToScreen(panel1.Location);
+                Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
+                Point calcPoint = new Point(Cursor.Position.X - tvwNotifiers.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
+                notifierContextMenuLaunchPoint = calcPoint;
+                CheckNotifierContextMenuEnables();
+                showNotifierContextMenuTimer.Enabled = false;
+                showNotifierContextMenuTimer.Enabled = true;
+            }
+        }
+        private void tvwNotifiers_AfterSelect(object sender, TreeViewEventArgs e)
         {
             CheckNotifierContextMenuEnables();
         }
@@ -496,18 +497,17 @@ namespace QuickMon
             #endregion
 
             #region Load Notifiers
-            lvwNotifiers.Items.Clear();
+            TreeNode notifierRoot = tvwNotifiers.Nodes[0];
+            notifierRoot.Nodes.Clear();
             if (monitorPack != null && monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
             {
                 foreach (NotifierHost n in monitorPack.NotifierHosts)
                 {
-                    ListViewItem lvi = new ListViewItem(n.Name);
-                    lvi.ImageIndex = 0; // (n..Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
-                    lvi.Tag = n;
-                    lvi.ForeColor = n.Enabled ? SystemColors.WindowText : Color.Gray;
-                    lvwNotifiers.Items.Add(lvi);
+                    LoadNotifierNode(n);                    
                 }
             }
+            notifierRoot.Expand();
+
             lblNoNotifiersYet.Visible = monitorPack.NotifierHosts.Count == 0;
             #endregion
 
@@ -558,6 +558,58 @@ namespace QuickMon
             root.Nodes.Add(collectorNode);
             if (collector.Enabled && collector.ExpandOnStart)
                 collectorNode.Expand();
+        }
+        private void LoadNotifierNode(NotifierHost n)
+        {
+            TreeNode notifierRoot = tvwNotifiers.Nodes[0];
+            TreeNode notifierHostNode = new TreeNode(n.Name);
+            if (n.Enabled)
+            {
+                notifierHostNode.ImageIndex = 1;
+            }
+            else
+            {
+                notifierHostNode.ImageIndex = 2;
+            }
+            notifierHostNode.SelectedImageIndex = notifierHostNode.ImageIndex;
+            notifierHostNode.Tag = n;            
+            LoadNotifierAgents(notifierHostNode, n);
+            notifierRoot.Nodes.Add(notifierHostNode);
+        }
+        private void LoadNotifierAgents(TreeNode notifierHostNode,NotifierHost n)
+        {
+            foreach (INotifier nAgent in n.NotifierAgents)
+            {
+ 	            TreeNode notifierAgentNode = new TreeNode(nAgent.Name);
+                try
+                {
+                    if (RegisteredAgentUIMapper.HasAgentViewer(nAgent))
+                        notifierAgentNode.ImageIndex = 3;
+                    else
+                        notifierAgentNode.ImageIndex = 4;
+                    //WinFormsUINotifierBase agentUI = RegisteredAgentUIMapper.GetNotifierUIClass(nAgent);
+                    //if (agentUI == null)
+                    //{
+                    //    notifierAgentNode.ImageIndex = 4;
+                    //}
+                    //else if (!agentUI.HasDetailView)
+                    //{
+                    //    notifierAgentNode.ImageIndex = 4;
+                    //}
+                    //else
+                    //{
+                    //    notifierAgentNode.ImageIndex = 3;
+                    //}
+                }
+                catch
+                {
+                    notifierAgentNode.ImageIndex = 4;
+                }
+                notifierAgentNode.SelectedImageIndex = notifierAgentNode.ImageIndex;
+                notifierAgentNode.Tag = nAgent;
+                notifierHostNode.Nodes.Add(notifierAgentNode);
+            }
+            notifierHostNode.Expand();            
         }
         private void EditMonitorSettings()
         {
@@ -1276,22 +1328,59 @@ namespace QuickMon
                 PausePolling();
             try
             {
-                NotifierHost newNotifierHost = new NotifierHost();
-                EditNotifierHost editNotifierHost = new EditNotifierHost();
-
-                if (editNotifierHost.ShowDialog(newNotifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                if (tvwNotifiers.SelectedNode != null && (tvwNotifiers.SelectedNode.Tag is NotifierHost ||  tvwNotifiers.SelectedNode.Tag is INotifier))
                 {
-                    SetMonitorChanged();
-                    newNotifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
-                    monitorPack.AddNotifierHost(newNotifierHost);
+                    NotifierHost parentNotifierHost;
+                    if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                        parentNotifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                    else
+                        parentNotifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;
 
-                    ListViewItem lvi = new ListViewItem(newNotifierHost.Name);
-                    lvi.ImageIndex = 0; // (n..Notifier != null && n.Notifier.HasViewer) ? 1 : 0;
-                    lvi.Tag = newNotifierHost;
-                    lvi.ForeColor = newNotifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
-                    lvwNotifiers.Items.Add(lvi);
+                    SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+                    if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
+                        IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                        if (agentEditor != null)
+                        {
+                            agentEditor.AgentName = agent.Name;
+                            agentEditor.AgentEnabled = true;
+                            agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                            if (agentEditor.EditAgent())
+                            {
+                                SetMonitorChanged();
+                                agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                                agent.Name = agentEditor.AgentName;
+                                agent.Enabled = agentEditor.AgentEnabled;
+                                agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
 
-                    DoAutoSave();
+                                parentNotifierHost.NotifierAgents.Add(agent);
+                                if (tvwNotifiers.SelectedNode.Tag is INotifier)
+                                    tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
+                                tvwNotifiers.SelectedNode.Nodes.Clear();
+                                LoadNotifierAgents(tvwNotifiers.SelectedNode, parentNotifierHost);
+                                DoAutoSave();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                    }
+                }
+                else
+                {
+                    NotifierHost newNotifierHost = new NotifierHost();
+                    EditNotifierHost editNotifierHost = new EditNotifierHost();
+                    if (editNotifierHost.ShowDialog(newNotifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        SetMonitorChanged();
+                        newNotifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
+                        monitorPack.AddNotifierHost(newNotifierHost);
+
+                        LoadNotifierNode(newNotifierHost);
+                        DoAutoSave();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1307,25 +1396,106 @@ namespace QuickMon
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
                 PausePolling();
             try
-            {
-                if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+            {                
+                if (tvwNotifiers.SelectedNode != null && tvwNotifiers.Nodes[0] != tvwNotifiers.SelectedNode)
                 {
-                    ListViewItem lvi = lvwNotifiers.SelectedItems[0];
-                    NotifierHost notifierHost = (NotifierHost)lvi.Tag;
-                    EditNotifierHost editNotifierHost = new EditNotifierHost();
-                    if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
-                    {                    
-                        SetMonitorChanged();
-                        notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
-                        //currentNode.Tag = collectorEntry;
-                        lvi.Text = notifierHost.Name;
-                        lvi.Tag = notifierHost;
-                        lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
+                    if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                    {
+                        NotifierHost notifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                        EditNotifierHost editNotifierHost = new EditNotifierHost();
+                        if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                        {
+                            SetMonitorChanged();
+                            notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
 
-                        //if autosaving is enabled
-                        DoAutoSave();
+                            if (tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
+                                tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
+                            if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                            {
+                                tvwNotifiers.SelectedNode.Text = notifierHost.Name;
+                                tvwNotifiers.SelectedNode.Nodes.Clear();
+                                LoadNotifierAgents(tvwNotifiers.SelectedNode, notifierHost);
+                            }
+                            DoAutoSave();
+                        }
                     }
+                    else if (tvwNotifiers.SelectedNode.Tag is INotifier)
+                    {
+                        INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                        IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                        if (agentEditor != null)
+                        {
+                            SetMonitorChanged();
+                            agentEditor.AgentName = agent.Name;
+                            agentEditor.AgentEnabled = agent.Enabled;
+                            agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                            if (agentEditor.EditAgent())
+                            {
+
+                                agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                                agent.Name = agentEditor.AgentName;
+                                agent.Enabled = agentEditor.AgentEnabled;
+                                agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+                                tvwNotifiers.SelectedNode.Text = agent.Name;
+                                if (agent.Enabled)
+                                {
+                                    if (RegisteredAgentUIMapper.HasAgentViewer(agent))
+                                        tvwNotifiers.SelectedNode.ImageIndex = 3;
+                                    else
+                                        tvwNotifiers.SelectedNode.ImageIndex = 4;
+                                }
+                                else
+                                {
+                                    tvwNotifiers.SelectedNode.ImageIndex = 4;
+                                }
+                                tvwNotifiers.SelectedNode.SelectedImageIndex = tvwNotifiers.SelectedNode.ImageIndex;
+                                DoAutoSave();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                    }
+
+                    //if (notifierHost != null)
+                    //{
+                    //    EditNotifierHost editNotifierHost = new EditNotifierHost();
+                    //    if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                    //    {
+                    //        SetMonitorChanged();
+                    //        notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
+
+                    //        if (tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
+                    //            tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
+                    //        if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                    //        {
+                    //            tvwNotifiers.SelectedNode.Text = notifierHost.Name;
+                    //            tvwNotifiers.SelectedNode.Nodes.Clear();
+                    //            LoadNotifierAgents(tvwNotifiers.SelectedNode, notifierHost);
+                    //        }
+                    //    }
+                    //}
                 }
+
+                ////if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+                ////{
+                ////    ListViewItem lvi = lvwNotifiers.SelectedItems[0];
+                ////    NotifierHost notifierHost = (NotifierHost)lvi.Tag;
+                ////    EditNotifierHost editNotifierHost = new EditNotifierHost();
+                ////    if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
+                ////    {                    
+                ////        SetMonitorChanged();
+                ////        notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
+                ////        //currentNode.Tag = collectorEntry;
+                ////        lvi.Text = notifierHost.Name;
+                ////        lvi.Tag = notifierHost;
+                ////        lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
+
+                ////        //if autosaving is enabled
+                ////        DoAutoSave();
+                ////    }
+                ////}
             }
             catch (Exception ex)
             {
@@ -1339,24 +1509,54 @@ namespace QuickMon
             HideNotifierContextMenu();
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
                 PausePolling();
-            if (lvwNotifiers.SelectedItems.Count > 0)
+            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.Nodes[0] != tvwNotifiers.SelectedNode)
             {
-                if (MessageBox.Show("Are you sure you want to remove the selected notifier(s)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
                 {
-                    SetMonitorChanged();
-                    foreach(ListViewItem lvi in lvwNotifiers.SelectedItems)
+                    if (MessageBox.Show("Are you sure you want to remove the selected notifier?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        if (lvi.Tag is NotifierHost)
-                        {
-                            NotifierHost removedItem = (NotifierHost)lvi.Tag;
-                            monitorPack.NotifierHosts.Remove(removedItem);
-                            lvwNotifiers.Items.Remove(lvi);
-                        }
+                        SetMonitorChanged();
+                        NotifierHost removedItem = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                        monitorPack.NotifierHosts.Remove(removedItem);
+                        tvwNotifiers.Nodes[0].Nodes.Remove(tvwNotifiers.SelectedNode);
+                        RefreshMonitorPack(true, true);
+                        DoAutoSave();
                     }
-                    RefreshMonitorPack(true, true);
-                    DoAutoSave();
+                }                
+                else if (tvwNotifiers.SelectedNode.Tag is INotifier)
+                {
+                    if (MessageBox.Show("Are you sure you want to remove the selected notifier agent?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        SetMonitorChanged();
+                        NotifierHost removedItem = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;
+                        INotifier removedAgent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                        removedItem.NotifierAgents.Remove(removedAgent);
+                        tvwNotifiers.SelectedNode.Parent.Nodes.Remove(tvwNotifiers.SelectedNode);
+                        tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
+                        RefreshMonitorPack(true, true);
+                        DoAutoSave();
+                    }
                 }
             }
+
+            //if (lvwNotifiers.SelectedItems.Count > 0)
+            //{
+            //    if (MessageBox.Show("Are you sure you want to remove the selected notifier(s)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            //    {
+            //        SetMonitorChanged();
+            //        foreach(ListViewItem lvi in lvwNotifiers.SelectedItems)
+            //        {
+            //            if (lvi.Tag is NotifierHost)
+            //            {
+            //                NotifierHost removedItem = (NotifierHost)lvi.Tag;
+            //                monitorPack.NotifierHosts.Remove(removedItem);
+            //                lvwNotifiers.Items.Remove(lvi);
+            //            }
+            //        }
+            //        RefreshMonitorPack(true, true);
+            //        DoAutoSave();
+            //    }
+            //}
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
                 ResumePolling();
         }
@@ -1366,17 +1566,57 @@ namespace QuickMon
             PausePolling();
             try
             {
-                if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+                if (tvwNotifiers.SelectedNode != null && tvwNotifiers.Nodes[0] != tvwNotifiers.SelectedNode)
                 {
-                    SetMonitorChanged();
-                    ListViewItem lvi = lvwNotifiers.SelectedItems[0];
-                    NotifierHost notifierHost = (NotifierHost)lvi.Tag;
-                    notifierHost.Enabled = !notifierHost.Enabled;
-                    lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
-                    CheckNotifierContextMenuEnables();
-                    //if autosaving is enabled
-                    DoAutoSave();
+                    if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                    {
+                        SetMonitorChanged();
+                        NotifierHost item = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                        item.Enabled = !item.Enabled;
+                        if (item.Enabled)
+                        {
+                            tvwNotifiers.SelectedNode.ImageIndex = 1;
+                        }
+                        else
+                        {
+                            tvwNotifiers.SelectedNode.ImageIndex = 2;
+                        }
+                        tvwNotifiers.SelectedNode.SelectedImageIndex = tvwNotifiers.SelectedNode.ImageIndex;
+                        DoAutoSave();
+                    }
+                    else if (tvwNotifiers.SelectedNode.Tag is INotifier)
+                    {
+                        SetMonitorChanged();
+                        INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                        agent.Enabled = !agent.Enabled;
+                        if (agent.Enabled)
+                        {
+                            if (RegisteredAgentUIMapper.HasAgentViewer(agent))
+                                tvwNotifiers.SelectedNode.ImageIndex = 3;
+                            else
+                                tvwNotifiers.SelectedNode.ImageIndex = 4;
+                        }
+                        else
+                        {
+                            tvwNotifiers.SelectedNode.ImageIndex = 4;
+                        }
+                        tvwNotifiers.SelectedNode.SelectedImageIndex = tvwNotifiers.SelectedNode.ImageIndex;
+                        DoAutoSave();
+                    }
                 }
+
+
+                //if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+                //{
+                //    SetMonitorChanged();
+                //    ListViewItem lvi = lvwNotifiers.SelectedItems[0];
+                //    NotifierHost notifierHost = (NotifierHost)lvi.Tag;
+                //    notifierHost.Enabled = !notifierHost.Enabled;
+                //    lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
+                //    CheckNotifierContextMenuEnables();
+                //    //if autosaving is enabled
+                //    DoAutoSave();
+                //}
             }
             catch (Exception ex)
             {
@@ -1391,61 +1631,97 @@ namespace QuickMon
         private void ViewNotifierDetails()
         {
             HideNotifierContextMenu();
-            if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.Nodes[0] != tvwNotifiers.SelectedNode && tvwNotifiers.SelectedNode.Tag is INotifier)
             {
-                NotifierHost currentNotifierHost = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
+                INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
                 CleanNotifierViewers();
-                NotifierAgentListViewer notifierAgentListViewer = (from c in notifierDetailViews
-                                                                   where c.SelectedNotifierHost == currentNotifierHost &&
-                                                                        c.IsStillVisible()
-                                                                   select c).FirstOrDefault();
-                if (notifierAgentListViewer == null)
-                {
-                    notifierAgentListViewer = new NotifierAgentListViewer();
-                    notifierAgentListViewer.SelectedNotifierHost = currentNotifierHost;
-                    notifierDetailViews.Add(notifierAgentListViewer);
-                    notifierAgentListViewer.Show();
-                }
-                else
-                {
-                    if (notifierAgentListViewer.WindowState == FormWindowState.Minimized)
-                        notifierAgentListViewer.WindowState = FormWindowState.Normal;
-                    notifierAgentListViewer.Show();
-                    notifierAgentListViewer.TopMost = true;
-                    notifierAgentListViewer.TopMost = false;
-                }
-                notifierAgentListViewer.RefreshNotifierDetails();
-            }
-        }
+                INotivierViewer currentNotivierViewer = (from v in agentDetailViews
+                                                         where v.SelectedNotifier == agent
+                                                         select v).FirstOrDefault();
 
+                //if (currentNotivierViewer != null && !currentNotivierViewer.IsViewerStillVisible())
+                //{
+                //    agentDetailViews.Remove(currentNotivierViewer);
+                //    currentNotivierViewer = null;
+                //}
+
+                if (currentNotivierViewer == null)
+                {
+                    WinFormsUINotifierBase agentUI = RegisteredAgentUIMapper.GetNotifierUIClass(agent);
+                    if (agentUI != null && agentUI.HasDetailView)
+                    {
+                        currentNotivierViewer = agentUI.Viewer;
+                        currentNotivierViewer.SelectedNotifier = agent;
+                        agentDetailViews.Add(currentNotivierViewer);
+                    }
+                }
+                if (currentNotivierViewer != null)
+                    currentNotivierViewer.ShowNotifierViewer();
+            }
+
+
+            //if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
+            //{
+            //    NotifierHost currentNotifierHost = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
+            //    CleanNotifierViewers();
+            //    NotifierAgentListViewer notifierAgentListViewer = (from c in notifierDetailViews
+            //                                                       where c.SelectedNotifierHost == currentNotifierHost &&
+            //                                                            c.IsStillVisible()
+            //                                                       select c).FirstOrDefault();
+            //    if (notifierAgentListViewer == null)
+            //    {
+            //        notifierAgentListViewer = new NotifierAgentListViewer();
+            //        notifierAgentListViewer.SelectedNotifierHost = currentNotifierHost;
+            //        notifierDetailViews.Add(notifierAgentListViewer);
+            //        notifierAgentListViewer.Show();
+            //    }
+            //    else
+            //    {
+            //        if (notifierAgentListViewer.WindowState == FormWindowState.Minimized)
+            //            notifierAgentListViewer.WindowState = FormWindowState.Normal;
+            //        notifierAgentListViewer.Show();
+            //        notifierAgentListViewer.TopMost = true;
+            //        notifierAgentListViewer.TopMost = false;
+            //    }
+            //    notifierAgentListViewer.RefreshNotifierDetails();
+            //}
+        }
         private void CleanNotifierViewers()
         {
-            if (notifierDetailViews == null)
+            if (agentDetailViews == null)
             {
-                notifierDetailViews = new List<NotifierAgentListViewer>();
+                agentDetailViews = new List<INotivierViewer>();
+                //notifierDetailViews = new List<NotifierAgentListViewer>();
+            }
+            List<INotivierViewer> viewsToRemove = (from v in agentDetailViews
+                                                   where !v.IsViewerStillVisible()
+                                                   select v).ToList();
+            foreach(INotivierViewer viewer in viewsToRemove)
+            {
+                agentDetailViews.Remove(viewer);
             }
 
-            List<NotifierAgentListViewer> viewsToRemove = (from v in notifierDetailViews
-                                                         where !v.IsStillVisible()
-                                                         select v).ToList();
-            foreach (NotifierAgentListViewer notifierDetailViewer in viewsToRemove)
-            {
-                notifierDetailViews.Remove(notifierDetailViewer);
-            }       
+            //List<NotifierAgentListViewer> viewsToRemove = (from v in notifierDetailViews
+            //                                             where !v.IsStillVisible()
+            //                                             select v).ToList();
+            //foreach (NotifierAgentListViewer notifierDetailViewer in viewsToRemove)
+            //{
+            //    notifierDetailViews.Remove(notifierDetailViewer);
+            //}       
         }
         private void CloseAllNotifierViewers()
         {
-            if (notifierDetailViews == null)
+            if (agentDetailViews == null)
             {
-                notifierDetailViews = new List<NotifierAgentListViewer>();
+                agentDetailViews = new List<INotivierViewer>();
             }
-            foreach (NotifierAgentListViewer notifierDetailViewer in (from v in notifierDetailViews
-                                                                   where v.IsStillVisible()
+            foreach (INotivierViewer viewer in (from v in agentDetailViews
+                                                                   where v.IsViewerStillVisible()
                                                                    select v).ToList())
             {
-                notifierDetailViewer.Close();
+                viewer.CloseViewer();
             }
-            notifierDetailViews = new List<NotifierAgentListViewer>();
+            agentDetailViews = new List<INotivierViewer>();
         }
         #endregion
 
@@ -1540,20 +1816,6 @@ namespace QuickMon
         #endregion
 
         #region Private methods       
-        //private void SetPollingFrequency(bool enabledAfterWards = true)
-        //{
-        //    if (autoRefreshTimer != null)
-        //        autoRefreshTimer.Enabled = false;
-        //    autoRefreshTimer = null;
-
-        //    autoRefreshTimer = new Timer();
-            
-        //    if (Properties.Settings.Default.OverridesMonitorPackFrequency || monitorPack == null || monitorPack.PollingFrequencyOverrideSec == 0)
-        //        autoRefreshTimer.Interval = Properties.Settings.Default.PollFrequencySec * 1000;
-        //    else
-        //        autoRefreshTimer.Interval = monitorPack.PollingFrequencyOverrideSec * 1000;
-        //    autoRefreshTimer.Enabled = enabledAfterWards;
-        //}
         private bool PerformCleanShutdown(bool abortAllowed = false)
         {
             bool notAborted = true;
@@ -1729,25 +1991,66 @@ namespace QuickMon
         private void CheckNotifierContextMenuEnables()
         {
             NotifierHost entry = null;
-            if (lvwNotifiers.SelectedItems.Count > 0)
+            INotifier agent = null;
+            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.Nodes[0] != tvwNotifiers.SelectedNode )
             {
-                entry = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
+                if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                {
+                    entry = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                }
+                else if (tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
+                {
+                    entry = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;
+                    agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                }  
+            }  
+            if (entry == null)
+            {
+                addNotifierToolStripMenuItem.Text = "Add Notifier";
+                editNotifierToolStripMenuItem.Text = "Edit Notifier";
+                removeNotifierToolStripMenuItem1.Text = "Delete Notifier";
+                poppedContainerForListView.lblNotifierHeading.Text = "Notifier";
+                poppedContainerForListView.cmdDisableNotifier.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
+                poppedContainerForListView.cmdDisableNotifier.Text = "Disable";
+                poppedContainerForListView.cmdAddNotifier.Text = "Add Notifier";
+                poppedContainerForListView.cmdEditNotifier.Text = "Edit Notifier";
+                poppedContainerForListView.cmdViewDetails.Text = "View";
+                poppedContainerForListView.cmdDeleteNotifier.Text = "Delete Notifier";
+            }
+            else if (entry != null && agent == null)
+            {
+                addNotifierToolStripMenuItem.Text = "Add Notifier Agent";
+                editNotifierToolStripMenuItem.Text = "Edit Notifier";
+                removeNotifierToolStripMenuItem1.Text = "Delete Notifier";
+                poppedContainerForListView.lblNotifierHeading.Text = "Notifier";
                 poppedContainerForListView.cmdDisableNotifier.Image = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
-                poppedContainerForListView.cmdDisableNotifier.Text = entry.Enabled ? "Disable" : "Enabled";
+                poppedContainerForListView.cmdDisableNotifier.Text = entry.Enabled ? "Disable Notifier" : "Enable Notifier";
+                poppedContainerForListView.cmdAddNotifier.Text = "Add Notifier";
+                poppedContainerForListView.cmdEditNotifier.Text = "Edit Notifier";
+                poppedContainerForListView.cmdViewDetails.Text = "View";
+                poppedContainerForListView.cmdDeleteNotifier.Text = "Delete Notifier";
             }
             else
             {
-                poppedContainerForListView.cmdDisableNotifier.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
-                poppedContainerForListView.cmdDisableNotifier.Text = "Disable";
+                addNotifierToolStripMenuItem.Text = "Add Notifier Agent";
+                editNotifierToolStripMenuItem.Text = "Edit Notifier Agent";
+                removeNotifierToolStripMenuItem1.Text = "Delete Notifier Agent";
+                poppedContainerForListView.lblNotifierHeading.Text = "Notifier Agent";
+                poppedContainerForListView.cmdDisableNotifier.Image = agent.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
+                poppedContainerForListView.cmdDisableNotifier.Text = agent.Enabled ? "Disable Agent" : "Enable Agent";
+                poppedContainerForListView.cmdAddNotifier.Text = "Add Agent";
+                poppedContainerForListView.cmdEditNotifier.Text = "Edit Agent";
+                poppedContainerForListView.cmdViewDetails.Text = "View Agent";
+                poppedContainerForListView.cmdDeleteNotifier.Text = "Delete Agent";
             }
-            editNotifierToolStripMenuItem.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            removeNotifierToolStripMenuItem1.Enabled = lvwNotifiers.SelectedItems.Count > 0;
 
-            poppedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            poppedContainerForListView.cmdViewDetails.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            poppedContainerForListView.cmdEditNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            poppedContainerForListView.cmdDisableNotifier.Enabled = lvwNotifiers.SelectedItems.Count == 1;
-            poppedContainerForListView.cmdDeleteNotifier.Enabled = lvwNotifiers.SelectedItems.Count > 0;
+            editNotifierToolStripMenuItem.Enabled = entry != null;
+            removeNotifierToolStripMenuItem1.Enabled = entry != null;
+            poppedContainerForListView.cmdDisableNotifier.Enabled = entry != null;
+            poppedContainerForListView.cmdViewDetails.Enabled = agent != null && RegisteredAgentUIMapper.HasAgentViewer(agent);
+            poppedContainerForListView.cmdEditNotifier.Enabled = entry != null;
+            poppedContainerForListView.cmdDisableNotifier.Enabled = entry != null;
+            poppedContainerForListView.cmdDeleteNotifier.Enabled = entry != null;
         }
 
         private void CopySelectedCollectorAndDependants()
@@ -2246,7 +2549,7 @@ namespace QuickMon
 #endif
         }
 
-
+        
 
     }
 }

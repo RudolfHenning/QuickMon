@@ -20,7 +20,7 @@ namespace QuickMon.Controls
             : base()
         {
             DoubleBuffered = true;
-            AllowDrop = true;
+            //AllowDrop = true;
             DragColor = Color.Aquamarine;
             EnableAutoScrollToSelectedNode = false;
             AutoScrollToSelectedNodeWaitTimeMS = 500;
@@ -40,6 +40,7 @@ namespace QuickMon.Controls
         public bool RootAlwaysExpanded { get; set; }
         public bool DisableExpandOnDoubleClick { get; set; }
         public bool DisableCollapseOnDoubleClick { get; set; }
+        public bool AllowKeyBoardNodeReorder { get; set; }
 
         #region Overrides
         protected override void OnHandleCreated(EventArgs e)
@@ -218,14 +219,17 @@ namespace QuickMon.Controls
         /// <returns></returns>
         public virtual bool AllowNodeMove(TreeNode selectedNode, TreeNode targetNode)
         {
-            return true;
+            if (selectedNode == null || targetNode == null)
+                return false;
+            else
+                return (selectedNode.TreeView == targetNode.TreeView);
         }
 
         #region Keyboard moving nodes
         private void MoveNodeUpInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
             {
                 TreeNode parentNode = currentNode.Parent;
                 int currentIndex = currentNode.Index;
@@ -242,7 +246,7 @@ namespace QuickMon.Controls
         private void MoveNodeDownInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
             {
                 TreeNode parentNode = currentNode.Parent;
                 int currentIndex = currentNode.Index;
@@ -259,7 +263,7 @@ namespace QuickMon.Controls
         private void MoveNodeLeftInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
             {
                 TreeNode parentNode = currentNode.Parent;
                 if (parentNode != this.Nodes[0])
@@ -280,7 +284,7 @@ namespace QuickMon.Controls
         private void MoveNodeRightInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
             {
                 TreeNode parentNode = currentNode.Parent;
                 int currentIndex = currentNode.Index;
@@ -319,7 +323,7 @@ namespace QuickMon.Controls
         protected override void OnItemDrag(ItemDragEventArgs e)
         {
             dragNode = (TreeNode)e.Item;
-            if (this.Nodes.Count > 0 && dragNode != this.Nodes[0])
+            if (AllowDrop && this.Nodes.Count > 0 && dragNode != this.Nodes[0])
                 DoDragDrop(e.Item, DragDropEffects.Move);
             base.OnItemDrag(e);
         }
@@ -330,7 +334,7 @@ namespace QuickMon.Controls
         }
         protected override void OnDragOver(DragEventArgs drgevent)
         {
-            if (drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
+            if (AllowDrop && drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
             {
                 Point pt = this.PointToClient(new Point(drgevent.X, drgevent.Y));
                 TreeNode targetNode = this.GetNodeAt(pt);
@@ -366,11 +370,11 @@ namespace QuickMon.Controls
         }
         protected override void OnDragDrop(DragEventArgs drgevent)
         {
-            if (drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
+            if (AllowDrop && drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
             {
                 Point pt = this.PointToClient(new Point(drgevent.X, drgevent.Y));
                 TreeNode targetNode = this.GetNodeAt(pt);
-                if (AllowNodeMove(dragNode, targetNode) || targetNode == null)
+                if (AllowNodeMove(dragNode, targetNode) || (dragNode != null && targetNode == null))
                 {
                     TreeNode oldParent = dragNode.Parent;
                     if (oldParent == null) //for completenes sake
