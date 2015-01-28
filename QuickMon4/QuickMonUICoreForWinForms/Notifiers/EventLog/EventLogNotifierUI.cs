@@ -46,5 +46,9 @@ namespace QuickMon.Notifiers
         {
             return false;//always new window
         }
+        public void CloseViewer()
+        {
+         
+        }
     }
 }

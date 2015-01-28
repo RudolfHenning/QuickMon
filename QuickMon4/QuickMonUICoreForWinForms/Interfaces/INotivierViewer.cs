@@ -10,5 +10,6 @@ namespace QuickMon
         INotifier SelectedNotifier { get; set; }
         void ShowNotifierViewer();        
         bool IsViewerStillVisible();
+        void CloseViewer();
     }
 }

@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -39,9 +40,8 @@
             this.agentSeparatorBox = new System.Windows.Forms.PictureBox();
             this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
             this.lblNoNotifiersYet = new System.Windows.Forms.Label();
-            this.lvwNotifiers = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.notifiersImageList = new System.Windows.Forms.ImageList(this.components);
+            this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
+            this.notifierImageList = new System.Windows.Forms.ImageList(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.adminModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -71,7 +71,7 @@
             this.removeCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewCollectorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.addNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNotifierToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.showDefaultNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +139,7 @@
             // masterSplitContainer.Panel2
             // 
             this.masterSplitContainer.Panel2.Controls.Add(this.lblNoNotifiersYet);
-            this.masterSplitContainer.Panel2.Controls.Add(this.lvwNotifiers);
+            this.masterSplitContainer.Panel2.Controls.Add(this.tvwNotifiers);
             this.masterSplitContainer.Panel2.Controls.Add(this.panel2);
             this.masterSplitContainer.Size = new System.Drawing.Size(394, 325);
             this.masterSplitContainer.SplitterDistance = 218;
@@ -159,6 +159,7 @@
             // tvwCollectors
             // 
             this.tvwCollectors.AllowDrop = true;
+            this.tvwCollectors.AllowKeyBoardNodeReorder = true;
             this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
             this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tvwCollectors.CheckBoxEnhancements = false;
@@ -178,12 +179,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "COLLECTORS";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -251,40 +252,52 @@
             this.lblNoNotifiersYet.Text = "No Notifiers added yet!\r\nDouble-Click here to add a new Notifier.";
             this.lblNoNotifiersYet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lvwNotifiers
+            // tvwNotifiers
             // 
-            this.lvwNotifiers.AutoResizeColumnEnabled = false;
-            this.lvwNotifiers.AutoResizeColumnIndex = 0;
-            this.lvwNotifiers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvwNotifiers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader});
-            this.lvwNotifiers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvwNotifiers.FullRowSelect = true;
-            this.lvwNotifiers.HideSelection = false;
-            this.lvwNotifiers.Location = new System.Drawing.Point(5, 0);
-            this.lvwNotifiers.Margin = new System.Windows.Forms.Padding(8, 5, 5, 5);
-            this.lvwNotifiers.Name = "lvwNotifiers";
-            this.lvwNotifiers.Size = new System.Drawing.Size(389, 101);
-            this.lvwNotifiers.SmallImageList = this.notifiersImageList;
-            this.lvwNotifiers.TabIndex = 0;
-            this.lvwNotifiers.UseCompatibleStateImageBehavior = false;
-            this.lvwNotifiers.View = System.Windows.Forms.View.List;
-            this.lvwNotifiers.SelectedIndexChanged += new System.EventHandler(this.lvwNotifiers_SelectedIndexChanged);
-            this.lvwNotifiers.DoubleClick += new System.EventHandler(this.lvwNotifiers_DoubleClick);
-            this.lvwNotifiers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvwNotifiers_MouseUp);
+            this.tvwNotifiers.AllowKeyBoardNodeReorder = false;
+            this.tvwNotifiers.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwNotifiers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwNotifiers.CheckBoxEnhancements = false;
+            this.tvwNotifiers.DisableCollapseOnDoubleClick = true;
+            this.tvwNotifiers.DisableExpandOnDoubleClick = false;
+            this.tvwNotifiers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwNotifiers.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwNotifiers.EnableAutoScrollToSelectedNode = false;
+            this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwNotifiers.FullRowSelect = true;
+            this.tvwNotifiers.HideSelection = false;
+            this.tvwNotifiers.ImageIndex = 0;
+            this.tvwNotifiers.ImageList = this.notifierImageList;
+            this.tvwNotifiers.Indent = 20;
+            this.tvwNotifiers.ItemHeight = 22;
+            this.tvwNotifiers.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
+            this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
+            this.tvwNotifiers.Name = "tvwNotifiers";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "NOTIFIERS";
+            this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            this.tvwNotifiers.RootAlwaysExpanded = false;
+            this.tvwNotifiers.SelectedImageIndex = 0;
+            this.tvwNotifiers.ShowRootLines = false;
+            this.tvwNotifiers.Size = new System.Drawing.Size(389, 101);
+            this.tvwNotifiers.TabIndex = 3;
+            this.tvwNotifiers.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwNotifiers_AfterSelect);
+            this.tvwNotifiers.DoubleClick += new System.EventHandler(this.tvwNotifiers_DoubleClick);
+            this.tvwNotifiers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvwNotifiers_MouseUp);
             // 
-            // nameColumnHeader
+            // notifierImageList
             // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 121;
-            // 
-            // notifiersImageList
-            // 
-            this.notifiersImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("notifiersImageList.ImageStream")));
-            this.notifiersImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.notifiersImageList.Images.SetKeyName(0, "SPEAKER.ICO");
-            this.notifiersImageList.Images.SetKeyName(1, "SPEAKER.ICO");
+            this.notifierImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("notifierImageList.ImageStream")));
+            this.notifierImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.notifierImageList.Images.SetKeyName(0, "open_folder_blue.ico");
+            this.notifierImageList.Images.SetKeyName(1, "SpeakerBlue.ico");
+            this.notifierImageList.Images.SetKeyName(2, "SpeakerBW.ico");
+            this.notifierImageList.Images.SetKeyName(3, "Speaker_doc.ico");
+            this.notifierImageList.Images.SetKeyName(4, "Speaker_docBW.ico");
             // 
             // panel2
             // 
@@ -539,7 +552,7 @@
             this.removeCollectorToolStripMenuItem1,
             this.viewCollectorDetailsToolStripMenuItem,
             this.toolStripMenuItem5,
-            this.addNotifierToolStripMenuItem1,
+            this.addNotifierToolStripMenuItem,
             this.editNotifierToolStripMenuItem,
             this.removeNotifierToolStripMenuItem1,
             this.showDefaultNotifierToolStripMenuItem,
@@ -591,13 +604,13 @@
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(226, 6);
             // 
-            // addNotifierToolStripMenuItem1
+            // addNotifierToolStripMenuItem
             // 
-            this.addNotifierToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.add;
-            this.addNotifierToolStripMenuItem1.Name = "addNotifierToolStripMenuItem1";
-            this.addNotifierToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
-            this.addNotifierToolStripMenuItem1.Text = "Add Notifier";
-            this.addNotifierToolStripMenuItem1.Click += new System.EventHandler(this.addNotifierToolStripMenuItem1_Click);
+            this.addNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
+            this.addNotifierToolStripMenuItem.Name = "addNotifierToolStripMenuItem";
+            this.addNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.addNotifierToolStripMenuItem.Text = "Add Notifier";
+            this.addNotifierToolStripMenuItem.Click += new System.EventHandler(this.addNotifierToolStripMenuItem1_Click);
             // 
             // editNotifierToolStripMenuItem
             // 
@@ -605,7 +618,7 @@
             this.editNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit;
             this.editNotifierToolStripMenuItem.Name = "editNotifierToolStripMenuItem";
             this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.editNotifierToolStripMenuItem.Text = "Edit Notifier Config";
+            this.editNotifierToolStripMenuItem.Text = "Edit notifier";
             this.editNotifierToolStripMenuItem.Click += new System.EventHandler(this.editNotifierToolStripMenuItem_Click);
             // 
             // removeNotifierToolStripMenuItem1
@@ -808,7 +821,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeCollectorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem viewCollectorDetailsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripMenuItem addNotifierToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addNotifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editNotifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeNotifierToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem showDefaultNotifierToolStripMenuItem;
@@ -835,8 +848,6 @@
         private System.Windows.Forms.PictureBox agentSeparatorBox;
         private System.Windows.Forms.LinkLabel llblNotifierViewToggle;
         private System.Windows.Forms.Label lblNoNotifiersYet;
-        private ListViewEx lvwNotifiers;
-        private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -851,11 +862,12 @@
         private System.Windows.Forms.ImageList treeImageList;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
-        private System.Windows.Forms.ImageList notifiersImageList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer showCollectorContextMenuTimer;
         private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
         private System.Windows.Forms.Timer showNotifierContextMenuTimer;
+        private Controls.TreeViewExBase tvwNotifiers;
+        private System.Windows.Forms.ImageList notifierImageList;
     }
 }
 

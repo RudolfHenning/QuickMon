@@ -51,6 +51,11 @@ namespace QuickMon.UI
             }
             return uiClass;
         }
+        public static bool HasAgentViewer(INotifier agent)
+        {
+            WinFormsUINotifierBase ui = GetNotifierUIClass(agent);
+            return ui == null ? false : ui.HasDetailView;
+        }
 
         private static void LoadCache()
         {
