@@ -149,10 +149,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
-    <Compile Include="GenericForms\CollectorAgentsDetailViewer.cs">
+    <Compile Include="zOut\CollectorAgentsDetailViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenericForms\CollectorAgentsDetailViewer.Designer.cs">
+    <Compile Include="zOut\CollectorAgentsDetailViewer.Designer.cs">
       <DependentUpon>CollectorAgentsDetailViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="GenericForms\CollectorStatusViewer.cs">
@@ -197,10 +197,10 @@
     <Compile Include="GenericForms\EditServiceWindows.designer.cs">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericForms\NotifierAgentListViewer.cs">
+    <Compile Include="zOut\NotifierAgentListViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenericForms\NotifierAgentListViewer.Designer.cs">
+    <Compile Include="zOut\NotifierAgentListViewer.Designer.cs">
       <DependentUpon>NotifierAgentListViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="GenericForms\RAWXmlEditor.cs">
@@ -319,7 +319,7 @@
     <EmbeddedResource Include="Controls\DataTableViewerControl.resx">
       <DependentUpon>DataTableViewerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\CollectorAgentsDetailViewer.resx">
+    <EmbeddedResource Include="zOut\CollectorAgentsDetailViewer.resx">
       <DependentUpon>CollectorAgentsDetailViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\CollectorStatusViewer.resx">
@@ -343,7 +343,7 @@
     <EmbeddedResource Include="GenericForms\EditServiceWindows.resx">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\NotifierAgentListViewer.resx">
+    <EmbeddedResource Include="zOut\NotifierAgentListViewer.resx">
       <DependentUpon>NotifierAgentListViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">

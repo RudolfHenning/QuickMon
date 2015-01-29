@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using QuickMon.Forms;
 using System.Windows.Forms;
+using QuickMon.Controls;
 
 namespace QuickMon.Forms
 {
-    public partial class CollectorStatusViewer : Form
+    public partial class CollectorStatusViewer : FadeSnapForm
     {
         public CollectorStatusViewer()
         {
@@ -22,15 +23,21 @@ namespace QuickMon.Forms
         public CollectorHost SelectedCollectorHost { get; set; }
 
         private CollectorAgentsDetailViewer detailViewer = null;
+        private bool agentsDetailsDataFirstTimeLoaded = false;
 
         #region Form events
         private void CollectorStatusViewer_Load(object sender, EventArgs e)
         {
+            SnappingEnabled = true;
             lvwProperties.AutoResizeColumnIndex = 1;
-            lvwProperties.AutoResizeColumnEnabled = true;
-            lvwStatistics.AutoResizeColumnIndex = 1;
-            lvwStatistics.AutoResizeColumnEnabled = true;
+            lvwProperties.AutoResizeColumnEnabled = true;            
             splitContainer1.Panel2Collapsed = true;
+            if (SelectedCollectorHost != null)
+            {
+                chkRemoteAgentEnabled.Checked = SelectedCollectorHost.EnableRemoteExecute;
+                txtRemoteAgentServer.Text = SelectedCollectorHost.RemoteAgentHostAddress;
+                remoteportNumericUpDown.SaveValueSet(SelectedCollectorHost.RemoteAgentHostPort);
+            }  
         } 
         private void CollectorStatusViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -53,8 +60,8 @@ namespace QuickMon.Forms
             {
                 txtName.Text = SelectedCollectorHost.Name;
                 Text = "Collector Status Viewer - " + SelectedCollectorHost.Name;
-                cmdCollectorHostDetailViewer.Enabled = SelectedCollectorHost.CollectorAgents.Count > 0;
 
+                #region Global state icon and text
                 if (SelectedCollectorHost.IsEnabledNow())
                 {
                     if (SelectedCollectorHost.CurrentState == null)
@@ -83,10 +90,12 @@ namespace QuickMon.Forms
                 {
                     lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.ForbiddenGray16x16;
                     lblCollectorHostStatusText.Text = "Disabled";
-                }
+                } 
+                #endregion
 
                 LoadAgentStates();
 
+                #region Details and metrics
                 AddUpdateListViewItem(lvwProperties, "General", "Enabled", (SelectedCollectorHost.Enabled ? "Yes" : "No") + (SelectedCollectorHost.ServiceWindows.IsInTimeWindow() ? "" : " (Out of service window)"));
                 AddUpdateListViewItem(lvwProperties, "General", "Agent count", SelectedCollectorHost.CollectorAgents.Count.ToString());
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state", SelectedCollectorHost.CurrentState.State.ToString());
@@ -107,13 +116,14 @@ namespace QuickMon.Forms
 
                 bool remoteHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
                 AddUpdateListViewItem(lvwProperties, "Remote agent host", "Enabled", remoteHostEnabled ? "Yes" : "No");
-                AddUpdateListViewItem(lvwProperties, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(), remoteHostEnabled);
+                AddUpdateListViewItem(lvwProperties, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(), remoteHostEnabled); 
+                #endregion
 
                 #region Polling metrics
-                //AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times refreshed", SelectedCollectorHost.RefreshCount.ToString());
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Polling override enabled", SelectedCollectorHost.EnabledPollingOverride ? "Yes" : "No");
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Poll frequency sliding enabled", SelectedCollectorHost.EnablePollFrequencySliding ? "Yes" : "No", SelectedCollectorHost.EnabledPollingOverride);
+                //AddUpdateListViewItem(lvwProperties, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "# of times refreshed", SelectedCollectorHost.RefreshCount.ToString());
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "Polling override enabled", SelectedCollectorHost.EnabledPollingOverride ? "Yes" : "No");
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "Poll frequency sliding enabled", SelectedCollectorHost.EnablePollFrequencySliding ? "Yes" : "No", SelectedCollectorHost.EnabledPollingOverride);
                 int currentPollFreq = 0;
                 if (SelectedCollectorHost.EnabledPollingOverride)
                 {
@@ -131,42 +141,42 @@ namespace QuickMon.Forms
                     else
                         currentPollFreq = SelectedCollectorHost.OnlyAllowUpdateOncePerXSec;
                 }
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Current poll frequency (Sec)", currentPollFreq.ToString(), SelectedCollectorHost.EnabledPollingOverride);
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "First polled time", FormatDate(SelectedCollectorHost.FirstStateUpdate));
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times good states", SelectedCollectorHost.GoodStateCount.ToString());
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times warning states", SelectedCollectorHost.WarningStateCount.ToString());
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "# of times error states", SelectedCollectorHost.ErrorStateCount.ToString());
-                AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last attempted polling time", FormatDate(SelectedCollectorHost.LastStateCheckAttemptBegin));
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "Current poll frequency (Sec)", currentPollFreq.ToString(), SelectedCollectorHost.EnabledPollingOverride);
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "First polled time", FormatDate(SelectedCollectorHost.FirstStateUpdate));
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "# of times good states", SelectedCollectorHost.GoodStateCount.ToString());
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "# of times warning states", SelectedCollectorHost.WarningStateCount.ToString());
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "# of times error states", SelectedCollectorHost.ErrorStateCount.ToString());
+                AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last attempted polling time", FormatDate(SelectedCollectorHost.LastStateCheckAttemptBegin));
 
                 if (SelectedCollectorHost.LastGoodState != null)
                 {
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state time", FormatDate(SelectedCollectorHost.LastGoodState.Timestamp));
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state details", SelectedCollectorHost.LastGoodState.ReadAllRawDetails());
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last good state time", FormatDate(SelectedCollectorHost.LastGoodState.Timestamp));
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last good state details", SelectedCollectorHost.LastGoodState.ReadAllRawDetails());
                 }
                 else
                 {
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state time", "N/A");
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last good state details", "N/A");
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last good state time", "N/A");
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last good state details", "N/A");
                 }
                 if (SelectedCollectorHost.LastWarningState != null)
                 {
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state time", FormatDate(SelectedCollectorHost.LastWarningState.Timestamp));
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state details", SelectedCollectorHost.LastWarningState.ReadAllRawDetails());
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last warning state time", FormatDate(SelectedCollectorHost.LastWarningState.Timestamp));
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last warning state details", SelectedCollectorHost.LastWarningState.ReadAllRawDetails());
                 }
                 else
                 {
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state time", "N/A");
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last warning state details", "N/A");
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last warning state time", "N/A");
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last warning state details", "N/A");
                 }
                 if (SelectedCollectorHost.LastErrorState != null)
                 {
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state time", FormatDate(SelectedCollectorHost.LastErrorState.Timestamp));
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state details", SelectedCollectorHost.LastErrorState.ReadAllRawDetails());
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last error state time", FormatDate(SelectedCollectorHost.LastErrorState.Timestamp));
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last error state details", SelectedCollectorHost.LastErrorState.ReadAllRawDetails());
                 }
                 else
                 {
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state time", "N/A");
-                    AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Last error state details", "N/A");
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last error state time", "N/A");
+                    AddUpdateListViewItem(lvwProperties, "Polling metrics", "Last error state details", "N/A");
                 }
                 #endregion
 
@@ -175,13 +185,18 @@ namespace QuickMon.Forms
                 #endregion
 
                 if (tabControl1.SelectedTab == currentStatusTabPage)
+                {
                     UpdateAgentsDetailView();
-                if (tabControl1.SelectedTab == currentStatusTabPage2)
+                    if (agentsTabControl.SelectedTab ==  agentDetaildataTabPage )
+                    {
+                        RefreshAgentsDetailsData();
+                    }
+                }
+                else if (tabControl1.SelectedTab == currentStatusTabPage2)
                     UpdateDetailView(lvwProperties);
-                else if (tabControl1.SelectedTab == statisticsTabPage)
-                    UpdateDetailView(lvwStatistics);
+                summaryToolStripStatusLabel.Text = "Last updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
-        } 
+        }        
         #endregion
 
         #region Button events
@@ -219,10 +234,6 @@ namespace QuickMon.Forms
         private void lvwProperties_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDetailView(lvwProperties);
-        }
-        private void lvwStatistics_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateDetailView(lvwStatistics);
         }
         private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -332,7 +343,7 @@ namespace QuickMon.Forms
             }
             catch { }
             lvwHistory.EndUpdate();
-            AddUpdateListViewItem(lvwStatistics, "Polling metrics", "Total alert count", totalAlertsRaised.ToString());
+            AddUpdateListViewItem(lvwProperties, "Polling metrics", "Total alert count", totalAlertsRaised.ToString());
         }
         private void AddUpdateListViewItem(ListView lvw, string groupName, string propName, List<string> values, bool visible = true)
         {
@@ -500,8 +511,96 @@ namespace QuickMon.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void RefreshAgentsDetailsData()
+        {
+            if (SelectedCollectorHost != null)
+            {
+                try
+                {
+                    agentsDetailsDataFirstTimeLoaded = true;
+                    int previousTabIndex = -1;
+                    if (tabDataSetViewer.TabPages.Count > 0)
+                        previousTabIndex = tabDataSetViewer.SelectedIndex;
+                    tabDataSetViewer.TabPages.Clear();
+                    Application.DoEvents();
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    DataSet agentDataSet;
+                    if (chkRemoteAgentEnabled.Checked)
+                    {
+                        try
+                        {
+                            agentDataSet = SelectedCollectorHost.GetAllAgentDetailsRemote(txtRemoteAgentServer.Text, (int)remoteportNumericUpDown.Value);
+                        }
+                        catch (Exception remEx)
+                        {
+                            if (remEx.Message.Contains("There was no endpoint listening"))
+                            {
+                                if (MessageBox.Show("Connection to the remote host failed! Do you want to try and run the agents locally?", "Remote host", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                                    agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
+                                else
+                                    return;
+                            }
+                            else
+                                throw;
+                        }
+                    }
+                    else
+                        agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
+                    foreach (DataTable dtab in agentDataSet.Tables)
+                    {
+                        string tabName = "Details";
+                        if (dtab.TableName != "Table")
+                            tabName = dtab.TableName;
+                        TabPage tabPage = new TabPage(tabName);
+                        DataTableViewerControl dtvc = new DataTableViewerControl();
+                        dtvc.SelectedData = dtab;
+                        dtvc.Dock = DockStyle.Fill;
+                        tabPage.Controls.Add(dtvc);
+                        tabDataSetViewer.TabPages.Add(tabPage);
+                        dtvc.LoadColumns();
+                        dtvc.AutoResizeColumnIndex = dtvc.SelectedData.Columns.Count - 1;
+                        dtvc.RefreshData(true);
+                        dtvc.ListSelectedIndexChanged += dtvc_ListSelectedIndexChanged;
+                        dtvc.ListContextMenu = contextMenuStrip1;
+                    }
+                    if (previousTabIndex > -1 && tabDataSetViewer.TabPages.Count > previousTabIndex)
+                        tabDataSetViewer.SelectedIndex = previousTabIndex;
+                    summaryToolStripStatusLabel.Text = "Last updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    Application.DoEvents();
+                    Cursor.Current = Cursors.Default;
+                }
+            }
         } 
         #endregion
 
+        private void dtvc_ListSelectedIndexChanged(object sender, EventArgs e)
+        {
+            //detailsToolStripMenuItem.Enabled = ((ListView)sender).SelectedItems.Count > 0;
+        }
+
+        #region Tab events
+        private void agentsTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!agentsDetailsDataFirstTimeLoaded && agentsTabControl.SelectedTab == agentDetaildataTabPage)
+            {
+                RefreshAgentsDetailsData();
+            }
+        } 
+        #endregion
+
+        private void chkRemoteAgentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            txtRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked;
+            remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked;
+        }
     }
 }

@@ -85,6 +85,7 @@
             this.Name = "InMemoryNotifierViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "In Memory Notifier Viewer";
+            this.Load += new System.EventHandler(this.InMemoryNotifierViewer_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
