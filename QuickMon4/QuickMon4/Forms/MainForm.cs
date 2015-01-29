@@ -494,6 +494,7 @@ namespace QuickMon
                 }                
             }
             root.Expand();
+            root.Text = "COLLECTORS";
             #endregion
 
             #region Load Notifiers
@@ -512,23 +513,18 @@ namespace QuickMon
             #endregion
 
             UpdateAppTitle();
-            try
+
+            if (monitorPack != null)
             {
-                showDefaultNotifierToolStripMenuItem.Enabled = false;
-                if (monitorPack != null)
-                {
-                    UpdateStatusbar(string.Format("{0} collector(s), {1} notifier(s)",
-                         monitorPack.CollectorHosts.Count,
-                         monitorPack.NotifierHosts.Count));
-                    showDefaultNotifierToolStripMenuItem.Enabled = monitorPack.DefaultViewerNotifier != null;
-                }
+                UpdateStatusbar(string.Format("{0} collector(s), {1} notifier(s)",
+                     monitorPack.CollectorHosts.Count,
+                     monitorPack.NotifierHosts.Count));
             }
-            catch { }
+
             tvwCollectors.SelectedNode = root;
             root.EnsureVisible();
 
-            Cursor.Current = Cursors.Default;
-            root.Text = "COLLECTORS";
+            Cursor.Current = Cursors.Default;            
             Application.DoEvents();
         }
         private void LoadCollectorNode(TreeNode root, CollectorHost collector)
@@ -1399,9 +1395,11 @@ namespace QuickMon
             {                
                 if (tvwNotifiers.SelectedNode != null && tvwNotifiers.Nodes[0] != tvwNotifiers.SelectedNode)
                 {
+                    NotifierHost notifierHost = null;
                     if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
                     {
-                        NotifierHost notifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                        #region Edit Notifier Host
+                        notifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
                         EditNotifierHost editNotifierHost = new EditNotifierHost();
                         if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
                         {
@@ -1417,10 +1415,13 @@ namespace QuickMon
                                 LoadNotifierAgents(tvwNotifiers.SelectedNode, notifierHost);
                             }
                             DoAutoSave();
-                        }
+                        } 
+                        #endregion
                     }
                     else if (tvwNotifiers.SelectedNode.Tag is INotifier)
                     {
+                        #region Edit Notifier Agent
+                        notifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;
                         INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
                         IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
                         if (agentEditor != null)
@@ -1455,47 +1456,11 @@ namespace QuickMon
                         else
                         {
                             MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
+                        } 
+                        #endregion
                     }
-
-                    //if (notifierHost != null)
-                    //{
-                    //    EditNotifierHost editNotifierHost = new EditNotifierHost();
-                    //    if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
-                    //    {
-                    //        SetMonitorChanged();
-                    //        notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
-
-                    //        if (tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
-                    //            tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
-                    //        if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
-                    //        {
-                    //            tvwNotifiers.SelectedNode.Text = notifierHost.Name;
-                    //            tvwNotifiers.SelectedNode.Nodes.Clear();
-                    //            LoadNotifierAgents(tvwNotifiers.SelectedNode, notifierHost);
-                    //        }
-                    //    }
-                    //}
+                    RefreshNotifierAgents(notifierHost);
                 }
-
-                ////if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
-                ////{
-                ////    ListViewItem lvi = lvwNotifiers.SelectedItems[0];
-                ////    NotifierHost notifierHost = (NotifierHost)lvi.Tag;
-                ////    EditNotifierHost editNotifierHost = new EditNotifierHost();
-                ////    if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
-                ////    {                    
-                ////        SetMonitorChanged();
-                ////        notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
-                ////        //currentNode.Tag = collectorEntry;
-                ////        lvi.Text = notifierHost.Name;
-                ////        lvi.Tag = notifierHost;
-                ////        lvi.ForeColor = notifierHost.Enabled ? SystemColors.WindowText : Color.Gray;
-
-                ////        //if autosaving is enabled
-                ////        DoAutoSave();
-                ////    }
-                ////}
             }
             catch (Exception ex)
             {
@@ -1517,6 +1482,7 @@ namespace QuickMon
                     {
                         SetMonitorChanged();
                         NotifierHost removedItem = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                        CloseNotifierHostViewers(removedItem);
                         monitorPack.NotifierHosts.Remove(removedItem);
                         tvwNotifiers.Nodes[0].Nodes.Remove(tvwNotifiers.SelectedNode);
                         RefreshMonitorPack(true, true);
@@ -1530,6 +1496,7 @@ namespace QuickMon
                         SetMonitorChanged();
                         NotifierHost removedItem = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;
                         INotifier removedAgent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                        CloseNotifierAgentViewer(removedAgent);
                         removedItem.NotifierAgents.Remove(removedAgent);
                         tvwNotifiers.SelectedNode.Parent.Nodes.Remove(tvwNotifiers.SelectedNode);
                         tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
@@ -1538,25 +1505,6 @@ namespace QuickMon
                     }
                 }
             }
-
-            //if (lvwNotifiers.SelectedItems.Count > 0)
-            //{
-            //    if (MessageBox.Show("Are you sure you want to remove the selected notifier(s)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            //    {
-            //        SetMonitorChanged();
-            //        foreach(ListViewItem lvi in lvwNotifiers.SelectedItems)
-            //        {
-            //            if (lvi.Tag is NotifierHost)
-            //            {
-            //                NotifierHost removedItem = (NotifierHost)lvi.Tag;
-            //                monitorPack.NotifierHosts.Remove(removedItem);
-            //                lvwNotifiers.Items.Remove(lvi);
-            //            }
-            //        }
-            //        RefreshMonitorPack(true, true);
-            //        DoAutoSave();
-            //    }
-            //}
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
                 ResumePolling();
         }
@@ -1639,12 +1587,6 @@ namespace QuickMon
                                                          where v.SelectedNotifier == agent
                                                          select v).FirstOrDefault();
 
-                //if (currentNotivierViewer != null && !currentNotivierViewer.IsViewerStillVisible())
-                //{
-                //    agentDetailViews.Remove(currentNotivierViewer);
-                //    currentNotivierViewer = null;
-                //}
-
                 if (currentNotivierViewer == null)
                 {
                     WinFormsUINotifierBase agentUI = RegisteredAgentUIMapper.GetNotifierUIClass(agent);
@@ -1658,33 +1600,23 @@ namespace QuickMon
                 if (currentNotivierViewer != null)
                     currentNotivierViewer.ShowNotifierViewer();
             }
-
-
-            //if (lvwNotifiers.SelectedItems.Count == 1 && lvwNotifiers.SelectedItems[0].Tag is NotifierHost)
-            //{
-            //    NotifierHost currentNotifierHost = (NotifierHost)lvwNotifiers.SelectedItems[0].Tag;
-            //    CleanNotifierViewers();
-            //    NotifierAgentListViewer notifierAgentListViewer = (from c in notifierDetailViews
-            //                                                       where c.SelectedNotifierHost == currentNotifierHost &&
-            //                                                            c.IsStillVisible()
-            //                                                       select c).FirstOrDefault();
-            //    if (notifierAgentListViewer == null)
-            //    {
-            //        notifierAgentListViewer = new NotifierAgentListViewer();
-            //        notifierAgentListViewer.SelectedNotifierHost = currentNotifierHost;
-            //        notifierDetailViews.Add(notifierAgentListViewer);
-            //        notifierAgentListViewer.Show();
-            //    }
-            //    else
-            //    {
-            //        if (notifierAgentListViewer.WindowState == FormWindowState.Minimized)
-            //            notifierAgentListViewer.WindowState = FormWindowState.Normal;
-            //        notifierAgentListViewer.Show();
-            //        notifierAgentListViewer.TopMost = true;
-            //        notifierAgentListViewer.TopMost = false;
-            //    }
-            //    notifierAgentListViewer.RefreshNotifierDetails();
-            //}
+        }
+        private void RefreshNotifierAgents(NotifierHost notifierHost)
+        {
+            CleanNotifierViewers();
+            if (notifierHost != null)
+            {
+                foreach (INotifier agent in notifierHost.NotifierAgents)
+                {
+                    INotivierViewer currentNotivierViewer = (from v in agentDetailViews
+                                                             where v.SelectedNotifier == agent
+                                                             select v).FirstOrDefault();
+                    if (currentNotivierViewer != null)
+                    {
+                        currentNotivierViewer.ShowNotifierViewer();
+                    }
+                }
+            }
         }
         private void CleanNotifierViewers()
         {
@@ -1699,15 +1631,7 @@ namespace QuickMon
             foreach(INotivierViewer viewer in viewsToRemove)
             {
                 agentDetailViews.Remove(viewer);
-            }
-
-            //List<NotifierAgentListViewer> viewsToRemove = (from v in notifierDetailViews
-            //                                             where !v.IsStillVisible()
-            //                                             select v).ToList();
-            //foreach (NotifierAgentListViewer notifierDetailViewer in viewsToRemove)
-            //{
-            //    notifierDetailViews.Remove(notifierDetailViewer);
-            //}       
+            }  
         }
         private void CloseAllNotifierViewers()
         {
@@ -1722,6 +1646,37 @@ namespace QuickMon
                 viewer.CloseViewer();
             }
             agentDetailViews = new List<INotivierViewer>();
+        }
+        private void CloseNotifierHostViewers(NotifierHost notifierHost)
+        {
+            CleanNotifierViewers();
+            if (notifierHost != null)
+            {
+                foreach (INotifier agent in notifierHost.NotifierAgents)
+                {
+                    INotivierViewer currentNotivierViewer = (from v in agentDetailViews
+                                                             where v.SelectedNotifier == agent
+                                                             select v).FirstOrDefault();
+                    if (currentNotivierViewer != null)
+                    {
+                        currentNotivierViewer.CloseViewer();
+                    }
+                }
+            }
+        }
+        private void CloseNotifierAgentViewer(INotifier agent)
+        {
+            CleanNotifierViewers();
+            if (agent != null)
+            {
+                INotivierViewer currentNotivierViewer = (from v in agentDetailViews
+                                                         where v.SelectedNotifier == agent
+                                                         select v).FirstOrDefault();
+                if (currentNotivierViewer != null)
+                {
+                    currentNotivierViewer.CloseViewer();
+                }
+            }
         }
         #endregion
 
@@ -2025,7 +1980,7 @@ namespace QuickMon
                 poppedContainerForListView.lblNotifierHeading.Text = "Notifier";
                 poppedContainerForListView.cmdDisableNotifier.Image = entry.Enabled ? global::QuickMon.Properties.Resources.ForbiddenBue16x16 : global::QuickMon.Properties.Resources.ForbiddenGray16x16;
                 poppedContainerForListView.cmdDisableNotifier.Text = entry.Enabled ? "Disable Notifier" : "Enable Notifier";
-                poppedContainerForListView.cmdAddNotifier.Text = "Add Notifier";
+                poppedContainerForListView.cmdAddNotifier.Text = "Add Notifier Agent";
                 poppedContainerForListView.cmdEditNotifier.Text = "Edit Notifier";
                 poppedContainerForListView.cmdViewDetails.Text = "View";
                 poppedContainerForListView.cmdDeleteNotifier.Text = "Delete Notifier";
@@ -2046,6 +2001,7 @@ namespace QuickMon
 
             editNotifierToolStripMenuItem.Enabled = entry != null;
             removeNotifierToolStripMenuItem1.Enabled = entry != null;
+            viewNotifierAgentToolStripMenuItem.Enabled = agent != null && RegisteredAgentUIMapper.HasAgentViewer(agent);
             poppedContainerForListView.cmdDisableNotifier.Enabled = entry != null;
             poppedContainerForListView.cmdViewDetails.Enabled = agent != null && RegisteredAgentUIMapper.HasAgentViewer(agent);
             poppedContainerForListView.cmdEditNotifier.Enabled = entry != null;
@@ -2296,7 +2252,7 @@ namespace QuickMon
         }
         private void showDefaultNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ViewNotifierDetails();
         }
         private void closeAllChildWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2547,9 +2503,7 @@ namespace QuickMon
             QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
             tm.Show();
 #endif
-        }
-
-        
+        }        
 
     }
 }

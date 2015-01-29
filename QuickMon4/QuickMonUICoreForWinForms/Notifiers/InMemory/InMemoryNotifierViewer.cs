@@ -12,7 +12,7 @@ using HenIT.RTF;
 
 namespace QuickMon.UI
 {
-    public partial class InMemoryNotifierViewer : Form, INotivierViewer
+    public partial class InMemoryNotifierViewer : FadeSnapForm, INotivierViewer
     {
         public InMemoryNotifierViewer()
         {
@@ -100,6 +100,11 @@ namespace QuickMon.UI
         public void CloseViewer()
         {
             Close();
+        }
+
+        private void InMemoryNotifierViewer_Load(object sender, EventArgs e)
+        {
+            SnappingEnabled = true;
         }
     }
 }
