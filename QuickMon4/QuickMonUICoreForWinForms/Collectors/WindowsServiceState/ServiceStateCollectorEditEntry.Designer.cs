@@ -35,15 +35,15 @@
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lstAvailableServices = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.lstSelectedServices = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdRemove = new System.Windows.Forms.Button();
             this.cmdAdd = new System.Windows.Forms.Button();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.cmdLoadServices = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -129,6 +129,15 @@
             this.lstAvailableServices.SelectedIndexChanged += new System.EventHandler(this.lstSearchServices_SelectedIndexChanged);
             this.lstAvailableServices.DoubleClick += new System.EventHandler(this.cmdAdd_Click);
             // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(306, 17);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Available Services";
+            // 
             // lstSelectedServices
             // 
             this.lstSelectedServices.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -141,6 +150,15 @@
             this.lstSelectedServices.TabIndex = 1;
             this.lstSelectedServices.SelectedIndexChanged += new System.EventHandler(this.lstServices_SelectedIndexChanged);
             this.lstSelectedServices.DoubleClick += new System.EventHandler(this.cmdRemove_Click);
+            // 
+            // label4
+            // 
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(48, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(346, 17);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Selected Services";
             // 
             // panel1
             // 
@@ -199,15 +217,6 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Filter";
             // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(306, 17);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Available Services";
-            // 
             // cmdLoadServices
             // 
             this.cmdLoadServices.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -220,19 +229,11 @@
             this.cmdLoadServices.UseVisualStyleBackColor = true;
             this.cmdLoadServices.Click += new System.EventHandler(this.cmdLoadServices_Click);
             // 
-            // label4
-            // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(48, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(346, 17);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Selected Services";
-            // 
             // ServiceStateCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(727, 431);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.txtFilter);

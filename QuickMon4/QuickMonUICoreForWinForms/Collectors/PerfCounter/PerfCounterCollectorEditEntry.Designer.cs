@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PerfCounterCollectorEditEntry));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.optCommon = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtComputerName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cboPerformanceCounter = new System.Windows.Forms.ComboBox();
-            this.optCustom = new System.Windows.Forms.RadioButton();
-            this.cmdSample = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.cmdEditPerfCounter = new System.Windows.Forms.Button();
             this.txtPerfCounter = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.cmdSample = new System.Windows.Forms.Button();
+            this.optCustom = new System.Windows.Forms.RadioButton();
+            this.cboPerformanceCounter = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtComputerName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.optCommon = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.errorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -74,79 +74,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performance counter definition";
             // 
-            // optCommon
+            // label3
             // 
-            this.optCommon.AutoSize = true;
-            this.optCommon.Location = new System.Drawing.Point(9, 19);
-            this.optCommon.Name = "optCommon";
-            this.optCommon.Size = new System.Drawing.Size(66, 17);
-            this.optCommon.TabIndex = 0;
-            this.optCommon.TabStop = true;
-            this.optCommon.Text = "Common";
-            this.optCommon.UseVisualStyleBackColor = true;
-            this.optCommon.CheckedChanged += new System.EventHandler(this.optCommon_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Computer name";
-            // 
-            // txtComputerName
-            // 
-            this.txtComputerName.Location = new System.Drawing.Point(164, 40);
-            this.txtComputerName.Name = "txtComputerName";
-            this.txtComputerName.Size = new System.Drawing.Size(152, 20);
-            this.txtComputerName.TabIndex = 2;
-            this.txtComputerName.Text = "localhost";
-            this.txtComputerName.TextChanged += new System.EventHandler(this.txtComputerName_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 69);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Performance counter";
-            // 
-            // cboPerformanceCounter
-            // 
-            this.cboPerformanceCounter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboPerformanceCounter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPerformanceCounter.FormattingEnabled = true;
-            this.cboPerformanceCounter.Location = new System.Drawing.Point(164, 66);
-            this.cboPerformanceCounter.Name = "cboPerformanceCounter";
-            this.cboPerformanceCounter.Size = new System.Drawing.Size(350, 21);
-            this.cboPerformanceCounter.TabIndex = 4;
-            this.cboPerformanceCounter.SelectedIndexChanged += new System.EventHandler(this.cboPerformanceCounter_SelectedIndexChanged);
-            // 
-            // optCustom
-            // 
-            this.optCustom.AutoSize = true;
-            this.optCustom.Location = new System.Drawing.Point(9, 99);
-            this.optCustom.Name = "optCustom";
-            this.optCustom.Size = new System.Drawing.Size(60, 17);
-            this.optCustom.TabIndex = 5;
-            this.optCustom.TabStop = true;
-            this.optCustom.Text = "Custom";
-            this.optCustom.UseVisualStyleBackColor = true;
-            // 
-            // cmdSample
-            // 
-            this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSample.Location = new System.Drawing.Point(460, 13);
-            this.cmdSample.Name = "cmdSample";
-            this.cmdSample.Size = new System.Drawing.Size(54, 23);
-            this.cmdSample.TabIndex = 9;
-            this.cmdSample.Text = "Test";
-            this.cmdSample.UseVisualStyleBackColor = true;
-            this.cmdSample.Click += new System.EventHandler(this.cmdSample_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(36, 119);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(106, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Performance counter";
             // 
             // cmdEditPerfCounter
             // 
@@ -171,14 +106,79 @@
             this.txtPerfCounter.TabIndex = 7;
             this.txtPerfCounter.TextChanged += new System.EventHandler(this.txtPerfCounter_TextChanged);
             // 
-            // label3
+            // cmdSample
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 119);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Performance counter";
+            this.cmdSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSample.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSample.Location = new System.Drawing.Point(460, 13);
+            this.cmdSample.Name = "cmdSample";
+            this.cmdSample.Size = new System.Drawing.Size(54, 23);
+            this.cmdSample.TabIndex = 9;
+            this.cmdSample.Text = "Test";
+            this.cmdSample.UseVisualStyleBackColor = true;
+            this.cmdSample.Click += new System.EventHandler(this.cmdSample_Click);
+            // 
+            // optCustom
+            // 
+            this.optCustom.AutoSize = true;
+            this.optCustom.Location = new System.Drawing.Point(9, 99);
+            this.optCustom.Name = "optCustom";
+            this.optCustom.Size = new System.Drawing.Size(60, 17);
+            this.optCustom.TabIndex = 5;
+            this.optCustom.TabStop = true;
+            this.optCustom.Text = "Custom";
+            this.optCustom.UseVisualStyleBackColor = true;
+            // 
+            // cboPerformanceCounter
+            // 
+            this.cboPerformanceCounter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboPerformanceCounter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPerformanceCounter.FormattingEnabled = true;
+            this.cboPerformanceCounter.Location = new System.Drawing.Point(164, 66);
+            this.cboPerformanceCounter.Name = "cboPerformanceCounter";
+            this.cboPerformanceCounter.Size = new System.Drawing.Size(350, 21);
+            this.cboPerformanceCounter.TabIndex = 4;
+            this.cboPerformanceCounter.SelectedIndexChanged += new System.EventHandler(this.cboPerformanceCounter_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(36, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Performance counter";
+            // 
+            // txtComputerName
+            // 
+            this.txtComputerName.Location = new System.Drawing.Point(164, 40);
+            this.txtComputerName.Name = "txtComputerName";
+            this.txtComputerName.Size = new System.Drawing.Size(152, 20);
+            this.txtComputerName.TabIndex = 2;
+            this.txtComputerName.Text = "localhost";
+            this.txtComputerName.TextChanged += new System.EventHandler(this.txtComputerName_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(36, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Computer name";
+            // 
+            // optCommon
+            // 
+            this.optCommon.AutoSize = true;
+            this.optCommon.Location = new System.Drawing.Point(9, 19);
+            this.optCommon.Name = "optCommon";
+            this.optCommon.Size = new System.Drawing.Size(66, 17);
+            this.optCommon.TabIndex = 0;
+            this.optCommon.TabStop = true;
+            this.optCommon.Text = "Common";
+            this.optCommon.UseVisualStyleBackColor = true;
+            this.optCommon.CheckedChanged += new System.EventHandler(this.optCommon_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -281,6 +281,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(529, 269);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);

@@ -276,9 +276,26 @@ namespace QuickMon
             catch { }
             return dataDir;
         }
+        public static string GetQuickMonAppDataDirectory()
+        {
+            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 4");
+            try
+            {
+                if (!System.IO.Directory.Exists(dataDir))
+                {
+                    System.IO.Directory.CreateDirectory(dataDir);
+                }
+            }
+            catch { }
+            return dataDir;
+        }
+        public static string GetQuickMonAppDataTemplatesFile()
+        {
+            return System.IO.Path.Combine(MonitorPack.GetQuickMonAppDataDirectory(), "QuickMon4Templates.qmtemplate");
+        }
         public static string GetQuickMonUserDataTemplatesFile()
         {
-            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QuickMon3Templates.qps");
+            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QuickMon4Templates.qmtemplate");
         }
         #endregion
                

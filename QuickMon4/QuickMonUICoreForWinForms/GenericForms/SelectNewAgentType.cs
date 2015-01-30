@@ -98,29 +98,36 @@ namespace QuickMon.Forms
             ListViewGroup generalGroup = (from ListViewGroup gr in lvwAgentType.Groups
                                           where gr.Header.ToLower() == "general"
                                           select gr).FirstOrDefault();
-            List<QuickMonTemplate> allTemplates = (from p in QuickMonTemplate.GetAllTemplates()
-                                                 where (selectingCollectors && p.TemplateType == TemplateType.CollectorAgent)
-                                                      orderby p.Description
-                                                      select p).ToList();
-            if (!firstChoice)
-                /**************************/
-                MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                /**************************/
+
+            List<QuickMonTemplate> allTemplates;
+            if (selectingCollectors)
+                allTemplates = (from p in QuickMonTemplate.GetCollectorAgentTemplates()
+                                orderby p.Description
+                                select p).ToList();
+            else
+                allTemplates = (from p in QuickMonTemplate.GetNotifierAgentTemplates()
+                                orderby p.Description
+                                select p).ToList();            
+            
+            
 
             if (allTemplates == null || allTemplates.Count == 0)
             {
+                if (!firstChoice)
+                    /**************************/
+                    MessageBox.Show("No templates found for the selected agent type!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    /**************************/
                 optShowConfigEditor.Checked = true;
             }
             else
             {
-                
-                foreach (QuickMonTemplate preset in allTemplates)
+                foreach (QuickMonTemplate template in allTemplates)
                 {
                     try
                     {
                         RegisteredAgent ar = (from a in RegisteredAgentCache.Agents
                                               where ((selectingCollectors && a.IsCollector) || (!selectingCollectors && a.IsNotifier)) &&
-                                                a.ClassName.EndsWith(preset.ForClass)
+                                                a.ClassName.EndsWith(template.ForClass)
                                               orderby a.Name
                                               select a).FirstOrDefault();
                         if (ar != null)
@@ -131,16 +138,24 @@ namespace QuickMon.Forms
                             if (agentGroup == null)
                                 agentGroup = generalGroup;
 
-                            lvi = new ListViewItem(preset.Description);
-                            string details = preset.Config;
+                            lvi = new ListViewItem(template.Description);
+                            string details = template.Config;
                             lvi.ImageIndex = 0;
                             lvi.Group = agentGroup;
                             lvi.SubItems.Add(details);
-                            lvi.Tag = preset;
+                            lvi.Tag = template;
                             lvwAgentType.Items.Add(lvi);
                         }
                     }
                     catch { }
+                }
+                if (lvwAgentType.Items.Count == 0)
+                {
+                    if (!firstChoice)
+                        /**************************/
+                        MessageBox.Show("No templates found for the selected agent type!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        /**************************/
+                    optShowConfigEditor.Checked = true;
                 }
             }
         }
@@ -249,7 +264,7 @@ namespace QuickMon.Forms
                         SelectedAgent = (IAgent)collectorEntryAssembly.CreateInstance(ra.ClassName);                        
                         SelectedAgent.AgentClassName = ra.ClassName.Replace("QuickMon.Collectors.", "").Replace("QuickMon.Notifiers.", "");                        
                         SelectedAgent.AgentClassDisplayName = ra.DisplayName;
-                        if (configToUse.Length ==0)
+                        if (configToUse.Length == 0)
                         {
                             configToUse = SelectedAgent.AgentConfig.GetDefaultOrEmptyXml();
                         }
@@ -264,7 +279,16 @@ namespace QuickMon.Forms
                         }
                         try
                         {
-                            SelectedAgent.AgentConfig.FromXml(configToUse);
+                            if (selectingCollectors && configToUse.StartsWith("<collectorAgent"))
+                            {
+                                SelectedAgent = CollectorHost.GetCollectorAgentFromString(configToUse);                                    
+                            }
+                            else if (!selectingCollectors && configToUse.StartsWith("<notifierAgent"))
+                            {
+                                SelectedAgent = NotifierHost.GetNotifierAgentFromString(configToUse);
+                            }
+                            else 
+                                SelectedAgent.AgentConfig.FromXml(configToUse);
                             DialogResult = System.Windows.Forms.DialogResult.OK;
                             Close();
                         }

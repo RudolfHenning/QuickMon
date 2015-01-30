@@ -44,6 +44,7 @@ namespace QuickMon
                 FromConfig(this, root, monitorPackVars, applyConfigVars);
             }
         }
+        
         private static NotifierHost FromConfig(NotifierHost newNotifierHost, XmlElement xmlNotifierHost, List<ConfigVariable> monitorPackVars, bool applyConfigVars = true)
         {
             if (newNotifierHost == null)
@@ -137,6 +138,61 @@ namespace QuickMon
             }
 
             return newNotifierHost;
+        }
+        public static INotifier GetNotifierAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        {
+            if (xmlString.StartsWith("<notifierAgent"))
+            {
+                XmlDocument collectorAgentXml = new XmlDocument();
+                collectorAgentXml.LoadXml(xmlString);
+                return GetNotifierAgentFromString(collectorAgentXml.DocumentElement, configVars, applyConfigVars);
+            }
+            else
+                return null;
+        }
+
+        private static INotifier GetNotifierAgentFromString(XmlElement notifierAgentNode, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        {
+            string name = notifierAgentNode.ReadXmlElementAttr("name", "");
+            string typeName = notifierAgentNode.ReadXmlElementAttr("type", "");
+            bool enabled = notifierAgentNode.ReadXmlElementAttr("enabled", true);
+            string configXml = "";
+            XmlNode configNode = notifierAgentNode.SelectSingleNode("config");
+            if (configNode != null)
+            {
+                configXml = configNode.OuterXml;
+            }
+            INotifier newAgent = CreateNotifierFromClassName(typeName);
+            if (newAgent != null)
+            {
+                try
+                {
+                    newAgent.Name = name;
+                    newAgent.Enabled = enabled;
+                    if (configXml.Length > 0)
+                        newAgent.InitialConfiguration = configXml;
+                    else
+                    {
+                        if (newAgent.AgentConfig != null)
+                            newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
+                        else
+                            throw new Exception("Could not create AgentConfig!");
+                    }
+                    string appliedConfig = newAgent.InitialConfiguration;
+                    if (applyConfigVars)
+                    {
+                        appliedConfig = configVars.ApplyOn(appliedConfig);
+                    }
+                    newAgent.ActiveConfiguration = appliedConfig;
+                    newAgent.AgentConfig.FromXml(appliedConfig);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    throw new Exception("Could not create AgentConfig!");
+                }
+            }
+            return newAgent;
         }
         public static INotifier CreateNotifierFromClassName(string agentClassName)
         {

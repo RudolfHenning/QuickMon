@@ -285,7 +285,7 @@
             // 
             // tabPageSummary
             // 
-            this.tabPageSummary.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageSummary.BackColor = System.Drawing.Color.White;
             this.tabPageSummary.Controls.Add(this.cmdEditSummaryQuery);
             this.tabPageSummary.Controls.Add(this.txtStateQuery);
             this.tabPageSummary.Controls.Add(this.label6);
@@ -318,7 +318,7 @@
             // 
             // tabPageDetail
             // 
-            this.tabPageDetail.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageDetail.BackColor = System.Drawing.Color.White;
             this.tabPageDetail.Controls.Add(this.cmdEditDetailsQuery);
             this.tabPageDetail.Controls.Add(this.chkCopyColumnNames);
             this.tabPageDetail.Controls.Add(this.cmdEditColumnNames);
@@ -468,6 +468,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(558, 356);
             this.Controls.Add(this.txtName);

@@ -358,10 +358,11 @@
             this.cmdRegedit.UseVisualStyleBackColor = true;
             this.cmdRegedit.Click += new System.EventHandler(this.cmdRegedit_Click);
             // 
-            // RegistryQueryCollectorEditInstance
+            // RegistryQueryCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(581, 281);
             this.Controls.Add(this.cmdRegedit);
             this.Controls.Add(this.chkExpandEnvNames);
@@ -383,7 +384,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "RegistryQueryCollectorEditInstance";
+            this.Name = "RegistryQueryCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Registry Query Instance";
             this.Shown += new System.EventHandler(this.EditRegistryQueryInstance_Shown);
