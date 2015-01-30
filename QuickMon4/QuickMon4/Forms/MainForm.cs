@@ -1111,6 +1111,7 @@ namespace QuickMon
                 CollectorHost newCollectorEntry = new CollectorHost();
                 EditCollectorHost editCollectorHost = new EditCollectorHost();
                 newCollectorEntry.ParentCollectorId = "";
+                editCollectorHost.ShowAddAgentsOnStart = true;
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
                 {
                     CollectorHost parentCollectorEntry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
@@ -1141,7 +1142,7 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "New Collector", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
-                ResumePolling();
+                ResumePolling(true);
         }
         private void EditCollectorConfig()
         {
@@ -1208,7 +1209,7 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (Properties.Settings.Default.PausePollingDuringEditConfig)
-                ResumePolling();
+                ResumePolling(true);
         }
         private void DeleteCollector()
         {

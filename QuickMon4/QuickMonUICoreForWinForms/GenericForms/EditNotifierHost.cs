@@ -161,7 +161,7 @@ namespace QuickMon
         private void CheckOkEnabled()
         {
             bool isEnable = true;
-            if (txtName.Text.Length == 0 || editingNotifierHost == null || editingNotifierHost.NotifierAgents == null || editingNotifierHost.NotifierAgents.Count == 0)
+            if (txtName.Text.Length == 0 || lvwEntries.Items.Count == 0)
                 isEnable = false;
             cmdOK.Enabled = isEnable;
         }
@@ -646,8 +646,5 @@ namespace QuickMon
         {
             CheckOkEnabled();
         }
-
-
-
     }
 }

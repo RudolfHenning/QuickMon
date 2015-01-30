@@ -32,7 +32,8 @@ namespace QuickMon
         #region Properties
         public string SelectedConfig { get; set; }
         public MonitorPack HostingMonitorPack { get; set; }
-        public List<string> KnownRemoteHosts { get; set; } 
+        public List<string> KnownRemoteHosts { get; set; }
+        public bool ShowAddAgentsOnStart { get; set; }
         #endregion
 
         private CollectorHost editingCollectorHost = new CollectorHost();
@@ -75,6 +76,8 @@ namespace QuickMon
                 LoadControlData();
                 lvwEntries.AutoResizeColumnIndex = 2;
                 lvwEntries.AutoResizeColumnEnabled = true;
+                if (ShowAddAgentsOnStart)
+                    CreateAgent();
             }
             catch(Exception ex)
             {
@@ -244,7 +247,6 @@ namespace QuickMon
         {
             //Display a list of existing types of agents/by template...
             //Once type is selected load edit agent with default settings
-            //CollectorHost.GetCollectorAgentFromString()
             SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
             if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
             {

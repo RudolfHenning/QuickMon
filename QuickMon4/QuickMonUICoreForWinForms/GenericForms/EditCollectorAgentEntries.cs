@@ -16,9 +16,12 @@ namespace QuickMon.UI
             InitializeComponent();
         }
 
+        #region Properties
         public ICollectorConfigEntryEditWindow DetailEditor { get; set; }
         public ICollector SelectedEntry { get; set; }
         public bool ShowTreeView { get; set; }
+        public bool ShowAddAgentsOnStart { get; set; } 
+        #endregion
 
         #region Form events
         private void EditEntriesInListView_Load(object sender, EventArgs e)
@@ -40,6 +43,8 @@ namespace QuickMon.UI
         private void EditEntriesInListView_Shown(object sender, EventArgs e)
         {
             LoadEntries();
+            if (ShowAddAgentsOnStart)
+                AddEntry();
         } 
         #endregion
 
@@ -93,6 +98,41 @@ namespace QuickMon.UI
         {
             cmdOK.Enabled = SelectedEntry != null && (txtName.Text.Length > 0);
         } 
+        private void AddEntry()
+        {
+            if (DetailEditor != null)
+            {
+                DetailEditor.SelectedEntry = null;
+                if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                {
+                    if (!ShowTreeView)
+                    {
+                        ListViewItem lvi = new ListViewItem(DetailEditor.SelectedEntry.Description);
+                        lvi.ImageIndex = 1;
+                        lvi.SubItems.Add(DetailEditor.SelectedEntry.TriggerSummary);
+                        lvi.Tag = DetailEditor.SelectedEntry;
+                        lvwEntries.Items.Add(lvi);
+                    }
+                    else
+                    {
+                        TreeNode tni = new TreeNode(DetailEditor.SelectedEntry.Description);
+                        tni.ImageIndex = 0;
+                        tni.SelectedImageIndex = 0;
+                        tni.Tag = DetailEditor.SelectedEntry;
+                        ICollectorConfigEntry configEntry = (ICollectorConfigEntry)DetailEditor.SelectedEntry;
+                        foreach (var subEntry in configEntry.SubItems)
+                        {
+                            TreeNode tnisub = new TreeNode(subEntry.Description);
+                            tnisub.ImageIndex = 1;
+                            tnisub.SelectedImageIndex = 1;
+                            tni.Nodes.Add(tnisub);
+                        }
+                        tni.Expand();
+                        tvwEntries.Nodes.Add(tni);
+                    }
+                }
+            }
+        }
         private void EditEntry()
         {
             if (DetailEditor != null)
@@ -156,38 +196,7 @@ namespace QuickMon.UI
         }
         private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
         {
-            if (DetailEditor != null)
-            {
-                DetailEditor.SelectedEntry = null;
-                if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
-                {
-                    if (!ShowTreeView)
-                    {
-                        ListViewItem lvi = new ListViewItem(DetailEditor.SelectedEntry.Description);
-                        lvi.ImageIndex = 1;
-                        lvi.SubItems.Add(DetailEditor.SelectedEntry.TriggerSummary);
-                        lvi.Tag = DetailEditor.SelectedEntry;
-                        lvwEntries.Items.Add(lvi);
-                    }
-                    else
-                    {
-                        TreeNode tni = new TreeNode(DetailEditor.SelectedEntry.Description);
-                        tni.ImageIndex = 0;
-                        tni.SelectedImageIndex = 0;
-                        tni.Tag = DetailEditor.SelectedEntry;
-                        ICollectorConfigEntry configEntry = (ICollectorConfigEntry)DetailEditor.SelectedEntry;
-                        foreach (var subEntry in configEntry.SubItems)
-                        {
-                            TreeNode tnisub = new TreeNode(subEntry.Description);
-                            tnisub.ImageIndex = 1;
-                            tnisub.SelectedImageIndex = 1;
-                            tni.Nodes.Add(tnisub);
-                        }
-                        tni.Expand();
-                        tvwEntries.Nodes.Add(tni);
-                    }
-                }
-            }
+            AddEntry();
         }
         private void lvwEntries_EnterKeyPressed()
         {
