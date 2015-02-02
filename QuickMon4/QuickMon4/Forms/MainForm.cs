@@ -2297,7 +2297,8 @@ namespace QuickMon
         }
         private void manageTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            EditTemplates editTemplates = new EditTemplates();
+            editTemplates.ShowDialog();
         }
         private void restartInAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
