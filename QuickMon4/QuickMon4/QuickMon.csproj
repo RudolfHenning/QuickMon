@@ -79,6 +79,12 @@
     <Compile Include="Forms\AboutQuickMon.Designer.cs">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditTemplates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditTemplates.Designer.cs">
+      <DependentUpon>EditTemplates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\GeneralSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,28 +98,28 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RecentMonitorPacks.cs" />
-    <Compile Include="Forms\TestCollectorHostEdit.cs">
+    <Compile Include="Forms\Test\TestCollectorHostEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestCollectorHostEdit.Designer.cs">
+    <Compile Include="Forms\Test\TestCollectorHostEdit.Designer.cs">
       <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestMenu.cs">
+    <Compile Include="Forms\Test\TestMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestMenu.Designer.cs">
+    <Compile Include="Forms\Test\TestMenu.Designer.cs">
       <DependentUpon>TestMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestRun1.cs">
+    <Compile Include="Forms\Test\TestRun1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestRun1.Designer.cs">
+    <Compile Include="Forms\Test\TestRun1.Designer.cs">
       <DependentUpon>TestRun1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestRun2Notifiers.cs">
+    <Compile Include="Forms\Test\TestRun2Notifiers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestRun2Notifiers.Designer.cs">
+    <Compile Include="Forms\Test\TestRun2Notifiers.Designer.cs">
       <DependentUpon>TestRun2Notifiers.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -127,22 +133,25 @@
     <EmbeddedResource Include="Forms\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditTemplates.resx">
+      <DependentUpon>EditTemplates.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\GeneralSettings.resx">
       <DependentUpon>GeneralSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestCollectorHostEdit.resx">
+    <EmbeddedResource Include="Forms\Test\TestCollectorHostEdit.resx">
       <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestMenu.resx">
+    <EmbeddedResource Include="Forms\Test\TestMenu.resx">
       <DependentUpon>TestMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestRun1.resx">
+    <EmbeddedResource Include="Forms\Test\TestRun1.resx">
       <DependentUpon>TestRun1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestRun2Notifiers.resx">
+    <EmbeddedResource Include="Forms\Test\TestRun2Notifiers.resx">
       <DependentUpon>TestRun2Notifiers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -172,6 +181,11 @@
   <ItemGroup>
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />
+    <None Include="Resources\calculator.png" />
+    <None Include="Resources\doc_upload.png" />
+    <None Include="Resources\doc_remove3.png" />
+    <None Include="Resources\doc_addnew.png" />
+    <None Include="Resources\undo.png" />
     <None Include="Resources\QM4BlueStateWarnB.ico" />
     <None Include="Resources\QM4BlueStateWarnA.ico" />
     <None Include="Resources\QM4BlueStateNAB.ico" />

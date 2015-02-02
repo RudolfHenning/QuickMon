@@ -112,6 +112,9 @@
       <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\WMIQuery\WMIQueryCollectorUI.cs" />
+    <Compile Include="Controls\ComboBoxWithBorder.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ComboItem.cs" />
     <Compile Include="Controls\DataTableViewerControl.cs">
       <SubType>UserControl</SubType>
