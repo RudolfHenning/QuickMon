@@ -1,0 +1,3 @@
+<collectorAgent name="" type="" enabled="True">
+    {0}
+</collectorAgent>

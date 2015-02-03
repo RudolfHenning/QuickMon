@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace QuickMon.Forms
 {
-    public partial class SelectNewAgentType : Form
+    public partial class SelectNewAgentType : Form 
     {
         public SelectNewAgentType()
         {
@@ -23,7 +23,7 @@ namespace QuickMon.Forms
 
         #region Properties
         public string InitialRegistrationName { get; set; }
-        public IAgent SelectedAgent { get; set; }        
+        public IAgent SelectedAgent { get; set; }
         #endregion
 
         public DialogResult ShowNotifierSelection()
@@ -102,11 +102,11 @@ namespace QuickMon.Forms
             List<QuickMonTemplate> allTemplates;
             if (selectingCollectors)
                 allTemplates = (from p in QuickMonTemplate.GetCollectorAgentTemplates()
-                                orderby p.Description
+                                orderby p.Name
                                 select p).ToList();
             else
                 allTemplates = (from p in QuickMonTemplate.GetNotifierAgentTemplates()
-                                orderby p.Description
+                                orderby p.Name
                                 select p).ToList();            
             
             
@@ -138,8 +138,8 @@ namespace QuickMon.Forms
                             if (agentGroup == null)
                                 agentGroup = generalGroup;
 
-                            lvi = new ListViewItem(template.Description);
-                            string details = template.Config;
+                            lvi = new ListViewItem(template.Name);
+                            string details = template.Description.Trim().Length == 0 ? template.Config : template.Description;
                             lvi.ImageIndex = 0;
                             lvi.Group = agentGroup;
                             lvi.SubItems.Add(details);

@@ -185,7 +185,7 @@
             // 
             this.deleteCollectorAgentEntriesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.deleteCollectorAgentEntriesToolStripButton.Enabled = false;
-            this.deleteCollectorAgentEntriesToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteCollectorAgentEntriesToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.deleteCollectorAgentEntriesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteCollectorAgentEntriesToolStripButton.Name = "deleteCollectorAgentEntriesToolStripButton";
             this.deleteCollectorAgentEntriesToolStripButton.Size = new System.Drawing.Size(23, 22);

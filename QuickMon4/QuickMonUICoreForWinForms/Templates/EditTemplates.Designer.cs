@@ -34,7 +34,6 @@ namespace QuickMon.Forms
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.addTemplateToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deletePresetToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.resetToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -83,7 +82,6 @@ namespace QuickMon.Forms
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addTemplateToolStripButton,
             this.deletePresetToolStripButton,
-            this.exportToolStripButton,
             this.toolStripSeparator1,
             this.importToolStripButton,
             this.resetToolStripButton,
@@ -92,6 +90,7 @@ namespace QuickMon.Forms
             this.refreshToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip1.Size = new System.Drawing.Size(684, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.TabStop = true;
@@ -115,16 +114,7 @@ namespace QuickMon.Forms
             this.deletePresetToolStripButton.Name = "deletePresetToolStripButton";
             this.deletePresetToolStripButton.Size = new System.Drawing.Size(28, 28);
             this.deletePresetToolStripButton.Text = "Delete selected templates";
-            // 
-            // exportToolStripButton
-            // 
-            this.exportToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.exportToolStripButton.Enabled = false;
-            this.exportToolStripButton.Image = global::QuickMon.Properties.Resources.doc_upload;
-            this.exportToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exportToolStripButton.Name = "exportToolStripButton";
-            this.exportToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.exportToolStripButton.Text = "Export selected templates";
+            this.deletePresetToolStripButton.Click += new System.EventHandler(this.deletePresetToolStripButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -148,6 +138,7 @@ namespace QuickMon.Forms
             this.resetToolStripButton.Name = "resetToolStripButton";
             this.resetToolStripButton.Size = new System.Drawing.Size(28, 28);
             this.resetToolStripButton.Text = "Reset all templates";
+            this.resetToolStripButton.Click += new System.EventHandler(this.resetToolStripButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -172,6 +163,7 @@ namespace QuickMon.Forms
             this.refreshToolStripButton.Size = new System.Drawing.Size(28, 28);
             this.refreshToolStripButton.Text = "Reload all templates";
             this.refreshToolStripButton.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.refreshToolStripButton.Click += new System.EventHandler(this.refreshToolStripButton_Click);
             // 
             // statusStrip1
             // 
@@ -523,7 +515,6 @@ namespace QuickMon.Forms
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton addTemplateToolStripButton;
         private System.Windows.Forms.ToolStripButton deletePresetToolStripButton;
-        private System.Windows.Forms.ToolStripButton exportToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton importToolStripButton;
         private System.Windows.Forms.ToolStripButton resetToolStripButton;

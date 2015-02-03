@@ -1,0 +1,3 @@
+<notifierAgent name="" type="" enabled="True">
+    {0}
+</notifierAgent>

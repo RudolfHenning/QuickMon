@@ -1,0 +1,11 @@
+<collectorHost uniqueId="" name="" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
+    <!-- CollectorAgents -->
+    <collectorAgents>
+    </collectorAgents>
+    <!-- ServiceWindows -->
+    <serviceWindows>
+    </serviceWindows>
+    <!-- Config variables -->
+    <configVars>
+    </configVars>
+</collectorHost>

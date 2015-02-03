@@ -25,7 +25,7 @@ namespace QuickMon
 
         private NotifierHost editingNotifierHost = new NotifierHost();
         private int collectorImgIndex = 1;
-        private int folderImgIndex = 0;
+        //private int folderImgIndex = 0;
         private string indentationChars = "  ";
         private bool selfCheckingOn = false;
         private bool loading = false;

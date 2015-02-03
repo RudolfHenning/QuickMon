@@ -60,10 +60,10 @@ namespace QuickMon
                 SelectedMonitorPack.Enabled = chkEnabled.Checked;
                 SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                 SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
-                if (cboDefaultNotifier.SelectedIndex > -1)
-                    SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
-                else
-                    SelectedMonitorPack.DefaultViewerNotifier = null;
+                //if (cboDefaultNotifier.SelectedIndex > -1)
+                //    SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
+                //else
+                //    SelectedMonitorPack.DefaultViewerNotifier = null;
                 SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
                 foreach (ListViewItem lvi in lvwConfigVars.Items)
                 {
@@ -99,18 +99,18 @@ namespace QuickMon
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
             collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
             SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
-            LoadNotifiers();
+            //LoadNotifiers();
             LoadConfigVars();
         }
-        private void LoadNotifiers()
-        {
-            cboDefaultNotifier.Items.Clear();
-            foreach (NotifierHost n in SelectedMonitorPack.NotifierHosts)
-            {
-                cboDefaultNotifier.Items.Add(n);
-            }
-            cboDefaultNotifier.SelectedItem = SelectedMonitorPack.DefaultViewerNotifier;
-        }
+        //private void LoadNotifiers()
+        //{
+        //    cboDefaultNotifier.Items.Clear();
+        //    foreach (NotifierHost n in SelectedMonitorPack.NotifierHosts)
+        //    {
+        //        cboDefaultNotifier.Items.Add(n);
+        //    }
+        //    cboDefaultNotifier.SelectedItem = SelectedMonitorPack.DefaultViewerNotifier;
+        //}
         private bool ValidateInput()
         {
             if (txtName.Text.Trim().Length == 0)
@@ -319,10 +319,10 @@ namespace QuickMon
                     SelectedMonitorPack.Enabled = chkEnabled.Checked;
                     SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                     SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
-                    if (cboDefaultNotifier.SelectedIndex > -1)
-                        SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
-                    else
-                        SelectedMonitorPack.DefaultViewerNotifier = null;
+                    //if (cboDefaultNotifier.SelectedIndex > -1)
+                    //    SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
+                    //else
+                    //    SelectedMonitorPack.DefaultViewerNotifier = null;
                     SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
                     foreach (ListViewItem lvi in lvwConfigVars.Items)
                     {

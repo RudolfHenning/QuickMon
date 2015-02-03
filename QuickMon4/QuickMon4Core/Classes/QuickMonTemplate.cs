@@ -17,15 +17,30 @@ namespace QuickMon
         public static List<QuickMonTemplate> GetAllTemplates()
         {
             List<QuickMonTemplate> list = new List<QuickMonTemplate>();
-            foreach (string directoryPath in TemplateDirectories())
+            string fileContents = System.IO.File.ReadAllText(MonitorPack.GetQuickMonUserDataTemplatesFile());
+            if (fileContents.Contains("<quickMonTemplate>") && fileContents.Contains("</quickMonTemplate>"))
             {
-                if (System.IO.Directory.Exists(directoryPath))
+                try
                 {
-                    foreach (string filePath in System.IO.Directory.GetFiles(directoryPath, "*.qmtemplate"))
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(fileContents);
+                    XmlElement root = xdoc.DocumentElement;
+                    foreach (XmlNode templateNode in root.SelectNodes("template"))
                     {
-                        list.AddRange(GetTemplatesInFile(filePath));
+                        try
+                        {
+                            QuickMonTemplate newTemplate = new QuickMonTemplate();
+                            newTemplate.Name = templateNode.ReadXmlElementAttr("name", "");
+                            newTemplate.TemplateType = TemplateTypeConverter.FromText(templateNode.ReadXmlElementAttr("type", "MonitorPack"));
+                            newTemplate.ForClass = templateNode.ReadXmlElementAttr("class", "");
+                            newTemplate.Description = templateNode.ReadXmlElementAttr("description", "");
+                            newTemplate.Config = templateNode.InnerXml;
+                            list.Add(newTemplate);
+                        }
+                        catch { }
                     }
                 }
+                catch { }
             }
             return list;
         }
@@ -60,45 +75,117 @@ namespace QuickMon
                     select t).ToList();
         }
 
-        private static List<QuickMonTemplate> GetTemplatesInFile(string filePath)
+        public static void ResetTemplates()
         {
-            List<QuickMonTemplate> list = new List<QuickMonTemplate>();
-            string fileContents = System.IO.File.ReadAllText(filePath);
-            if (fileContents.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"))
-                fileContents = fileContents.Replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n", "");
-            if (fileContents.StartsWith("<quickMonTemplate>") && fileContents.EndsWith("</quickMonTemplate>"))
-            {
-                try
-                {
-                    XmlDocument xdoc = new XmlDocument();
-                    xdoc.LoadXml(fileContents);
-                    XmlElement root = xdoc.DocumentElement;
-                    foreach (XmlNode templateNode in root.SelectNodes("template"))
-                    {
-                        try
-                        {
-                            QuickMonTemplate newTemplate = new QuickMonTemplate();
-                            newTemplate.Name = templateNode.ReadXmlElementAttr("name", "");
-                            newTemplate.TemplateType = TemplateTypeConverter.FromText(templateNode.ReadXmlElementAttr("type", "MonitorPack"));
-                            newTemplate.ForClass = templateNode.ReadXmlElementAttr("class", "");
-                            newTemplate.Description = templateNode.ReadXmlElementAttr("description", "");
-                            newTemplate.Config = templateNode.InnerXml;
-                            list.Add(newTemplate);
-                        }
-                        catch { }
-                    }
-                }
-                catch { }
-            }
-            return list;
+            string path = MonitorPack.GetQuickMonUserDataTemplatesFile();
+            if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(path)))
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
+            System.IO.File.WriteAllText(path, Properties.Resources.QuickMon4DefaultTemplate);
         }
 
-        private static List<string> TemplateDirectories()
+        //private static List<QuickMonTemplate> GetTemplatesInFile(string filePath)
+        //{
+        //    List<QuickMonTemplate> list = new List<QuickMonTemplate>();
+        //    string fileContents = System.IO.File.ReadAllText(filePath);
+        //    if (fileContents.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"))
+        //        fileContents = fileContents.Replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n", "");
+        //    if (fileContents.StartsWith("<quickMonTemplate>") && fileContents.EndsWith("</quickMonTemplate>"))
+        //    {
+        //        try
+        //        {
+        //            XmlDocument xdoc = new XmlDocument();
+        //            xdoc.LoadXml(fileContents);
+        //            XmlElement root = xdoc.DocumentElement;
+        //            foreach (XmlNode templateNode in root.SelectNodes("template"))
+        //            {
+        //                try
+        //                {
+        //                    QuickMonTemplate newTemplate = new QuickMonTemplate();
+        //                    newTemplate.Name = templateNode.ReadXmlElementAttr("name", "");
+        //                    newTemplate.TemplateType = TemplateTypeConverter.FromText(templateNode.ReadXmlElementAttr("type", "MonitorPack"));
+        //                    newTemplate.ForClass = templateNode.ReadXmlElementAttr("class", "");
+        //                    newTemplate.Description = templateNode.ReadXmlElementAttr("description", "");
+        //                    newTemplate.Config = templateNode.InnerXml;
+        //                    list.Add(newTemplate);
+        //                }
+        //                catch { }
+        //            }
+        //        }
+        //        catch { }
+        //    }
+        //    return list;
+        //}
+
+        //private static List<string> TemplateDirectories()
+        //{
+        //    List<string> directories = new List<string>();
+        //    directories.Add(MonitorPack.GetQuickMonAppDataDirectory());
+        //    directories.Add(MonitorPack.GetQuickMonUserDataDirectory());
+        //    return directories;
+        //}
+
+        public static void SaveTemplates(List<QuickMonTemplate> list)
         {
-            List<string> directories = new List<string>();
-            directories.Add(MonitorPack.GetQuickMonAppDataDirectory());
-            directories.Add(MonitorPack.GetQuickMonUserDataDirectory());
-            return directories;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            sb.AppendLine("<quickMonTemplate>");
+            //MonitorPacks
+            foreach (QuickMonTemplate template in (from t in list
+                                                   where t.TemplateType == TemplateType.MonitorPack
+                                                   orderby t.Name
+                                                   select t))
+            {
+                sb.AppendLine(GetTemplateXmlString(template.Name, "MonitorPack", "MonitorPack", template.Description, template.Config));                
+            }
+            //CollectorHosts
+            foreach (QuickMonTemplate template in (from t in list
+                                                   where t.TemplateType == TemplateType.CollectorHost
+                                                   orderby t.Name
+                                                   select t))
+            {
+                sb.AppendLine(GetTemplateXmlString(template.Name, "CollectorHost", "CollectorHost", template.Description, template.Config));            
+            }
+            //CollectorAgent
+            foreach (QuickMonTemplate template in (from t in list
+                                                   where t.TemplateType == TemplateType.CollectorAgent
+                                                   orderby t.Name
+                                                   select t))
+            {
+                sb.AppendLine(GetTemplateXmlString(template.Name, "CollectorAgent", template.ForClass, template.Description, template.Config));
+            }
+            //NotifierHosts
+            foreach (QuickMonTemplate template in (from t in list
+                                                   where t.TemplateType == TemplateType.NotifierHost
+                                                   orderby t.Name
+                                                   select t))
+            {
+                sb.AppendLine(GetTemplateXmlString(template.Name, "NotifierHost", "NotifierHost", template.Description, template.Config));
+            }
+            //NotifierAgents
+            foreach (QuickMonTemplate template in (from t in list
+                                                   where t.TemplateType == TemplateType.NotifierAgent
+                                                   orderby t.Name
+                                                   select t))
+            {
+                sb.AppendLine(GetTemplateXmlString(template.Name, "NotifierAgent", template.ForClass, template.Description, template.Config));
+            }
+            sb.AppendLine("</quickMonTemplate>");
+            if (System.IO.File.Exists(MonitorPack.GetQuickMonUserDataTemplatesFile() + ".bak"))
+            {
+                System.IO.File.SetAttributes(MonitorPack.GetQuickMonUserDataTemplatesFile() + ".bak", System.IO.FileAttributes.Normal);
+                System.IO.File.Delete(MonitorPack.GetQuickMonUserDataTemplatesFile() + ".bak");
+                
+            }
+            if (System.IO.File.Exists(MonitorPack.GetQuickMonUserDataTemplatesFile()))
+            {
+                System.IO.File.Move(MonitorPack.GetQuickMonUserDataTemplatesFile(), MonitorPack.GetQuickMonUserDataTemplatesFile() + ".bak");
+            }
+            System.IO.File.WriteAllText(MonitorPack.GetQuickMonUserDataTemplatesFile(), XmlFormattingUtils.NormalizeXML(sb.ToString()));
+        }
+        private static string GetTemplateXmlString(string name, string typeName, string className, string description, string config)
+        {
+            return string.Format("<template name=\"{0}\" type=\"{1}\" class=\"{2}\" description=\"{3}\">\r\n{4}\r\n</template>",
+                name.EscapeXml(), typeName.EscapeXml(), className.EscapeXml(), description.EscapeXml(), config);
         }
     }
 }

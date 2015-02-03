@@ -1,0 +1,19 @@
+<notifierHost name="" enabled="True" alertLevel="Debug" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+    <!-- collectorHosts -->
+    <collectorHosts>
+    </collectorHosts>
+    <!-- ServiceWindows -->
+    <serviceWindows>
+    </serviceWindows>
+    <!-- Config variables -->
+    <configVars>
+    </configVars>
+    <!-- notifierAgents -->
+    <notifierAgents>
+		<notifierAgent name="Debugger agent" type="InMemoryNotifier" enabled="True">
+			<config>
+			<inMemory maxEntryCount="99999" />
+			</config>
+		</notifierAgent>
+    </notifierAgents>
+</notifierHost>

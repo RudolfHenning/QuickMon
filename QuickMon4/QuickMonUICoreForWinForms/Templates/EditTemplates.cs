@@ -49,8 +49,11 @@ namespace QuickMon.Forms
         private void cboType_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadClassesCombo();
+            SetDefaultConfigStringForType();
             IsSaveEnabled();
         }
+
+        
         private void chkWrapText_CheckedChanged(object sender, EventArgs e)
         {
             txtConfig.WordWrap = chkWrapText.Checked;
@@ -72,12 +75,38 @@ namespace QuickMon.Forms
         {
             CreateNewTemplate();
         }
+        private void deletePresetToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete all selected templates?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+            {
+                foreach (ListViewItem lvi in lvwTemplates.SelectedItems)
+                    lvwTemplates.Items.Remove(lvi);
+                SaveAllTemplates();
+                CreateNewTemplate(); //to blank out everything
+                IsSaveEnabled();
+            }
+        }
+        private void resetToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to reset all templates to the defaults that came with the original installation?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+            {
+                QuickMonTemplate.ResetTemplates();
+                CreateNewTemplate(); //to blank out everything
+                LoadTemplates();
+            }
+        }
+        private void refreshToolStripButton_Click(object sender, EventArgs e)
+        {
+            LoadTemplates();
+            CreateNewTemplate();
+        }
         #endregion
 
         #region ListView events
         private void lvwTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadSelectedTemplate();
+            deletePresetToolStripButton.Enabled = lvwTemplates.SelectedItems.Count > 0;
         }
         #endregion
 
@@ -131,10 +160,12 @@ namespace QuickMon.Forms
         private void LoadTemplates()
         {
             lvwTemplates.Items.Clear();
-            foreach(QuickMonTemplate t in QuickMonTemplate.GetAllTemplates())
+            foreach (QuickMonTemplate t in (from t in QuickMonTemplate.GetAllTemplates()
+                                            orderby t.Name
+                                            select t))
             {
                 if (
-                    cboTypeFilter.SelectedIndex == 5 || 
+                    cboTypeFilter.SelectedIndex == 5 ||
                     (
                         (cboTypeFilter.SelectedIndex == 0 && t.TemplateType == TemplateType.MonitorPack) ||
                         (cboTypeFilter.SelectedIndex == 1 && t.TemplateType == TemplateType.CollectorHost) ||
@@ -145,7 +176,7 @@ namespace QuickMon.Forms
                     )
                 {
                     ListViewGroup lg = (from ListViewGroup g in lvwTemplates.Groups
-                                        where 
+                                        where
                                             (g.Header == "Monitor Pack" && t.TemplateType == TemplateType.MonitorPack) ||
                                             (g.Header == "Collector Host" && t.TemplateType == TemplateType.CollectorHost) ||
                                             (g.Header == "Collector Agent" && t.TemplateType == TemplateType.CollectorAgent) ||
@@ -164,14 +195,31 @@ namespace QuickMon.Forms
         {
             if (lvwTemplates.SelectedItems.Count == 1 && lvwTemplates.SelectedItems[0].Tag is QuickMonTemplate)
             {
+                cboType.Enabled = cboTypeFilter.SelectedIndex == 5;
+                txtName.Enabled = true;
+                cboClass.Enabled = true;
+                txtDescription.Enabled = true;
+
                 QuickMonTemplate t = (QuickMonTemplate)lvwTemplates.SelectedItems[0].Tag;
                 cboType.SelectedIndex = (int)t.TemplateType;
                 txtName.Text = t.Name;
                 cboClass.Text = t.ForClass;
                 txtDescription.Text = t.Description;
                 txtConfig.Text = XmlFormattingUtils.NormalizeXML(t.Config);
-                cmdSaveTemplate.Enabled = false;
-            }            
+                SetSaveButton(false);
+            }    
+            else
+            {
+                cboType.Enabled = lvwTemplates.SelectedItems.Count == 0 && cboTypeFilter.SelectedIndex == 5;
+                txtName.Enabled = lvwTemplates.SelectedItems.Count == 0;
+                cboClass.Enabled = lvwTemplates.SelectedItems.Count == 0;
+                txtDescription.Enabled = lvwTemplates.SelectedItems.Count == 0;
+                txtName.Text = "";
+                cboClass.Text = "";
+                txtDescription.Text = "";
+                txtConfig.Text = "";
+                SetSaveButton(false);
+            }
         }
         private void SaveSelectedTemplate()
         {
@@ -200,12 +248,9 @@ namespace QuickMon.Forms
                 lvi = new ListViewItem(txtName.Text);
                 lvi.SubItems.Add(cboClass.Text);
                 t = new QuickMonTemplate();
-                lvwTemplates.Items.Add(lvi);
-                lvwTemplates.SelectedItems.Clear();
-                lvi.Selected = true;
+                lvwTemplates.Items.Add(lvi);                
             }
             t.Name = txtName.Text;
-
             t.TemplateType = (TemplateType)cboType.SelectedIndex;
             t.ForClass = cboClass.Text;
             t.Description = txtDescription.Text;
@@ -218,17 +263,35 @@ namespace QuickMon.Forms
                                     (g.Header == "Collector Agent" && t.TemplateType == TemplateType.CollectorAgent) ||
                                     (g.Header == "Notifier Host" && t.TemplateType == TemplateType.NotifierHost) ||
                                     (g.Header == "Notifier Agent" && t.TemplateType == TemplateType.NotifierAgent)
-                                select g).FirstOrDefault();            
-
-            lvi.Text = txtName.Text;
-            lvi.SubItems[1].Text = cboClass.Text;
+                                select g).FirstOrDefault();
+            lvi.Selected = true;
+            lvi.Text = t.Name;
+            lvi.SubItems[1].Text = t.ForClass;
             lvi.Group = lg;
             lvi.Tag = t;
-            cmdSaveTemplate.Enabled = false;
+            SaveAllTemplates();
+            SetSaveButton(false);
+        }
+        private void SaveAllTemplates()
+        {
+            List<QuickMonTemplate> list = new List<QuickMonTemplate>();
+            foreach(ListViewItem lvi in lvwTemplates.Items)
+            {
+                if (lvi.Tag is QuickMonTemplate)
+                {
+                    QuickMonTemplate t = (QuickMonTemplate)lvi.Tag;
+                    list.Add(t);
+                }
+            }
+            QuickMonTemplate.SaveTemplates(list);
         }
         private void CreateNewTemplate()
         {
             lvwTemplates.SelectedItems.Clear();
+            cboType.Enabled = cboTypeFilter.SelectedIndex == 5;
+            txtName.Enabled = true;
+            cboClass.Enabled = true;
+            txtDescription.Enabled = true;
             txtName.Text = "";
             cboClass.Text = "";
             txtDescription.Text = "";
@@ -237,7 +300,30 @@ namespace QuickMon.Forms
         }
         private void IsSaveEnabled()
         {
-            cmdSaveTemplate.Enabled = cboType.SelectedIndex > -1 && txtName.Text.Trim().Length > 0 && cboClass.Text.Trim().Length > 0 && txtConfig.Text.Trim().Length > 0;
+            SetSaveButton(cboType.SelectedIndex > -1 && txtName.Text.Trim().Length > 0 && cboClass.Text.Trim().Length > 0 && txtConfig.Text.Trim().Length > 0 && lvwTemplates.SelectedItems.Count <= 1);
+        }
+        private void SetSaveButton(bool enabled)
+        {
+            saveToolStripButton.Enabled = enabled;
+            cmdSaveTemplate.Enabled = enabled;
+        }
+        private void SetDefaultConfigStringForType()
+        {
+            if (lvwTemplates.SelectedItems.Count == 1 && txtConfig.Text.Length > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to change the template type and reset the existing configuration?", "Type", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }
+            if (cboType.SelectedIndex == 0)
+                txtConfig.Text = Properties.Resources.BlankTemplateMonitorPack;
+            else if (cboType.SelectedIndex == 1)
+                txtConfig.Text = Properties.Resources.BlankTemplateCollectorHost;
+            else if (cboType.SelectedIndex == 2)
+                txtConfig.Text = Properties.Resources.BlankTemplateCollectorAgent;
+            else if (cboType.SelectedIndex == 3)
+                txtConfig.Text = Properties.Resources.BlankTemplateNotifierHost;
+            else if (cboType.SelectedIndex == 4)
+                txtConfig.Text = Properties.Resources.BlankTemplateNotifierAgent;
         }
         #endregion
 
@@ -266,7 +352,11 @@ namespace QuickMon.Forms
                         a = NotifierHost.CreateNotifierFromClassName(ra.ClassName.Replace("QuickMon.Notifiers.", ""));
                     if (a != null)
                     {
-                        txtConfig.Text = a.AgentConfig.GetDefaultOrEmptyXml();
+                        string agentConfig = a.AgentConfig.GetDefaultOrEmptyXml();
+                        if (cboType.SelectedIndex == 2)
+                            txtConfig.Text = Properties.Resources.BlankTemplateCollectorAgent.Replace("{0}", agentConfig);
+                        else if (cboType.SelectedIndex == 4)
+                            txtConfig.Text = Properties.Resources.BlankTemplateNotifierAgent.Replace("{0}", agentConfig);
                         txtConfig.Text = XmlFormattingUtils.NormalizeXML(txtConfig.Text);
                     }
                 }
@@ -286,6 +376,9 @@ namespace QuickMon.Forms
             IsSaveEnabled();
         } 
         #endregion
+
+
+
 
     }
 }

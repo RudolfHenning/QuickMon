@@ -117,11 +117,11 @@ namespace QuickMon
             if (notifierHostsNode != null)
             {
                 NotifierHosts = NotifierHost.GetNotifierHostsFromString(notifierHostsNode.OuterXml, ConfigVariables);
-                foreach (NotifierHost newNotifierEntry in NotifierHosts)
-                {
-                    if (newNotifierEntry.Name.ToUpper() == defaultNotifierName.ToUpper())
-                        DefaultViewerNotifier = newNotifierEntry;
-                }
+                //foreach (NotifierHost newNotifierEntry in NotifierHosts)
+                //{
+                //    if (newNotifierEntry.Name.ToUpper() == defaultNotifierName.ToUpper())
+                //        DefaultViewerNotifier = newNotifierEntry;
+                //}
             }
             #endregion
 
@@ -145,8 +145,8 @@ namespace QuickMon
         }
         public void AddNotifierHost(NotifierHost notifierHost)
         {
-            if (NotifierHosts.Count == 0)
-                DefaultViewerNotifier = notifierHost;
+            //if (NotifierHosts.Count == 0)
+            //    DefaultViewerNotifier = notifierHost;
             NotifierHosts.Add(notifierHost);
         }
         #endregion
@@ -168,24 +168,24 @@ namespace QuickMon
         /// <param name="configurationFile"></param>
         public void Save(string configurationFile)
         {
-            string defaultViewerNotifier = "";
-            if (DefaultViewerNotifier != null)
-                defaultViewerNotifier = DefaultViewerNotifier.Name;
+            //string defaultViewerNotifier = "";
+            //if (DefaultViewerNotifier != null)
+            //    defaultViewerNotifier = DefaultViewerNotifier.Name;
             string outputXml = string.Format(
-                @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" defaultNotifier=""{4}"" " +
-                  @"runCorrectiveScripts=""{5}"" stateHistorySize=""{6}"" pollingFreqSecOverride=""{7}"">" + "\r\n" +
+                @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" " + // defaultNotifier=""{4}"" " +
+                  @"runCorrectiveScripts=""{4}"" stateHistorySize=""{5}"" pollingFreqSecOverride=""{6}"">" + "\r\n" +
                   "<configVars>\r\n" +
-                  "{8}\r\n" +
+                  "{7}\r\n" +
                   "</configVars>\r\n" +
                   "<collectorHosts>\r\n" +
-                  "{9}\r\n" +
+                  "{8}\r\n" +
                   "</collectorHosts>\r\n" +
                   "<notifierHosts>\r\n" +
-                  "{10}\r\n" +
+                  "{9}\r\n" +
                   "</notifierHosts>\r\n" +
                 "</monitorPack>",
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
-                Name, TypeName, Enabled, defaultViewerNotifier,
+                Name, TypeName, Enabled,// defaultViewerNotifier,
                 RunCorrectiveScripts,
                 CollectorStateHistorySize,
                 PollingFrequencyOverrideSec,
@@ -203,24 +203,24 @@ namespace QuickMon
         }
         public string ToXml()
         {
-            string defaultViewerNotifier = "";
-            if (DefaultViewerNotifier != null)
-                defaultViewerNotifier = DefaultViewerNotifier.Name;
+            //string defaultViewerNotifier = "";
+            //if (DefaultViewerNotifier != null)
+            //    defaultViewerNotifier = DefaultViewerNotifier.Name;
             string outputXml = string.Format(
-                @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" defaultNotifier=""{4}"" " +
-                  @"runCorrectiveScripts=""{5}"" stateHistorySize=""{6}"" pollingFreqSecOverride=""{7}"">" + "\r\n" +
+                @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" " + //defaultNotifier=""{4}"" " +
+                  @"runCorrectiveScripts=""{4}"" stateHistorySize=""{5}"" pollingFreqSecOverride=""{6}"">" + "\r\n" +
                   "<configVars>\r\n" +
-                  "{8}\r\n" +
+                  "{7}\r\n" +
                   "</configVars>\r\n" +
                   "<collectorHosts>\r\n" +
-                  "{9}\r\n" +
+                  "{8}\r\n" +
                   "</collectorHosts>\r\n" +
                   "<notifierHosts>\r\n" +
-                  "{10}\r\n" +
+                  "{9}\r\n" +
                   "</notifierHosts>\r\n" +
                 "</monitorPack>",
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
-                Name, TypeName, Enabled, defaultViewerNotifier,
+                Name, TypeName, Enabled, //defaultViewerNotifier,
                 RunCorrectiveScripts,
                 CollectorStateHistorySize,
                 PollingFrequencyOverrideSec,
@@ -276,26 +276,26 @@ namespace QuickMon
             catch { }
             return dataDir;
         }
-        public static string GetQuickMonAppDataDirectory()
-        {
-            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 4");
-            try
-            {
-                if (!System.IO.Directory.Exists(dataDir))
-                {
-                    System.IO.Directory.CreateDirectory(dataDir);
-                }
-            }
-            catch { }
-            return dataDir;
-        }
-        public static string GetQuickMonAppDataTemplatesFile()
-        {
-            return System.IO.Path.Combine(MonitorPack.GetQuickMonAppDataDirectory(), "QuickMon4Templates.qmtemplate");
-        }
+        //public static string GetQuickMonAppDataDirectory()
+        //{
+        //    string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 4");
+        //    try
+        //    {
+        //        if (!System.IO.Directory.Exists(dataDir))
+        //        {
+        //            System.IO.Directory.CreateDirectory(dataDir);
+        //        }
+        //    }
+        //    catch { }
+        //    return dataDir;
+        //}
+        //public static string GetQuickMonAppDataTemplatesFile()
+        //{
+        //    return System.IO.Path.Combine(MonitorPack.GetQuickMonAppDataDirectory(), "QuickMon4Templates.qmtemplate");
+        //}
         public static string GetQuickMonUserDataTemplatesFile()
         {
-            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QuickMon4Templates.qmtemplate");
+            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "Templates" ,"QuickMon4Templates.qmtemplate");
         }
         #endregion
                
