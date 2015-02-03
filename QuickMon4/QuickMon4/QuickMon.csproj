@@ -79,12 +79,6 @@
     <Compile Include="Forms\AboutQuickMon.Designer.cs">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditTemplates.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EditTemplates.Designer.cs">
-      <DependentUpon>EditTemplates.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\GeneralSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,9 +127,6 @@
     <EmbeddedResource Include="Forms\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditTemplates.resx">
-      <DependentUpon>EditTemplates.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\GeneralSettings.resx">
       <DependentUpon>GeneralSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,6 +172,15 @@
   <ItemGroup>
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />
+    <None Include="Resources\246_7.png" />
+    <None Include="Resources\whack.ico" />
+    <None Include="Resources\NoGo.ico" />
+    <None Include="Resources\246_7.ico" />
+    <None Include="Resources\BlueArcTopRight.png" />
+    <None Include="Resources\proc2.gif" />
+    <None Include="Resources\Plus16x16.png" />
+    <None Include="Resources\Up16x16.png" />
+    <None Include="Resources\Down16x16.png" />
     <None Include="Resources\calculator.png" />
     <None Include="Resources\doc_upload.png" />
     <None Include="Resources\doc_remove3.png" />

@@ -152,6 +152,42 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
+    <Compile Include="GenericForms\EditCollectorAgentEntries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditCollectorAgentEntries.Designer.cs">
+      <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericForms\EditCollectorHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditCollectorHost.Designer.cs">
+      <DependentUpon>EditCollectorHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericForms\EditNotifierAgentEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditNotifierAgentEntry.Designer.cs">
+      <DependentUpon>EditNotifierAgentEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericForms\EditNotifierHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditNotifierHost.Designer.cs">
+      <DependentUpon>EditNotifierHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericForms\SelectNewAgentType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\SelectNewAgentType.designer.cs">
+      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\EditTemplates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\EditTemplates.Designer.cs">
+      <DependentUpon>EditTemplates.cs</DependentUpon>
+    </Compile>
     <Compile Include="zOut\CollectorAgentsDetailViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,30 +206,6 @@
     <Compile Include="GenericForms\CSVEditor.designer.cs">
       <DependentUpon>CSVEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericForms\EditCollectorHost.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenericForms\EditCollectorHost.Designer.cs">
-      <DependentUpon>EditCollectorHost.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GenericForms\EditCollectorAgentEntries.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenericForms\EditCollectorAgentEntries.Designer.cs">
-      <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GenericForms\EditNotifierAgentEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenericForms\EditNotifierAgentEntry.Designer.cs">
-      <DependentUpon>EditNotifierAgentEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GenericForms\EditNotifierHost.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenericForms\EditNotifierHost.Designer.cs">
-      <DependentUpon>EditNotifierHost.cs</DependentUpon>
-    </Compile>
     <Compile Include="GenericForms\EditServiceWindows.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,12 +223,6 @@
     </Compile>
     <Compile Include="GenericForms\RAWXmlEditor.Designer.cs">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GenericForms\SelectNewAgentType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenericForms\SelectNewAgentType.designer.cs">
-      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICollectorDetailView.cs" />
     <Compile Include="Interfaces\IEditConfigEntryWindow.cs" />
@@ -322,6 +328,24 @@
     <EmbeddedResource Include="Controls\DataTableViewerControl.resx">
       <DependentUpon>DataTableViewerControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
+      <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditCollectorHost.resx">
+      <DependentUpon>EditCollectorHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditNotifierAgentEntry.resx">
+      <DependentUpon>EditNotifierAgentEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditNotifierHost.resx">
+      <DependentUpon>EditNotifierHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
+      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\EditTemplates.resx">
+      <DependentUpon>EditTemplates.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="zOut\CollectorAgentsDetailViewer.resx">
       <DependentUpon>CollectorAgentsDetailViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -331,18 +355,6 @@
     <EmbeddedResource Include="GenericForms\CSVEditor.resx">
       <DependentUpon>CSVEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\EditCollectorHost.resx">
-      <DependentUpon>EditCollectorHost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
-      <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\EditNotifierAgentEntry.resx">
-      <DependentUpon>EditNotifierAgentEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\EditNotifierHost.resx">
-      <DependentUpon>EditNotifierHost.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditServiceWindows.resx">
       <DependentUpon>EditServiceWindows.cs</DependentUpon>
     </EmbeddedResource>
@@ -351,9 +363,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
-      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MonitorPack\EditMonitorPackConfig.resx">
       <DependentUpon>EditMonitorPackConfig.cs</DependentUpon>
@@ -446,6 +455,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stop16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_addnew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_remove3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateMonitorPack.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateCollectorAgent.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateNotifierAgent.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateCollectorHost.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateNotifierHost.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

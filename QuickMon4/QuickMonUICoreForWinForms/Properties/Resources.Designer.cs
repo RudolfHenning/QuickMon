@@ -81,11 +81,123 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorAgent name=&quot;&quot; type=&quot;&quot; enabled=&quot;True&quot;&gt;
+        ///    {0}
+        ///&lt;/collectorAgent&gt;.
+        /// </summary>
+        internal static string BlankTemplateCollectorAgent {
+            get {
+                return ResourceManager.GetString("BlankTemplateCollectorAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;collectorHost uniqueId=&quot;&quot; name=&quot;&quot; enabled=&quot;True&quot; expandOnStart=&quot;True&quot; dependOnParentId=&quot;&quot; agentCheckSequence=&quot;All&quot; childCheckBehaviour=&quot;OnlyRunOnSuccess&quot; repeatAlertInXMin=&quot;0&quot; alertOnceInXMin=&quot;0&quot; delayErrWarnAlertForXSec=&quot;0&quot; repeatAlertInXPolls=&quot;0&quot; alertOnceInXPolls=&quot;0&quot; delayErrWarnAlertForXPolls=&quot;0&quot; correctiveScriptDisabled=&quot;False&quot; correctiveScriptOnWarningPath=&quot;&quot; correctiveScriptOnErrorPath=&quot;&quot; restorationScriptPath=&quot;&quot; correctiveScriptsOnlyOnStateChange=&quot;False&quot; enableRemoteExecute=&quot;False&quot; forceRemoteExcut [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BlankTemplateCollectorHost {
+            get {
+                return ResourceManager.GetString("BlankTemplateCollectorHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;4.0.0.0&quot; name=&quot;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot;&gt;
+        ///	&lt;configVars /&gt;
+        ///    &lt;collectorHosts&gt;
+        ///	&lt;/collectorHosts&gt;
+        ///    &lt;notifierHosts&gt;
+        ///		&lt;notifierHost name=&quot;Default Notifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
+        ///			&lt;notifierAgents&gt;
+        ///				&lt;notifierAgent name=&quot;Memory agent&quot; type=&quot;InMemoryNotifier&quot;&gt;
+        ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
+        ///				 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BlankTemplateMonitorPack {
+            get {
+                return ResourceManager.GetString("BlankTemplateMonitorPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;notifierAgent name=&quot;&quot; type=&quot;&quot; enabled=&quot;True&quot;&gt;
+        ///    {0}
+        ///&lt;/notifierAgent&gt;.
+        /// </summary>
+        internal static string BlankTemplateNotifierAgent {
+            get {
+                return ResourceManager.GetString("BlankTemplateNotifierAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;notifierHost name=&quot;&quot; enabled=&quot;True&quot; alertLevel=&quot;Debug&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;AttendedAndUnAttended&quot;&gt;
+        ///    &lt;!-- collectorHosts --&gt;
+        ///    &lt;collectorHosts&gt;
+        ///    &lt;/collectorHosts&gt;
+        ///    &lt;!-- ServiceWindows --&gt;
+        ///    &lt;serviceWindows&gt;
+        ///    &lt;/serviceWindows&gt;
+        ///    &lt;!-- Config variables --&gt;
+        ///    &lt;configVars&gt;
+        ///    &lt;/configVars&gt;
+        ///    &lt;!-- notifierAgents --&gt;
+        ///    &lt;notifierAgents&gt;
+        ///		&lt;notifierAgent name=&quot;Debugger agent&quot; type=&quot;InMemoryNotifier&quot; enabled=&quot;True&quot;&gt;
+        ///			&lt;config&gt;
+        ///			&lt;inMemory maxEntryCount [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BlankTemplateNotifierHost {
+            get {
+                return ResourceManager.GetString("BlankTemplateNotifierHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap BlueArcTopRight {
             get {
                 object obj = ResourceManager.GetObject("BlueArcTopRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap calculator {
+            get {
+                object obj = ResourceManager.GetObject("calculator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_addnew {
+            get {
+                object obj = ResourceManager.GetObject("doc_addnew", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_remove3 {
+            get {
+                object obj = ResourceManager.GetObject("doc_remove3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_upload {
+            get {
+                object obj = ResourceManager.GetObject("doc_upload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +228,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap FindDoc24x24 {
             get {
                 object obj = ResourceManager.GetObject("FindDoc24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folder_add {
+            get {
+                object obj = ResourceManager.GetObject("folder_add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,6 +335,26 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap save {
+            get {
+                object obj = ResourceManager.GetObject("save", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save16x16 {
+            get {
+                object obj = ResourceManager.GetObject("save16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap settings_16 {
             get {
                 object obj = ResourceManager.GetObject("settings_16", resourceCulture);
@@ -256,6 +398,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap TriangleRight {
             get {
                 object obj = ResourceManager.GetObject("TriangleRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap undo {
+            get {
+                object obj = ResourceManager.GetObject("undo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

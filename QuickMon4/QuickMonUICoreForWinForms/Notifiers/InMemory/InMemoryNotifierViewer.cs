@@ -21,6 +21,7 @@ namespace QuickMon.UI
         
         public INotifier SelectedNotifier { get; set; }
         private AlertRaised lastAlert = null;
+        private bool busyRefreshing = false;
 
         public bool IsViewerStillVisible()
         {
@@ -45,6 +46,7 @@ namespace QuickMon.UI
         {
             if (SelectedNotifier != null)
             {
+                busyRefreshing = true;
                 InMemoryNotifier thisNotifier = (InMemoryNotifier)SelectedNotifier;
                 if (thisNotifier.Alerts != null)
                 {
@@ -56,7 +58,10 @@ namespace QuickMon.UI
                     else
                     {
                         if (lastAlert != null && lastAlert.RaisedTime == thisNotifier.Alerts[thisNotifier.Alerts.Count - 1].RaisedTime)
+                        {
+                            busyRefreshing = false;
                             return;
+                        }
                         else if (thisNotifier.Alerts.Count > 0)
                             lastAlert = thisNotifier.Alerts[thisNotifier.Alerts.Count - 1];
 
@@ -90,6 +95,7 @@ namespace QuickMon.UI
                     alertsRichTextBox.Rtf = rtfBuilder.ToString();
                 }
             }
+            busyRefreshing = false;
         }
 
         private void refreshToolStripButton_Click(object sender, EventArgs e)
@@ -105,6 +111,22 @@ namespace QuickMon.UI
         private void InMemoryNotifierViewer_Load(object sender, EventArgs e)
         {
             SnappingEnabled = true;
+        }
+
+        private void InMemoryNotifierViewer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                RefreshDisplayData();
+            }
+        }
+
+        private void autoRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            if (chkAutoRefresh.Checked && !busyRefreshing)
+            {
+                RefreshDisplayData();
+            }
         }
     }
 }

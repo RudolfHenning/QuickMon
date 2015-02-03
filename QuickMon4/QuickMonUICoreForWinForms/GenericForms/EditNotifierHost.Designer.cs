@@ -389,7 +389,7 @@
             // 
             this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.deleteConfigVarToolStripButton.Enabled = false;
-            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
             this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(23, 22);
@@ -545,7 +545,7 @@
             // 
             this.deleteAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.deleteAgentToolStripButton.Enabled = false;
-            this.deleteAgentToolStripButton.Image = global::QuickMon.Properties.Resources.whack;
+            this.deleteAgentToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.deleteAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteAgentToolStripButton.Name = "deleteAgentToolStripButton";
             this.deleteAgentToolStripButton.Size = new System.Drawing.Size(23, 22);

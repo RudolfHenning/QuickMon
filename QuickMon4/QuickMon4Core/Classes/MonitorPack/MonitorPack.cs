@@ -20,7 +20,7 @@ namespace QuickMon
             IsPollingEnabled = false;
             CurrentState = CollectorState.NotAvailable;
             PreviousState = CollectorState.NotAvailable;
-            DefaultViewerNotifier = null;
+            //DefaultViewerNotifier = null;
             ConcurrencyLevel = 1;
             IsBusyPolling = false;
             CollectorStateHistorySize = 100;
@@ -50,7 +50,7 @@ namespace QuickMon
 
         public List<CollectorHost> CollectorHosts { get; private set; }
         public List<NotifierHost> NotifierHosts { get; private set; }
-        public NotifierHost DefaultViewerNotifier { get; set; }
+        //public NotifierHost DefaultViewerNotifier { get; set; }
 
         #region Dynamic Config Variables
         public List<ConfigVariable> ConfigVariables { get; set; }

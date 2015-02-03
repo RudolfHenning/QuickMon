@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InMemoryNotifierViewer));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.alertsRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.chkAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.autoRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,18 +77,38 @@
             this.alertsRichTextBox.TabIndex = 10;
             this.alertsRichTextBox.Text = "";
             // 
+            // chkAutoRefresh
+            // 
+            this.chkAutoRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAutoRefresh.AutoSize = true;
+            this.chkAutoRefresh.Location = new System.Drawing.Point(298, 8);
+            this.chkAutoRefresh.Name = "chkAutoRefresh";
+            this.chkAutoRefresh.Size = new System.Drawing.Size(83, 17);
+            this.chkAutoRefresh.TabIndex = 11;
+            this.chkAutoRefresh.Text = "Auto refresh";
+            this.chkAutoRefresh.UseVisualStyleBackColor = true;
+            // 
+            // autoRefreshTimer
+            // 
+            this.autoRefreshTimer.Enabled = true;
+            this.autoRefreshTimer.Interval = 2000;
+            this.autoRefreshTimer.Tick += new System.EventHandler(this.autoRefreshTimer_Tick);
+            // 
             // InMemoryNotifierViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 307);
+            this.Controls.Add(this.chkAutoRefresh);
             this.Controls.Add(this.alertsRichTextBox);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "InMemoryNotifierViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "In Memory Notifier Viewer";
             this.Load += new System.EventHandler(this.InMemoryNotifierViewer_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InMemoryNotifierViewer_KeyDown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -99,6 +122,8 @@
         private System.Windows.Forms.ToolStripButton refreshToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.RichTextBox alertsRichTextBox;
+        private System.Windows.Forms.CheckBox chkAutoRefresh;
+        private System.Windows.Forms.Timer autoRefreshTimer;
 
     }
 }

@@ -35,7 +35,18 @@ namespace QuickMon
 
             if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmconfig") || args[0].ToLower().EndsWith(".qmp")))
                 Properties.Settings.Default.LastMonitorPack = args[0];
-
+            
+            if (!System.IO.File.Exists(MonitorPack.GetQuickMonUserDataTemplatesFile()))
+            {
+                try
+                {
+                    QuickMonTemplate.ResetTemplates();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                }
+            }
             Application.Run(new MainForm());
         }
 
