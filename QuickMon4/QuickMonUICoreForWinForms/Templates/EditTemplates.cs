@@ -185,6 +185,7 @@ namespace QuickMon.Forms
                                         select g).FirstOrDefault();
                     ListViewItem lvi = new ListViewItem(t.Name);
                     lvi.SubItems.Add(t.ForClass);
+                    lvi.SubItems.Add(t.Description);
                     lvi.Group = lg;
                     lvi.Tag = t;
                     lvwTemplates.Items.Add(lvi);
@@ -247,6 +248,7 @@ namespace QuickMon.Forms
             {
                 lvi = new ListViewItem(txtName.Text);
                 lvi.SubItems.Add(cboClass.Text);
+                lvi.SubItems.Add(txtDescription.Text);
                 t = new QuickMonTemplate();
                 lvwTemplates.Items.Add(lvi);                
             }
@@ -267,6 +269,7 @@ namespace QuickMon.Forms
             lvi.Selected = true;
             lvi.Text = t.Name;
             lvi.SubItems[1].Text = t.ForClass;
+            lvi.SubItems[2].Text = t.Description;
             lvi.Group = lg;
             lvi.Tag = t;
             SaveAllTemplates();

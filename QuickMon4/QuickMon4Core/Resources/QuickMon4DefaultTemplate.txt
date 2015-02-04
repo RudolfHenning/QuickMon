@@ -1,68 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <quickMonTemplate>
-  <template name="New MonitorPack" type="MonitorPack" class="MonitorPack" description="Creates new black monitor pack">
-    <monitorPack version="4.0.0.0" name="New MonitorPack" typeName="" enabled="True" defaultNotifier="Default Notifier" runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="30">
-      <configVars />
-        <collectorHosts>
-      </collectorHosts>
-        <notifierHosts>
-        <notifierHost name="Default Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
-          <notifierAgents>
-            <notifierAgent name="Memory agent" type="InMemoryNotifier">
-              <config><inMemory maxEntryCount="99999" /></config>
-            </notifierAgent>
-          </notifierAgents>
-        </notifierHost>
-      </notifierHosts>
-    </monitorPack>
-  </template>
-  <template name="Ping localhost" type="CollectorAgent" class="PingCollector" description="Ping localhost">
-    <collectorAgent name="Ping" type="PingCollector" enabled="True">
-        <config>
-            <entries>
-                <entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
-            </entries>
-        </config>
-    </collectorAgent>
-  </template>
-  <template name="Log file" type="NotifierAgent" class="LogFileNotifier" description="Log file">
-    <notifierAgent name="Log file agent" type="LogFileNotifier" enabled="True">
-        <config>
-            <logFile path="c:\Temp\QM4BizTalkAlerts.log" createNewFileSizeKB="0" />
-        </config>
-    </notifierAgent>
-  </template>
-  <template name="Audio Notifier" type="NotifierAgent" class="AudioNotifier" description="Audio Notifier">
-    <notifierAgent name="Audio Notifier" type="AudioNotifier" enabled="True">
-        <config>
-            <audioConfig>
-                <goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
-                <warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
-                <errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
-            </audioConfig>
-        </config>
-    </notifierAgent>
-  </template>
-  <template name="System health" type="CollectorAgent" class="PerfCounterCollector" description="System health">
-    <collectorAgent name="System health" type="PerfCounterCollector" enabled="True">
-        <config>
-            <performanceCounters>
-                <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" />
-                <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" />
-            </performanceCounters>
-        </config>
-    </collectorAgent>
-  </template>
-  <template name="Drive space (C:)" type="CollectorAgent" class="WMIQueryCollector" description="Drive space (C:)">
-  <collectorAgent name="Drive space" type="WMIQueryCollector" enabled="True">
-            <config>
-                <wmiQueries>
-                    <wmiQuery name="C Drive space" namespace="root\CIMV2" machineName=".">
-                        <stateQuery syntax="SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="1048576000" errorValue="524288000" successValue="[any]" useRowCountAsValue="False" />
-                        <detailQuery syntax="SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'" columnNames="Caption, Size, FreeSpace, Description" />
-                    </wmiQuery>
-                </wmiQueries>
-            </config>
-        </collectorAgent>
-  </template>
+	<template name="New MonitorPack" type="MonitorPack" class="MonitorPack" description="Creates new black monitor pack">
+		<monitorPack version="4.0.0.0" name="New MonitorPack" typeName="" enabled="True" runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="30">
+			<configVars />
+			<collectorHosts>
+			</collectorHosts>
+			<notifierHosts>
+				<notifierHost name="Debugging" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+					<notifierAgents>
+						<notifierAgent name="Memory agent" type="InMemoryNotifier">
+							<config>
+								<inMemory maxEntryCount="99999" />
+							</config>
+						</notifierAgent>
+					</notifierAgents>
+				</notifierHost>
+			</notifierHosts>
+		</monitorPack>
+	</template>
+	<template name="New Collector Host" type="CollectorHost" class="CollectorHost" description="Creates new Collector Host">
+		<collectorHost uniqueId="" name="New Collector" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
+			<!-- CollectorAgents -->
+			<collectorAgents>
+			</collectorAgents>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+		</collectorHost>
+	</template>
+	<template name="Drive space (C:)" type="CollectorAgent" class="WMIQueryCollector" description="Drive space (C:)">
+		<collectorAgent name="Drive space" type="WMIQueryCollector" enabled="True">
+			<config>
+				<wmiQueries>
+					<wmiQuery name="C Drive space" namespace="root\CIMV2" machineName=".">
+						<stateQuery syntax="SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="1048576000" errorValue="524288000" successValue="[any]" useRowCountAsValue="False" />
+						<detailQuery syntax="SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'" columnNames="Caption, Size, FreeSpace, Description" />
+					</wmiQuery>
+				</wmiQueries>
+			</config>
+		</collectorAgent>
+	</template>
+	<template name="Ping localhost" type="CollectorAgent" class="PingCollector" description="Ping localhost">
+		<collectorAgent name="Ping" type="PingCollector" enabled="True">
+			<config>
+				<entries>
+					<entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
+				</entries>
+			</config>
+		</collectorAgent>
+	</template>
+	<template name="System health" type="CollectorAgent" class="PerfCounterCollector" description="System health">
+		<collectorAgent name="System health" type="PerfCounterCollector" enabled="True">
+			<config>
+				<performanceCounters>
+					<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" />
+					<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" />
+				</performanceCounters>
+			</config>
+		</collectorAgent>
+	</template>
+	<template name="New Notifier Host" type="NotifierHost" class="NotifierHost" description="Creates new Notifier Host">
+		<notifierHost name="New Notifier" enabled="True" alertLevel="Debug" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+			<!-- collectorHosts -->
+			<collectorHosts>
+			</collectorHosts>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Debugger agent" type="InMemoryNotifier" enabled="True">
+					<config>
+						<inMemory maxEntryCount="99999" />
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+	<template name="Audio Notifier" type="NotifierAgent" class="AudioNotifier" description="Audio Notifier">
+		<notifierAgent name="Audio Notifier" type="AudioNotifier" enabled="True">
+			<config>
+				<audioConfig>
+					<goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+					<warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+					<errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+				</audioConfig>
+			</config>
+		</notifierAgent>
+	</template>
+	<template name="Log file" type="NotifierAgent" class="LogFileNotifier" description="Log file">
+		<notifierAgent name="Log file agent" type="LogFileNotifier" enabled="True">
+			<config>
+				<logFile path="c:\Temp\QM4.log" createNewFileSizeKB="0" />
+			</config>
+		</notifierAgent>
+	</template>
 </quickMonTemplate>

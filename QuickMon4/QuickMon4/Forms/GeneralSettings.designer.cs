@@ -73,6 +73,7 @@
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkUseTemplates = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -344,6 +345,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.chkUseTemplates);
             this.tabPage2.Controls.Add(this.chkSnapToDesktop);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.chkAutosaveChanges);
@@ -575,6 +577,17 @@
             this.panel1.Size = new System.Drawing.Size(459, 31);
             this.panel1.TabIndex = 11;
             // 
+            // chkUseTemplates
+            // 
+            this.chkUseTemplates.AutoSize = true;
+            this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUseTemplates.Location = new System.Drawing.Point(15, 123);
+            this.chkUseTemplates.Name = "chkUseTemplates";
+            this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
+            this.chkUseTemplates.TabIndex = 4;
+            this.chkUseTemplates.Text = "Use \'Templates\' when creating new objects (Monitor packs and Agent hosts)";
+            this.chkUseTemplates.UseVisualStyleBackColor = true;
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -657,5 +670,6 @@
         private System.Windows.Forms.OpenFileDialog quickMonServiceOpenFileDialog;
         private System.Windows.Forms.Panel shadePanel1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox chkUseTemplates;
     }
 }

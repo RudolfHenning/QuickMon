@@ -61,6 +61,7 @@ namespace QuickMon
 
         private List<CollectorStatusViewer> collectorStatusViews = new List<CollectorStatusViewer>();
         private List<INotivierViewer> agentDetailViews = new List<INotivierViewer>();
+        EditTemplates editTemplates = null;
         //private List<NotifierAgentListViewer> notifierDetailViews = new List<NotifierAgentListViewer>();
         #endregion
 
@@ -405,7 +406,19 @@ namespace QuickMon
             }
             catch { }
             monitorPack = new MonitorPack();
-            monitorPack.LoadXml(Properties.Resources.BlankMonitorPack);
+
+            string newMonitorPackConfig = Properties.Resources.BlankMonitorPack;
+            if (Properties.Settings.Default.UseTemplatesForNewObjects && QuickMonTemplate.GetMonitorPackTemplates().Count > 0)
+            {
+                SelectTemplate selectTemplate = new SelectTemplate();
+                selectTemplate.FilterTemplatesBy = TemplateType.MonitorPack;
+                if (selectTemplate.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    newMonitorPackConfig = selectTemplate.SelectedTemplate.Config;
+                }
+            }
+
+            monitorPack.LoadXml(newMonitorPackConfig);
             monitorPack.MonitorPackPath = "";
             LoadControlsFromMonitorPack();
             monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
@@ -1110,8 +1123,20 @@ namespace QuickMon
             {
                 CollectorHost newCollectorEntry = new CollectorHost();
                 EditCollectorHost editCollectorHost = new EditCollectorHost();
-                newCollectorEntry.ParentCollectorId = "";
-                editCollectorHost.ShowAddAgentsOnStart = true;
+                if (Properties.Settings.Default.UseTemplatesForNewObjects && QuickMonTemplate.GetCollectorHostTemplates().Count > 0)
+                {
+                    SelectTemplate selectTemplate = new SelectTemplate();
+                    selectTemplate.FilterTemplatesBy = TemplateType.CollectorHost;
+                    if (selectTemplate.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {                        
+                        newCollectorEntry = CollectorHost.FromXml(selectTemplate.SelectedTemplate.Config);
+                        newCollectorEntry.UniqueId = Guid.NewGuid().ToString();
+                    }
+                }
+                else
+                    editCollectorHost.ShowAddAgentsOnStart = true;
+                
+                newCollectorEntry.ParentCollectorId = "";                
                 if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
                 {
                     CollectorHost parentCollectorEntry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
@@ -1369,6 +1394,17 @@ namespace QuickMon
                 {
                     NotifierHost newNotifierHost = new NotifierHost();
                     EditNotifierHost editNotifierHost = new EditNotifierHost();
+
+                    if (Properties.Settings.Default.UseTemplatesForNewObjects && QuickMonTemplate.GetNotifierHostTemplates().Count > 0)
+                    {
+                        SelectTemplate selectTemplate = new SelectTemplate();
+                        selectTemplate.FilterTemplatesBy = TemplateType.NotifierHost;
+                        if (selectTemplate.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            newNotifierHost = NotifierHost.FromXml(selectTemplate.SelectedTemplate.Config);
+                        }
+                    }
+
                     if (editNotifierHost.ShowDialog(newNotifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
                     {
                         SetMonitorChanged();
@@ -1834,6 +1870,8 @@ namespace QuickMon
         {
             CloseAllCollectorStatusViews();
             CloseAllNotifierViewers();
+            if (editTemplates != null && editTemplates.IsStillVisible())
+                editTemplates.Close();
         }
         private void UpdateAppTitle()
         {
@@ -2297,8 +2335,13 @@ namespace QuickMon
         }
         private void manageTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EditTemplates editTemplates = new EditTemplates();
-            editTemplates.ShowDialog();
+            if (editTemplates == null || !editTemplates.IsStillVisible())
+                editTemplates = new EditTemplates();
+            if (editTemplates.WindowState == FormWindowState.Minimized)
+                editTemplates.WindowState = FormWindowState.Normal;
+            editTemplates.Show();
+            editTemplates.TopMost = true;
+            editTemplates.TopMost = false;
         }
         private void restartInAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
