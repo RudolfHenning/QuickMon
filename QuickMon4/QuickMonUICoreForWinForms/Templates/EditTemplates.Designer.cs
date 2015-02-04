@@ -35,7 +35,6 @@ namespace QuickMon.Forms
             this.addTemplateToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deletePresetToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.importToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.resetToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -46,6 +45,7 @@ namespace QuickMon.Forms
             this.lvwTemplates = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.classColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.descriptionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.cboTypeFilter = new QuickMon.Controls.ComboBoxWithBorder();
             this.label1 = new System.Windows.Forms.Label();
@@ -83,7 +83,6 @@ namespace QuickMon.Forms
             this.addTemplateToolStripButton,
             this.deletePresetToolStripButton,
             this.toolStripSeparator1,
-            this.importToolStripButton,
             this.resetToolStripButton,
             this.toolStripSeparator2,
             this.saveToolStripButton,
@@ -120,15 +119,6 @@ namespace QuickMon.Forms
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
-            // 
-            // importToolStripButton
-            // 
-            this.importToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.importToolStripButton.Image = global::QuickMon.Properties.Resources.folder_add;
-            this.importToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.importToolStripButton.Name = "importToolStripButton";
-            this.importToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.importToolStripButton.Text = "Import templates from File";
             // 
             // resetToolStripButton
             // 
@@ -208,7 +198,8 @@ namespace QuickMon.Forms
             this.lvwTemplates.AutoResizeColumnIndex = 0;
             this.lvwTemplates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
-            this.classColumnHeader});
+            this.classColumnHeader,
+            this.descriptionColumnHeader});
             this.lvwTemplates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwTemplates.FullRowSelect = true;
             this.lvwTemplates.Location = new System.Drawing.Point(0, 22);
@@ -222,12 +213,17 @@ namespace QuickMon.Forms
             // nameColumnHeader
             // 
             this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 155;
+            this.nameColumnHeader.Width = 139;
             // 
             // classColumnHeader
             // 
             this.classColumnHeader.Text = "Class";
             this.classColumnHeader.Width = 142;
+            // 
+            // descriptionColumnHeader
+            // 
+            this.descriptionColumnHeader.Text = "Description";
+            this.descriptionColumnHeader.Width = 157;
             // 
             // panel1
             // 
@@ -516,7 +512,6 @@ namespace QuickMon.Forms
         private System.Windows.Forms.ToolStripButton addTemplateToolStripButton;
         private System.Windows.Forms.ToolStripButton deletePresetToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton importToolStripButton;
         private System.Windows.Forms.ToolStripButton resetToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
@@ -544,5 +539,6 @@ namespace QuickMon.Forms
         private System.Windows.Forms.Button cmdSaveTemplate;
         private System.Windows.Forms.CheckBox chkWrapText;
         private System.Windows.Forms.Button cmdFormat;
+        private System.Windows.Forms.ColumnHeader descriptionColumnHeader;
     }
 }

@@ -72,6 +72,7 @@ namespace QuickMon
             SetFrequency(PollingFrequencySec);
 
             chkPollingEnabled.Checked = PollingEnabled;
+            chkUseTemplates.Checked = Properties.Settings.Default.UseTemplatesForNewObjects;
 
             try
             {
@@ -130,6 +131,7 @@ namespace QuickMon
             Properties.Settings.Default.OverridesMonitorPackFrequency = chkOverridesMonitorPackFrequency.Checked;
             Properties.Settings.Default.ShowFullPathForQuickRecentist = chkDisplayFullPathForQuickRecentEntries.Checked;
             Properties.Settings.Default.PausePollingDuringEditConfig = chkPausePollingDuringEditConfig.Checked;
+            Properties.Settings.Default.UseTemplatesForNewObjects = chkUseTemplates.Checked;
             if (txtRecentMonitorPackFilter.Text.Trim().Length == 0)
                 Properties.Settings.Default.RecentQMConfigFileFilters = "*";
             else 

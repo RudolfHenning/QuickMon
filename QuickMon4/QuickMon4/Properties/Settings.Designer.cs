@@ -188,5 +188,17 @@ namespace QuickMon.Properties {
                 this["LastMonitorPack"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseTemplatesForNewObjects {
+            get {
+                return ((bool)(this["UseTemplatesForNewObjects"]));
+            }
+            set {
+                this["UseTemplatesForNewObjects"] = value;
+            }
+        }
     }
 }

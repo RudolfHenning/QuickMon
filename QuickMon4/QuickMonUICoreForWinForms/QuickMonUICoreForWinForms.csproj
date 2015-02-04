@@ -188,6 +188,12 @@
     <Compile Include="Templates\EditTemplates.Designer.cs">
       <DependentUpon>EditTemplates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Templates\SelectTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\SelectTemplate.Designer.cs">
+      <DependentUpon>SelectTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="zOut\CollectorAgentsDetailViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\EditTemplates.resx">
       <DependentUpon>EditTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\SelectTemplate.resx">
+      <DependentUpon>SelectTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="zOut\CollectorAgentsDetailViewer.resx">
       <DependentUpon>CollectorAgentsDetailViewer.cs</DependentUpon>
