@@ -1869,9 +1869,7 @@ namespace QuickMon
         private void CloseAllDetailWindows()
         {
             CloseAllCollectorStatusViews();
-            CloseAllNotifierViewers();
-            if (editTemplates != null && editTemplates.IsStillVisible())
-                editTemplates.Close();
+            CloseAllNotifierViewers();            
         }
         private void UpdateAppTitle()
         {
