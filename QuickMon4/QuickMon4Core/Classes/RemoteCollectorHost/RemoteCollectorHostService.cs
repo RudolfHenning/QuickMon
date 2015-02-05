@@ -109,7 +109,7 @@ namespace QuickMon
         {
             BasicHttpBinding myBinding = new BasicHttpBinding();
             EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
-            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);            
             IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
 
             RemoteCollectorHost colReq = new RemoteCollectorHost();
@@ -131,7 +131,8 @@ namespace QuickMon
         public static System.Data.DataSet GetRemoteHostAllAgentDetails(CollectorHost entry, string hostAddressOverride, int portNumberOverride)
         {
             BasicHttpBinding myBinding = new BasicHttpBinding();
-            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
+            myBinding.MaxReceivedMessageSize = 2147483647;
+            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));            
             ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
             IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
 
