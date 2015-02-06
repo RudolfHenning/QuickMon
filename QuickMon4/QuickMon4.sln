@@ -17,9 +17,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonService", "QuickMon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastColoredTextBox", "FastColoredTextBox\FastColoredTextBox.csproj", "{6DD14A85-CCFC-4774-BD26-0F5772512319}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonDBAgents", "QuickMonDBAgents\QuickMonDBAgents.csproj", "{64874B78-7FDE-43E4-9D10-06F93A608D1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Agents", "Agents", "{D1F64D20-CEE9-4B7E-A392-54E1A054228B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{D5001D47-CCDF-4A28-98ED-5E87159214F1}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 9
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -30,9 +36,11 @@ Global
 		SccProjectName2 = QuickMon4Core
 		SccLocalPath2 = QuickMon4Core
 		SccProjectUniqueName3 = QuickMonCommonAgents\\QuickMonCommonAgents.csproj
+		SccProjectTopLevelParentUniqueName3 = QuickMon4.sln
 		SccProjectName3 = QuickMonCommonAgents
 		SccLocalPath3 = QuickMonCommonAgents
 		SccProjectUniqueName4 = QuickMonUICoreForWinForms\\QuickMonUICoreForWinForms.csproj
+		SccProjectTopLevelParentUniqueName4 = QuickMon4.sln
 		SccProjectName4 = QuickMonUICoreForWinForms
 		SccLocalPath4 = QuickMonUICoreForWinForms
 		SccProjectUniqueName5 = QuickMonUnitTests\\QuickMonUnitTests.csproj
@@ -42,8 +50,13 @@ Global
 		SccProjectName6 = QuickMonService
 		SccLocalPath6 = QuickMonService
 		SccProjectUniqueName7 = FastColoredTextBox\\FastColoredTextBox.csproj
+		SccProjectTopLevelParentUniqueName7 = QuickMon4.sln
 		SccProjectName7 = FastColoredTextBox
 		SccLocalPath7 = FastColoredTextBox
+		SccProjectUniqueName8 = QuickMonDBAgents\\QuickMonDBAgents.csproj
+		SccProjectTopLevelParentUniqueName8 = QuickMon4.sln
+		SccProjectName8 = QuickMonDBAgents
+		SccLocalPath8 = QuickMonDBAgents
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,8 +91,18 @@ Global
 		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64874B78-7FDE-43E4-9D10-06F93A608D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64874B78-7FDE-43E4-9D10-06F93A608D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64874B78-7FDE-43E4-9D10-06F93A608D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64874B78-7FDE-43E4-9D10-06F93A608D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0CAB16D3-61D0-4A40-80B3-78A245DB7E22} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
+		{03204B22-96BC-42C6-A355-6CC29F1C0A2C} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
+		{6DD14A85-CCFC-4774-BD26-0F5772512319} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
+		{64874B78-7FDE-43E4-9D10-06F93A608D1A} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 	EndGlobalSection
 EndGlobal
