@@ -13,7 +13,7 @@ namespace QuickMon.Collectors
             Entries = new List<ICollectorConfigEntry>();
         }
 
-        #region IAgentConfig Members
+        #region ICollectorConfig Members
         public bool SingleEntryOnly { get { return false; } }
         public List<ICollectorConfigEntry> Entries { get; set; }
         #endregion
