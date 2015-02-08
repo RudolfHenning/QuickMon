@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collectors\SqlQueryCollectorEntry.cs" />
+    <Compile Include="Collectors\SqlQuery\SqlQueryCollectorEntry.cs" />
     <Compile Include="Collectors\SqlQuery\SqlQueryCollector.cs" />
     <Compile Include="Collectors\SqlQuery\SqlQueryCollectorConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
