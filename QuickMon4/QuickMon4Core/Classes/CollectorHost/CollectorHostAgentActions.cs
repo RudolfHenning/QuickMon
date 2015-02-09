@@ -419,11 +419,19 @@ namespace QuickMon
              System.Data.DataSet result = new System.Data.DataSet();
             foreach (ICollector ca in CollectorAgents)
             {
+                int tableNo = 1;
                 List<System.Data.DataTable> dts = ca.GetDetailDataTables();
                 foreach (System.Data.DataTable dt in dts)
                 {
                     if (dt.TableName.Length == 0)
                         dt.TableName = ca.Name;
+                    while ((from System.Data.DataTable t in result.Tables
+                            where t.TableName == dt.TableName
+                            select t).Count() > 0)
+                    {
+                        dt.TableName = "Table " + tableNo.ToString();
+                        tableNo++;
+                    }
                     result.Tables.Add(dt);
                 }
             }

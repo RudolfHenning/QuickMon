@@ -79,7 +79,6 @@ namespace QuickMon.Controls
                 }
                 listViewColumnSorter = new ListViewColumnSorter(lvwDataTable, true, sortTypes.ToArray());
                 lvwDataTable.ListViewItemSorter = listViewColumnSorter;
-
             }
         }
         public void RefreshData(bool forceColumnResize = false)
@@ -104,6 +103,7 @@ namespace QuickMon.Controls
                     else
                         lvwDataTable.ShowGroups = false;
 
+                    Cursor.Current = Cursors.WaitCursor;
                     foreach (DataRow drow in SelectedData.Rows)
                     {
                         string firstValue;

@@ -29,7 +29,10 @@ namespace QuickMon.Collectors
             {
                 SqlQueryCollectorEntry queryEntry = new SqlQueryCollectorEntry();                
                 queryEntry.Name = queryNode.ReadXmlElementAttr("name", "");
+                queryEntry.DataSourceType = queryNode.ReadXmlElementAttr("dataSourceType", "SqlServer").ToLower() == "oledb" ? DataSourceType.OLEDB : DataSourceType.SqlServer;
                 queryEntry.ConnectionString = queryNode.ReadXmlElementAttr("connStr", "");
+                queryEntry.ProviderName = queryNode.ReadXmlElementAttr("provider", "");
+                queryEntry.FileName = queryNode.ReadXmlElementAttr("fileName", "");
                 queryEntry.Server = queryNode.ReadXmlElementAttr("server", "");
                 queryEntry.Database = queryNode.ReadXmlElementAttr("database", "");
                 queryEntry.IntegratedSecurity = bool.Parse(queryNode.ReadXmlElementAttr("integratedSec", "True"));
@@ -79,6 +82,8 @@ namespace QuickMon.Collectors
                 queryNode.SetAttributeValue("name", queryEntry.Name);
                 queryNode.SetAttributeValue("dataSourceType", queryEntry.DataSourceType.ToString());
                 queryNode.SetAttributeValue("connStr", queryEntry.ConnectionString);
+                queryNode.SetAttributeValue("provider", queryEntry.ProviderName);
+                queryNode.SetAttributeValue("fileName", queryEntry.FileName);
                 queryNode.SetAttributeValue("server", queryEntry.Server);
                 queryNode.SetAttributeValue("database", queryEntry.Database);
                 queryNode.SetAttributeValue("integratedSec", queryEntry.IntegratedSecurity);
@@ -119,7 +124,7 @@ namespace QuickMon.Collectors
         public string GetDefaultOrEmptyXml()
         {
             return "<config><queries>" +
-                "<query name=\"\" dataSourceType=\"SqlServer\" connStr=\"\" " +
+                "<query name=\"\" dataSourceType=\"SqlServer\" connStr=\"\" provider=\"\" " +
                     "server=\"\" database=\"\" integratedSec=\"True\" userName=\"\" password=\"\" " + 
                     "cmndTimeOut=\"60\" usePersistentConnection=\"False\" applicationName=\"QuickMon\">" +
                     "<alertTriggers valueReturnType=\"RawValue\" checkSequence=\"EWG\">" +
