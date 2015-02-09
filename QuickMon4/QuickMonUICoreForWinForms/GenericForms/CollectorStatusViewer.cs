@@ -424,7 +424,38 @@ namespace QuickMon.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void UpdateDetailViewTable(ListView currentListView)
+        {
+            try
+            {
+                RTFBuilder rtfBuilder = new RTFBuilder();
+                int maxlen = 35;
+                foreach (ColumnHeader col in currentListView.Columns)
+                {
+                    if (col.Text.Length + 2 > maxlen)
+                        maxlen = col.Text.Length + 2;
+                }
+                foreach (ListViewItem lvi in currentListView.SelectedItems)
+                {
+                    for (int i = 0; i < lvi.ListView.Columns.Count; i++)
+                    {
+                        rtfBuilder.FontStyle(FontStyle.Bold).Append((currentListView.Columns[i].Text + ":").PadRight(maxlen));
+                        rtfBuilder.AppendLine(lvi.SubItems[i].Text);                        
+                    }
+                    rtfBuilder.AppendLine(new string('-', 80));
+                }
 
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void UpdateDetailViewHistory()
         {
@@ -550,6 +581,7 @@ namespace QuickMon.Forms
                         agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
                     foreach (DataTable dtab in agentDataSet.Tables)
                     {
+                        Cursor.Current = Cursors.WaitCursor;
                         string tabName = "Details";
                         if (dtab.TableName != "Table")
                             tabName = dtab.TableName;
@@ -585,6 +617,7 @@ namespace QuickMon.Forms
         private void dtvc_ListSelectedIndexChanged(object sender, EventArgs e)
         {
             //detailsToolStripMenuItem.Enabled = ((ListView)sender).SelectedItems.Count > 0;
+            UpdateDetailViewTable(((ListView)sender));
         }
 
         #region Tab events

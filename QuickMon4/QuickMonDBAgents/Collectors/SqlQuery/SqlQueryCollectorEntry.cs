@@ -51,11 +51,19 @@ namespace QuickMon.Collectors
         /// </summary>
         public string ConnectionString { get; set; }
         /// <summary>
+        /// For OLEDb. The provider name
+        /// </summary>
+        public string ProviderName { get; set; }
+        /// <summary>
+        /// For OLEDb. The file name (e.g. c:\somedir\db.mdb)
+        /// </summary>
+        public string FileName { get; set; }
+        /// <summary>
         /// Server/Instance name. Only used for DataSourceType = SqlServer
         /// </summary>
         public string Server { get; set; }
         /// <summary>
-        /// Database name. Only used for DataSourceType = SqlServer
+        /// Database name.
         /// </summary>
         public string Database { get; set; }
         /// <summary>
@@ -98,6 +106,7 @@ namespace QuickMon.Collectors
 
         #endregion
 
+        #region GetStateQueryValue
         public object GetStateQueryValue()
         {
             object value = null;
@@ -109,10 +118,8 @@ namespace QuickMon.Collectors
             else // if (ValueReturnType == DataBaseQueryValueReturnType.QueryTime)
                 value = GetQueryRunTime();
 
-
             return value;
         }
-
         private object GetQuerySingleValue()
         {
             object returnValue = null;
@@ -137,20 +144,115 @@ namespace QuickMon.Collectors
             }
             return returnValue;
         }
-
         private object GetQueryRowCount()
         {
-            object value = null;
-
-            return value;
+            int returnValue = 0;
+            try
+            {
+                using (System.Data.Common.DbCommand cmnd = GetCommand(StateQuery, UseSPForStateQuery))
+                {
+                    cmnd.CommandType = UseSPForStateQuery ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = CmndTimeOut;
+                    using (System.Data.Common.DbDataReader r = cmnd.ExecuteReader())
+                    {
+                        if (r.HasRows)
+                            while (r.Read())
+                            {
+                                returnValue++;
+                            }
+                        else
+                            returnValue = 0;
+                    }
+                }
+                CloseConnection();
+            }
+            catch
+            {
+                CloseConnection(true);
+                throw;
+            }
+            return returnValue;
         }
-
         private object GetQueryRunTime()
         {
-            object value = null;
+            long returnValue = 0;
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            try
+            {
+                
+                using (System.Data.Common.DbCommand cmnd = GetCommand(StateQuery, UseSPForStateQuery))
+                {
+                    cmnd.CommandType = UseSPForStateQuery ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = CmndTimeOut;
+                    cmnd.Prepare();
+                    sw.Start();
+                    using (System.Data.Common.DbDataReader r = cmnd.ExecuteReader())
+                    {
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                returnValue = 0; //do something
+                            }
+                        }
+                    } 
+                    sw.Stop();
+                    returnValue = sw.ElapsedMilliseconds;                 
+                }
+               
+                CloseConnection();
+            }
+            catch
+            {
+                CloseConnection(true);
+                throw;
+            }
+            return returnValue;
+        } 
+        #endregion
 
-            return value;
+        #region GetDetailQueryDataTable
+        public DataTable GetDetailQueryDataTable()
+        {
+            DataTable dt = new DataTable(Name);
+            try
+            {
+                using (System.Data.Common.DbCommand cmnd = GetCommand(DetailQuery, UseSPForDetailQuery))
+                {
+                    cmnd.CommandType = UseSPForStateQuery ? CommandType.StoredProcedure : CommandType.Text;
+                    cmnd.CommandTimeout = CmndTimeOut;
+                    cmnd.Prepare();
+                    if (DataSourceType == Collectors.DataSourceType.SqlServer)
+                    {
+                        using (SqlDataAdapter da = new SqlDataAdapter((SqlCommand)cmnd))
+                        {
+                            DataSet returnValues = new DataSet();
+                            da.Fill(returnValues);
+                            dt = returnValues.Tables[0].Copy();
+                        }
+                    }
+                    else
+                    {
+                        using (System.Data.Common.DbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter((System.Data.OleDb.OleDbCommand)cmnd))
+                        {
+                            DataSet returnValues = new DataSet();
+                            da.Fill(returnValues);
+                            dt = returnValues.Tables[0].Copy();
+                        }
+                    }
+                }
+                CloseConnection();
+            }
+            catch(Exception ex)
+            {
+                dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+                CloseConnection(true);                
+            }
+            return dt;
         }
+        #endregion
 
         #region Generic Db functions
         private System.Data.Common.DbConnection CreateNewConnection()
@@ -164,7 +266,6 @@ namespace QuickMon.Collectors
                 return new System.Data.OleDb.OleDbConnection(GetConnectionString());
             }
         }
-
         private string GetConnectionString()
         {
             if (ConnectionString.Length > 0)
@@ -188,7 +289,9 @@ namespace QuickMon.Collectors
                 else
                 {
                     System.Data.OleDb.OleDbConnectionStringBuilder sb = new System.Data.OleDb.OleDbConnectionStringBuilder();
-
+                    sb.DataSource = Server;
+                    sb.Provider = ProviderName;
+                    sb.FileName = FileName;
                     return sb.ConnectionString;
                 }
             }
@@ -199,7 +302,7 @@ namespace QuickMon.Collectors
             {
                 if (UsePersistentConnection)
                 {
-                    if (UsePersistentConnection == null || PersistentConnection.State == ConnectionState.Closed)
+                    if (PersistentConnection == null || PersistentConnection.State == ConnectionState.Closed)
                     {
                         PersistentConnection = CreateNewConnection();
                         PersistentConnection.Open();
@@ -227,13 +330,14 @@ namespace QuickMon.Collectors
         private System.Data.Common.DbCommand GetCommand(string queryText, bool useSP)
         {
             System.Data.Common.DbConnection conn = GetConnection();
+            
             if (DataSourceType == Collectors.DataSourceType.SqlServer)
             {
-                return new SqlCommand(queryText) { CommandType = useSP ? CommandType.StoredProcedure : CommandType.Text, CommandTimeout = CmndTimeOut };
+                return new SqlCommand(queryText,(SqlConnection) conn) { CommandType = useSP ? CommandType.StoredProcedure : CommandType.Text, CommandTimeout = CmndTimeOut };
             }
             else //if (DataSourceType == Collectors.DataSourceType.OLEDB)
             {
-                return new System.Data.OleDb.OleDbCommand(queryText) { CommandType = useSP ? CommandType.StoredProcedure : CommandType.Text, CommandTimeout = CmndTimeOut };
+                return new System.Data.OleDb.OleDbCommand(queryText, (System.Data.OleDb.OleDbConnection)conn) { CommandType = useSP ? CommandType.StoredProcedure : CommandType.Text, CommandTimeout = CmndTimeOut };
             }
         }
         private void CloseConnection(bool closeNonPersistent = false)
