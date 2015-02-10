@@ -547,6 +547,7 @@ namespace HenIT.Windows.Controls
             int style = APIsUser32.SendMessage(Handle, (int)APIsEnums.ListViewMessages.GETEXTENDEDLISTVIEWSTYLE, 0, 0);
             style |= (int)(APIsEnums.ListViewExtendedStyles.INFOTIP | APIsEnums.ListViewExtendedStyles.LABELTIP);
             APIsUser32.SendMessage(Handle, (int)APIsEnums.ListViewMessages.SETEXTENDEDLISTVIEWSTYLE, 0, style);
+            resizeTimer.Tick += resizeTimer_Tick;
         }
         #endregion
         #region WndProc
@@ -1736,6 +1737,40 @@ namespace HenIT.Windows.Controls
             return new Rectangle((int)rc.left, (int)rc.top, (int)(rc.right - rc.left), (int)(rc.bottom - rc.top));
         }
         #endregion
+
+        #region AutoColumnResizing
+        private Timer resizeTimer = new Timer() { Interval = 50, Enabled = false };
+        [Description("Use one column to auto resize in detail view")]
+        public bool AutoResizeColumnEnabled { get; set; }
+        [Description("Column index of auto resize column")]
+        public int AutoResizeColumnIndex { get; set; }
+        private void resizeTimer_Tick(object sender, EventArgs e)
+        {
+            resizeTimer.Enabled = false;
+            try
+            {
+                if (AutoResizeColumnEnabled && View == System.Windows.Forms.View.Details &&
+                    AutoResizeColumnIndex > -1 && this.Columns.Count > AutoResizeColumnIndex)
+                {
+                    int columnsWidth = 0;
+                    Application.DoEvents();
+                    for (int i = 0; i < this.Columns.Count; i++)
+                    {
+                        if (i != AutoResizeColumnIndex)
+                            columnsWidth += this.Columns[i].Width;
+                    }
+                    this.Columns[AutoResizeColumnIndex].Width = this.ClientSize.Width - columnsWidth - 2;
+                }
+            }
+            catch { }
+        }
+        protected override void OnResize(EventArgs e)
+        {
+            resizeTimer.Enabled = false;
+            resizeTimer.Enabled = true;
+            base.OnResize(e);
+        }
+        #endregion 
 
         protected override void OnHandleCreated(EventArgs e)
         {

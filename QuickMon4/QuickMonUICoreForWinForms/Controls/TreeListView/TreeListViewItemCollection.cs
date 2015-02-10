@@ -490,6 +490,10 @@ namespace HenIT.Windows.Controls
             foreach (TreeListViewItem item in collection)
                 Add(item);
         }
+        public virtual void InsertAt(int index, TreeListViewItem item)
+        {
+            List.Insert(index, item);            
+        }
         #endregion
         #region Remove & Clear Functions
         /// <summary>
