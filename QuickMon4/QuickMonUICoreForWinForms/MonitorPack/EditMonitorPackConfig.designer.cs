@@ -229,6 +229,7 @@
             // 
             // tabGeneric
             // 
+            this.tabGeneric.BackColor = System.Drawing.Color.White;
             this.tabGeneric.Controls.Add(this.lblMonitorPackPath);
             this.tabGeneric.Controls.Add(this.groupBox1);
             this.tabGeneric.Controls.Add(this.pollingGroupBox);
@@ -240,7 +241,6 @@
             this.tabGeneric.Size = new System.Drawing.Size(581, 239);
             this.tabGeneric.TabIndex = 0;
             this.tabGeneric.Text = "Generic";
-            this.tabGeneric.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -313,6 +313,7 @@
             // 
             // tabAdvancedConfig
             // 
+            this.tabAdvancedConfig.BackColor = System.Drawing.Color.White;
             this.tabAdvancedConfig.Controls.Add(this.groupBox5);
             this.tabAdvancedConfig.Location = new System.Drawing.Point(4, 22);
             this.tabAdvancedConfig.Name = "tabAdvancedConfig";
@@ -320,7 +321,6 @@
             this.tabAdvancedConfig.Size = new System.Drawing.Size(581, 239);
             this.tabAdvancedConfig.TabIndex = 1;
             this.tabAdvancedConfig.Text = "Advanced Config settings";
-            this.tabAdvancedConfig.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 

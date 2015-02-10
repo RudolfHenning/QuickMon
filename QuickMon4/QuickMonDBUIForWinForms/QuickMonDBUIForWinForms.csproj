@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{077105FB-AC8E-45BD-ACAC-EC2AA77EA318}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickMon</RootNamespace>
+    <AssemblyName>QuickMonDBUIForWinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\QuickMon4\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\QuickMon4\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.2.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\QuickMon4\bin\Debug\FastColoredTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collectors\SqlQuery\SqlQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlQuery\SqlQueryCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlQuery\SqlQueryCollectorUI.cs" />
+    <Compile Include="Generic\ConnectionStringBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generic\ConnectionStringBuilder.Designer.cs">
+      <DependentUpon>ConnectionStringBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickMon4Core\QuickMonCore.csproj">
+      <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonDBAgents\QuickMonDBAgents.csproj">
+      <Project>{64874b78-7fde-43e4-9d10-06f93a608d1a}</Project>
+      <Name>QuickMonDBAgents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonUICoreForWinForms\QuickMonUICoreForWinForms.csproj">
+      <Project>{03204b22-96bc-42c6-a355-6cc29f1c0a2c}</Project>
+      <Name>QuickMonUICoreForWinForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Notifiers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Collectors\SqlQuery\SqlQueryCollectorEditEntry.resx">
+      <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generic\ConnectionStringBuilder.resx">
+      <DependentUpon>ConnectionStringBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -27,8 +27,6 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-        //public FileSystemDirectoryFilterEntry SelectedFilterEntry { get; set; }
-
         private void FileSystemCollectorEditFilterEntry_Load(object sender, EventArgs e)
         {
             try
@@ -37,8 +35,6 @@ namespace QuickMon.Collectors
                 if (SelectedEntry == null)
                     SelectedEntry = new FileSystemDirectoryFilterEntry() { FileFilter = "*.*",  };
                 selectedEntry = (FileSystemDirectoryFilterEntry)SelectedEntry;
-                //else
-                //    selectedEntry = (FileSystemDirectoryFilterEntry)SelectedFilterEntry;
 
                 txtDirectory.Text = selectedEntry.DirectoryPath;
                 txtFilter.Text = selectedEntry.FileFilter;

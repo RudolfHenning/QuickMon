@@ -25,11 +25,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\QuickMon4\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -112,6 +113,20 @@
       <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\WMIQuery\WMIQueryCollectorUI.cs" />
+    <Compile Include="Controls\API\APIsClipboard.cs" />
+    <Compile Include="Controls\API\APIsComctl32.cs" />
+    <Compile Include="Controls\API\APIsEnums.cs" />
+    <Compile Include="Controls\API\APIsGdi.cs" />
+    <Compile Include="Controls\API\APIsMenu.cs" />
+    <Compile Include="Controls\API\APIsShell.cs" />
+    <Compile Include="Controls\API\APIsShlwapi.cs" />
+    <Compile Include="Controls\API\APIsStructs.cs" />
+    <Compile Include="Controls\API\APIsUser32.cs" />
+    <Compile Include="Controls\API\APIsUxTheme.cs" />
+    <Compile Include="Controls\API\APIsWndProc.cs" />
+    <Compile Include="Controls\API\ColorUtil.cs" />
+    <Compile Include="Controls\API\COMInterfaces.cs" />
+    <Compile Include="Controls\API\TextUtil.cs" />
     <Compile Include="Controls\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,11 +159,19 @@
     <Compile Include="Controls\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TreeNodeEx.cs" />
-    <Compile Include="Controls\TreeViewEx.cs">
+    <Compile Include="Controls\TreeListView\ITreeListViewItemComparer.cs" />
+    <Compile Include="Controls\TreeListView\SelectedTreeListViewItemCollection.cs" />
+    <Compile Include="Controls\TreeListView\TreeListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TreeViewExBase.cs">
+    <Compile Include="Controls\TreeListView\TreeListViewItem.cs" />
+    <Compile Include="Controls\TreeListView\TreeListViewItemCollection.cs" />
+    <Compile Include="Controls\TreeListView\TreeListViewSubItemEdit.cs" />
+    <Compile Include="Controls\TreeView\TreeNodeEx.cs" />
+    <Compile Include="Controls\TreeView\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeView\TreeViewExBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
@@ -333,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\DataTableViewerControl.resx">
       <DependentUpon>DataTableViewerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeListView\TreeListView.resx">
+      <DependentUpon>TreeListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
       <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
