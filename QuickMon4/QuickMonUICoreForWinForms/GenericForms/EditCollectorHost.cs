@@ -77,6 +77,8 @@ namespace QuickMon
                 LoadControlData();
                 lvwEntries.AutoResizeColumnIndex = 2;
                 lvwEntries.AutoResizeColumnEnabled = true;
+                agentsTreeListView.AutoResizeColumnIndex = 1;
+                agentsTreeListView.AutoResizeColumnEnabled = true;
                 if (ShowAddAgentsOnStart)
                     CreateAgent();
             }
@@ -243,31 +245,41 @@ namespace QuickMon
                     lvwEntries.Items.Add(lvi);
                 }
             }
-            agentsTreeListView.Items.Clear();
-            if (editingCollectorHost.CollectorAgents != null)
-            {
-                foreach (ICollector agent in editingCollectorHost.CollectorAgents)
-                {
-                    TreeListViewItem tlvi = new TreeListViewItem(string.Format("{0}", agent.Name));
-                    if (agent.Enabled)
-                        tlvi.ImageIndex = 1;
-                    else
-                        tlvi.ImageIndex = 0;
-                    tlvi.SubItems.Add(agent.AgentClassDisplayName); // agent.AgentConfig.ConfigSummary);
-                    tlvi.Tag = agent;
-                    agentsTreeListView.Items.Add(tlvi);
 
-                    ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
-                    foreach (ICollectorConfigEntry entry in entryConfig.Entries)
+            try
+            {
+                agentsTreeListView.BeginUpdate();
+                agentsTreeListView.Items.Clear();
+                if (editingCollectorHost.CollectorAgents != null)
+                {
+                    foreach (ICollector agent in editingCollectorHost.CollectorAgents)
                     {
-                        TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
-                        tlvAgentEntry.ImageIndex = 2;
-                        tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
-                        tlvAgentEntry.Tag = entry;
-                        tlvi.Items.Add(tlvAgentEntry);
-                        tlvi.Expand();
+                        TreeListViewItem tlvi = new TreeListViewItem(string.Format("{0}", agent.Name));
+                        if (agent.Enabled)
+                            tlvi.ImageIndex = 1;
+                        else
+                            tlvi.ImageIndex = 0;
+                        tlvi.SubItems.Add(agent.AgentClassDisplayName); // agent.AgentConfig.ConfigSummary);
+                        tlvi.Tag = agent;
+                        agentsTreeListView.Items.Add(tlvi);
+
+                        ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                        foreach (ICollectorConfigEntry entry in entryConfig.Entries)
+                        {
+                            TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
+                            tlvAgentEntry.ImageIndex = 2;
+                            tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
+                            tlvAgentEntry.Tag = entry;
+                            tlvi.Items.Add(tlvAgentEntry);
+                            tlvi.Expand();
+                        }
                     }
                 }
+            }
+            catch { }
+            finally
+            {
+                agentsTreeListView.EndUpdate();
             }
         } 
         private void CreateAgent()
@@ -425,6 +437,40 @@ namespace QuickMon
                 lvwEntries.Items.Insert(index - 1, moveItem);
                 moveItem.Selected = true;
             }
+            if (agentsTreeListView.SelectedItems.Count == 1 && agentsTreeListView.SelectedItems[0].Index > 0)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    ICollector moveAgent = (ICollector)moveItem.Tag;
+                    int index = editingCollectorHost.CollectorAgents.IndexOf(moveAgent);
+                    if (index > 0)
+                    {
+                        editingCollectorHost.CollectorAgents.Remove(moveAgent);
+                        editingCollectorHost.CollectorAgents.Insert(index - 1, moveAgent);
+
+                        LoadAgents();
+                        agentsTreeListView.Items[index - 1].Selected = true;
+                    }
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry && moveItem.Parent != null && moveItem.Parent.Tag is ICollector)
+                {
+                    ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                    ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
+
+                    int index = entryConfig.Entries.IndexOf(moveConfigEntry);
+                    int agentIndex = editingCollectorHost.CollectorAgents.IndexOf(moveAgent);
+                    if (index > 0)
+                    {
+                        entryConfig.Entries.Remove(moveConfigEntry);
+                        entryConfig.Entries.Insert(index - 1, moveConfigEntry);
+
+                        LoadAgents();
+                        agentsTreeListView.Items[agentIndex].Items[index - 1].Selected = true;
+                    }
+                }
+            }
         }
         private void moveDownAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -435,6 +481,23 @@ namespace QuickMon
                 lvwEntries.Items.Remove(moveItem);
                 lvwEntries.Items.Insert(index + 1, moveItem);
                 moveItem.Selected = true;
+            }
+            if (agentsTreeListView.SelectedItems.Count == 1 && agentsTreeListView.SelectedItems[0].Index < agentsTreeListView.Items.Count - 1)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    ICollector moveAgent = (ICollector)moveItem.Tag;
+                    int index = editingCollectorHost.CollectorAgents.IndexOf(moveAgent);
+                    if (index < editingCollectorHost.CollectorAgents.Count - 1)
+                    {
+                        editingCollectorHost.CollectorAgents.Remove(moveAgent);
+                        editingCollectorHost.CollectorAgents.Insert(index + 1, moveAgent);
+
+                        LoadAgents();
+                        agentsTreeListView.Items[index + 1].Selected = true;
+                    }
+                }
             }
         }
         private void enableAgentToolStripButton_Click(object sender, EventArgs e)

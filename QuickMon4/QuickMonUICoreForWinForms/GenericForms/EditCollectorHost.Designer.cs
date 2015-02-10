@@ -457,9 +457,9 @@
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.agentsTreeListView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 169);
+            this.panel2.Location = new System.Drawing.Point(3, 140);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(569, 129);
+            this.panel2.Size = new System.Drawing.Size(569, 158);
             this.panel2.TabIndex = 2;
             // 
             // tabDependencies
@@ -1645,7 +1645,7 @@
             this.lvwEntries.HideSelection = false;
             this.lvwEntries.Location = new System.Drawing.Point(3, 28);
             this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(569, 141);
+            this.lvwEntries.Size = new System.Drawing.Size(569, 112);
             this.lvwEntries.SmallImageList = this.agentsImageList;
             this.lvwEntries.TabIndex = 1;
             this.lvwEntries.UseCompatibleStateImageBehavior = false;
@@ -1673,18 +1673,21 @@
             // agentsTreeListView
             // 
             this.agentsTreeListView.AllowSorting = false;
+            this.agentsTreeListView.AutoResizeColumnEnabled = false;
+            this.agentsTreeListView.AutoResizeColumnIndex = 0;
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeadertlv,
             this.summaryColumnHeader});
             treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.Ascending;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
             this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
             this.agentsTreeListView.Location = new System.Drawing.Point(0, 0);
             this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(569, 129);
+            this.agentsTreeListView.Size = new System.Drawing.Size(569, 158);
             this.agentsTreeListView.SmallImageList = this.agentsImageList;
+            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
             this.agentsTreeListView.TabIndex = 0;
             this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
             // 
