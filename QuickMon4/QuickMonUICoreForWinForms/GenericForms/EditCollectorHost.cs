@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuickMon.Forms;
 using QuickMon.UI;
+using HenIT.Windows.Controls;
 
 namespace QuickMon
 {
@@ -240,6 +241,32 @@ namespace QuickMon
                     lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
                     lvi.Tag = agent;
                     lvwEntries.Items.Add(lvi);
+                }
+            }
+            agentsTreeListView.Items.Clear();
+            if (editingCollectorHost.CollectorAgents != null)
+            {
+                foreach (ICollector agent in editingCollectorHost.CollectorAgents)
+                {
+                    TreeListViewItem tlvi = new TreeListViewItem(string.Format("{0}", agent.Name));
+                    if (agent.Enabled)
+                        tlvi.ImageIndex = 1;
+                    else
+                        tlvi.ImageIndex = 0;
+                    tlvi.SubItems.Add(agent.AgentClassDisplayName); // agent.AgentConfig.ConfigSummary);
+                    tlvi.Tag = agent;
+                    agentsTreeListView.Items.Add(tlvi);
+
+                    ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                    foreach (ICollectorConfigEntry entry in entryConfig.Entries)
+                    {
+                        TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
+                        tlvAgentEntry.ImageIndex = 2;
+                        tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
+                        tlvAgentEntry.Tag = entry;
+                        tlvi.Items.Add(tlvAgentEntry);
+                        tlvi.Expand();
+                    }
                 }
             }
         } 
