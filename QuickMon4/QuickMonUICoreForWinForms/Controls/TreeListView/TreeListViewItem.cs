@@ -237,7 +237,7 @@ namespace HenIT.Windows.Controls
             set
             {
                 base.Text = value;
-                TreeListViewItemCollection collection = Container;
+                TreeListViewItemCollection collection = Container;                
                 if (collection != null) collection.Sort(false);
             }
         }

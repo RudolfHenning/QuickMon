@@ -1349,17 +1349,17 @@ namespace HenIT.Windows.Controls
         protected override void OnColumnClick(System.Windows.Forms.ColumnClickEventArgs e)
         {
             base.OnColumnClick(e);
-            Cursor = Cursors.WaitCursor;
-            ListViewItem[] selItems = new ListViewItem[base.SelectedItems.Count];
-            base.SelectedItems.CopyTo(selItems, 0);
-
-            // Must set ListView.checkDirection to CheckDirection.None. 
-            // Forbid recursively checking. 
-            CheckDirection oldDirection = _checkDirection;
-            _checkDirection = CheckDirection.None;
-            BeginUpdate();
+            
             if (AllowSorting)
             {
+                Cursor = Cursors.WaitCursor;
+                ListViewItem[] selItems = new ListViewItem[base.SelectedItems.Count];
+                base.SelectedItems.CopyTo(selItems, 0);
+                // Must set ListView.checkDirection to CheckDirection.None. 
+                // Forbid recursively checking. 
+                CheckDirection oldDirection = _checkDirection;
+                _checkDirection = CheckDirection.None;
+                BeginUpdate();
                 if (Comparer.Column == e.Column)
                     Sorting = (Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending);
                 else
@@ -1369,15 +1369,14 @@ namespace HenIT.Windows.Controls
                     try { Items.Sort(true); }
                     catch { }
                 }
+                if (FocusedItem != null) FocusedItem.EnsureVisible();
+                foreach (ListViewItem item in selItems)
+                    if (item.Index > -1) item.Selected = true;
+                EndUpdate();
+                // Reset ListView.checkDirection
+                _checkDirection = oldDirection;            
+                Cursor = Cursors.Default;
             }
-
-            if (FocusedItem != null) FocusedItem.EnsureVisible();
-            foreach (ListViewItem item in selItems)
-                if (item.Index > -1) item.Selected = true;
-            EndUpdate();
-            // Reset ListView.checkDirection
-            _checkDirection = oldDirection;
-            Cursor = Cursors.Default;
         }
         #endregion
         #region OnVisibleChanged
