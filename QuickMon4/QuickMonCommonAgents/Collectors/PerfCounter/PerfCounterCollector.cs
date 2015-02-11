@@ -58,8 +58,8 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Warning,
                                     CurrentValue = value,
-                                    RawDetails = string.Format("{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat)),
-                                    HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat))
+                                    RawDetails = string.Format("{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat)),
+                                    HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat))
                                 });
                         }
                         else

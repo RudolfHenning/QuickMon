@@ -75,8 +75,8 @@ namespace QuickMon
                     MessageBox.Show(string.Format("An error occured while loading the Collector Host config!\r\n{0}", editingCollectorHost.CurrentState.ReadAllRawDetails()), "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 LoadControlData();
-                lvwEntries.AutoResizeColumnIndex = 2;
-                lvwEntries.AutoResizeColumnEnabled = true;
+                //lvwEntries.AutoResizeColumnIndex = 2;
+                //lvwEntries.AutoResizeColumnEnabled = true;
                 agentsTreeListView.AutoResizeColumnIndex = 1;
                 agentsTreeListView.AutoResizeColumnEnabled = true;
                 if (ShowAddAgentsOnStart)
@@ -229,22 +229,22 @@ namespace QuickMon
         #region Agents
         private void LoadAgents()
         {
-            lvwEntries.Items.Clear();
-            if (editingCollectorHost.CollectorAgents != null)
-            {
-                foreach (ICollector agent in editingCollectorHost.CollectorAgents)
-                {
-                    ListViewItem lvi = new ListViewItem(agent.Name);
-                    if (agent.Enabled)
-                        lvi.ImageIndex = 1;
-                    else
-                        lvi.ImageIndex = 0;
-                    lvi.SubItems.Add(agent.AgentClassDisplayName);
-                    lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
-                    lvi.Tag = agent;
-                    lvwEntries.Items.Add(lvi);
-                }
-            }
+            //lvwEntries.Items.Clear();
+            //if (editingCollectorHost.CollectorAgents != null)
+            //{
+            //    foreach (ICollector agent in editingCollectorHost.CollectorAgents)
+            //    {
+            //        ListViewItem lvi = new ListViewItem(agent.Name);
+            //        if (agent.Enabled)
+            //            lvi.ImageIndex = 1;
+            //        else
+            //            lvi.ImageIndex = 0;
+            //        lvi.SubItems.Add(agent.AgentClassDisplayName);
+            //        lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
+            //        lvi.Tag = agent;
+            //        lvwEntries.Items.Add(lvi);
+            //    }
+            //}
 
             try
             {
@@ -259,7 +259,7 @@ namespace QuickMon
                             tlvi.ImageIndex = 1;
                         else
                             tlvi.ImageIndex = 0;
-                        tlvi.SubItems.Add(agent.AgentClassDisplayName); // agent.AgentConfig.ConfigSummary);
+                        tlvi.SubItems.Add(agent.AgentClassDisplayName);
                         tlvi.Tag = agent;
                         agentsTreeListView.Items.Add(tlvi);
 
@@ -284,39 +284,86 @@ namespace QuickMon
         } 
         private void CreateAgent()
         {
-            //Display a list of existing types of agents/by template...
-            //Once type is selected load edit agent with default settings
-            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            if (agentsTreeListView.SelectedItems.Count == 0 || agentsTreeListView.SelectedItems.Count > 1)
             {
-                ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;
-                IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-                if (agentEditor != null)
+                //Display a list of existing types of agents/by template...
+                //Once type is selected load edit agent with default settings
+                SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+                if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
                 {
-                    agentEditor.AgentName = agent.Name;
-                    agentEditor.AgentEnabled = true;
-                    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                    if (agentEditor.EditAgent())
+                    ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;
+                    IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                    if (agentEditor != null)
                     {
-                        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                        agent.Name = agentEditor.AgentName;
-                        agent.Enabled = agentEditor.AgentEnabled;
-                        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+                        agentEditor.AgentName = agent.Name;
+                        agentEditor.AgentEnabled = true;
+                        agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                        if (agentEditor.EditAgent())
+                        {
+                            agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                            agent.Name = agentEditor.AgentName;
+                            agent.Enabled = agentEditor.AgentEnabled;
+                            agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
 
-                        ListViewItem lvi = new ListViewItem(agent.Name);
-                        if (agent.Enabled)
-                            lvi.ImageIndex = 1;
-                        else
-                            lvi.ImageIndex = 0;
-                        lvi.SubItems.Add(agent.AgentClassDisplayName);
-                        lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
-                        lvi.Tag = agent;
-                        lvwEntries.Items.Add(lvi);
+                            TreeListViewItem tlvi = new TreeListViewItem(agent.Name);
+                            if (agent.Enabled)
+                                tlvi.ImageIndex = 1;
+                            else
+                                tlvi.ImageIndex = 0;
+                            tlvi.SubItems.Add(agent.AgentClassDisplayName);
+                            tlvi.Tag = agent;
+                            agentsTreeListView.Items.Add(tlvi);
+
+                            ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                            foreach (ICollectorConfigEntry entry in entryConfig.Entries)
+                            {
+                                TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
+                                tlvAgentEntry.ImageIndex = 2;
+                                tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
+                                tlvAgentEntry.Tag = entry;
+                                tlvi.Items.Add(tlvAgentEntry);
+                                tlvi.Expand();
+                            }
+                            editingCollectorHost.CollectorAgents.Add(agent);
+
+                            //ListViewItem lvi = new ListViewItem(agent.Name);
+                            //if (agent.Enabled)
+                            //    lvi.ImageIndex = 1;
+                            //else
+                            //    lvi.ImageIndex = 0;
+                            //lvi.SubItems.Add(agent.AgentClassDisplayName);
+                            //lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
+                            //lvi.Tag = agent;
+                            //lvwEntries.Items.Add(lvi);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-                else
+            }
+            else
+            {
+                TreeListViewItem tlviCurrent = agentsTreeListView.SelectedItems[0];
+                if (tlviCurrent.Tag is ICollector)
                 {
-                    MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    ICollector agent = (ICollector)tlviCurrent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                    WinFormsUICollectorBase agentEditor = (WinFormsUICollectorBase)RegisteredAgentUIMapper.GetUIClass(agent);
+                    if (agentEditor != null && agentEditor.DetailEditor != null)
+                    {
+                        ICollectorConfigEntryEditWindow DetailEditor = agentEditor.DetailEditor;
+                        if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                        {
+                            entryConfig.Entries.Add(DetailEditor.SelectedEntry);
+                            LoadAgents();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
             }
         }
@@ -330,35 +377,61 @@ namespace QuickMon
             //If no default editor can be found show raw xml editor...
             try
             {
-                if (lvwEntries.SelectedItems.Count == 1)
+                if (agentsTreeListView.SelectedItems.Count == 1)
                 {
-                    ICollector agent = (ICollector)lvwEntries.SelectedItems[0].Tag;
-                    IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-                    if (agentEditor != null)
+                    TreeListViewItem tlviCurrent = agentsTreeListView.SelectedItems[0];
+                    if (tlviCurrent.Tag is ICollectorConfigEntry && tlviCurrent.Parent != null && tlviCurrent.Parent.Tag is ICollector)
                     {
-                        agentEditor.AgentName = agent.Name;
-                        agentEditor.AgentEnabled = agent.Enabled;
-                        agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                        if (agentEditor.EditAgent())
+                        ICollector agent = (ICollector)tlviCurrent.Parent.Tag;
+                        ICollectorConfigEntry entryConfig = (ICollectorConfigEntry)tlviCurrent.Tag;
+                        WinFormsUICollectorBase agentEditor = (WinFormsUICollectorBase)RegisteredAgentUIMapper.GetUIClass(agent);
+                        if (agentEditor != null && agentEditor.DetailEditor != null)
                         {
-
-                            agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                            agent.Name = agentEditor.AgentName;
-                            agent.Enabled = agentEditor.AgentEnabled;
-                            agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-                            lvwEntries.SelectedItems[0].Text = agent.Name;
-                            if (agent.Enabled)
-                                lvwEntries.SelectedItems[0].ImageIndex = 1;
-                            else
-                                lvwEntries.SelectedItems[0].ImageIndex = 0;
-                            lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
+                            ICollectorConfigEntryEditWindow DetailEditor = agentEditor.DetailEditor;
+                            DetailEditor.SelectedEntry = entryConfig;
+                            if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                            {
+                                tlviCurrent.Tag = DetailEditor.SelectedEntry;
+                                tlviCurrent.Text = DetailEditor.SelectedEntry.Description;
+                                tlviCurrent.SubItems[1].Text = DetailEditor.SelectedEntry.TriggerSummary;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
                 }
+
+                //if (lvwEntries.SelectedItems.Count == 1)
+                //{
+                //    ICollector agent = (ICollector)lvwEntries.SelectedItems[0].Tag;
+                //    IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                //    if (agentEditor != null)
+                //    {
+                //        agentEditor.AgentName = agent.Name;
+                //        agentEditor.AgentEnabled = agent.Enabled;
+                //        agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                //        if (agentEditor.EditAgent())
+                //        {
+
+                //            agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                //            agent.Name = agentEditor.AgentName;
+                //            agent.Enabled = agentEditor.AgentEnabled;
+                //            agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+                //            lvwEntries.SelectedItems[0].Text = agent.Name;
+                //            if (agent.Enabled)
+                //                lvwEntries.SelectedItems[0].ImageIndex = 1;
+                //            else
+                //                lvwEntries.SelectedItems[0].ImageIndex = 0;
+                //            lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -367,41 +440,70 @@ namespace QuickMon
         }
         private void DeleteAgents()
         {
-            if (lvwEntries.SelectedItems.Count > 0)
-            {
-                if (MessageBox.Show("Are you sure you want to delete the seleted entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-                        lvwEntries.Items.Remove(lvi);
-                }
-            }
+            //if (lvwEntries.SelectedItems.Count > 0)
+            //{
+            //    if (MessageBox.Show("Are you sure you want to delete the seleted entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            //    {
+            //        foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            //            lvwEntries.Items.Remove(lvi);
+            //    }
+            //}
         }
         private void EnableAgents()
         {
-            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            {
-                lvi.ImageIndex = 1;
-                ICollector agent = (ICollector)lvi.Tag;
-                agent.Enabled = true;
-            }
+            //foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            //{
+            //    lvi.ImageIndex = 1;
+            //    ICollector agent = (ICollector)lvi.Tag;
+            //    agent.Enabled = true;
+            //}
         }
         private void DisableAgents()
         {
-            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            {
-                lvi.ImageIndex = 0;
-                ICollector agent = (ICollector)lvi.Tag;
-                agent.Enabled = false;
-            }
+            //foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            //{
+            //    lvi.ImageIndex = 0;
+            //    ICollector agent = (ICollector)lvi.Tag;
+            //    agent.Enabled = false;
+            //}
         }
         private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            editCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
-            deleteCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
-            moveUpAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
-            moveDownAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;
-            enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
-            disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
+            //editCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
+            //deleteCollectorAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
+            
+            //enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
+            //disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
+        }
+        private void agentsTreeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool moveUpEnabled = false;
+            bool moveDownEnabled = false;
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    int index = editingCollectorHost.CollectorAgents.IndexOf((ICollector)moveItem.Tag);
+                    moveUpEnabled = index > 0;
+                    moveDownEnabled = index < editingCollectorHost.CollectorAgents.Count - 1;
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry)
+                {
+                    ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                    ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
+                    int index = entryConfig.Entries.IndexOf(moveConfigEntry);
+                    moveUpEnabled = index > 0;
+                    moveDownEnabled = index < entryConfig.Entries.Count - 1;
+                }
+            }
+            editCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count == 1;
+            deleteCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count > 0;
+            moveUpAgentToolStripButton.Enabled = moveUpEnabled;
+            moveDownAgentToolStripButton.Enabled = moveDownEnabled;
+            enableAgentToolStripButton.Enabled = false; //for now until fixed
+            disableAgentToolStripButton.Enabled = false; //for now until fixed
         }
         private void lvwEntries_DoubleClick(object sender, EventArgs e)
         {
@@ -429,15 +531,15 @@ namespace QuickMon
         }
         private void moveUpAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            if (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0)
-            {
-                ListViewItem moveItem = lvwEntries.SelectedItems[0];
-                int index = moveItem.Index;
-                lvwEntries.Items.Remove(moveItem);
-                lvwEntries.Items.Insert(index - 1, moveItem);
-                moveItem.Selected = true;
-            }
-            if (agentsTreeListView.SelectedItems.Count == 1 && agentsTreeListView.SelectedItems[0].Index > 0)
+            //if (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0)
+            //{
+            //    ListViewItem moveItem = lvwEntries.SelectedItems[0];
+            //    int index = moveItem.Index;
+            //    lvwEntries.Items.Remove(moveItem);
+            //    lvwEntries.Items.Insert(index - 1, moveItem);
+            //    moveItem.Selected = true;
+            //}
+            if (agentsTreeListView.SelectedItems.Count == 1)
             {
                 TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
                 if (moveItem.Tag is ICollector)
@@ -474,15 +576,15 @@ namespace QuickMon
         }
         private void moveDownAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            if (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1)
-            {
-                ListViewItem moveItem = lvwEntries.SelectedItems[0];
-                int index = moveItem.Index;
-                lvwEntries.Items.Remove(moveItem);
-                lvwEntries.Items.Insert(index + 1, moveItem);
-                moveItem.Selected = true;
-            }
-            if (agentsTreeListView.SelectedItems.Count == 1 && agentsTreeListView.SelectedItems[0].Index < agentsTreeListView.Items.Count - 1)
+            //if (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1)
+            //{
+            //    ListViewItem moveItem = lvwEntries.SelectedItems[0];
+            //    int index = moveItem.Index;
+            //    lvwEntries.Items.Remove(moveItem);
+            //    lvwEntries.Items.Insert(index + 1, moveItem);
+            //    moveItem.Selected = true;
+            //}
+            if (agentsTreeListView.SelectedItems.Count == 1)
             {
                 TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
                 if (moveItem.Tag is ICollector)
@@ -496,6 +598,22 @@ namespace QuickMon
 
                         LoadAgents();
                         agentsTreeListView.Items[index + 1].Selected = true;
+                    }
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry && moveItem.Parent != null && moveItem.Parent.Tag is ICollector)
+                {
+                    ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                    ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
+                    int index = entryConfig.Entries.IndexOf(moveConfigEntry);
+                    int agentIndex = editingCollectorHost.CollectorAgents.IndexOf(moveAgent);
+                    if (index < entryConfig.Entries.Count - 1)
+                    {
+                        entryConfig.Entries.Remove(moveConfigEntry);
+                        entryConfig.Entries.Insert(index + 1, moveConfigEntry);
+
+                        LoadAgents();
+                        agentsTreeListView.Items[agentIndex].Items[index + 1].Selected = true;
                     }
                 }
             }
@@ -837,9 +955,24 @@ namespace QuickMon
                     editingCollectorHost.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
                 }
                 editingCollectorHost.CollectorAgents.Clear();
-                foreach (ListViewItem lvi in lvwEntries.Items)
+                //foreach (ListViewItem lvi in lvwEntries.Items)
+                //{
+                //    editingCollectorHost.CollectorAgents.Add((ICollector)lvi.Tag);
+                //}
+                foreach(TreeListViewItem tlvi in agentsTreeListView.Items)
                 {
-                    editingCollectorHost.CollectorAgents.Add((ICollector)lvi.Tag);
+                    ICollector agent = (ICollector)tlvi.Tag;
+                    ICollectorConfig agentConfig = (ICollectorConfig)agent.AgentConfig;
+                    agentConfig.Entries.Clear();
+                    foreach (TreeListViewItem tlviEntries in tlvi.Items)
+                    {
+                        ICollectorConfigEntry entry = (ICollectorConfigEntry)tlviEntries.Tag;
+                        agentConfig.Entries.Add(entry);
+                    }
+                    string agentConfigString = agentConfig.ToXml();
+                    agent.AgentConfig.FromXml(agentConfigString);
+                    agent.InitialConfiguration = agentConfigString;
+                    editingCollectorHost.CollectorAgents.Add(agent);
                 }
                 success = true;
             }
@@ -903,6 +1036,8 @@ namespace QuickMon
         {
             MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
 
 
 
