@@ -116,7 +116,8 @@ namespace QuickMon.Controls
             }
             else if (e.KeyCode == Keys.F2)
             {
-                FunctionKeyUp(2, e);
+                if (FunctionKeyUp != null)
+                    FunctionKeyUp(2, e);
             }
             else if (e.KeyCode == Keys.F3)
             {

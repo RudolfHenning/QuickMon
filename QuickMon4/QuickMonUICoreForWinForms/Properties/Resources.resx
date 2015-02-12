@@ -118,98 +118,83 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="FindDoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FindDoc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="246_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\246_7.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BlueArcTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlueArcTopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="refresh24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Plus16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Plus16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTLLIBR_9825" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTLLIBR_9825.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NoGo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NoGo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="whack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ok16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ok16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ForbiddenGray16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ForbiddenGray16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="helpbwy16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\helpbwy16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MenuBlueShade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MenuBlueShade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="FindDoc24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FindDoc24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TriangleRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TriangleRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="triang_yellow16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\triang_yellow16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="calculator" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\calculator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_addnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_addnew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="doc_remove3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\doc_remove3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="doc_upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doc_upload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="folder_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MenuBlueShade" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MenuBlueShade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FindDoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FindDoc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoGo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoGo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BlankTemplateCollectorAgent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateCollectorAgent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="doc_addnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_addnew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Plus16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Plus16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ok16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ok16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTLLIBR_9825" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTLLIBR_9825.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="calculator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calculator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="doc_remove3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_remove3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stop16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="whack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whack.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GearWithPlus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GearWithPlus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="helpbwy16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\helpbwy16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FindDoc24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FindDoc24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BlankTemplateNotifierHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BlankTemplateNotifierHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="settings_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settings_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlankTemplateCollectorHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BlankTemplateCollectorHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -217,10 +202,31 @@
   <data name="BlankTemplateMonitorPack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BlankTemplateMonitorPack.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BlankTemplateCollectorAgent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BlankTemplateCollectorAgent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="BlankTemplateNotifierAgent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BlankTemplateNotifierAgent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="BlankTemplateNotifierHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateNotifierHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="BlueArcTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BlueArcTopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TriangleRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TriangleRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForbiddenGray16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ForbiddenGray16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triang_yellow16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\triang_yellow16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="246_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\246_7.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GearWithPlusGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GearWithPlusGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -24,6 +24,7 @@ namespace QuickMon.Forms
         #region Properties
         public string InitialRegistrationName { get; set; }
         public IAgent SelectedAgent { get; set; }
+        public bool TemplateUsed { get; private set; }
         #endregion
 
         public DialogResult ShowNotifierSelection()
@@ -247,14 +248,15 @@ namespace QuickMon.Forms
                 string configToUse = "";
                 if (lvwAgentType.SelectedItems[0].Tag is RegisteredAgent)
                 {
-                    ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;                   
-
+                    ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
+                    TemplateUsed = false;
                 }
                 else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
                 {
                     QuickMonTemplate template = (QuickMonTemplate)lvwAgentType.SelectedItems[0].Tag;
                     ra = RegisteredAgentCache.GetRegisteredAgentByClassName(template.ForClass, selectingCollectors);
                     configToUse = template.Config;
+                    TemplateUsed = true;
                 }
                 if (ra != null)
                 {
