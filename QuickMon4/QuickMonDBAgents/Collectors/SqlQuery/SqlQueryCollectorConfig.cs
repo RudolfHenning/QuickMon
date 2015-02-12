@@ -56,7 +56,7 @@ namespace QuickMon.Collectors
 
                 XmlNode errorNode = alertTriggersNode.SelectSingleNode("error");
                 queryEntry.ErrorMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorNode.ReadXmlElementAttr("matchType", "Match"));
-                queryEntry.ErrorValueOrMacro = warningNode.ReadXmlElementAttr("value", "[null]");
+                queryEntry.ErrorValueOrMacro = errorNode.ReadXmlElementAttr("value", "[null]");
 
                 XmlNode stateQueryNode = queryNode.SelectSingleNode("stateQuery");
                 queryEntry.UseSPForStateQuery = stateQueryNode.ReadXmlElementAttr("useSP", false);
@@ -124,18 +124,18 @@ namespace QuickMon.Collectors
         public string GetDefaultOrEmptyXml()
         {
             return "<config><queries>" +
-                "<query name=\"\" dataSourceType=\"SqlServer\" connStr=\"\" provider=\"\" " +
-                    "server=\"\" database=\"\" integratedSec=\"True\" userName=\"\" password=\"\" " + 
-                    "cmndTimeOut=\"60\" usePersistentConnection=\"False\" applicationName=\"QuickMon\">" +
-                    "<alertTriggers valueReturnType=\"RawValue\" checkSequence=\"EWG\">" +
-                        "<success matchType=\"Match\" value=\"[any]\" />" +
-                        "<warning matchType=\"Match\" value=\"0\" />" +
-                        "<error matchType=\"Match\" value=\"[null]\" />" +
-                    "</alertTriggers>" +
-                    "<stateQuery useSP=\"False\" />" +
-                    "<detailQuery useSP=\"False\" />" +
-                "</query>" +
-              "</queries></config>";
+            "<query name=\"\" dataSourceType=\"SqlServer\" connStr=\"\" provider=\"\" " +
+                "server=\"\" database=\"\" integratedSec=\"True\" userName=\"\" password=\"\" " +
+                "cmndTimeOut=\"60\" usePersistentConnection=\"False\" applicationName=\"QuickMon\">" +
+                "<alertTriggers valueReturnType=\"RawValue\" checkSequence=\"EWG\">" +
+                    "<success matchType=\"Match\" value=\"[any]\" />" +
+                    "<warning matchType=\"Match\" value=\"0\" />" +
+                    "<error matchType=\"Match\" value=\"[null]\" />" +
+                "</alertTriggers>" +
+                "<stateQuery useSP=\"False\" />" +
+                "<detailQuery useSP=\"False\" />" +
+            "</query>" +
+          "</queries></config>";
         }
         public string ConfigSummary
         {

@@ -48,6 +48,7 @@
             this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -336,6 +337,7 @@
             treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
             this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.LabelEdit = true;
             this.agentsTreeListView.Location = new System.Drawing.Point(0, 0);
             this.agentsTreeListView.Name = "agentsTreeListView";
             this.agentsTreeListView.Size = new System.Drawing.Size(569, 270);
@@ -343,7 +345,10 @@
             this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
             this.agentsTreeListView.TabIndex = 0;
             this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
+            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
+            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
             this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
+            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
             // 
             // nameColumnHeadertlv
             // 
@@ -368,6 +373,7 @@
             this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCollectorConfigEntryToolStripButton,
+            this.addAgentEntryToolStripButton,
             this.editCollectorAgentToolStripButton,
             this.deleteCollectorAgentToolStripButton,
             this.toolStripSeparator2,
@@ -388,13 +394,24 @@
             // addCollectorConfigEntryToolStripButton
             // 
             this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.GearWithPlus;
             this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
             this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
             this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
             this.addCollectorConfigEntryToolStripButton.Click += new System.EventHandler(this.addCollectorConfigEntryToolStripButton_Click);
+            // 
+            // addAgentEntryToolStripButton
+            // 
+            this.addAgentEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addAgentEntryToolStripButton.Enabled = false;
+            this.addAgentEntryToolStripButton.Image = global::QuickMon.Properties.Resources.GearWithPlusGreen;
+            this.addAgentEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addAgentEntryToolStripButton.Name = "addAgentEntryToolStripButton";
+            this.addAgentEntryToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addAgentEntryToolStripButton.Text = "Add new Agent entry";
+            this.addAgentEntryToolStripButton.Click += new System.EventHandler(this.addAgentEntryToolStripButton_Click);
             // 
             // editCollectorAgentToolStripButton
             // 
@@ -1659,6 +1676,7 @@
             this.llblExportConfigAsTemplate.TabIndex = 2;
             this.llblExportConfigAsTemplate.TabStop = true;
             this.llblExportConfigAsTemplate.Text = "Export config as template";
+            this.llblExportConfigAsTemplate.Visible = false;
             this.llblExportConfigAsTemplate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblExportConfigAsTemplate_LinkClicked);
             // 
             // entriesColumnHeader
@@ -1890,5 +1908,6 @@
         private HenIT.Windows.Controls.TreeListView agentsTreeListView;
         private System.Windows.Forms.ColumnHeader nameColumnHeadertlv;
         private System.Windows.Forms.ColumnHeader summaryColumnHeader;
+        private System.Windows.Forms.ToolStripButton addAgentEntryToolStripButton;
     }
 }

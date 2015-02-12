@@ -75,7 +75,6 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-
         #region Control events
         private void optSqlServer_CheckedChanged(object sender, EventArgs e)
         {
