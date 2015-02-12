@@ -97,7 +97,8 @@ namespace QuickMon
             SnappingEnabled = Properties.Settings.Default.MainFormSnap;
             masterSplitContainer.Panel2Collapsed = true;
             MainForm_Resize(null, null);
-            lblVersion.Text = string.Format("v{0}.{1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
+            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            lblVersion.Text = string.Format("v{0}.{1}.{2}", v.Major, v.Minor, v.Build);
             toolTip1.SetToolTip(lblVersion, string.Format("v{0} ({1})", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyy-MM-dd")));
             tvwCollectors.EnableAutoScrollToSelectedNode = true;
             tvwCollectors.TreeNodeMoved += tvwCollectors_TreeNodeMoved;
@@ -2420,7 +2421,7 @@ namespace QuickMon
                         MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else //try launching in admin mode
                     {
-                        MessageBox.Show("QuickMon 3 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("QuickMon 4 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Properties.Settings.Default.Save();
                         Security.RestartInAdminMode(Application.ExecutablePath);
                     }
@@ -2543,8 +2544,8 @@ namespace QuickMon
         private void label1_Click(object sender, EventArgs e)
         {
 #if DEBUG
-            QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
-            tm.Show();
+            //QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
+            //tm.Show();
 #endif
         }        
 

@@ -14,6 +14,9 @@ namespace QuickMon
         [STAThread]
         static void Main(string[] args)
         {
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             if (Properties.Settings.Default.NewVersion)
             {
                 Properties.Settings.Default.Upgrade();
@@ -28,26 +31,39 @@ namespace QuickMon
                 Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
             }
 
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);            
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmconfig") || args[0].ToLower().EndsWith(".qmp")))
                 Properties.Settings.Default.LastMonitorPack = args[0];
-            
-            if (!System.IO.File.Exists(MonitorPack.GetQuickMonUserDataTemplatesFile()))
+
+            try
             {
-                try
+                if (!System.IO.File.Exists(MonitorPack.GetQuickMonUserDataTemplatesFile()))
                 {
-                    QuickMonTemplate.ResetTemplates();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    try
+                    {
+                        QuickMonTemplate.ResetTemplates();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message, "Templates", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             Application.Run(new MainForm());
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (MessageBox.Show("An unhandled application error occured!\r\nDo you want to close the application?\r\n" + e.ExceptionObject.ToString(), "Application error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
