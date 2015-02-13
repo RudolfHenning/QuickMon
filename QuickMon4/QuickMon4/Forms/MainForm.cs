@@ -682,6 +682,8 @@ namespace QuickMon
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     SortItemsByTreeView();
+                    if (Properties.Settings.Default.CreateBackupOnSave)
+                        monitorPack.BackupSavedFile();
                     monitorPack.Save();
                     Properties.Settings.Default.LastMonitorPack = monitorPack.MonitorPackPath;
                     monitorPackChanged = false;

@@ -191,7 +191,7 @@ namespace QuickMon.Forms
                     details += ", Assembly: " + System.IO.Path.GetFileName(a.Location);
 
                     if (agentGroup == testGroup)
-                        lvi.ImageIndex = 2;
+                        lvi.ImageIndex = 1;
                     else
                         lvi.ImageIndex = 0;
                     lvi.Group = agentGroup;

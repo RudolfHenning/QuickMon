@@ -28,11 +28,16 @@ namespace QuickMon.Collectors
 
                 returnState.RawDetails = string.Format("Running {0} queries", currentConfig.Entries.Count);
                 returnState.HtmlDetails = string.Format("<b>Running {0} queries</b>", currentConfig.Entries.Count);
+                returnState.CurrentValue = 0;
                 foreach (SqlQueryCollectorEntry entry in currentConfig.Entries)
                 {
                     object value = entry.GetStateQueryValue();
                     CollectorState currentState = CollectorAgentReturnValueCompareEngine.GetState(entry.ValueReturnCheckSequence, entry.SuccessMatchType, entry.SuccessValueOrMacro,
                         entry.WarningMatchType, entry.WarningValueOrMacro, entry.ErrorMatchType, entry.ErrorValueOrMacro, value);
+                    if (value.IsNumber())
+                    {
+                        returnState.CurrentValue = Double.Parse(returnState.CurrentValue.ToString()) + Double.Parse(value.ToString());
+                    }
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
@@ -40,6 +45,7 @@ namespace QuickMon.Collectors
                             new MonitorState()
                             {
                                 State = CollectorState.Error,
+                                ForAgent = entry.Name,
                                 CurrentValue = value,
                                 RawDetails = string.Format("'{0}' - {1} (Error)", entry.Name, value),
                                 HtmlDetails = string.Format("'{0}' - {1} (<b>Error</b>)", entry.Name, value)
@@ -52,6 +58,7 @@ namespace QuickMon.Collectors
                             new MonitorState()
                             {
                                 State = CollectorState.Warning,
+                                ForAgent = entry.Name,
                                 CurrentValue = value,
                                 RawDetails = string.Format("'{0}' - {1} (Warning)", entry.Name, value),
                                 HtmlDetails = string.Format("'{0}' - {1} (<b>Warning</b>)", entry.Name, value)
@@ -64,6 +71,7 @@ namespace QuickMon.Collectors
                             new MonitorState()
                             {
                                 State = CollectorState.Good,
+                                ForAgent = entry.Name,
                                 CurrentValue = value,
                                 RawDetails = string.Format("'{0}' - {1}", entry.Name, value),
                                 HtmlDetails = string.Format("'{0}' - {1}", entry.Name, value)

@@ -28,46 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectTemplate));
-            this.lvwTemplates = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.lvwTemplates = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lvwTemplates
-            // 
-            this.lvwTemplates.AutoResizeColumnEnabled = false;
-            this.lvwTemplates.AutoResizeColumnIndex = 0;
-            this.lvwTemplates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.detailsColumnHeader});
-            this.lvwTemplates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwTemplates.FullRowSelect = true;
-            this.lvwTemplates.HideSelection = false;
-            this.lvwTemplates.Location = new System.Drawing.Point(0, 0);
-            this.lvwTemplates.MultiSelect = false;
-            this.lvwTemplates.Name = "lvwTemplates";
-            this.lvwTemplates.Size = new System.Drawing.Size(468, 290);
-            this.lvwTemplates.TabIndex = 2;
-            this.lvwTemplates.UseCompatibleStateImageBehavior = false;
-            this.lvwTemplates.View = System.Windows.Forms.View.Details;
-            this.lvwTemplates.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwTemplates_EnterKeyPressed);
-            this.lvwTemplates.SelectedIndexChanged += new System.EventHandler(this.lvwTemplates_SelectedIndexChanged);
-            this.lvwTemplates.DoubleClick += new System.EventHandler(this.lvwTemplates_DoubleClick);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 182;
-            // 
-            // detailsColumnHeader
-            // 
-            this.detailsColumnHeader.Text = "Details";
-            this.detailsColumnHeader.Width = 262;
             // 
             // panel1
             // 
@@ -88,7 +59,7 @@
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 8;
-            this.cmdCancel.Text = "Cancel";
+            this.cmdCancel.Text = "Skip";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
             // cmdOK
@@ -103,6 +74,44 @@
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "GearWithPlus.png");
+            // 
+            // lvwTemplates
+            // 
+            this.lvwTemplates.AutoResizeColumnEnabled = false;
+            this.lvwTemplates.AutoResizeColumnIndex = 0;
+            this.lvwTemplates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.detailsColumnHeader});
+            this.lvwTemplates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwTemplates.FullRowSelect = true;
+            this.lvwTemplates.HideSelection = false;
+            this.lvwTemplates.Location = new System.Drawing.Point(0, 0);
+            this.lvwTemplates.MultiSelect = false;
+            this.lvwTemplates.Name = "lvwTemplates";
+            this.lvwTemplates.Size = new System.Drawing.Size(468, 290);
+            this.lvwTemplates.SmallImageList = this.imageList1;
+            this.lvwTemplates.TabIndex = 2;
+            this.lvwTemplates.UseCompatibleStateImageBehavior = false;
+            this.lvwTemplates.View = System.Windows.Forms.View.Details;
+            this.lvwTemplates.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwTemplates_EnterKeyPressed);
+            this.lvwTemplates.SelectedIndexChanged += new System.EventHandler(this.lvwTemplates_SelectedIndexChanged);
+            this.lvwTemplates.DoubleClick += new System.EventHandler(this.lvwTemplates_DoubleClick);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 182;
+            // 
+            // detailsColumnHeader
+            // 
+            this.detailsColumnHeader.Text = "Details";
+            this.detailsColumnHeader.Width = 262;
             // 
             // SelectTemplate
             // 
@@ -133,5 +142,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

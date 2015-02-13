@@ -52,6 +52,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkUseTemplates = new System.Windows.Forms.CheckBox();
             this.tabPageRemoteHosts = new System.Windows.Forms.TabPage();
             this.cmdAdd = new System.Windows.Forms.Button();
             this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
@@ -73,7 +74,7 @@
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chkUseTemplates = new System.Windows.Forms.CheckBox();
+            this.chkCreateBackupOnSave = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -345,6 +346,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.chkCreateBackupOnSave);
             this.tabPage2.Controls.Add(this.chkUseTemplates);
             this.tabPage2.Controls.Add(this.chkSnapToDesktop);
             this.tabPage2.Controls.Add(this.groupBox4);
@@ -355,6 +357,17 @@
             this.tabPage2.Size = new System.Drawing.Size(448, 175);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Application";
+            // 
+            // chkUseTemplates
+            // 
+            this.chkUseTemplates.AutoSize = true;
+            this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkUseTemplates.Location = new System.Drawing.Point(15, 123);
+            this.chkUseTemplates.Name = "chkUseTemplates";
+            this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
+            this.chkUseTemplates.TabIndex = 4;
+            this.chkUseTemplates.Text = "Use \'Templates\' when creating new objects (Monitor packs and Agent hosts)";
+            this.chkUseTemplates.UseVisualStyleBackColor = true;
             // 
             // tabPageRemoteHosts
             // 
@@ -577,16 +590,16 @@
             this.panel1.Size = new System.Drawing.Size(459, 31);
             this.panel1.TabIndex = 11;
             // 
-            // chkUseTemplates
+            // chkCreateBackupOnSave
             // 
-            this.chkUseTemplates.AutoSize = true;
-            this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseTemplates.Location = new System.Drawing.Point(15, 123);
-            this.chkUseTemplates.Name = "chkUseTemplates";
-            this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
-            this.chkUseTemplates.TabIndex = 4;
-            this.chkUseTemplates.Text = "Use \'Templates\' when creating new objects (Monitor packs and Agent hosts)";
-            this.chkUseTemplates.UseVisualStyleBackColor = true;
+            this.chkCreateBackupOnSave.AutoSize = true;
+            this.chkCreateBackupOnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkCreateBackupOnSave.Location = new System.Drawing.Point(277, 13);
+            this.chkCreateBackupOnSave.Name = "chkCreateBackupOnSave";
+            this.chkCreateBackupOnSave.Size = new System.Drawing.Size(116, 17);
+            this.chkCreateBackupOnSave.TabIndex = 5;
+            this.chkCreateBackupOnSave.Text = "Auto save changes";
+            this.chkCreateBackupOnSave.UseVisualStyleBackColor = true;
             // 
             // GeneralSettings
             // 
@@ -671,5 +684,6 @@
         private System.Windows.Forms.Panel shadePanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox chkUseTemplates;
+        private System.Windows.Forms.CheckBox chkCreateBackupOnSave;
     }
 }

@@ -47,6 +47,9 @@
     <Compile Include="Collectors\SqlQuery\SqlQueryCollectorEntry.cs" />
     <Compile Include="Collectors\SqlQuery\SqlQueryCollector.cs" />
     <Compile Include="Collectors\SqlQuery\SqlQueryCollectorConfig.cs" />
+    <Compile Include="Collectors\SqlTableSize\SqlTableSizeCollector.cs" />
+    <Compile Include="Collectors\SqlTableSize\SqlTableSizeCollectorConfig.cs" />
+    <Compile Include="Collectors\SqlTableSize\SqlTableSizeCollectorEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

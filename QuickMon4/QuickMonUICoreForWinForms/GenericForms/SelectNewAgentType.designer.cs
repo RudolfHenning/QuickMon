@@ -170,9 +170,8 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "58.ico");
-            this.imageList1.Images.SetKeyName(1, "5_50.ico");
-            this.imageList1.Images.SetKeyName(2, "59.ico");
+            this.imageList1.Images.SetKeyName(0, "GearWithPlus.png");
+            this.imageList1.Images.SetKeyName(1, "GearWithPlusGreen.png");
             // 
             // chkShowDetails
             // 

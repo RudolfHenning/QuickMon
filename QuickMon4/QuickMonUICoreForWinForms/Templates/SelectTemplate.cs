@@ -59,6 +59,7 @@ namespace QuickMon.Forms
                 try
                 {
                     ListViewItem lvi = new ListViewItem(template.Name);
+                    lvi.ImageIndex = 0;
                     string details = template.Description.Trim().Length == 0 ? template.Config : template.Description;
                     lvi.SubItems.Add(details);
                     lvi.Tag = template;
