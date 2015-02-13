@@ -22,17 +22,19 @@ namespace QuickMon.Collectors
         public string Description
         {
             get 
-            {
-                string connectionString = ConnectionString;
-                if (connectionString == "" && DataSourceType == Collectors.DataSourceType.SqlServer)
-                    connectionString = string.Format("Server={0};Database={1};{2}", Server, Database, IntegratedSecurity ? "Trusted_Connection=True;" : string.Format("User Id={0};Password={1};", UserName, Password));
-                return Name + " (" + connectionString + ")";
+            {               
+                return Name;// +" (" + connectionString + ")";
             }
         }
         public string TriggerSummary
         {
             get {
-                return string.Format("Success: {0} ({1}), Warn: {2} ({3}), Err: {4} ({5}), Check seq: {6}", 
+                string connectionString = ConnectionString;
+                if (connectionString == "" && DataSourceType == Collectors.DataSourceType.SqlServer)
+                    connectionString = string.Format("DB={0}\\{1}; ", Server, Database);
+
+                return string.Format("{0} Success: {1} ({2}), Warn: {3} ({4}), Err: {5} ({6}), Check seq: {7}", 
+                    connectionString,
                     SuccessValueOrMacro, SuccessMatchType ,
                     WarningValueOrMacro, WarningMatchType,
                     ErrorValueOrMacro, ErrorMatchType, ValueReturnCheckSequence) +                    

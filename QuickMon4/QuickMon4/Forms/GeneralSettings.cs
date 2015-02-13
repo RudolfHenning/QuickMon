@@ -62,6 +62,7 @@ namespace QuickMon
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
             chkSnapToDesktop.Checked = Properties.Settings.Default.MainFormSnap;
             chkAutosaveChanges.Checked = Properties.Settings.Default.AutosaveChanges;
+            chkCreateBackupOnSave.Checked = Properties.Settings.Default.CreateBackupOnSave;
             chkOverridesMonitorPackFrequency.Checked = Properties.Settings.Default.OverridesMonitorPackFrequency;
             if (Properties.Settings.Default.RecentQMConfigFileFilters == null || Properties.Settings.Default.RecentQMConfigFileFilters.Trim() == "")
                 txtRecentMonitorPackFilter.Text = "*";
@@ -128,6 +129,7 @@ namespace QuickMon
             Properties.Settings.Default.ConcurrencyLevel = (int)concurrencyLevelNnumericUpDown.Value;
             Properties.Settings.Default.MainFormSnap = chkSnapToDesktop.Checked;
             Properties.Settings.Default.AutosaveChanges = chkAutosaveChanges.Checked;
+            Properties.Settings.Default.CreateBackupOnSave = chkCreateBackupOnSave.Checked;
             Properties.Settings.Default.OverridesMonitorPackFrequency = chkOverridesMonitorPackFrequency.Checked;
             Properties.Settings.Default.ShowFullPathForQuickRecentist = chkDisplayFullPathForQuickRecentEntries.Checked;
             Properties.Settings.Default.PausePollingDuringEditConfig = chkPausePollingDuringEditConfig.Checked;

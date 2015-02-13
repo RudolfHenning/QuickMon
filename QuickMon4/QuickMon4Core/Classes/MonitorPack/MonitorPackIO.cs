@@ -201,6 +201,28 @@ namespace QuickMon
             MonitorPackPath = configurationFile;
             RaiseMonitorPackPathChanged(MonitorPackPath);
         }
+        public void BackupSavedFile()
+        {
+            try
+            {
+                if (System.IO.File.Exists(MonitorPackPath))
+                {
+                    string path = System.IO.Path.GetDirectoryName(MonitorPackPath);
+                    string fileNameWithoutExtention = System.IO.Path.GetFileNameWithoutExtension(MonitorPackPath);
+                    string backupFile = System.IO.Path.Combine(path, fileNameWithoutExtention + ".bak");
+                    if (System.IO.File.Exists(backupFile))
+                    {
+                        System.IO.File.SetAttributes(backupFile, System.IO.FileAttributes.Normal);
+                        System.IO.File.Delete(backupFile);
+                    }
+                    System.IO.File.Copy(MonitorPackPath, backupFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occured while creating a backup for : " + MonitorPackPath, ex);
+            }
+        }
         public string ToXml()
         {
             //string defaultViewerNotifier = "";

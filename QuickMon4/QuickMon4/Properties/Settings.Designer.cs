@@ -200,5 +200,17 @@ namespace QuickMon.Properties {
                 this["UseTemplatesForNewObjects"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CreateBackupOnSave {
+            get {
+                return ((bool)(this["CreateBackupOnSave"]));
+            }
+            set {
+                this["CreateBackupOnSave"] = value;
+            }
+        }
     }
 }

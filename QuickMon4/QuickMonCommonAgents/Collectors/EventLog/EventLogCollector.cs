@@ -48,6 +48,8 @@ namespace QuickMon.Collectors
                                 new MonitorState()
                                 {
                                     State = CollectorState.Error,
+                                    ForAgent = string.Format("{0}\\{1}", eventLogEntry.Computer, eventLogEntry.EventLog),
+                                    CurrentValue = count,
                                     RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Error (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue),
                                     HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Error</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue)
                                 });                        
@@ -59,6 +61,8 @@ namespace QuickMon.Collectors
                                 new MonitorState()
                                 {
                                     State = CollectorState.Warning,
+                                    ForAgent = string.Format("{0}\\{1}", eventLogEntry.Computer, eventLogEntry.EventLog),
+                                    CurrentValue = count,
                                     RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Warning (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue),
                                     HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Warning</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue)
                                 });
@@ -70,6 +74,8 @@ namespace QuickMon.Collectors
                                 new MonitorState()
                                 {
                                     State = CollectorState.Good,
+                                    ForAgent = string.Format("{0}\\{1}", eventLogEntry.Computer, eventLogEntry.EventLog),
+                                    CurrentValue = count,
                                     RawDetails = string.Format("'{0}\\{1}' - count: '{2}'", eventLogEntry.Computer, eventLogEntry.EventLog, count),
                                     HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}'", eventLogEntry.Computer, eventLogEntry.EventLog, count)
                                 });

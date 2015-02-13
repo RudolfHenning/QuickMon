@@ -16,8 +16,6 @@ namespace QuickMon.Collectors
         public override MonitorState RefreshState()
         {
             MonitorState returnState = new MonitorState();
-            //StringBuilder plainTextDetails = new StringBuilder();
-            //StringBuilder htmlTextTextDetails = new StringBuilder();
             string lastAction = "";
             int errors = 0;
             int warnings = 0;
@@ -33,57 +31,38 @@ namespace QuickMon.Collectors
                     lastAction = "Checking service states of " + ssd.MachineName;
                     CollectorState currentState = ssd.GetState(serviceStates);
 
-
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
                         returnState.RawDetails = string.Format("{0} (Error)", ssd.MachineName);
                         returnState.HtmlDetails = string.Format("{0} <b>Error</b>", ssd.MachineName);
-                        //plainTextDetails.AppendLine(string.Format("Error: {0}", ssd.MachineName));
-                        //htmlTextTextDetails.AppendLine(string.Format("<b>Error</b>: {0}", ssd.MachineName));
                     }
                     else if (currentState == CollectorState.Warning)
                     {
                         warnings++;
                         returnState.RawDetails = string.Format("{0} (Warning)", ssd.MachineName);
                         returnState.HtmlDetails = string.Format("{0} <b>Warning</b>", ssd.MachineName);
-                        //plainTextDetails.AppendLine(string.Format("Warning: {0}", ssd.MachineName));
-                        //htmlTextTextDetails.AppendLine(string.Format("<i>Warning</i>: {0}", ssd.MachineName));
                     }
                     else
                     {
                         success++;
                         returnState.RawDetails = string.Format("{0} (Success)", ssd.MachineName);
                         returnState.HtmlDetails = string.Format("{0} <b>Success</b>", ssd.MachineName);
-                        //plainTextDetails.AppendLine(string.Format("Success: {0}", ssd.MachineName));
-                        //htmlTextTextDetails.AppendLine(string.Format("Success: {0}", ssd.MachineName));
                     }
                     foreach (ServiceStateInfo serviceEntry in serviceStates)
                     {
                         returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    State = CollectorState.None,
+                                    State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good: CollectorState.Warning) ,
+                                    ForAgent = string.Format("{0}\\{1}", ssd.MachineName, serviceEntry.DisplayName),
+                                    CurrentValue = serviceEntry.Status.ToString(),
                                     RawDetails = string.Format("{0} ({1})", serviceEntry.DisplayName, serviceEntry.Status),
                                     HtmlDetails = string.Format("{0} ({1})", serviceEntry.DisplayName, serviceEntry.Status)
                                 });
-
-                        //plainTextDetails.AppendLine(string.Format("\t{0}: {1}", serviceEntry.DisplayName, serviceEntry.Status));
-                        //htmlTextTextDetails.AppendLine("<ul>");
-                        //if (serviceEntry.Status != System.ServiceProcess.ServiceControllerStatus.Running)
-                        //{
-                        //    htmlTextTextDetails.AppendLine(string.Format("<li>{0}: <b>{1}</b></li>", serviceEntry.DisplayName, serviceEntry.Status));
-                        //}
-                        //else
-                        //{
-                        //    htmlTextTextDetails.AppendLine(string.Format("<li>{0}: {1}</li>", serviceEntry.DisplayName, serviceEntry.Status));
-                        //}
-                        //htmlTextTextDetails.AppendLine("</ul>");
                     }
 
                 }
-                //returnState.RawDetails = plainTextDetails.ToString().TrimEnd('\r', '\n');
-                //returnState.HtmlDetails = htmlTextTextDetails.ToString();
 
                 if (errors > 0 && warnings == 0 && success == 0) // all errors
                     returnState.State = CollectorState.Error;

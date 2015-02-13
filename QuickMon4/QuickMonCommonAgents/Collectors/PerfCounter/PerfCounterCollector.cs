@@ -44,7 +44,8 @@ namespace QuickMon.Collectors
                             errors++;
                             returnState.ChildStates.Add(
                                 new MonitorState() { 
-                                    State = CollectorState.Error, 
+                                    State = CollectorState.Error,
+                                    ForAgent = entry.Description,
                                     CurrentValue = value,
                                     RawDetails = string.Format("{0} - Val: '{1}' - Error (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat)),
                                                      HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Error</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat))
@@ -57,6 +58,7 @@ namespace QuickMon.Collectors
                                 new MonitorState()
                                 {
                                     State = CollectorState.Warning,
+                                    ForAgent = entry.Description,
                                     CurrentValue = value,
                                     RawDetails = string.Format("{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat)),
                                     HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat))
@@ -69,6 +71,7 @@ namespace QuickMon.Collectors
                                  new MonitorState()
                                  {
                                      State = CollectorState.Good,
+                                     ForAgent = entry.Description,
                                      CurrentValue = value,
                                      RawDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat)),
                                      HtmlDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat))
