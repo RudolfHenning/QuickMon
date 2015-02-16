@@ -25,9 +25,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{D5001D47-CCDF-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonDBUIForWinForms", "QuickMonDBUIForWinForms\QuickMonDBUIForWinForms.csproj", "{077105FB-AC8E-45BD-ACAC-EC2AA77EA318}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonBizTalkAgents", "QuickMonBizTalkAgents\QuickMonBizTalkAgents.csproj", "{55D2EE1B-6EEC-47A2-87C2-65B44B757553}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -63,6 +65,10 @@ Global
 		SccProjectTopLevelParentUniqueName9 = QuickMon4.sln
 		SccProjectName9 = QuickMonDBUIForWinForms
 		SccLocalPath9 = QuickMonDBUIForWinForms
+		SccProjectUniqueName10 = QuickMonBizTalkAgents\\QuickMonBizTalkAgents.csproj
+		SccProjectTopLevelParentUniqueName10 = QuickMon4.sln
+		SccProjectName10 = QuickMonBizTalkAgents
+		SccLocalPath10 = QuickMonBizTalkAgents
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +111,10 @@ Global
 		{077105FB-AC8E-45BD-ACAC-EC2AA77EA318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{077105FB-AC8E-45BD-ACAC-EC2AA77EA318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{077105FB-AC8E-45BD-ACAC-EC2AA77EA318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D2EE1B-6EEC-47A2-87C2-65B44B757553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D2EE1B-6EEC-47A2-87C2-65B44B757553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D2EE1B-6EEC-47A2-87C2-65B44B757553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D2EE1B-6EEC-47A2-87C2-65B44B757553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,5 +125,6 @@ Global
 		{6DD14A85-CCFC-4774-BD26-0F5772512319} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
 		{64874B78-7FDE-43E4-9D10-06F93A608D1A} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 		{077105FB-AC8E-45BD-ACAC-EC2AA77EA318} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
+		{55D2EE1B-6EEC-47A2-87C2-65B44B757553} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 	EndGlobalSection
 EndGlobal
