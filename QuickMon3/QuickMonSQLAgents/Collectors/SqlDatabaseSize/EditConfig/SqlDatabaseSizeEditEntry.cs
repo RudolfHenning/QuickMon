@@ -121,6 +121,11 @@ namespace QuickMon.Collectors
         {
             CheckOkEnabled();
         }
+        private void chkIntegratedSec_CheckedChanged(object sender, EventArgs e)
+        {
+            txtUserName.ReadOnly = chkIntegratedSec.Checked;
+            txtPassword.ReadOnly = chkIntegratedSec.Checked;
+        }
         #endregion
 
         #region Private methods
@@ -160,5 +165,6 @@ namespace QuickMon.Collectors
             cmdTest.Enabled = txtServer.Text.Length > 0 && (chkIntegratedSec.Checked || txtUserName.Text.Length > 0) && cboDatabase.Text.Length > 0 && warningNumericUpDown.Value < errorNumericUpDown.Value;
         } 
         #endregion
+
     }
 }

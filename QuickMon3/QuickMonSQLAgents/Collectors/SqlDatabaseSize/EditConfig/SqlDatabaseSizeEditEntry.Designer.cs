@@ -136,6 +136,7 @@
             this.chkIntegratedSec.TabIndex = 2;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;
+            this.chkIntegratedSec.CheckedChanged += new System.EventHandler(this.chkIntegratedSec_CheckedChanged);
             // 
             // label5
             // 

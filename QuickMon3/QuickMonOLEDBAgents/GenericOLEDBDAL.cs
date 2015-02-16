@@ -242,7 +242,7 @@ namespace HenIT.Data.OLEDB
                     connbuilder["Initial Catalog"] = initialCatalogue;
                 if (server.Length > 0)
                     connbuilder["Server"] = server;
-                if (server.Length > 0)
+                if (database.Length > 0)
                     connbuilder["Database"] = database;
                 if (persistSecurityInfo)
                     connbuilder.PersistSecurityInfo = persistSecurityInfo;
