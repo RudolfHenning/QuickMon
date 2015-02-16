@@ -49,6 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlDatabaseSizeCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorUI.cs" />
     <Compile Include="Collectors\SqlQuery\SqlQueryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +63,13 @@
       <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\SqlQuery\SqlQueryCollectorUI.cs" />
+    <Compile Include="Collectors\SqlTableSize\SqlTableSizeCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSize\SqlTableSizeCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SqlTableSize\SqlTableSizeCollectorUI.cs" />
     <Compile Include="Generic\ConnectionStringBuilder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,8 +96,14 @@
     <Folder Include="Notifiers\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.resx">
+      <DependentUpon>SqlDatabaseSizeCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Collectors\SqlQuery\SqlQueryCollectorEditEntry.resx">
       <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SqlTableSize\SqlTableSizeCollectorEditEntry.resx">
+      <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generic\ConnectionStringBuilder.resx">
       <DependentUpon>ConnectionStringBuilder.cs</DependentUpon>

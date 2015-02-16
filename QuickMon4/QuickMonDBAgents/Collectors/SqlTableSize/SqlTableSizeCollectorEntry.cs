@@ -65,7 +65,7 @@ namespace QuickMon.Collectors
         {
             return GetAllTableRowCounts(SqlServer, Database, IntegratedSecurity, UserName, Password, SqlCmndTimeOutSec);
         }
-        private List<TableSizeInfo> GetAllTableRowCounts(string sqlServer, string database, bool integratedSecurity, string userName, string password, int sqlCmndTimeOutSec)
+        public static List<TableSizeInfo> GetAllTableRowCounts(string sqlServer, string database, bool integratedSecurity, string userName, string password, int sqlCmndTimeOutSec)
         {
             List<TableSizeInfo> list = new List<TableSizeInfo>();
             string sql = "select t.name, i.[rows] from sys.sysindexes i inner join sys.tables t on t.object_id = i.id where i.indid in (0, 1, 255) order by t.name";

@@ -49,7 +49,7 @@ namespace QuickMon.Collectors
                                     {
                                         State = CollectorState.Error,
                                         ForAgent = tableEntryState.Item1.TableName,
-                                        CurrentValue = tableEntryState.Item1.RowCount,
+                                        CurrentValue = string.Format("{0} row(s)", tableEntryState.Item1.RowCount),
                                         RawDetails = string.Format("'{0}' - {1} (Error, {2})", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount, (tableEntryState.Item1.RowCount > 0 ? "Trigger " + tableEntryState.Item1.ErrorValue.ToString() : tableEntryState.Item1.ErrorStr)),
                                         HtmlDetails = string.Format("'{0}' - {1} (<b>Error, {2}</b>)", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount, (tableEntryState.Item1.RowCount > 0 ? "Trigger " + tableEntryState.Item1.ErrorValue.ToString() : tableEntryState.Item1.ErrorStr))
                                     });
@@ -62,7 +62,7 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Warning,
                                     ForAgent = tableEntryState.Item1.TableName,
-                                    CurrentValue = tableEntryState.Item1.RowCount,
+                                    CurrentValue = string.Format("{0} row(s)", tableEntryState.Item1.RowCount),
                                     RawDetails = string.Format("'{0}' - {1} (Warning, Trigger {2})", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount),
                                     HtmlDetails = string.Format("'{0}' - {1} (<b>Warning, Trigger {2}</b>)", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount)
                                 });
@@ -75,7 +75,7 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Good,
                                     ForAgent = tableEntryState.Item1.TableName,
-                                    CurrentValue = tableEntryState.Item1.RowCount,
+                                    CurrentValue = string.Format("{0} row(s)", tableEntryState.Item1.RowCount),
                                     RawDetails = string.Format("'{0}' - {1}", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount),
                                     HtmlDetails = string.Format("'{0}' - {1}", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount)
                                 });

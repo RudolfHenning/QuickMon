@@ -113,8 +113,8 @@ namespace QuickMon
                             RunCollectorHostCorrectiveErrorScript(this);
                         else if (newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
                             RunCollectorHostCorrectiveWarningScript(this);
-                        else if (newState.State == CollectorState.Good && RunCollectorHostCorrectiveWarningScript != null)
-                            RunCollectorHostCorrectiveWarningScript(this);
+                        else if (newState.State == CollectorState.Good && RunCollectorHostRestorationScript != null)
+                            RunCollectorHostRestorationScript(this);
                     }
                 }
             }
