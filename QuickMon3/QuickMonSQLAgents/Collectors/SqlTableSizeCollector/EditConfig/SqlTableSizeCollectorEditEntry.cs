@@ -46,6 +46,8 @@ namespace QuickMon.Collectors
                 LoadDatabases();
                 LoadTables();
             }
+            lvwTables.AutoResizeColumnIndex = 0;
+            lvwTables.AutoResizeColumnEnabled = true;
         }
 
         #region Private methods
@@ -247,6 +249,12 @@ namespace QuickMon.Collectors
             }
             else
                 cmdUpdateTable.Enabled = false;
+        }
+
+        private void chkIntegratedSec_CheckedChanged(object sender, EventArgs e)
+        {
+            txtUserName.ReadOnly = chkIntegratedSec.Checked;
+            txtPassword.ReadOnly = chkIntegratedSec.Checked;
         }
 
 

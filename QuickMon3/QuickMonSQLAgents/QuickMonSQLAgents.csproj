@@ -106,12 +106,6 @@
     <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditEntry.Designer.cs">
       <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditConfig.Designer.cs">
-      <DependentUpon>SqlTableSizeCollectorEditConfig.cs</DependentUpon>
-    </Compile>
     <Compile Include="Collectors\SqlTableSizeCollector\SqlTableSizeCollector.cs" />
     <Compile Include="Collectors\SqlTableSizeCollector\SqlTableSizeCollectorConfig.cs" />
     <Compile Include="Collectors\SqlTableSizeCollector\SqlTableSizeCollectorEntry.cs" />
@@ -193,9 +187,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\SqlQueryCollector\ShowDetails\SqlQueryCollectorShowDetails.resx">
       <DependentUpon>SqlQueryCollectorShowDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditConfig.resx">
-      <DependentUpon>SqlTableSizeCollectorEditConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\SqlTableSizeCollector\EditConfig\SqlTableSizeCollectorEditEntry.resx">
       <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
