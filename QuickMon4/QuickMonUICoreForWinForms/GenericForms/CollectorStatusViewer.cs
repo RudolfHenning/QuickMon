@@ -216,7 +216,7 @@ namespace QuickMon.Forms
         private List<string> ReadValues(MonitorState monitorState)
         {
             List<string> values = new List<string>();
-            if (monitorState.ChildStates != null && monitorState.ChildStates.Count > 0)
+            if (monitorState.ChildStates != null && monitorState.ChildStates.Count(cs=>cs.CurrentValue != null) > 0)
             {
                 foreach(MonitorState childEntry in monitorState.ChildStates)
                 {

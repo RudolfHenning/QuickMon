@@ -236,7 +236,7 @@ namespace QuickMon.Collectors
             }
             return disabledCount;
         }
-        internal List<ReceiveLocationInfo> GetReceiveLocationList()
+        public List<ReceiveLocationInfo> GetReceiveLocationList()
         {
             List<ReceiveLocationInfo> list = new List<ReceiveLocationInfo>();
             string sql = "select p.nvcName as [Receive Port], l.[Name] as [Receive location] ,h.Name as [Host], l.[Disabled] " +
@@ -356,7 +356,7 @@ namespace QuickMon.Collectors
             }
             return stoppedCount;
         }
-        internal List<SendPortInfo> GetSendPortList()
+        public List<SendPortInfo> GetSendPortList()
         {
             List<SendPortInfo> list = new List<SendPortInfo>();
             string sql = "select nvcName, nPortStatus as [Send Port Name] from dbo.bts_sendport with (Readpast) order by	nvcName";
