@@ -694,10 +694,13 @@ namespace QuickMon
                 if (moveItem.Tag is ICollector)
                 {
                     ICollector agent = (ICollector)moveItem.Tag;
+                    ICollectorConfig currentCollectorConfig = (ICollectorConfig)agent.AgentConfig;
+
                     int index = editingCollectorHost.CollectorAgents.IndexOf(agent);
                     moveUpEnabled = index > 0;
                     moveDownEnabled = index < editingCollectorHost.CollectorAgents.Count - 1;
-                    addAgentEntry = true;
+
+                    addAgentEntry = (!((ICollectorConfig)agent.AgentConfig).SingleEntryOnly) || currentCollectorConfig.Entries.Count == 0;
                     agentEnabledEnabled = !agent.Enabled;
                     agentEDisabledEnabled = agent.Enabled;
                 }

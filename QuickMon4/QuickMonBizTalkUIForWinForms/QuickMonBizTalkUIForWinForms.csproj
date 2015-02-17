@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{55D2EE1B-6EEC-47A2-87C2-65B44B757553}</ProjectGuid>
+    <ProjectGuid>{C971AA1B-E389-4952-ABC5-0E57AB294D2D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QuickMon</RootNamespace>
-    <AssemblyName>QuickMonBizTalkAgents</AssemblyName>
+    <AssemblyName>QuickMonBizTalkUIForWinForms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,20 +45,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collectors\BizTalkGroupBase.cs" />
-    <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollector.cs" />
-    <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorConfig.cs" />
-    <Compile Include="Collectors\BizTalkSuspendedCount\BizTalkSuspendedCountCollector.cs" />
-    <Compile Include="Collectors\BizTalkSuspendedCount\BizTalkSuspendedCountCollectorConfig.cs" />
-    <Compile Include="Collectors\BizTalkSuspendedCount\SuspendedInstance.cs" />
+    <Compile Include="Collectors\BizTalkEditList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkEditList.Designer.cs">
+      <DependentUpon>BizTalkEditList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorEditEntry.Designer.cs">
+      <DependentUpon>BizTalkPortAndOrchsCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\QuickMon4Core\QuickMonCore.csproj">
       <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuickMonBizTalkAgents\QuickMonBizTalkAgents.csproj">
+      <Project>{55d2ee1b-6eec-47a2-87c2-65b44b757553}</Project>
+      <Name>QuickMonBizTalkAgents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickMonUICoreForWinForms\QuickMonUICoreForWinForms.csproj">
+      <Project>{03204b22-96bc-42c6-a355-6cc29f1c0a2c}</Project>
+      <Name>QuickMonUICoreForWinForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Collectors\BizTalkSuspendedCount\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Collectors\BizTalkEditList.resx">
+      <DependentUpon>BizTalkEditList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorEditEntry.resx">
+      <DependentUpon>BizTalkPortAndOrchsCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
