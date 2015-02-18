@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collectors\BizTalkAddAppOrHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkAddAppOrHost.Designer.cs">
+      <DependentUpon>BizTalkAddAppOrHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collectors\BizTalkEditList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,13 @@
       <DependentUpon>BizTalkPortAndOrchsCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorUI.cs" />
+    <Compile Include="Collectors\BizTalkSuspendedCount\BizTalkSuspendedCountCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCount\BizTalkSuspendedCountCollectorEditEntry.Designer.cs">
+      <DependentUpon>BizTalkSuspendedCountCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\BizTalkSuspendedCount\BizTalkSuspendedCountCollectorUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,15 +87,19 @@
       <Name>QuickMonUICoreForWinForms</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Collectors\BizTalkSuspendedCount\" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="Collectors\BizTalkAddAppOrHost.resx">
+      <DependentUpon>BizTalkAddAppOrHost.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Collectors\BizTalkEditList.resx">
       <DependentUpon>BizTalkEditList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorEditEntry.resx">
       <DependentUpon>BizTalkPortAndOrchsCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\BizTalkSuspendedCount\BizTalkSuspendedCountCollectorEditEntry.resx">
+      <DependentUpon>BizTalkSuspendedCountCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

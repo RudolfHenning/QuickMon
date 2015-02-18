@@ -6,25 +6,27 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using QuickMon.Forms;
 using System.Windows.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class BizTalkPortAndOrchsCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class BizTalkPortAndOrchsCollectorEditEntry : CollectorConfigEntryEditWindowBase // Form, ICollectorConfigEntryEditWindow
     {
         public BizTalkPortAndOrchsCollectorEditEntry()
         {
             InitializeComponent();
         }
 
-        #region ICollectorConfigEntryEditWindow
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region ICollectorConfigEntryEditWindow
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //#endregion
 
+        #region Form events
         private void BizTalkPortAndOrchsCollectorEditEntry_Load(object sender, EventArgs e)
         {
             if (SelectedEntry == null)
@@ -39,7 +41,8 @@ namespace QuickMon.Collectors
             LoadReceiveLocations();
             LoadSendPorts();
             LoadOrchestrations();
-        }
+        } 
+        #endregion
 
         #region Private methods
         private void LoadReceiveLocations()
