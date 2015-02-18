@@ -259,24 +259,24 @@ namespace QuickMon.Collectors
             List<SuspendedInstance> suspendedInstances = new List<SuspendedInstance>();
             DataSet results = new DataSet();
             string hostName = hostInstanceSuspendedQ.Substring(0, hostInstanceSuspendedQ.Length - 11);
+            string appFilter = "";
+            if (!AllAppsHosts && Apps.Count > 0)
+            {
+                foreach (string app in Apps)
+                {
+                    appFilter += "'" + app + "',";
+                }
+                appFilter = appFilter.TrimEnd(',');
+                appFilter = " and m.nvcName in (" + appFilter + ") ";
+            }
             string sql = "SET DEADLOCK_PRIORITY LOW\r\n" +
                 "select top " + topCount.ToString() + " '" + hostName + "' as [Host], m.nvcName as [App], s.nvcMessageType, " +
                 "s.PublishingServer, i.dtSuspendTimeStamp, i.nvcURI, i.nvcAdapter, " +
                 "b.nvcAdditionalInfo, b.uidInstanceID, b.uidServiceID, s.imgContext, i.dtCreated, i.nvcErrorDescription " +
                 "from " + hostInstanceSuspendedQ + " b with (readpast) inner Join Spool s with (readpast) on b.uidMessageID = s.[uidMessageID ] " +
                   "inner join InstancesSuspended i with (readpast) on b.uidInstanceID = i.uidInstanceID inner join Services se with (readpast) on se.uidServiceID = b.uidServiceID inner join Modules m with (readpast) on m.nModuleID = se.nModuleID " +
-                "where (i.nState = 4 or i.nState = 32) " +
-                "order by i.dtSuspendTimeStamp desc";
-            if (Apps.Count > 0)
-            {
-                string appFilter = "";
-                foreach (string app in Apps)
-                {
-                    appFilter += "'" + app + "',";
-                }
-                appFilter = appFilter.TrimEnd(',');
-                sql += " and m.nvcName in (" + appFilter + ")";
-            }
+                "where (i.nState = 4 or i.nState = 32) " + appFilter +
+                "order by i.dtSuspendTimeStamp desc";           
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();

@@ -150,28 +150,27 @@ namespace QuickMon.Collectors
         {
             List<System.Data.DataTable> list = new List<System.Data.DataTable>();
             BizTalkPortAndOrchsCollectorConfig currentConfig = (BizTalkPortAndOrchsCollectorConfig)AgentConfig;
-
-            System.Data.DataTable receiveLocationsTable = new System.Data.DataTable("Receive locations");
-            receiveLocationsTable.Columns.Add(new System.Data.DataColumn("Port", typeof(string)));
-            receiveLocationsTable.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
-            receiveLocationsTable.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
-
-            System.Data.DataTable sendPortsTable = new System.Data.DataTable("Send ports");
-            sendPortsTable.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
-            sendPortsTable.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
-
-            System.Data.DataTable orchestrationsTable = new System.Data.DataTable("Orchestrations");
-            orchestrationsTable.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
-            orchestrationsTable.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
-
             if (currentConfig.Entries.Count == 1)
             {
                 BizTalkPortAndOrchsCollectorConfigEntry entry = (BizTalkPortAndOrchsCollectorConfigEntry)currentConfig.Entries[0];
-                foreach(ReceiveLocationInfo rl in entry.GetReceiveLocationList())
+                System.Data.DataTable receiveLocationsTable = new System.Data.DataTable(entry.SqlServer + " - Receive locations");
+                receiveLocationsTable.Columns.Add(new System.Data.DataColumn("Port", typeof(string)));
+                receiveLocationsTable.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
+                receiveLocationsTable.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
+
+                System.Data.DataTable sendPortsTable = new System.Data.DataTable(entry.SqlServer + " - Send ports");
+                sendPortsTable.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
+                sendPortsTable.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
+
+                System.Data.DataTable orchestrationsTable = new System.Data.DataTable(entry.SqlServer + " - Orchestrations");
+                orchestrationsTable.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
+                orchestrationsTable.Columns.Add(new System.Data.DataColumn("State", typeof(string)));
+
+                foreach (ReceiveLocationInfo rl in entry.GetReceiveLocationList())
                 {
                     receiveLocationsTable.Rows.Add(rl.ReceivePortName, rl.ReceiveLocationName, rl.Disabled ? "Disabled" : "Enabled");
-                }                
-                foreach(SendPortInfo sp in entry.GetSendPortList())
+                }
+                foreach (SendPortInfo sp in entry.GetSendPortList())
                 {
                     sendPortsTable.Rows.Add(sp.Name, sp.State);
                 }
@@ -179,10 +178,18 @@ namespace QuickMon.Collectors
                 {
                     orchestrationsTable.Rows.Add(orch.Name, orch.State);
                 }
+                list.Add(receiveLocationsTable);
+                list.Add(sendPortsTable);
+                list.Add(orchestrationsTable);
             }
-            list.Add(receiveLocationsTable);
-            list.Add(sendPortsTable);
-            list.Add(orchestrationsTable);
+            else
+            {
+                System.Data.DataTable dt = new System.Data.DataTable(Name);
+                dt.Columns.Add(new System.Data.DataColumn("Error", typeof(string)));
+                dt.Rows.Add("Configuration error.");
+                list.Add(dt);
+            }
+
             return list;
         }
     }

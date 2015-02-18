@@ -21,7 +21,6 @@ namespace QuickMon.Collectors
             try
             {
                 BizTalkSuspendedCountCollectorConfig currentConfig = (BizTalkSuspendedCountCollectorConfig)AgentConfig;
-
                 if (currentConfig.Entries.Count == 1)
                 {
                     BizTalkSuspendedCountCollectorConfigEntry entry = (BizTalkSuspendedCountCollectorConfigEntry)currentConfig.Entries[0];
@@ -83,25 +82,31 @@ namespace QuickMon.Collectors
         {
             List<System.Data.DataTable> list = new List<System.Data.DataTable>();
             BizTalkSuspendedCountCollectorConfig currentConfig = (BizTalkSuspendedCountCollectorConfig)AgentConfig;
-
-            System.Data.DataTable suspendedTable = new System.Data.DataTable(Name);
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Host", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Application", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Message type", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Server", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Time", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("URI", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Adapter", typeof(string)));
-            suspendedTable.Columns.Add(new System.Data.DataColumn("Info", typeof(string)));
             if (currentConfig.Entries.Count == 1)
             {
+                System.Data.DataTable suspendedTable = new System.Data.DataTable(Name);
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Host", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Application", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Message type", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Server", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Time", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("URI", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Adapter", typeof(string)));
+                suspendedTable.Columns.Add(new System.Data.DataColumn("Info", typeof(string)));
                 BizTalkSuspendedCountCollectorConfigEntry entry = (BizTalkSuspendedCountCollectorConfigEntry)currentConfig.Entries[0];
-                foreach(SuspendedInstance si in  entry.GetTopXSuspendedInstanced(100))
+                foreach (SuspendedInstance si in entry.GetTopXSuspendedInstanced(100))
                 {
                     suspendedTable.Rows.Add(si.Host, si.Application, si.MessageType, si.PublishingServer, si.SuspendTime.ToString("yyyy-MM-dd HH:mm:ss"), si.Uri, si.Adapter, si.AdditionalInfo);
                 }
+                list.Add(suspendedTable);
             }
-            list.Add(suspendedTable);
+            else
+            {
+                System.Data.DataTable dt = new System.Data.DataTable(Name);
+                dt.Columns.Add(new System.Data.DataColumn("Error", typeof(string)));
+                dt.Rows.Add("Configuration error.");
+                list.Add(dt);
+            }
             return list;
         }
     }

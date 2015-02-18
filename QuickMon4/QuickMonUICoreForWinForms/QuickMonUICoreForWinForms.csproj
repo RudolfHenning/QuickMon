@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMapper\RegisteredAgentUIMapper.cs" />
+    <Compile Include="BaseClasses\CollectorConfigEntryEditWindowBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="BaseClasses\WinFormsUIBase.cs" />
     <Compile Include="Collectors\EventLog\EventLogCollectorEditEntry.cs">
       <SubType>Form</SubType>

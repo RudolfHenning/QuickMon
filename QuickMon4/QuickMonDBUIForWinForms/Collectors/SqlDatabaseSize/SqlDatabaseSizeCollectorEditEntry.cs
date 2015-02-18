@@ -1,4 +1,5 @@
 ﻿using HenIT.Data.SqlClient;
+using QuickMon.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,20 +11,20 @@ using System.Windows.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class SqlDatabaseSizeCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class SqlDatabaseSizeCollectorEditEntry : CollectorConfigEntryEditWindowBase // Form, ICollectorConfigEntryEditWindow
     {
         public SqlDatabaseSizeCollectorEditEntry()
         {
             InitializeComponent();
         }
 
-        #region ICollectorConfigEntryEditWindow
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            return (QuickMonDialogResult)ShowDialog();
-        }
-        #endregion
+        //#region ICollectorConfigEntryEditWindow
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //}
+        //#endregion
 
         #region Form events
         private void SqlDatabaseSizeCollectorEditEntry_Load(object sender, EventArgs e)

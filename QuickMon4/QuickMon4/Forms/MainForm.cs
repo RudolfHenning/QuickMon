@@ -1630,7 +1630,7 @@ namespace QuickMon
                 if (currentNotivierViewer == null)
                 {
                     WinFormsUINotifierBase agentUI = RegisteredAgentUIMapper.GetNotifierUIClass(agent);
-                    if (agentUI != null && agentUI.HasDetailView)
+                    if (agentUI != null && agentUI.HasDetailView && agentUI.Viewer != null)
                     {
                         currentNotivierViewer = agentUI.Viewer;
                         currentNotivierViewer.SelectedNotifier = agent;

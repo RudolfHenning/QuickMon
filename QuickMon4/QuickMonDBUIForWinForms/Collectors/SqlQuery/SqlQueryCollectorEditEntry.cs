@@ -10,20 +10,20 @@ using System.Windows.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class SqlQueryCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class SqlQueryCollectorEditEntry : CollectorConfigEntryEditWindowBase // Form, ICollectorConfigEntryEditWindow
     {
         public SqlQueryCollectorEditEntry()
         {
             InitializeComponent();
         }
 
-        #region ICollectorConfigEntryEditWindow
-        public ICollectorConfigEntry SelectedEntry { get; set; }
-        public QuickMonDialogResult ShowEditEntry()
-        {
-            return (QuickMonDialogResult)ShowDialog();
-        } 
-        #endregion
+        //#region ICollectorConfigEntryEditWindow
+        //public ICollectorConfigEntry SelectedEntry { get; set; }
+        //public QuickMonDialogResult ShowEditEntry()
+        //{
+        //    return (QuickMonDialogResult)ShowDialog();
+        //} 
+        //#endregion
 
         #region Form events
         private void SqlQueryCollectorEditEntry_Load(object sender, EventArgs e)
