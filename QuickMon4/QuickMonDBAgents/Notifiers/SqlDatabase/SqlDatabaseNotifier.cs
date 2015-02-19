@@ -53,7 +53,7 @@ namespace QuickMon.Notifiers
 
                 string alertParamName = currentConfig.AlertFieldName.Replace("'", "''").Replace("@", "");
                 //string collectorTypeParamName = currentConfig.CollectorAgentsDetailFieldName.Replace("'", "''").Replace("@", "");
-                string categoryParamName = currentConfig.CategoryFieldName.Replace("'", "''").Replace("@", "");
+                string collectorParamName = currentConfig.CollectorFieldName.Replace("'", "''").Replace("@", "");
                 string previousStateParamName = currentConfig.PreviousStateFieldName.Replace("'", "''").Replace("@", "");
                 string currentStateParamName = currentConfig.CurrentStateFieldName.Replace("'", "''").Replace("@", "");
                 string detailsParamName = currentConfig.DetailsFieldName.Replace("'", "''").Replace("@", "");
@@ -62,7 +62,7 @@ namespace QuickMon.Notifiers
                     string.Format("Insert {0} ({1}, {2}, {3}, {4}, {5}) values(@{1}, @{2}, @{3}, @{4}, @{5})",
                         currentConfig.CmndValue,
                         currentConfig.AlertFieldName,
-                        categoryParamName,
+                        collectorParamName,
                         previousStateParamName,
                         currentStateParamName,
                         detailsParamName);
@@ -97,7 +97,7 @@ namespace QuickMon.Notifiers
                     SqlParameter[] paramArr = new SqlParameter[] 
                             { 
                                 new SqlParameter("@" + alertParamName,  (byte)alertRaised.Level),
-                                new SqlParameter("@" + categoryParamName,  collectorName + viaHost),
+                                new SqlParameter("@" + collectorParamName,  collectorName + viaHost),
                                 new SqlParameter("@" + previousStateParamName,  oldState),
                                 new SqlParameter("@" + currentStateParamName,  newState),
                                 new SqlParameter("@" + detailsParamName, detailMessage)
@@ -140,10 +140,8 @@ namespace QuickMon.Notifiers
         public string CmndValue { get { return cmndValue; } set { cmndValue = value; } }
         private string alertFieldName;
         public string AlertFieldName { get { return alertFieldName; } set { alertFieldName = value; } }
-        //private string collectorAgentsDetailFieldName;
-        //public string CollectorAgentsDetailFieldName { get { return collectorAgentsDetailFieldName; } set { collectorAgentsDetailFieldName = value; } }
-        private string categoryFieldName;
-        public string CategoryFieldName { get { return categoryFieldName; } set { categoryFieldName = value; } }
+        private string collectorFieldName;
+        public string CollectorFieldName { get { return collectorFieldName; } set { collectorFieldName = value; } }
         private string previousStateFieldName;
         public string PreviousStateFieldName { get { return previousStateFieldName; } set { previousStateFieldName = value; } }
         private string currentStateFieldName;
@@ -175,8 +173,7 @@ namespace QuickMon.Notifiers
             UseSP = bool.Parse(cmndNode.ReadXmlElementAttr("useSP", "True"));
             CmndValue = cmndNode.ReadXmlElementAttr("value", "InsertMessage");
             AlertFieldName = cmndNode.ReadXmlElementAttr("alertFieldName", "AlertLevel");
-            //CollectorAgentsDetailFieldName = cmndNode.ReadXmlElementAttr("collectorTypeFieldName", "CollectorType");
-            CategoryFieldName = cmndNode.ReadXmlElementAttr("categoryFieldName", "Category");
+            CollectorFieldName = cmndNode.ReadXmlElementAttr("collectorFieldName", "Collector");
             PreviousStateFieldName = cmndNode.ReadXmlElementAttr("previousStateFieldName", "PreviousState");
             CurrentStateFieldName = cmndNode.ReadXmlElementAttr("currentStateFieldName", "CurrentState");
             DetailsFieldName = cmndNode.ReadXmlElementAttr("detailsFieldName", "Details");
@@ -201,7 +198,7 @@ namespace QuickMon.Notifiers
             cmndNode.SetAttributeValue("value", CmndValue);
             cmndNode.SetAttributeValue("alertFieldName", AlertFieldName);
             //cmndNode.SetAttributeValue("collectorAgentsDetail", CollectorAgentsDetailFieldName);
-            cmndNode.SetAttributeValue("categoryFieldName", CategoryFieldName);
+            cmndNode.SetAttributeValue("collectorFieldName", CollectorFieldName);
             cmndNode.SetAttributeValue("previousStateFieldName", PreviousStateFieldName);
             cmndNode.SetAttributeValue("currentStateFieldName", CurrentStateFieldName);
             cmndNode.SetAttributeValue("detailsFieldName", DetailsFieldName);
@@ -216,7 +213,7 @@ namespace QuickMon.Notifiers
                 "  <connection sqlServer=\"\" database=\"QuickMon4\" integratedSec=\"True\" userName=\"\" password=\"\" >\r\n" +
                 "    <command cmndTimeOut=\"60\" useSP=\"True\" value=\"InsertMessage\" \r\n" +
                 "             alertFieldName=\"AlertLevel\" \r\n" +
-                "             categoryFieldName=\"Category\"\r\n" +
+                "             collectorFieldName=\"Category\"\r\n" +
                 "             previousStateFieldName=\"PreviousState\"\r\n" +
                 "             currentStateFieldName=\"CurrentState\"\r\n" +
                 "             detailsFieldName=\"Details\"\r\n" +

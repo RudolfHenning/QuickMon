@@ -12,6 +12,6 @@ namespace QuickMon.Notifiers
         public override IAgentConfigEntryEditWindow DetailEditor { get { return new SqlDatabaseNotifierEdit(); } }
 
         public override bool HasDetailView { get { return true; } }
-        //public override INotivierViewer Viewer { get { return new LogFileNotifierUIViewer(); } }
+        public override INotivierViewer Viewer { get { return new SqlDatabaseNotifierShowViewer(); } }
     }
 }

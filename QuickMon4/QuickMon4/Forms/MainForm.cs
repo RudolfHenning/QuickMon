@@ -1365,20 +1365,18 @@ namespace QuickMon
                     if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
                     {
                         INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
-                        IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                        if (agent.Name == null || agent.Name.Length == 0)
+                            agent.Name = agent.AgentClassDisplayName;
+                        agent.Enabled = true;
+                        WinFormsUINotifierBase agentEditor = (WinFormsUINotifierBase)RegisteredAgentUIMapper.GetUIClass(agent);
                         if (agentEditor != null)
                         {
-                            agentEditor.AgentName = agent.Name;
-                            agentEditor.AgentEnabled = true;
-                            agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                            if (agentEditor.EditAgent())
+                            IAgentConfigEntryEditWindow detailEditor = agentEditor.DetailEditor;
+                            detailEditor.SelectedEntry = agent.AgentConfig;
+                            if (detailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                             {
                                 SetMonitorChanged();
-                                agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                                agent.Name = agentEditor.AgentName;
-                                agent.Enabled = agentEditor.AgentEnabled;
-                                agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-
+                                agent.AgentConfig.FromXml(agent.AgentConfig.ToXml());
                                 parentNotifierHost.NotifierAgents.Add(agent);
                                 if (tvwNotifiers.SelectedNode.Tag is INotifier)
                                     tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
@@ -1387,6 +1385,29 @@ namespace QuickMon
                                 DoAutoSave();
                             }
                         }
+
+                        //IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                        //if (agentEditor != null)
+                        //{
+                        //    agentEditor.AgentName = agent.Name;
+                        //    agentEditor.AgentEnabled = true;
+                        //    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                        //    if (agentEditor.EditAgent())
+                        //    {
+                        //        SetMonitorChanged();
+                        //        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                        //        agent.Name = agentEditor.AgentName;
+                        //        agent.Enabled = agentEditor.AgentEnabled;
+                        //        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+
+                        //        parentNotifierHost.NotifierAgents.Add(agent);
+                        //        if (tvwNotifiers.SelectedNode.Tag is INotifier)
+                        //            tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
+                        //        tvwNotifiers.SelectedNode.Nodes.Clear();
+                        //        LoadNotifierAgents(tvwNotifiers.SelectedNode, parentNotifierHost);
+                        //        DoAutoSave();
+                        //    }
+                        //}
                         else
                         {
                             MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1463,36 +1484,49 @@ namespace QuickMon
                         #region Edit Notifier Agent
                         notifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;
                         INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
-                        IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+                        WinFormsUINotifierBase agentEditor = (WinFormsUINotifierBase)RegisteredAgentUIMapper.GetUIClass(agent);
                         if (agentEditor != null)
                         {
-                            SetMonitorChanged();
-                            agentEditor.AgentName = agent.Name;
-                            agentEditor.AgentEnabled = agent.Enabled;
-                            agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                            if (agentEditor.EditAgent())
+                            IAgentConfigEntryEditWindow detailEditor = agentEditor.DetailEditor;
+                            detailEditor.SelectedEntry = agent.AgentConfig;
+                            if (detailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                             {
-
-                                agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                                agent.Name = agentEditor.AgentName;
-                                agent.Enabled = agentEditor.AgentEnabled;
-                                agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-                                tvwNotifiers.SelectedNode.Text = agent.Name;
-                                if (agent.Enabled)
-                                {
-                                    if (RegisteredAgentUIMapper.HasAgentViewer(agent))
-                                        tvwNotifiers.SelectedNode.ImageIndex = 3;
-                                    else
-                                        tvwNotifiers.SelectedNode.ImageIndex = 4;
-                                }
-                                else
-                                {
-                                    tvwNotifiers.SelectedNode.ImageIndex = 4;
-                                }
-                                tvwNotifiers.SelectedNode.SelectedImageIndex = tvwNotifiers.SelectedNode.ImageIndex;
+                                SetMonitorChanged();
+                                agent.AgentConfig.FromXml(agent.AgentConfig.ToXml());
                                 DoAutoSave();
                             }
                         }
+
+                        //IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);                        
+                        //if (agentEditor != null)
+                        //{
+                        //    SetMonitorChanged();
+                        //    agentEditor.AgentName = agent.Name;
+                        //    agentEditor.AgentEnabled = agent.Enabled;
+                        //    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+                        //    if (agentEditor.EditAgent())
+                        //    {
+
+                        //        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+                        //        agent.Name = agentEditor.AgentName;
+                        //        agent.Enabled = agentEditor.AgentEnabled;
+                        //        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+                        //        tvwNotifiers.SelectedNode.Text = agent.Name;
+                        //        if (agent.Enabled)
+                        //        {
+                        //            if (RegisteredAgentUIMapper.HasAgentViewer(agent))
+                        //                tvwNotifiers.SelectedNode.ImageIndex = 3;
+                        //            else
+                        //                tvwNotifiers.SelectedNode.ImageIndex = 4;
+                        //        }
+                        //        else
+                        //        {
+                        //            tvwNotifiers.SelectedNode.ImageIndex = 4;
+                        //        }
+                        //        tvwNotifiers.SelectedNode.SelectedImageIndex = tvwNotifiers.SelectedNode.ImageIndex;
+                        //        DoAutoSave();
+                        //    }
+                        //}
                         else
                         {
                             MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

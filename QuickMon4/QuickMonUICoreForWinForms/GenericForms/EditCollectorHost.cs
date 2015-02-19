@@ -1165,7 +1165,6 @@ namespace QuickMon
         {
             if (SetEditingCollectorHost())
             {
-
                 RAWXmlEditor editor = new RAWXmlEditor();
                 string oldMarkUp = editingCollectorHost.ToXml();
                 editor.SelectedMarkup = oldMarkUp;

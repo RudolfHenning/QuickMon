@@ -87,6 +87,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(246, 81);
             this.Controls.Add(this.maxCountNumericUpDown);
             this.Controls.Add(this.label1);
@@ -98,7 +99,7 @@
             this.MinimizeBox = false;
             this.Name = "InMemoryNotifierEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "InMemoryNotifierEdit";
+            this.Text = "Edit In memory Notifier entry";
             ((System.ComponentModel.ISupportInitialize)(this.maxCountNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
