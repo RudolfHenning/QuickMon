@@ -82,5 +82,40 @@ namespace QuickMon.Properties {
                 return ResourceManager.GetString("ExampleSqlDatabaseCreateScript", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT top(@top) 
+        ///	[InsertDate],
+        ///	[AlertLevel],
+        ///	[Category],
+        ///	[PreviousState],
+        ///	[CurrentState],
+        ///	[Details]
+        ///FROM
+        ///	[AlertMessages]
+        ///WHERE 
+        ///	[InsertDate] between @FromDate and @ToDate and
+        ///	(@AlertLevel is null or [AlertLevel] &gt;= @AlertLevel) and
+        ///	(@Category is null or [Category] like @Category) and
+        ///	(@CurrentState is null or [CurrentState] = @CurrentState) and
+        ///	(@Details is null or [Details] like @Details)
+        ///ORDER BY
+        ///	[InsertDate] desc.
+        /// </summary>
+        internal static string QueryTemplate {
+            get {
+                return ResourceManager.GetString("QueryTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh24x24 {
+            get {
+                object obj = ResourceManager.GetObject("refresh24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

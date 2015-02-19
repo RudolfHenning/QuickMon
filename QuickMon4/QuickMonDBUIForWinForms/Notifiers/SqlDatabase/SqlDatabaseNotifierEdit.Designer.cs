@@ -66,7 +66,7 @@
             this.txtDetailsFieldName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.lblMessageFieldName = new System.Windows.Forms.Label();
-            this.txtCategoryFieldName = new System.Windows.Forms.TextBox();
+            this.txtCollectorFieldName = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -87,6 +87,7 @@
             this.cmdTest.TabIndex = 2;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
             // label14
             // 
@@ -139,7 +140,7 @@
             // 
             // tabPageViewer
             // 
-            this.tabPageViewer.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageViewer.BackColor = System.Drawing.Color.White;
             this.tabPageViewer.Controls.Add(this.txtDateTimeFieldName);
             this.tabPageViewer.Controls.Add(this.label14);
             this.tabPageViewer.Controls.Add(this.label12);
@@ -178,7 +179,7 @@
             // 
             // tabPageConnection
             // 
-            this.tabPageConnection.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageConnection.BackColor = System.Drawing.Color.White;
             this.tabPageConnection.Controls.Add(this.llblDBCreateScript);
             this.tabPageConnection.Controls.Add(this.label1);
             this.tabPageConnection.Controls.Add(this.txtPassword);
@@ -209,6 +210,7 @@
             this.llblDBCreateScript.TabIndex = 12;
             this.llblDBCreateScript.TabStop = true;
             this.llblDBCreateScript.Text = "Copy example database create script to clipboard.";
+            this.llblDBCreateScript.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblDBCreateScript_LinkClicked);
             // 
             // label1
             // 
@@ -297,6 +299,7 @@
             this.chkIntegratedSec.TabIndex = 4;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;
+            this.chkIntegratedSec.CheckedChanged += new System.EventHandler(this.chkIntegratedSec_CheckedChanged);
             // 
             // label5
             // 
@@ -335,7 +338,7 @@
             // 
             // tabPageCommand
             // 
-            this.tabPageCommand.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.tabPageCommand.BackColor = System.Drawing.Color.White;
             this.tabPageCommand.Controls.Add(this.chkUseSP);
             this.tabPageCommand.Controls.Add(this.label11);
             this.tabPageCommand.Controls.Add(this.txtAlertFieldName);
@@ -349,7 +352,7 @@
             this.tabPageCommand.Controls.Add(this.txtDetailsFieldName);
             this.tabPageCommand.Controls.Add(this.label8);
             this.tabPageCommand.Controls.Add(this.lblMessageFieldName);
-            this.tabPageCommand.Controls.Add(this.txtCategoryFieldName);
+            this.tabPageCommand.Controls.Add(this.txtCollectorFieldName);
             this.tabPageCommand.Location = new System.Drawing.Point(4, 22);
             this.tabPageCommand.Name = "tabPageCommand";
             this.tabPageCommand.Padding = new System.Windows.Forms.Padding(3);
@@ -468,9 +471,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(26, 109);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(124, 13);
+            this.label8.Size = new System.Drawing.Size(123, 13);
             this.label8.TabIndex = 8;
-            this.label8.Text = "Category (nvarchar(255))";
+            this.label8.Text = "Collector (nvarchar(255))";
             // 
             // lblMessageFieldName
             // 
@@ -481,15 +484,15 @@
             this.lblMessageFieldName.TabIndex = 14;
             this.lblMessageFieldName.Text = "Details (varchar(MAX))";
             // 
-            // txtCategoryFieldName
+            // txtCollectorFieldName
             // 
-            this.txtCategoryFieldName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCollectorFieldName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCategoryFieldName.Location = new System.Drawing.Point(243, 106);
-            this.txtCategoryFieldName.Name = "txtCategoryFieldName";
-            this.txtCategoryFieldName.Size = new System.Drawing.Size(381, 20);
-            this.txtCategoryFieldName.TabIndex = 9;
-            this.txtCategoryFieldName.Text = "Category";
+            this.txtCollectorFieldName.Location = new System.Drawing.Point(243, 106);
+            this.txtCollectorFieldName.Name = "txtCollectorFieldName";
+            this.txtCollectorFieldName.Size = new System.Drawing.Size(381, 20);
+            this.txtCollectorFieldName.TabIndex = 9;
+            this.txtCollectorFieldName.Text = "Collector";
             // 
             // label16
             // 
@@ -523,11 +526,13 @@
             this.cmdOK.TabIndex = 3;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // SqlDatabaseNotifierEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(638, 319);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -594,7 +599,7 @@
         private System.Windows.Forms.TextBox txtDetailsFieldName;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblMessageFieldName;
-        private System.Windows.Forms.TextBox txtCategoryFieldName;
+        private System.Windows.Forms.TextBox txtCollectorFieldName;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;

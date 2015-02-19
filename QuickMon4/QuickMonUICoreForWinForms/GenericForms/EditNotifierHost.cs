@@ -187,6 +187,78 @@ namespace QuickMon
                 }
             }
         }
+        private void NewAgent()
+        {
+            //Display a list of existing types of agents/by template...
+            //Once type is selected load edit agent with default settings
+            //CollectorHost.GetCollectorAgentFromString()
+            try
+            {
+                SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+                if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
+                {
+                    INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
+                    if (agent.Name == null || agent.Name.Length == 0)
+                        agent.Name = agent.AgentClassDisplayName;
+                    agent.Enabled = true;
+
+                    ListViewItem lvi = new ListViewItem(agent.Name);
+                    if (agent.Enabled)
+                        lvi.ImageIndex = 1;
+                    else
+                        lvi.ImageIndex = 0;
+                    lvi.SubItems.Add(agent.AgentClassDisplayName);
+                    lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
+                    lvi.Tag = agent;
+                    lvwEntries.Items.Add(lvi);
+                    lvwEntries.SelectedItems.Clear();
+                    lvi.Selected = true;
+                    EditAgent();                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            CheckOkEnabled();
+        }
+        private void EditAgent()
+        {
+            //Call local (in this assembly) utility that match editor type for agent class.
+            //  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
+            //  each IWinFormsUI class must provide the name of the IAgent class it can edit
+            //  thus each IAgent class name must be unique...
+            //  each IWinFormsUI class must have a method to edit the IAgent class.  EditAgent(xmlConfigString) 
+            //If no default editor can be found show raw xml editor...
+            try
+            {
+                if (lvwEntries.SelectedItems.Count == 1)
+                {
+                    INotifier agent = (INotifier)lvwEntries.SelectedItems[0].Tag;
+                    WinFormsUINotifierBase agentEditor = (WinFormsUINotifierBase)RegisteredAgentUIMapper.GetUIClass(agent);
+                    if (agentEditor != null)
+                    {
+                        IAgentConfigEntryEditWindow detailEditor = agentEditor.DetailEditor;
+                        detailEditor.SelectedEntry = agent.AgentConfig;
+                        if (detailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                        {
+                            agent.AgentConfig = detailEditor.SelectedEntry;                            
+                            lvwEntries.SelectedItems[0].Tag = agent; ;
+                            lvwEntries.SelectedItems[0].SubItems[2].Text = detailEditor.SelectedEntry.ConfigSummary;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            CheckOkEnabled();
+        }
         private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
             editAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
@@ -210,89 +282,93 @@ namespace QuickMon
         }
         private void addAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            //Display a list of existing types of agents/by template...
-            //Once type is selected load edit agent with default settings
-            //CollectorHost.GetCollectorAgentFromString()
-            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-            if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
-            {
-                INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
-                IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-                if (agentEditor != null)
-                {
-                    agentEditor.AgentName = agent.Name;
-                    agentEditor.AgentEnabled = true;
-                    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                    if (agentEditor.EditAgent())
-                    {
-                        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                        agent.Name = agentEditor.AgentName;
-                        agent.Enabled = agentEditor.AgentEnabled;
-                        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+            NewAgent();
 
-                        ListViewItem lvi = new ListViewItem(agent.Name);
-                        if (agent.Enabled)
-                            lvi.ImageIndex = 1;
-                        else
-                            lvi.ImageIndex = 0;
-                        lvi.SubItems.Add(agent.AgentClassDisplayName);
-                        lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
-                        lvi.Tag = agent;
-                        lvwEntries.Items.Add(lvi);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
-            CheckOkEnabled();
+            ////Display a list of existing types of agents/by template...
+            ////Once type is selected load edit agent with default settings
+            ////CollectorHost.GetCollectorAgentFromString()
+            //SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+            //if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
+            //    IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+            //    if (agentEditor != null)
+            //    {
+            //        agentEditor.AgentName = agent.Name;
+            //        agentEditor.AgentEnabled = true;
+            //        agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+            //        if (agentEditor.EditAgent())
+            //        {
+            //            agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+            //            agent.Name = agentEditor.AgentName;
+            //            agent.Enabled = agentEditor.AgentEnabled;
+            //            agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+
+            //            ListViewItem lvi = new ListViewItem(agent.Name);
+            //            if (agent.Enabled)
+            //                lvi.ImageIndex = 1;
+            //            else
+            //                lvi.ImageIndex = 0;
+            //            lvi.SubItems.Add(agent.AgentClassDisplayName);
+            //            lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
+            //            lvi.Tag = agent;
+            //            lvwEntries.Items.Add(lvi);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    }
+            //}
+            //CheckOkEnabled();
         }
         private void editAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            //Call local (in this assembly) utility that match editor type for agent class.
-            //  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
-            //  each IWinFormsUI class must provide the name of the IAgent class it can edit
-            //  thus each IAgent class name must be unique...
-            //  each IWinFormsUI class must have a method to edit the IAgent class.  EditAgent(xmlConfigString) 
-            //If no default editor can be found show raw xml editor...
-            try
-            {
-                if (lvwEntries.SelectedItems.Count == 1)
-                {
-                    INotifier agent = (INotifier)lvwEntries.SelectedItems[0].Tag;
-                    IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-                    if (agentEditor != null)
-                    {
-                        agentEditor.AgentName = agent.Name;
-                        agentEditor.AgentEnabled = agent.Enabled;
-                        agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                        if (agentEditor.EditAgent())
-                        {
+            EditAgent();
 
-                            agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                            agent.Name = agentEditor.AgentName;
-                            agent.Enabled = agentEditor.AgentEnabled;
-                            agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-                            lvwEntries.SelectedItems[0].Text = agent.Name;
-                            if (agent.Enabled)
-                                lvwEntries.SelectedItems[0].ImageIndex = 1;
-                            else
-                                lvwEntries.SelectedItems[0].ImageIndex = 0;
-                            lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            CheckOkEnabled();
+            ////Call local (in this assembly) utility that match editor type for agent class.
+            ////  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
+            ////  each IWinFormsUI class must provide the name of the IAgent class it can edit
+            ////  thus each IAgent class name must be unique...
+            ////  each IWinFormsUI class must have a method to edit the IAgent class.  EditAgent(xmlConfigString) 
+            ////If no default editor can be found show raw xml editor...
+            //try
+            //{
+            //    if (lvwEntries.SelectedItems.Count == 1)
+            //    {
+            //        INotifier agent = (INotifier)lvwEntries.SelectedItems[0].Tag;
+            //        IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
+            //        if (agentEditor != null)
+            //        {
+            //            agentEditor.AgentName = agent.Name;
+            //            agentEditor.AgentEnabled = agent.Enabled;
+            //            agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
+            //            if (agentEditor.EditAgent())
+            //            {
+
+            //                agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
+            //                agent.Name = agentEditor.AgentName;
+            //                agent.Enabled = agentEditor.AgentEnabled;
+            //                agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
+            //                lvwEntries.SelectedItems[0].Text = agent.Name;
+            //                if (agent.Enabled)
+            //                    lvwEntries.SelectedItems[0].ImageIndex = 1;
+            //                else
+            //                    lvwEntries.SelectedItems[0].ImageIndex = 0;
+            //                lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //CheckOkEnabled();
         }
         private void deleteAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -563,7 +639,9 @@ namespace QuickMon
                 editingNotifierHost.NotifierAgents.Clear();
                 foreach (ListViewItem lvi in lvwEntries.Items)
                 {
-                    editingNotifierHost.NotifierAgents.Add((INotifier)lvi.Tag);
+                    INotifier agent = (INotifier)lvi.Tag;
+                    agent.Name = lvi.Text;
+                    editingNotifierHost.NotifierAgents.Add(agent);
                 }
                 editingNotifierHost.AlertForCollectors.Clear();
                 if (!tvwCollectors.Nodes[0].Checked)

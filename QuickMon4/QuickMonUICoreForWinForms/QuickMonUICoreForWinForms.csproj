@@ -131,6 +131,15 @@
     <Compile Include="Controls\API\ColorUtil.cs" />
     <Compile Include="Controls\API\COMInterfaces.cs" />
     <Compile Include="Controls\API\TextUtil.cs" />
+    <Compile Include="Controls\ChooseTimeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ChooseTimeDialog.designer.cs">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClockControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ComboBoxWithBorder.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -140,6 +149,12 @@
     </Compile>
     <Compile Include="Controls\DataTableViewerControl.Designer.cs">
       <DependentUpon>DataTableViewerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser.designer.cs">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
@@ -358,6 +373,9 @@
     <EmbeddedResource Include="Collectors\WMIQuery\WMIQueryCollectorEditEntry.resx">
       <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChooseTimeDialog.resx">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\DataTableViewerControl.resx">
       <DependentUpon>DataTableViewerControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -539,6 +557,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GearWithPlusGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QueryTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
