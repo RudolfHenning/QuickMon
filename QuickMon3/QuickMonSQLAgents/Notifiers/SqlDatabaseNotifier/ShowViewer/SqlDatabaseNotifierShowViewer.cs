@@ -269,5 +269,10 @@ namespace QuickMon.Notifiers
             DisplaySelectedItemDetails(int.MaxValue);
         }
         #endregion
+
+        private void SqlDatabaseNotifierShowViewer_Load(object sender, EventArgs e)
+        {
+            lvwMessages.AutoResizeColumnEnabled = true;
+        }
     }
 }

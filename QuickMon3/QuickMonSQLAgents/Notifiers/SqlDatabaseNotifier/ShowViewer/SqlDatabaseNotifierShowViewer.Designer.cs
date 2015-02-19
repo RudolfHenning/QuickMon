@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlDatabaseNotifierShowViewer));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateTimeChooserTo = new HenIT.Controls.DateTimeChooser();
+            this.dateTimeChooserFrom = new HenIT.Controls.DateTimeChooser();
             this.txtCategory = new System.Windows.Forms.TextBox();
             this.chkStayCurrent = new System.Windows.Forms.CheckBox();
             this.txtSearchText = new System.Windows.Forms.TextBox();
@@ -60,8 +62,6 @@
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
             this.showDetailsForAllSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerSelectItem = new System.Windows.Forms.Timer(this.components);
-            this.dateTimeChooserTo = new HenIT.Controls.DateTimeChooser();
-            this.dateTimeChooserFrom = new HenIT.Controls.DateTimeChooser();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -92,6 +92,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(636, 86);
             this.panel1.TabIndex = 13;
+            // 
+            // dateTimeChooserTo
+            // 
+            this.dateTimeChooserTo.AutoSize = true;
+            this.dateTimeChooserTo.BackColor = System.Drawing.Color.Transparent;
+            this.dateTimeChooserTo.Location = new System.Drawing.Point(416, 5);
+            this.dateTimeChooserTo.Name = "dateTimeChooserTo";
+            this.dateTimeChooserTo.SelectedDateTime = new System.DateTime(2011, 8, 11, 23, 59, 0, 0);
+            this.dateTimeChooserTo.Size = new System.Drawing.Size(146, 25);
+            this.dateTimeChooserTo.TabIndex = 16;
+            // 
+            // dateTimeChooserFrom
+            // 
+            this.dateTimeChooserFrom.AutoSize = true;
+            this.dateTimeChooserFrom.BackColor = System.Drawing.Color.Transparent;
+            this.dateTimeChooserFrom.Location = new System.Drawing.Point(230, 5);
+            this.dateTimeChooserFrom.Name = "dateTimeChooserFrom";
+            this.dateTimeChooserFrom.SelectedDateTime = new System.DateTime(2011, 8, 11, 23, 59, 0, 0);
+            this.dateTimeChooserFrom.Size = new System.Drawing.Size(146, 25);
+            this.dateTimeChooserFrom.TabIndex = 15;
             // 
             // txtCategory
             // 
@@ -263,7 +283,7 @@
             // 
             // lvwMessages
             // 
-            this.lvwMessages.AutoResizeColumnEnabled = true;
+            this.lvwMessages.AutoResizeColumnEnabled = false;
             this.lvwMessages.AutoResizeColumnIndex = 4;
             this.lvwMessages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderDate,
@@ -307,7 +327,7 @@
             // columnHeaderDetails
             // 
             this.columnHeaderDetails.Text = "Details";
-            this.columnHeaderDetails.Width = 229;
+            this.columnHeaderDetails.Width = 254;
             // 
             // imageList1
             // 
@@ -386,26 +406,6 @@
             this.timerSelectItem.Interval = 500;
             this.timerSelectItem.Tick += new System.EventHandler(this.timerSelectItem_Tick);
             // 
-            // dateTimeChooserTo
-            // 
-            this.dateTimeChooserTo.AutoSize = true;
-            this.dateTimeChooserTo.BackColor = System.Drawing.Color.Transparent;
-            this.dateTimeChooserTo.Location = new System.Drawing.Point(416, 5);
-            this.dateTimeChooserTo.Name = "dateTimeChooserTo";
-            this.dateTimeChooserTo.SelectedDateTime = new System.DateTime(2011, 8, 11, 23, 59, 0, 0);
-            this.dateTimeChooserTo.Size = new System.Drawing.Size(146, 25);
-            this.dateTimeChooserTo.TabIndex = 16;
-            // 
-            // dateTimeChooserFrom
-            // 
-            this.dateTimeChooserFrom.AutoSize = true;
-            this.dateTimeChooserFrom.BackColor = System.Drawing.Color.Transparent;
-            this.dateTimeChooserFrom.Location = new System.Drawing.Point(230, 5);
-            this.dateTimeChooserFrom.Name = "dateTimeChooserFrom";
-            this.dateTimeChooserFrom.SelectedDateTime = new System.DateTime(2011, 8, 11, 23, 59, 0, 0);
-            this.dateTimeChooserFrom.Size = new System.Drawing.Size(146, 25);
-            this.dateTimeChooserFrom.TabIndex = 15;
-            // 
             // SqlDatabaseNotifierShowViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,8 +416,8 @@
             this.ExportButtonVisible = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SqlDatabaseNotifierShowViewer";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SqlDatabaseNotifierShowViewer";
+            this.Load += new System.EventHandler(this.SqlDatabaseNotifierShowViewer_Load);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.splitContainerMain, 0);
             this.panel1.ResumeLayout(false);
