@@ -286,6 +286,7 @@
             this.tvwNotifiers.Size = new System.Drawing.Size(389, 101);
             this.tvwNotifiers.TabIndex = 3;
             this.tvwNotifiers.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwNotifiers_AfterSelect);
+            this.tvwNotifiers.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwNotifiers_NodeMouseDoubleClick);
             this.tvwNotifiers.DoubleClick += new System.EventHandler(this.tvwNotifiers_DoubleClick);
             this.tvwNotifiers.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvwNotifiers_MouseUp);
             // 

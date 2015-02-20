@@ -18,10 +18,80 @@
 			</notifierHosts>
 		</monitorPack>
 	</template>
-	<template name="New Collector Host" type="CollectorHost" class="CollectorHost" description="Creates new Collector Host">
+	<template name="New Collector Host" type="CollectorHost" class="CollectorHost" description="Creates new blank Collector Host">
 		<collectorHost uniqueId="" name="New Collector" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
 			<!-- CollectorAgents -->
 			<collectorAgents>
+			</collectorAgents>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+		</collectorHost>
+	</template>
+	<template name="SQL Table Size" type="CollectorHost" class="CollectorHost" description="SQL Table Size">
+		<collectorHost uniqueId="" name="TableName" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
+			<!-- CollectorAgents -->
+			<collectorAgents>
+				<collectorAgent name="Sql Query" type="SqlQueryCollector" enabled="True">
+					<config>
+						<queries>
+							<query name="Table size" dataSourceType="SqlServer" connStr="" provider="" fileName="" server="SqlServerName" database="DatabaseName" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName="QuickMon">
+								<alertTriggers valueReturnType="RawValue" checkSequence="GWE">
+									<success matchType="SmallerThan" value="30000000" />
+									<warning matchType="LargerThan" value="30000000" />
+									<error matchType="Match" value="[null]" />
+								</alertTriggers>
+								<stateQuery useSP="False"> SELECT 
+    p.rows AS RowCounts
+FROM 
+    sys.tables t
+INNER JOIN 
+    sys.schemas s ON s.schema_id = t.schema_id
+INNER JOIN      
+    sys.indexes i ON t.OBJECT_ID = i.object_id
+INNER JOIN 
+    sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+INNER JOIN 
+    sys.allocation_units a ON p.partition_id = a.container_id
+WHERE 
+    t.NAME LIKE 'TableName'
+    AND t.is_ms_shipped = 0
+    AND i.OBJECT_ID &gt; 255 
+GROUP BY 
+    t.Name, s.Name, p.Rows
+								</stateQuery>
+								<detailQuery useSP="False">SELECT 
+    s.Name AS SchemaName,
+    t.NAME AS TableName,
+    p.rows AS RowCounts,
+    SUM(a.total_pages) * 8 AS TotalSpaceKB, 
+    SUM(a.used_pages) * 8 AS UsedSpaceKB, 
+    (SUM(a.total_pages) - SUM(a.used_pages)) * 8 AS UnusedSpaceKB
+FROM 
+    sys.tables t
+INNER JOIN 
+    sys.schemas s ON s.schema_id = t.schema_id
+INNER JOIN      
+    sys.indexes i ON t.OBJECT_ID = i.object_id
+INNER JOIN 
+    sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+INNER JOIN 
+    sys.allocation_units a ON p.partition_id = a.container_id
+WHERE 
+    t.NAME LIKE 'TableName'
+    AND t.is_ms_shipped = 0
+    AND i.OBJECT_ID &gt; 255 
+GROUP BY 
+    t.Name, s.Name, p.Rows
+ORDER BY 
+    s.Name, t.Name</detailQuery>
+							</query>
+						</queries>
+					</config>
+				</collectorAgent>
 			</collectorAgents>
 			<!-- ServiceWindows -->
 			<serviceWindows>
@@ -105,8 +175,8 @@
 			</config>
 		</collectorAgent>
 	</template>
-	<template name="New Notifier Host" type="NotifierHost" class="NotifierHost" description="Creates new Notifier Host">
-		<notifierHost name="New Notifier" enabled="True" alertLevel="Debug" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+	<template name="New Notifier Host" type="NotifierHost" class="NotifierHost" description="Creates new Notifier Host (with debugger Agent)">
+		<notifierHost name="New Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
 			<!-- collectorHosts -->
 			<collectorHosts>
 			</collectorHosts>
@@ -126,6 +196,96 @@
 			</notifierAgents>
 		</notifierHost>
 	</template>
+	<template name="New Notifier Host (Audio)" type="NotifierHost" class="NotifierHost" description="New Notifier Host (Audio)">
+		<notifierHost name="Audio Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+			<!-- collectorHosts -->
+			<collectorHosts>
+			</collectorHosts>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Audio Notifier" type="AudioNotifier" enabled="True">
+					<config>
+						<audioConfig>
+							<goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+							<warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+							<errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" soundRepeatCount="1" soundVolumePerc="-1" audioFilePath="" repeatCount="1" />
+						</audioConfig>
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+	<template name="New Notifier Host (Event Log)" type="NotifierHost" class="NotifierHost" description="New Notifier Host (Event Log)">
+		<notifierHost name="Event Log Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+			<!-- collectorHosts -->
+			<collectorHosts>
+			</collectorHosts>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Event Log Notifier" type="EventLogNotifier" enabled="True">
+					<config>
+						<eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" />
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+	<template name="New Notifier Host (Log file)" type="NotifierHost" class="NotifierHost" description="New Notifier Host (Log file)">
+		<notifierHost name="Log file" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+			<!-- collectorHosts -->
+			<collectorHosts>
+			</collectorHosts>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Log file agent" type="LogFileNotifier" enabled="True">
+					<config>
+						<logFile path="C:\Test\QuickMon.log" createNewFileSizeKB="0" />
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
+	<template name="New Notifier Host (Sql Database)" type="NotifierHost" class="NotifierHost" description="New Notifier Host (Sql Database)">
+		<notifierHost name="QuickMon DB" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="AttendedAndUnAttended">
+			<!-- collectorHosts -->
+			<collectorHosts>
+			</collectorHosts>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+			<!-- notifierAgents -->
+			<notifierAgents>
+				<notifierAgent name="Sql Server Database Notifier" type="SqlDatabaseNotifier" enabled="True">
+					<config>
+						<connection sqlServer="" database="QuickMon4" integratedSec="True" userName="" password="">
+							<command cmndTimeOut="60" useSP="True" value="InsertMessage" alertFieldName="AlertLevel" collectorFieldName="Collector" previousStateFieldName="PreviousState" currentStateFieldName="CurrentState" detailsFieldName="Details" useSPForViewer="True" viewer="QueryMessages" dateTimeFieldName="InsertDate" />
+						</connection>
+					</config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</template>
 	<template name="Audio Notifier" type="NotifierAgent" class="AudioNotifier" description="Audio Notifier">
 		<notifierAgent name="Audio Notifier" type="AudioNotifier" enabled="True">
 			<config>
@@ -140,7 +300,7 @@
 	<template name="Log file" type="NotifierAgent" class="LogFileNotifier" description="Log file">
 		<notifierAgent name="Log file agent" type="LogFileNotifier" enabled="True">
 			<config>
-				<logFile path="c:\Temp\QM4.log" createNewFileSizeKB="0" />
+				<logFile path="c:\Temp\QuickMon.log" createNewFileSizeKB="0" />
 			</config>
 		</notifierAgent>
 	</template>
