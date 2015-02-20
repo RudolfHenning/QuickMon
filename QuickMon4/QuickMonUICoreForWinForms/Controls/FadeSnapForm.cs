@@ -102,15 +102,19 @@ namespace QuickMon
                 moveTimer.Enabled = false;
                 if (this.WindowState == FormWindowState.Normal)
                 {
-                    Rectangle currentScreen = Screen.FromControl(this).WorkingArea;
-                    if (this.Top - iScreenSnapDistance < currentScreen.Top)
-                        this.Top = currentScreen.Top;
-                    if (this.Left - iScreenSnapDistance < currentScreen.Left)
-                        this.Left = currentScreen.Left;
-                    if (this.Top + this.Height + iScreenSnapDistance > currentScreen.Top + currentScreen.Height)
-                        this.Top = currentScreen.Top + currentScreen.Height - this.Height;
-                    if (this.Left + this.Width + iScreenSnapDistance > currentScreen.Left + currentScreen.Width)
-                        this.Left = currentScreen.Left + currentScreen.Width - this.Width;
+                    Screen scrn = Screen.FromControl(this);
+                    if (scrn != null)
+                    {
+                        Rectangle currentScreen = Screen.FromControl(this).WorkingArea;
+                        if (this.Top - iScreenSnapDistance < currentScreen.Top)
+                            this.Top = currentScreen.Top;
+                        if (this.Left - iScreenSnapDistance < currentScreen.Left)
+                            this.Left = currentScreen.Left;
+                        if (this.Top + this.Height + iScreenSnapDistance > currentScreen.Top + currentScreen.Height)
+                            this.Top = currentScreen.Top + currentScreen.Height - this.Height;
+                        if (this.Left + this.Width + iScreenSnapDistance > currentScreen.Left + currentScreen.Width)
+                            this.Left = currentScreen.Left + currentScreen.Width - this.Width;
+                    }
                 }
             }
         }

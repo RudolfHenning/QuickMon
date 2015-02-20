@@ -283,9 +283,18 @@ namespace QuickMon
         #endregion
 
         #region Notifier TreeView events
+        private void tvwNotifiers_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                EditNotifierConfig();
+            }
+            else
+                ViewNotifierDetails();
+        } 
         private void tvwNotifiers_DoubleClick(object sender, EventArgs e)
         {
-            ViewNotifierDetails();
+            
         }
         private void tvwNotifiers_MouseUp(object sender, MouseEventArgs e)
         {
@@ -1355,6 +1364,7 @@ namespace QuickMon
             {
                 if (tvwNotifiers.SelectedNode != null && (tvwNotifiers.SelectedNode.Tag is NotifierHost ||  tvwNotifiers.SelectedNode.Tag is INotifier))
                 {
+                    #region create Notifier Agent
                     NotifierHost parentNotifierHost;
                     if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
                         parentNotifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
@@ -1385,37 +1395,16 @@ namespace QuickMon
                                 DoAutoSave();
                             }
                         }
-
-                        //IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-                        //if (agentEditor != null)
-                        //{
-                        //    agentEditor.AgentName = agent.Name;
-                        //    agentEditor.AgentEnabled = true;
-                        //    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                        //    if (agentEditor.EditAgent())
-                        //    {
-                        //        SetMonitorChanged();
-                        //        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                        //        agent.Name = agentEditor.AgentName;
-                        //        agent.Enabled = agentEditor.AgentEnabled;
-                        //        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-
-                        //        parentNotifierHost.NotifierAgents.Add(agent);
-                        //        if (tvwNotifiers.SelectedNode.Tag is INotifier)
-                        //            tvwNotifiers.SelectedNode = tvwNotifiers.SelectedNode.Parent;
-                        //        tvwNotifiers.SelectedNode.Nodes.Clear();
-                        //        LoadNotifierAgents(tvwNotifiers.SelectedNode, parentNotifierHost);
-                        //        DoAutoSave();
-                        //    }
-                        //}
                         else
                         {
                             MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
+                    #endregion
                 }
                 else
                 {
+                    #region create Notifier Host
                     NotifierHost newNotifierHost = new NotifierHost();
                     EditNotifierHost editNotifierHost = new EditNotifierHost();
 
@@ -1438,6 +1427,7 @@ namespace QuickMon
                         LoadNotifierNode(newNotifierHost);
                         DoAutoSave();
                     }
+                    #endregion
                 }
             }
             catch (Exception ex)
@@ -1464,6 +1454,7 @@ namespace QuickMon
                         EditNotifierHost editNotifierHost = new EditNotifierHost();
                         if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == System.Windows.Forms.DialogResult.OK)
                         {
+                            CloseNotifierHostViewers(notifierHost);
                             SetMonitorChanged();
                             notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig, monitorPack.ConfigVariables, true);
 
@@ -1491,42 +1482,12 @@ namespace QuickMon
                             detailEditor.SelectedEntry = agent.AgentConfig;
                             if (detailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                             {
+                                CloseNotifierAgentViewer(agent);
                                 SetMonitorChanged();
                                 agent.AgentConfig.FromXml(agent.AgentConfig.ToXml());
                                 DoAutoSave();
                             }
                         }
-
-                        //IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);                        
-                        //if (agentEditor != null)
-                        //{
-                        //    SetMonitorChanged();
-                        //    agentEditor.AgentName = agent.Name;
-                        //    agentEditor.AgentEnabled = agent.Enabled;
-                        //    agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-                        //    if (agentEditor.EditAgent())
-                        //    {
-
-                        //        agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-                        //        agent.Name = agentEditor.AgentName;
-                        //        agent.Enabled = agentEditor.AgentEnabled;
-                        //        agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-                        //        tvwNotifiers.SelectedNode.Text = agent.Name;
-                        //        if (agent.Enabled)
-                        //        {
-                        //            if (RegisteredAgentUIMapper.HasAgentViewer(agent))
-                        //                tvwNotifiers.SelectedNode.ImageIndex = 3;
-                        //            else
-                        //                tvwNotifiers.SelectedNode.ImageIndex = 4;
-                        //        }
-                        //        else
-                        //        {
-                        //            tvwNotifiers.SelectedNode.ImageIndex = 4;
-                        //        }
-                        //        tvwNotifiers.SelectedNode.SelectedImageIndex = tvwNotifiers.SelectedNode.ImageIndex;
-                        //        DoAutoSave();
-                        //    }
-                        //}
                         else
                         {
                             MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -2583,7 +2544,9 @@ namespace QuickMon
             //QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
             //tm.Show();
 #endif
-        }        
+        }
+
+       
 
     }
 }

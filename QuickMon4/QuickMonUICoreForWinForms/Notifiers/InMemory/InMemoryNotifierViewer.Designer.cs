@@ -41,6 +41,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.White;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -81,12 +82,13 @@
             // 
             this.chkAutoRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAutoRefresh.AutoSize = true;
+            this.chkAutoRefresh.BackColor = System.Drawing.Color.Transparent;
             this.chkAutoRefresh.Location = new System.Drawing.Point(298, 8);
             this.chkAutoRefresh.Name = "chkAutoRefresh";
             this.chkAutoRefresh.Size = new System.Drawing.Size(83, 17);
             this.chkAutoRefresh.TabIndex = 11;
             this.chkAutoRefresh.Text = "Auto refresh";
-            this.chkAutoRefresh.UseVisualStyleBackColor = true;
+            this.chkAutoRefresh.UseVisualStyleBackColor = false;
             // 
             // autoRefreshTimer
             // 
@@ -98,6 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(393, 307);
             this.Controls.Add(this.chkAutoRefresh);
             this.Controls.Add(this.alertsRichTextBox);

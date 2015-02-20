@@ -558,26 +558,26 @@ namespace HenIT.Windows.Controls
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             #region View messages
-            if (false)
-            {
-                string val;
-                val = Enum.GetName(typeof(APIsEnums.ListViewMessages), (APIsEnums.ListViewMessages)m.Msg);
-                if (val != "" && val != null)
-                    Debug.WriteLine(val);
-                else
-                {
-                    val = Enum.GetName(typeof(APIsEnums.WindowMessages), (APIsEnums.WindowMessages)m.Msg);
-                    if (val != "" && val != null)
-                        Debug.WriteLine(val);
-                }
-                if (val != "" && val != null)
-                    Debug.WriteLine(m.Msg.ToString());
-                if (val == "LBUTTONDOWN")
-                {
-                    int a = 0;
-                    a++;
-                }
-            }
+            //if (false)
+            //{
+            //    string val;
+            //    val = Enum.GetName(typeof(APIsEnums.ListViewMessages), (APIsEnums.ListViewMessages)m.Msg);
+            //    if (val != "" && val != null)
+            //        Debug.WriteLine(val);
+            //    else
+            //    {
+            //        val = Enum.GetName(typeof(APIsEnums.WindowMessages), (APIsEnums.WindowMessages)m.Msg);
+            //        if (val != "" && val != null)
+            //            Debug.WriteLine(val);
+            //    }
+            //    if (val != "" && val != null)
+            //        Debug.WriteLine(m.Msg.ToString());
+            //    if (val == "LBUTTONDOWN")
+            //    {
+            //        int a = 0;
+            //        a++;
+            //    }
+            //}
             #endregion
 
 

@@ -194,7 +194,7 @@ namespace QuickMon
         {
             cmdOK.Enabled = (txtName.Text.Length > 0) && cboParentCollector.SelectedIndex > -1 &&
                     ((!chkRemoteAgentEnabled.Checked && !chkForceRemoteExcuteOnChildCollectors.Checked) || txtRemoteAgentServer.Text.Length > 0);
-            cmdRemoteAgentTest.Enabled = chkRemoteAgentEnabled.Checked && txtRemoteAgentServer.Text.Length > 0;
+            cmdRemoteAgentTest.Enabled = (chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked) && txtRemoteAgentServer.Text.Length > 0;
         }
         #endregion
 

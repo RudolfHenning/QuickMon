@@ -117,11 +117,6 @@ namespace QuickMon
             if (notifierHostsNode != null)
             {
                 NotifierHosts = NotifierHost.GetNotifierHostsFromString(notifierHostsNode.OuterXml, ConfigVariables);
-                //foreach (NotifierHost newNotifierEntry in NotifierHosts)
-                //{
-                //    if (newNotifierEntry.Name.ToUpper() == defaultNotifierName.ToUpper())
-                //        DefaultViewerNotifier = newNotifierEntry;
-                //}
             }
             #endregion
 
