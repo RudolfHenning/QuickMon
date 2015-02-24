@@ -35,9 +35,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonWSUIForWinForms", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonPowerShellAgents", "QuickMonPowerShellAgents\QuickMonPowerShellAgents.csproj", "{BCE4D20F-E6FA-4CDF-9CCC-5DA8E9C0C33F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonPowerShellUIForWinForms", "QuickMonPowerShellUIForWinForms\QuickMonPowerShellUIForWinForms.csproj", "{E2F051E7-996A-403B-B6F5-0605F3120A4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonDirectoryServicesAgents", "QuickMonDirectoryServicesAgents\QuickMonDirectoryServicesAgents.csproj", "{E9214131-DA34-49D8-863B-B439ABBD949B}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 15
+		SccNumberOfProjects = 17
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -93,6 +97,14 @@ Global
 		SccProjectTopLevelParentUniqueName14 = QuickMon4.sln
 		SccProjectName14 = QuickMonPowerShellAgents
 		SccLocalPath14 = QuickMonPowerShellAgents
+		SccProjectUniqueName15 = QuickMonPowerShellUIForWinForms\\QuickMonPowerShellUIForWinForms.csproj
+		SccProjectTopLevelParentUniqueName15 = QuickMon4.sln
+		SccProjectName15 = QuickMonPowerShellUIForWinForms
+		SccLocalPath15 = QuickMonPowerShellUIForWinForms
+		SccProjectUniqueName16 = QuickMonDirectoryServicesAgents\\QuickMonDirectoryServicesAgents.csproj
+		SccProjectTopLevelParentUniqueName16 = QuickMon4.sln
+		SccProjectName16 = QuickMonDirectoryServicesAgents
+		SccLocalPath16 = QuickMonDirectoryServicesAgents
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +167,14 @@ Global
 		{BCE4D20F-E6FA-4CDF-9CCC-5DA8E9C0C33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCE4D20F-E6FA-4CDF-9CCC-5DA8E9C0C33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCE4D20F-E6FA-4CDF-9CCC-5DA8E9C0C33F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F051E7-996A-403B-B6F5-0605F3120A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F051E7-996A-403B-B6F5-0605F3120A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F051E7-996A-403B-B6F5-0605F3120A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F051E7-996A-403B-B6F5-0605F3120A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9214131-DA34-49D8-863B-B439ABBD949B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9214131-DA34-49D8-863B-B439ABBD949B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9214131-DA34-49D8-863B-B439ABBD949B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9214131-DA34-49D8-863B-B439ABBD949B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,5 +190,7 @@ Global
 		{7BDD3269-9D2D-4F4C-8F92-6B18A4D7DCD3} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 		{3DCF72C9-1917-4FF7-A6BA-C453E8296E2C} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
 		{BCE4D20F-E6FA-4CDF-9CCC-5DA8E9C0C33F} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
+		{E2F051E7-996A-403B-B6F5-0605F3120A4B} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
+		{E9214131-DA34-49D8-863B-B439ABBD949B} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 	EndGlobalSection
 EndGlobal
