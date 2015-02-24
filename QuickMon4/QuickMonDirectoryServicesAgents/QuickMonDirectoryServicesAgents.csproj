@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BCE4D20F-E6FA-4CDF-9CCC-5DA8E9C0C33F}</ProjectGuid>
+    <ProjectGuid>{E9214131-DA34-49D8-863B-B439ABBD949B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QuickMon</RootNamespace>
-    <AssemblyName>QuickMonPowerShellAgents</AssemblyName>
+    <AssemblyName>QuickMonDirectoryServicesAgents</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -36,10 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\QuickMon4\bin\Release\System.Management.Automation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollector.cs" />
+    <Compile Include="Collectors\DirectoryServicesQuery\DirectoryServicesQueryCollector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

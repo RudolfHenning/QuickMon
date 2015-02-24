@@ -61,6 +61,7 @@
     <Compile Include="Classes\CollectorHost\CollectorHostIO.cs" />
     <Compile Include="Classes\CollectorStateConverter.cs" />
     <Compile Include="Classes\ConfigVariable.cs" />
+    <Compile Include="Classes\MacroVariables.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPackAgents.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPackIO.cs" />
     <Compile Include="Classes\MonitorState.cs" />
