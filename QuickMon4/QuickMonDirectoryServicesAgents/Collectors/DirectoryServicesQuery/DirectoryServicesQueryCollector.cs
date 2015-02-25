@@ -108,7 +108,40 @@ namespace QuickMon.Collectors
         }
         public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            throw new NotImplementedException();
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
+            try
+            {
+                //dt.Columns.Add(new System.Data.DataColumn("Query name", typeof(string)));
+                //dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
+
+                DirectoryServicesQueryCollectorConfig currentConfig = (DirectoryServicesQueryCollectorConfig)AgentConfig;
+                foreach (DirectoryServicesQueryCollectorConfigEntry entry in currentConfig.Entries)
+                {
+                    tables.Add(entry.GetQueryDataTable());
+
+                    //object output = "N/A";
+                    //try
+                    //{
+                    //    //entry.UseRowCountAsValue
+                    //    output = entry.RunQuery();
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    output = ex.Message;
+                    //}
+                    //dt.Rows.Add(entry.Name, output);
+                }
+            }
+            catch (Exception ex)
+            {
+                dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+                tables.Add(dt);
+            }
+            
+            return tables;
         }
     }
 
@@ -319,8 +352,76 @@ namespace QuickMon.Collectors
                     returnValue = lines.ToString();
                 }
             }
-
             return returnValue;
+        }
+        public System.Data.DataTable GetQueryDataTable()
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            List<string> propertiesToLoad = new List<string>();
+            if (PropertiesToLoad == null || PropertiesToLoad.Trim().Length == 0)
+            {
+                propertiesToLoad.Add("sAMAccountName");
+                dt.Columns.Add(new System.Data.DataColumn("sAMAccountName", typeof(string)));
+            }
+            else
+            {
+                foreach (string propName in PropertiesToLoad.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    propertiesToLoad.Add(propName.Trim());
+                    dt.Columns.Add(new System.Data.DataColumn(propName.Trim(), typeof(string)));
+                }
+            }
+
+            if (QueryFilterText == null || QueryFilterText.Trim().Length == 0)
+                return dt;
+            string formattedFilterText = FormatQueryFilter(QueryFilterText);
+            if (formattedFilterText.Contains("%"))
+                formattedFilterText = MacroVariables.FormatVariables(formattedFilterText);
+
+            int lineCount = 0;
+            DirectoryEntry entryRoot = GetADRoot();
+            using (DirectorySearcher searcher = new DirectorySearcher(entryRoot, formattedFilterText))
+            {
+                searcher.PropertiesToLoad.AddRange(propertiesToLoad.ToArray());
+                searcher.SizeLimit = 1000;
+                searcher.PageSize = 1000;
+                SearchResultCollection matches = searcher.FindAll();
+
+                foreach (SearchResult match in matches)
+                {
+                    List<string> rowValues = new List<string>();
+                    foreach (string propName in propertiesToLoad)
+                    {
+                        string propertyValue = "";
+                        try
+                        {
+                            if (match.Properties.Contains(propName))
+                            {
+                                if (match.Properties[propName].Count > 0 && match.Properties[propName] != null)
+                                {
+                                    propertyValue = match.Properties[propName][0].ToString();
+                                }
+                                else
+                                    propertyValue = "N/A";
+                            }
+                            else
+                            {
+                                propertyValue = "N/A";
+                            }
+                        }
+                        catch
+                        {
+                            propertyValue = "err";
+                        }
+                        rowValues.Add(propertyValue);
+                    }
+                    dt.Rows.Add(rowValues.ToArray());
+                    //lineCount++;
+                    //if (lineCount >= MaxRowsToEvaluate)
+                    //    break;
+                }
+            }
+            return dt;
         }
         public CollectorState GetState(object value)
         {
