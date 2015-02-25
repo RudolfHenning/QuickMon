@@ -115,7 +115,7 @@ namespace QuickMon.Collectors
             System.Data.DataTable dt = new System.Data.DataTable();
             try
             {
-                dt.Columns.Add(new System.Data.DataColumn("Web service", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Script name", typeof(string)));
                 dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));
 
                 PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
@@ -130,7 +130,7 @@ namespace QuickMon.Collectors
                     {
                         output = ex.Message;
                     }
-                    dt.Rows.Add(entry.Description, output);
+                    dt.Rows.Add(entry.Name, output);
                 }
             }
             catch (Exception ex)
