@@ -85,7 +85,7 @@ namespace QuickMon.Collectors
                                            {
                                                ForAgent = directoryFilter.DirectoryPath,
                                                State = CollectorState.None,
-                                               CurrentValue = string.Format("{1} file(s), {2}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize)),
+                                               CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize)),
                                                RawDetails = string.Format("'{0}'", directoryFilter.LastErrorMsg),
                                                HtmlDetails = string.Format("<b>'{0}'</b>", directoryFilter.LastErrorMsg)
                                            });
