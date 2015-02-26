@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -179,12 +179,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -274,12 +274,12 @@
             this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "NOTIFIERS";
+            treeNode3.BackColor = System.Drawing.Color.White;
+            treeNode3.Name = "root";
+            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode3.Text = "NOTIFIERS";
             this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode3});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
@@ -746,12 +746,12 @@
             // openFileDialogOpen
             // 
             this.openFileDialogOpen.DefaultExt = "qmp";
-            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmp|Old QuickMon config files|*.qmconfig";
+            this.openFileDialogOpen.Filter = "QuickMon config files|*.qmp4|Old QuickMon config files|*.qmp";
             // 
             // saveFileDialogSave
             // 
             this.saveFileDialogSave.DefaultExt = "qmp";
-            this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp|Old QuickMon config files|*.qmconfig";
+            this.saveFileDialogSave.Filter = "QuickMon config files|*.qmp4|Old QuickMon config files|*.qmp";
             // 
             // showCollectorContextMenuTimer
             // 

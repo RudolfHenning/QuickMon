@@ -726,7 +726,7 @@ namespace QuickMon
                     saveFileDialogSave.FileName = monitorPack.MonitorPackPath;
                     if (saveFileDialogSave.FileName.ToLower().EndsWith(".qmconfig"))
                     {
-                        saveFileDialogSave.FileName = saveFileDialogSave.FileName.Replace(".qmconfig", ".qmp");
+                        saveFileDialogSave.FileName = saveFileDialogSave.FileName.Replace(".qmconfig", ".qmp4");
                     }
                     try
                     {

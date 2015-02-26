@@ -34,7 +34,7 @@ namespace QuickMon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmconfig") || args[0].ToLower().EndsWith(".qmp")))
+            if (args.Length > 0 && System.IO.File.Exists(args[0]) && (args[0].ToLower().EndsWith(".qmp") || args[0].ToLower().EndsWith(".qmp4")))
                 Properties.Settings.Default.LastMonitorPack = args[0];
 
             try

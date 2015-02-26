@@ -35,22 +35,43 @@ namespace QuickMon.Collectors
                     if (directoryFilter.DirectoryExistOnly && currentState != CollectorState.Good)
                     {
                         errorCount++;
-                        returnState.RawDetails = string.Format("{0}", directoryFilter.LastErrorMsg);
-                        returnState.HtmlDetails = string.Format("{0}", directoryFilter.LastErrorMsg);
+                        returnState.ChildStates.Add(
+                           new MonitorState()
+                           {
+                               ForAgent = directoryFilter.DirectoryPath,
+                               State = CollectorState.Error,
+                               CurrentValue = directoryFilter.LastErrorMsg,
+                               RawDetails = string.Format("'{0}'", directoryFilter.LastErrorMsg),
+                               HtmlDetails = string.Format("<b>'{0}'</b>", directoryFilter.LastErrorMsg)
+                           });
                     }
                     else if (directoryFilter.DirectoryExistOnly)
                     {
                         okCount++;
-                        returnState.RawDetails = string.Format("The directory '{0}' exists", directoryFilter.DirectoryPath);
-                        returnState.HtmlDetails = string.Format("The directory <i>'{0}'</i> exists", directoryFilter.DirectoryPath);
+                        returnState.ChildStates.Add(
+                           new MonitorState()
+                           {
+                               ForAgent = directoryFilter.DirectoryPath,
+                               State = CollectorState.Good,
+                               CurrentValue = directoryFilter.LastErrorMsg,
+                               RawDetails = string.Format("The directory '{0}' exists", directoryFilter.DirectoryPath),
+                               HtmlDetails = string.Format("The directory <i>'{0}'</i> exists", directoryFilter.DirectoryPath)
+                           });                        
                     }
                     else 
                     {
                         if (directoryFileInfo.FileCount == -1)
                         {
                             errorCount++;
-                            returnState.RawDetails = string.Format("An error occured while accessing '{0}' - {1}", directoryFilter.FilterFullPath, directoryFilter.LastErrorMsg);
-                            returnState.HtmlDetails = string.Format("An error occured while accessing '{0}' <blockquote>{1}</blockquote></li>", directoryFilter.FilterFullPath, directoryFilter.LastErrorMsg);
+                            returnState.ChildStates.Add(
+                           new MonitorState()
+                           {
+                               ForAgent = directoryFilter.DirectoryPath,
+                               State = CollectorState.Error,
+                               CurrentValue = directoryFilter.LastErrorMsg,
+                               RawDetails = string.Format("An error occured while accessing '{0}' - {1}", directoryFilter.FilterFullPath, directoryFilter.LastErrorMsg),
+                               HtmlDetails = string.Format("An error occured while accessing '{0}' <blockquote>{1}</blockquote></li>", directoryFilter.FilterFullPath, directoryFilter.LastErrorMsg)
+                           });
                         }
                         else
                         {
@@ -59,13 +80,28 @@ namespace QuickMon.Collectors
                             {
                                 if (directoryFilter.LastErrorMsg.Length > 0)
                                 {
-                                    returnState.RawDetails = string.Format("{0}", directoryFilter.LastErrorMsg);
-                                    returnState.HtmlDetails = string.Format("{0}", directoryFilter.LastErrorMsg);
+                                    returnState.ChildStates.Add(
+                                           new MonitorState()
+                                           {
+                                               ForAgent = directoryFilter.DirectoryPath,
+                                               State = CollectorState.None,
+                                               CurrentValue = string.Format("{1} file(s), {2}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize)),
+                                               RawDetails = string.Format("'{0}'", directoryFilter.LastErrorMsg),
+                                               HtmlDetails = string.Format("<b>'{0}'</b>", directoryFilter.LastErrorMsg)
+                                           });
                                 }
                                 else
                                 {
-                                    returnState.RawDetails = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
-                                    returnState.HtmlDetails = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
+                                    returnState.ChildStates.Add(
+                                          new MonitorState()
+                                          {
+                                              ForAgent = directoryFilter.DirectoryPath,
+                                              State = CollectorState.None,
+                                              CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count),
+                                              RawDetails = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count),
+                                              HtmlDetails = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count)
+                                          });
+
                                     if (directoryFilter.ShowFilenamesInDetails)
                                     {
                                         int topCount = 10;
@@ -85,8 +121,15 @@ namespace QuickMon.Collectors
                             }
                             else
                             {
-                                returnState.RawDetails = string.Format("No files found '{0}'", directoryFilter.FilterFullPath);
-                                returnState.HtmlDetails = string.Format("No files found '{0}'", directoryFilter.FilterFullPath);
+                                returnState.ChildStates.Add(
+                                          new MonitorState()
+                                          {
+                                              ForAgent = directoryFilter.DirectoryPath,
+                                              State = CollectorState.None,
+                                              CurrentValue = directoryFileInfo.FileInfos.Count,
+                                              RawDetails = "No files found",
+                                              HtmlDetails = "No files found"
+                                          });
                             }
                             if (currentState == CollectorState.Warning)
                             {
