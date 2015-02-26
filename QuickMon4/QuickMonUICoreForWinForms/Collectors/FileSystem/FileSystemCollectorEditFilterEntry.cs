@@ -38,6 +38,7 @@ namespace QuickMon.Collectors
 
                 txtDirectory.Text = selectedEntry.DirectoryPath;
                 txtFilter.Text = selectedEntry.FileFilter;
+                chkIncludeSubDirs.Checked = selectedEntry.IncludeSubDirectories;
                 txtContains.Text = selectedEntry.ContainsText;
                 chkUseRegEx.Checked = selectedEntry.UseRegEx;
                 cboFileAgeUnit.SelectedIndex = (int)selectedEntry.FileAgeUnit;
@@ -86,7 +87,7 @@ namespace QuickMon.Collectors
                 txtDirectory.Text = FileSystemDirectoryFilterEntry.GetDirectoryFromPath(txtDirectory.Text);
             }
 
-            if (!Directory.Exists(txtDirectory.Text))
+            if (!Directory.Exists((txtDirectory.Text.Length > 0 && txtDirectory.Text.Contains('%')) ? Environment.ExpandEnvironmentVariables(txtDirectory.Text) : txtDirectory.Text))
             {
                 MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -117,6 +118,7 @@ namespace QuickMon.Collectors
                 selectedEntry.DirectoryPath = txtDirectory.Text;
                 selectedEntry.DirectoryExistOnly = optDirectoryExistOnly.Checked;
                 selectedEntry.FileFilter = txtFilter.Text;
+                selectedEntry.IncludeSubDirectories = chkIncludeSubDirs.Checked;
                 selectedEntry.FilesExistOnly = optCheckIfFilesExistOnly.Checked;
                 selectedEntry.ErrorOnFilesExist = optErrorOnFilesExist.Checked;
                 selectedEntry.ContainsText = txtContains.Text;
@@ -201,14 +203,14 @@ namespace QuickMon.Collectors
 
         private void CheckOKEnabled()
         {
-            cmdOK.Enabled = txtDirectory.Text.Length > 0 && System.IO.Directory.Exists(txtDirectory.Text) &&
+            string fullPath = (txtDirectory.Text.Length > 0 && txtDirectory.Text.Contains('%')) ? Environment.ExpandEnvironmentVariables(txtDirectory.Text) : txtDirectory.Text;
+            cmdOK.Enabled = txtDirectory.Text.Length > 0 && System.IO.Directory.Exists(fullPath) &&
                     txtFilter.Text.Length > 0 &&
                     (optDirectoryExistOnly.Checked || optCheckIfFilesExistOnly.Checked || optErrorOnFilesExist.Checked ||
                         (numericUpDownCountWarningIndicator.Value > 0 || numericUpDownCountErrorIndicator.Value > 0) ||
-                        (numericUpDownSizeWarningIndicator.Value > 0 || numericUpDownSizeErrorIndicator.Value > 0)// ||
-                        //(numericUpDownFileAgeMin.Value > 0 || numericUpDownFileAgeMax.Value > 0) ||
-                        //(numericUpDownFileSizeMin.Value > 0 || numericUpDownFileSizeMax.Value > 0)
+                        (numericUpDownSizeWarningIndicator.Value > 0 || numericUpDownSizeErrorIndicator.Value > 0)
                         );
+            cmdTest.Enabled = cmdOK.Enabled;
         }
         private void SetCheckOptions()
         {
@@ -228,6 +230,43 @@ namespace QuickMon.Collectors
             numericUpDownSizeErrorIndicator.Enabled = optCounts.Checked;
         }
         #endregion
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FileSystemDirectoryFilterEntry testEntry = new FileSystemDirectoryFilterEntry();
+                testEntry.DirectoryPath = txtDirectory.Text;
+                testEntry.DirectoryExistOnly = optDirectoryExistOnly.Checked;
+                testEntry.FileFilter = txtFilter.Text;
+                testEntry.IncludeSubDirectories = chkIncludeSubDirs.Checked;
+                testEntry.FilesExistOnly = optCheckIfFilesExistOnly.Checked;
+                testEntry.ErrorOnFilesExist = optErrorOnFilesExist.Checked;
+                testEntry.ContainsText = txtContains.Text;
+                testEntry.UseRegEx = chkUseRegEx.Checked;
+                testEntry.CountWarningIndicator = Convert.ToInt32(numericUpDownCountWarningIndicator.Value);
+                testEntry.CountErrorIndicator = Convert.ToInt32(numericUpDownCountErrorIndicator.Value);
+                testEntry.FileSizeIndicatorUnit = (FileSizeUnits)cboFileSizeIndicatorUnit.SelectedIndex;
+                testEntry.SizeWarningIndicator = (int)numericUpDownSizeWarningIndicator.Value;
+                testEntry.SizeErrorIndicator = (int)numericUpDownSizeErrorIndicator.Value;
+                testEntry.FileAgeUnit = (TimeUnits)cboFileAgeUnit.SelectedIndex;
+                testEntry.FileMinAge = (int)numericUpDownFileAgeMin.Value;
+                testEntry.FileMaxAge = (int)numericUpDownFileAgeMax.Value;
+                testEntry.FileSizeUnit = (FileSizeUnits)cboFileSizeUnit.SelectedIndex;
+                testEntry.FileMinSize = (int)numericUpDownFileSizeMin.Value;
+                testEntry.FileMaxSize = (int)numericUpDownFileSizeMax.Value;
+                testEntry.ShowFilenamesInDetails = chkShowFilenamesInDetails.Checked;
+
+                DirectoryFileInfo directoryFileInfo = testEntry.GetFileListByFilters();
+
+                CollectorState currentState = testEntry.GetState(directoryFileInfo);
+                MessageBox.Show(string.Format("State: {0}\r\nDetails: {1} file(s), {2}", currentState, directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize)), "Test",  MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
  
     }

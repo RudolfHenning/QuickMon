@@ -536,13 +536,8 @@ namespace QuickMon
                         tlvi.ImageIndex = 1;
                     }
                 }
+                agentsTreeListView_SelectedIndexChanged(null, null);
             }
-            //foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            //{
-            //    lvi.ImageIndex = 1;
-            //    ICollector agent = (ICollector)lvi.Tag;
-            //    agent.Enabled = true;
-            //}
         }
         private void DisableAgents()
         {
@@ -557,13 +552,8 @@ namespace QuickMon
                         tlvi.ImageIndex = 0;
                     }
                 }
+                agentsTreeListView_SelectedIndexChanged(null, null);
             }
-            //foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            //{
-            //    lvi.ImageIndex = 0;
-            //    ICollector agent = (ICollector)lvi.Tag;
-            //    agent.Enabled = false;
-            //}
         }
 
         private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
@@ -679,6 +669,25 @@ namespace QuickMon
         {
             DisableAgents();
         }
+        private void enableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (agentsTreeListView.SelectedItems.Count > 0)
+            {
+                TreeListViewItem tlvi = agentsTreeListView.SelectedItems[0];
+                if (tlvi.Tag is ICollector)
+                {
+                    ICollector agent = (ICollector)tlvi.Tag;
+                    if (!agent.Enabled)
+                    {
+                        EnableAgents();
+                    }
+                    else
+                    {
+                        DisableAgents();
+                    }
+                }
+            }
+        }
 
         #region agentsTreeListView events
         private void agentsTreeListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -736,12 +745,20 @@ namespace QuickMon
                 }
             }
             addAgentEntryToolStripButton.Enabled = addAgentEntry;
+            addAgentEntryToolStripMenuItem.Enabled = addAgentEntry;
             editCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count == 1;
+            editToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count == 1;
             deleteCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count > 0;
+            deleteToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count > 0;
             moveUpAgentToolStripButton.Enabled = moveUpEnabled;
+            moveUpToolStripMenuItem.Enabled = moveUpEnabled;
             moveDownAgentToolStripButton.Enabled = moveDownEnabled;
+            moveDownToolStripMenuItem.Enabled = moveDownEnabled;
             enableAgentToolStripButton.Enabled = agentEnabledEnabled;
             disableAgentToolStripButton.Enabled = agentEDisabledEnabled;
+            enableToolStripMenuItem.Enabled = agentEnabledEnabled || agentEDisabledEnabled;
+            this.enableToolStripMenuItem.Image = agentEnabledEnabled ? global::QuickMon.Properties.Resources._246_7 : global::QuickMon.Properties.Resources.NoGo;
+            this.enableToolStripMenuItem.Text = agentEnabledEnabled ? "Enable" : "Disable";
         }
         private void agentsTreeListView_DoubleClick(object sender, EventArgs e)
         {
@@ -1196,6 +1213,8 @@ namespace QuickMon
         {
             MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
        
     }
 }

@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QM4b.ico</ApplicationIcon>
+    <ApplicationIcon>QM4-128x128.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -170,6 +170,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="QM4-128x128.ico" />
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />
     <None Include="Resources\246_7.png" />

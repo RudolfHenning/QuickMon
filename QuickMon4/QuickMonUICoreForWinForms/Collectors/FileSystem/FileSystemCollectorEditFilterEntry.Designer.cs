@@ -74,6 +74,8 @@
             this.optCheckIfFilesExistOnly = new System.Windows.Forms.RadioButton();
             this.optDirectoryExistOnly = new System.Windows.Forms.RadioButton();
             this.chkShowFilenamesInDetails = new System.Windows.Forms.CheckBox();
+            this.cmdTest = new System.Windows.Forms.Button();
+            this.chkIncludeSubDirs = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileAgeMax)).BeginInit();
@@ -92,7 +94,7 @@
             this.label15.Location = new System.Drawing.Point(18, 172);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(399, 13);
-            this.label15.TabIndex = 16;
+            this.label15.TabIndex = 17;
             this.label15.Text = "File size - File size in KB must be between min/max to be included. 0 means no li" +
     "mit.";
             // 
@@ -106,7 +108,7 @@
             0});
             this.numericUpDownFileSizeMax.Name = "numericUpDownFileSizeMax";
             this.numericUpDownFileSizeMax.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileSizeMax.TabIndex = 20;
+            this.numericUpDownFileSizeMax.TabIndex = 21;
             this.numericUpDownFileSizeMax.ValueChanged += new System.EventHandler(this.numericUpDownFileSizeMax_ValueChanged);
             // 
             // label16
@@ -115,7 +117,7 @@
             this.label16.Location = new System.Drawing.Point(186, 192);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 19;
+            this.label16.TabIndex = 20;
             this.label16.Text = "Maximum";
             // 
             // numericUpDownFileSizeMin
@@ -128,7 +130,7 @@
             0});
             this.numericUpDownFileSizeMin.Name = "numericUpDownFileSizeMin";
             this.numericUpDownFileSizeMin.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileSizeMin.TabIndex = 18;
+            this.numericUpDownFileSizeMin.TabIndex = 19;
             this.numericUpDownFileSizeMin.ValueChanged += new System.EventHandler(this.numericUpDownFileSizeMin_ValueChanged);
             // 
             // label17
@@ -137,7 +139,7 @@
             this.label17.Location = new System.Drawing.Point(38, 192);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(48, 13);
-            this.label17.TabIndex = 17;
+            this.label17.TabIndex = 18;
             this.label17.Text = "Minimum";
             // 
             // label6
@@ -146,7 +148,7 @@
             this.label6.Location = new System.Drawing.Point(18, 122);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(371, 13);
-            this.label6.TabIndex = 9;
+            this.label6.TabIndex = 10;
             this.label6.Text = "File age - File age must be between min/max to be included. 0 means no limit.";
             // 
             // numericUpDownFileAgeMax
@@ -159,7 +161,7 @@
             0});
             this.numericUpDownFileAgeMax.Name = "numericUpDownFileAgeMax";
             this.numericUpDownFileAgeMax.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileAgeMax.TabIndex = 13;
+            this.numericUpDownFileAgeMax.TabIndex = 14;
             this.numericUpDownFileAgeMax.ValueChanged += new System.EventHandler(this.numericUpDownFileAgeMax_ValueChanged);
             // 
             // label7
@@ -168,7 +170,7 @@
             this.label7.Location = new System.Drawing.Point(186, 143);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 13);
-            this.label7.TabIndex = 12;
+            this.label7.TabIndex = 13;
             this.label7.Text = "Maximum";
             // 
             // numericUpDownFileAgeMin
@@ -181,7 +183,7 @@
             0});
             this.numericUpDownFileAgeMin.Name = "numericUpDownFileAgeMin";
             this.numericUpDownFileAgeMin.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownFileAgeMin.TabIndex = 11;
+            this.numericUpDownFileAgeMin.TabIndex = 12;
             this.numericUpDownFileAgeMin.ValueChanged += new System.EventHandler(this.numericUpDownFileAgeMin_ValueChanged);
             // 
             // label14
@@ -190,7 +192,7 @@
             this.label14.Location = new System.Drawing.Point(38, 143);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(48, 13);
-            this.label14.TabIndex = 10;
+            this.label14.TabIndex = 11;
             this.label14.Text = "Minimum";
             // 
             // label9
@@ -263,7 +265,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(516, 363);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 4;
+            this.cmdCancel.TabIndex = 5;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -274,7 +276,7 @@
             this.cmdOK.Location = new System.Drawing.Point(435, 363);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 3;
+            this.cmdOK.TabIndex = 4;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -390,7 +392,7 @@
             this.txtContains.Location = new System.Drawing.Point(93, 76);
             this.txtContains.Name = "txtContains";
             this.txtContains.Size = new System.Drawing.Size(479, 20);
-            this.txtContains.TabIndex = 7;
+            this.txtContains.TabIndex = 8;
             // 
             // label18
             // 
@@ -398,7 +400,7 @@
             this.label18.Location = new System.Drawing.Point(18, 79);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 13);
-            this.label18.TabIndex = 6;
+            this.label18.TabIndex = 7;
             this.label18.Text = "Contents";
             // 
             // chkUseRegEx
@@ -408,7 +410,7 @@
             this.chkUseRegEx.Location = new System.Drawing.Point(93, 102);
             this.chkUseRegEx.Name = "chkUseRegEx";
             this.chkUseRegEx.Size = new System.Drawing.Size(141, 17);
-            this.chkUseRegEx.TabIndex = 8;
+            this.chkUseRegEx.TabIndex = 9;
             this.chkUseRegEx.Text = "Use Regular expressions";
             this.chkUseRegEx.UseVisualStyleBackColor = true;
             // 
@@ -416,6 +418,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkIncludeSubDirs);
             this.groupBox1.Controls.Add(this.cboFileSizeUnit);
             this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.cboFileAgeUnit);
@@ -459,7 +462,7 @@
             this.cboFileSizeUnit.Location = new System.Drawing.Point(367, 189);
             this.cboFileSizeUnit.Name = "cboFileSizeUnit";
             this.cboFileSizeUnit.Size = new System.Drawing.Size(75, 21);
-            this.cboFileSizeUnit.TabIndex = 22;
+            this.cboFileSizeUnit.TabIndex = 23;
             // 
             // label20
             // 
@@ -467,7 +470,7 @@
             this.label20.Location = new System.Drawing.Point(335, 192);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(26, 13);
-            this.label20.TabIndex = 21;
+            this.label20.TabIndex = 22;
             this.label20.Text = "Unit";
             // 
             // cboFileAgeUnit
@@ -487,7 +490,7 @@
             this.cboFileAgeUnit.Location = new System.Drawing.Point(367, 140);
             this.cboFileAgeUnit.Name = "cboFileAgeUnit";
             this.cboFileAgeUnit.Size = new System.Drawing.Size(110, 21);
-            this.cboFileAgeUnit.TabIndex = 15;
+            this.cboFileAgeUnit.TabIndex = 16;
             // 
             // label19
             // 
@@ -495,7 +498,7 @@
             this.label19.Location = new System.Drawing.Point(335, 143);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(26, 13);
-            this.label19.TabIndex = 14;
+            this.label19.TabIndex = 15;
             this.label19.Text = "Unit";
             // 
             // groupBox2
@@ -610,12 +613,36 @@
             this.chkShowFilenamesInDetails.Text = "Show file names in details";
             this.chkShowFilenamesInDetails.UseVisualStyleBackColor = true;
             // 
+            // cmdTest
+            // 
+            this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.Location = new System.Drawing.Point(354, 364);
+            this.cmdTest.Name = "cmdTest";
+            this.cmdTest.Size = new System.Drawing.Size(75, 23);
+            this.cmdTest.TabIndex = 3;
+            this.cmdTest.Text = "Test";
+            this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
+            // 
+            // chkIncludeSubDirs
+            // 
+            this.chkIncludeSubDirs.AutoSize = true;
+            this.chkIncludeSubDirs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIncludeSubDirs.Location = new System.Drawing.Point(290, 51);
+            this.chkIncludeSubDirs.Name = "chkIncludeSubDirs";
+            this.chkIncludeSubDirs.Size = new System.Drawing.Size(257, 17);
+            this.chkIncludeSubDirs.TabIndex = 6;
+            this.chkIncludeSubDirs.Text = "Include Sub Directories (Warning - could be slow)";
+            this.chkIncludeSubDirs.UseVisualStyleBackColor = true;
+            // 
             // FileSystemCollectorEditFilterEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(602, 397);
+            this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.chkShowFilenamesInDetails);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -693,5 +720,7 @@
         private System.Windows.Forms.ComboBox cboFileSizeIndicatorUnit;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox chkShowFilenamesInDetails;
+        private System.Windows.Forms.Button cmdTest;
+        private System.Windows.Forms.CheckBox chkIncludeSubDirs;
     }
 }

@@ -33,6 +33,7 @@ namespace QuickMon.Collectors
                 directoryFilterEntry.DirectoryExistOnly = bool.Parse(host.ReadXmlElementAttr("testDirectoryExistOnly", "False"));
                 directoryFilterEntry.FilesExistOnly = bool.Parse(host.ReadXmlElementAttr("testFilesExistOnly", "False"));
                 directoryFilterEntry.ErrorOnFilesExist = bool.Parse(host.ReadXmlElementAttr("errorOnFilesExist", "False"));
+                directoryFilterEntry.IncludeSubDirectories = bool.Parse(host.ReadXmlElementAttr("includeSubDirs", "False"));
                 directoryFilterEntry.ContainsText = host.ReadXmlElementAttr("containsText", "");
                 directoryFilterEntry.UseRegEx = host.ReadXmlElementAttr("useRegEx", false);
 
@@ -78,6 +79,7 @@ namespace QuickMon.Collectors
                 directoryXmlNode.SetAttributeValue("testDirectoryExistOnly", de.DirectoryExistOnly);
                 directoryXmlNode.SetAttributeValue("testFilesExistOnly", de.FilesExistOnly);
                 directoryXmlNode.SetAttributeValue("errorOnFilesExist", de.ErrorOnFilesExist);
+                directoryXmlNode.SetAttributeValue("includeSubDirs", de.IncludeSubDirectories);
                 directoryXmlNode.SetAttributeValue("containsText", de.ContainsText);
                 directoryXmlNode.SetAttributeValue("useRegEx", de.UseRegEx);
                 directoryXmlNode.SetAttributeValue("warningFileCountMax", de.CountWarningIndicator);

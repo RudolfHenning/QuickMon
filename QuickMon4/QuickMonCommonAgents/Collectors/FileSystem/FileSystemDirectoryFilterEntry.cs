@@ -13,6 +13,7 @@ namespace QuickMon.Collectors
         {
             FileAgeUnit = TimeUnits.Minute;
             FileSizeUnit = FileSizeUnits.KB;
+            IncludeSubDirectories = false;  
         }
 
         #region Properties
@@ -38,6 +39,7 @@ namespace QuickMon.Collectors
         /// If any files are found mathing filtering conditions it return a True
         /// </summary>
         public bool ErrorOnFilesExist { get; set; }
+        public bool IncludeSubDirectories { get; set; }
 
         #region File filters
         public string FileFilter { get; set; }
@@ -179,14 +181,16 @@ namespace QuickMon.Collectors
             fileInfo.FileCount = 0;
             fileInfo.TotalFileSize = 0;
             fileInfo.FileInfos = new List<FileInfo>();
+            string fullFilePath = Environment.ExpandEnvironmentVariables(DirectoryPath);
             try
             {
-                if (Directory.Exists(DirectoryPath))
+                if (Directory.Exists(fullFilePath))
                 {
                     fileInfo.DirectoryExists = true;
                     if (!DirectoryExistOnly)
                     {
-                        foreach (string filePath in System.IO.Directory.GetFiles(DirectoryPath, FileFilter))
+                        SearchOption so = IncludeSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+                        foreach (string filePath in System.IO.Directory.GetFiles(fullFilePath, FileFilter, so))
                         {
                             System.IO.FileInfo fi = new System.IO.FileInfo(filePath);
 

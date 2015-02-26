@@ -259,14 +259,72 @@ namespace QuickMon
             }
             CheckOkEnabled();
         }
+        private void EnableAgents()
+        {
+            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            {
+                lvi.ImageIndex = 1;
+                INotifier agent = (INotifier)lvi.Tag;
+                agent.Enabled = true;
+            }
+        }
+        private void DisableAgents()
+        {
+            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            {
+                lvi.ImageIndex = 0;
+                INotifier agent = (INotifier)lvi.Tag;
+                agent.Enabled = false;
+            }
+        }
         private void lvwEntries_SelectedIndexChanged(object sender, EventArgs e)
         {
             editAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1;
+            editToolStripMenuItem.Enabled = lvwEntries.SelectedItems.Count == 1;
             deleteAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count > 0;
+            deleteToolStripMenuItem.Enabled = lvwEntries.SelectedItems.Count > 0;
             moveUpAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
+            moveUpToolStripMenuItem.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index > 0;
             moveDownAgentToolStripButton.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;
-            enableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 0);
-            disableAgentToolStripButton.Enabled = (lvwEntries.SelectedItems.Count > 1) || (lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].ImageIndex == 1);
+            moveDownToolStripMenuItem.Enabled = lvwEntries.SelectedItems.Count == 1 && lvwEntries.SelectedItems[0].Index < lvwEntries.Items.Count - 1;            
+
+            bool agentEnabledEnabled = false;
+            bool agentEDisabledEnabled = false;
+            if (lvwEntries.SelectedItems.Count == 1)
+            {
+                ListViewItem lvi = lvwEntries.SelectedItems[0];
+                if (lvi.Tag is INotifier )
+                {
+                    INotifier agent = (INotifier)lvi.Tag;
+                    agentEnabledEnabled = !agent.Enabled;
+                    agentEDisabledEnabled = agent.Enabled;
+                }
+            }
+            else
+            {
+                foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+                {
+                    if (lvi.Tag is INotifier)
+                    {
+                        INotifier agent = (INotifier)lvi.Tag;
+                        if (!agent.Enabled)
+                            agentEnabledEnabled = true;
+                        else
+                            agentEDisabledEnabled = true;
+                    }
+                    else
+                    {
+                        agentEnabledEnabled = false;
+                        agentEDisabledEnabled = false;
+                        break;
+                    }
+                }
+            }
+            enableAgentToolStripButton.Enabled = agentEnabledEnabled;
+            disableAgentToolStripButton.Enabled = agentEDisabledEnabled;
+            enableToolStripMenuItem.Enabled = agentEnabledEnabled || agentEDisabledEnabled;
+            this.enableToolStripMenuItem.Image = agentEnabledEnabled ? global::QuickMon.Properties.Resources._246_7 : global::QuickMon.Properties.Resources.NoGo;
+            this.enableToolStripMenuItem.Text = agentEnabledEnabled ? "Enable" : "Disable";
         }
         private void lvwEntries_DoubleClick(object sender, EventArgs e)
         {
@@ -325,50 +383,6 @@ namespace QuickMon
         private void editAgentToolStripButton_Click(object sender, EventArgs e)
         {
             EditAgent();
-
-            ////Call local (in this assembly) utility that match editor type for agent class.
-            ////  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
-            ////  each IWinFormsUI class must provide the name of the IAgent class it can edit
-            ////  thus each IAgent class name must be unique...
-            ////  each IWinFormsUI class must have a method to edit the IAgent class.  EditAgent(xmlConfigString) 
-            ////If no default editor can be found show raw xml editor...
-            //try
-            //{
-            //    if (lvwEntries.SelectedItems.Count == 1)
-            //    {
-            //        INotifier agent = (INotifier)lvwEntries.SelectedItems[0].Tag;
-            //        IWinFormsUI agentEditor = RegisteredAgentUIMapper.GetUIClass(agent);
-            //        if (agentEditor != null)
-            //        {
-            //            agentEditor.AgentName = agent.Name;
-            //            agentEditor.AgentEnabled = agent.Enabled;
-            //            agentEditor.SelectedAgentConfig = agent.InitialConfiguration;
-            //            if (agentEditor.EditAgent())
-            //            {
-
-            //                agent.InitialConfiguration = agentEditor.SelectedAgentConfig;
-            //                agent.Name = agentEditor.AgentName;
-            //                agent.Enabled = agentEditor.AgentEnabled;
-            //                agent.AgentConfig.FromXml(agentEditor.SelectedAgentConfig);
-            //                lvwEntries.SelectedItems[0].Text = agent.Name;
-            //                if (agent.Enabled)
-            //                    lvwEntries.SelectedItems[0].ImageIndex = 1;
-            //                else
-            //                    lvwEntries.SelectedItems[0].ImageIndex = 0;
-            //                lvwEntries.SelectedItems[0].SubItems[2].Text = agent.AgentConfig.ConfigSummary;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //CheckOkEnabled();
         }
         private void deleteAgentToolStripButton_Click(object sender, EventArgs e)
         {
@@ -406,20 +420,29 @@ namespace QuickMon
         }
         private void enableAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
-            {
-                lvi.ImageIndex = 1;
-                INotifier agent = (INotifier)lvi.Tag;
-                agent.Enabled = true;
-            }
+            EnableAgents();
         }
         private void disableAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvi in lvwEntries.SelectedItems)
+            DisableAgents();
+        }
+        private void enableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwEntries.SelectedItems.Count > 0)
             {
-                lvi.ImageIndex = 0;
-                INotifier agent = (INotifier)lvi.Tag;
-                agent.Enabled = false;
+                ListViewItem tlvi = lvwEntries.SelectedItems[0];
+                if (tlvi.Tag is INotifier)
+                {
+                    INotifier agent = (INotifier)tlvi.Tag;
+                    if (!agent.Enabled)
+                    {
+                        EnableAgents();
+                    }
+                    else
+                    {
+                        DisableAgents();
+                    }
+                }
             }
         }
         #endregion
@@ -724,5 +747,7 @@ namespace QuickMon
         {
             CheckOkEnabled();
         }
+
+       
     }
 }
