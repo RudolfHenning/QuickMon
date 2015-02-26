@@ -52,6 +52,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkCreateBackupOnSave = new System.Windows.Forms.CheckBox();
             this.chkUseTemplates = new System.Windows.Forms.CheckBox();
             this.tabPageRemoteHosts = new System.Windows.Forms.TabPage();
             this.cmdAdd = new System.Windows.Forms.Button();
@@ -74,7 +75,6 @@
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chkCreateBackupOnSave = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -158,7 +158,7 @@
             // 
             this.chkAutosaveChanges.AutoSize = true;
             this.chkAutosaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkAutosaveChanges.Location = new System.Drawing.Point(155, 13);
+            this.chkAutosaveChanges.Location = new System.Drawing.Point(147, 13);
             this.chkAutosaveChanges.Name = "chkAutosaveChanges";
             this.chkAutosaveChanges.Size = new System.Drawing.Size(116, 17);
             this.chkAutosaveChanges.TabIndex = 1;
@@ -357,6 +357,17 @@
             this.tabPage2.Size = new System.Drawing.Size(448, 175);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Application";
+            // 
+            // chkCreateBackupOnSave
+            // 
+            this.chkCreateBackupOnSave.AutoSize = true;
+            this.chkCreateBackupOnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkCreateBackupOnSave.Location = new System.Drawing.Point(271, 13);
+            this.chkCreateBackupOnSave.Name = "chkCreateBackupOnSave";
+            this.chkCreateBackupOnSave.Size = new System.Drawing.Size(160, 17);
+            this.chkCreateBackupOnSave.TabIndex = 5;
+            this.chkCreateBackupOnSave.Text = "Back up previous saved files";
+            this.chkCreateBackupOnSave.UseVisualStyleBackColor = true;
             // 
             // chkUseTemplates
             // 
@@ -589,17 +600,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(459, 31);
             this.panel1.TabIndex = 11;
-            // 
-            // chkCreateBackupOnSave
-            // 
-            this.chkCreateBackupOnSave.AutoSize = true;
-            this.chkCreateBackupOnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkCreateBackupOnSave.Location = new System.Drawing.Point(277, 13);
-            this.chkCreateBackupOnSave.Name = "chkCreateBackupOnSave";
-            this.chkCreateBackupOnSave.Size = new System.Drawing.Size(116, 17);
-            this.chkCreateBackupOnSave.TabIndex = 5;
-            this.chkCreateBackupOnSave.Text = "Auto save changes";
-            this.chkCreateBackupOnSave.UseVisualStyleBackColor = true;
             // 
             // GeneralSettings
             // 
