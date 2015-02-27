@@ -31,6 +31,15 @@ namespace QuickMon
                 Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
             }
 
+            try
+            {
+                if (HenIT.Security.AdminModeTools.IsInAdminMode())
+                {
+                    HenIT.Security.AdminModeTools.CreateAdminLaunchTask();
+                }
+            }
+            catch { }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

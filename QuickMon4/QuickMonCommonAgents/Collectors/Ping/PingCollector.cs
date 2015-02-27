@@ -117,7 +117,7 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Response", typeof(string)));                
 
                 PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
-                foreach (PingCollectorHostEntry host in currentConfig.Entries)
+                foreach (PingCollectorHostEntry host in currentConfig.Entries) //.OrderBy(h => ((PingCollectorHostEntry)h).Address))
                 {
                     PingCollectorResult pingResult = host.Ping();
                     dt.Rows.Add(host.Address, pingResult.Success, pingResult.PingTime, pingResult.ResponseDetails);
