@@ -110,17 +110,8 @@ ORDER BY
 						<performanceCounters>
 							<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" />
 							<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" />
+							<performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" />
 						</performanceCounters>
-					</config>
-				</collectorAgent>
-				<collectorAgent name="Drive space" type="WMIQueryCollector" enabled="True">
-					<config>
-						<wmiQueries>
-							<wmiQuery name="C Drive space" namespace="root\CIMV2" machineName=".">
-								<stateQuery syntax="SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="1048576000" errorValue="524288000" successValue="[any]" useRowCountAsValue="False" />
-								<detailQuery syntax="SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'" columnNames="Caption, Size, FreeSpace, Description" />
-							</wmiQuery>
-						</wmiQueries>
 					</config>
 				</collectorAgent>
 				<collectorAgent name="Bad Blocks" type="EventLogCollector" enabled="True">
@@ -171,6 +162,7 @@ ORDER BY
 				<performanceCounters>
 					<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" />
 					<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" />
+					<performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" />
 				</performanceCounters>
 			</config>
 		</collectorAgent>

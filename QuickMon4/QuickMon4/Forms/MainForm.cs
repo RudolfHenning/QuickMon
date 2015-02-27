@@ -2343,7 +2343,12 @@ namespace QuickMon
         {
             if (!PerformCleanShutdown(true))
                 return;
-            Security.RestartInAdminMode(Application.ExecutablePath);
+            if (!HenIT.Security.AdminModeTools.IsInAdminMode())
+            {
+                Properties.Settings.Default.Save();
+                HenIT.Security.AdminModeTools.RestartInAdminMode();
+            }
+            //Security.RestartInAdminMode(Application.ExecutablePath);
         }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {

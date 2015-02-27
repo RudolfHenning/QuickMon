@@ -97,7 +97,7 @@ namespace QuickMon.Collectors
                     try
                     {
                         List<ServiceStateInfo> services = host.GetServiceStates();
-                        foreach(ServiceStateInfo service in services)
+                        foreach(ServiceStateInfo service in services.OrderBy(s=>s.DisplayName))
                         {
                             dt.Rows.Add(host.MachineName, service.DisplayName, service.Status.ToString());
                         }
