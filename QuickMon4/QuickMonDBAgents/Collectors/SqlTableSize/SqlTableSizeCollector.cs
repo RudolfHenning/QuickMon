@@ -63,8 +63,8 @@ namespace QuickMon.Collectors
                                     State = CollectorState.Warning,
                                     ForAgent = tableEntryState.Item1.TableName,
                                     CurrentValue = string.Format("{0} row(s)", tableEntryState.Item1.RowCount),
-                                    RawDetails = string.Format("'{0}' - {1} (Warning, Trigger {2})", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount),
-                                    HtmlDetails = string.Format("'{0}' - {1} (<b>Warning, Trigger {2}</b>)", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount)
+                                    RawDetails = string.Format("'{0}' - {1} (Warning, Trigger {2})", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount, tableEntryState.Item1.WarningValue),
+                                    HtmlDetails = string.Format("'{0}' - {1} (<b>Warning, Trigger {2}</b>)", tableEntryState.Item1.TableName, tableEntryState.Item1.RowCount, tableEntryState.Item1.WarningValue)
                                 });
                         }
                         else
