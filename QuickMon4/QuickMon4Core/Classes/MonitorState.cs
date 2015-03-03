@@ -182,23 +182,7 @@ namespace QuickMon
             {
                 sb.AppendLine(prePadding);                
                 linePaddingRepeat++;
-            }
-
-            //if (RawDetails != null && RawDetails.Length > 0)
-            //{
-            //    sb.Append(new string(linePaddingChar, linePaddingRepeat));
-            //    if (ForAgent != null && ForAgent.Length > 0)
-            //        sb.Append(string.Format("{0}: ", ForAgent));
-            //    sb.AppendLine(RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar));                
-            //}
-            //else if (ForAgent != null && ForAgent.Length > 0)
-            //{
-            //    sb.Append(new string(linePaddingChar, linePaddingRepeat));
-            //    sb.AppendLine(string.Format("{0}", ForAgent));
-            //}
-            
-            //if (sb.Length > 0)
-            //    linePaddingRepeat++;
+            }            
 
             if (ChildStates != null)
             {

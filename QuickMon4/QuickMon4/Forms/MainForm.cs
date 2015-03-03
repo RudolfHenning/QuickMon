@@ -908,15 +908,18 @@ namespace QuickMon
         }
         private void monitorPack_RunCollectorHostRestorationScript(CollectorHost collectorHost)
         {
-            
+            if (collectorHost != null && !collectorHost.CorrectiveScriptDisabled)
+                RunCorrectiveScript(collectorHost.RestorationScriptPath);
         }
         private void monitorPack_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
         {
-            
+            if (collectorHost != null && !collectorHost.CorrectiveScriptDisabled)
+                RunCorrectiveScript(collectorHost.CorrectiveScriptOnErrorPath);
         }
         private void monitorPack_RunCollectorHostCorrectiveWarningScript(CollectorHost collectorHost)
         {
-            
+            if (collectorHost != null && !collectorHost.CorrectiveScriptDisabled)
+                RunCorrectiveScript(collectorHost.CorrectiveScriptOnWarningPath);
         }
         private void monitorPack_CollectorHostAllAgentsExecutionTime(CollectorHost collectorHost, long msTime)
         {
@@ -2540,6 +2543,54 @@ namespace QuickMon
             }
             else
                 isPollingPaused = true;            
+        }
+        #endregion
+
+        #region Corrective Scripts
+        private void RunCorrectiveScript(string scriptPath)
+        {
+            try
+            {
+                if (System.IO.File.Exists(scriptPath))
+                {
+                    if (scriptPath.ToLower().EndsWith(".ps1"))
+                    {
+                        RunPSScript(scriptPath);
+                    }
+                    else
+                    {
+                        Process p = new Process();
+                        p.StartInfo = new ProcessStartInfo(scriptPath);
+                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p.Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar("Corrective script error:" + ex.Message);
+            }
+        }
+        /// <summary>
+        /// Run PowerShell script. Cannot use System.Management.Automation as it may not be installed on older systems.
+        /// </summary>
+        /// <param name="testScript"></param>
+        /// <returns></returns>
+        private void RunPSScript(string testScript)
+        {
+            string psExe = System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe";
+            if (System.IO.File.Exists(psExe))
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo(psExe);
+                p.StartInfo.Arguments = testScript;
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.Start();
+            }
+            else
+            {
+                throw new Exception("PowerShell not found! It may not be installed on this computer.");
+            }
         }
         #endregion
 

@@ -34,9 +34,9 @@ namespace QuickMon.Forms
             splitContainer1.Panel2Collapsed = true;
             if (SelectedCollectorHost != null)
             {
-                chkRemoteAgentEnabled.Checked = SelectedCollectorHost.EnableRemoteExecute;
-                txtRemoteAgentServer.Text = SelectedCollectorHost.RemoteAgentHostAddress;
-                remoteportNumericUpDown.SaveValueSet(SelectedCollectorHost.RemoteAgentHostPort);
+                chkRemoteAgentEnabled.Checked = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
+                txtRemoteAgentServer.Text = SelectedCollectorHost.EnableRemoteExecute ? SelectedCollectorHost.RemoteAgentHostAddress : SelectedCollectorHost.OverrideRemoteAgentHostAddress;
+                remoteportNumericUpDown.SaveValueSet(SelectedCollectorHost.EnableRemoteExecute ? SelectedCollectorHost.RemoteAgentHostPort : SelectedCollectorHost.OverrideRemoteAgentHostPort);
             }  
         } 
         private void CollectorStatusViewer_FormClosing(object sender, FormClosingEventArgs e)
@@ -62,6 +62,7 @@ namespace QuickMon.Forms
                 Text = "Collector Status Viewer - " + SelectedCollectorHost.Name;
 
                 #region Global state icon and text
+                Icon myIcon = (Icon)Properties.Resources.FindDoc1.Clone();
                 if (SelectedCollectorHost.IsEnabledNow())
                 {
                     if (SelectedCollectorHost.CurrentState == null)
@@ -72,14 +73,18 @@ namespace QuickMon.Forms
                     else
                     {
                         lblCollectorHostStatusText.Text = SelectedCollectorHost.CurrentState.State.ToString();
+                        Bitmap stateImage;
                         if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
-                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.ok16x16;
+                            stateImage = global::QuickMon.Properties.Resources.ok16x16;
                         else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
-                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.triang_yellow16x16;
+                            stateImage = global::QuickMon.Properties.Resources.triang_yellow16x16;
                         else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error)
-                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.stop16x16;
+                            stateImage = global::QuickMon.Properties.Resources.stop16x16;
                         else
-                            lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+                            stateImage = global::QuickMon.Properties.Resources.helpbwy16x16;
+                        lblCollectorHostStatus.Image = stateImage;
+                        if (SelectedCollectorHost.CollectorAgents.Count > 0)
+                            myIcon = (Icon)Icon.FromHandle(stateImage.GetHicon()).Clone();
                     }
                     if (SelectedCollectorHost.AgentCheckSequence != AgentCheckSequence.All)
                     {
@@ -90,7 +95,11 @@ namespace QuickMon.Forms
                 {
                     lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.ForbiddenGray16x16;
                     lblCollectorHostStatusText.Text = "Disabled";
-                } 
+                }
+                Icon oldIcon = this.Icon;
+                this.Icon = myIcon;
+                oldIcon.Dispose();
+                oldIcon = null;
                 #endregion
 
                 LoadAgentStates();
@@ -210,6 +219,8 @@ namespace QuickMon.Forms
                 else if (tabControl1.SelectedTab == currentStatusTabPage2)
                     UpdateDetailView(lvwProperties);
                 summaryToolStripStatusLabel.Text = "Last updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                
             }
         }
 
@@ -317,6 +328,14 @@ namespace QuickMon.Forms
         #region Private methods
         private void LoadAgentStates()
         {
+            ICollector selectedAgent = null;
+            if (agentsTabControl.SelectedTab == agentStatusSummaryTabPage)
+            {
+                if (lvwAgents.Items.Count > 0 && lvwAgents.SelectedItems.Count > 0 && lvwAgents.SelectedItems[0].Tag is ICollector)
+                {
+                    selectedAgent = (ICollector)lvwAgents.SelectedItems[0].Tag;
+                }
+            }
             lvwAgents.Items.Clear();
             if (SelectedCollectorHost != null && SelectedCollectorHost.CollectorAgents.Count > 0)
             {
@@ -341,6 +360,8 @@ namespace QuickMon.Forms
 
                     lvi.Tag = ca;
                     lvwAgents.Items.Add(lvi);
+                    if (selectedAgent != null && selectedAgent.Name.Length > 0 && selectedAgent.Name == ca.Name)
+                    lvi.Selected = true;
                 }
             }
         }
@@ -616,7 +637,7 @@ namespace QuickMon.Forms
                         }
                     }
                     else
-                        agentDataSet = SelectedCollectorHost.GetAllAgentDetails();
+                        agentDataSet = SelectedCollectorHost.GetAllAgentDetails(true);
                     foreach (DataTable dtab in agentDataSet.Tables)
                     {
                         Cursor.Current = Cursors.WaitCursor;

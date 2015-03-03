@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 4" Language="1033" Version="4.0.1.227" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c940000000">
+  <Product Id="*" Name="QuickMon 4" Language="1033" Version="4.0.2.303" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c940000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 4 Installer" Comments='QuickMon 4 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
@@ -42,10 +42,9 @@
                 <Shortcut Id="startmenuQuickMon4" Directory="ProgramMenuDir" Name="QuickMon 4" WorkingDirectory="INSTALLDIR" Icon="QuickMon.exe" IconIndex="0" Advertise="yes" />
               </File>
               <ProgId Id="QuickMon4" Advertise="yes" Icon='QuickMon.exe'>
-                <Extension Id="qmconfig" Advertise="yes" ContentType="application/text">
+                <Extension Id="qmp4" Advertise="yes" ContentType="application/text">
                   <Verb Id="open" Sequence="10" Command="Open"  Argument="&quot;%1&quot;" />
                 </Extension>
-                <Extension Id="qmp4" Advertise="yes" ContentType="application/text" />
               </ProgId>              
               <!-- <File Id="QuickMonRemoteHostCMDEXE" Name="QuickMonRemoteHostCMD.exe" Source="QuickMonRemoteHostCMD.exe" KeyPath="no" /> -->
               <File Id="QuickMonServiceEXE" Name="QuickMonService.exe" Source="QuickMonService.exe" KeyPath="no" />
