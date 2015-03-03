@@ -54,7 +54,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
             this.cmdRecentMonitorPacks = new System.Windows.Forms.Button();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
@@ -115,7 +114,7 @@
             this.llblMonitorPack.Location = new System.Drawing.Point(0, 72);
             this.llblMonitorPack.Name = "llblMonitorPack";
             this.llblMonitorPack.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
-            this.llblMonitorPack.Size = new System.Drawing.Size(394, 23);
+            this.llblMonitorPack.Size = new System.Drawing.Size(384, 23);
             this.llblMonitorPack.TabIndex = 23;
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "Click here to set the monitor pack properties.";
@@ -141,7 +140,7 @@
             this.masterSplitContainer.Panel2.Controls.Add(this.lblNoNotifiersYet);
             this.masterSplitContainer.Panel2.Controls.Add(this.tvwNotifiers);
             this.masterSplitContainer.Panel2.Controls.Add(this.panel2);
-            this.masterSplitContainer.Size = new System.Drawing.Size(394, 325);
+            this.masterSplitContainer.Size = new System.Drawing.Size(384, 325);
             this.masterSplitContainer.SplitterDistance = 218;
             this.masterSplitContainer.SplitterWidth = 6;
             this.masterSplitContainer.TabIndex = 44;
@@ -153,7 +152,7 @@
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(10, 5, 3, 3);
-            this.panel3.Size = new System.Drawing.Size(394, 188);
+            this.panel3.Size = new System.Drawing.Size(384, 188);
             this.panel3.TabIndex = 1;
             // 
             // tvwCollectors
@@ -188,7 +187,7 @@
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
-            this.tvwCollectors.Size = new System.Drawing.Size(381, 180);
+            this.tvwCollectors.Size = new System.Drawing.Size(371, 180);
             this.tvwCollectors.TabIndex = 1;
             this.tvwCollectors.EnterKeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_EnterKeyDown);
             this.tvwCollectors.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.DeleteCollector);
@@ -221,7 +220,7 @@
             this.agentSeparatorBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.agentSeparatorBox.Location = new System.Drawing.Point(0, 188);
             this.agentSeparatorBox.Name = "agentSeparatorBox";
-            this.agentSeparatorBox.Size = new System.Drawing.Size(394, 10);
+            this.agentSeparatorBox.Size = new System.Drawing.Size(384, 10);
             this.agentSeparatorBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.agentSeparatorBox.TabIndex = 39;
             this.agentSeparatorBox.TabStop = false;
@@ -235,7 +234,7 @@
             this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 198);
             this.llblNotifierViewToggle.Name = "llblNotifierViewToggle";
             this.llblNotifierViewToggle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.llblNotifierViewToggle.Size = new System.Drawing.Size(394, 20);
+            this.llblNotifierViewToggle.Size = new System.Drawing.Size(384, 20);
             this.llblNotifierViewToggle.TabIndex = 38;
             this.llblNotifierViewToggle.TabStop = true;
             this.llblNotifierViewToggle.Text = "Show Notifiers";
@@ -283,7 +282,7 @@
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
-            this.tvwNotifiers.Size = new System.Drawing.Size(389, 101);
+            this.tvwNotifiers.Size = new System.Drawing.Size(379, 101);
             this.tvwNotifiers.TabIndex = 3;
             this.tvwNotifiers.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwNotifiers_AfterSelect);
             this.tvwNotifiers.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwNotifiers_NodeMouseDoubleClick);
@@ -316,7 +315,7 @@
             this.toolStripStatusLabelStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 440);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(394, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(384, 22);
             this.statusStrip1.TabIndex = 46;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -330,7 +329,7 @@
             // 
             this.toolStripStatusLabelStatus.AutoSize = false;
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(363, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(353, 17);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.Text = ".";
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -362,7 +361,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pictureBox1.Location = new System.Drawing.Point(0, 430);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(394, 10);
+            this.pictureBox1.Size = new System.Drawing.Size(384, 10);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 45;
             this.pictureBox1.TabStop = false;
@@ -375,7 +374,7 @@
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox2.Location = new System.Drawing.Point(0, 95);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(394, 10);
+            this.pictureBox2.Size = new System.Drawing.Size(384, 10);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 43;
             this.pictureBox2.TabStop = false;
@@ -385,28 +384,15 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader1;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.recentMonitorPacksPanel);
             this.panel1.Controls.Add(this.lblVersion);
             this.panel1.Controls.Add(this.mainToolStrip);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(394, 72);
+            this.panel1.Size = new System.Drawing.Size(384, 72);
             this.panel1.TabIndex = 22;
             this.panel1.MouseEnter += new System.EventHandler(this.HideRecentDropDownList);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe WP", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(278, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 21);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Beta!!!";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // recentMonitorPacksPanel
             // 
@@ -417,7 +403,7 @@
             this.recentMonitorPacksPanel.Controls.Add(this.cboRecentMonitorPacks);
             this.recentMonitorPacksPanel.Location = new System.Drawing.Point(3, 43);
             this.recentMonitorPacksPanel.Name = "recentMonitorPacksPanel";
-            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(379, 26);
+            this.recentMonitorPacksPanel.Size = new System.Drawing.Size(369, 26);
             this.recentMonitorPacksPanel.TabIndex = 5;
             this.recentMonitorPacksPanel.MouseEnter += new System.EventHandler(this.recentMonitorPacksPanel_MouseEnter);
             // 
@@ -446,7 +432,7 @@
             this.cboRecentMonitorPacks.FormattingEnabled = true;
             this.cboRecentMonitorPacks.Location = new System.Drawing.Point(30, 2);
             this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
-            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(346, 23);
+            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(336, 23);
             this.cboRecentMonitorPacks.TabIndex = 0;
             this.cboRecentMonitorPacks.SelectedIndexChanged += new System.EventHandler(this.cboRecentMonitorPacks_SelectedIndexChanged);
             this.cboRecentMonitorPacks.MouseLeave += new System.EventHandler(this.cboRecentMonitorPacks_MouseLeave);
@@ -458,7 +444,7 @@
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lblVersion.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblVersion.Location = new System.Drawing.Point(340, 16);
+            this.lblVersion.Location = new System.Drawing.Point(330, 16);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(51, 23);
             this.lblVersion.TabIndex = 4;
@@ -770,7 +756,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(394, 462);
+            this.ClientSize = new System.Drawing.Size(384, 462);
             this.Controls.Add(this.masterSplitContainer);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
@@ -779,7 +765,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(410, 500);
+            this.MinimumSize = new System.Drawing.Size(400, 500);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuickMon 4";
@@ -863,7 +849,6 @@
         private System.Windows.Forms.ImageList treeImageList;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer showCollectorContextMenuTimer;
         private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
         private System.Windows.Forms.Timer showNotifierContextMenuTimer;

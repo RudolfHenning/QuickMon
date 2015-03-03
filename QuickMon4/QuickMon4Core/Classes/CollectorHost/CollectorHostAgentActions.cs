@@ -318,8 +318,7 @@ namespace QuickMon
                 {
                     if (agentState.ForAgentId > -1 && agentState.ForAgentId < CollectorAgents.Count)
                     {
-                        CollectorAgents[agentState.ForAgentId].CurrentState.ForAgent = CollectorAgents[agentState.ForAgentId].Name;
-                        CollectorAgents[agentState.ForAgentId].CurrentState.State = agentState.State;
+                        CollectorAgents[agentState.ForAgentId].CurrentState.FromXml(agentState.ToXml());
                     }
                 }
             }
@@ -387,10 +386,10 @@ namespace QuickMon
         #endregion
 
         #region Agent details
-        public System.Data.DataSet GetAllAgentDetails()
+        public System.Data.DataSet GetAllAgentDetails(bool forceLocal = false)
         {
             System.Data.DataSet result = new System.Data.DataSet();
-            if (EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings))
+            if ((EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings)) && !forceLocal)
             {
                 result = GetAllAgentDetailsRemote();
             }
@@ -398,19 +397,6 @@ namespace QuickMon
             {
                 result = GetAllAgentDetailsLocal();
             }
-
-            //bool remoteHostEnabled = EnableRemoteExecute || (OverrideRemoteAgentHost && !BlockParentOverrideRemoteAgentHostSettings);
-
-            //foreach(ICollector ca in  CollectorAgents)
-            //{
-            //    List<System.Data.DataTable> dts = ca.GetDetailDataTables();
-            //    foreach (System.Data.DataTable dt in dts)
-            //    {
-            //        if (dt.TableName.Length == 0)
-            //            dt.TableName = ca.Name;
-            //        result.Tables.Add(dt);
-            //    }
-            //}
             return result;
         }
 
