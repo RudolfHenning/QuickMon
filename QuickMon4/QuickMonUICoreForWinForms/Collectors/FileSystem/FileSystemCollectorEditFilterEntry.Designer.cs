@@ -62,6 +62,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.chkUseRegEx = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkIncludeSubDirs = new System.Windows.Forms.CheckBox();
             this.cboFileSizeUnit = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.cboFileAgeUnit = new System.Windows.Forms.ComboBox();
@@ -75,7 +76,6 @@
             this.optDirectoryExistOnly = new System.Windows.Forms.RadioButton();
             this.chkShowFilenamesInDetails = new System.Windows.Forms.CheckBox();
             this.cmdTest = new System.Windows.Forms.Button();
-            this.chkIncludeSubDirs = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileSizeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFileAgeMax)).BeginInit();
@@ -449,6 +449,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File filters";
             // 
+            // chkIncludeSubDirs
+            // 
+            this.chkIncludeSubDirs.AutoSize = true;
+            this.chkIncludeSubDirs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkIncludeSubDirs.Location = new System.Drawing.Point(290, 51);
+            this.chkIncludeSubDirs.Name = "chkIncludeSubDirs";
+            this.chkIncludeSubDirs.Size = new System.Drawing.Size(257, 17);
+            this.chkIncludeSubDirs.TabIndex = 6;
+            this.chkIncludeSubDirs.Text = "Include Sub Directories (Warning - could be slow)";
+            this.chkIncludeSubDirs.UseVisualStyleBackColor = true;
+            // 
             // cboFileSizeUnit
             // 
             this.cboFileSizeUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -617,24 +628,13 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(354, 364);
+            this.cmdTest.Location = new System.Drawing.Point(354, 363);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
             this.cmdTest.TabIndex = 3;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
-            // 
-            // chkIncludeSubDirs
-            // 
-            this.chkIncludeSubDirs.AutoSize = true;
-            this.chkIncludeSubDirs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIncludeSubDirs.Location = new System.Drawing.Point(290, 51);
-            this.chkIncludeSubDirs.Name = "chkIncludeSubDirs";
-            this.chkIncludeSubDirs.Size = new System.Drawing.Size(257, 17);
-            this.chkIncludeSubDirs.TabIndex = 6;
-            this.chkIncludeSubDirs.Text = "Include Sub Directories (Warning - could be slow)";
-            this.chkIncludeSubDirs.UseVisualStyleBackColor = true;
             // 
             // FileSystemCollectorEditFilterEntry
             // 

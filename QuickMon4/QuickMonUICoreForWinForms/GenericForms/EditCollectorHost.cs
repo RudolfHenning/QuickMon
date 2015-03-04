@@ -81,6 +81,8 @@ namespace QuickMon
                 agentsTreeListView.AutoResizeColumnEnabled = true;
                 if (ShowAddAgentsOnStart)
                     CreateAgent();
+                else
+                    txtName.Focus();
             }
             catch(Exception ex)
             {

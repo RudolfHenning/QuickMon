@@ -204,13 +204,14 @@ namespace QuickMon.Collectors
         private void CheckOKEnabled()
         {
             string fullPath = (txtDirectory.Text.Length > 0 && txtDirectory.Text.Contains('%')) ? Environment.ExpandEnvironmentVariables(txtDirectory.Text) : txtDirectory.Text;
-            cmdOK.Enabled = txtDirectory.Text.Length > 0 && System.IO.Directory.Exists(fullPath) &&
+            cmdOK.Enabled = fullPath.Length > 0 && // System.IO.Directory.Exists(fullPath) &&
                     txtFilter.Text.Length > 0 &&
                     (optDirectoryExistOnly.Checked || optCheckIfFilesExistOnly.Checked || optErrorOnFilesExist.Checked ||
                         (numericUpDownCountWarningIndicator.Value > 0 || numericUpDownCountErrorIndicator.Value > 0) ||
                         (numericUpDownSizeWarningIndicator.Value > 0 || numericUpDownSizeErrorIndicator.Value > 0)
                         );
             cmdTest.Enabled = cmdOK.Enabled;
+            txtDirectory.BackColor = (txtDirectory.Text.Length == 0 || (!System.IO.Directory.Exists(fullPath))) ? Color.LightCoral : SystemColors.Window;
         }
         private void SetCheckOptions()
         {
@@ -228,6 +229,7 @@ namespace QuickMon.Collectors
             cboFileSizeIndicatorUnit.Enabled = optCounts.Checked;
             numericUpDownSizeWarningIndicator.Enabled = optCounts.Checked;
             numericUpDownSizeErrorIndicator.Enabled = optCounts.Checked;
+            CheckOKEnabled();
         }
         #endregion
 
