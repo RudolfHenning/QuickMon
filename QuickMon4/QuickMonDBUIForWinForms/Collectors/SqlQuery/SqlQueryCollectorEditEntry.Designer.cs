@@ -473,6 +473,7 @@
             // 
             // stateQueryTabPage
             // 
+            this.stateQueryTabPage.BackColor = System.Drawing.Color.White;
             this.stateQueryTabPage.Controls.Add(this.txtStateQuery);
             this.stateQueryTabPage.Controls.Add(this.panel3);
             this.stateQueryTabPage.Controls.Add(this.panel1);
@@ -482,7 +483,6 @@
             this.stateQueryTabPage.Size = new System.Drawing.Size(632, 347);
             this.stateQueryTabPage.TabIndex = 1;
             this.stateQueryTabPage.Text = "State query";
-            this.stateQueryTabPage.UseVisualStyleBackColor = true;
             // 
             // txtStateQuery
             // 
@@ -498,7 +498,7 @@
         '\'',
         '\''};
             this.txtStateQuery.AutoIndentCharsPatterns = "";
-            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.txtStateQuery.BackBrush = null;
             this.txtStateQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStateQuery.CharHeight = 14;
@@ -786,6 +786,7 @@
             // 
             // detailQueryTabPage
             // 
+            this.detailQueryTabPage.BackColor = System.Drawing.Color.White;
             this.detailQueryTabPage.Controls.Add(this.txtDetailQuery);
             this.detailQueryTabPage.Controls.Add(this.panel4);
             this.detailQueryTabPage.Location = new System.Drawing.Point(4, 22);
@@ -794,7 +795,6 @@
             this.detailQueryTabPage.Size = new System.Drawing.Size(632, 347);
             this.detailQueryTabPage.TabIndex = 2;
             this.detailQueryTabPage.Text = "Detail query";
-            this.detailQueryTabPage.UseVisualStyleBackColor = true;
             // 
             // txtDetailQuery
             // 
@@ -810,7 +810,7 @@
         '\'',
         '\''};
             this.txtDetailQuery.AutoIndentCharsPatterns = "";
-            this.txtDetailQuery.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.txtDetailQuery.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.txtDetailQuery.BackBrush = null;
             this.txtDetailQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDetailQuery.CharHeight = 14;

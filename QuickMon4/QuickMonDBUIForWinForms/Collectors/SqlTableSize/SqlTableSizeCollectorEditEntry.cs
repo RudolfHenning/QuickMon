@@ -18,14 +18,6 @@ namespace QuickMon.Collectors
             InitializeComponent();
         }
 
-        //#region ICollectorConfigEntryEditWindow
-        //public ICollectorConfigEntry SelectedEntry { get; set; }
-        //public QuickMonDialogResult ShowEditEntry()
-        //{
-        //    return (QuickMonDialogResult)ShowDialog();
-        //} 
-        //#endregion
-
         #region Form events
         private void SqlTableSizeCollectorEditEntry_Load(object sender, EventArgs e)
         {
@@ -45,6 +37,7 @@ namespace QuickMon.Collectors
                 LoadDatabases();
                 LoadTables();
             }
+            lvwTables.AutoResizeColumnEnabled = true;
         } 
         #endregion
 
