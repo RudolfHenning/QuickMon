@@ -77,37 +77,41 @@ namespace QuickMon
 
             try
             {
-                //ServiceController[] allServices = ServiceController.GetServices();
-                //ServiceController qm3srvc = (from s in allServices
-                //                             where s.DisplayName == "QuickMon 4 Service"
-                //                             select s).FirstOrDefault();
-                //if (qm3srvc == null)
-                //{
-                //    llblLocalServiceRegistered.Visible = true;
-                //}
-                //else
-                //{
-                //    llblLocalServiceRegistered.Visible = false;
-                //}
-
-                try
+                if (Security.IsInAdminMode())
                 {
-                    llblLocalServiceRegistered.Visible = true;
-                    Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 4 Service");
-                    if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 4 Service")
-                        llblLocalServiceRegistered.Visible = false;
-                }
-                catch { }
+                    llblStartLocalService.Visible = false;
+                    try
+                    {
+                        llblLocalServiceRegistered.Visible = true;
+                        Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 4 Service");
+                        if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 4 Service")
+                        {
+                            llblLocalServiceRegistered.Visible = false;
+                            System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 4 Service");
+                            if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                                llblStartLocalService.Visible = true;
+                        }
+                    }
+                    catch { }
 
-                try
-                {
-                    llblFirewallRule.Visible = true;
-                    Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
-                    string quickMonRule = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A54EA}").ToString();
-                    if (quickMonRule.Length > 0)
-                        llblFirewallRule.Visible = false;
+                    try
+                    {
+                        llblFirewallRule.Visible = true;
+                        Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
+                        string quickMonRule = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A54EA}").ToString();
+                        if (quickMonRule.Length > 0)
+                            llblFirewallRule.Visible = false;
+                    }
+                    catch { }
                 }
-                catch { }
+                else
+                {
+                    llblLocalServiceRegistered.Visible = false;
+                    llblFirewallRule.Visible = false;
+                    llblStartLocalService.Visible = false;
+                }
+
+                
             }
             catch (Exception ex)
             {
@@ -264,6 +268,24 @@ namespace QuickMon
                     lvi.SubItems[2].Text = "Loading...";
                     System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
                 }
+
+                
+                try
+                {
+                    llblStartLocalService.Visible = false;
+                    if (Security.IsInAdminMode())
+                    {
+                        Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 4 Service");
+                        if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 4 Service")
+                        {
+                            llblLocalServiceRegistered.Visible = false;
+                            System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 4 Service");
+                            if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                                llblStartLocalService.Visible = true;
+                        }
+                    }
+                }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -427,11 +449,31 @@ namespace QuickMon
                 try
                 {
                     p.Start();
+                    p.WaitForExit();                    
                 }
                 catch (System.ComponentModel.Win32Exception ex)
                 {
                     System.Diagnostics.Trace.WriteLine(ex.ToString());
                 }
+
+                try
+                {
+                    System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 4 Service");
+                    if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                    {
+                        qsvrc.Start();
+                    }
+
+                    //System.Diagnostics.Process starter = new System.Diagnostics.Process();
+                    //starter.StartInfo = new System.Diagnostics.ProcessStartInfo("sc.exe");
+                    //starter.StartInfo.Arguments = "start \"QuickMon 4 Service\"";
+                    //starter.StartInfo.Verb = "runas";
+                    //starter.Start();
+                    //starter.WaitForExit();
+                    //MessageBox.Show("Service started", "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch{}
+                
             }
         }
         private void llblFirewallRule_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -460,6 +502,28 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void llblStartLocalService_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+             try
+             {
+                 System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 4 Service");
+                 if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                 {
+                     qsvrc.Start();
+                     qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                     qsvrc.Refresh();
+                     if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                     {
+                         MessageBox.Show("Service started", "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                         llblStartLocalService.Visible = false;
+                     }
+                 }
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+             }
         }
         #endregion
 
@@ -570,6 +634,8 @@ namespace QuickMon
             }
         }        
         #endregion
+
+
 
     }
 }

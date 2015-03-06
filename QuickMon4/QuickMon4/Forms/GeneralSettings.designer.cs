@@ -75,6 +75,7 @@
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.llblStartLocalService = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -383,6 +384,7 @@
             // tabPageRemoteHosts
             // 
             this.tabPageRemoteHosts.BackColor = System.Drawing.Color.White;
+            this.tabPageRemoteHosts.Controls.Add(this.llblStartLocalService);
             this.tabPageRemoteHosts.Controls.Add(this.cmdAdd);
             this.tabPageRemoteHosts.Controls.Add(this.llblFirewallRule);
             this.tabPageRemoteHosts.Controls.Add(this.remoteportNumericUpDown);
@@ -601,6 +603,19 @@
             this.panel1.Size = new System.Drawing.Size(459, 31);
             this.panel1.TabIndex = 11;
             // 
+            // llblStartLocalService
+            // 
+            this.llblStartLocalService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblStartLocalService.AutoSize = true;
+            this.llblStartLocalService.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblStartLocalService.Location = new System.Drawing.Point(6, 154);
+            this.llblStartLocalService.Name = "llblStartLocalService";
+            this.llblStartLocalService.Size = new System.Drawing.Size(170, 13);
+            this.llblStartLocalService.TabIndex = 8;
+            this.llblStartLocalService.TabStop = true;
+            this.llblStartLocalService.Text = "Start local \'Remote Agent/Service\'";
+            this.llblStartLocalService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblStartLocalService_LinkClicked);
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -685,5 +700,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox chkUseTemplates;
         private System.Windows.Forms.CheckBox chkCreateBackupOnSave;
+        private System.Windows.Forms.LinkLabel llblStartLocalService;
     }
 }
