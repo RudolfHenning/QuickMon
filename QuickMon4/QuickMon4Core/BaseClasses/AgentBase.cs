@@ -40,7 +40,7 @@ namespace QuickMon
                     else if (AgentConfig != null)
                         activeConfiguration = AgentConfig.ToXml();
                 }
-                return initialConfiguration;
+                return activeConfiguration;
             }
             set { activeConfiguration = value; }
         }
