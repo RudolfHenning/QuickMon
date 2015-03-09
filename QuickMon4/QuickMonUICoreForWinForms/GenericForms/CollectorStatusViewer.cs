@@ -23,6 +23,8 @@ namespace QuickMon.Forms
         public CollectorHost SelectedCollectorHost { get; set; }
 
         private CollectorAgentsDetailViewer detailViewer = null;
+        private int previousCurrentStateValueCount = 0;
+        private int previousPreviousStateValueCount = 0;
         private bool agentsDetailsDataFirstTimeLoaded = false;
 
         #region Form events
@@ -114,12 +116,27 @@ namespace QuickMon.Forms
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state Alerts raised", SelectedCollectorHost.CurrentState.AlertsRaised.Count > 0 ? "Yes" : "No");
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state Alerts details", SelectedCollectorHost.CurrentState.AlertsRaised, SelectedCollectorHost.CurrentState.AlertsRaised.Count > 0);
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state details", SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+
                 List<string> values = ReadValues(SelectedCollectorHost.CurrentState);
                 if (values != null && values.Count > 0)
                 {
                     for (int i = 0; i < values.Count; i++)
                         AddUpdateListViewItem(lvwProperties, "Current state", "Current state value:" + (i + 1).ToString(), values[i]);
-                }                
+                }
+                if (values != null && values.Count > 0)
+                {
+                    if (previousCurrentStateValueCount > 0 && values.Count < previousCurrentStateValueCount)
+                    {
+                        for (int i = values.Count; i < previousCurrentStateValueCount + 1; i++)
+                            AddUpdateListViewItem(lvwProperties, "Current state", "Current state value:" + (i + 1).ToString(), "", false);
+                    }
+                    previousCurrentStateValueCount = values.Count;
+                }
+                else
+                {
+                    previousCurrentStateValueCount = 0;
+                }
+
 
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.State.ToString());
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state time", SelectedCollectorHost.PreviousState == null ? "N/A" : FormatDate(SelectedCollectorHost.PreviousState.Timestamp));
@@ -136,6 +153,19 @@ namespace QuickMon.Forms
                         for (int i = 0; i < values.Count; i++)
                             AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state value:" + (i + 1).ToString(), values[i]);
                     }                    
+                }
+                if (values != null && values.Count > 0)
+                {
+                    if (previousPreviousStateValueCount > 0 && values.Count < previousPreviousStateValueCount)
+                    {
+                        for (int i = values.Count; i < previousPreviousStateValueCount + 1; i++)
+                            AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state value:" + (i + 1).ToString(), "", false);
+                    }
+                    previousPreviousStateValueCount = values.Count;
+                }
+                else
+                {
+                    previousPreviousStateValueCount = 0;
                 }
 
                 bool remoteHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
