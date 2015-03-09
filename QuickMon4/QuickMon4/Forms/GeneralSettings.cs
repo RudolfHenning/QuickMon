@@ -251,7 +251,6 @@ namespace QuickMon
             }
         }
 
-
         #region Refresh statusses
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
@@ -462,7 +461,10 @@ namespace QuickMon
                     if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
                     {
                         qsvrc.Start();
+                        qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
                     }
+
+                    RefreshServiceStates();
 
                     //System.Diagnostics.Process starter = new System.Diagnostics.Process();
                     //starter.StartInfo = new System.Diagnostics.ProcessStartInfo("sc.exe");
@@ -492,11 +494,26 @@ namespace QuickMon
                 try
                 {
                     p.Start();
+                    p.WaitForExit();
                 }
                 catch (System.ComponentModel.Win32Exception ex)
                 {
                     System.Diagnostics.Trace.WriteLine(ex.ToString());
                 }
+
+                try
+                {
+                    System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
+                    if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                    {
+                        firewallSrvs.Stop();
+                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+                        firewallSrvs.Start();
+                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                    }
+                    llblFirewallRule.Visible = false; 
+                }
+                catch { }
             }
             catch (Exception ex)
             {
