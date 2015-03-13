@@ -12,8 +12,9 @@ namespace QuickMon
         #region IRemoteCollectorHostService
         public MonitorState GetState(QuickMon.RemoteCollectorHost entry)
         {
+            StringBuilder consoleOutPut = new StringBuilder();
             MonitorState monitorState = new MonitorState();
-            Console.WriteLine("{0}: Running collector host: {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
+            Console.WriteLine("{0}: Running collector host: {1}\r\n{2}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name, new string('*', 79));
             try
             {
                 string collectorHostConfig = entry.ToCollectorHostXml();
@@ -41,42 +42,67 @@ namespace QuickMon
                     monitorState.State = CollectorState.Error;
                 }
                 //If hosted in console test app
-                Console.WriteLine(" State   : {0}", monitorState.State);
-                Console.WriteLine(" Details : {0}", monitorState.RawDetails);
+                consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
+                consoleOutPut.AppendFormat(" State   : {0}\r\n", monitorState.State);
+                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());                
             }
             catch (Exception ex)
             {
-                Console.WriteLine(" Error: {0}", ex);
+                consoleOutPut.AppendFormat(" Error: {0}\r\n", ex);
                 monitorState.CurrentValue = ex.Message;
                 monitorState.State = CollectorState.Error;
                 monitorState.RawDetails = ex.ToString();
                 monitorState.HtmlDetails= ex.ToString().EscapeXml();
             }
+            consoleOutPut.AppendLine(new string('*', 79));
+            Console.WriteLine(consoleOutPut.ToString());
+
             monitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
             return monitorState;
         }
         public string GetQuickMonCoreVersion()
         {
+            StringBuilder consoleOutPut = new StringBuilder();
             string versionInfo = System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString();
-            Console.WriteLine("Version request response: {0}", versionInfo);
+            consoleOutPut.AppendFormat("Version request response: {0}\r\n", versionInfo);
+            consoleOutPut.AppendLine(new string('*', 79));
+            Console.WriteLine(consoleOutPut.ToString());
             return versionInfo;
         }
         public System.Data.DataSet GetCollectorHostDetails(QuickMon.RemoteCollectorHost entry)
         {
+            StringBuilder consoleOutPut = new StringBuilder();
             System.Data.DataSet result = new System.Data.DataSet();
             try
             {
+                Console.WriteLine("{0}: Getting collector host data set: {1}\r\n{2}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name, new string('*', 79));
                 CollectorHost ch = CollectorHost.FromXml(entry.ToCollectorHostXml());
                 result = ch.GetAllAgentDetails();
+                consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
+                consoleOutPut.AppendFormat("  Data set request received: {0}\r\n", entry.Name);
+                if (result != null)
+                {
+                    consoleOutPut.AppendFormat("   Tables: {0}\r\n", result.Tables.Count);
+                    for(int i = 0; i < result.Tables.Count; i++)
+                    {
+                        consoleOutPut.AppendFormat("    Table[{0}]: {1} row(s)\r\n", i, result.Tables[i].Rows.Count);
+                    }
+                }
+                else
+                {
+                    consoleOutPut.AppendFormat("  Warning! Data set is empty!\r\n");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(" Error: {0}", ex);
+                consoleOutPut.AppendFormat(" Error: {0}\r\n", ex);
                 System.Data.DataTable dt = new System.Data.DataTable("Exception");
                 dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
                 dt.Rows.Add(ex.ToString());
                 result.Tables.Add(dt);                
             }
+            consoleOutPut.AppendLine(new string('*', 79));
+            Console.WriteLine(consoleOutPut.ToString());
             return result;
         }
         //public System.Data.DataSet GetAgentDetails(string collectorAgentConfig)
