@@ -41,9 +41,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonDirectoryServicesAg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonDirectoryServicesUIForWinForms", "QuickMonDirectoryServicesUIForWinForms\QuickMonDirectoryServicesUIForWinForms.csproj", "{7C245836-F666-4010-910E-D3439E1E2899}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonRemoteHostCMD", "QuickMonRemoteHostCMD\QuickMonRemoteHostCMD.csproj", "{6577F037-F559-47B0-8DAE-21C13C6C0B75}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
+		SccNumberOfProjects = 19
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -111,6 +113,9 @@ Global
 		SccProjectTopLevelParentUniqueName17 = QuickMon4.sln
 		SccProjectName17 = QuickMonDirectoryServicesUIForWinForms
 		SccLocalPath17 = QuickMonDirectoryServicesUIForWinForms
+		SccProjectUniqueName18 = QuickMonRemoteHostCMD\\QuickMonRemoteHostCMD.csproj
+		SccProjectName18 = QuickMonRemoteHostCMD
+		SccLocalPath18 = QuickMonRemoteHostCMD
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,6 +190,10 @@ Global
 		{7C245836-F666-4010-910E-D3439E1E2899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C245836-F666-4010-910E-D3439E1E2899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C245836-F666-4010-910E-D3439E1E2899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
