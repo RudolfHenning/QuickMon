@@ -195,14 +195,19 @@ namespace HenIT.Security
             }
         }
 
-        public static void RestartInAdminMode()
+
+        public static bool HasAdminMode()
+        {
+            return System.Environment.OSVersion.Version.Major >= 6;
+        }
+        public static void RestartInAdminMode(string appTaskId = "")
         {
             if (!IsInAdminMode())
             {
                 //Only Vista or higher
-                if ((System.Environment.OSVersion.Version.Major >= 6) && CheckIfAdminLaunchTaskExist())
+                if ((System.Environment.OSVersion.Version.Major >= 6) && CheckIfAdminLaunchTaskExist(appTaskId))
                 {
-                    ReStartWithAdminModeLaunchTask();
+                    ReStartWithAdminModeLaunchTask(appTaskId);
                 }
                 else
                 {
@@ -235,6 +240,30 @@ namespace HenIT.Security
                 return;
             }
 
+            Application.Exit();
+        }
+
+        internal static void RestartInNonAdminMode()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            startInfo.UseShellExecute = true;
+            startInfo.WorkingDirectory = Environment.CurrentDirectory;
+            startInfo.FileName = "Explorer.exe";
+            startInfo.Arguments = Application.ExecutablePath;
+            try
+            {
+                Process p = Process.Start(startInfo);
+                //System.Threading.Thread.Sleep(1000);
+                //ShowWindow( p.MainWindowHandle, 5);
+                //p.WaitForInputIdle(); //this is the key!!
+                //System.Threading.Thread.Sleep(500);
+                //SetForegroundWindow(p.MainWindowHandle);
+            }
+            catch (System.ComponentModel.Win32Exception) // ex)
+            {
+                return;
+            }
             Application.Exit();
         }
     }

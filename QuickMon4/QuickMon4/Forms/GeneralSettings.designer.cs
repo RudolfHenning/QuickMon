@@ -43,18 +43,24 @@
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
-            this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
-            this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkDisableAutoAdminMode = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkPinToTaskbar = new System.Windows.Forms.CheckBox();
+            this.chkDesktopShortcut = new System.Windows.Forms.CheckBox();
+            this.chkPinToStartMenu = new System.Windows.Forms.CheckBox();
             this.chkCreateBackupOnSave = new System.Windows.Forms.CheckBox();
             this.chkUseTemplates = new System.Windows.Forms.CheckBox();
+            this.recentTabPage = new System.Windows.Forms.TabPage();
+            this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
+            this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabPageRemoteHosts = new System.Windows.Forms.TabPage();
+            this.llblStartLocalService = new System.Windows.Forms.LinkLabel();
             this.cmdAdd = new System.Windows.Forms.Button();
             this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
             this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -75,13 +81,13 @@
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.llblStartLocalService = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.recentTabPage.SuspendLayout();
             this.tabPageRemoteHosts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.remoteHostListContextMenuStrip.SuspendLayout();
@@ -253,62 +259,15 @@
             this.chkPollingEnabled.Text = "Enable polling";
             this.chkPollingEnabled.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.chkDisplayFullPathForQuickRecentEntries);
-            this.groupBox4.Controls.Add(this.cmdEditQuickSelectTypeFilters);
-            this.groupBox4.Controls.Add(this.txtRecentMonitorPackFilter);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Location = new System.Drawing.Point(15, 39);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(412, 78);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Recent Montor pack file list";
-            // 
-            // chkDisplayFullPathForQuickRecentEntries
-            // 
-            this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
-            this.chkDisplayFullPathForQuickRecentEntries.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(14, 45);
-            this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
-            this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(184, 17);
-            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 3;
-            this.chkDisplayFullPathForQuickRecentEntries.Text = "Display full path in quick select list";
-            this.chkDisplayFullPathForQuickRecentEntries.UseVisualStyleBackColor = true;
-            // 
-            // cmdEditQuickSelectTypeFilters
-            // 
-            this.cmdEditQuickSelectTypeFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(361, 17);
-            this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
-            this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
-            this.cmdEditQuickSelectTypeFilters.TabIndex = 2;
-            this.cmdEditQuickSelectTypeFilters.Text = "- - -";
-            this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
-            this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
-            // 
             // txtRecentMonitorPackFilter
             // 
             this.txtRecentMonitorPackFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(169, 19);
+            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 11);
             this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
             this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(186, 20);
             this.txtRecentMonitorPackFilter.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtRecentMonitorPackFilter, "* - All, use ~ for exclude");
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Quick select Type Filters (csv)";
             // 
             // tabControl1
             // 
@@ -317,12 +276,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.recentTabPage);
             this.tabControl1.Controls.Add(this.tabPageRemoteHosts);
             this.tabControl1.Location = new System.Drawing.Point(3, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(456, 201);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
@@ -347,10 +307,11 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.chkDisableAutoAdminMode);
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.chkCreateBackupOnSave);
             this.tabPage2.Controls.Add(this.chkUseTemplates);
             this.tabPage2.Controls.Add(this.chkSnapToDesktop);
-            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.chkAutosaveChanges);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -359,6 +320,67 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Application";
             // 
+            // chkDisableAutoAdminMode
+            // 
+            this.chkDisableAutoAdminMode.AutoSize = true;
+            this.chkDisableAutoAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(7, 115);
+            this.chkDisableAutoAdminMode.Name = "chkDisableAutoAdminMode";
+            this.chkDisableAutoAdminMode.Size = new System.Drawing.Size(399, 17);
+            this.chkDisableAutoAdminMode.TabIndex = 5;
+            this.chkDisableAutoAdminMode.Text = "Disable automatic Admin mode (Must be in Admin mode to remove existing task)";
+            this.chkDisableAutoAdminMode.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkPinToTaskbar);
+            this.groupBox1.Controls.Add(this.chkDesktopShortcut);
+            this.groupBox1.Controls.Add(this.chkPinToStartMenu);
+            this.groupBox1.Location = new System.Drawing.Point(6, 36);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(412, 50);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Shortcuts";
+            // 
+            // chkPinToTaskbar
+            // 
+            this.chkPinToTaskbar.AutoSize = true;
+            this.chkPinToTaskbar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkPinToTaskbar.Location = new System.Drawing.Point(19, 19);
+            this.chkPinToTaskbar.Name = "chkPinToTaskbar";
+            this.chkPinToTaskbar.Size = new System.Drawing.Size(93, 17);
+            this.chkPinToTaskbar.TabIndex = 0;
+            this.chkPinToTaskbar.Text = "Pin to Taskbar";
+            this.chkPinToTaskbar.UseVisualStyleBackColor = true;
+            this.chkPinToTaskbar.CheckedChanged += new System.EventHandler(this.chkPinToTaskbar_CheckedChanged);
+            // 
+            // chkDesktopShortcut
+            // 
+            this.chkDesktopShortcut.AutoSize = true;
+            this.chkDesktopShortcut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkDesktopShortcut.Location = new System.Drawing.Point(234, 19);
+            this.chkDesktopShortcut.Name = "chkDesktopShortcut";
+            this.chkDesktopShortcut.Size = new System.Drawing.Size(152, 17);
+            this.chkDesktopShortcut.TabIndex = 2;
+            this.chkDesktopShortcut.Text = "Create shortcut on desktop";
+            this.chkDesktopShortcut.UseVisualStyleBackColor = true;
+            this.chkDesktopShortcut.CheckedChanged += new System.EventHandler(this.chkDesktopShortcut_CheckedChanged);
+            // 
+            // chkPinToStartMenu
+            // 
+            this.chkPinToStartMenu.AutoSize = true;
+            this.chkPinToStartMenu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkPinToStartMenu.Location = new System.Drawing.Point(120, 19);
+            this.chkPinToStartMenu.Name = "chkPinToStartMenu";
+            this.chkPinToStartMenu.Size = new System.Drawing.Size(106, 17);
+            this.chkPinToStartMenu.TabIndex = 1;
+            this.chkPinToStartMenu.Text = "Pin to Start Menu";
+            this.chkPinToStartMenu.UseVisualStyleBackColor = true;
+            this.chkPinToStartMenu.CheckedChanged += new System.EventHandler(this.chkPinToStartMenu_CheckedChanged);
+            // 
             // chkCreateBackupOnSave
             // 
             this.chkCreateBackupOnSave.AutoSize = true;
@@ -366,7 +388,7 @@
             this.chkCreateBackupOnSave.Location = new System.Drawing.Point(271, 13);
             this.chkCreateBackupOnSave.Name = "chkCreateBackupOnSave";
             this.chkCreateBackupOnSave.Size = new System.Drawing.Size(160, 17);
-            this.chkCreateBackupOnSave.TabIndex = 5;
+            this.chkCreateBackupOnSave.TabIndex = 2;
             this.chkCreateBackupOnSave.Text = "Back up previous saved files";
             this.chkCreateBackupOnSave.UseVisualStyleBackColor = true;
             // 
@@ -374,12 +396,58 @@
             // 
             this.chkUseTemplates.AutoSize = true;
             this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseTemplates.Location = new System.Drawing.Point(15, 123);
+            this.chkUseTemplates.Location = new System.Drawing.Point(7, 92);
             this.chkUseTemplates.Name = "chkUseTemplates";
             this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
             this.chkUseTemplates.TabIndex = 4;
             this.chkUseTemplates.Text = "Use \'Templates\' when creating new objects (Monitor packs and Agent hosts)";
             this.chkUseTemplates.UseVisualStyleBackColor = true;
+            // 
+            // recentTabPage
+            // 
+            this.recentTabPage.BackColor = System.Drawing.Color.White;
+            this.recentTabPage.Controls.Add(this.chkDisplayFullPathForQuickRecentEntries);
+            this.recentTabPage.Controls.Add(this.cmdEditQuickSelectTypeFilters);
+            this.recentTabPage.Controls.Add(this.txtRecentMonitorPackFilter);
+            this.recentTabPage.Controls.Add(this.label5);
+            this.recentTabPage.Location = new System.Drawing.Point(4, 22);
+            this.recentTabPage.Name = "recentTabPage";
+            this.recentTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.recentTabPage.Size = new System.Drawing.Size(448, 175);
+            this.recentTabPage.TabIndex = 3;
+            this.recentTabPage.Text = "Recent";
+            // 
+            // chkDisplayFullPathForQuickRecentEntries
+            // 
+            this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
+            this.chkDisplayFullPathForQuickRecentEntries.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(21, 37);
+            this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
+            this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(184, 17);
+            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 3;
+            this.chkDisplayFullPathForQuickRecentEntries.Text = "Display full path in quick select list";
+            this.chkDisplayFullPathForQuickRecentEntries.UseVisualStyleBackColor = true;
+            // 
+            // cmdEditQuickSelectTypeFilters
+            // 
+            this.cmdEditQuickSelectTypeFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(356, 9);
+            this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
+            this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
+            this.cmdEditQuickSelectTypeFilters.TabIndex = 2;
+            this.cmdEditQuickSelectTypeFilters.Text = "- - -";
+            this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
+            this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(149, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Quick select Type Filters (csv)";
             // 
             // tabPageRemoteHosts
             // 
@@ -399,6 +467,19 @@
             this.tabPageRemoteHosts.Size = new System.Drawing.Size(448, 175);
             this.tabPageRemoteHosts.TabIndex = 2;
             this.tabPageRemoteHosts.Text = "Remote hosts";
+            // 
+            // llblStartLocalService
+            // 
+            this.llblStartLocalService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblStartLocalService.AutoSize = true;
+            this.llblStartLocalService.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblStartLocalService.Location = new System.Drawing.Point(6, 154);
+            this.llblStartLocalService.Name = "llblStartLocalService";
+            this.llblStartLocalService.Size = new System.Drawing.Size(170, 13);
+            this.llblStartLocalService.TabIndex = 8;
+            this.llblStartLocalService.TabStop = true;
+            this.llblStartLocalService.Text = "Start local \'Remote Agent/Service\'";
+            this.llblStartLocalService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblStartLocalService_LinkClicked);
             // 
             // cmdAdd
             // 
@@ -603,19 +684,6 @@
             this.panel1.Size = new System.Drawing.Size(459, 31);
             this.panel1.TabIndex = 11;
             // 
-            // llblStartLocalService
-            // 
-            this.llblStartLocalService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblStartLocalService.AutoSize = true;
-            this.llblStartLocalService.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblStartLocalService.Location = new System.Drawing.Point(6, 154);
-            this.llblStartLocalService.Name = "llblStartLocalService";
-            this.llblStartLocalService.Size = new System.Drawing.Size(170, 13);
-            this.llblStartLocalService.TabIndex = 8;
-            this.llblStartLocalService.TabStop = true;
-            this.llblStartLocalService.Text = "Start local \'Remote Agent/Service\'";
-            this.llblStartLocalService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblStartLocalService_LinkClicked);
-            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -638,13 +706,15 @@
             this.Shown += new System.EventHandler(this.GeneralSettings_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.recentTabPage.ResumeLayout(false);
+            this.recentTabPage.PerformLayout();
             this.tabPageRemoteHosts.ResumeLayout(false);
             this.tabPageRemoteHosts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
@@ -667,12 +737,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkOverridesMonitorPackFrequency;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox txtRecentMonitorPackFilter;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button cmdEditQuickSelectTypeFilters;
-        private System.Windows.Forms.CheckBox chkDisplayFullPathForQuickRecentEntries;
         private System.Windows.Forms.CheckBox chkPausePollingDuringEditConfig;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -701,5 +766,15 @@
         private System.Windows.Forms.CheckBox chkUseTemplates;
         private System.Windows.Forms.CheckBox chkCreateBackupOnSave;
         private System.Windows.Forms.LinkLabel llblStartLocalService;
+        private System.Windows.Forms.TabPage recentTabPage;
+        private System.Windows.Forms.CheckBox chkDisplayFullPathForQuickRecentEntries;
+        private System.Windows.Forms.Button cmdEditQuickSelectTypeFilters;
+        private System.Windows.Forms.TextBox txtRecentMonitorPackFilter;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkPinToTaskbar;
+        private System.Windows.Forms.CheckBox chkDesktopShortcut;
+        private System.Windows.Forms.CheckBox chkPinToStartMenu;
+        private System.Windows.Forms.CheckBox chkDisableAutoAdminMode;
     }
 }

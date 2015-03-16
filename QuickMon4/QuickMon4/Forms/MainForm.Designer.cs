@@ -85,6 +85,7 @@
             this.customPollingFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartInNonAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
@@ -469,7 +470,7 @@
             this.aboutToolStripMenuItem1});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(260, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(291, 35);
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -645,7 +646,8 @@
             this.generalSettingsToolStripSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pollingToolStripMenuItem1,
             this.manageTemplatesToolStripMenuItem,
-            this.restartInAdminModeToolStripMenuItem});
+            this.restartInAdminModeToolStripMenuItem,
+            this.restartInNonAdminModeToolStripMenuItem});
             this.generalSettingsToolStripSplitButton.Image = global::QuickMon.Properties.Resources.tools;
             this.generalSettingsToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.generalSettingsToolStripSplitButton.Name = "generalSettingsToolStripSplitButton";
@@ -665,7 +667,7 @@
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(202, 22);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(236, 34);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -707,7 +709,7 @@
             // 
             this.manageTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new;
             this.manageTemplatesToolStripMenuItem.Name = "manageTemplatesToolStripMenuItem";
-            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
             this.manageTemplatesToolStripMenuItem.Text = "Manage Templates";
             this.manageTemplatesToolStripMenuItem.Click += new System.EventHandler(this.manageTemplatesToolStripMenuItem_Click);
             // 
@@ -715,9 +717,17 @@
             // 
             this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
             this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
-            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
             this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
             this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
+            // 
+            // restartInNonAdminModeToolStripMenuItem
+            // 
+            this.restartInNonAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Non_Admin;
+            this.restartInNonAdminModeToolStripMenuItem.Name = "restartInNonAdminModeToolStripMenuItem";
+            this.restartInNonAdminModeToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.restartInNonAdminModeToolStripMenuItem.Text = "Restart in Non-Admin mode";
+            this.restartInNonAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInNonAdminModeToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
@@ -854,6 +864,7 @@
         private System.Windows.Forms.Timer showNotifierContextMenuTimer;
         private Controls.TreeViewExBase tvwNotifiers;
         private System.Windows.Forms.ImageList notifierImageList;
+        private System.Windows.Forms.ToolStripMenuItem restartInNonAdminModeToolStripMenuItem;
     }
 }
 

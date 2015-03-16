@@ -101,7 +101,7 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;4.0.0.0&quot; name=&quot;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; defaultNotifier=&quot;Default Notifier&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot;&gt;
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;4.0.0.0&quot; name=&quot;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot;&gt;
         ///	&lt;configVars /&gt;
         ///    &lt;collectorHosts&gt;
         ///	&lt;/collectorHosts&gt;
@@ -109,7 +109,8 @@ namespace QuickMon.Properties {
         ///		&lt;notifierHost name=&quot;Default Notifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
         ///			&lt;notifierAgents&gt;
         ///				&lt;notifierAgent name=&quot;Memory agent&quot; type=&quot;InMemoryNotifier&quot;&gt;
-        ///					&lt;config&gt;&lt;inMemory maxE [rest of string was truncated]&quot;;.
+        ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
+        ///				 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankMonitorPack {
             get {
@@ -415,6 +416,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap MenuBlueShade {
             get {
                 object obj = ResourceManager.GetObject("MenuBlueShade", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Non_Admin {
+            get {
+                object obj = ResourceManager.GetObject("Non-Admin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
