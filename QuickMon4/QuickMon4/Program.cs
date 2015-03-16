@@ -35,7 +35,10 @@ namespace QuickMon
             {
                 if (HenIT.Security.AdminModeTools.IsInAdminMode())
                 {
-                    HenIT.Security.AdminModeTools.CreateAdminLaunchTask();
+                    if (Properties.Settings.Default.DisableAutoAdminMode)
+                        HenIT.Security.AdminModeTools.DeleteAdminLaunchTask(AppGlobals.AppTaskId);
+                    else 
+                        HenIT.Security.AdminModeTools.CreateAdminLaunchTask(AppGlobals.AppTaskId);
                 }
             }
             catch { }

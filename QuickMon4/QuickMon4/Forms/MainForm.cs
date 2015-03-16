@@ -109,6 +109,7 @@ namespace QuickMon
             //lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
+            restartInNonAdminModeToolStripMenuItem.Visible = Security.IsInAdminMode() && HenIT.Security.AdminModeTools.HasAdminMode();
 
             SetUpContextMenus();
         }        
@@ -1808,7 +1809,7 @@ namespace QuickMon
         }
         #endregion
 
-        #region Private methods       
+        #region Private methods
         private bool PerformCleanShutdown(bool abortAllowed = false)
         {
             bool notAborted = true;
@@ -1874,7 +1875,7 @@ namespace QuickMon
         }
         private void UpdateAppTitle()
         {
-            Text = "QuickMon 4";
+            Text = AppGlobals.AppId;
             if (monitorPackChanged)
                 Text += "*";
             if (monitorPack != null)
@@ -2349,9 +2350,17 @@ namespace QuickMon
             if (!HenIT.Security.AdminModeTools.IsInAdminMode())
             {
                 Properties.Settings.Default.Save();
-                HenIT.Security.AdminModeTools.RestartInAdminMode();
+                HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
             }
             //Security.RestartInAdminMode(Application.ExecutablePath);
+        }
+        private void restartInNonAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (HenIT.Security.AdminModeTools.IsInAdminMode() && HenIT.Security.AdminModeTools.HasAdminMode())
+            {
+                Properties.Settings.Default.Save();
+                HenIT.Security.AdminModeTools.RestartInNonAdminMode();
+            }
         }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2602,7 +2611,7 @@ namespace QuickMon
 #endif
         }
 
-       
+
 
     }
 }

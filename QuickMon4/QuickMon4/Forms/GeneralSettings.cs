@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HenIT.ShellTools;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,6 +52,7 @@ namespace QuickMon
         private bool loading = false;
         private bool freChanging = false;
         private bool remoteListLoaded = false;
+        private bool shortcutChanged = false;
 
         public int PollingFrequencySec { get; set; }
         public bool PollingEnabled { get; set; }
@@ -74,6 +76,8 @@ namespace QuickMon
 
             chkPollingEnabled.Checked = PollingEnabled;
             chkUseTemplates.Checked = Properties.Settings.Default.UseTemplatesForNewObjects;
+            chkDisableAutoAdminMode.Checked = Properties.Settings.Default.DisableAutoAdminMode;
+            //chkDisableAutoAdminMode.Enabled = Security.IsInAdminMode();
 
             try
             {
@@ -111,7 +115,9 @@ namespace QuickMon
                     llblStartLocalService.Visible = false;
                 }
 
-                
+                chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
+                chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
+                chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists(AppGlobals.AppId);
             }
             catch (Exception ex)
             {
@@ -128,6 +134,42 @@ namespace QuickMon
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (shortcutChanged)
+                {
+                    Shortcuts.UnPinToTaskBar(); //just to make sure old instance is renewed
+                    Shortcuts.UnPinToStartMenu();
+                    Shortcuts.DeleteDesktopShortcut("", AppGlobals.AppId);
+
+                    if (chkPinToTaskbar.Checked)
+                    {                        
+                        Shortcuts.PinToTaskBar();
+                    }
+                    if (chkPinToStartMenu.Checked)
+                    {
+                        Shortcuts.PinToStartMenu();
+                    }
+                    if (chkDesktopShortcut.Checked)
+                    {
+                        Shortcuts.CreateDesktopShortcut("", AppGlobals.AppId);
+                    }
+                }
+            }
+            catch { }
+            try
+            {
+                if (Security.IsInAdminMode() && chkDisableAutoAdminMode.Checked)
+                {
+                    HenIT.Security.AdminModeTools.DeleteAdminLaunchTask(AppGlobals.AppTaskId);
+                }
+                else if (Security.IsInAdminMode() && !HenIT.Security.AdminModeTools.CheckIfAdminLaunchTaskExist(AppGlobals.AppTaskId))
+                {
+                    HenIT.Security.AdminModeTools.CreateAdminLaunchTask(AppGlobals.AppTaskId);
+                }
+            }
+            catch { }
+
             PollingFrequencySec = (int)freqSecNumericUpDown.Value;
             PollingEnabled = chkPollingEnabled.Checked;
             Properties.Settings.Default.ConcurrencyLevel = (int)concurrencyLevelNnumericUpDown.Value;
@@ -138,6 +180,7 @@ namespace QuickMon
             Properties.Settings.Default.ShowFullPathForQuickRecentist = chkDisplayFullPathForQuickRecentEntries.Checked;
             Properties.Settings.Default.PausePollingDuringEditConfig = chkPausePollingDuringEditConfig.Checked;
             Properties.Settings.Default.UseTemplatesForNewObjects = chkUseTemplates.Checked;
+            Properties.Settings.Default.DisableAutoAdminMode = chkDisableAutoAdminMode.Checked;
             if (txtRecentMonitorPackFilter.Text.Trim().Length == 0)
                 Properties.Settings.Default.RecentQMConfigFileFilters = "*";
             else 
@@ -199,55 +242,6 @@ namespace QuickMon
                     RefreshServiceStates();
                     remoteListLoaded = true;
                 }
-            }
-        }
-
-        private void LoadKnownRemoteHosts()
-        {
-            ListViewItem lvi;
-            if (Properties.Settings.Default.KnownRemoteHosts == null)
-                Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
-            else
-            {
-
-                foreach (string rh in (from string s in Properties.Settings.Default.KnownRemoteHosts
-                                       orderby s
-                                       select s))
-                {
-                    try
-                    {
-                        RemoteAgentInfo ri = RemoteAgentInfo.FromString(rh);
-                        lvi = new ListViewItem(ri.Computer);
-                        lvi.SubItems.Add(ri.PortNumber.ToString());
-                        string computerNameOnly = rh;
-
-                        lvi.SubItems.Add(""); //Version info to be added afterwards
-                        lvi.Tag = ri;
-                        lvi.ImageIndex = 0;
-                        lvwRemoteHosts.Items.Add(lvi);
-                    }
-                    catch { }
-                }
-            }
-        }
-        private void RefreshServiceStates()
-        {
-            refreshTimer.Enabled = false;
-            refreshTimer.Enabled = true;
-        }
-        private void UpdateListViewItem(ListViewItem lvi, int imageIndex, string statusText)
-        {
-            try
-            {
-                lvwRemoteHosts.Invoke((MethodInvoker)delegate
-                {
-                    lvi.ImageIndex = imageIndex;
-                    lvi.SubItems[2].Text = statusText;
-                });
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Trace.WriteLine(ex.ToString());
             }
         }
 
@@ -575,6 +569,74 @@ namespace QuickMon
         }
         #endregion
 
+        #region Context menu events
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshServiceStates();
+        }
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                foreach (int index in (from int i in lvwRemoteHosts.SelectedIndices
+                                       orderby i descending
+                                       select i))
+                {
+                    lvwRemoteHosts.Items.RemoveAt(index);
+                }
+            }
+        }        
+        #endregion
+
+        #region Remote hosts
+        private void LoadKnownRemoteHosts()
+        {
+            ListViewItem lvi;
+            if (Properties.Settings.Default.KnownRemoteHosts == null)
+                Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
+            else
+            {
+
+                foreach (string rh in (from string s in Properties.Settings.Default.KnownRemoteHosts
+                                       orderby s
+                                       select s))
+                {
+                    try
+                    {
+                        RemoteAgentInfo ri = RemoteAgentInfo.FromString(rh);
+                        lvi = new ListViewItem(ri.Computer);
+                        lvi.SubItems.Add(ri.PortNumber.ToString());
+                        string computerNameOnly = rh;
+
+                        lvi.SubItems.Add(""); //Version info to be added afterwards
+                        lvi.Tag = ri;
+                        lvi.ImageIndex = 0;
+                        lvwRemoteHosts.Items.Add(lvi);
+                    }
+                    catch { }
+                }
+            }
+        }
+        private void RefreshServiceStates()
+        {
+            refreshTimer.Enabled = false;
+            refreshTimer.Enabled = true;
+        }
+        private void UpdateListViewItem(ListViewItem lvi, int imageIndex, string statusText)
+        {
+            try
+            {
+                lvwRemoteHosts.Invoke((MethodInvoker)delegate
+                {
+                    lvi.ImageIndex = imageIndex;
+                    lvi.SubItems[2].Text = statusText;
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
+        }
         private void cmdAdd_Click(object sender, EventArgs e)
         {
             bool accepted = false;
@@ -632,27 +694,24 @@ namespace QuickMon
                 }
             }
         }
-
-        #region Context menu events
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RefreshServiceStates();
-        }
-        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                foreach (int index in (from int i in lvwRemoteHosts.SelectedIndices
-                                       orderby i descending
-                                       select i))
-                {
-                    lvwRemoteHosts.Items.RemoveAt(index);
-                }
-            }
-        }        
         #endregion
 
-
-
+        #region Shortcuts
+        private void chkPinToTaskbar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!loading)
+                shortcutChanged = true;
+        }
+        private void chkPinToStartMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!loading)
+                shortcutChanged = true;
+        }
+        private void chkDesktopShortcut_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!loading)
+                shortcutChanged = true;
+        } 
+        #endregion
     }
 }

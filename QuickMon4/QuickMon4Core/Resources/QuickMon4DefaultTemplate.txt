@@ -135,6 +135,27 @@ ORDER BY
 			</configVars>
 		</collectorHost>
 	</template>
+	<template name="Temp directories checks" type="CollectorHost" class="CollectorHost" description="Temp directories checks">
+		<collectorHost uniqueId="" name="Temp files check" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
+			<!-- CollectorAgents -->
+			<collectorAgents>
+				<collectorAgent name="File System" type="FileSystemCollector" enabled="True">
+					<config>
+						<directoryList>
+							<directory directoryPathFilter="%windir%\Temp\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" containsText="" useRegEx="False" warningFileCountMax="100" errorFileCountMax="1000" fileSizeIndicatorUnit="MB" warningFileSizeMax="50" errorFileSizeMax="100" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" />
+							<directory directoryPathFilter="%USERPROFILE%\AppData\Local\Temp\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" containsText="" useRegEx="False" warningFileCountMax="200" errorFileCountMax="500" fileSizeIndicatorUnit="MB" warningFileSizeMax="50" errorFileSizeMax="100" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" />
+						</directoryList>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+		</collectorHost>
+	</template>
 	<template name="Drive space (C:)" type="CollectorAgent" class="WMIQueryCollector" description="Drive space (C:)">
 		<collectorAgent name="Drive space" type="WMIQueryCollector" enabled="True">
 			<config>

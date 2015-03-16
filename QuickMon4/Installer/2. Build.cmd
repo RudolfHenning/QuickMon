@@ -6,4 +6,3 @@ set WIXDIR=C:\Program Files (x86)\WiX Toolset v3.9\bin
 
 powershell -File SetInstallerNames.ps1
 WaitOrKey.exe 5
-pause
