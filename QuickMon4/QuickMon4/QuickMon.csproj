@@ -177,6 +177,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CaptainsLog.txt" />
     <Content Include="QM4-128x128.ico" />
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />

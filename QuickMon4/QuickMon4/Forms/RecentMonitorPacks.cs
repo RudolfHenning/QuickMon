@@ -21,6 +21,7 @@ namespace QuickMon.Forms
             f.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             f.MaximizeBox = false;
             f.MinimizeBox = false;
+            f.MinimumSize = new Size(350, 300);
             f.StartPosition = FormStartPosition.CenterScreen;
             f.Size = new System.Drawing.Size(800, 400);
             f.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -54,7 +55,7 @@ namespace QuickMon.Forms
             cmdOK.Location = new System.Drawing.Point(620, 330);
             cmdOK.Name = "cmdOK";
             cmdOK.Size = new System.Drawing.Size(75, 23);
-            cmdOK.TabIndex = 1;
+            cmdOK.TabIndex = 3;
             cmdOK.Text = "OK";
             cmdOK.UseVisualStyleBackColor = true;
             cmdOK.Enabled = false;
@@ -75,7 +76,7 @@ namespace QuickMon.Forms
             cmdCancel.Location = new System.Drawing.Point(700, 330);
             cmdCancel.Name = "cmdCancel";
             cmdCancel.Size = new System.Drawing.Size(75, 23);
-            cmdCancel.TabIndex = 2;
+            cmdCancel.TabIndex = 4;
             cmdCancel.Text = "Cancel";
             cmdCancel.UseVisualStyleBackColor = true;
             cmdCancel.FlatStyle = FlatStyle.Popup;
@@ -87,6 +88,7 @@ namespace QuickMon.Forms
             lb.Location = new Point(0, 0);
             lb.Size = new System.Drawing.Size(f.ClientSize.Width, 320);
             lb.Name = "lstFiles";
+            lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lb.BorderStyle = BorderStyle.FixedSingle;
             lb.TabIndex = 0;
             lb.SelectedIndexChanged += (object mysender, EventArgs ea) =>
@@ -120,7 +122,52 @@ namespace QuickMon.Forms
                     }
                 }
             };
+
             Graphics g = f.CreateGraphics();
+
+            LinkLabel llblResetRecents = new LinkLabel();
+            llblResetRecents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            llblResetRecents.Location = new System.Drawing.Point(5, 330);
+            llblResetRecents.Size = new System.Drawing.Size(75, 23);
+            llblResetRecents.AutoSize = true;
+            llblResetRecents.TabIndex = 1;
+            llblResetRecents.Name = "llblResetRecents";
+            llblResetRecents.Text = "Reset list";
+            llblResetRecents.LinkBehavior = LinkBehavior.HoverUnderline;
+            llblResetRecents.Click += (object sender, EventArgs ea) => {
+                if (MessageBox.Show("Are you sure you want to clear the recent list?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Properties.Settings.Default.RecentQMConfigFiles.Clear();
+                    Properties.Settings.Default.Save();
+                    lb.Items.Clear();
+                }
+            };
+            LinkLabel llblClearInvalidRecents = new LinkLabel();
+            llblClearInvalidRecents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            llblClearInvalidRecents.Location = new System.Drawing.Point((int)g.MeasureString(llblResetRecents.Text, llblResetRecents.Font).Width + 10, 330);
+            llblClearInvalidRecents.Size = new System.Drawing.Size(75, 23);
+            llblClearInvalidRecents.AutoSize = true;
+            llblClearInvalidRecents.TabIndex = 2;
+            llblClearInvalidRecents.Name = "llblClearInvalidRecents";
+            llblClearInvalidRecents.Text = "Clear invalid items";
+            llblClearInvalidRecents.LinkBehavior = LinkBehavior.HoverUnderline;
+            llblClearInvalidRecents.Click += (object sender, EventArgs ea) =>
+            {
+                List<string> invalids = new List<string>();
+                foreach (string filePath in Properties.Settings.Default.RecentQMConfigFiles)
+                {                    
+                    if (!System.IO.File.Exists(filePath))
+                    {
+                        invalids.Add(filePath);
+                    }
+                }
+                foreach (string invalid in invalids)
+                {
+                    Properties.Settings.Default.RecentQMConfigFiles.Remove(invalid);
+                    lb.Items.Remove(invalid);
+                }
+            };
+            
             int widest = 400;
             foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
                                          orderby s
@@ -134,6 +181,8 @@ namespace QuickMon.Forms
 
 
             f.Controls.Add(lb);
+            f.Controls.Add(llblResetRecents);
+            f.Controls.Add(llblClearInvalidRecents);
             f.Controls.Add(cmdOK);
             f.Controls.Add(cmdCancel);
 

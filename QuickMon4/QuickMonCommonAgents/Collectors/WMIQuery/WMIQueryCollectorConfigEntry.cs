@@ -171,34 +171,70 @@ namespace QuickMon.Collectors
                         {
                             foreach (ManagementObject objServiceInstance in results)
                             {
-                                foreach (var prop in objServiceInstance.Properties)
+                                if (ColumnNames == null || ColumnNames.Count == 0)
                                 {
-                                    DataColumn newColum = new DataColumn(prop.Name);
-                                    string typeStr = prop.Type.ToString().ToLower();
-                                    if (typeStr == "string")
-                                        newColum.DataType = typeof(string);
-                                    else if (typeStr == "uint64")
-                                        newColum.DataType = typeof(UInt64);
-                                    else if (typeStr == "uint32")
-                                        newColum.DataType = typeof(UInt32);
-                                    else if (typeStr == "uint16")
-                                        newColum.DataType = typeof(UInt16);
-                                    else if (typeStr == "sint64")
-                                        newColum.DataType = typeof(Int64);
-                                    else if (typeStr == "sint32")
-                                        newColum.DataType = typeof(Int32);
-                                    else if (typeStr == "sint16")
-                                        newColum.DataType = typeof(Int16);
-                                    else if (typeStr == "boolean")
-                                        newColum.DataType = typeof(bool);
-                                    else if (typeStr == "datetime")
-                                        newColum.DataType = typeof(DateTime);
-                                    else
-                                        newColum.DataType = typeof(string);
-                                    newColum.AllowDBNull = true;
-                                    columns.Add(newColum);
+                                    foreach (var prop in objServiceInstance.Properties)
+                                    {
+                                        DataColumn newColum = new DataColumn(prop.Name);
+                                        string typeStr = prop.Type.ToString().ToLower();
+                                        if (typeStr == "string")
+                                            newColum.DataType = typeof(string);
+                                        else if (typeStr == "uint64")
+                                            newColum.DataType = typeof(UInt64);
+                                        else if (typeStr == "uint32")
+                                            newColum.DataType = typeof(UInt32);
+                                        else if (typeStr == "uint16")
+                                            newColum.DataType = typeof(UInt16);
+                                        else if (typeStr == "sint64")
+                                            newColum.DataType = typeof(Int64);
+                                        else if (typeStr == "sint32")
+                                            newColum.DataType = typeof(Int32);
+                                        else if (typeStr == "sint16")
+                                            newColum.DataType = typeof(Int16);
+                                        else if (typeStr == "boolean")
+                                            newColum.DataType = typeof(bool);
+                                        else if (typeStr == "datetime")
+                                            newColum.DataType = typeof(DateTime);
+                                        else
+                                            newColum.DataType = typeof(string);
+                                        newColum.AllowDBNull = true;
+                                        columns.Add(newColum);
+                                    }
+                                    break;
                                 }
-                                break;
+                                else
+                                {
+                                    foreach (string columnName in ColumnNames)
+                                    {
+
+                                        var prop = objServiceInstance.Properties[columnName];
+                                        DataColumn newColum = new DataColumn(prop.Name);
+                                        string typeStr = prop.Type.ToString().ToLower();
+                                        if (typeStr == "string")
+                                            newColum.DataType = typeof(string);
+                                        else if (typeStr == "uint64")
+                                            newColum.DataType = typeof(UInt64);
+                                        else if (typeStr == "uint32")
+                                            newColum.DataType = typeof(UInt32);
+                                        else if (typeStr == "uint16")
+                                            newColum.DataType = typeof(UInt16);
+                                        else if (typeStr == "sint64")
+                                            newColum.DataType = typeof(Int64);
+                                        else if (typeStr == "sint32")
+                                            newColum.DataType = typeof(Int32);
+                                        else if (typeStr == "sint16")
+                                            newColum.DataType = typeof(Int16);
+                                        else if (typeStr == "boolean")
+                                            newColum.DataType = typeof(bool);
+                                        else if (typeStr == "datetime")
+                                            newColum.DataType = typeof(DateTime);
+                                        else
+                                            newColum.DataType = typeof(string);
+                                        newColum.AllowDBNull = true;
+                                        columns.Add(newColum);
+                                    }
+                                    break;
+                                }
                             }
                         }
                     }
@@ -223,13 +259,28 @@ namespace QuickMon.Collectors
                             {
                                 DataRow row = dtab.NewRow();
                                 int fieldIndex = 0;
-                                foreach (var prop in objServiceInstance.Properties)
+                                if (ColumnNames == null || ColumnNames.Count == 0)
                                 {
-                                    if (prop.Value == null)
-                                        row[fieldIndex] = DBNull.Value;
-                                    else
-                                        row[fieldIndex] = prop.Value;
-                                    fieldIndex++;
+                                    foreach (var prop in objServiceInstance.Properties)
+                                    {
+                                        if (prop.Value == null)
+                                            row[fieldIndex] = DBNull.Value;
+                                        else
+                                            row[fieldIndex] = prop.Value;
+                                        fieldIndex++;
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (string columnName in ColumnNames)
+                                    {
+                                        var prop = objServiceInstance.Properties[columnName];
+                                        if (prop.Value == null)
+                                            row[fieldIndex] = DBNull.Value;
+                                        else
+                                            row[fieldIndex] = prop.Value;
+                                        fieldIndex++;
+                                    }
                                 }
                                 rows.Add(row);
                             }
