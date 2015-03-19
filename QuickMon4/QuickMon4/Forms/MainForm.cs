@@ -1806,6 +1806,10 @@ namespace QuickMon
                 LoadMonitorPack(recentMonitorPacks.SelectedPack);
                 RefreshMonitorPack(true, true);
             }   
+            else
+            {
+                LoadRecentMonitorPackList();
+            }
         }
         #endregion
 
