@@ -159,6 +159,12 @@
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\Label\HiLightLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Label\HiLightLabel.Designer.cs">
+      <DependentUpon>HiLightLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ListView\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -378,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\DataTableViewerControl.resx">
       <DependentUpon>DataTableViewerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Label\HiLightLabel.resx">
+      <DependentUpon>HiLightLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeListView\TreeListView.resx">
       <DependentUpon>TreeListView.cs</DependentUpon>

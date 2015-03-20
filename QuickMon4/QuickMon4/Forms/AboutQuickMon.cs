@@ -19,6 +19,8 @@ namespace QuickMon
             FadeInTime = 500;
         }
 
+        private string quickMonOnlineUrl = "https://quickmon.codeplex.com/";
+
         private void AboutQuickMon_Click(object sender, EventArgs e)
         {
             Close();
@@ -31,6 +33,7 @@ namespace QuickMon
             lblCoreVersion.Text = string.Format("Core {0}", CoreAssemblyVersion);
             lblCompany.Text = string.Format("Created by {0}", AssemblyCompany);
             lblCreateDate.Text = string.Format("Created on {0}", AssemblyDate);
+            latestVersionCheckBackgroundWorker.RunWorkerAsync();
         }
 
         public string AssemblyVersion
@@ -91,11 +94,10 @@ namespace QuickMon
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string url = "https://quickmon.codeplex.com/";
             try
             {
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo = new System.Diagnostics.ProcessStartInfo(url);
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(quickMonOnlineUrl);
                 p.Start();
             }
             catch (Exception ex)
@@ -131,6 +133,42 @@ namespace QuickMon
 //                AgentPresetConfig.SavePresetsToFile(presetfile, apcs);
 //            }
 //#endif
+        }
+
+        private void latestVersionCheckBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                string rssAddress = "https://quickmon.codeplex.com/project/feeds/rss?ProjectRSSFeed=codeplex%3a%2f%2frelease%2fquickmon";
+                using (System.Net.WebClient client = new System.Net.WebClient())
+                {
+                    Stream data = client.OpenRead(rssAddress);
+                    StreamReader reader = new StreamReader(data);
+                    string rssDoc = reader.ReadToEnd();
+                    data.Close();
+                    reader.Close();
+
+                    System.Xml.XmlDocument rssXmlDoc = new System.Xml.XmlDocument();
+                    rssXmlDoc.LoadXml(rssDoc);
+                    System.Xml.XmlNode item1 = rssXmlDoc.SelectSingleNode("rss/channel/item");
+                    System.Xml.XmlNode title1 = item1.SelectSingleNode("title");
+                    System.Xml.XmlNode link1 = item1.SelectSingleNode("link");
+                    string versionInfo = title1.InnerText.Replace("Updated Release:", "").Trim();
+                    if (versionInfo.IndexOf('(') > -1)
+                        versionInfo = versionInfo.Substring(0, versionInfo.IndexOf('('));
+
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        linkLabel1.Text = "Latest release online: " + versionInfo;
+                        quickMonOnlineUrl = link1.InnerText;
+                    });
+                }
+            }
+            catch
+            {
+                linkLabel1.Text = "Get latest version here (CodePlex)";
+                quickMonOnlineUrl = "https://quickmon.codeplex.com/";
+            }
         }
     }
 }

@@ -4,3 +4,5 @@ Initial releases
 Version 4.0.6
   Add way to clear recent monitor pack list - plus clear invalid items
   Main UI changes (hide blue bar, off-white background color of treeview, Edit monitorpack Window Name in bold)
+  Fixing WMI collector get detail dataset column order
+  About screen now checks online for latest version

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -57,7 +57,7 @@
             this.recentMonitorPacksPanel = new System.Windows.Forms.Panel();
             this.cmdRecentMonitorPacks = new System.Windows.Forms.Button();
             this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
-            this.lblVersion = new System.Windows.Forms.Label();
+            this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
             this.mainToolStrip = new QuickMon.Controls.ToolStripEx();
             this.newMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
             this.openMonitorPackToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -180,12 +180,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "COLLECTORS";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -226,6 +226,7 @@
             this.agentSeparatorBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.agentSeparatorBox.TabIndex = 39;
             this.agentSeparatorBox.TabStop = false;
+            this.agentSeparatorBox.Visible = false;
             // 
             // llblNotifierViewToggle
             // 
@@ -275,12 +276,12 @@
             this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode3.BackColor = System.Drawing.Color.White;
-            treeNode3.Name = "root";
-            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode3.Text = "NOTIFIERS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "NOTIFIERS";
             this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode2});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
@@ -445,13 +446,18 @@
             // 
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblVersion.BoldHighLighFont = true;
+            this.lblVersion.FadedBackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.FadedColor = System.Drawing.Color.Gray;
+            this.lblVersion.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblVersion.Location = new System.Drawing.Point(330, 16);
+            this.lblVersion.HighLightBackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.HighLightColor = System.Drawing.Color.OrangeRed;
+            this.lblVersion.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(316, 16);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(51, 23);
+            this.lblVersion.Size = new System.Drawing.Size(65, 23);
             this.lblVersion.TabIndex = 4;
-            this.lblVersion.Text = "vX.X";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblVersion.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             this.lblVersion.MouseEnter += new System.EventHandler(this.HideRecentDropDownList);
@@ -839,7 +845,7 @@
         private System.Windows.Forms.Panel recentMonitorPacksPanel;
         private System.Windows.Forms.Button cmdRecentMonitorPacks;
         private System.Windows.Forms.ComboBox cboRecentMonitorPacks;
-        private System.Windows.Forms.Label lblVersion;
+        private HenIT.Windows.Controls.HiLightLabel lblVersion;
         private System.Windows.Forms.LinkLabel llblMonitorPack;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.SplitContainer masterSplitContainer;

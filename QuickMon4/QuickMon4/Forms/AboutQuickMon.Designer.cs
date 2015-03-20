@@ -37,6 +37,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lblThree = new System.Windows.Forms.Label();
             this.lblCoreVersion = new System.Windows.Forms.Label();
+            this.latestVersionCheckBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.QM4;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(133, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(231, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(155, 133);
             this.pictureBox1.TabIndex = 4;
@@ -122,8 +123,8 @@
             this.lblThree.AutoSize = true;
             this.lblThree.BackColor = System.Drawing.Color.Transparent;
             this.lblThree.Font = new System.Drawing.Font("Segoe Print", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThree.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.lblThree.Location = new System.Drawing.Point(34, 46);
+            this.lblThree.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblThree.Location = new System.Drawing.Point(68, 46);
             this.lblThree.Name = "lblThree";
             this.lblThree.Size = new System.Drawing.Size(72, 85);
             this.lblThree.TabIndex = 5;
@@ -136,11 +137,15 @@
             this.lblCoreVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblCoreVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCoreVersion.ForeColor = System.Drawing.Color.White;
-            this.lblCoreVersion.Location = new System.Drawing.Point(45, 172);
+            this.lblCoreVersion.Location = new System.Drawing.Point(45, 176);
             this.lblCoreVersion.Name = "lblCoreVersion";
             this.lblCoreVersion.Size = new System.Drawing.Size(43, 21);
             this.lblCoreVersion.TabIndex = 6;
             this.lblCoreVersion.Text = "Core";
+            // 
+            // latestVersionCheckBackgroundWorker
+            // 
+            this.latestVersionCheckBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.latestVersionCheckBackgroundWorker_DoWork);
             // 
             // AboutQuickMon
             // 
@@ -149,7 +154,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::QuickMon.Properties.Resources.AboutBkgrnd;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(300, 300);
+            this.ClientSize = new System.Drawing.Size(398, 300);
             this.Controls.Add(this.lblCoreVersion);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
@@ -185,5 +190,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label lblThree;
         private System.Windows.Forms.Label lblCoreVersion;
+        private System.ComponentModel.BackgroundWorker latestVersionCheckBackgroundWorker;
     }
 }
