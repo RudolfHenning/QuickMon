@@ -154,6 +154,7 @@ namespace QuickMon
                     System.Xml.XmlNode title1 = item1.SelectSingleNode("title");
                     System.Xml.XmlNode link1 = item1.SelectSingleNode("link");
                     string versionInfo = title1.InnerText.Replace("Updated Release:", "").Trim();
+                    versionInfo = versionInfo.Replace("Created Release:", "").Trim();
                     if (versionInfo.IndexOf('(') > -1)
                         versionInfo = versionInfo.Substring(0, versionInfo.IndexOf('('));
 
