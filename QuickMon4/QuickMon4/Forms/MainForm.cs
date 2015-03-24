@@ -109,7 +109,9 @@ namespace QuickMon
             //lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
             adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
             restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
-            restartInNonAdminModeToolStripMenuItem.Visible = Security.IsInAdminMode() && HenIT.Security.AdminModeTools.HasAdminMode();
+
+            //this does not work properly on all OS'es. Disabled for now
+            restartInNonAdminModeToolStripMenuItem.Visible = false; // Security.IsInAdminMode() && HenIT.Security.AdminModeTools.HasAdminMode();
 
             SetUpContextMenus();
         }        

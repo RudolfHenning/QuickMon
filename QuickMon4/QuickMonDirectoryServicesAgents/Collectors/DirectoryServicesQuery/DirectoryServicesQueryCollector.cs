@@ -231,7 +231,20 @@ namespace QuickMon.Collectors
         }
         public string ConfigSummary
         {
-            get { throw new NotImplementedException(); }
+            get {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(string.Format("{0} entry(s): ", Entries.Count));
+                if (Entries.Count == 0)
+                    sb.Append("None");
+                else
+                {
+                    foreach (ICollectorConfigEntry entry in Entries)
+                    {
+                        sb.Append(entry.Description + ", ");
+                    }
+                }
+                return sb.ToString().TrimEnd(' ', ',');            
+            }
         }
         #endregion
     }
