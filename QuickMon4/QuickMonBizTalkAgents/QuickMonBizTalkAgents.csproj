@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Collectors\BizTalkGroupBase.cs" />
     <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollector.cs" />
     <Compile Include="Collectors\BizTalkPortAndOrchs\BizTalkPortAndOrchsCollectorConfig.cs" />
