@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>

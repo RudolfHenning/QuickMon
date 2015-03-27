@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="BaseClasses\AgentBase.cs" />
     <Compile Include="BaseClasses\AgentHostBase.cs" />
     <Compile Include="BaseClasses\CollectorAgentBase.cs" />

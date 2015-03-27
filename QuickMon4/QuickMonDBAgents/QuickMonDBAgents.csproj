@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
     <Compile Include="Collectors\SqlDatabaseSize\SqlDatabaseSizeCollectorEntry.cs" />
