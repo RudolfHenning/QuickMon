@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("QuickMon Directory Services Agents")]
 [assembly: AssemblyDescription("QuickMon Directory Services Agents libvrary")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hen IT")]
-[assembly: AssemblyProduct("QuickMonDirectoryServicesAgents")]
-[assembly: AssemblyCopyright("Copyright © Hen IT 2015")]
+//[assembly: AssemblyCompany("Hen IT")]
+//[assembly: AssemblyProduct("QuickMonDirectoryServicesAgents")]
+//[assembly: AssemblyCopyright("Copyright © Hen IT 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

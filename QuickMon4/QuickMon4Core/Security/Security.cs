@@ -5,9 +5,9 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 
-namespace QuickMon
+namespace QuickMon.Security
 {
-    public static class Security
+    public static class UACTools
     {
         #region External calls
         [System.Runtime.InteropServices.DllImport("user32.dll")]

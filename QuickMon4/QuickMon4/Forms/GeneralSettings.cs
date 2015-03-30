@@ -81,7 +81,7 @@ namespace QuickMon
 
             try
             {
-                if (Security.IsInAdminMode())
+                if (Security.UACTools.IsInAdminMode())
                 {
                     llblStartLocalService.Visible = false;
                     try
@@ -159,11 +159,11 @@ namespace QuickMon
             catch { }
             try
             {
-                if (Security.IsInAdminMode() && chkDisableAutoAdminMode.Checked)
+                if (Security.UACTools.IsInAdminMode() && chkDisableAutoAdminMode.Checked)
                 {
                     HenIT.Security.AdminModeTools.DeleteAdminLaunchTask(AppGlobals.AppTaskId);
                 }
-                else if (Security.IsInAdminMode() && !HenIT.Security.AdminModeTools.CheckIfAdminLaunchTaskExist(AppGlobals.AppTaskId))
+                else if (Security.UACTools.IsInAdminMode() && !HenIT.Security.AdminModeTools.CheckIfAdminLaunchTaskExist(AppGlobals.AppTaskId))
                 {
                     HenIT.Security.AdminModeTools.CreateAdminLaunchTask(AppGlobals.AppTaskId);
                 }
@@ -266,7 +266,7 @@ namespace QuickMon
                 try
                 {
                     llblStartLocalService.Visible = false;
-                    if (Security.IsInAdminMode())
+                    if (Security.UACTools.IsInAdminMode())
                     {
                         Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 4 Service");
                         if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 4 Service")
