@@ -33,8 +33,8 @@ namespace QuickMon.Collectors
         #region Form events
         private void EditEventLogEntry_Load(object sender, EventArgs e)
         {
-            pictureBoxSecWarning.Visible = !Security.IsInAdminMode();
-            lblSecWarning.Visible = !Security.IsInAdminMode();
+            pictureBoxSecWarning.Visible = !Security.UACTools.IsInAdminMode();
+            lblSecWarning.Visible = !Security.UACTools.IsInAdminMode();
 
             EventLogCollectorEntry selectedEntry;
             if (SelectedEntry != null)

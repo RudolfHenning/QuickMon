@@ -163,35 +163,49 @@ namespace QuickMon
         /// <param name="configurationFile"></param>
         public void Save(string configurationFile)
         {
-            //string defaultViewerNotifier = "";
-            //if (DefaultViewerNotifier != null)
-            //    defaultViewerNotifier = DefaultViewerNotifier.Name;
-            string outputXml = string.Format(
-                @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" " + // defaultNotifier=""{4}"" " +
-                  @"runCorrectiveScripts=""{4}"" stateHistorySize=""{5}"" pollingFreqSecOverride=""{6}"">" + "\r\n" +
-                  "<configVars>\r\n" +
-                  "{7}\r\n" +
-                  "</configVars>\r\n" +
-                  "<collectorHosts>\r\n" +
-                  "{8}\r\n" +
-                  "</collectorHosts>\r\n" +
-                  "<notifierHosts>\r\n" +
-                  "{9}\r\n" +
-                  "</notifierHosts>\r\n" +
-                "</monitorPack>",
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
-                Name, TypeName, Enabled,// defaultViewerNotifier,
-                RunCorrectiveScripts,
-                CollectorStateHistorySize,
-                PollingFrequencyOverrideSec,
-                GetConfigVarXml(),
-                GetConfigForCollectors(),
-                GetConfigForNotifiers());
-            XmlDocument outputDoc = new XmlDocument();
-            outputDoc.LoadXml(outputXml);
-            outputDoc.PreserveWhitespace = false;
-            outputDoc.Normalize();
-            outputDoc.Save(configurationFile);
+            XmlDocument outDoc = new XmlDocument();
+            outDoc.LoadXml("<monitorPack>\r\n<configVars>\r\n</configVars>\r\n<collectorHosts>\r\n</collectorHosts>\r\n<notifierHosts>\r\n</notifierHosts>\r\n</monitorPack>");
+            XmlElement root = outDoc.DocumentElement;
+            root.SetAttributeValue("version", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            root.SetAttributeValue("name", Name);
+            root.SetAttributeValue("typeName", TypeName);
+            root.SetAttributeValue("enabled", Enabled);
+            root.SetAttributeValue("runCorrectiveScripts", RunCorrectiveScripts);
+            root.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
+            root.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
+            root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml();
+            root.SelectSingleNode("collectorHosts").InnerXml = GetConfigForCollectors();
+            root.SelectSingleNode("notifierHosts").InnerXml = GetConfigForNotifiers();
+            outDoc.PreserveWhitespace = false;
+            outDoc.Normalize();
+            outDoc.Save(configurationFile);
+
+            //string outputXml = string.Format(
+            //    @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" " + 
+            //      @"runCorrectiveScripts=""{4}"" stateHistorySize=""{5}"" pollingFreqSecOverride=""{6}"">" + "\r\n" +
+            //      "<configVars>\r\n" +
+            //      "{7}\r\n" +
+            //      "</configVars>\r\n" +
+            //      "<collectorHosts>\r\n" +
+            //      "{8}\r\n" +
+            //      "</collectorHosts>\r\n" +
+            //      "<notifierHosts>\r\n" +
+            //      "{9}\r\n" +
+            //      "</notifierHosts>\r\n" +
+            //    "</monitorPack>",
+            //    System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
+            //    Name, TypeName, Enabled,// defaultViewerNotifier,
+            //    RunCorrectiveScripts,
+            //    CollectorStateHistorySize,
+            //    PollingFrequencyOverrideSec,
+            //    GetConfigVarXml(),
+            //    GetConfigForCollectors(),
+            //    GetConfigForNotifiers());
+            //XmlDocument outputDoc = new XmlDocument();
+            //outputDoc.LoadXml(outputXml);
+            //outputDoc.PreserveWhitespace = false;
+            //outputDoc.Normalize();
+            //outputDoc.Save(configurationFile);
 
             MonitorPackPath = configurationFile;
             RaiseMonitorPackPathChanged(MonitorPackPath);

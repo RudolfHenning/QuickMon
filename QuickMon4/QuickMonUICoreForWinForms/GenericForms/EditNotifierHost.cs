@@ -28,7 +28,7 @@ namespace QuickMon
         //private int folderImgIndex = 0;
         private string indentationChars = "  ";
         private bool selfCheckingOn = false;
-        private bool loading = false;
+        //private bool loading = false;
 
         public DialogResult ShowDialog(NotifierHost nh, MonitorPack hostingMonitorPack = null)
         {
@@ -99,7 +99,7 @@ namespace QuickMon
 
         private void LoadCollectorList()
         {
-            loading = true;
+            //loading = true;
             TreeNode root = tvwCollectors.Nodes[0];
             root.Nodes.Clear();
             if (HostingMonitorPack != null)
@@ -138,7 +138,7 @@ namespace QuickMon
                     root.ExpandAll();
                 }
             }
-            loading = false;
+            //loading = false;
         }
         private void LoadCollectors(TreeNode parent, CollectorHost collector, string indentation)
         {

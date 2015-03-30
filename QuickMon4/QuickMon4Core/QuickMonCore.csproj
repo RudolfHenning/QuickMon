@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -103,10 +104,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\CredentialManager.cs" />
+    <Compile Include="Security\Impersonator.cs" />
     <Compile Include="Utils\CSVExtensions.cs" />
     <Compile Include="Utils\FormatUtils.cs" />
     <Compile Include="Utils\InPutValidationException.cs" />
-    <Compile Include="Utils\Security.cs" />
+    <Compile Include="Security\Security.cs" />
     <Compile Include="Utils\XmlElementEx.cs" />
     <Compile Include="Utils\XmlFormattingUtils.cs" />
   </ItemGroup>

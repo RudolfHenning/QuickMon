@@ -6,3 +6,29 @@ Version 4.0.6
   Main UI changes (hide blue bar, off-white background color of treeview, Edit monitorpack Window Name in bold)
   Fixing WMI collector get detail dataset column order
   About screen now checks online for latest version
+
+Version 4.1.x - planning
+  Adding Impersonation
+    - Credential cache can be specified either on app level or monitor pack level.
+	- Master key can be specified either on app level or monitor pack level.
+	- Both UI app and service (and test app) app config adds settings for cache file location & master key
+	- CollectorHost get element/attribute for UserName (no password)
+	- Monitor pack refreshing routines updated to make use of impersonation.
+	  - If username not in cache (either) no impersonation is used (old style functionality)
+	  - If password cannot be decrypted/wrong then 'no impersonation' is used.
+    Collector host editor
+	  - New Polling and Access (security) tabs. Polling and service windows move to polling. Remote stuff move to Access. 
+	  - Access tab adds group for username and Test button if user account is in cache (monitor pack or global).
+	Monitor pack editor
+	  - New tab for editing credential cache. Adding account/password and removing account entry.
+	  - Specify Credential cache file (default empty/unspecified = global app cache will be used)
+	  - Specify master key if cache file is specified.
+	  - info dialog box with user accounts in used in MP (since cache cannot tell all available accounts)
+	UI app general settings editor
+	  - New tab for editing credential cache. Adding account/password and removing account entry.
+	  - Specify Credential cache file. If not specified a blank default one will automatically be created.
+	  - Specify master key if cache file is specified.
+	  - info dialog box with user accounts in used in currently loaded MP
+	Remote host access
+	  - User name can be passed over wire. But of course credenial cache cannot be specified at monitor pack level. Has to be at service level.
+	  - No password allowed to pass over 'wire' ever.

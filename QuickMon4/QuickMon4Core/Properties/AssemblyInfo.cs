@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("QuickMon 4 Core")]
 [assembly: AssemblyDescription("QuickMon 4 Core components")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hen IT")]
-[assembly: AssemblyProduct("QuickMon")]
-[assembly: AssemblyCopyright("Copyright © Hen IT 2015")]
+//[assembly: AssemblyCompany("Hen IT")]
+//[assembly: AssemblyProduct("QuickMon")]
+//[assembly: AssemblyCopyright("Copyright © Hen IT 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -107,8 +107,8 @@ namespace QuickMon
             //tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
             tvwNotifiers.RootAlwaysExpanded = true;
             //lvwNotifiers.SelectedIndexChanged += lvwNotifiers_SelectedIndexChanged;
-            adminModeToolStripStatusLabel.Visible = Security.IsInAdminMode();
-            restartInAdminModeToolStripMenuItem.Visible = !Security.IsInAdminMode();
+            adminModeToolStripStatusLabel.Visible = Security.UACTools.IsInAdminMode();
+            restartInAdminModeToolStripMenuItem.Visible = !Security.UACTools.IsInAdminMode();
 
             //this does not work properly on all OS'es. Disabled for now
             restartInNonAdminModeToolStripMenuItem.Visible = false; // Security.IsInAdminMode() && HenIT.Security.AdminModeTools.HasAdminMode();
@@ -2437,13 +2437,13 @@ namespace QuickMon
             {
                 if (ex.Message.Contains("Requested registry access is not allowed"))
                 {
-                    if (Security.IsInAdminMode())
+                    if (Security.UACTools.IsInAdminMode())
                         MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else //try launching in admin mode
                     {
                         MessageBox.Show("QuickMon 4 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Properties.Settings.Default.Save();
-                        Security.RestartInAdminMode(Application.ExecutablePath);
+                        Security.UACTools.RestartInAdminMode(Application.ExecutablePath);
                     }
                 }
                 else
