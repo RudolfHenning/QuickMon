@@ -7,6 +7,9 @@ Version 4.0.6
   Fixing WMI collector get detail dataset column order
   About screen now checks online for latest version
 
+Version 4.0.7
+  Fix Monitor pack main refresh routine - Global state = Good if some collectors are Disabled while all others are in good state
+
 Version 4.1.x - planning
   Adding Impersonation
     - Credential cache can be specified either on app level or monitor pack level.
