@@ -168,6 +168,7 @@
             // 
             // dataSourceTabPage
             // 
+            this.dataSourceTabPage.BackColor = System.Drawing.Color.White;
             this.dataSourceTabPage.Controls.Add(this.dataSourceExtrasPanel);
             this.dataSourceTabPage.Controls.Add(this.OLEDBDataSourcePanel);
             this.dataSourceTabPage.Controls.Add(this.sqlServerPanel);
@@ -178,7 +179,6 @@
             this.dataSourceTabPage.Size = new System.Drawing.Size(632, 347);
             this.dataSourceTabPage.TabIndex = 0;
             this.dataSourceTabPage.Text = "Data source";
-            this.dataSourceTabPage.UseVisualStyleBackColor = true;
             // 
             // dataSourceExtrasPanel
             // 

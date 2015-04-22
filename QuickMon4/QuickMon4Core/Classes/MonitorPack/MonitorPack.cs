@@ -132,11 +132,13 @@ namespace QuickMon
                 globalState = CollectorState.NotAvailable;
             //All good
             else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Good ||
-                                                                  c.CurrentState.State == CollectorState.None))
+                                                                  c.CurrentState.State == CollectorState.None ||
+                                                                  c.CurrentState.State == CollectorState.Disabled))
                 globalState = CollectorState.Good;
             //Error state
             else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Error ||
-                                                                c.CurrentState.State == CollectorState.ConfigurationError))
+                                                                  c.CurrentState.State == CollectorState.ConfigurationError ||
+                                                                  c.CurrentState.State == CollectorState.Disabled))
                 globalState = CollectorState.Error;
             else
                 globalState = CollectorState.Warning;
