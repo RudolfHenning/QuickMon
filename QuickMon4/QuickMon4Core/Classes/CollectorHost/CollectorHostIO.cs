@@ -89,6 +89,9 @@ namespace QuickMon
             newCollectorHost.PollSlideFrequencyAfterSecondRepeatSec = xmlCollectorEntry.ReadXmlElementAttr("pollSlideFrequencyAfterSecondRepeatSec", 5);
             newCollectorHost.PollSlideFrequencyAfterThirdRepeatSec = xmlCollectorEntry.ReadXmlElementAttr("pollSlideFrequencyAfterThirdRepeatSec", 30);            
 
+            //Impersonation
+            newCollectorHost.RunAs = xmlCollectorEntry.ReadXmlElementAttr("runAs", "");
+
             //Service windows config
             newCollectorHost.ServiceWindows = new ServiceWindows();
             XmlNode serviceWindowsNode = xmlCollectorEntry.SelectSingleNode("serviceWindows");
@@ -258,7 +261,7 @@ namespace QuickMon
                 collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
                 System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
                 System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
-                collectorAgentsXml.AppendLine(c.InitialConfiguration); // .AgentConfig.ToXml());
+                collectorAgentsXml.AppendLine(c.InitialConfiguration); 
                 collectorAgentsXml.AppendLine("</collectorAgent>");
             }
             collectorAgentsXml.AppendLine("</collectorAgents>");
@@ -299,6 +302,8 @@ namespace QuickMon
                 PollSlideFrequencyAfterThirdRepeatSec,
                 AlertsPaused,
 
+                RunAs,
+
                 collectorAgentsXml.ToString(),
                 ServiceWindows.ToXml(),
                 configVarXml.ToString());
@@ -323,6 +328,7 @@ namespace QuickMon
                 int pollSlideFrequencyAfterSecondRepeatSec,
                 int pollSlideFrequencyAfterThirdRepeatSec,
                 bool alertsPaused,
+                string runAs,
                 string collectorAgentsXml,
                 string serviceWindowsXml,
                 string configVariablesXml
@@ -338,7 +344,8 @@ namespace QuickMon
                       "forceRemoteExcuteOnChildCollectors=\"{19}\" remoteAgentHostAddress=\"{20}\" remoteAgentHostPort=\"{21}\" " +
                       "blockParentRemoteAgentHostSettings=\"{22}\" runLocalOnRemoteHostConnectionFailure=\"{23}\" " +
                       "enabledPollingOverride=\"{24}\" onlyAllowUpdateOncePerXSec=\"{25}\" enablePollFrequencySliding=\"{26}\" " +
-                      "pollSlideFrequencyAfterFirstRepeatSec=\"{27}\" pollSlideFrequencyAfterSecondRepeatSec=\"{28}\" pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\">",
+                      "pollSlideFrequencyAfterFirstRepeatSec=\"{27}\" pollSlideFrequencyAfterSecondRepeatSec=\"{28}\" " + 
+                      "pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\" runAs=\"{31}\">",
                         uniqueId, name.EscapeXml(), enabled, expandOnStart, parentCollectorId,
                         agentCheckSequence, childCheckBehaviour,
                         repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
@@ -349,7 +356,7 @@ namespace QuickMon
                         blockParentOverrideRemoteAgentHostSettings, runLocalOnRemoteHostConnectionFailure,
                         enabledPollingOverride, onlyAllowUpdateOncePerXSec, enablePollFrequencySliding,
                         pollSlideFrequencyAfterFirstRepeatSec, pollSlideFrequencyAfterSecondRepeatSec, pollSlideFrequencyAfterThirdRepeatSec,
-                        alertsPaused
+                        alertsPaused, runAs.EscapeXml()
                       )
                      );
             configXml.AppendLine("<!-- CollectorAgents -->");

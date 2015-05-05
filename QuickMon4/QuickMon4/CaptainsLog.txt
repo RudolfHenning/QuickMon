@@ -15,7 +15,7 @@ Version 4.1.x - planning
     - Credential cache can be specified either on app level or monitor pack level.
 	- Master key can be specified either on app level or monitor pack level.
 	- Both UI app and service (and test app) app config adds settings for cache file location & master key
-	- CollectorHost get element/attribute for UserName (no password)
+	- CollectorHost get element/attribute for UserName (runAs) (no password)
 	- Monitor pack refreshing routines updated to make use of impersonation.
 	  - If username not in cache (either) no impersonation is used (old style functionality)
 	  - If password cannot be decrypted/wrong then 'no impersonation' is used.
