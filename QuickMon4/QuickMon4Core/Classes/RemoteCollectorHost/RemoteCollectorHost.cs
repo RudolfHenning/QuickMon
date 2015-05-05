@@ -23,6 +23,8 @@ namespace QuickMon
         public bool Enabled { get; set; }
         [DataMember(Name = "AgentCheckSequence")]
         public AgentCheckSequence AgentCheckSequence { get; set; }
+        [DataMember(Name = "RunAs")]
+        public string RunAs { get; set; }
 
         [DataMember(Name = "Agents")]
         public List<RemoteCollectorAgent> Agents { get; set; }
@@ -49,6 +51,7 @@ namespace QuickMon
                 false, false, "", 48181, false, false, //Remote hosts
                 false, 0, false, 0, 0, 0, //Polling overides
                 false, //alerts paused
+                RunAs,
                 collectorAgentsXml.ToString(),
                 "", //Service windows
                 "" //config vars
@@ -61,6 +64,7 @@ namespace QuickMon
             UniqueId = fullEntry.UniqueId;
             Enabled = fullEntry.Enabled;
             AgentCheckSequence = fullEntry.AgentCheckSequence;
+            RunAs = fullEntry.RunAs;
 
             foreach(ICollector c in fullEntry.CollectorAgents)
             {

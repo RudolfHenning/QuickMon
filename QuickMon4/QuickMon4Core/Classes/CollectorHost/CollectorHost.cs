@@ -36,6 +36,7 @@ namespace QuickMon
             PollSlideFrequencyAfterSecondRepeatSec = 5;
             PollSlideFrequencyAfterThirdRepeatSec = 30;
             ConfigVariables = new List<ConfigVariable>();
+            RunAs = "";
         }
 
         #region Private vars
@@ -245,6 +246,11 @@ namespace QuickMon
         public bool StagnantStateThirdRepeat { get; private set; }
         public bool CurrentPollAborted { get; set; }
         #endregion 
+
+        #region Impersonation
+        public string RunAs { get; set; }
+        #endregion
+
         #endregion
 
         #region Public util methods
