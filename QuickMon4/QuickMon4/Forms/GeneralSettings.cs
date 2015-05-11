@@ -833,10 +833,16 @@ namespace QuickMon
                      if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
                      {
                          credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
-                        if ( credMan.IsAccountPersisted(lvwUserNameCache.SelectedItems[0].Text))
-                            MessageBox.Show("Selected user account is in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        else
-                            MessageBox.Show("Selected user account is not in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                         if (credMan.IsAccountPersisted(lvwUserNameCache.SelectedItems[0].Text))
+                         {
+                             
+                             if (credMan.IsAccountDecryptable(lvwUserNameCache.SelectedItems[0].Text))
+                                 MessageBox.Show("Selected user account is in the cache and can be decrypted with specified master key.", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                             else
+                                 MessageBox.Show("Selected user account is in the cache but it cannot be decrypted with specified master key!", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                         }
+                         else
+                             MessageBox.Show("Selected user account is not in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                      }
                  }
                  catch (Exception ex)
