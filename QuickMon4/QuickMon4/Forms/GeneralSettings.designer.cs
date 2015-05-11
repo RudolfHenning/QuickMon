@@ -296,7 +296,6 @@
             this.txtApplicationMasterKeyFilePath.Name = "txtApplicationMasterKeyFilePath";
             this.txtApplicationMasterKeyFilePath.Size = new System.Drawing.Size(245, 20);
             this.txtApplicationMasterKeyFilePath.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.txtApplicationMasterKeyFilePath, "* - All, use ~ for exclude");
             // 
             // txtApplicationMasterKey
             // 
@@ -306,7 +305,6 @@
             this.txtApplicationMasterKey.Name = "txtApplicationMasterKey";
             this.txtApplicationMasterKey.Size = new System.Drawing.Size(293, 20);
             this.txtApplicationMasterKey.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.txtApplicationMasterKey, "* - All, use ~ for exclude");
             // 
             // tabControl1
             // 
