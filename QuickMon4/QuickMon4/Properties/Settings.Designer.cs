@@ -224,5 +224,40 @@ namespace QuickMon.Properties {
                 this["DisableAutoAdminMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApplicationMasterKey {
+            get {
+                return ((string)(this["ApplicationMasterKey"]));
+            }
+            set {
+                this["ApplicationMasterKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApplicationMasterKeyFilePath {
+            get {
+                return ((string)(this["ApplicationMasterKeyFilePath"]));
+            }
+            set {
+                this["ApplicationMasterKeyFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection ApplicationUserNameCache {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ApplicationUserNameCache"]));
+            }
+            set {
+                this["ApplicationUserNameCache"] = value;
+            }
+        }
     }
 }

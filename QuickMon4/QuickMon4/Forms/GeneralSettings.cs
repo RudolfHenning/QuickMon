@@ -77,6 +77,19 @@ namespace QuickMon
             chkPollingEnabled.Checked = PollingEnabled;
             chkUseTemplates.Checked = Properties.Settings.Default.UseTemplatesForNewObjects;
             chkDisableAutoAdminMode.Checked = Properties.Settings.Default.DisableAutoAdminMode;
+
+            txtApplicationMasterKey.Text = Properties.Settings.Default.ApplicationMasterKey;
+            txtApplicationMasterKeyFilePath.Text = Properties.Settings.Default.ApplicationMasterKeyFilePath;
+            lvwUserNameCache.Items.Clear();
+            if (Properties.Settings.Default.ApplicationUserNameCache != null)
+            {
+                foreach(string userName in (from string s in Properties.Settings.Default.ApplicationUserNameCache 
+                                                orderby s
+                                                select s))
+                {
+                    lvwUserNameCache.Items.Add(userName);
+                }
+            }
             //chkDisableAutoAdminMode.Enabled = Security.IsInAdminMode();
 
             try
@@ -129,6 +142,7 @@ namespace QuickMon
         private void GeneralSettings_Shown(object sender, EventArgs e)
         {
             lvwRemoteHosts.AutoResizeColumnEnabled = true;
+            lvwUserNameCache.AutoResizeColumnEnabled = true;
         }
         #endregion
 
@@ -193,11 +207,18 @@ namespace QuickMon
                 {
                     if (lvi.Tag is RemoteAgentInfo)
                     {
-
                         Properties.Settings.Default.KnownRemoteHosts.Add(((RemoteAgentInfo)lvi.Tag).ToString());
                     }
                 }
             }
+            Properties.Settings.Default.ApplicationMasterKey = txtApplicationMasterKey.Text;
+            Properties.Settings.Default.ApplicationMasterKeyFilePath = txtApplicationMasterKeyFilePath.Text;
+            Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
+            foreach (ListViewItem userName in lvwUserNameCache.Items)
+            {
+                Properties.Settings.Default.ApplicationUserNameCache.Add(userName.Text);
+            }
+
             Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
@@ -713,5 +734,41 @@ namespace QuickMon
                 shortcutChanged = true;
         } 
         #endregion
+
+        private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
+        {
+            saveFileDialogSaveQmmxml.FileName = txtApplicationMasterKeyFilePath.Text;
+            if (saveFileDialogSaveQmmxml.ShowDialog() == System.Windows.Forms.DialogResult.OK && MessageBox.Show("Are you sure you want to (re)set the master key file?\r\nThis will reset cache list below.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+            {
+                txtApplicationMasterKeyFilePath.Text = saveFileDialogSaveQmmxml.FileName;
+                Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
+                lvwUserNameCache.Items.Clear();
+            }
+        }
+
+        private void cmdAddUserNameToCache_Click(object sender, EventArgs e)
+        {
+            QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+            try
+            {
+                credMan.MasterKey = txtApplicationMasterKey.Text;
+                if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
+                {
+                    credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
+                }
+                QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
+                if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    credMan.SetAccount(ld.UserName, ld.Password);
+                    credMan.SaveCache(txtApplicationMasterKeyFilePath.Text);
+                }
+                lvwUserNameCache.Items.Add(ld.UserName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+            }
+        }
+
     }
 }

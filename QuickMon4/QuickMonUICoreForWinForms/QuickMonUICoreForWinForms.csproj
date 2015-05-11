@@ -233,6 +233,12 @@
     <Compile Include="GenericForms\SelectNewAgentType.designer.cs">
       <DependentUpon>SelectNewAgentType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Security\LogonDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\LogonDialog.Designer.cs">
+      <DependentUpon>LogonDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Templates\EditTemplates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -408,6 +414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
       <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\LogonDialog.resx">
+      <DependentUpon>LogonDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\EditTemplates.resx">
       <DependentUpon>EditTemplates.cs</DependentUpon>
