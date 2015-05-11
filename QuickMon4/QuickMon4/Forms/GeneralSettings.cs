@@ -87,7 +87,13 @@ namespace QuickMon
                                                 orderby s
                                                 select s))
                 {
-                    lvwUserNameCache.Items.Add(userName);
+                    if ((from ListViewItem l in lvwUserNameCache.Items
+                         where l.Text == userName
+                         select l).Count() == 0)
+                    {
+                        ListViewItem lvi =lvwUserNameCache.Items.Add(userName);
+                        lvi.ImageIndex = 0;
+                    }
                 }
             }
             //chkDisableAutoAdminMode.Enabled = Security.IsInAdminMode();
@@ -755,18 +761,88 @@ namespace QuickMon
                 if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
                 {
                     credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
+
+                    QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
+                    if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        credMan.SetAccount(ld.UserName, ld.Password);
+                        credMan.SaveCache(txtApplicationMasterKeyFilePath.Text);
+                    }
+                    if ((from ListViewItem l in lvwUserNameCache.Items
+                         where l.Text == ld.UserName
+                         select l).Count() == 0)
+                    {
+                        ListViewItem lvi = lvwUserNameCache.Items.Add(ld.UserName);
+                        lvi.ImageIndex = 0;
+                    }
                 }
-                QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
-                if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    credMan.SetAccount(ld.UserName, ld.Password);
-                    credMan.SaveCache(txtApplicationMasterKeyFilePath.Text);
-                }
-                lvwUserNameCache.Items.Add(ld.UserName);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void lvwUserNameCache_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            inCacheToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
+            cmdRemoveUserNameFromCache.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
+            removeUserToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
+        }
+
+        private void cmdRemoveUserNameFromCache_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                credMan.MasterKey = txtApplicationMasterKey.Text;
+                try
+                {
+                    credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
+                }
+                catch { }
+
+                foreach (int index in (from int i in lvwUserNameCache.SelectedIndices
+                                       orderby i descending
+                                       select i))
+                {
+
+                    try
+                    {
+                        credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
+                    }
+                    catch { }
+                    lvwUserNameCache.Items.RemoveAt(index);
+                }
+                try
+                {
+                    credMan.SaveCache(txtApplicationMasterKeyFilePath.Text);
+                }
+                catch { }
+            }
+        }
+
+        private void inCacheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwUserNameCache.SelectedItems.Count == 1)
+            {
+                 QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                 try
+                 {
+                     credMan.MasterKey = txtApplicationMasterKey.Text;
+                     if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
+                     {
+                         credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
+                        if ( credMan.IsAccountPersisted(lvwUserNameCache.SelectedItems[0].Text))
+                            MessageBox.Show("Selected user account is in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("Selected user account is not in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                     }
+                 }
+                 catch (Exception ex)
+                 {
+                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 }
             }
         }
 
