@@ -24,6 +24,19 @@ namespace QuickMon
                 Properties.Settings.Default.Save();
             }
 
+            if (Properties.Settings.Default.ApplicationMasterKey == null || Properties.Settings.Default.ApplicationMasterKey == "")
+            {
+                Properties.Settings.Default.ApplicationMasterKey = "QuickMon-" + System.Net.Dns.GetHostName();
+            }
+            if (Properties.Settings.Default.ApplicationMasterKeyFilePath == null || Properties.Settings.Default.ApplicationMasterKeyFilePath == "")
+            {
+                Properties.Settings.Default.ApplicationMasterKeyFilePath = System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "QM4MasterKeys.qmmxml");
+            }
+            if (Properties.Settings.Default.ApplicationUserNameCache == null)
+            {
+                Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
+            }
+
             if (Properties.Settings.Default.RecentQMConfigFiles == null)
                 Properties.Settings.Default.RecentQMConfigFiles = new System.Collections.Specialized.StringCollection();
             if (Properties.Settings.Default.KnownRemoteHosts == null)
