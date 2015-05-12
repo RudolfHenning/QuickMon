@@ -131,6 +131,9 @@ namespace QuickMon
                 txtCorrectiveScriptOnError.Text = editingCollectorHost.CorrectiveScriptOnErrorPath;
                 chkOnlyRunCorrectiveScriptsOnStateChange.Checked = editingCollectorHost.CorrectiveScriptsOnlyOnStateChange;
                 txtRestorationScript.Text = editingCollectorHost.RestorationScriptPath;
+                chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
+                txtRunAs.Text = editingCollectorHost.RunAs;
+                cmdTestRunAs.Enabled = HostingMonitorPack != null;
 
                 LoadConfigVars();
                 LoadAgents();
@@ -1128,6 +1131,11 @@ namespace QuickMon
                 editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
                 editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
                 editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
+
+                //impersonation
+                editingCollectorHost.RunAsEnabled = chkRunAsEnabled.Checked;
+                editingCollectorHost.RunAs = txtRunAs.Text;
+
                 //Service windows - Done already            
                 editingCollectorHost.ConfigVariables = new List<ConfigVariable>();
                 foreach (ListViewItem lvi in lvwConfigVars.Items)
@@ -1216,7 +1224,83 @@ namespace QuickMon
             MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
+        private void cmdTestRunAs_Click(object sender, EventArgs e)
+        {
+            string errorString = "";
+            if (HostingMonitorPack != null)
+            {
+                if (HostingMonitorPack.UserNameCacheFilePath != null && System.IO.File.Exists(HostingMonitorPack.UserNameCacheFilePath) &&
+                    HostingMonitorPack.UserNameCacheMasterKey != null && HostingMonitorPack.UserNameCacheMasterKey.Length > 0
+                    )
+                {
+                    QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                    try
+                    {
+                        credMan.MasterKey = HostingMonitorPack.UserNameCacheMasterKey;
+                        credMan.OpenCache(HostingMonitorPack.UserNameCacheFilePath);
+                        if (credMan.IsAccountPersisted(txtRunAs.Text))
+                        {
+                            if (credMan.IsAccountDecryptable(txtRunAs.Text))
+                            {
+                                //still to add - test actual impersonation using this account & password
+                                MessageBox.Show("The specified 'Run as' user name was found in the cache and can be decrypted.", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+                            else
+                            {
+                                errorString = "The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!";
+                                //MessageBox.Show("The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            errorString = "The specified 'Run as' user name was not found in the credential cache!";
+                            //MessageBox.Show("The specified 'Run as' user name was not found in the credential cache!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                if (HostingMonitorPack.ApplicationUserNameCacheFilePath != null && System.IO.File.Exists(HostingMonitorPack.ApplicationUserNameCacheFilePath) &&
+                    HostingMonitorPack.ApplicationUserNameCacheMasterKey != null && HostingMonitorPack.ApplicationUserNameCacheMasterKey.Length > 0
+                    )
+                {
+                    QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                    try
+                    {
+                        credMan.MasterKey = HostingMonitorPack.ApplicationUserNameCacheMasterKey;
+                        credMan.OpenCache(HostingMonitorPack.ApplicationUserNameCacheFilePath);
+                        if (credMan.IsAccountPersisted(txtRunAs.Text))
+                        {
+                            if (credMan.IsAccountDecryptable(txtRunAs.Text))
+                            {
+                                //still to add - test actual impersonation using this account & password
+                                MessageBox.Show("The specified 'Run as' user name was found in the cache and can be decrypted.", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+                            else
+                            {
+                                errorString = "The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!";
+                                //MessageBox.Show("The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            errorString = "The specified 'Run as' user name was not found in the credential cache!";
+                            //MessageBox.Show("The specified 'Run as' user name was not found in the credential cache!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                if (errorString.Length > 0)
+                    MessageBox.Show(errorString, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
        
     }
 }

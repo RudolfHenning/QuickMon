@@ -120,6 +120,34 @@
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="userCacheContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>122, 17</value>
+  </metadata>
+  <metadata name="userCacheImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>537, 15</value>
+  </metadata>
+  <data name="userCacheImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADC
+        AgAAAk1TRnQBSQFMAwEBAAHMAQEBzAEBARABAAEQAQAE/wERAQAI/wFCAU0BNgcAATYDAAEoAwABQAMA
+        ARADAAEBAQABEAYAAQgSAAH/AX8BlAFSAfcBXgG9AXd4AAHVAV4BxAFJAYUBSQExAUYB/wF/dgABKgFO
+        AeYBfgEkAXMBaQEtATkBZwG9AXd0AAHdAXsBkgF/ASIBZgEEAWsBogFBARABQgH/AX90AAHdAXsBkwF/
+        AUMBcgFDAXcBRwEtAXMBTgF7AW90AAHdAXsBtwF/AYIBegFCAXcBRQFSARABQgH/AX90AAHdAXsB2wF/
+        AaMBegFDAXcBJQEpAawBOQGUAVIBewFvAbUBVgH3AV4B3gF7bAAB3QF7AdwBfwGCAXoBIwF3AYIBbgEh
+        ATUBowFFAccBSQFkAT0BSAEtATkBZ2wAAd0BewGXAX8BhgFyAS8BfwFjAXoBZgFuAQwBdwGJAWoBBAFW
+        ASYBKQG9AXdsAAHdAXsBUwF/AaUBfgFCAWIByQFyAe0BbgHJAWoBZAFmAUQBPQG1AVZuAAGLAWoB3AF/
+        AccBcgGwAX8BzgFqAbQBfwHjAXIBKgFuATEBRm4AAWkBZgG6AX8BgQFyAWUBRQHeAXsBSgFeAQYBfwFs
+        AX4B9wFebgABxwFJAdoBfwFhAXIBxQFRAeIBOAGpAWYBRwF/AccBWQHeAXtuAAH/AX8BRQF/AbYBfwHH
+        AXIBhwFiAbEBewFrAX8B9gFecgAB3QF7ASABagGKAX8B0wF/AXUBcwEXAWPkAAFCAU0BPgcAAT4DAAEo
+        AwABQAMAARADAAEBAQABAQUAAYAXAAP/AQABDwH/BgABBwH/BgABAwH/BgABAQH/BgABgAH/BgABwAF/
+        BgAB4AEDBgAB8AEBBgAB+AcAAfwHAAH+BwAB/gcAAf4HAAH+AQEGAAH/AQMGAAL/BgAL
+</value>
+  </data>
+  <metadata name="saveFileDialogSaveQmmxml.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>329, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

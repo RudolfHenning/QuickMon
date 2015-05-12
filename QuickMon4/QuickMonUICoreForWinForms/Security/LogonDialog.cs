@@ -50,5 +50,12 @@ namespace QuickMon.Security
                 Close();
             }
         }
+
+        private void LogonDialog_Load(object sender, EventArgs e)
+        {
+            txtUserName.Text = UserName;
+            if (txtUserName.Text.Length > 0)
+                txtUserName.Enabled = false;
+        }
     }
 }

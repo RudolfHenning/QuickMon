@@ -80,6 +80,14 @@ namespace QuickMon
         public AttendedOption RunningAttended { get; set; }
         #endregion        
 
+        #region Security
+        public string UserNameCacheMasterKey { get; set; }
+        public string UserNameCacheFilePath { get; set; }
+        //Run time setting only
+        public string ApplicationUserNameCacheMasterKey { get; set; }
+        public string ApplicationUserNameCacheFilePath { get; set; }        
+        #endregion
+
         #endregion
 
         #region Refreshing states

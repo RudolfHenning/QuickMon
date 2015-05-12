@@ -484,6 +484,18 @@ namespace QuickMon
 
                 monitorPack.Load(monitorPackPath);
                 LoadControlsFromMonitorPack();
+                SetMonitorPackEvents();
+
+                AddMonitorPackFileToRecentList(monitorPackPath);
+                
+                ResumePolling();
+                monitorPackChanged = false;
+            }
+        }
+        private void SetMonitorPackEvents()
+        {
+            if (monitorPack != null)
+            {
                 monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
                 monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
                 monitorPack.OnNotifierError += monitorPack_OnNotifierError;
@@ -494,10 +506,8 @@ namespace QuickMon
                 monitorPack.CollectorHostAllAgentsExecutionTime += monitorPack_CollectorHostAllAgentsExecutionTime;
                 monitorPack.RunningAttended = AttendedOption.OnlyAttended;
 
-                AddMonitorPackFileToRecentList(monitorPackPath);
-                
-                ResumePolling();
-                monitorPackChanged = false;
+                monitorPack.ApplicationUserNameCacheFilePath = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
+                monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
             }
         }
         private void LoadControlsFromMonitorPack()
@@ -649,6 +659,7 @@ namespace QuickMon
                 {
                     monitorPack = emc.SelectedMonitorPack;
                     UpdateStatusbar("Reloading monitor pack...");
+                    SetMonitorPackEvents();
                     LoadControlsFromMonitorPack();
                 }
                 SetMonitorPackNameDescription();

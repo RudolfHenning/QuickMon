@@ -126,7 +126,7 @@ namespace QuickMon.Controls
             this.cmdEditCollector.Padding = new System.Windows.Forms.Padding(2);
             this.cmdEditCollector.Size = new System.Drawing.Size(228, 44);
             this.cmdEditCollector.TabIndex = 2;
-            this.cmdEditCollector.Text = "&Edit configuration";
+            this.cmdEditCollector.Text = "&Configuration";
             this.toolTip1.SetToolTip(this.cmdEditCollector, "Edit collector configuration");
             this.cmdEditCollector.UseVisualStyleBackColor = true;
             // 
@@ -141,7 +141,7 @@ namespace QuickMon.Controls
             this.cmdAddCollector.Padding = new System.Windows.Forms.Padding(2);
             this.cmdAddCollector.Size = new System.Drawing.Size(228, 44);
             this.cmdAddCollector.TabIndex = 1;
-            this.cmdAddCollector.Text = "&Add new";
+            this.cmdAddCollector.Text = "&New";
             this.toolTip1.SetToolTip(this.cmdAddCollector, "Add new collector");
             this.cmdAddCollector.UseVisualStyleBackColor = true;
             // 
@@ -157,7 +157,7 @@ namespace QuickMon.Controls
             this.cmdViewDetails.Padding = new System.Windows.Forms.Padding(2);
             this.cmdViewDetails.Size = new System.Drawing.Size(228, 44);
             this.cmdViewDetails.TabIndex = 3;
-            this.cmdViewDetails.Text = "View &Details";
+            this.cmdViewDetails.Text = "&Details";
             this.toolTip1.SetToolTip(this.cmdViewDetails, "View collector details");
             this.cmdViewDetails.UseVisualStyleBackColor = true;
             // 

@@ -240,12 +240,12 @@ namespace QuickMon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ApplicationMasterKeyFilePath {
+        public string ApplicationUserNameCacheFilePath {
             get {
-                return ((string)(this["ApplicationMasterKeyFilePath"]));
+                return ((string)(this["ApplicationUserNameCacheFilePath"]));
             }
             set {
-                this["ApplicationMasterKeyFilePath"] = value;
+                this["ApplicationUserNameCacheFilePath"] = value;
             }
         }
         
