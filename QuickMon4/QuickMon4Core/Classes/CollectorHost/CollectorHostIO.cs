@@ -90,6 +90,7 @@ namespace QuickMon
             newCollectorHost.PollSlideFrequencyAfterThirdRepeatSec = xmlCollectorEntry.ReadXmlElementAttr("pollSlideFrequencyAfterThirdRepeatSec", 30);            
 
             //Impersonation
+            newCollectorHost.RunAsEnabled = xmlCollectorEntry.ReadXmlElementAttr("runAsEnabled", false);
             newCollectorHost.RunAs = xmlCollectorEntry.ReadXmlElementAttr("runAs", "");
 
             //Service windows config
@@ -302,6 +303,7 @@ namespace QuickMon
                 PollSlideFrequencyAfterThirdRepeatSec,
                 AlertsPaused,
 
+                RunAsEnabled,
                 RunAs,
 
                 collectorAgentsXml.ToString(),
@@ -328,6 +330,7 @@ namespace QuickMon
                 int pollSlideFrequencyAfterSecondRepeatSec,
                 int pollSlideFrequencyAfterThirdRepeatSec,
                 bool alertsPaused,
+                bool runAsEnabled,
                 string runAs,
                 string collectorAgentsXml,
                 string serviceWindowsXml,
@@ -345,7 +348,7 @@ namespace QuickMon
                       "blockParentRemoteAgentHostSettings=\"{22}\" runLocalOnRemoteHostConnectionFailure=\"{23}\" " +
                       "enabledPollingOverride=\"{24}\" onlyAllowUpdateOncePerXSec=\"{25}\" enablePollFrequencySliding=\"{26}\" " +
                       "pollSlideFrequencyAfterFirstRepeatSec=\"{27}\" pollSlideFrequencyAfterSecondRepeatSec=\"{28}\" " + 
-                      "pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\" runAs=\"{31}\">",
+                      "pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\" runAsEnabled=\"{31}\" runAs=\"{32}\" >",
                         uniqueId, name.EscapeXml(), enabled, expandOnStart, parentCollectorId,
                         agentCheckSequence, childCheckBehaviour,
                         repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
@@ -356,7 +359,7 @@ namespace QuickMon
                         blockParentOverrideRemoteAgentHostSettings, runLocalOnRemoteHostConnectionFailure,
                         enabledPollingOverride, onlyAllowUpdateOncePerXSec, enablePollFrequencySliding,
                         pollSlideFrequencyAfterFirstRepeatSec, pollSlideFrequencyAfterSecondRepeatSec, pollSlideFrequencyAfterThirdRepeatSec,
-                        alertsPaused, runAs.EscapeXml()
+                        alertsPaused, runAsEnabled, runAs.EscapeXml()
                       )
                      );
             configXml.AppendLine("<!-- CollectorAgents -->");

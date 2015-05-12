@@ -127,6 +127,7 @@
             // 
             // LogonDialog
             // 
+            this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -146,6 +147,7 @@
             this.Name = "LogonDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Specify credentials";
+            this.Load += new System.EventHandler(this.LogonDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

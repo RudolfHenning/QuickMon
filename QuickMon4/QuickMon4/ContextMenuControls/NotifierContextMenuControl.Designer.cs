@@ -50,7 +50,7 @@
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Size = new System.Drawing.Size(210, 43);
             this.cmdViewDetails.TabIndex = 2;
-            this.cmdViewDetails.Text = "View";
+            this.cmdViewDetails.Text = "Details";
             this.notifierToolTip.SetToolTip(this.cmdViewDetails, "View recorded alerts");
             this.cmdViewDetails.UseVisualStyleBackColor = true;
             // 
@@ -75,7 +75,7 @@
             this.cmdEditNotifier.Name = "cmdEditNotifier";
             this.cmdEditNotifier.Size = new System.Drawing.Size(210, 42);
             this.cmdEditNotifier.TabIndex = 3;
-            this.cmdEditNotifier.Text = "Edit";
+            this.cmdEditNotifier.Text = "Configuration";
             this.notifierToolTip.SetToolTip(this.cmdEditNotifier, "Edit configuration");
             this.cmdEditNotifier.UseVisualStyleBackColor = true;
             // 
@@ -90,7 +90,7 @@
             this.cmdAddNotifier.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.cmdAddNotifier.Size = new System.Drawing.Size(210, 41);
             this.cmdAddNotifier.TabIndex = 4;
-            this.cmdAddNotifier.Text = "Add";
+            this.cmdAddNotifier.Text = "&New";
             this.notifierToolTip.SetToolTip(this.cmdAddNotifier, "Add new");
             this.cmdAddNotifier.UseVisualStyleBackColor = true;
             // 

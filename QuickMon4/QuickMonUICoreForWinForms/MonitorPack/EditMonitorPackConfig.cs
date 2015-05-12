@@ -60,10 +60,8 @@ namespace QuickMon
                 SelectedMonitorPack.Enabled = chkEnabled.Checked;
                 SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
                 SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
-                //if (cboDefaultNotifier.SelectedIndex > -1)
-                //    SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
-                //else
-                //    SelectedMonitorPack.DefaultViewerNotifier = null;
+                SelectedMonitorPack.UserNameCacheMasterKey = txtMasterKey.Text;
+                SelectedMonitorPack.UserNameCacheFilePath = txtMasterKeyFilePath.Text;                
                 SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
                 foreach (ListViewItem lvi in lvwConfigVars.Items)
                 {
@@ -99,18 +97,11 @@ namespace QuickMon
             chkEnabled.Checked = SelectedMonitorPack.Enabled;
             collectorStateHistorySizeNumericUpDown.Value = SelectedMonitorPack.CollectorStateHistorySize;
             SetFrequency(SelectedMonitorPack.PollingFrequencyOverrideSec);
-            //LoadNotifiers();
+            txtMasterKey.Text = SelectedMonitorPack.UserNameCacheMasterKey;
+            txtMasterKeyFilePath.Text = SelectedMonitorPack.UserNameCacheFilePath;
             LoadConfigVars();
+            RefreshUserNameList();
         }
-        //private void LoadNotifiers()
-        //{
-        //    cboDefaultNotifier.Items.Clear();
-        //    foreach (NotifierHost n in SelectedMonitorPack.NotifierHosts)
-        //    {
-        //        cboDefaultNotifier.Items.Add(n);
-        //    }
-        //    cboDefaultNotifier.SelectedItem = SelectedMonitorPack.DefaultViewerNotifier;
-        //}
         private bool ValidateInput()
         {
             if (txtName.Text.Trim().Length == 0)
@@ -348,6 +339,139 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
+        }
+
+        private void lvwUserNameCache_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //setPwdToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
+            //cmdAddUserNameToCache.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
+            removeUserToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
+            cmdRemoveUserNameFromCache.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
+        }
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshUserNameList();
+        }
+        private void RefreshUserNameList()
+        {
+            lvwUserNameCache.Items.Clear();
+            if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
+            {
+                foreach (string userName in (from ch in SelectedMonitorPack.CollectorHosts
+                                             where ch.RunAs != null && ch.RunAs.Length > 0
+                                             group ch by ch.RunAs into u
+                                             orderby u.Key
+                                             select u.Key))
+                {
+                    ListViewItem lvi = new ListViewItem(userName);
+                    lvi.ImageIndex = 0;
+                    lvi.SubItems.Add("No");
+                    lvi.SubItems.Add("No");
+                    lvwUserNameCache.Items.Add(lvi);
+                }
+                Application.DoEvents();
+
+                try
+                {
+                    if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
+                    {
+                        QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                        credMan.MasterKey = txtMasterKey.Text;
+                        credMan.OpenCache(txtMasterKeyFilePath.Text);
+
+                        foreach (ListViewItem lvi in lvwUserNameCache.Items)
+                        {
+                            if (credMan.IsAccountPersisted(lvi.Text))
+                            {
+                                lvi.SubItems[1].Text = "Yes";
+                                if (credMan.IsAccountDecryptable(lvi.Text))
+                                {
+                                    lvi.SubItems[2].Text = "Yes";
+                                }
+                            }
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
+        {
+            saveFileDialogSaveQmmxml.FileName = txtMasterKeyFilePath.Text;
+            if (saveFileDialogSaveQmmxml.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtMasterKeyFilePath.Text = saveFileDialogSaveQmmxml.FileName;
+            }
+        }
+
+        private void cmdAddUserNameToCache_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
+                {
+                    QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                    credMan.MasterKey = txtMasterKey.Text;
+                    credMan.OpenCache(txtMasterKeyFilePath.Text);
+                    QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
+                    if (lvwUserNameCache.SelectedItems.Count == 1)
+                        ld.UserName = lvwUserNameCache.SelectedItems[0].Text;
+                    if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        credMan.SetAccount(ld.UserName, ld.Password);
+                        credMan.SaveCache(txtMasterKeyFilePath.Text);
+                        lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
+                        lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdRemoveUserNameFromCache_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                credMan.MasterKey = txtMasterKey.Text;
+                try
+                {
+                    credMan.OpenCache(txtMasterKeyFilePath.Text);
+                    foreach (int index in (from int i in lvwUserNameCache.SelectedIndices
+                                           orderby i descending
+                                           select i))
+                    {
+                        if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
+                        {
+                            foreach (CollectorHost host in (from ch in SelectedMonitorPack.CollectorHosts
+                                                            where ch.RunAs == lvwUserNameCache.Items[index].Text
+                                                         select ch))
+                            {
+                                host.RunAs = "";
+                            }
+                        }
+
+                        try
+                        {
+                            credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
+                        }
+                        catch { }
+                        lvwUserNameCache.Items.RemoveAt(index);
+                    }
+                    credMan.SaveCache(txtMasterKeyFilePath.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
     }

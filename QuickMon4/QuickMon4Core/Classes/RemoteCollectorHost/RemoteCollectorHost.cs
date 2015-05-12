@@ -23,6 +23,8 @@ namespace QuickMon
         public bool Enabled { get; set; }
         [DataMember(Name = "AgentCheckSequence")]
         public AgentCheckSequence AgentCheckSequence { get; set; }
+        [DataMember(Name = "RunAsEnabled")]
+        public bool RunAsEnabled { get; set; }
         [DataMember(Name = "RunAs")]
         public string RunAs { get; set; }
 
@@ -45,12 +47,13 @@ namespace QuickMon
                 Enabled,
                 true,
                 "", //No parent
-               AgentCheckSequence,
+                AgentCheckSequence,
                 ChildCheckBehaviour.OnlyRunOnSuccess,
                 0, 0, 0, 0, 0, 0, true, "", "", "", false, //Corrective scripts
                 false, false, "", 48181, false, false, //Remote hosts
                 false, 0, false, 0, 0, 0, //Polling overides
                 false, //alerts paused
+                RunAsEnabled,
                 RunAs,
                 collectorAgentsXml.ToString(),
                 "", //Service windows
@@ -64,6 +67,7 @@ namespace QuickMon
             UniqueId = fullEntry.UniqueId;
             Enabled = fullEntry.Enabled;
             AgentCheckSequence = fullEntry.AgentCheckSequence;
+            RunAsEnabled = fullEntry.RunAsEnabled;
             RunAs = fullEntry.RunAs;
 
             foreach(ICollector c in fullEntry.CollectorAgents)

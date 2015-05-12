@@ -79,7 +79,7 @@ namespace QuickMon
             chkDisableAutoAdminMode.Checked = Properties.Settings.Default.DisableAutoAdminMode;
 
             txtApplicationMasterKey.Text = Properties.Settings.Default.ApplicationMasterKey;
-            txtApplicationMasterKeyFilePath.Text = Properties.Settings.Default.ApplicationMasterKeyFilePath;
+            txtApplicationMasterKeyFilePath.Text = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
             lvwUserNameCache.Items.Clear();
             if (Properties.Settings.Default.ApplicationUserNameCache != null)
             {
@@ -218,7 +218,7 @@ namespace QuickMon
                 }
             }
             Properties.Settings.Default.ApplicationMasterKey = txtApplicationMasterKey.Text;
-            Properties.Settings.Default.ApplicationMasterKeyFilePath = txtApplicationMasterKeyFilePath.Text;
+            Properties.Settings.Default.ApplicationUserNameCacheFilePath = txtApplicationMasterKeyFilePath.Text;
             Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
             foreach (ListViewItem userName in lvwUserNameCache.Items)
             {
@@ -744,11 +744,12 @@ namespace QuickMon
         private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
         {
             saveFileDialogSaveQmmxml.FileName = txtApplicationMasterKeyFilePath.Text;
-            if (saveFileDialogSaveQmmxml.ShowDialog() == System.Windows.Forms.DialogResult.OK && MessageBox.Show("Are you sure you want to (re)set the master key file?\r\nThis will reset cache list below.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+            if (saveFileDialogSaveQmmxml.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
+                //&& MessageBox.Show("Are you sure you want to (re)set the master key file?\r\nThis will reset cache list below.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
                 txtApplicationMasterKeyFilePath.Text = saveFileDialogSaveQmmxml.FileName;
-                Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
-                lvwUserNameCache.Items.Clear();
+                //Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
+                //lvwUserNameCache.Items.Clear();
             }
         }
 
@@ -763,6 +764,10 @@ namespace QuickMon
                     credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
 
                     QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
+                    if (lvwUserNameCache.SelectedItems.Count == 1)
+                    {
+                        ld.UserName = lvwUserNameCache.SelectedItems[0].Text;
+                    }
                     if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         credMan.SetAccount(ld.UserName, ld.Password);
@@ -799,26 +804,24 @@ namespace QuickMon
                 try
                 {
                     credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
-                }
-                catch { }
-
-                foreach (int index in (from int i in lvwUserNameCache.SelectedIndices
-                                       orderby i descending
-                                       select i))
-                {
-
-                    try
+                    foreach (int index in (from int i in lvwUserNameCache.SelectedIndices
+                                           orderby i descending
+                                           select i))
                     {
-                        credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
+
+                        try
+                        {
+                            credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
+                        }
+                        catch { }
+                        lvwUserNameCache.Items.RemoveAt(index);
                     }
-                    catch { }
-                    lvwUserNameCache.Items.RemoveAt(index);
-                }
-                try
-                {
                     credMan.SaveCache(txtApplicationMasterKeyFilePath.Text);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

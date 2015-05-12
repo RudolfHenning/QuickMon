@@ -37,6 +37,7 @@ namespace QuickMon
             PollSlideFrequencyAfterThirdRepeatSec = 30;
             ConfigVariables = new List<ConfigVariable>();
             RunAs = "";
+            RunAsEnabled = false;
         }
 
         #region Private vars
@@ -249,6 +250,7 @@ namespace QuickMon
 
         #region Impersonation
         public string RunAs { get; set; }
+        public bool RunAsEnabled { get; set; }
         #endregion
 
         #endregion
