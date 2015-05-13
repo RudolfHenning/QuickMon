@@ -34,5 +34,29 @@ namespace QuickMon.Properties {
                 this["ServiceURL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApplicationMasterKey {
+            get {
+                return ((string)(this["ApplicationMasterKey"]));
+            }
+            set {
+                this["ApplicationMasterKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApplicationUserNameCacheFilePath {
+            get {
+                return ((string)(this["ApplicationUserNameCacheFilePath"]));
+            }
+            set {
+                this["ApplicationUserNameCacheFilePath"] = value;
+            }
+        }
     }
 }

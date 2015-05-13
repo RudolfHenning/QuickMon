@@ -63,34 +63,36 @@
             this.label41 = new System.Windows.Forms.Label();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
-            this.txtMasterKeyFilePath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtMasterKey = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
-            this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
-            this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
             this.lvwConfigVars = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label37 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
+            this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
             this.lvwUserNameCache = new QuickMon.ListViewEx();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
+            this.txtMasterKey = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtMasterKeyFilePath = new System.Windows.Forms.TextBox();
+            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneric.SuspendLayout();
@@ -100,10 +102,10 @@
             this.tabAdvancedConfig.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.userCacheContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -485,214 +487,6 @@
             this.label40.TabIndex = 2;
             this.label40.Text = "Search for";
             // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(6, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(98, 13);
-            this.label37.TabIndex = 0;
-            this.label37.Text = "Config variables";
-            // 
-            // llblRawEdit
-            // 
-            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblRawEdit.AutoSize = true;
-            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(9, 314);
-            this.llblRawEdit.Name = "llblRawEdit";
-            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
-            this.llblRawEdit.TabIndex = 4;
-            this.llblRawEdit.TabStop = true;
-            this.llblRawEdit.Text = "Edit RAW config";
-            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.BlueArcTopRight;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(555, -2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 42);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.White;
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(581, 239);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Security";
-            // 
-            // cmdSelectMasterKeyFile
-            // 
-            this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(520, 37);
-            this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
-            this.cmdSelectMasterKeyFile.Size = new System.Drawing.Size(42, 23);
-            this.cmdSelectMasterKeyFile.TabIndex = 3;
-            this.cmdSelectMasterKeyFile.Text = "- - -";
-            this.cmdSelectMasterKeyFile.UseVisualStyleBackColor = true;
-            this.cmdSelectMasterKeyFile.Click += new System.EventHandler(this.cmdSelectMasterKeyFile_Click);
-            // 
-            // txtMasterKeyFilePath
-            // 
-            this.txtMasterKeyFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMasterKeyFilePath.Location = new System.Drawing.Point(131, 39);
-            this.txtMasterKeyFilePath.Name = "txtMasterKeyFilePath";
-            this.txtMasterKeyFilePath.Size = new System.Drawing.Size(383, 20);
-            this.txtMasterKeyFilePath.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Master key file";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.cmdRemoveUserNameFromCache);
-            this.groupBox2.Controls.Add(this.cmdAddUserNameToCache);
-            this.groupBox2.Controls.Add(this.lvwUserNameCache);
-            this.groupBox2.Controls.Add(this.txtMasterKey);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.cmdSelectMasterKeyFile);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.txtMasterKeyFilePath);
-            this.groupBox2.Location = new System.Drawing.Point(7, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(568, 227);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(189, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Credential cache (Monitor pack)";
-            // 
-            // txtMasterKey
-            // 
-            this.txtMasterKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMasterKey.Location = new System.Drawing.Point(131, 65);
-            this.txtMasterKey.Name = "txtMasterKey";
-            this.txtMasterKey.Size = new System.Drawing.Size(383, 20);
-            this.txtMasterKey.TabIndex = 5;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 68);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Master key";
-            // 
-            // cmdRemoveUserNameFromCache
-            // 
-            this.cmdRemoveUserNameFromCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRemoveUserNameFromCache.Enabled = false;
-            this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(520, 154);
-            this.cmdRemoveUserNameFromCache.Name = "cmdRemoveUserNameFromCache";
-            this.cmdRemoveUserNameFromCache.Size = new System.Drawing.Size(42, 23);
-            this.cmdRemoveUserNameFromCache.TabIndex = 8;
-            this.cmdRemoveUserNameFromCache.Text = "Ä";
-            this.cmdRemoveUserNameFromCache.UseVisualStyleBackColor = true;
-            this.cmdRemoveUserNameFromCache.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
-            // 
-            // cmdAddUserNameToCache
-            // 
-            this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdAddUserNameToCache.Location = new System.Drawing.Point(520, 125);
-            this.cmdAddUserNameToCache.Name = "cmdAddUserNameToCache";
-            this.cmdAddUserNameToCache.Size = new System.Drawing.Size(42, 23);
-            this.cmdAddUserNameToCache.TabIndex = 7;
-            this.cmdAddUserNameToCache.Text = "¬";
-            this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
-            this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(404, 13);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Application Master key file/value will be used if the following values are not sp" +
-    "ecified";
-            // 
-            // userCacheContextMenuStrip
-            // 
-            this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setPwdToolStripMenuItem,
-            this.removeUserToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.refreshToolStripMenuItem});
-            this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
-            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(230, 76);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
-            // 
-            // setPwdToolStripMenuItem
-            // 
-            this.setPwdToolStripMenuItem.Name = "setPwdToolStripMenuItem";
-            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.setPwdToolStripMenuItem.Text = "Set/Add account && password";
-            this.setPwdToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
-            // 
-            // removeUserToolStripMenuItem
-            // 
-            this.removeUserToolStripMenuItem.Enabled = false;
-            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.removeUserToolStripMenuItem.Text = "Remove";
-            this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // saveFileDialogSaveQmmxml
-            // 
-            this.saveFileDialogSaveQmmxml.DefaultExt = "qmmxml";
-            this.saveFileDialogSaveQmmxml.Filter = "QuickMon master key files|*.qmmxml";
-            this.saveFileDialogSaveQmmxml.OverwritePrompt = false;
-            // 
-            // userCacheImageList
-            // 
-            this.userCacheImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("userCacheImageList.ImageStream")));
-            this.userCacheImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.userCacheImageList.Images.SetKeyName(0, "125_31.ico");
-            // 
             // lvwConfigVars
             // 
             this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -722,6 +516,84 @@
             this.valueColumnHeader.Text = "Replace by";
             this.valueColumnHeader.Width = 262;
             // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(6, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(98, 13);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "Config variables";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(581, 239);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Security";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.cmdRemoveUserNameFromCache);
+            this.groupBox2.Controls.Add(this.cmdAddUserNameToCache);
+            this.groupBox2.Controls.Add(this.lvwUserNameCache);
+            this.groupBox2.Controls.Add(this.txtMasterKey);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.cmdSelectMasterKeyFile);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.txtMasterKeyFilePath);
+            this.groupBox2.Location = new System.Drawing.Point(7, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(568, 227);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(13, 16);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(404, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Application Master key file/value will be used if the following values are not sp" +
+    "ecified";
+            // 
+            // cmdRemoveUserNameFromCache
+            // 
+            this.cmdRemoveUserNameFromCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdRemoveUserNameFromCache.Enabled = false;
+            this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(520, 154);
+            this.cmdRemoveUserNameFromCache.Name = "cmdRemoveUserNameFromCache";
+            this.cmdRemoveUserNameFromCache.Size = new System.Drawing.Size(42, 23);
+            this.cmdRemoveUserNameFromCache.TabIndex = 9;
+            this.cmdRemoveUserNameFromCache.Text = "Ä";
+            this.cmdRemoveUserNameFromCache.UseVisualStyleBackColor = true;
+            this.cmdRemoveUserNameFromCache.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
+            // 
+            // cmdAddUserNameToCache
+            // 
+            this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cmdAddUserNameToCache.Location = new System.Drawing.Point(520, 125);
+            this.cmdAddUserNameToCache.Name = "cmdAddUserNameToCache";
+            this.cmdAddUserNameToCache.Size = new System.Drawing.Size(42, 23);
+            this.cmdAddUserNameToCache.TabIndex = 8;
+            this.cmdAddUserNameToCache.Text = "¬";
+            this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
+            this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
+            // 
             // lvwUserNameCache
             // 
             this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -735,11 +607,11 @@
             this.columnHeader3});
             this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
             this.lvwUserNameCache.FullRowSelect = true;
-            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 93);
+            this.lvwUserNameCache.Location = new System.Drawing.Point(9, 107);
             this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(505, 128);
+            this.lvwUserNameCache.Size = new System.Drawing.Size(505, 114);
             this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
-            this.lvwUserNameCache.TabIndex = 6;
+            this.lvwUserNameCache.TabIndex = 7;
             this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
             this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
             this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
@@ -758,6 +630,152 @@
             // 
             this.columnHeader3.Text = "Decryptable";
             this.columnHeader3.Width = 82;
+            // 
+            // userCacheContextMenuStrip
+            // 
+            this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setPwdToolStripMenuItem,
+            this.removeUserToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.refreshToolStripMenuItem});
+            this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
+            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(230, 76);
+            // 
+            // setPwdToolStripMenuItem
+            // 
+            this.setPwdToolStripMenuItem.Name = "setPwdToolStripMenuItem";
+            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.setPwdToolStripMenuItem.Text = "Set/Add account && password";
+            this.setPwdToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
+            // 
+            // removeUserToolStripMenuItem
+            // 
+            this.removeUserToolStripMenuItem.Enabled = false;
+            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.removeUserToolStripMenuItem.Text = "Remove";
+            this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // userCacheImageList
+            // 
+            this.userCacheImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("userCacheImageList.ImageStream")));
+            this.userCacheImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.userCacheImageList.Images.SetKeyName(0, "125_31.ico");
+            // 
+            // txtMasterKey
+            // 
+            this.txtMasterKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMasterKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMasterKey.Location = new System.Drawing.Point(131, 36);
+            this.txtMasterKey.Name = "txtMasterKey";
+            this.txtMasterKey.Size = new System.Drawing.Size(383, 20);
+            this.txtMasterKey.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.txtMasterKey, "Do not loose this key as decryption the credentials is impossible without it!");
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Red;
+            this.label9.Location = new System.Drawing.Point(17, 39);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Master key";
+            this.toolTip1.SetToolTip(this.label9, "Do not loose this key as decryption the credentials is impossible without it!");
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(6, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(189, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Credential cache (Monitor pack)";
+            // 
+            // cmdSelectMasterKeyFile
+            // 
+            this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(520, 63);
+            this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
+            this.cmdSelectMasterKeyFile.Size = new System.Drawing.Size(42, 23);
+            this.cmdSelectMasterKeyFile.TabIndex = 6;
+            this.cmdSelectMasterKeyFile.Text = "- - -";
+            this.cmdSelectMasterKeyFile.UseVisualStyleBackColor = true;
+            this.cmdSelectMasterKeyFile.Click += new System.EventHandler(this.cmdSelectMasterKeyFile_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Master key file";
+            // 
+            // txtMasterKeyFilePath
+            // 
+            this.txtMasterKeyFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMasterKeyFilePath.Location = new System.Drawing.Point(131, 65);
+            this.txtMasterKeyFilePath.Name = "txtMasterKeyFilePath";
+            this.txtMasterKeyFilePath.Size = new System.Drawing.Size(383, 20);
+            this.txtMasterKeyFilePath.TabIndex = 5;
+            // 
+            // llblRawEdit
+            // 
+            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblRawEdit.AutoSize = true;
+            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRawEdit.Location = new System.Drawing.Point(9, 314);
+            this.llblRawEdit.Name = "llblRawEdit";
+            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
+            this.llblRawEdit.TabIndex = 4;
+            this.llblRawEdit.TabStop = true;
+            this.llblRawEdit.Text = "Edit RAW config";
+            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::QuickMon.Properties.Resources.BlueArcTopRight;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(555, -2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 42);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // saveFileDialogSaveQmmxml
+            // 
+            this.saveFileDialogSaveQmmxml.DefaultExt = "qmmxml";
+            this.saveFileDialogSaveQmmxml.Filter = "QuickMon master key files|*.qmmxml";
+            this.saveFileDialogSaveQmmxml.OverwritePrompt = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(13, 91);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(398, 13);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "The list below contains user names used by the collector hosts in this monitor pa" +
+    "ck.";
             // 
             // EditMonitorPackConfig
             // 
@@ -795,11 +813,11 @@
             this.groupBox5.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.userCacheContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -868,5 +886,7 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSaveQmmxml;
         private System.Windows.Forms.ImageList userCacheImageList;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label11;
     }
 }

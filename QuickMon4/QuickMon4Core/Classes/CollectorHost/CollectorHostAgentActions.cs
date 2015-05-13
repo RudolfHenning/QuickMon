@@ -356,7 +356,28 @@ namespace QuickMon
                     MonitorState caMs;
                     if (ca.Enabled)
                     {
-                        caMs = ca.GetState();
+                        if (!RunAsEnabled || RunAs == null || RunAs.Length == 0)
+                            caMs = ca.GetState();
+                        else
+                        {
+                            string password = QuickMon.Security.CredentialManager.GetAccountPassword(RunTimeUserNameCacheFile, RunTimeMasterKey, RunAs);
+                            string userName = RunAs;
+                            string domainName = System.Net.Dns.GetHostName();
+                            if (userName.Contains('\\'))
+                            {
+                                domainName = userName.Substring(0, userName.IndexOf('\\'));
+                                userName = userName.Substring(domainName.Length + 1);
+                            }
+                            if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                            {
+                                caMs = ca.GetState();
+                            }
+                            else
+                            {
+                                caMs = ca.GetState();
+                                QuickMon.Security.Impersonator.UnImpersonate();
+                            }
+                        }
                     }
                     else
                     {

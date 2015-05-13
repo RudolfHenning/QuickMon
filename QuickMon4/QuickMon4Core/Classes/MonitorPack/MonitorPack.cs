@@ -173,7 +173,85 @@ namespace QuickMon
                 RaiseCollectorHostCalled(collectorHost);
                 try
                 {
-                    MonitorState chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+                    MonitorState chms = null;
+
+                    collectorHost.RunTimeMasterKey = "";
+                    collectorHost.RunTimeUserNameCacheFile = "";
+
+                    if (collectorHost.RunAsEnabled && collectorHost.RunAs != null && collectorHost.RunAs.Length > 0)
+                    {                    
+                        if (UserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(UserNameCacheFilePath) &&
+                                QuickMon.Security.CredentialManager.IsAccountPersisted(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs) &&
+                                QuickMon.Security.CredentialManager.IsAccountDecryptable(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs))
+                        {
+                            collectorHost.RunTimeMasterKey = UserNameCacheMasterKey;
+                            collectorHost.RunTimeUserNameCacheFile = UserNameCacheFilePath;
+                        }
+                        else if (ApplicationUserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(ApplicationUserNameCacheFilePath) &&
+                            QuickMon.Security.CredentialManager.IsAccountPersisted(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs) &&
+                            QuickMon.Security.CredentialManager.IsAccountDecryptable(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs))
+                        {
+                            collectorHost.RunTimeMasterKey = ApplicationUserNameCacheMasterKey;
+                            collectorHost.RunTimeUserNameCacheFile = ApplicationUserNameCacheFilePath;
+                        }
+                    }
+                    chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+
+
+                    //if (!collectorHost.RunAsEnabled || collectorHost.RunAs == null || collectorHost.RunAs.Length == 0)
+                    //    chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+                    //else
+                    //{
+                    //    //********************
+                    //    // Using impersonation 
+                    //    //********************
+                    //    try
+                    //    {
+                    //        string password = "";
+                    //        if (UserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(UserNameCacheFilePath) &&
+                    //            QuickMon.Security.CredentialManager.IsAccountPersisted(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs) &&
+                    //            QuickMon.Security.CredentialManager.IsAccountDecryptable(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs))
+                    //        {
+                    //            password = QuickMon.Security.CredentialManager.GetAccountPassword(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs);
+                    //        }
+                    //        else if (ApplicationUserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(ApplicationUserNameCacheFilePath) &&
+                    //            QuickMon.Security.CredentialManager.IsAccountPersisted(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs) &&
+                    //            QuickMon.Security.CredentialManager.IsAccountDecryptable(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs))
+                    //        {
+                    //            password = QuickMon.Security.CredentialManager.GetAccountPassword(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs);
+                    //        }
+                    //        if (password.Length > 0)
+                    //        {
+                    //            string userName = collectorHost.RunAs;
+                    //            string domainName = System.Net.Dns.GetHostName();
+                    //            if (userName.Contains('\\'))
+                    //            {
+                    //                domainName = userName.Substring(0, userName.IndexOf('\\'));
+                    //                userName = userName.Substring(domainName.Length + 1);
+                    //            }
+                    //            if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                    //            {
+                    //                chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+                    //            }
+                    //            else
+                    //            {
+                    //                chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+                    //                QuickMon.Security.Impersonator.UnImpersonate();
+                    //            }
+                    //        }
+                    //        else
+                    //        {
+                    //            chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+                    //        }
+                    //    }
+                    //    catch
+                    //    {
+                    //        chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+                    //    }
+                    //    //********************
+                    //    // Using impersonation 
+                    //    //********************
+                    //}
 
                     #region Do/Check/Set dependant CollectorHosts
                     if (chms.State == CollectorState.Error && collectorHost.ChildCheckBehaviour != ChildCheckBehaviour.ContinueOnWarningOrError)
