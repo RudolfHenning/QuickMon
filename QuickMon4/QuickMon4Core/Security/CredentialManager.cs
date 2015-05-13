@@ -39,6 +39,50 @@ namespace QuickMon.Security
         private List<Account> accountCache = new List<Account>();
         #endregion
 
+
+        #region Static
+        public static bool IsAccountPersisted(string persistedStorageLocation, string masterKey, string username)
+        {
+            bool found = false;
+            try
+            {
+                CredentialManager credMan = new CredentialManager();
+                credMan.MasterKey = masterKey;
+                credMan.OpenCache(persistedStorageLocation);
+                found = credMan.IsAccountPersisted(username);
+            }
+            catch { }
+            return found;
+        }
+        public static bool IsAccountDecryptable(string persistedStorageLocation, string masterKey, string username)
+        {
+            bool found = false;
+            try
+            {
+                CredentialManager credMan = new CredentialManager();
+                credMan.MasterKey = masterKey;
+                credMan.OpenCache(persistedStorageLocation);
+                found = credMan.IsAccountDecryptable(username);
+            }
+            catch { }
+            return found;
+        }
+        public static string GetAccountPassword(string persistedStorageLocation, string masterKey, string username)
+        {
+            string password = "";
+            try
+            {
+                CredentialManager credMan = new CredentialManager();
+                credMan.MasterKey = masterKey;
+                credMan.OpenCache(persistedStorageLocation);
+                password = credMan.GetAccountPassword(username);
+            }
+            catch { }
+            return password;
+        }
+
+        #endregion
+
         #region IO
         public void OpenCache()
         {

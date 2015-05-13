@@ -1242,20 +1242,34 @@ namespace QuickMon
                         {
                             if (credMan.IsAccountDecryptable(txtRunAs.Text))
                             {
-                                //still to add - test actual impersonation using this account & password
-                                MessageBox.Show("The specified 'Run as' user name was found in the cache and can be decrypted.", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                string password = credMan.GetAccountPassword(txtRunAs.Text);
+                                string userName = txtRunAs.Text;
+                                string domainName = System.Net.Dns.GetHostName();
+                                if (userName.Contains('\\'))
+                                {
+                                    domainName = userName.Substring(0, userName.IndexOf('\\'));
+                                    userName = userName.Substring(domainName.Length + 1);
+                                }
+                                if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache but the password is incorrect or cannot be authenticated!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache and can be authenticated!\r\n" +
+                                        System.Security.Principal.WindowsIdentity.GetCurrent().Name, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    QuickMon.Security.Impersonator.UnImpersonate();
+                                }
                                 return;
                             }
                             else
                             {
                                 errorString = "The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!";
-                                //MessageBox.Show("The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                         else
                         {
                             errorString = "The specified 'Run as' user name was not found in the credential cache!";
-                            //MessageBox.Show("The specified 'Run as' user name was not found in the credential cache!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     catch (Exception ex)
@@ -1276,20 +1290,34 @@ namespace QuickMon
                         {
                             if (credMan.IsAccountDecryptable(txtRunAs.Text))
                             {
-                                //still to add - test actual impersonation using this account & password
-                                MessageBox.Show("The specified 'Run as' user name was found in the cache and can be decrypted.", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                string password = credMan.GetAccountPassword(txtRunAs.Text);
+                                string userName = txtRunAs.Text;
+                                string domainName = System.Net.Dns.GetHostName();
+                                if (userName.Contains('\\'))
+                                {
+                                    domainName = userName.Substring(0, userName.IndexOf('\\'));
+                                    userName = userName.Substring(domainName.Length + 1);
+                                }
+                                if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache but the password is incorrect or cannot be authenticated!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache and can be authenticated!\r\n" +
+                                        System.Security.Principal.WindowsIdentity.GetCurrent().Name, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    QuickMon.Security.Impersonator.UnImpersonate();
+                                }
                                 return;
                             }
                             else
                             {
                                 errorString = "The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!";
-                                //MessageBox.Show("The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                         else
                         {
                             errorString = "The specified 'Run as' user name was not found in the credential cache!";
-                            //MessageBox.Show("The specified 'Run as' user name was not found in the credential cache!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     catch (Exception ex)

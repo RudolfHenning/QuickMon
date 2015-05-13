@@ -251,6 +251,14 @@ namespace QuickMon
         #region Impersonation
         public string RunAs { get; set; }
         public bool RunAsEnabled { get; set; }
+        /// <summary>
+        /// This value only gets set by the monitor pack at run time
+        /// </summary>
+        public string RunTimeMasterKey { get; set; }
+        /// <summary>
+        /// This value only gets set by the monitor pack at run time
+        /// </summary>
+        public string RunTimeUserNameCacheFile { get; set; }
         #endregion
 
         #endregion

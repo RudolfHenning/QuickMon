@@ -373,22 +373,33 @@ namespace QuickMon
 
                 try
                 {
-                    if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
+                    //if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
                     {
-                        QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
-                        credMan.MasterKey = txtMasterKey.Text;
-                        credMan.OpenCache(txtMasterKeyFilePath.Text);
+                        //QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                        //credMan.MasterKey = txtMasterKey.Text;
+                        //credMan.OpenCache(txtMasterKeyFilePath.Text);
 
                         foreach (ListViewItem lvi in lvwUserNameCache.Items)
                         {
-                            if (credMan.IsAccountPersisted(lvi.Text))
+                            if (QuickMon.Security.CredentialManager.IsAccountPersisted(txtMasterKeyFilePath.Text, txtMasterKey.Text, lvi.Text))
                             {
                                 lvi.SubItems[1].Text = "Yes";
-                                if (credMan.IsAccountDecryptable(lvi.Text))
+                            }
+                            else if (QuickMon.Security.CredentialManager.IsAccountPersisted(SelectedMonitorPack.ApplicationUserNameCacheFilePath, SelectedMonitorPack.ApplicationUserNameCacheMasterKey, lvi.Text))
+                            {
+                                lvi.SubItems[1].Text = "Global";
+                            }
+                            if (lvi.SubItems[1].Text != "No")
+                            {
+                                if (QuickMon.Security.CredentialManager.IsAccountDecryptable(txtMasterKeyFilePath.Text, txtMasterKey.Text, lvi.Text))
                                 {
                                     lvi.SubItems[2].Text = "Yes";
                                 }
-                            }
+                                else if (QuickMon.Security.CredentialManager.IsAccountDecryptable(SelectedMonitorPack.ApplicationUserNameCacheFilePath, SelectedMonitorPack.ApplicationUserNameCacheMasterKey, lvi.Text))
+                                {
+                                    lvi.SubItems[2].Text = "Global";
+                                }
+                            }                            
                         }
                     }
                 }
@@ -412,21 +423,21 @@ namespace QuickMon
         {
             try
             {
+                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
                 if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
                 {
-                    QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
-                    credMan.MasterKey = txtMasterKey.Text;
                     credMan.OpenCache(txtMasterKeyFilePath.Text);
-                    QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
-                    if (lvwUserNameCache.SelectedItems.Count == 1)
-                        ld.UserName = lvwUserNameCache.SelectedItems[0].Text;
-                    if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        credMan.SetAccount(ld.UserName, ld.Password);
-                        credMan.SaveCache(txtMasterKeyFilePath.Text);
-                        lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
-                        lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
-                    }
+                }
+                credMan.MasterKey = txtMasterKey.Text;
+                QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
+                if (lvwUserNameCache.SelectedItems.Count == 1)
+                    ld.UserName = lvwUserNameCache.SelectedItems[0].Text;
+                if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    credMan.SetAccount(ld.UserName, ld.Password);
+                    credMan.SaveCache(txtMasterKeyFilePath.Text);
+                    lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
+                    lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
                 }
             }
             catch (Exception ex)
@@ -437,7 +448,7 @@ namespace QuickMon
 
         private void cmdRemoveUserNameFromCache_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
                 credMan.MasterKey = txtMasterKey.Text;
@@ -448,24 +459,25 @@ namespace QuickMon
                                            orderby i descending
                                            select i))
                     {
-                        if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
-                        {
-                            foreach (CollectorHost host in (from ch in SelectedMonitorPack.CollectorHosts
-                                                            where ch.RunAs == lvwUserNameCache.Items[index].Text
-                                                         select ch))
-                            {
-                                host.RunAs = "";
-                            }
-                        }
+                        //if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
+                        //{
+                        //    foreach (CollectorHost host in (from ch in SelectedMonitorPack.CollectorHosts
+                        //                                    where ch.RunAs == lvwUserNameCache.Items[index].Text
+                        //                                 select ch))
+                        //    {
+                        //        host.RunAs = "";
+                        //    }
+                        //}
 
                         try
                         {
                             credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
                         }
                         catch { }
-                        lvwUserNameCache.Items.RemoveAt(index);
+                        //lvwUserNameCache.Items.RemoveAt(index);
                     }
                     credMan.SaveCache(txtMasterKeyFilePath.Text);
+                    RefreshUserNameList();
                 }
                 catch (Exception ex)
                 {
