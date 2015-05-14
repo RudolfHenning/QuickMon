@@ -67,8 +67,9 @@
             this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.executedOncolumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertsRaisedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.executedOncolumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdViewDetails = new System.Windows.Forms.Button();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -117,14 +118,14 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 26);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Image = global::QuickMon.Properties.Resources.refresh24x24;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -458,8 +459,9 @@
             this.stateColumnHeader,
             this.durationColumnHeader,
             this.detailsColumnHeader,
+            this.alertsRaisedColumnHeader,
             this.executedOncolumnHeader,
-            this.alertsRaisedColumnHeader});
+            this.ranAsColumnHeader});
             this.lvwHistory.ContextMenuStrip = this.contextMenuStrip1;
             this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwHistory.FullRowSelect = true;
@@ -493,15 +495,20 @@
             this.detailsColumnHeader.Text = "Details";
             this.detailsColumnHeader.Width = 144;
             // 
-            // executedOncolumnHeader
-            // 
-            this.executedOncolumnHeader.Text = "Executed by";
-            this.executedOncolumnHeader.Width = 92;
-            // 
             // alertsRaisedColumnHeader
             // 
             this.alertsRaisedColumnHeader.Text = "Alerts";
             this.alertsRaisedColumnHeader.Width = 57;
+            // 
+            // executedOncolumnHeader
+            // 
+            this.executedOncolumnHeader.Text = "Executed on";
+            this.executedOncolumnHeader.Width = 92;
+            // 
+            // ranAsColumnHeader
+            // 
+            this.ranAsColumnHeader.Text = "Ran as";
+            this.ranAsColumnHeader.Width = 90;
             // 
             // cmdViewDetails
             // 
@@ -639,5 +646,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel summaryToolStripStatusLabel;
+        private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
     }
 }

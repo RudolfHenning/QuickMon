@@ -104,8 +104,9 @@ namespace QuickMon
                     smb.HttpGetEnabled = true;
                     smb.MetadataExporter.PolicyVersion = System.ServiceModel.Description.PolicyVersion.Policy15;
                     wcfServiceHost.Description.Behaviors.Add(smb);
-                    wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorHostService), new BasicHttpBinding(), baseAddress);
                 }
+                System.ServiceModel.Description.ServiceEndpoint endpoint = wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorHostService), new BasicHttpBinding(), baseAddress);
+                endpoint.Behaviors.Add(new RemoteCollectorHostServiceInstanceProvider(Properties.Settings.Default.ApplicationMasterKey, Properties.Settings.Default.ApplicationUserNameCacheFilePath));
                 wcfServiceHost.Open();
             }
         }
@@ -164,6 +165,8 @@ namespace QuickMon
                 MonitorPack monitorPack = new MonitorPack();
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Starting QuickMon MonitorPack '{0}'", monitorPackPath), EventLogEntryType.Information, 0);
                 monitorPack.Load(monitorPackPath);
+                monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
+                monitorPack.ApplicationUserNameCacheFilePath = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
                 monitorPack.CollectorStateHistorySize = 0; //For service history is always disabled!!
                 if (monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
                 {

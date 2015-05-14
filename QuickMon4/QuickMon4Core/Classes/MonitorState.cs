@@ -48,6 +48,9 @@ namespace QuickMon
         [DataMember(Name = "AlertsRaised")]
         public List<string> AlertsRaised { get; set; }
 
+        [DataMember(Name = "RanAs")]
+        public string RanAs { get; set; }
+
         public MonitorState Clone()
         {
             List<string> cloneAlerts = new List<string>();
@@ -88,6 +91,7 @@ namespace QuickMon
             else
                 root.SetAttributeValue("currentValue", "");
             root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
+            root.SetAttributeValue("ranAs", RanAs);
 
             XmlElement rawDetailsNode = xdoc.CreateElement("rawDetails");
             rawDetailsNode.InnerText = RawDetails;
@@ -141,6 +145,7 @@ namespace QuickMon
             ForAgentId = root.ReadXmlElementAttr("forAgentId", -1);
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
+            RanAs = root.ReadXmlElementAttr("ranAs", "");
             RawDetails = root.SelectSingleNode("rawDetails").InnerText;
             HtmlDetails = root.SelectSingleNode("htmlDetails").InnerText;
             XmlNodeList alertNodes = root.SelectNodes("alerts");
@@ -177,6 +182,11 @@ namespace QuickMon
             }
             if (RawDetails != null && RawDetails.Length > 0)
                 prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);
+
+            //if (RanAs != null && RanAs.Length > 0)
+            //{
+            //    prePadding += "Ran as: " + RanAs + "\r\n" + (new string(linePaddingChar, linePaddingRepeat));
+            //}            
 
             if (prePadding.Trim(linePaddingChar).Length > 0)
             {
