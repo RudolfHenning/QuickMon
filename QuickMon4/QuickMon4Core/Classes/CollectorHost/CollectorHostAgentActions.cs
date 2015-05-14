@@ -210,6 +210,10 @@ namespace QuickMon
                     {
                         resultMonitorState = GetRemoteState();
                     }
+                    else if (!RunAsEnabled || RunAs == null || RunAs.Length == 0 || RunTimeUserNameCacheFile == null || RunTimeUserNameCacheFile.Length ==0 || RunTimeMasterKey == null || RunTimeMasterKey.Length ==0)
+                    {
+                        resultMonitorState = GetStateFromLocalCurrentUser();
+                    }
                     else
                     {
                         resultMonitorState = GetStateFromLocal();
@@ -343,6 +347,44 @@ namespace QuickMon
         private MonitorState GetStateFromLocal()
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
+            if (!RunAsEnabled || RunAs == null || RunAs.Length == 0)
+            {
+                resultMonitorState = GetStateFromLocalCurrentUser();
+            }
+            else
+            {
+                //Getting username, Password and domain
+                string password = QuickMon.Security.CredentialManager.GetAccountPassword(RunTimeUserNameCacheFile, RunTimeMasterKey, RunAs);
+                string userName = RunAs;
+                string domainName = System.Net.Dns.GetHostName();
+                if (userName.Contains('\\'))
+                {
+                    domainName = userName.Substring(0, userName.IndexOf('\\'));
+                    userName = userName.Substring(domainName.Length + 1);
+                }
+                bool impersonated = false;
+                try
+                {
+                    impersonated = QuickMon.Security.Impersonator.Impersonate(userName, password, domainName);
+                }
+                catch { }
+                resultMonitorState = GetStateFromLocalCurrentUser();
+                if (impersonated)
+                {
+                    try
+                    {
+                        QuickMon.Security.Impersonator.UnImpersonate();
+                    }
+                    catch { }                
+                }            
+            }
+            return resultMonitorState;
+        }
+        private MonitorState GetStateFromLocalCurrentUser()
+        {
+            MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable, 
+                ExecutedOnHostComputer = System.Net.Dns.GetHostName(),
+                RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name };
             try
             {
                 //First set blank/NA state
@@ -356,32 +398,39 @@ namespace QuickMon
                     MonitorState caMs;
                     if (ca.Enabled)
                     {
-                        if (!RunAsEnabled || RunAs == null || RunAs.Length == 0)
-                            caMs = ca.GetState();
-                        else
-                        {
-                            string password = QuickMon.Security.CredentialManager.GetAccountPassword(RunTimeUserNameCacheFile, RunTimeMasterKey, RunAs);
-                            string userName = RunAs;
-                            string domainName = System.Net.Dns.GetHostName();
-                            if (userName.Contains('\\'))
-                            {
-                                domainName = userName.Substring(0, userName.IndexOf('\\'));
-                                userName = userName.Substring(domainName.Length + 1);
-                            }
-                            if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
-                            {
-                                caMs = ca.GetState();
-                            }
-                            else
-                            {
-                                caMs = ca.GetState();
-                                QuickMon.Security.Impersonator.UnImpersonate();
-                            }
-                        }
+                        caMs = ca.GetState();
+                        //if (!RunAsEnabled || RunAs == null || RunAs.Length == 0)
+                        //{
+                        //    caMs = ca.GetState();
+                        //    caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                        //}
+                        //else
+                        //{
+                        //    string password = QuickMon.Security.CredentialManager.GetAccountPassword(RunTimeUserNameCacheFile, RunTimeMasterKey, RunAs);
+                        //    string userName = RunAs;
+                        //    string domainName = System.Net.Dns.GetHostName();
+                        //    if (userName.Contains('\\'))
+                        //    {
+                        //        domainName = userName.Substring(0, userName.IndexOf('\\'));
+                        //        userName = userName.Substring(domainName.Length + 1);
+                        //    }
+                        //    if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                        //    {
+                        //        caMs = ca.GetState();
+                        //        caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                        //    }
+                        //    else
+                        //    {
+                        //        caMs = ca.GetState();
+                        //        caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                        //        QuickMon.Security.Impersonator.UnImpersonate();
+                        //    }
+                        //}
                     }
                     else
                     {
                         caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
+                        //caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
                     }
                     caMs.ForAgent = ca.Name;
                     caMs.ForAgentId = agentId;
@@ -401,7 +450,7 @@ namespace QuickMon
                 resultMonitorState.State = CollectorState.Error;
                 resultMonitorState.RawDetails = exLocal.ToString();
             }
-            resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
+            //resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
             return resultMonitorState;
         } 
         #endregion

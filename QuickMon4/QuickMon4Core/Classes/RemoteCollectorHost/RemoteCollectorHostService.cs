@@ -8,6 +8,11 @@ namespace QuickMon
 {
     public class RemoteCollectorHostService : IRemoteCollectorHostService
     {
+        #region Security
+        //Run time setting only
+        public string ApplicationUserNameCacheMasterKey { get; set; }
+        public string ApplicationUserNameCacheFilePath { get; set; }
+        #endregion
 
         #region IRemoteCollectorHostService
         public MonitorState GetState(QuickMon.RemoteCollectorHost entry)
@@ -25,14 +30,17 @@ namespace QuickMon
                        "<notifierHosts>\r\n" +
                        "</notifierHosts>\r\n" +
                        "</monitorPack>";
-                MonitorPack m = new MonitorPack();
+                MonitorPack m = new MonitorPack();                
                 m.LoadXml(tempMonitorPack);
+                m.ApplicationUserNameCacheMasterKey = ApplicationUserNameCacheMasterKey;
+                m.ApplicationUserNameCacheFilePath = ApplicationUserNameCacheFilePath;
                 if (m.CollectorHosts.Count == 1)
                 {
                     m.RefreshStates();
                     //Since there is only one CollectorHost
                     CollectorHost ch = m.CollectorHosts[0];
-                    monitorState = ch.CurrentState;                    
+                    monitorState = ch.CurrentState;
+                    monitorState.RanAs = ch.CurrentState.RanAs;
                 }
                 else
                 {
@@ -44,7 +52,8 @@ namespace QuickMon
                 //If hosted in console test app
                 consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
                 consoleOutPut.AppendFormat(" State   : {0}\r\n", monitorState.State);
-                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());                
+                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());
+                consoleOutPut.AppendFormat(" Ran as  : {0}\r\n", monitorState.RanAs);
             }
             catch (Exception ex)
             {
@@ -175,5 +184,47 @@ namespace QuickMon
         //    return relay.GetAgentDetails(collectorAgentConfig);
         //}
         #endregion
+    }
+
+    public class RemoteCollectorHostServiceInstanceProvider : System.ServiceModel.Description.IEndpointBehavior, System.ServiceModel.Dispatcher.IInstanceProvider
+    {
+        string applicationUserNameCacheMasterKey = "";
+        string applicationUserNameCacheFilePath = "";
+        public RemoteCollectorHostServiceInstanceProvider(string applicationUserNameCacheMasterKey, string applicationUserNameCacheFilePath)
+        {
+            this.applicationUserNameCacheMasterKey = applicationUserNameCacheMasterKey;
+            this.applicationUserNameCacheFilePath = applicationUserNameCacheFilePath;
+        }
+
+        public void AddBindingParameters(System.ServiceModel.Description.ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
+        {
+        }
+
+        public void ApplyClientBehavior(System.ServiceModel.Description.ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.ClientRuntime clientRuntime)
+        {
+        }
+
+        public void ApplyDispatchBehavior(System.ServiceModel.Description.ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.EndpointDispatcher endpointDispatcher)
+        {
+            endpointDispatcher.DispatchRuntime.InstanceProvider = this;
+        }
+
+        public void Validate(System.ServiceModel.Description.ServiceEndpoint endpoint)
+        {
+        }
+
+        public object GetInstance(InstanceContext instanceContext, System.ServiceModel.Channels.Message message)
+        {
+            return new RemoteCollectorHostService { ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath };
+        }
+
+        public object GetInstance(InstanceContext instanceContext)
+        {
+            return new RemoteCollectorHostService { ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath };
+        }
+
+        public void ReleaseInstance(InstanceContext instanceContext, object instance)
+        {
+        }
     }
 }

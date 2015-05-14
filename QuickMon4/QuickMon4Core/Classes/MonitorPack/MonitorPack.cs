@@ -187,7 +187,8 @@ namespace QuickMon
                             collectorHost.RunTimeMasterKey = UserNameCacheMasterKey;
                             collectorHost.RunTimeUserNameCacheFile = UserNameCacheFilePath;
                         }
-                        else if (ApplicationUserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(ApplicationUserNameCacheFilePath) &&
+                        else if (ApplicationUserNameCacheMasterKey != null && ApplicationUserNameCacheFilePath != null && 
+                            ApplicationUserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(ApplicationUserNameCacheFilePath) &&
                             QuickMon.Security.CredentialManager.IsAccountPersisted(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs) &&
                             QuickMon.Security.CredentialManager.IsAccountDecryptable(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs))
                         {

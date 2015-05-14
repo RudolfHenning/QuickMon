@@ -113,6 +113,7 @@ namespace QuickMon.Forms
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state time", FormatDate(SelectedCollectorHost.CurrentState.Timestamp));
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state check duration (ms)", SelectedCollectorHost.CurrentState.CallDurationMS.ToString());
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state Executed on", SelectedCollectorHost.CurrentState.ExecutedOnHostComputer);
+                AddUpdateListViewItem(lvwProperties, "Current state", "Current state Ran as", SelectedCollectorHost.CurrentState.RanAs);
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state Alerts raised", SelectedCollectorHost.CurrentState.AlertsRaised.Count > 0 ? "Yes" : "No");
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state Alerts details", SelectedCollectorHost.CurrentState.AlertsRaised, SelectedCollectorHost.CurrentState.AlertsRaised.Count > 0);
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state details", SelectedCollectorHost.CurrentState.ReadAllRawDetails());
@@ -142,6 +143,7 @@ namespace QuickMon.Forms
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state time", SelectedCollectorHost.PreviousState == null ? "N/A" : FormatDate(SelectedCollectorHost.PreviousState.Timestamp));
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state check duration (ms)", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.CallDurationMS.ToString());
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state Executed on", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.ExecutedOnHostComputer);
+                AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state Ran as", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.RanAs);
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state Alerts raised", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.AlertsRaised.Count > 0 ? "Yes" : "No");
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state Alerts details", SelectedCollectorHost.PreviousState == null ? new List<string>() : SelectedCollectorHost.PreviousState.AlertsRaised, SelectedCollectorHost.PreviousState != null);
                 AddUpdateListViewItem(lvwProperties, "Previous state", "Previous state details", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.ReadAllRawDetails());
@@ -413,9 +415,10 @@ namespace QuickMon.Forms
                         lvi = new ListViewItem(FormatDate(historyItem.Timestamp));
                         lvi.SubItems.Add(historyItem.State.ToString());
                         lvi.SubItems.Add(historyItem.CallDurationMS.ToString());
-                        lvi.SubItems.Add(historyItem.ReadAllRawDetails());
-                        lvi.SubItems.Add(historyItem.ExecutedOnHostComputer);
+                        lvi.SubItems.Add(historyItem.ReadAllRawDetails());                        
                         lvi.SubItems.Add(historyItem.AlertsRaised.Count.ToString());
+                        lvi.SubItems.Add(historyItem.ExecutedOnHostComputer);
+                        lvi.SubItems.Add(historyItem.RanAs);
                         totalAlertsRaised += historyItem.AlertsRaised.Count;
                         if (historyItem.State == CollectorState.Good)
                             lvi.ImageIndex = 1;
@@ -568,8 +571,7 @@ namespace QuickMon.Forms
                             rtfBuilder.AppendLine(lvi.SubItems[2].Text + " ms");
                             rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
                             rtfBuilder.AppendLine(lvi.SubItems[3].Text.TrimEnd('\r', '\n'));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed by: ");
-                            rtfBuilder.AppendLine(lvi.SubItems[4].Text);
+                            
                             if (historyItem.AlertsRaised.Count > 0)
                             {
                                 rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Alerts: ");
@@ -578,6 +580,12 @@ namespace QuickMon.Forms
                                     rtfBuilder.AppendLine("  " + alertEntry);
                                 }
                             }
+
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[5].Text);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[6].Text);
+
                             rtfBuilder.AppendLine(new string('-', 80));
                         }
                     }
