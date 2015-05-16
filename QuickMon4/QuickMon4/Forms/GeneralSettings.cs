@@ -759,9 +759,10 @@ namespace QuickMon
             try
             {
                 credMan.MasterKey = txtApplicationMasterKey.Text;
-                if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
+                if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(txtApplicationMasterKeyFilePath.Text)))
                 {
-                    credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
+                    if (System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
+                        credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
 
                     QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
                     if (lvwUserNameCache.SelectedItems.Count == 1)
