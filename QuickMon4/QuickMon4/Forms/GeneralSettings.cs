@@ -743,11 +743,11 @@ namespace QuickMon
 
         private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
         {
-            saveFileDialogSaveQmmxml.FileName = txtApplicationMasterKeyFilePath.Text;
-            if (saveFileDialogSaveQmmxml.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
+            qmmxmlOpenFileDialog.FileName = txtApplicationMasterKeyFilePath.Text;
+            if (qmmxmlOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
                 //&& MessageBox.Show("Are you sure you want to (re)set the master key file?\r\nThis will reset cache list below.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
-                txtApplicationMasterKeyFilePath.Text = saveFileDialogSaveQmmxml.FileName;
+                txtApplicationMasterKeyFilePath.Text = qmmxmlOpenFileDialog.FileName;
                 //Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
                 //lvwUserNameCache.Items.Clear();
             }

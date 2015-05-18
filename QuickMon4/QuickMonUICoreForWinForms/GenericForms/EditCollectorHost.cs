@@ -133,7 +133,7 @@ namespace QuickMon
                 txtRestorationScript.Text = editingCollectorHost.RestorationScriptPath;
                 chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
                 txtRunAs.Text = editingCollectorHost.RunAs;
-                cmdTestRunAs.Enabled = HostingMonitorPack != null;
+                //cmdTestRunAs.Enabled = HostingMonitorPack != null;
 
                 LoadConfigVars();
                 LoadAgents();
@@ -1227,7 +1227,7 @@ namespace QuickMon
         private void cmdTestRunAs_Click(object sender, EventArgs e)
         {
             string errorString = "";
-            if (HostingMonitorPack != null)
+            if (HostingMonitorPack != null && txtRunAs.Text.Length > 0)
             {
                 if (HostingMonitorPack.UserNameCacheFilePath != null && System.IO.File.Exists(HostingMonitorPack.UserNameCacheFilePath) &&
                     HostingMonitorPack.UserNameCacheMasterKey != null && HostingMonitorPack.UserNameCacheMasterKey.Length > 0
@@ -1328,6 +1328,11 @@ namespace QuickMon
                 if (errorString.Length > 0)
                     MessageBox.Show(errorString, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void txtRunAs_TextChanged(object sender, EventArgs e)
+        {
+            cmdTestRunAs.Enabled = txtRunAs.Text.Length > 0 && HostingMonitorPack != null;
         }
        
     }

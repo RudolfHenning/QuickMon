@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditMonitorPackConfig));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -69,6 +68,7 @@
             this.label37 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
@@ -76,12 +76,12 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
+            this.userCacheImageList = new System.Windows.Forms.ImageList();
             this.txtMasterKey = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -91,8 +91,8 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label11 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneric.SuspendLayout();
@@ -557,6 +557,16 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(13, 91);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(398, 13);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "The list below contains user names used by the collector hosts in this monitor pa" +
+    "ck.";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -639,12 +649,12 @@
             this.toolStripSeparator2,
             this.refreshToolStripMenuItem});
             this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
-            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(230, 76);
+            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(214, 76);
             // 
             // setPwdToolStripMenuItem
             // 
             this.setPwdToolStripMenuItem.Name = "setPwdToolStripMenuItem";
-            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.setPwdToolStripMenuItem.Text = "Set/Add account && password";
             this.setPwdToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
             // 
@@ -652,19 +662,19 @@
             // 
             this.removeUserToolStripMenuItem.Enabled = false;
             this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.removeUserToolStripMenuItem.Text = "Remove";
             this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(210, 6);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -767,15 +777,12 @@
             this.saveFileDialogSaveQmmxml.Filter = "QuickMon master key files|*.qmmxml";
             this.saveFileDialogSaveQmmxml.OverwritePrompt = false;
             // 
-            // label11
+            // qmmxmlOpenFileDialog
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(13, 91);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(398, 13);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "The list below contains user names used by the collector hosts in this monitor pa" +
-    "ck.";
+            this.qmmxmlOpenFileDialog.CheckFileExists = false;
+            this.qmmxmlOpenFileDialog.DefaultExt = "qmmxml";
+            this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
+            this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
             // EditMonitorPackConfig
             // 
@@ -888,5 +895,6 @@
         private System.Windows.Forms.ImageList userCacheImageList;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.OpenFileDialog qmmxmlOpenFileDialog;
     }
 }

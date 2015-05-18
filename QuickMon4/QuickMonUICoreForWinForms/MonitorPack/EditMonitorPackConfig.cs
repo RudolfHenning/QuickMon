@@ -412,10 +412,10 @@ namespace QuickMon
 
         private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
         {
-            saveFileDialogSaveQmmxml.FileName = txtMasterKeyFilePath.Text;
-            if (saveFileDialogSaveQmmxml.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            qmmxmlOpenFileDialog.FileName = txtMasterKeyFilePath.Text;
+            if (qmmxmlOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                txtMasterKeyFilePath.Text = saveFileDialogSaveQmmxml.FileName;
+                txtMasterKeyFilePath.Text = qmmxmlOpenFileDialog.FileName;
             }
         }
 

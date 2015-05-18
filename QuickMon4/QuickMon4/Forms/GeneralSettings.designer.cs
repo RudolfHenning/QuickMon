@@ -45,8 +45,10 @@
             this.chkPollingEnabled = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
-            this.txtApplicationMasterKeyFilePath = new System.Windows.Forms.TextBox();
             this.txtApplicationMasterKey = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtApplicationMasterKeyFilePath = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -70,6 +72,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.lblComputer = new System.Windows.Forms.Label();
+            this.lvwRemoteHosts = new QuickMon.ListViewEx();
+            this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -78,26 +84,21 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
+            this.lvwUserNameCache = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.inCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
-            this.label7 = new System.Windows.Forms.Label();
             this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
-            this.lvwRemoteHosts = new QuickMon.ListViewEx();
-            this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwUserNameCache = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -288,15 +289,6 @@
             this.txtRecentMonitorPackFilter.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtRecentMonitorPackFilter, "* - All, use ~ for exclude");
             // 
-            // txtApplicationMasterKeyFilePath
-            // 
-            this.txtApplicationMasterKeyFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtApplicationMasterKeyFilePath.Location = new System.Drawing.Point(156, 32);
-            this.txtApplicationMasterKeyFilePath.Name = "txtApplicationMasterKeyFilePath";
-            this.txtApplicationMasterKeyFilePath.Size = new System.Drawing.Size(236, 20);
-            this.txtApplicationMasterKeyFilePath.TabIndex = 3;
-            // 
             // txtApplicationMasterKey
             // 
             this.txtApplicationMasterKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -306,6 +298,39 @@
             this.txtApplicationMasterKey.Size = new System.Drawing.Size(284, 20);
             this.txtApplicationMasterKey.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtApplicationMasterKey, "Do not loose this key as decryption the credentials is impossible without it!");
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(15, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(135, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Application master key";
+            this.toolTip1.SetToolTip(this.label7, "Do not loose this key as decryption the credentials is impossible without it!");
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label6.Location = new System.Drawing.Point(15, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Master key file";
+            this.toolTip1.SetToolTip(this.label6, "Do not loose this key as decryption the credentials is impossible without it!");
+            // 
+            // txtApplicationMasterKeyFilePath
+            // 
+            this.txtApplicationMasterKeyFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtApplicationMasterKeyFilePath.Location = new System.Drawing.Point(156, 32);
+            this.txtApplicationMasterKeyFilePath.Name = "txtApplicationMasterKeyFilePath";
+            this.txtApplicationMasterKeyFilePath.Size = new System.Drawing.Size(236, 20);
+            this.txtApplicationMasterKeyFilePath.TabIndex = 3;
             // 
             // tabControl1
             // 
@@ -614,6 +639,44 @@
             this.lblComputer.Text = "Add computer";
             this.lblComputer.DoubleClick += new System.EventHandler(this.lblComputer_DoubleClick);
             // 
+            // lvwRemoteHosts
+            // 
+            this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwRemoteHosts.AutoResizeColumnEnabled = false;
+            this.lvwRemoteHosts.AutoResizeColumnIndex = 2;
+            this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.remoteAgentColumnHeader,
+            this.portColumnHeader,
+            this.versionColumnHeader});
+            this.lvwRemoteHosts.ContextMenuStrip = this.remoteHostListContextMenuStrip;
+            this.lvwRemoteHosts.FullRowSelect = true;
+            this.lvwRemoteHosts.Location = new System.Drawing.Point(0, 0);
+            this.lvwRemoteHosts.Name = "lvwRemoteHosts";
+            this.lvwRemoteHosts.Size = new System.Drawing.Size(440, 118);
+            this.lvwRemoteHosts.SmallImageList = this.remoteHostStatusImageList;
+            this.lvwRemoteHosts.TabIndex = 0;
+            this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
+            this.lvwRemoteHosts.View = System.Windows.Forms.View.Details;
+            this.lvwRemoteHosts.SelectedIndexChanged += new System.EventHandler(this.lvwRemoteHosts_SelectedIndexChanged);
+            this.lvwRemoteHosts.DoubleClick += new System.EventHandler(this.lvwRemoteHosts_DoubleClick);
+            // 
+            // remoteAgentColumnHeader
+            // 
+            this.remoteAgentColumnHeader.Text = "Remote host";
+            this.remoteAgentColumnHeader.Width = 150;
+            // 
+            // portColumnHeader
+            // 
+            this.portColumnHeader.Text = "Port";
+            this.portColumnHeader.Width = 74;
+            // 
+            // versionColumnHeader
+            // 
+            this.versionColumnHeader.Text = "Version";
+            this.versionColumnHeader.Width = 97;
+            // 
             // remoteHostListContextMenuStrip
             // 
             this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -621,26 +684,26 @@
             this.toolStripMenuItem1,
             this.removeToolStripMenuItem});
             this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
-            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(133, 54);
+            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(132, 54);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(129, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(128, 6);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -699,160 +762,6 @@
             this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
             this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
             // 
-            // userCacheContextMenuStrip
-            // 
-            this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.inCacheToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.addToolStripMenuItem,
-            this.removeUserToolStripMenuItem});
-            this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
-            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(126, 76);
-            // 
-            // inCacheToolStripMenuItem
-            // 
-            this.inCacheToolStripMenuItem.Enabled = false;
-            this.inCacheToolStripMenuItem.Name = "inCacheToolStripMenuItem";
-            this.inCacheToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.inCacheToolStripMenuItem.Text = "In Cache?";
-            this.inCacheToolStripMenuItem.Click += new System.EventHandler(this.inCacheToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(122, 6);
-            // 
-            // addToolStripMenuItem
-            // 
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.addToolStripMenuItem.Text = "Add/Set";
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
-            // 
-            // removeUserToolStripMenuItem
-            // 
-            this.removeUserToolStripMenuItem.Enabled = false;
-            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.removeUserToolStripMenuItem.Text = "Remove";
-            this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
-            // 
-            // userCacheImageList
-            // 
-            this.userCacheImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("userCacheImageList.ImageStream")));
-            this.userCacheImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.userCacheImageList.Images.SetKeyName(0, "125_31.ico");
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(15, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(135, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Application master key";
-            this.toolTip1.SetToolTip(this.label7, "Do not loose this key as decryption the credentials is impossible without it!");
-            // 
-            // cmdSelectMasterKeyFile
-            // 
-            this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(398, 30);
-            this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
-            this.cmdSelectMasterKeyFile.Size = new System.Drawing.Size(42, 23);
-            this.cmdSelectMasterKeyFile.TabIndex = 4;
-            this.cmdSelectMasterKeyFile.Text = "- - -";
-            this.cmdSelectMasterKeyFile.UseVisualStyleBackColor = true;
-            this.cmdSelectMasterKeyFile.Click += new System.EventHandler(this.cmdSelectMasterKeyFile_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label6.Location = new System.Drawing.Point(15, 35);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(75, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Master key file";
-            this.toolTip1.SetToolTip(this.label6, "Do not loose this key as decryption the credentials is impossible without it!");
-            // 
-            // refreshTimer
-            // 
-            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // quickMonServiceOpenFileDialog
-            // 
-            this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
-            this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
-            this.quickMonServiceOpenFileDialog.Filter = "QuickMon 3 Service|QuickMonService.exe";
-            this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 3 Service";
-            // 
-            // shadePanel1
-            // 
-            this.shadePanel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader1;
-            this.shadePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.shadePanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.shadePanel1.Location = new System.Drawing.Point(0, 0);
-            this.shadePanel1.Name = "shadePanel1";
-            this.shadePanel1.Size = new System.Drawing.Size(459, 31);
-            this.shadePanel1.TabIndex = 10;
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader2;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 251);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(459, 31);
-            this.panel1.TabIndex = 11;
-            // 
-            // saveFileDialogSaveQmmxml
-            // 
-            this.saveFileDialogSaveQmmxml.DefaultExt = "qmmxml";
-            this.saveFileDialogSaveQmmxml.Filter = "QuickMon master key files|*.qmmxml";
-            // 
-            // lvwRemoteHosts
-            // 
-            this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwRemoteHosts.AutoResizeColumnEnabled = false;
-            this.lvwRemoteHosts.AutoResizeColumnIndex = 2;
-            this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.remoteAgentColumnHeader,
-            this.portColumnHeader,
-            this.versionColumnHeader});
-            this.lvwRemoteHosts.ContextMenuStrip = this.remoteHostListContextMenuStrip;
-            this.lvwRemoteHosts.FullRowSelect = true;
-            this.lvwRemoteHosts.Location = new System.Drawing.Point(0, 0);
-            this.lvwRemoteHosts.Name = "lvwRemoteHosts";
-            this.lvwRemoteHosts.Size = new System.Drawing.Size(440, 118);
-            this.lvwRemoteHosts.SmallImageList = this.remoteHostStatusImageList;
-            this.lvwRemoteHosts.TabIndex = 0;
-            this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
-            this.lvwRemoteHosts.View = System.Windows.Forms.View.Details;
-            this.lvwRemoteHosts.SelectedIndexChanged += new System.EventHandler(this.lvwRemoteHosts_SelectedIndexChanged);
-            this.lvwRemoteHosts.DoubleClick += new System.EventHandler(this.lvwRemoteHosts_DoubleClick);
-            // 
-            // remoteAgentColumnHeader
-            // 
-            this.remoteAgentColumnHeader.Text = "Remote host";
-            this.remoteAgentColumnHeader.Width = 150;
-            // 
-            // portColumnHeader
-            // 
-            this.portColumnHeader.Text = "Port";
-            this.portColumnHeader.Width = 74;
-            // 
-            // versionColumnHeader
-            // 
-            this.versionColumnHeader.Text = "Version";
-            this.versionColumnHeader.Width = 97;
-            // 
             // lvwUserNameCache
             // 
             this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -878,12 +787,112 @@
             this.columnHeader1.Text = "User name cache";
             this.columnHeader1.Width = 356;
             // 
+            // userCacheContextMenuStrip
+            // 
+            this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inCacheToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addToolStripMenuItem,
+            this.removeUserToolStripMenuItem});
+            this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
+            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(123, 76);
+            // 
+            // inCacheToolStripMenuItem
+            // 
+            this.inCacheToolStripMenuItem.Enabled = false;
+            this.inCacheToolStripMenuItem.Name = "inCacheToolStripMenuItem";
+            this.inCacheToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.inCacheToolStripMenuItem.Text = "In Cache?";
+            this.inCacheToolStripMenuItem.Click += new System.EventHandler(this.inCacheToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.addToolStripMenuItem.Text = "Add/Set";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
+            // 
+            // removeUserToolStripMenuItem
+            // 
+            this.removeUserToolStripMenuItem.Enabled = false;
+            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.removeUserToolStripMenuItem.Text = "Remove";
+            this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
+            // 
+            // userCacheImageList
+            // 
+            this.userCacheImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("userCacheImageList.ImageStream")));
+            this.userCacheImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.userCacheImageList.Images.SetKeyName(0, "125_31.ico");
+            // 
+            // cmdSelectMasterKeyFile
+            // 
+            this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(398, 30);
+            this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
+            this.cmdSelectMasterKeyFile.Size = new System.Drawing.Size(42, 23);
+            this.cmdSelectMasterKeyFile.TabIndex = 4;
+            this.cmdSelectMasterKeyFile.Text = "- - -";
+            this.cmdSelectMasterKeyFile.UseVisualStyleBackColor = true;
+            this.cmdSelectMasterKeyFile.Click += new System.EventHandler(this.cmdSelectMasterKeyFile_Click);
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // quickMonServiceOpenFileDialog
+            // 
+            this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
+            this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
+            this.quickMonServiceOpenFileDialog.Filter = "QuickMon 4 Service|QuickMonService.exe";
+            this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 4 Service";
+            // 
+            // shadePanel1
+            // 
+            this.shadePanel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader1;
+            this.shadePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shadePanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.shadePanel1.Location = new System.Drawing.Point(0, 0);
+            this.shadePanel1.Name = "shadePanel1";
+            this.shadePanel1.Size = new System.Drawing.Size(467, 31);
+            this.shadePanel1.TabIndex = 10;
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader2;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 262);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(467, 31);
+            this.panel1.TabIndex = 11;
+            // 
+            // saveFileDialogSaveQmmxml
+            // 
+            this.saveFileDialogSaveQmmxml.DefaultExt = "qmmxml";
+            this.saveFileDialogSaveQmmxml.Filter = "QuickMon master key files|*.qmmxml";
+            this.saveFileDialogSaveQmmxml.Title = "Select QuickMon master key file";
+            // 
+            // qmmxmlOpenFileDialog
+            // 
+            this.qmmxmlOpenFileDialog.CheckFileExists = false;
+            this.qmmxmlOpenFileDialog.DefaultExt = "qmmxml";
+            this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
+            this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(459, 282);
+            this.ClientSize = new System.Drawing.Size(467, 293);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.tabControl1);
@@ -990,5 +999,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeUserToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog qmmxmlOpenFileDialog;
     }
 }

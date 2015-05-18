@@ -360,13 +360,13 @@
             this.toolStripMenuItem2,
             this.enableToolStripMenuItem});
             this.agentsContextMenuStrip.Name = "agentsContextMenuStrip";
-            this.agentsContextMenuStrip.Size = new System.Drawing.Size(162, 170);
+            this.agentsContextMenuStrip.Size = new System.Drawing.Size(155, 170);
             // 
             // addAgentToolStripMenuItem
             // 
             this.addAgentToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GearWithPlus;
             this.addAgentToolStripMenuItem.Name = "addAgentToolStripMenuItem";
-            this.addAgentToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.addAgentToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.addAgentToolStripMenuItem.Text = "Add Agent";
             this.addAgentToolStripMenuItem.Click += new System.EventHandler(this.addCollectorConfigEntryToolStripButton_Click);
             // 
@@ -374,7 +374,7 @@
             // 
             this.addAgentEntryToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GearWithPlusGreen;
             this.addAgentEntryToolStripMenuItem.Name = "addAgentEntryToolStripMenuItem";
-            this.addAgentEntryToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.addAgentEntryToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.addAgentEntryToolStripMenuItem.Text = "Add Agent entry";
             this.addAgentEntryToolStripMenuItem.Click += new System.EventHandler(this.addAgentEntryToolStripButton_Click);
             // 
@@ -382,7 +382,7 @@
             // 
             this.editToolStripMenuItem.Image = global::QuickMon.Properties.Resources.proc2;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editCollectorAgentToolStripButton_Click);
             // 
@@ -390,20 +390,20 @@
             // 
             this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteCollectorAgentToolStripButton_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(158, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
             // 
             // moveUpToolStripMenuItem
             // 
             this.moveUpToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Up16x16;
             this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.moveUpToolStripMenuItem.Text = "Move up";
             this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
             // 
@@ -411,20 +411,20 @@
             // 
             this.moveDownToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Down16x16;
             this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.moveDownToolStripMenuItem.Text = "Move down";
             this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(158, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(151, 6);
             // 
             // enableToolStripMenuItem
             // 
             this.enableToolStripMenuItem.Image = global::QuickMon.Properties.Resources._246_7;
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
-            this.enableToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.enableToolStripMenuItem.Text = "Enable";
             this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
             // 
@@ -560,7 +560,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(126, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(115, 22);
             this.toolStripLabel1.Text = "Agent check se&quence";
             // 
             // agentCheckSequenceToolStripComboBox
@@ -985,6 +985,7 @@
             // 
             // tabRemoteSec
             // 
+            this.tabRemoteSec.BackColor = System.Drawing.Color.White;
             this.tabRemoteSec.Controls.Add(this.groupBox2);
             this.tabRemoteSec.Controls.Add(this.groupBox6);
             this.tabRemoteSec.Location = new System.Drawing.Point(4, 22);
@@ -993,7 +994,6 @@
             this.tabRemoteSec.Size = new System.Drawing.Size(575, 281);
             this.tabRemoteSec.TabIndex = 5;
             this.tabRemoteSec.Text = "Remote agent && Security";
-            this.tabRemoteSec.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -1216,6 +1216,7 @@
             this.txtRunAs.Name = "txtRunAs";
             this.txtRunAs.Size = new System.Drawing.Size(373, 20);
             this.txtRunAs.TabIndex = 2;
+            this.txtRunAs.TextChanged += new System.EventHandler(this.txtRunAs_TextChanged);
             // 
             // label43
             // 
@@ -1912,7 +1913,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(584, 382);
+            this.ClientSize = new System.Drawing.Size(592, 393);
             this.Controls.Add(this.llblRawEdit);
             this.Controls.Add(this.llblExportConfigAsTemplate);
             this.Controls.Add(this.cmdCancel);
