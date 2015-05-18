@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 4" Language="1033" Version="4.0.7.422" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c940000000">
+  <Product Id="*" Name="QuickMon 4" Language="1033" Version="4.1.0.518" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c940000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 4 Installer" Comments='QuickMon 4 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
 

@@ -741,18 +741,18 @@ namespace QuickMon
         } 
         #endregion
 
+        #region Impersonation/User credential cache
         private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
         {
             qmmxmlOpenFileDialog.FileName = txtApplicationMasterKeyFilePath.Text;
-            if (qmmxmlOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) 
-                //&& MessageBox.Show("Are you sure you want to (re)set the master key file?\r\nThis will reset cache list below.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+            if (qmmxmlOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //&& MessageBox.Show("Are you sure you want to (re)set the master key file?\r\nThis will reset cache list below.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
                 txtApplicationMasterKeyFilePath.Text = qmmxmlOpenFileDialog.FileName;
                 //Properties.Settings.Default.ApplicationUserNameCache = new System.Collections.Specialized.StringCollection();
                 //lvwUserNameCache.Items.Clear();
             }
         }
-
         private void cmdAddUserNameToCache_Click(object sender, EventArgs e)
         {
             QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
@@ -788,14 +788,12 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void lvwUserNameCache_SelectedIndexChanged(object sender, EventArgs e)
         {
             inCacheToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
             cmdRemoveUserNameFromCache.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
             removeUserToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
         }
-
         private void cmdRemoveUserNameFromCache_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -825,36 +823,36 @@ namespace QuickMon
                 }
             }
         }
-
         private void inCacheToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (lvwUserNameCache.SelectedItems.Count == 1)
             {
-                 QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
-                 try
-                 {
-                     credMan.MasterKey = txtApplicationMasterKey.Text;
-                     if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
-                     {
-                         credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
-                         if (credMan.IsAccountPersisted(lvwUserNameCache.SelectedItems[0].Text))
-                         {
-                             
-                             if (credMan.IsAccountDecryptable(lvwUserNameCache.SelectedItems[0].Text))
-                                 MessageBox.Show("Selected user account is in the cache and can be decrypted with specified master key.", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                             else
-                                 MessageBox.Show("Selected user account is in the cache but it cannot be decrypted with specified master key!", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                         }
-                         else
-                             MessageBox.Show("Selected user account is not in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                     }
-                 }
-                 catch (Exception ex)
-                 {
-                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 }
+                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                try
+                {
+                    credMan.MasterKey = txtApplicationMasterKey.Text;
+                    if (txtApplicationMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtApplicationMasterKeyFilePath.Text))
+                    {
+                        credMan.OpenCache(txtApplicationMasterKeyFilePath.Text);
+                        if (credMan.IsAccountPersisted(lvwUserNameCache.SelectedItems[0].Text))
+                        {
+
+                            if (credMan.IsAccountDecryptable(lvwUserNameCache.SelectedItems[0].Text))
+                                MessageBox.Show("Selected user account is in the cache and can be decrypted with specified master key.", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            else
+                                MessageBox.Show("Selected user account is in the cache but it cannot be decrypted with specified master key!", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                            MessageBox.Show("Selected user account is not in the cache", "Cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-        }
+        } 
+        #endregion
 
     }
 }
