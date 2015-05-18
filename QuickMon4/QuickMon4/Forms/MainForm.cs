@@ -1174,6 +1174,7 @@ namespace QuickMon
 
                 editCollectorHost.KnownRemoteHosts = (from string krh in Properties.Settings.Default.KnownRemoteHosts
                                                       select krh).ToList();
+                editCollectorHost.HostingMonitorPack = monitorPack;
                 if (editCollectorHost.ShowDialog(newCollectorEntry, monitorPack) == System.Windows.Forms.DialogResult.OK)
                 {
                     SetMonitorChanged();
