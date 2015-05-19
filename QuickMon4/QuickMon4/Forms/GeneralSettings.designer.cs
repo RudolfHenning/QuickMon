@@ -99,6 +99,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -684,26 +685,26 @@
             this.toolStripMenuItem1,
             this.removeToolStripMenuItem});
             this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
-            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(132, 54);
+            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(133, 54);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(128, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(129, 6);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -720,6 +721,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.White;
+            this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.cmdRemoveUserNameFromCache);
             this.tabPage3.Controls.Add(this.cmdAddUserNameToCache);
             this.tabPage3.Controls.Add(this.lvwUserNameCache);
@@ -741,7 +743,7 @@
             this.cmdRemoveUserNameFromCache.Enabled = false;
             this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(398, 88);
+            this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(398, 104);
             this.cmdRemoveUserNameFromCache.Name = "cmdRemoveUserNameFromCache";
             this.cmdRemoveUserNameFromCache.Size = new System.Drawing.Size(42, 23);
             this.cmdRemoveUserNameFromCache.TabIndex = 7;
@@ -754,7 +756,7 @@
             this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAddUserNameToCache.Location = new System.Drawing.Point(398, 59);
+            this.cmdAddUserNameToCache.Location = new System.Drawing.Point(398, 75);
             this.cmdAddUserNameToCache.Name = "cmdAddUserNameToCache";
             this.cmdAddUserNameToCache.Size = new System.Drawing.Size(42, 23);
             this.cmdAddUserNameToCache.TabIndex = 6;
@@ -773,9 +775,9 @@
             this.columnHeader1});
             this.lvwUserNameCache.ContextMenuStrip = this.userCacheContextMenuStrip;
             this.lvwUserNameCache.FullRowSelect = true;
-            this.lvwUserNameCache.Location = new System.Drawing.Point(6, 59);
+            this.lvwUserNameCache.Location = new System.Drawing.Point(6, 75);
             this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(386, 110);
+            this.lvwUserNameCache.Size = new System.Drawing.Size(386, 95);
             this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
             this.lvwUserNameCache.TabIndex = 5;
             this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
@@ -795,25 +797,25 @@
             this.addToolStripMenuItem,
             this.removeUserToolStripMenuItem});
             this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
-            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(123, 76);
+            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(126, 76);
             // 
             // inCacheToolStripMenuItem
             // 
             this.inCacheToolStripMenuItem.Enabled = false;
             this.inCacheToolStripMenuItem.Name = "inCacheToolStripMenuItem";
-            this.inCacheToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.inCacheToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.inCacheToolStripMenuItem.Text = "In Cache?";
             this.inCacheToolStripMenuItem.Click += new System.EventHandler(this.inCacheToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(122, 6);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.addToolStripMenuItem.Text = "Add/Set";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
             // 
@@ -821,7 +823,7 @@
             // 
             this.removeUserToolStripMenuItem.Enabled = false;
             this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.removeUserToolStripMenuItem.Text = "Remove";
             this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
             // 
@@ -886,6 +888,19 @@
             this.qmmxmlOpenFileDialog.DefaultExt = "qmmxml";
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label8.Location = new System.Drawing.Point(6, 57);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(362, 15);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Accounts the application is aware of. Note the file may contain more than shown h" +
+    "ere.";
+            this.toolTip1.SetToolTip(this.label8, "Do not loose this key as decryption the credentials is impossible without it!");
             // 
             // GeneralSettings
             // 
@@ -1000,5 +1015,6 @@
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeUserToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog qmmxmlOpenFileDialog;
+        private System.Windows.Forms.Label label8;
     }
 }
