@@ -10,7 +10,7 @@ Version 4.0.6
 Version 4.0.7
   Fix Monitor pack main refresh routine - Global state = Good if some collectors are Disabled while all others are in good state
 
-Version 4.1.x - planning
+Version 4.1.0 - planning
   Adding Impersonation
     - Credential cache can be specified either on app level or monitor pack level.
 	- Master key can be specified either on app level or monitor pack level.
@@ -35,3 +35,9 @@ Version 4.1.x - planning
 	Remote host access
 	  - User name can be passed over wire. But of course credenial cache cannot be specified at monitor pack level. Has to be at service level.
 	  - No password allowed to pass over 'wire' ever.
+
+Version 4.1.1
+  Recent list when full path is show does not resize when main window resizes.
+  Recent (list) tab under settings does not mention or show how to add 'exclusions' (add tip)
+  Remote hosts tab under settings - when all links are hidden the list, textbox and button can move down
+  Recent list (window) must add column to show last modified date of (qmp4) file. Also add context menus for add/remove.
