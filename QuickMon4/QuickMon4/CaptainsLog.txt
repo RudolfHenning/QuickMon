@@ -10,7 +10,7 @@ Version 4.0.6
 Version 4.0.7
   Fix Monitor pack main refresh routine - Global state = Good if some collectors are Disabled while all others are in good state
 
-Version 4.1.0 - planning
+Version 4.1.0
   Adding Impersonation
     - Credential cache can be specified either on app level or monitor pack level.
 	- Master key can be specified either on app level or monitor pack level.
@@ -35,6 +35,9 @@ Version 4.1.0 - planning
 	Remote host access
 	  - User name can be passed over wire. But of course credenial cache cannot be specified at monitor pack level. Has to be at service level.
 	  - No password allowed to pass over 'wire' ever.
+
+Version 4.1.0 (1117 refresh)
+	Fix SQL Query collector UI editor (Username/pwd fields enable on tic of integrated sec)
 
 Version 4.1.1
   Recent list when full path is show does not resize when main window resizes.

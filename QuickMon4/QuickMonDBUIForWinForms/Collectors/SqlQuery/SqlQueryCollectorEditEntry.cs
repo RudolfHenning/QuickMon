@@ -87,7 +87,9 @@ namespace QuickMon.Collectors
         private void chkIntegratedSec_CheckedChanged(object sender, EventArgs e)
         {
             txtUserName.Enabled = !chkIntegratedSec.Checked;
+            txtUserName.ReadOnly = chkIntegratedSec.Checked;
             txtPassword.Enabled = !chkIntegratedSec.Checked;
+            txtPassword.ReadOnly = chkIntegratedSec.Checked;
         }
         #endregion
 

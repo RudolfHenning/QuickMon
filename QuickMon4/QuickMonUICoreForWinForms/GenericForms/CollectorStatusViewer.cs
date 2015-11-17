@@ -33,14 +33,22 @@ namespace QuickMon.Forms
             SnappingEnabled = true;
             lvwProperties.AutoResizeColumnIndex = 1;
             lvwProperties.AutoResizeColumnEnabled = true;            
-            splitContainer1.Panel2Collapsed = true;
+            //splitContainer1.Panel2Collapsed = true;
+            cmdViewDetails.Text = splitContainer1.Panel2Collapsed ? "ttt" : "uuu";
             if (SelectedCollectorHost != null)
             {
                 chkRemoteAgentEnabled.Checked = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
                 txtRemoteAgentServer.Text = SelectedCollectorHost.EnableRemoteExecute ? SelectedCollectorHost.RemoteAgentHostAddress : SelectedCollectorHost.OverrideRemoteAgentHostAddress;
                 remoteportNumericUpDown.SaveValueSet(SelectedCollectorHost.EnableRemoteExecute ? SelectedCollectorHost.RemoteAgentHostPort : SelectedCollectorHost.OverrideRemoteAgentHostPort);
-            }  
-        } 
+            }            
+        }
+        private void CollectorStatusViewer_Shown(object sender, EventArgs e)
+        {
+            if (lvwAgents.Items.Count > 0)
+            {
+                lvwAgents.Items[0].Selected = true;
+            }
+        }
         private void CollectorStatusViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -732,5 +740,7 @@ namespace QuickMon.Forms
             txtRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked;
         }
+
+
     }
 }
