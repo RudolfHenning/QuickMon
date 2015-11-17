@@ -577,6 +577,7 @@
             this.Text = "Collector Status Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CollectorStatusViewer_FormClosing);
             this.Load += new System.EventHandler(this.CollectorStatusViewer_Load);
+            this.Shown += new System.EventHandler(this.CollectorStatusViewer_Shown);
             this.contextMenuStrip1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
