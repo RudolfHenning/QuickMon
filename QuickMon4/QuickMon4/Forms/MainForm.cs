@@ -2578,6 +2578,10 @@ namespace QuickMon
         {
             try
             {
+                if (scriptPath.Contains("%"))
+                {
+                    scriptPath = Environment.ExpandEnvironmentVariables(scriptPath);
+                }
                 if (System.IO.File.Exists(scriptPath))
                 {
                     if (scriptPath.ToLower().EndsWith(".ps1"))
@@ -2592,6 +2596,8 @@ namespace QuickMon
                         p.Start();
                     }
                 }
+                else
+                    UpdateStatusbar(string.Format( "Could not find the corrective script {0}", scriptPath));
             }
             catch (Exception ex)
             {
