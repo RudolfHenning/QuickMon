@@ -268,16 +268,32 @@ namespace QuickMon
         }
         private void RunCorrectiveScript(string scriptPath)
         {
-            if (scriptPath.ToLower().EndsWith(".ps1"))
+            try
             {
-                RunPSScript(scriptPath);
+                if (scriptPath.Contains("%"))
+                {
+                    scriptPath = Environment.ExpandEnvironmentVariables(scriptPath);
+                }
+                if (System.IO.File.Exists(scriptPath))
+                {
+                    if (scriptPath.ToLower().EndsWith(".ps1"))
+                    {
+                        RunPSScript(scriptPath);
+                    }
+                    else
+                    {
+                        Process p = new Process();
+                        p.StartInfo = new ProcessStartInfo(scriptPath);
+                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p.Start();
+                    }
+                }
+                else
+                    EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Could not find the corrective script {0}", scriptPath), EventLogEntryType.Error, 24);
             }
-            else
-            {
-                Process p = new Process();
-                p.StartInfo = new ProcessStartInfo(scriptPath);
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                p.Start();
+            catch (Exception ex)
+            {            
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
             }
         }
         private void monitorPack_MonitorPackEventReported(string message)
