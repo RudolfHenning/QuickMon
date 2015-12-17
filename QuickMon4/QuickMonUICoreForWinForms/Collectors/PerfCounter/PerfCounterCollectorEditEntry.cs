@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using QuickMon.Forms;
 
 namespace QuickMon.Collectors
 {
@@ -34,7 +35,7 @@ namespace QuickMon.Collectors
         public QuickMonDialogResult ShowEditEntry()
         {
             if (SelectedEntry == null)
-                SelectedEntry = PerfCounterCollectorEntry.FromStringDefinition("localhost\\Processor\\% Processor Time\\_Total");
+                SelectedEntry = PerfCounterCollectorEntry.FromStringDefinition(".\\Processor\\% Processor Time\\_Total");
             cboPerformanceCounter.Items.Clear();
             cboPerformanceCounter.Items.AddRange(commonEntries.ToArray());
 
@@ -61,6 +62,11 @@ namespace QuickMon.Collectors
             
             warningNumericUpDown.Value = (decimal)currentEntry.WarningValue;
             errorNumericUpDown.Value = (decimal)currentEntry.ErrorValue;
+
+
+            nudNumberOfSamplesPerRefresh.SaveValueSet((decimal)currentEntry.NumberOfSamplesPerRefresh);
+            nudMultiSampleWaitMS.SaveValueSet((decimal)currentEntry.MultiSampleWaitMS);
+
         }
         #region Private methods
         private bool IsValid()
@@ -142,7 +148,8 @@ namespace QuickMon.Collectors
                     {
                         currentEntry.WarningValue = (float)warningNumericUpDown.Value;
                         currentEntry.ErrorValue = (float)errorNumericUpDown.Value;
-                        //currentEntry.ReturnValueInverted = (warningNumericUpDown.Value > errorNumericUpDown.Value);
+                        currentEntry.NumberOfSamplesPerRefresh = (int)nudNumberOfSamplesPerRefresh.Value;
+                        currentEntry.MultiSampleWaitMS = (int)nudMultiSampleWaitMS.Value;
                         SelectedEntry = currentEntry;
                         DialogResult = System.Windows.Forms.DialogResult.OK;
                         Close();
@@ -181,6 +188,11 @@ namespace QuickMon.Collectors
             {
                 MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void PerfCounterCollectorEditEntry_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

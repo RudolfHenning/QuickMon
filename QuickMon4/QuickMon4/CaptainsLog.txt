@@ -45,6 +45,23 @@ Version 4.1.1
   Remote hosts tab under settings - when all links are hidden the list, textbox and button can move down
   Recent list (window) must add column to show last modified date of (qmp4) file. Also add context menus for add/remove.
 
+Version 4.1.1 refresh
+  Collector Status Viewer window show expanded details on load
+
 Version 4.2.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
   Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
+  Remote host functionality:
+	 Service must be able to filter allow/deny calling process based on address/IP/name/Service window
+	 Service must/can log all requests to local log file, level of logging, amount of history configurable
+  UI client:
+	 Optional 'Alert view' window where only collectors in specified state are displayed.
+  Collector agent editing:
+    All must allow "OK" even if test condition cannot be verified (as it can be set up on another machine using remote host functionality)
+  Collector Status Viewer
+    Must allow some kind of auto update
+  Perfmon collector
+    Check that LogicalDisk\% Disk Time perf counters sample 2/3 times to get value from when using remote host.
+	   Or allow any counter to be sampled multiple times (X times)
+  IDEA
+    Open multiple Monitor packs at the same time.
