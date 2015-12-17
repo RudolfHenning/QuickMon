@@ -8,7 +8,7 @@ namespace QuickMon.Collectors
 {
     public class PerfCounterCollectorEntry : ICollectorConfigEntry
     {
-        public PerfCounterCollectorEntry() { }
+        public PerfCounterCollectorEntry() { MultiSampleWaitMS = 100; }
 
         private PerformanceCounter pc = null;
 
@@ -17,9 +17,10 @@ namespace QuickMon.Collectors
         public string Category { get; set; }
         public string Counter { get; set; }
         public string Instance { get; set; }
-        //public bool ReturnValueInverted { get; set; }
         public float WarningValue { get; set; }
         public float ErrorValue { get; set; }
+        public int NumberOfSamplesPerRefresh { get; set; }
+        public int MultiSampleWaitMS { get; set; }
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -49,21 +50,39 @@ namespace QuickMon.Collectors
             {
                 if (pc == null)
                     InitializePerfCounter();
-                value = pc.NextValue();
-
-                //the next section is to overcome the 'bug' that querying the 'Processor\% Processor Time\_Total' counter in itself (first time) can lead to 100% CPU spike.
-                if (value > 99.0 && pc.CounterName == "% Processor Time")
+                if (pc != null)
                 {
-                    System.Threading.Thread.Sleep(13);
-                    value = pc.NextValue();
-
-                    //if for some reason it is still 100%...
-                    if (value > 99.0 && pc.CounterName == "% Processor Time")
+                    if (NumberOfSamplesPerRefresh == 0)
+                        NumberOfSamplesPerRefresh = 1;
+                    if (MultiSampleWaitMS == 0)
+                        MultiSampleWaitMS = 100;
+                    for(int i = 0; i < NumberOfSamplesPerRefresh; i++)
                     {
-                        System.Threading.Thread.Sleep(99);
+                        if (i > 0)
+                            System.Threading.Thread.Sleep(MultiSampleWaitMS);
                         value = pc.NextValue();
+                        if (value > 99.0 && pc.CounterName == "% Processor Time")
+                        {
+                            System.Threading.Thread.Sleep(13);
+                            value = pc.NextValue();
+                        }
                     }
                 }
+                
+
+                ////the next section is to overcome the 'bug' that querying the 'Processor\% Processor Time\_Total' counter in itself (first time) can lead to 100% CPU spike.
+                //if (value > 99.0 && pc.CounterName == "% Processor Time")
+                //{
+                //    System.Threading.Thread.Sleep(13);
+                //    value = pc.NextValue();
+
+                //    //if for some reason it is still 100%...
+                //    if (value > 99.0 && pc.CounterName == "% Processor Time")
+                //    {
+                //        System.Threading.Thread.Sleep(99);
+                //        value = pc.NextValue();
+                //    }
+                //}
             }
             catch
             {
