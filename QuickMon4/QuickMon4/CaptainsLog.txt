@@ -65,3 +65,4 @@ Version 4.2.x
 	   Or allow any counter to be sampled multiple times (X times)
   IDEA
     Open multiple Monitor packs at the same time.
+	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
