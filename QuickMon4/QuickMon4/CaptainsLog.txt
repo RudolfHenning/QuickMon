@@ -66,3 +66,5 @@ Version 4.2.x
   IDEA
     Open multiple Monitor packs at the same time.
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
+
+	Add CollectorHost "Category" or Multiples. New view option - So UI window can group by Category 
