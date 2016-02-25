@@ -16,6 +16,7 @@ namespace QuickMon
             UniqueId = Guid.NewGuid().ToString();
             CollectorAgents = new List<ICollector>();
             RemoteAgentHostPort = 48181;
+            Categories = new List<string>();
 
             //Stats
             PollCount = 0;
@@ -65,6 +66,10 @@ namespace QuickMon
         #region UI specific
         public bool ExpandOnStart { get; set; }
         #endregion
+
+        #region Additional properties for Enhance UI
+        public List<string> Categories { get; set; }
+        #region
 
         #region Collector agents
         public List<ICollector> CollectorAgents { get; set; }
