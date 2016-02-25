@@ -69,7 +69,7 @@ namespace QuickMon
 
         #region Additional properties for Enhance UI
         public List<string> Categories { get; set; }
-        #region
+        #endregion
 
         #region Collector agents
         public List<ICollector> CollectorAgents { get; set; }
