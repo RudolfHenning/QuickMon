@@ -112,6 +112,16 @@ namespace QuickMon
                     newCollectorHost.ConfigVariables.Add(ConfigVariable.FromXml(configVarNode.OuterXml));
                 }
             }
+            //Categories
+            newCollectorHost.Categories = new List<string>();
+            XmlNode categoriesNode = xmlCollectorEntry.SelectSingleNode("categories");
+            if (categoriesNode != null)
+            {
+                foreach (XmlNode categoryNode in categoriesNode.SelectNodes("category"))
+                {
+                    newCollectorHost.Categories.Add(categoryNode.InnerText.UnEscapeXml());
+                }
+            }
 
             XmlNode collectorAgentsNode = xmlCollectorEntry.SelectSingleNode("collectorAgents");
             if (collectorAgentsNode != null)
@@ -275,6 +285,18 @@ namespace QuickMon
             }
             configVarXml.AppendLine("</configVars>");
 
+            StringBuilder categoriesXml = new StringBuilder();
+            if (Categories != null && Categories.Count > 0)
+            {
+                categoriesXml.AppendLine("<categories>");
+                foreach (string category in Categories)
+                {
+                    categoriesXml.AppendLine(string.Format("<category>{0}</category>", category.EscapeXml()));
+                }
+                categoriesXml.AppendLine("</categories>");
+            }
+
+
             return ToXml(UniqueId,
                 Name,
                 Enabled,
@@ -308,7 +330,8 @@ namespace QuickMon
 
                 collectorAgentsXml.ToString(),
                 ServiceWindows.ToXml(),
-                configVarXml.ToString());
+                configVarXml.ToString(),
+                categoriesXml.ToString());
         }
         public static string ToXml(string uniqueId,
                 string name,
@@ -334,7 +357,8 @@ namespace QuickMon
                 string runAs,
                 string collectorAgentsXml,
                 string serviceWindowsXml,
-                string configVariablesXml
+                string configVariablesXml,
+                string categoriesXml
             )
         {
             StringBuilder configXml = new StringBuilder();
@@ -368,6 +392,8 @@ namespace QuickMon
             configXml.AppendLine(serviceWindowsXml);
             configXml.AppendLine("<!-- Config variables -->");
             configXml.AppendLine(configVariablesXml);
+            configXml.AppendLine("<!-- Categories -->");
+            configXml.AppendLine(categoriesXml);
             configXml.AppendLine("</collectorHost>");
             return configXml.ToString();
         }

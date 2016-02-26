@@ -106,7 +106,18 @@ namespace QuickMon
                     wcfServiceHost.Description.Behaviors.Add(smb);
                 }
                 System.ServiceModel.Description.ServiceEndpoint endpoint = wcfServiceHost.AddServiceEndpoint(typeof(IRemoteCollectorHostService), new BasicHttpBinding(), baseAddress);
-                endpoint.Behaviors.Add(new RemoteCollectorHostServiceInstanceProvider(Properties.Settings.Default.ApplicationMasterKey, Properties.Settings.Default.ApplicationUserNameCacheFilePath));
+                List<string> blockedCollectorAgentTypes = new List<string>();
+                if (Properties.Settings.Default.BlockedCollectorAgentTypes != null)
+                {
+                    foreach (string s in Properties.Settings.Default.BlockedCollectorAgentTypes)
+                        blockedCollectorAgentTypes.Add(s);
+                }                
+                endpoint.Behaviors.Add(
+                    new RemoteCollectorHostServiceInstanceProvider(
+                        Properties.Settings.Default.ApplicationMasterKey, 
+                        Properties.Settings.Default.ApplicationUserNameCacheFilePath,
+                        blockedCollectorAgentTypes)
+                );
                 wcfServiceHost.Open();
             }
         }

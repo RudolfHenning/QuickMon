@@ -60,6 +60,9 @@
             this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
@@ -76,6 +79,19 @@
             this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabAgents = new System.Windows.Forms.TabPage();
+            this.lvwEntries = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -84,6 +100,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDependencies = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
             this.collectorTreeImageList = new System.Windows.Forms.ImageList(this.components);
             this.allLinkLabel = new System.Windows.Forms.LinkLabel();
             this.txtMonitorPack = new System.Windows.Forms.TextBox();
@@ -95,23 +112,6 @@
             this.configColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lvwEntries = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertSuppressionGroupBox.SuspendLayout();
             this.tabAlerts.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -121,10 +121,10 @@
             this.toolStrip1.SuspendLayout();
             this.collectorAgentsEditToolStrip.SuspendLayout();
             this.tabAgents.SuspendLayout();
+            this.agentsContextMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabDependencies.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.agentsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // alertSuppressionGroupBox
@@ -426,7 +426,7 @@
             this.tabAdvanced.Padding = new System.Windows.Forms.Padding(3);
             this.tabAdvanced.Size = new System.Drawing.Size(575, 301);
             this.tabAdvanced.TabIndex = 4;
-            this.tabAdvanced.Text = "Advanced Config settings";
+            this.tabAdvanced.Text = "Variables";
             // 
             // groupBox5
             // 
@@ -446,6 +446,36 @@
             this.groupBox5.Size = new System.Drawing.Size(562, 289);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader5});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(4, 43);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
+            this.lvwConfigVars.TabIndex = 8;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Search for";
+            this.columnHeader4.Width = 243;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Replace by";
+            this.columnHeader5.Width = 262;
             // 
             // toolStrip1
             // 
@@ -624,6 +654,118 @@
             this.tabAgents.TabIndex = 0;
             this.tabAgents.Text = "Agents";
             // 
+            // lvwEntries
+            // 
+            this.lvwEntries.AutoResizeColumnEnabled = false;
+            this.lvwEntries.AutoResizeColumnIndex = 0;
+            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwEntries.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwEntries.FullRowSelect = true;
+            this.lvwEntries.HideSelection = false;
+            this.lvwEntries.LabelEdit = true;
+            this.lvwEntries.Location = new System.Drawing.Point(3, 28);
+            this.lvwEntries.Name = "lvwEntries";
+            this.lvwEntries.Size = new System.Drawing.Size(569, 257);
+            this.lvwEntries.SmallImageList = this.agentsImageList;
+            this.lvwEntries.TabIndex = 3;
+            this.lvwEntries.UseCompatibleStateImageBehavior = false;
+            this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Agent name";
+            this.columnHeader1.Width = 158;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 160;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Config summary";
+            this.columnHeader3.Width = 222;
+            // 
+            // agentsContextMenuStrip
+            // 
+            this.agentsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addAgentToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.moveUpToolStripMenuItem,
+            this.moveDownToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.enableToolStripMenuItem});
+            this.agentsContextMenuStrip.Name = "agentsContextMenuStrip";
+            this.agentsContextMenuStrip.Size = new System.Drawing.Size(138, 148);
+            // 
+            // addAgentToolStripMenuItem
+            // 
+            this.addAgentToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GearWithPlus;
+            this.addAgentToolStripMenuItem.Name = "addAgentToolStripMenuItem";
+            this.addAgentToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.addAgentToolStripMenuItem.Text = "Add Agent";
+            this.addAgentToolStripMenuItem.Click += new System.EventHandler(this.addAgentToolStripButton_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::QuickMon.Properties.Resources.proc2;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editAgentToolStripButton_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteAgentToolStripButton_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(134, 6);
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            this.moveUpToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.moveUpToolStripMenuItem.Text = "Move up";
+            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            this.moveDownToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.moveDownToolStripMenuItem.Text = "Move down";
+            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(134, 6);
+            // 
+            // enableToolStripMenuItem
+            // 
+            this.enableToolStripMenuItem.Image = global::QuickMon.Properties.Resources._246_7;
+            this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.enableToolStripMenuItem.Text = "Enable";
+            this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
+            // 
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -726,6 +868,45 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // tvwCollectors
+            // 
+            this.tvwCollectors.AllowDrop = true;
+            this.tvwCollectors.AllowKeyBoardNodeReorder = false;
+            this.tvwCollectors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvwCollectors.CheckBoxEnhancements = false;
+            this.tvwCollectors.CheckBoxes = true;
+            this.tvwCollectors.DisableCollapseOnDoubleClick = false;
+            this.tvwCollectors.DisableExpandOnDoubleClick = false;
+            this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
+            this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwCollectors.FullRowSelect = true;
+            this.tvwCollectors.HideSelection = false;
+            this.tvwCollectors.ImageIndex = 0;
+            this.tvwCollectors.ImageList = this.collectorTreeImageList;
+            this.tvwCollectors.Indent = 20;
+            this.tvwCollectors.ItemHeight = 22;
+            this.tvwCollectors.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tvwCollectors.Location = new System.Drawing.Point(13, 51);
+            this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
+            this.tvwCollectors.Name = "tvwCollectors";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "All COLLECTORS";
+            this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.tvwCollectors.RootAlwaysExpanded = false;
+            this.tvwCollectors.SelectedImageIndex = 0;
+            this.tvwCollectors.ShowRootLines = false;
+            this.tvwCollectors.Size = new System.Drawing.Size(545, 217);
+            this.tvwCollectors.TabIndex = 5;
+            this.tvwCollectors.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterCheck);
+            // 
             // collectorTreeImageList
             // 
             this.collectorTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("collectorTreeImageList.ImageStream")));
@@ -800,187 +981,6 @@
             this.agentsColumnHeader.Text = "Agent name";
             this.agentsColumnHeader.Width = 158;
             // 
-            // agentsContextMenuStrip
-            // 
-            this.agentsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addAgentToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.moveUpToolStripMenuItem,
-            this.moveDownToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.enableToolStripMenuItem});
-            this.agentsContextMenuStrip.Name = "agentsContextMenuStrip";
-            this.agentsContextMenuStrip.Size = new System.Drawing.Size(138, 148);
-            // 
-            // addAgentToolStripMenuItem
-            // 
-            this.addAgentToolStripMenuItem.Image = global::QuickMon.Properties.Resources.GearWithPlus;
-            this.addAgentToolStripMenuItem.Name = "addAgentToolStripMenuItem";
-            this.addAgentToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.addAgentToolStripMenuItem.Text = "Add Agent";
-            this.addAgentToolStripMenuItem.Click += new System.EventHandler(this.addAgentToolStripButton_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = global::QuickMon.Properties.Resources.proc2;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editAgentToolStripButton_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteAgentToolStripButton_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(134, 6);
-            // 
-            // moveUpToolStripMenuItem
-            // 
-            this.moveUpToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.moveUpToolStripMenuItem.Text = "Move up";
-            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
-            // 
-            // moveDownToolStripMenuItem
-            // 
-            this.moveDownToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.moveDownToolStripMenuItem.Text = "Move down";
-            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(134, 6);
-            // 
-            // enableToolStripMenuItem
-            // 
-            this.enableToolStripMenuItem.Image = global::QuickMon.Properties.Resources._246_7;
-            this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
-            this.enableToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.enableToolStripMenuItem.Text = "Enable";
-            this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
-            // 
-            // lvwEntries
-            // 
-            this.lvwEntries.AutoResizeColumnEnabled = false;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
-            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.lvwEntries.ContextMenuStrip = this.agentsContextMenuStrip;
-            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwEntries.FullRowSelect = true;
-            this.lvwEntries.HideSelection = false;
-            this.lvwEntries.LabelEdit = true;
-            this.lvwEntries.Location = new System.Drawing.Point(3, 28);
-            this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(569, 257);
-            this.lvwEntries.SmallImageList = this.agentsImageList;
-            this.lvwEntries.TabIndex = 3;
-            this.lvwEntries.UseCompatibleStateImageBehavior = false;
-            this.lvwEntries.View = System.Windows.Forms.View.Details;
-            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
-            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
-            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
-            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Agent name";
-            this.columnHeader1.Width = 158;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Type";
-            this.columnHeader2.Width = 160;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Config summary";
-            this.columnHeader3.Width = 222;
-            // 
-            // tvwCollectors
-            // 
-            this.tvwCollectors.AllowDrop = true;
-            this.tvwCollectors.AllowKeyBoardNodeReorder = false;
-            this.tvwCollectors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
-            this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tvwCollectors.CheckBoxEnhancements = false;
-            this.tvwCollectors.CheckBoxes = true;
-            this.tvwCollectors.DisableCollapseOnDoubleClick = false;
-            this.tvwCollectors.DisableExpandOnDoubleClick = false;
-            this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
-            this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
-            this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwCollectors.FullRowSelect = true;
-            this.tvwCollectors.HideSelection = false;
-            this.tvwCollectors.ImageIndex = 0;
-            this.tvwCollectors.ImageList = this.collectorTreeImageList;
-            this.tvwCollectors.Indent = 20;
-            this.tvwCollectors.ItemHeight = 22;
-            this.tvwCollectors.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tvwCollectors.Location = new System.Drawing.Point(13, 51);
-            this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
-            this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "All COLLECTORS";
-            this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.tvwCollectors.RootAlwaysExpanded = false;
-            this.tvwCollectors.SelectedImageIndex = 0;
-            this.tvwCollectors.ShowRootLines = false;
-            this.tvwCollectors.Size = new System.Drawing.Size(545, 217);
-            this.tvwCollectors.TabIndex = 5;
-            this.tvwCollectors.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterCheck);
-            // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader5});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(4, 43);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
-            this.lvwConfigVars.TabIndex = 8;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Search for";
-            this.columnHeader4.Width = 243;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Replace by";
-            this.columnHeader5.Width = 262;
-            // 
             // EditNotifierHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1019,11 +1019,11 @@
             this.collectorAgentsEditToolStrip.PerformLayout();
             this.tabAgents.ResumeLayout(false);
             this.tabAgents.PerformLayout();
+            this.agentsContextMenuStrip.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabDependencies.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.agentsContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

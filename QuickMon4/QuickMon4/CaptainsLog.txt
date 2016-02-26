@@ -48,6 +48,10 @@ Version 4.1.1
 Version 4.1.1 refresh
   Collector Status Viewer window show expanded details on load
 
+Version 4.2.0
+  Multi Service instances (with different ports) for running under diffent accounts or different Agents installed.
+
+
 Version 4.2.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
   Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
@@ -69,3 +73,4 @@ Version 4.2.x
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 
 	Add CollectorHost "Category" or Multiples. New view option - So UI window can group by Category 
+	

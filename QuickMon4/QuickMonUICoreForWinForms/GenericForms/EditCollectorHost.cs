@@ -75,8 +75,6 @@ namespace QuickMon
                     MessageBox.Show(string.Format("An error occured while loading the Collector Host config!\r\n{0}", editingCollectorHost.CurrentState.ReadAllRawDetails()), "Loading", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 LoadControlData();
-                //lvwEntries.AutoResizeColumnIndex = 2;
-                //lvwEntries.AutoResizeColumnEnabled = true;
                 agentsTreeListView.AutoResizeColumnIndex = 1;
                 agentsTreeListView.AutoResizeColumnEnabled = true;
                 if (ShowAddAgentsOnStart)
@@ -134,6 +132,16 @@ namespace QuickMon
                 chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
                 txtRunAs.Text = editingCollectorHost.RunAs;
                 //cmdTestRunAs.Enabled = HostingMonitorPack != null;
+
+                StringBuilder categories = new StringBuilder();
+                if (editingCollectorHost.Categories != null && editingCollectorHost.Categories.Count > 0)
+                {
+                    foreach (string category in editingCollectorHost.Categories)
+                    {
+                        categories.AppendLine(category);
+                    }
+                    txtCategories.Text = categories.ToString();
+                }
 
                 LoadConfigVars();
                 LoadAgents();
@@ -1142,6 +1150,19 @@ namespace QuickMon
                 {
                     editingCollectorHost.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
                 }
+                //Categories
+                editingCollectorHost.Categories = new List<string>();
+                if (txtCategories.Text.Length > 0)
+                {
+                    foreach(string line in  txtCategories.Lines)
+                    {
+                        if (line.Length > 0)
+                        {
+                            editingCollectorHost.Categories.Add(line);
+                        }
+                    }
+                }
+
                 editingCollectorHost.CollectorAgents.Clear();
                 //foreach (ListViewItem lvi in lvwEntries.Items)
                 //{
