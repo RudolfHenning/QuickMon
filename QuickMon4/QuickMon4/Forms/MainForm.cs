@@ -102,7 +102,7 @@ namespace QuickMon
             toolTip1.SetToolTip(lblVersion, string.Format("v{0} ({1})", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyy-MM-dd")));
             tvwCollectors.EnableAutoScrollToSelectedNode = true;
             tvwCollectors.TreeNodeMoved += tvwCollectors_TreeNodeMoved;
-            tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
+            //tvwCollectors.EnterKeyDown += tvwCollectors_EnterKeyDown;
             tvwCollectors.RootAlwaysExpanded = true;
             //tvwCollectors.ContextMenuShowUp += tvwCollectors_ContextMenuShowUp;
             tvwNotifiers.RootAlwaysExpanded = true;
@@ -219,7 +219,17 @@ namespace QuickMon
             }
             else
             {
+                ViewCollectorDetails();
                 //collectorTreeViewDetailsToolStripMenuItem_Click(null, null);
+            }
+        }
+        private void tvwCollectors_EnterKeyPressed(object sender, KeyPressEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                //editCollectorToolStripMenuItem_Click(null, null);
+               
+                //
             }
         }
         //private void tvwCollectors_ContextMenuShowUp()
@@ -283,6 +293,21 @@ namespace QuickMon
             }
             return location;
         }
+        private void tvwCollectors_FunctionKeyUp(int functionKey, KeyEventArgs e)
+        {
+ 
+        }
+        private void tvwCollectors_ContextMenuShowUp()
+        {
+            Point topabsolute = this.PointToScreen(panel1.Location);
+            Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
+            Point calcPoint = new Point(Cursor.Position.X - tvwCollectors.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
+            collectorContextMenuLaunchPoint = calcPoint;
+            CheckCollectorContextMenuEnables();
+
+            showCollectorContextMenuTimer.Enabled = false;
+            showCollectorContextMenuTimer.Enabled = true;
+        }
         #endregion
 
         #region Notifier TreeView events
@@ -315,6 +340,16 @@ namespace QuickMon
         private void tvwNotifiers_AfterSelect(object sender, TreeViewEventArgs e)
         {
             CheckNotifierContextMenuEnables();
+        }
+        private void tvwNotifiers_ContextMenuShowUp()
+        {
+            Point topabsolute = this.PointToScreen(panel1.Location);
+            Point topRelative = new Point(topabsolute.X - this.Location.X, topabsolute.Y - this.Location.Y);
+            Point calcPoint = new Point(Cursor.Position.X - tvwNotifiers.Location.X - this.Left, Cursor.Position.Y - topRelative.Y - this.Top + 10);
+            notifierContextMenuLaunchPoint = calcPoint;
+            CheckNotifierContextMenuEnables();
+            showNotifierContextMenuTimer.Enabled = false;
+            showNotifierContextMenuTimer.Enabled = true;
         }
         #endregion
 
@@ -2634,7 +2669,6 @@ namespace QuickMon
             //tm.Show();
 #endif
         }
-
 
 
     }

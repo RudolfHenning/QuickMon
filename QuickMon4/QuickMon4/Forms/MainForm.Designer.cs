@@ -191,8 +191,11 @@
             this.tvwCollectors.ShowRootLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(371, 180);
             this.tvwCollectors.TabIndex = 1;
+            this.tvwCollectors.EnterKeyPressed += new System.Windows.Forms.KeyPressEventHandler(this.tvwCollectors_EnterKeyPressed);
             this.tvwCollectors.EnterKeyDown += new System.Windows.Forms.KeyEventHandler(this.tvwCollectors_EnterKeyDown);
             this.tvwCollectors.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.DeleteCollector);
+            this.tvwCollectors.FunctionKeyUp += new QuickMon.Controls.FunctionKeyUpDelegate(this.tvwCollectors_FunctionKeyUp);
+            this.tvwCollectors.ContextMenuShowUp += new System.Windows.Forms.MethodInvoker(this.tvwCollectors_ContextMenuShowUp);
             this.tvwCollectors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterSelect);
             this.tvwCollectors.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwCollectors_NodeMouseDoubleClick);
             this.tvwCollectors.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tvwCollectors_MouseMove);
@@ -287,6 +290,7 @@
             this.tvwNotifiers.ShowRootLines = false;
             this.tvwNotifiers.Size = new System.Drawing.Size(379, 101);
             this.tvwNotifiers.TabIndex = 3;
+            this.tvwNotifiers.ContextMenuShowUp += new System.Windows.Forms.MethodInvoker(this.tvwNotifiers_ContextMenuShowUp);
             this.tvwNotifiers.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwNotifiers_AfterSelect);
             this.tvwNotifiers.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwNotifiers_NodeMouseDoubleClick);
             this.tvwNotifiers.DoubleClick += new System.EventHandler(this.tvwNotifiers_DoubleClick);
