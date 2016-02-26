@@ -66,18 +66,21 @@ namespace QuickMon.Controls
             {
                 if (EnterKeyDown != null)
                 {
+                    EnterKeyDown(this, e);
                     e.Handled = true;
                     e.SuppressKeyPress = true;
-                    EnterKeyDown(this, e);
                 }
             }
             else if (e.KeyCode == Keys.Delete)
+            {
                 if (DeleteKeyPressed != null)
                 {
                     DeleteKeyPressed();
                     e.Handled = true;
                 }
-            base.OnKeyDown(e);
+            }
+            else 
+                base.OnKeyDown(e);
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {

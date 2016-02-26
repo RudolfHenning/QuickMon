@@ -50,6 +50,7 @@ Version 4.1.1 refresh
 
 Version 4.2.0
   Multi Service instances (with different ports) for running under diffent accounts or different Agents installed.
+  Add CollectorHost "Category" or Multiples. New view option - So UI window can group by Category 
 
 
 Version 4.2.x
@@ -72,5 +73,11 @@ Version 4.2.x
     Open multiple Monitor packs at the same time.
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 
-	Add CollectorHost "Category" or Multiples. New view option - So UI window can group by Category 
+  MonitorPack logging - this is not alert logging. All/selected actions performed by MP gets logged to specified log file.
+    Options
+	  All or combination of 
+	  Collector calls, Notifier calls, duration of calls, Only collectors with specified categories, Alerts raised, corrective scripts called, changes to MP 
+	    when polling overrides kick in, going in/out service windows
+	  
+	
 	
