@@ -396,36 +396,13 @@ namespace QuickMon
                 foreach (ICollector ca in CollectorAgents)
                 {
                     MonitorState caMs;
-                    if (ca.Enabled)
+                    if (BlockedCollectorAgentTypes.Contains(ca.AgentClassName))
+                    {
+                        caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled by host process", HtmlDetails = "<p>This agent is disabled by host process</p>" };
+                    }
+                    else if (ca.Enabled)
                     {
                         caMs = ca.GetState();
-                        //if (!RunAsEnabled || RunAs == null || RunAs.Length == 0)
-                        //{
-                        //    caMs = ca.GetState();
-                        //    caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                        //}
-                        //else
-                        //{
-                        //    string password = QuickMon.Security.CredentialManager.GetAccountPassword(RunTimeUserNameCacheFile, RunTimeMasterKey, RunAs);
-                        //    string userName = RunAs;
-                        //    string domainName = System.Net.Dns.GetHostName();
-                        //    if (userName.Contains('\\'))
-                        //    {
-                        //        domainName = userName.Substring(0, userName.IndexOf('\\'));
-                        //        userName = userName.Substring(domainName.Length + 1);
-                        //    }
-                        //    if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
-                        //    {
-                        //        caMs = ca.GetState();
-                        //        caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                        //    }
-                        //    else
-                        //    {
-                        //        caMs = ca.GetState();
-                        //        caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                        //        QuickMon.Security.Impersonator.UnImpersonate();
-                        //    }
-                        //}
                     }
                     else
                     {

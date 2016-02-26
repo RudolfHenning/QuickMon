@@ -8,10 +8,18 @@ namespace QuickMon
 {
     public class RemoteCollectorHostService : IRemoteCollectorHostService
     {
+        public RemoteCollectorHostService()
+        {
+            BlockedCollectorAgentTypes = new List<string>();
+        }
         #region Security
         //Run time setting only
         public string ApplicationUserNameCacheMasterKey { get; set; }
         public string ApplicationUserNameCacheFilePath { get; set; }
+        #endregion
+
+        #region Globally Disable/block Agent types if it is not supported for some reason
+        public List<string> BlockedCollectorAgentTypes { get; set; }
         #endregion
 
         #region IRemoteCollectorHostService
@@ -19,7 +27,27 @@ namespace QuickMon
         {
             StringBuilder consoleOutPut = new StringBuilder();
             MonitorState monitorState = new MonitorState();
-            Console.WriteLine("{0}: Running collector host: {1}\r\n{2}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name, new string('*', 79));
+
+            /*** For Console debugging **/
+            consoleOutPut.AppendFormat("{0}: Running collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);            
+            try
+            {
+                OperationContext context = OperationContext.Current;
+                System.ServiceModel.Channels.MessageProperties messageProperties = context.IncomingMessageProperties;
+                System.ServiceModel.Channels.RemoteEndpointMessageProperty endpointProperty =
+                  messageProperties[System.ServiceModel.Channels.RemoteEndpointMessageProperty.Name] as System.ServiceModel.Channels.RemoteEndpointMessageProperty;
+
+                consoleOutPut.AppendFormat(" Requested from {0}:{1}\r\n", endpointProperty.Address, endpointProperty.Port);
+            }
+            catch (Exception ex)
+            {
+                consoleOutPut.AppendFormat(" Error getting caller info: {0}\r\n", ex.Message);
+            }
+            consoleOutPut.AppendFormat("{0}\r\n", new string('*', 79));
+            Console.WriteLine(consoleOutPut.ToString());
+            consoleOutPut = new StringBuilder();
+            /*** For Console debugging **/
+
             try
             {
                 string collectorHostConfig = entry.ToCollectorHostXml();
@@ -34,6 +62,7 @@ namespace QuickMon
                 m.LoadXml(tempMonitorPack);
                 m.ApplicationUserNameCacheMasterKey = ApplicationUserNameCacheMasterKey;
                 m.ApplicationUserNameCacheFilePath = ApplicationUserNameCacheFilePath;
+                m.BlockedCollectorAgentTypes.AddRange(BlockedCollectorAgentTypes.ToArray());
                 if (m.CollectorHosts.Count == 1)
                 {
                     m.RefreshStates();
@@ -50,10 +79,10 @@ namespace QuickMon
                     monitorState.State = CollectorState.Error;
                 }
                 //If hosted in console test app
-                consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);
+                consoleOutPut.AppendFormat("{0}: Results for collector host: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), entry.Name);                
                 consoleOutPut.AppendFormat(" State   : {0}\r\n", monitorState.State);
-                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());
                 consoleOutPut.AppendFormat(" Ran as  : {0}\r\n", monitorState.RanAs);
+                consoleOutPut.AppendFormat(" Details : {0}\r\n", monitorState.ReadAllRawDetails());                
             }
             catch (Exception ex)
             {
@@ -63,6 +92,7 @@ namespace QuickMon
                 monitorState.RawDetails = ex.ToString();
                 monitorState.HtmlDetails= ex.ToString().EscapeXml();
             }
+            
             consoleOutPut.AppendLine(new string('*', 79));
             Console.WriteLine(consoleOutPut.ToString());
 
@@ -74,6 +104,20 @@ namespace QuickMon
             StringBuilder consoleOutPut = new StringBuilder();
             string versionInfo = System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString();
             consoleOutPut.AppendFormat("Version request response: {0}\r\n", versionInfo);
+
+            try
+            {
+                OperationContext context = OperationContext.Current;
+                System.ServiceModel.Channels.MessageProperties messageProperties = context.IncomingMessageProperties;
+                System.ServiceModel.Channels.RemoteEndpointMessageProperty endpointProperty =
+                  messageProperties[System.ServiceModel.Channels.RemoteEndpointMessageProperty.Name] as System.ServiceModel.Channels.RemoteEndpointMessageProperty;
+
+                consoleOutPut.AppendFormat("Requested from {0}:{1}\r\n", endpointProperty.Address, endpointProperty.Port);
+            }
+            catch(Exception ex)
+            {
+                consoleOutPut.AppendFormat("Error getting caller info: {0}\r\n", ex.Message);
+            }
             consoleOutPut.AppendLine(new string('*', 79));
             Console.WriteLine(consoleOutPut.ToString());
             return versionInfo;
@@ -190,10 +234,12 @@ namespace QuickMon
     {
         string applicationUserNameCacheMasterKey = "";
         string applicationUserNameCacheFilePath = "";
-        public RemoteCollectorHostServiceInstanceProvider(string applicationUserNameCacheMasterKey, string applicationUserNameCacheFilePath)
+        List<string> blockedCollectorAgentTypes = new List<string>();
+        public RemoteCollectorHostServiceInstanceProvider(string applicationUserNameCacheMasterKey, string applicationUserNameCacheFilePath, List<string> blockedCollectorAgentTypes)
         {
             this.applicationUserNameCacheMasterKey = applicationUserNameCacheMasterKey;
             this.applicationUserNameCacheFilePath = applicationUserNameCacheFilePath;
+            this.blockedCollectorAgentTypes.AddRange(blockedCollectorAgentTypes.ToArray());
         }
 
         public void AddBindingParameters(System.ServiceModel.Description.ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
@@ -211,11 +257,16 @@ namespace QuickMon
 
         public void Validate(System.ServiceModel.Description.ServiceEndpoint endpoint)
         {
+
         }
 
         public object GetInstance(InstanceContext instanceContext, System.ServiceModel.Channels.Message message)
         {
-            return new RemoteCollectorHostService { ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath };
+            return new RemoteCollectorHostService { 
+                ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, 
+                ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath ,
+                BlockedCollectorAgentTypes = blockedCollectorAgentTypes
+            };
         }
 
         public object GetInstance(InstanceContext instanceContext)

@@ -391,7 +391,7 @@ namespace QuickMon.Collectors
             if (formattedFilterText.Contains("%"))
                 formattedFilterText = MacroVariables.FormatVariables(formattedFilterText);
 
-            int lineCount = 0;
+            //int lineCount = 0;
             DirectoryEntry entryRoot = GetADRoot();
             using (DirectorySearcher searcher = new DirectorySearcher(entryRoot, formattedFilterText))
             {

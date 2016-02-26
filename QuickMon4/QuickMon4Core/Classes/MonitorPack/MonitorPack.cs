@@ -26,6 +26,7 @@ namespace QuickMon
             CollectorStateHistorySize = 100;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
             AgentLoadingErrors = "";
+            BlockedCollectorAgentTypes = new List<string>();
         }
 
         #region Properties
@@ -86,6 +87,10 @@ namespace QuickMon
         //Run time setting only
         public string ApplicationUserNameCacheMasterKey { get; set; }
         public string ApplicationUserNameCacheFilePath { get; set; }        
+        #endregion
+
+        #region Globally Disable/block Agent types if it is not supported for some reason
+        public List<string> BlockedCollectorAgentTypes { get; set; }
         #endregion
 
         #endregion
@@ -177,6 +182,8 @@ namespace QuickMon
 
                     collectorHost.RunTimeMasterKey = "";
                     collectorHost.RunTimeUserNameCacheFile = "";
+                    collectorHost.BlockedCollectorAgentTypes = new List<string>();
+                    collectorHost.BlockedCollectorAgentTypes.AddRange(BlockedCollectorAgentTypes.ToArray());
 
                     if (collectorHost.RunAsEnabled && collectorHost.RunAs != null && collectorHost.RunAs.Length > 0)
                     {                    

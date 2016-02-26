@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditMonitorPackConfig));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -76,12 +77,12 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userCacheImageList = new System.Windows.Forms.ImageList();
+            this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
             this.txtMasterKey = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -91,7 +92,7 @@
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -351,7 +352,7 @@
             this.tabAdvancedConfig.Padding = new System.Windows.Forms.Padding(3);
             this.tabAdvancedConfig.Size = new System.Drawing.Size(581, 239);
             this.tabAdvancedConfig.TabIndex = 1;
-            this.tabAdvancedConfig.Text = "Advanced Config settings";
+            this.tabAdvancedConfig.Text = "Variables";
             // 
             // groupBox5
             // 
@@ -649,12 +650,12 @@
             this.toolStripSeparator2,
             this.refreshToolStripMenuItem});
             this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
-            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(214, 76);
+            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(230, 76);
             // 
             // setPwdToolStripMenuItem
             // 
             this.setPwdToolStripMenuItem.Name = "setPwdToolStripMenuItem";
-            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.setPwdToolStripMenuItem.Text = "Set/Add account && password";
             this.setPwdToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
             // 
@@ -662,19 +663,19 @@
             // 
             this.removeUserToolStripMenuItem.Enabled = false;
             this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.removeUserToolStripMenuItem.Text = "Remove";
             this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(210, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 

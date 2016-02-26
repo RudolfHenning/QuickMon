@@ -39,6 +39,7 @@ namespace QuickMon
             ConfigVariables = new List<ConfigVariable>();
             RunAs = "";
             RunAsEnabled = false;
+            BlockedCollectorAgentTypes = new List<string>();
         }
 
         #region Private vars
@@ -266,6 +267,9 @@ namespace QuickMon
         public string RunTimeUserNameCacheFile { get; set; }
         #endregion
 
+        #region Globally Disable/block Agent types if it is not supported for some reason (Set at Run-Time by calling application/service)
+        public List<string> BlockedCollectorAgentTypes { get; set; }
+        #endregion
         #endregion
 
         #region Public util methods

@@ -57,7 +57,8 @@ namespace QuickMon
                 RunAs,
                 collectorAgentsXml.ToString(),
                 "", //Service windows
-                "" //config vars
+                "", //config vars
+                "" //categories (blank for the moment)
                 );
 
         }
