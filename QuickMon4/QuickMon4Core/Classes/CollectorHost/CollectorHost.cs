@@ -17,6 +17,7 @@ namespace QuickMon
             CollectorAgents = new List<ICollector>();
             RemoteAgentHostPort = 48181;
             Categories = new List<string>();
+            BlockedCollectorAgentTypes = new List<string>();
 
             //Stats
             PollCount = 0;
@@ -37,9 +38,10 @@ namespace QuickMon
             PollSlideFrequencyAfterSecondRepeatSec = 5;
             PollSlideFrequencyAfterThirdRepeatSec = 30;
             ConfigVariables = new List<ConfigVariable>();
+
+            //security and impersonation
             RunAs = "";
             RunAsEnabled = false;
-            BlockedCollectorAgentTypes = new List<string>();
         }
 
         #region Private vars

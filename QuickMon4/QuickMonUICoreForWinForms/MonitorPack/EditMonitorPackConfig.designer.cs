@@ -94,6 +94,7 @@
             this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.tabLogging = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneric.SuspendLayout();
@@ -253,6 +254,7 @@
             this.tabControl1.Controls.Add(this.tabGeneric);
             this.tabControl1.Controls.Add(this.tabAdvancedConfig);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabLogging);
             this.tabControl1.Location = new System.Drawing.Point(1, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -785,6 +787,16 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
+            // tabLogging
+            // 
+            this.tabLogging.Location = new System.Drawing.Point(4, 22);
+            this.tabLogging.Name = "tabLogging";
+            this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogging.Size = new System.Drawing.Size(581, 239);
+            this.tabLogging.TabIndex = 3;
+            this.tabLogging.Text = "Logging";
+            this.tabLogging.UseVisualStyleBackColor = true;
+            // 
             // EditMonitorPackConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -897,5 +909,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.OpenFileDialog qmmxmlOpenFileDialog;
+        private System.Windows.Forms.TabPage tabLogging;
     }
 }

@@ -2669,8 +2669,6 @@ namespace QuickMon
             //tm.Show();
 #endif
         }
-
-
     }
 }
 
