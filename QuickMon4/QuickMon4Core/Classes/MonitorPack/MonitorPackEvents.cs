@@ -31,6 +31,22 @@ namespace QuickMon
         }
         #endregion
 
+        #region Monitor Pack Logging
+        public event SimpleMessageDelegate LoggingEvent;
+        private void RaiseLoggingEvent(string message)
+        {
+            try
+            {
+                if (LoggingEvent != null)
+                    LoggingEvent(message);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseLoggingEvent: {0}", ex.Message));
+            }
+        }
+        #endregion
+
         #region Error messages
         public event NotifierHostWithMessageDelegate OnNotifierError;
         private void RaiseNotifierError(NotifierHost notifier, string errorMessage)

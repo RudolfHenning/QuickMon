@@ -41,6 +41,8 @@ namespace QuickMon
             return summaryInfo;
         }
 
+        private string emptyConfig = "<monitorPack>\r\n<configVars>\r\n</configVars>\r\n<collectorHosts>\r\n</collectorHosts>\r\n<notifierHosts>\r\n</notifierHosts>\r\n<logging>\r\n<collectorCategories/>\r\n</logging>\r\n</monitorPack>";
+
         #region Loading
         public void Load()
         {
@@ -77,6 +79,7 @@ namespace QuickMon
             PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0);
             string defaultNotifierName = root.ReadXmlElementAttr("defaultNotifier");
             RunCorrectiveScripts = root.ReadXmlElementAttr("runCorrectiveScripts", true);
+            LoggingEnabled = root.ReadXmlElementAttr("loggingEnabled", false);
 
             /***************** Load config variables ****************/
             #region Load config variables
@@ -125,6 +128,36 @@ namespace QuickMon
             UserNameCacheFilePath = root.ReadXmlElementAttr("usernameCacheFilePath", "");
             #endregion
 
+            #region Logging
+            LoggingCollectorCategories = new List<string>();
+            XmlNode loggingNode = root.SelectSingleNode("logging");
+            if (loggingNode != null)
+            {
+                LoggingPath = loggingNode.ReadXmlElementAttr("loggingPath", "");
+                LoggingCollectorEvents = loggingNode.ReadXmlElementAttr("loggingCollectorEvents", false);
+                LoggingNotifierEvents = loggingNode.ReadXmlElementAttr("loggingNotifierEvents", false);
+                LoggingAlertsRaised = loggingNode.ReadXmlElementAttr("loggingAlertsRaised", false);
+                LoggingCorrectiveScriptRun = loggingNode.ReadXmlElementAttr("loggingCorrectiveScriptRun", false);
+                LoggingMonitorPackChanged = loggingNode.ReadXmlElementAttr("loggingMonitorPackChanged", false);
+                LoggingPollingOverridesTriggered = loggingNode.ReadXmlElementAttr("loggingPollingOverridesTriggered", false);
+                LoggingServiceWindowEvents = loggingNode.ReadXmlElementAttr("loggingServiceWindowEvents", false);
+                LoggingKeepLogFilesXDays = loggingNode.ReadXmlElementAttr("loggingKeepLogFilesXDays", 180);
+                
+                XmlNode loggingCollectorCategoriesNode = loggingNode.SelectSingleNode("collectorCategories");
+                if (loggingCollectorCategoriesNode != null)
+                {
+                    foreach (XmlNode categoryNode in loggingCollectorCategoriesNode.SelectNodes("category"))
+                    {
+                        LoggingCollectorCategories.Add(categoryNode.InnerText.UnEscapeXml());
+                    }
+                }
+            }
+            else
+            {
+                LoggingEnabled = false;
+            }
+            #endregion
+
             sw.Stop();
             System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
             InitializeGlobalPerformanceCounters();
@@ -145,8 +178,6 @@ namespace QuickMon
         }
         public void AddNotifierHost(NotifierHost notifierHost)
         {
-            //if (NotifierHosts.Count == 0)
-            //    DefaultViewerNotifier = notifierHost;
             NotifierHosts.Add(notifierHost);
         }
         #endregion
@@ -169,7 +200,7 @@ namespace QuickMon
         public void Save(string configurationFile)
         {
             XmlDocument outDoc = new XmlDocument();
-            outDoc.LoadXml("<monitorPack>\r\n<configVars>\r\n</configVars>\r\n<collectorHosts>\r\n</collectorHosts>\r\n<notifierHosts>\r\n</notifierHosts>\r\n</monitorPack>");
+            outDoc.LoadXml(emptyConfig);
             XmlElement root = outDoc.DocumentElement;
             root.SetAttributeValue("version", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             root.SetAttributeValue("name", Name);
@@ -178,6 +209,7 @@ namespace QuickMon
             root.SetAttributeValue("runCorrectiveScripts", RunCorrectiveScripts);
             root.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
             root.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
+            root.SetAttributeValue("loggingEnabled", LoggingEnabled);
 
             #region security
             root.SetAttributeValue("usernameCacheMasterKey", UserNameCacheMasterKey);
@@ -187,36 +219,30 @@ namespace QuickMon
             root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml();
             root.SelectSingleNode("collectorHosts").InnerXml = GetConfigForCollectors();
             root.SelectSingleNode("notifierHosts").InnerXml = GetConfigForNotifiers();
+
+            #region Logging
+            XmlNode loggingNode = root.SelectSingleNode("logging");
+            loggingNode.SetAttributeValue("loggingPath", LoggingPath);
+            loggingNode.SetAttributeValue("loggingCollectorEvents", LoggingCollectorEvents);
+            loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
+            loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
+            loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
+            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChanged);
+            loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
+            loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
+            loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);
+            XmlNode loggingCollectorCategoriesNode = loggingNode.SelectSingleNode("collectorCategories");
+            foreach (string s in LoggingCollectorCategories)
+            {
+                XmlNode category = outDoc.CreateElement("category");
+                category.InnerText = s;
+                loggingCollectorCategoriesNode.AppendChild(category);
+            }
+            #endregion
+
             outDoc.PreserveWhitespace = false;
             outDoc.Normalize();
             outDoc.Save(configurationFile);
-
-            //string outputXml = string.Format(
-            //    @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" " + 
-            //      @"runCorrectiveScripts=""{4}"" stateHistorySize=""{5}"" pollingFreqSecOverride=""{6}"">" + "\r\n" +
-            //      "<configVars>\r\n" +
-            //      "{7}\r\n" +
-            //      "</configVars>\r\n" +
-            //      "<collectorHosts>\r\n" +
-            //      "{8}\r\n" +
-            //      "</collectorHosts>\r\n" +
-            //      "<notifierHosts>\r\n" +
-            //      "{9}\r\n" +
-            //      "</notifierHosts>\r\n" +
-            //    "</monitorPack>",
-            //    System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
-            //    Name, TypeName, Enabled,// defaultViewerNotifier,
-            //    RunCorrectiveScripts,
-            //    CollectorStateHistorySize,
-            //    PollingFrequencyOverrideSec,
-            //    GetConfigVarXml(),
-            //    GetConfigForCollectors(),
-            //    GetConfigForNotifiers());
-            //XmlDocument outputDoc = new XmlDocument();
-            //outputDoc.LoadXml(outputXml);
-            //outputDoc.PreserveWhitespace = false;
-            //outputDoc.Normalize();
-            //outputDoc.Save(configurationFile);
 
             MonitorPackPath = configurationFile;
             RaiseMonitorPackPathChanged(MonitorPackPath);
@@ -246,7 +272,7 @@ namespace QuickMon
         public string ToXml()
         {
             XmlDocument outDoc = new XmlDocument();
-            outDoc.LoadXml("<monitorPack>\r\n<configVars>\r\n</configVars>\r\n<collectorHosts>\r\n</collectorHosts>\r\n<notifierHosts>\r\n</notifierHosts>\r\n</monitorPack>");
+            outDoc.LoadXml(emptyConfig);
             XmlElement root = outDoc.DocumentElement;
             root.SetAttributeValue("version", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             root.SetAttributeValue("name", Name);
@@ -264,32 +290,30 @@ namespace QuickMon
             root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml();
             root.SelectSingleNode("collectorHosts").InnerXml = GetConfigForCollectors();
             root.SelectSingleNode("notifierHosts").InnerXml = GetConfigForNotifiers();
+
+            #region Logging
+            XmlNode loggingNode = root.SelectSingleNode("logging");
+            loggingNode.SetAttributeValue("loggingPath", LoggingPath);
+            loggingNode.SetAttributeValue("loggingCollectorEvents", LoggingCollectorEvents);
+            loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
+            loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
+            loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
+            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChanged);
+            loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
+            loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
+            loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);
+            XmlNode loggingCollectorCategoriesNode = loggingNode.SelectSingleNode("collectorCategories");
+            foreach (string s in LoggingCollectorCategories)
+            {
+                XmlNode category = outDoc.CreateElement("category");
+                category.InnerText = s;
+                loggingCollectorCategoriesNode.AppendChild(category);
+            }
+            #endregion
+
             //outDoc.PreserveWhitespace = false;
             //outDoc.Normalize();
             return XmlFormattingUtils.NormalizeXML(outDoc.OuterXml);
-
-            //string outputXml = string.Format(
-            //    @"<monitorPack version=""{0}"" name=""{1}"" typeName=""{2}"" enabled=""{3}"" " + 
-            //      @"runCorrectiveScripts=""{4}"" stateHistorySize=""{5}"" pollingFreqSecOverride=""{6}"">" + "\r\n" +
-            //      "<configVars>\r\n" +
-            //      "{7}\r\n" +
-            //      "</configVars>\r\n" +
-            //      "<collectorHosts>\r\n" +
-            //      "{8}\r\n" +
-            //      "</collectorHosts>\r\n" +
-            //      "<notifierHosts>\r\n" +
-            //      "{9}\r\n" +
-            //      "</notifierHosts>\r\n" +
-            //    "</monitorPack>",
-            //    System.Reflection.Assembly.GetExecutingAssembly().GetName().Version,
-            //    Name, TypeName, Enabled, 
-            //    RunCorrectiveScripts,
-            //    CollectorStateHistorySize,
-            //    PollingFrequencyOverrideSec,
-            //    GetConfigVarXml(),
-            //    GetConfigForCollectors(),
-            //    GetConfigForNotifiers());
-            //return XmlFormattingUtils.NormalizeXML(outputXml);
         }
         private string GetConfigVarXml()
         {

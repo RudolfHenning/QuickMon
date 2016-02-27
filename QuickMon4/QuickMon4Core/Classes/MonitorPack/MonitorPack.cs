@@ -20,13 +20,15 @@ namespace QuickMon
             IsPollingEnabled = false;
             CurrentState = CollectorState.NotAvailable;
             PreviousState = CollectorState.NotAvailable;
-            //DefaultViewerNotifier = null;
             ConcurrencyLevel = 1;
             IsBusyPolling = false;
             CollectorStateHistorySize = 100;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
             AgentLoadingErrors = "";
             BlockedCollectorAgentTypes = new List<string>();
+            LoggingCollectorCategories = new List<string>();
+
+            LoggingKeepLogFilesXDays = 180;
         }
 
         #region Properties
@@ -710,6 +712,20 @@ namespace QuickMon
                 NotifierHosts.Insert(index1, n2);
             }
         }
+        #endregion
+
+        #region Event Logging
+        public bool LoggingEnabled { get; set; }
+        public string LoggingPath { get; set; }
+        public bool LoggingCollectorEvents { get; set; }
+        public bool LoggingNotifierEvents { get; set; }
+        public List<string> LoggingCollectorCategories { get; set; }
+        public bool LoggingAlertsRaised { get; set; }
+        public bool LoggingCorrectiveScriptRun { get; set; }
+        public bool LoggingMonitorPackChanged { get; set; }
+        public bool LoggingPollingOverridesTriggered { get; set; }
+        public bool LoggingServiceWindowEvents { get; set; }
+        public int LoggingKeepLogFilesXDays { get; set; }
         #endregion
     }
 }
