@@ -23,15 +23,45 @@ namespace QuickMon
                 string serviceName = "QuickMon 4 Service";
                 string displayName = "QuickMon 4 Service";
                 string instanceName = "";
+                if (args.Length > 1)
+                {
+                    instanceName = args[1];
+                    serviceName = "QuickMon 4 Service - " + instanceName;
+                }
+                if (args[0].ToUpper() == "-?" || args[0].ToUpper() == "-H" || args[0].ToUpper() == "-HELP")
+                {
+                    System.Windows.Forms.MessageBox.Show("Usage: QuickMonSevice.exe -[action] [Instance name] [DisplayName] [Description]\r\n"+
+                        "Where [action] is one of:\r\n"+
+                        " -status : Display current service status\r\n" +
+                        " -start: Start service/instance\r\n" + 
+                        " -stop: Stop service/instance\r\n" + 
+                        " -install: install service/instance\r\n" +
+                        " -uninstall: uninstall service/instance\r\n" +
+                        "Note :[DisplayName] and [Description] are only used for -install option"
+                    , "Command line options", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+                    return;
+                }
+                if (args[0].ToUpper() == "-STATUS")
+                {
+                    ShowServiceStatus(serviceName);
+                    return;
+                }
+                if (args[0].ToUpper() == "-START")
+                {
+                    StartService(serviceName);
+                    return;
+                }
+                if (args[0].ToUpper() == "-STOP")
+                {
+                    StopService(serviceName);
+                    return;
+                }
 
                 if (args[0].ToUpper() == "-INSTALL")
-                {
-                    
+                {                    
                     string description = "QuickMon 4 Service for unattended monitoring and Remote hosting.";
                     if (args.Length > 1)
-                    {
-                        instanceName = args[1];
-                        serviceName = "QuickMon 4 Service - " + instanceName;
+                    {                        
                         displayName = "QuickMon 4 Service - " + instanceName;
                         serviceParameters = "\"-Instance:" + instanceName + "\"";
                     }
@@ -52,11 +82,6 @@ namespace QuickMon
                 }
                 else if (args[0].ToUpper() == "-UNINSTALL")
                 {
-                    if (args.Length > 1)
-                    {
-                        instanceName = args[1];
-                        serviceName = "QuickMon 4 Service - " + instanceName;
-                    }
                     ServiceRegister.UnInstallService(
                        System.Reflection.Assembly.GetExecutingAssembly().Location,
                        serviceName);
@@ -71,6 +96,58 @@ namespace QuickMon
 				new QuickMonService() 
 			};
             ServiceBase.Run(ServicesToRun);
+        }
+
+        private static void ShowServiceStatus(string serviceName)
+        {
+            ServiceController sc = new ServiceController(serviceName);
+            if (sc != null)
+            {
+                try
+                {
+                    System.Windows.Forms.MessageBox.Show(string.Format("Service: {0}\r\nCurrent Status: {1}", sc.DisplayName, sc.Status), "Status", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(string.Format("Service: {0}\r\nCurrent Status: {1}", serviceName, ex.Message), "Status", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+                }
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show(string.Format("Service: {0}\r\nCurrent Status: Service not found!", serviceName), "Status", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private static void StartService(string serviceName)
+        {
+             ServiceController sc = new ServiceController(serviceName);
+             if (sc != null)
+             {
+                 try
+                 {
+                     sc.Start();
+                 }
+                 catch (Exception ex)
+                 {
+                     System.Windows.Forms.MessageBox.Show(string.Format("Error starting the service {0}\r\n{1}", serviceName, ex.Message), "Start", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+                 }
+             }
+        }
+
+        private static void StopService(string serviceName)
+        {
+            ServiceController sc = new ServiceController(serviceName);
+            if (sc != null)
+            {
+                try
+                {
+                    sc.Stop();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(string.Format("Error stopping the service {0}\r\n{1}", serviceName, ex.Message), "Stop", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+                }
+            }
         }
 
         //private static bool InstallService()
