@@ -58,6 +58,7 @@ namespace QuickMon
             LoadXml(System.IO.File.ReadAllText(configurationFile, Encoding.UTF8));
             MonitorPackPath = configurationFile;
             RaiseMonitorPackPathChanged(MonitorPackPath);
+            WriteLogging("Monitor pack loaded");
         }
         public void LoadXml(string xmlConfig)
         {
@@ -138,7 +139,7 @@ namespace QuickMon
                 LoggingNotifierEvents = loggingNode.ReadXmlElementAttr("loggingNotifierEvents", false);
                 LoggingAlertsRaised = loggingNode.ReadXmlElementAttr("loggingAlertsRaised", false);
                 LoggingCorrectiveScriptRun = loggingNode.ReadXmlElementAttr("loggingCorrectiveScriptRun", false);
-                LoggingMonitorPackChanged = loggingNode.ReadXmlElementAttr("loggingMonitorPackChanged", false);
+                LoggingMonitorPackChangedEvents = loggingNode.ReadXmlElementAttr("loggingMonitorPackChanged", false);
                 LoggingPollingOverridesTriggered = loggingNode.ReadXmlElementAttr("loggingPollingOverridesTriggered", false);
                 LoggingServiceWindowEvents = loggingNode.ReadXmlElementAttr("loggingServiceWindowEvents", false);
                 LoggingKeepLogFilesXDays = loggingNode.ReadXmlElementAttr("loggingKeepLogFilesXDays", 180);
@@ -227,7 +228,7 @@ namespace QuickMon
             loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
             loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
             loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
-            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChanged);
+            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChangedEvents);
             loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
             loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
             loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);
@@ -246,6 +247,7 @@ namespace QuickMon
 
             MonitorPackPath = configurationFile;
             RaiseMonitorPackPathChanged(MonitorPackPath);
+            WriteLogging("Monitor pack saved");
         }
         public void BackupSavedFile()
         {
@@ -298,7 +300,7 @@ namespace QuickMon
             loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
             loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
             loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
-            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChanged);
+            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChangedEvents);
             loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
             loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
             loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);

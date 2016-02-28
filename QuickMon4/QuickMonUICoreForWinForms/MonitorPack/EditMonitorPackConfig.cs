@@ -67,6 +67,31 @@ namespace QuickMon
                 {
                     SelectedMonitorPack.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
                 }
+                //**** Logging ****
+                SelectedMonitorPack.LoggingEnabled = chkLoggingEnabled.Checked;
+                SelectedMonitorPack.LoggingKeepLogFilesXDays = (int)nudKeepLogFilesXDays.Value;
+                SelectedMonitorPack.LoggingPath = txtLoggingPath.Text;
+                SelectedMonitorPack.LoggingCollectorEvents = chkLoggingCollectorEvents.Checked;
+                SelectedMonitorPack.LoggingNotifierEvents = chkLoggingNotifierEvents.Checked;
+                SelectedMonitorPack.LoggingAlertsRaised = chkLoggingAlertsRaised.Checked;
+                SelectedMonitorPack.LoggingCorrectiveScriptRun = chkLoggingCorrectiveScriptRun.Checked;
+                SelectedMonitorPack.LoggingMonitorPackChangedEvents = chkLoggingMonitorPackChanged.Checked;
+                SelectedMonitorPack.LoggingPollingOverridesTriggered = chkLoggingPollingOverridesTriggered.Checked;
+                SelectedMonitorPack.LoggingServiceWindowEvents = chkLoggingServiceWindowEvents.Checked;
+                SelectedMonitorPack.LoggingCollectorCategories = new List<string>();
+                if (txtLoggingCollectorCategories.Text.Length > 0)
+                {
+                    foreach (string line in txtLoggingCollectorCategories.Lines)
+                    {
+                        if (line.Length > 0)
+                        {
+                            SelectedMonitorPack.LoggingCollectorCategories.Add(line);
+                        }
+                    }
+                }                
+                //**** Logging ****
+                SelectedMonitorPack.LoggingMonitorPackChanged();
+
                 Close();
             }
         }
@@ -101,6 +126,25 @@ namespace QuickMon
             txtMasterKeyFilePath.Text = SelectedMonitorPack.UserNameCacheFilePath;
             LoadConfigVars();
             RefreshUserNameList();
+
+            //**** Logging ****
+            chkLoggingEnabled.Checked = SelectedMonitorPack.LoggingEnabled;
+            nudKeepLogFilesXDays.SaveValueSet(SelectedMonitorPack.LoggingKeepLogFilesXDays);
+            txtLoggingPath.Text = SelectedMonitorPack.LoggingPath;
+            chkLoggingCollectorEvents.Checked = SelectedMonitorPack.LoggingCollectorEvents;
+            chkLoggingNotifierEvents.Checked = SelectedMonitorPack.LoggingNotifierEvents;
+            chkLoggingAlertsRaised.Checked = SelectedMonitorPack.LoggingAlertsRaised;
+            chkLoggingCorrectiveScriptRun.Checked = SelectedMonitorPack.LoggingCorrectiveScriptRun;
+            chkLoggingMonitorPackChanged.Checked = SelectedMonitorPack.LoggingMonitorPackChangedEvents;
+            chkLoggingPollingOverridesTriggered.Checked = SelectedMonitorPack.LoggingPollingOverridesTriggered;
+            chkLoggingServiceWindowEvents.Checked = SelectedMonitorPack.LoggingServiceWindowEvents;
+            txtLoggingCollectorCategories.Text = "";
+            if (SelectedMonitorPack.LoggingCollectorCategories != null)
+            {
+                foreach (string s in SelectedMonitorPack.LoggingCollectorCategories)
+                    txtLoggingCollectorCategories.Text += s + "\r\n";
+            }
+            //**** Logging ****
         }
         private bool ValidateInput()
         {
@@ -483,6 +527,22 @@ namespace QuickMon
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void cmdLoggingPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fbdLogging.SelectedPath = txtLoggingPath.Text;
+                if (fbdLogging.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtLoggingPath.Text = fbdLogging.SelectedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

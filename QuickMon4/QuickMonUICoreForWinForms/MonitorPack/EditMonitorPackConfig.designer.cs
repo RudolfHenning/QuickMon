@@ -89,12 +89,28 @@
             this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMasterKeyFilePath = new System.Windows.Forms.TextBox();
+            this.tabLogging = new System.Windows.Forms.TabPage();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.saveFileDialogSaveQmmxml = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tabLogging = new System.Windows.Forms.TabPage();
+            this.cmdLoggingPath = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtLoggingPath = new System.Windows.Forms.TextBox();
+            this.chkLoggingEnabled = new System.Windows.Forms.CheckBox();
+            this.chkLoggingCollectorEvents = new System.Windows.Forms.CheckBox();
+            this.chkLoggingNotifierEvents = new System.Windows.Forms.CheckBox();
+            this.chkLoggingAlertsRaised = new System.Windows.Forms.CheckBox();
+            this.chkLoggingCorrectiveScriptRun = new System.Windows.Forms.CheckBox();
+            this.chkLoggingMonitorPackChanged = new System.Windows.Forms.CheckBox();
+            this.chkLoggingPollingOverridesTriggered = new System.Windows.Forms.CheckBox();
+            this.chkLoggingServiceWindowEvents = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.nudKeepLogFilesXDays = new System.Windows.Forms.NumericUpDown();
+            this.txtLoggingCollectorCategories = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabGeneric.SuspendLayout();
@@ -107,7 +123,9 @@
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.userCacheContextMenuStrip.SuspendLayout();
+            this.tabLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -751,6 +769,31 @@
             this.txtMasterKeyFilePath.Size = new System.Drawing.Size(383, 20);
             this.txtMasterKeyFilePath.TabIndex = 5;
             // 
+            // tabLogging
+            // 
+            this.tabLogging.Controls.Add(this.label14);
+            this.tabLogging.Controls.Add(this.txtLoggingCollectorCategories);
+            this.tabLogging.Controls.Add(this.nudKeepLogFilesXDays);
+            this.tabLogging.Controls.Add(this.label13);
+            this.tabLogging.Controls.Add(this.chkLoggingServiceWindowEvents);
+            this.tabLogging.Controls.Add(this.chkLoggingPollingOverridesTriggered);
+            this.tabLogging.Controls.Add(this.chkLoggingMonitorPackChanged);
+            this.tabLogging.Controls.Add(this.chkLoggingCorrectiveScriptRun);
+            this.tabLogging.Controls.Add(this.chkLoggingAlertsRaised);
+            this.tabLogging.Controls.Add(this.chkLoggingNotifierEvents);
+            this.tabLogging.Controls.Add(this.chkLoggingCollectorEvents);
+            this.tabLogging.Controls.Add(this.chkLoggingEnabled);
+            this.tabLogging.Controls.Add(this.cmdLoggingPath);
+            this.tabLogging.Controls.Add(this.label12);
+            this.tabLogging.Controls.Add(this.txtLoggingPath);
+            this.tabLogging.Location = new System.Drawing.Point(4, 22);
+            this.tabLogging.Name = "tabLogging";
+            this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogging.Size = new System.Drawing.Size(581, 239);
+            this.tabLogging.TabIndex = 3;
+            this.tabLogging.Text = "Logging";
+            this.tabLogging.UseVisualStyleBackColor = true;
+            // 
             // llblRawEdit
             // 
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -787,15 +830,170 @@
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
             // 
-            // tabLogging
+            // cmdLoggingPath
             // 
-            this.tabLogging.Location = new System.Drawing.Point(4, 22);
-            this.tabLogging.Name = "tabLogging";
-            this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogging.Size = new System.Drawing.Size(581, 239);
-            this.tabLogging.TabIndex = 3;
-            this.tabLogging.Text = "Logging";
-            this.tabLogging.UseVisualStyleBackColor = true;
+            this.cmdLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdLoggingPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoggingPath.Location = new System.Drawing.Point(533, 33);
+            this.cmdLoggingPath.Name = "cmdLoggingPath";
+            this.cmdLoggingPath.Size = new System.Drawing.Size(42, 23);
+            this.cmdLoggingPath.TabIndex = 5;
+            this.cmdLoggingPath.Text = "- - -";
+            this.cmdLoggingPath.UseVisualStyleBackColor = true;
+            this.cmdLoggingPath.Click += new System.EventHandler(this.cmdLoggingPath_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 38);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Log file path";
+            // 
+            // txtLoggingPath
+            // 
+            this.txtLoggingPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLoggingPath.Location = new System.Drawing.Point(132, 35);
+            this.txtLoggingPath.Name = "txtLoggingPath";
+            this.txtLoggingPath.Size = new System.Drawing.Size(395, 20);
+            this.txtLoggingPath.TabIndex = 4;
+            // 
+            // chkLoggingEnabled
+            // 
+            this.chkLoggingEnabled.AutoSize = true;
+            this.chkLoggingEnabled.Location = new System.Drawing.Point(8, 8);
+            this.chkLoggingEnabled.Name = "chkLoggingEnabled";
+            this.chkLoggingEnabled.Size = new System.Drawing.Size(115, 17);
+            this.chkLoggingEnabled.TabIndex = 0;
+            this.chkLoggingEnabled.Text = "Logging is enabled";
+            this.chkLoggingEnabled.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingCollectorEvents
+            // 
+            this.chkLoggingCollectorEvents.AutoSize = true;
+            this.chkLoggingCollectorEvents.Location = new System.Drawing.Point(34, 64);
+            this.chkLoggingCollectorEvents.Name = "chkLoggingCollectorEvents";
+            this.chkLoggingCollectorEvents.Size = new System.Drawing.Size(103, 17);
+            this.chkLoggingCollectorEvents.TabIndex = 6;
+            this.chkLoggingCollectorEvents.Text = "Collector Events";
+            this.chkLoggingCollectorEvents.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingNotifierEvents
+            // 
+            this.chkLoggingNotifierEvents.AutoSize = true;
+            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(34, 87);
+            this.chkLoggingNotifierEvents.Name = "chkLoggingNotifierEvents";
+            this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(95, 17);
+            this.chkLoggingNotifierEvents.TabIndex = 7;
+            this.chkLoggingNotifierEvents.Text = "Notifier Events";
+            this.chkLoggingNotifierEvents.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingAlertsRaised
+            // 
+            this.chkLoggingAlertsRaised.AutoSize = true;
+            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(34, 110);
+            this.chkLoggingAlertsRaised.Name = "chkLoggingAlertsRaised";
+            this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(83, 17);
+            this.chkLoggingAlertsRaised.TabIndex = 8;
+            this.chkLoggingAlertsRaised.Text = "Alert Events";
+            this.chkLoggingAlertsRaised.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingCorrectiveScriptRun
+            // 
+            this.chkLoggingCorrectiveScriptRun.AutoSize = true;
+            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(34, 133);
+            this.chkLoggingCorrectiveScriptRun.Name = "chkLoggingCorrectiveScriptRun";
+            this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(156, 17);
+            this.chkLoggingCorrectiveScriptRun.TabIndex = 9;
+            this.chkLoggingCorrectiveScriptRun.Text = "Corrective script run Events";
+            this.chkLoggingCorrectiveScriptRun.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingMonitorPackChanged
+            // 
+            this.chkLoggingMonitorPackChanged.AutoSize = true;
+            this.chkLoggingMonitorPackChanged.Location = new System.Drawing.Point(34, 156);
+            this.chkLoggingMonitorPackChanged.Name = "chkLoggingMonitorPackChanged";
+            this.chkLoggingMonitorPackChanged.Size = new System.Drawing.Size(169, 17);
+            this.chkLoggingMonitorPackChanged.TabIndex = 10;
+            this.chkLoggingMonitorPackChanged.Text = "Monitor pack changed Events";
+            this.chkLoggingMonitorPackChanged.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingPollingOverridesTriggered
+            // 
+            this.chkLoggingPollingOverridesTriggered.AutoSize = true;
+            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(34, 179);
+            this.chkLoggingPollingOverridesTriggered.Name = "chkLoggingPollingOverridesTriggered";
+            this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(183, 17);
+            this.chkLoggingPollingOverridesTriggered.TabIndex = 11;
+            this.chkLoggingPollingOverridesTriggered.Text = "Polling overrides triggered Events";
+            this.chkLoggingPollingOverridesTriggered.UseVisualStyleBackColor = true;
+            // 
+            // chkLoggingServiceWindowEvents
+            // 
+            this.chkLoggingServiceWindowEvents.AutoSize = true;
+            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(34, 202);
+            this.chkLoggingServiceWindowEvents.Name = "chkLoggingServiceWindowEvents";
+            this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(142, 17);
+            this.chkLoggingServiceWindowEvents.TabIndex = 12;
+            this.chkLoggingServiceWindowEvents.Text = "Service windows Events";
+            this.chkLoggingServiceWindowEvents.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(129, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(108, 13);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Days to keep log files";
+            // 
+            // nudKeepLogFilesXDays
+            // 
+            this.nudKeepLogFilesXDays.Location = new System.Drawing.Point(243, 7);
+            this.nudKeepLogFilesXDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudKeepLogFilesXDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudKeepLogFilesXDays.Name = "nudKeepLogFilesXDays";
+            this.nudKeepLogFilesXDays.Size = new System.Drawing.Size(61, 20);
+            this.nudKeepLogFilesXDays.TabIndex = 2;
+            this.nudKeepLogFilesXDays.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // txtLoggingCollectorCategories
+            // 
+            this.txtLoggingCollectorCategories.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLoggingCollectorCategories.Location = new System.Drawing.Point(243, 84);
+            this.txtLoggingCollectorCategories.Multiline = true;
+            this.txtLoggingCollectorCategories.Name = "txtLoggingCollectorCategories";
+            this.txtLoggingCollectorCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLoggingCollectorCategories.Size = new System.Drawing.Size(245, 135);
+            this.txtLoggingCollectorCategories.TabIndex = 13;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(240, 65);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(203, 13);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "Only for Collector categories (one per line)";
+            // 
+            // fbdLogging
+            // 
+            this.fbdLogging.Description = "Select logging directory";
             // 
             // EditMonitorPackConfig
             // 
@@ -837,7 +1035,10 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.userCacheContextMenuStrip.ResumeLayout(false);
+            this.tabLogging.ResumeLayout(false);
+            this.tabLogging.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -910,5 +1111,21 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.OpenFileDialog qmmxmlOpenFileDialog;
         private System.Windows.Forms.TabPage tabLogging;
+        private System.Windows.Forms.Button cmdLoggingPath;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtLoggingPath;
+        private System.Windows.Forms.CheckBox chkLoggingEnabled;
+        private System.Windows.Forms.CheckBox chkLoggingCollectorEvents;
+        private System.Windows.Forms.CheckBox chkLoggingAlertsRaised;
+        private System.Windows.Forms.CheckBox chkLoggingNotifierEvents;
+        private System.Windows.Forms.CheckBox chkLoggingMonitorPackChanged;
+        private System.Windows.Forms.CheckBox chkLoggingCorrectiveScriptRun;
+        private System.Windows.Forms.CheckBox chkLoggingPollingOverridesTriggered;
+        private System.Windows.Forms.CheckBox chkLoggingServiceWindowEvents;
+        private System.Windows.Forms.NumericUpDown nudKeepLogFilesXDays;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtLoggingCollectorCategories;
+        private System.Windows.Forms.FolderBrowserDialog fbdLogging;
     }
 }

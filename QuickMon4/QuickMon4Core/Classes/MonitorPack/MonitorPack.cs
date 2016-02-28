@@ -29,6 +29,7 @@ namespace QuickMon
             LoggingCollectorCategories = new List<string>();
 
             LoggingKeepLogFilesXDays = 180;
+            lastLoggingCleanupEvent = new DateTime(2000, 1, 1);
         }
 
         #region Properties
@@ -714,19 +715,7 @@ namespace QuickMon
         }
         #endregion
 
-        #region Event Logging
-        public bool LoggingEnabled { get; set; }
-        public string LoggingPath { get; set; }
-        public bool LoggingCollectorEvents { get; set; }
-        public bool LoggingNotifierEvents { get; set; }
-        public List<string> LoggingCollectorCategories { get; set; }
-        public bool LoggingAlertsRaised { get; set; }
-        public bool LoggingCorrectiveScriptRun { get; set; }
-        public bool LoggingMonitorPackChanged { get; set; }
-        public bool LoggingPollingOverridesTriggered { get; set; }
-        public bool LoggingServiceWindowEvents { get; set; }
-        public int LoggingKeepLogFilesXDays { get; set; }
-        #endregion
+
     }
 }
 
