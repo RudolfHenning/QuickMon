@@ -75,7 +75,6 @@ namespace QuickMon
                 SelectedMonitorPack.LoggingNotifierEvents = chkLoggingNotifierEvents.Checked;
                 SelectedMonitorPack.LoggingAlertsRaised = chkLoggingAlertsRaised.Checked;
                 SelectedMonitorPack.LoggingCorrectiveScriptRun = chkLoggingCorrectiveScriptRun.Checked;
-                SelectedMonitorPack.LoggingMonitorPackChangedEvents = chkLoggingMonitorPackChanged.Checked;
                 SelectedMonitorPack.LoggingPollingOverridesTriggered = chkLoggingPollingOverridesTriggered.Checked;
                 SelectedMonitorPack.LoggingServiceWindowEvents = chkLoggingServiceWindowEvents.Checked;
                 SelectedMonitorPack.LoggingCollectorCategories = new List<string>();
@@ -135,7 +134,6 @@ namespace QuickMon
             chkLoggingNotifierEvents.Checked = SelectedMonitorPack.LoggingNotifierEvents;
             chkLoggingAlertsRaised.Checked = SelectedMonitorPack.LoggingAlertsRaised;
             chkLoggingCorrectiveScriptRun.Checked = SelectedMonitorPack.LoggingCorrectiveScriptRun;
-            chkLoggingMonitorPackChanged.Checked = SelectedMonitorPack.LoggingMonitorPackChangedEvents;
             chkLoggingPollingOverridesTriggered.Checked = SelectedMonitorPack.LoggingPollingOverridesTriggered;
             chkLoggingServiceWindowEvents.Checked = SelectedMonitorPack.LoggingServiceWindowEvents;
             txtLoggingCollectorCategories.Text = "";

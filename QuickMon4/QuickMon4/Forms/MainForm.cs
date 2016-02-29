@@ -152,6 +152,8 @@ namespace QuickMon
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (monitorPack != null)
+                monitorPack.CloseMonitorPack();
             PerformCleanShutdown();
         }
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -448,8 +450,9 @@ namespace QuickMon
             try
             {
                 CloseAllDetailWindows();
+                
                 monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
-                monitorPack.ClosePerformanceCounters();
+                monitorPack.CloseMonitorPack();
                 monitorPack = null;
             }
             catch { }
@@ -507,7 +510,7 @@ namespace QuickMon
                     {
                         CloseAllDetailWindows();
                         WaitForPollingToFinish(5);
-                        monitorPack.ClosePerformanceCounters();
+                        monitorPack.CloseMonitorPack();
                     }
                     catch { }
                     finally

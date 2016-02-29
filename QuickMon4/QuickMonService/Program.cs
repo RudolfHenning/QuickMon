@@ -56,6 +56,11 @@ namespace QuickMon
                     StopService(serviceName);
                     return;
                 }
+                if (args[0].ToUpper() == "-RESTART")
+                {
+                    ReStartService(serviceName);
+                    return;
+                }
 
                 if (args[0].ToUpper() == "-INSTALL")
                 {                    
@@ -98,6 +103,7 @@ namespace QuickMon
             ServiceBase.Run(ServicesToRun);
         }
 
+
         private static void ShowServiceStatus(string serviceName)
         {
             ServiceController sc = new ServiceController(serviceName);
@@ -115,6 +121,28 @@ namespace QuickMon
             else
             {
                 System.Windows.Forms.MessageBox.Show(string.Format("Service: {0}\r\nCurrent Status: Service not found!", serviceName), "Status", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private static void ReStartService(string serviceName)
+        {
+            ServiceController sc = new ServiceController(serviceName);
+            if (sc != null)
+            {
+                try
+                {
+                    if (sc.Status == ServiceControllerStatus.Running)
+                    {
+                        sc.Stop();
+                        sc.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+                    }
+
+                    sc.Start();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(string.Format("Error restarting the service {0}\r\n{1}", serviceName, ex.Message), "Restart", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+                }
             }
         }
 

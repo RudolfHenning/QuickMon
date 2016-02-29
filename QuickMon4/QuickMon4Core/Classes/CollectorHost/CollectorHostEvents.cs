@@ -63,5 +63,15 @@ namespace QuickMon
         public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
         public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
         public event CollectorHostDelegate RunCollectorHostRestorationScript;
+
+        public event CollectorHostWithMessageDelegate LoggingPollingOverridesTriggeredEvent;
+        private void RaiseLoggingPollingOverridesTriggeredEvent(string message)
+        {
+            if (LoggingPollingOverridesTriggeredEvent != null)
+            {
+                LoggingPollingOverridesTriggeredEvent(this, message);
+            }
+        }
+
     }
 }
