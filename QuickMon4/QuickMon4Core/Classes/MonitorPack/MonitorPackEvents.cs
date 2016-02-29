@@ -229,6 +229,10 @@ namespace QuickMon
             if (CollectorHostAllAgentsExecutionTime != null)
                 CollectorHostAllAgentsExecutionTime(collectorHost, msTime);
         }
+        private void collectorHost_LoggingPollingOverridesTriggeredEvent(CollectorHost collectorHost, string message)
+        {
+            LoggingPollingOverridesTriggeredEvent(message, collectorHost);
+        }
         #endregion
     }
 }

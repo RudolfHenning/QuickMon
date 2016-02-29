@@ -124,7 +124,10 @@ namespace QuickMon
         protected override void OnStop()
         {
             foreach (MonitorPack monitorPack in packs)
+            {
                 monitorPack.IsPollingEnabled = false;
+                monitorPack.CloseMonitorPack();
+            }
             if (wcfServiceHost != null)
             {
                 wcfServiceHost.Close();

@@ -102,16 +102,17 @@ namespace QuickMon
                 CollectorHosts = CollectorHost.GetCollectorHostsFromString(collectorHostsNode.OuterXml, ConfigVariables);
                 foreach (CollectorHost collectorHost in CollectorHosts)
                 {
-                    collectorHost.ParentMonitorPack = this;
-                    collectorHost.AlertGoodState += collectorHost_AlertGoodState;
-                    collectorHost.AlertWarningState += collectorHost_AlertWarningState;
-                    collectorHost.AlertErrorState += collectorHost_AlertErrorState;
-                    collectorHost.NoStateChanged += collectorHost_NoStateChanged;
-                    collectorHost.StateUpdated += collectorHost_StateUpdated;
-                    collectorHost.AllAgentsExecutionTime += collectorHost_AllAgentsExecutionTime;
-                    collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;                    
-                    collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
-                    collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
+                    SetCollectorHostEvents(collectorHost);
+                    //collectorHost.ParentMonitorPack = this;
+                    //collectorHost.AlertGoodState += collectorHost_AlertGoodState;
+                    //collectorHost.AlertWarningState += collectorHost_AlertWarningState;
+                    //collectorHost.AlertErrorState += collectorHost_AlertErrorState;
+                    //collectorHost.NoStateChanged += collectorHost_NoStateChanged;
+                    //collectorHost.StateUpdated += collectorHost_StateUpdated;
+                    //collectorHost.AllAgentsExecutionTime += collectorHost_AllAgentsExecutionTime;
+                    //collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;                    
+                    //collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
+                    //collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
                 }
             }
             #endregion
@@ -139,7 +140,6 @@ namespace QuickMon
                 LoggingNotifierEvents = loggingNode.ReadXmlElementAttr("loggingNotifierEvents", false);
                 LoggingAlertsRaised = loggingNode.ReadXmlElementAttr("loggingAlertsRaised", false);
                 LoggingCorrectiveScriptRun = loggingNode.ReadXmlElementAttr("loggingCorrectiveScriptRun", false);
-                LoggingMonitorPackChangedEvents = loggingNode.ReadXmlElementAttr("loggingMonitorPackChanged", false);
                 LoggingPollingOverridesTriggered = loggingNode.ReadXmlElementAttr("loggingPollingOverridesTriggered", false);
                 LoggingServiceWindowEvents = loggingNode.ReadXmlElementAttr("loggingServiceWindowEvents", false);
                 LoggingKeepLogFilesXDays = loggingNode.ReadXmlElementAttr("loggingKeepLogFilesXDays", 180);
@@ -162,8 +162,8 @@ namespace QuickMon
             sw.Stop();
             System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
             InitializeGlobalPerformanceCounters();
-        }        
-        public void AddCollectorHost(CollectorHost collectorHost)
+        }
+        private void SetCollectorHostEvents(CollectorHost collectorHost)
         {
             collectorHost.ParentMonitorPack = this;
             collectorHost.AlertGoodState += collectorHost_AlertGoodState;
@@ -175,8 +175,15 @@ namespace QuickMon
             collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;
             collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
             collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
+            collectorHost.LoggingPollingOverridesTriggeredEvent += collectorHost_LoggingPollingOverridesTriggeredEvent;
+        }
+        public void AddCollectorHost(CollectorHost collectorHost)
+        {
+            SetCollectorHostEvents(collectorHost);
             CollectorHosts.Add(collectorHost);
         }
+
+
         public void AddNotifierHost(NotifierHost notifierHost)
         {
             NotifierHosts.Add(notifierHost);
@@ -228,7 +235,6 @@ namespace QuickMon
             loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
             loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
             loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
-            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChangedEvents);
             loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
             loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
             loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);
@@ -300,7 +306,6 @@ namespace QuickMon
             loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
             loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
             loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
-            loggingNode.SetAttributeValue("loggingMonitorPackChanged", LoggingMonitorPackChangedEvents);
             loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
             loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
             loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);

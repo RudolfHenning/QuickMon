@@ -208,62 +208,6 @@ namespace QuickMon
                     }
                     chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
 
-
-                    //if (!collectorHost.RunAsEnabled || collectorHost.RunAs == null || collectorHost.RunAs.Length == 0)
-                    //    chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
-                    //else
-                    //{
-                    //    //********************
-                    //    // Using impersonation 
-                    //    //********************
-                    //    try
-                    //    {
-                    //        string password = "";
-                    //        if (UserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(UserNameCacheFilePath) &&
-                    //            QuickMon.Security.CredentialManager.IsAccountPersisted(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs) &&
-                    //            QuickMon.Security.CredentialManager.IsAccountDecryptable(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs))
-                    //        {
-                    //            password = QuickMon.Security.CredentialManager.GetAccountPassword(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs);
-                    //        }
-                    //        else if (ApplicationUserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(ApplicationUserNameCacheFilePath) &&
-                    //            QuickMon.Security.CredentialManager.IsAccountPersisted(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs) &&
-                    //            QuickMon.Security.CredentialManager.IsAccountDecryptable(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs))
-                    //        {
-                    //            password = QuickMon.Security.CredentialManager.GetAccountPassword(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs);
-                    //        }
-                    //        if (password.Length > 0)
-                    //        {
-                    //            string userName = collectorHost.RunAs;
-                    //            string domainName = System.Net.Dns.GetHostName();
-                    //            if (userName.Contains('\\'))
-                    //            {
-                    //                domainName = userName.Substring(0, userName.IndexOf('\\'));
-                    //                userName = userName.Substring(domainName.Length + 1);
-                    //            }
-                    //            if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
-                    //            {
-                    //                chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
-                    //            }
-                    //            else
-                    //            {
-                    //                chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
-                    //                QuickMon.Security.Impersonator.UnImpersonate();
-                    //            }
-                    //        }
-                    //        else
-                    //        {
-                    //            chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
-                    //        }
-                    //    }
-                    //    catch
-                    //    {
-                    //        chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
-                    //    }
-                    //    //********************
-                    //    // Using impersonation 
-                    //    //********************
-                    //}
-
                     #region Do/Check/Set dependant CollectorHosts
                     if (chms.State == CollectorState.Error && collectorHost.ChildCheckBehaviour != ChildCheckBehaviour.ContinueOnWarningOrError)
                         SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
@@ -315,9 +259,12 @@ namespace QuickMon
                         #endregion
                     }
                     #endregion
+
+                    LoggingCollectorEvent(string.Format("Collector '{0}' return state '{1}'", collectorHost.Name, collectorHost.CurrentState), collectorHost);
                 }
                 catch (Exception ex)
                 {
+                    WriteLogging(string.Format("CollectorHostRefreshCurrentState error: {0}", ex.Message));
                     if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
                         RaiseMonitorPackError("Internal error. Collector config was modified while in use!");
                     else
@@ -352,6 +299,7 @@ namespace QuickMon
                 catch (Exception ex)
                 {
                     RaiseMonitorPackError(ex.Message);
+                    WriteLogging(string.Format("Error in BackgroundPolling: {0}", ex.Message));
                 }
                 BackgroundWaitIsPolling(PollingFreq);
                 try
@@ -364,11 +312,13 @@ namespace QuickMon
                         Load();
                         lastMonitorPackFileUpdate = mfi.LastWriteTime;
                         RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
+                        WriteLogging(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
                     }
                 }
                 catch (Exception ex)
                 {
                     RaiseMonitorPackError(ex.Message);
+                    WriteLogging(string.Format("Error in BackgroundPolling: {0}", ex.Message));
                 }
             }
             ClosePerformanceCounters();
@@ -458,6 +408,10 @@ namespace QuickMon
             if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
             {
                 alertRaised.RaisedFor.CurrentState.AlertsRaised = new List<string>();
+                if (alertRaised.MessageRaw == null)
+                    alertRaised.MessageRaw = "";
+                if (alertRaised.MessageHTML == null)
+                    alertRaised.MessageHTML = "";
                 if (alertRaised.MessageRaw.Length == 0)
                     alertRaised.MessageRaw = alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
                 if (alertRaised.MessageHTML.Length == 0)
@@ -510,7 +464,13 @@ namespace QuickMon
                                 {
                                     string configSummary = ((INotifierConfig)notifierAgent.AgentConfig).ConfigSummary;
                                     alertsRecorded.Add(string.Format("{0} ({1})", notifierAgent.AgentClassDisplayName, configSummary));
+                                    LoggingAlertsRaisedEvent(string.Format("Alert raised for Collector '{0}'\r\nNotifier: '{1}'\r\n{2}", alertRaised.RaisedFor.Name, notifierAgent.Name, alertRaised.MessageRaw));
                                 }
+                                else
+                                {
+                                    LoggingAlertsRaisedEvent(string.Format("Alert raised notifier: '{0}'\r\n{1}", notifierAgent.Name, alertRaised.MessageRaw));
+                                }
+                                
                             }
                         }
                         if (alertsRecorded.Count > 0 && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
@@ -519,18 +479,16 @@ namespace QuickMon
                             sbAlertsRaisedSummary.AppendLine(notifierEntry.Name);
                             alertsRecorded.ForEach(araised => sbAlertsRaisedSummary.AppendLine("  " + araised));
                             alertRaised.RaisedFor.CurrentState.AlertsRaised.Add(sbAlertsRaisedSummary.ToString());
-                        }                   
+                        }
+                        LoggingNotifierEvent(string.Format("Notifier '{0}' called for {1} alert on '{2}'", notifierEntry.Name, alertRaised.Level, (alertRaised.RaisedFor == null ? "Unknown Collector" : alertRaised.RaisedFor.Name)));
                     }
                     catch (Exception ex)
                     {
                         RaiseNotifierError(notifierEntry, ex.ToString());
+                        WriteLogging(string.Format("Error in SendNotifierAlert: {0}\r\nNotifier: {1}", ex.Message, notifierEntry.Name));
                     }
                 }
             }
-            //if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.CurrentState != null)
-            //{
-            //    alertRaised.RaisedFor.UpdateLatestHistoryWithAlertDetails(alertRaised.RaisedFor.CurrentState);
-            //}
             sw.Stop();
             PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
             PCRaiseNotifiersCalled();
@@ -633,9 +591,10 @@ namespace QuickMon
             {
                 Level = collectorEntry.PreviousState.State == CollectorState.Warning ? AlertLevel.Warning : AlertLevel.Error,
                 DetailLevel = DetailLevel.Detail,
-                RaisedFor = collectorEntry//,
-                //State = collectorEntry.CurrentState.Clone()
+                RaisedFor = collectorEntry
             });
+            LoggingCorrectiveScriptRunEvent(string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
+                collectorEntry.Name, collectorEntry.RestorationScriptPath));
         }
         private void LogCorrectiveScriptAction(CollectorHost collectorEntry, bool error)
         {
@@ -645,9 +604,10 @@ namespace QuickMon
             {
                 Level = error ? AlertLevel.Error : AlertLevel.Warning,
                 DetailLevel = DetailLevel.Detail,
-                RaisedFor = collectorEntry//,
-                //State = collectorEntry.CurrentState.Clone()
+                RaisedFor = collectorEntry
             });
+            LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
+                collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath));
         }
         #endregion
 
@@ -715,7 +675,13 @@ namespace QuickMon
         }
         #endregion
 
-
+        #region Closing
+        public void CloseMonitorPack()
+        {
+            ClosePerformanceCounters();
+            LoggingMonitorPackClosed();
+        }
+        #endregion
     }
 }
 

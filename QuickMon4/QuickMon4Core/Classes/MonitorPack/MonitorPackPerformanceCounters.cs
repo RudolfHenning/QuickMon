@@ -80,7 +80,7 @@ namespace QuickMon
                 RaiseMonitorPackError(string.Format("Create global performance counters category error!: {0}", ex.Message));
             }
         }
-        public void ClosePerformanceCounters()
+        private void ClosePerformanceCounters()
         {
             try
             {

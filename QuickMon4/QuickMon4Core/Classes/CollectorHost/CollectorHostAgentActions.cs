@@ -18,13 +18,42 @@ namespace QuickMon
             bool raiseAlertNow = false;
             if (currentState != null)
             {
-                LastStateUpdate = DateTime.Now;
+                if (!CurrentPollAborted)
+                    LastStateUpdate = DateTime.Now;
                 if (FirstStateUpdate < (new DateTime(2000, 1, 1)))
                     FirstStateUpdate = DateTime.Now;
 
                 bool stateChanged = currentState.State != newState.State;
                 if (stateChanged)
+                {
                     LastStateChange = DateTime.Now;
+                    StagnantStateFirstRepeat = false;
+                    StagnantStateSecondRepeat = false;
+                    StagnantStateThirdRepeat = false;
+                    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding cancelled due to collector state value changed");
+                }
+                else if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                {
+                    if (!StagnantStateFirstRepeat)
+                    {
+                        StagnantStateFirstRepeat = true;
+                        StagnantStateSecondRepeat = false;
+                        StagnantStateThirdRepeat = false;
+                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 1st stagnant stage");
+                    }
+                    else if (!StagnantStateSecondRepeat)
+                    {
+                        StagnantStateSecondRepeat = true;
+                        StagnantStateThirdRepeat = false;
+                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 2nd stagnant stage");
+                    }
+                    else if (!StagnantStateThirdRepeat)
+                    {
+                        StagnantStateThirdRepeat = true;
+                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 3rd stagnant stage");
+                    }
+                }
 
 
                 #region Check if alert should be raised now
@@ -107,15 +136,17 @@ namespace QuickMon
 
                 if (!CorrectiveScriptDisabled)
                 {
-                    if (!CorrectiveScriptsOnlyOnStateChange || stateChanged)
+                    if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
+                    {
+                        RunCollectorHostRestorationScript(this);
+                    }
+                    else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
                     {
                         if (newState.State == CollectorState.Error && RunCollectorHostCorrectiveErrorScript != null)
                             RunCollectorHostCorrectiveErrorScript(this);
                         else if (newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
                             RunCollectorHostCorrectiveWarningScript(this);
-                        else if (newState.State == CollectorState.Good && RunCollectorHostRestorationScript != null)
-                            RunCollectorHostRestorationScript(this);
-                    }
+                    }                    
                 }
             }
 
@@ -181,10 +212,13 @@ namespace QuickMon
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
                 }
-                else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
+                else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && 
+                    (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
                 {
                     //Not time yet for update
                     CurrentPollAborted = true;
+                    resultMonitorState.State = CurrentState.State;
+                    RaiseLoggingPollingOverridesTriggeredEvent(string.Format("Polling override of {0} seconds not reached yet", OnlyAllowUpdateOncePerXSec));
                 }
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding &&
                     (
@@ -197,6 +231,7 @@ namespace QuickMon
                 {
                     //Not time yet for update
                     CurrentPollAborted = true;
+                    resultMonitorState.State = CurrentState.State;
                 }
                 else
                 {
@@ -271,35 +306,52 @@ namespace QuickMon
                     }
                     #endregion
 
-                    #region Check if stagnant settings should be (re)set
-                    if (resultMonitorState.State != CurrentState.State)
-                    {
-                        StagnantStateFirstRepeat = false;
-                        StagnantStateSecondRepeat = false;
-                        StagnantStateThirdRepeat = false;
-                    }
-                    else if (!StagnantStateFirstRepeat)
-                    {
-                        StagnantStateFirstRepeat = true;
-                        StagnantStateSecondRepeat = false;
-                        StagnantStateThirdRepeat = false;
-                    }
-                    else if (!StagnantStateSecondRepeat)
-                    {
-                        StagnantStateSecondRepeat = true;
-                        StagnantStateThirdRepeat = false;
-                    }
-                    else if (!StagnantStateThirdRepeat)
-                    {
-                        StagnantStateThirdRepeat = true;
-                    }
-                    #endregion
+                    //
+                    //SetCurrentState(resultMonitorState);
+                    //
+
+                    //#region Check if stagnant settings should be (re)set
+                    //if (resultMonitorState.State != CurrentState.State)
+                    //{
+                    //    StagnantStateFirstRepeat = false;
+                    //    StagnantStateSecondRepeat = false;
+                    //    StagnantStateThirdRepeat = false;
+                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding cancelled due to collector state value changed");
+                    //}
+                    //else if (!StagnantStateFirstRepeat)
+                    //{
+                    //    StagnantStateFirstRepeat = true;
+                    //    StagnantStateSecondRepeat = false;
+                    //    StagnantStateThirdRepeat = false;
+                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 1st stagnant stage"); 
+                    //}
+                    //else if (!StagnantStateSecondRepeat)
+                    //{
+                    //    StagnantStateSecondRepeat = true;
+                    //    StagnantStateThirdRepeat = false;
+                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 2nd stagnant stage");
+                    //}
+                    //else if (!StagnantStateThirdRepeat)
+                    //{
+                    //    StagnantStateThirdRepeat = true;
+                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 3rd stagnant stage");
+                    //}
+                    //#endregion
                 }
             }
             else
             {
                 resultMonitorState.State = CollectorState.ConfigurationError;
+
+                //
+                //SetCurrentState(resultMonitorState);
+                //
             }
+
             //Set current CH state plus raise any alerts if required
             SetCurrentState(resultMonitorState);
             return resultMonitorState;
