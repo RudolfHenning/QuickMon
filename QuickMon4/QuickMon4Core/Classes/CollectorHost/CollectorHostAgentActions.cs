@@ -191,12 +191,33 @@ namespace QuickMon
             CurrentPollAborted = false;
             if (CurrentState.State != CollectorState.ConfigurationError)
             {
-                if (!IsEnabledNow())
+                if (InServiceWindow) //currently in Service window
+                {
+                    if (ServiceWindows.IsInTimeWindow()) //Service window expired
+                    {
+                        InServiceWindow = false;
+                        RaiseExitingServiceWindow();
+                    }
+                }
+                else if (!ServiceWindows.IsInTimeWindow())
+                {
+                    InServiceWindow = true;
+                    RaiseEntereringServiceWindow();
+                }
+
+                if (!Enabled)
                 {
                     resultMonitorState.State = CollectorState.Disabled;
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
+                }
+                else if (InServiceWindow) // !ServiceWindows.IsInTimeWindow())
+                {
+                    resultMonitorState.State = CollectorState.Disabled;
+                    StagnantStateFirstRepeat = false;
+                    StagnantStateSecondRepeat = false;
+                    StagnantStateThirdRepeat = false;                    
                 }
                 else if (CollectorAgents == null || CollectorAgents.Count == 0)//like old folder type collector
                 {
@@ -306,50 +327,11 @@ namespace QuickMon
                     }
                     #endregion
 
-                    //
-                    //SetCurrentState(resultMonitorState);
-                    //
-
-                    //#region Check if stagnant settings should be (re)set
-                    //if (resultMonitorState.State != CurrentState.State)
-                    //{
-                    //    StagnantStateFirstRepeat = false;
-                    //    StagnantStateSecondRepeat = false;
-                    //    StagnantStateThirdRepeat = false;
-                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
-                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding cancelled due to collector state value changed");
-                    //}
-                    //else if (!StagnantStateFirstRepeat)
-                    //{
-                    //    StagnantStateFirstRepeat = true;
-                    //    StagnantStateSecondRepeat = false;
-                    //    StagnantStateThirdRepeat = false;
-                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
-                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 1st stagnant stage"); 
-                    //}
-                    //else if (!StagnantStateSecondRepeat)
-                    //{
-                    //    StagnantStateSecondRepeat = true;
-                    //    StagnantStateThirdRepeat = false;
-                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
-                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 2nd stagnant stage");
-                    //}
-                    //else if (!StagnantStateThirdRepeat)
-                    //{
-                    //    StagnantStateThirdRepeat = true;
-                    //    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
-                    //        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 3rd stagnant stage");
-                    //}
-                    //#endregion
                 }
             }
             else
             {
                 resultMonitorState.State = CollectorState.ConfigurationError;
-
-                //
-                //SetCurrentState(resultMonitorState);
-                //
             }
 
             //Set current CH state plus raise any alerts if required

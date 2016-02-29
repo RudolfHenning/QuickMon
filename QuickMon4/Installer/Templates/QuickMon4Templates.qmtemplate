@@ -31,6 +31,47 @@
 			</configVars>
 		</collectorHost>
 	</template>
+	<template name="Query Firefox version" type="CollectorHost" class="CollectorHost" description="Check Firefox version">
+		<collectorHost uniqueId="fc502bd0-c257-44a8-be3d-2af30817c8eb" name="FireFox version" enabled="True" expandOnStart="True" dependOnParentId="329e3371-5e03-44d3-972e-f37119daeab1" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False" runAsEnabled="False" runAs="" >
+			<!-- CollectorAgents -->
+			<collectorAgents>
+				<collectorAgent name="Registry Query" type="RegistryQueryCollector" enabled="True">
+					<config>
+						<queries>
+							<query name="Firefox Version" useRemoteServer="False" server="" registryHive="CurrentUser" path="SOFTWARE\Mozilla\Mozilla Firefox" keyName="" expandEnvironmentNames="False" returnValueIsNumber="False" successValue="{FirefoxVersion}" warningValue="[any]" errorValue="[null]" returnValueInARange="False" returnValueInverted="False" />
+						</queries>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+		</collectorHost>
+	</template>
+	<template name="QuickMon 4 Service" type="CollectorHost" class="CollectorHost" description="Monitor QuickMon 4 Service">
+		<collectorHost uniqueId="9cebe71f-2435-4191-92e7-815d8e530e22" name="QuickMon 4 Service" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False" runAsEnabled="False" runAs="">
+			<!-- CollectorAgents -->
+			<collectorAgents>
+				<collectorAgent name="Windows Service State" type="WindowsServiceStateCollector" enabled="True">
+					<config>
+						<machine name=".">
+							<service name="QuickMon 4 Service" />
+						</machine>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+			<!-- Categories -->
+		</collectorHost>
+	</template>
 	<template name="SQL Table Size" type="CollectorHost" class="CollectorHost" description="SQL Table Size">
 		<collectorHost uniqueId="" name="TableName" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
 			<!-- CollectorAgents -->
@@ -110,6 +151,7 @@ ORDER BY
 							<performanceCounters>
 								<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" />
 								<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" />
+								<performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" />
 							</performanceCounters>
 						</config>
 					</collectorAgent>
@@ -186,12 +228,48 @@ ORDER BY
 				</config>
 			</collectorAgent>
 		</template>
+		<template name="QuickMon Event log" type="CollectorAgent" class="EventLogCollector" description="QuickMon Event log Errors or Warnings">
+			<collectorHost uniqueId="66a28d86-eeaa-4fe0-9237-6c39d4dbe21f" name="" enabled="True" expandOnStart="True" dependOnParentId="42db6cde-acfc-4996-9195-e74e22785b2d" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False" runAsEnabled="False" runAs="">
+				<!-- CollectorAgents -->
+				<collectorAgents>
+					<collectorAgent name="Event Log" type="EventLogCollector" enabled="True">
+						<config>
+							<eventlogs>
+								<log computer="{computerName}" eventLog="Application" typeInfo="False" typeWarn="True" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="100" withInLastXMinutes="5" warningValue="1" errorValue="10">
+									<sources>
+										<source>QuickMon</source>
+									</sources>
+									<eventIds />
+								</log>
+							</eventlogs>
+						</config>
+					</collectorAgent>
+				</collectorAgents>
+				<!-- ServiceWindows -->
+				<serviceWindows>
+				</serviceWindows>
+				<!-- Config variables -->
+				<configVars>
+				</configVars>
+				<!-- Categories -->
+			</collectorHost>
+		</template>
+		<template name="QuickMon Service" type="CollectorAgent" class="WindowsServiceStateCollector" description="QuickMon Service">
+			<collectorAgent name="Windows Service State" type="WindowsServiceStateCollector" enabled="True">
+				<config>
+					<machine name=".">
+						<service name="QuickMon 4 Service" />
+					</machine>
+				</config>
+			</collectorAgent>
+		</template>
 		<template name="System health" type="CollectorAgent" class="PerfCounterCollector" description="System health">
 			<collectorAgent name="System health" type="PerfCounterCollector" enabled="True">
 				<config>
 					<performanceCounters>
 						<performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="80" errorValue="90" />
 						<performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="80" errorValue="90" />
+						<performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" returnValueInverted="True" warningValue="15" errorValue="5" />
 					</performanceCounters>
 				</config>
 			</collectorAgent>
@@ -321,7 +399,14 @@ ORDER BY
 		<template name="Log file" type="NotifierAgent" class="LogFileNotifier" description="Log file">
 			<notifierAgent name="Log file agent" type="LogFileNotifier" enabled="True">
 				<config>
-					<logFile path="c:\Temp\QM4.log" createNewFileSizeKB="0" />
+					<logFile path="c:\Temp\QuickMon.log" createNewFileSizeKB="0" />
+				</config>
+			</notifierAgent>
+		</template>
+		<template name="QuickMon Event Log" type="NotifierAgent" class="EventLogNotifier" description="QuickMon Event Log">
+			<notifierAgent name="" type="" enabled="True">
+				<config>
+					<eventLog computer="." eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" />
 				</config>
 			</notifierAgent>
 		</template>

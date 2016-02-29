@@ -30,11 +30,13 @@ namespace QuickMon
         /// List of service windows when this agent can operate
         /// </summary>
         public ServiceWindows ServiceWindows { get; set; }
+        internal bool InServiceWindow { get; set; }
         public bool IsEnabledNow()
         {
             if (Enabled)
             {
-                if (ServiceWindows.IsInTimeWindow())
+                InServiceWindow = !ServiceWindows.IsInTimeWindow();
+                if (!InServiceWindow)
                     return true;
                 else
                     return false;
