@@ -78,6 +78,11 @@ namespace QuickMon
             return IsInTimeWindow(DateTime.Now);
         }
 
+        /// <summary>
+        /// returns true if not in Service Window (aka Enabled)
+        /// </summary>
+        /// <param name="nowTime"></param>
+        /// <returns></returns>
         public bool IsInTimeWindow(DateTime nowTime)
         {
             if (Holidays.Contains(nowTime.Date))

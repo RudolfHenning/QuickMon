@@ -176,14 +176,17 @@ namespace QuickMon
             collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
             collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
             collectorHost.LoggingPollingOverridesTriggeredEvent += collectorHost_LoggingPollingOverridesTriggeredEvent;
+            collectorHost.EntereringServiceWindow += collectorHost_EntereringServiceWindow;
+            collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
+
         }
+
+        
         public void AddCollectorHost(CollectorHost collectorHost)
         {
             SetCollectorHostEvents(collectorHost);
             CollectorHosts.Add(collectorHost);
         }
-
-
         public void AddNotifierHost(NotifierHost notifierHost)
         {
             NotifierHosts.Add(notifierHost);

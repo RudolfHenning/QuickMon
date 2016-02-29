@@ -133,6 +133,16 @@ namespace QuickMon
             {
                 WriteLogging(string.Format("Collector '{0}' encoutered polling override event: {1}", collectorHost.Name, message));
             }
-        }        
+        }
+        private void LoggingServiceWindowEvent(CollectorHost collectorHost, bool entered)
+        {
+            if (LoggingServiceWindowEvents)
+            {
+                if (entered)
+                    WriteLogging(string.Format("Collector '{0}' entered a service window.", collectorHost.Name));
+                else
+                    WriteLogging(string.Format("Collector '{0}' exited a service window.", collectorHost.Name));
+            }
+        }     
     }
 }

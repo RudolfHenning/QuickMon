@@ -795,7 +795,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(240, 65);
+            this.label14.Location = new System.Drawing.Point(55, 84);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(203, 13);
             this.label14.TabIndex = 7;
@@ -805,11 +805,11 @@
             // 
             this.txtLoggingCollectorCategories.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLoggingCollectorCategories.Location = new System.Drawing.Point(243, 84);
+            this.txtLoggingCollectorCategories.Location = new System.Drawing.Point(58, 100);
             this.txtLoggingCollectorCategories.Multiline = true;
             this.txtLoggingCollectorCategories.Name = "txtLoggingCollectorCategories";
             this.txtLoggingCollectorCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLoggingCollectorCategories.Size = new System.Drawing.Size(245, 135);
+            this.txtLoggingCollectorCategories.Size = new System.Drawing.Size(216, 104);
             this.txtLoggingCollectorCategories.TabIndex = 8;
             // 
             // nudKeepLogFilesXDays
@@ -846,7 +846,7 @@
             // chkLoggingServiceWindowEvents
             // 
             this.chkLoggingServiceWindowEvents.AutoSize = true;
-            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(34, 179);
+            this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(318, 156);
             this.chkLoggingServiceWindowEvents.Name = "chkLoggingServiceWindowEvents";
             this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(142, 17);
             this.chkLoggingServiceWindowEvents.TabIndex = 13;
@@ -856,7 +856,7 @@
             // chkLoggingPollingOverridesTriggered
             // 
             this.chkLoggingPollingOverridesTriggered.AutoSize = true;
-            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(34, 156);
+            this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(318, 133);
             this.chkLoggingPollingOverridesTriggered.Name = "chkLoggingPollingOverridesTriggered";
             this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(183, 17);
             this.chkLoggingPollingOverridesTriggered.TabIndex = 12;
@@ -866,7 +866,7 @@
             // chkLoggingCorrectiveScriptRun
             // 
             this.chkLoggingCorrectiveScriptRun.AutoSize = true;
-            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(34, 133);
+            this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(318, 110);
             this.chkLoggingCorrectiveScriptRun.Name = "chkLoggingCorrectiveScriptRun";
             this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(156, 17);
             this.chkLoggingCorrectiveScriptRun.TabIndex = 11;
@@ -876,7 +876,7 @@
             // chkLoggingAlertsRaised
             // 
             this.chkLoggingAlertsRaised.AutoSize = true;
-            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(34, 110);
+            this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(318, 87);
             this.chkLoggingAlertsRaised.Name = "chkLoggingAlertsRaised";
             this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(83, 17);
             this.chkLoggingAlertsRaised.TabIndex = 10;
@@ -886,7 +886,7 @@
             // chkLoggingNotifierEvents
             // 
             this.chkLoggingNotifierEvents.AutoSize = true;
-            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(34, 87);
+            this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(318, 64);
             this.chkLoggingNotifierEvents.Name = "chkLoggingNotifierEvents";
             this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(95, 17);
             this.chkLoggingNotifierEvents.TabIndex = 9;

@@ -233,6 +233,14 @@ namespace QuickMon
         {
             LoggingPollingOverridesTriggeredEvent(message, collectorHost);
         }
+        private void collectorHost_EntereringServiceWindow(CollectorHost collectorHost)
+        {
+            LoggingServiceWindowEvent(collectorHost, true);
+        }
+        private void collectorHost_ExitingServiceWindow(CollectorHost collectorHost)
+        {
+            LoggingServiceWindowEvent(collectorHost, false);
+        }
         #endregion
     }
 }

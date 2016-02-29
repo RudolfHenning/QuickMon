@@ -73,5 +73,21 @@ namespace QuickMon
             }
         }
 
+        public event CollectorHostDelegate EntereringServiceWindow;
+        private void RaiseEntereringServiceWindow()
+        {
+            if (EntereringServiceWindow != null)
+            {
+                EntereringServiceWindow(this);
+            }
+        }
+        public event CollectorHostDelegate ExitingServiceWindow;
+        private void RaiseExitingServiceWindow()
+        {
+            if (ExitingServiceWindow != null)
+            {
+                ExitingServiceWindow(this);
+            }
+        }
     }
 }
