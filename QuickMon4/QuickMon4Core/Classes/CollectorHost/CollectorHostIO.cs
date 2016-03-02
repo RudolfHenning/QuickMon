@@ -285,16 +285,18 @@ namespace QuickMon
             }
             configVarXml.AppendLine("</configVars>");
 
-            StringBuilder categoriesXml = new StringBuilder();
-            if (Categories != null && Categories.Count > 0)
-            {
-                categoriesXml.AppendLine("<categories>");
-                foreach (string category in Categories)
-                {
-                    categoriesXml.AppendLine(string.Format("<category>{0}</category>", category.EscapeXml()));
-                }
-                categoriesXml.AppendLine("</categories>");
-            }
+            string categoriesXml = GetCategoriesXML();
+
+            //StringBuilder categoriesXml = new StringBuilder();
+            //if (Categories != null && Categories.Count > 0)
+            //{
+            //    categoriesXml.AppendLine("<categories>");
+            //    foreach (string category in Categories)
+            //    {
+            //        categoriesXml.AppendLine(string.Format("<category>{0}</category>", category.EscapeXml()));
+            //    }
+            //    categoriesXml.AppendLine("</categories>");
+            //}
 
 
             return ToXml(UniqueId,
@@ -331,7 +333,7 @@ namespace QuickMon
                 collectorAgentsXml.ToString(),
                 ServiceWindows.ToXml(),
                 configVarXml.ToString(),
-                categoriesXml.ToString());
+                categoriesXml);
         }
         public static string ToXml(string uniqueId,
                 string name,

@@ -89,7 +89,17 @@ namespace QuickMon
                     linkLabelServiceWindows.Text = editingNotifierHost.ServiceWindows.ToString();
                 else
                     linkLabelServiceWindows.Text = "None";
-                
+
+                StringBuilder categories = new StringBuilder();
+                if (editingNotifierHost.Categories != null && editingNotifierHost.Categories.Count > 0)
+                {
+                    foreach (string category in editingNotifierHost.Categories)
+                    {
+                        categories.AppendLine(category);
+                    }
+                    txtCategories.Text = categories.ToString();
+                }
+
                 LoadConfigVars();
                 LoadAgents();
                 LoadCollectorList();
@@ -670,6 +680,18 @@ namespace QuickMon
                 if (!tvwCollectors.Nodes[0].Checked)
                 {
                     SetAlertForCollectors(editingNotifierHost);
+                }
+                //Categories
+                editingNotifierHost.Categories = new List<string>();
+                if (txtCategories.Text.Length > 0)
+                {
+                    foreach (string line in txtCategories.Lines)
+                    {
+                        if (line.Length > 0)
+                        {
+                            editingNotifierHost.Categories.Add(line);
+                        }
+                    }
                 }
                 success = true;
             }

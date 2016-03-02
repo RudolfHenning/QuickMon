@@ -430,7 +430,9 @@ namespace QuickMon
                                                             n.IsEnabledNow() &&
                                                             (int)n.AlertLevel <= (int)alertRaised.Level &&
                                                             (alertRaised.DetailLevel == DetailLevel.All || alertRaised.DetailLevel == n.DetailLevel) &&
-                                                            (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name))
+                                                            (alertRaised.RaisedFor == null || n.AlertForCollectors.Count == 0 || n.AlertForCollectors.Contains(alertRaised.RaisedFor.Name)) &&
+                                                            (alertRaised.RaisedFor == null || n.Categories == null || n.IsCollectorInCategory(alertRaised.RaisedFor))
+
                                                          select n))
                 {
                     try

@@ -1282,9 +1282,6 @@ namespace QuickMon
                         currentNode.EnsureVisible();
                         tvwCollectors.SelectedNode = currentNode;
 
-                        //if (!collectorEntry.IsFolder)
-                        //    collectorEntry.RefreshDetailsIfOpen();
-
                         //if autosaving is enabled
                         DoAutoSave();
 

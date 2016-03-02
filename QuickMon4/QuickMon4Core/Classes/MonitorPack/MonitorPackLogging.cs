@@ -23,6 +23,7 @@ namespace QuickMon
         public bool LoggingPollingOverridesTriggered { get; set; }
         public bool LoggingServiceWindowEvents { get; set; }
         public int LoggingKeepLogFilesXDays { get; set; }
+        public string LoggingFileName { get { return loggingFileName; } }
         #endregion
 
         private void WriteLogging(string message)
@@ -53,18 +54,24 @@ namespace QuickMon
                         }
 
                         //Logging files clearups
-                        if (lastLoggingCleanupEvent.AddHours(1) < DateTime.Now)
+                        if (lastLoggingCleanupEvent.AddMinutes(1) < DateTime.Now)
                         {
+                            List<string> filesCleared = new List<string>();
                             foreach (string fileName in System.IO.Directory.GetFiles(LoggingPath, logFileName + "*.log"))
                             {
                                 System.IO.FileInfo fi = new System.IO.FileInfo(fileName);
                                 if (fi.LastWriteTime.AddDays(LoggingKeepLogFilesXDays) < DateTime.Now)
                                 {
+                                    filesCleared.Add(fi.FullName);
                                     fi.Delete();
                                 }
                             }
 
                             lastLoggingCleanupEvent = DateTime.Now;
+                            foreach (string fileName in filesCleared)
+                            {
+                                WriteLogging(string.Format("The logging file '{0}' has been deleted because it is older than {1} days.", fileName, LoggingKeepLogFilesXDays));
+                            }
                         }
                     }
                     else
@@ -81,12 +88,12 @@ namespace QuickMon
 
         public void LoggingMonitorPackChanged()
         {
-            WriteLogging("Monitor pack changed");
+            WriteLogging("Monitor pack was changed");
         }
 
         private void LoggingMonitorPackClosed()
         {
-            WriteLogging("Monitor pack closed");
+            WriteLogging("Monitor pack was closed or stopped");
         }
 
         private void LoggingCollectorEvent(string message, CollectorHost collectorHost)
@@ -134,6 +141,7 @@ namespace QuickMon
                 WriteLogging(string.Format("Collector '{0}' encoutered polling override event: {1}", collectorHost.Name, message));
             }
         }
+
         private void LoggingServiceWindowEvent(CollectorHost collectorHost, bool entered)
         {
             if (LoggingServiceWindowEvents)

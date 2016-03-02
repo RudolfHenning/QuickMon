@@ -65,6 +65,10 @@ namespace QuickMon
                 newNotifierHost.ServiceWindows.CreateFromConfig("<serviceWindows />");
             }
 
+            XmlNode categoriesNode = xmlNotifierHost.SelectSingleNode("categories");
+            if (categoriesNode != null)
+                newNotifierHost.CategoriesCreateFromConfig(categoriesNode.OuterXml);
+
             XmlNode collectorsNode = xmlNotifierHost.SelectSingleNode("collectorHosts");
             if (collectorsNode != null)
             {
@@ -231,6 +235,10 @@ namespace QuickMon
 
             configXml.AppendLine("<!-- ServiceWindows -->");
             configXml.AppendLine(ServiceWindows.ToXml());
+
+            configXml.AppendLine("<!-- Categories -->");
+            configXml.AppendLine(GetCategoriesXML());
+
             configXml.AppendLine("<!-- Config variables -->");
             configXml.AppendLine("<configVars>");
             foreach (ConfigVariable cv in ConfigVariables)
