@@ -99,6 +99,8 @@ namespace QuickMon
                     }
                     txtCategories.Text = categories.ToString();
                 }
+                if (txtCategories.Text == "")
+                    txtCategories.Text = "*";
 
                 LoadConfigVars();
                 LoadAgents();
