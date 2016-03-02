@@ -800,6 +800,7 @@
             this.label14.Size = new System.Drawing.Size(203, 13);
             this.label14.TabIndex = 7;
             this.label14.Text = "Only for Collector categories (one per line)";
+            this.toolTip1.SetToolTip(this.label14, "Leading and trailing wild card * allowed. \r\ne.g Ping* or *Service");
             // 
             // txtLoggingCollectorCategories
             // 

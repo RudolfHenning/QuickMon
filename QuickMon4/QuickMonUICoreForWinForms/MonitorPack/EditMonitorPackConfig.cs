@@ -142,6 +142,8 @@ namespace QuickMon
                 foreach (string s in SelectedMonitorPack.LoggingCollectorCategories)
                     txtLoggingCollectorCategories.Text += s + "\r\n";
             }
+            if (txtLoggingCollectorCategories.Text == "")
+                txtLoggingCollectorCategories.Text = "*";
             //**** Logging ****
         }
         private bool ValidateInput()

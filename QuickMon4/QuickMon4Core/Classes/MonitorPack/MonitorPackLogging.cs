@@ -102,18 +102,53 @@ namespace QuickMon
             bool matchCategories = false;
             if (!allCollectors)
             {
-                if (collectorHost.Categories != null && collectorHost.Categories.Count > 0)
-                {
-                    foreach(string cat in collectorHost.Categories)
-                        if (LoggingCollectorCategories.Contains(cat))
-                        {
-                            matchCategories = true;
-                            break;
-                        }
+                foreach (string category in LoggingCollectorCategories)
+	            {
+                    if (IsCollectorInLoggingCategory(category, collectorHost))
+                    {
+                        matchCategories = true;
+                        break;
+                    }
                 }
+
+                //if (collectorHost.Categories != null && collectorHost.Categories.Count > 0)
+                //{
+                    
+                //    foreach(string cat in collectorHost.Categories)
+                //        if (LoggingCollectorCategories.Contains(cat))
+                //        {
+                //            matchCategories = true;
+                //            break;
+                //        }
+                //}
             }
             if (LoggingCollectorEvents && (allCollectors || matchCategories))
                 WriteLogging(message);
+        }
+
+        private bool IsCollectorInLoggingCategory(string category, CollectorHost collectorHost)
+        {
+            if (category == "*") //don't bother further testing
+                return true;
+            else if (category.StartsWith("*"))
+            {
+                string endsWith = category.Substring(1);
+                if ((from s in collectorHost.Categories
+                     where s.EndsWith(endsWith, StringComparison.InvariantCultureIgnoreCase)
+                     select s).Count() > 0)
+                    return true;
+            }
+            else if (category.EndsWith("*"))
+            {
+                string startsWith = category.Substring(0, category.Length - 1);
+                if ((from s in collectorHost.Categories
+                     where s.StartsWith(startsWith, StringComparison.InvariantCultureIgnoreCase)
+                     select s).Count() > 0)
+                    return true;
+            }
+            else if (collectorHost.Categories.Contains(category))
+                return true;
+            return false;
         }
 
         private void LoggingNotifierEvent(string message)

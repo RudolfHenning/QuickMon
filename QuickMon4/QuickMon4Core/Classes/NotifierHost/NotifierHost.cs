@@ -35,9 +35,9 @@ namespace QuickMon
         #region Checking category matches with Collector
         public bool IsCollectorInCategory(CollectorHost ch)
         {
-            if (Categories != null && ch != null && ch.Categories != null)
+            if (Categories != null && Categories.Count > 0 && ch != null && ch.Categories != null)
             {
-                foreach(string ncat in Categories)
+                foreach (string ncat in Categories)
                 {
                     if (ncat == "*") //don't bother further testing
                         return true;
@@ -60,8 +60,10 @@ namespace QuickMon
                     else if (ch.Categories.Contains(ncat))
                         return true;
                 }
+                return false;
             }
-            return false;
+            else
+                return true;            
         }
         #endregion
     }
