@@ -109,7 +109,6 @@
             this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.txtRemoteAgentServer = new System.Windows.Forms.TextBox();
             this.cmdRemoteAgentTest = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.cmdTestRunAs = new System.Windows.Forms.Button();
@@ -178,6 +177,7 @@
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cboRemoteAgentServer = new System.Windows.Forms.ComboBox();
             this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1006,6 +1006,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cboRemoteAgentServer);
             this.groupBox2.Controls.Add(this.chkRunLocalOnRemoteHostConnectionFailure);
             this.groupBox2.Controls.Add(this.chkBlockParentRHOverride);
             this.groupBox2.Controls.Add(this.chkForceRemoteExcuteOnChildCollectors);
@@ -1015,7 +1016,6 @@
             this.groupBox2.Controls.Add(this.remoteportNumericUpDown);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.txtRemoteAgentServer);
             this.groupBox2.Controls.Add(this.cmdRemoteAgentTest);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
@@ -1134,19 +1134,6 @@
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 6;
             this.label14.Text = "Port";
-            // 
-            // txtRemoteAgentServer
-            // 
-            this.txtRemoteAgentServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRemoteAgentServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtRemoteAgentServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtRemoteAgentServer.Enabled = false;
-            this.txtRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
-            this.txtRemoteAgentServer.Name = "txtRemoteAgentServer";
-            this.txtRemoteAgentServer.Size = new System.Drawing.Size(198, 20);
-            this.txtRemoteAgentServer.TabIndex = 5;
-            this.txtRemoteAgentServer.TextChanged += new System.EventHandler(this.txtRemoteAgentServer_TextChanged);
             // 
             // cmdRemoteAgentTest
             // 
@@ -1893,6 +1880,17 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // cboRemoteAgentServer
+            // 
+            this.cboRemoteAgentServer.FormattingEnabled = true;
+            this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
+            this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
+            this.cboRemoteAgentServer.Size = new System.Drawing.Size(198, 21);
+            this.cboRemoteAgentServer.Sorted = true;
+            this.cboRemoteAgentServer.TabIndex = 5;
+            this.cboRemoteAgentServer.SelectionChangeCommitted += new System.EventHandler(this.cboRemoteAgentServer_SelectionChangeCommitted);
+            this.cboRemoteAgentServer.Leave += new System.EventHandler(this.cboRemoteAgentServer_Leave);
+            // 
             // agentsTreeListView
             // 
             this.agentsTreeListView.AllowSorting = false;
@@ -2178,7 +2176,6 @@
         private System.Windows.Forms.NumericUpDown remoteportNumericUpDown;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox txtRemoteAgentServer;
         private System.Windows.Forms.Button cmdRemoteAgentTest;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label43;
@@ -2191,5 +2188,6 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TextBox txtCategories;
         private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.ComboBox cboRemoteAgentServer;
     }
 }

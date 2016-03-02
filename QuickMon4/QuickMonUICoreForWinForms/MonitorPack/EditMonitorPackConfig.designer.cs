@@ -942,6 +942,7 @@
             this.txtLoggingPath.Name = "txtLoggingPath";
             this.txtLoggingPath.Size = new System.Drawing.Size(395, 20);
             this.txtLoggingPath.TabIndex = 4;
+            this.txtLoggingPath.DoubleClick += new System.EventHandler(this.txtLoggingPath_DoubleClick);
             // 
             // llblRawEdit
             // 

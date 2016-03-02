@@ -544,5 +544,18 @@ namespace QuickMon
             }
         }
 
+        private void txtLoggingPath_DoubleClick(object sender, EventArgs e)
+        {
+            if (txtLoggingPath.Text.Trim().Length > 0 && System.IO.Directory.Exists(txtLoggingPath.Text))
+            {
+                if (SelectedMonitorPack != null && SelectedMonitorPack.LoggingFileName.Length > 0 && System.IO.File.Exists(SelectedMonitorPack.LoggingFileName))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + SelectedMonitorPack.LoggingFileName);
+                }
+                else
+                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + txtLoggingPath.Text);
+            }
+        }
+
     }
 }

@@ -196,13 +196,14 @@ namespace QuickMon
                     if (ServiceWindows.IsInTimeWindow()) //Service window expired
                     {
                         InServiceWindow = false;
-                        RaiseExitingServiceWindow();
+                        RaiseEntereringServiceWindow();    
                     }
                 }
                 else if (!ServiceWindows.IsInTimeWindow())
                 {
                     InServiceWindow = true;
-                    RaiseEntereringServiceWindow();
+                    RaiseExitingServiceWindow();
+                    
                 }
 
                 if (!Enabled)

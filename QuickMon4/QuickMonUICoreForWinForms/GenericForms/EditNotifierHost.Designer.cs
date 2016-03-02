@@ -60,9 +60,6 @@
             this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
@@ -79,10 +76,6 @@
             this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
             this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabAgents = new System.Windows.Forms.TabPage();
-            this.lvwEntries = new QuickMon.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,7 +93,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDependencies = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
             this.collectorTreeImageList = new System.Windows.Forms.ImageList(this.components);
             this.allLinkLabel = new System.Windows.Forms.LinkLabel();
             this.txtMonitorPack = new System.Windows.Forms.TextBox();
@@ -112,6 +104,17 @@
             this.configColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtCategories = new System.Windows.Forms.TextBox();
+            this.lvwEntries = new QuickMon.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.alertSuppressionGroupBox.SuspendLayout();
             this.tabAlerts.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -125,6 +128,7 @@
             this.tabControl1.SuspendLayout();
             this.tabDependencies.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // alertSuppressionGroupBox
@@ -447,36 +451,6 @@
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader5});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(4, 43);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
-            this.lvwConfigVars.TabIndex = 8;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Search for";
-            this.columnHeader4.Width = 243;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Replace by";
-            this.columnHeader5.Width = 262;
-            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -517,6 +491,7 @@
             this.llblExportConfigAsTemplate.TabIndex = 2;
             this.llblExportConfigAsTemplate.TabStop = true;
             this.llblExportConfigAsTemplate.Text = "Export config as template";
+            this.llblExportConfigAsTemplate.Visible = false;
             // 
             // panel2
             // 
@@ -653,46 +628,6 @@
             this.tabAgents.Size = new System.Drawing.Size(575, 301);
             this.tabAgents.TabIndex = 0;
             this.tabAgents.Text = "Agents";
-            // 
-            // lvwEntries
-            // 
-            this.lvwEntries.AutoResizeColumnEnabled = false;
-            this.lvwEntries.AutoResizeColumnIndex = 0;
-            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.lvwEntries.ContextMenuStrip = this.agentsContextMenuStrip;
-            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwEntries.FullRowSelect = true;
-            this.lvwEntries.HideSelection = false;
-            this.lvwEntries.LabelEdit = true;
-            this.lvwEntries.Location = new System.Drawing.Point(3, 28);
-            this.lvwEntries.Name = "lvwEntries";
-            this.lvwEntries.Size = new System.Drawing.Size(569, 257);
-            this.lvwEntries.SmallImageList = this.agentsImageList;
-            this.lvwEntries.TabIndex = 3;
-            this.lvwEntries.UseCompatibleStateImageBehavior = false;
-            this.lvwEntries.View = System.Windows.Forms.View.Details;
-            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
-            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
-            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
-            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Agent name";
-            this.columnHeader1.Width = 158;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Type";
-            this.columnHeader2.Width = 160;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Config summary";
-            this.columnHeader3.Width = 222;
             // 
             // agentsContextMenuStrip
             // 
@@ -843,13 +778,16 @@
             // tabDependencies
             // 
             this.tabDependencies.BackColor = System.Drawing.Color.White;
+            this.tabDependencies.Controls.Add(this.groupBox2);
             this.tabDependencies.Controls.Add(this.groupBox1);
+            this.tabDependencies.Controls.Add(this.txtMonitorPack);
+            this.tabDependencies.Controls.Add(this.label15);
             this.tabDependencies.Location = new System.Drawing.Point(4, 22);
             this.tabDependencies.Name = "tabDependencies";
             this.tabDependencies.Padding = new System.Windows.Forms.Padding(3);
             this.tabDependencies.Size = new System.Drawing.Size(575, 301);
             this.tabDependencies.TabIndex = 3;
-            this.tabDependencies.Text = "Dependencies";
+            this.tabDependencies.Text = "Collector filters";
             // 
             // groupBox1
             // 
@@ -857,55 +795,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.tvwCollectors);
-            this.groupBox1.Controls.Add(this.allLinkLabel);
-            this.groupBox1.Controls.Add(this.txtMonitorPack);
-            this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.allLinkLabel);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(3, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(566, 289);
+            this.groupBox1.Size = new System.Drawing.Size(320, 263);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            // 
-            // tvwCollectors
-            // 
-            this.tvwCollectors.AllowDrop = true;
-            this.tvwCollectors.AllowKeyBoardNodeReorder = false;
-            this.tvwCollectors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
-            this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tvwCollectors.CheckBoxEnhancements = false;
-            this.tvwCollectors.CheckBoxes = true;
-            this.tvwCollectors.DisableCollapseOnDoubleClick = false;
-            this.tvwCollectors.DisableExpandOnDoubleClick = false;
-            this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
-            this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
-            this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwCollectors.FullRowSelect = true;
-            this.tvwCollectors.HideSelection = false;
-            this.tvwCollectors.ImageIndex = 0;
-            this.tvwCollectors.ImageList = this.collectorTreeImageList;
-            this.tvwCollectors.Indent = 20;
-            this.tvwCollectors.ItemHeight = 22;
-            this.tvwCollectors.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tvwCollectors.Location = new System.Drawing.Point(13, 51);
-            this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
-            this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "All COLLECTORS";
-            this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.tvwCollectors.RootAlwaysExpanded = false;
-            this.tvwCollectors.SelectedImageIndex = 0;
-            this.tvwCollectors.ShowRootLines = false;
-            this.tvwCollectors.Size = new System.Drawing.Size(545, 217);
-            this.tvwCollectors.TabIndex = 5;
-            this.tvwCollectors.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterCheck);
             // 
             // collectorTreeImageList
             // 
@@ -916,33 +813,34 @@
             // 
             // allLinkLabel
             // 
-            this.allLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.allLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.allLinkLabel.AutoSize = true;
-            this.allLinkLabel.Location = new System.Drawing.Point(6, 273);
+            this.allLinkLabel.Location = new System.Drawing.Point(294, 2);
             this.allLinkLabel.Name = "allLinkLabel";
             this.allLinkLabel.Size = new System.Drawing.Size(18, 13);
-            this.allLinkLabel.TabIndex = 4;
+            this.allLinkLabel.TabIndex = 1;
             this.allLinkLabel.TabStop = true;
             this.allLinkLabel.Text = "All";
             this.allLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.allLinkLabel_LinkClicked);
             // 
             // txtMonitorPack
             // 
-            this.txtMonitorPack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtMonitorPack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMonitorPack.Location = new System.Drawing.Point(108, 23);
+            this.txtMonitorPack.Location = new System.Drawing.Point(108, 275);
             this.txtMonitorPack.Name = "txtMonitorPack";
             this.txtMonitorPack.ReadOnly = true;
-            this.txtMonitorPack.Size = new System.Drawing.Size(452, 20);
-            this.txtMonitorPack.TabIndex = 2;
+            this.txtMonitorPack.Size = new System.Drawing.Size(458, 20);
+            this.txtMonitorPack.TabIndex = 3;
             // 
             // label15
             // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(10, 26);
+            this.label15.Location = new System.Drawing.Point(10, 278);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(69, 13);
-            this.label15.TabIndex = 1;
+            this.label15.TabIndex = 2;
             this.label15.Text = "Monitor pack";
             // 
             // label3
@@ -952,9 +850,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(191, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Collectors";
+            this.label3.Text = "Only alert for selected collectors";
             // 
             // nameColumnHeader
             // 
@@ -980,6 +878,150 @@
             // 
             this.agentsColumnHeader.Text = "Agent name";
             this.agentsColumnHeader.Width = 158;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.txtCategories);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Location = new System.Drawing.Point(329, 7);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(240, 262);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(6, 1);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(173, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Only for collectors categories";
+            this.toolTip1.SetToolTip(this.label5, "Leave blank for all categories");
+            // 
+            // txtCategories
+            // 
+            this.txtCategories.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCategories.Location = new System.Drawing.Point(3, 16);
+            this.txtCategories.Multiline = true;
+            this.txtCategories.Name = "txtCategories";
+            this.txtCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCategories.Size = new System.Drawing.Size(234, 243);
+            this.txtCategories.TabIndex = 1;
+            // 
+            // lvwEntries
+            // 
+            this.lvwEntries.AutoResizeColumnEnabled = false;
+            this.lvwEntries.AutoResizeColumnIndex = 0;
+            this.lvwEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwEntries.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.lvwEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwEntries.FullRowSelect = true;
+            this.lvwEntries.HideSelection = false;
+            this.lvwEntries.LabelEdit = true;
+            this.lvwEntries.Location = new System.Drawing.Point(3, 28);
+            this.lvwEntries.Name = "lvwEntries";
+            this.lvwEntries.Size = new System.Drawing.Size(569, 257);
+            this.lvwEntries.SmallImageList = this.agentsImageList;
+            this.lvwEntries.TabIndex = 3;
+            this.lvwEntries.UseCompatibleStateImageBehavior = false;
+            this.lvwEntries.View = System.Windows.Forms.View.Details;
+            this.lvwEntries.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_EnterKeyPressed);
+            this.lvwEntries.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwEntries_DeleteKeyPressed);
+            this.lvwEntries.SelectedIndexChanged += new System.EventHandler(this.lvwEntries_SelectedIndexChanged);
+            this.lvwEntries.DoubleClick += new System.EventHandler(this.lvwEntries_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Agent name";
+            this.columnHeader1.Width = 158;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 160;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Config summary";
+            this.columnHeader3.Width = 222;
+            // 
+            // tvwCollectors
+            // 
+            this.tvwCollectors.AllowDrop = true;
+            this.tvwCollectors.AllowKeyBoardNodeReorder = false;
+            this.tvwCollectors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvwCollectors.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwCollectors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvwCollectors.CheckBoxEnhancements = false;
+            this.tvwCollectors.CheckBoxes = true;
+            this.tvwCollectors.DisableCollapseOnDoubleClick = false;
+            this.tvwCollectors.DisableExpandOnDoubleClick = false;
+            this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
+            this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwCollectors.FullRowSelect = true;
+            this.tvwCollectors.HideSelection = false;
+            this.tvwCollectors.ImageIndex = 0;
+            this.tvwCollectors.ImageList = this.collectorTreeImageList;
+            this.tvwCollectors.Indent = 20;
+            this.tvwCollectors.ItemHeight = 22;
+            this.tvwCollectors.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tvwCollectors.Location = new System.Drawing.Point(5, 19);
+            this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
+            this.tvwCollectors.Name = "tvwCollectors";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "All COLLECTORS";
+            this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.tvwCollectors.RootAlwaysExpanded = false;
+            this.tvwCollectors.SelectedImageIndex = 0;
+            this.tvwCollectors.ShowRootLines = false;
+            this.tvwCollectors.Size = new System.Drawing.Size(307, 236);
+            this.tvwCollectors.TabIndex = 2;
+            this.tvwCollectors.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvwCollectors_AfterCheck);
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader5});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(4, 43);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(553, 183);
+            this.lvwConfigVars.TabIndex = 8;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Search for";
+            this.columnHeader4.Width = 243;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Replace by";
+            this.columnHeader5.Width = 262;
             // 
             // EditNotifierHost
             // 
@@ -1022,8 +1064,11 @@
             this.agentsContextMenuStrip.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabDependencies.ResumeLayout(false);
+            this.tabDependencies.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1112,5 +1157,8 @@
         private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtCategories;
     }
 }

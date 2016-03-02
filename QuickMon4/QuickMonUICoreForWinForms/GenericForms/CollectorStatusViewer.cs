@@ -117,6 +117,20 @@ namespace QuickMon.Forms
                 #region Details and metrics
                 AddUpdateListViewItem(lvwProperties, "General", "Enabled", (SelectedCollectorHost.Enabled ? "Yes" : "No") + (SelectedCollectorHost.ServiceWindows.IsInTimeWindow() ? "" : " (Out of service window)"));
                 AddUpdateListViewItem(lvwProperties, "General", "Agent count", SelectedCollectorHost.CollectorAgents.Count.ToString());
+                
+                if (SelectedCollectorHost.Categories != null)
+                {
+                    StringBuilder sbCats = new StringBuilder();
+                    foreach (string category in SelectedCollectorHost.Categories)
+                    {
+                        sbCats.Append(category + ",");
+                    }
+                    if (sbCats.ToString().Length > 0)
+                        AddUpdateListViewItem(lvwProperties, "General", "Categories", sbCats.ToString().TrimEnd(','));
+                    else
+                        AddUpdateListViewItem(lvwProperties, "General", "Categories", "None");
+                }
+
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state", SelectedCollectorHost.CurrentState.State.ToString());
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state time", FormatDate(SelectedCollectorHost.CurrentState.Timestamp));
                 AddUpdateListViewItem(lvwProperties, "Current state", "Current state check duration (ms)", SelectedCollectorHost.CurrentState.CallDurationMS.ToString());

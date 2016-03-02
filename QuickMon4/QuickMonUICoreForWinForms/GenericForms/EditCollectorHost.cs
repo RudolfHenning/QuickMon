@@ -108,7 +108,12 @@ namespace QuickMon
                 pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(editingCollectorHost.PollSlideFrequencyAfterThirdRepeatSec);
                 chkRemoteAgentEnabled.Checked = editingCollectorHost.EnableRemoteExecute;
                 chkForceRemoteExcuteOnChildCollectors.Checked = editingCollectorHost.ForceRemoteExcuteOnChildCollectors;
-                txtRemoteAgentServer.Text = editingCollectorHost.RemoteAgentHostAddress;
+                cboRemoteAgentServer.Text = editingCollectorHost.RemoteAgentHostAddress;
+                cboRemoteAgentServer.Items.Clear();
+                if (KnownRemoteHosts != null)
+                {
+                    cboRemoteAgentServer.Items.AddRange(KnownRemoteHosts.ToArray());
+                }
                 remoteportNumericUpDown.SaveValueSet(editingCollectorHost.RemoteAgentHostPort);
                 chkBlockParentRHOverride.Checked = editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings;
                 chkRunLocalOnRemoteHostConnectionFailure.Checked = editingCollectorHost.RunLocalOnRemoteHostConnectionFailure;
@@ -206,8 +211,8 @@ namespace QuickMon
         private void CheckOkEnabled()
         {
             cmdOK.Enabled = (txtName.Text.Length > 0) && cboParentCollector.SelectedIndex > -1 &&
-                    ((!chkRemoteAgentEnabled.Checked && !chkForceRemoteExcuteOnChildCollectors.Checked) || txtRemoteAgentServer.Text.Length > 0);
-            cmdRemoteAgentTest.Enabled = (chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked) && txtRemoteAgentServer.Text.Length > 0;
+                    ((!chkRemoteAgentEnabled.Checked && !chkForceRemoteExcuteOnChildCollectors.Checked) || cboRemoteAgentServer.Text.Length > 0);
+            cmdRemoteAgentTest.Enabled = (chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked) && cboRemoteAgentServer.Text.Length > 0;
         }
         #endregion
 
@@ -226,7 +231,7 @@ namespace QuickMon
         }  
         private void chkRemoteAgentEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            txtRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
+            cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             chkBlockParentRHOverride.Enabled = !chkRemoteAgentEnabled.Checked;
             if (chkRemoteAgentEnabled.Checked)
@@ -1093,7 +1098,7 @@ namespace QuickMon
                 //Remote agents
                 editingCollectorHost.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
                 editingCollectorHost.ForceRemoteExcuteOnChildCollectors = chkForceRemoteExcuteOnChildCollectors.Checked;
-                editingCollectorHost.RemoteAgentHostAddress = txtRemoteAgentServer.Text;
+                editingCollectorHost.RemoteAgentHostAddress = cboRemoteAgentServer.Text;
                 editingCollectorHost.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
                 editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
                 editingCollectorHost.RunLocalOnRemoteHostConnectionFailure = chkRunLocalOnRemoteHostConnectionFailure.Checked;
@@ -1164,10 +1169,6 @@ namespace QuickMon
                 }
 
                 editingCollectorHost.CollectorAgents.Clear();
-                //foreach (ListViewItem lvi in lvwEntries.Items)
-                //{
-                //    editingCollectorHost.CollectorAgents.Add((ICollector)lvi.Tag);
-                //}
                 foreach(TreeListViewItem tlvi in agentsTreeListView.Items)
                 {
                     ICollector agent = (ICollector)tlvi.Tag;
@@ -1195,9 +1196,9 @@ namespace QuickMon
         {
             try
             {
-                if (txtRemoteAgentServer.Text.Length > 0)
+                if (cboRemoteAgentServer.Text.Length > 0)
                 {
-                    string versionInfo = RemoteCollectorHostService.GetRemoteAgentHostVersion(txtRemoteAgentServer.Text, (int)remoteportNumericUpDown.Value);
+                    string versionInfo = RemoteCollectorHostService.GetRemoteAgentHostVersion(cboRemoteAgentServer.Text, (int)remoteportNumericUpDown.Value);
                     MessageBox.Show("Success\r\nVersion Info: " + versionInfo, "Remote server", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1354,6 +1355,28 @@ namespace QuickMon
         private void txtRunAs_TextChanged(object sender, EventArgs e)
         {
             cmdTestRunAs.Enabled = txtRunAs.Text.Length > 0 && HostingMonitorPack != null;
+        }
+
+        private void cboRemoteAgentServer_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cboRemoteAgentServer.SelectedItem.ToString().Contains(":"))
+            {
+                string port = cboRemoteAgentServer.SelectedItem.ToString().Split(':')[1];
+                cboRemoteAgentServer.Text = cboRemoteAgentServer.SelectedItem.ToString().Split(':')[0];
+                if (port.IsIntegerTypeNumber())
+                    remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
+            }
+        }
+
+        private void cboRemoteAgentServer_Leave(object sender, EventArgs e)
+        {
+            if (cboRemoteAgentServer.Text.Contains(":"))
+            {
+                string port = cboRemoteAgentServer.Text.Split(':')[1];
+                cboRemoteAgentServer.Text = cboRemoteAgentServer.Text.Split(':')[0];
+                if (port.IsIntegerTypeNumber())
+                    remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
+            }
         }
        
     }
