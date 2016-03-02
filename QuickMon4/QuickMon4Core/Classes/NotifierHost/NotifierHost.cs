@@ -39,7 +39,25 @@ namespace QuickMon
             {
                 foreach(string ncat in Categories)
                 {
-                    if (ch.Categories.Contains(ncat))
+                    if (ncat == "*") //don't bother further testing
+                        return true;
+                    else if (ncat.StartsWith("*"))
+                    {
+                        string endsWith = ncat.Substring(1);
+                        if ((from s in ch.Categories
+                             where s.EndsWith(endsWith, StringComparison.InvariantCultureIgnoreCase)
+                             select s).Count() > 0)
+                            return true;
+                    }
+                    else if (ncat.EndsWith("*"))
+                    {
+                        string startsWith = ncat.Substring(0, ncat.Length - 1);
+                        if ((from s in ch.Categories
+                             where s.StartsWith(startsWith, StringComparison.InvariantCultureIgnoreCase)
+                             select s).Count() > 0)
+                            return true;
+                    }
+                    else if (ch.Categories.Contains(ncat))
                         return true;
                 }
             }

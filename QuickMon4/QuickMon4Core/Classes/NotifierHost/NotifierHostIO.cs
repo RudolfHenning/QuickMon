@@ -64,10 +64,12 @@ namespace QuickMon
             {
                 newNotifierHost.ServiceWindows.CreateFromConfig("<serviceWindows />");
             }
-
-            XmlNode categoriesNode = xmlNotifierHost.SelectSingleNode("categories");
+            //Categories
+            XmlNode categoriesNode = xmlNotifierHost.SelectSingleNode("categories");            
             if (categoriesNode != null)
                 newNotifierHost.CategoriesCreateFromConfig(categoriesNode.OuterXml);
+            else
+                newNotifierHost.Categories = new List<string>();
 
             XmlNode collectorsNode = xmlNotifierHost.SelectSingleNode("collectorHosts");
             if (collectorsNode != null)

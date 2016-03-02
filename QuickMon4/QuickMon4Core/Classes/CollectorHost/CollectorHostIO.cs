@@ -116,12 +116,9 @@ namespace QuickMon
             newCollectorHost.Categories = new List<string>();
             XmlNode categoriesNode = xmlCollectorEntry.SelectSingleNode("categories");
             if (categoriesNode != null)
-            {
-                foreach (XmlNode categoryNode in categoriesNode.SelectNodes("category"))
-                {
-                    newCollectorHost.Categories.Add(categoryNode.InnerText.UnEscapeXml());
-                }
-            }
+                newCollectorHost.CategoriesCreateFromConfig(categoriesNode.OuterXml);
+            else
+                newCollectorHost.Categories = new List<string>();
 
             XmlNode collectorAgentsNode = xmlCollectorEntry.SelectSingleNode("collectorAgents");
             if (collectorAgentsNode != null)
