@@ -289,6 +289,7 @@ namespace QuickMon.Forms
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtConfig.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';

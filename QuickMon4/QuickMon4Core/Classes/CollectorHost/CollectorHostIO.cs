@@ -50,7 +50,9 @@ namespace QuickMon
             if (newCollectorHost == null)
                 newCollectorHost = new CollectorHost();
             newCollectorHost.Name = xmlCollectorEntry.ReadXmlElementAttr("name", "").Trim();
-            newCollectorHost.UniqueId = xmlCollectorEntry.ReadXmlElementAttr("uniqueId", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
+            string uniqueId = xmlCollectorEntry.ReadXmlElementAttr("uniqueId", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"));
+            if (uniqueId.Length > 0) //Blank unique id not allowed
+                newCollectorHost.UniqueId = uniqueId;
             newCollectorHost.Enabled = xmlCollectorEntry.ReadXmlElementAttr("enabled", true);
             newCollectorHost.ExpandOnStart = xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", true);
             newCollectorHost.ParentCollectorId = xmlCollectorEntry.ReadXmlElementAttr("dependOnParentId");

@@ -44,6 +44,14 @@ namespace QuickMon.Collectors
             return (QuickMonDialogResult)ShowDialog();
         }
 
+        #region Form events
+        private void PerfCounterCollectorEditEntry_Load(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Private methods
         private void LoadEntryDetails()
         {
             optCustom.Checked = true;
@@ -66,9 +74,8 @@ namespace QuickMon.Collectors
 
             nudNumberOfSamplesPerRefresh.SaveValueSet((decimal)currentEntry.NumberOfSamplesPerRefresh);
             nudMultiSampleWaitMS.SaveValueSet((decimal)currentEntry.MultiSampleWaitMS);
-
+            CheckOkEnabled();
         }
-        #region Private methods
         private bool IsValid()
         {
             if (warningNumericUpDown.Value == errorNumericUpDown.Value)
@@ -90,6 +97,7 @@ namespace QuickMon.Collectors
         }
         #endregion
 
+        #region Control events
         private void optCommon_CheckedChanged(object sender, EventArgs e)
         {
             txtComputerName.Enabled = optCommon.Checked;
@@ -97,7 +105,6 @@ namespace QuickMon.Collectors
             txtPerfCounter.Enabled = optCustom.Checked;
             cmdEditPerfCounter.Enabled = optCustom.Checked;
         }
-
         private void cmdEditPerfCounter_Click(object sender, EventArgs e)
         {
             PerfCounterCollectorEntry thisEntry = PerfCounterCollectorEntry.FromStringDefinition(txtPerfCounter.Text);
@@ -113,7 +120,6 @@ namespace QuickMon.Collectors
                 txtPerfCounter.Text = editPerfCounter.SelectedPCInstance.Description;
             }
         }
-
         private void txtComputerName_TextChanged(object sender, EventArgs e)
         {
             CheckOkEnabled();
@@ -126,7 +132,6 @@ namespace QuickMon.Collectors
         {
             CheckOkEnabled();
         }
-
         private void cmdOK_Click(object sender, EventArgs e)
         {
             try
@@ -161,7 +166,6 @@ namespace QuickMon.Collectors
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void cmdSample_Click(object sender, EventArgs e)
         {
             try
@@ -189,10 +193,7 @@ namespace QuickMon.Collectors
                 MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
-        private void PerfCounterCollectorEditEntry_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
