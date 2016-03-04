@@ -74,6 +74,8 @@
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.summaryToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chkAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.autoRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -555,12 +557,31 @@
             this.summaryToolStripStatusLabel.Spring = true;
             this.summaryToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // chkAutoRefresh
+            // 
+            this.chkAutoRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAutoRefresh.AutoSize = true;
+            this.chkAutoRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.chkAutoRefresh.Location = new System.Drawing.Point(488, 37);
+            this.chkAutoRefresh.Name = "chkAutoRefresh";
+            this.chkAutoRefresh.Size = new System.Drawing.Size(83, 17);
+            this.chkAutoRefresh.TabIndex = 12;
+            this.chkAutoRefresh.Text = "Auto refresh";
+            this.chkAutoRefresh.UseVisualStyleBackColor = false;
+            // 
+            // autoRefreshTimer
+            // 
+            this.autoRefreshTimer.Enabled = true;
+            this.autoRefreshTimer.Interval = 30000;
+            this.autoRefreshTimer.Tick += new System.EventHandler(this.autoRefreshTimer_Tick);
+            // 
             // CollectorStatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(579, 533);
+            this.Controls.Add(this.chkAutoRefresh);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lblCollectorHostStatusText);
@@ -648,5 +669,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel summaryToolStripStatusLabel;
         private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
+        private System.Windows.Forms.CheckBox chkAutoRefresh;
+        private System.Windows.Forms.Timer autoRefreshTimer;
     }
 }

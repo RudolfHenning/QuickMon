@@ -202,8 +202,7 @@ namespace QuickMon
                 else if (!ServiceWindows.IsInTimeWindow())
                 {
                     InServiceWindow = true;
-                    RaiseExitingServiceWindow();
-                    
+                    RaiseExitingServiceWindow();                    
                 }
 
                 if (!Enabled)
@@ -212,13 +211,15 @@ namespace QuickMon
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
+                    resultMonitorState.RawDetails = "Collector host is disabled.";
                 }
-                else if (InServiceWindow) // !ServiceWindows.IsInTimeWindow())
+                else if (InServiceWindow)
                 {
                     resultMonitorState.State = CollectorState.Disabled;
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
-                    StagnantStateThirdRepeat = false;                    
+                    StagnantStateThirdRepeat = false;
+                    resultMonitorState.RawDetails = "Disabled due to 'out of service window' event.";
                 }
                 else if (CollectorAgents == null || CollectorAgents.Count == 0)//like old folder type collector
                 {
@@ -226,6 +227,7 @@ namespace QuickMon
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
+                    resultMonitorState.RawDetails = "There are no agents.";
                 }
                 else if (CollectorAgents != null && CollectorAgents.Count == CollectorAgents.Count(ca => !ca.Enabled))
                 {
@@ -233,6 +235,7 @@ namespace QuickMon
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
+                    resultMonitorState.RawDetails = "Disabled because all agents are disabled.";
                 }
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding && 
                     (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
@@ -240,6 +243,7 @@ namespace QuickMon
                     //Not time yet for update
                     CurrentPollAborted = true;
                     resultMonitorState.State = CurrentState.State;
+                    resultMonitorState.RawDetails = "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
                     RaiseLoggingPollingOverridesTriggeredEvent(string.Format("Polling override of {0} seconds not reached yet", OnlyAllowUpdateOncePerXSec));
                 }
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding &&
@@ -254,6 +258,14 @@ namespace QuickMon
                     //Not time yet for update
                     CurrentPollAborted = true;
                     resultMonitorState.State = CurrentState.State;
+                    if (StagnantStateThirdRepeat)
+                        resultMonitorState.RawDetails = "Due to polling override (StagnantStateThirdRepeat) the previous state is repeated.";
+                    else if(StagnantStateSecondRepeat )
+                        resultMonitorState.RawDetails = "Due to polling override (StagnantStateSecondRepeat) the previous state is repeated.";
+                    else if(StagnantStateFirstRepeat )
+                        resultMonitorState.RawDetails = "Due to polling override (StagnantStateFirstRepeat) the previous state is repeated.";
+                    else
+                        resultMonitorState.RawDetails = "Due to polling override (EnablePollFrequencySliding) the previous state is repeated.";
                 }
                 else
                 {

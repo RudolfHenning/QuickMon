@@ -26,6 +26,7 @@ namespace QuickMon.Forms
         private int previousCurrentStateValueCount = 0;
         private int previousPreviousStateValueCount = 0;
         private bool agentsDetailsDataFirstTimeLoaded = false;
+        private bool busyRefreshing = false;
 
         #region Form events
         private void CollectorStatusViewer_Load(object sender, EventArgs e)
@@ -753,6 +754,14 @@ namespace QuickMon.Forms
         {
             txtRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked;
+        }
+
+        private void autoRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            if (chkAutoRefresh.Checked && !busyRefreshing)
+            {
+                RefreshStats();
+            }
         }
 
 

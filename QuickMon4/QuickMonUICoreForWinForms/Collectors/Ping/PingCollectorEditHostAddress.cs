@@ -78,6 +78,7 @@ namespace QuickMon.Collectors
             chkUseTelNetLogin.Checked = HostEntry.UseTelnetLogin;
             txtUserName.Text = HostEntry.TelnetUserName;
             txtPassword.Text = HostEntry.TelnetPassword;
+            CheckOkEnabled();
             return ShowDialog();
         }
 
