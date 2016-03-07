@@ -84,6 +84,9 @@
     <Compile Include="Notifiers\InMemory\InMemoryNotifierConfig.cs" />
     <Compile Include="Notifiers\LogFile\LogFileNotifier.cs" />
     <Compile Include="Notifiers\LogFile\LogFileNotifierConfig.cs" />
+    <Compile Include="Notifiers\RSS\InMemoryRSSDocument.cs" />
+    <Compile Include="Notifiers\RSS\RSSNotifier.cs" />
+    <Compile Include="Notifiers\RSS\RSSNotifierConfig.cs" />
     <Compile Include="Notifiers\SMTP\SMTPNotifier.cs" />
     <Compile Include="Notifiers\SMTP\SMTPNotifierConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
