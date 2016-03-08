@@ -18,6 +18,7 @@ namespace QuickMon.Notifiers
         public string LineTitle { get; set; }
         public string LineCategory { get; set; }
         public string LineDescription { get; set; }
+        public string LineLink { get; set; }
 
         public void FromXml(string configurationString)
         {
@@ -38,14 +39,15 @@ namespace QuickMon.Notifiers
                                                                          "<b>Current state:</b> %CurrentState%\r\n" +
                                                                          "<b>Collector:</b> %CollectorType%\r\n" +
                                                                          "<b>Details</b>\r\n" +
-                                                                         "%Details%"); 
+                                                                         "%Details%");
+            LineLink = rssConfigNode.ReadXmlElementAttr("lineLink", "");
         }
 
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
-            XmlNode root = config.SelectSingleNode("config/logFile");
+            XmlNode root = config.SelectSingleNode("config/rss");
             root.Attributes["rssFilePath"].Value = RSSFilePath;
             root.Attributes["title"].Value = Title;
             root.Attributes["link"].Value = Link;
@@ -56,6 +58,7 @@ namespace QuickMon.Notifiers
             root.Attributes["lineTitle"].Value = LineTitle;
             root.Attributes["lineCategory"].Value = LineCategory;
             root.Attributes["lineDescription"].Value = LineDescription;
+            root.SetAttributeValue("lineLink", LineLink);
             return config.OuterXml;
         }
 
@@ -63,9 +66,9 @@ namespace QuickMon.Notifiers
         {
             return "<config><rss rssFilePath=\"%LOCALAPPDATA%\\Hen IT\\QuickMon 4\\QuickMon.rss\" title=\"QuickMon RSS alerts\" link=\"\" description=\"\" " +
                 "keepEntriesDays=\"10\" language=\"en-us\" generator=\"QuickMon RSS notifier\" " +
-                "lineTitle=\"%CollectorName% - %AlertLevel%\" lineCategory=\"%CurrentState%, %CollectorType%\" lineDescription=\"&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%\r\n" +
+                "lineTitle=\"%CollectorName% - %AlertLevel%\" lineCategory=\"%CurrentState%, %CollectorName%\" lineLink=\"\" lineDescription=\"&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%\r\n" +
                                                                          "&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%\r\n" +
-                                                                         "&lt;b&gt;Collector:&lt;/b&gt; %CollectorType%\r\n" +
+                                                                         "&lt;b&gt;Collector:&lt;/b&gt; %CollectorName%\r\n" +
                                                                          "&lt;b&gt;Details&lt;/b&gt;\r\n" +
                                                                          "%Details%\" /></config>";
         }
