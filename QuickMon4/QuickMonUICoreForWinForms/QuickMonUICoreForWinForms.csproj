@@ -233,6 +233,13 @@
     <Compile Include="GenericForms\SelectNewAgentType.designer.cs">
       <DependentUpon>SelectNewAgentType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notifiers\RSS\RSSNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notifiers\RSS\RSSNotifierEdit.Designer.cs">
+      <DependentUpon>RSSNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifiers\RSS\RSSNotifierUI.cs" />
     <Compile Include="Security\LogonDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -414,6 +421,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
       <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifiers\RSS\RSSNotifierEdit.resx">
+      <DependentUpon>RSSNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Security\LogonDialog.resx">
       <DependentUpon>LogonDialog.cs</DependentUpon>

@@ -23,6 +23,7 @@ namespace QuickMon.Notifiers
         {
             XmlDocument rsFeed = new XmlDocument();
             rsFeed.Load(rssFilePath);
+            Lines = new List<InMemoryRSSDocumentLine>();
 
             XmlNodeList existingitems = rsFeed.SelectNodes("rss/channel/item");
             foreach (XmlElement lineItem in existingitems)
@@ -40,7 +41,7 @@ namespace QuickMon.Notifiers
                     {
                         Title = lineItem.SelectSingleNode("title").InnerText,
                         PubDate = pubDate,
-                        //GUID = lineItem.SelectSingleNode("guid").InnerText,
+                        GUID = lineItem.SelectSingleNode("guid").InnerText,
                         Category = categories,
                         //Comments = lineItem.SelectSingleNode("comments").InnerText,
                         Description = lineItem.SelectSingleNode("description").InnerText
@@ -72,7 +73,8 @@ namespace QuickMon.Notifiers
             {
                 rssFeed.WriteStartElement("item");
                 rssFeed.WriteElementString("title", line.Title);
-                //rssFeed.WriteElementString("guid", line.GUID);
+                rssFeed.WriteElementString("link", line.LineLink);                
+                rssFeed.WriteElementString("guid", line.GUID);
                 rssFeed.WriteElementString("pubDate", line.PubDate.ToUniversalTime().ToString("r")); //ToString("yyyy MMM dd HH:mm:ss"));
                 if (line.Category != null && line.Category.Length > 0)
                     foreach (string category in line.Category.Split(','))
@@ -84,7 +86,6 @@ namespace QuickMon.Notifiers
                 rssFeed.WriteCData(line.Description);
                 rssFeed.WriteEndElement();
                 rssFeed.WriteEndElement();
-
             }
 
             rssFeed.WriteEndElement();
@@ -98,9 +99,10 @@ namespace QuickMon.Notifiers
     {
         public string Title { get; set; }
         public DateTime PubDate { get; set; }
-        //public string GUID { get; set; }
+        public string GUID { get; set; }
         public string Category { get; set; }
         //public string Comments { get; set; }
         public string Description { get; set; }
+        public string LineLink { get; set; }
     }
 }

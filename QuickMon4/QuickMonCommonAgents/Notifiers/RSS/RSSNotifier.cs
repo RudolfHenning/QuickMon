@@ -15,6 +15,7 @@ namespace QuickMon.Notifiers
         }
 
         private InMemoryRSSDocument rssDocument = null;
+        private static string lockObject = "";
 
         public override void RecordMessage(AlertRaised alertRaised)
         {
@@ -22,10 +23,14 @@ namespace QuickMon.Notifiers
             string lastStep = "";
             try
             {
-                if (rssDocument == null)
+                lock (lockObject)
                 {
-                    LoadRSSDocument(currentConfig);
+                    if (rssDocument == null)
+                    {
+                        LoadRSSDocument(currentConfig);
+                    }
                 }
+                string guid = Guid.NewGuid().ToString();
                 string alertLevel = alertRaised.Level.ToString();
                 string previousState = alertRaised.RaisedFor == null || alertRaised.RaisedFor.PreviousState == null ? "" :  alertRaised.RaisedFor.PreviousState.State.ToString();
                 string currentState = alertRaised.RaisedFor == null || alertRaised.RaisedFor.PreviousState == null ? "" : alertRaised.RaisedFor.CurrentState.State.ToString();
@@ -49,15 +54,23 @@ namespace QuickMon.Notifiers
                     .Replace("%PreviousState%", previousState)
                     .Replace("%CurrentState%", currentState)
                     .Replace("%CollectorName%", collectorName);
+                string lineLink = currentConfig.LineLink
+                    .Replace("%DateTime%", DateTime.Now.ToString("F"))
+                    .Replace("%AlertLevel%", alertLevel)
+                    .Replace("%PreviousState%", previousState)
+                    .Replace("%CurrentState%", currentState)
+                    .Replace("%CollectorName%", collectorName)
+                    .Replace("%LineGuid%", guid);
 
                 rssDocument.Lines.Add(
                     new InMemoryRSSDocumentLine()
                     {
                         Title = lineTitle,
                         PubDate = DateTime.Now,
-                        //GUID = Guid.NewGuid().ToString(),
+                        GUID = guid,
                         Category = lineCategory,
-                        Description = lineDetails
+                        Description = lineDetails,
+                        LineLink = lineLink
                     }
                     );
                 rssDocument.SaveRssDocument();
@@ -87,13 +100,23 @@ namespace QuickMon.Notifiers
                 rssDocument.Generator = currentConfig.Generator;
                 rssDocument.PublicationDate = DateTime.Now;
 
-                if (System.IO.File.Exists(currentConfig.RSSFilePath))
+                //lock (lockObject)
                 {
-                    rssDocument.LoadExistingLines(currentConfig.RSSFilePath);
-                }
-                else
-                {
-                    rssDocument.Lines = new List<InMemoryRSSDocumentLine>();
+                    if (System.IO.File.Exists(currentConfig.RSSFilePath))
+                    {
+                        try
+                        {
+                            rssDocument.LoadExistingLines(currentConfig.RSSFilePath);
+                        }
+                        catch
+                        {
+                            rssDocument.Lines = new List<InMemoryRSSDocumentLine>();
+                        }
+                    }
+                    else
+                    {
+                        rssDocument.Lines = new List<InMemoryRSSDocumentLine>();
+                    }
                 }
             }
             catch (System.IO.IOException ioex)
