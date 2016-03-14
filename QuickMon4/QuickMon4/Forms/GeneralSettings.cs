@@ -363,7 +363,23 @@ namespace QuickMon
                             try
                             {
                                 string versionInfo = RemoteCollectorHostService.GetRemoteAgentHostVersion(ri.Computer, ri.PortNumber);
-                                UpdateListViewItem(lvi, 1, versionInfo);
+                                string packs = "0";
+
+                                //Pack count
+                                try
+                                {
+                                    packs = RemoteCollectorHostService.GetCurrentMonitorPacks(ri.Computer, ri.PortNumber).Count().ToString();
+                                }
+                                catch (Exception packsEx)
+                                {
+                                    packs = packsEx.Message;
+                                    if (packsEx.Message.Contains("ContractFilter mismatch"))
+                                        packs = "Check version!";
+                                    else
+                                        packs = packsEx.Message;
+                                }
+
+                                UpdateListViewItem(lvi, 1, versionInfo, packs);
                             }
                             catch (Exception ex)
                             {
@@ -422,6 +438,7 @@ namespace QuickMon
         private void lvwRemoteHosts_SelectedIndexChanged(object sender, EventArgs e)
         {
             removeToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
+            monitorPacksToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
         }
         private void lvwRemoteHosts_DoubleClick(object sender, EventArgs e)
         {
@@ -612,7 +629,42 @@ namespace QuickMon
                     lvwRemoteHosts.Items.RemoveAt(index);
                 }
             }
-        }        
+        }
+        private void monitorPacksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwRemoteHosts.SelectedItems.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                bool anyErrors = false;
+                foreach (ListViewItem lvi in lvwRemoteHosts.SelectedItems)
+                {
+                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                    try
+                    {                        
+                        int packCount = 0;
+                        sb.AppendFormat("***{0}:{1}***\r\n", ri.Computer.ToUpper(), ri.PortNumber);
+                        foreach (string mpFile in RemoteCollectorHostService.GetCurrentMonitorPacks(ri.Computer, ri.PortNumber))
+                        {
+                            sb.AppendLine("  " + mpFile.Replace(' ', ' ').TrimEnd());
+                            packCount++;
+                        }
+                        if (packCount == 0)
+                        {
+                            sb.AppendLine("  No Monitor packs found.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        anyErrors = true;
+                        if (ex.Message.Contains("ContractFilter mismatch"))
+                            sb.AppendFormat("  The service on {0}:{1} does not yet support this functionality.\r\n  Please check the version number!\r\n", ri.Computer, ri.PortNumber);
+                        else
+                            sb.AppendLine("  " + ex.Message);
+                    }
+                }
+                MessageBox.Show(sb.ToString(), "Monitor packs", MessageBoxButtons.OK, anyErrors ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+            }
+        }    
         #endregion
 
         #region Remote hosts
@@ -636,6 +688,7 @@ namespace QuickMon
                         string computerNameOnly = rh;
 
                         lvi.SubItems.Add(""); //Version info to be added afterwards
+                        lvi.SubItems.Add(""); //Packs info to be added afterwards
                         lvi.Tag = ri;
                         lvi.ImageIndex = 0;
                         lvwRemoteHosts.Items.Add(lvi);
@@ -649,7 +702,7 @@ namespace QuickMon
             refreshTimer.Enabled = false;
             refreshTimer.Enabled = true;
         }
-        private void UpdateListViewItem(ListViewItem lvi, int imageIndex, string statusText)
+        private void UpdateListViewItem(ListViewItem lvi, int imageIndex, string statusText, string packs = "")
         {
             try
             {
@@ -657,6 +710,7 @@ namespace QuickMon
                 {
                     lvi.ImageIndex = imageIndex;
                     lvi.SubItems[2].Text = statusText;
+                    lvi.SubItems[3].Text = packs;
                 });
             }
             catch (Exception ex)
@@ -853,6 +907,8 @@ namespace QuickMon
             }
         } 
         #endregion
+
+
 
     }
 }

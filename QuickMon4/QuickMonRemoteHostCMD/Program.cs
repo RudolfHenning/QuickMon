@@ -34,7 +34,8 @@ namespace QuickMon
                     new RemoteCollectorHostServiceInstanceProvider(
                         Properties.Settings.Default.ApplicationMasterKey,
                         Properties.Settings.Default.ApplicationUserNameCacheFilePath,
-                        blockedCollectorAgentTypes)
+                        blockedCollectorAgentTypes,
+                        "")
                 );
                 // Open the ServiceHost to start listening for messages. Since
                 // no endpoints are explicitly configured, the runtime will create

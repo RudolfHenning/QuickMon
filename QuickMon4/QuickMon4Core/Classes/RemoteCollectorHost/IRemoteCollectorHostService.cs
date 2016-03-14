@@ -20,5 +20,8 @@ namespace QuickMon
 
         //[OperationContract]
         //System.Data.DataSet GetAgentDetails(string collectorAgentConfig);
+
+        [OperationContract]
+        List<string> GetCurrentMonitorPacks();
     }
 }
