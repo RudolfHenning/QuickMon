@@ -22,6 +22,10 @@ namespace QuickMon
         public List<string> BlockedCollectorAgentTypes { get; set; }
         #endregion
 
+        #region monitorPackFile
+        public string MonitorPackFile { get; set; }
+        #endregion
+
         #region IRemoteCollectorHostService
         public MonitorState GetState(QuickMon.RemoteCollectorHost entry)
         {
@@ -177,6 +181,21 @@ namespace QuickMon
         //    }
         //    return result;
         //}
+        public List<string> GetCurrentMonitorPacks()
+        {
+            List<string> list = new List<string>();
+            if (MonitorPackFile != null && MonitorPackFile.Length > 0)
+            {
+                if (System.IO.File.Exists(MonitorPackFile))
+                {
+                    foreach (string monitorPackPath in System.IO.File.ReadAllLines(MonitorPackFile))
+                    {
+                        list.Add(monitorPackPath);
+                    }
+                }
+            }
+            return list;
+        }
         #endregion
 
         #region Static methods
@@ -227,19 +246,34 @@ namespace QuickMon
         //    IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
         //    return relay.GetAgentDetails(collectorAgentConfig);
         //}
+        public static List<string> GetCurrentMonitorPacks(string hostAddressOverride, int portNumberOverride)
+        {
+            BasicHttpBinding myBinding = new BasicHttpBinding();
+            myBinding.MaxReceivedMessageSize = 2147483647;
+            EndpointAddress myEndpoint = new EndpointAddress(string.Format("http://{0}:{1}/QuickMonRemoteHost", hostAddressOverride, portNumberOverride));
+            ChannelFactory<IRemoteCollectorHostService> myChannelFactory = new ChannelFactory<IRemoteCollectorHostService>(myBinding, myEndpoint);
+            IRemoteCollectorHostService relay = myChannelFactory.CreateChannel();
+
+            RemoteCollectorHost colReq = new RemoteCollectorHost();
+            return relay.GetCurrentMonitorPacks();
+        }
         #endregion
+
     }
 
     public class RemoteCollectorHostServiceInstanceProvider : System.ServiceModel.Description.IEndpointBehavior, System.ServiceModel.Dispatcher.IInstanceProvider
     {
         string applicationUserNameCacheMasterKey = "";
         string applicationUserNameCacheFilePath = "";
+        string monitorPackFile = "";
         List<string> blockedCollectorAgentTypes = new List<string>();
-        public RemoteCollectorHostServiceInstanceProvider(string applicationUserNameCacheMasterKey, string applicationUserNameCacheFilePath, List<string> blockedCollectorAgentTypes)
+        public RemoteCollectorHostServiceInstanceProvider(string applicationUserNameCacheMasterKey, string applicationUserNameCacheFilePath,
+            List<string> blockedCollectorAgentTypes, string monitorPackFile)
         {
             this.applicationUserNameCacheMasterKey = applicationUserNameCacheMasterKey;
             this.applicationUserNameCacheFilePath = applicationUserNameCacheFilePath;
             this.blockedCollectorAgentTypes.AddRange(blockedCollectorAgentTypes.ToArray());
+            this.monitorPackFile = monitorPackFile;
         }
 
         public void AddBindingParameters(System.ServiceModel.Description.ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
@@ -265,7 +299,8 @@ namespace QuickMon
             return new RemoteCollectorHostService { 
                 ApplicationUserNameCacheMasterKey = this.applicationUserNameCacheMasterKey, 
                 ApplicationUserNameCacheFilePath = applicationUserNameCacheFilePath ,
-                BlockedCollectorAgentTypes = blockedCollectorAgentTypes
+                BlockedCollectorAgentTypes = blockedCollectorAgentTypes,
+                MonitorPackFile = monitorPackFile
             };
         }
 

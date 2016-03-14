@@ -45,11 +45,13 @@ namespace QuickMon
             InitializeGlobalPerformanceCounters();
             concurrencyLevel = Properties.Settings.Default.ParralelThreads;
             int monitorPacksLoaded = 0;
+            string monitorPackFile = "";
+
 
             //New way is to list them in an external file
             if (Properties.Settings.Default.MonitorPackFile != null && Properties.Settings.Default.MonitorPackFile.Length > 0)
             {
-                string monitorPackFile = Properties.Settings.Default.MonitorPackFile;
+                monitorPackFile = Properties.Settings.Default.MonitorPackFile;
                 if (!monitorPackFile.Contains("\\"))
                     monitorPackFile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), monitorPackFile);
                 if (System.IO.File.Exists(monitorPackFile))
@@ -116,7 +118,8 @@ namespace QuickMon
                     new RemoteCollectorHostServiceInstanceProvider(
                         Properties.Settings.Default.ApplicationMasterKey, 
                         Properties.Settings.Default.ApplicationUserNameCacheFilePath,
-                        blockedCollectorAgentTypes)
+                        blockedCollectorAgentTypes,
+                        monitorPackFile)
                 );
                 wcfServiceHost.Open();
             }
