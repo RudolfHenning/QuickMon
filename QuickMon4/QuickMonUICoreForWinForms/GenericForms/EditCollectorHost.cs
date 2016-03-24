@@ -242,6 +242,18 @@ namespace QuickMon
         {
             chkRemoteAgentEnabled_CheckedChanged(null, null);
         }
+        private void cboRemoteAgentServer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckOkEnabled();
+        }
+        private void cboRemoteAgentServer_TextChanged(object sender, EventArgs e)
+        {
+            CheckOkEnabled();
+        }
+        private void txtRunAs_TextChanged(object sender, EventArgs e)
+        {
+            cmdTestRunAs.Enabled = txtRunAs.Text.Length > 0 && HostingMonitorPack != null;
+        }
         #endregion
 
         #region Agents
@@ -1207,45 +1219,6 @@ namespace QuickMon
                 MessageBox.Show(ex.Message, "Remote server", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
-
-        #region Raw editing of config
-        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (SetEditingCollectorHost())
-            {
-                RAWXmlEditor editor = new RAWXmlEditor();
-                string oldMarkUp = editingCollectorHost.ToXml();
-                editor.SelectedMarkup = oldMarkUp;
-                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    try
-                    {
-                        editingCollectorHost = CollectorHost.FromXml(editor.SelectedMarkup, null, false);
-
-                        if (editor.SelectedMarkup != null && editor.SelectedMarkup.Length > 0 && editingCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
-                        {
-                            if (MessageBox.Show("Editing the raw config resulted in a configuration error!\r\nDo you want to accept this?", "Configuration error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
-                            {
-                                editingCollectorHost = CollectorHost.FromXml(oldMarkUp, null, false);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    LoadControlData();
-                }
-            }
-        } 
-        #endregion
-
-        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void cmdTestRunAs_Click(object sender, EventArgs e)
         {
             string errorString = "";
@@ -1351,10 +1324,43 @@ namespace QuickMon
                     MessageBox.Show(errorString, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        #endregion
 
-        private void txtRunAs_TextChanged(object sender, EventArgs e)
+        #region Raw editing of config
+        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            cmdTestRunAs.Enabled = txtRunAs.Text.Length > 0 && HostingMonitorPack != null;
+            if (SetEditingCollectorHost())
+            {
+                RAWXmlEditor editor = new RAWXmlEditor();
+                string oldMarkUp = editingCollectorHost.ToXml();
+                editor.SelectedMarkup = oldMarkUp;
+                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        editingCollectorHost = CollectorHost.FromXml(editor.SelectedMarkup, null, false);
+
+                        if (editor.SelectedMarkup != null && editor.SelectedMarkup.Length > 0 && editingCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
+                        {
+                            if (MessageBox.Show("Editing the raw config resulted in a configuration error!\r\nDo you want to accept this?", "Configuration error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
+                            {
+                                editingCollectorHost = CollectorHost.FromXml(oldMarkUp, null, false);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    LoadControlData();
+                }
+            }
+        } 
+        #endregion
+
+        private void llblExportConfigAsTemplate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cboRemoteAgentServer_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1378,6 +1384,6 @@ namespace QuickMon
                     remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
             }
         }
-       
+             
     }
 }

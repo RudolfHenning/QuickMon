@@ -100,6 +100,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.tabRemoteSec = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cboRemoteAgentServer = new System.Windows.Forms.ComboBox();
             this.chkRunLocalOnRemoteHostConnectionFailure = new System.Windows.Forms.CheckBox();
             this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
             this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
@@ -177,7 +178,6 @@
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cboRemoteAgentServer = new System.Windows.Forms.ComboBox();
             this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1023,6 +1023,19 @@
             this.groupBox2.Size = new System.Drawing.Size(563, 75);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
+            // 
+            // cboRemoteAgentServer
+            // 
+            this.cboRemoteAgentServer.FormattingEnabled = true;
+            this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
+            this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
+            this.cboRemoteAgentServer.Size = new System.Drawing.Size(198, 21);
+            this.cboRemoteAgentServer.Sorted = true;
+            this.cboRemoteAgentServer.TabIndex = 5;
+            this.cboRemoteAgentServer.SelectedIndexChanged += new System.EventHandler(this.cboRemoteAgentServer_SelectedIndexChanged);
+            this.cboRemoteAgentServer.SelectionChangeCommitted += new System.EventHandler(this.cboRemoteAgentServer_SelectionChangeCommitted);
+            this.cboRemoteAgentServer.TextChanged += new System.EventHandler(this.cboRemoteAgentServer_TextChanged);
+            this.cboRemoteAgentServer.Leave += new System.EventHandler(this.cboRemoteAgentServer_Leave);
             // 
             // chkRunLocalOnRemoteHostConnectionFailure
             // 
@@ -1879,17 +1892,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(40, 34);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
-            // 
-            // cboRemoteAgentServer
-            // 
-            this.cboRemoteAgentServer.FormattingEnabled = true;
-            this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
-            this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
-            this.cboRemoteAgentServer.Size = new System.Drawing.Size(198, 21);
-            this.cboRemoteAgentServer.Sorted = true;
-            this.cboRemoteAgentServer.TabIndex = 5;
-            this.cboRemoteAgentServer.SelectionChangeCommitted += new System.EventHandler(this.cboRemoteAgentServer_SelectionChangeCommitted);
-            this.cboRemoteAgentServer.Leave += new System.EventHandler(this.cboRemoteAgentServer_Leave);
             // 
             // agentsTreeListView
             // 
