@@ -90,7 +90,7 @@ Version 4.3.x
     Open multiple Monitor packs at the same time.
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
-	
+	Collector host Remote host option to check local first and only then remote
 
   
 	  
