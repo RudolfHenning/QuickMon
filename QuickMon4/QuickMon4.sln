@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMon", "QuickMon4\QuickMon.csproj", "{4E41A98B-DB1B-46D9-B1BD-4F18852FEF72}"
 EndProject
@@ -48,9 +48,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		VersionInfo.cs = VersionInfo.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonLinuxAgents", "QuickMonLinuxAgents\QuickMonLinuxAgents.csproj", "{E9A4957F-77BF-4A14-B521-ADD9D0E2A4E8}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 19
+		SccNumberOfProjects = 20
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -121,6 +123,10 @@ Global
 		SccProjectUniqueName18 = QuickMonRemoteHostCMD\\QuickMonRemoteHostCMD.csproj
 		SccProjectName18 = QuickMonRemoteHostCMD
 		SccLocalPath18 = QuickMonRemoteHostCMD
+		SccProjectUniqueName19 = QuickMonLinuxAgents\\QuickMonLinuxAgents.csproj
+		SccProjectTopLevelParentUniqueName19 = QuickMon4.sln
+		SccProjectName19 = QuickMonLinuxAgents
+		SccLocalPath19 = QuickMonLinuxAgents
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +205,10 @@ Global
 		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6577F037-F559-47B0-8DAE-21C13C6C0B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A4957F-77BF-4A14-B521-ADD9D0E2A4E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A4957F-77BF-4A14-B521-ADD9D0E2A4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A4957F-77BF-4A14-B521-ADD9D0E2A4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A4957F-77BF-4A14-B521-ADD9D0E2A4E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,5 +227,6 @@ Global
 		{E2F051E7-996A-403B-B6F5-0605F3120A4B} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
 		{E9214131-DA34-49D8-863B-B439ABBD949B} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 		{7C245836-F666-4010-910E-D3439E1E2899} = {D5001D47-CCDF-4A28-98ED-5E87159214F1}
+		{E9A4957F-77BF-4A14-B521-ADD9D0E2A4E8} = {D1F64D20-CEE9-4B7E-A392-54E1A054228B}
 	EndGlobalSection
 EndGlobal
