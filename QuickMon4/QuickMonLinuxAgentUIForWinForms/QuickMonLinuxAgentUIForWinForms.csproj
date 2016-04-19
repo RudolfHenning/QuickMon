@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C245836-F666-4010-910E-D3439E1E2899}</ProjectGuid>
+    <ProjectGuid>{EF09D5EC-A5D3-4DB3-AFF3-929CF9027A50}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QuickMon</RootNamespace>
-    <AssemblyName>QuickMonDirectoryServicesUIForWinForms</AssemblyName>
+    <AssemblyName>QuickMonLinuxAgentUIForWinForms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -36,7 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,13 +47,10 @@
     <Compile Include="..\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Collectors\DirectoryServicesQuery\DirectoryServicesQueryCollectorEditEntry.cs">
+    <Compile Include="Collectors\CPU\LinuxCPUCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Collectors\DirectoryServicesQuery\DirectoryServicesQueryCollectorEditEntry.Designer.cs">
-      <DependentUpon>DirectoryServicesQueryCollectorEditEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Collectors\DirectoryServicesQuery\DirectoryServicesQueryCollectorUI.cs" />
+    <Compile Include="Collectors\CPU\LinuxCPUCollectorUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,20 +58,16 @@
       <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QuickMonDirectoryServicesAgents\QuickMonDirectoryServicesAgents.csproj">
-      <Project>{e9214131-da34-49d8-863b-b439abbd949b}</Project>
-      <Name>QuickMonDirectoryServicesAgents</Name>
+    <ProjectReference Include="..\QuickMonLinuxAgents\QuickMonLinuxAgents.csproj">
+      <Project>{e9a4957f-77bf-4a14-b521-add9d0e2a4e8}</Project>
+      <Name>QuickMonLinuxAgents</Name>
     </ProjectReference>
     <ProjectReference Include="..\QuickMonUICoreForWinForms\QuickMonUICoreForWinForms.csproj">
       <Project>{03204b22-96bc-42c6-a355-6cc29f1c0a2c}</Project>
       <Name>QuickMonUICoreForWinForms</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Collectors\DirectoryServicesQuery\DirectoryServicesQueryCollectorEditEntry.resx">
-      <DependentUpon>DirectoryServicesQueryCollectorEditEntry.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

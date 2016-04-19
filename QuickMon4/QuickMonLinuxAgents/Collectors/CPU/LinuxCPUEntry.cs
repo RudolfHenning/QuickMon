@@ -6,8 +6,6 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    
-
     public class LinuxCPUEntry : ICollectorConfigEntry
     {
         public LinuxCPUEntry()
@@ -48,14 +46,40 @@ namespace QuickMon.Collectors
             return cpus;
         }
 
+        public CollectorState GetState(double value)
+        {
+            CollectorState state = CollectorState.Good;
+            if (WarningValue < ErrorValue)
+            {
+                if (ErrorValue <= value)
+                    state = CollectorState.Error;
+                else if (WarningValue <= value)
+                    state = CollectorState.Warning;
+            }
+            else
+            {
+                if (ErrorValue >= value)
+                    state = CollectorState.Error;
+                else if (WarningValue >= value)
+                    state = CollectorState.Warning;
+            }
+            return state;
+        }
+
         #region ICollectorConfigEntry Members
         public string Description
         {
-            get { throw new NotImplementedException(); }
+            get 
+            {
+                return string.Format("{0}:{1} ({2})", MachineName, SSHPort, UseOnlyTotalCPUvalue ? "Total" : "All Cores/CPUs" );
+            }
         }
         public string TriggerSummary
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return string.Format("Warn: {0}, Err: {1}ms", WarningValue, ErrorValue);
+            }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
         #endregion
