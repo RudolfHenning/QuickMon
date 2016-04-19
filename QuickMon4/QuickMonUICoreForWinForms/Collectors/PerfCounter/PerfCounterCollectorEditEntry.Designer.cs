@@ -30,6 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PerfCounterCollectorEditEntry));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.nudMultiSampleWaitMS = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.nudNumberOfSamplesPerRefresh = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cmdEditPerfCounter = new System.Windows.Forms.Button();
             this.txtPerfCounter = new System.Windows.Forms.TextBox();
@@ -38,7 +45,7 @@
             this.cboPerformanceCounter = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtComputerName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblComputerName = new System.Windows.Forms.Label();
             this.optCommon = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.errorNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -47,19 +54,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.nudNumberOfSamplesPerRefresh = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.nudMultiSampleWaitMS = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -81,7 +81,7 @@
             this.groupBox1.Controls.Add(this.cboPerformanceCounter);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtComputerName);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.lblComputerName);
             this.groupBox1.Controls.Add(this.optCommon);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
@@ -89,6 +89,91 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Performance counter definition";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(399, 146);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(108, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "MS between samples";
+            // 
+            // nudMultiSampleWaitMS
+            // 
+            this.nudMultiSampleWaitMS.Location = new System.Drawing.Point(327, 144);
+            this.nudMultiSampleWaitMS.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudMultiSampleWaitMS.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMultiSampleWaitMS.Name = "nudMultiSampleWaitMS";
+            this.nudMultiSampleWaitMS.Size = new System.Drawing.Size(66, 20);
+            this.nudMultiSampleWaitMS.TabIndex = 15;
+            this.nudMultiSampleWaitMS.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(292, 146);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "Wait";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(236, 146);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Times";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(116, 146);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Repeat";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // nudNumberOfSamplesPerRefresh
+            // 
+            this.nudNumberOfSamplesPerRefresh.Location = new System.Drawing.Point(164, 144);
+            this.nudNumberOfSamplesPerRefresh.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudNumberOfSamplesPerRefresh.Name = "nudNumberOfSamplesPerRefresh";
+            this.nudNumberOfSamplesPerRefresh.Size = new System.Drawing.Size(66, 20);
+            this.nudNumberOfSamplesPerRefresh.TabIndex = 11;
+            this.nudNumberOfSamplesPerRefresh.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 146);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Multi sampling";
             // 
             // label3
             // 
@@ -175,14 +260,14 @@
             this.txtComputerName.Text = ".";
             this.txtComputerName.TextChanged += new System.EventHandler(this.txtComputerName_TextChanged);
             // 
-            // label1
+            // lblComputerName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Computer name";
+            this.lblComputerName.AutoSize = true;
+            this.lblComputerName.Location = new System.Drawing.Point(36, 43);
+            this.lblComputerName.Name = "lblComputerName";
+            this.lblComputerName.Size = new System.Drawing.Size(81, 13);
+            this.lblComputerName.TabIndex = 1;
+            this.lblComputerName.Text = "Computer name";
             // 
             // optCommon
             // 
@@ -293,91 +378,6 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 146);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Multi sampling";
-            // 
-            // nudNumberOfSamplesPerRefresh
-            // 
-            this.nudNumberOfSamplesPerRefresh.Location = new System.Drawing.Point(164, 144);
-            this.nudNumberOfSamplesPerRefresh.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudNumberOfSamplesPerRefresh.Name = "nudNumberOfSamplesPerRefresh";
-            this.nudNumberOfSamplesPerRefresh.Size = new System.Drawing.Size(66, 20);
-            this.nudNumberOfSamplesPerRefresh.TabIndex = 11;
-            this.nudNumberOfSamplesPerRefresh.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(116, 146);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Repeat";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(236, 146);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Times";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(292, 146);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "Wait";
-            // 
-            // nudMultiSampleWaitMS
-            // 
-            this.nudMultiSampleWaitMS.Location = new System.Drawing.Point(327, 144);
-            this.nudMultiSampleWaitMS.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudMultiSampleWaitMS.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudMultiSampleWaitMS.Name = "nudMultiSampleWaitMS";
-            this.nudMultiSampleWaitMS.Size = new System.Drawing.Size(66, 20);
-            this.nudMultiSampleWaitMS.TabIndex = 15;
-            this.nudMultiSampleWaitMS.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(399, 146);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(108, 13);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "MS between samples";
-            // 
             // PerfCounterCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -398,12 +398,12 @@
             this.Load += new System.EventHandler(this.PerfCounterCollectorEditEntry_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfSamplesPerRefresh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMultiSampleWaitMS)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -414,7 +414,7 @@
         private System.Windows.Forms.ComboBox cboPerformanceCounter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtComputerName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblComputerName;
         private System.Windows.Forms.RadioButton optCommon;
         private System.Windows.Forms.RadioButton optCustom;
         private System.Windows.Forms.Label label3;

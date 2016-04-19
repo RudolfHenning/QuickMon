@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="Renci.SshNet, Version=2014.4.6.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Renci.SshNet.dll</HintPath>
+      <HintPath>..\..\..\..\CS4.5\test\CallSSH\CallSSH\bin\Debug\Renci.SshNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
