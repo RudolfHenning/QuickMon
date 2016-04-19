@@ -11,7 +11,19 @@ namespace QuickMon.Linux
         Password = 0,
         PrivateKey = 1
     }
+    public static class SSHSecurityOptionTypeConverter
+    {
+        public static SSHSecurityOption FromString(string typeName)
+        {
+            if (typeName.ToLower() == "password")
+                return SSHSecurityOption.Password;
+            else
+                return SSHSecurityOption.PrivateKey;
+        }
+    }
     #endregion
+    
+
 
     public class SshClientTools
     {
