@@ -41,7 +41,7 @@ namespace QuickMon.Linux
             else
             {
                 Renci.SshNet.PrivateKeyFile[] pkf = new Renci.SshNet.PrivateKeyFile[1];
-                pkf[0] = new Renci.SshNet.PrivateKeyFile(privateKeyFile, machineName);
+                pkf[0] = new Renci.SshNet.PrivateKeyFile(privateKeyFile, passCodeOrPhrase);
                 Renci.SshNet.PrivateKeyAuthenticationMethod pm = new Renci.SshNet.PrivateKeyAuthenticationMethod(userName, pkf);
                 Renci.SshNet.ConnectionInfo ci = new Renci.SshNet.ConnectionInfo(machineName, sshPort, userName, pm);
                 sshClient = new Renci.SshNet.SshClient(ci);
