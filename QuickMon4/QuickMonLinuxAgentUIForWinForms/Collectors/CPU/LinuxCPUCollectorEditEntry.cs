@@ -8,6 +8,7 @@ namespace QuickMon.Collectors
 {
     public partial class LinuxCPUCollectorEditEntry : CollectorConfigEntryEditWindowBase
     {
+        #region Designer stuff
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMachineName;
@@ -29,8 +30,9 @@ namespace QuickMon.Collectors
         private System.Windows.Forms.NumericUpDown warningNumericUpDown;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button cmdEditPerfCounter;
+        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.Label label3;
-    
+
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LinuxCPUCollectorEditEntry));
@@ -56,6 +58,7 @@ namespace QuickMon.Collectors
             this.warningNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.cmdEditPerfCounter = new System.Windows.Forms.Button();
+            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -121,6 +124,7 @@ namespace QuickMon.Collectors
             this.cmdOK.TabIndex = 14;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // chkUseOnlyTotalCPUvalue
             // 
@@ -324,6 +328,12 @@ namespace QuickMon.Collectors
             this.cmdEditPerfCounter.TabIndex = 9;
             this.cmdEditPerfCounter.Text = "- - -";
             this.cmdEditPerfCounter.UseVisualStyleBackColor = true;
+            this.cmdEditPerfCounter.Click += new System.EventHandler(this.cmdEditPerfCounter_Click);
+            // 
+            // privateKeyOpenFileDialog
+            // 
+            this.privateKeyOpenFileDialog.DefaultExt = "*";
+            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
             // 
             // LinuxCPUCollectorEditEntry
             // 
@@ -363,7 +373,8 @@ namespace QuickMon.Collectors
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+        } 
+        #endregion
 
         public LinuxCPUCollectorEditEntry()
         {
@@ -378,14 +389,16 @@ namespace QuickMon.Collectors
 
         private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
         {
-            txtPrivateKeyFile.ReadOnly = !optPassword.Checked;
-            txtUsername.ReadOnly = optPassword.Checked;
+            txtPrivateKeyFile.ReadOnly = optPassword.Checked;
+            txtUsername.ReadOnly = !optPassword.Checked;
         }
 
-         #region Private methods
+        #region Private methods
         private void LoadEntryDetails()
         {
             LinuxCPUEntry currentEntry = (LinuxCPUEntry)SelectedEntry;
+            if (currentEntry == null)
+                currentEntry = new LinuxCPUEntry();
             txtMachineName.Text = currentEntry.MachineName;
             sshPortNumericUpDown.SaveValueSet(currentEntry.SSHPort);
             optPrivateKey.Checked = currentEntry.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
@@ -401,6 +414,39 @@ namespace QuickMon.Collectors
         private void LinuxCPUCollectorEditEntry_Load(object sender, EventArgs e)
         {
             LoadEntryDetails();
+        }
+
+        private void cmdEditPerfCounter_Click(object sender, EventArgs e)
+        {
+            if (txtPrivateKeyFile.Text.Length > 0 && System.IO.Directory.Exists( System.IO.Path.GetDirectoryName( txtPrivateKeyFile.Text)))
+            {
+                privateKeyOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text);
+            }
+            if (privateKeyOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtPrivateKeyFile.Text = privateKeyOpenFileDialog.FileName;
+            }
+        }
+
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            LinuxCPUEntry selectedEntry;
+            if (SelectedEntry == null)
+                SelectedEntry = new LinuxCPUEntry();
+            selectedEntry = (LinuxCPUEntry)SelectedEntry;
+            selectedEntry.MachineName = txtMachineName.Text;
+            selectedEntry.SSHPort = (int)sshPortNumericUpDown.Value;
+            selectedEntry.SSHSecurityOption = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
+            selectedEntry.UserName = txtUsername.Text;
+
+            selectedEntry.PrivateKeyFile = txtPrivateKeyFile.Text;
+            selectedEntry.PassCodeOrPhrase = txtPassCodeOrPhrase.Text;
+            selectedEntry.UseOnlyTotalCPUvalue = chkUseOnlyTotalCPUvalue.Checked;
+            selectedEntry.WarningValue = (double)warningNumericUpDown.Value;
+            selectedEntry.ErrorValue = (double)errorNumericUpDown.Value;
+            
+            DialogResult = System.Windows.Forms.DialogResult.OK;
+            Close();
         }
     }
 }
