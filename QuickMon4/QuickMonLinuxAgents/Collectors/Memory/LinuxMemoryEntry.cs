@@ -6,13 +6,12 @@ using System.Text;
 
 namespace QuickMon.Collectors
 {
-    public class LinuxCPUEntry : ICollectorConfigEntry
+    public class LinuxMemoryEntry : ICollectorConfigEntry
     {
-        public LinuxCPUEntry()
+        public LinuxMemoryEntry()
         {
             SSHSecurityOption = SSHSecurityOption.Password;
             SSHPort = 22;
-            UseOnlyTotalCPUvalue = true;
             WarningValue = 80;
             ErrorValue = 99;
         }
@@ -23,30 +22,22 @@ namespace QuickMon.Collectors
         public string Password { get; set; }
         public string PrivateKeyFile { get; set; }
         public string PassPhrase { get; set; }
-        public bool UseOnlyTotalCPUvalue { get; set; }
         public double WarningValue { get; set; }
         public double ErrorValue { get; set; }
 
-        public List<Linux.CPUInfo> GetCPUInfos()
+        public MemInfo GetMemoryInfo()
         {
-            List<Linux.CPUInfo> cpus = new List<Linux.CPUInfo>();
+            MemInfo mi = new MemInfo();
             Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, PrivateKeyFile, PassPhrase);
 
             if (sshClient.IsConnected)
             {
-                foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient))
-                {
-                    if (UseOnlyTotalCPUvalue && ci.IsTotalCPU)
-                        cpus.Add(ci);
-                    else if (!UseOnlyTotalCPUvalue)
-                        cpus.Add(ci);
-                }
+                mi = MemInfo.FromCatProcMeminfo(sshClient);                
             }
             sshClient.Disconnect();
 
-            return cpus;
+            return mi;
         }
-
         public CollectorState GetState(double value)
         {
             CollectorState state = CollectorState.Good;
@@ -70,9 +61,9 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry Members
         public string Description
         {
-            get 
+            get
             {
-                return string.Format("{0}:{1} ({2})", MachineName, SSHPort, UseOnlyTotalCPUvalue ? "Total" : "All Cores/CPUs" );
+                return string.Format("{0}:{1}", MachineName, SSHPort);
             }
         }
         public string TriggerSummary
