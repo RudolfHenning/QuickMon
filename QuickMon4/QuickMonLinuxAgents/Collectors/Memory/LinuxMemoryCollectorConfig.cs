@@ -7,9 +7,9 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    public class LinuxCPUCollectorConfig : ICollectorConfig
+    public class LinuxMemoryCollectorConfig : ICollectorConfig
     {
-        public LinuxCPUCollectorConfig()
+        public LinuxMemoryCollectorConfig()
         {
             Entries = new List<ICollectorConfigEntry>();
         }
@@ -28,12 +28,11 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             XmlElement root = config.DocumentElement;
             Entries.Clear();
-            foreach (XmlElement pcNode in root.SelectNodes("linux/cpu"))
+            foreach (XmlElement pcNode in root.SelectNodes("linux/memory"))
             {
-                LinuxCPUEntry entry = new LinuxCPUEntry();
+                LinuxMemoryEntry entry = new LinuxMemoryEntry();
                 entry.MachineName = pcNode.ReadXmlElementAttr("machine", ".");
                 entry.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
-                entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);
                 entry.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "99"));
@@ -44,7 +43,6 @@ namespace QuickMon.Collectors
                 Entries.Add(entry);
             }
         }
-
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
@@ -52,12 +50,11 @@ namespace QuickMon.Collectors
             XmlElement root = config.DocumentElement;
             XmlNode linuxCPUNode = root.SelectSingleNode("linux");
             linuxCPUNode.InnerXml = "";
-            foreach (LinuxCPUEntry entry in Entries)
+            foreach (LinuxMemoryEntry entry in Entries)
             {
-                XmlElement cpuNode = config.CreateElement("cpu");
+                XmlElement cpuNode = config.CreateElement("memory");
                 cpuNode.SetAttributeValue("machine", entry.MachineName);
                 cpuNode.SetAttributeValue("sshPort", entry.SSHPort);
-                cpuNode.SetAttributeValue("totalCPU", entry.UseOnlyTotalCPUvalue);
                 cpuNode.SetAttributeValue("sshSecOpt", entry.SSHSecurityOption.ToString());
                 cpuNode.SetAttributeValue("warningValue", entry.WarningValue);
                 cpuNode.SetAttributeValue("errorValue", entry.ErrorValue);
@@ -69,12 +66,10 @@ namespace QuickMon.Collectors
             }
             return config.OuterXml;
         }
-
         public string GetDefaultOrEmptyXml()
         {
             return "<config>\r\n<linux>\r\n</linux>\r\n</config>";
         }
-
         public string ConfigSummary
         {
             get
