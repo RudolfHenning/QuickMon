@@ -23,17 +23,15 @@ namespace QuickMon.Linux
     }
     #endregion
     
-
-
     public class SshClientTools
     {
-        public static Renci.SshNet.SshClient GetSSHConnection(SSHSecurityOption sshSecurityOption ,string machineName, int sshPort,  string userName, string privateKeyFile, string passCodeOrPhrase)
+        public static Renci.SshNet.SshClient GetSSHConnection(SSHSecurityOption sshSecurityOption ,string machineName, int sshPort,  string userName, string password, string privateKeyFile, string passCodeOrPhrase)
         {
             Renci.SshNet.SshClient sshClient;
 
             if (sshSecurityOption == SSHSecurityOption.Password)
             {
-                byte[] b = System.Text.UTF8Encoding.UTF8.GetBytes(passCodeOrPhrase.ToCharArray());
+                byte[] b = System.Text.UTF8Encoding.UTF8.GetBytes(password.ToCharArray());
                 Renci.SshNet.AuthenticationMethod am = new Renci.SshNet.PasswordAuthenticationMethod(userName, b);
                 Renci.SshNet.ConnectionInfo ci = new Renci.SshNet.ConnectionInfo(machineName, sshPort, userName, am);
                 sshClient = new Renci.SshNet.SshClient(ci);

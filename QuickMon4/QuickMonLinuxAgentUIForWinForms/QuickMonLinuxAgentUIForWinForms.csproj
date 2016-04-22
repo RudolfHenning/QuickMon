@@ -52,6 +52,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Collectors\CPU\LinuxCPUCollectorUI.cs" />
+    <Compile Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.Designer.cs">
+      <DependentUpon>LinuxMemoryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\Memory\LinuxMemoryCollectorUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Collectors\CPU\LinuxCPUCollectorEditEntry.resx">
       <DependentUpon>LinuxCPUCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.resx">
+      <DependentUpon>LinuxMemoryCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

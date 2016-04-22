@@ -28,7 +28,7 @@ namespace QuickMon.Collectors
         public MemInfo GetMemoryInfo()
         {
             MemInfo mi = new MemInfo();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, PrivateKeyFile, PassPhrase);
+            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, Password, PrivateKeyFile, PassPhrase);
 
             if (sshClient.IsConnected)
             {

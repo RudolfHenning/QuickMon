@@ -409,7 +409,7 @@ namespace QuickMon.Collectors
 
         private void optPassword_CheckedChanged(object sender, EventArgs e)
         {
-            txtUsername.ReadOnly = !optPassword.Checked;
+            //txtUsername.ReadOnly = !optPassword.Checked;
             txtPassword.ReadOnly = !optPassword.Checked;
             txtPrivateKeyFile.ReadOnly = optPassword.Checked;
             cmdEditPerfCounter.Enabled = !optPassword.Checked;
@@ -418,7 +418,7 @@ namespace QuickMon.Collectors
 
         private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
         {
-            txtUsername.ReadOnly = optPrivateKey.Checked;
+            //txtUsername.ReadOnly = optPrivateKey.Checked;
             txtPassword.ReadOnly = optPrivateKey.Checked;
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;            
             cmdEditPerfCounter.Enabled = optPrivateKey.Checked;            
