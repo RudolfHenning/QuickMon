@@ -30,7 +30,7 @@ namespace QuickMon.Collectors
         public List<Linux.CPUInfo> GetCPUInfos()
         {
             List<Linux.CPUInfo> cpus = new List<Linux.CPUInfo>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, PrivateKeyFile, PassPhrase);
+            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, Password, PrivateKeyFile, PassPhrase);
 
             if (sshClient.IsConnected)
             {
