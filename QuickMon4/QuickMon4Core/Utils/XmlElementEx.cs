@@ -27,6 +27,12 @@ namespace QuickMon
             int.TryParse(ReadXmlElementAttr(e, attrName, defaultValue.ToString()), out returnValue);
             return returnValue;
         }
+        public static double ReadXmlElementAttr(this XmlNode e, string attrName, double defaultValue = 0)
+        {
+            double returnValue = defaultValue;
+            double.TryParse(ReadXmlElementAttr(e, attrName, defaultValue.ToString()), out returnValue);
+            return returnValue;
+        }
         public static bool ReadXmlElementAttr(this XmlNode e, string attrName, bool defaultValue = false)
         {
             bool returnValue = defaultValue;
