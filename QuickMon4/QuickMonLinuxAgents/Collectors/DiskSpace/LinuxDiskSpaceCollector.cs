@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors.DiskSpace
 {
-    [Description("Disk Space Collector"), Category("Linux")]
+    [Description("Free Disk Space Collector"), Category("Linux")]
     public class LinuxDiskSpaceCollector : CollectorAgentBase
     {
         public LinuxDiskSpaceCollector()
@@ -19,11 +19,108 @@ namespace QuickMon.Collectors.DiskSpace
         #region ICollector Members
         public override MonitorState RefreshState()
         {
-            throw new NotImplementedException();
+            MonitorState returnState = new MonitorState();
+            string lastAction = "";
+            double highestVal = 0;
+            int errors = 0;
+            int warnings = 0;
+            int success = 0;
+
+            try
+            {
+                LinuxDiskSpaceCollectorConfig currentConfig = (LinuxDiskSpaceCollectorConfig)AgentConfig;
+                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
+                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
+                foreach (LinuxDiskSpaceEntry entry in currentConfig.Entries)
+                {
+                    List<DiskInfoState> diss = entry.GetStates();
+                    foreach (DiskInfoState dis in diss)
+                    {
+                        if (dis.State == CollectorState.Error)
+                        {
+                            errors++;
+                            returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    ForAgent = entry.MachineName + "->" + dis.FileSystemInfo.Name,
+                                    State = CollectorState.Error,
+                                    CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
+                                    RawDetails = string.Format("'{0}'-> {1} : {2}% (Error)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
+                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Error</b>)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
+                                });
+                        }
+                        else if (dis.State == CollectorState.Warning)
+                        {
+                            warnings++;
+                            returnState.ChildStates.Add(
+                               new MonitorState()
+                               {
+                                   ForAgent = entry.MachineName + "->" + dis.FileSystemInfo.Name,
+                                   State = CollectorState.Warning,
+                                   CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}% (Warning)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Warning</b>)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
+                               });
+                        }
+                        else
+                        {
+                            success++;
+                            returnState.ChildStates.Add(
+                               new MonitorState()
+                               {
+                                   ForAgent = entry.MachineName + "->" + dis.FileSystemInfo.Name,
+                                   State = CollectorState.Good,
+                                   CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}%", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}%", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
+                               });
+                        }
+                    }                    
+                }
+                returnState.CurrentValue = highestVal;
+
+                if (errors > 0 && warnings == 0 && success == 0) // any errors
+                    returnState.State = CollectorState.Error;
+                else if (errors > 0 || warnings > 0) //any warnings
+                    returnState.State = CollectorState.Warning;
+                else
+                    returnState.State = CollectorState.Good;
+            }
+            catch (Exception ex)
+            {
+                returnState.RawDetails = ex.Message;
+                returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
+                returnState.State = CollectorState.Error;
+            }
+            return returnState;
         }
         public override List<System.Data.DataTable> GetDetailDataTables()
         {
-            throw new NotImplementedException();
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
+            try
+            {
+                dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("File System", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Percentage Free", typeof(double)));
+
+                LinuxDiskSpaceCollectorConfig currentConfig = (LinuxDiskSpaceCollectorConfig)AgentConfig;
+                foreach (LinuxDiskSpaceEntry entry in currentConfig.Entries)
+                {
+                    foreach (Linux.DiskInfo diInfo in entry.GetDiskInfos())
+                    {
+                        dt.Rows.Add(entry.MachineName, diInfo.Name, diInfo.FreeSpacePerc);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+            }
+            tables.Add(dt);
+            return tables;
         }
         #endregion
     }
@@ -40,7 +137,7 @@ namespace QuickMon.Collectors.DiskSpace
         public List<ICollectorConfigEntry> Entries { get; set; }
         #endregion
 
-        #region IAgentConfig Members    
+        #region IAgentConfig Members
         public void FromXml(string configurationString)
         {
             if (configurationString == null || configurationString.Length == 0)
@@ -65,8 +162,8 @@ namespace QuickMon.Collectors.DiskSpace
                 {
                     LinuxDiskSpaceSubEntry fse = new LinuxDiskSpaceSubEntry();
                     fse.FileSystemName = fileSystemNode.ReadXmlElementAttr("name", "");
-                    fse.FileSystemName = fileSystemNode.ReadXmlElementAttr("warningValue", "10");
-                    fse.FileSystemName = fileSystemNode.ReadXmlElementAttr("errorValue", "5");
+                    fse.WarningValue = fileSystemNode.ReadXmlElementAttr("warningValue", 10.0d);
+                    fse.ErrorValue = fileSystemNode.ReadXmlElementAttr("errorValue", 5.0d);
                     entry.SubItems.Add(fse);
                 }
                 Entries.Add(entry);
@@ -137,10 +234,10 @@ namespace QuickMon.Collectors.DiskSpace
             
             if (sshClient.IsConnected)
             {
-                foreach (Linux.DiskInfo di in fileSystemEntries = DiskInfo.FromDfTk(sshClient))
+                foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
                 {
                     if ((from LinuxDiskSpaceSubEntry d in SubItems
-                         where d.FileSystemName.ToLower() == di.Name.ToLower()
+                         where d.FileSystemName.ToLower() == di.Name.ToLower() || d.FileSystemName == "*"
                          select d).Count() == 1)
                     {
                         fileSystemEntries.Add(di);
@@ -151,7 +248,33 @@ namespace QuickMon.Collectors.DiskSpace
 
             return fileSystemEntries;
         }
+        public List<DiskInfoState> GetStates()
+        {
+            List<DiskInfoState> states = new List<DiskInfoState>();
 
+            foreach (Linux.DiskInfo di in GetDiskInfos())
+            {
+                DiskInfoState dis = new DiskInfoState();
+                dis.FileSystemInfo = di;
+                dis.State = CollectorState.Good;
+                LinuxDiskSpaceSubEntry dsde = (from LinuxDiskSpaceSubEntry d in SubItems
+                                               where d.FileSystemName.ToLower() == di.Name.ToLower() || d.FileSystemName == "*"
+                                               select d).FirstOrDefault();
+                if (dsde != null)
+                {
+                    if (di.FreeSpacePerc <= dsde.ErrorValue)
+                    {
+                        dis.State = CollectorState.Error;
+                    }
+                    else if (di.FreeSpacePerc <= dsde.WarningValue)
+                    {
+                        dis.State = CollectorState.Warning;
+                    }
+                    states.Add(dis);
+                }
+            }            
+            return states;
+        }
         public override string TriggerSummary
         {
             get { return string.Format("{0} File system(s)", SubItems.Count); }
@@ -173,5 +296,11 @@ namespace QuickMon.Collectors.DiskSpace
         {
             get { return string.Format("{0} Warn:{1} Err:{2}", FileSystemName, WarningValue, ErrorValue); }
         }
+    }
+
+    public class DiskInfoState
+    {
+        public Linux.DiskInfo FileSystemInfo { get; set; }
+        public CollectorState State { get; set; }
     }
 }
