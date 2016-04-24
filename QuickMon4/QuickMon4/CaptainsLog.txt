@@ -91,7 +91,7 @@ Version 4.3.x
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
 	Collector host Remote host option to check local first and only then remote
-
+	Expand on start option must be expanded to have more options - Expand on start if child collector has errors/warnings/enabled/parent collector state is X
   
 	  
 	
