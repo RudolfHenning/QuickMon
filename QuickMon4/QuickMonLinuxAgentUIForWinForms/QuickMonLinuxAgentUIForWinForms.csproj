@@ -52,6 +52,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Collectors\CPU\LinuxCPUCollectorUI.cs" />
+    <Compile Include="Collectors\DiskSpace\LinuxDiskSpaceCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\DiskSpace\LinuxDiskSpaceCollectorEditEntry.Designer.cs">
+      <DependentUpon>LinuxDiskSpaceCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\DiskSpace\LinuxDiskSpaceCollectorUI.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +85,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Collectors\CPU\LinuxCPUCollectorEditEntry.resx">
       <DependentUpon>LinuxCPUCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\DiskSpace\LinuxDiskSpaceCollectorEditEntry.resx">
+      <DependentUpon>LinuxDiskSpaceCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.resx">
       <DependentUpon>LinuxMemoryCollectorEditEntry.cs</DependentUpon>

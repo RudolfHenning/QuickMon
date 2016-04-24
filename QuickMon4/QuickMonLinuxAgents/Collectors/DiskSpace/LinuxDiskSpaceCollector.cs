@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace QuickMon.Collectors.DiskSpace
+namespace QuickMon.Collectors
 {
     [Description("Free Disk Space Collector"), Category("Linux")]
     public class LinuxDiskSpaceCollector : CollectorAgentBase
@@ -234,13 +234,30 @@ namespace QuickMon.Collectors.DiskSpace
             
             if (sshClient.IsConnected)
             {
+                bool addAll = (from LinuxDiskSpaceSubEntry d in SubItems
+                               where d.FileSystemName == "*"
+                               select d).Count() > 0;
+
+                if ((from LinuxDiskSpaceSubEntry d in SubItems
+                         where d.FileSystemName == "*"
+                     select d).Count() > 0)
+                {
+                    foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                    {
+                        if (!fileSystemEntries.Any(f=>f.Name.ToLower() == di.Name.ToLower() ))
+                            fileSystemEntries.Add(di);
+                    }
+                }
+
                 foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
                 {
-                    if ((from LinuxDiskSpaceSubEntry d in SubItems
-                         where d.FileSystemName.ToLower() == di.Name.ToLower() || d.FileSystemName == "*"
-                         select d).Count() == 1)
+
+                    if (addAll || (from LinuxDiskSpaceSubEntry d in SubItems
+                         where d.FileSystemName.ToLower() == di.Name.ToLower()
+                         select d).Count() > 0)
                     {
-                        fileSystemEntries.Add(di);
+                        if (!fileSystemEntries.Any(f => f.Name.ToLower() == di.Name.ToLower()))
+                            fileSystemEntries.Add(di);
                     }                 
                 }
             }
@@ -292,10 +309,12 @@ namespace QuickMon.Collectors.DiskSpace
         public double WarningValue { get; set; }
         public double ErrorValue { get; set; }
 
+        #region ICollectorConfigSubEntry Members
         public string Description
         {
             get { return string.Format("{0} Warn:{1} Err:{2}", FileSystemName, WarningValue, ErrorValue); }
         }
+        #endregion
     }
 
     public class DiskInfoState
