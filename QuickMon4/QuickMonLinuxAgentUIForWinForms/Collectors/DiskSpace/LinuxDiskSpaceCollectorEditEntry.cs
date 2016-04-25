@@ -196,5 +196,42 @@ namespace QuickMon.Collectors
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
+
+        private void lblAutoAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (lvwFileSystems.Items.Count > 0 && (MessageBox.Show("Clear all existing entries?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No))
+                {
+                    return;
+                }
+                else
+                {
+                    lvwFileSystems.Items.Clear();
+                }
+                QuickMon.Linux.SSHSecurityOption sshSecOpt = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
+                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(sshSecOpt, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
+                if (sshClient.IsConnected)
+                {
+                    foreach (Linux.DiskInfo di in QuickMon.Linux.DiskInfo.FromDfTk(sshClient))
+                    {
+                        LinuxDiskSpaceSubEntry dsse = new LinuxDiskSpaceSubEntry() { FileSystemName = di.Name, WarningValue = 10, ErrorValue = 5 };
+                        ListViewItem lvi = new ListViewItem() { Text = dsse.FileSystemName };
+                        lvi.SubItems.Add(dsse.WarningValue.ToString());
+                        lvi.SubItems.Add(dsse.ErrorValue.ToString());
+                        lvi.Tag = dsse;
+                        lvwFileSystems.Items.Add(lvi);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Could not connect to computer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
     }
 }
