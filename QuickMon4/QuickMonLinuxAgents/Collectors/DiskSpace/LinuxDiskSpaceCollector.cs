@@ -107,9 +107,9 @@ namespace QuickMon.Collectors
                 LinuxDiskSpaceCollectorConfig currentConfig = (LinuxDiskSpaceCollectorConfig)AgentConfig;
                 foreach (LinuxDiskSpaceEntry entry in currentConfig.Entries)
                 {
-                    foreach (Linux.DiskInfo diInfo in entry.GetDiskInfos())
+                    foreach (DiskInfoState diInfo in entry.GetDiskInfos())
                     {
-                        dt.Rows.Add(entry.MachineName, diInfo.Name, diInfo.FreeSpacePerc);
+                        dt.Rows.Add(entry.MachineName, diInfo.FileSystemInfo.Name, diInfo.FileSystemInfo.FreeSpacePerc);
                     }
                 }
             }
@@ -227,39 +227,70 @@ namespace QuickMon.Collectors
 
     public class LinuxDiskSpaceEntry : LinuxBaseEntry
     {
-        public List<Linux.DiskInfo> GetDiskInfos()
+        public List<DiskInfoState> GetDiskInfos()
         {
-            List<Linux.DiskInfo> fileSystemEntries = new List<Linux.DiskInfo>();
+            List<DiskInfoState> fileSystemEntries = new List<DiskInfoState>();
             Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, Password, PrivateKeyFile, PassPhrase);
             
             if (sshClient.IsConnected)
             {
+
+                //First see if ANY subentry is for all
                 bool addAll = (from LinuxDiskSpaceSubEntry d in SubItems
                                where d.FileSystemName == "*"
                                select d).Count() > 0;
-
-                if ((from LinuxDiskSpaceSubEntry d in SubItems
-                         where d.FileSystemName == "*"
-                     select d).Count() > 0)
+                if (addAll)
+                {
+                    LinuxDiskSpaceSubEntry alertDef = (from LinuxDiskSpaceSubEntry d in SubItems
+                                                       where d.FileSystemName == "*"
+                                                       select d).FirstOrDefault();
+                    foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                    {
+                        DiskInfoState dis = new DiskInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                        fileSystemEntries.Add(dis);
+                    }
+                }
+                else
                 {
                     foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
                     {
-                        if (!fileSystemEntries.Any(f=>f.Name.ToLower() == di.Name.ToLower() ))
-                            fileSystemEntries.Add(di);
+                        LinuxDiskSpaceSubEntry alertDef = (from LinuxDiskSpaceSubEntry d in SubItems
+                                                           where d.FileSystemName.ToLower() == di.Name.ToLower()
+                                                           select d).FirstOrDefault();
+
+                        if (alertDef != null)
+                        {
+                            if (!fileSystemEntries.Any(f => f.FileSystemInfo.Name.ToLower() == di.Name.ToLower()))
+                            {
+                                DiskInfoState dis = new DiskInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                                fileSystemEntries.Add(dis);
+                            }
+                        }
                     }
                 }
 
-                foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
-                {
+                //if ((from LinuxDiskSpaceSubEntry d in SubItems
+                //         where d.FileSystemName == "*"
+                //     select d).Count() > 0)
+                //{
+                //    foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                //    {
+                //        if (!fileSystemEntries.Any(f=>f.Name.ToLower() == di.Name.ToLower() ))
+                //            fileSystemEntries.Add(di);
+                //    }
+                //}
 
-                    if (addAll || (from LinuxDiskSpaceSubEntry d in SubItems
-                         where d.FileSystemName.ToLower() == di.Name.ToLower()
-                         select d).Count() > 0)
-                    {
-                        if (!fileSystemEntries.Any(f => f.Name.ToLower() == di.Name.ToLower()))
-                            fileSystemEntries.Add(di);
-                    }                 
-                }
+                //foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                //{
+
+                //    if (addAll || (from LinuxDiskSpaceSubEntry d in SubItems
+                //         where d.FileSystemName.ToLower() == di.Name.ToLower()
+                //         select d).Count() > 0)
+                //    {
+                //        if (!fileSystemEntries.Any(f => f.Name.ToLower() == di.Name.ToLower()))
+                //            fileSystemEntries.Add(di);
+                //    }                 
+                //}
             }
             sshClient.Disconnect();
 
@@ -269,27 +300,20 @@ namespace QuickMon.Collectors
         {
             List<DiskInfoState> states = new List<DiskInfoState>();
 
-            foreach (Linux.DiskInfo di in GetDiskInfos())
+            foreach (DiskInfoState dis in GetDiskInfos())
             {
-                DiskInfoState dis = new DiskInfoState();
-                dis.FileSystemInfo = di;
                 dis.State = CollectorState.Good;
-                LinuxDiskSpaceSubEntry dsde = (from LinuxDiskSpaceSubEntry d in SubItems
-                                               where d.FileSystemName.ToLower() == di.Name.ToLower() || d.FileSystemName == "*"
-                                               select d).FirstOrDefault();
-                if (dsde != null)
+                if (dis.FileSystemInfo.FreeSpacePerc <= dis.AlertDefinition.ErrorValue)
                 {
-                    if (di.FreeSpacePerc <= dsde.ErrorValue)
-                    {
-                        dis.State = CollectorState.Error;
-                    }
-                    else if (di.FreeSpacePerc <= dsde.WarningValue)
-                    {
-                        dis.State = CollectorState.Warning;
-                    }
-                    states.Add(dis);
+                    dis.State = CollectorState.Error;
                 }
-            }            
+                else if (dis.FileSystemInfo.FreeSpacePerc <= dis.AlertDefinition.WarningValue)
+                {
+                    dis.State = CollectorState.Warning;
+                }
+                states.Add(dis);
+
+            }    
             return states;
         }
         public override string TriggerSummary
@@ -320,6 +344,7 @@ namespace QuickMon.Collectors
     public class DiskInfoState
     {
         public Linux.DiskInfo FileSystemInfo { get; set; }
+        public LinuxDiskSpaceSubEntry AlertDefinition { get; set; }
         public CollectorState State { get; set; }
     }
 }
