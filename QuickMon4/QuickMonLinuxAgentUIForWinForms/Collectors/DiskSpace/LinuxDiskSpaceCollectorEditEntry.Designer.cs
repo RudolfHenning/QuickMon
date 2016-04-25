@@ -352,6 +352,7 @@
             this.lblAutoAdd.TabIndex = 2;
             this.lblAutoAdd.TabStop = true;
             this.lblAutoAdd.Text = "Auto add";
+            this.lblAutoAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAutoAdd_LinkClicked);
             // 
             // label2
             // 
