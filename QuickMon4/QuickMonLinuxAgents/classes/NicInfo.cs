@@ -18,6 +18,7 @@ namespace QuickMon.Linux
         public string HWAddress { get; set; }
         public long RxBytes { get; set; }
         public long TxBytes { get; set; }
+        public long RTxBytes { get { return RxBytes + TxBytes; } }
 
         /// <summary>
         /// Parsing output of ifconfig
@@ -77,7 +78,6 @@ namespace QuickMon.Linux
                         {
                             nextNic.HWAddress = values[values.Length - 1];
                         }
-
                     }
                 }
             }
