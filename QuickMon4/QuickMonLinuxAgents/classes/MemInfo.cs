@@ -14,6 +14,8 @@ namespace QuickMon.Linux
         public long TotalKB { get; set; }
         public long AvailableKB { get; set; }
         public long FreeKB { get; set; }
+        public long Buffers { get; set; }
+        public long Cached { get; set; }
         public long SwapTotalKB { get; set; }
         public long SwapFreeKB { get; set; }
         public double FreePerc
@@ -55,6 +57,14 @@ namespace QuickMon.Linux
                     else if (line.StartsWith("MemFree:"))
                     {
                         mi.FreeKB = long.Parse(values[1]);
+                    }
+                    else if (line.StartsWith("Buffers:"))
+                    {
+                        mi.Buffers = long.Parse(values[1]);
+                    }
+                    else if (line.StartsWith("Cached:"))
+                    {
+                        mi.Cached = long.Parse(values[1]);
                     }
                     else if (line.StartsWith("SwapTotal:"))
                     {
