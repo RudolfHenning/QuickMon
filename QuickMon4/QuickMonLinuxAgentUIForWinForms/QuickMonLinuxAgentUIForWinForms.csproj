@@ -70,6 +70,13 @@
       <DependentUpon>LinuxMemoryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorUI.cs" />
+    <Compile Include="Collectors\NIC\LinuxNICCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\NIC\LinuxNICCollectorEditEntry.Designer.cs">
+      <DependentUpon>LinuxNICCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\NIC\LinuxNICCollectorUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +103,11 @@
     <EmbeddedResource Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.resx">
       <DependentUpon>LinuxMemoryCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\NIC\LinuxNICCollectorEditEntry.resx">
+      <DependentUpon>LinuxNICCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
