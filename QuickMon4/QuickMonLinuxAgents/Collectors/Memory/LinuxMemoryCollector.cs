@@ -35,7 +35,9 @@ namespace QuickMon.Collectors
                     Linux.MemInfo memInfo = entry.GetMemoryInfo();
                     double percVal = memInfo.AvailablePerc;
                     if (percVal == 0)
-                        percVal = memInfo.FreePerc;
+                    {
+                        percVal = memInfo.FreePerc + memInfo.Buffers + memInfo.Cached;
+                    }
 
                     CollectorState currentState = entry.GetState(percVal);                    
 

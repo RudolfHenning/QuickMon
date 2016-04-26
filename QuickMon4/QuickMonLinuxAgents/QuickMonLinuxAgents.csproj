@@ -63,6 +63,7 @@
     <Compile Include="Collectors\Memory\LinuxMemoryCollector.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorConfig.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryEntry.cs" />
+    <Compile Include="Collectors\NIC\LinuxNICCollector.cs" />
     <Compile Include="Common\LinuxBaseEntry.cs" />
     <Compile Include="Common\Parsers.cs" />
     <Compile Include="Common\SshClientTools.cs" />
@@ -70,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Collectors\DiskIO\" />
-    <Folder Include="Collectors\NIC\" />
     <Folder Include="Collectors\Process\" />
   </ItemGroup>
   <ItemGroup>
