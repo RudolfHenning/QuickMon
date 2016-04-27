@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LinuxDiskSpaceCollectorEditEntry));
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.cmdEditPerfCounter = new System.Windows.Forms.Button();
+            this.cmdBrowsePrivateKeyFile = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.txtMachineName = new System.Windows.Forms.TextBox();
             this.txtPassPhrase = new System.Windows.Forms.TextBox();
@@ -56,12 +56,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtFileSystem = new System.Windows.Forms.TextBox();
             this.lblAddFileSystem = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lvwFileSystems = new QuickMon.ListViewEx();
             this.fileSystemColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label1 = new System.Windows.Forms.Label();
-            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
@@ -88,18 +88,18 @@
             this.label24.TabIndex = 7;
             this.label24.Text = "Password";
             // 
-            // cmdEditPerfCounter
+            // cmdBrowsePrivateKeyFile
             // 
-            this.cmdEditPerfCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditPerfCounter.Enabled = false;
-            this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditPerfCounter.Location = new System.Drawing.Point(380, 167);
-            this.cmdEditPerfCounter.Name = "cmdEditPerfCounter";
-            this.cmdEditPerfCounter.Size = new System.Drawing.Size(41, 23);
-            this.cmdEditPerfCounter.TabIndex = 11;
-            this.cmdEditPerfCounter.Text = "- - -";
-            this.cmdEditPerfCounter.UseVisualStyleBackColor = true;
-            this.cmdEditPerfCounter.Click += new System.EventHandler(this.cmdEditPerfCounter_Click);
+            this.cmdBrowsePrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowsePrivateKeyFile.Enabled = false;
+            this.cmdBrowsePrivateKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowsePrivateKeyFile.Location = new System.Drawing.Point(380, 167);
+            this.cmdBrowsePrivateKeyFile.Name = "cmdBrowsePrivateKeyFile";
+            this.cmdBrowsePrivateKeyFile.Size = new System.Drawing.Size(41, 23);
+            this.cmdBrowsePrivateKeyFile.TabIndex = 11;
+            this.cmdBrowsePrivateKeyFile.Text = "- - -";
+            this.cmdBrowsePrivateKeyFile.UseVisualStyleBackColor = true;
+            this.cmdBrowsePrivateKeyFile.Click += new System.EventHandler(this.cmdEditPerfCounter_Click);
             // 
             // label17
             // 
@@ -386,6 +386,21 @@
             this.lblAddFileSystem.Text = "Add new";
             this.lblAddFileSystem.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAddFileSystem_LinkClicked);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "File systems";
+            // 
+            // privateKeyOpenFileDialog
+            // 
+            this.privateKeyOpenFileDialog.DefaultExt = "*";
+            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
+            // 
             // lvwFileSystems
             // 
             this.lvwFileSystems.AutoResizeColumnEnabled = false;
@@ -417,21 +432,6 @@
             // 
             this.errorColumnHeader.Text = "Error";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "File systems";
-            // 
-            // privateKeyOpenFileDialog
-            // 
-            this.privateKeyOpenFileDialog.DefaultExt = "*";
-            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
-            // 
             // LinuxDiskSpaceCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,7 +439,7 @@
             this.ClientSize = new System.Drawing.Size(433, 433);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label24);
-            this.Controls.Add(this.cmdEditPerfCounter);
+            this.Controls.Add(this.cmdBrowsePrivateKeyFile);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.txtMachineName);
@@ -478,7 +478,7 @@
 
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Button cmdEditPerfCounter;
+        private System.Windows.Forms.Button cmdBrowsePrivateKeyFile;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txtMachineName;
         private System.Windows.Forms.TextBox txtPassPhrase;

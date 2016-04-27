@@ -8,6 +8,10 @@ namespace QuickMon.Linux
 {
     public class DiskIOInfo
     {
+        public DiskIOInfo()
+        {
+            MeasurementDelayMS = 1000;
+        }
         public string Name { get; set; }
         public DateTime TimeUpdated { get; set; }
         public int MajorNumber { get; set; }
@@ -23,6 +27,11 @@ namespace QuickMon.Linux
         public long IOsInProgress { get; set; }
         public long TimeDoingIOsMS { get; set; }
         public long WeightedTimeDoingIOsMS { get; set; }
+
+        public long BytesReadPerSec { get { return (SectorsRead * 512000) / MeasurementDelayMS; } }
+        public long BytesWritePerSec { get { return (SectorsWritten * 512000) / MeasurementDelayMS; } }
+        public long BytesReadWritePerSec { get { return ((SectorsRead + SectorsWritten) * 512000) / MeasurementDelayMS; } }
+        public int MeasurementDelayMS { get; set; }        
 
         public static List<DiskIOInfo> FromProcDiskStats(Renci.SshNet.SshClient sshClient)
         {
@@ -62,6 +71,7 @@ namespace QuickMon.Linux
         public static List<DiskIOInfo> GetCurrentDiskStats(Renci.SshNet.SshClient sshClient, int delayMS = 1000)
         {
             List<DiskIOInfo> diskDiffs = new List<DiskIOInfo>();
+            
 
             List<DiskIOInfo> disks1 = FromProcDiskStats(sshClient.RunCommand("cat /proc/diskstats").Result);
             TH.Thread.Sleep(delayMS);
@@ -73,6 +83,8 @@ namespace QuickMon.Linux
                 if (c2 != null)
                 {
                     DiskIOInfo diskUsageDiff = new DiskIOInfo();
+                    
+                    diskUsageDiff.MeasurementDelayMS = delayMS;
                     diskUsageDiff.MajorNumber = c1.MajorNumber;
                     diskUsageDiff.MinorNumber = c1.MinorNumber;
                     diskUsageDiff.Name = c1.Name;

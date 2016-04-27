@@ -59,6 +59,7 @@
     <Compile Include="Collectors\CPU\LinuxCPUCollector.cs" />
     <Compile Include="Collectors\CPU\LinuxCPUCollectorConfig.cs" />
     <Compile Include="Collectors\CPU\LinuxCPUEntry.cs" />
+    <Compile Include="Collectors\DiskIO\LinuxDiskIOCollector.cs" />
     <Compile Include="Collectors\DiskSpace\LinuxDiskSpaceCollector.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryCollector.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorConfig.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Collectors\DiskIO\" />
     <Folder Include="Collectors\Process\" />
   </ItemGroup>
   <ItemGroup>
