@@ -61,7 +61,7 @@ namespace QuickMon.Collectors
             //txtUsername.ReadOnly = !optPassword.Checked;
             txtPassword.ReadOnly = !optPassword.Checked;
             txtPrivateKeyFile.ReadOnly = optPassword.Checked;
-            cmdEditPerfCounter.Enabled = !optPassword.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = !optPassword.Checked;
             txtPassPhrase.ReadOnly = optPassword.Checked;
         }
 
@@ -70,7 +70,7 @@ namespace QuickMon.Collectors
             //txtUsername.ReadOnly = optPrivateKey.Checked;
             txtPassword.ReadOnly = optPrivateKey.Checked;
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
-            cmdEditPerfCounter.Enabled = optPrivateKey.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
             txtPassPhrase.ReadOnly = optPassword.Checked;
         }
 
@@ -208,11 +208,14 @@ namespace QuickMon.Collectors
                 else
                 {
                     lvwFileSystems.Items.Clear();
+                    lvwFileSystems.Items.Add(new ListViewItem("Querying " + txtMachineName.Text + "..."));
+                    Application.DoEvents();
                 }
                 QuickMon.Linux.SSHSecurityOption sshSecOpt = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
                 Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(sshSecOpt, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
                 if (sshClient.IsConnected)
                 {
+                    lvwFileSystems.Items.Clear();
                     foreach (Linux.DiskInfo di in QuickMon.Linux.DiskInfo.FromDfTk(sshClient))
                     {
                         LinuxDiskSpaceSubEntry dsse = new LinuxDiskSpaceSubEntry() { FileSystemName = di.Name, WarningValue = 10, ErrorValue = 5 };
@@ -225,6 +228,7 @@ namespace QuickMon.Collectors
                 }
                 else
                 {
+                    lvwFileSystems.Items.Clear();
                     MessageBox.Show("Could not connect to computer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }

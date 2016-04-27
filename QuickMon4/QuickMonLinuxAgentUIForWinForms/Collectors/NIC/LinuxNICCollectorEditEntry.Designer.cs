@@ -31,8 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LinuxNICCollectorEditEntry));
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.cmdEditPerfCounter = new System.Windows.Forms.Button();
+            this.cmdBrowsePrivateKeyFile = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblAutoAdd = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFileSystem = new System.Windows.Forms.TextBox();
@@ -61,8 +63,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.optPrivateKey = new System.Windows.Forms.RadioButton();
             this.optPassword = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
@@ -89,17 +90,18 @@
             this.label24.TabIndex = 8;
             this.label24.Text = "Password";
             // 
-            // cmdEditPerfCounter
+            // cmdBrowsePrivateKeyFile
             // 
-            this.cmdEditPerfCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditPerfCounter.Enabled = false;
-            this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditPerfCounter.Location = new System.Drawing.Point(380, 167);
-            this.cmdEditPerfCounter.Name = "cmdEditPerfCounter";
-            this.cmdEditPerfCounter.Size = new System.Drawing.Size(41, 23);
-            this.cmdEditPerfCounter.TabIndex = 12;
-            this.cmdEditPerfCounter.Text = "- - -";
-            this.cmdEditPerfCounter.UseVisualStyleBackColor = true;
+            this.cmdBrowsePrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowsePrivateKeyFile.Enabled = false;
+            this.cmdBrowsePrivateKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdBrowsePrivateKeyFile.Location = new System.Drawing.Point(380, 167);
+            this.cmdBrowsePrivateKeyFile.Name = "cmdBrowsePrivateKeyFile";
+            this.cmdBrowsePrivateKeyFile.Size = new System.Drawing.Size(41, 23);
+            this.cmdBrowsePrivateKeyFile.TabIndex = 12;
+            this.cmdBrowsePrivateKeyFile.Text = "- - -";
+            this.cmdBrowsePrivateKeyFile.UseVisualStyleBackColor = true;
+            this.cmdBrowsePrivateKeyFile.Click += new System.EventHandler(this.cmdBrowsePrivateKeyFile_Click);
             // 
             // groupBox6
             // 
@@ -125,6 +127,28 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Alert triggering";
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label4.Location = new System.Drawing.Point(375, 148);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "KB/s";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label3.Location = new System.Drawing.Point(207, 148);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "KB/s";
+            // 
             // lblAutoAdd
             // 
             this.lblAutoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -136,6 +160,7 @@
             this.lblAutoAdd.TabIndex = 2;
             this.lblAutoAdd.TabStop = true;
             this.lblAutoAdd.Text = "Auto add";
+            this.lblAutoAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAutoAdd_LinkClicked);
             // 
             // label2
             // 
@@ -154,6 +179,7 @@
             this.txtFileSystem.Name = "txtFileSystem";
             this.txtFileSystem.Size = new System.Drawing.Size(303, 20);
             this.txtFileSystem.TabIndex = 5;
+            this.txtFileSystem.TextChanged += new System.EventHandler(this.txtFileSystem_TextChanged);
             // 
             // lblAddFileSystem
             // 
@@ -166,6 +192,7 @@
             this.lblAddFileSystem.TabIndex = 1;
             this.lblAddFileSystem.TabStop = true;
             this.lblAddFileSystem.Text = "Add new";
+            this.lblAddFileSystem.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAddFileSystem_LinkClicked);
             // 
             // lvwFileSystems
             // 
@@ -182,6 +209,8 @@
             this.lvwFileSystems.TabIndex = 3;
             this.lvwFileSystems.UseCompatibleStateImageBehavior = false;
             this.lvwFileSystems.View = System.Windows.Forms.View.Details;
+            this.lvwFileSystems.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwFileSystems_DeleteKeyPressed);
+            this.lvwFileSystems.SelectedIndexChanged += new System.EventHandler(this.lvwFileSystems_SelectedIndexChanged);
             // 
             // interfaceColumnHeader
             // 
@@ -223,6 +252,7 @@
             0,
             0,
             0});
+            this.errorNumericUpDown.ValueChanged += new System.EventHandler(this.errorNumericUpDown_ValueChanged);
             // 
             // label22
             // 
@@ -252,6 +282,7 @@
             0,
             0,
             0});
+            this.warningNumericUpDown.ValueChanged += new System.EventHandler(this.warningNumericUpDown_ValueChanged);
             // 
             // label23
             // 
@@ -329,6 +360,7 @@
             this.cmdOK.TabIndex = 16;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // cmdCancel
             // 
@@ -415,6 +447,7 @@
             this.optPrivateKey.TabIndex = 1;
             this.optPrivateKey.Text = "Private key";
             this.optPrivateKey.UseVisualStyleBackColor = true;
+            this.optPrivateKey.CheckedChanged += new System.EventHandler(this.optPrivateKey_CheckedChanged);
             // 
             // optPassword
             // 
@@ -427,28 +460,12 @@
             this.optPassword.TabStop = true;
             this.optPassword.Text = "Username/Password";
             this.optPassword.UseVisualStyleBackColor = true;
+            this.optPassword.CheckedChanged += new System.EventHandler(this.optPassword_CheckedChanged);
             // 
-            // label3
+            // privateKeyOpenFileDialog
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label3.Location = new System.Drawing.Point(207, 148);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "KB/s";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label4.Location = new System.Drawing.Point(375, 148);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "KB/s";
+            this.privateKeyOpenFileDialog.DefaultExt = "*";
+            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
             // 
             // LinuxNICCollectorEditEntry
             // 
@@ -457,7 +474,7 @@
             this.ClientSize = new System.Drawing.Size(433, 433);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label24);
-            this.Controls.Add(this.cmdEditPerfCounter);
+            this.Controls.Add(this.cmdBrowsePrivateKeyFile);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.txtMachineName);
@@ -479,6 +496,7 @@
             this.Name = "LinuxNICCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Linux NIC";
+            this.Load += new System.EventHandler(this.LinuxNICCollectorEditEntry_Load);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
@@ -495,7 +513,7 @@
 
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Button cmdEditPerfCounter;
+        private System.Windows.Forms.Button cmdBrowsePrivateKeyFile;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.LinkLabel lblAutoAdd;
         private System.Windows.Forms.Label label2;
@@ -527,5 +545,6 @@
         private System.Windows.Forms.RadioButton optPassword;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
     }
 }
