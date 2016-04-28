@@ -22,7 +22,23 @@ namespace QuickMon.Linux
         }
     }
     #endregion
-    
+
+    public class SSHConnectionDetails
+    {
+        public SSHSecurityOption SSHSecurityOption { get; set; }
+        public string ComputerName { get; set; }
+        public int SSHPort { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string PrivateKeyFile { get; set; }
+        public string PassPhrase { get; set; }
+
+        public static string FormatSSHConnection(SSHConnectionDetails connection)
+        {
+            return string.Format("Computer={0}:{1},Sec={2},User={3},PrvtKeyFile={4}", connection.ComputerName, connection.SSHPort, connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", connection.UserName, connection.PrivateKeyFile);
+        }
+    }
+
     public class SshClientTools
     {
         public static Renci.SshNet.SshClient GetSSHConnection(SSHSecurityOption sshSecurityOption ,string machineName, int sshPort,  string userName, string password, string privateKeyFile, string passCodeOrPhrase)

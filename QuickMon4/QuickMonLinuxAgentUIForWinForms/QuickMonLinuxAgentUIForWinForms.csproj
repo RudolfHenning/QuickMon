@@ -70,6 +70,12 @@
       <DependentUpon>LinuxDiskSpaceCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\DiskSpace\LinuxDiskSpaceCollectorUI.cs" />
+    <Compile Include="Collectors\EditSSHConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\EditSSHConnection.Designer.cs">
+      <DependentUpon>EditSSHConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\DiskSpace\LinuxDiskSpaceCollectorEditEntry.resx">
       <DependentUpon>LinuxDiskSpaceCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\EditSSHConnection.resx">
+      <DependentUpon>EditSSHConnection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.resx">
       <DependentUpon>LinuxMemoryCollectorEditEntry.cs</DependentUpon>

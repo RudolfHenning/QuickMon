@@ -33,6 +33,9 @@ namespace QuickMon.Collectors
         private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtSSHConnection;
+        private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.Label label3;
 
         private void InitializeComponent()
@@ -63,6 +66,9 @@ namespace QuickMon.Collectors
             this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtSSHConnection = new System.Windows.Forms.TextBox();
+            this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,7 +80,7 @@ namespace QuickMon.Collectors
             // 
             this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsername.Location = new System.Drawing.Point(122, 111);
+            this.txtUsername.Location = new System.Drawing.Point(122, 175);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(299, 20);
             this.txtUsername.TabIndex = 6;
@@ -82,7 +88,7 @@ namespace QuickMon.Collectors
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 0;
@@ -92,7 +98,7 @@ namespace QuickMon.Collectors
             // 
             this.txtMachineName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMachineName.Location = new System.Drawing.Point(12, 26);
+            this.txtMachineName.Location = new System.Drawing.Point(12, 90);
             this.txtMachineName.Name = "txtMachineName";
             this.txtMachineName.Size = new System.Drawing.Size(352, 20);
             this.txtMachineName.TabIndex = 1;
@@ -100,7 +106,7 @@ namespace QuickMon.Collectors
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 114);
+            this.label3.Location = new System.Drawing.Point(12, 178);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 5;
@@ -111,7 +117,7 @@ namespace QuickMon.Collectors
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 320);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 392);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 17;
@@ -122,7 +128,7 @@ namespace QuickMon.Collectors
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 320);
+            this.cmdOK.Location = new System.Drawing.Point(265, 392);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 16;
@@ -136,7 +142,7 @@ namespace QuickMon.Collectors
             this.chkUseOnlyTotalCPUvalue.Checked = true;
             this.chkUseOnlyTotalCPUvalue.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkUseOnlyTotalCPUvalue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(15, 227);
+            this.chkUseOnlyTotalCPUvalue.Location = new System.Drawing.Point(15, 291);
             this.chkUseOnlyTotalCPUvalue.Name = "chkUseOnlyTotalCPUvalue";
             this.chkUseOnlyTotalCPUvalue.Size = new System.Drawing.Size(124, 17);
             this.chkUseOnlyTotalCPUvalue.TabIndex = 14;
@@ -145,7 +151,7 @@ namespace QuickMon.Collectors
             // 
             // sshPortNumericUpDown
             // 
-            this.sshPortNumericUpDown.Location = new System.Drawing.Point(370, 27);
+            this.sshPortNumericUpDown.Location = new System.Drawing.Point(370, 91);
             this.sshPortNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -168,7 +174,7 @@ namespace QuickMon.Collectors
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(371, 11);
+            this.label5.Location = new System.Drawing.Point(371, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 13);
             this.label5.TabIndex = 2;
@@ -181,7 +187,7 @@ namespace QuickMon.Collectors
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.optPrivateKey);
             this.groupBox1.Controls.Add(this.optPassword);
-            this.groupBox1.Location = new System.Drawing.Point(12, 53);
+            this.groupBox1.Location = new System.Drawing.Point(12, 117);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(409, 50);
             this.groupBox1.TabIndex = 4;
@@ -216,7 +222,7 @@ namespace QuickMon.Collectors
             // 
             this.txtPrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPrivateKeyFile.Location = new System.Drawing.Point(122, 168);
+            this.txtPrivateKeyFile.Location = new System.Drawing.Point(122, 232);
             this.txtPrivateKeyFile.Name = "txtPrivateKeyFile";
             this.txtPrivateKeyFile.ReadOnly = true;
             this.txtPrivateKeyFile.Size = new System.Drawing.Size(252, 20);
@@ -225,7 +231,7 @@ namespace QuickMon.Collectors
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 171);
+            this.label2.Location = new System.Drawing.Point(12, 235);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 9;
@@ -235,7 +241,7 @@ namespace QuickMon.Collectors
             // 
             this.txtPassPhrase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassPhrase.Location = new System.Drawing.Point(122, 194);
+            this.txtPassPhrase.Location = new System.Drawing.Point(122, 258);
             this.txtPassPhrase.Name = "txtPassPhrase";
             this.txtPassPhrase.PasswordChar = '*';
             this.txtPassPhrase.Size = new System.Drawing.Size(299, 20);
@@ -244,7 +250,7 @@ namespace QuickMon.Collectors
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 197);
+            this.label4.Location = new System.Drawing.Point(12, 261);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 12;
@@ -259,7 +265,7 @@ namespace QuickMon.Collectors
             this.groupBox2.Controls.Add(this.warningNumericUpDown);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox2.Location = new System.Drawing.Point(12, 250);
+            this.groupBox2.Location = new System.Drawing.Point(12, 314);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(409, 57);
             this.groupBox2.TabIndex = 15;
@@ -327,7 +333,7 @@ namespace QuickMon.Collectors
             this.cmdEditPerfCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditPerfCounter.Enabled = false;
             this.cmdEditPerfCounter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditPerfCounter.Location = new System.Drawing.Point(380, 166);
+            this.cmdEditPerfCounter.Location = new System.Drawing.Point(380, 230);
             this.cmdEditPerfCounter.Name = "cmdEditPerfCounter";
             this.cmdEditPerfCounter.Size = new System.Drawing.Size(41, 23);
             this.cmdEditPerfCounter.TabIndex = 11;
@@ -344,7 +350,7 @@ namespace QuickMon.Collectors
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(122, 137);
+            this.txtPassword.Location = new System.Drawing.Point(122, 201);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(299, 20);
@@ -353,16 +359,52 @@ namespace QuickMon.Collectors
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 140);
+            this.label8.Location = new System.Drawing.Point(12, 204);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 13);
             this.label8.TabIndex = 7;
             this.label8.Text = "Password";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(119, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "SSH Connection details";
+            // 
+            // txtSSHConnection
+            // 
+            this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.txtSSHConnection.Location = new System.Drawing.Point(12, 25);
+            this.txtSSHConnection.Multiline = true;
+            this.txtSSHConnection.Name = "txtSSHConnection";
+            this.txtSSHConnection.ReadOnly = true;
+            this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
+            this.txtSSHConnection.TabIndex = 19;
+            this.txtSSHConnection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtSSHConnection_MouseClick);
+            this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
+            // 
+            // lblEditSSHConnection
+            // 
+            this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEditSSHConnection.AutoSize = true;
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 9);
+            this.lblEditSSHConnection.Name = "lblEditSSHConnection";
+            this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
+            this.lblEditSSHConnection.TabIndex = 20;
+            this.lblEditSSHConnection.TabStop = true;
+            this.lblEditSSHConnection.Text = "Edit";
+            this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
+            // 
             // LinuxCPUCollectorEditEntry
             // 
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 355);
+            this.ClientSize = new System.Drawing.Size(433, 427);
+            this.Controls.Add(this.lblEditSSHConnection);
+            this.Controls.Add(this.txtSSHConnection);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmdEditPerfCounter);
@@ -407,6 +449,8 @@ namespace QuickMon.Collectors
             InitializeComponent();
         }
 
+        private QuickMon.Linux.SSHConnectionDetails sshConnectionDetails = new Linux.SSHConnectionDetails();
+
         private void optPassword_CheckedChanged(object sender, EventArgs e)
         {
             //txtUsername.ReadOnly = !optPassword.Checked;
@@ -431,13 +475,24 @@ namespace QuickMon.Collectors
             LinuxCPUEntry currentEntry = (LinuxCPUEntry)SelectedEntry;
             if (currentEntry == null)
                 currentEntry = new LinuxCPUEntry();
-            txtMachineName.Text = currentEntry.MachineName;
-            sshPortNumericUpDown.SaveValueSet(currentEntry.SSHPort);
-            optPrivateKey.Checked = currentEntry.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
-            txtUsername.Text = currentEntry.UserName;
-            txtPassword.Text = currentEntry.Password;
-            txtPrivateKeyFile.Text = currentEntry.PrivateKeyFile;
-            txtPassPhrase.Text = currentEntry.PassPhrase;
+            sshConnectionDetails = new Linux.SSHConnectionDetails() { ComputerName = currentEntry.MachineName, SSHPort = currentEntry.SSHPort, SSHSecurityOption = currentEntry.SSHSecurityOption, UserName = currentEntry.UserName, Password = currentEntry.Password, PrivateKeyFile = currentEntry.PrivateKeyFile, PassPhrase = currentEntry.PassPhrase };
+            txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+
+            txtMachineName.Text = sshConnectionDetails.ComputerName;
+            sshPortNumericUpDown.SaveValueSet(sshConnectionDetails.SSHPort);
+            optPrivateKey.Checked = sshConnectionDetails.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
+            txtUsername.Text = sshConnectionDetails.UserName;
+            txtPassword.Text = sshConnectionDetails.Password;
+            txtPrivateKeyFile.Text = sshConnectionDetails.PrivateKeyFile;
+            txtPassPhrase.Text = sshConnectionDetails.PassPhrase;
+
+            //txtMachineName.Text = currentEntry.MachineName;
+            //sshPortNumericUpDown.SaveValueSet(currentEntry.SSHPort);
+            //optPrivateKey.Checked = currentEntry.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
+            //txtUsername.Text = currentEntry.UserName;
+            //txtPassword.Text = currentEntry.Password;
+            //txtPrivateKeyFile.Text = currentEntry.PrivateKeyFile;
+            //txtPassPhrase.Text = currentEntry.PassPhrase;
             chkUseOnlyTotalCPUvalue.Checked = currentEntry.UseOnlyTotalCPUvalue;
             warningNumericUpDown.SaveValueSet((decimal)currentEntry.WarningValue);
             errorNumericUpDown.SaveValueSet((decimal)currentEntry.ErrorValue); 
@@ -467,19 +522,62 @@ namespace QuickMon.Collectors
             if (SelectedEntry == null)
                 SelectedEntry = new LinuxCPUEntry();
             selectedEntry = (LinuxCPUEntry)SelectedEntry;
-            selectedEntry.MachineName = txtMachineName.Text;
-            selectedEntry.SSHPort = (int)sshPortNumericUpDown.Value;
-            selectedEntry.SSHSecurityOption = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
-            selectedEntry.UserName = txtUsername.Text;
 
-            selectedEntry.PrivateKeyFile = txtPrivateKeyFile.Text;
-            selectedEntry.PassPhrase = txtPassPhrase.Text;
+            selectedEntry.MachineName = sshConnectionDetails.ComputerName;
+            selectedEntry.SSHPort = sshConnectionDetails.SSHPort;
+            selectedEntry.SSHSecurityOption = sshConnectionDetails.SSHSecurityOption;
+            selectedEntry.UserName = sshConnectionDetails.UserName;
+            selectedEntry.Password = sshConnectionDetails.Password;
+            selectedEntry.PrivateKeyFile = sshConnectionDetails.PrivateKeyFile;
+            selectedEntry.PassPhrase = sshConnectionDetails.PassPhrase;
+
+            //selectedEntry.MachineName = txtMachineName.Text;
+            //selectedEntry.SSHPort = (int)sshPortNumericUpDown.Value;
+            //selectedEntry.SSHSecurityOption = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
+            //selectedEntry.UserName = txtUsername.Text;
+
+            //selectedEntry.PrivateKeyFile = txtPrivateKeyFile.Text;
+            //selectedEntry.PassPhrase = txtPassPhrase.Text;
             selectedEntry.UseOnlyTotalCPUvalue = chkUseOnlyTotalCPUvalue.Checked;
             selectedEntry.WarningValue = (double)warningNumericUpDown.Value;
             selectedEntry.ErrorValue = (double)errorNumericUpDown.Value;
             
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
+        }
+
+        private void txtSSHConnection_DoubleClick(object sender, EventArgs e)
+        {
+            EditSSHConnection();
+        }
+
+        private void lblEditSSHConnection_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            EditSSHConnection();
+        }
+
+        private void EditSSHConnection()
+        {
+            EditSSHConnection editor = new Collectors.EditSSHConnection();
+            editor.SSHConnectionDetails = sshConnectionDetails;
+            if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                sshConnectionDetails = editor.SSHConnectionDetails;
+                txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+
+                txtMachineName.Text = sshConnectionDetails.ComputerName;
+                sshPortNumericUpDown.SaveValueSet(sshConnectionDetails.SSHPort);
+                optPrivateKey.Checked = sshConnectionDetails.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
+                txtUsername.Text = sshConnectionDetails.UserName;
+                txtPassword.Text = sshConnectionDetails.Password;
+                txtPrivateKeyFile.Text = sshConnectionDetails.PrivateKeyFile;
+                txtPassPhrase.Text = sshConnectionDetails.PassPhrase;
+            }            
+        }
+
+        private void txtSSHConnection_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            EditSSHConnection();
         }
     }
 }

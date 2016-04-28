@@ -39,6 +39,8 @@
             this.lblAddFileSystem = new System.Windows.Forms.LinkLabel();
             this.lvwDisks = new QuickMon.ListViewEx();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
@@ -62,8 +64,6 @@
             this.optPassword = new System.Windows.Forms.RadioButton();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
@@ -79,15 +79,17 @@
             // errorColumnHeader
             // 
             this.errorColumnHeader.Text = "Error";
+            this.errorColumnHeader.Width = 78;
             // 
             // warningColumnHeader
             // 
             this.warningColumnHeader.Text = "Warning";
+            this.warningColumnHeader.Width = 75;
             // 
             // fileSystemColumnHeader
             // 
             this.fileSystemColumnHeader.Text = "Disk";
-            this.fileSystemColumnHeader.Width = 256;
+            this.fileSystemColumnHeader.Width = 233;
             // 
             // lblAutoAdd
             // 
@@ -175,6 +177,28 @@
             this.groupBox6.TabIndex = 31;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Alert triggering";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label4.Location = new System.Drawing.Point(368, 148);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "KB/s";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label3.Location = new System.Drawing.Point(209, 148);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "KB/s";
             // 
             // label1
             // 
@@ -454,28 +478,6 @@
             this.label20.Size = new System.Drawing.Size(76, 13);
             this.label20.TabIndex = 26;
             this.label20.Text = "Private key file";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label3.Location = new System.Drawing.Point(209, 148);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "KB/s";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label4.Location = new System.Drawing.Point(368, 148);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "KB/s";
             // 
             // LinuxDiskIOCollectorEditEntry
             // 
