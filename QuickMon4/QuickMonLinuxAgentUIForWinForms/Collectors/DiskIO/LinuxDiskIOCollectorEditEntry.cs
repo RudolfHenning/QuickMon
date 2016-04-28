@@ -10,9 +10,9 @@ using QuickMon.Forms;
 
 namespace QuickMon.Collectors
 {
-    public partial class LinuxNICCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
+    public partial class LinuxDiskIOCollectorEditEntry : Form, ICollectorConfigEntryEditWindow
     {
-        public LinuxNICCollectorEditEntry()
+        public LinuxDiskIOCollectorEditEntry()
         {
             InitializeComponent();
         }
@@ -25,18 +25,18 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-        private void LinuxNICCollectorEditEntry_Load(object sender, EventArgs e)
+        private void LinuxDiskIOCollectorEditEntry_Load(object sender, EventArgs e)
         {
-            lvwNICs.AutoResizeColumnEnabled = true;
+            lvwDisks.AutoResizeColumnEnabled = true;
             LoadEntryDetails();
         }
 
         #region Private methods
         private void LoadEntryDetails()
         {
-            LinuxNICEntry currentEntry = (LinuxNICEntry)SelectedEntry;
+            LinuxDiskIOEntry currentEntry = (LinuxDiskIOEntry)SelectedEntry;
             if (currentEntry == null)
-                currentEntry = new LinuxNICEntry();
+                currentEntry = new LinuxDiskIOEntry();
             txtMachineName.Text = currentEntry.MachineName;
             sshPortNumericUpDown.SaveValueSet(currentEntry.SSHPort);
             optPrivateKey.Checked = currentEntry.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
@@ -45,13 +45,13 @@ namespace QuickMon.Collectors
             txtPrivateKeyFile.Text = currentEntry.PrivateKeyFile;
             txtPassPhrase.Text = currentEntry.PassPhrase;
 
-            foreach (LinuxNICSubEntry dsse in currentEntry.SubItems)
+            foreach (LinuxDiskIOSubEntry dsse in currentEntry.SubItems)
             {
-                ListViewItem lvi = new ListViewItem() { Text = dsse.NICName };
-                lvi.SubItems.Add(dsse.WarningValueKB.ToString());
-                lvi.SubItems.Add(dsse.ErrorValueKB.ToString());
+                ListViewItem lvi = new ListViewItem() { Text = dsse.Disk };
+                lvi.SubItems.Add(dsse.WarningValue.ToString());
+                lvi.SubItems.Add(dsse.ErrorValue.ToString());
                 lvi.Tag = dsse;
-                lvwNICs.Items.Add(lvi);
+                lvwDisks.Items.Add(lvi);
             }
         }
         #endregion
@@ -89,19 +89,19 @@ namespace QuickMon.Collectors
         private bool fileSystemUpdated = false;
         private void lvwFileSystems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lvwNICs.SelectedItems.Count == 1)
+            if (lvwDisks.SelectedItems.Count == 1)
             {
                 fileSystemUpdated = true;
-                LinuxNICSubEntry dsse = (LinuxNICSubEntry)lvwNICs.SelectedItems[0].Tag;
-                warningNumericUpDown.SaveValueSet((decimal)dsse.WarningValueKB);
-                errorNumericUpDown.SaveValueSet((decimal)dsse.ErrorValueKB);
-                txtNIC.Text = dsse.NICName;
+                LinuxDiskIOSubEntry dsse = (LinuxDiskIOSubEntry)lvwDisks.SelectedItems[0].Tag;
+                warningNumericUpDown.SaveValueSet((decimal)dsse.WarningValue);
+                errorNumericUpDown.SaveValueSet((decimal)dsse.ErrorValue);
+                txtDisk.Text = dsse.Disk;
                 fileSystemUpdated = false;
             }
-            else if (lvwNICs.SelectedItems.Count == 0)
+            else if (lvwDisks.SelectedItems.Count == 0)
             {
                 fileSystemUpdated = true;
-                txtNIC.Text = "";
+                txtDisk.Text = "";
                 fileSystemUpdated = false;
             }
         }
@@ -123,28 +123,28 @@ namespace QuickMon.Collectors
 
         private void UpdateFileSystem()
         {
-            if (txtNIC.Text.Trim().Length > 0 && !fileSystemUpdated)
+            if (txtDisk.Text.Trim().Length > 0 && !fileSystemUpdated)
             {
-                if (lvwNICs.SelectedItems.Count == 1)
+                if (lvwDisks.SelectedItems.Count == 1)
                 {
-                    ListViewItem lvi = lvwNICs.SelectedItems[0];
-                    LinuxNICSubEntry dsse = (LinuxNICSubEntry)lvwNICs.SelectedItems[0].Tag;
-                    dsse.NICName = txtNIC.Text;
-                    dsse.WarningValueKB = (long)warningNumericUpDown.Value;
-                    dsse.ErrorValueKB = (long)errorNumericUpDown.Value;
-                    lvi.Text = txtNIC.Text;
+                    ListViewItem lvi = lvwDisks.SelectedItems[0];
+                    LinuxDiskIOSubEntry dsse = (LinuxDiskIOSubEntry)lvwDisks.SelectedItems[0].Tag;
+                    dsse.Disk = txtDisk.Text;
+                    dsse.WarningValue = (double)warningNumericUpDown.Value;
+                    dsse.ErrorValue = (double)errorNumericUpDown.Value;
+                    lvi.Text = txtDisk.Text;
                     lvi.SubItems[1].Text = warningNumericUpDown.Value.ToString();
                     lvi.SubItems[2].Text = errorNumericUpDown.Value.ToString();
                 }
                 else
                 {
-                    LinuxNICSubEntry dsse = new LinuxNICSubEntry() { NICName = txtNIC.Text, WarningValueKB = (long)warningNumericUpDown.Value, ErrorValueKB = (long)errorNumericUpDown.Value };
-                    ListViewItem lvi = new ListViewItem() { Text = dsse.NICName };
-                    lvi.SubItems.Add(dsse.WarningValueKB.ToString());
-                    lvi.SubItems.Add(dsse.ErrorValueKB.ToString());
+                    LinuxDiskIOSubEntry dsse = new LinuxDiskIOSubEntry() { Disk = txtDisk.Text, WarningValue = (double)warningNumericUpDown.Value, ErrorValue = (double)errorNumericUpDown.Value };
+                    ListViewItem lvi = new ListViewItem() { Text = dsse.Disk };
+                    lvi.SubItems.Add(dsse.WarningValue.ToString());
+                    lvi.SubItems.Add(dsse.ErrorValue.ToString());
                     lvi.Tag = dsse;
-                    lvwNICs.Items.Add(lvi);
-                    lvwNICs.SelectedItems.Clear();
+                    lvwDisks.Items.Add(lvi);
+                    lvwDisks.SelectedItems.Clear();
                     lvi.Selected = true;
                 }
             }
@@ -152,19 +152,19 @@ namespace QuickMon.Collectors
 
         private void lblAddFileSystem_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            lvwNICs.SelectedItems.Clear();
-            txtNIC.Text = "";
+            lvwDisks.SelectedItems.Clear();
+            txtDisk.Text = "";
         }
 
         private void lvwFileSystems_DeleteKeyPressed()
         {
-            if (lvwNICs.SelectedItems.Count > 0)
+            if (lvwDisks.SelectedItems.Count > 0)
             {
                 if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    foreach (ListViewItem lvi in lvwNICs.SelectedItems)
+                    foreach (ListViewItem lvi in lvwDisks.SelectedItems)
                     {
-                        lvwNICs.Items.Remove(lvi);
+                        lvwDisks.Items.Remove(lvi);
                     }
                 }
             }
@@ -172,10 +172,10 @@ namespace QuickMon.Collectors
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            LinuxNICEntry selectedEntry;
+            LinuxDiskIOEntry selectedEntry;
             if (SelectedEntry == null)
-                SelectedEntry = new LinuxNICEntry();
-            selectedEntry = (LinuxNICEntry)SelectedEntry;
+                SelectedEntry = new LinuxDiskIOEntry();
+            selectedEntry = (LinuxDiskIOEntry)SelectedEntry;
             selectedEntry.MachineName = txtMachineName.Text;
             selectedEntry.SSHPort = (int)sshPortNumericUpDown.Value;
             selectedEntry.SSHSecurityOption = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
@@ -185,9 +185,9 @@ namespace QuickMon.Collectors
             selectedEntry.PassPhrase = txtPassPhrase.Text;
             selectedEntry.SubItems = new List<ICollectorConfigSubEntry>();
 
-            foreach (ListViewItem lvi in lvwNICs.Items)
+            foreach (ListViewItem lvi in lvwDisks.Items)
             {
-                LinuxNICSubEntry dsse = (LinuxNICSubEntry)lvi.Tag;
+                LinuxDiskIOSubEntry dsse = (LinuxDiskIOSubEntry)lvi.Tag;
                 selectedEntry.SubItems.Add(dsse);
             }
 
@@ -200,35 +200,34 @@ namespace QuickMon.Collectors
         {
             try
             {
-                if (lvwNICs.Items.Count > 0 && (MessageBox.Show("Clear all existing entries?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No))
+                if (lvwDisks.Items.Count > 0 && (MessageBox.Show("Clear all existing entries?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No))
                 {
                     return;
                 }
                 else
                 {
-                    lvwNICs.Items.Clear();
-                    lvwNICs.Items.Add(new ListViewItem("Querying " + txtMachineName.Text + "..."));
+                    lvwDisks.Items.Clear();
+                    lvwDisks.Items.Add(new ListViewItem("Querying " + txtMachineName.Text + "..."));
                     Application.DoEvents();
-                }                
-
+                }
                 QuickMon.Linux.SSHSecurityOption sshSecOpt = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
                 Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(sshSecOpt, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
                 if (sshClient.IsConnected)
                 {
-                    lvwNICs.Items.Clear();
-                    foreach (Linux.NicInfo di in QuickMon.Linux.NicInfo.GetCurrentNicStats(sshClient))
+                    lvwDisks.Items.Clear();
+                    foreach (Linux.DiskIOInfo di in QuickMon.Linux.DiskIOInfo.GetCurrentDiskStats(sshClient))
                     {
-                        LinuxNICSubEntry dsse = new LinuxNICSubEntry() { NICName = di.Name, WarningValueKB = (long)warningNumericUpDown.Value, ErrorValueKB = (long)errorNumericUpDown.Value };
-                        ListViewItem lvi = new ListViewItem() { Text = dsse.NICName };
-                        lvi.SubItems.Add(dsse.WarningValueKB.ToString());
-                        lvi.SubItems.Add(dsse.ErrorValueKB.ToString());
+                        LinuxDiskIOSubEntry dsse = new LinuxDiskIOSubEntry() { Disk = di.Name, WarningValue = 10, ErrorValue = 5 };
+                        ListViewItem lvi = new ListViewItem() { Text = dsse.Disk };
+                        lvi.SubItems.Add(dsse.WarningValue.ToString());
+                        lvi.SubItems.Add(dsse.ErrorValue.ToString());
                         lvi.Tag = dsse;
-                        lvwNICs.Items.Add(lvi);
+                        lvwDisks.Items.Add(lvi);
                     }
                 }
                 else
                 {
-                    lvwNICs.Items.Clear();
+                    lvwDisks.Items.Clear();
                     MessageBox.Show("Could not connect to computer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
