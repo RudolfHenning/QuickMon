@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -64,6 +64,7 @@
             this.saveAsMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripSplitButton();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.pauseToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.agentsToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.addCollectorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -180,12 +181,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode3.BackColor = System.Drawing.Color.White;
+            treeNode3.Name = "root";
+            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode3.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -279,12 +280,12 @@
             this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "NOTIFIERS";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "NOTIFIERS";
             this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
@@ -477,12 +478,13 @@
             this.openMonitorPackToolStripButton,
             this.saveAsMonitorPackToolStripMenuItem,
             this.refreshToolStripButton1,
+            this.pauseToolStripButton,
             this.agentsToolStripButton,
             this.generalSettingsToolStripSplitButton,
             this.aboutToolStripMenuItem1});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(260, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(314, 35);
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -542,6 +544,18 @@
             this.refreshToolStripButton1.Text = "Refresh";
             this.refreshToolStripButton1.ToolTipText = "Refresh (F5)";
             this.refreshToolStripButton1.Click += new System.EventHandler(this.refreshToolStripButton_Click);
+            // 
+            // pauseToolStripButton
+            // 
+            this.pauseToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pauseToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pauseToolStripButton.Image = global::QuickMon.Properties.Resources._221_5;
+            this.pauseToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.pauseToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pauseToolStripButton.Name = "pauseToolStripButton";
+            this.pauseToolStripButton.Size = new System.Drawing.Size(23, 32);
+            this.pauseToolStripButton.Text = "Pause/Continue Polling";
+            this.pauseToolStripButton.Click += new System.EventHandler(this.pauseToolStripButton_Click);
             // 
             // agentsToolStripButton
             // 
@@ -877,6 +891,7 @@
         private Controls.TreeViewExBase tvwNotifiers;
         private System.Windows.Forms.ImageList notifierImageList;
         private System.Windows.Forms.ToolStripMenuItem restartInNonAdminModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton pauseToolStripButton;
     }
 }
 

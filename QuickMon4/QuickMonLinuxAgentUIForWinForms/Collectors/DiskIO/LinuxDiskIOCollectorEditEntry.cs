@@ -25,6 +25,8 @@ namespace QuickMon.Collectors
         }
         #endregion
 
+        private QuickMon.Linux.SSHConnectionDetails sshConnectionDetails = new Linux.SSHConnectionDetails();
+
         private void LinuxDiskIOCollectorEditEntry_Load(object sender, EventArgs e)
         {
             lvwDisks.AutoResizeColumnEnabled = true;
@@ -37,13 +39,8 @@ namespace QuickMon.Collectors
             LinuxDiskIOEntry currentEntry = (LinuxDiskIOEntry)SelectedEntry;
             if (currentEntry == null)
                 currentEntry = new LinuxDiskIOEntry();
-            txtMachineName.Text = currentEntry.MachineName;
-            sshPortNumericUpDown.SaveValueSet(currentEntry.SSHPort);
-            optPrivateKey.Checked = currentEntry.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
-            txtUsername.Text = currentEntry.UserName;
-            txtPassword.Text = currentEntry.Password;
-            txtPrivateKeyFile.Text = currentEntry.PrivateKeyFile;
-            txtPassPhrase.Text = currentEntry.PassPhrase;
+            sshConnectionDetails = currentEntry.SSHConnection;
+            txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
 
             foreach (LinuxDiskIOSubEntry dsse in currentEntry.SubItems)
             {
@@ -55,37 +52,7 @@ namespace QuickMon.Collectors
             }
         }
         #endregion
-
-        private void optPassword_CheckedChanged(object sender, EventArgs e)
-        {
-            //txtUsername.ReadOnly = !optPassword.Checked;
-            txtPassword.ReadOnly = !optPassword.Checked;
-            txtPrivateKeyFile.ReadOnly = optPassword.Checked;
-            cmdBrowsePrivateKeyFile.Enabled = !optPassword.Checked;
-            txtPassPhrase.ReadOnly = optPassword.Checked;
-        }
-
-        private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
-        {
-            //txtUsername.ReadOnly = optPrivateKey.Checked;
-            txtPassword.ReadOnly = optPrivateKey.Checked;
-            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
-            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
-            txtPassPhrase.ReadOnly = optPassword.Checked;
-        }
-
-        private void cmdBrowsePrivateKeyFile_Click(object sender, EventArgs e)
-        {
-            if (txtPrivateKeyFile.Text.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text)))
-            {
-                privateKeyOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text);
-            }
-            if (privateKeyOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtPrivateKeyFile.Text = privateKeyOpenFileDialog.FileName;
-            }
-        }
-
+        
         private bool fileSystemUpdated = false;
         private void lvwFileSystems_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -176,13 +143,7 @@ namespace QuickMon.Collectors
             if (SelectedEntry == null)
                 SelectedEntry = new LinuxDiskIOEntry();
             selectedEntry = (LinuxDiskIOEntry)SelectedEntry;
-            selectedEntry.MachineName = txtMachineName.Text;
-            selectedEntry.SSHPort = (int)sshPortNumericUpDown.Value;
-            selectedEntry.SSHSecurityOption = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
-            selectedEntry.UserName = txtUsername.Text;
-
-            selectedEntry.PrivateKeyFile = txtPrivateKeyFile.Text;
-            selectedEntry.PassPhrase = txtPassPhrase.Text;
+            selectedEntry.SSHConnection = sshConnectionDetails;
             selectedEntry.SubItems = new List<ICollectorConfigSubEntry>();
 
             foreach (ListViewItem lvi in lvwDisks.Items)
@@ -207,11 +168,10 @@ namespace QuickMon.Collectors
                 else
                 {
                     lvwDisks.Items.Clear();
-                    lvwDisks.Items.Add(new ListViewItem("Querying " + txtMachineName.Text + "..."));
+                    lvwDisks.Items.Add(new ListViewItem("Querying " + sshConnectionDetails.ComputerName + "..."));
                     Application.DoEvents();
                 }
-                QuickMon.Linux.SSHSecurityOption sshSecOpt = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
-                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(sshSecOpt, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
+                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(sshConnectionDetails);
                 if (sshClient.IsConnected)
                 {
                     lvwDisks.Items.Clear();
@@ -237,6 +197,25 @@ namespace QuickMon.Collectors
             }
         }
 
+        private void lblEditSSHConnection_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditSSHConnection();
+        }
 
+        private void txtSSHConnection_DoubleClick(object sender, EventArgs e)
+        {
+            EditSSHConnection();
+        }
+
+        private void EditSSHConnection()
+        {
+            EditSSHConnection editor = new Collectors.EditSSHConnection();
+            editor.SSHConnectionDetails = sshConnectionDetails;
+            if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                sshConnectionDetails = editor.SSHConnectionDetails;
+                txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+            }
+        }
     }
 }

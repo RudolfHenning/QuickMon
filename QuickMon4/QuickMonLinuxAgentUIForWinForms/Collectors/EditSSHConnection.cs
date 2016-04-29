@@ -37,24 +37,24 @@ namespace QuickMon.Collectors
         }
         #endregion
 
+        #region Security options
         private void optPassword_CheckedChanged(object sender, EventArgs e)
         {
-            //txtUsername.ReadOnly = !optPassword.Checked;
             txtPassword.ReadOnly = !optPassword.Checked;
             txtPrivateKeyFile.ReadOnly = optPassword.Checked;
             cmdBrowsePrivateKeyFile.Enabled = !optPassword.Checked;
             txtPassPhrase.ReadOnly = optPassword.Checked;
         }
-
         private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
         {
-            //txtUsername.ReadOnly = optPrivateKey.Checked;
             txtPassword.ReadOnly = optPrivateKey.Checked;
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
             cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
             txtPassPhrase.ReadOnly = optPassword.Checked;
-        }
+        } 
+        #endregion
 
+        #region Button events
         private void cmdBrowsePrivateKeyFile_Click(object sender, EventArgs e)
         {
             if (txtPrivateKeyFile.Text.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text)))
@@ -82,7 +82,21 @@ namespace QuickMon.Collectors
 
         private void cmdTest_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
 
-        }
+                if (sshClient.IsConnected)
+                {
+                    MessageBox.Show(string.Format("Success\r\n{0}", sshClient.RunCommand("cat /proc/version").Result), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                sshClient.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Fail!\r\n{0}", ex.Message), "Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        } 
+        #endregion
     }
 }

@@ -42,11 +42,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    ForAgent = entry.MachineName + "->" + dis.FileSystemInfo.Name,
+                                    ForAgent = entry.SSHConnection.ComputerName + "->" + dis.FileSystemInfo.Name,
                                     State = CollectorState.Error,
                                     CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
-                                    RawDetails = string.Format("'{0}'-> {1} : {2}% (Error)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
-                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Error</b>)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
+                                    RawDetails = string.Format("'{0}'-> {1} : {2}% (Error)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
+                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Error</b>)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
                                 });
                         }
                         else if (dis.State == CollectorState.Warning)
@@ -55,11 +55,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                new MonitorState()
                                {
-                                   ForAgent = entry.MachineName + "->" + dis.FileSystemInfo.Name,
+                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.FileSystemInfo.Name,
                                    State = CollectorState.Warning,
                                    CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}% (Warning)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Warning</b>)", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}% (Warning)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Warning</b>)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
                                });
                         }
                         else
@@ -68,11 +68,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                new MonitorState()
                                {
-                                   ForAgent = entry.MachineName + "->" + dis.FileSystemInfo.Name,
+                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.FileSystemInfo.Name,
                                    State = CollectorState.Good,
                                    CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}%", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}%", entry.MachineName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}%", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}%", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
                                });
                         }
                     }                    
@@ -109,7 +109,7 @@ namespace QuickMon.Collectors
                 {
                     foreach (DiskInfoState diInfo in entry.GetDiskInfos())
                     {
-                        dt.Rows.Add(entry.MachineName, diInfo.FileSystemInfo.Name, diInfo.FileSystemInfo.FreeSpacePerc);
+                        dt.Rows.Add(entry.SSHConnection.ComputerName, diInfo.FileSystemInfo.Name, diInfo.FileSystemInfo.FreeSpacePerc);
                     }
                 }
             }
@@ -149,13 +149,13 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/diskSpace"))
             {
                 LinuxDiskSpaceEntry entry = new LinuxDiskSpaceEntry();
-                entry.MachineName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
-                entry.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
+                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
 
                 entry.SubItems = new List<ICollectorConfigSubEntry>();
                 foreach (XmlElement fileSystemNode in pcNode.SelectNodes("fileSystem"))
@@ -179,13 +179,13 @@ namespace QuickMon.Collectors
             foreach (LinuxDiskSpaceEntry entry in Entries)
             {
                 XmlElement diskSpaceNode = config.CreateElement("diskSpace");
-                diskSpaceNode.SetAttributeValue("machine", entry.MachineName);
-                diskSpaceNode.SetAttributeValue("sshPort", entry.SSHPort);
-                diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHSecurityOption.ToString());
-                diskSpaceNode.SetAttributeValue("userName", entry.UserName);
-                diskSpaceNode.SetAttributeValue("password", entry.Password);
-                diskSpaceNode.SetAttributeValue("privateKeyFile", entry.PrivateKeyFile);
-                diskSpaceNode.SetAttributeValue("passPhrase", entry.PassPhrase);
+                diskSpaceNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                diskSpaceNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                diskSpaceNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                diskSpaceNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                diskSpaceNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                diskSpaceNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
 
                 foreach (LinuxDiskSpaceSubEntry fse in entry.SubItems)
                 {
@@ -230,7 +230,7 @@ namespace QuickMon.Collectors
         public List<DiskInfoState> GetDiskInfos()
         {
             List<DiskInfoState> fileSystemEntries = new List<DiskInfoState>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, Password, PrivateKeyFile, PassPhrase);
+            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
             
             if (sshClient.IsConnected)
             {

@@ -42,11 +42,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    ForAgent = entry.MachineName + "->" + dis.NICInfo.Name,
+                                    ForAgent = entry.SSHConnection.ComputerName + "->" + dis.NICInfo.Name,
                                     State = CollectorState.Error,
                                     CurrentValue = dis.NICInfo.RTxBytes,
-                                    RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec (Error)", entry.MachineName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
-                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec (<b>Error</b>)", entry.MachineName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
+                                    RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec (Error)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
+                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec (<b>Error</b>)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
                                 });
                         }
                         else if (dis.State == CollectorState.Warning)
@@ -55,11 +55,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                new MonitorState()
                                {
-                                   ForAgent = entry.MachineName + "->" + dis.NICInfo.Name,
+                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.NICInfo.Name,
                                    State = CollectorState.Warning,
                                    CurrentValue = dis.NICInfo.RTxBytes,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec (Warning)", entry.MachineName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec (<b>Warning</b>)", entry.MachineName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec (Warning)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec (<b>Warning</b>)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
                                });
                         }
                         else
@@ -68,11 +68,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                new MonitorState()
                                {
-                                   ForAgent = entry.MachineName + "->" + dis.NICInfo.Name,
+                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.NICInfo.Name,
                                    State = CollectorState.Good,
                                    CurrentValue = dis.NICInfo.RTxBytes,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec", entry.MachineName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec", entry.MachineName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
                                });
                         }
                     }
@@ -109,7 +109,7 @@ namespace QuickMon.Collectors
                 {
                     foreach (NICState diInfo in entry.GetNICInfos())
                     {
-                        dt.Rows.Add(entry.MachineName, diInfo.NICInfo.Name, diInfo.NICInfo.RTxBytes);
+                        dt.Rows.Add(entry.SSHConnection.ComputerName, diInfo.NICInfo.Name, diInfo.NICInfo.RTxBytes);
                     }
                 }
             }
@@ -149,13 +149,13 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/nics"))
             {
                 LinuxNICEntry entry = new LinuxNICEntry();
-                entry.MachineName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
-                entry.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
+                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
 
                 entry.SubItems = new List<ICollectorConfigSubEntry>();
                 foreach (XmlElement fileSystemNode in pcNode.SelectNodes("nic"))
@@ -179,13 +179,13 @@ namespace QuickMon.Collectors
             foreach (LinuxNICEntry entry in Entries)
             {
                 XmlElement diskSpaceNode = config.CreateElement("nics");
-                diskSpaceNode.SetAttributeValue("machine", entry.MachineName);
-                diskSpaceNode.SetAttributeValue("sshPort", entry.SSHPort);
-                diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHSecurityOption.ToString());
-                diskSpaceNode.SetAttributeValue("userName", entry.UserName);
-                diskSpaceNode.SetAttributeValue("password", entry.Password);
-                diskSpaceNode.SetAttributeValue("privateKeyFile", entry.PrivateKeyFile);
-                diskSpaceNode.SetAttributeValue("passPhrase", entry.PassPhrase);
+                diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                diskSpaceNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                diskSpaceNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);                
+                diskSpaceNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                diskSpaceNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                diskSpaceNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                diskSpaceNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
 
                 foreach (LinuxNICSubEntry fse in entry.SubItems)
                 {
@@ -230,7 +230,7 @@ namespace QuickMon.Collectors
         public List<NICState> GetNICInfos()
         {
             List<NICState> nicEntries = new List<NICState>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, Password, PrivateKeyFile, PassPhrase);
+            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
 
             if (sshClient.IsConnected)
             {

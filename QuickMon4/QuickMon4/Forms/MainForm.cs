@@ -501,7 +501,11 @@ namespace QuickMon
                         }
                     }
                 }
-                PausePolling();
+                UpdateStatusbar("Stopping polling...");
+                PausePolling(isPollingPaused);
+                WaitForPollingToFinish(5);
+                UpdateStatusbar("Waiting for loading to finish");
+
                 InitializeBackgroundWorker();                
 
                 if (monitorPack != null)
@@ -525,8 +529,14 @@ namespace QuickMon
                 SetMonitorPackEvents();
 
                 AddMonitorPackFileToRecentList(monitorPackPath);
-                
-                ResumePolling();
+
+                if (!isPollingPaused)
+                {
+                    UpdateStatusbar("Resuming polling...");
+                    ResumePolling(true);
+                }
+                else
+                    UpdateStatusbar("");
                 monitorPackChanged = false;
             }
         }
@@ -683,10 +693,14 @@ namespace QuickMon
         }
         private void EditMonitorSettings()
         {
-            UpdateStatusbar("Stopping polling...");
-            PausePolling();
-            WaitForPollingToFinish(5);
-            UpdateStatusbar("Waiting for editing to finish");
+            HideCollectorContextMenu();
+            if (!isPollingPaused)
+            {
+                UpdateStatusbar("Stopping polling...");
+                PausePolling(false);
+                WaitForPollingToFinish(5);
+                UpdateStatusbar("Waiting for editing to finish");
+            }
 
             EditMonitorPackConfig emc = new EditMonitorPackConfig();
             emc.SelectedMonitorPack = monitorPack;
@@ -706,10 +720,11 @@ namespace QuickMon
             if (!isPollingPaused)
             {
                 UpdateStatusbar("Resuming polling...");
+                ResumePolling(true);
             }
             else
                 UpdateStatusbar("");
-            ResumePolling(true);
+            
         }
         private void SetMonitorPackNameDescription()
         {
@@ -1006,7 +1021,7 @@ namespace QuickMon
         }
         private void RefreshMonitorPack(bool disablePollingOverride = false, bool forceUpdateNow = false)
         {
-            PausePolling();
+            PausePolling(isPollingPaused);
             DateTime abortStart = DateTime.Now;
             try
             {
@@ -1023,7 +1038,8 @@ namespace QuickMon
             catch { }
             finally
             {
-                ResumePolling();
+                if (!isPollingPaused)
+                    ResumePolling();
             }
         }
         private void refreshBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -1064,11 +1080,13 @@ namespace QuickMon
                     Cursor.Current = Cursors.WaitCursor;
                     //PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
                     SetAppIcon(monitorPack.CurrentState);
+
+                    string refreshIntervalStr = autoRefreshTimer == null ? "N/A" : (autoRefreshTimer.Interval / 1000).ToString();
                     UpdateStatusbar(string.Format("Global state: {0}, Updated: {1}, Duration: {2} sec, Cur Freq: {3}",
                         globalState,
                         DateTime.Now.ToString("HH:mm:ss"),
                         (sw.ElapsedMilliseconds / 1000.00).ToString("F2"),
-                        (autoRefreshTimer.Interval / 1000).ToString()
+                        refreshIntervalStr
                         ));
                 }
                 else
@@ -1937,6 +1955,8 @@ namespace QuickMon
                     Text += " - [Disabled]";
                 if (monitorPack.Name != null && monitorPack.Name.Length > 0)
                     Text += string.Format(" - [{0}]", monitorPack.Name);
+                if (isPollingPaused)
+                    Text += " (Paused)";
             }
         }
         private void UpdateStatusbar(string msg)
@@ -2313,6 +2333,18 @@ namespace QuickMon
             InitializeBackgroundWorker();
             RefreshMonitorPack(true, true);
         }
+        private void pauseToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (isPollingPaused)
+            {
+                ResumePolling(true);                
+            }
+            else
+            {
+                PausePolling();                
+            }
+        }
+
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {            
             CreateNewCollector();
@@ -2353,10 +2385,19 @@ namespace QuickMon
         private void generalSettingsToolStripSplitButton_ButtonClick(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
-            PausePolling();            
+
             GeneralSettings generalSettings = new GeneralSettings();
             generalSettings.PollingFrequencySec = Properties.Settings.Default.PollFrequencySec;
             generalSettings.PollingEnabled = !isPollingPaused;
+
+            if (!isPollingPaused)
+            {
+                UpdateStatusbar("Stopping polling...");
+                PausePolling(false);
+                WaitForPollingToFinish(5);
+                UpdateStatusbar("Waiting for editing to finish");
+            }
+            
             if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadRecentMonitorPackList();
@@ -2368,7 +2409,13 @@ namespace QuickMon
                 isPollingPaused = !generalSettings.PollingEnabled;
             }
 
-            ResumePolling();
+            if (!isPollingPaused)
+            {
+                UpdateStatusbar("Resuming polling...");
+                ResumePolling(true);
+            }
+            else
+                UpdateStatusbar("");
         }
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2553,8 +2600,11 @@ namespace QuickMon
         {
             RefreshMonitorPack();
         }
-        private void PausePolling()
+        private void PausePolling(bool resetPauseVar = true)
         {
+            
+            isPollingPaused = true;
+            
             if (autoRefreshTimer != null)
             {
                 autoRefreshTimer.Enabled = false;
@@ -2565,17 +2615,27 @@ namespace QuickMon
                 }
                 catch { }
                 autoRefreshTimer = null;
+                
             }
+            UpdateAppTitle();
+            if (!resetPauseVar)
+            {
+                isPollingPaused = false; //change it back                
+            }
+            else
+                this.pauseToolStripButton.Image = global::QuickMon.Properties.Resources._135_42;
         }
         private void ResumePolling(bool startImmediately = false)
         {
+            isPollingPaused = false;
+            this.pauseToolStripButton.Image = global::QuickMon.Properties.Resources._221_5;
             if (autoRefreshTimer != null)
             {
                 autoRefreshTimer.Enabled = false;
                 autoRefreshTimer = null;
             }
 
-            if (!isPollingPaused)
+            //if (!isPollingPaused)
             {
                 if (startImmediately)
                 {
@@ -2594,6 +2654,7 @@ namespace QuickMon
                     autoRefreshTimer.Start();
                 }
             }
+            UpdateAppTitle();
         }
         private void SetApplicationPollingFrequency(int frequencySec)
         {
@@ -2604,7 +2665,7 @@ namespace QuickMon
                 ResumePolling();
             }
             else
-                isPollingPaused = true;            
+                PausePolling();
         }
         #endregion
 
@@ -2669,6 +2730,8 @@ namespace QuickMon
             //tm.Show();
 #endif
         }
+
+    
     }
 }
 

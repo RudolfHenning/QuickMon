@@ -41,6 +41,10 @@ namespace QuickMon.Linux
 
     public class SshClientTools
     {
+        public static Renci.SshNet.SshClient GetSSHConnection(SSHConnectionDetails sshConnection)
+        {
+            return GetSSHConnection(sshConnection.SSHSecurityOption, sshConnection.ComputerName, sshConnection.SSHPort, sshConnection.UserName, sshConnection.Password, sshConnection.PrivateKeyFile, sshConnection.PassPhrase);       
+        }
         public static Renci.SshNet.SshClient GetSSHConnection(SSHSecurityOption sshSecurityOption ,string machineName, int sshPort,  string userName, string password, string privateKeyFile, string passCodeOrPhrase)
         {
             Renci.SshNet.SshClient sshClient;
