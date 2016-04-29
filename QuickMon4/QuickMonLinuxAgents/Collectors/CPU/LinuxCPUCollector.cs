@@ -43,11 +43,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    ForAgent = entry.MachineName + "(" + cpuInfo.Name + ")",
+                                    ForAgent = entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")",
                                     State = CollectorState.Error,
                                     CurrentValue = cpuInfo.CPUPerc,
-                                    RawDetails = string.Format("'{0}': {1} (Error)", entry.MachineName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
-                                    HtmlDetails = string.Format("'{0}': {1} (<b>Error</b>)", entry.MachineName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
+                                    RawDetails = string.Format("'{0}': {1} (Error)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
+                                    HtmlDetails = string.Format("'{0}': {1} (<b>Error</b>)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
                                 });
                         }
                         else if (currentState == CollectorState.Warning)
@@ -56,11 +56,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    ForAgent = entry.MachineName + "(" + cpuInfo.Name + ")",
+                                    ForAgent = entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")",
                                     State = CollectorState.Warning,
                                     CurrentValue = cpuInfo.CPUPerc,
-                                    RawDetails = string.Format("'{0}': {1} (Warning)", entry.MachineName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
-                                    HtmlDetails = string.Format("'{0}': {1} (<b>Warning</b>)", entry.MachineName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
+                                    RawDetails = string.Format("'{0}': {1} (Warning)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
+                                    HtmlDetails = string.Format("'{0}': {1} (<b>Warning</b>)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
                                 });
                         }
                         else
@@ -69,11 +69,11 @@ namespace QuickMon.Collectors
                             returnState.ChildStates.Add(
                                 new MonitorState()
                                 {
-                                    ForAgent = entry.MachineName + "(" + cpuInfo.Name + ")",
+                                    ForAgent = entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")",
                                     State = CollectorState.Good,
                                     CurrentValue = cpuInfo.CPUPerc,
-                                    RawDetails = string.Format("'{0}': {1}", entry.MachineName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
-                                    HtmlDetails = string.Format("'{0}': {1}", entry.MachineName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
+                                    RawDetails = string.Format("'{0}': {1}", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
+                                    HtmlDetails = string.Format("'{0}': {1}", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
                                 });
                         }
                     }                    
@@ -111,7 +111,7 @@ namespace QuickMon.Collectors
                 {
                     foreach (Linux.CPUInfo cpuInfo in entry.GetCPUInfos())
                     {
-                        dt.Rows.Add(entry.MachineName, cpuInfo.Name, cpuInfo.CPUPerc);
+                        dt.Rows.Add(entry.SSHConnection.ComputerName, cpuInfo.Name, cpuInfo.CPUPerc);
                     }                    
                 }
             }
@@ -150,16 +150,18 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/cpu"))
             {
                 LinuxCPUEntry entry = new LinuxCPUEntry();
-                entry.MachineName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
-                entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);
-                entry.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
+                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+
+                entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);                
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "99"));
-                entry.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                
                 Entries.Add(entry);
             }
         }
@@ -174,16 +176,16 @@ namespace QuickMon.Collectors
             foreach (LinuxCPUEntry entry in Entries)
             {
                 XmlElement cpuNode = config.CreateElement("cpu");
-                cpuNode.SetAttributeValue("machine", entry.MachineName);
-                cpuNode.SetAttributeValue("sshPort", entry.SSHPort);
-                cpuNode.SetAttributeValue("totalCPU", entry.UseOnlyTotalCPUvalue);
-                cpuNode.SetAttributeValue("sshSecOpt", entry.SSHSecurityOption.ToString());
+                cpuNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                cpuNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                cpuNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                cpuNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                cpuNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                cpuNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                cpuNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                cpuNode.SetAttributeValue("totalCPU", entry.UseOnlyTotalCPUvalue);                
                 cpuNode.SetAttributeValue("warningValue", entry.WarningValue);
-                cpuNode.SetAttributeValue("errorValue", entry.ErrorValue);
-                cpuNode.SetAttributeValue("userName", entry.UserName);
-                cpuNode.SetAttributeValue("password", entry.Password);
-                cpuNode.SetAttributeValue("privateKeyFile", entry.PrivateKeyFile);
-                cpuNode.SetAttributeValue("passPhrase", entry.PassPhrase);
+                cpuNode.SetAttributeValue("errorValue", entry.ErrorValue);                
                 linuxCPUNode.AppendChild(cpuNode);
             }
             return config.OuterXml;
@@ -230,7 +232,7 @@ namespace QuickMon.Collectors
         public List<Linux.CPUInfo> GetCPUInfos()
         {
             List<Linux.CPUInfo> cpus = new List<Linux.CPUInfo>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHSecurityOption, MachineName, SSHPort, UserName, Password, PrivateKeyFile, PassPhrase);
+            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
 
             if (sshClient.IsConnected)
             {
@@ -272,7 +274,7 @@ namespace QuickMon.Collectors
         {
             get
             {
-                return string.Format("{0}:{1} ({2})", MachineName, SSHPort, UseOnlyTotalCPUvalue ? "Total" : "All Cores/CPUs");
+                return string.Format("{0}:{1} ({2})", SSHConnection.ComputerName, SSHConnection.SSHPort, UseOnlyTotalCPUvalue ? "Total" : "All Cores/CPUs");
             }
         }
         public override string TriggerSummary

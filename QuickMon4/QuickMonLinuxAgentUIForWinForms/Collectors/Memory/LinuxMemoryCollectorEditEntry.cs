@@ -25,6 +25,8 @@ namespace QuickMon.Collectors
         }
         #endregion
 
+        private QuickMon.Linux.SSHConnectionDetails sshConnectionDetails = new Linux.SSHConnectionDetails();
+
         private void LinuxMemoryCollectorEditEntry_Load(object sender, EventArgs e)
         {
             LoadEntryDetails();
@@ -36,66 +38,46 @@ namespace QuickMon.Collectors
             LinuxMemoryEntry currentEntry = (LinuxMemoryEntry)SelectedEntry;
             if (currentEntry == null)
                 currentEntry = new LinuxMemoryEntry();
-            txtMachineName.Text = currentEntry.MachineName;
-            sshPortNumericUpDown.SaveValueSet(currentEntry.SSHPort);
-            optPrivateKey.Checked = currentEntry.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
-            txtUsername.Text = currentEntry.UserName;
-            txtPassword.Text = currentEntry.Password;
-            txtPrivateKeyFile.Text = currentEntry.PrivateKeyFile;
-            txtPassPhrase.Text = currentEntry.PassPhrase;
+            sshConnectionDetails = currentEntry.SSHConnection;
+            txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
             warningNumericUpDown.SaveValueSet((decimal)currentEntry.WarningValue);
             errorNumericUpDown.SaveValueSet((decimal)currentEntry.ErrorValue);
         }
         #endregion
-
-        private void optPassword_CheckedChanged(object sender, EventArgs e)
-        {
-            //txtUsername.ReadOnly = !optPassword.Checked;
-            txtPassword.ReadOnly = !optPassword.Checked;
-            txtPrivateKeyFile.ReadOnly = optPassword.Checked;
-            cmdEditPerfCounter.Enabled = !optPassword.Checked;
-            txtPassPhrase.ReadOnly = optPassword.Checked;
-        }
-
-        private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
-        {
-            //txtUsername.ReadOnly = optPrivateKey.Checked;
-            txtPassword.ReadOnly = optPrivateKey.Checked;
-            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
-            cmdEditPerfCounter.Enabled = optPrivateKey.Checked;
-            txtPassPhrase.ReadOnly = optPassword.Checked;
-        }
-
-        private void cmdEditPerfCounter_Click(object sender, EventArgs e)
-        {
-            if (txtPrivateKeyFile.Text.Length > 0 && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text)))
-            {
-                privateKeyOpenFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(txtPrivateKeyFile.Text);
-            }
-            if (privateKeyOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtPrivateKeyFile.Text = privateKeyOpenFileDialog.FileName;
-            }
-        }
-
+        
         private void cmdOK_Click(object sender, EventArgs e)
         {
             LinuxMemoryEntry selectedEntry;
             if (SelectedEntry == null)
                 SelectedEntry = new LinuxMemoryEntry();
             selectedEntry = (LinuxMemoryEntry)SelectedEntry;
-            selectedEntry.MachineName = txtMachineName.Text;
-            selectedEntry.SSHPort = (int)sshPortNumericUpDown.Value;
-            selectedEntry.SSHSecurityOption = optPrivateKey.Checked ? QuickMon.Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
-            selectedEntry.UserName = txtUsername.Text;
-
-            selectedEntry.PrivateKeyFile = txtPrivateKeyFile.Text;
-            selectedEntry.PassPhrase = txtPassPhrase.Text;
+            selectedEntry.SSHConnection = sshConnectionDetails;
             selectedEntry.WarningValue = (double)warningNumericUpDown.Value;
             selectedEntry.ErrorValue = (double)errorNumericUpDown.Value;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
+        }
+
+        private void lblEditSSHConnection_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditSSHConnection();
+        }
+
+        private void EditSSHConnection()
+        {
+            EditSSHConnection editor = new Collectors.EditSSHConnection();
+            editor.SSHConnectionDetails = sshConnectionDetails;
+            if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                sshConnectionDetails = editor.SSHConnectionDetails;
+                txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+            }
+        }
+
+        private void txtSSHConnection_DoubleClick(object sender, EventArgs e)
+        {
+            EditSSHConnection();
         }
     }
 }

@@ -46,29 +46,14 @@
             this.label22 = new System.Windows.Forms.Label();
             this.warningNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label23 = new System.Windows.Forms.Label();
-            this.optPrivateKey = new System.Windows.Forms.RadioButton();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.cmdBrowsePrivateKeyFile = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtMachineName = new System.Windows.Forms.TextBox();
-            this.txtPassPhrase = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.txtPrivateKeyFile = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.sshPortNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.optPassword = new System.Windows.Forms.RadioButton();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
+            this.txtSSHConnection = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // privateKeyOpenFileDialog
@@ -171,7 +156,7 @@
             this.groupBox6.Controls.Add(this.warningNumericUpDown);
             this.groupBox6.Controls.Add(this.label23);
             this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox6.Location = new System.Drawing.Point(12, 221);
+            this.groupBox6.Location = new System.Drawing.Point(12, 74);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(409, 172);
             this.groupBox6.TabIndex = 31;
@@ -280,100 +265,11 @@
             this.label23.TabIndex = 8;
             this.label23.Text = "Error";
             // 
-            // optPrivateKey
-            // 
-            this.optPrivateKey.AutoSize = true;
-            this.optPrivateKey.Location = new System.Drawing.Point(157, 21);
-            this.optPrivateKey.Name = "optPrivateKey";
-            this.optPrivateKey.Size = new System.Drawing.Size(78, 17);
-            this.optPrivateKey.TabIndex = 1;
-            this.optPrivateKey.Text = "Private key";
-            this.optPrivateKey.UseVisualStyleBackColor = true;
-            this.optPrivateKey.CheckedChanged += new System.EventHandler(this.optPrivateKey_CheckedChanged);
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(122, 138);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(299, 20);
-            this.txtPassword.TabIndex = 25;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(12, 141);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(53, 13);
-            this.label24.TabIndex = 24;
-            this.label24.Text = "Password";
-            // 
-            // cmdBrowsePrivateKeyFile
-            // 
-            this.cmdBrowsePrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowsePrivateKeyFile.Enabled = false;
-            this.cmdBrowsePrivateKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowsePrivateKeyFile.Location = new System.Drawing.Point(380, 167);
-            this.cmdBrowsePrivateKeyFile.Name = "cmdBrowsePrivateKeyFile";
-            this.cmdBrowsePrivateKeyFile.Size = new System.Drawing.Size(41, 23);
-            this.cmdBrowsePrivateKeyFile.TabIndex = 28;
-            this.cmdBrowsePrivateKeyFile.Text = "- - -";
-            this.cmdBrowsePrivateKeyFile.UseVisualStyleBackColor = true;
-            this.cmdBrowsePrivateKeyFile.Click += new System.EventHandler(this.cmdBrowsePrivateKeyFile_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 115);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(55, 13);
-            this.label17.TabIndex = 22;
-            this.label17.Text = "Username";
-            // 
-            // txtMachineName
-            // 
-            this.txtMachineName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMachineName.Location = new System.Drawing.Point(12, 27);
-            this.txtMachineName.Name = "txtMachineName";
-            this.txtMachineName.Size = new System.Drawing.Size(352, 20);
-            this.txtMachineName.TabIndex = 18;
-            // 
-            // txtPassPhrase
-            // 
-            this.txtPassPhrase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassPhrase.Location = new System.Drawing.Point(122, 195);
-            this.txtPassPhrase.Name = "txtPassPhrase";
-            this.txtPassPhrase.PasswordChar = '*';
-            this.txtPassPhrase.Size = new System.Drawing.Size(299, 20);
-            this.txtPassPhrase.TabIndex = 30;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 10);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(81, 13);
-            this.label18.TabIndex = 17;
-            this.label18.Text = "Computer name";
-            // 
-            // txtUsername
-            // 
-            this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsername.Location = new System.Drawing.Point(122, 112);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(299, 20);
-            this.txtUsername.TabIndex = 23;
-            // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 399);
+            this.cmdOK.Location = new System.Drawing.Point(265, 253);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 32;
@@ -386,121 +282,58 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 399);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 253);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 33;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
-            // txtPrivateKeyFile
+            // lblEditSSHConnection
             // 
-            this.txtPrivateKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPrivateKeyFile.Location = new System.Drawing.Point(122, 169);
-            this.txtPrivateKeyFile.Name = "txtPrivateKeyFile";
-            this.txtPrivateKeyFile.ReadOnly = true;
-            this.txtPrivateKeyFile.Size = new System.Drawing.Size(252, 20);
-            this.txtPrivateKeyFile.TabIndex = 27;
+            this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEditSSHConnection.AutoSize = true;
+            this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 7);
+            this.lblEditSSHConnection.Name = "lblEditSSHConnection";
+            this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
+            this.lblEditSSHConnection.TabIndex = 36;
+            this.lblEditSSHConnection.TabStop = true;
+            this.lblEditSSHConnection.Text = "Edit";
+            this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
             // 
-            // label19
+            // txtSSHConnection
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(371, 12);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 13);
-            this.label19.TabIndex = 19;
-            this.label19.Text = "SSH port";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.txtSSHConnection.Location = new System.Drawing.Point(12, 23);
+            this.txtSSHConnection.Multiline = true;
+            this.txtSSHConnection.Name = "txtSSHConnection";
+            this.txtSSHConnection.ReadOnly = true;
+            this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
+            this.txtSSHConnection.TabIndex = 35;
+            this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
-            // sshPortNumericUpDown
+            // label9
             // 
-            this.sshPortNumericUpDown.Location = new System.Drawing.Point(370, 28);
-            this.sshPortNumericUpDown.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.sshPortNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.sshPortNumericUpDown.Name = "sshPortNumericUpDown";
-            this.sshPortNumericUpDown.Size = new System.Drawing.Size(51, 20);
-            this.sshPortNumericUpDown.TabIndex = 20;
-            this.sshPortNumericUpDown.Value = new decimal(new int[] {
-            22,
-            0,
-            0,
-            0});
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.optPrivateKey);
-            this.groupBox5.Controls.Add(this.optPassword);
-            this.groupBox5.Location = new System.Drawing.Point(12, 54);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(409, 50);
-            this.groupBox5.TabIndex = 21;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Auhentication method";
-            // 
-            // optPassword
-            // 
-            this.optPassword.AutoSize = true;
-            this.optPassword.Checked = true;
-            this.optPassword.Location = new System.Drawing.Point(13, 21);
-            this.optPassword.Name = "optPassword";
-            this.optPassword.Size = new System.Drawing.Size(124, 17);
-            this.optPassword.TabIndex = 0;
-            this.optPassword.TabStop = true;
-            this.optPassword.Text = "Username/Password";
-            this.optPassword.UseVisualStyleBackColor = true;
-            this.optPassword.CheckedChanged += new System.EventHandler(this.optPassword_CheckedChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(12, 198);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(62, 13);
-            this.label21.TabIndex = 29;
-            this.label21.Text = "Passphrase";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(12, 172);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(76, 13);
-            this.label20.TabIndex = 26;
-            this.label20.Text = "Private key file";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(119, 13);
+            this.label9.TabIndex = 34;
+            this.label9.Text = "SSH Connection details";
             // 
             // LinuxDiskIOCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 433);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(433, 287);
+            this.Controls.Add(this.lblEditSSHConnection);
+            this.Controls.Add(this.txtSSHConnection);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.label24);
-            this.Controls.Add(this.cmdBrowsePrivateKeyFile);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.txtMachineName);
-            this.Controls.Add(this.txtPassPhrase);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.txtPrivateKeyFile);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.sshPortNumericUpDown);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.label20);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -513,9 +346,6 @@
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -538,25 +368,12 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.NumericUpDown warningNumericUpDown;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.RadioButton optPrivateKey;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Button cmdBrowsePrivateKeyFile;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox txtMachineName;
-        private System.Windows.Forms.TextBox txtPassPhrase;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdCancel;
-        private System.Windows.Forms.TextBox txtPrivateKeyFile;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown sshPortNumericUpDown;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton optPassword;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel lblEditSSHConnection;
+        private System.Windows.Forms.TextBox txtSSHConnection;
+        private System.Windows.Forms.Label label9;
     }
 }

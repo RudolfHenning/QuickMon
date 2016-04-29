@@ -96,5 +96,5 @@ Version 4.3.x
 	  
 	
 	Known BUGS
-	Variables dont get applied to newly added collectors
-	After changing variable value existing collectors don't always use the new value.
+	Variables dont get applied to newly added collectors - Might need some kind of redesign
+	After changing variable value existing collectors don't always use the new value. - Might need some kind of redesign
