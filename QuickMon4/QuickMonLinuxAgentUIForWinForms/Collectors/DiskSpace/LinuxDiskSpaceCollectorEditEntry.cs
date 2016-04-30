@@ -180,7 +180,7 @@ namespace QuickMon.Collectors
                     lvwFileSystems.Items.Clear();
                     foreach (Linux.DiskInfo di in QuickMon.Linux.DiskInfo.FromDfTk(sshClient))
                     {
-                        LinuxDiskSpaceSubEntry dsse = new LinuxDiskSpaceSubEntry() { FileSystemName = di.Name, WarningValue = 10, ErrorValue = 5 };
+                        LinuxDiskSpaceSubEntry dsse = new LinuxDiskSpaceSubEntry() { FileSystemName = di.Name, WarningValue = (double)warningNumericUpDown.Value, ErrorValue = (double)errorNumericUpDown.Value };
                         ListViewItem lvi = new ListViewItem() { Text = dsse.FileSystemName };
                         lvi.SubItems.Add(dsse.WarningValue.ToString());
                         lvi.SubItems.Add(dsse.ErrorValue.ToString());

@@ -24,12 +24,16 @@ namespace QuickMon.Linux
         public long SoftIRQ { get; set; }
         public long Steal { get; set; }
         public long Guest { get; set; }
+
         public double CPUPerc
         {
             get
             {
                 long totalCPUTime = TotalCPUTime;
-                return ((100.0 * (totalCPUTime - Idle)) / totalCPUTime);
+                if (totalCPUTime > 0)
+                    return ((100.0 * (totalCPUTime - Idle)) / totalCPUTime);
+                else
+                    return 0;
             }
         }
 

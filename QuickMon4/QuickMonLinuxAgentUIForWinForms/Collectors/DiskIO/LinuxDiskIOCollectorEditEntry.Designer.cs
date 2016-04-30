@@ -81,7 +81,7 @@
             this.lblAutoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAutoAdd.AutoSize = true;
             this.lblAutoAdd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAutoAdd.Location = new System.Drawing.Point(353, 16);
+            this.lblAutoAdd.Location = new System.Drawing.Point(354, 16);
             this.lblAutoAdd.Name = "lblAutoAdd";
             this.lblAutoAdd.Size = new System.Drawing.Size(50, 13);
             this.lblAutoAdd.TabIndex = 2;
@@ -91,6 +91,8 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(5, 122);
             this.label2.Name = "label2";
@@ -100,11 +102,11 @@
             // 
             // txtDisk
             // 
-            this.txtDisk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDisk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDisk.Location = new System.Drawing.Point(100, 119);
             this.txtDisk.Name = "txtDisk";
-            this.txtDisk.Size = new System.Drawing.Size(303, 20);
+            this.txtDisk.Size = new System.Drawing.Size(304, 20);
             this.txtDisk.TabIndex = 5;
             this.txtDisk.TextChanged += new System.EventHandler(this.txtFileSystem_TextChanged);
             // 
@@ -113,7 +115,7 @@
             this.lblAddFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAddFileSystem.AutoSize = true;
             this.lblAddFileSystem.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAddFileSystem.Location = new System.Drawing.Point(292, 16);
+            this.lblAddFileSystem.Location = new System.Drawing.Point(293, 16);
             this.lblAddFileSystem.Name = "lblAddFileSystem";
             this.lblAddFileSystem.Size = new System.Drawing.Size(49, 13);
             this.lblAddFileSystem.TabIndex = 1;
@@ -123,6 +125,9 @@
             // 
             // lvwDisks
             // 
+            this.lvwDisks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwDisks.AutoResizeColumnEnabled = false;
             this.lvwDisks.AutoResizeColumnIndex = 0;
             this.lvwDisks.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -132,7 +137,7 @@
             this.lvwDisks.FullRowSelect = true;
             this.lvwDisks.Location = new System.Drawing.Point(8, 32);
             this.lvwDisks.Name = "lvwDisks";
-            this.lvwDisks.Size = new System.Drawing.Size(395, 81);
+            this.lvwDisks.Size = new System.Drawing.Size(396, 81);
             this.lvwDisks.TabIndex = 3;
             this.lvwDisks.UseCompatibleStateImageBehavior = false;
             this.lvwDisks.View = System.Windows.Forms.View.Details;
@@ -141,7 +146,8 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.label4);
             this.groupBox6.Controls.Add(this.label3);
@@ -158,7 +164,7 @@
             this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox6.Location = new System.Drawing.Point(12, 74);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(409, 172);
+            this.groupBox6.Size = new System.Drawing.Size(410, 172);
             this.groupBox6.TabIndex = 31;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Alert triggering";
@@ -269,7 +275,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 253);
+            this.cmdOK.Location = new System.Drawing.Point(266, 253);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 32;
@@ -282,7 +288,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 253);
+            this.cmdCancel.Location = new System.Drawing.Point(347, 253);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 33;
@@ -294,7 +300,7 @@
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEditSSHConnection.AutoSize = true;
             this.lblEditSSHConnection.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 7);
+            this.lblEditSSHConnection.Location = new System.Drawing.Point(397, 7);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
             this.lblEditSSHConnection.TabIndex = 36;
@@ -304,12 +310,14 @@
             // 
             // txtSSHConnection
             // 
+            this.txtSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSSHConnection.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtSSHConnection.Location = new System.Drawing.Point(12, 23);
             this.txtSSHConnection.Multiline = true;
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
-            this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
+            this.txtSSHConnection.Size = new System.Drawing.Size(410, 45);
             this.txtSSHConnection.TabIndex = 35;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
@@ -327,17 +335,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 287);
+            this.ClientSize = new System.Drawing.Size(434, 287);
             this.Controls.Add(this.lblEditSSHConnection);
             this.Controls.Add(this.txtSSHConnection);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(450, 326);
             this.Name = "LinuxDiskIOCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Linux Disk IO";

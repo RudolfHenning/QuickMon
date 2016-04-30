@@ -73,6 +73,7 @@
             this.groupBox6.Controls.Add(this.warningNumericUpDown);
             this.groupBox6.Controls.Add(this.label23);
             this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(12, 73);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(409, 172);
@@ -168,15 +169,17 @@
             // interfaceColumnHeader
             // 
             this.interfaceColumnHeader.Text = "Interface";
-            this.interfaceColumnHeader.Width = 256;
+            this.interfaceColumnHeader.Width = 240;
             // 
             // warningColumnHeader
             // 
             this.warningColumnHeader.Text = "Warning";
+            this.warningColumnHeader.Width = 65;
             // 
             // errorColumnHeader
             // 
             this.errorColumnHeader.Text = "Error";
+            this.errorColumnHeader.Width = 72;
             // 
             // label1
             // 

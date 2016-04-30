@@ -243,7 +243,7 @@ namespace QuickMon.Collectors
                     LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
                                                        where d.NICName == "*"
                                                        select d).FirstOrDefault();
-                    foreach (Linux.NicInfo ni in NicInfo.GetCurrentNicStats(sshClient))
+                    foreach (Linux.NicInfo ni in NicInfo.GetCurrentNicStats(sshClient, 500))
                     {
                         NICState nis = new NICState() { NICInfo = ni, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
                         nicEntries.Add(nis);
@@ -251,7 +251,7 @@ namespace QuickMon.Collectors
                 }
                 else
                 {
-                    foreach (Linux.NicInfo di in NicInfo.GetCurrentNicStats(sshClient))
+                    foreach (Linux.NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 500))
                     {
                         LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
                                                      where d.NICName.ToLower() == di.Name.ToLower()
@@ -279,11 +279,11 @@ namespace QuickMon.Collectors
             foreach (NICState dis in GetNICInfos())
             {
                 dis.State = CollectorState.Good;
-                if (dis.NICInfo.RTxBytes >= (dis.AlertDefinition.ErrorValueKB * 1024))
+                if (dis.NICInfo.RTxBytesPerSec >= (dis.AlertDefinition.ErrorValueKB * 1024))
                 {
                     dis.State = CollectorState.Error;
                 }
-                else if (dis.NICInfo.RTxBytes >= (dis.AlertDefinition.WarningValueKB * 1024))
+                else if (dis.NICInfo.RTxBytesPerSec >= (dis.AlertDefinition.WarningValueKB * 1024))
                 {
                     dis.State = CollectorState.Warning;
                 }
