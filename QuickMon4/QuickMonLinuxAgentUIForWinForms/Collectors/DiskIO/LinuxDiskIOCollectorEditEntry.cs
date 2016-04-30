@@ -177,7 +177,7 @@ namespace QuickMon.Collectors
                     lvwDisks.Items.Clear();
                     foreach (Linux.DiskIOInfo di in QuickMon.Linux.DiskIOInfo.GetCurrentDiskStats(sshClient))
                     {
-                        LinuxDiskIOSubEntry dsse = new LinuxDiskIOSubEntry() { Disk = di.Name, WarningValue = 10, ErrorValue = 5 };
+                        LinuxDiskIOSubEntry dsse = new LinuxDiskIOSubEntry() { Disk = di.Name, WarningValue = (double)warningNumericUpDown.Value, ErrorValue = (double)errorNumericUpDown.Value };
                         ListViewItem lvi = new ListViewItem() { Text = dsse.Disk };
                         lvi.SubItems.Add(dsse.WarningValue.ToString());
                         lvi.SubItems.Add(dsse.ErrorValue.ToString());

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="QuickMon 4" Language="1033" Version="4.2.2.0324" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c940000000">
+  <Product Id="*" Name="QuickMon 4" Language="1033" Version="4.2.3.0430" Manufacturer="Hen IT" UpgradeCode="59162023-5478-4668-A278-41c940000000">
     <Package Id='*' Keywords='Installer' Description="QuickMon 4 Installer" Comments='QuickMon 4 is a simple monitoring and alerting tool' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' Platform="x64" />
 
@@ -26,6 +26,9 @@
         <Feature Id="WebServiceAgentsFeature" Title="Web Service Agents" Level="3" Description="Web Service Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
           <ComponentRef Id='webServiceAgents' />
         </Feature>
+      </Feature>
+      <Feature Id="LinuxAgentsFeature" Title="Linux Agents" Level="2" Description="Linux Agents" Display="collapse" ConfigurableDirectory="INSTALLLOCATION">
+		<ComponentRef Id='linuxAgents' />
       </Feature>
     </Feature>
 
@@ -85,7 +88,11 @@
                 <File Id="QuickMonWebServiceAgents.dll" Source="QuickMonWebServiceAgents.dll"  KeyPath="no" />                
                 <File Id="QuickMonWSUIForWinForms.dll" Source="QuickMonWSUIForWinForms.dll"  KeyPath="no" />
             </Component>
-            
+            <Component Id="linuxAgents" Guid="59162023-5478-4668-A278-42cc33556102" Win64="yes">
+				<File Id="QuickMonLinuxAgents.dll" Source="QuickMonLinuxAgents.dll"  KeyPath="no" />                
+                <File Id="QuickMonLinuxAgentUIForWinForms.dll" Source="QuickMonLinuxAgentUIForWinForms.dll"  KeyPath="no" />
+                <File Id="Renci.SshNet.dll" Source="Renci.SshNet.dll"  KeyPath="no" />
+            </Component>            
           </Directory>
         </Directory>
       </Directory>

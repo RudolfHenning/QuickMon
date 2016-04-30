@@ -353,7 +353,7 @@ namespace QuickMon
             showNotifierContextMenuTimer.Enabled = false;
             showNotifierContextMenuTimer.Enabled = true;
         }
-        #endregion
+        #endregion 
 
         #region Recent monitor packs drop down and toolbar effects
         private void HideRecentDropDownList(object sender, EventArgs e)
@@ -501,7 +501,7 @@ namespace QuickMon
                         }
                     }
                 }
-                UpdateStatusbar("Stopping polling...");
+                UpdateStatusbar("Pausing polling...");
                 PausePolling(isPollingPaused);
                 WaitForPollingToFinish(5);
                 UpdateStatusbar("Waiting for loading to finish");
@@ -532,7 +532,7 @@ namespace QuickMon
 
                 if (!isPollingPaused)
                 {
-                    UpdateStatusbar("Resuming polling...");
+                    UpdateStatusbar("Starting/Resuming polling...");
                     ResumePolling(true);
                 }
                 else
@@ -696,7 +696,7 @@ namespace QuickMon
             HideCollectorContextMenu();
             if (!isPollingPaused)
             {
-                UpdateStatusbar("Stopping polling...");
+                UpdateStatusbar("Pausing polling...");
                 PausePolling(false);
                 WaitForPollingToFinish(5);
                 UpdateStatusbar("Waiting for editing to finish");
@@ -719,7 +719,7 @@ namespace QuickMon
             }
             if (!isPollingPaused)
             {
-                UpdateStatusbar("Resuming polling...");
+                UpdateStatusbar("Starting/Resuming polling...");
                 ResumePolling(true);
             }
             else
@@ -2392,7 +2392,7 @@ namespace QuickMon
 
             if (!isPollingPaused)
             {
-                UpdateStatusbar("Stopping polling...");
+                UpdateStatusbar("Pausing polling...");
                 PausePolling(false);
                 WaitForPollingToFinish(5);
                 UpdateStatusbar("Waiting for editing to finish");
@@ -2411,7 +2411,7 @@ namespace QuickMon
 
             if (!isPollingPaused)
             {
-                UpdateStatusbar("Resuming polling...");
+                UpdateStatusbar("Starting/Resuming polling...");
                 ResumePolling(true);
             }
             else
@@ -2722,14 +2722,6 @@ namespace QuickMon
             }
         }
         #endregion
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-#if DEBUG
-            //QuickMon.Forms.TestMenu tm = new Forms.TestMenu();
-            //tm.Show();
-#endif
-        }
 
     
     }

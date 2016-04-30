@@ -640,11 +640,16 @@ namespace QuickMon.Forms
                             rtfBuilder.FontStyle(FontStyle.Bold).Append("Agent name: ");
                             rtfBuilder.AppendLine(lvi.Text);
                             if (ca != null && ca.CurrentState != null)
-                            {
+                            {                                
                                 rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
                                 rtfBuilder.AppendLine(FormatDate(ca.CurrentState.Timestamp));
                                 rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
                                 rtfBuilder.AppendLine(ca.CurrentState.State.ToString());
+                                if (ca.CurrentState.CurrentValue != null)
+                                {
+                                    rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ");
+                                    rtfBuilder.AppendLine(ca.CurrentState.CurrentValue.ToString());
+                                }
                                 rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
                                 rtfBuilder.AppendLine(ca.CurrentState.ReadAllRawDetails());
                             }

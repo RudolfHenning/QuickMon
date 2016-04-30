@@ -19,6 +19,10 @@ namespace QuickMon.Linux
         public long RxBytes { get; set; }
         public long TxBytes { get; set; }
         public long RTxBytes { get { return RxBytes + TxBytes; } }
+        public int MeasurementDelayMS { get; set; }
+        public long RxBytesPerSec { get { return (1000 * RxBytes) / MeasurementDelayMS; } }
+        public long TxBytesPerSec { get { return (1000 * TxBytes) / MeasurementDelayMS; } }
+        public long RTxBytesPerSec { get { return (1000 * (RxBytes + TxBytes)) / MeasurementDelayMS; } }
 
         /// <summary>
         /// Parsing output of ifconfig
@@ -98,6 +102,7 @@ namespace QuickMon.Linux
                 if (c2 != null)
                 {
                     NicInfo nicUsageDiff = new NicInfo();
+                    nicUsageDiff.MeasurementDelayMS = delayMS;
                     nicUsageDiff.Name = c1.Name;
                     nicUsageDiff.LocalLoopback = c1.LocalLoopback;
                     nicUsageDiff.IpV4 = c1.IpV4;

@@ -236,7 +236,7 @@ namespace QuickMon.Collectors
 
             if (sshClient.IsConnected)
             {
-                foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient))
+                foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient, 250))
                 {
                     if (UseOnlyTotalCPUvalue && ci.IsTotalCPU)
                         cpus.Add(ci);
