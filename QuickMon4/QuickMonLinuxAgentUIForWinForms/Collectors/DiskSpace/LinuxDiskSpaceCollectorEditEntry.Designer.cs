@@ -294,7 +294,7 @@
             this.MinimizeBox = false;
             this.Name = "LinuxDiskSpaceCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Linux Disk Space";
+            this.Text = "Linux Disk Space Free Percentage";
             this.Load += new System.EventHandler(this.LinuxDiskSpaceCollectorEditEntry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
