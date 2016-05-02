@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Free Disk Space Collector"), Category("Linux")]
+    [Description("Disk Space Free % Collector"), Category("Linux")]
     public class LinuxDiskSpaceCollector : CollectorAgentBase
     {
         public LinuxDiskSpaceCollector()

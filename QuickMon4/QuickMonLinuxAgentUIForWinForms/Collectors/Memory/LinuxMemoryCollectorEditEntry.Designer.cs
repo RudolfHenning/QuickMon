@@ -49,16 +49,11 @@
             // 
             this.errorNumericUpDown.DecimalPlaces = 3;
             this.errorNumericUpDown.Location = new System.Drawing.Point(269, 19);
-            this.errorNumericUpDown.Maximum = new decimal(new int[] {
-            -1,
-            2147483647,
-            0,
-            0});
             this.errorNumericUpDown.Name = "errorNumericUpDown";
             this.errorNumericUpDown.Size = new System.Drawing.Size(126, 20);
             this.errorNumericUpDown.TabIndex = 3;
             this.errorNumericUpDown.Value = new decimal(new int[] {
-            2,
+            10,
             0,
             0,
             0});
@@ -77,16 +72,11 @@
             // 
             this.warningNumericUpDown.DecimalPlaces = 3;
             this.warningNumericUpDown.Location = new System.Drawing.Point(92, 19);
-            this.warningNumericUpDown.Maximum = new decimal(new int[] {
-            -1,
-            2147483647,
-            0,
-            0});
             this.warningNumericUpDown.Name = "warningNumericUpDown";
             this.warningNumericUpDown.Size = new System.Drawing.Size(126, 20);
             this.warningNumericUpDown.TabIndex = 1;
             this.warningNumericUpDown.Value = new decimal(new int[] {
-            1,
+            20,
             0,
             0,
             0});
@@ -197,7 +187,7 @@
             this.MinimizeBox = false;
             this.Name = "LinuxMemoryCollectorEditEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Linux Memory";
+            this.Text = "Linux Memory Free Percentage";
             this.Load += new System.EventHandler(this.LinuxMemoryCollectorEditEntry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();

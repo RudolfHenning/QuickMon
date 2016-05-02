@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Memory Collector"), Category("Linux")]
+    [Description("Memory Free % Collector"), Category("Linux")]
     public class LinuxMemoryCollector : CollectorAgentBase
     {
         public LinuxMemoryCollector()
@@ -156,8 +156,8 @@ namespace QuickMon.Collectors
                 entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
                 entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
                 entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
-                entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
-                entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "99"));
+                entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "20"));
+                entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "10"));
                 entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
                 entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
                 entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
@@ -217,8 +217,8 @@ namespace QuickMon.Collectors
     {
         public LinuxMemoryEntry()
         {
-            WarningValue = 80;
-            ErrorValue = 99;
+            WarningValue = 20;
+            ErrorValue = 10;
         }
         public double WarningValue { get; set; }
         public double ErrorValue { get; set; }
@@ -239,20 +239,12 @@ namespace QuickMon.Collectors
         public CollectorState GetState(double value)
         {
             CollectorState state = CollectorState.Good;
-            if (WarningValue < ErrorValue)
-            {
-                if (ErrorValue <= value)
-                    state = CollectorState.Error;
-                else if (WarningValue <= value)
-                    state = CollectorState.Warning;
-            }
-            else
-            {
-                if (ErrorValue >= value)
-                    state = CollectorState.Error;
-                else if (WarningValue >= value)
-                    state = CollectorState.Warning;
-            }
+
+            if (ErrorValue >= value)
+                state = CollectorState.Error;
+            else if (WarningValue >= value)
+                state = CollectorState.Warning;
+
             return state;
         }
 
