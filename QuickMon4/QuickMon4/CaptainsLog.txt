@@ -69,6 +69,9 @@ Version 4.2.1
 
 Version 4.2.2
 	Remote agent Test button does not always enable if Remote agent address Text change
+Version 4.2.3
+	PAUSE BUTTON!! on main window.
+	First Linix SSH collectors
 
 Version 4.3.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
@@ -85,8 +88,7 @@ Version 4.3.x
   Perfmon collector
 	Allow for wildcard definitions (e.g. svchost*) and then apply warn/err check on all of them.
 
-  IDEA
-    PAUSE BUTTON!! on main window.
+  IDEA    
     Open multiple Monitor packs at the same time.
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
@@ -98,3 +100,4 @@ Version 4.3.x
 	Known BUGS
 	Variables dont get applied to newly added collectors - Might need some kind of redesign
 	After changing variable value existing collectors don't always use the new value. - Might need some kind of redesign
+		Possible solution - All collectors refresh their config just before firing an update. That way the Monitorpack never need to update/refresh config vars.
