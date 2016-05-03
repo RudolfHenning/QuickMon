@@ -65,6 +65,7 @@
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorConfig.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryEntry.cs" />
     <Compile Include="Collectors\NIC\LinuxNICCollector.cs" />
+    <Compile Include="Collectors\SSHCommand\LinuxSSHCommand.cs" />
     <Compile Include="Common\LinuxBaseEntry.cs" />
     <Compile Include="Common\Parsers.cs" />
     <Compile Include="Common\SshClientTools.cs" />
