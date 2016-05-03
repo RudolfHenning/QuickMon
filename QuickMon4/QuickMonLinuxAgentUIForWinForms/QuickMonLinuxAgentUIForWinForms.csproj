@@ -90,6 +90,13 @@
       <DependentUpon>LinuxNICCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\NIC\LinuxNICCollectorUI.cs" />
+    <Compile Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.Designer.cs">
+      <DependentUpon>LinuxSSHCommandCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Collectors\SSHCommand\LinuxSSHCommandCollectorUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\NIC\LinuxNICCollectorEditEntry.resx">
       <DependentUpon>LinuxNICCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.resx">
+      <DependentUpon>LinuxSSHCommandCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -9,11 +9,11 @@ using System.Xml;
 namespace QuickMon.Collectors
 {
     [Description("SSH Command Collector"), Category("Linux")]
-    public class LinuxSSHCommandColector : CollectorAgentBase
+    public class LinuxSSHCommandCollector : CollectorAgentBase
     {
-        public LinuxSSHCommandColector()
+        public LinuxSSHCommandCollector()
         {
-            AgentConfig = new LinuxSSHCommandColectorConfig();
+            AgentConfig = new LinuxSSHCommandCollectorConfig();
         }
 
         public override MonitorState RefreshState()
@@ -26,7 +26,7 @@ namespace QuickMon.Collectors
 
             try
             {
-                LinuxSSHCommandColectorConfig currentConfig = (LinuxSSHCommandColectorConfig)AgentConfig;
+                LinuxSSHCommandCollectorConfig currentConfig = (LinuxSSHCommandCollectorConfig)AgentConfig;
 
                 returnState.RawDetails = string.Format("Running {0} commands", currentConfig.Entries.Count);
                 returnState.HtmlDetails = string.Format("<b>Running {0} commands</b>", currentConfig.Entries.Count);
@@ -107,7 +107,7 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Name", typeof(string)));
                 dt.Columns.Add(new System.Data.DataColumn("Output", typeof(string)));
 
-                LinuxSSHCommandColectorConfig currentConfig = (LinuxSSHCommandColectorConfig)AgentConfig;
+                LinuxSSHCommandCollectorConfig currentConfig = (LinuxSSHCommandCollectorConfig)AgentConfig;
                 foreach (LinuxSSHCommandEntry entry in currentConfig.Entries)
                 {
                     string output = entry.ExecuteCommand();
@@ -126,9 +126,9 @@ namespace QuickMon.Collectors
         }
     }
 
-    public class LinuxSSHCommandColectorConfig : ICollectorConfig
+    public class LinuxSSHCommandCollectorConfig : ICollectorConfig
     {
-        public LinuxSSHCommandColectorConfig()
+        public LinuxSSHCommandCollectorConfig()
         {
             Entries = new List<ICollectorConfigEntry>();
         }
