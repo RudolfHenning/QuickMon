@@ -278,6 +278,18 @@ namespace QuickMon.Collectors
                     output = sshClient.RunCommand(CommandString).Result;
                 }
                 sshClient.Disconnect();
+
+                if (ValueReturnType == SSHCommandValueReturnType.LineCount)
+                {
+                    int lines = output.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries).Length;
+                    output = lines.ToString();
+                }
+                else if (ValueReturnType == SSHCommandValueReturnType.TextLength)
+                {
+                    int length = output.Length;
+                    output = length.ToString();
+                }
+
             }
             catch (Exception ex)
             {
@@ -286,6 +298,13 @@ namespace QuickMon.Collectors
             return output;
         }
 
+        public override string Description
+        {
+            get
+            {
+                return Name + " (" + base.Description + ")";
+            }
+        }
         public override string TriggerSummary
         {
             get
