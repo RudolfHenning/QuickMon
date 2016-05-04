@@ -88,7 +88,7 @@ namespace QuickMon.UI
                             else if (alertRaised.RaisedFor.EnableRemoteExecute)
                                 viaHost = string.Format("(via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
 
-                            rtfBuilder.Append(string.Format("\t{0} {1}\r\n{2}", alertRaised.RaisedFor, viaHost, alertRaised.MessageRaw));
+                            rtfBuilder.Append(string.Format("\t{0} {1}\r\n{2}", alertRaised.RaisedFor.Name, viaHost, alertRaised.MessageRaw));
                             rtfBuilder.AppendLine();
                         }
                     }
