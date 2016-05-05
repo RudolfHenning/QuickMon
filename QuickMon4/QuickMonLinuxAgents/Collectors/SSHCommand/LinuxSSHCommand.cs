@@ -269,10 +269,18 @@ namespace QuickMon.Collectors
         public string ExecuteCommand()
         {
             string output = "";
+            Renci.SshNet.SshClient sshClient = null;
             try
             {
-                Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
+                sshClient = SshClientTools.GetSSHConnection(SSHConnection);
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception( string.Format("Connection failed to '{0}' : {1}", SSHConnection.ComputerName, ex.Message));
+            }
+            try
+            {
                 if (sshClient.IsConnected)
                 {
                     output = sshClient.RunCommand(CommandString).Result;
