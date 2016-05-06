@@ -429,15 +429,18 @@ namespace QuickMon
         }
         private MonitorState GetStateFromLocalCurrentUser()
         {
-            MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable, 
+            MonitorState resultMonitorState = new MonitorState()
+            {
+                State = CollectorState.UpdateInProgress, 
                 ExecutedOnHostComputer = System.Net.Dns.GetHostName(),
-                RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name };
+                RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name 
+            };
             try
             {
                 //First set blank/NA state
                 foreach (ICollector ca in CollectorAgents)
                 {
-                    ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "N/A", HtmlDetails = "<p>N/A</p>" };
+                    ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.UpdateInProgress, RawDetails = "N/A", HtmlDetails = "<p>N/A</p>" };
                 }
                 int agentId = 0;
                 foreach (ICollector ca in CollectorAgents)
