@@ -80,16 +80,24 @@ namespace QuickMon.Forms
                     {
                         lblCollectorHostStatus.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
                         lblCollectorHostStatusText.Text = "N/A";
-                    }
+                    }                    
                     else
                     {
-                        lblCollectorHostStatusText.Text = SelectedCollectorHost.CurrentState.State.ToString();
+                        MonitorState displayedState;
+                        if (SelectedCollectorHost.CurrentState.State == CollectorState.UpdateInProgress && SelectedCollectorHost.PreviousState != null)
+                        {
+                            displayedState = SelectedCollectorHost.PreviousState;
+                        }
+                        else
+                            displayedState = SelectedCollectorHost.CurrentState;
+
+                        lblCollectorHostStatusText.Text = displayedState.State.ToString();
                         Bitmap stateImage;
-                        if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
+                        if (displayedState.State == CollectorState.Good)
                             stateImage = global::QuickMon.Properties.Resources.ok16x16;
-                        else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
+                        else if (displayedState.State == CollectorState.Warning)
                             stateImage = global::QuickMon.Properties.Resources.triang_yellow16x16;
-                        else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error)
+                        else if (displayedState.State == CollectorState.Error)
                             stateImage = global::QuickMon.Properties.Resources.stop16x16;
                         else
                             stateImage = global::QuickMon.Properties.Resources.helpbwy16x16;
@@ -345,7 +353,8 @@ namespace QuickMon.Forms
         }
         private void lvwAgents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateAgentsDetailView();
+            if (lvwAgents.SelectedItems.Count > 0)
+                UpdateAgentsDetailView();
         }
         private void lvwAgents_DoubleClick(object sender, EventArgs e)
         {
@@ -394,21 +403,33 @@ namespace QuickMon.Forms
             lvwAgents.Items.Clear();
             if (SelectedCollectorHost != null && SelectedCollectorHost.CollectorAgents.Count > 0)
             {
+                
+
                 foreach (ICollector ca in SelectedCollectorHost.CollectorAgents)
                 {
+                    MonitorState displayedState;
+                    if (ca.CurrentState != null && ca.CurrentState.State == CollectorState.UpdateInProgress && SelectedCollectorHost.PreviousState != null)
+                    {
+                        displayedState = SelectedCollectorHost.PreviousState.ChildStates.Where(s => s.ForAgent == ca.Name).FirstOrDefault();
+                    }
+                    else
+                    {
+                        displayedState = ca.CurrentState;
+                    }
+
                     ListViewItem lvi = new ListViewItem(ca.Name);
                     lvi.SubItems.Add(ca.AgentClassDisplayName);
-                    if (ca.CurrentState == null)
+                    if (displayedState == null)
                         lvi.ImageIndex = 0;
-                    else if (!ca.Enabled || ca.CurrentState == null)
+                    else if (!ca.Enabled || displayedState == null)
                         lvi.ImageIndex = 4;
-                    else if (ca.CurrentState.State == CollectorState.Good)
+                    else if (displayedState.State == CollectorState.Good)
                         lvi.ImageIndex = 1;
-                    else if (ca.CurrentState.State == CollectorState.Warning)
+                    else if (displayedState.State == CollectorState.Warning)
                         lvi.ImageIndex = 2;
-                    else if (ca.CurrentState.State == CollectorState.Error)
+                    else if (displayedState.State == CollectorState.Error)
                         lvi.ImageIndex = 3;
-                    else if (ca.CurrentState.State == CollectorState.Disabled)
+                    else if (displayedState.State == CollectorState.Disabled)
                         lvi.ImageIndex = 4;
                     else
                         lvi.ImageIndex = 0;
@@ -623,49 +644,66 @@ namespace QuickMon.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private static bool updateAgentsDetailViewBusy = false;
         private void UpdateAgentsDetailView()
         {
-            try
+            if (!updateAgentsDetailViewBusy)
             {
-                RTFBuilder rtfBuilder = new RTFBuilder();
-                ListViewEx currentListView;
-                currentListView = lvwAgents;
-                if (currentListView.SelectedItems.Count > 0)
+                updateAgentsDetailViewBusy = true;
+                try
                 {
-                    foreach (ListViewItem lvi in currentListView.SelectedItems)
+                    RTFBuilder rtfBuilder = new RTFBuilder();
+                    ListViewEx currentListView;
+                    currentListView = lvwAgents;
+                    if (currentListView.SelectedItems.Count > 0)
                     {
-                        if (lvi.Tag is ICollector)
+                        foreach (ListViewItem lvi in currentListView.SelectedItems)
                         {
-                            ICollector ca = (ICollector)lvi.Tag;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Agent name: ");
-                            rtfBuilder.AppendLine(lvi.Text);
-                            if (ca != null && ca.CurrentState != null)
-                            {                                
-                                rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
-                                rtfBuilder.AppendLine(FormatDate(ca.CurrentState.Timestamp));
-                                rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
-                                rtfBuilder.AppendLine(ca.CurrentState.State.ToString());
-                                if (ca.CurrentState.CurrentValue != null)
-                                {
-                                    rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ");
-                                    rtfBuilder.AppendLine(ca.CurrentState.CurrentValue.ToString());
-                                }
-                                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
-                                rtfBuilder.AppendLine(ca.CurrentState.ReadAllRawDetails());
-                            }
+                            if (lvi.Tag is ICollector)
+                            {
+                                ICollector ca = (ICollector)lvi.Tag;
 
-                            rtfBuilder.AppendLine(new string('-', 80));
+                                rtfBuilder.FontStyle(FontStyle.Bold).Append("Agent name: ");
+                                rtfBuilder.AppendLine(lvi.Text);
+                                if (ca != null && ca.CurrentState != null)
+                                {
+                                    MonitorState displayedState = ca.CurrentState;
+                                    if (ca.CurrentState != null && ca.CurrentState.State == CollectorState.UpdateInProgress && SelectedCollectorHost.PreviousState != null)
+                                    {
+                                        displayedState = SelectedCollectorHost.PreviousState.ChildStates.Where(s => s.ForAgent == ca.Name).FirstOrDefault();
+                                        if (displayedState == null)
+                                        {
+                                            displayedState = ca.CurrentState;
+                                        }
+                                    }
+
+                                    rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
+                                    rtfBuilder.AppendLine(FormatDate(displayedState.Timestamp));
+                                    rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
+                                    rtfBuilder.AppendLine(displayedState.State.ToString());
+                                    if (displayedState.CurrentValue != null)
+                                    {
+                                        rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ");
+                                        rtfBuilder.AppendLine(displayedState.CurrentValue.ToString());
+                                    }
+                                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
+                                    rtfBuilder.AppendLine(displayedState.ReadAllRawDetails());
+                                }
+
+                                rtfBuilder.AppendLine(new string('-', 80));
+                            }
                         }
                     }
+                    rtxDetails.Rtf = rtfBuilder.ToString();
+                    rtxDetails.SelectionStart = 0;
+                    rtxDetails.SelectionLength = 0;
+                    rtxDetails.ScrollToCaret();
                 }
-                rtxDetails.Rtf = rtfBuilder.ToString();
-                rtxDetails.SelectionStart = 0;
-                rtxDetails.SelectionLength = 0;
-                rtxDetails.ScrollToCaret();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                updateAgentsDetailViewBusy = false;
             }
         }
         private void RefreshAgentsDetailsData()
