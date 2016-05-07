@@ -230,46 +230,47 @@ namespace QuickMon.Collectors
         public List<NICState> GetNICInfos()
         {
             List<NICState> nicEntries = new List<NICState>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
-
-            if (sshClient.IsConnected)
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
             {
-                //First see if ANY subentry is for all
-                bool addAll = (from LinuxNICSubEntry d in SubItems
-                               where d.NICName == "*"
-                               select d).Count() > 0;
-                if (addAll)
+
+                if (sshClient.IsConnected)
                 {
-                    LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
-                                                       where d.NICName == "*"
-                                                       select d).FirstOrDefault();
-                    foreach (Linux.NicInfo ni in NicInfo.GetCurrentNicStats(sshClient, 500))
-                    {
-                        NICState nis = new NICState() { NICInfo = ni, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                        nicEntries.Add(nis);
-                    }
-                }
-                else
-                {
-                    foreach (Linux.NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 500))
+                    //First see if ANY subentry is for all
+                    bool addAll = (from LinuxNICSubEntry d in SubItems
+                                   where d.NICName == "*"
+                                   select d).Count() > 0;
+                    if (addAll)
                     {
                         LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
-                                                     where d.NICName.ToLower() == di.Name.ToLower()
-                                                           select d).FirstOrDefault();
-
-                        if (alertDef != null)
+                                                     where d.NICName == "*"
+                                                     select d).FirstOrDefault();
+                        foreach (Linux.NicInfo ni in NicInfo.GetCurrentNicStats(sshClient, 250))
                         {
-                            if (!nicEntries.Any(f => f.NICInfo.Name.ToLower() == di.Name.ToLower()))
+                            NICState nis = new NICState() { NICInfo = ni, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                            nicEntries.Add(nis);
+                        }
+                    }
+                    else
+                    {
+                        foreach (Linux.NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 250))
+                        {
+                            LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
+                                                         where d.NICName.ToLower() == di.Name.ToLower()
+                                                         select d).FirstOrDefault();
+
+                            if (alertDef != null)
                             {
-                                NICState dis = new NICState() { NICInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                                nicEntries.Add(dis);
+                                if (!nicEntries.Any(f => f.NICInfo.Name.ToLower() == di.Name.ToLower()))
+                                {
+                                    NICState dis = new NICState() { NICInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                                    nicEntries.Add(dis);
+                                }
                             }
                         }
                     }
                 }
+                sshClient.Disconnect();
             }
-            sshClient.Disconnect();
-
             return nicEntries;
         }
         public List<NICState> GetStates()

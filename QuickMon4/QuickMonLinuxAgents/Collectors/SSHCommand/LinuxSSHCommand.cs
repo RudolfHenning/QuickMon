@@ -269,40 +269,41 @@ namespace QuickMon.Collectors
         public string ExecuteCommand()
         {
             string output = "";
-            Renci.SshNet.SshClient sshClient = null;
             try
             {
-                sshClient = SshClientTools.GetSSHConnection(SSHConnection);
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            {
+                try
+                {
+                    if (sshClient.IsConnected)
+                    {
+                        output = sshClient.RunCommand(CommandString).Result;
+                    }
+                    sshClient.Disconnect();
 
+                    if (ValueReturnType == SSHCommandValueReturnType.LineCount)
+                    {
+                        int lines = output.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+                        output = lines.ToString();
+                    }
+                    else if (ValueReturnType == SSHCommandValueReturnType.TextLength)
+                    {
+                        int length = output.Length;
+                        output = length.ToString();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    output = string.Format("The Command '{0}' failed to execute!\r\n{1}", CommandString, ex.ToString());
+                }
+            }
             }
             catch (Exception ex)
             {
-                throw new Exception( string.Format("Connection failed to '{0}' : {1}", SSHConnection.ComputerName, ex.Message));
-            }
-            try
-            {
-                if (sshClient.IsConnected)
-                {
-                    output = sshClient.RunCommand(CommandString).Result;
-                }
-                sshClient.Disconnect();
-
-                if (ValueReturnType == SSHCommandValueReturnType.LineCount)
-                {
-                    int lines = output.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries).Length;
-                    output = lines.ToString();
-                }
-                else if (ValueReturnType == SSHCommandValueReturnType.TextLength)
-                {
-                    int length = output.Length;
-                    output = length.ToString();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                output = string.Format("The Command '{0}' failed to execute!\r\n{1}", CommandString, ex.ToString());
-            }
+                throw new Exception(string.Format("Connection failed to '{0}' : {1}", SSHConnection.ComputerName, ex.Message));
+            }           
+            
             return output;
         }
 

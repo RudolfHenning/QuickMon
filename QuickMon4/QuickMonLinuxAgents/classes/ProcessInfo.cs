@@ -19,8 +19,9 @@ namespace QuickMon.Linux
         public long RSS { get; set; }
         public string STAT { get; set; }
         public string StartTime { get; set; }
-        public string COMMAND { get; set; }
-
+        public string CommandLine { get; set; }
+        public string ProcessName { get; set; }
+        
         public static List<ProcessInfo> FromPsAux(Renci.SshNet.SshClient sshClient)
         {
             return FromPsAux(sshClient.RunCommand("ps aux").Result);
@@ -50,15 +51,20 @@ namespace QuickMon.Linux
                     p.RSS = Parsers.ParseLong(values[5]);
                     p.STAT = values[7];
                     p.StartTime = values[8] + " " + values[9];
-                    p.COMMAND = values[10];
+                    p.CommandLine = values[10];
+                    p.ProcessName = values[10];
+                    if (p.ProcessName.Contains('/'))
+                    {
+                        p.ProcessName = p.ProcessName.Substring(p.ProcessName.LastIndexOf('/') + 1);
+                    }
                     if (values.Length > 11)
                     {
                         for (int i = 11; i < values.Length; i++)
                         {
-                            p.COMMAND += " " + values[i];
+                            p.CommandLine += " " + values[i];
                         }
                     }
-                    if (!p.COMMAND.StartsWith("["))
+                    if (!p.CommandLine.StartsWith("["))
                     {
                         processes.Add(p);
                     }

@@ -1,0 +1,400 @@
+﻿using QuickMon.Linux;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Xml;
+
+namespace QuickMon.Collectors
+{
+    [Description("Disk Space Free % Collector"), Category("Linux")]
+    public class LinuxProcessCollector : CollectorAgentBase
+    {
+        public LinuxProcessCollector()
+        {
+            AgentConfig = new LinuxProcessCollectorConfig();
+        }
+
+        public override MonitorState RefreshState()
+        {
+            MonitorState returnState = new MonitorState();
+            string lastAction = "";
+            double highestVal = 0;
+            int errors = 0;
+            int warnings = 0;
+            int success = 0;
+
+            try
+            {
+                LinuxProcessCollectorConfig currentConfig = (LinuxProcessCollectorConfig)AgentConfig;
+                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
+                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
+                foreach (LinuxProcessEntry entry in currentConfig.Entries)
+                {
+                    List<ProcessInfoState> pss = entry.GetStates();
+                    foreach (ProcessInfoState ps in pss)
+                    {
+                        string currentValueFormat = "CPU%:" + ps.ProcessInfo.percCPU.ToString("0.00") + ",MEM%:" + ps.ProcessInfo.PID.ToString("0.00");
+                        if (ps.State == CollectorState.Error)
+                        {
+                            errors++;
+                            returnState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    ForAgent = entry.SSHConnection.ComputerName + "->" + ps.ProcessInfo.ProcessName,
+                                    State = CollectorState.Error,
+                                    CurrentValue = currentValueFormat,
+                                    RawDetails = string.Format("'{0}'-> {1} : {2} (Error)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat),
+                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2} (<b>Error</b>)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat)
+                                });
+                        }
+                        else if (ps.State == CollectorState.Warning)
+                        {
+                            warnings++;
+                            returnState.ChildStates.Add(
+                               new MonitorState()
+                               {
+                                   ForAgent = entry.SSHConnection.ComputerName + "->" + ps.ProcessInfo.ProcessName,
+                                   State = CollectorState.Warning,
+                                   CurrentValue = currentValueFormat,
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}% (Warning)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Warning</b>)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat)
+                               });
+                        }
+                        else
+                        {
+                            success++;
+                            returnState.ChildStates.Add(
+                               new MonitorState()
+                               {
+                                   ForAgent = entry.SSHConnection.ComputerName + "->" + ps.ProcessInfo.ProcessName,
+                                   State = CollectorState.Good,
+                                   CurrentValue = currentValueFormat,
+                                   RawDetails = string.Format("'{0}'-> {1} : {2}%", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat),
+                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}%", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat)
+                               });
+                        }
+                    }
+                }
+                returnState.CurrentValue = highestVal;
+
+                if (errors > 0 && warnings == 0 && success == 0) // any errors
+                    returnState.State = CollectorState.Error;
+                else if (errors > 0 || warnings > 0) //any warnings
+                    returnState.State = CollectorState.Warning;
+                else
+                    returnState.State = CollectorState.Good;
+            }
+            catch (Exception ex)
+            {
+                returnState.RawDetails = ex.Message;
+                returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
+                returnState.State = CollectorState.Error;
+            }
+            return returnState;
+        }
+
+        public override List<System.Data.DataTable> GetDetailDataTables()
+        {
+            List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
+            System.Data.DataTable dt = new System.Data.DataTable();
+            try
+            {
+                dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("Process", typeof(string)));
+                dt.Columns.Add(new System.Data.DataColumn("CPU%", typeof(double)));
+                dt.Columns.Add(new System.Data.DataColumn("Mem%", typeof(double)));
+
+                LinuxProcessCollectorConfig currentConfig = (LinuxProcessCollectorConfig)AgentConfig;
+                foreach (LinuxProcessEntry entry in currentConfig.Entries)
+                {
+                    foreach (ProcessInfoState pi in entry.GetStates())
+                    {
+                        dt.Rows.Add(entry.SSHConnection.ComputerName, pi.ProcessInfo.ProcessName, pi.ProcessInfo.percCPU, pi.ProcessInfo.percMEM);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                dt = new System.Data.DataTable("Exception");
+                dt.Columns.Add(new System.Data.DataColumn("Text", typeof(string)));
+                dt.Rows.Add(ex.ToString());
+            }
+            tables.Add(dt);
+            return tables;
+        }
+    }
+
+    public class LinuxProcessCollectorConfig : ICollectorConfig
+    {
+        public LinuxProcessCollectorConfig()
+        {
+            Entries = new List<ICollectorConfigEntry>();
+        }
+
+        #region ICollectorConfig Members
+        public bool SingleEntryOnly { get { return false; } }
+        public List<ICollectorConfigEntry> Entries { get; set; }
+        #endregion
+
+        #region IAgentConfig Members
+        public void FromXml(string configurationString)
+        {
+            if (configurationString == null || configurationString.Length == 0)
+                return;
+            XmlDocument config = new XmlDocument();
+            config.LoadXml(configurationString);
+            XmlElement root = config.DocumentElement;
+            Entries.Clear();
+            foreach (XmlElement procNode in root.SelectNodes("linuxProcess"))
+            {
+                LinuxProcessEntry entry = new LinuxProcessEntry();
+                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(procNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                entry.SSHConnection.ComputerName = procNode.ReadXmlElementAttr("machine", ".");
+                entry.SSHConnection.SSHPort = procNode.ReadXmlElementAttr("sshPort", 22);
+                entry.SSHConnection.UserName = procNode.ReadXmlElementAttr("userName", "");
+                entry.SSHConnection.Password = procNode.ReadXmlElementAttr("password", "");
+                entry.SSHConnection.PrivateKeyFile = procNode.ReadXmlElementAttr("privateKeyFile", "");
+                entry.SSHConnection.PassPhrase = procNode.ReadXmlElementAttr("passPhrase", "");
+
+                entry.Name = procNode.ReadXmlElementAttr("name", "");
+                entry.ProcessCheckOption = ProcessCheckOptionTypeConverter.FromString(procNode.ReadXmlElementAttr("processCheckOption", ""));
+                entry.TopProcessCount = procNode.ReadXmlElementAttr("topProcessCount", 10);
+                entry.CPUPercWarningValue = procNode.ReadXmlElementAttr("cpuPercWarningValue", 80);
+                entry.CPUPercErrorValue = procNode.ReadXmlElementAttr("cpuPercErrorValue", 90);
+                entry.MemPercWarningValue = procNode.ReadXmlElementAttr("memPercWarningValue", 80);
+                entry.MemPercErrorValue = procNode.ReadXmlElementAttr("memPercErrorValue", 90);
+
+                entry.SubItems = new List<ICollectorConfigSubEntry>();
+                foreach (XmlElement fileSystemNode in procNode.SelectNodes("specificEntry"))
+                {
+                    LinuxProcessSubEntry fse = new LinuxProcessSubEntry();
+                    fse.ProcessName = fileSystemNode.ReadXmlElementAttr("name", "");
+                    fse.CPUPercWarningValue = fileSystemNode.ReadXmlElementAttr("cpuPercWarningValue", 80);
+                    fse.CPUPercErrorValue = fileSystemNode.ReadXmlElementAttr("cpuPercErrorValue", 90);
+                    fse.MemPercWarningValue = fileSystemNode.ReadXmlElementAttr("memPercWarningValue", 80);
+                    fse.MemPercErrorValue = fileSystemNode.ReadXmlElementAttr("memPercErrorValue", 90);
+
+                    entry.SubItems.Add(fse);
+                }
+                Entries.Add(entry);
+            }
+        }
+        public string ToXml()
+        {
+            XmlDocument config = new XmlDocument();
+            config.LoadXml(GetDefaultOrEmptyXml());
+            XmlElement root = config.DocumentElement;
+            root.InnerXml = "";
+            foreach (LinuxProcessEntry entry in Entries)
+            {
+                XmlElement processNode = config.CreateElement("linuxProcess");
+                processNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                processNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                processNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                processNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                processNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                processNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                processNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+
+                processNode.SetAttributeValue("name", entry.Name);
+                processNode.SetAttributeValue("processCheckOption", entry.ProcessCheckOption.ToString());
+                processNode.SetAttributeValue("topProcessCount", entry.TopProcessCount);
+                processNode.SetAttributeValue("cpuPercWarningValue", entry.CPUPercWarningValue);
+                processNode.SetAttributeValue("cpuPercErrorValue", entry.CPUPercErrorValue);
+                processNode.SetAttributeValue("memPercWarningValue", entry.MemPercWarningValue);
+                processNode.SetAttributeValue("memPercErrorValue", entry.MemPercErrorValue);
+
+                foreach (LinuxProcessSubEntry fse in entry.SubItems)
+                {
+                    XmlElement specificNode = config.CreateElement("specificEntry");
+                    specificNode.SetAttributeValue("name", fse.ProcessName);
+                    specificNode.SetAttributeValue("cpuPercWarningValue", fse.CPUPercWarningValue);
+                    specificNode.SetAttributeValue("cpuPercErrorValue", fse.CPUPercErrorValue);
+                    specificNode.SetAttributeValue("memPercWarningValue", fse.MemPercWarningValue);
+                    specificNode.SetAttributeValue("memPercErrorValue", fse.MemPercErrorValue);
+                    processNode.AppendChild(specificNode);
+                }
+
+                root.AppendChild(processNode);
+            }
+            return config.OuterXml;
+        }
+        public string GetDefaultOrEmptyXml()
+        {
+            return "<config>\r\n</config>";
+        }
+        public string ConfigSummary
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(string.Format("{0} entry(s): ", Entries.Count));
+                if (Entries.Count == 0)
+                    sb.Append("None");
+                else
+                {
+                    foreach (ICollectorConfigEntry entry in Entries)
+                    {
+                        sb.Append(entry.Description + ", ");
+                    }
+                }
+                return sb.ToString().TrimEnd(' ', ',');
+            }
+        }
+        #endregion
+    }
+
+    public class LinuxProcessEntry : LinuxBaseEntry
+    {
+        public LinuxProcessEntry()
+        {
+            ProcessCheckOption = ProcessCheckOption.TopXByCPU;
+            TopProcessCount = 10;
+            CPUPercWarningValue = 80;
+            CPUPercErrorValue = 90;
+            MemPercWarningValue = 50;
+            MemPercErrorValue = 80;
+        }
+        public string Name { get; set; }
+        public ProcessCheckOption ProcessCheckOption { get; set; }
+        public int TopProcessCount { get; set; }
+        public int CPUPercWarningValue { get; set; }
+        public int CPUPercErrorValue { get; set; }
+        public int MemPercWarningValue { get; set; }
+        public int MemPercErrorValue { get; set; }
+
+        public List<ProcessInfoState> GetStates()
+        {
+            List<ProcessInfoState> processEntries = new List<ProcessInfoState>();
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            {
+                if (sshClient.IsConnected)
+                {
+                    LinuxProcessSubEntry globalAlertDef = new LinuxProcessSubEntry();
+                    globalAlertDef.CPUPercWarningValue = CPUPercWarningValue;
+                    globalAlertDef.CPUPercErrorValue = CPUPercErrorValue;
+                    globalAlertDef.MemPercWarningValue = MemPercWarningValue;
+                    globalAlertDef.MemPercErrorValue = MemPercErrorValue;
+
+                    List<ProcessInfo> runningProcesses = ProcessInfo.FromPsAux(sshClient);
+                    if (ProcessCheckOption == ProcessCheckOption.TopXByCPU)
+                    {
+                        foreach (ProcessInfo p in (from p in runningProcesses
+                                                   orderby p.percCPU descending
+                                                   select p).Take(TopProcessCount))
+                        {
+                            processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = globalAlertDef });
+                        }
+                        
+                    }
+                    else if (ProcessCheckOption == ProcessCheckOption.TopXByMem)
+                    {
+                        foreach (ProcessInfo p in (from p in runningProcesses
+                                                   orderby p.percMEM descending
+                                                   select p).Take(TopProcessCount))
+                        {
+                            processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = globalAlertDef });
+                        }                        
+                    }
+                    else
+                    {
+                        foreach(LinuxProcessSubEntry s in SubItems)
+                        {
+                            ProcessInfo procInfo = (from p in runningProcesses
+                                                        where p.ProcessName.ToLower()== s.ProcessName.ToLower()
+                                                        select p).FirstOrDefault();
+                            if (procInfo != null)
+                            {
+                                processEntries.Add(new ProcessInfoState() { ProcessInfo = procInfo, AlertDefinition = s });
+                            }
+                        }                        
+                    }
+                    sshClient.Disconnect();
+                }                
+            }
+
+            return processEntries;
+        }
+
+        public override string TriggerSummary
+        {
+            get { return string.Format("{0} File system(s)", SubItems.Count); }
+        }
+    }
+
+    public class LinuxProcessSubEntry : ICollectorConfigSubEntry
+    {
+        public LinuxProcessSubEntry()
+        {
+            CPUPercWarningValue = 80;
+            CPUPercErrorValue = 90;
+            MemPercWarningValue = 50;
+            MemPercErrorValue = 80;
+        }
+        public string ProcessName { get; set; }
+        public int CPUPercWarningValue { get; set; }
+        public int CPUPercErrorValue { get; set; }
+        public int MemPercWarningValue { get; set; }
+        public int MemPercErrorValue { get; set; }
+
+        public string Description
+        {
+            get { return string.Format("{0}:CPU%(W {1}, E{2}),MEM%(W {3},E {4})", ProcessName, CPUPercWarningValue, CPUPercErrorValue, MemPercWarningValue, MemPercErrorValue); }
+        }
+    }
+    public class ProcessInfoState
+    {
+        public ProcessInfo ProcessInfo { get; set; }
+        public LinuxProcessSubEntry AlertDefinition { get; set; }
+        public CollectorState State {
+            get 
+            {
+                CollectorState returnState = CollectorState.Good;
+                if (AlertDefinition.CPUPercWarningValue < AlertDefinition.CPUPercErrorValue)
+                {
+                    if (AlertDefinition.CPUPercErrorValue < ProcessInfo.percCPU)
+                    {
+                        return CollectorState.Error;
+                    }
+                    else if (AlertDefinition.CPUPercWarningValue < ProcessInfo.percCPU)
+                    {
+                        returnState = CollectorState.Warning;
+                    }
+                }
+                if (AlertDefinition.MemPercWarningValue < AlertDefinition.MemPercErrorValue)
+                {
+                    if (AlertDefinition.MemPercErrorValue < ProcessInfo.percMEM)
+                    {
+                        return CollectorState.Error;
+                    }
+                    else if (AlertDefinition.MemPercWarningValue < ProcessInfo.percMEM)
+                    {
+                        returnState = CollectorState.Warning;
+                    }
+                }
+                return returnState;
+            }
+        }
+
+    }
+    public enum ProcessCheckOption
+    {
+        TopXByCPU,
+        TopXByMem,
+        Specified
+    }
+    public static class ProcessCheckOptionTypeConverter
+    {
+        public static ProcessCheckOption FromString(string typeName)
+        {
+            if (typeName.ToLower() == "TopXByCPU".ToLower())
+                return ProcessCheckOption.TopXByCPU;
+            else if (typeName.ToLower() == "TopXByMem".ToLower())
+                return ProcessCheckOption.TopXByMem;
+            else
+                return ProcessCheckOption.Specified;
+        }
+    }
+}

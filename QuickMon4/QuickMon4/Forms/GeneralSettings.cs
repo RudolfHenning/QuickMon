@@ -766,6 +766,7 @@ namespace QuickMon
                     ListViewItem lvi = new ListViewItem(txtComputer.Text);
                     lvi.SubItems.Add(remoteportNumericUpDown.Value.ToString());
                     lvi.SubItems.Add(""); //Version info to be added afterwards
+                    lvi.SubItems.Add(""); //Packs
                     lvi.Tag = ri;
                     lvi.ImageIndex = 3;
                     lvwRemoteHosts.Items.Add(lvi);
