@@ -232,19 +232,20 @@ namespace QuickMon.Collectors
         public List<Linux.CPUInfo> GetCPUInfos()
         {
             List<Linux.CPUInfo> cpus = new List<Linux.CPUInfo>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
-
-            if (sshClient.IsConnected)
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
             {
-                foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient, 250))
+                if (sshClient.IsConnected)
                 {
-                    if (UseOnlyTotalCPUvalue && ci.IsTotalCPU)
-                        cpus.Add(ci);
-                    else if (!UseOnlyTotalCPUvalue)
-                        cpus.Add(ci);
+                    foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient, 200))
+                    {
+                        if (UseOnlyTotalCPUvalue && ci.IsTotalCPU)
+                            cpus.Add(ci);
+                        else if (!UseOnlyTotalCPUvalue)
+                            cpus.Add(ci);
+                    }
                 }
+                sshClient.Disconnect();
             }
-            sshClient.Disconnect();
 
             return cpus;
         }

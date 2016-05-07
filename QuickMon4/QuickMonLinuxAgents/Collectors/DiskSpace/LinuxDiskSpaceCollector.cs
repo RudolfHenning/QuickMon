@@ -230,70 +230,48 @@ namespace QuickMon.Collectors
         public List<DiskInfoState> GetDiskInfos()
         {
             List<DiskInfoState> fileSystemEntries = new List<DiskInfoState>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
-            
-            if (sshClient.IsConnected)
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
             {
 
-                //First see if ANY subentry is for all
-                bool addAll = (from LinuxDiskSpaceSubEntry d in SubItems
-                               where d.FileSystemName == "*"
-                               select d).Count() > 0;
-                if (addAll)
+                if (sshClient.IsConnected)
                 {
-                    LinuxDiskSpaceSubEntry alertDef = (from LinuxDiskSpaceSubEntry d in SubItems
-                                                       where d.FileSystemName == "*"
-                                                       select d).FirstOrDefault();
-                    foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
-                    {
-                        DiskInfoState dis = new DiskInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                        fileSystemEntries.Add(dis);
-                    }
-                }
-                else
-                {
-                    foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
+
+                    //First see if ANY subentry is for all
+                    bool addAll = (from LinuxDiskSpaceSubEntry d in SubItems
+                                   where d.FileSystemName == "*"
+                                   select d).Count() > 0;
+                    if (addAll)
                     {
                         LinuxDiskSpaceSubEntry alertDef = (from LinuxDiskSpaceSubEntry d in SubItems
-                                                           where d.FileSystemName.ToLower() == di.Name.ToLower()
+                                                           where d.FileSystemName == "*"
                                                            select d).FirstOrDefault();
-
-                        if (alertDef != null)
+                        foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
                         {
-                            if (!fileSystemEntries.Any(f => f.FileSystemInfo.Name.ToLower() == di.Name.ToLower()))
+                            DiskInfoState dis = new DiskInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                            fileSystemEntries.Add(dis);
+                        }
+                    }
+                    else
+                    {
+                        foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
+                        {
+                            LinuxDiskSpaceSubEntry alertDef = (from LinuxDiskSpaceSubEntry d in SubItems
+                                                               where d.FileSystemName.ToLower() == di.Name.ToLower()
+                                                               select d).FirstOrDefault();
+
+                            if (alertDef != null)
                             {
-                                DiskInfoState dis = new DiskInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                                fileSystemEntries.Add(dis);
+                                if (!fileSystemEntries.Any(f => f.FileSystemInfo.Name.ToLower() == di.Name.ToLower()))
+                                {
+                                    DiskInfoState dis = new DiskInfoState() { FileSystemInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                                    fileSystemEntries.Add(dis);
+                                }
                             }
                         }
                     }
                 }
-
-                //if ((from LinuxDiskSpaceSubEntry d in SubItems
-                //         where d.FileSystemName == "*"
-                //     select d).Count() > 0)
-                //{
-                //    foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
-                //    {
-                //        if (!fileSystemEntries.Any(f=>f.Name.ToLower() == di.Name.ToLower() ))
-                //            fileSystemEntries.Add(di);
-                //    }
-                //}
-
-                //foreach (Linux.DiskInfo di in DiskInfo.FromDfTk(sshClient))
-                //{
-
-                //    if (addAll || (from LinuxDiskSpaceSubEntry d in SubItems
-                //         where d.FileSystemName.ToLower() == di.Name.ToLower()
-                //         select d).Count() > 0)
-                //    {
-                //        if (!fileSystemEntries.Any(f => f.Name.ToLower() == di.Name.ToLower()))
-                //            fileSystemEntries.Add(di);
-                //    }                 
-                //}
+                sshClient.Disconnect();
             }
-            sshClient.Disconnect();
-
             return fileSystemEntries;
         }
         public List<DiskInfoState> GetStates()

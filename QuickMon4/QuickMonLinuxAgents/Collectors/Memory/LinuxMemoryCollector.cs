@@ -226,13 +226,15 @@ namespace QuickMon.Collectors
         public MemInfo GetMemoryInfo()
         {
             MemInfo mi = new MemInfo();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
-
-            if (sshClient.IsConnected)
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
             {
-                mi = MemInfo.FromCatProcMeminfo(sshClient);
+
+                if (sshClient.IsConnected)
+                {
+                    mi = MemInfo.FromCatProcMeminfo(sshClient);
+                }
+                sshClient.Disconnect();
             }
-            sshClient.Disconnect();
 
             return mi;
         }

@@ -230,47 +230,49 @@ namespace QuickMon.Collectors
         public List<DiskIOState> GetDiskInfos()
         {
             List<DiskIOState> diskIOEntries = new List<DiskIOState>();
-            Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection);
 
-            if (sshClient.IsConnected)
+            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
             {
 
-                //First see if ANY subentry is for all
-                bool addAll = (from LinuxDiskIOSubEntry d in SubItems
-                               where d.Disk == "*"
-                               select d).Count() > 0;
-                if (addAll)
+                if (sshClient.IsConnected)
                 {
-                    LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
-                                                       where d.Disk == "*"
-                                                       select d).FirstOrDefault();
-                    foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 500))
-                    {
-                        DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                        diskIOEntries.Add(dis);
-                    }
-                }
-                else
-                {
-                    foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 500))
+
+                    //First see if ANY subentry is for all
+                    bool addAll = (from LinuxDiskIOSubEntry d in SubItems
+                                   where d.Disk == "*"
+                                   select d).Count() > 0;
+                    if (addAll)
                     {
                         LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
-                                                           where d.Disk.ToLower() == di.Name.ToLower()
-                                                           select d).FirstOrDefault();
-
-                        if (alertDef != null)
+                                                        where d.Disk == "*"
+                                                        select d).FirstOrDefault();
+                        foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
                         {
-                            if (!diskIOEntries.Any(f => f.DiskInfo.Name.ToLower() == di.Name.ToLower()))
+                            DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                            diskIOEntries.Add(dis);
+                        }
+                    }
+                    else
+                    {
+                        foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
+                        {
+                            LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
+                                                            where d.Disk.ToLower() == di.Name.ToLower()
+                                                            select d).FirstOrDefault();
+
+                            if (alertDef != null)
                             {
-                                DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                                diskIOEntries.Add(dis);
+                                if (!diskIOEntries.Any(f => f.DiskInfo.Name.ToLower() == di.Name.ToLower()))
+                                {
+                                    DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                                    diskIOEntries.Add(dis);
+                                }
                             }
                         }
                     }
                 }
+                sshClient.Disconnect();
             }
-            sshClient.Disconnect();
-
             return diskIOEntries;
         }
         public List<DiskIOState> GetStates()

@@ -57,23 +57,18 @@
     <Compile Include="classes\NicInfo.cs" />
     <Compile Include="classes\ProcessInfo.cs" />
     <Compile Include="Collectors\CPU\LinuxCPUCollector.cs" />
-    <Compile Include="Collectors\CPU\LinuxCPUCollectorConfig.cs" />
-    <Compile Include="Collectors\CPU\LinuxCPUEntry.cs" />
     <Compile Include="Collectors\DiskIO\LinuxDiskIOCollector.cs" />
     <Compile Include="Collectors\DiskSpace\LinuxDiskSpaceCollector.cs" />
     <Compile Include="Collectors\Memory\LinuxMemoryCollector.cs" />
-    <Compile Include="Collectors\Memory\LinuxMemoryCollectorConfig.cs" />
-    <Compile Include="Collectors\Memory\LinuxMemoryEntry.cs" />
     <Compile Include="Collectors\NIC\LinuxNICCollector.cs" />
+    <Compile Include="Collectors\Process\LinuxProcessCollector.cs" />
     <Compile Include="Collectors\SSHCommand\LinuxSSHCommand.cs" />
     <Compile Include="Common\LinuxBaseEntry.cs" />
     <Compile Include="Common\Parsers.cs" />
     <Compile Include="Common\SshClientTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Collectors\Process\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Renci.SshNet.dll.zip" />
   </ItemGroup>
