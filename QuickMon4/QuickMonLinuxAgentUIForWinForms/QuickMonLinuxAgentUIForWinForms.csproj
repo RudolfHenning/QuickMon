@@ -76,6 +76,12 @@
     <Compile Include="Collectors\EditSSHConnection.Designer.cs">
       <DependentUpon>EditSSHConnection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Collectors\Process\LinuxProcessCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\Process\LinuxProcessCollectorEditEntry.Designer.cs">
+      <DependentUpon>LinuxProcessCollectorEditEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collectors\Memory\LinuxMemoryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,7 @@
       <DependentUpon>LinuxNICCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Collectors\NIC\LinuxNICCollectorUI.cs" />
+    <Compile Include="Collectors\Process\LinuxProcessCollectorUI.cs" />
     <Compile Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\NIC\LinuxNICCollectorEditEntry.resx">
       <DependentUpon>LinuxNICCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\Process\LinuxProcessCollectorEditEntry.resx">
+      <DependentUpon>LinuxProcessCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.resx">
       <DependentUpon>LinuxSSHCommandCollectorEditEntry.cs</DependentUpon>

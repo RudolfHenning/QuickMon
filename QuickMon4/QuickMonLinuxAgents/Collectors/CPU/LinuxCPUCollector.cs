@@ -28,57 +28,45 @@ namespace QuickMon.Collectors
             try
             {
                 LinuxCPUCollectorConfig currentConfig = (LinuxCPUCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
                 foreach (LinuxCPUEntry entry in currentConfig.Entries)
                 {
+                    MonitorState entryState = new MonitorState()
+                    {
+                        ForAgent = entry.SSHConnection.ComputerName
+                    };
+
                     foreach(Linux.CPUInfo cpuInfo in  entry.GetCPUInfos())
                     {
+
                         if (highestVal < cpuInfo.CPUPerc)
                             highestVal = cpuInfo.CPUPerc;
                         CollectorState currentState = entry.GetState(cpuInfo.CPUPerc);
                         if (currentState == CollectorState.Error)
                         {
                             errors++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")",
-                                    State = CollectorState.Error,
-                                    CurrentValue = cpuInfo.CPUPerc,
-                                    RawDetails = string.Format("'{0}': {1} (Error)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
-                                    HtmlDetails = string.Format("'{0}': {1} (<b>Error</b>)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
-                                });
                         }
                         else if (currentState == CollectorState.Warning)
                         {
                             warnings++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")",
-                                    State = CollectorState.Warning,
-                                    CurrentValue = cpuInfo.CPUPerc,
-                                    RawDetails = string.Format("'{0}': {1} (Warning)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
-                                    HtmlDetails = string.Format("'{0}': {1} (<b>Warning</b>)", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
-                                });
                         }
                         else
                         {
                             success++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")",
-                                    State = CollectorState.Good,
-                                    CurrentValue = cpuInfo.CPUPerc,
-                                    RawDetails = string.Format("'{0}': {1}", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc),
-                                    HtmlDetails = string.Format("'{0}': {1}", entry.SSHConnection.ComputerName + "(" + cpuInfo.Name + ")", cpuInfo.CPUPerc)
-                                });
                         }
-                    }                    
+                        entryState.ChildStates.Add(
+                            new MonitorState()
+                                {
+                                    ForAgent = cpuInfo.Name,
+                                    State = currentState,
+                                    CurrentValue = cpuInfo.CPUPerc,
+                                    CurrentValueUnit = "%"
+                                }
+                            );
+                    }      
+                    returnState.ChildStates.Add(entryState);
                 }
                 returnState.CurrentValue = highestVal;
+                returnState.CurrentValueUnit = "% (highest value)";
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;

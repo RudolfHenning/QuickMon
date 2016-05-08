@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Disk Space Free % Collector"), Category("Linux")]
+    [Description("Process Performance Collector"), Category("Linux")]
     public class LinuxProcessCollector : CollectorAgentBase
     {
         public LinuxProcessCollector()
@@ -20,7 +20,6 @@ namespace QuickMon.Collectors
         {
             MonitorState returnState = new MonitorState();
             string lastAction = "";
-            double highestVal = 0;
             int errors = 0;
             int warnings = 0;
             int success = 0;
@@ -28,56 +27,39 @@ namespace QuickMon.Collectors
             try
             {
                 LinuxProcessCollectorConfig currentConfig = (LinuxProcessCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
                 foreach (LinuxProcessEntry entry in currentConfig.Entries)
                 {
+                    MonitorState entryState = new MonitorState() { 
+                        ForAgent = entry.Name + " (" + entry.SSHConnection.ComputerName + ")"
+                    };
                     List<ProcessInfoState> pss = entry.GetStates();
                     foreach (ProcessInfoState ps in pss)
                     {
-                        string currentValueFormat = "CPU%:" + ps.ProcessInfo.percCPU.ToString("0.00") + ",MEM%:" + ps.ProcessInfo.PID.ToString("0.00");
+                        string currentValueFormat = "CPU%:" + ps.ProcessInfo.percCPU.ToString("0.00") + ",MEM%:" + ps.ProcessInfo.percMEM.ToString("0.00");
                         if (ps.State == CollectorState.Error)
                         {
                             errors++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = entry.SSHConnection.ComputerName + "->" + ps.ProcessInfo.ProcessName,
-                                    State = CollectorState.Error,
-                                    CurrentValue = currentValueFormat,
-                                    RawDetails = string.Format("'{0}'-> {1} : {2} (Error)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat),
-                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2} (<b>Error</b>)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat)
-                                });
                         }
                         else if (ps.State == CollectorState.Warning)
                         {
-                            warnings++;
-                            returnState.ChildStates.Add(
-                               new MonitorState()
-                               {
-                                   ForAgent = entry.SSHConnection.ComputerName + "->" + ps.ProcessInfo.ProcessName,
-                                   State = CollectorState.Warning,
-                                   CurrentValue = currentValueFormat,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}% (Warning)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Warning</b>)", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat)
-                               });
+                            warnings++;                            
                         }
                         else
                         {
                             success++;
-                            returnState.ChildStates.Add(
-                               new MonitorState()
-                               {
-                                   ForAgent = entry.SSHConnection.ComputerName + "->" + ps.ProcessInfo.ProcessName,
-                                   State = CollectorState.Good,
-                                   CurrentValue = currentValueFormat,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}%", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}%", entry.SSHConnection.ComputerName, ps.ProcessInfo.ProcessName, currentValueFormat)
-                               });
                         }
+
+                        entryState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    ForAgent = ps.ProcessInfo.ProcessName,
+                                    State = ps.State,
+                                    CurrentValue = currentValueFormat
+                                });
                     }
+                    returnState.ChildStates.Add(entryState);
                 }
-                returnState.CurrentValue = highestVal;
+                returnState.CurrentValue = null;
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;
@@ -320,7 +302,7 @@ namespace QuickMon.Collectors
 
         public override string TriggerSummary
         {
-            get { return string.Format("{0} File system(s)", SubItems.Count); }
+            get { return string.Format("{0} Process entry(s)", SubItems.Count); }
         }
     }
 

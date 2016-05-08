@@ -21,7 +21,7 @@ namespace QuickMon.Collectors
         {
             MonitorState returnState = new MonitorState();
             string lastAction = "";
-            double highestVal = 0;
+            long highestVal = 0;
             int errors = 0;
             int warnings = 0;
             int success = 0;
@@ -29,55 +29,45 @@ namespace QuickMon.Collectors
             try
             {
                 LinuxNICCollectorConfig currentConfig = (LinuxNICCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
                 foreach (LinuxNICEntry entry in currentConfig.Entries)
                 {
+                    MonitorState entryState = new MonitorState()
+                    {
+                        ForAgent = entry.SSHConnection.ComputerName
+                    };
+
                     List<NICState> diss = entry.GetStates();
                     foreach (NICState dis in diss)
                     {
                         if (dis.State == CollectorState.Error)
                         {
                             errors++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = entry.SSHConnection.ComputerName + "->" + dis.NICInfo.Name,
-                                    State = CollectorState.Error,
-                                    CurrentValue = dis.NICInfo.RTxBytes,
-                                    RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec (Error)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
-                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec (<b>Error</b>)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
-                                });
                         }
-                        else if (dis.State == CollectorState.Warning)
+                        if (dis.State == CollectorState.Warning)
                         {
                             warnings++;
-                            returnState.ChildStates.Add(
-                               new MonitorState()
-                               {
-                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.NICInfo.Name,
-                                   State = CollectorState.Warning,
-                                   CurrentValue = dis.NICInfo.RTxBytes,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec (Warning)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec (<b>Warning</b>)", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
-                               });
                         }
                         else
                         {
                             success++;
-                            returnState.ChildStates.Add(
-                               new MonitorState()
-                               {
-                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.NICInfo.Name,
-                                   State = CollectorState.Good,
-                                   CurrentValue = dis.NICInfo.RTxBytes,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}bytes/sec", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}bytes/sec", entry.SSHConnection.ComputerName, dis.NICInfo.Name, dis.NICInfo.RTxBytes)
-                               });
                         }
+                        entryState.ChildStates.Add(
+                             new MonitorState()
+                             {
+                                 ForAgent = dis.NICInfo.Name,
+                                 State = dis.State,
+                                 CurrentValue = dis.NICInfo.RTxBytes,
+                                 CurrentValueUnit = "Bytes"
+                             }
+                            );
+                        if (highestVal < dis.NICInfo.RTxBytes)
+                            highestVal = dis.NICInfo.RTxBytes;                        
                     }
+                    returnState.ChildStates.Add(entryState);
                 }
+                
                 returnState.CurrentValue = highestVal;
+                returnState.CurrentValueUnit = "Bytes (highest)";
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;

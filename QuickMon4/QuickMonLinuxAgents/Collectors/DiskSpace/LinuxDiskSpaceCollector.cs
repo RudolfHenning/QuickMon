@@ -21,7 +21,7 @@ namespace QuickMon.Collectors
         {
             MonitorState returnState = new MonitorState();
             string lastAction = "";
-            double highestVal = 0;
+            float lowestVal = 100;
             int errors = 0;
             int warnings = 0;
             int success = 0;
@@ -29,55 +29,44 @@ namespace QuickMon.Collectors
             try
             {
                 LinuxDiskSpaceCollectorConfig currentConfig = (LinuxDiskSpaceCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
                 foreach (LinuxDiskSpaceEntry entry in currentConfig.Entries)
                 {
+                    MonitorState entryState = new MonitorState()
+                    {
+                        ForAgent = entry.SSHConnection.ComputerName
+                    };
+
                     List<DiskInfoState> diss = entry.GetStates();
                     foreach (DiskInfoState dis in diss)
                     {
                         if (dis.State == CollectorState.Error)
                         {
                             errors++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = entry.SSHConnection.ComputerName + "->" + dis.FileSystemInfo.Name,
-                                    State = CollectorState.Error,
-                                    CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
-                                    RawDetails = string.Format("'{0}'-> {1} : {2}% (Error)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
-                                    HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Error</b>)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
-                                });
                         }
-                        else if (dis.State == CollectorState.Warning)
+                        if (dis.State == CollectorState.Warning)
                         {
                             warnings++;
-                            returnState.ChildStates.Add(
-                               new MonitorState()
-                               {
-                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.FileSystemInfo.Name,
-                                   State = CollectorState.Warning,
-                                   CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}% (Warning)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}% (<b>Warning</b>)", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
-                               });
                         }
                         else
                         {
                             success++;
-                            returnState.ChildStates.Add(
-                               new MonitorState()
-                               {
-                                   ForAgent = entry.SSHConnection.ComputerName + "->" + dis.FileSystemInfo.Name,
-                                   State = CollectorState.Good,
-                                   CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
-                                   RawDetails = string.Format("'{0}'-> {1} : {2}%", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc),
-                                   HtmlDetails = string.Format("'{0}'-&gt; {1} : {2}%", entry.SSHConnection.ComputerName, dis.FileSystemInfo.Name, dis.FileSystemInfo.FreeSpacePerc)
-                               });
                         }
-                    }                    
+                        entryState.ChildStates.Add(
+                             new MonitorState()
+                             {
+                                 ForAgent = dis.FileSystemInfo.Name,
+                                 State = dis.State,
+                                 CurrentValue = dis.FileSystemInfo.FreeSpacePerc,
+                                 CurrentValueUnit = "%"
+                             }
+                            );
+                        if (lowestVal > dis.FileSystemInfo.FreeSpacePerc)
+                            lowestVal = dis.FileSystemInfo.FreeSpacePerc;
+
+                    }
+                    returnState.ChildStates.Add(entryState);
                 }
-                returnState.CurrentValue = highestVal;
+                returnState.CurrentValue = lowestVal;
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;

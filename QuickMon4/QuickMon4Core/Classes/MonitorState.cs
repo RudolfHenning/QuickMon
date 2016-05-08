@@ -27,6 +27,8 @@ namespace QuickMon
         }
         [DataMember(Name = "CurrentValue")]
         public object CurrentValue { get; set; }
+        [DataMember(Name = "CurrentValueUnit")]
+        public string CurrentValueUnit { get; set; }
 
         [DataMember(Name = "ForAgent")]
         public string ForAgent { get; set; }
@@ -177,7 +179,15 @@ namespace QuickMon
                 prePadding += string.Format("{0}: ", ForAgent);
                 if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
                 {
-                    prePadding += string.Format("({0}) ", State);
+                    if (CurrentValue != null)
+                    {
+                        prePadding += string.Format("{0} ", CurrentValue);
+                        if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                        {
+                            prePadding += string.Format("{0} ", CurrentValueUnit);
+                        }
+                    }
+                    prePadding += string.Format("({0}) ", State);                    
                 }
             }
             if (RawDetails != null && RawDetails.Length > 0)
@@ -210,7 +220,21 @@ namespace QuickMon
             {
                 sb.Append("<p>");
                 if (ForAgent != null && ForAgent.Length > 0)
+                {
                     sb.Append(string.Format("{0}: ", ForAgent));
+                    if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
+                    {
+                        if (CurrentValue != null)
+                        {
+                            sb.Append(string.Format("{0} ", CurrentValue));
+                            if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                            {
+                                sb.Append(string.Format("{0} ", CurrentValueUnit));
+                            }
+                        }
+                        sb.Append(string.Format("({0}) ", State));
+                    }
+                }
                 sb.AppendLine(HtmlDetails + "</p>");
             }
             else if (RawDetails != null && RawDetails.Length > 0)
