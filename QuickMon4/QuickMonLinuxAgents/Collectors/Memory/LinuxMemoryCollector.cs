@@ -20,7 +20,7 @@ namespace QuickMon.Collectors
         {
             MonitorState returnState = new MonitorState();
             string lastAction = "";
-            double highestVal = 0;
+            double lowestVal = 100;
             int errors = 0;
             int warnings = 0;
             int success = 0;
@@ -28,8 +28,6 @@ namespace QuickMon.Collectors
             try
             {
                 LinuxMemoryCollectorConfig currentConfig = (LinuxMemoryCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Querying {0} entries", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Querying {0} entries</b>", currentConfig.Entries.Count);
                 foreach (LinuxMemoryEntry entry in currentConfig.Entries)
                 {
                     Linux.MemInfo memInfo = entry.GetMemoryInfo();
@@ -39,49 +37,33 @@ namespace QuickMon.Collectors
                         percVal = memInfo.FreePerc + memInfo.Buffers + memInfo.Cached;
                     }
 
-                    CollectorState currentState = entry.GetState(percVal);                    
-
+                    CollectorState currentState = entry.GetState(percVal);
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
-                        returnState.ChildStates.Add(
-                            new MonitorState()
-                            {
-                                ForAgent = entry.SSHConnection.ComputerName,
-                                State = CollectorState.Error,
-                                CurrentValue = percVal,
-                                RawDetails = string.Format("'{0}': {1} (Error)", entry.SSHConnection.ComputerName, percVal),
-                                HtmlDetails = string.Format("'{0}': {1} (<b>Error</b>)", entry.SSHConnection.ComputerName, percVal)
-                            });
                     }
-                    else if (currentState == CollectorState.Warning)
+                    if (currentState == CollectorState.Warning)
                     {
                         warnings++;
-                        returnState.ChildStates.Add(
-                            new MonitorState()
-                            {
-                                ForAgent = entry.SSHConnection.ComputerName,
-                                State = CollectorState.Warning,
-                                CurrentValue = percVal,
-                                RawDetails = string.Format("'{0}': {1} (Warning)", entry.SSHConnection.ComputerName, percVal),
-                                HtmlDetails = string.Format("'{0}': {1} (<b>Warning</b>)", entry.SSHConnection.ComputerName, percVal)
-                            });
                     }
                     else
                     {
                         success++;
-                        returnState.ChildStates.Add(
+                    }
+                    returnState.ChildStates.Add(
                             new MonitorState()
                             {
                                 ForAgent = entry.SSHConnection.ComputerName,
-                                State = CollectorState.Good,
+                                State = currentState,
                                 CurrentValue = percVal,
-                                RawDetails = string.Format("'{0}': {1}", entry.SSHConnection.ComputerName, percVal),
-                                HtmlDetails = string.Format("'{0}': {1}", entry.SSHConnection.ComputerName, percVal)
+                                CurrentValueUnit = "%"
                             });
-                    }
+                    if (lowestVal > percVal)
+                        lowestVal = percVal;
+
                 }
-                returnState.CurrentValue = highestVal;
+                returnState.CurrentValue = lowestVal;
+                returnState.CurrentValueUnit = "% (lowest value)";
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;

@@ -23,14 +23,11 @@ namespace QuickMon.Collectors
             int errors = 0;
             int warnings = 0;
             int success = 0;
-
+            double sumValue = 0;
             try
             {
                 LinuxSSHCommandCollectorConfig currentConfig = (LinuxSSHCommandCollectorConfig)AgentConfig;
-
-                returnState.RawDetails = string.Format("Running {0} commands", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Running {0} commands</b>", currentConfig.Entries.Count);
-                returnState.CurrentValue = 0;
+                returnState.CurrentValue = null;
                 foreach (LinuxSSHCommandEntry entry in currentConfig.Entries)
                 {
                     string value = entry.ExecuteCommand();
@@ -38,48 +35,33 @@ namespace QuickMon.Collectors
                         entry.WarningMatchType, entry.WarningValueOrMacro, entry.ErrorMatchType, entry.ErrorValueOrMacro, value);
                     if (value.IsNumber())
                     {
-                        returnState.CurrentValue = Double.Parse(returnState.CurrentValue.ToString()) + Double.Parse(value.ToString());
+                        sumValue += Double.Parse(value.ToString());                        
                     }
+
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
-                        returnState.ChildStates.Add(
-                            new MonitorState()
-                            {
-                                State = CollectorState.Error,
-                                ForAgent = entry.Name,
-                                CurrentValue = value,
-                                RawDetails = string.Format("'{0}' - {1} (Error)", entry.Name, value),
-                                HtmlDetails = string.Format("'{0}' - {1} (<b>Error</b>)", entry.Name, value)
-                            });
                     }
-                    else if (currentState == CollectorState.Warning)
+                    if (currentState == CollectorState.Warning)
                     {
                         warnings++;
-                        returnState.ChildStates.Add(
-                            new MonitorState()
-                            {
-                                State = CollectorState.Warning,
-                                ForAgent = entry.Name,
-                                CurrentValue = value,
-                                RawDetails = string.Format("'{0}' - {1} (Warning)", entry.Name, value),
-                                HtmlDetails = string.Format("'{0}' - {1} (<b>Warning</b>)", entry.Name, value)
-                            });
                     }
                     else
                     {
                         success++;
-                        returnState.ChildStates.Add(
+                    }
+                    returnState.ChildStates.Add(
                             new MonitorState()
                             {
-                                State = CollectorState.Good,
                                 ForAgent = entry.Name,
-                                CurrentValue = value,
-                                RawDetails = string.Format("'{0}' - {1}", entry.Name, value),
-                                HtmlDetails = string.Format("'{0}' - {1}", entry.Name, value)
+                                State = currentState,
+                                CurrentValue = value.ToString(),
+                                CurrentValueUnit = ""
                             });
-                    }
+
                 }
+                if (sumValue > 0)
+                    returnState.CurrentValue = sumValue;
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;
