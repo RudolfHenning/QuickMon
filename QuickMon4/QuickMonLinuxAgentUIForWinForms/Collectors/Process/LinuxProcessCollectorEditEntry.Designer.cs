@@ -37,52 +37,52 @@
             this.label14 = new System.Windows.Forms.Label();
             this.cboProcessCheckOption = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.TopProcessCountUpDown = new System.Windows.Forms.NumericUpDown();
+            this.topProcessCountUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.topXMemPercErrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.topXMemPercWarnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.topXCPUPercErrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.topXCPUPercWarnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cmdTest = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.memPercErrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.memPercWarnNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cpuPercErrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cpuPercWarnNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.lblAutoAdd = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtFileSystem = new System.Windows.Forms.TextBox();
+            this.txtProcessName = new System.Windows.Forms.TextBox();
             this.lblAddFileSystem = new System.Windows.Forms.LinkLabel();
             this.lvwProcesses = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cpuWarningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cpuErrorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label10 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
             this.memWarningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.memErrorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.TopProcessCountUpDown)).BeginInit();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.topProcessCountUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXMemPercErrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXMemPercWarnNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXCPUPercErrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXCPUPercWarnNumericUpDown)).BeginInit();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memPercErrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memPercWarnNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpuPercErrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpuPercWarnNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // lblEditSSHConnection
@@ -168,23 +168,23 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "Top X processes";
             // 
-            // TopProcessCountUpDown
+            // topProcessCountUpDown
             // 
-            this.TopProcessCountUpDown.Location = new System.Drawing.Point(347, 116);
-            this.TopProcessCountUpDown.Maximum = new decimal(new int[] {
+            this.topProcessCountUpDown.Location = new System.Drawing.Point(347, 116);
+            this.topProcessCountUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.TopProcessCountUpDown.Minimum = new decimal(new int[] {
+            this.topProcessCountUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.TopProcessCountUpDown.Name = "TopProcessCountUpDown";
-            this.TopProcessCountUpDown.Size = new System.Drawing.Size(62, 20);
-            this.TopProcessCountUpDown.TabIndex = 8;
-            this.TopProcessCountUpDown.Value = new decimal(new int[] {
+            this.topProcessCountUpDown.Name = "topProcessCountUpDown";
+            this.topProcessCountUpDown.Size = new System.Drawing.Size(62, 20);
+            this.topProcessCountUpDown.TabIndex = 8;
+            this.topProcessCountUpDown.Value = new decimal(new int[] {
             10,
             0,
             0,
@@ -215,12 +215,12 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.numericUpDown3);
-            this.groupBox1.Controls.Add(this.numericUpDown4);
+            this.groupBox1.Controls.Add(this.topXMemPercErrNumericUpDown);
+            this.groupBox1.Controls.Add(this.topXMemPercWarnNumericUpDown);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.topXCPUPercErrNumericUpDown);
+            this.groupBox1.Controls.Add(this.topXCPUPercWarnNumericUpDown);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Location = new System.Drawing.Point(12, 142);
@@ -230,69 +230,46 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Top X criteria";
             // 
-            // numericUpDown1
+            // label5
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(127, 16);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label5.Location = new System.Drawing.Point(380, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Set values to 0 to ignore";
+            // 
+            // topXMemPercErrNumericUpDown
+            // 
+            this.topXMemPercErrNumericUpDown.Location = new System.Drawing.Point(264, 42);
+            this.topXMemPercErrNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown1.TabIndex = 1;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.topXMemPercErrNumericUpDown.Name = "topXMemPercErrNumericUpDown";
+            this.topXMemPercErrNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.topXMemPercErrNumericUpDown.TabIndex = 7;
+            this.topXMemPercErrNumericUpDown.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
             // 
-            // numericUpDown2
+            // topXMemPercWarnNumericUpDown
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(264, 16);
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.topXMemPercWarnNumericUpDown.Location = new System.Drawing.Point(127, 42);
+            this.topXMemPercWarnNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown2.TabIndex = 3;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(264, 42);
-            this.numericUpDown3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown3.TabIndex = 7;
-            this.numericUpDown3.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(127, 42);
-            this.numericUpDown4.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown4.TabIndex = 5;
-            this.numericUpDown4.Value = new decimal(new int[] {
+            this.topXMemPercWarnNumericUpDown.Name = "topXMemPercWarnNumericUpDown";
+            this.topXMemPercWarnNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.topXMemPercWarnNumericUpDown.TabIndex = 5;
+            this.topXMemPercWarnNumericUpDown.Value = new decimal(new int[] {
             10,
             0,
             0,
@@ -318,17 +295,39 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Error";
             // 
-            // label5
+            // topXCPUPercErrNumericUpDown
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label5.Location = new System.Drawing.Point(380, 33);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(122, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Set values to 0 to ignore";
+            this.topXCPUPercErrNumericUpDown.Location = new System.Drawing.Point(264, 16);
+            this.topXCPUPercErrNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.topXCPUPercErrNumericUpDown.Name = "topXCPUPercErrNumericUpDown";
+            this.topXCPUPercErrNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.topXCPUPercErrNumericUpDown.TabIndex = 3;
+            this.topXCPUPercErrNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // topXCPUPercWarnNumericUpDown
+            // 
+            this.topXCPUPercWarnNumericUpDown.Location = new System.Drawing.Point(127, 16);
+            this.topXCPUPercWarnNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.topXCPUPercWarnNumericUpDown.Name = "topXCPUPercWarnNumericUpDown";
+            this.topXCPUPercWarnNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.topXCPUPercWarnNumericUpDown.TabIndex = 1;
+            this.topXCPUPercWarnNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // cmdTest
             // 
@@ -351,6 +350,7 @@
             this.cmdOK.TabIndex = 12;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // cmdCancel
             // 
@@ -370,16 +370,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.label15);
-            this.groupBox6.Controls.Add(this.numericUpDown7);
-            this.groupBox6.Controls.Add(this.numericUpDown8);
+            this.groupBox6.Controls.Add(this.memPercErrNumericUpDown);
+            this.groupBox6.Controls.Add(this.memPercWarnNumericUpDown);
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Controls.Add(this.numericUpDown6);
+            this.groupBox6.Controls.Add(this.cpuPercErrNumericUpDown);
             this.groupBox6.Controls.Add(this.label11);
-            this.groupBox6.Controls.Add(this.numericUpDown5);
+            this.groupBox6.Controls.Add(this.cpuPercWarnNumericUpDown);
             this.groupBox6.Controls.Add(this.lblAutoAdd);
             this.groupBox6.Controls.Add(this.label8);
-            this.groupBox6.Controls.Add(this.txtFileSystem);
+            this.groupBox6.Controls.Add(this.txtProcessName);
             this.groupBox6.Controls.Add(this.lblAddFileSystem);
             this.groupBox6.Controls.Add(this.lvwProcesses);
             this.groupBox6.Controls.Add(this.label10);
@@ -392,17 +392,137 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Specific entries";
             // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label15.Location = new System.Drawing.Point(392, 177);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(122, 13);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Set values to 0 to ignore";
+            // 
+            // memPercErrNumericUpDown
+            // 
+            this.memPercErrNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.memPercErrNumericUpDown.Location = new System.Drawing.Point(264, 186);
+            this.memPercErrNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.memPercErrNumericUpDown.Name = "memPercErrNumericUpDown";
+            this.memPercErrNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.memPercErrNumericUpDown.TabIndex = 13;
+            this.memPercErrNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.memPercErrNumericUpDown.ValueChanged += new System.EventHandler(this.memPercErrNumericUpDown_ValueChanged);
+            // 
+            // memPercWarnNumericUpDown
+            // 
+            this.memPercWarnNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.memPercWarnNumericUpDown.Location = new System.Drawing.Point(127, 186);
+            this.memPercWarnNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.memPercWarnNumericUpDown.Name = "memPercWarnNumericUpDown";
+            this.memPercWarnNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.memPercWarnNumericUpDown.TabIndex = 11;
+            this.memPercWarnNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.memPercWarnNumericUpDown.ValueChanged += new System.EventHandler(this.memPercWarnNumericUpDown_ValueChanged);
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label12.AutoSize = true;
+            this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label12.Location = new System.Drawing.Point(6, 188);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(116, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Mem usage % Warning";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label13.AutoSize = true;
+            this.label13.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label13.Location = new System.Drawing.Point(229, 188);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(29, 13);
+            this.label13.TabIndex = 12;
+            this.label13.Text = "Error";
+            // 
+            // cpuPercErrNumericUpDown
+            // 
+            this.cpuPercErrNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cpuPercErrNumericUpDown.Location = new System.Drawing.Point(264, 160);
+            this.cpuPercErrNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.cpuPercErrNumericUpDown.Name = "cpuPercErrNumericUpDown";
+            this.cpuPercErrNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.cpuPercErrNumericUpDown.TabIndex = 9;
+            this.cpuPercErrNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.cpuPercErrNumericUpDown.ValueChanged += new System.EventHandler(this.cpuPercErrNumericUpDown_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label11.AutoSize = true;
+            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label11.Location = new System.Drawing.Point(6, 162);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(115, 13);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "CPU usage % Warning";
+            // 
+            // cpuPercWarnNumericUpDown
+            // 
+            this.cpuPercWarnNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cpuPercWarnNumericUpDown.Location = new System.Drawing.Point(127, 160);
+            this.cpuPercWarnNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.cpuPercWarnNumericUpDown.Name = "cpuPercWarnNumericUpDown";
+            this.cpuPercWarnNumericUpDown.Size = new System.Drawing.Size(52, 20);
+            this.cpuPercWarnNumericUpDown.TabIndex = 7;
+            this.cpuPercWarnNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.cpuPercWarnNumericUpDown.ValueChanged += new System.EventHandler(this.cpuPercWarnNumericUpDown_ValueChanged);
+            // 
             // lblAutoAdd
             // 
             this.lblAutoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAutoAdd.AutoSize = true;
             this.lblAutoAdd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAutoAdd.Location = new System.Drawing.Point(464, 16);
+            this.lblAutoAdd.Location = new System.Drawing.Point(435, 16);
             this.lblAutoAdd.Name = "lblAutoAdd";
-            this.lblAutoAdd.Size = new System.Drawing.Size(37, 13);
+            this.lblAutoAdd.Size = new System.Drawing.Size(80, 13);
             this.lblAutoAdd.TabIndex = 2;
             this.lblAutoAdd.TabStop = true;
-            this.lblAutoAdd.Text = "Select";
+            this.lblAutoAdd.Text = "Browse running";
             // 
             // label8
             // 
@@ -414,21 +534,22 @@
             this.label8.TabIndex = 4;
             this.label8.Text = "Process name";
             // 
-            // txtFileSystem
+            // txtProcessName
             // 
-            this.txtFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtProcessName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFileSystem.Location = new System.Drawing.Point(127, 134);
-            this.txtFileSystem.Name = "txtFileSystem";
-            this.txtFileSystem.Size = new System.Drawing.Size(387, 20);
-            this.txtFileSystem.TabIndex = 5;
+            this.txtProcessName.Location = new System.Drawing.Point(127, 134);
+            this.txtProcessName.Name = "txtProcessName";
+            this.txtProcessName.Size = new System.Drawing.Size(387, 20);
+            this.txtProcessName.TabIndex = 5;
+            this.txtProcessName.TextChanged += new System.EventHandler(this.txtProcessName_TextChanged);
             // 
             // lblAddFileSystem
             // 
             this.lblAddFileSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAddFileSystem.AutoSize = true;
             this.lblAddFileSystem.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lblAddFileSystem.Location = new System.Drawing.Point(403, 16);
+            this.lblAddFileSystem.Location = new System.Drawing.Point(379, 16);
             this.lblAddFileSystem.Name = "lblAddFileSystem";
             this.lblAddFileSystem.Size = new System.Drawing.Size(49, 13);
             this.lblAddFileSystem.TabIndex = 1;
@@ -455,6 +576,7 @@
             this.lvwProcesses.TabIndex = 3;
             this.lvwProcesses.UseCompatibleStateImageBehavior = false;
             this.lvwProcesses.View = System.Windows.Forms.View.Details;
+            this.lvwProcesses.SelectedIndexChanged += new System.EventHandler(this.lvwProcesses_SelectedIndexChanged);
             // 
             // nameColumnHeader
             // 
@@ -469,6 +591,16 @@
             // cpuErrorColumnHeader
             // 
             this.cpuErrorColumnHeader.Text = "Cpu err";
+            // 
+            // memWarningColumnHeader
+            // 
+            this.memWarningColumnHeader.Text = "Mem warn";
+            this.memWarningColumnHeader.Width = 71;
+            // 
+            // memErrorColumnHeader
+            // 
+            this.memErrorColumnHeader.Text = "Mem err";
+            this.memErrorColumnHeader.Width = 62;
             // 
             // label10
             // 
@@ -491,132 +623,6 @@
             this.label23.TabIndex = 8;
             this.label23.Text = "Error";
             // 
-            // memWarningColumnHeader
-            // 
-            this.memWarningColumnHeader.Text = "Mem warn";
-            this.memWarningColumnHeader.Width = 71;
-            // 
-            // memErrorColumnHeader
-            // 
-            this.memErrorColumnHeader.Text = "Mem err";
-            this.memErrorColumnHeader.Width = 62;
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown5.Location = new System.Drawing.Point(127, 160);
-            this.numericUpDown5.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown5.TabIndex = 7;
-            this.numericUpDown5.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label11.AutoSize = true;
-            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label11.Location = new System.Drawing.Point(6, 162);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(115, 13);
-            this.label11.TabIndex = 6;
-            this.label11.Text = "CPU usage % Warning";
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown6.Location = new System.Drawing.Point(264, 160);
-            this.numericUpDown6.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown6.TabIndex = 9;
-            this.numericUpDown6.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown7
-            // 
-            this.numericUpDown7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown7.Location = new System.Drawing.Point(264, 186);
-            this.numericUpDown7.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown7.TabIndex = 13;
-            this.numericUpDown7.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown8
-            // 
-            this.numericUpDown8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown8.Location = new System.Drawing.Point(127, 186);
-            this.numericUpDown8.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown8.TabIndex = 11;
-            this.numericUpDown8.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label12.AutoSize = true;
-            this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label12.Location = new System.Drawing.Point(6, 188);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(116, 13);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Mem usage % Warning";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label13.AutoSize = true;
-            this.label13.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label13.Location = new System.Drawing.Point(229, 188);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 13);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "Error";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label15.Location = new System.Drawing.Point(392, 177);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(122, 13);
-            this.label15.TabIndex = 14;
-            this.label15.Text = "Set values to 0 to ignore";
-            // 
             // LinuxProcessCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,7 +635,7 @@
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.TopProcessCountUpDown);
+            this.Controls.Add(this.topProcessCountUpDown);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.cboProcessCheckOption);
             this.Controls.Add(this.txtName);
@@ -645,19 +651,19 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Process Collector";
             this.Load += new System.EventHandler(this.LinuxProcessCollectorEdit_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.TopProcessCountUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topProcessCountUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXMemPercErrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXMemPercWarnNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXCPUPercErrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topXCPUPercWarnNumericUpDown)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memPercErrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memPercWarnNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpuPercErrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpuPercWarnNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -673,32 +679,32 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cboProcessCheckOption;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown TopProcessCountUpDown;
+        private System.Windows.Forms.NumericUpDown topProcessCountUpDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown topXMemPercErrNumericUpDown;
+        private System.Windows.Forms.NumericUpDown topXMemPercWarnNumericUpDown;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown topXCPUPercErrNumericUpDown;
+        private System.Windows.Forms.NumericUpDown topXCPUPercWarnNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cmdTest;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.NumericUpDown numericUpDown8;
+        private System.Windows.Forms.NumericUpDown memPercErrNumericUpDown;
+        private System.Windows.Forms.NumericUpDown memPercWarnNumericUpDown;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.NumericUpDown cpuPercErrNumericUpDown;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.NumericUpDown cpuPercWarnNumericUpDown;
         private System.Windows.Forms.LinkLabel lblAutoAdd;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtFileSystem;
+        private System.Windows.Forms.TextBox txtProcessName;
         private System.Windows.Forms.LinkLabel lblAddFileSystem;
         private ListViewEx lvwProcesses;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
