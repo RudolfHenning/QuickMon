@@ -324,7 +324,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 380);
             this.Name = "ConnectionStringBuilder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ConnectionStringBuilder";
+            this.Text = "Connection String Builder";
             this.Load += new System.EventHandler(this.ConnectionStringBuilder_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
