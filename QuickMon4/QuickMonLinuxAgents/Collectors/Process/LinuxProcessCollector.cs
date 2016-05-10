@@ -282,16 +282,29 @@ namespace QuickMon.Collectors
                     }
                     else
                     {
-                        foreach(LinuxProcessSubEntry s in SubItems)
+                        foreach (ProcessInfo p in runningProcesses)
                         {
-                            ProcessInfo procInfo = (from p in runningProcesses
-                                                        where p.ProcessName.ToLower()== s.ProcessName.ToLower()
-                                                        select p).FirstOrDefault();
-                            if (procInfo != null)
+                            LinuxProcessSubEntry se = (from LinuxProcessSubEntry s in SubItems
+                                                       where p.ProcessName.ToLower() == s.ProcessName.ToLower()
+                                                       select s).FirstOrDefault();
+                            if (se != null)
                             {
-                                processEntries.Add(new ProcessInfoState() { ProcessInfo = procInfo, AlertDefinition = s });
+                                processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = se });
                             }
-                        }                        
+                        }
+
+                        //foreach(LinuxProcessSubEntry s in SubItems)
+                        //{
+                            
+
+                        //    ProcessInfo procInfo = (from p in runningProcesses
+                        //                                where p.ProcessName.ToLower()== s.ProcessName.ToLower()
+                        //                                select p).FirstOrDefault();
+                        //    if (procInfo != null)
+                        //    {
+                        //        processEntries.Add(new ProcessInfoState() { ProcessInfo = procInfo, AlertDefinition = s });
+                        //    }
+                        //}                        
                     }
                     sshClient.Disconnect();
                 }                
@@ -302,7 +315,19 @@ namespace QuickMon.Collectors
 
         public override string TriggerSummary
         {
-            get { return string.Format("{0} Process entry(s)", SubItems.Count); }
+            get
+            {
+                if (ProcessCheckOption == Collectors.ProcessCheckOption.Specified)
+                    return string.Format("{0} Process entry(s)", SubItems.Count);
+                else if (ProcessCheckOption == Collectors.ProcessCheckOption.TopXByCPU)
+                {
+                    return string.Format("Top {0} Processes by CPU %", TopProcessCount);
+                }
+                else 
+                {
+                    return string.Format("Top {0} Processes by Memory %", TopProcessCount);
+                }
+            }
         }
     }
 

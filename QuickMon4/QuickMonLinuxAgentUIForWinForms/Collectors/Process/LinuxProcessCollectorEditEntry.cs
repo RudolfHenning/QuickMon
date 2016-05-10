@@ -180,5 +180,87 @@ namespace QuickMon.Collectors
             Close();
         }
 
+        private void lblAddFileSystem_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            lvwProcesses.SelectedItems.Clear();
+            txtProcessName.Text = "";
+        }
+
+        private void lblAutoAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinuxProcessViewer pviewer = new LinuxProcessViewer();
+            pviewer.SSHConnectionDetails = sshConnectionDetails;
+            if (pviewer.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                foreach (Linux.ProcessInfo pi in pviewer.SelectedProcesses)
+                {
+                    LinuxProcessSubEntry dsse = new LinuxProcessSubEntry()
+                    {
+                        ProcessName = pi.ProcessName,
+                        CPUPercWarningValue = (int)cpuPercWarnNumericUpDown.Value,
+                        CPUPercErrorValue = (int)cpuPercErrNumericUpDown.Value,
+                        MemPercWarningValue = (int)memPercWarnNumericUpDown.Value,
+                        MemPercErrorValue = (int)memPercErrNumericUpDown.Value
+                    };
+                    ListViewItem lvi = new ListViewItem() { Text = dsse.ProcessName };
+                    lvi.SubItems.Add(dsse.CPUPercWarningValue.ToString());
+                    lvi.SubItems.Add(dsse.CPUPercErrorValue.ToString());
+                    lvi.SubItems.Add(dsse.MemPercWarningValue.ToString());
+                    lvi.SubItems.Add(dsse.MemPercErrorValue.ToString());
+                    lvi.Tag = dsse;
+                    lvwProcesses.Items.Add(lvi);
+                }
+            }
+        }
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            LinuxProcessEntry testEntry = new LinuxProcessEntry();
+            testEntry.SSHConnection = sshConnectionDetails;
+            testEntry.Name = txtName.Text;
+            testEntry.ProcessCheckOption = (ProcessCheckOption)cboProcessCheckOption.SelectedIndex;
+            testEntry.TopProcessCount = (int)topProcessCountUpDown.Value;
+            testEntry.CPUPercWarningValue = (int)topXCPUPercWarnNumericUpDown.Value;
+            testEntry.CPUPercErrorValue = (int)topXCPUPercErrNumericUpDown.Value;
+            testEntry.MemPercWarningValue = (int)topXMemPercWarnNumericUpDown.Value;
+            testEntry.MemPercErrorValue = (int)topXMemPercErrNumericUpDown.Value;
+            testEntry.SubItems.Clear();
+
+            foreach (ListViewItem lvi in lvwProcesses.Items)
+            {
+                LinuxProcessSubEntry dsse = (LinuxProcessSubEntry)lvi.Tag;
+                testEntry.SubItems.Add(dsse);
+            }
+
+            try 
+            {
+                List<ProcessInfoState> states = testEntry.GetStates();
+                MessageBox.Show(string.Format("Test succeeded!\r\nGood: {0}\r\nWarning: {1}\r\nError: {2}", 
+                       states.Count<ProcessInfoState>(s=>s.State == CollectorState.Good),
+                       states.Count<ProcessInfoState>(s=>s.State == CollectorState.Warning),
+                       states.Count<ProcessInfoState>(s=>s.State == CollectorState.Error)
+                       )
+                    , "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Test failed!\r\n" + ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void lvwProcesses_DeleteKeyPressed()
+        {
+            if (lvwProcesses.SelectedItems.Count > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    foreach (ListViewItem lvi in lvwProcesses.SelectedItems)
+                    {
+                        lvwProcesses.Items.Remove(lvi);
+                    }
+                }
+            }
+        }
+
     }
 }

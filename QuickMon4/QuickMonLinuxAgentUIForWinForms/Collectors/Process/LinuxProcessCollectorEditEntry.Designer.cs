@@ -339,6 +339,7 @@
             this.cmdTest.TabIndex = 11;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
             // cmdOK
             // 
@@ -416,7 +417,7 @@
             this.memPercErrNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.memPercErrNumericUpDown.TabIndex = 13;
             this.memPercErrNumericUpDown.Value = new decimal(new int[] {
-            10,
+            90,
             0,
             0,
             0});
@@ -435,7 +436,7 @@
             this.memPercWarnNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.memPercWarnNumericUpDown.TabIndex = 11;
             this.memPercWarnNumericUpDown.Value = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             0});
@@ -476,7 +477,7 @@
             this.cpuPercErrNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.cpuPercErrNumericUpDown.TabIndex = 9;
             this.cpuPercErrNumericUpDown.Value = new decimal(new int[] {
-            10,
+            90,
             0,
             0,
             0});
@@ -506,7 +507,7 @@
             this.cpuPercWarnNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.cpuPercWarnNumericUpDown.TabIndex = 7;
             this.cpuPercWarnNumericUpDown.Value = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             0});
@@ -523,6 +524,7 @@
             this.lblAutoAdd.TabIndex = 2;
             this.lblAutoAdd.TabStop = true;
             this.lblAutoAdd.Text = "Browse running";
+            this.lblAutoAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAutoAdd_LinkClicked);
             // 
             // label8
             // 
@@ -555,6 +557,7 @@
             this.lblAddFileSystem.TabIndex = 1;
             this.lblAddFileSystem.TabStop = true;
             this.lblAddFileSystem.Text = "Add new";
+            this.lblAddFileSystem.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAddFileSystem_LinkClicked);
             // 
             // lvwProcesses
             // 
@@ -576,6 +579,7 @@
             this.lvwProcesses.TabIndex = 3;
             this.lvwProcesses.UseCompatibleStateImageBehavior = false;
             this.lvwProcesses.View = System.Windows.Forms.View.Details;
+            this.lvwProcesses.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwProcesses_DeleteKeyPressed);
             this.lvwProcesses.SelectedIndexChanged += new System.EventHandler(this.lvwProcesses_SelectedIndexChanged);
             // 
             // nameColumnHeader

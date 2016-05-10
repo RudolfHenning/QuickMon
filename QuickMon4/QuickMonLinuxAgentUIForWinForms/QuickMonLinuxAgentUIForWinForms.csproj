@@ -97,6 +97,12 @@
     </Compile>
     <Compile Include="Collectors\NIC\LinuxNICCollectorUI.cs" />
     <Compile Include="Collectors\Process\LinuxProcessCollectorUI.cs" />
+    <Compile Include="Collectors\Process\LinuxProcessViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Collectors\Process\LinuxProcessViewer.Designer.cs">
+      <DependentUpon>LinuxProcessViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\Process\LinuxProcessCollectorEditEntry.resx">
       <DependentUpon>LinuxProcessCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Collectors\Process\LinuxProcessViewer.resx">
+      <DependentUpon>LinuxProcessViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Collectors\SSHCommand\LinuxSSHCommandCollectorEditEntry.resx">
       <DependentUpon>LinuxSSHCommandCollectorEditEntry.cs</DependentUpon>
