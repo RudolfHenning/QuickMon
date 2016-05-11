@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace QuickMon.Collectors
@@ -247,12 +248,25 @@ namespace QuickMon.Collectors
         public int MemPercWarningValue { get; set; }
         public int MemPercErrorValue { get; set; }
 
+        private Renci.SshNet.SshClient sshClient = null;
+
         public List<ProcessInfoState> GetStates()
         {
-            List<ProcessInfoState> processEntries = new List<ProcessInfoState>();
-            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            try{
+                if (sshClient == null)
+                    sshClient = SshClientTools.GetSSHConnection(SSHConnection);
+                else if (!sshClient.IsConnected)
+                    sshClient.Connect();
+            }
+            catch
             {
-                if (sshClient.IsConnected)
+                //try to recreate connection one last time
+                sshClient = SshClientTools.GetSSHConnection(SSHConnection);
+            }
+            List<ProcessInfoState> processEntries = new List<ProcessInfoState>();
+            //using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            {
+                //if (sshClient.IsConnected)
                 {
                     LinuxProcessSubEntry globalAlertDef = new LinuxProcessSubEntry();
                     globalAlertDef.CPUPercWarningValue = CPUPercWarningValue;
@@ -284,33 +298,30 @@ namespace QuickMon.Collectors
                     {
                         foreach (ProcessInfo p in runningProcesses)
                         {
-                            LinuxProcessSubEntry se = (from LinuxProcessSubEntry s in SubItems
-                                                       where p.ProcessName.ToLower() == s.ProcessName.ToLower()
-                                                       select s).FirstOrDefault();
+                            LinuxProcessSubEntry se = (from LinuxProcessSubEntry sdef in SubItems
+                                                       where  FileNameMatch(p.ProcessName, sdef.ProcessName)
+                                                       select sdef).FirstOrDefault();
                             if (se != null)
                             {
                                 processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = se });
                             }
-                        }
-
-                        //foreach(LinuxProcessSubEntry s in SubItems)
-                        //{
-                            
-
-                        //    ProcessInfo procInfo = (from p in runningProcesses
-                        //                                where p.ProcessName.ToLower()== s.ProcessName.ToLower()
-                        //                                select p).FirstOrDefault();
-                        //    if (procInfo != null)
-                        //    {
-                        //        processEntries.Add(new ProcessInfoState() { ProcessInfo = procInfo, AlertDefinition = s });
-                        //    }
-                        //}                        
+                        }                      
                     }
-                    sshClient.Disconnect();
+                    //sshClient.Disconnect();
                 }                
             }
 
             return processEntries;
+        }
+        private bool FileNameMatch(string fileName, string mask)
+        {
+            if (mask.Contains('*') || mask.Contains('?'))
+            {
+                Regex regex = FindFilesPatternToRegex.Convert(mask);
+                return (regex.IsMatch(fileName));
+            }
+            else
+                return fileName.ToLower() == mask.ToLower();
         }
 
         public override string TriggerSummary
@@ -402,6 +413,51 @@ namespace QuickMon.Collectors
                 return ProcessCheckOption.TopXByMem;
             else
                 return ProcessCheckOption.Specified;
+        }
+    }
+
+    //http://stackoverflow.com/questions/652037/how-do-i-check-if-a-filename-matches-a-wildcard-pattern
+    internal static class FindFilesPatternToRegex
+    {
+        private static Regex HasQuestionMarkRegEx = new Regex(@"\?", RegexOptions.Compiled);
+        private static Regex IllegalCharactersRegex = new Regex("[" + @"\/:<>|" + "\"]", RegexOptions.Compiled);
+        private static Regex CatchExtentionRegex = new Regex(@"^\s*.+\.([^\.]+)\s*$", RegexOptions.Compiled);
+        private static string NonDotCharacters = @"[^.]*";
+        public static Regex Convert(string pattern)
+        {
+            if (pattern == null)
+            {
+                throw new ArgumentNullException();
+            }
+            pattern = pattern.Trim();
+            if (pattern.Length == 0)
+            {
+                throw new ArgumentException("Pattern is empty.");
+            }
+            if (IllegalCharactersRegex.IsMatch(pattern))
+            {
+                throw new ArgumentException("Pattern contains illegal characters.");
+            }
+            bool hasExtension = CatchExtentionRegex.IsMatch(pattern);
+            bool matchExact = false;
+            if (HasQuestionMarkRegEx.IsMatch(pattern))
+            {
+                matchExact = true;
+            }
+            else if (hasExtension)
+            {
+                matchExact = CatchExtentionRegex.Match(pattern).Groups[1].Length != 3;
+            }
+            string regexString = Regex.Escape(pattern);
+            regexString = "^" + Regex.Replace(regexString, @"\\\*", ".*");
+            regexString = Regex.Replace(regexString, @"\\\?", ".");
+            if (!matchExact && hasExtension)
+            {
+                regexString += NonDotCharacters;
+            }
+            regexString += "$";
+            Regex regex = new Regex(regexString, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return regex;
         }
     }
 }

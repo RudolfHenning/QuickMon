@@ -47,7 +47,6 @@
             this.label23 = new System.Windows.Forms.Label();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -275,11 +274,6 @@
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
-            // privateKeyOpenFileDialog
-            // 
-            this.privateKeyOpenFileDialog.DefaultExt = "*";
-            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
-            // 
             // lblEditSSHConnection
             // 
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -362,7 +356,6 @@
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.TextBox txtSSHConnection;
         private System.Windows.Forms.Label label9;

@@ -46,9 +46,10 @@ namespace QuickMon.Collectors
                                 new MonitorState() { 
                                     State = CollectorState.Error,
                                     ForAgent = entry.Description,
-                                    CurrentValue = value,
-                                    RawDetails = string.Format("{0} - Val: '{1}' - Error (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat)),
-                                                     HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Error</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat))
+                                    CurrentValue = value.ToString(outputFormat),
+                                    RawDetails = string.Format("(Trigger {0})", entry.ErrorValue.ToString(outputFormat))
+                                    //RawDetails = string.Format("{0} - Val: '{1}' - Error (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat)),
+                                    //HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Error</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.ErrorValue.ToString(outputFormat))
                             });
                         }
                         else if (currentState == CollectorState.Warning)
@@ -60,8 +61,10 @@ namespace QuickMon.Collectors
                                     State = CollectorState.Warning,
                                     ForAgent = entry.Description,
                                     CurrentValue = value,
-                                    RawDetails = string.Format("{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat)),
-                                    HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat))
+                                    RawDetails = string.Format("(Trigger {0})", entry.WarningValue.ToString(outputFormat))
+
+                                    //RawDetails = string.Format("{0} - Val: '{1}' - Warning (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat)),
+                                    //HtmlDetails = string.Format("{0} - Val: '{1}' - <b>Warning</b> (trigger '{2}')", entry.Description, value.ToString(outputFormat), entry.WarningValue.ToString(outputFormat))
                                 });
                         }
                         else
@@ -72,9 +75,9 @@ namespace QuickMon.Collectors
                                  {
                                      State = CollectorState.Good,
                                      ForAgent = entry.Description,
-                                     CurrentValue = value,
-                                     RawDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat)),
-                                     HtmlDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat))
+                                     CurrentValue = value//,
+                                     //RawDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat)),
+                                     //HtmlDetails = string.Format("{0} - Val: '{1}'", entry.Description, value.ToString(outputFormat))
                                  });
                         }
                     }

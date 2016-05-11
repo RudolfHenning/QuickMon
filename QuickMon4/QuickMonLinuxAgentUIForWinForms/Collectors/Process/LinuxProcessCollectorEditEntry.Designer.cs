@@ -398,11 +398,11 @@
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
             this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label15.Location = new System.Drawing.Point(392, 177);
+            this.label15.Location = new System.Drawing.Point(329, 161);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(122, 13);
+            this.label15.Size = new System.Drawing.Size(122, 26);
             this.label15.TabIndex = 14;
-            this.label15.Text = "Set values to 0 to ignore";
+            this.label15.Text = "* wildcard allowed\r\nSet values to 0 to ignore";
             // 
             // memPercErrNumericUpDown
             // 

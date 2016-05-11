@@ -50,8 +50,10 @@ namespace QuickMon.Collectors
                                     State = CollectorState.Error,
                                     ForAgent = string.Format("{0}\\{1}", eventLogEntry.Computer, eventLogEntry.EventLog),
                                     CurrentValue = count,
-                                    RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Error (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue),
-                                    HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Error</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue)
+                                    RawDetails = string.Format("(Trigger: {0})", eventLogEntry.ErrorValue)
+
+                                    //RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Error (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue),
+                                    //HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Error</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.ErrorValue)
                                 });                        
                     }
                     else if (warningCondition)
@@ -63,8 +65,9 @@ namespace QuickMon.Collectors
                                     State = CollectorState.Warning,
                                     ForAgent = string.Format("{0}\\{1}", eventLogEntry.Computer, eventLogEntry.EventLog),
                                     CurrentValue = count,
-                                    RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Warning (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue),
-                                    HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Warning</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue)
+                                    RawDetails = string.Format("(Trigger: {0})", eventLogEntry.WarningValue)
+                                    //RawDetails = string.Format("'{0}\\{1}' - count: '{2}' - Warning (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue),
+                                    //HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}' - <b>Warning</b> (trigger {3})", eventLogEntry.Computer, eventLogEntry.EventLog, count, eventLogEntry.WarningValue)
                                 });
                     }
                     else
@@ -75,9 +78,10 @@ namespace QuickMon.Collectors
                                 {
                                     State = CollectorState.Good,
                                     ForAgent = string.Format("{0}\\{1}", eventLogEntry.Computer, eventLogEntry.EventLog),
-                                    CurrentValue = count,
-                                    RawDetails = string.Format("'{0}\\{1}' - count: '{2}'", eventLogEntry.Computer, eventLogEntry.EventLog, count),
-                                    HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}'", eventLogEntry.Computer, eventLogEntry.EventLog, count)
+                                    CurrentValue = count
+                                    //,
+                                    //RawDetails = string.Format("'{0}\\{1}' - count: '{2}'", eventLogEntry.Computer, eventLogEntry.EventLog, count),
+                                    //HtmlDetails = string.Format("'{0}\\{1}' - count: '{2}'", eventLogEntry.Computer, eventLogEntry.EventLog, count)
                                 });
                     }
                 }

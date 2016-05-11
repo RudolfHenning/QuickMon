@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LinuxDiskIOCollectorEditEntry));
-            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.fileSystemColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -55,11 +54,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             this.SuspendLayout();
-            // 
-            // privateKeyOpenFileDialog
-            // 
-            this.privateKeyOpenFileDialog.DefaultExt = "*";
-            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
             // 
             // errorColumnHeader
             // 
@@ -361,7 +355,6 @@
 
         #endregion
 
-        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.ColumnHeader errorColumnHeader;
         private System.Windows.Forms.ColumnHeader warningColumnHeader;
         private System.Windows.Forms.ColumnHeader fileSystemColumnHeader;

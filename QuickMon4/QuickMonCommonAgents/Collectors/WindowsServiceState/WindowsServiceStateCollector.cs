@@ -30,38 +30,49 @@ namespace QuickMon.Collectors
                     var serviceStates = ssd.GetServiceStates();
                     lastAction = "Checking service states of " + ssd.MachineName;
                     CollectorState currentState = ssd.GetState(serviceStates);
+                    string machineName = ssd.MachineName;
+                    if (machineName == "." || machineName.ToLower() == "localhost")
+                        machineName = System.Net.Dns.GetHostName();
+
+                    MonitorState machineState = new MonitorState()
+                                {
+                                    State = currentState,
+                                    ForAgent = machineName
+                                };
 
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
-                        returnState.RawDetails = string.Format("{0} (Error)", ssd.MachineName);
-                        returnState.HtmlDetails = string.Format("{0} <b>Error</b>", ssd.MachineName);
+                        //returnState.RawDetails = string.Format("{0} (Error)", ssd.MachineName);
+                        //returnState.HtmlDetails = string.Format("{0} <b>Error</b>", ssd.MachineName);
                     }
                     else if (currentState == CollectorState.Warning)
                     {
                         warnings++;
-                        returnState.RawDetails = string.Format("{0} (Warning)", ssd.MachineName);
-                        returnState.HtmlDetails = string.Format("{0} <b>Warning</b>", ssd.MachineName);
+                        //returnState.RawDetails = string.Format("{0} (Warning)", ssd.MachineName);
+                        //returnState.HtmlDetails = string.Format("{0} <b>Warning</b>", ssd.MachineName);
                     }
                     else
                     {
                         success++;
-                        returnState.RawDetails = string.Format("{0} (Success)", ssd.MachineName);
-                        returnState.HtmlDetails = string.Format("{0} <b>Success</b>", ssd.MachineName);
+                        //returnState.RawDetails = string.Format("{0} (Success)", ssd.MachineName);
+                        //returnState.HtmlDetails = string.Format("{0} <b>Success</b>", ssd.MachineName);
                     }
                     foreach (ServiceStateInfo serviceEntry in serviceStates)
                     {
-                        returnState.ChildStates.Add(
+                        machineState.ChildStates.Add(
                                 new MonitorState()
                                 {
                                     State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good: CollectorState.Warning) ,
-                                    ForAgent = string.Format("{0}\\{1}", ssd.MachineName, serviceEntry.DisplayName),
-                                    CurrentValue = serviceEntry.Status.ToString(),
-                                    RawDetails = string.Format("{0} ({1})", serviceEntry.DisplayName, serviceEntry.Status),
-                                    HtmlDetails = string.Format("{0} ({1})", serviceEntry.DisplayName, serviceEntry.Status)
+                                    ForAgent = string.Format("{0}", serviceEntry.DisplayName),
+                                    CurrentValue = serviceEntry.Status.ToString()
+                                    //,
+                                    //RawDetails = string.Format("{0} ({1})", serviceEntry.DisplayName, serviceEntry.Status),
+                                    //HtmlDetails = string.Format("{0} ({1})", serviceEntry.DisplayName, serviceEntry.Status)
                                 });
                     }
 
+                    returnState.ChildStates.Add(machineState);
                 }
 
                 if (errors > 0 && warnings == 0 && success == 0) // all errors
