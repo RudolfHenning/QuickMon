@@ -18,7 +18,6 @@ namespace QuickMon.Collectors
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown warningNumericUpDown;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtSSHConnection;
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
@@ -34,7 +33,6 @@ namespace QuickMon.Collectors
             this.label6 = new System.Windows.Forms.Label();
             this.warningNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.label9 = new System.Windows.Forms.Label();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
@@ -151,11 +149,6 @@ namespace QuickMon.Collectors
             this.label7.Size = new System.Drawing.Size(29, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Error";
-            // 
-            // privateKeyOpenFileDialog
-            // 
-            this.privateKeyOpenFileDialog.DefaultExt = "*";
-            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
             // 
             // label9
             // 

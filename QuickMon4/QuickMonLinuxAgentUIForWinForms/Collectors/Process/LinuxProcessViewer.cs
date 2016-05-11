@@ -43,11 +43,14 @@ namespace QuickMon.Collectors
                 
                 foreach(QuickMon.Linux.ProcessInfo process in QuickMon.Linux.ProcessInfo.FromPsAux(sshClient).OrderBy(p => p.ProcessName))
                 {
-                    ListViewItem lvi = new ListViewItem(process.ProcessName);
-                    lvi.SubItems.Add(process.percCPU.ToString("0.0"));
-                    lvi.SubItems.Add(process.percMEM.ToString("0.0"));
-                    lvi.Tag = process;
-                    lvwProcesses.Items.Add(lvi);
+                    if (txtFilter.Text.Trim().Length == 0 || process.ProcessName.ToLower().Contains(txtFilter.Text.ToLower()))
+                    {
+                        ListViewItem lvi = new ListViewItem(process.ProcessName);
+                        lvi.SubItems.Add(process.percCPU.ToString("0.0"));
+                        lvi.SubItems.Add(process.percMEM.ToString("0.0"));
+                        lvi.Tag = process;
+                        lvwProcesses.Items.Add(lvi);
+                    }
                 }
                 cmdOK.Enabled = true;
             }

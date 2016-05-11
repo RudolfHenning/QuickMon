@@ -45,7 +45,6 @@
             this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -238,11 +237,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "File systems";
             // 
-            // privateKeyOpenFileDialog
-            // 
-            this.privateKeyOpenFileDialog.DefaultExt = "*";
-            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
-            // 
             // lblEditSSHConnection
             // 
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -323,7 +317,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtFileSystem;
         private System.Windows.Forms.LinkLabel lblAutoAdd;
-        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.TextBox txtSSHConnection;
         private System.Windows.Forms.Label label9;

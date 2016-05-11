@@ -194,21 +194,27 @@ namespace QuickMon.Collectors
             {
                 foreach (Linux.ProcessInfo pi in pviewer.SelectedProcesses)
                 {
-                    LinuxProcessSubEntry dsse = new LinuxProcessSubEntry()
+                    if ((from ListViewItem l in lvwProcesses.Items
+                         where l.Text.ToLower() == pi.ProcessName.ToLower()
+                         select l).Count() == 0)
                     {
-                        ProcessName = pi.ProcessName,
-                        CPUPercWarningValue = (int)cpuPercWarnNumericUpDown.Value,
-                        CPUPercErrorValue = (int)cpuPercErrNumericUpDown.Value,
-                        MemPercWarningValue = (int)memPercWarnNumericUpDown.Value,
-                        MemPercErrorValue = (int)memPercErrNumericUpDown.Value
-                    };
-                    ListViewItem lvi = new ListViewItem() { Text = dsse.ProcessName };
-                    lvi.SubItems.Add(dsse.CPUPercWarningValue.ToString());
-                    lvi.SubItems.Add(dsse.CPUPercErrorValue.ToString());
-                    lvi.SubItems.Add(dsse.MemPercWarningValue.ToString());
-                    lvi.SubItems.Add(dsse.MemPercErrorValue.ToString());
-                    lvi.Tag = dsse;
-                    lvwProcesses.Items.Add(lvi);
+
+                        LinuxProcessSubEntry dsse = new LinuxProcessSubEntry()
+                        {
+                            ProcessName = pi.ProcessName,
+                            CPUPercWarningValue = (int)cpuPercWarnNumericUpDown.Value,
+                            CPUPercErrorValue = (int)cpuPercErrNumericUpDown.Value,
+                            MemPercWarningValue = (int)memPercWarnNumericUpDown.Value,
+                            MemPercErrorValue = (int)memPercErrNumericUpDown.Value
+                        };
+                        ListViewItem lvi = new ListViewItem() { Text = dsse.ProcessName };
+                        lvi.SubItems.Add(dsse.CPUPercWarningValue.ToString());
+                        lvi.SubItems.Add(dsse.CPUPercErrorValue.ToString());
+                        lvi.SubItems.Add(dsse.MemPercWarningValue.ToString());
+                        lvi.SubItems.Add(dsse.MemPercErrorValue.ToString());
+                        lvi.Tag = dsse;
+                        lvwProcesses.Items.Add(lvi);
+                    }
                 }
             }
         }

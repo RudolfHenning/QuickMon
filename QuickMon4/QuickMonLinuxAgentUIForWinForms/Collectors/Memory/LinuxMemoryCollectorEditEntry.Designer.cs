@@ -36,7 +36,6 @@
             this.alertTriggeringGroupBox = new System.Windows.Forms.GroupBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -131,11 +130,6 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // privateKeyOpenFileDialog
-            // 
-            this.privateKeyOpenFileDialog.DefaultExt = "*";
-            this.privateKeyOpenFileDialog.Filter = "Files|*.*";
-            // 
             // lblEditSSHConnection
             // 
             this.lblEditSSHConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -206,7 +200,6 @@
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
-        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.GroupBox alertTriggeringGroupBox;
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.TextBox txtSSHConnection;
