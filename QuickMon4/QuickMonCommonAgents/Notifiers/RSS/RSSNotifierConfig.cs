@@ -66,10 +66,10 @@ namespace QuickMon.Notifiers
         {
             return "<config><rss rssFilePath=\"%LOCALAPPDATA%\\Hen IT\\QuickMon 4\\QuickMon.rss\" title=\"QuickMon RSS alerts\" link=\"\" description=\"\" " +
                 "keepEntriesDays=\"10\" language=\"en-us\" generator=\"QuickMon RSS notifier\" " +
-                "lineTitle=\"%CollectorName% - %AlertLevel%\" lineCategory=\"%CurrentState%, %CollectorName%\" lineLink=\"\" lineDescription=\"&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%\r\n" +
-                                                                         "&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%\r\n" +
-                                                                         "&lt;b&gt;Collector:&lt;/b&gt; %CollectorName%\r\n" +
-                                                                         "&lt;b&gt;Details&lt;/b&gt;\r\n" +
+                "lineTitle=\"%CollectorName% - %AlertLevel%\" lineCategory=\"%CurrentState%, %CollectorName%\" lineLink=\"\" lineDescription=\"&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br/&gt;\r\n" +
+                                                                         "&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br/&gt;\r\n" +
+                                                                         "&lt;b&gt;Collector:&lt;/b&gt; %CollectorName%&lt;br/&gt;\r\n" +
+                                                                         "&lt;b&gt;Details&lt;/b&gt;&lt;br/&gt;\r\n" +
                                                                          "%Details%\" /></config>";
         }
 

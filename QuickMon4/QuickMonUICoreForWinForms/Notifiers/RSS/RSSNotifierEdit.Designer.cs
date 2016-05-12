@@ -43,6 +43,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtLineLink = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -61,9 +64,6 @@
             this.txtRSSFilePath = new System.Windows.Forms.TextBox();
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.saveFileDialogLogFile = new System.Windows.Forms.SaveFileDialog();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtLineLink = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.keepDataDaysNumericUpDown)).BeginInit();
@@ -236,6 +236,36 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Line item settings";
             // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Gray;
+            this.label8.Location = new System.Drawing.Point(8, 235);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "%LineGuid%";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 177);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(27, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Link";
+            // 
+            // txtLineLink
+            // 
+            this.txtLineLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLineLink.Location = new System.Drawing.Point(142, 174);
+            this.txtLineLink.Name = "txtLineLink";
+            this.txtLineLink.Size = new System.Drawing.Size(316, 20);
+            this.txtLineLink.TabIndex = 18;
+            this.txtLineLink.Text = "%LineGuid%";
+            // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -306,8 +336,8 @@
             this.txtLineDescription.Name = "txtLineDescription";
             this.txtLineDescription.Size = new System.Drawing.Size(316, 71);
             this.txtLineDescription.TabIndex = 8;
-            this.txtLineDescription.Text = "<b>Date Time:</b> %DateTime%\r\n<b>Current state:</b> %CurrentState%\r\n<b>Collector:" +
-    "</b> %CollectorType%\r\n<b>Details</b>\r\n%Details%";
+            this.txtLineDescription.Text = "<b>Date Time:</b> %DateTime%<br/>\r\n<b>Current state:</b> %CurrentState%<br/>\r\n<b>" +
+    "Collector:</b> %CollectorType%<br/>\r\n<b>Details</b><br/>\r\n%Details%";
             // 
             // lblCopyCollectorName
             // 
@@ -430,36 +460,6 @@
             this.saveFileDialogLogFile.DefaultExt = "xml";
             this.saveFileDialogLogFile.FileName = "rss.xml";
             this.saveFileDialogLogFile.Filter = "RSS Files|*.xml";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 177);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(27, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Link";
-            // 
-            // txtLineLink
-            // 
-            this.txtLineLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLineLink.Location = new System.Drawing.Point(142, 174);
-            this.txtLineLink.Name = "txtLineLink";
-            this.txtLineLink.Size = new System.Drawing.Size(316, 20);
-            this.txtLineLink.TabIndex = 18;
-            this.txtLineLink.Text = "%LineGuid%";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.Gray;
-            this.label8.Location = new System.Drawing.Point(8, 235);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "%LineGuid%";
             // 
             // RSSNotifierEdit
             // 

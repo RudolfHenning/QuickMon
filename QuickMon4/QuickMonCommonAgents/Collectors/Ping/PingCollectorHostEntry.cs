@@ -229,6 +229,7 @@ namespace QuickMon.Collectors
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
                     {
                         int chars = 0;
+                        StringBuilder docContents = new StringBuilder();
                         lastStep = "[CanRead]";
                         if (webRequest.CanRead)
                         {
@@ -236,14 +237,17 @@ namespace QuickMon.Collectors
                             int readByte = webRequest.ReadByte();
                             while (readByte != -1) // && chars < 256)
                             {
-                                readByte = webRequest.ReadByte();
                                 chars++;
+                                docContents.Append(Char.ConvertFromUtf32(readByte));
+                                readByte = webRequest.ReadByte();
+
                                 if (sw.ElapsedMilliseconds > TimeOutMS)
                                 {
                                     break;
                                 }
                             }
-                            result.ResponseDetails = "Characters returned:" + chars.ToString();
+                            if (chars >1)
+                                result.ResponseDetails = "Characters returned:" + chars.ToString(); //docContents.ToString()
                         }
                         else
                             throw new Exception("Could not read web request stream");
@@ -256,7 +260,8 @@ namespace QuickMon.Collectors
                 else
                 {
                     result.Success = false;
-                    result.ResponseDetails = "Operation timed out!\r\n" + result.ResponseDetails;
+                    //if (!result.ResponseDetails.Contains("Operation timed out"))
+                    //    result.ResponseDetails = "Operation timed out!\r\n" + result.ResponseDetails;
                 }
 
             }

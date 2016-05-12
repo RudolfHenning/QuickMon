@@ -43,8 +43,7 @@ namespace QuickMon.Collectors
                                 State = CollectorState.Error,
                                 ForAgent = entry.Database,
                                 CurrentValue = string.Format("{0} MB", size),
-                                RawDetails = string.Format("'{0}' - {1} (Error)", entry.Database, size),
-                                HtmlDetails = string.Format("'{0}' - {1} (<b>Error</b>)", entry.Database, size)
+                                RawDetails = string.Format("(Trigger '{0} MB')", entry.ErrorSizeMB)
                             });
                     }
                     else if (currentState == CollectorState.Warning)
@@ -56,8 +55,7 @@ namespace QuickMon.Collectors
                                 State = CollectorState.Warning,
                                 ForAgent = entry.Database,
                                 CurrentValue = string.Format("{0} MB", size),
-                                RawDetails = string.Format("'{0}' - {1} (Warning)", entry.Database, size),
-                                HtmlDetails = string.Format("'{0}' - {1} (<b>Warning</b>)", entry.Database, size)
+                                RawDetails = string.Format("(Trigger '{0} MB')", entry.WarningSizeMB)
                             });
                     }
                     else
@@ -68,9 +66,7 @@ namespace QuickMon.Collectors
                             {
                                 State = CollectorState.Good,
                                 ForAgent = entry.Database,
-                                CurrentValue = string.Format("{0} MB", size) ,
-                                RawDetails = string.Format("'{0}' - {1}", entry.Database, size),
-                                HtmlDetails = string.Format("'{0}' - {1}", entry.Database, size)
+                                CurrentValue = string.Format("{0} MB", size)
                             });
                     }
                 }
