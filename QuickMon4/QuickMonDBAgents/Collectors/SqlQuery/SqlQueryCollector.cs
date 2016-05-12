@@ -46,9 +46,8 @@ namespace QuickMon.Collectors
                             {
                                 State = CollectorState.Error,
                                 ForAgent = entry.Name,
-                                CurrentValue = value,
-                                RawDetails = string.Format("'{0}' - {1} (Error)", entry.Name, value),
-                                HtmlDetails = string.Format("'{0}' - {1} (<b>Error</b>)", entry.Name, value)
+                                CurrentValue = value//,
+                                //RawDetails = string.Format("(Trigger '{0}')", entry.TriggerSummary)
                             });
                     }
                     else if (currentState == CollectorState.Warning)
@@ -59,9 +58,8 @@ namespace QuickMon.Collectors
                             {
                                 State = CollectorState.Warning,
                                 ForAgent = entry.Name,
-                                CurrentValue = value,
-                                RawDetails = string.Format("'{0}' - {1} (Warning)", entry.Name, value),
-                                HtmlDetails = string.Format("'{0}' - {1} (<b>Warning</b>)", entry.Name, value)
+                                CurrentValue = value//,
+                                //RawDetails = string.Format("(Trigger '{0}')", entry.TriggerSummary)
                             });
                     }
                     else
@@ -72,9 +70,7 @@ namespace QuickMon.Collectors
                             {
                                 State = CollectorState.Good,
                                 ForAgent = entry.Name,
-                                CurrentValue = value,
-                                RawDetails = string.Format("'{0}' - {1}", entry.Name, value),
-                                HtmlDetails = string.Format("'{0}' - {1}", entry.Name, value)
+                                CurrentValue = value
                             });
                     }                    
                 }

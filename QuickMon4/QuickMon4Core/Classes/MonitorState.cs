@@ -216,7 +216,8 @@ namespace QuickMon
         public string ReadAllHtmlDetails()
         {
             StringBuilder sb = new StringBuilder();
-            if (HtmlDetails != null && HtmlDetails.Length > 0)
+
+            if ((ForAgent != null && ForAgent.Length > 0) || (HtmlDetails != null && HtmlDetails.Length > 0) || (RawDetails != null && RawDetails.Length > 0))
             {
                 sb.Append("<p>");
                 if (ForAgent != null && ForAgent.Length > 0)
@@ -232,18 +233,63 @@ namespace QuickMon
                                 sb.Append(string.Format("{0} ", CurrentValueUnit));
                             }
                         }
-                        sb.Append(string.Format("({0}) ", State));
+                        if (State == CollectorState.Error || State == CollectorState.ConfigurationError || State == CollectorState.Warning)
+                            sb.Append(string.Format("(<b>{0}</b>) ", State));
+                        else
+                            sb.Append(string.Format("({0}) ", State));
                     }
                 }
-                sb.AppendLine(HtmlDetails + "</p>");
+                if (HtmlDetails != null && HtmlDetails.Length > 0)
+                    sb.AppendLine(HtmlDetails + "</p>");
+                else if (RawDetails != null && RawDetails.Length > 0)
+                    sb.AppendLine(RawDetails + "</p>");
+                else
+                    sb.AppendLine("</p>");
             }
-            else if (RawDetails != null && RawDetails.Length > 0)
-            {
-                sb.Append("<p>");
-                if (ForAgent != null && ForAgent.Length > 0)
-                    sb.Append(string.Format("{0}: ", ForAgent));
-                sb.AppendLine(RawDetails + "</p>");
-            }
+
+
+            //if (HtmlDetails != null && HtmlDetails.Length > 0)
+            //{
+            //    sb.Append("<p>");
+            //    if (ForAgent != null && ForAgent.Length > 0)
+            //    {
+            //        sb.Append(string.Format("{0}: ", ForAgent));
+            //        if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
+            //        {
+            //            if (CurrentValue != null)
+            //            {
+            //                sb.Append(string.Format("{0} ", CurrentValue));
+            //                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+            //                {
+            //                    sb.Append(string.Format("{0} ", CurrentValueUnit));
+            //                }
+            //            }
+            //            sb.Append(string.Format("({0}) ", State));
+            //        }
+            //    }
+            //    sb.AppendLine(HtmlDetails + "</p>");
+            //}
+            //else if (RawDetails != null && RawDetails.Length > 0)
+            //{
+            //    sb.Append("<p>");
+            //    if (ForAgent != null && ForAgent.Length > 0)
+            //    {
+            //        sb.Append(string.Format("{0}: ", ForAgent));
+            //        if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
+            //        {
+            //            if (CurrentValue != null)
+            //            {
+            //                sb.Append(string.Format("{0} ", CurrentValue));
+            //                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+            //                {
+            //                    sb.Append(string.Format("{0} ", CurrentValueUnit));
+            //                }
+            //            }
+            //            sb.Append(string.Format("({0}) ", State));
+            //        }
+            //    }
+            //    sb.AppendLine(RawDetails + "</p>");
+            //}
             if (ChildStates != null && ChildStates.Count > 0)
             {
                 sb.AppendLine("<ul>");
