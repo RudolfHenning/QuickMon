@@ -25,8 +25,8 @@ namespace QuickMon.Collectors
                 {
                     BizTalkPortAndOrchsCollectorConfigEntry entry = (BizTalkPortAndOrchsCollectorConfigEntry)currentConfig.Entries[0];
 
-                    returnState.RawDetails = string.Format("BizTalk Managament DB: {0}", entry.Description);
-                    returnState.HtmlDetails = string.Format("<b>BizTalk Managament DB: {0}</b>", entry.Description);
+                    returnState.RawDetails = string.Format("BizTalk Management DB: {0}", entry.Description);
+                    returnState.HtmlDetails = string.Format("<b>BizTalk Management DB: {0}</b>", entry.Description);
                     returnState.CurrentValue = "All ok";
 
                     lastAction = "Getting Receive Location count";
@@ -86,8 +86,8 @@ namespace QuickMon.Collectors
                                 disabledRL.ChildStates.Add(
                                     new MonitorState()
                                 {
-                                    CurrentValue = "Disabled RL: " + rl,
-                                    RawDetails = rl
+                                    CurrentValue = "Disabled RL: " + rl//,
+                                    //RawDetails = rl
                                 });
                             }
                             returnState.ChildStates.Add(disabledRL);
@@ -104,8 +104,8 @@ namespace QuickMon.Collectors
                                 stoppedSP.ChildStates.Add(
                                     new MonitorState()
                                     {
-                                        CurrentValue = "Stopped SP: " + sp,
-                                        RawDetails = sp
+                                        CurrentValue = "Stopped SP: " + sp//,
+                                        //RawDetails = sp
                                     });
                             }
                             returnState.ChildStates.Add(stoppedSP);                            
@@ -122,8 +122,8 @@ namespace QuickMon.Collectors
                                 stoppedOrchs.ChildStates.Add(
                                     new MonitorState()
                                     {
-                                        CurrentValue = "Stopped Orch: " + orch,
-                                        RawDetails = orch
+                                        CurrentValue = "Stopped Orch: " + orch//,
+                                        //RawDetails = orch
                                     });
                             }
                             returnState.ChildStates.Add(stoppedOrchs);                            

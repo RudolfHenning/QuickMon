@@ -29,8 +29,8 @@ namespace QuickMon.Collectors
             try
             {
                 PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Calling {0} services", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Calling {0} services</b>", currentConfig.Entries.Count);
+                //returnState.RawDetails = string.Format("Calling {0} services", currentConfig.Entries.Count);
+                //returnState.HtmlDetails = string.Format("<b>Calling {0} services</b>", currentConfig.Entries.Count);
                 foreach (PowerShellScriptRunnerEntry entry in currentConfig.Entries)
                 {
                     CollectorState currentState = CollectorState.NotAvailable;
@@ -59,9 +59,9 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Description,
                                 State = CollectorState.Error,
-                                CurrentValue = output,
-                                RawDetails = string.Format("'{0}' (Error)", output),
-                                HtmlDetails = string.Format("'{0}' (<b>Error</b>)", output)
+                                CurrentValue = output//,
+                                //RawDetails = string.Format("'{0}' (Error)", output),
+                                //HtmlDetails = string.Format("'{0}' (<b>Error</b>)", output)
                             });
                     }
                     else if (currentState == CollectorState.Warning)
@@ -72,9 +72,9 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Description,
                                 State = CollectorState.Warning,
-                                CurrentValue = output,
-                                RawDetails = string.Format("'{0}' (Warning)", output),
-                                HtmlDetails = string.Format("'{0}' (<b>Warning</b>)", output)
+                                CurrentValue = output//,
+                                //RawDetails = string.Format("'{0}' (Warning)", output),
+                                //HtmlDetails = string.Format("'{0}' (<b>Warning</b>)", output)
                             });
                     }
                     else
@@ -85,9 +85,9 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Description,
                                 State = CollectorState.Good,
-                                CurrentValue = output,
-                                RawDetails = string.Format("'{0}'", output),
-                                HtmlDetails = string.Format("'{0}'", output)
+                                CurrentValue = output//,
+                                //RawDetails = string.Format("'{0}'", output),
+                                //HtmlDetails = string.Format("'{0}'", output)
                             });
                     }
                 }

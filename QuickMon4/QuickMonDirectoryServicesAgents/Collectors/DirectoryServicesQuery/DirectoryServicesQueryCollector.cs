@@ -57,9 +57,9 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Name,
                                 State = CollectorState.Error,
-                                CurrentValue = output,
-                                RawDetails = string.Format("'{0}' (Error)", output),
-                                HtmlDetails = string.Format("'{0}' (<b>Error</b>)", output)
+                                CurrentValue = output//,
+                                //RawDetails = string.Format("'{0}' (Error)", output),
+                                //HtmlDetails = string.Format("'{0}' (<b>Error</b>)", output)
                             });
                     }
                     else if (currentState == CollectorState.Warning)
@@ -70,9 +70,9 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Name,
                                 State = CollectorState.Warning,
-                                CurrentValue = output,
-                                RawDetails = string.Format("'{0}' (Warning)", output),
-                                HtmlDetails = string.Format("'{0}' (<b>Warning</b>)", output)
+                                CurrentValue = output//,
+                                //RawDetails = string.Format("'{0}' (Warning)", output),
+                                //HtmlDetails = string.Format("'{0}' (<b>Warning</b>)", output)
                             });
                     }
                     else
@@ -83,9 +83,9 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Name,
                                 State = CollectorState.Good,
-                                CurrentValue = output,
-                                RawDetails = string.Format("'{0}'", output),
-                                HtmlDetails = string.Format("'{0}'", output)
+                                CurrentValue = output//,
+                                //RawDetails = string.Format("'{0}'", output),
+                                //HtmlDetails = string.Format("'{0}'", output)
                             });
                     }
                 }
