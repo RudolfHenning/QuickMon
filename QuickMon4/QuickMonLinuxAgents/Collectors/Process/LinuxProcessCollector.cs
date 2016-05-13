@@ -133,13 +133,15 @@ namespace QuickMon.Collectors
             foreach (XmlElement procNode in root.SelectNodes("linuxProcess"))
             {
                 LinuxProcessEntry entry = new LinuxProcessEntry();
-                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(procNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.SSHConnection.ComputerName = procNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHConnection.SSHPort = procNode.ReadXmlElementAttr("sshPort", 22);
-                entry.SSHConnection.UserName = procNode.ReadXmlElementAttr("userName", "");
-                entry.SSHConnection.Password = procNode.ReadXmlElementAttr("password", "");
-                entry.SSHConnection.PrivateKeyFile = procNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.SSHConnection.PassPhrase = procNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(procNode);
+
+                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(procNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                //entry.SSHConnection.ComputerName = procNode.ReadXmlElementAttr("machine", ".");
+                //entry.SSHConnection.SSHPort = procNode.ReadXmlElementAttr("sshPort", 22);
+                //entry.SSHConnection.UserName = procNode.ReadXmlElementAttr("userName", "");
+                //entry.SSHConnection.Password = procNode.ReadXmlElementAttr("password", "");
+                //entry.SSHConnection.PrivateKeyFile = procNode.ReadXmlElementAttr("privateKeyFile", "");
+                //entry.SSHConnection.PassPhrase = procNode.ReadXmlElementAttr("passPhrase", "");
 
                 entry.Name = procNode.ReadXmlElementAttr("name", "");
                 entry.ProcessCheckOption = ProcessCheckOptionTypeConverter.FromString(procNode.ReadXmlElementAttr("processCheckOption", ""));
@@ -173,13 +175,14 @@ namespace QuickMon.Collectors
             foreach (LinuxProcessEntry entry in Entries)
             {
                 XmlElement processNode = config.CreateElement("linuxProcess");
-                processNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                processNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
-                processNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                processNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                processNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                processNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                processNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                entry.SSHConnection.SaveToXmlElementAttr(processNode);
+                //processNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                //processNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                //processNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                //processNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                //processNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                //processNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                //processNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
 
                 processNode.SetAttributeValue("name", entry.Name);
                 processNode.SetAttributeValue("processCheckOption", entry.ProcessCheckOption.ToString());
@@ -248,69 +251,51 @@ namespace QuickMon.Collectors
         public int MemPercWarningValue { get; set; }
         public int MemPercErrorValue { get; set; }
 
-        private Renci.SshNet.SshClient sshClient = null;
-
         public List<ProcessInfoState> GetStates()
         {
-            try{
-                if (sshClient == null)
-                    sshClient = SshClientTools.GetSSHConnection(SSHConnection);
-                else if (!sshClient.IsConnected)
-                    sshClient.Connect();
-            }
-            catch
-            {
-                //try to recreate connection one last time
-                sshClient = SshClientTools.GetSSHConnection(SSHConnection);
-            }
             List<ProcessInfoState> processEntries = new List<ProcessInfoState>();
-            //using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
+
+            LinuxProcessSubEntry globalAlertDef = new LinuxProcessSubEntry();
+            globalAlertDef.CPUPercWarningValue = CPUPercWarningValue;
+            globalAlertDef.CPUPercErrorValue = CPUPercErrorValue;
+            globalAlertDef.MemPercWarningValue = MemPercWarningValue;
+            globalAlertDef.MemPercErrorValue = MemPercErrorValue;
+
+            List<ProcessInfo> runningProcesses = ProcessInfo.FromPsAux(sshClient);
+            if (ProcessCheckOption == ProcessCheckOption.TopXByCPU)
             {
-                //if (sshClient.IsConnected)
+                foreach (ProcessInfo p in (from p in runningProcesses
+                                           orderby p.percCPU descending
+                                           select p).Take(TopProcessCount))
                 {
-                    LinuxProcessSubEntry globalAlertDef = new LinuxProcessSubEntry();
-                    globalAlertDef.CPUPercWarningValue = CPUPercWarningValue;
-                    globalAlertDef.CPUPercErrorValue = CPUPercErrorValue;
-                    globalAlertDef.MemPercWarningValue = MemPercWarningValue;
-                    globalAlertDef.MemPercErrorValue = MemPercErrorValue;
+                    processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = globalAlertDef });
+                }
 
-                    List<ProcessInfo> runningProcesses = ProcessInfo.FromPsAux(sshClient);
-                    if (ProcessCheckOption == ProcessCheckOption.TopXByCPU)
-                    {
-                        foreach (ProcessInfo p in (from p in runningProcesses
-                                                   orderby p.percCPU descending
-                                                   select p).Take(TopProcessCount))
-                        {
-                            processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = globalAlertDef });
-                        }
-                        
-                    }
-                    else if (ProcessCheckOption == ProcessCheckOption.TopXByMem)
-                    {
-                        foreach (ProcessInfo p in (from p in runningProcesses
-                                                   orderby p.percMEM descending
-                                                   select p).Take(TopProcessCount))
-                        {
-                            processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = globalAlertDef });
-                        }                        
-                    }
-                    else
-                    {
-                        foreach (ProcessInfo p in runningProcesses)
-                        {
-                            LinuxProcessSubEntry se = (from LinuxProcessSubEntry sdef in SubItems
-                                                       where  FileNameMatch(p.ProcessName, sdef.ProcessName)
-                                                       select sdef).FirstOrDefault();
-                            if (se != null)
-                            {
-                                processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = se });
-                            }
-                        }                      
-                    }
-                    //sshClient.Disconnect();
-                }                
             }
-
+            else if (ProcessCheckOption == ProcessCheckOption.TopXByMem)
+            {
+                foreach (ProcessInfo p in (from p in runningProcesses
+                                           orderby p.percMEM descending
+                                           select p).Take(TopProcessCount))
+                {
+                    processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = globalAlertDef });
+                }
+            }
+            else
+            {
+                foreach (ProcessInfo p in runningProcesses)
+                {
+                    LinuxProcessSubEntry se = (from LinuxProcessSubEntry sdef in SubItems
+                                               where FileNameMatch(p.ProcessName, sdef.ProcessName)
+                                               select sdef).FirstOrDefault();
+                    if (se != null)
+                    {
+                        processEntries.Add(new ProcessInfoState() { ProcessInfo = p, AlertDefinition = se });
+                    }
+                }
+            }
+            SSHConnection.CloseConnection();
             return processEntries;
         }
         private bool FileNameMatch(string fileName, string mask)

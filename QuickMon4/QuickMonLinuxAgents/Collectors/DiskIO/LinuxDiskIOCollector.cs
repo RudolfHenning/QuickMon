@@ -137,13 +137,15 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/diskIO"))
             {
                 LinuxDiskIOEntry entry = new LinuxDiskIOEntry();
-                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
-                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
+
+                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                //entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                //entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
+                //entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                //entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                //entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                //entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
 
                 entry.SubItems = new List<ICollectorConfigSubEntry>();
                 foreach (XmlElement fileSystemNode in pcNode.SelectNodes("disk"))
@@ -168,13 +170,15 @@ namespace QuickMon.Collectors
             foreach (LinuxDiskIOEntry entry in Entries)
             {
                 XmlElement diskSpaceNode = config.CreateElement("diskIO");
-                diskSpaceNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                diskSpaceNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
-                diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                diskSpaceNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                diskSpaceNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                diskSpaceNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                diskSpaceNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                entry.SSHConnection.SaveToXmlElementAttr(diskSpaceNode);
+
+                //diskSpaceNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                //diskSpaceNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                //diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                //diskSpaceNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                //diskSpaceNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                //diskSpaceNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                //diskSpaceNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
 
                 foreach (LinuxDiskIOSubEntry fse in entry.SubItems)
                 {
@@ -219,50 +223,44 @@ namespace QuickMon.Collectors
         public List<DiskIOState> GetDiskInfos()
         {
             List<DiskIOState> diskIOEntries = new List<DiskIOState>();
+            Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
 
-            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            //First see if ANY subentry is for all
+            bool addAll = (from LinuxDiskIOSubEntry d in SubItems
+                           where d.Disk == "*"
+                           select d).Count() > 0;
+            if (addAll)
             {
-
-                if (sshClient.IsConnected)
+                LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
+                                                where d.Disk == "*"
+                                                select d).FirstOrDefault();
+                foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
                 {
+                    DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                    diskIOEntries.Add(dis);
+                }
+            }
+            else
+            {
+                foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
+                {
+                    LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
+                                                    where d.Disk.ToLower() == di.Name.ToLower()
+                                                    select d).FirstOrDefault();
 
-                    //First see if ANY subentry is for all
-                    bool addAll = (from LinuxDiskIOSubEntry d in SubItems
-                                   where d.Disk == "*"
-                                   select d).Count() > 0;
-                    if (addAll)
+                    if (alertDef != null)
                     {
-                        LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
-                                                        where d.Disk == "*"
-                                                        select d).FirstOrDefault();
-                        foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
+                        if (!diskIOEntries.Any(f => f.DiskInfo.Name.ToLower() == di.Name.ToLower()))
                         {
                             DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
                             diskIOEntries.Add(dis);
                         }
                     }
-                    else
-                    {
-                        foreach (Linux.DiskIOInfo di in DiskIOInfo.GetCurrentDiskStats(sshClient, 250))
-                        {
-                            LinuxDiskIOSubEntry alertDef = (from LinuxDiskIOSubEntry d in SubItems
-                                                            where d.Disk.ToLower() == di.Name.ToLower()
-                                                            select d).FirstOrDefault();
-
-                            if (alertDef != null)
-                            {
-                                if (!diskIOEntries.Any(f => f.DiskInfo.Name.ToLower() == di.Name.ToLower()))
-                                {
-                                    DiskIOState dis = new DiskIOState() { DiskInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                                    diskIOEntries.Add(dis);
-                                }
-                            }
-                        }
-                    }
-                }
-                sshClient.Disconnect();
+                }                
             }
+            SSHConnection.CloseConnection();
             return diskIOEntries;
+
         }
         public List<DiskIOState> GetStates()
         {

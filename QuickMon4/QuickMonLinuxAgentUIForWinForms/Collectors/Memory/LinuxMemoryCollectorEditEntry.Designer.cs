@@ -39,6 +39,8 @@
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cboLinuxMemoryType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
             this.alertTriggeringGroupBox.SuspendLayout();
@@ -47,10 +49,10 @@
             // errorNumericUpDown
             // 
             this.errorNumericUpDown.DecimalPlaces = 3;
-            this.errorNumericUpDown.Location = new System.Drawing.Point(269, 19);
+            this.errorNumericUpDown.Location = new System.Drawing.Point(269, 49);
             this.errorNumericUpDown.Name = "errorNumericUpDown";
             this.errorNumericUpDown.Size = new System.Drawing.Size(126, 20);
-            this.errorNumericUpDown.TabIndex = 3;
+            this.errorNumericUpDown.TabIndex = 5;
             this.errorNumericUpDown.Value = new decimal(new int[] {
             10,
             0,
@@ -61,19 +63,19 @@
             // 
             this.lblWarning.AutoSize = true;
             this.lblWarning.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblWarning.Location = new System.Drawing.Point(11, 21);
+            this.lblWarning.Location = new System.Drawing.Point(11, 51);
             this.lblWarning.Name = "lblWarning";
             this.lblWarning.Size = new System.Drawing.Size(47, 13);
-            this.lblWarning.TabIndex = 0;
+            this.lblWarning.TabIndex = 2;
             this.lblWarning.Text = "Warning";
             // 
             // warningNumericUpDown
             // 
             this.warningNumericUpDown.DecimalPlaces = 3;
-            this.warningNumericUpDown.Location = new System.Drawing.Point(92, 19);
+            this.warningNumericUpDown.Location = new System.Drawing.Point(92, 49);
             this.warningNumericUpDown.Name = "warningNumericUpDown";
             this.warningNumericUpDown.Size = new System.Drawing.Size(126, 20);
-            this.warningNumericUpDown.TabIndex = 1;
+            this.warningNumericUpDown.TabIndex = 3;
             this.warningNumericUpDown.Value = new decimal(new int[] {
             20,
             0,
@@ -84,16 +86,18 @@
             // 
             this.lblError.AutoSize = true;
             this.lblError.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblError.Location = new System.Drawing.Point(234, 21);
+            this.lblError.Location = new System.Drawing.Point(234, 51);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(29, 13);
-            this.lblError.TabIndex = 2;
+            this.lblError.TabIndex = 4;
             this.lblError.Text = "Error";
             // 
             // alertTriggeringGroupBox
             // 
             this.alertTriggeringGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.alertTriggeringGroupBox.Controls.Add(this.cboLinuxMemoryType);
+            this.alertTriggeringGroupBox.Controls.Add(this.label1);
             this.alertTriggeringGroupBox.Controls.Add(this.lblWarning);
             this.alertTriggeringGroupBox.Controls.Add(this.lblError);
             this.alertTriggeringGroupBox.Controls.Add(this.warningNumericUpDown);
@@ -101,8 +105,8 @@
             this.alertTriggeringGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.alertTriggeringGroupBox.Location = new System.Drawing.Point(12, 76);
             this.alertTriggeringGroupBox.Name = "alertTriggeringGroupBox";
-            this.alertTriggeringGroupBox.Size = new System.Drawing.Size(409, 57);
-            this.alertTriggeringGroupBox.TabIndex = 14;
+            this.alertTriggeringGroupBox.Size = new System.Drawing.Size(409, 73);
+            this.alertTriggeringGroupBox.TabIndex = 3;
             this.alertTriggeringGroupBox.TabStop = false;
             this.alertTriggeringGroupBox.Text = "Alert triggering";
             // 
@@ -111,10 +115,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 143);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 168);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 16;
+            this.cmdCancel.TabIndex = 5;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -122,10 +126,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 143);
+            this.cmdOK.Location = new System.Drawing.Point(265, 168);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 15;
+            this.cmdOK.TabIndex = 4;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -138,7 +142,7 @@
             this.lblEditSSHConnection.Location = new System.Drawing.Point(396, 9);
             this.lblEditSSHConnection.Name = "lblEditSSHConnection";
             this.lblEditSSHConnection.Size = new System.Drawing.Size(25, 13);
-            this.lblEditSSHConnection.TabIndex = 19;
+            this.lblEditSSHConnection.TabIndex = 2;
             this.lblEditSSHConnection.TabStop = true;
             this.lblEditSSHConnection.Text = "Edit";
             this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
@@ -151,7 +155,7 @@
             this.txtSSHConnection.Name = "txtSSHConnection";
             this.txtSSHConnection.ReadOnly = true;
             this.txtSSHConnection.Size = new System.Drawing.Size(409, 45);
-            this.txtSSHConnection.TabIndex = 18;
+            this.txtSSHConnection.TabIndex = 1;
             this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
             // label9
@@ -160,15 +164,38 @@
             this.label9.Location = new System.Drawing.Point(12, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(119, 13);
-            this.label9.TabIndex = 17;
+            this.label9.TabIndex = 0;
             this.label9.Text = "SSH Connection details";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Location = new System.Drawing.Point(11, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Warning";
+            // 
+            // cboLinuxMemoryType
+            // 
+            this.cboLinuxMemoryType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboLinuxMemoryType.FormattingEnabled = true;
+            this.cboLinuxMemoryType.Items.AddRange(new object[] {
+            "% Memory Available",
+            "% Memory Free",
+            "% Swap space Free"});
+            this.cboLinuxMemoryType.Location = new System.Drawing.Point(93, 17);
+            this.cboLinuxMemoryType.Name = "cboLinuxMemoryType";
+            this.cboLinuxMemoryType.Size = new System.Drawing.Size(125, 21);
+            this.cboLinuxMemoryType.TabIndex = 1;
             // 
             // LinuxMemoryCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 177);
+            this.ClientSize = new System.Drawing.Size(433, 202);
             this.Controls.Add(this.lblEditSSHConnection);
             this.Controls.Add(this.txtSSHConnection);
             this.Controls.Add(this.label9);
@@ -204,6 +231,8 @@
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
         private System.Windows.Forms.TextBox txtSSHConnection;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboLinuxMemoryType;
         
     }
 }

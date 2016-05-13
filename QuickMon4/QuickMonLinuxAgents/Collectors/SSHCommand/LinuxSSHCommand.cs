@@ -132,13 +132,16 @@ namespace QuickMon.Collectors
             foreach (XmlElement cmndNode in root.SelectNodes("linux/sshCommand"))
             {
                 LinuxSSHCommandEntry entry = new LinuxSSHCommandEntry();
-                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(cmndNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.SSHConnection.ComputerName = cmndNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHConnection.SSHPort = cmndNode.ReadXmlElementAttr("sshPort", 22);                
-                entry.SSHConnection.UserName = cmndNode.ReadXmlElementAttr("userName", "");
-                entry.SSHConnection.Password = cmndNode.ReadXmlElementAttr("password", "");
-                entry.SSHConnection.PrivateKeyFile = cmndNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.SSHConnection.PassPhrase = cmndNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(cmndNode);
+
+                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(cmndNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                //entry.SSHConnection.ComputerName = cmndNode.ReadXmlElementAttr("machine", ".");
+                //entry.SSHConnection.SSHPort = cmndNode.ReadXmlElementAttr("sshPort", 22);                
+                //entry.SSHConnection.UserName = cmndNode.ReadXmlElementAttr("userName", "");
+                //entry.SSHConnection.Password = cmndNode.ReadXmlElementAttr("password", "");
+                //entry.SSHConnection.PrivateKeyFile = cmndNode.ReadXmlElementAttr("privateKeyFile", "");
+                //entry.SSHConnection.PassPhrase = cmndNode.ReadXmlElementAttr("passPhrase", "");
+                //entry.SSHConnection.Persistent = cmndNode.ReadXmlElementAttr("persistent", false);
 
                 entry.Name = cmndNode.ReadXmlElementAttr("name", "");                
 
@@ -174,13 +177,17 @@ namespace QuickMon.Collectors
             foreach (LinuxSSHCommandEntry entry in Entries)
             {
                 XmlElement sshCommmandNode = config.CreateElement("sshCommand");
-                sshCommmandNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                sshCommmandNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                sshCommmandNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
-                sshCommmandNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                sshCommmandNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                sshCommmandNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                sshCommmandNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                entry.SSHConnection.SaveToXmlElementAttr(sshCommmandNode);
+                
+
+                //sshCommmandNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                //sshCommmandNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                //sshCommmandNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                //sshCommmandNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                //sshCommmandNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                //sshCommmandNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                //sshCommmandNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                //sshCommmandNode.SetAttributeValue("persistent", entry.SSHConnection.Persistent);
 
                 sshCommmandNode.SetAttributeValue("name", entry.Name);
 
@@ -253,38 +260,39 @@ namespace QuickMon.Collectors
             string output = "";
             try
             {
-            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
-            {
-                try
+                Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
+                //using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
                 {
-                    if (sshClient.IsConnected)
+                    try
                     {
-                        output = sshClient.RunCommand(CommandString).Result;
-                    }
-                    sshClient.Disconnect();
+                        //if (sshClient.IsConnected)
+                        {
+                            output = sshClient.RunCommand(CommandString).Result;
+                        }
+                        SSHConnection.CloseConnection();
 
-                    if (ValueReturnType == SSHCommandValueReturnType.LineCount)
-                    {
-                        int lines = output.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
-                        output = lines.ToString();
-                    }
-                    else if (ValueReturnType == SSHCommandValueReturnType.TextLength)
-                    {
-                        int length = output.Length;
-                        output = length.ToString();
-                    }
+                        if (ValueReturnType == SSHCommandValueReturnType.LineCount)
+                        {
+                            int lines = output.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+                            output = lines.ToString();
+                        }
+                        else if (ValueReturnType == SSHCommandValueReturnType.TextLength)
+                        {
+                            int length = output.Length;
+                            output = length.ToString();
+                        }
 
+                    }
+                    catch (Exception ex)
+                    {
+                        output = string.Format("The Command '{0}' failed to execute!\r\n{1}", CommandString, ex.ToString());
+                    }
                 }
-                catch (Exception ex)
-                {
-                    output = string.Format("The Command '{0}' failed to execute!\r\n{1}", CommandString, ex.ToString());
-                }
-            }
             }
             catch (Exception ex)
             {
                 throw new Exception(string.Format("Connection failed to '{0}' : {1}", SSHConnection.ComputerName, ex.Message));
-            }           
+            }
             
             return output;
         }

@@ -18,6 +18,7 @@ namespace QuickMon.Linux
         public long Cached { get; set; }
         public long SwapTotalKB { get; set; }
         public long SwapFreeKB { get; set; }
+        public long SwapCachedKB { get; set; }
         public double FreePerc
         {
             get
@@ -32,6 +33,14 @@ namespace QuickMon.Linux
                 return ((100.0 * AvailableKB) / TotalKB);
             }
         }
+        public double SwapFreePerc
+        {
+            get
+            {
+                return ((100.0 * SwapFreeKB) / SwapTotalKB);
+            }
+        }
+
         public static MemInfo FromCatProcMeminfo(Renci.SshNet.SshClient sshClient)
         {
             return FromCatProcMeminfo(sshClient.RunCommand("cat /proc/meminfo").Result);
@@ -73,6 +82,10 @@ namespace QuickMon.Linux
                     else if (line.StartsWith("SwapFree:"))
                     {
                         mi.SwapFreeKB = long.Parse(values[1]);
+                    }
+                    else if (line.StartsWith("SwapCached:"))
+                    {
+                        mi.SwapCachedKB = long.Parse(values[1]);
                     }
                 }
             }

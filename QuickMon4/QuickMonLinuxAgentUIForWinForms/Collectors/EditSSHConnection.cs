@@ -33,7 +33,8 @@ namespace QuickMon.Collectors
             txtUsername.Text = SSHConnectionDetails.UserName;
             txtPassword.Text = SSHConnectionDetails.Password;
             txtPrivateKeyFile.Text = SSHConnectionDetails.PrivateKeyFile;
-            txtPassPhrase.Text = SSHConnectionDetails.PassPhrase;            
+            txtPassPhrase.Text = SSHConnectionDetails.PassPhrase;
+            chkPersistent.Checked = SSHConnectionDetails.Persistent;
         }
         #endregion
 
@@ -76,6 +77,7 @@ namespace QuickMon.Collectors
             SSHConnectionDetails.Password = txtPassword.Text;
             SSHConnectionDetails.PrivateKeyFile = txtPrivateKeyFile.Text;
             SSHConnectionDetails.PassPhrase = txtPassPhrase.Text;
+            SSHConnectionDetails.Persistent = chkPersistent.Checked;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
