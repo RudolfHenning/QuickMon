@@ -43,8 +43,9 @@ namespace QuickMon.Collectors
                                    ForAgent = wmiConfigEntry.Name,
                                    State = CollectorState.Error,
                                    CurrentValue = val,
-                                   RawDetails = string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.ErrorValue),
-                                   HtmlDetails = string.Format("Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.ErrorValue)
+                                   RawDetails = string.Format("(Trigger '{0}')", wmiConfigEntry.ErrorValue)
+                                   //RawDetails = string.Format("Machine '{0}' - value '{1}' - Error (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.ErrorValue),
+                                   //HtmlDetails = string.Format("Machine '{0}' - Value '{1}' - <b>Error</b> (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.ErrorValue)
                                });                        
                     }
                     else if (currentState == CollectorState.Warning)
@@ -56,8 +57,9 @@ namespace QuickMon.Collectors
                                    ForAgent = wmiConfigEntry.Name,
                                    State = CollectorState.Warning,
                                    CurrentValue = val,
-                                   RawDetails = string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.WarningValue),
-                                   HtmlDetails = string.Format("Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.WarningValue)
+                                   RawDetails = string.Format("(Trigger '{0}')", wmiConfigEntry.WarningValue)
+                                   //RawDetails = string.Format("Machine '{0}' - value '{1}' - Warning (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.WarningValue),
+                                   //HtmlDetails = string.Format("Machine '{0}' - Value '{1}' - <b>Warning</b> (trigger {2})", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"), wmiConfigEntry.WarningValue)
                                });                        
                     }
                     else
@@ -68,9 +70,9 @@ namespace QuickMon.Collectors
                                {
                                    ForAgent = wmiConfigEntry.Name,
                                    State = CollectorState.Good,
-                                   CurrentValue = val,
-                                   RawDetails = string.Format("Machine '{0}' - value '{1}'", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]")),
-                                   HtmlDetails = string.Format("Machine '{0}' - Value '{1}'", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"))
+                                   CurrentValue = val //,
+                                   //RawDetails = string.Format("Machine '{0}' - value '{1}'", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]")),
+                                   //HtmlDetails = string.Format("Machine '{0}' - Value '{1}'", wmiConfigEntry.Machinename, FormatUtils.N(val, "[null]"))
                                });
                     }
                     if (val != null && val.IsNumber())

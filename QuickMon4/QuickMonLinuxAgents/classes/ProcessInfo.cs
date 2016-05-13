@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renci.SshNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace QuickMon.Linux
         public string CommandLine { get; set; }
         public string ProcessName { get; set; }
         
-        public static List<ProcessInfo> FromPsAux(Renci.SshNet.SshClient sshClient)
+        public static List<ProcessInfo> FromPsAux(SshClient sshClient)
         {
             return FromPsAux(sshClient.RunCommand("ps aux").Result);
         }
