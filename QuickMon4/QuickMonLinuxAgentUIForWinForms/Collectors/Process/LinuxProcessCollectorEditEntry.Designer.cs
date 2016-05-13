@@ -96,6 +96,7 @@
             this.lblEditSSHConnection.TabIndex = 1;
             this.lblEditSSHConnection.TabStop = true;
             this.lblEditSSHConnection.Text = "Edit";
+            this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
             // 
             // txtSSHConnection
             // 
@@ -108,6 +109,7 @@
             this.txtSSHConnection.ReadOnly = true;
             this.txtSSHConnection.Size = new System.Drawing.Size(508, 45);
             this.txtSSHConnection.TabIndex = 2;
+            this.txtSSHConnection.DoubleClick += new System.EventHandler(this.txtSSHConnection_DoubleClick);
             // 
             // label9
             // 

@@ -139,13 +139,15 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/nics"))
             {
                 LinuxNICEntry entry = new LinuxNICEntry();
-                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
-                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
+
+                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                //entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                //entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
+                //entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                //entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                //entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                //entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
 
                 entry.SubItems = new List<ICollectorConfigSubEntry>();
                 foreach (XmlElement fileSystemNode in pcNode.SelectNodes("nic"))
@@ -168,14 +170,16 @@ namespace QuickMon.Collectors
             linuxDiskSpaceNode.InnerXml = "";
             foreach (LinuxNICEntry entry in Entries)
             {
-                XmlElement diskSpaceNode = config.CreateElement("nics");
-                diskSpaceNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                diskSpaceNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                diskSpaceNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);                
-                diskSpaceNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                diskSpaceNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                diskSpaceNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                diskSpaceNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                XmlElement nicsNode = config.CreateElement("nics");
+                entry.SSHConnection.SaveToXmlElementAttr(nicsNode);
+
+                //nicsNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                //nicsNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                //nicsNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);                
+                //nicsNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                //nicsNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                //nicsNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                //nicsNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
 
                 foreach (LinuxNICSubEntry fse in entry.SubItems)
                 {
@@ -183,10 +187,10 @@ namespace QuickMon.Collectors
                     fileSystemNode.SetAttributeValue("name", fse.NICName);
                     fileSystemNode.SetAttributeValue("warningValueKB", fse.WarningValueKB);
                     fileSystemNode.SetAttributeValue("errorValueKB", fse.ErrorValueKB);
-                    diskSpaceNode.AppendChild(fileSystemNode);
+                    nicsNode.AppendChild(fileSystemNode);
                 }
 
-                linuxDiskSpaceNode.AppendChild(diskSpaceNode);
+                linuxDiskSpaceNode.AppendChild(nicsNode);
             }
             return config.OuterXml;
         }
@@ -220,46 +224,41 @@ namespace QuickMon.Collectors
         public List<NICState> GetNICInfos()
         {
             List<NICState> nicEntries = new List<NICState>();
-            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
+
+            //First see if ANY subentry is for all
+            bool addAll = (from LinuxNICSubEntry d in SubItems
+                           where d.NICName == "*"
+                           select d).Count() > 0;
+            if (addAll)
             {
-
-                if (sshClient.IsConnected)
+                LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
+                                             where d.NICName == "*"
+                                             select d).FirstOrDefault();
+                foreach (Linux.NicInfo ni in NicInfo.GetCurrentNicStats(sshClient, 250))
                 {
-                    //First see if ANY subentry is for all
-                    bool addAll = (from LinuxNICSubEntry d in SubItems
-                                   where d.NICName == "*"
-                                   select d).Count() > 0;
-                    if (addAll)
-                    {
-                        LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
-                                                     where d.NICName == "*"
-                                                     select d).FirstOrDefault();
-                        foreach (Linux.NicInfo ni in NicInfo.GetCurrentNicStats(sshClient, 250))
-                        {
-                            NICState nis = new NICState() { NICInfo = ni, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                            nicEntries.Add(nis);
-                        }
-                    }
-                    else
-                    {
-                        foreach (Linux.NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 250))
-                        {
-                            LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
-                                                         where d.NICName.ToLower() == di.Name.ToLower()
-                                                         select d).FirstOrDefault();
+                    NICState nis = new NICState() { NICInfo = ni, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                    nicEntries.Add(nis);
+                }
+            }
+            else
+            {
+                foreach (Linux.NicInfo di in NicInfo.GetCurrentNicStats(sshClient, 250))
+                {
+                    LinuxNICSubEntry alertDef = (from LinuxNICSubEntry d in SubItems
+                                                 where d.NICName.ToLower() == di.Name.ToLower()
+                                                 select d).FirstOrDefault();
 
-                            if (alertDef != null)
-                            {
-                                if (!nicEntries.Any(f => f.NICInfo.Name.ToLower() == di.Name.ToLower()))
-                                {
-                                    NICState dis = new NICState() { NICInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
-                                    nicEntries.Add(dis);
-                                }
-                            }
+                    if (alertDef != null)
+                    {
+                        if (!nicEntries.Any(f => f.NICInfo.Name.ToLower() == di.Name.ToLower()))
+                        {
+                            NICState dis = new NICState() { NICInfo = di, State = CollectorState.NotAvailable, AlertDefinition = alertDef };
+                            nicEntries.Add(dis);
                         }
                     }
                 }
-                sshClient.Disconnect();
+                SSHConnection.CloseConnection();
             }
             return nicEntries;
         }

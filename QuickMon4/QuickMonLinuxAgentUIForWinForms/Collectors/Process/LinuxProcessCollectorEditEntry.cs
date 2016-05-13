@@ -268,5 +268,24 @@ namespace QuickMon.Collectors
             }
         }
 
+        private void lblEditSSHConnection_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditSSHConnection();
+        }
+
+        private void txtSSHConnection_DoubleClick(object sender, EventArgs e)
+        {
+            EditSSHConnection();
+        }
+        private void EditSSHConnection()
+        {
+            EditSSHConnection editor = new Collectors.EditSSHConnection();
+            editor.SSHConnectionDetails = sshConnectionDetails;
+            if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                sshConnectionDetails = editor.SSHConnectionDetails;
+                txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+            }
+        }
     }
 }

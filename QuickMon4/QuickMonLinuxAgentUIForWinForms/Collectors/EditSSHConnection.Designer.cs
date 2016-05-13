@@ -49,6 +49,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.cmdTest = new System.Windows.Forms.Button();
             this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.chkPersistent = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -135,10 +136,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(265, 227);
+            this.cmdOK.Location = new System.Drawing.Point(265, 243);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 15;
+            this.cmdOK.TabIndex = 16;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -148,10 +149,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(346, 227);
+            this.cmdCancel.Location = new System.Drawing.Point(346, 243);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 16;
+            this.cmdCancel.TabIndex = 17;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -256,10 +257,10 @@
             // 
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(18, 227);
+            this.cmdTest.Location = new System.Drawing.Point(18, 243);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 14;
+            this.cmdTest.TabIndex = 15;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -269,12 +270,23 @@
             this.privateKeyOpenFileDialog.DefaultExt = "*";
             this.privateKeyOpenFileDialog.Filter = "Files|*.*";
             // 
+            // chkPersistent
+            // 
+            this.chkPersistent.AutoSize = true;
+            this.chkPersistent.Location = new System.Drawing.Point(18, 220);
+            this.chkPersistent.Name = "chkPersistent";
+            this.chkPersistent.Size = new System.Drawing.Size(258, 17);
+            this.chkPersistent.TabIndex = 14;
+            this.chkPersistent.Text = "Persistent (try to keep connection open for reuse)";
+            this.chkPersistent.UseVisualStyleBackColor = true;
+            // 
             // EditSSHConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(433, 261);
+            this.ClientSize = new System.Drawing.Size(433, 277);
+            this.Controls.Add(this.chkPersistent);
             this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label24);
@@ -330,5 +342,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button cmdTest;
         private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
+        private System.Windows.Forms.CheckBox chkPersistent;
     }
 }

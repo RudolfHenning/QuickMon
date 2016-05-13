@@ -31,18 +31,13 @@ namespace QuickMon.Collectors
                 foreach (LinuxMemoryEntry entry in currentConfig.Entries)
                 {
                     Linux.MemInfo memInfo = entry.GetMemoryInfo();
-                    double percVal = memInfo.AvailablePerc;
-                    if (percVal == 0)
-                    {
-                        percVal = memInfo.FreePerc + memInfo.Buffers + memInfo.Cached;
-                    }
-
-                    CollectorState currentState = entry.GetState(percVal);
+                    double percVal = entry.GetMonitoredValue(memInfo);
+                    CollectorState currentState = entry.GetState(memInfo);
                     if (currentState == CollectorState.Error)
                     {
                         errors++;
                     }
-                    if (currentState == CollectorState.Warning)
+                    else if (currentState == CollectorState.Warning)
                     {
                         warnings++;
                     }
@@ -135,15 +130,19 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/memory"))
             {
                 LinuxMemoryEntry entry = new LinuxMemoryEntry();
-                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);                
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
+
+                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                //entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                //entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);   
+                //entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                //entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                //entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                //entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");    
+
+                entry.LinuxMemoryType = LinuxMemoryTypeTypeConverter.FromString(pcNode.ReadXmlElementAttr("memoryType", "MemAvailable"));
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "20"));
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "10"));
-                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
                 Entries.Add(entry);
             }
         }
@@ -156,17 +155,19 @@ namespace QuickMon.Collectors
             linuxCPUNode.InnerXml = "";
             foreach (LinuxMemoryEntry entry in Entries)
             {
-                XmlElement cpuNode = config.CreateElement("memory");
-                cpuNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                cpuNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                cpuNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
-                cpuNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                cpuNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                cpuNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                cpuNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
-                cpuNode.SetAttributeValue("warningValue", entry.WarningValue);
-                cpuNode.SetAttributeValue("errorValue", entry.ErrorValue);
-                linuxCPUNode.AppendChild(cpuNode);
+                XmlElement memNode = config.CreateElement("memory");
+                entry.SSHConnection.SaveToXmlElementAttr(memNode);
+                //cpuNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                //cpuNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                //cpuNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                //cpuNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                //cpuNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                //cpuNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                //cpuNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                memNode.SetAttributeValue("memoryType", entry.LinuxMemoryType.ToString());
+                memNode.SetAttributeValue("warningValue", entry.WarningValue);
+                memNode.SetAttributeValue("errorValue", entry.ErrorValue);
+                linuxCPUNode.AppendChild(memNode);
             }
             return config.OuterXml;
         }
@@ -199,37 +200,53 @@ namespace QuickMon.Collectors
     {
         public LinuxMemoryEntry()
         {
+            LinuxMemoryType = Collectors.LinuxMemoryType.MemAvailable;
             WarningValue = 20;
             ErrorValue = 10;
         }
+
+        public LinuxMemoryType LinuxMemoryType { get; set; }
         public double WarningValue { get; set; }
         public double ErrorValue { get; set; }
 
         public MemInfo GetMemoryInfo()
         {
             MemInfo mi = new MemInfo();
-            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
-            {
-
-                if (sshClient.IsConnected)
-                {
-                    mi = MemInfo.FromCatProcMeminfo(sshClient);
-                }
-                sshClient.Disconnect();
-            }
-
+            Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
+            mi = MemInfo.FromCatProcMeminfo(sshClient);
+            SSHConnection.CloseConnection();
             return mi;
         }
-        public CollectorState GetState(double value)
+        public CollectorState GetState(MemInfo mi)
         {
             CollectorState state = CollectorState.Good;
-
-            if (ErrorValue >= value)
+            if (ErrorValue >= GetMonitoredValue(mi))
                 state = CollectorState.Error;
-            else if (WarningValue >= value)
+            else if (WarningValue >= GetMonitoredValue(mi))
                 state = CollectorState.Warning;
 
             return state;
+        }
+        public double GetMonitoredValue(MemInfo mi)
+        {
+            double outputValue=0;
+            if (LinuxMemoryType == Collectors.LinuxMemoryType.MemAvailable)
+            {
+                outputValue = mi.AvailablePerc;
+                if (outputValue == 0)
+                {
+                    outputValue = (mi.FreeKB + mi.Buffers + mi.Cached) / mi.TotalKB;
+                }
+            }
+            else if (LinuxMemoryType == Collectors.LinuxMemoryType.MemFree)
+            {
+                outputValue = mi.FreePerc;
+            }
+            else
+            {
+                outputValue = mi.SwapFreePerc;
+            }
+            return outputValue;
         }
 
         #region ICollectorConfigEntry Members
@@ -241,5 +258,25 @@ namespace QuickMon.Collectors
             }
         }
         #endregion
+    }
+
+    public enum LinuxMemoryType
+    {
+        MemAvailable,
+        MemFree,        
+        SwapFree
+    }
+
+    public static class LinuxMemoryTypeTypeConverter
+    {
+        public static LinuxMemoryType FromString(string value)
+        {
+            if (value.ToLower() == "memavailable")
+                return LinuxMemoryType.MemAvailable;
+            else if (value.ToLower() == "memfree")
+                return LinuxMemoryType.MemFree;
+            else
+                return LinuxMemoryType.SwapFree;
+        }
     }
 }

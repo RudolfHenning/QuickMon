@@ -32,10 +32,65 @@ namespace QuickMon.Linux
         public string Password { get; set; }
         public string PrivateKeyFile { get; set; }
         public string PassPhrase { get; set; }
+        public bool Persistent { get; set; }
+        private Renci.SshNet.SshClient currentConnection = null;
 
         public static string FormatSSHConnection(SSHConnectionDetails connection)
         {
-            return string.Format("Computer={0}:{1},Sec={2},User={3},PrvtKeyFile={4}", connection.ComputerName, connection.SSHPort, connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", connection.UserName, connection.PrivateKeyFile);
+            return string.Format("Computer={0}:{1},Sec={2},User={3},PrvtKeyFile={4},Persistent={5}", connection.ComputerName, connection.SSHPort, connection.SSHSecurityOption == SSHSecurityOption.Password ? "Pwd" : "PrvtKey", connection.UserName, connection.PrivateKeyFile, connection.Persistent ? "Yes" : "No");
+        }
+
+        public static SSHConnectionDetails FromXmlElement(System.Xml.XmlElement node)
+        {
+            SSHConnectionDetails conn = new SSHConnectionDetails();
+            conn.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(node.ReadXmlElementAttr("sshSecOpt", "password"));
+            conn.ComputerName = node.ReadXmlElementAttr("machine", ".");
+            conn.SSHPort = node.ReadXmlElementAttr("sshPort", 22);
+            conn.UserName = node.ReadXmlElementAttr("userName", "");
+            conn.Password = node.ReadXmlElementAttr("password", "");
+            conn.PrivateKeyFile = node.ReadXmlElementAttr("privateKeyFile", "");
+            conn.PassPhrase = node.ReadXmlElementAttr("passPhrase", "");
+            conn.Persistent = node.ReadXmlElementAttr("persistent", false);
+            return conn;
+        }
+
+        public void SaveToXmlElementAttr(System.Xml.XmlElement node)
+        {
+            node.SetAttributeValue("sshSecOpt", SSHSecurityOption.ToString());
+            node.SetAttributeValue("machine", ComputerName);
+            node.SetAttributeValue("sshPort", SSHPort);
+            node.SetAttributeValue("userName", UserName);
+            node.SetAttributeValue("password", Password);
+            node.SetAttributeValue("privateKeyFile", PrivateKeyFile);
+            node.SetAttributeValue("passPhrase", PassPhrase);
+            node.SetAttributeValue("persistent", Persistent);
+        }
+
+        public Renci.SshNet.SshClient GetConnection()
+        {
+            try
+            {
+                if (!Persistent || currentConnection == null)
+                {
+                    currentConnection = SshClientTools.GetSSHConnection(this);
+                }
+                else if (!currentConnection.IsConnected)
+                    currentConnection.Connect();
+            }
+            catch
+            {
+                currentConnection = SshClientTools.GetSSHConnection(this);
+            }
+
+            return currentConnection;
+        }
+        public void CloseConnection(bool force = false)
+        {
+            if (currentConnection != null && ( !Persistent || force))
+            {
+                currentConnection.Disconnect();
+                currentConnection = null;
+            }
         }
     }
 

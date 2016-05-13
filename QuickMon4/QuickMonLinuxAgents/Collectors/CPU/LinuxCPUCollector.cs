@@ -138,13 +138,16 @@ namespace QuickMon.Collectors
             foreach (XmlElement pcNode in root.SelectNodes("linux/cpu"))
             {
                 LinuxCPUEntry entry = new LinuxCPUEntry();
-                entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
-                entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
-                entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
-                entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
+
+                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
+                //entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
+                //entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
+                //entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
+                //entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
+                //entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
+                //entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
+                //entry.SSHConnection.Persistent = pcNode.ReadXmlElementAttr("persistent", false);
 
                 entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);                
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
@@ -164,13 +167,16 @@ namespace QuickMon.Collectors
             foreach (LinuxCPUEntry entry in Entries)
             {
                 XmlElement cpuNode = config.CreateElement("cpu");
-                cpuNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                cpuNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                cpuNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
-                cpuNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                cpuNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                cpuNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                cpuNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+
+                entry.SSHConnection.SaveToXmlElementAttr(cpuNode);
+                //cpuNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
+                //cpuNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
+                //cpuNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
+                //cpuNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
+                //cpuNode.SetAttributeValue("password", entry.SSHConnection.Password);
+                //cpuNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
+                //cpuNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
+                //cpuNode.SetAttributeValue("persistent", entry.SSHConnection.Persistent);
                 cpuNode.SetAttributeValue("totalCPU", entry.UseOnlyTotalCPUvalue);                
                 cpuNode.SetAttributeValue("warningValue", entry.WarningValue);
                 cpuNode.SetAttributeValue("errorValue", entry.ErrorValue);                
@@ -220,9 +226,10 @@ namespace QuickMon.Collectors
         public List<Linux.CPUInfo> GetCPUInfos()
         {
             List<Linux.CPUInfo> cpus = new List<Linux.CPUInfo>();
-            using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
+            Renci.SshNet.SshClient sshClient = SSHConnection.GetConnection();
+            //using (Renci.SshNet.SshClient sshClient = SshClientTools.GetSSHConnection(SSHConnection))
             {
-                if (sshClient.IsConnected)
+                //if (sshClient.IsConnected)
                 {
                     foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient, 200))
                     {
@@ -232,7 +239,7 @@ namespace QuickMon.Collectors
                             cpus.Add(ci);
                     }
                 }
-                sshClient.Disconnect();
+                SSHConnection.CloseConnection();
             }
 
             return cpus;

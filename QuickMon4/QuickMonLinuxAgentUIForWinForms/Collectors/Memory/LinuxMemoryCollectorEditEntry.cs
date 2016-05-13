@@ -40,6 +40,7 @@ namespace QuickMon.Collectors
                 currentEntry = new LinuxMemoryEntry();
             sshConnectionDetails = currentEntry.SSHConnection;
             txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
+            cboLinuxMemoryType.SelectedIndex = (int)currentEntry.LinuxMemoryType;
             warningNumericUpDown.SaveValueSet((decimal)currentEntry.WarningValue);
             errorNumericUpDown.SaveValueSet((decimal)currentEntry.ErrorValue);
         }
@@ -51,6 +52,7 @@ namespace QuickMon.Collectors
             if (SelectedEntry == null)
                 SelectedEntry = new LinuxMemoryEntry();
             selectedEntry = (LinuxMemoryEntry)SelectedEntry;
+            selectedEntry.LinuxMemoryType = (LinuxMemoryType)cboLinuxMemoryType.SelectedIndex;
             selectedEntry.SSHConnection = sshConnectionDetails;
             selectedEntry.WarningValue = (double)warningNumericUpDown.Value;
             selectedEntry.ErrorValue = (double)errorNumericUpDown.Value;

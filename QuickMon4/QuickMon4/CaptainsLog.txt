@@ -72,6 +72,11 @@ Version 4.2.2
 Version 4.2.3
 	PAUSE BUTTON!! on main window.
 	First Linix SSH collectors
+Version 4.3
+	Linux/SSH Command collector
+	Linux/SSH Process collector
+	Removed redundant alert text
+
 
 Version 4.3.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
