@@ -259,23 +259,6 @@ namespace QuickMon
         #region Agents
         private void LoadAgents()
         {
-            //lvwEntries.Items.Clear();
-            //if (editingCollectorHost.CollectorAgents != null)
-            //{
-            //    foreach (ICollector agent in editingCollectorHost.CollectorAgents)
-            //    {
-            //        ListViewItem lvi = new ListViewItem(agent.Name);
-            //        if (agent.Enabled)
-            //            lvi.ImageIndex = 1;
-            //        else
-            //            lvi.ImageIndex = 0;
-            //        lvi.SubItems.Add(agent.AgentClassDisplayName);
-            //        lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
-            //        lvi.Tag = agent;
-            //        lvwEntries.Items.Add(lvi);
-            //    }
-            //}
-
             try
             {
                 agentsTreeListView.BeginUpdate();
@@ -284,6 +267,8 @@ namespace QuickMon
                 {
                     foreach (ICollector agent in editingCollectorHost.CollectorAgents)
                     {
+                        agent.AgentConfig.FromXml(agent.InitialConfiguration);
+
                         TreeListViewItem tlvi = new TreeListViewItem(string.Format("{0}", agent.Name));
                         if (agent.Enabled)
                             tlvi.ImageIndex = 1;

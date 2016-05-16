@@ -17,7 +17,7 @@ namespace QuickMon
             XmlElement root = collectorHostsXml.DocumentElement;
             foreach (XmlElement xmlCollectorHost in root.SelectNodes("collectorHost"))
             {
-                CollectorHost newCollectorHost = CollectorHost.FromConfig(null, xmlCollectorHost, monitorPackVars);                
+                CollectorHost newCollectorHost = FromConfig(null, xmlCollectorHost, monitorPackVars);                
                 collectorHosts.Add(newCollectorHost);
             }
             return collectorHosts;
@@ -154,16 +154,15 @@ namespace QuickMon
                                 else
                                     newCollectorHost.UpdateCurrentCollectorState(CollectorState.ConfigurationError);
                             }
-                            string appliedConfig = newAgent.InitialConfiguration;
-                            if (applyConfigVars)
-                            {
-                                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
-                                appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);                                
-                            }
-                            newAgent.ActiveConfiguration = appliedConfig;                            
+                            //string appliedConfig = newAgent.InitialConfiguration;
+                            //if (applyConfigVars)
+                            //{
+                            //    appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
+                            //    appliedConfig = newCollectorHost.ConfigVariables.ApplyOn(appliedConfig);                                
+                            //}
+                            //newAgent.ActiveConfiguration = appliedConfig;                            
                             newCollectorHost.CollectorAgents.Add(newAgent);
-
-                            newAgent.AgentConfig.FromXml(appliedConfig);
+                            newAgent.AgentConfig.FromXml(newAgent.InitialConfiguration);
                         }
                         catch (Exception ex)
                         {
@@ -180,6 +179,22 @@ namespace QuickMon
                 }
             }
             return newCollectorHost;
+        }
+
+        public void ApplyConfigVarsNow(List<ConfigVariable> monitorPackVars = null)
+        {
+            foreach (IAgent agent in CollectorAgents)
+            {
+                string appliedConfig = agent.InitialConfiguration;
+
+                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
+                appliedConfig = ConfigVariables.ApplyOn(appliedConfig);
+                if (agent.ActiveConfiguration != appliedConfig)
+                {
+                    agent.ActiveConfiguration = appliedConfig;
+                    agent.AgentConfig.FromXml(appliedConfig);
+                }
+            }
         }
         public static ICollector GetCollectorAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
         {

@@ -78,7 +78,7 @@ Version 4.3
 	Removed redundant alert text
 
 
-Version 4.3.x
+Version 4.4.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
   Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
   Remote host functionality:
