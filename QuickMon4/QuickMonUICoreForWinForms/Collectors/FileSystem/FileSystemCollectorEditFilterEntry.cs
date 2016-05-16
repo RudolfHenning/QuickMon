@@ -87,11 +87,12 @@ namespace QuickMon.Collectors
                 txtDirectory.Text = FileSystemDirectoryFilterEntry.GetDirectoryFromPath(txtDirectory.Text);
             }
 
-            if (!Directory.Exists((txtDirectory.Text.Length > 0 && txtDirectory.Text.Contains('%')) ? Environment.ExpandEnvironmentVariables(txtDirectory.Text) : txtDirectory.Text))
-            {
-                MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (optCounts.Checked && numericUpDownCountWarningIndicator.Value == numericUpDownCountErrorIndicator.Value && numericUpDownCountWarningIndicator.Value > 0)
+           // if (!Directory.Exists((txtDirectory.Text.Length > 0 && txtDirectory.Text.Contains('%')) ? Environment.ExpandEnvironmentVariables(txtDirectory.Text) : txtDirectory.Text))
+           // {
+           //     MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+           // }
+            //else 
+                if (optCounts.Checked && numericUpDownCountWarningIndicator.Value == numericUpDownCountErrorIndicator.Value && numericUpDownCountWarningIndicator.Value > 0)
             {
                 MessageBox.Show("Error and warning file count values cannot the same!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

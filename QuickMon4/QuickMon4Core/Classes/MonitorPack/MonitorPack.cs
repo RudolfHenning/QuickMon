@@ -206,6 +206,7 @@ namespace QuickMon
                             collectorHost.RunTimeUserNameCacheFile = ApplicationUserNameCacheFilePath;
                         }
                     }
+                    collectorHost.ApplyConfigVarsNow(ConfigVariables);
                     chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
 
                     #region Do/Check/Set dependant CollectorHosts
