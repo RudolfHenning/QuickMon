@@ -138,7 +138,7 @@ namespace QuickMon.Collectors
                     if (FileMaxAge > 0 || FileMinAge > 0)
                         filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File age(" + FileAgeUnit.ToString() + "): " + FileMinAge + "-" + FileMaxAge;
                     if (FileMinSize > 0 || FileMaxSize > 0)
-                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File size(" + FileAgeUnit.ToString() + "): " + FileMinSize + "-" + FileMaxSize;
+                        filterSummary += (filterSummary.Length > 0 ? ", " : "") + "File size(" + FileSizeUnit.ToString() + "): " + FileMinSize + "-" + FileMaxSize;
 
                 }
                 return string.Format("{0}", filterSummary);
