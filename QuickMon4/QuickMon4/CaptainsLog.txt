@@ -76,7 +76,11 @@ Version 4.3
 	Linux/SSH Command collector
 	Linux/SSH Process collector
 	Removed redundant alert text
+	Config variables apply immediately - Fix known BUG
 
+			Variables dont get applied to newly added collectors - Might need some kind of redesign
+			After changing variable value existing collectors don't always use the new value. - Might need some kind of redesign
+				Possible solution - All collectors refresh their config just before firing an update. That way the Monitorpack never need to update/refresh config vars.
 
 Version 4.4.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
@@ -102,7 +106,4 @@ Version 4.4.x
   
 	  
 	
-	Known BUGS
-	Variables dont get applied to newly added collectors - Might need some kind of redesign
-	After changing variable value existing collectors don't always use the new value. - Might need some kind of redesign
-		Possible solution - All collectors refresh their config just before firing an update. That way the Monitorpack never need to update/refresh config vars.
+Known BUGS
