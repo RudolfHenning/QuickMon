@@ -91,6 +91,42 @@
 			</configVars>
 		</collectorHost>
 	</template>
+
+	<template name="Monitor log file" type="CollectorHost" class="CollectorHost" description="Check for Error on logfile last line">
+		<collectorHost uniqueId="" name="Error in log file" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
+    <!-- CollectorAgents -->
+    <collectorAgents>
+        <collectorAgent name="PowerShell Script Runner" type="PowerShellScriptRunnerCollector" enabled="True">
+            <config>
+                <powerShellScripts>
+                    <powerShellScriptRunner name="Look for 'Error'" returnCheckSequence="EWG">
+                        <testScript>$logFIle = 'C:\PathToLog\Log.log'
+$lastLineCount = 1
+$contains = 'Error'
+get-content -Path $logFIle | Select-Object -last $lastLineCount | % {
+    $lineContent = $_.ToString()
+    if ($lineContent.Contains($contains)){
+        $lineContent
+    }
+}</testScript>
+                            <goodScript resultMatchType="Contains">[any]</goodScript>
+                            <warningScript resultMatchType="Contains">[null]</warningScript>
+                            <errorScript resultMatchType="Contains">Error</errorScript>
+                        </powerShellScriptRunner>
+                    </powerShellScripts>
+                </config>
+            </collectorAgent>
+        </collectorAgents>
+        <!-- ServiceWindows -->
+        <serviceWindows>
+        </serviceWindows>
+        <!-- Config variables -->
+        <configVars>
+        </configVars>
+        <!-- Categories -->
+		</collectorHost>
+	</template>
+
 	<template name="Query Firefox version" type="CollectorHost" class="CollectorHost" description="Check Firefox version">
 		<collectorHost uniqueId="" name="FireFox version" enabled="True" expandOnStart="True" dependOnParentId="329e3371-5e03-44d3-972e-f37119daeab1" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False" runAsEnabled="False" runAs="">
 			<!-- CollectorAgents -->
