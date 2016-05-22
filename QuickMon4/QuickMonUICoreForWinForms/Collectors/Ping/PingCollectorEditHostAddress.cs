@@ -39,7 +39,12 @@ namespace QuickMon.Collectors
             txtDescription.Text = HostEntry.DescriptionLocal;
             nudExpextedTime.Value = HostEntry.MaxTimeMS;
             nudTimeOut.Value = HostEntry.TimeOutMS;
+            txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
+            txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
             txtHttpProxy.Text = HostEntry.HttpProxyServer;
+            txtProxyUsername.Text = HostEntry.HttpProxyUserName;
+            txtProxyPassword.Text = HostEntry.HttpProxyPassword;
+            txtHTMLContent.Text = HostEntry.HTMLContentContain;
             nudPortNumber.Value = HostEntry.SocketPort;
             nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
             nudSendTimeout.Value = HostEntry.SendTimeOutMS;
@@ -70,7 +75,12 @@ namespace QuickMon.Collectors
             txtDescription.Text = HostEntry.DescriptionLocal;
             nudExpextedTime.Value = HostEntry.MaxTimeMS;
             nudTimeOut.Value = HostEntry.TimeOutMS;
+            txtHTTPHeaderUsername.Text = HostEntry.HttpHeaderUserName;
+            txtHTTPHeaderPassword.Text = HostEntry.HttpHeaderPassword;
             txtHttpProxy.Text = HostEntry.HttpProxyServer;
+            txtProxyUsername.Text = HostEntry.HttpProxyUserName;
+            txtProxyPassword.Text = HostEntry.HttpProxyPassword;
+            txtHTMLContent.Text = HostEntry.HTMLContentContain;
             chkIgnoreInvalidHTTPSCerts.Checked = HostEntry.IgnoreInvalidHTTPSCerts;
             nudPortNumber.Value = HostEntry.SocketPort;
             nudReceiveTimeout.Value = HostEntry.ReceiveTimeOutMS;
@@ -101,7 +111,12 @@ namespace QuickMon.Collectors
                 HostEntry.DescriptionLocal = txtDescription.Text;
                 HostEntry.MaxTimeMS = Convert.ToInt32(nudExpextedTime.Value);
                 HostEntry.TimeOutMS = Convert.ToInt32(nudTimeOut.Value);
+                HostEntry.HttpHeaderUserName = txtHTTPHeaderUsername.Text;
+                HostEntry.HttpHeaderPassword = txtHTTPHeaderPassword.Text;
                 HostEntry.HttpProxyServer = txtHttpProxy.Text;
+                HostEntry.HttpProxyUserName = txtProxyUsername.Text;
+                HostEntry.HttpProxyPassword = txtProxyPassword.Text;
+                HostEntry.HTMLContentContain = txtHTMLContent.Text;
                 HostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
                 HostEntry.SocketPort =(int) nudPortNumber.Value;
                 HostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
@@ -134,7 +149,12 @@ namespace QuickMon.Collectors
             tmpPingCollectorHostEntry.DescriptionLocal = txtDescription.Text;
             tmpPingCollectorHostEntry.MaxTimeMS = Convert.ToInt32(nudExpextedTime.Value);
             tmpPingCollectorHostEntry.TimeOutMS = Convert.ToInt32(nudTimeOut.Value);
+            tmpPingCollectorHostEntry.HttpHeaderUserName = txtHTTPHeaderUsername.Text;
+            tmpPingCollectorHostEntry.HttpHeaderPassword = txtHTTPHeaderPassword.Text;
             tmpPingCollectorHostEntry.HttpProxyServer = txtHttpProxy.Text;
+            tmpPingCollectorHostEntry.HttpProxyUserName = txtProxyUsername.Text;
+            tmpPingCollectorHostEntry.HttpProxyPassword = txtProxyPassword.Text;
+            tmpPingCollectorHostEntry.HTMLContentContain = txtHTMLContent.Text;
             tmpPingCollectorHostEntry.IgnoreInvalidHTTPSCerts = chkIgnoreInvalidHTTPSCerts.Checked;
             tmpPingCollectorHostEntry.SocketPort = (int)nudPortNumber.Value;
             tmpPingCollectorHostEntry.ReceiveTimeOutMS = (int)nudReceiveTimeout.Value;
@@ -144,6 +164,8 @@ namespace QuickMon.Collectors
             tmpPingCollectorHostEntry.TelnetPassword = txtPassword.Text;
 
             result = tmpPingCollectorHostEntry.Ping();
+
+            result.Success = tmpPingCollectorHostEntry.GetState(result) == CollectorState.Good;
             return result;
         }
 
@@ -174,7 +196,12 @@ namespace QuickMon.Collectors
             {
                 PingCollectorResult result = RunPingTest();
                 if (result.Success)
-                    MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms", result.PingTime), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                {
+                    if (cboPingType.SelectedIndex == 1)
+                        MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms\r\n{1}", result.PingTime, result.ResponseContent), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else 
+                        MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms", result.PingTime), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 else
                     MessageBox.Show("Test failed!\r\nResult: " + result.ResponseDetails, "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

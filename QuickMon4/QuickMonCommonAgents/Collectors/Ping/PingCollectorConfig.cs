@@ -37,7 +37,23 @@ namespace QuickMon.Collectors
                     hostEntry.MaxTimeMS = tmp;
                 if (int.TryParse(host.ReadXmlElementAttr("timeOutMS", "5000"), out tmp))
                     hostEntry.TimeOutMS = tmp;
+
+                hostEntry.HttpHeaderUserName = host.ReadXmlElementAttr("httpHeaderUser");
+                hostEntry.HttpHeaderPassword = host.ReadXmlElementAttr("httpHeaderPwd");
+
                 hostEntry.HttpProxyServer = host.ReadXmlElementAttr("httpProxyServer");
+                hostEntry.HttpProxyUserName = host.ReadXmlElementAttr("httpProxyUser");
+                hostEntry.HttpProxyPassword = host.ReadXmlElementAttr("httpProxyPwd");
+
+                if (hostEntry.PingType == PingCollectorType.HTTP)
+                {
+                    XmlNode htmlContentMatchNode = host.SelectSingleNode("htmlContentMatch");
+                    if (htmlContentMatchNode != null)
+                    {
+                        hostEntry.HTMLContentContain = htmlContentMatchNode.InnerText;
+                    }
+                }
+
                 if (int.TryParse(host.ReadXmlElementAttr("socketPort", "23"), out tmp))
                     hostEntry.SocketPort = tmp;
                 if (int.TryParse(host.ReadXmlElementAttr("receiveTimeoutMS", "30000"), out tmp))
@@ -67,7 +83,11 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("description", hostEntry.DescriptionLocal);
                 hostXmlNode.SetAttributeValue("maxTimeMS", hostEntry.MaxTimeMS);
                 hostXmlNode.SetAttributeValue("timeOutMS", hostEntry.TimeOutMS);
+                hostXmlNode.SetAttributeValue("httpHeaderUser", hostEntry.HttpHeaderUserName);
+                hostXmlNode.SetAttributeValue("httpHeaderPwd", hostEntry.HttpHeaderPassword);
                 hostXmlNode.SetAttributeValue("httpProxyServer", hostEntry.HttpProxyServer);
+                hostXmlNode.SetAttributeValue("httpProxyUser", hostEntry.HttpProxyUserName);
+                hostXmlNode.SetAttributeValue("httpProxyPwd", hostEntry.HttpProxyPassword);
                 hostXmlNode.SetAttributeValue("socketPort", hostEntry.SocketPort);
                 hostXmlNode.SetAttributeValue("receiveTimeoutMS", hostEntry.ReceiveTimeOutMS);
                 hostXmlNode.SetAttributeValue("sendTimeoutMS", hostEntry.SendTimeOutMS);
@@ -75,6 +95,13 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("userName", hostEntry.TelnetUserName);
                 hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
                 hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
+
+                if (hostEntry.PingType == PingCollectorType.HTTP && hostEntry.HTMLContentContain.Trim().Length > 0)
+                {
+                    XmlNode htmlContentMatchNode = config.CreateElement("htmlContentMatch");
+                    htmlContentMatchNode.InnerText = hostEntry.HTMLContentContain;
+                    hostXmlNode.AppendChild(htmlContentMatchNode);
+                }
                 hostsListNode.AppendChild(hostXmlNode);
             }
             return config.OuterXml;
