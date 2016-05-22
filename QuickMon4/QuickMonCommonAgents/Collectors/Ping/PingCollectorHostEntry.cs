@@ -12,6 +12,7 @@ namespace QuickMon.Collectors
         public bool Success { get; set; }
         public int PingTime { get; set; }
         public string ResponseDetails { get; set; }
+        public string ResponseContent { get; set; }
     }
 
     #region Enums
@@ -64,6 +65,7 @@ namespace QuickMon.Collectors
         public PingCollectorHostEntry()
         {
             IgnoreInvalidHTTPSCerts = false;
+            HTMLContentContain = "";
         }
 
         #region ICollectorConfigEntry Members
@@ -102,7 +104,12 @@ namespace QuickMon.Collectors
         #endregion
 
         #region HTTP ping
+        public string HttpHeaderUserName { get; set; }
+        public string HttpHeaderPassword { get; set; }
         public string HttpProxyServer { get; set; }
+        public string HttpProxyUserName { get; set; }
+        public string HttpProxyPassword { get; set; }
+        public string HTMLContentContain { get; set; }
         #endregion
 
         #region Socket ping
@@ -216,7 +223,14 @@ namespace QuickMon.Collectors
                     if (HttpProxyServer.Length > 0)
                     {
                         wc.Proxy = new System.Net.WebProxy(HttpProxyServer);
-                        wc.Proxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                        if (HttpProxyUserName.Length == 0)
+                        {
+                            wc.Proxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                        }
+                        else
+                        {
+                            wc.Proxy.Credentials = new System.Net.NetworkCredential(HttpProxyUserName, HttpProxyPassword);
+                        }
                     }
                     else
                     {
@@ -224,6 +238,11 @@ namespace QuickMon.Collectors
                     }
                     wc.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.BypassCache);
                     sw.Start();
+
+                    if (HttpHeaderUserName.Trim().Length > 0)
+                    {
+                        wc.Credentials = new System.Net.NetworkCredential(HttpHeaderUserName, HttpHeaderPassword);
+                    }
 
                     lastStep = "[OpenRead]";
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
@@ -246,8 +265,11 @@ namespace QuickMon.Collectors
                                     break;
                                 }
                             }
-                            if (chars >1)
-                                result.ResponseDetails = "Characters returned:" + chars.ToString(); //docContents.ToString()
+                            if (chars > 1)
+                            {
+                                result.ResponseContent = docContents.ToString();
+                                result.ResponseDetails = "Characters returned:" + chars.ToString();
+                            }
                         }
                         else
                             throw new Exception("Could not read web request stream");
@@ -256,12 +278,12 @@ namespace QuickMon.Collectors
                 }
                 result.PingTime = (int)sw.ElapsedMilliseconds;
                 if (sw.ElapsedMilliseconds < TimeOutMS)
+                {
                     result.Success = true;
+                }
                 else
                 {
                     result.Success = false;
-                    //if (!result.ResponseDetails.Contains("Operation timed out"))
-                    //    result.ResponseDetails = "Operation timed out!\r\n" + result.ResponseDetails;
                 }
 
             }
@@ -269,10 +291,33 @@ namespace QuickMon.Collectors
             {
                 result.Success = false;
                 result.PingTime = -1;
-                if (ex.InnerException != null)
-                    result.ResponseDetails = lastStep + " " + ex.InnerException.Message;
+
+                if (ex is System.Net.WebException)
+                {
+                    if (((System.Net.WebException)ex).Response != null && ((System.Net.WebException)ex).Response is System.Net.HttpWebResponse)
+                    {
+                        System.Net.HttpWebResponse httpResp = ((System.Net.HttpWebResponse)((System.Net.WebException)ex).Response);
+                        if (httpResp.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        {
+                            result.ResponseDetails = string.Format("The URL '{0}' requires authorization to connect - i.e. Username/Password", Address);
+                        }
+                        else
+                        {
+                            result.ResponseDetails = string.Format("The URL '{0}' returned an HTTP error: {1}", httpResp);
+                        }
+                    }
+                    else
+                    {
+                        result.ResponseDetails = lastStep + " " + ex.Message;
+                    }
+                }
                 else
-                    result.ResponseDetails = lastStep + " " + ex.Message;
+                {
+                    if (ex.InnerException != null)
+                        result.ResponseDetails = lastStep + " " + ex.InnerException.Message;
+                    else
+                        result.ResponseDetails = lastStep + " " + ex.Message;
+                }
             }
             return result;
         }
@@ -431,6 +476,11 @@ namespace QuickMon.Collectors
                 {
                     result = CollectorState.Warning;
                     pingResult.ResponseDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
+                }
+                else if (HTMLContentContain  != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
+                {
+                    result = CollectorState.Warning;
+                    pingResult.ResponseDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
                 }
                 else
                 {
