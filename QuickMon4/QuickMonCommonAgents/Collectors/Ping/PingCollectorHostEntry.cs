@@ -9,6 +9,13 @@ namespace QuickMon.Collectors
 {
     public class PingCollectorResult
     {
+        public PingCollectorResult()
+        {
+            Success = false;
+            PingTime = 0;
+            ResponseDetails = "";
+            ResponseContent = "";
+        }
         public bool Success { get; set; }
         public int PingTime { get; set; }
         public string ResponseDetails { get; set; }
@@ -212,25 +219,38 @@ namespace QuickMon.Collectors
                     if (IgnoreInvalidHTTPSCerts)
                         System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                     else
-                        System.Net.ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate; // = delegate { return true; };
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate; 
                 }
 
                 Stopwatch sw = new Stopwatch();
                 using (WebClientEx wc = new WebClientEx())
                 {
-                    wc.Timeout = (TimeOutMS * 1000);
-                    wc.UseDefaultCredentials = true;
+                    wc.Timeout = (TimeOutMS * 1000);                    
                     if (HttpProxyServer.Length > 0)
                     {
-                        wc.Proxy = new System.Net.WebProxy(HttpProxyServer);
+                        System.Net.WebProxy proxy = null;
+                        System.Net.ICredentials credentials = null;
                         if (HttpProxyUserName.Length == 0)
                         {
-                            wc.Proxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                            credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                            proxy = new System.Net.WebProxy(HttpProxyServer, true, null, credentials);
+                            proxy.UseDefaultCredentials = true;
                         }
                         else
                         {
-                            wc.Proxy.Credentials = new System.Net.NetworkCredential(HttpProxyUserName, HttpProxyPassword);
-                        }
+                            if (HttpProxyUserName.Contains('\\'))
+                            {
+                                string domain = HttpProxyUserName.Split('\\')[0];
+                                string userName = HttpProxyUserName.Split('\\')[1];
+                                credentials = new System.Net.NetworkCredential(userName, HttpProxyPassword, domain);
+                            }
+                            else
+                                credentials = new System.Net.NetworkCredential(HttpProxyUserName, HttpProxyPassword);
+                            proxy = new System.Net.WebProxy(HttpProxyServer, true, null, credentials);
+                            proxy.UseDefaultCredentials = false;
+                            proxy.Credentials = credentials;                            
+                        }                        
+                        wc.Proxy = proxy;                        
                     }
                     else
                     {
@@ -241,8 +261,11 @@ namespace QuickMon.Collectors
 
                     if (HttpHeaderUserName.Trim().Length > 0)
                     {
+                        wc.UseDefaultCredentials = false;
                         wc.Credentials = new System.Net.NetworkCredential(HttpHeaderUserName, HttpHeaderPassword);
                     }
+                    else
+                        wc.UseDefaultCredentials = true;
 
                     lastStep = "[OpenRead]";
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
@@ -477,7 +500,7 @@ namespace QuickMon.Collectors
                     result = CollectorState.Warning;
                     pingResult.ResponseDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
                 }
-                else if (HTMLContentContain  != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
+                else if (pingType == PingCollectorType.HTTP && HTMLContentContain  != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
                 {
                     result = CollectorState.Warning;
                     pingResult.ResponseDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);

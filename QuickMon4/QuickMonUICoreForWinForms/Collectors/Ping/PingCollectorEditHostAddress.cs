@@ -198,9 +198,22 @@ namespace QuickMon.Collectors
                 if (result.Success)
                 {
                     if (cboPingType.SelectedIndex == 1)
-                        MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms\r\n{1}", result.PingTime, result.ResponseContent), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else 
-                        MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms", result.PingTime), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    {                        
+                        try
+                        {
+                            string tempFileName = System.IO.Path.Combine(System.IO.Path.GetTempPath(), DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt");
+                            System.IO.File.WriteAllText(tempFileName, result.ResponseContent);
+                            System.Diagnostics.Process p = new System.Diagnostics.Process();
+                            p.StartInfo = new System.Diagnostics.ProcessStartInfo("notepad.exe", tempFileName);
+                            p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                            p.Start();
+                            System.Threading.Thread.Sleep(1000);
+                            System.IO.File.Delete(tempFileName);
+                        }
+                        catch { }
+                        
+                    }
+                    MessageBox.Show(string.Format("Test was successful\r\nPing time: {0}ms", result.PingTime), "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                     MessageBox.Show("Test failed!\r\nResult: " + result.ResponseDetails, "Ping test", MessageBoxButtons.OK, MessageBoxIcon.Error);
