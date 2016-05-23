@@ -47,6 +47,16 @@
             this.cboPingType = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.httpGroupBox = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtHTMLContent = new System.Windows.Forms.TextBox();
+            this.txtProxyPassword = new System.Windows.Forms.TextBox();
+            this.txtProxyUsername = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtHTTPHeaderPassword = new System.Windows.Forms.TextBox();
+            this.txtHTTPHeaderUsername = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.chkIgnoreInvalidHTTPSCerts = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtHttpProxy = new System.Windows.Forms.TextBox();
@@ -65,17 +75,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.nudPortNumber = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
-            this.txtHTTPHeaderPassword = new System.Windows.Forms.TextBox();
-            this.txtHTTPHeaderUsername = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtProxyPassword = new System.Windows.Forms.TextBox();
-            this.txtProxyUsername = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtHTMLContent = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudExpextedTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeOut)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -313,6 +313,94 @@
             this.httpGroupBox.TabStop = false;
             this.httpGroupBox.Text = "HTTP(S) Ping";
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(11, 127);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(87, 13);
+            this.label20.TabIndex = 11;
+            this.label20.Text = "Contains content";
+            // 
+            // txtHTMLContent
+            // 
+            this.txtHTMLContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHTMLContent.Location = new System.Drawing.Point(116, 124);
+            this.txtHTMLContent.Multiline = true;
+            this.txtHTMLContent.Name = "txtHTMLContent";
+            this.txtHTMLContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtHTMLContent.Size = new System.Drawing.Size(318, 50);
+            this.txtHTMLContent.TabIndex = 12;
+            // 
+            // txtProxyPassword
+            // 
+            this.txtProxyPassword.Location = new System.Drawing.Point(304, 75);
+            this.txtProxyPassword.Name = "txtProxyPassword";
+            this.txtProxyPassword.PasswordChar = '*';
+            this.txtProxyPassword.Size = new System.Drawing.Size(91, 20);
+            this.txtProxyPassword.TabIndex = 9;
+            // 
+            // txtProxyUsername
+            // 
+            this.txtProxyUsername.Location = new System.Drawing.Point(116, 75);
+            this.txtProxyUsername.Name = "txtProxyUsername";
+            this.txtProxyUsername.Size = new System.Drawing.Size(91, 20);
+            this.txtProxyUsername.TabIndex = 7;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(245, 78);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 13);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "Password";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(26, 78);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(63, 13);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "Proxy user *";
+            this.toolTip1.SetToolTip(this.label19, "The Proxy Username and Password does not always work if the Proxy server is on an" +
+        " AD domain. This functionality is provided \'as is\' for troubleshooting.");
+            // 
+            // txtHTTPHeaderPassword
+            // 
+            this.txtHTTPHeaderPassword.Location = new System.Drawing.Point(304, 19);
+            this.txtHTTPHeaderPassword.Name = "txtHTTPHeaderPassword";
+            this.txtHTTPHeaderPassword.PasswordChar = '*';
+            this.txtHTTPHeaderPassword.Size = new System.Drawing.Size(91, 20);
+            this.txtHTTPHeaderPassword.TabIndex = 3;
+            // 
+            // txtHTTPHeaderUsername
+            // 
+            this.txtHTTPHeaderUsername.Location = new System.Drawing.Point(116, 19);
+            this.txtHTTPHeaderUsername.Name = "txtHTTPHeaderUsername";
+            this.txtHTTPHeaderUsername.Size = new System.Drawing.Size(91, 20);
+            this.txtHTTPHeaderUsername.TabIndex = 1;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(245, 22);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 13);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Password";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(11, 22);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(99, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "HTTP Header User";
+            // 
             // chkIgnoreInvalidHTTPSCerts
             // 
             this.chkIgnoreInvalidHTTPSCerts.AutoSize = true;
@@ -533,92 +621,6 @@
             this.label15.Size = new System.Drawing.Size(64, 13);
             this.label15.TabIndex = 0;
             this.label15.Text = "Port number";
-            // 
-            // txtHTTPHeaderPassword
-            // 
-            this.txtHTTPHeaderPassword.Location = new System.Drawing.Point(304, 19);
-            this.txtHTTPHeaderPassword.Name = "txtHTTPHeaderPassword";
-            this.txtHTTPHeaderPassword.PasswordChar = '*';
-            this.txtHTTPHeaderPassword.Size = new System.Drawing.Size(91, 20);
-            this.txtHTTPHeaderPassword.TabIndex = 3;
-            // 
-            // txtHTTPHeaderUsername
-            // 
-            this.txtHTTPHeaderUsername.Location = new System.Drawing.Point(116, 19);
-            this.txtHTTPHeaderUsername.Name = "txtHTTPHeaderUsername";
-            this.txtHTTPHeaderUsername.Size = new System.Drawing.Size(91, 20);
-            this.txtHTTPHeaderUsername.TabIndex = 1;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(245, 22);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 13);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Password";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(99, 13);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "HTTP Header User";
-            // 
-            // txtProxyPassword
-            // 
-            this.txtProxyPassword.Location = new System.Drawing.Point(304, 75);
-            this.txtProxyPassword.Name = "txtProxyPassword";
-            this.txtProxyPassword.PasswordChar = '*';
-            this.txtProxyPassword.Size = new System.Drawing.Size(91, 20);
-            this.txtProxyPassword.TabIndex = 9;
-            // 
-            // txtProxyUsername
-            // 
-            this.txtProxyUsername.Location = new System.Drawing.Point(116, 75);
-            this.txtProxyUsername.Name = "txtProxyUsername";
-            this.txtProxyUsername.Size = new System.Drawing.Size(91, 20);
-            this.txtProxyUsername.TabIndex = 7;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(245, 78);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(53, 13);
-            this.label18.TabIndex = 8;
-            this.label18.Text = "Password";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(26, 78);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(56, 13);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "Proxy user";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(11, 127);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(87, 13);
-            this.label20.TabIndex = 11;
-            this.label20.Text = "Contains content";
-            // 
-            // txtHTMLContent
-            // 
-            this.txtHTMLContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHTMLContent.Location = new System.Drawing.Point(116, 124);
-            this.txtHTMLContent.Multiline = true;
-            this.txtHTMLContent.Name = "txtHTMLContent";
-            this.txtHTMLContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHTMLContent.Size = new System.Drawing.Size(318, 50);
-            this.txtHTMLContent.TabIndex = 12;
             // 
             // PingCollectorEditHostAddress
             // 
