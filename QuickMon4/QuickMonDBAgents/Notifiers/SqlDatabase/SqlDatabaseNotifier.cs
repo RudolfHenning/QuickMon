@@ -52,7 +52,6 @@ namespace QuickMon.Notifiers
                 lastStep = string.Format("Inserting test message into database {0}\\{1}", currentConfig.SqlServer, currentConfig.Database);
 
                 string alertParamName = currentConfig.AlertFieldName.Replace("'", "''").Replace("@", "");
-                //string collectorTypeParamName = currentConfig.CollectorAgentsDetailFieldName.Replace("'", "''").Replace("@", "");
                 string collectorParamName = currentConfig.CollectorFieldName.Replace("'", "''").Replace("@", "");
                 string previousStateParamName = currentConfig.PreviousStateFieldName.Replace("'", "''").Replace("@", "");
                 string currentStateParamName = currentConfig.CurrentStateFieldName.Replace("'", "''").Replace("@", "");
@@ -76,13 +75,6 @@ namespace QuickMon.Notifiers
                 if (alertRaised.RaisedFor != null)
                 {
                     collectorName = alertRaised.RaisedFor.Name;
-                    //collectorAgents = string.Format("{0} agent(s)", alertRaised.RaisedFor.CollectorAgents.Count);
-                    //if (alertRaised.RaisedFor.CollectorAgents.Count > 0)
-                    //{
-                    //    collectorAgents += " {";
-                    //    alertRaised.RaisedFor.CollectorAgents.ForEach(ca => collectorAgents += ca.AgentClassDisplayName + ",");
-                    //    collectorAgents = collectorAgents.TrimEnd(',') + "}";
-                    //}
                     oldState = (byte)alertRaised.RaisedFor.PreviousState.State;
                     newState = (byte)alertRaised.RaisedFor.CurrentState.State;
                     detailMessage = FormatUtils.N(alertRaised.RaisedFor.CurrentState.ReadAllRawDetails(), "No details available");
