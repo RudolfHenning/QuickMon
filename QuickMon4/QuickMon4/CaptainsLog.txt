@@ -81,9 +81,9 @@ Version 4.3
 			Variables dont get applied to newly added collectors - Might need some kind of redesign
 			After changing variable value existing collectors don't always use the new value. - Might need some kind of redesign
 				Possible solution - All collectors refresh their config just before firing an update. That way the Monitorpack never need to update/refresh config vars.
-
 Version 4.3.1
 	Ping collector enhancements - HTTP header username/password and Proxy username/password
+
 
 Version 4.4.x
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
@@ -106,7 +106,7 @@ Version 4.4.x
 	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
 	Collector host Remote host option to check local first and only then remote
 	Expand on start option must be expanded to have more options - Expand on start if child collector has errors/warnings/enabled/parent collector state is X
-  
-	  
+	Logged alert details must contain more details of which monitorpack, version of agent and via which host (as separate field), run as, if alert suppression was on indicate how long resource was in alert condition
+	SQL notifier must be updated to contain more details of newer functionality since it was first created.
 	
 Known BUGS

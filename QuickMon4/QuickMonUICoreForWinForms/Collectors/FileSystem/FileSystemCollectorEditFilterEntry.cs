@@ -92,7 +92,7 @@ namespace QuickMon.Collectors
            //     MessageBox.Show("Directory must exist and be accessible!", "Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
            // }
             //else 
-                if (optCounts.Checked && numericUpDownCountWarningIndicator.Value == numericUpDownCountErrorIndicator.Value && numericUpDownCountWarningIndicator.Value > 0)
+            if (optCounts.Checked && numericUpDownCountWarningIndicator.Value == numericUpDownCountErrorIndicator.Value && numericUpDownCountWarningIndicator.Value > 0)
             {
                 MessageBox.Show("Error and warning file count values cannot the same!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -100,11 +100,11 @@ namespace QuickMon.Collectors
             {
                 MessageBox.Show("Error and warning file size values cannot be the same!", "Warnings/Errors", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (!optDirectoryExistOnly.Checked && numericUpDownFileAgeMin.Value > numericUpDownFileAgeMax.Value)
+            else if (!optDirectoryExistOnly.Checked && numericUpDownFileAgeMin.Value > numericUpDownFileAgeMax.Value && numericUpDownFileAgeMax.Value > 0)
             {
                 MessageBox.Show("File age warning filter value cannot be more than the error value!", "Filters", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (!optDirectoryExistOnly.Checked && numericUpDownFileSizeMin.Value > numericUpDownFileSizeMax.Value)
+            else if (!optDirectoryExistOnly.Checked && numericUpDownFileSizeMin.Value > numericUpDownFileSizeMax.Value && numericUpDownFileSizeMax.Value > 0)
             {
                 MessageBox.Show("File size warning filter value cannot be more than the error value!", "Filters", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
