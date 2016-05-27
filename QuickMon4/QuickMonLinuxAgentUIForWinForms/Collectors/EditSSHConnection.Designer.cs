@@ -50,6 +50,7 @@
             this.cmdTest = new System.Windows.Forms.Button();
             this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chkPersistent = new System.Windows.Forms.CheckBox();
+            this.optKeyboardInteractive = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.sshPortNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -202,6 +203,7 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.optKeyboardInteractive);
             this.groupBox5.Controls.Add(this.optPrivateKey);
             this.groupBox5.Controls.Add(this.optPassword);
             this.groupBox5.Location = new System.Drawing.Point(12, 54);
@@ -280,6 +282,17 @@
             this.chkPersistent.Text = "Persistent (try to keep connection open for reuse)";
             this.chkPersistent.UseVisualStyleBackColor = true;
             // 
+            // optKeyboardInteractive
+            // 
+            this.optKeyboardInteractive.AutoSize = true;
+            this.optKeyboardInteractive.Location = new System.Drawing.Point(250, 21);
+            this.optKeyboardInteractive.Name = "optKeyboardInteractive";
+            this.optKeyboardInteractive.Size = new System.Drawing.Size(122, 17);
+            this.optKeyboardInteractive.TabIndex = 2;
+            this.optKeyboardInteractive.Text = "Keyboard interactive";
+            this.optKeyboardInteractive.UseVisualStyleBackColor = true;
+            this.optKeyboardInteractive.CheckedChanged += new System.EventHandler(this.optKeyboardInteractive_CheckedChanged);
+            // 
             // EditSSHConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,5 +356,6 @@
         private System.Windows.Forms.Button cmdTest;
         private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
         private System.Windows.Forms.CheckBox chkPersistent;
+        private System.Windows.Forms.RadioButton optKeyboardInteractive;
     }
 }
