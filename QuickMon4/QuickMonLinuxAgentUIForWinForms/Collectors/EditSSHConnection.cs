@@ -30,6 +30,7 @@ namespace QuickMon.Collectors
             txtMachineName.Text = SSHConnectionDetails.ComputerName;
             sshPortNumericUpDown.SaveValueSet(SSHConnectionDetails.SSHPort);
             optPrivateKey.Checked = SSHConnectionDetails.SSHSecurityOption == Linux.SSHSecurityOption.PrivateKey;
+            optKeyboardInteractive.Checked = SSHConnectionDetails.SSHSecurityOption == Linux.SSHSecurityOption.KeyboardInteractive;
             txtUsername.Text = SSHConnectionDetails.UserName;
             txtPassword.Text = SSHConnectionDetails.Password;
             txtPrivateKeyFile.Text = SSHConnectionDetails.PrivateKeyFile;
@@ -41,18 +42,25 @@ namespace QuickMon.Collectors
         #region Security options
         private void optPassword_CheckedChanged(object sender, EventArgs e)
         {
-            txtPassword.ReadOnly = !optPassword.Checked;
-            txtPrivateKeyFile.ReadOnly = optPassword.Checked;
-            cmdBrowsePrivateKeyFile.Enabled = !optPassword.Checked;
-            txtPassPhrase.ReadOnly = optPassword.Checked;
+            txtPassword.ReadOnly = optPrivateKey.Checked;
+            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
+            txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
         }
         private void optPrivateKey_CheckedChanged(object sender, EventArgs e)
         {
             txtPassword.ReadOnly = optPrivateKey.Checked;
             txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
             cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
-            txtPassPhrase.ReadOnly = optPassword.Checked;
-        } 
+            txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+        }
+        private void optKeyboardInteractive_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPassword.ReadOnly = optPrivateKey.Checked;
+            txtPrivateKeyFile.ReadOnly = !optPrivateKey.Checked;
+            cmdBrowsePrivateKeyFile.Enabled = optPrivateKey.Checked;
+            txtPassPhrase.ReadOnly = !optPrivateKey.Checked;
+        }
         #endregion
 
         #region Button events
@@ -72,7 +80,7 @@ namespace QuickMon.Collectors
         {
             SSHConnectionDetails.ComputerName = txtMachineName.Text;
             SSHConnectionDetails.SSHPort = (int)sshPortNumericUpDown.Value;
-            SSHConnectionDetails.SSHSecurityOption = optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password;
+            SSHConnectionDetails.SSHSecurityOption = optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : optPassword.Checked ? Linux.SSHSecurityOption.Password : Linux.SSHSecurityOption.KeyboardInteractive;
             SSHConnectionDetails.UserName = txtUsername.Text;
             SSHConnectionDetails.Password = txtPassword.Text;
             SSHConnectionDetails.PrivateKeyFile = txtPrivateKeyFile.Text;
@@ -86,8 +94,7 @@ namespace QuickMon.Collectors
         {
             try
             {
-                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : Linux.SSHSecurityOption.Password, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
-
+                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : optPassword.Checked ? Linux.SSHSecurityOption.Password : Linux.SSHSecurityOption.KeyboardInteractive, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
                 if (sshClient.IsConnected)
                 {
                     MessageBox.Show(string.Format("Success\r\n{0}", sshClient.RunCommand("cat /proc/version").Result), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -100,5 +107,7 @@ namespace QuickMon.Collectors
             }
         } 
         #endregion
+
+
     }
 }
