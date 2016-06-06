@@ -21,7 +21,7 @@ namespace QuickMon.Forms
             f.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             f.MaximizeBox = false;
             f.MinimizeBox = false;
-            f.MinimumSize = new Size(350, 300);
+            f.MinimumSize = new Size(550, 300);
             f.StartPosition = FormStartPosition.CenterScreen;
             f.Size = new System.Drawing.Size(800, 400);
             f.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,6 +167,34 @@ namespace QuickMon.Forms
                     lb.Items.Remove(invalid);
                 }
             };
+            LinkLabel llblImportMPs = new LinkLabel();
+            llblImportMPs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            llblImportMPs.Location = new System.Drawing.Point((int)g.MeasureString(llblClearInvalidRecents.Text, llblClearInvalidRecents.Font).Width + llblClearInvalidRecents.Left + 10, 330);
+            llblImportMPs.Size = new System.Drawing.Size(75, 23);
+            llblImportMPs.AutoSize = true;
+            llblImportMPs.TabIndex = 3;
+            llblImportMPs.Name = "llblImportMPs";
+            llblImportMPs.Text = "Import existing Monitor Packs";
+            llblImportMPs.LinkBehavior = LinkBehavior.HoverUnderline;
+            llblImportMPs.Click += (object sender, EventArgs ea) =>
+            {
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.DefaultExt = "qmp4";
+                fd.Filter = "Monitor Pack files|*qmp4";
+                fd.Multiselect = true;
+                fd.Title = "Import Monitor Packs";
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    foreach(var file in fd.FileNames)
+                    {
+                        if (!Properties.Settings.Default.RecentQMConfigFiles.Contains(file))
+                        {
+                            Properties.Settings.Default.RecentQMConfigFiles.Add(file);
+                            lb.Items.Add(file);
+                        }
+                    }
+                }
+            };
             
             int widest = 400;
             foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
@@ -183,6 +211,7 @@ namespace QuickMon.Forms
             f.Controls.Add(lb);
             f.Controls.Add(llblResetRecents);
             f.Controls.Add(llblClearInvalidRecents);
+            f.Controls.Add(llblImportMPs);
             f.Controls.Add(cmdOK);
             f.Controls.Add(cmdCancel);
 

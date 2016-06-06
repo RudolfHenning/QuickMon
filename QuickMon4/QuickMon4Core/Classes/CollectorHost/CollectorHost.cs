@@ -28,7 +28,10 @@ namespace QuickMon
             LastGoodState = null;
             LastWarningState = null;
             LastErrorState = null;
-            ExpandOnStart = true;
+
+            //UI
+            //ExpandOnStart = true;
+            ExpandOnStartOption = QuickMon.ExpandOnStartOption.Auto;
 
             //Polling overrides
             EnabledPollingOverride = false;
@@ -67,7 +70,8 @@ namespace QuickMon
         #endregion
 
         #region UI specific
-        public bool ExpandOnStart { get; set; }
+        //public bool ExpandOnStart { get; set; }
+        public ExpandOnStartOption ExpandOnStartOption { get; set; }
         #endregion
 
 

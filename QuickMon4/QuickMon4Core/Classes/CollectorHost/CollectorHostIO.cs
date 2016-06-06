@@ -54,7 +54,10 @@ namespace QuickMon
             if (uniqueId.Length > 0) //Blank unique id not allowed
                 newCollectorHost.UniqueId = uniqueId;
             newCollectorHost.Enabled = xmlCollectorEntry.ReadXmlElementAttr("enabled", true);
-            newCollectorHost.ExpandOnStart = xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", true);
+
+            newCollectorHost.ExpandOnStartOption = ExpandOnStartOptionConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", "Always"));
+            //newCollectorHost.ExpandOnStart = xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", true);
+
             newCollectorHost.ParentCollectorId = xmlCollectorEntry.ReadXmlElementAttr("dependOnParentId");
             newCollectorHost.AgentCheckSequence = AgentCheckSequenceConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("agentCheckSequence", "All")); //  "All|FirstSuccess|FirstError"
             newCollectorHost.ChildCheckBehaviour = ChildCheckBehaviourConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("childCheckBehaviour", "OnlyRunOnSuccess")); // "OnlyRunOnSuccess|ContinueOnWarning|ContinueOnWarningOrError|IncludeChildStatus"
@@ -316,7 +319,7 @@ namespace QuickMon
             return ToXml(UniqueId,
                 Name,
                 Enabled,
-                ExpandOnStart,
+                ExpandOnStartOption,
                 ParentCollectorId,
                 AgentCheckSequence, ChildCheckBehaviour,
                 RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec,
@@ -352,7 +355,7 @@ namespace QuickMon
         public static string ToXml(string uniqueId,
                 string name,
                 bool enabled,
-                bool expandOnStart,
+                ExpandOnStartOption expandOnStartOption,
                 string parentCollectorId,
                 AgentCheckSequence agentCheckSequence,
                 ChildCheckBehaviour childCheckBehaviour,
@@ -389,7 +392,10 @@ namespace QuickMon
                       "enabledPollingOverride=\"{24}\" onlyAllowUpdateOncePerXSec=\"{25}\" enablePollFrequencySliding=\"{26}\" " +
                       "pollSlideFrequencyAfterFirstRepeatSec=\"{27}\" pollSlideFrequencyAfterSecondRepeatSec=\"{28}\" " + 
                       "pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\" runAsEnabled=\"{31}\" runAs=\"{32}\" >",
-                        uniqueId, name.EscapeXml(), enabled, expandOnStart, parentCollectorId,
+                        uniqueId, name.EscapeXml(), enabled, 
+                        expandOnStartOption.ToString(),
+                        //expandOnStart, 
+                        parentCollectorId,
                         agentCheckSequence, childCheckBehaviour,
                         repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
                         repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls,

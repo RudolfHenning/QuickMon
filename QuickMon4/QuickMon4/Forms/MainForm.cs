@@ -636,8 +636,12 @@ namespace QuickMon
                 LoadCollectorNode(collectorNode, childCollector);
             }
             root.Nodes.Add(collectorNode);
-            if (collector.Enabled && collector.ExpandOnStart)
-                collectorNode.Expand();
+            if (collector.Enabled) {
+                if (collector.ExpandOnStartOption == ExpandOnStartOption.Auto || collector.ExpandOnStartOption == ExpandOnStartOption.Always)
+                {
+                    collectorNode.Expand();
+                }                
+            }
         }
         private void LoadNotifierNode(NotifierHost n)
         {
@@ -950,7 +954,13 @@ namespace QuickMon
                                     try
                                     {
                                         tvwCollectors.BeginUpdate();
-                                        currentTreeNode.ExpandAllParents();
+
+                                        if (collectorHost.ExpandOnStartOption ==  ExpandOnStartOption.Always)
+                                            currentTreeNode.ExpandAllParents();
+                                        if (collectorHost.ExpandOnStartOption == ExpandOnStartOption.OnSuccess && collectorHost.CurrentState.State == CollectorState.Good)
+                                            currentTreeNode.ExpandAllParents();
+                                        else if (collectorHost.ExpandOnStartOption == ExpandOnStartOption.OnNonSuccess && (collectorHost.CurrentState.State == CollectorState.Warning || collectorHost.CurrentState.State == CollectorState.Error))
+                                            currentTreeNode.ExpandAllParents();
                                     }
                                     catch { }
                                     finally
@@ -2303,8 +2313,15 @@ namespace QuickMon
             HideCollectorContextMenu();
             try
             {
-                string startUpPath = MonitorPack.GetQuickMonUserDataDirectory();
-                openFileDialogOpen.InitialDirectory = startUpPath;
+                if (openFileDialogOpen.FileName == null || openFileDialogOpen.FileName.Length == 0)
+                {
+                    string startUpPath = MonitorPack.GetQuickMonUserDataDirectory();
+                    openFileDialogOpen.InitialDirectory = startUpPath;
+                }
+                else
+                {
+                    openFileDialogOpen.InitialDirectory = System.IO.Path.GetDirectoryName(openFileDialogOpen.FileName);
+                }
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     CloseAllDetailWindows();
