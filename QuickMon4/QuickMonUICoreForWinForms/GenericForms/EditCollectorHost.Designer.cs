@@ -178,6 +178,8 @@
             this.correctiveScriptOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cboExpandOnStartOption = new System.Windows.Forms.ComboBox();
+            this.label47 = new System.Windows.Forms.Label();
             this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -233,6 +235,7 @@
             this.chkExpandOnStart.TabIndex = 3;
             this.chkExpandOnStart.Text = "Expand on start";
             this.chkExpandOnStart.UseVisualStyleBackColor = true;
+            this.chkExpandOnStart.Visible = false;
             // 
             // label1
             // 
@@ -251,7 +254,7 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(356, 13);
+            this.chkEnabled.Location = new System.Drawing.Point(301, 14);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(63, 17);
             this.chkEnabled.TabIndex = 2;
@@ -265,7 +268,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(60, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(287, 20);
+            this.txtName.Size = new System.Drawing.Size(235, 20);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -297,7 +300,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(502, 351);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 9;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -309,7 +312,7 @@
             this.cmdOK.Location = new System.Drawing.Point(421, 351);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 8;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -330,7 +333,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(583, 307);
-            this.tabControl1.TabIndex = 4;
+            this.tabControl1.TabIndex = 5;
             // 
             // tabAgents
             // 
@@ -1847,7 +1850,7 @@
             this.llblRawEdit.Location = new System.Drawing.Point(12, 356);
             this.llblRawEdit.Name = "llblRawEdit";
             this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
-            this.llblRawEdit.TabIndex = 1;
+            this.llblRawEdit.TabIndex = 6;
             this.llblRawEdit.TabStop = true;
             this.llblRawEdit.Text = "Edit RAW config";
             this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
@@ -1860,7 +1863,7 @@
             this.llblExportConfigAsTemplate.Location = new System.Drawing.Point(110, 356);
             this.llblExportConfigAsTemplate.Name = "llblExportConfigAsTemplate";
             this.llblExportConfigAsTemplate.Size = new System.Drawing.Size(126, 13);
-            this.llblExportConfigAsTemplate.TabIndex = 2;
+            this.llblExportConfigAsTemplate.TabIndex = 7;
             this.llblExportConfigAsTemplate.TabStop = true;
             this.llblExportConfigAsTemplate.Text = "Export config as template";
             this.llblExportConfigAsTemplate.Visible = false;
@@ -1892,6 +1895,34 @@
             this.pictureBox1.Size = new System.Drawing.Size(40, 34);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // cboExpandOnStartOption
+            // 
+            this.cboExpandOnStartOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboExpandOnStartOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboExpandOnStartOption.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboExpandOnStartOption.FormattingEnabled = true;
+            this.cboExpandOnStartOption.Items.AddRange(new object[] {
+            "Auto",
+            "On Non Success",
+            "On Success",
+            "Never",
+            "Always"});
+            this.cboExpandOnStartOption.Location = new System.Drawing.Point(421, 13);
+            this.cboExpandOnStartOption.Name = "cboExpandOnStartOption";
+            this.cboExpandOnStartOption.Size = new System.Drawing.Size(113, 21);
+            this.cboExpandOnStartOption.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.cboExpandOnStartOption, "Expand the Collector on opening the UI application");
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(372, 16);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(43, 13);
+            this.label47.TabIndex = 3;
+            this.label47.Text = "Expand";
             // 
             // agentsTreeListView
             // 
@@ -1965,6 +1996,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(592, 393);
+            this.Controls.Add(this.label47);
+            this.Controls.Add(this.cboExpandOnStartOption);
             this.Controls.Add(this.llblRawEdit);
             this.Controls.Add(this.llblExportConfigAsTemplate);
             this.Controls.Add(this.cmdCancel);
@@ -2191,5 +2224,7 @@
         private System.Windows.Forms.TextBox txtCategories;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.ComboBox cboRemoteAgentServer;
+        private System.Windows.Forms.ComboBox cboExpandOnStartOption;
+        private System.Windows.Forms.Label label47;
     }
 }

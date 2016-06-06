@@ -56,6 +56,7 @@ namespace QuickMon
         {
             try
             {
+                cboExpandOnStartOption.SelectedIndex = 0;
                 if (SelectedConfig != null && SelectedConfig.Length > 0 && SelectedConfig.StartsWith("<collectorHost", StringComparison.CurrentCultureIgnoreCase))
                 {
                     editingCollectorHost = CollectorHost.FromXml(SelectedConfig, null, false);
@@ -96,7 +97,8 @@ namespace QuickMon
             {
                 txtName.Text = editingCollectorHost.Name;
                 chkEnabled.Checked = editingCollectorHost.Enabled;
-                chkExpandOnStart.Checked = editingCollectorHost.ExpandOnStart;
+                cboExpandOnStartOption.SelectedIndex = (int)editingCollectorHost.ExpandOnStartOption;
+                //chkExpandOnStart.Checked = editingCollectorHost.ExpandOnStart;
                 agentCheckSequenceToolStripComboBox.SelectedIndex = (int)editingCollectorHost.AgentCheckSequence;
                 lblId.Text = editingCollectorHost.UniqueId;
                 cboChildCheckBehaviour.SelectedIndex = (int)editingCollectorHost.ChildCheckBehaviour;
@@ -1080,7 +1082,7 @@ namespace QuickMon
             {
                 editingCollectorHost.Name = txtName.Text;
                 editingCollectorHost.Enabled = chkEnabled.Checked;
-                editingCollectorHost.ExpandOnStart = chkExpandOnStart.Checked;
+                editingCollectorHost.ExpandOnStartOption = (ExpandOnStartOption)cboExpandOnStartOption.SelectedIndex;// chkExpandOnStart.Checked;
                 editingCollectorHost.AgentCheckSequence = (AgentCheckSequence)agentCheckSequenceToolStripComboBox.SelectedIndex;
 
                 if (cboParentCollector.SelectedIndex > 0)

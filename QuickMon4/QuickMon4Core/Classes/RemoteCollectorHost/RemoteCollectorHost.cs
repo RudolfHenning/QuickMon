@@ -45,7 +45,7 @@ namespace QuickMon
             return CollectorHost.ToXml(UniqueId,
                 Name,
                 Enabled,
-                true,
+                ExpandOnStartOption.Auto, //true
                 "", //No parent
                 AgentCheckSequence,
                 ChildCheckBehaviour.OnlyRunOnSuccess,

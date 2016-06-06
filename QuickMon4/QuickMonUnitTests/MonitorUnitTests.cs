@@ -148,7 +148,7 @@ namespace QuickMon
                     "stateHistorySize=\"100\" pollingFreqSecOverride=\"12\">\r\n" +
                     "<configVars />\r\n" +
                     "<collectorHosts>\r\n" +
-                        "<collectorHost uniqueId=\"123\" name=\"Test name\" enabled=\"True\" expandOnStart=\"True\" dependOnParentId=\"\" " +
+                        "<collectorHost uniqueId=\"123\" name=\"Test name\" enabled=\"True\" expandOnStart=\"Auto\" dependOnParentId=\"\" " +
                            "agentCheckSequence=\"All\" childCheckBehaviour=\"OnlyRunOnSuccess\" " +
                            "repeatAlertInXMin=\"1\" alertOnceInXMin=\"1\" delayErrWarnAlertForXSec=\"1\" " +
                            "repeatAlertInXPolls=\"1\" alertOnceInXPolls=\"1\" delayErrWarnAlertForXPolls=\"1\" " +
@@ -175,7 +175,7 @@ namespace QuickMon
                     Assert.AreEqual("Test name", m.CollectorHosts[0].Name, "Collector host name not set");
                     Assert.AreEqual("123", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set");
                     Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set");
-                    Assert.AreEqual(true, m.CollectorHosts[0].ExpandOnStart, "Collector host ExpandOnStart property not set");
+                    Assert.AreEqual(ExpandOnStartOption.Auto, m.CollectorHosts[0].ExpandOnStartOption, "Collector host ExpandOnStart property not set");
                     Assert.AreEqual("", m.CollectorHosts[0].ParentCollectorId, "Collector host ParentCollectorId property not set");
                     Assert.AreEqual(AgentCheckSequence.All, m.CollectorHosts[0].AgentCheckSequence, "Collector host AgentCheckSequence property not set");
                     Assert.AreEqual(ChildCheckBehaviour.OnlyRunOnSuccess, m.CollectorHosts[0].ChildCheckBehaviour, "Collector host ChildCheckBehaviour property not set");
@@ -216,7 +216,7 @@ namespace QuickMon
                         Assert.AreEqual("Test name", m.CollectorHosts[0].Name, "Collector host name not set (2nd test)");
                         Assert.AreEqual("123", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set (2nd test)");
                         Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set (2nd test)");
-                        Assert.AreEqual(true, m.CollectorHosts[0].ExpandOnStart, "Collector host ExpandOnStart property not set (2nd test)");
+                        Assert.AreEqual(ExpandOnStartOption.Auto, m.CollectorHosts[0].ExpandOnStartOption, "Collector host ExpandOnStart property not set (2nd test)");
                         Assert.AreEqual("", m.CollectorHosts[0].ParentCollectorId, "Collector host ParentCollectorId property not set (2nd test)");
                         Assert.AreEqual(AgentCheckSequence.All, m.CollectorHosts[0].AgentCheckSequence, "Collector host AgentCheckSequence property not set (2nd test)");
                         Assert.AreEqual(ChildCheckBehaviour.OnlyRunOnSuccess, m.CollectorHosts[0].ChildCheckBehaviour, "Collector host ChildCheckBehaviour property not set (2nd test)");

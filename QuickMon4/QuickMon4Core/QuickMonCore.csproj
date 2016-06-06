@@ -91,6 +91,7 @@
     <Compile Include="Enums\CollectorState.cs" />
     <Compile Include="Enums\ConfigEntryType.cs" />
     <Compile Include="Enums\DetailLevel.cs" />
+    <Compile Include="Enums\ExpandOnStartOption.cs" />
     <Compile Include="Enums\MeansurementUnits.cs" />
     <Compile Include="Enums\QuickMonDialogResult.cs" />
     <Compile Include="Enums\TemplateType.cs" />

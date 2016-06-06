@@ -83,9 +83,20 @@ Version 4.3
 				Possible solution - All collectors refresh their config just before firing an update. That way the Monitorpack never need to update/refresh config vars.
 Version 4.3.1
 	Ping collector enhancements - HTTP header username/password and Proxy username/password
-
+Version 4.3.2
+	SSH - Keyboard Interactive option
+Version 4.3.3
+	Open/Load dialog in main form opens in last/previous opened path unless it is the first time the app opens
+	RecentMonitorPacks allow adding more existing Monitor Packs
 
 Version 4.4.x
+  Collector agent editing:
+    All must allow "OK" even if test condition cannot be verified (as it can be set up on another machine using remote host functionality)
+
+  Perfmon collector
+	Allow for wildcard definitions (e.g. svchost*) and then apply warn/err check on all of them.
+
+  IDEAS
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
   Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
   Remote host functionality:
@@ -94,13 +105,7 @@ Version 4.4.x
 	 Investigate some kind of encryption for WCF message passed over wire. Or Checksum...
   UI client:
 	 Optional 'Alert view' window where only collectors in specified state are displayed.
-  Collector agent editing:
-    All must allow "OK" even if test condition cannot be verified (as it can be set up on another machine using remote host functionality)
 
-  Perfmon collector
-	Allow for wildcard definitions (e.g. svchost*) and then apply warn/err check on all of them.
-
-  IDEA    
     Open multiple Monitor packs at the same time.
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
