@@ -88,6 +88,7 @@ Version 4.3.2
 Version 4.3.3
 	Open/Load dialog in main form opens in last/previous opened path unless it is the first time the app opens
 	RecentMonitorPacks allow adding more existing Monitor Packs
+	Expand on start option must be expanded to have more options - Expand only if collector has errors/warnings/success/never
 
 Version 4.4.x
   Collector agent editing:
@@ -105,12 +106,11 @@ Version 4.4.x
 	 Investigate some kind of encryption for WCF message passed over wire. Or Checksum...
   UI client:
 	 Optional 'Alert view' window where only collectors in specified state are displayed.
-
     Open multiple Monitor packs at the same time.
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
 	Collector host Remote host option to check local first and only then remote
-	Expand on start option must be expanded to have more options - Expand on start if child collector has errors/warnings/enabled/parent collector state is X
+	
 	Logged alert details must contain more details of which monitorpack, version of agent and via which host (as separate field), run as, if alert suppression was on indicate how long resource was in alert condition
 	SQL notifier must be updated to contain more details of newer functionality since it was first created.
 	
