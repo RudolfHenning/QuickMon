@@ -113,5 +113,9 @@ Version 4.4.x
 	
 	Logged alert details must contain more details of which monitorpack, version of agent and via which host (as separate field), run as, if alert suppression was on indicate how long resource was in alert condition
 	SQL notifier must be updated to contain more details of newer functionality since it was first created.
+
+	Merging/splitting of Collector agents from the UI.
+		Some restrictions - can only merge/import Collector agents from 'leave' collectors (no dependencies)
+		Split will create peer Collector underneath same 'parent' collector.
 	
 Known BUGS
