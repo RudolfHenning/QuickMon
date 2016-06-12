@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Process Performance Collector"), Category("Linux")]
+    [Description("Process Performance Collector"), Category("SSH")]
     public class LinuxProcessCollector : CollectorAgentBase
     {
         public LinuxProcessCollector()

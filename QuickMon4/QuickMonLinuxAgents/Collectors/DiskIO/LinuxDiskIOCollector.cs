@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Disk IO Collector"), Category("Linux")]
+    [Description("Disk IO Collector"), Category("SSH")]
     public class LinuxDiskIOCollector : CollectorAgentBase
     {
         public LinuxDiskIOCollector()
@@ -42,7 +42,7 @@ namespace QuickMon.Collectors
                         {
                             errors++;
                         }
-                        if (dis.State == CollectorState.Warning)
+                        else if (dis.State == CollectorState.Warning)
                         {
                             warnings++;
                         }

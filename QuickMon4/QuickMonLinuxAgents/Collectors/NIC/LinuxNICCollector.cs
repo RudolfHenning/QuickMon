@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Network IOs Collector"), Category("Linux")]
+    [Description("Network IOs Collector"), Category("SSH")]
     public class LinuxNICCollector : CollectorAgentBase
     {
         public LinuxNICCollector()
@@ -43,7 +43,7 @@ namespace QuickMon.Collectors
                         {
                             errors++;
                         }
-                        if (dis.State == CollectorState.Warning)
+                        else if (dis.State == CollectorState.Warning)
                         {
                             warnings++;
                         }

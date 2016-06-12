@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Disk Space Free % Collector"), Category("Linux")]
+    [Description("Disk Space Free % Collector"), Category("SSH")]
     public class LinuxDiskSpaceCollector : CollectorAgentBase
     {
         public LinuxDiskSpaceCollector()
@@ -43,7 +43,7 @@ namespace QuickMon.Collectors
                         {
                             errors++;
                         }
-                        if (dis.State == CollectorState.Warning)
+                        else if (dis.State == CollectorState.Warning)
                         {
                             warnings++;
                         }

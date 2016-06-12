@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("SSH Command Collector"), Category("Linux")]
+    [Description("SSH Command Collector"), Category("SSH")]
     public class LinuxSSHCommandCollector : CollectorAgentBase
     {
         public LinuxSSHCommandCollector()
@@ -42,7 +42,7 @@ namespace QuickMon.Collectors
                     {
                         errors++;
                     }
-                    if (currentState == CollectorState.Warning)
+                    else if (currentState == CollectorState.Warning)
                     {
                         warnings++;
                     }

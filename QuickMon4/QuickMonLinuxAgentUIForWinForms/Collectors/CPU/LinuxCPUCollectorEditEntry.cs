@@ -20,6 +20,9 @@ namespace QuickMon.Collectors
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtSSHConnection;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudMSSampleDelay;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel lblEditSSHConnection;
 
         private void InitializeComponent()
@@ -36,9 +39,13 @@ namespace QuickMon.Collectors
             this.label9 = new System.Windows.Forms.Label();
             this.txtSSHConnection = new System.Windows.Forms.TextBox();
             this.lblEditSSHConnection = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudMSSampleDelay = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMSSampleDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -49,7 +56,7 @@ namespace QuickMon.Collectors
             this.cmdCancel.Location = new System.Drawing.Point(346, 164);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 6;
+            this.cmdCancel.TabIndex = 8;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -60,7 +67,7 @@ namespace QuickMon.Collectors
             this.cmdOK.Location = new System.Drawing.Point(265, 164);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 5;
+            this.cmdOK.TabIndex = 7;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -90,7 +97,7 @@ namespace QuickMon.Collectors
             this.groupBox2.Location = new System.Drawing.Point(12, 99);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(409, 57);
-            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alert triggering";
             // 
@@ -184,10 +191,55 @@ namespace QuickMon.Collectors
             this.lblEditSSHConnection.Text = "Edit";
             this.lblEditSSHConnection.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditSSHConnection_LinkClicked);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Location = new System.Drawing.Point(151, 78);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "2 Sample delay";
+            // 
+            // nudMSSampleDelay
+            // 
+            this.nudMSSampleDelay.Location = new System.Drawing.Point(236, 76);
+            this.nudMSSampleDelay.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.nudMSSampleDelay.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudMSSampleDelay.Name = "nudMSSampleDelay";
+            this.nudMSSampleDelay.Size = new System.Drawing.Size(59, 20);
+            this.nudMSSampleDelay.TabIndex = 5;
+            this.nudMSSampleDelay.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label2.Location = new System.Drawing.Point(301, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "ms";
+            // 
             // LinuxCPUCollectorEditEntry
             // 
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(433, 199);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.nudMSSampleDelay);
             this.Controls.Add(this.lblEditSSHConnection);
             this.Controls.Add(this.txtSSHConnection);
             this.Controls.Add(this.label9);
@@ -207,6 +259,7 @@ namespace QuickMon.Collectors
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMSSampleDelay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,6 +288,7 @@ namespace QuickMon.Collectors
             txtSSHConnection.Text = Linux.SSHConnectionDetails.FormatSSHConnection(sshConnectionDetails);
 
             chkUseOnlyTotalCPUvalue.Checked = currentEntry.UseOnlyTotalCPUvalue;
+            nudMSSampleDelay.SaveValueSet(currentEntry.MSSampleDelay);
             warningNumericUpDown.SaveValueSet((decimal)currentEntry.WarningValue);
             errorNumericUpDown.SaveValueSet((decimal)currentEntry.ErrorValue); 
         }
@@ -250,6 +304,7 @@ namespace QuickMon.Collectors
             selectedEntry.SSHConnection = sshConnectionDetails;
 
             selectedEntry.UseOnlyTotalCPUvalue = chkUseOnlyTotalCPUvalue.Checked;
+            selectedEntry.MSSampleDelay = (int)nudMSSampleDelay.Value;
             selectedEntry.WarningValue = (double)warningNumericUpDown.Value;
             selectedEntry.ErrorValue = (double)errorNumericUpDown.Value;
             
