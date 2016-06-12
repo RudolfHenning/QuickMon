@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Memory Free % Collector"), Category("Linux")]
+    [Description("Memory Free % Collector"), Category("SSH")]
     public class LinuxMemoryCollector : CollectorAgentBase
     {
         public LinuxMemoryCollector()

@@ -91,7 +91,26 @@
 			</configVars>
 		</collectorHost>
 	</template>
-
+	<template name="Ping" type="CollectorHost" class="CollectorHost" description="Ping host or address">
+		<collectorHost uniqueId="" name="Ping" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
+			<!-- CollectorAgents -->
+			<collectorAgents>
+				<collectorAgent name="Ping" type="PingCollector" enabled="True">
+					<config>
+						<entries>
+							<entry pingMethod="Ping" address="localhost" description="" maxTimeMS="1000" timeOutMS="5000" httpProxyServer="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
+						</entries>
+					</config>
+				</collectorAgent>
+			</collectorAgents>
+			<!-- ServiceWindows -->
+			<serviceWindows>
+			</serviceWindows>
+			<!-- Config variables -->
+			<configVars>
+			</configVars>
+		</collectorHost>
+	</template>
 	<template name="Monitor log file" type="CollectorHost" class="CollectorHost" description="Check for Error on logfile last line">
 		<collectorHost uniqueId="" name="Error in log file" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
     <!-- CollectorAgents -->

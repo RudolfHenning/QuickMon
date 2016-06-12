@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("CPU Collector"), Category("Linux")]
+    [Description("CPU Collector"), Category("SSH")]
     public class LinuxCPUCollector : CollectorAgentBase
     {
         public LinuxCPUCollector()
@@ -93,13 +93,16 @@ namespace QuickMon.Collectors
                 dt.Columns.Add(new System.Data.DataColumn("Computer", typeof(string)));
                 dt.Columns.Add(new System.Data.DataColumn("CPU", typeof(string)));
                 dt.Columns.Add(new System.Data.DataColumn("Percentage Usage", typeof(double)));
+                dt.Columns.Add(new System.Data.DataColumn("User time", typeof(long)));
+                dt.Columns.Add(new System.Data.DataColumn("System time", typeof(long)));
+                dt.Columns.Add(new System.Data.DataColumn("Idle time", typeof(long)));
 
                 LinuxCPUCollectorConfig currentConfig = (LinuxCPUCollectorConfig)AgentConfig;
                 foreach (LinuxCPUEntry entry in currentConfig.Entries)
                 {
                     foreach (Linux.CPUInfo cpuInfo in entry.GetCPUInfos())
                     {
-                        dt.Rows.Add(entry.SSHConnection.ComputerName, cpuInfo.Name, cpuInfo.CPUPerc);
+                        dt.Rows.Add(entry.SSHConnection.ComputerName, cpuInfo.Name, cpuInfo.CPUPerc, cpuInfo.User, cpuInfo.System, cpuInfo.Idle);
                     }                    
                 }
             }
@@ -139,16 +142,7 @@ namespace QuickMon.Collectors
             {
                 LinuxCPUEntry entry = new LinuxCPUEntry();
                 entry.SSHConnection = SSHConnectionDetails.FromXmlElement(pcNode);
-
-                //entry.SSHConnection.SSHSecurityOption = SSHSecurityOptionTypeConverter.FromString(pcNode.ReadXmlElementAttr("sshSecOpt", "password"));
-                //entry.SSHConnection.ComputerName = pcNode.ReadXmlElementAttr("machine", ".");
-                //entry.SSHConnection.SSHPort = pcNode.ReadXmlElementAttr("sshPort", 22);
-                //entry.SSHConnection.UserName = pcNode.ReadXmlElementAttr("userName", "");
-                //entry.SSHConnection.Password = pcNode.ReadXmlElementAttr("password", "");
-                //entry.SSHConnection.PrivateKeyFile = pcNode.ReadXmlElementAttr("privateKeyFile", "");
-                //entry.SSHConnection.PassPhrase = pcNode.ReadXmlElementAttr("passPhrase", "");
-                //entry.SSHConnection.Persistent = pcNode.ReadXmlElementAttr("persistent", false);
-
+                entry.MSSampleDelay = pcNode.ReadXmlElementAttr("msSampleDelay", 200);
                 entry.UseOnlyTotalCPUvalue = pcNode.ReadXmlElementAttr("totalCPU", true);                
                 entry.WarningValue = float.Parse(pcNode.ReadXmlElementAttr("warningValue", "80"));
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "99"));
@@ -169,14 +163,7 @@ namespace QuickMon.Collectors
                 XmlElement cpuNode = config.CreateElement("cpu");
 
                 entry.SSHConnection.SaveToXmlElementAttr(cpuNode);
-                //cpuNode.SetAttributeValue("sshSecOpt", entry.SSHConnection.SSHSecurityOption.ToString());
-                //cpuNode.SetAttributeValue("machine", entry.SSHConnection.ComputerName);
-                //cpuNode.SetAttributeValue("sshPort", entry.SSHConnection.SSHPort);
-                //cpuNode.SetAttributeValue("userName", entry.SSHConnection.UserName);
-                //cpuNode.SetAttributeValue("password", entry.SSHConnection.Password);
-                //cpuNode.SetAttributeValue("privateKeyFile", entry.SSHConnection.PrivateKeyFile);
-                //cpuNode.SetAttributeValue("passPhrase", entry.SSHConnection.PassPhrase);
-                //cpuNode.SetAttributeValue("persistent", entry.SSHConnection.Persistent);
+                cpuNode.SetAttributeValue("msSampleDelay", entry.MSSampleDelay);                
                 cpuNode.SetAttributeValue("totalCPU", entry.UseOnlyTotalCPUvalue);                
                 cpuNode.SetAttributeValue("warningValue", entry.WarningValue);
                 cpuNode.SetAttributeValue("errorValue", entry.ErrorValue);                
@@ -218,8 +205,10 @@ namespace QuickMon.Collectors
             UseOnlyTotalCPUvalue = true;
             WarningValue = 80;
             ErrorValue = 99;
+            MSSampleDelay = 200;
         }
         public bool UseOnlyTotalCPUvalue { get; set; }
+        public int MSSampleDelay { get; set; }
         public double WarningValue { get; set; }
         public double ErrorValue { get; set; }
 
@@ -231,7 +220,7 @@ namespace QuickMon.Collectors
             {
                 //if (sshClient.IsConnected)
                 {
-                    foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient, 200))
+                    foreach (Linux.CPUInfo ci in Linux.CPUInfo.GetCurrentCPUPerc(sshClient, MSSampleDelay))
                     {
                         if (UseOnlyTotalCPUvalue && ci.IsTotalCPU)
                             cpus.Add(ci);

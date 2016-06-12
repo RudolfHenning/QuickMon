@@ -12,6 +12,10 @@ namespace QuickMon.Linux
         {
             TimeUpdated = DateTime.Now;
         }
+
+        //Alternative sommand
+        //cat <(grep 'cpu ' /proc/stat) <(sleep 0.2 && grep 'cpu ' /proc/stat) | awk -v RS="" '{printf "%.2f\n", ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}'
+
         public DateTime TimeUpdated { get; set; }
         public bool IsTotalCPU { get; set; }
         public string Name { get; set; }
@@ -39,7 +43,7 @@ namespace QuickMon.Linux
 
         public long TotalCPUTime
         {
-            get { return User + Nice + System + Idle + IOWait + IRQ + SoftIRQ; } // + Steal + Guest; }
+            get { return User + System + Idle; } // + Steal + Guest; }
         }
 
         public static List<CPUInfo> FromProcStat(string input)
