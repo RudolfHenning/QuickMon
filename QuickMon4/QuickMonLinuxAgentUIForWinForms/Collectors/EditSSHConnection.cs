@@ -94,12 +94,14 @@ namespace QuickMon.Collectors
         {
             try
             {
-                Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : optPassword.Checked ? Linux.SSHSecurityOption.Password : Linux.SSHSecurityOption.KeyboardInteractive, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text);
-                if (sshClient.IsConnected)
+                using (Renci.SshNet.SshClient sshClient = QuickMon.Linux.SshClientTools.GetSSHConnection(optPrivateKey.Checked ? Linux.SSHSecurityOption.PrivateKey : optPassword.Checked ? Linux.SSHSecurityOption.Password : Linux.SSHSecurityOption.KeyboardInteractive, txtMachineName.Text, (int)sshPortNumericUpDown.Value, txtUsername.Text, txtPassword.Text, txtPrivateKeyFile.Text, txtPassPhrase.Text))
                 {
-                    MessageBox.Show(string.Format("Success\r\n{0}", sshClient.RunCommand("cat /proc/version").Result), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (sshClient.IsConnected)
+                    {
+                        MessageBox.Show(string.Format("Success\r\n{0}", sshClient.RunCommand("cat /proc/version").Result), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    sshClient.Disconnect();
                 }
-                sshClient.Disconnect();
             }
             catch (Exception ex)
             {

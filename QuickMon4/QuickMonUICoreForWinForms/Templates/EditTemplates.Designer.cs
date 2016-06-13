@@ -36,6 +36,8 @@ namespace QuickMon.Forms
             this.deletePresetToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.resetToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.exportToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.importToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -63,6 +65,8 @@ namespace QuickMon.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.cboType = new QuickMon.Controls.ComboBoxWithBorder();
             this.label2 = new System.Windows.Forms.Label();
+            this.exportFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.importFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -84,6 +88,8 @@ namespace QuickMon.Forms
             this.deletePresetToolStripButton,
             this.toolStripSeparator1,
             this.resetToolStripButton,
+            this.exportToolStripButton,
+            this.importToolStripButton,
             this.toolStripSeparator2,
             this.saveToolStripButton,
             this.refreshToolStripButton});
@@ -130,6 +136,26 @@ namespace QuickMon.Forms
             this.resetToolStripButton.Text = "Reset all templates";
             this.resetToolStripButton.Click += new System.EventHandler(this.resetToolStripButton_Click);
             // 
+            // exportToolStripButton
+            // 
+            this.exportToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.exportToolStripButton.Image = global::QuickMon.Properties.Resources.doc_export;
+            this.exportToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportToolStripButton.Name = "exportToolStripButton";
+            this.exportToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.exportToolStripButton.Text = "Export";
+            this.exportToolStripButton.Click += new System.EventHandler(this.exportToolStripButton_Click);
+            // 
+            // importToolStripButton
+            // 
+            this.importToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.importToolStripButton.Image = global::QuickMon.Properties.Resources.pastewithedit;
+            this.importToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.importToolStripButton.Name = "importToolStripButton";
+            this.importToolStripButton.Size = new System.Drawing.Size(28, 28);
+            this.importToolStripButton.Text = "Import";
+            this.importToolStripButton.Click += new System.EventHandler(this.importToolStripButton_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -143,6 +169,7 @@ namespace QuickMon.Forms
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(28, 28);
             this.saveToolStripButton.Text = "Save templates";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // refreshToolStripButton
             // 
@@ -289,6 +316,7 @@ namespace QuickMon.Forms
             this.txtConfig.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtConfig.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtConfig.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConfig.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtConfig.IsReplaceMode = false;
             this.txtConfig.Language = FastColoredTextBoxNS.Language.XML;
             this.txtConfig.LeftBracket = '<';
@@ -471,6 +499,20 @@ namespace QuickMon.Forms
             this.label2.TabIndex = 0;
             this.label2.Text = "Template type";
             // 
+            // exportFileDialog
+            // 
+            this.exportFileDialog.DefaultExt = "qmtemplate";
+            this.exportFileDialog.FileName = "QuickMon4Templates.qmtemplate";
+            this.exportFileDialog.Filter = "QuickMon Template Files|*.qmtemplate";
+            this.exportFileDialog.Title = "Export templates";
+            // 
+            // importFileDialog
+            // 
+            this.importFileDialog.DefaultExt = "qmtemplate";
+            this.importFileDialog.FileName = "QuickMon4Templates.qmtemplate";
+            this.importFileDialog.Filter = "QuickMon Template Files|*.qmtemplate";
+            this.importFileDialog.Title = "Import templates";
+            // 
             // EditTemplates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -540,5 +582,9 @@ namespace QuickMon.Forms
         private System.Windows.Forms.CheckBox chkWrapText;
         private System.Windows.Forms.Button cmdFormat;
         private System.Windows.Forms.ColumnHeader descriptionColumnHeader;
+        private System.Windows.Forms.ToolStripButton exportToolStripButton;
+        private System.Windows.Forms.SaveFileDialog exportFileDialog;
+        private System.Windows.Forms.OpenFileDialog importFileDialog;
+        private System.Windows.Forms.ToolStripButton importToolStripButton;
     }
 }

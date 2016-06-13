@@ -89,6 +89,9 @@ Version 4.3.3
 	Open/Load dialog in main form opens in last/previous opened path unless it is the first time the app opens
 	RecentMonitorPacks allow adding more existing Monitor Packs
 	Expand on start option must be expanded to have more options - Expand only if collector has errors/warnings/success/never
+Version 4.3.4
+	Fix ssh collectors that alerted 'Warning' when only one agent reports 'Error'.
+	Import/Export of templates
 
 Version 4.4.x
   Collector agent editing:
@@ -118,4 +121,7 @@ Version 4.4.x
 		Some restrictions - can only merge/import Collector agents from 'leave' collectors (no dependencies)
 		Split will create peer Collector underneath same 'parent' collector.
 	
+	Shared resources
+	   Like connection strings/ssh connection details
+
 Known BUGS

@@ -95,6 +95,43 @@ namespace QuickMon.Forms
                 LoadTemplates();
             }
         }
+        private void exportToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (exportFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    System.IO.File.Copy(MonitorPack.GetQuickMonUserDataTemplatesFile(), exportFileDialog.FileName, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+        private void importToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Are you sure you want to import and reset all existing templates?", "Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    if (importFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        System.IO.File.Copy(importFileDialog.FileName, MonitorPack.GetQuickMonUserDataTemplatesFile(), true);
+                        LoadTemplates();
+                        CreateNewTemplate();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Export", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveAllTemplates();
+        }
         private void refreshToolStripButton_Click(object sender, EventArgs e)
         {
             LoadTemplates();
@@ -379,9 +416,6 @@ namespace QuickMon.Forms
             IsSaveEnabled();
         } 
         #endregion
-
-
-
 
     }
 }

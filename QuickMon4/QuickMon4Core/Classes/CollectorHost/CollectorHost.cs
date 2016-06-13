@@ -74,8 +74,6 @@ namespace QuickMon
         public ExpandOnStartOption ExpandOnStartOption { get; set; }
         #endregion
 
-
-
         #region Collector agents
         public List<ICollector> CollectorAgents { get; set; }
         public AgentCheckSequence AgentCheckSequence { get; set; }
