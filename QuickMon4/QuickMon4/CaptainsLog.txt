@@ -124,4 +124,6 @@ Version 4.4.x
 	Shared resources
 	   Like connection strings/ssh connection details
 
+	Save/export config of pack/collector/notifier/agent to template
+
 Known BUGS
