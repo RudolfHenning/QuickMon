@@ -57,15 +57,22 @@ namespace QuickMon.Notifiers
                     .Replace("%CollectorName%", collectorName);
 
                 lastStep = "Test if source exists";
-                if (!EventLog.SourceExists(currentEventSource))
+                string logName = currentConfig.EventLogName;
+                if (!EventLog.SourceExists(currentEventSource, currentConfig.MachineName))
                 {
                     lastStep = "Attempt to create event source " + currentEventSource;
-                    EventSourceCreationData escd = new EventSourceCreationData(currentEventSource, "Application");
+                    EventSourceCreationData escd = new EventSourceCreationData(currentEventSource, logName);
                     escd.MachineName = currentConfig.MachineName;
                     EventLog.CreateEventSource(escd);
                 }
+                try
+                {
+                    //in case some admin created the source in a different event log
+                    logName = EventLog.LogNameFromSourceName(currentEventSource, currentConfig.MachineName);
+                }
+                catch { }
                 lastStep = "Opening event log on " + currentConfig.MachineName;
-                EventLog outputLog = new EventLog("Application", currentConfig.MachineName, currentEventSource);
+                EventLog outputLog = new EventLog(logName, currentConfig.MachineName, currentEventSource);
                 EventLogEntryType eventLogEntryType = (alertRaised.Level == AlertLevel.Info || alertRaised.Level == AlertLevel.Debug) ? EventLogEntryType.Information :
                     alertRaised.Level == AlertLevel.Warning ? EventLogEntryType.Warning : EventLogEntryType.Error;
                 int eventID = (alertRaised.Level == AlertLevel.Info || alertRaised.Level == AlertLevel.Debug) ? currentConfig.SuccessEventID :

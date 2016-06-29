@@ -44,6 +44,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.txtEventLogName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmdTest = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorEventIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningEventIDNumericUpDown)).BeginInit();
@@ -60,10 +63,10 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.successEventIDNumericUpDown);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(16, 100);
+            this.groupBox1.Location = new System.Drawing.Point(16, 107);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(550, 53);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Event ID\'s";
             // 
@@ -132,10 +135,10 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(109, 61);
+            this.label10.Location = new System.Drawing.Point(109, 83);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(325, 36);
-            this.label10.TabIndex = 4;
+            this.label10.Size = new System.Drawing.Size(455, 26);
+            this.label10.TabIndex = 6;
             this.label10.Text = "The Event source may contain the following macros: %CollectorName% %CollectorType" +
     "% ";
             // 
@@ -144,10 +147,10 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.ForeColor = System.Drawing.Color.Firebrick;
-            this.label3.Location = new System.Drawing.Point(13, 160);
+            this.label3.Location = new System.Drawing.Point(13, 172);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(519, 58);
-            this.label3.TabIndex = 6;
+            this.label3.Size = new System.Drawing.Size(519, 53);
+            this.label3.TabIndex = 8;
             this.label3.Text = resources.GetString("label3.Text");
             // 
             // txtMachine
@@ -174,20 +177,20 @@
             // 
             this.txtEventSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEventSource.Location = new System.Drawing.Point(112, 32);
+            this.txtEventSource.Location = new System.Drawing.Point(112, 60);
             this.txtEventSource.Name = "txtEventSource";
             this.txtEventSource.Size = new System.Drawing.Size(454, 20);
-            this.txtEventSource.TabIndex = 3;
+            this.txtEventSource.TabIndex = 5;
             this.txtEventSource.Text = "QuickMon";
             this.txtEventSource.TextChanged += new System.EventHandler(this.txtEventSource_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 35);
+            this.label1.Location = new System.Drawing.Point(11, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Event source";
             // 
             // cmdCancel
@@ -195,10 +198,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(489, 219);
+            this.cmdCancel.Location = new System.Drawing.Point(489, 232);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 8;
+            this.cmdCancel.TabIndex = 11;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -206,19 +209,53 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(408, 219);
+            this.cmdOK.Location = new System.Drawing.Point(408, 232);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 7;
+            this.cmdOK.TabIndex = 10;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // txtEventLogName
+            // 
+            this.txtEventLogName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtEventLogName.Location = new System.Drawing.Point(112, 32);
+            this.txtEventLogName.Name = "txtEventLogName";
+            this.txtEventLogName.Size = new System.Drawing.Size(454, 20);
+            this.txtEventLogName.TabIndex = 3;
+            this.txtEventLogName.Text = "Application";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 35);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Event log";
+            // 
+            // cmdTest
+            // 
+            this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTest.Location = new System.Drawing.Point(327, 232);
+            this.cmdTest.Name = "cmdTest";
+            this.cmdTest.Size = new System.Drawing.Size(75, 23);
+            this.cmdTest.TabIndex = 9;
+            this.cmdTest.Text = "Test";
+            this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
             // 
             // EventLogNotifierEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 254);
+            this.ClientSize = new System.Drawing.Size(576, 267);
+            this.Controls.Add(this.cmdTest);
+            this.Controls.Add(this.txtEventLogName);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.groupBox1);
@@ -262,5 +299,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
+        private System.Windows.Forms.TextBox txtEventLogName;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button cmdTest;
     }
 }
