@@ -33,6 +33,7 @@ namespace QuickMon.Notifiers
             if (selectedEntry != null)
             {
                 txtMachine.Text = selectedEntry.MachineName;
+                txtEventLogName.Text = selectedEntry.EventLogName;
                 txtEventSource.Text = selectedEntry.EventSource;
                 successEventIDNumericUpDown.Value = selectedEntry.SuccessEventID;
                 warningEventIDNumericUpDown.Value = selectedEntry.WarningEventID;
@@ -74,12 +75,53 @@ namespace QuickMon.Notifiers
                 selectedEntry = (EventLogNotifierConfig)SelectedEntry;
 
                 selectedEntry.MachineName = txtMachine.Text;
+                selectedEntry.EventLogName = txtEventLogName.Text;
                 selectedEntry.EventSource = txtEventSource.Text;
                 selectedEntry.SuccessEventID = (int)successEventIDNumericUpDown.Value;
                 selectedEntry.WarningEventID = (int)warningEventIDNumericUpDown.Value;
                 selectedEntry.ErrorEventID = (int)errorEventIDNumericUpDown.Value;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
+            }
+        }
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            string machineName = txtMachine.Text;
+            string eventLogName = txtEventLogName.Text;
+            string currentEventSource = txtEventSource.Text.Replace("%CollectorName%", "CollectorNameHere");
+            try
+            {
+                if (!System.Diagnostics.EventLog.SourceExists(currentEventSource, machineName))
+                {
+                    System.Diagnostics.EventSourceCreationData escd = new System.Diagnostics.EventSourceCreationData(currentEventSource, eventLogName);
+                    escd.MachineName = machineName;
+                    System.Diagnostics.EventLog.CreateEventSource(escd);
+                }
+                try
+                {
+                    //in case some admin created the source in a different event log
+                    eventLogName = System.Diagnostics.EventLog.LogNameFromSourceName(currentEventSource, machineName);
+                }
+                catch { }
+
+                if (eventLogName.ToLower() != txtEventLogName.Text.ToLower())
+                {
+                    if (MessageBox.Show("Specified Event Source is associated with the Event log '" + eventLogName + "'!\r\nDo you want to automatically change the correct Log name?", "Test", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        txtEventLogName.Text = eventLogName;
+                    }
+                }
+
+                System.Diagnostics.EventLog outputLog = new System.Diagnostics.EventLog(eventLogName, machineName, currentEventSource);
+                outputLog.WriteEntry("Example success entry", System.Diagnostics.EventLogEntryType.Information, (int)successEventIDNumericUpDown.Value);
+                outputLog.WriteEntry("Example warning entry", System.Diagnostics.EventLogEntryType.Warning, (int)warningEventIDNumericUpDown.Value);
+                outputLog.WriteEntry("Example error entry", System.Diagnostics.EventLogEntryType.Error, (int)errorEventIDNumericUpDown.Value);
+                MessageBox.Show("Events were successfully written. Please check the Event Log.", "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Test", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
