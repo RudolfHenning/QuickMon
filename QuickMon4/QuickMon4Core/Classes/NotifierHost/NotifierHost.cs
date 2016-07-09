@@ -18,13 +18,15 @@ namespace QuickMon
             AlertLevel = QuickMon.AlertLevel.Warning;
             DetailLevel = QuickMon.DetailLevel.Detail;
             AttendedOptionOverride = AttendedOption.AttendedAndUnAttended;
+            OnlyRecordAlertOnHosts = new List<string>();
         }
-        //public string NotifierRegistrationName { get; set; }
+        
         public AlertLevel AlertLevel { get; set; }
         public DetailLevel DetailLevel { get; set; }
         public List<string> AlertForCollectors { get; private set; }
         public AttendedOption AttendedOptionOverride { get; set; }
         public List<INotifier> NotifierAgents { get; set; }
+        public List<string> OnlyRecordAlertOnHosts { get; set; }
 
         public override string ToString()
         {

@@ -115,6 +115,9 @@
             this.configColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtOnlyRecordAlertOnHosts = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.alertSuppressionGroupBox.SuspendLayout();
             this.tabAlerts.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -135,6 +138,9 @@
             // 
             this.alertSuppressionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.alertSuppressionGroupBox.Controls.Add(this.label7);
+            this.alertSuppressionGroupBox.Controls.Add(this.label6);
+            this.alertSuppressionGroupBox.Controls.Add(this.txtOnlyRecordAlertOnHosts);
             this.alertSuppressionGroupBox.Controls.Add(this.cboAttendedOptionOverride);
             this.alertSuppressionGroupBox.Controls.Add(this.label8);
             this.alertSuppressionGroupBox.Controls.Add(this.label2);
@@ -144,7 +150,7 @@
             this.alertSuppressionGroupBox.Controls.Add(this.label18);
             this.alertSuppressionGroupBox.Location = new System.Drawing.Point(6, 6);
             this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
-            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(561, 98);
+            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(561, 168);
             this.alertSuppressionGroupBox.TabIndex = 0;
             this.alertSuppressionGroupBox.TabStop = false;
             // 
@@ -157,10 +163,10 @@
             "Attended or Unattended",
             "Only Attended (with UI)",
             "Only UnAttended (e.g. under a service)"});
-            this.cboAttendedOptionOverride.Location = new System.Drawing.Point(118, 46);
+            this.cboAttendedOptionOverride.Location = new System.Drawing.Point(137, 46);
             this.cboAttendedOptionOverride.Name = "cboAttendedOptionOverride";
             this.cboAttendedOptionOverride.Size = new System.Drawing.Size(302, 21);
-            this.cboAttendedOptionOverride.TabIndex = 10;
+            this.cboAttendedOptionOverride.TabIndex = 6;
             this.toolTip1.SetToolTip(this.cboAttendedOptionOverride, "Should this notifier \'fire\' for only \'Attended\' or \'Unattended\' or \'Both\'");
             // 
             // label8
@@ -170,7 +176,7 @@
             this.label8.Location = new System.Drawing.Point(10, 49);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 13);
-            this.label8.TabIndex = 9;
+            this.label8.TabIndex = 5;
             this.label8.Text = "Run attended";
             // 
             // label2
@@ -179,7 +185,7 @@
             this.label2.Location = new System.Drawing.Point(10, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 1;
             this.label2.Text = "Trigger Level";
             // 
             // cboAlertLevel
@@ -192,10 +198,10 @@
             "Info",
             "Warning",
             "Error"});
-            this.cboAlertLevel.Location = new System.Drawing.Point(118, 19);
+            this.cboAlertLevel.Location = new System.Drawing.Point(137, 19);
             this.cboAlertLevel.Name = "cboAlertLevel";
             this.cboAlertLevel.Size = new System.Drawing.Size(107, 21);
-            this.cboAlertLevel.TabIndex = 6;
+            this.cboAlertLevel.TabIndex = 2;
             this.toolTip1.SetToolTip(this.cboAlertLevel, "Set the minmum alert level before notification is sent/logged");
             // 
             // cboDetailLevel
@@ -207,20 +213,20 @@
             "Summary only",
             "Detail",
             "Both"});
-            this.cboDetailLevel.Location = new System.Drawing.Point(308, 19);
+            this.cboDetailLevel.Location = new System.Drawing.Point(327, 19);
             this.cboDetailLevel.Name = "cboDetailLevel";
             this.cboDetailLevel.Size = new System.Drawing.Size(112, 21);
-            this.cboDetailLevel.TabIndex = 8;
+            this.cboDetailLevel.TabIndex = 4;
             this.toolTip1.SetToolTip(this.cboDetailLevel, "Set whether alerts are raised for each collector (Details) or just for the global" +
         " state (Summary)");
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(243, 22);
+            this.label4.Location = new System.Drawing.Point(262, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Detail level";
             // 
             // label18
@@ -253,9 +259,9 @@
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.linkLabelServiceWindows);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(6, 110);
+            this.groupBox3.Location = new System.Drawing.Point(6, 180);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(563, 99);
+            this.groupBox3.Size = new System.Drawing.Size(563, 98);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             // 
@@ -277,7 +283,7 @@
             this.linkLabelServiceWindows.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelServiceWindows.Location = new System.Drawing.Point(3, 16);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(557, 80);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(557, 79);
             this.linkLabelServiceWindows.TabIndex = 1;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
@@ -1024,6 +1030,34 @@
             this.agentsColumnHeader.Text = "Agent name";
             this.agentsColumnHeader.Width = 158;
             // 
+            // txtOnlyRecordAlertOnHosts
+            // 
+            this.txtOnlyRecordAlertOnHosts.Location = new System.Drawing.Point(137, 73);
+            this.txtOnlyRecordAlertOnHosts.Multiline = true;
+            this.txtOnlyRecordAlertOnHosts.Name = "txtOnlyRecordAlertOnHosts";
+            this.txtOnlyRecordAlertOnHosts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtOnlyRecordAlertOnHosts.Size = new System.Drawing.Size(184, 89);
+            this.txtOnlyRecordAlertOnHosts.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(10, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 57);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Only record on hosts";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(327, 76);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(165, 26);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "One host name per line\r\nLeave blank for no filter (all hosts)";
+            // 
             // EditNotifierHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1161,5 +1195,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtCategories;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtOnlyRecordAlertOnHosts;
     }
 }

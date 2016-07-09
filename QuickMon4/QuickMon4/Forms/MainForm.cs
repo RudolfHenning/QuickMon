@@ -61,7 +61,7 @@ namespace QuickMon
 
         private List<CollectorStatusViewer> collectorStatusViews = new List<CollectorStatusViewer>();
         private List<INotivierViewer> agentDetailViews = new List<INotivierViewer>();
-        EditTemplates editTemplates = null;
+        private EditTemplates editTemplates = null;
         //private List<NotifierAgentListViewer> notifierDetailViews = new List<NotifierAgentListViewer>();
         #endregion
 
