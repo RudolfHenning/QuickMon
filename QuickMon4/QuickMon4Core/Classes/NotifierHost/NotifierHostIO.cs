@@ -92,6 +92,18 @@ namespace QuickMon
                 }
             }
 
+            //OnlyRecordAlertOnHosts
+            XmlNode recordOnHostsNode = xmlNotifierHost.SelectSingleNode("recordOnHosts");
+            if (recordOnHostsNode != null)
+            {
+                newNotifierHost.OnlyRecordAlertOnHosts = new List<string>();
+                foreach (XmlElement hostNode in recordOnHostsNode.SelectNodes("host"))
+                {
+                    newNotifierHost.OnlyRecordAlertOnHosts.Add(hostNode.ReadXmlElementAttr("name", ""));
+                }
+            }
+
+            #region notifierAgents
             XmlNode notifierAgentsNode = xmlNotifierHost.SelectSingleNode("notifierAgents");
             if (notifierAgentsNode != null)
             {
@@ -141,7 +153,8 @@ namespace QuickMon
                         }
                     }
                 }
-            }
+            } 
+            #endregion
 
             return newNotifierHost;
         }
@@ -248,6 +261,18 @@ namespace QuickMon
                 configXml.AppendLine(cv.ToXml());
             }
             configXml.AppendLine("</configVars>");
+
+            if (OnlyRecordAlertOnHosts != null && OnlyRecordAlertOnHosts.Count > 0)
+            {
+                configXml.AppendLine("<recordOnHosts>");
+                foreach (string host in OnlyRecordAlertOnHosts)
+                {
+                    configXml.AppendLine(string.Format("<host name=\"{0}\" />", host.EscapeXml()));
+                }
+                configXml.AppendLine("</recordOnHosts>");
+            }
+            else
+                configXml.AppendLine("<recordOnHosts />");
 
             configXml.AppendLine("<!-- notifierAgents -->");
             configXml.AppendLine("<notifierAgents>");

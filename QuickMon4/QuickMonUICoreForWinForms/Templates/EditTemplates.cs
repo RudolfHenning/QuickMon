@@ -16,6 +16,16 @@ namespace QuickMon.Forms
             InitializeComponent();
         }
 
+        #region methods
+        public void CreateMonitorPackTemplate(string configXML)
+        {
+            cboType.SelectedIndex = 0;
+            txtName.Text = "";
+            txtConfig.Text = configXML;
+        }
+        #endregion
+
+
         #region Form events
         private void EditTemplates_Load(object sender, EventArgs e)
         {

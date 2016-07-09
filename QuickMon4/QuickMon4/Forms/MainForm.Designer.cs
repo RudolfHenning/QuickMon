@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -93,6 +93,7 @@
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
+            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).BeginInit();
             this.masterSplitContainer.Panel1.SuspendLayout();
             this.masterSplitContainer.Panel2.SuspendLayout();
@@ -181,12 +182,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode3.BackColor = System.Drawing.Color.White;
-            treeNode3.Name = "root";
-            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode3.Text = "COLLECTORS";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -280,12 +281,12 @@
             this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "NOTIFIERS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "NOTIFIERS";
             this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
@@ -673,7 +674,8 @@
             this.pollingToolStripMenuItem1,
             this.manageTemplatesToolStripMenuItem,
             this.restartInAdminModeToolStripMenuItem,
-            this.restartInNonAdminModeToolStripMenuItem});
+            this.restartInNonAdminModeToolStripMenuItem,
+            this.templatesToolStripMenuItem});
             this.generalSettingsToolStripSplitButton.Image = global::QuickMon.Properties.Resources.tools;
             this.generalSettingsToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.generalSettingsToolStripSplitButton.Name = "generalSettingsToolStripSplitButton";
@@ -693,7 +695,7 @@
             this.customPollingFrequencyToolStripMenuItem});
             this.pollingToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.clock;
             this.pollingToolStripMenuItem1.Name = "pollingToolStripMenuItem1";
-            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(224, 22);
+            this.pollingToolStripMenuItem1.Size = new System.Drawing.Size(236, 34);
             this.pollingToolStripMenuItem1.Text = "Polling";
             // 
             // pollingDisabledToolStripMenuItem
@@ -735,7 +737,7 @@
             // 
             this.manageTemplatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_new;
             this.manageTemplatesToolStripMenuItem.Name = "manageTemplatesToolStripMenuItem";
-            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.manageTemplatesToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
             this.manageTemplatesToolStripMenuItem.Text = "Manage Templates";
             this.manageTemplatesToolStripMenuItem.Click += new System.EventHandler(this.manageTemplatesToolStripMenuItem_Click);
             // 
@@ -743,7 +745,7 @@
             // 
             this.restartInAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
             this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
-            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
             this.restartInAdminModeToolStripMenuItem.Text = "Restart in \'Admin\' mode";
             this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
             // 
@@ -751,7 +753,7 @@
             // 
             this.restartInNonAdminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Non_Admin;
             this.restartInNonAdminModeToolStripMenuItem.Name = "restartInNonAdminModeToolStripMenuItem";
-            this.restartInNonAdminModeToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.restartInNonAdminModeToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
             this.restartInNonAdminModeToolStripMenuItem.Text = "Restart in Non-Admin mode";
             this.restartInNonAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInNonAdminModeToolStripMenuItem_Click);
             // 
@@ -786,6 +788,12 @@
             // showNotifierContextMenuTimer
             // 
             this.showNotifierContextMenuTimer.Tick += new System.EventHandler(this.showNotifierContextMenuTimer_Tick);
+            // 
+            // templatesToolStripMenuItem
+            // 
+            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.templatesToolStripMenuItem.Text = "Templates";
             // 
             // MainForm
             // 
@@ -892,6 +900,7 @@
         private System.Windows.Forms.ImageList notifierImageList;
         private System.Windows.Forms.ToolStripMenuItem restartInNonAdminModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton pauseToolStripButton;
+        private System.Windows.Forms.ToolStripMenuItem templatesToolStripMenuItem;
     }
 }
 

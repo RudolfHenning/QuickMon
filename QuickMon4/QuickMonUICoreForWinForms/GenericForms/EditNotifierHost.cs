@@ -85,6 +85,13 @@ namespace QuickMon
                 cboDetailLevel.SelectedIndex = (int)editingNotifierHost.DetailLevel;
                 cboAttendedOptionOverride.SelectedIndex = (int)editingNotifierHost.AttendedOptionOverride;
 
+                txtOnlyRecordAlertOnHosts.Text = "";
+                if (editingNotifierHost.OnlyRecordAlertOnHosts != null)
+                {
+                    foreach (string host in editingNotifierHost.OnlyRecordAlertOnHosts)
+                        txtOnlyRecordAlertOnHosts.Text += host + "\r\n";
+                }
+
                 if (editingNotifierHost.ServiceWindows != null)
                     linkLabelServiceWindows.Text = editingNotifierHost.ServiceWindows.ToString();
                 else
@@ -664,6 +671,14 @@ namespace QuickMon
                 editingNotifierHost.AlertLevel = (AlertLevel)cboAlertLevel.SelectedIndex;
                 editingNotifierHost.DetailLevel = (DetailLevel)cboDetailLevel.SelectedIndex;
                 editingNotifierHost.AttendedOptionOverride = (AttendedOption)cboAttendedOptionOverride.SelectedIndex;
+
+                editingNotifierHost.OnlyRecordAlertOnHosts = new List<string>();
+                foreach (string host in txtOnlyRecordAlertOnHosts.Lines)
+                {
+                    if (host.Trim().Length > 0)
+                        editingNotifierHost.OnlyRecordAlertOnHosts.Add(host);
+                }               
+
                 //Service windows - Done already            
                 editingNotifierHost.ConfigVariables = new List<ConfigVariable>();
                 foreach (ListViewItem lvi in lvwConfigVars.Items)
