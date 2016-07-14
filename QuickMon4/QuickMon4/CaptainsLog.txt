@@ -92,6 +92,8 @@ Version 4.3.3
 Version 4.3.4
 	Fix ssh collectors that alerted 'Warning' when only one agent reports 'Error'.
 	Import/Export of templates
+Version 4.3.5
+	Another Notifier filter - only run on host X (or X,Y,Z,...)
 
 Version 4.4.x
   Collector agent editing:
@@ -126,6 +128,6 @@ Version 4.4.x
 
 	Save/export config of pack/collector/notifier/agent to template
 
-	Another Notifier filter - only run on host X (or X,Y,Z,...)
+	
 
 Known BUGS
