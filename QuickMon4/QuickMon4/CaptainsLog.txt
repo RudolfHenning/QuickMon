@@ -94,6 +94,7 @@ Version 4.3.4
 	Import/Export of templates
 Version 4.3.5
 	Another Notifier filter - only run on host X (or X,Y,Z,...)
+	Fix 'Show file names' for File collector
 
 Version 4.4.x
   Collector agent editing:
@@ -128,6 +129,6 @@ Version 4.4.x
 
 	Save/export config of pack/collector/notifier/agent to template
 
-	
+	Move View Remote Host list to separate/dedicated Window that is not Modal.
 
 Known BUGS

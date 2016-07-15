@@ -81,6 +81,7 @@ namespace QuickMon
         #region Form events
         private void MainForm_Load(object sender, EventArgs e)
         {
+            templatesToolStripMenuItem.Visible = false;
             cboRecentMonitorPacks.Visible = false;
             cmdRecentMonitorPacks.Visible = false;
             lblNoNotifiersYet.Dock = DockStyle.Fill;
@@ -2434,6 +2435,7 @@ namespace QuickMon
             else
                 UpdateStatusbar("");
         }
+
         private void pollingDisabledToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PausePolling();
@@ -2740,7 +2742,8 @@ namespace QuickMon
         }
         #endregion
 
-    
+
+
     }
 }
 
