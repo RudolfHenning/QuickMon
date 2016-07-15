@@ -101,8 +101,9 @@ namespace QuickMon.Collectors
                                             returnState.ChildStates.Add(
                                                new MonitorState()
                                                {
+                                                   ForAgent = fi.Name,
                                                    State = currentState,
-                                                   CurrentValue = string.Format("{0} - {1}", fi.Name, FormatUtils.FormatFileSize(fi.Length))                                                   
+                                                   CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))                                                   
                                                });
                                         }
                                     }

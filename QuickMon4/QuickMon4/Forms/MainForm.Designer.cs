@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -87,13 +87,14 @@
             this.manageTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartInAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartInNonAdminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripButton();
+            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
-            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).BeginInit();
             this.masterSplitContainer.Panel1.SuspendLayout();
             this.masterSplitContainer.Panel2.SuspendLayout();
@@ -182,12 +183,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode3.BackColor = System.Drawing.Color.White;
+            treeNode3.Name = "root";
+            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode3.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -281,12 +282,12 @@
             this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "NOTIFIERS";
+            treeNode1.BackColor = System.Drawing.Color.White;
+            treeNode1.Name = "root";
+            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode1.Text = "NOTIFIERS";
             this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
@@ -485,7 +486,7 @@
             this.aboutToolStripMenuItem1});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(314, 35);
+            this.mainToolStrip.Size = new System.Drawing.Size(326, 35);
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.TabStop = true;
             this.mainToolStrip.MouseEnter += new System.EventHandler(this.mainToolStrip_MouseEnter);
@@ -757,15 +758,11 @@
             this.restartInNonAdminModeToolStripMenuItem.Text = "Restart in Non-Admin mode";
             this.restartInNonAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInNonAdminModeToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem1
+            // templatesToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.aboutToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.info;
-            this.aboutToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(32, 32);
-            this.aboutToolStripMenuItem1.Text = "About";
-            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.templatesToolStripMenuItem.Text = "Templates";
             // 
             // openFileDialogOpen
             // 
@@ -789,11 +786,24 @@
             // 
             this.showNotifierContextMenuTimer.Tick += new System.EventHandler(this.showNotifierContextMenuTimer_Tick);
             // 
-            // templatesToolStripMenuItem
+            // aboutToolStripMenuItem1
             // 
-            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
-            this.templatesToolStripMenuItem.Text = "Templates";
+            this.aboutToolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.aboutToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.remoteHostsToolStripMenuItem});
+            this.aboutToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.info;
+            this.aboutToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(44, 32);
+            this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.ButtonClick += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // remoteHostsToolStripMenuItem
+            // 
+            this.remoteHostsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.remote;
+            this.remoteHostsToolStripMenuItem.Name = "remoteHostsToolStripMenuItem";
+            this.remoteHostsToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
+            this.remoteHostsToolStripMenuItem.Text = "Remote Hosts";
             // 
             // MainForm
             // 
@@ -867,7 +877,6 @@
         private System.Windows.Forms.ToolStripMenuItem customPollingFrequencyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageTemplatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartInAdminModeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton aboutToolStripMenuItem1;
         private System.Windows.Forms.Panel recentMonitorPacksPanel;
         private System.Windows.Forms.Button cmdRecentMonitorPacks;
         private System.Windows.Forms.ComboBox cboRecentMonitorPacks;
@@ -901,6 +910,8 @@
         private System.Windows.Forms.ToolStripMenuItem restartInNonAdminModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton pauseToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem templatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSplitButton aboutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem remoteHostsToolStripMenuItem;
     }
 }
 
