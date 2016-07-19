@@ -100,6 +100,12 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RecentMonitorPacks.cs" />
+    <Compile Include="Forms\RemoteAgentHosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RemoteAgentHosts.Designer.cs">
+      <DependentUpon>RemoteAgentHosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Test\TestCollectorHostEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemoteAgentHosts.resx">
+      <DependentUpon>RemoteAgentHosts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Test\TestCollectorHostEdit.resx">
       <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,7 +174,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

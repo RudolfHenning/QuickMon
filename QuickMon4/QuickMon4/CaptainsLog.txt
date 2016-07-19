@@ -95,6 +95,7 @@ Version 4.3.4
 Version 4.3.5
 	Another Notifier filter - only run on host X (or X,Y,Z,...)
 	Fix 'Show file names' for File collector
+	Move Remote host list to separate Window.
 
 Version 4.4.x
   Collector agent editing:

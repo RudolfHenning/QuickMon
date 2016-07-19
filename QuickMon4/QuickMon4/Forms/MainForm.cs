@@ -63,6 +63,7 @@ namespace QuickMon
         private List<INotivierViewer> agentDetailViews = new List<INotivierViewer>();
         private EditTemplates editTemplates = null;
         //private List<NotifierAgentListViewer> notifierDetailViews = new List<NotifierAgentListViewer>();
+        private RemoteAgentHosts remoteAgentHostsWindows = null;
         #endregion
 
         #region TreeNodeImage contants
@@ -2486,6 +2487,28 @@ namespace QuickMon
             AboutQuickMon aboutQuickMon = new AboutQuickMon();
             aboutQuickMon.ShowDialog();
         }
+        private void remoteHostsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (remoteAgentHostsWindows == null || !remoteAgentHostsWindows.IsStillVisible())
+                {
+                    remoteAgentHostsWindows = new RemoteAgentHosts();
+                    remoteAgentHostsWindows.Show();
+                }
+                if (remoteAgentHostsWindows.WindowState == FormWindowState.Minimized)
+                    remoteAgentHostsWindows.WindowState = FormWindowState.Normal;
+            }
+            catch
+            {
+                remoteAgentHostsWindows = new RemoteAgentHosts();
+                remoteAgentHostsWindows.Show();
+            }
+            remoteAgentHostsWindows.TopMost = true;
+            remoteAgentHostsWindows.TopMost = false;
+            remoteAgentHostsWindows.Focus();
+            remoteAgentHostsWindows.RefreshList();
+        }
         #endregion
 
         #region Label clicks
@@ -2741,6 +2764,8 @@ namespace QuickMon
             }
         }
         #endregion
+
+
 
 
 
