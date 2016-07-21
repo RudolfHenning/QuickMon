@@ -128,7 +128,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADq
-        EgAAAk1TRnQBSQFMAgEBBQEAAewBAQHsAQEBEAEAARABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        EgAAAk1TRnQBSQFMAgEBBQEAAfQBAQH0AQEBEAEAARABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABIAMAAQEBAAEQBgABEBgAAf8BfwG9AXcBcwFOAcYBGAQAAUIBCAHOAjkBZwH/AX8B/wF/ZgAB/wF/
         Ad4BewEpASUBoAEgAYEBfgGBAX4BYAF6AWABdgFAAXIBAAFqAQEBNQIAAfcBYgH/AX9kAAHeAXsCAAGB
         AX4BwQF+AaEBfgGgAX4BgAF+AWABegFAAXYBIAFyAQABagHAAWEBwwEgAe8BPQH/AX9gAAH/AX8BQgEI
@@ -212,10 +212,10 @@
 </value>
   </data>
   <metadata name="refreshTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>481, 19</value>
+    <value>453, 17</value>
   </metadata>
   <metadata name="quickMonServiceOpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>861, 17</value>
+    <value>573, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
