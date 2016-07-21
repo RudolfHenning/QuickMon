@@ -189,11 +189,11 @@ namespace QuickMon.Forms
                     catch { }
                     if (!hostExists)
                     {
-                        UpdateListViewItem(lvi, 4, "Host not found");
+                        UpdateListViewItem(lvi, 4, "","Host not found");
                     }
                     else if (!CanPingHost(ri.Computer))
                     {
-                        UpdateListViewItem(lvi, 4, "Host not pingable");
+                        UpdateListViewItem(lvi, 4, "", "Host not pingable");
                     }
                     else
                     {
@@ -225,29 +225,33 @@ namespace QuickMon.Forms
                             {
                                 if (ex.Message.Contains("ContractFilter"))
                                 {
-                                    UpdateListViewItem(lvi, 2, "Remote host does not support version info query! Check that QuickMon 4.x or later is installed.");
+                                    UpdateListViewItem(lvi, 2, "", "Remote host does not support version info query! Check that QuickMon 4.x or later is installed.");
                                 }
                                 else
-                                    UpdateListViewItem(lvi, 2, ex.Message);
+                                    UpdateListViewItem(lvi, 2, "", ex.Message);
                             }
                         }
                         else
                         {
-                            UpdateListViewItem(lvi, 3, "N/A");
+                            UpdateListViewItem(lvi, 3, "N/A", "N/A");
                         }
                     }
                 }
                 catch (Exception delegateEx)
                 {
-                    if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
-                        UpdateListViewItem(lvi, 3, "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.");
+                    if (delegateEx.Message.StartsWith("There was no endpoint listening"))
+                    {
+                        UpdateListViewItem(lvi, 3, "", "Service not running or inaccessible");
+                    }
+                    else if (delegateEx.Message.Contains("The formatter threw an exception while trying to deserialize the message"))
+                        UpdateListViewItem(lvi, 3, "", "Old version of Remote agent host does not support query or format does not match! Please update remote agent host version.");
                     else
-                        UpdateListViewItem(lvi, 3, delegateEx.Message);
+                        UpdateListViewItem(lvi, 3, "", delegateEx.Message);
                 }
             }
             catch (Exception riEx)
             {
-                UpdateListViewItem(lvi, 1, riEx.ToString());
+                UpdateListViewItem(lvi, 1,"", riEx.ToString());
             }
         }
         private bool CanPingHost(string hostName)
@@ -285,7 +289,7 @@ namespace QuickMon.Forms
                 foreach (ListViewItem lvi in lvwRemoteHosts.Items)
                 {
                     SetListViewItemIcon(lvi, 0);
-                    lvi.SubItems[2].Text = "Loading...";
+                    lvi.SubItems[3].Text = "Loading...";
                     System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
                 }
 

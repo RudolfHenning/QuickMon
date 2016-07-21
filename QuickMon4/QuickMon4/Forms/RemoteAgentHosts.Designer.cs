@@ -32,9 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemoteAgentHosts));
             this.shadePanel1 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
             this.llblStartLocalService = new System.Windows.Forms.LinkLabel();
-            this.cmdAdd = new System.Windows.Forms.Button();
             this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
+            this.cmdAdd = new System.Windows.Forms.Button();
             this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.txtComputer = new System.Windows.Forms.TextBox();
@@ -45,14 +46,13 @@
             this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.packsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
@@ -83,6 +83,21 @@
             this.panel1.Size = new System.Drawing.Size(701, 31);
             this.panel1.TabIndex = 12;
             // 
+            // llblLocalServiceRegistered
+            // 
+            this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblLocalServiceRegistered.AutoSize = true;
+            this.llblLocalServiceRegistered.BackColor = System.Drawing.Color.Transparent;
+            this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblLocalServiceRegistered.LinkColor = System.Drawing.Color.Black;
+            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 9);
+            this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
+            this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
+            this.llblLocalServiceRegistered.TabIndex = 21;
+            this.llblLocalServiceRegistered.TabStop = true;
+            this.llblLocalServiceRegistered.Text = "Register local \'Remote Agent/Service\'";
+            this.llblLocalServiceRegistered.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblLocalServiceRegistered_LinkClicked);
+            // 
             // llblStartLocalService
             // 
             this.llblStartLocalService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -98,19 +113,6 @@
             this.llblStartLocalService.Text = "Start local \'Remote Agent/Service\'";
             this.llblStartLocalService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblStartLocalService_LinkClicked);
             // 
-            // cmdAdd
-            // 
-            this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAdd.Enabled = false;
-            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAdd.Location = new System.Drawing.Point(648, 247);
-            this.cmdAdd.Name = "cmdAdd";
-            this.cmdAdd.Size = new System.Drawing.Size(50, 23);
-            this.cmdAdd.TabIndex = 18;
-            this.cmdAdd.Text = "Add";
-            this.cmdAdd.UseVisualStyleBackColor = true;
-            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
-            // 
             // llblFirewallRule
             // 
             this.llblFirewallRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -125,6 +127,19 @@
             this.llblFirewallRule.TabStop = true;
             this.llblFirewallRule.Text = "Add Remote Host Firewall rule for port 48181";
             this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
+            // 
+            // cmdAdd
+            // 
+            this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdAdd.Enabled = false;
+            this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdAdd.Location = new System.Drawing.Point(648, 247);
+            this.cmdAdd.Name = "cmdAdd";
+            this.cmdAdd.Size = new System.Drawing.Size(50, 23);
+            this.cmdAdd.TabIndex = 18;
+            this.cmdAdd.Text = "Add";
+            this.cmdAdd.UseVisualStyleBackColor = true;
+            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
             // 
             // remoteportNumericUpDown
             // 
@@ -239,16 +254,6 @@
             this.packsColumnHeader.Text = "Packs";
             this.packsColumnHeader.Width = 102;
             // 
-            // remoteHostStatusImageList
-            // 
-            this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
-            this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
-            // 
             // remoteHostListContextMenuStrip
             // 
             this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -263,7 +268,7 @@
             // 
             this.monitorPacksToolStripMenuItem.Enabled = false;
             this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
-            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
             this.monitorPacksToolStripMenuItem.Click += new System.EventHandler(this.monitorPacksToolStripMenuItem_Click);
             // 
@@ -271,7 +276,7 @@
             // 
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -284,28 +289,23 @@
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // remoteHostStatusImageList
+            // 
+            this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
+            this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
             // 
             // refreshTimer
             // 
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // llblLocalServiceRegistered
-            // 
-            this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblLocalServiceRegistered.AutoSize = true;
-            this.llblLocalServiceRegistered.BackColor = System.Drawing.Color.Transparent;
-            this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblLocalServiceRegistered.LinkColor = System.Drawing.Color.Black;
-            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 9);
-            this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
-            this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
-            this.llblLocalServiceRegistered.TabIndex = 21;
-            this.llblLocalServiceRegistered.TabStop = true;
-            this.llblLocalServiceRegistered.Text = "Register local \'Remote Agent/Service\'";
-            this.llblLocalServiceRegistered.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblLocalServiceRegistered_LinkClicked);
             // 
             // quickMonServiceOpenFileDialog
             // 
