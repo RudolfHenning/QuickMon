@@ -130,6 +130,4 @@ Version 4.4.x
 
 	Save/export config of pack/collector/notifier/agent to template
 
-	Move View Remote Host list to separate/dedicated Window that is not Modal.
-
 Known BUGS
