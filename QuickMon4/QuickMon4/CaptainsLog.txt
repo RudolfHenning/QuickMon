@@ -104,6 +104,10 @@ Version 4.4.x
   Perfmon collector
 	Allow for wildcard definitions (e.g. svchost*) and then apply warn/err check on all of them.
 
+  Variables extension
+    Variable value could come from powershell script, registry query, WMI query, Perf Counter
+	Variable update type - Once off at startup of Monitor pack, Every refesh (before collectors update), Only upon usage
+
   IDEAS
   Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
   Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
