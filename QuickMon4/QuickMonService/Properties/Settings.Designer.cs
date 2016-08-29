@@ -23,27 +23,21 @@ namespace QuickMon.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public int PollingFreqSec {
             get {
                 return ((int)(this["PollingFreqSec"]));
             }
-            set {
-                this["PollingFreqSec"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("MonitorPackList.txt")]
         public string MonitorPackFile {
             get {
                 return ((string)(this["MonitorPackFile"]));
-            }
-            set {
-                this["MonitorPackFile"] = value;
             }
         }
         
@@ -59,91 +53,70 @@ namespace QuickMon.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int ParralelThreads {
             get {
                 return ((int)(this["ParralelThreads"]));
             }
-            set {
-                this["ParralelThreads"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableRemoteHost {
             get {
                 return ((bool)(this["EnableRemoteHost"]));
             }
-            set {
-                this["EnableRemoteHost"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:48181/QuickMonRemoteHost")]
         public string WcfServiceURL {
             get {
                 return ((string)(this["WcfServiceURL"]));
             }
-            set {
-                this["WcfServiceURL"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool WcfEnableMetadata {
             get {
                 return ((bool)(this["WcfEnableMetadata"]));
             }
-            set {
-                this["WcfEnableMetadata"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool WcfRenameLocalHostNameToRealHost {
             get {
                 return ((bool)(this["WcfRenameLocalHostNameToRealHost"]));
             }
-            set {
-                this["WcfRenameLocalHostNameToRealHost"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ApplicationMasterKey {
             get {
                 return ((string)(this["ApplicationMasterKey"]));
             }
-            set {
-                this["ApplicationMasterKey"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ApplicationUserNameCacheFilePath {
             get {
                 return ((string)(this["ApplicationUserNameCacheFilePath"]));
             }
-            set {
-                this["ApplicationUserNameCacheFilePath"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
@@ -151,9 +124,6 @@ namespace QuickMon.Properties {
         public global::System.Collections.Specialized.StringCollection BlockedCollectorAgentTypes {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["BlockedCollectorAgentTypes"]));
-            }
-            set {
-                this["BlockedCollectorAgentTypes"] = value;
             }
         }
     }
