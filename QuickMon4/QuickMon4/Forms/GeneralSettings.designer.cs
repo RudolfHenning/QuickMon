@@ -64,12 +64,6 @@
             this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
             this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
@@ -82,6 +76,12 @@
             this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
             this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
+            this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.shadePanel1 = new System.Windows.Forms.Panel();
@@ -95,14 +95,14 @@
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.recentTabPage.SuspendLayout();
-            this.remoteHostListContextMenuStrip.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.userCacheContextMenuStrip.SuspendLayout();
+            this.remoteHostListContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // concurrencyLevelNnumericUpDown
             // 
-            this.concurrencyLevelNnumericUpDown.Location = new System.Drawing.Point(104, 87);
+            this.concurrencyLevelNnumericUpDown.Location = new System.Drawing.Point(117, 89);
             this.concurrencyLevelNnumericUpDown.Maximum = new decimal(new int[] {
             32,
             0,
@@ -125,7 +125,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 89);
+            this.label3.Location = new System.Drawing.Point(19, 91);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 6;
@@ -137,7 +137,7 @@
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(372, 238);
+            this.cmdCancel.Location = new System.Drawing.Point(489, 306);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 1;
@@ -149,7 +149,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(291, 238);
+            this.cmdOK.Location = new System.Drawing.Point(408, 306);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 0;
@@ -185,7 +185,7 @@
             this.chkPausePollingDuringEditConfig.Checked = true;
             this.chkPausePollingDuringEditConfig.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPausePollingDuringEditConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkPausePollingDuringEditConfig.Location = new System.Drawing.Point(105, 118);
+            this.chkPausePollingDuringEditConfig.Location = new System.Drawing.Point(118, 120);
             this.chkPausePollingDuringEditConfig.Name = "chkPausePollingDuringEditConfig";
             this.chkPausePollingDuringEditConfig.Size = new System.Drawing.Size(227, 17);
             this.chkPausePollingDuringEditConfig.TabIndex = 8;
@@ -195,7 +195,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(102, 66);
+            this.label4.Location = new System.Drawing.Point(115, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(300, 13);
             this.label4.TabIndex = 5;
@@ -205,7 +205,7 @@
             // 
             this.chkOverridesMonitorPackFrequency.AutoSize = true;
             this.chkOverridesMonitorPackFrequency.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkOverridesMonitorPackFrequency.Location = new System.Drawing.Point(205, 42);
+            this.chkOverridesMonitorPackFrequency.Location = new System.Drawing.Point(218, 44);
             this.chkOverridesMonitorPackFrequency.Name = "chkOverridesMonitorPackFrequency";
             this.chkOverridesMonitorPackFrequency.Size = new System.Drawing.Size(195, 17);
             this.chkOverridesMonitorPackFrequency.TabIndex = 4;
@@ -215,7 +215,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(169, 43);
+            this.label2.Location = new System.Drawing.Point(182, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 3;
@@ -223,7 +223,7 @@
             // 
             // freqSecNumericUpDown
             // 
-            this.freqSecNumericUpDown.Location = new System.Drawing.Point(104, 41);
+            this.freqSecNumericUpDown.Location = new System.Drawing.Point(117, 43);
             this.freqSecNumericUpDown.Maximum = new decimal(new int[] {
             900,
             0,
@@ -247,7 +247,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 43);
+            this.label1.Location = new System.Drawing.Point(19, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 1;
@@ -272,7 +272,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 11);
             this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
-            this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(186, 20);
+            this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(303, 20);
             this.txtRecentMonitorPackFilter.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtRecentMonitorPackFilter, "* - All, use ~ for exclude");
             // 
@@ -282,7 +282,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtApplicationMasterKey.Location = new System.Drawing.Point(156, 6);
             this.txtApplicationMasterKey.Name = "txtApplicationMasterKey";
-            this.txtApplicationMasterKey.Size = new System.Drawing.Size(284, 20);
+            this.txtApplicationMasterKey.Size = new System.Drawing.Size(382, 20);
             this.txtApplicationMasterKey.TabIndex = 1;
             this.toolTip1.SetToolTip(this.txtApplicationMasterKey, "Do not loose this key as decryption the credentials is impossible without it!");
             // 
@@ -329,7 +329,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtApplicationMasterKeyFilePath.Location = new System.Drawing.Point(156, 32);
             this.txtApplicationMasterKeyFilePath.Name = "txtApplicationMasterKeyFilePath";
-            this.txtApplicationMasterKeyFilePath.Size = new System.Drawing.Size(236, 20);
+            this.txtApplicationMasterKeyFilePath.Size = new System.Drawing.Size(334, 20);
             this.txtApplicationMasterKeyFilePath.TabIndex = 3;
             // 
             // tabControl1
@@ -344,7 +344,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(456, 201);
+            this.tabControl1.Size = new System.Drawing.Size(573, 269);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -363,7 +363,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(448, 175);
+            this.tabPage1.Size = new System.Drawing.Size(565, 243);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Polling";
             // 
@@ -379,7 +379,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(448, 175);
+            this.tabPage2.Size = new System.Drawing.Size(565, 243);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Application";
             // 
@@ -387,7 +387,7 @@
             // 
             this.chkDisableAutoAdminMode.AutoSize = true;
             this.chkDisableAutoAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(7, 115);
+            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(19, 118);
             this.chkDisableAutoAdminMode.Name = "chkDisableAutoAdminMode";
             this.chkDisableAutoAdminMode.Size = new System.Drawing.Size(399, 17);
             this.chkDisableAutoAdminMode.TabIndex = 5;
@@ -403,7 +403,7 @@
             this.groupBox1.Controls.Add(this.chkPinToStartMenu);
             this.groupBox1.Location = new System.Drawing.Point(6, 36);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(412, 50);
+            this.groupBox1.Size = new System.Drawing.Size(529, 50);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Shortcuts";
@@ -459,7 +459,7 @@
             // 
             this.chkUseTemplates.AutoSize = true;
             this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseTemplates.Location = new System.Drawing.Point(7, 92);
+            this.chkUseTemplates.Location = new System.Drawing.Point(19, 95);
             this.chkUseTemplates.Name = "chkUseTemplates";
             this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
             this.chkUseTemplates.TabIndex = 4;
@@ -476,7 +476,7 @@
             this.recentTabPage.Location = new System.Drawing.Point(4, 22);
             this.recentTabPage.Name = "recentTabPage";
             this.recentTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.recentTabPage.Size = new System.Drawing.Size(448, 175);
+            this.recentTabPage.Size = new System.Drawing.Size(565, 243);
             this.recentTabPage.TabIndex = 3;
             this.recentTabPage.Text = "Recent";
             // 
@@ -484,7 +484,7 @@
             // 
             this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
             this.chkDisplayFullPathForQuickRecentEntries.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(21, 37);
+            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(25, 43);
             this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
             this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(184, 17);
             this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 3;
@@ -495,7 +495,7 @@
             // 
             this.cmdEditQuickSelectTypeFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(356, 9);
+            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(473, 9);
             this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
             this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
             this.cmdEditQuickSelectTypeFilters.TabIndex = 2;
@@ -512,55 +512,6 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Quick select Type Filters (csv)";
             // 
-            // remoteHostListContextMenuStrip
-            // 
-            this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.monitorPacksToolStripMenuItem,
-            this.removeToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.refreshToolStripMenuItem});
-            this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
-            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(151, 76);
-            // 
-            // monitorPacksToolStripMenuItem
-            // 
-            this.monitorPacksToolStripMenuItem.Enabled = false;
-            this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
-            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
-            //this.monitorPacksToolStripMenuItem.Click += new System.EventHandler(this.monitorPacksToolStripMenuItem_Click);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Enabled = false;
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
-            //this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            //this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // remoteHostStatusImageList
-            // 
-            this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
-            this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
-            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.White;
@@ -576,7 +527,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(448, 175);
+            this.tabPage3.Size = new System.Drawing.Size(546, 232);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "Security";
             // 
@@ -586,7 +537,7 @@
             this.cmdRemoveUserNameFromCache.Enabled = false;
             this.cmdRemoveUserNameFromCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdRemoveUserNameFromCache.Font = new System.Drawing.Font("Symbol", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(398, 104);
+            this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(496, 104);
             this.cmdRemoveUserNameFromCache.Name = "cmdRemoveUserNameFromCache";
             this.cmdRemoveUserNameFromCache.Size = new System.Drawing.Size(42, 23);
             this.cmdRemoveUserNameFromCache.TabIndex = 7;
@@ -599,7 +550,7 @@
             this.cmdAddUserNameToCache.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdAddUserNameToCache.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdAddUserNameToCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAddUserNameToCache.Location = new System.Drawing.Point(398, 75);
+            this.cmdAddUserNameToCache.Location = new System.Drawing.Point(496, 75);
             this.cmdAddUserNameToCache.Name = "cmdAddUserNameToCache";
             this.cmdAddUserNameToCache.Size = new System.Drawing.Size(42, 23);
             this.cmdAddUserNameToCache.TabIndex = 6;
@@ -620,7 +571,7 @@
             this.lvwUserNameCache.FullRowSelect = true;
             this.lvwUserNameCache.Location = new System.Drawing.Point(6, 75);
             this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(386, 95);
+            this.lvwUserNameCache.Size = new System.Drawing.Size(484, 152);
             this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
             this.lvwUserNameCache.TabIndex = 5;
             this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
@@ -680,7 +631,7 @@
             // 
             this.cmdSelectMasterKeyFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSelectMasterKeyFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(398, 30);
+            this.cmdSelectMasterKeyFile.Location = new System.Drawing.Point(496, 30);
             this.cmdSelectMasterKeyFile.Name = "cmdSelectMasterKeyFile";
             this.cmdSelectMasterKeyFile.Size = new System.Drawing.Size(42, 23);
             this.cmdSelectMasterKeyFile.TabIndex = 4;
@@ -688,9 +639,51 @@
             this.cmdSelectMasterKeyFile.UseVisualStyleBackColor = true;
             this.cmdSelectMasterKeyFile.Click += new System.EventHandler(this.cmdSelectMasterKeyFile_Click);
             // 
-            // refreshTimer
+            // remoteHostListContextMenuStrip
             // 
-            //this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorPacksToolStripMenuItem,
+            this.removeToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.refreshToolStripMenuItem});
+            this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
+            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(151, 76);
+            // 
+            // monitorPacksToolStripMenuItem
+            // 
+            this.monitorPacksToolStripMenuItem.Enabled = false;
+            this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
+            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Enabled = false;
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            // 
+            // remoteHostStatusImageList
+            // 
+            this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
+            this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
             // 
             // quickMonServiceOpenFileDialog
             // 
@@ -706,7 +699,7 @@
             this.shadePanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.shadePanel1.Location = new System.Drawing.Point(0, 0);
             this.shadePanel1.Name = "shadePanel1";
-            this.shadePanel1.Size = new System.Drawing.Size(467, 31);
+            this.shadePanel1.Size = new System.Drawing.Size(584, 31);
             this.shadePanel1.TabIndex = 10;
             // 
             // panel1
@@ -714,9 +707,9 @@
             this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader2;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 262);
+            this.panel1.Location = new System.Drawing.Point(0, 330);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(467, 31);
+            this.panel1.Size = new System.Drawing.Size(584, 31);
             this.panel1.TabIndex = 11;
             // 
             // saveFileDialogSaveQmmxml
@@ -737,12 +730,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(467, 293);
+            this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.shadePanel1);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -763,10 +757,10 @@
             this.groupBox1.PerformLayout();
             this.recentTabPage.ResumeLayout(false);
             this.recentTabPage.PerformLayout();
-            this.remoteHostListContextMenuStrip.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.userCacheContextMenuStrip.ResumeLayout(false);
+            this.remoteHostListContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
