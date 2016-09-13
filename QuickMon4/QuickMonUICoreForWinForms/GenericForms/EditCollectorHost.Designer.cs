@@ -1065,6 +1065,8 @@
             // 
             // cboRemoteAgentServer
             // 
+            this.cboRemoteAgentServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboRemoteAgentServer.FormattingEnabled = true;
             this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
             this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
@@ -1953,8 +1955,7 @@
             // 
             // cboExpandOnStartOption
             // 
-            this.cboExpandOnStartOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboExpandOnStartOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboExpandOnStartOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboExpandOnStartOption.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboExpandOnStartOption.FormattingEnabled = true;
@@ -1983,6 +1984,7 @@
             // 
             // label47
             // 
+            this.label47.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label47.AutoSize = true;
             this.label47.Location = new System.Drawing.Point(372, 16);
             this.label47.Name = "label47";
