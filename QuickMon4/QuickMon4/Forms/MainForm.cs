@@ -2720,22 +2720,51 @@ namespace QuickMon
                 {
                     scriptPath = Environment.ExpandEnvironmentVariables(scriptPath);
                 }
-                if (System.IO.File.Exists(scriptPath))
+                if (scriptPath.ToLower().Contains(".ps1"))
                 {
-                    if (scriptPath.ToLower().EndsWith(".ps1"))
-                    {
-                        RunPSScript(scriptPath);
-                    }
-                    else
-                    {
-                        Process p = new Process();
-                        p.StartInfo = new ProcessStartInfo(scriptPath);
-                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        p.Start();
-                    }
+                    RunPSScript(scriptPath);
                 }
                 else
-                    UpdateStatusbar(string.Format( "Could not find the corrective script {0}", scriptPath));
+                {
+                    string commandStr = scriptPath;
+                    string parameters = "";
+                    Process p = new Process();                    
+
+                    if (!System.IO.File.Exists(scriptPath) && scriptPath.Contains(' ')) 
+                    {
+                        if (scriptPath.StartsWith("\"") && scriptPath.Substring(1).Contains('"'))
+                        {
+                            commandStr = scriptPath.Substring(1, scriptPath.IndexOf('"', 1) - 1);
+                            parameters = scriptPath.Substring(scriptPath.IndexOf('"', 1) + 1).Trim();
+                        }
+                        else
+                        {
+                            commandStr = scriptPath.Substring(0, scriptPath.IndexOf(' '));
+                            parameters = scriptPath.Substring(scriptPath.IndexOf(' ') + 1).Trim();
+                        }
+                    }
+
+                    p.StartInfo = new ProcessStartInfo(commandStr, parameters);
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                }
+
+                //if (System.IO.File.Exists(scriptPath))
+                //{
+                //    if (scriptPath.ToLower().EndsWith(".ps1"))
+                //    {
+                        
+                //    }
+                //    else
+                //    {
+                //        Process p = new Process();
+                //        p.StartInfo = new ProcessStartInfo(scriptPath);
+                //        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                //        p.Start();
+                //    }
+                //}
+                //else
+                //    UpdateStatusbar(string.Format( "Could not find the corrective script {0}", scriptPath));
             }
             catch (Exception ex)
             {
