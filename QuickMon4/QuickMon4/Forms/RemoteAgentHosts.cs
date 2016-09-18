@@ -28,12 +28,12 @@ namespace QuickMon.Forms
                     if (remoteAgentStr.Substring(newRemoteAgentInfo.Computer.Length + 1).IsNumber())
                         newRemoteAgentInfo.PortNumber = int.Parse(remoteAgentStr.Substring(newRemoteAgentInfo.Computer.Length + 1));
                     else
-                        newRemoteAgentInfo.PortNumber = 8181;
+                        newRemoteAgentInfo.PortNumber = 48181;
                 }
                 else
                 {
                     newRemoteAgentInfo.Computer = remoteAgentStr;
-                    newRemoteAgentInfo.PortNumber = 8181;
+                    newRemoteAgentInfo.PortNumber = 48181;
                 }
                 return newRemoteAgentInfo;
             }
@@ -395,6 +395,7 @@ namespace QuickMon.Forms
         {
             removeToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
             monitorPacksToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
+            testToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count == 1;
         }
         private void lvwRemoteHosts_DoubleClick(object sender, EventArgs e)
         {
@@ -622,6 +623,16 @@ namespace QuickMon.Forms
             }
         }
         #endregion
+
+        private void RemoteAgentHosts_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.KnownRemoteHosts = new System.Collections.Specialized.StringCollection();
+            foreach (ListViewItem lvi in lvwRemoteHosts.Items)
+            {
+                Properties.Settings.Default.KnownRemoteHosts.Add(((RemoteAgentInfo)lvi.Tag).ToString());
+            }
+            Properties.Settings.Default.Save();
+        }
 
     }
 }
