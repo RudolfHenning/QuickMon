@@ -41,11 +41,6 @@
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.lblComputer = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lvwRemoteHosts = new QuickMon.ListViewEx();
-            this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.packsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +49,14 @@
             this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.lvwRemoteHosts = new QuickMon.ListViewEx();
+            this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.packsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shadePanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.panel2.SuspendLayout();
@@ -64,11 +67,12 @@
             // 
             this.shadePanel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader1;
             this.shadePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shadePanel1.Controls.Add(this.cmdRefresh);
             this.shadePanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.shadePanel1.Location = new System.Drawing.Point(0, 0);
             this.shadePanel1.Name = "shadePanel1";
             this.shadePanel1.Size = new System.Drawing.Size(701, 31);
-            this.shadePanel1.TabIndex = 11;
+            this.shadePanel1.TabIndex = 0;
             // 
             // panel1
             // 
@@ -81,7 +85,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 303);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(701, 31);
-            this.panel1.TabIndex = 12;
+            this.panel1.TabIndex = 1;
             // 
             // llblLocalServiceRegistered
             // 
@@ -93,7 +97,7 @@
             this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 9);
             this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
             this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
-            this.llblLocalServiceRegistered.TabIndex = 21;
+            this.llblLocalServiceRegistered.TabIndex = 0;
             this.llblLocalServiceRegistered.TabStop = true;
             this.llblLocalServiceRegistered.Text = "Register local \'Remote Agent/Service\'";
             this.llblLocalServiceRegistered.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblLocalServiceRegistered_LinkClicked);
@@ -108,7 +112,7 @@
             this.llblStartLocalService.Location = new System.Drawing.Point(12, 9);
             this.llblStartLocalService.Name = "llblStartLocalService";
             this.llblStartLocalService.Size = new System.Drawing.Size(170, 13);
-            this.llblStartLocalService.TabIndex = 20;
+            this.llblStartLocalService.TabIndex = 2;
             this.llblStartLocalService.TabStop = true;
             this.llblStartLocalService.Text = "Start local \'Remote Agent/Service\'";
             this.llblStartLocalService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblStartLocalService_LinkClicked);
@@ -123,7 +127,7 @@
             this.llblFirewallRule.Location = new System.Drawing.Point(237, 9);
             this.llblFirewallRule.Name = "llblFirewallRule";
             this.llblFirewallRule.Size = new System.Drawing.Size(218, 13);
-            this.llblFirewallRule.TabIndex = 19;
+            this.llblFirewallRule.TabIndex = 1;
             this.llblFirewallRule.TabStop = true;
             this.llblFirewallRule.Text = "Add Remote Host Firewall rule for port 48181";
             this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
@@ -136,7 +140,7 @@
             this.cmdAdd.Location = new System.Drawing.Point(648, 247);
             this.cmdAdd.Name = "cmdAdd";
             this.cmdAdd.Size = new System.Drawing.Size(50, 23);
-            this.cmdAdd.TabIndex = 18;
+            this.cmdAdd.TabIndex = 5;
             this.cmdAdd.Text = "Add";
             this.cmdAdd.UseVisualStyleBackColor = true;
             this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
@@ -157,7 +161,7 @@
             0});
             this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
             this.remoteportNumericUpDown.Size = new System.Drawing.Size(62, 20);
-            this.remoteportNumericUpDown.TabIndex = 17;
+            this.remoteportNumericUpDown.TabIndex = 4;
             this.remoteportNumericUpDown.Value = new decimal(new int[] {
             48181,
             0,
@@ -171,7 +175,7 @@
             this.label14.Location = new System.Drawing.Point(548, 252);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
-            this.label14.TabIndex = 16;
+            this.label14.TabIndex = 3;
             this.label14.Text = "Port";
             // 
             // txtComputer
@@ -181,7 +185,7 @@
             this.txtComputer.Location = new System.Drawing.Point(86, 249);
             this.txtComputer.Name = "txtComputer";
             this.txtComputer.Size = new System.Drawing.Size(456, 20);
-            this.txtComputer.TabIndex = 15;
+            this.txtComputer.TabIndex = 2;
             this.txtComputer.TextChanged += new System.EventHandler(this.txtComputer_TextChanged);
             this.txtComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtComputer_KeyDown);
             // 
@@ -192,7 +196,7 @@
             this.lblComputer.Location = new System.Drawing.Point(7, 252);
             this.lblComputer.Name = "lblComputer";
             this.lblComputer.Size = new System.Drawing.Size(73, 13);
-            this.lblComputer.TabIndex = 14;
+            this.lblComputer.TabIndex = 1;
             this.lblComputer.Text = "Add computer";
             this.lblComputer.DoubleClick += new System.EventHandler(this.lblComputer_DoubleClick);
             // 
@@ -210,59 +214,16 @@
             this.panel2.Size = new System.Drawing.Size(701, 272);
             this.panel2.TabIndex = 21;
             // 
-            // lvwRemoteHosts
-            // 
-            this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwRemoteHosts.AutoResizeColumnEnabled = false;
-            this.lvwRemoteHosts.AutoResizeColumnIndex = 3;
-            this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.remoteAgentColumnHeader,
-            this.portColumnHeader,
-            this.versionColumnHeader,
-            this.packsColumnHeader});
-            this.lvwRemoteHosts.ContextMenuStrip = this.remoteHostListContextMenuStrip;
-            this.lvwRemoteHosts.FullRowSelect = true;
-            this.lvwRemoteHosts.Location = new System.Drawing.Point(0, 0);
-            this.lvwRemoteHosts.Name = "lvwRemoteHosts";
-            this.lvwRemoteHosts.Size = new System.Drawing.Size(701, 241);
-            this.lvwRemoteHosts.SmallImageList = this.remoteHostStatusImageList;
-            this.lvwRemoteHosts.TabIndex = 13;
-            this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
-            this.lvwRemoteHosts.View = System.Windows.Forms.View.Details;
-            this.lvwRemoteHosts.SelectedIndexChanged += new System.EventHandler(this.lvwRemoteHosts_SelectedIndexChanged);
-            this.lvwRemoteHosts.DoubleClick += new System.EventHandler(this.lvwRemoteHosts_DoubleClick);
-            // 
-            // remoteAgentColumnHeader
-            // 
-            this.remoteAgentColumnHeader.Text = "Remote host";
-            this.remoteAgentColumnHeader.Width = 150;
-            // 
-            // portColumnHeader
-            // 
-            this.portColumnHeader.Text = "Port";
-            this.portColumnHeader.Width = 74;
-            // 
-            // versionColumnHeader
-            // 
-            this.versionColumnHeader.Text = "Version";
-            this.versionColumnHeader.Width = 97;
-            // 
-            // packsColumnHeader
-            // 
-            this.packsColumnHeader.Text = "Packs";
-            this.packsColumnHeader.Width = 102;
-            // 
             // remoteHostListContextMenuStrip
             // 
             this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.monitorPacksToolStripMenuItem,
             this.removeToolStripMenuItem,
+            this.testToolStripMenuItem,
             this.toolStripMenuItem1,
             this.refreshToolStripMenuItem});
             this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
-            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(151, 76);
+            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(153, 120);
             // 
             // monitorPacksToolStripMenuItem
             // 
@@ -314,6 +275,74 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 4 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 4 Service";
             // 
+            // lvwRemoteHosts
+            // 
+            this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwRemoteHosts.AutoResizeColumnEnabled = false;
+            this.lvwRemoteHosts.AutoResizeColumnIndex = 3;
+            this.lvwRemoteHosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.remoteAgentColumnHeader,
+            this.portColumnHeader,
+            this.versionColumnHeader,
+            this.packsColumnHeader});
+            this.lvwRemoteHosts.ContextMenuStrip = this.remoteHostListContextMenuStrip;
+            this.lvwRemoteHosts.FullRowSelect = true;
+            this.lvwRemoteHosts.Location = new System.Drawing.Point(0, 0);
+            this.lvwRemoteHosts.Name = "lvwRemoteHosts";
+            this.lvwRemoteHosts.Size = new System.Drawing.Size(701, 241);
+            this.lvwRemoteHosts.SmallImageList = this.remoteHostStatusImageList;
+            this.lvwRemoteHosts.TabIndex = 0;
+            this.lvwRemoteHosts.UseCompatibleStateImageBehavior = false;
+            this.lvwRemoteHosts.View = System.Windows.Forms.View.Details;
+            this.lvwRemoteHosts.SelectedIndexChanged += new System.EventHandler(this.lvwRemoteHosts_SelectedIndexChanged);
+            this.lvwRemoteHosts.DoubleClick += new System.EventHandler(this.lvwRemoteHosts_DoubleClick);
+            // 
+            // remoteAgentColumnHeader
+            // 
+            this.remoteAgentColumnHeader.Text = "Remote host";
+            this.remoteAgentColumnHeader.Width = 150;
+            // 
+            // portColumnHeader
+            // 
+            this.portColumnHeader.Text = "Port";
+            this.portColumnHeader.Width = 74;
+            // 
+            // versionColumnHeader
+            // 
+            this.versionColumnHeader.Text = "Version";
+            this.versionColumnHeader.Width = 97;
+            // 
+            // packsColumnHeader
+            // 
+            this.packsColumnHeader.Text = "Packs";
+            this.packsColumnHeader.Width = 102;
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
+            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRefresh.Location = new System.Drawing.Point(2, 1);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(28, 28);
+            this.cmdRefresh.TabIndex = 0;
+            this.cmdRefresh.UseVisualStyleBackColor = false;
+            this.cmdRefresh.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Enabled = false;
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.lvwRemoteHosts_DoubleClick);
+            // 
             // RemoteAgentHosts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,8 +357,10 @@
             this.Name = "RemoteAgentHosts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Remote Hosts";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RemoteAgentHosts_FormClosing);
             this.Load += new System.EventHandler(this.RemoteAgentHosts_Load);
             this.Shown += new System.EventHandler(this.RemoteAgentHosts_Shown);
+            this.shadePanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
@@ -366,5 +397,7 @@
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.LinkLabel llblLocalServiceRegistered;
         private System.Windows.Forms.OpenFileDialog quickMonServiceOpenFileDialog;
+        private System.Windows.Forms.Button cmdRefresh;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }
