@@ -103,39 +103,48 @@ Version 4.4.x
   Collector agent editing:
     All must allow "OK" even if test condition cannot be verified (as it can be set up on another machine using remote host functionality)
 
-  Perfmon collector
-	Allow for wildcard definitions (e.g. svchost*) and then apply warn/err check on all of them.
+=================================================================================================================================================
+Improvement ideas
+  CORE
+      Shared resources
+	    Like connection strings/ssh connection details
+	  Perfmon collector
+		Allow for wildcard definitions (e.g. svchost*) and then apply warn/err check on all of them.
+	  Variables extension
+		Variable value could come from powershell script, registry query, WMI query, Perf Counter
+		Variable update type - Once off at startup of Monitor pack, Every refresh (before collectors update), Only upon usage
+	  Error/Warning/Good Additional text + Notes field for General notes
+		For each Collector host (per alert raised) you can specify some additional text/tips/summary that will be included in the alert message.
+		Alert text can make use of variables to cutomize the text e.g. Collector host name, Agent entry name, Agent type, Agent value (provided it is a single value)
+	  Manual/example correction scripts
+		Per collector host you can specify scripts that can be clicked on in the Status viewer to run for either more info or manually fixing a problem (like cleaning Temp dir e.g.)
+	  MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
+	  Collector host Remote host - option to check local first and only then remote
+	  Logged alert details must contain more details of which monitorpack, version of agent and via which host (as separate field), run as, if alert suppression was on indicate how long resource was in alert condition
+	  SQL notifier must be updated to contain more details of newer functionality since it was first created.
+	  Collector agent types in config must use fully qualified class name so agent types with same class name (but different namespaces) are possible.
+	    Default namespace could be changed to QuickMon.Core.xxx
 
-  Variables extension
-    Variable value could come from powershell script, registry query, WMI query, Perf Counter
-	Variable update type - Once off at startup of Monitor pack, Every refesh (before collectors update), Only upon usage
-
-  IDEAS
-  Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
-  Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
-  Remote host functionality:
-	 Service must be able to filter allow/deny calling process based on address/IP/name/Service window
-	 Service must/can log all requests to local log file, level of logging, amount of history configurable - 
-	 Investigate some kind of encryption for WCF message passed over wire. Or Checksum...
-  UI client:
-	 Optional 'Alert view' window where only collectors in specified state are displayed.
-    Open multiple Monitor packs at the same time.
+  UI improvements
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
-	MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
-	Collector host Remote host option to check local first and only then remote
-	
-	Logged alert details must contain more details of which monitorpack, version of agent and via which host (as separate field), run as, if alert suppression was on indicate how long resource was in alert condition
-	SQL notifier must be updated to contain more details of newer functionality since it was first created.
-
+	Open multiple Monitor packs at the same time.
+	"Show Notifiers" label/link must include number of Notifiers - so you can see if there are none (other than InMemory one)
+	When using Remote host and port is the default 48191 then don't display port next to collector host name
 	Merging/splitting of Collector agents from the UI.
 		Some restrictions - can only merge/import Collector agents from 'leave' collectors (no dependencies)
 		Split will create peer Collector underneath same 'parent' collector.
-	
-	Shared resources
-	   Like connection strings/ssh connection details
-
+    Optional 'Alert view' window where only collectors in specified state are displayed.
 	Save/export config of pack/collector/notifier/agent to template
-
 	corrective script value in xml config  must change to be element text - not attribute. So it can contain special chars and perhaps be a real 'script' with multiple commands.
+
+
+  FUTURE WILD IDEAS
+	  Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
+	  Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
+	  Remote host functionality:
+		 Service must be able to filter allow/deny calling process based on address/IP/name/Service window
+		 Service must/can log all requests to local log file, level of logging, amount of history configurable - 
+		 Investigate some kind of encryption for WCF message passed over wire. Or Checksum...
+
 
 Known BUGS
