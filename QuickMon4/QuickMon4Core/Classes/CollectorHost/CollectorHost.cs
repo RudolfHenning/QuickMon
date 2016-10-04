@@ -67,6 +67,24 @@ namespace QuickMon
         /// Reference to containing MonitorPack
         /// </summary>
         public MonitorPack ParentMonitorPack { get; set; }
+        /// <summary>
+        /// Returns Collector host Name and indication if remote host is used
+        /// </summary>
+        public string DisplayName
+        {
+            get
+            {
+                string displayName = Name;
+                if (EnableRemoteExecute || ForceRemoteExcuteOnChildCollectors)
+                {
+                    displayName += " [" + (ForceRemoteExcuteOnChildCollectors ? "!" : "") + RemoteAgentHostAddress;
+                    if (RemoteAgentHostPort != GlobalConstants.DefaultRemoteHostPort)
+                        displayName += ":" + RemoteAgentHostPort.ToString();
+                    displayName += "]";
+                }
+                return displayName;
+            }
+        }
         #endregion
 
         #region UI specific

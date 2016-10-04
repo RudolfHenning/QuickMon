@@ -618,18 +618,18 @@ namespace QuickMon
             TreeNode collectorNode;
             if (collector.CollectorAgents == null || collector.CollectorAgents.Count == 0)
             {
-                collectorNode = new TreeNode(collector.Name, 1, 1);
+                collectorNode = new TreeNode(collector.DisplayName, 1, 1);
                 collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             }
             else
-                collectorNode = new TreeNode(collector.Name, 2, 2);
+                collectorNode = new TreeNode(collector.DisplayName, 2, 2);
             collectorNode.Tag = collector;
             collector.Tag = collectorNode;
             collectorNode.ForeColor = collector.Enabled ? SystemColors.WindowText : Color.Gray;
-            if (collector.EnableRemoteExecute || collector.ForceRemoteExcuteOnChildCollectors)
-            {
-                collectorNode.Text += string.Format(" [{0}:{1}]", (collector.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
-            }
+            //if (collector.EnableRemoteExecute || collector.ForceRemoteExcuteOnChildCollectors)
+            //{
+            //    collectorNode.Text += string.Format(" [{0}:{1}]", (collector.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collector.RemoteAgentHostAddress, collector.RemoteAgentHostPort);
+            //}
             foreach (CollectorHost childCollector in (from c in monitorPack.CollectorHosts
                                                        where c.ParentCollectorId == collector.UniqueId &&
                                                        c.ParentCollectorId != c.UniqueId
@@ -1285,11 +1285,13 @@ namespace QuickMon
                     {
                         SetMonitorChanged();
                         collectorEntry.ReconfigureFromXml(editCollectorHost.SelectedConfig, monitorPack.ConfigVariables, true);
-                        currentNode.Text = collectorEntry.Name;
-                        if (collectorEntry.EnableRemoteExecute || collectorEntry.ForceRemoteExcuteOnChildCollectors)
-                        {
-                            tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (collectorEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collectorEntry.RemoteAgentHostAddress, collectorEntry.RemoteAgentHostPort);
-                        }
+                        currentNode.Text = collectorEntry.DisplayName;
+
+                        //currentNode.Text = collectorEntry.Name;
+                        //if (collectorEntry.EnableRemoteExecute || collectorEntry.ForceRemoteExcuteOnChildCollectors)
+                        //{
+                        //    tvwCollectors.SelectedNode.Text += string.Format(" [{0}:{1}]", (collectorEntry.ForceRemoteExcuteOnChildCollectors ? "!" : "") + collectorEntry.RemoteAgentHostAddress, collectorEntry.RemoteAgentHostPort);
+                        //}
                         //correcting for parent node changes
                         if (collectorEntry.ParentCollectorId == null || collectorEntry.ParentCollectorId == "")
                         {
@@ -2793,10 +2795,6 @@ namespace QuickMon
             }
         }
         #endregion
-
-
-
-
 
     }
 }
