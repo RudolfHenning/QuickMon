@@ -97,7 +97,9 @@ Version 4.3.5
 	Fix 'Show file names' for File collector
 	Move Remote host list to separate Window.
 Version 4.3.6
-	Fixed/enhanced corrective scripts to handle paramaters
+	Fixed/enhanced corrective scripts to handle parameters
+Version 4.3.7
+	UI: Remote host - when default port is used only the host name is displayed on main window (and port is not anymore)
 
 Version 4.4.x
   Collector agent editing:
@@ -129,7 +131,6 @@ Improvement ideas
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
 	Open multiple Monitor packs at the same time.
 	"Show Notifiers" label/link must include number of Notifiers - so you can see if there are none (other than InMemory one)
-	When using Remote host and port is the default 48191 then don't display port next to collector host name
 	Merging/splitting of Collector agents from the UI.
 		Some restrictions - can only merge/import Collector agents from 'leave' collectors (no dependencies)
 		Split will create peer Collector underneath same 'parent' collector.
