@@ -86,8 +86,9 @@ namespace QuickMon.Collectors
                                 disabledRL.ChildStates.Add(
                                     new MonitorState()
                                 {
-                                    CurrentValue = "Disabled RL: " + rl//,
-                                    //RawDetails = rl
+                                    ForAgent = rl,
+                                    State = CollectorState.Error,
+                                    CurrentValue = "Disabled"
                                 });
                             }
                             returnState.ChildStates.Add(disabledRL);
@@ -104,8 +105,9 @@ namespace QuickMon.Collectors
                                 stoppedSP.ChildStates.Add(
                                     new MonitorState()
                                     {
-                                        CurrentValue = "Stopped SP: " + sp//,
-                                        //RawDetails = sp
+                                        ForAgent = sp,
+                                        State = CollectorState.Error,
+                                        CurrentValue = "Stopped"
                                     });
                             }
                             returnState.ChildStates.Add(stoppedSP);                            
@@ -122,13 +124,13 @@ namespace QuickMon.Collectors
                                 stoppedOrchs.ChildStates.Add(
                                     new MonitorState()
                                     {
-                                        CurrentValue = "Stopped Orch: " + orch//,
-                                        //RawDetails = orch
+                                        ForAgent = orch,
+                                        State = CollectorState.Error,
+                                        CurrentValue = "Stopped"
                                     });
                             }
                             returnState.ChildStates.Add(stoppedOrchs);                            
-                        }   
-                        
+                        }                        
                     }
                 }
                 else
