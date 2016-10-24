@@ -191,12 +191,7 @@ namespace QuickMon
                 }
             }
             if (RawDetails != null && RawDetails.Length > 0)
-                prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);
-
-            //if (RanAs != null && RanAs.Length > 0)
-            //{
-            //    prePadding += "Ran as: " + RanAs + "\r\n" + (new string(linePaddingChar, linePaddingRepeat));
-            //}            
+                prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);          
 
             if (prePadding.Trim(linePaddingChar).Length > 0)
             {
@@ -247,49 +242,6 @@ namespace QuickMon
                     sb.AppendLine("</p>");
             }
 
-
-            //if (HtmlDetails != null && HtmlDetails.Length > 0)
-            //{
-            //    sb.Append("<p>");
-            //    if (ForAgent != null && ForAgent.Length > 0)
-            //    {
-            //        sb.Append(string.Format("{0}: ", ForAgent));
-            //        if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
-            //        {
-            //            if (CurrentValue != null)
-            //            {
-            //                sb.Append(string.Format("{0} ", CurrentValue));
-            //                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
-            //                {
-            //                    sb.Append(string.Format("{0} ", CurrentValueUnit));
-            //                }
-            //            }
-            //            sb.Append(string.Format("({0}) ", State));
-            //        }
-            //    }
-            //    sb.AppendLine(HtmlDetails + "</p>");
-            //}
-            //else if (RawDetails != null && RawDetails.Length > 0)
-            //{
-            //    sb.Append("<p>");
-            //    if (ForAgent != null && ForAgent.Length > 0)
-            //    {
-            //        sb.Append(string.Format("{0}: ", ForAgent));
-            //        if (State == CollectorState.Good || State == CollectorState.Warning || State == CollectorState.Error || State == CollectorState.Disabled || State == CollectorState.ConfigurationError)
-            //        {
-            //            if (CurrentValue != null)
-            //            {
-            //                sb.Append(string.Format("{0} ", CurrentValue));
-            //                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
-            //                {
-            //                    sb.Append(string.Format("{0} ", CurrentValueUnit));
-            //                }
-            //            }
-            //            sb.Append(string.Format("({0}) ", State));
-            //        }
-            //    }
-            //    sb.AppendLine(RawDetails + "</p>");
-            //}
             if (ChildStates != null && ChildStates.Count > 0)
             {
                 sb.AppendLine("<ul>");

@@ -100,6 +100,8 @@ Version 4.3.6
 	Fixed/enhanced corrective scripts to handle parameters
 Version 4.3.7
 	UI: Remote host - when default port is used only the host name is displayed on main window (and port is not anymore)
+	[4.3.7.1024]
+	Fixing BizTalk Port and Orchs HTML alert details to include name details of disabled/stopped ports/RL
 
 Version 4.4.x
   Collector agent editing:
