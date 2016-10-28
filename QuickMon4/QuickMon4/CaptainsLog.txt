@@ -110,6 +110,11 @@ Version 4.4.x
 =================================================================================================================================================
 Improvement ideas
   CORE
+	  Alerts
+		Add variable to display Monitor pack name/path
+		Add comments to Collector host that can be displayed in alert (like tips how to fix, extra info)
+		Error/Warning/Good Additional text + Notes field for General notes
+			Alert text can make use of variables to cutomize the text e.g. Collector host name, Agent entry name, Agent type, Agent value (provided it is a single value), monitor pack name/path
       Shared resources
 	    Like connection strings/ssh connection details
 	  Perfmon collector
@@ -117,9 +122,6 @@ Improvement ideas
 	  Variables extension
 		Variable value could come from powershell script, registry query, WMI query, Perf Counter
 		Variable update type - Once off at startup of Monitor pack, Every refresh (before collectors update), Only upon usage
-	  Error/Warning/Good Additional text + Notes field for General notes
-		For each Collector host (per alert raised) you can specify some additional text/tips/summary that will be included in the alert message.
-		Alert text can make use of variables to cutomize the text e.g. Collector host name, Agent entry name, Agent type, Agent value (provided it is a single value)
 	  Manual/example correction scripts
 		Per collector host you can specify scripts that can be clicked on in the Status viewer to run for either more info or manually fixing a problem (like cleaning Temp dir e.g.)
 	  MonitorPackStatus: Agent errors must be separate from Errors raised by test conditions. (CollectorState)
