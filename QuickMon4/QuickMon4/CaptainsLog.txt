@@ -141,6 +141,7 @@ Improvement ideas
     Optional 'Alert view' window where only collectors in specified state are displayed.
 	Save/export config of pack/collector/notifier/agent to template
 	corrective script value in xml config  must change to be element text - not attribute. So it can contain special chars and perhaps be a real 'script' with multiple commands.
+	Editing MonitorPackList.exe file from UI
 
 
   FUTURE WILD IDEAS
@@ -148,7 +149,7 @@ Improvement ideas
 	  Report back to remote host Notifier. A Notifier/WCF call to report/log alerts back to a remote/central point so the alert can be recorded/alerted on from that point
 	  Remote host functionality:
 		 Service must be able to filter allow/deny calling process based on address/IP/name/Service window
-		 Service must/can log all requests to local log file, level of logging, amount of history configurable - 
+		 Service must/can log all requests to local log file, level of logging, amount of history configurable - Done
 		 Investigate some kind of encryption for WCF message passed over wire. Or Checksum...
 
 
