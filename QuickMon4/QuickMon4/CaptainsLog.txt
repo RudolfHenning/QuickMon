@@ -102,6 +102,9 @@ Version 4.3.7
 	UI: Remote host - when default port is used only the host name is displayed on main window (and port is not anymore)
 	[4.3.7.1024]
 	Fixing BizTalk Port and Orchs HTML alert details to include name details of disabled/stopped ports/RL
+Version 4.3.8
+	in UI the Expand on success does not work
+	Add button to edit MonitorPackList.txt
 
 Version 4.4.x
   Collector agent editing:
@@ -154,3 +157,4 @@ Improvement ideas
 
 
 Known BUGS
+	in UI the Expand on success does not work - Fixed in 4.3.8

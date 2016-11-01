@@ -950,7 +950,7 @@ namespace QuickMon
                             {
                                 currentTreeNode.ImageIndex = imageIndex;
                                 currentTreeNode.SelectedImageIndex = imageIndex;
-                                if (firstRefresh && (imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
+                                if (firstRefresh && (imageIndex == collectorGoodStateImage1 || imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
                                 {
                                     TreeNode currentFocusNode = tvwCollectors.SelectedNode;
                                     try

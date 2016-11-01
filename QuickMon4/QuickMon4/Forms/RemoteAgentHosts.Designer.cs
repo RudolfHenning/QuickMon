@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemoteAgentHosts));
             this.shadePanel1 = new System.Windows.Forms.Panel();
+            this.cmdRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
             this.llblStartLocalService = new System.Windows.Forms.LinkLabel();
@@ -41,21 +42,22 @@
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.lblComputer = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
-            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lvwRemoteHosts = new QuickMon.ListViewEx();
             this.remoteAgentColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.packsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.cmdEditMonitorPackList = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.shadePanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
@@ -67,12 +69,30 @@
             // 
             this.shadePanel1.BackgroundImage = global::QuickMon.Properties.Resources.BlueHeader1;
             this.shadePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shadePanel1.Controls.Add(this.cmdEditMonitorPackList);
             this.shadePanel1.Controls.Add(this.cmdRefresh);
             this.shadePanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.shadePanel1.Location = new System.Drawing.Point(0, 0);
             this.shadePanel1.Name = "shadePanel1";
             this.shadePanel1.Size = new System.Drawing.Size(701, 31);
             this.shadePanel1.TabIndex = 0;
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
+            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRefresh.Location = new System.Drawing.Point(2, 1);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(28, 28);
+            this.cmdRefresh.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.cmdRefresh, "Refresh list");
+            this.cmdRefresh.UseVisualStyleBackColor = false;
+            this.cmdRefresh.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -214,67 +234,6 @@
             this.panel2.Size = new System.Drawing.Size(701, 272);
             this.panel2.TabIndex = 21;
             // 
-            // remoteHostListContextMenuStrip
-            // 
-            this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.monitorPacksToolStripMenuItem,
-            this.removeToolStripMenuItem,
-            this.testToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.refreshToolStripMenuItem});
-            this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
-            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(153, 120);
-            // 
-            // monitorPacksToolStripMenuItem
-            // 
-            this.monitorPacksToolStripMenuItem.Enabled = false;
-            this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
-            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
-            this.monitorPacksToolStripMenuItem.Click += new System.EventHandler(this.monitorPacksToolStripMenuItem_Click);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Enabled = false;
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // remoteHostStatusImageList
-            // 
-            this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
-            this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
-            this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
-            // 
-            // refreshTimer
-            // 
-            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
-            // 
-            // quickMonServiceOpenFileDialog
-            // 
-            this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
-            this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
-            this.quickMonServiceOpenFileDialog.Filter = "QuickMon 4 Service|QuickMonService.exe";
-            this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 4 Service";
-            // 
             // lvwRemoteHosts
             // 
             this.lvwRemoteHosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -319,29 +278,92 @@
             this.packsColumnHeader.Text = "Packs";
             this.packsColumnHeader.Width = 102;
             // 
-            // cmdRefresh
+            // remoteHostListContextMenuStrip
             // 
-            this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
-            this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
-            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
-            this.cmdRefresh.FlatAppearance.BorderSize = 0;
-            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdRefresh.Location = new System.Drawing.Point(2, 1);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(28, 28);
-            this.cmdRefresh.TabIndex = 0;
-            this.cmdRefresh.UseVisualStyleBackColor = false;
-            this.cmdRefresh.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorPacksToolStripMenuItem,
+            this.removeToolStripMenuItem,
+            this.testToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.refreshToolStripMenuItem});
+            this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
+            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(151, 98);
+            // 
+            // monitorPacksToolStripMenuItem
+            // 
+            this.monitorPacksToolStripMenuItem.Enabled = false;
+            this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
+            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
+            this.monitorPacksToolStripMenuItem.Click += new System.EventHandler(this.monitorPacksToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Enabled = false;
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Enabled = false;
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.lvwRemoteHosts_DoubleClick);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // remoteHostStatusImageList
+            // 
+            this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
+            this.remoteHostStatusImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.remoteHostStatusImageList.Images.SetKeyName(0, "GUnknown.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(1, "GRunning.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(2, "GBusy.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(3, "GStopped.ico");
+            this.remoteHostStatusImageList.Images.SetKeyName(4, "GPaused.ico");
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // quickMonServiceOpenFileDialog
+            // 
+            this.quickMonServiceOpenFileDialog.DefaultExt = "exe";
+            this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
+            this.quickMonServiceOpenFileDialog.Filter = "QuickMon 4 Service|QuickMonService.exe";
+            this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 4 Service";
+            // 
+            // cmdEditMonitorPackList
+            // 
+            this.cmdEditMonitorPackList.BackColor = System.Drawing.Color.Transparent;
+            this.cmdEditMonitorPackList.BackgroundImage = global::QuickMon.Properties.Resources.doc_edit;
+            this.cmdEditMonitorPackList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdEditMonitorPackList.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.cmdEditMonitorPackList.FlatAppearance.BorderSize = 0;
+            this.cmdEditMonitorPackList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditMonitorPackList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdEditMonitorPackList.Location = new System.Drawing.Point(36, 1);
+            this.cmdEditMonitorPackList.Name = "cmdEditMonitorPackList";
+            this.cmdEditMonitorPackList.Size = new System.Drawing.Size(28, 28);
+            this.cmdEditMonitorPackList.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.cmdEditMonitorPackList, "Edit MonitorPackList.txt");
+            this.cmdEditMonitorPackList.UseVisualStyleBackColor = false;
+            this.cmdEditMonitorPackList.Visible = false;
+            this.cmdEditMonitorPackList.Click += new System.EventHandler(this.cmdEditMonitorPackList_Click);
             // 
             // RemoteAgentHosts
             // 
@@ -399,5 +421,7 @@
         private System.Windows.Forms.OpenFileDialog quickMonServiceOpenFileDialog;
         private System.Windows.Forms.Button cmdRefresh;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.Button cmdEditMonitorPackList;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
