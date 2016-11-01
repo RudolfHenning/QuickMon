@@ -61,6 +61,7 @@ namespace QuickMon.Forms
                 if (Security.UACTools.IsInAdminMode())
                 {
                     llblStartLocalService.Visible = false;
+                    cmdEditMonitorPackList.Visible = true;
                     try
                     {
                         llblLocalServiceRegistered.Visible = true;
@@ -632,6 +633,41 @@ namespace QuickMon.Forms
                 Properties.Settings.Default.KnownRemoteHosts.Add(((RemoteAgentInfo)lvi.Tag).ToString());
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void cmdEditMonitorPackList_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string monitorPackListPath = "";
+                if (System.IO.File.Exists(@"C:\Program Files\Hen IT\QuickMon 4\MonitorPackList.txt"))
+                    monitorPackListPath = @"C:\Program Files\Hen IT\QuickMon 4\MonitorPackList.txt";
+                else if (System.IO.File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), "MonitorPackList.txt")))
+                {
+                    monitorPackListPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), "MonitorPackList.txt");
+                }
+                else
+                {
+                    OpenFileDialog fd = new OpenFileDialog();
+                    fd.Title = "Edit MonitorPackList.txt";
+                    fd.FileName = "MonitorPackList.txt";
+                    fd.Filter = "MonitorPackList file|MonitorPackList.txt";
+                    if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        monitorPackListPath = fd.FileName;
+                    }
+                    else
+                        return;
+                }
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo("notepad.exe", monitorPackListPath);
+                p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Edit MonitorPackList.txt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }
