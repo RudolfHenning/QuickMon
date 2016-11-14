@@ -480,8 +480,12 @@ namespace QuickMon
                 {
                     credMan.SetAccount(ld.UserName, ld.Password);
                     credMan.SaveCache(txtMasterKeyFilePath.Text);
-                    lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
-                    lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
+                    if (lvwUserNameCache.SelectedItems.Count == 1)
+                    {
+                        lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
+                        lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
+                    }
+                    RefreshUserNameList();
                 }
             }
             catch (Exception ex)
