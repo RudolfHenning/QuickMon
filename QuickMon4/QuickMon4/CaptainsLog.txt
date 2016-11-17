@@ -108,9 +108,15 @@ Version 4.3.8
 Version 4.3.9
 	CredentialManager editing crashed if no items were the list or nothing selected.
 
-Version 4.4.x
-  Collector agent editing:
-    All must allow "OK" even if test condition cannot be verified (as it can be set up on another machine using remote host functionality)
+Version 4.4.0 - in progress
+	corrective scripts config moved to separate element - allow for whole script with multiple lines.
+	Add comments to Collector host that can be displayed in alert (like tips how to fix, extra info)
+		Error/Warning/Good Additional text + Notes field for General notes
+			Alert text can make use of variables to cutomize the text e.g. Collector host name, Agent entry name, Agent type, Agent value (provided it is a single value), monitor pack name/path
+	Manual/example correction scripts
+		Per collector host you can specify scripts that can be clicked on in the Status viewer to run for either more info or manually fixing a problem (like cleaning Temp dir e.g.)
+	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
+	"Show Notifiers" label/link must include number of Notifiers - so you can see if there are none (other than InMemory one)
 
 =================================================================================================================================================
 Improvement ideas
@@ -157,4 +163,4 @@ Improvement ideas
 
 
 Known BUGS
-	in UI the Expand on success does not work - Fixed in 4.3.8
+	
