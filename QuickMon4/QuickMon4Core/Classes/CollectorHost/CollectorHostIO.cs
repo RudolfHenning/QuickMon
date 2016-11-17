@@ -56,8 +56,6 @@ namespace QuickMon
             newCollectorHost.Enabled = xmlCollectorEntry.ReadXmlElementAttr("enabled", true);
 
             newCollectorHost.ExpandOnStartOption = ExpandOnStartOptionConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", "Always"));
-            //newCollectorHost.ExpandOnStart = xmlCollectorEntry.ReadXmlElementAttr("expandOnStart", true);
-
             newCollectorHost.ParentCollectorId = xmlCollectorEntry.ReadXmlElementAttr("dependOnParentId");
             newCollectorHost.AgentCheckSequence = AgentCheckSequenceConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("agentCheckSequence", "All")); //  "All|FirstSuccess|FirstError"
             newCollectorHost.ChildCheckBehaviour = ChildCheckBehaviourConverter.FromString(xmlCollectorEntry.ReadXmlElementAttr("childCheckBehaviour", "OnlyRunOnSuccess")); // "OnlyRunOnSuccess|ContinueOnWarning|ContinueOnWarningOrError|IncludeChildStatus"
@@ -71,12 +69,7 @@ namespace QuickMon
             newCollectorHost.DelayErrWarnAlertForXPolls = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("delayErrWarnAlertForXPolls", "0"));
             newCollectorHost.AlertsPaused = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("alertsPaused", "False"));
 
-            //Corrective scripts
-            newCollectorHost.CorrectiveScriptDisabled = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptDisabled", "False"));
-            newCollectorHost.CorrectiveScriptOnWarningPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnWarningPath");
-            newCollectorHost.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
-            newCollectorHost.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
-            newCollectorHost.CorrectiveScriptsOnlyOnStateChange = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptsOnlyOnStateChange", "False"));
+            
 
             //remote hosts
             newCollectorHost.EnableRemoteExecute = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("enableRemoteExecute", "False"));
@@ -97,6 +90,37 @@ namespace QuickMon
             //Impersonation
             newCollectorHost.RunAsEnabled = xmlCollectorEntry.ReadXmlElementAttr("runAsEnabled", false);
             newCollectorHost.RunAs = xmlCollectorEntry.ReadXmlElementAttr("runAs", "");
+
+            //Corrective scripts
+            XmlNode correctiveScriptsNode = xmlCollectorEntry.SelectSingleNode("correctiveScripts");
+            if (correctiveScriptsNode != null)
+            {
+                newCollectorHost.CorrectiveScriptDisabled = !(correctiveScriptsNode.ReadXmlElementAttr("enabled", true));
+                newCollectorHost.CorrectiveScriptsOnlyOnStateChange = xmlCollectorEntry.ReadXmlElementAttr("onlyOnStateChange", false);
+                XmlNode warningCorrectiveScriptsNode = correctiveScriptsNode.SelectSingleNode("warning");
+                if (warningCorrectiveScriptsNode != null)
+                {
+                    newCollectorHost.CorrectiveScriptOnWarningPath = warningCorrectiveScriptsNode.InnerText;
+                }
+                XmlNode errorCorrectiveScriptsNode = correctiveScriptsNode.SelectSingleNode("error");
+                if (errorCorrectiveScriptsNode != null)
+                {
+                    newCollectorHost.CorrectiveScriptOnErrorPath = errorCorrectiveScriptsNode.InnerText;
+                }
+                XmlNode restorationCorrectiveScriptsNode = correctiveScriptsNode.SelectSingleNode("restoration");
+                if (restorationCorrectiveScriptsNode != null)
+                {
+                    newCollectorHost.RestorationScriptPath = restorationCorrectiveScriptsNode.InnerText;
+                }
+            }
+            else
+            {                
+                newCollectorHost.CorrectiveScriptDisabled = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptDisabled", "False"));
+                newCollectorHost.CorrectiveScriptOnWarningPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnWarningPath");
+                newCollectorHost.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
+                newCollectorHost.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
+                newCollectorHost.CorrectiveScriptsOnlyOnStateChange = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptsOnlyOnStateChange", "False"));
+            }
 
             //Service windows config
             newCollectorHost.ServiceWindows = new ServiceWindows();
@@ -394,7 +418,6 @@ namespace QuickMon
                       "pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\" runAsEnabled=\"{31}\" runAs=\"{32}\" >",
                         uniqueId, name.EscapeXml(), enabled, 
                         expandOnStartOption.ToString(),
-                        //expandOnStart, 
                         parentCollectorId,
                         agentCheckSequence, childCheckBehaviour,
                         repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
@@ -408,6 +431,23 @@ namespace QuickMon
                         alertsPaused, runAsEnabled, runAs.EscapeXml()
                       )
                      );
+
+            configXml.AppendLine("<!-- Corrective Scripts -->");
+            configXml.AppendLine("<correctiveScripts enabled=\"" + (correctiveScriptDisabled ? "False" : "True") + "\" onlyOnStateChange=\"" + (correctiveScriptsOnlyOnStateChange ? "True" : "False") + "\">");
+            if (correctiveScriptOnWarningPath == null || correctiveScriptOnWarningPath.Trim().Length == 0)
+                configXml.AppendLine("<warning />");
+            else
+                configXml.AppendLine("<warning>" + correctiveScriptOnWarningPath.Trim('\r','\n').EscapeXml() + "</warning>");
+            if (correctiveScriptOnErrorPath == null || correctiveScriptOnErrorPath.Trim().Length == 0)
+                configXml.AppendLine("<error/>");
+            else
+                configXml.AppendLine("<error>" + correctiveScriptOnErrorPath.Trim('\r', '\n').EscapeXml() + "</error>");
+            if (restorationScriptPath == null || restorationScriptPath.Trim().Length == 0)
+                configXml.AppendLine("<restoration/>");
+            else
+                configXml.AppendLine("<restoration>" + restorationScriptPath.Trim('\r', '\n').EscapeXml() + "</restoration>");
+            configXml.AppendLine("</correctiveScripts>");
+
             configXml.AppendLine("<!-- CollectorAgents -->");
             configXml.AppendLine(collectorAgentsXml);
             configXml.AppendLine("<!-- ServiceWindows -->");

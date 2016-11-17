@@ -146,8 +146,6 @@ Improvement ideas
     Optional 'Alert view' window where only collectors in specified state are displayed.
 	Save/export config of pack/collector/notifier/agent to template
 	corrective script value in xml config  must change to be element text - not attribute. So it can contain special chars and perhaps be a real 'script' with multiple commands.
-	Editing MonitorPackList.exe file from UI
-
 
   FUTURE WILD IDEAS
 	  Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)
