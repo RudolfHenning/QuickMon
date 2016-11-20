@@ -241,13 +241,17 @@ namespace QuickMon
                         Name.EscapeXml(), Enabled, AlertLevel, DetailLevel, AttendedOptionOverride));
 
             configXml.AppendLine("<!-- collectorHosts -->");
-            configXml.AppendLine("<collectorHosts>");
-            foreach (string collectorHostName in AlertForCollectors)
+            if (AlertForCollectors == null || AlertForCollectors.Count == 0)
+                configXml.AppendLine("<collectorHosts />");
+            else
             {
-                configXml.AppendLine(string.Format("<collectorHost name=\"{0}\" />", collectorHostName.EscapeXml()));
+                configXml.AppendLine("<collectorHosts>");
+                foreach (string collectorHostName in AlertForCollectors)
+                {
+                    configXml.AppendLine(string.Format("<collectorHost name=\"{0}\" />", collectorHostName.EscapeXml()));
+                }
+                configXml.AppendLine("</collectorHosts>");
             }
-            configXml.AppendLine("</collectorHosts>");
-
             configXml.AppendLine("<!-- ServiceWindows -->");
             configXml.AppendLine(ServiceWindows.ToXml());
 
@@ -255,12 +259,17 @@ namespace QuickMon
             configXml.AppendLine(GetCategoriesXML());
 
             configXml.AppendLine("<!-- Config variables -->");
-            configXml.AppendLine("<configVars>");
-            foreach (ConfigVariable cv in ConfigVariables)
+            if (ConfigVariables == null || ConfigVariables.Count == 0)
+                configXml.AppendLine("<configVars />");
+            else
             {
-                configXml.AppendLine(cv.ToXml());
+                configXml.AppendLine("<configVars>");
+                foreach (ConfigVariable cv in ConfigVariables)
+                {
+                    configXml.AppendLine(cv.ToXml());
+                }
+                configXml.AppendLine("</configVars>");
             }
-            configXml.AppendLine("</configVars>");
 
             if (OnlyRecordAlertOnHosts != null && OnlyRecordAlertOnHosts.Count > 0)
             {

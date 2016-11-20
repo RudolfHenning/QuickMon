@@ -56,6 +56,7 @@ namespace QuickMon
                 RunAsEnabled,
                 RunAs,
                 collectorAgentsXml.ToString(),
+                "", //action scripts
                 "", //Service windows
                 "", //config vars
                 "" //categories (blank for the moment)
