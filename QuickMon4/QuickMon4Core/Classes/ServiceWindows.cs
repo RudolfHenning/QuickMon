@@ -147,8 +147,13 @@ namespace QuickMon
         public string ToXml()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<serviceWindows>");
-            if (Entries.Count > 0)
+            if (Entries == null || Entries.Count == 0)
+            {
+                sb.AppendLine("<serviceWindows />");
+            }
+            else
+            {
+                sb.AppendLine("<serviceWindows>");
                 foreach (ServiceWindow timeWindow in Entries)
                 {
                     string days = "";
@@ -163,15 +168,15 @@ namespace QuickMon
                         timeWindow.To.ToString("HH:mm:ss"),
                         days.Trim(',')));
                 }
-            foreach (var holiday in (from h in Holidays
-                                     orderby h
-                                     select h))
-            {
-                sb.AppendLine(string.Format("<holiday date=\"{0}\" />", holiday.ToShortDateString()));
+                foreach (var holiday in (from h in Holidays
+                                         orderby h
+                                         select h))
+                {
+                    sb.AppendLine(string.Format("<holiday date=\"{0}\" />", holiday.ToShortDateString()));
+                }
+
+                sb.AppendLine("</serviceWindows>");
             }
-
-            sb.AppendLine("</serviceWindows>");
-
             return sb.ToString();
         }
 

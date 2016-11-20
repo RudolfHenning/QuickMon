@@ -65,6 +65,10 @@ namespace QuickMon
                 }
                 categoriesXml.AppendLine("</categories>");
             }
+            else
+            {
+                categoriesXml.AppendLine("<categories />");
+            }
             return categoriesXml.ToString();
         }
         public void CategoriesCreateFromConfig(string config)

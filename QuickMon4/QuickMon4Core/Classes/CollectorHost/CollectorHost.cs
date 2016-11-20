@@ -41,6 +41,7 @@ namespace QuickMon
             PollSlideFrequencyAfterSecondRepeatSec = 5;
             PollSlideFrequencyAfterThirdRepeatSec = 30;
             ConfigVariables = new List<ConfigVariable>();
+            ActionScripts = new List<ActionScript>();
 
             //security and impersonation
             RunAs = "";
@@ -85,7 +86,11 @@ namespace QuickMon
                 return displayName;
             }
         }
+        public string Notes { get; set; }
         #endregion
+
+        /// ActionScripts
+        public List<ActionScript> ActionScripts { get; set; }
 
         #region UI specific
         //public bool ExpandOnStart { get; set; }
@@ -182,6 +187,14 @@ namespace QuickMon
         #region Alerts for this CH is Paused
         public bool AlertsPaused { get; set; }
         #endregion
+
+        #region Alert Text
+        public string GeneralAlertText { get; set; }
+        public string ErrorAlertText { get; set; }
+        public string WarningAlertText { get; set; }
+        public string GoodAlertText { get; set; }
+        #endregion
+
         #endregion
 
         #region Remote Execution

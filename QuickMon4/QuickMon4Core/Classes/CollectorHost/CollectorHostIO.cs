@@ -69,8 +69,6 @@ namespace QuickMon
             newCollectorHost.DelayErrWarnAlertForXPolls = int.Parse(xmlCollectorEntry.ReadXmlElementAttr("delayErrWarnAlertForXPolls", "0"));
             newCollectorHost.AlertsPaused = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("alertsPaused", "False"));
 
-            
-
             //remote hosts
             newCollectorHost.EnableRemoteExecute = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("enableRemoteExecute", "False"));
             newCollectorHost.ForceRemoteExcuteOnChildCollectors = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("forceRemoteExcuteOnChildCollectors", "False"));
@@ -90,6 +88,45 @@ namespace QuickMon
             //Impersonation
             newCollectorHost.RunAsEnabled = xmlCollectorEntry.ReadXmlElementAttr("runAsEnabled", false);
             newCollectorHost.RunAs = xmlCollectorEntry.ReadXmlElementAttr("runAs", "");
+
+            //Notes/documentation
+            XmlNode notesNode = xmlCollectorEntry.SelectSingleNode("notes");
+            if (notesNode != null)
+                newCollectorHost.Notes = notesNode.InnerText;
+
+            //Alerting
+            XmlNode alertingNode = xmlCollectorEntry.SelectSingleNode("alerting");
+            if (alertingNode != null)
+            {
+                XmlNode supressionNode = alertingNode.SelectSingleNode("supression");
+                if (supressionNode != null)
+                {
+                    newCollectorHost.RepeatAlertInXMin = int.Parse(supressionNode.ReadXmlElementAttr("repeatAlertInXMin", "0"));
+                    newCollectorHost.AlertOnceInXMin = int.Parse(supressionNode.ReadXmlElementAttr("alertOnceInXMin", "0"));
+                    newCollectorHost.DelayErrWarnAlertForXSec = int.Parse(supressionNode.ReadXmlElementAttr("delayErrWarnAlertForXSec", "0"));
+                    newCollectorHost.RepeatAlertInXPolls = int.Parse(supressionNode.ReadXmlElementAttr("repeatAlertInXPolls", "0"));
+                    newCollectorHost.AlertOnceInXPolls = int.Parse(supressionNode.ReadXmlElementAttr("alertOnceInXPolls", "0"));
+                    newCollectorHost.DelayErrWarnAlertForXPolls = int.Parse(supressionNode.ReadXmlElementAttr("delayErrWarnAlertForXPolls", "0"));
+                    newCollectorHost.AlertsPaused = bool.Parse(supressionNode.ReadXmlElementAttr("alertsPaused", "False"));
+                }
+                //alerting texts
+                XmlNode textsNode = alertingNode.SelectSingleNode("texts");
+                if (textsNode != null)
+                {
+                    XmlNode generalNode = textsNode.SelectSingleNode("general");
+                    if (generalNode != null)
+                        newCollectorHost.GeneralAlertText = generalNode.InnerText;
+                    XmlNode errorNode = textsNode.SelectSingleNode("error");
+                    if (errorNode != null)
+                        newCollectorHost.ErrorAlertText = errorNode.InnerText;
+                    XmlNode warningNode = textsNode.SelectSingleNode("warning");
+                    if (warningNode != null)
+                        newCollectorHost.WarningAlertText = warningNode.InnerText;
+                    XmlNode goodNode = textsNode.SelectSingleNode("good");
+                    if (goodNode != null)
+                        newCollectorHost.GoodAlertText = goodNode.InnerText;
+                }
+            }
 
             //Corrective scripts
             XmlNode correctiveScriptsNode = xmlCollectorEntry.SelectSingleNode("correctiveScripts");
@@ -120,6 +157,13 @@ namespace QuickMon
                 newCollectorHost.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
                 newCollectorHost.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
                 newCollectorHost.CorrectiveScriptsOnlyOnStateChange = bool.Parse(xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptsOnlyOnStateChange", "False"));
+            }
+
+            //Action scripts
+            XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("actionScripts");
+            if (actionScriptsNode != null)
+            {
+                newCollectorHost.ActionScripts = ActionScript.FromXml(actionScriptsNode.OuterXml);
             }
 
             //Service windows config
@@ -319,26 +363,30 @@ namespace QuickMon
             collectorAgentsXml.AppendLine("</collectorAgents>");
 
             StringBuilder configVarXml = new StringBuilder();
-            configVarXml.AppendLine("<configVars>");
-            foreach (ConfigVariable cv in ConfigVariables)
+            if (ConfigVariables == null || ConfigVariables.Count == 0)
+                configVarXml.AppendLine("<configVars />");
+            else
             {
-                configVarXml.AppendLine(cv.ToXml());
+                configVarXml.AppendLine("<configVars>");
+                foreach (ConfigVariable cv in ConfigVariables)
+                {
+                    configVarXml.AppendLine(cv.ToXml());
+                }
+                configVarXml.AppendLine("</configVars>");
             }
-            configVarXml.AppendLine("</configVars>");
-
             string categoriesXml = GetCategoriesXML();
-
-            //StringBuilder categoriesXml = new StringBuilder();
-            //if (Categories != null && Categories.Count > 0)
-            //{
-            //    categoriesXml.AppendLine("<categories>");
-            //    foreach (string category in Categories)
-            //    {
-            //        categoriesXml.AppendLine(string.Format("<category>{0}</category>", category.EscapeXml()));
-            //    }
-            //    categoriesXml.AppendLine("</categories>");
-            //}
-
+            StringBuilder actionScriptsXml = new StringBuilder();
+            if (ActionScripts != null && ActionScripts.Count > 0)
+            {
+                actionScriptsXml.AppendLine("<actionScripts>");
+                foreach (ActionScript acs in ActionScripts)
+                {
+                    actionScriptsXml.AppendLine(acs.ToXml());
+                }
+                actionScriptsXml.AppendLine("</actionScripts>");
+            }
+            else
+                actionScriptsXml.AppendLine("<actionScripts />");
 
             return ToXml(UniqueId,
                 Name,
@@ -372,6 +420,7 @@ namespace QuickMon
                 RunAs,
 
                 collectorAgentsXml.ToString(),
+                actionScriptsXml.ToString(),
                 ServiceWindows.ToXml(),
                 configVarXml.ToString(),
                 categoriesXml);
@@ -399,6 +448,7 @@ namespace QuickMon
                 bool runAsEnabled,
                 string runAs,
                 string collectorAgentsXml,
+                string actionScriptsXml,
                 string serviceWindowsXml,
                 string configVariablesXml,
                 string categoriesXml
@@ -422,9 +472,11 @@ namespace QuickMon
                         agentCheckSequence, childCheckBehaviour,
                         repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
                         repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls,
+
                         correctiveScriptDisabled, correctiveScriptOnWarningPath.EscapeXml(), correctiveScriptOnErrorPath.EscapeXml(),
-                        restorationScriptPath.EscapeXml(), correctiveScriptsOnlyOnStateChange, enableRemoteExecute,
-                        forceRemoteExcuteOnChildCollectors, remoteAgentHostAddress, remoteAgentHostPort,
+                        restorationScriptPath.EscapeXml(), correctiveScriptsOnlyOnStateChange, 
+
+                        enableRemoteExecute, forceRemoteExcuteOnChildCollectors, remoteAgentHostAddress, remoteAgentHostPort,
                         blockParentOverrideRemoteAgentHostSettings, runLocalOnRemoteHostConnectionFailure,
                         enabledPollingOverride, onlyAllowUpdateOncePerXSec, enablePollFrequencySliding,
                         pollSlideFrequencyAfterFirstRepeatSec, pollSlideFrequencyAfterSecondRepeatSec, pollSlideFrequencyAfterThirdRepeatSec,
@@ -450,6 +502,10 @@ namespace QuickMon
 
             configXml.AppendLine("<!-- CollectorAgents -->");
             configXml.AppendLine(collectorAgentsXml);
+
+            configXml.AppendLine("<!-- Action scripts -->");
+            configXml.AppendLine(actionScriptsXml);
+            
             configXml.AppendLine("<!-- ServiceWindows -->");
             configXml.AppendLine(serviceWindowsXml);
             configXml.AppendLine("<!-- Config variables -->");
