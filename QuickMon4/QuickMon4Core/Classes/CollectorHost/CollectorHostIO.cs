@@ -98,7 +98,7 @@ namespace QuickMon
             XmlNode alertingNode = xmlCollectorEntry.SelectSingleNode("alerting");
             if (alertingNode != null)
             {
-                XmlNode supressionNode = alertingNode.SelectSingleNode("supression");
+                XmlNode supressionNode = alertingNode.SelectSingleNode("suppression");
                 if (supressionNode != null)
                 {
                     newCollectorHost.RepeatAlertInXMin = int.Parse(supressionNode.ReadXmlElementAttr("repeatAlertInXMin", "0"));
@@ -423,8 +423,64 @@ namespace QuickMon
                 actionScriptsXml.ToString(),
                 ServiceWindows.ToXml(),
                 configVarXml.ToString(),
-                categoriesXml);
+                categoriesXml,
+                Notes,
+                GeneralAlertText,
+                ErrorAlertText,
+                WarningAlertText,
+                GoodAlertText 
+                );
+
         }
+        public static string ToXml(string uniqueId,
+                string parentCollectorId,
+                string name,
+                bool enabled,
+                ExpandOnStartOption expandOnStartOption,
+                AgentCheckSequence agentCheckSequence,
+                ChildCheckBehaviour childCheckBehaviour,
+                bool runAsEnabled,
+                string runAs,
+                string notes,
+
+                string alertingSettingsXml,
+                string remoteAgentSettingsXml,
+                string pollingSettingsXml,
+                string collectorAgentsXml,
+                string correctiveScriptsXml,
+                string actionScriptsXml,
+                string serviceWindowsXml,
+                string configVariablesXml,
+                string categoriesXml)
+        {
+            XmlDocument collectorHostDoc = new XmlDocument();
+            collectorHostDoc.LoadXml("<collectorHost>" +
+                "<!-- Alerting -->" + alertingSettingsXml +
+                "<!-- Collector Agents -->" + collectorAgentsXml +
+                "<!-- Polling settings -->" + pollingSettingsXml +
+                "<!-- Remote agent settings -->" + remoteAgentSettingsXml +
+                "<!-- Corrective Scripts -->" + correctiveScriptsXml +
+                "<!-- Action scripts -->" + actionScriptsXml +
+                "<!-- ServiceWindows -->" + serviceWindowsXml +
+                "<!-- Config variables -->" + configVariablesXml +
+                "<!-- Categories -->" + categoriesXml +
+                "<notes />" +
+                "</collectorHost>");
+            collectorHostDoc.DocumentElement.SetAttributeValue("uniqueId", uniqueId);
+            collectorHostDoc.DocumentElement.SetAttributeValue("dependOnParentId", parentCollectorId);
+            collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
+            collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
+            collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("agentCheckSequence", agentCheckSequence.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
+            collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
+            collectorHostDoc.DocumentElement.SelectSingleNode("notes").InnerText = notes;
+
+            return collectorHostDoc.DocumentElement.OuterXml;
+        }
+
+
         public static string ToXml(string uniqueId,
                 string name,
                 bool enabled,
@@ -451,10 +507,71 @@ namespace QuickMon
                 string actionScriptsXml,
                 string serviceWindowsXml,
                 string configVariablesXml,
-                string categoriesXml
+                string categoriesXml,
+                string notes,
+                string generalAlertText,
+                string errorAlertText,
+                string warningAlertText,
+                string goodAlertText 
             )
         {
+            string correctiveScriptsXml = "";
+            correctiveScriptsXml = "<correctiveScripts enabled=\"" + (correctiveScriptDisabled ? "False" : "True") + "\" onlyOnStateChange=\"" + (correctiveScriptsOnlyOnStateChange ? "True" : "False") + "\">";
+            if (correctiveScriptOnWarningPath == null || correctiveScriptOnWarningPath.Trim().Length == 0)
+                correctiveScriptsXml += "<warning />";
+            else
+                correctiveScriptsXml += "<warning>" + correctiveScriptOnWarningPath.Trim('\r', '\n').EscapeXml() + "</warning>";
+            if (correctiveScriptOnErrorPath == null || correctiveScriptOnErrorPath.Trim().Length == 0)
+                correctiveScriptsXml += "<error/>";
+            else
+                correctiveScriptsXml += "<error>" + correctiveScriptOnErrorPath.Trim('\r', '\n').EscapeXml() + "</error>";
+            if (restorationScriptPath == null || restorationScriptPath.Trim().Length == 0)
+                correctiveScriptsXml += "<restoration/>";
+            else
+                correctiveScriptsXml += "<restoration>" + restorationScriptPath.Trim('\r', '\n').EscapeXml() + "</restoration>";
+            correctiveScriptsXml += "</correctiveScripts>";
+
             StringBuilder configXml = new StringBuilder();
+            XmlDocument collectorHostDoc = new XmlDocument();
+            collectorHostDoc.LoadXml("<collectorHost>" +
+                "<!-- alerting -->" + GetAlertingToXml(repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec, repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls, alertsPaused, generalAlertText, errorAlertText, warningAlertText, goodAlertText) +
+                "<!-- Corrective Scripts -->" + correctiveScriptsXml +
+                "<!-- CollectorAgents -->" + collectorAgentsXml +
+                "<!-- Action scripts -->" + actionScriptsXml +
+                "<!-- ServiceWindows -->" + serviceWindowsXml +
+                "<!-- Config variables -->" + configVariablesXml +
+                "<!-- Categories -->" + categoriesXml +
+                "<notes />" +
+                "</collectorHost>");
+            collectorHostDoc.DocumentElement.SetAttributeValue("uniqueId", uniqueId);
+            collectorHostDoc.DocumentElement.SetAttributeValue("dependOnParentId", parentCollectorId);
+            collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
+            collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
+            collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("agentCheckSequence", agentCheckSequence.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
+
+            collectorHostDoc.DocumentElement.SetAttributeValue("enableRemoteExecute", enableRemoteExecute);
+            collectorHostDoc.DocumentElement.SetAttributeValue("forceRemoteExcuteOnChildCollectors", forceRemoteExcuteOnChildCollectors);
+            collectorHostDoc.DocumentElement.SetAttributeValue("remoteAgentHostAddress", remoteAgentHostAddress);
+            collectorHostDoc.DocumentElement.SetAttributeValue("remoteAgentHostPort", remoteAgentHostPort);
+            collectorHostDoc.DocumentElement.SetAttributeValue("blockParentRemoteAgentHostSettings", blockParentOverrideRemoteAgentHostSettings);
+            collectorHostDoc.DocumentElement.SetAttributeValue("runLocalOnRemoteHostConnectionFailure", runLocalOnRemoteHostConnectionFailure);
+
+            collectorHostDoc.DocumentElement.SetAttributeValue("enabledPollingOverride", enabledPollingOverride);
+            collectorHostDoc.DocumentElement.SetAttributeValue("onlyAllowUpdateOncePerXSec", onlyAllowUpdateOncePerXSec);
+            collectorHostDoc.DocumentElement.SetAttributeValue("enablePollFrequencySliding", enablePollFrequencySliding);
+            collectorHostDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterFirstRepeatSec", pollSlideFrequencyAfterFirstRepeatSec);
+            collectorHostDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterSecondRepeatSec", pollSlideFrequencyAfterSecondRepeatSec);
+            collectorHostDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterThirdRepeatSec", pollSlideFrequencyAfterThirdRepeatSec);
+
+            collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
+            collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
+            collectorHostDoc.DocumentElement.SelectSingleNode("notes").InnerText = notes;
+
+            return collectorHostDoc.DocumentElement.OuterXml;
+
+            /*
             configXml.AppendLine(string.Format("<collectorHost uniqueId=\"{0}\" name=\"{1}\" enabled=\"{2}\" expandOnStart=\"{3}\" dependOnParentId=\"{4}\" " +
                       "agentCheckSequence=\"{5}\" childCheckBehaviour=\"{6}\" " +
                       "repeatAlertInXMin=\"{7}\" alertOnceInXMin=\"{8}\" delayErrWarnAlertForXSec=\"{9}\" " +
@@ -470,6 +587,7 @@ namespace QuickMon
                         expandOnStartOption.ToString(),
                         parentCollectorId,
                         agentCheckSequence, childCheckBehaviour,
+
                         repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
                         repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls,
 
@@ -480,9 +598,15 @@ namespace QuickMon
                         blockParentOverrideRemoteAgentHostSettings, runLocalOnRemoteHostConnectionFailure,
                         enabledPollingOverride, onlyAllowUpdateOncePerXSec, enablePollFrequencySliding,
                         pollSlideFrequencyAfterFirstRepeatSec, pollSlideFrequencyAfterSecondRepeatSec, pollSlideFrequencyAfterThirdRepeatSec,
+
                         alertsPaused, runAsEnabled, runAs.EscapeXml()
                       )
                      );
+
+            configXml.AppendLine("<!-- alerting -->");
+            configXml.AppendLine(GetAlertingToXml(repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
+                        repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls, alertsPaused));
+            
 
             configXml.AppendLine("<!-- Corrective Scripts -->");
             configXml.AppendLine("<correctiveScripts enabled=\"" + (correctiveScriptDisabled ? "False" : "True") + "\" onlyOnStateChange=\"" + (correctiveScriptsOnlyOnStateChange ? "True" : "False") + "\">");
@@ -514,6 +638,37 @@ namespace QuickMon
             configXml.AppendLine(categoriesXml);
             configXml.AppendLine("</collectorHost>");
             return configXml.ToString();
+            */
+        }
+
+        private static string GetAlertingToXml(int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
+                int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls, bool alertsPaused,
+                string generalAlertText,
+                string errorAlertText,
+                string warningAlertText,
+                string goodAlertText 
+            )
+        {
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.LoadXml("<alerting><suppression /><texts><general /><error /><warning /><good /></texts></alerting>");
+            XmlNode suppressionNode = xdoc.DocumentElement.SelectSingleNode("suppression");
+            suppressionNode.SetAttributeValue("repeatAlertInXMin", repeatAlertInXMin);
+            suppressionNode.SetAttributeValue("alertOnceInXMin", alertOnceInXMin);
+            suppressionNode.SetAttributeValue("delayErrWarnAlertForXSec", delayErrWarnAlertForXSec);
+            suppressionNode.SetAttributeValue("repeatAlertInXPolls", repeatAlertInXPolls);
+            suppressionNode.SetAttributeValue("alertOnceInXPolls", alertOnceInXPolls);
+            suppressionNode.SetAttributeValue("delayErrWarnAlertForXPolls", delayErrWarnAlertForXPolls);
+            suppressionNode.SetAttributeValue("alertsPaused", alertsPaused);
+            if (generalAlertText != null && generalAlertText.Trim().Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/general").InnerText = generalAlertText;
+            if (errorAlertText != null && generalAlertText.Trim().Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/error").InnerText = errorAlertText;
+            if (warningAlertText != null && generalAlertText.Trim().Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/warning").InnerText = warningAlertText;
+            if (goodAlertText != null && generalAlertText.Trim().Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/good").InnerText = goodAlertText;
+
+            return xdoc.DocumentElement.OuterXml;
         }
 
         public static string CollectorHostListToString(List<CollectorHost> entries)
