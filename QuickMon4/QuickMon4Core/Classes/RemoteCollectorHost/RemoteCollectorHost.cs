@@ -49,7 +49,8 @@ namespace QuickMon
                 "", //No parent
                 AgentCheckSequence,
                 ChildCheckBehaviour.OnlyRunOnSuccess,
-                0, 0, 0, 0, 0, 0, true, "", "", "", false, //Corrective scripts
+                0, 0, 0, 0, 0, 0, //alert suppression
+                true, "", "", "", false, //Corrective scripts
                 false, false, "", 48181, false, false, //Remote hosts
                 false, 0, false, 0, 0, 0, //Polling overides
                 false, //alerts paused
@@ -59,7 +60,12 @@ namespace QuickMon
                 "", //action scripts
                 "", //Service windows
                 "", //config vars
-                "" //categories (blank for the moment)
+                "", //categories (blank for the moment)
+                "", //Notes,
+                "", //GeneralAlertText,
+                "", //ErrorAlertText,
+                "", //WarningAlertText,
+                ""  //GoodAlertText
                 );
 
         }
