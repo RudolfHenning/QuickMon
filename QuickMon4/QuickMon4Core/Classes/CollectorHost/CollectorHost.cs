@@ -18,6 +18,7 @@ namespace QuickMon
             RemoteAgentHostPort = 48181;
             Categories = new List<string>();
             BlockedCollectorAgentTypes = new List<string>();
+            Notes = "";
 
             //Stats
             PollCount = 0;
