@@ -180,6 +180,14 @@
             this.cboExpandOnStartOption = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label47 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.txtNotesText = new System.Windows.Forms.TextBox();
+            this.lblNoteTextChangeIndicator = new System.Windows.Forms.Label();
+            this.cboTextType = new System.Windows.Forms.ComboBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.cmdSetNoteText = new System.Windows.Forms.Button();
+            this.label50 = new System.Windows.Forms.Label();
             this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -220,6 +228,8 @@
             this.tabCategories.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkExpandOnStart
@@ -329,6 +339,7 @@
             this.tabControl1.Controls.Add(this.tabAlerts);
             this.tabControl1.Controls.Add(this.tabVariables);
             this.tabControl1.Controls.Add(this.tabCategories);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(1, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -342,7 +353,7 @@
             this.tabAgents.Controls.Add(this.collectorAgentsEditToolStrip);
             this.tabAgents.Location = new System.Drawing.Point(4, 22);
             this.tabAgents.Name = "tabAgents";
-            this.tabAgents.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAgents.Padding = new System.Windows.Forms.Padding(3);
             this.tabAgents.Size = new System.Drawing.Size(575, 281);
             this.tabAgents.TabIndex = 0;
             this.tabAgents.Text = "Agents";
@@ -594,7 +605,7 @@
             this.tabDependencies.Controls.Add(this.lblId);
             this.tabDependencies.Location = new System.Drawing.Point(4, 22);
             this.tabDependencies.Name = "tabDependencies";
-            this.tabDependencies.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabDependencies.Padding = new System.Windows.Forms.Padding(3);
             this.tabDependencies.Size = new System.Drawing.Size(575, 281);
             this.tabDependencies.TabIndex = 3;
             this.tabDependencies.Text = "Dependencies";
@@ -723,7 +734,7 @@
             this.tabOperational.Controls.Add(this.pollingOverridesGroupBox);
             this.tabOperational.Location = new System.Drawing.Point(4, 22);
             this.tabOperational.Name = "tabOperational";
-            this.tabOperational.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabOperational.Padding = new System.Windows.Forms.Padding(3);
             this.tabOperational.Size = new System.Drawing.Size(575, 281);
             this.tabOperational.TabIndex = 1;
             this.tabOperational.Text = "Operational";
@@ -794,7 +805,7 @@
             // label36
             // 
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(271, 28);
+            this.label36.Location = new System.Drawing.Point(273, 28);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(284, 22);
             this.label36.TabIndex = 5;
@@ -1002,7 +1013,7 @@
             this.tabRemoteSec.Controls.Add(this.groupBox6);
             this.tabRemoteSec.Location = new System.Drawing.Point(4, 22);
             this.tabRemoteSec.Name = "tabRemoteSec";
-            this.tabRemoteSec.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabRemoteSec.Padding = new System.Windows.Forms.Padding(3);
             this.tabRemoteSec.Size = new System.Drawing.Size(575, 281);
             this.tabRemoteSec.TabIndex = 5;
             this.tabRemoteSec.Text = "Remote agent && Security";
@@ -1047,7 +1058,7 @@
             // chkRunLocalOnRemoteHostConnectionFailure
             // 
             this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
-            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 53);
+            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 50);
             this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
             this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
             this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
@@ -1259,7 +1270,7 @@
             this.tabAlerts.Controls.Add(this.alertSuppressionGroupBox);
             this.tabAlerts.Location = new System.Drawing.Point(4, 22);
             this.tabAlerts.Name = "tabAlerts";
-            this.tabAlerts.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAlerts.Padding = new System.Windows.Forms.Padding(3);
             this.tabAlerts.Size = new System.Drawing.Size(575, 281);
             this.tabAlerts.TabIndex = 2;
             this.tabAlerts.Text = "Alerts";
@@ -1651,7 +1662,7 @@
             this.tabVariables.Controls.Add(this.groupBox5);
             this.tabVariables.Location = new System.Drawing.Point(4, 22);
             this.tabVariables.Name = "tabVariables";
-            this.tabVariables.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabVariables.Padding = new System.Windows.Forms.Padding(3);
             this.tabVariables.Size = new System.Drawing.Size(575, 281);
             this.tabVariables.TabIndex = 4;
             this.tabVariables.Text = "Variables";
@@ -1808,7 +1819,7 @@
             this.tabCategories.Controls.Add(this.groupBox7);
             this.tabCategories.Location = new System.Drawing.Point(4, 22);
             this.tabCategories.Name = "tabCategories";
-            this.tabCategories.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCategories.Padding = new System.Windows.Forms.Padding(3);
             this.tabCategories.Size = new System.Drawing.Size(575, 281);
             this.tabCategories.TabIndex = 6;
             this.tabCategories.Text = "Categories";
@@ -1929,6 +1940,108 @@
             this.label47.Size = new System.Drawing.Size(43, 13);
             this.label47.TabIndex = 3;
             this.label47.Text = "Expand";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label50);
+            this.tabPage1.Controls.Add(this.cmdSetNoteText);
+            this.tabPage1.Controls.Add(this.cboTextType);
+            this.tabPage1.Controls.Add(this.label49);
+            this.tabPage1.Controls.Add(this.groupBox8);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(575, 281);
+            this.tabPage1.TabIndex = 7;
+            this.tabPage1.Text = "Notes";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.txtNotesText);
+            this.groupBox8.Controls.Add(this.lblNoteTextChangeIndicator);
+            this.groupBox8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox8.Location = new System.Drawing.Point(3, 33);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(569, 213);
+            this.groupBox8.TabIndex = 2;
+            this.groupBox8.TabStop = false;
+            // 
+            // txtNotesText
+            // 
+            this.txtNotesText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtNotesText.Location = new System.Drawing.Point(3, 16);
+            this.txtNotesText.Multiline = true;
+            this.txtNotesText.Name = "txtNotesText";
+            this.txtNotesText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNotesText.Size = new System.Drawing.Size(563, 194);
+            this.txtNotesText.TabIndex = 1;
+            this.txtNotesText.TextChanged += new System.EventHandler(this.txtNotesText_TextChanged);
+            // 
+            // lblNoteTextChangeIndicator
+            // 
+            this.lblNoteTextChangeIndicator.AutoSize = true;
+            this.lblNoteTextChangeIndicator.BackColor = System.Drawing.Color.White;
+            this.lblNoteTextChangeIndicator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblNoteTextChangeIndicator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoteTextChangeIndicator.Location = new System.Drawing.Point(6, 0);
+            this.lblNoteTextChangeIndicator.Name = "lblNoteTextChangeIndicator";
+            this.lblNoteTextChangeIndicator.Size = new System.Drawing.Size(32, 13);
+            this.lblNoteTextChangeIndicator.TabIndex = 0;
+            this.lblNoteTextChangeIndicator.Text = "Text";
+            // 
+            // cboTextType
+            // 
+            this.cboTextType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboTextType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTextType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboTextType.Items.AddRange(new object[] {
+            "General notes/comments",
+            "General Alert Text (All alerts)",
+            "Warning Alert Text ",
+            "Error Alert Text ",
+            "Good Alert Text "});
+            this.cboTextType.Location = new System.Drawing.Point(55, 7);
+            this.cboTextType.Name = "cboTextType";
+            this.cboTextType.Size = new System.Drawing.Size(505, 21);
+            this.cboTextType.TabIndex = 1;
+            this.cboTextType.SelectedIndexChanged += new System.EventHandler(this.cboTextType_SelectedIndexChanged);
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(10, 10);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(31, 13);
+            this.label49.TabIndex = 0;
+            this.label49.Text = "Type";
+            // 
+            // cmdSetNoteText
+            // 
+            this.cmdSetNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSetNoteText.Enabled = false;
+            this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSetNoteText.Location = new System.Drawing.Point(499, 252);
+            this.cmdSetNoteText.Name = "cmdSetNoteText";
+            this.cmdSetNoteText.Size = new System.Drawing.Size(70, 23);
+            this.cmdSetNoteText.TabIndex = 4;
+            this.cmdSetNoteText.Text = "Set";
+            this.cmdSetNoteText.UseVisualStyleBackColor = true;
+            this.cmdSetNoteText.Click += new System.EventHandler(this.cmdSetNoteText_Click);
+            // 
+            // label50
+            // 
+            this.label50.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(7, 257);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(247, 13);
+            this.label50.TabIndex = 3;
+            this.label50.Text = "Use of variables like %CollectorName% are allowed";
             // 
             // agentsTreeListView
             // 
@@ -2070,6 +2183,10 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2232,5 +2349,13 @@
         private System.Windows.Forms.ComboBox cboRemoteAgentServer;
         private System.Windows.Forms.ComboBox cboExpandOnStartOption;
         private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ComboBox cboTextType;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox txtNotesText;
+        private System.Windows.Forms.Label lblNoteTextChangeIndicator;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Button cmdSetNoteText;
     }
 }

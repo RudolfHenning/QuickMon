@@ -61,6 +61,7 @@ namespace QuickMon
                 {
                     editingCollectorHost = CollectorHost.FromXml(SelectedConfig, null, false);
                 }
+                cboTextType.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -138,7 +139,7 @@ namespace QuickMon
                 txtRestorationScript.Text = editingCollectorHost.RestorationScriptPath;
                 chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
                 txtRunAs.Text = editingCollectorHost.RunAs;
-                //cmdTestRunAs.Enabled = HostingMonitorPack != null;
+                cboTextType_SelectedIndexChanged(null, null);
 
                 StringBuilder categories = new StringBuilder();
                 if (editingCollectorHost.Categories != null && editingCollectorHost.Categories.Count > 0)
@@ -1183,6 +1184,8 @@ namespace QuickMon
                     agent.InitialConfiguration = agentConfigString;
                     editingCollectorHost.CollectorAgents.Add(agent);
                 }
+                if (cmdSetNoteText.Enabled)
+                    cmdSetNoteText_Click(null, null);
                 success = true;
             }
             catch (Exception ex)
@@ -1371,6 +1374,48 @@ namespace QuickMon
                 if (port.IsIntegerTypeNumber())
                     remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
             }
+        }
+
+        private void cboTextType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboTextType.SelectedIndex == 0)
+                txtNotesText.Text = editingCollectorHost.Notes;
+            else if (cboTextType.SelectedIndex == 1)
+                txtNotesText.Text = editingCollectorHost.GeneralAlertText;
+            else if (cboTextType.SelectedIndex == 2)
+                txtNotesText.Text = editingCollectorHost.ErrorAlertText;
+            else if (cboTextType.SelectedIndex == 3)
+                txtNotesText.Text = editingCollectorHost.WarningAlertText;
+            else if (cboTextType.SelectedIndex == 4)
+                txtNotesText.Text = editingCollectorHost.GoodAlertText;
+            else
+                txtNotesText.Text = editingCollectorHost.Notes;
+            lblNoteTextChangeIndicator.Text = "Text";
+            cmdSetNoteText.Enabled = false; 
+        }
+
+        private void cmdSetNoteText_Click(object sender, EventArgs e)
+        {
+            if (cboTextType.SelectedIndex == 0)
+                editingCollectorHost.Notes = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 1)
+                editingCollectorHost.GeneralAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 2)
+                editingCollectorHost.ErrorAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 3)
+                editingCollectorHost.WarningAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 4)
+                editingCollectorHost.GoodAlertText = txtNotesText.Text;
+            else
+                editingCollectorHost.Notes = txtNotesText.Text;
+            lblNoteTextChangeIndicator.Text = "Text";
+            cmdSetNoteText.Enabled = false;
+        }
+
+        private void txtNotesText_TextChanged(object sender, EventArgs e)
+        {
+            lblNoteTextChangeIndicator.Text = "Text*";
+            cmdSetNoteText.Enabled = true;
         }
              
     }
