@@ -2148,7 +2148,7 @@ namespace QuickMon
                     //Copy as is with same IDs
                     copiedCollectorList.Add(en.Clone());
                 }
-                Clipboard.SetText(CollectorHost.CollectorHostListToString(copiedCollectorList));
+                Clipboard.SetText(XmlFormattingUtils.NormalizeXML(CollectorHost.CollectorHostListToString(copiedCollectorList)));
 
                 poppedContainerForTreeView.cmdPaste.Enabled = true;
                 poppedContainerForTreeView.cmdPasteWithEdit.Enabled = true;

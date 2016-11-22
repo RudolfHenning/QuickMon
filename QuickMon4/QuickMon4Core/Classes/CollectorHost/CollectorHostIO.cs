@@ -513,8 +513,17 @@ namespace QuickMon
             return collectorHostDoc.DocumentElement.OuterXml;
         }
 
-
-
+        public static string CollectorHostListToString(List<CollectorHost> entries)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<collectorHosts>");
+            foreach (CollectorHost entry in entries)
+            {
+                sb.AppendLine(entry.ToXml());
+            }
+            sb.AppendLine("</collectorHosts>");
+            return sb.ToString();
+        }
         //public static string ToXml(string uniqueId,
         //        string name,
         //        bool enabled,
@@ -677,6 +686,7 @@ namespace QuickMon
             collectorAgentsXml.AppendLine("</collectorAgents>");
             return collectorAgentsXml.ToString();
         }
+
         public static string GetRemoteCollectorAgentsConfigXml(List<RemoteCollectorAgent> collectorAgents, AgentCheckSequence agentCheckSequence)
         {
             StringBuilder collectorAgentsXml = new StringBuilder();
@@ -693,8 +703,6 @@ namespace QuickMon
             collectorAgentsXml.AppendLine("</collectorAgents>");
             return collectorAgentsXml.ToString();
         }
-        
-
         private static string GetAlertingToXml(int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
                 int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls, bool alertsPaused,
                 string generalAlertText,
@@ -715,11 +723,11 @@ namespace QuickMon
             suppressionNode.SetAttributeValue("alertsPaused", alertsPaused);
             if (generalAlertText != null && generalAlertText.Trim(' ', '\r', '\n').Length > 0)
                 xdoc.DocumentElement.SelectSingleNode("texts/general").InnerText = generalAlertText.Trim(' ', '\r', '\n');
-            if (errorAlertText != null && generalAlertText.Trim(' ', '\r', '\n').Length > 0)
+            if (errorAlertText != null && errorAlertText.Trim(' ', '\r', '\n').Length > 0)
                 xdoc.DocumentElement.SelectSingleNode("texts/error").InnerText = errorAlertText.Trim(' ', '\r', '\n');
-            if (warningAlertText != null && generalAlertText.Trim(' ', '\r', '\n').Length > 0)
+            if (warningAlertText != null && warningAlertText.Trim(' ', '\r', '\n').Length > 0)
                 xdoc.DocumentElement.SelectSingleNode("texts/warning").InnerText = warningAlertText.Trim(' ', '\r', '\n');
-            if (goodAlertText != null && generalAlertText.Trim(' ', '\r', '\n').Length > 0)
+            if (goodAlertText != null && goodAlertText.Trim(' ', '\r', '\n').Length > 0)
                 xdoc.DocumentElement.SelectSingleNode("texts/good").InnerText = goodAlertText.Trim(' ', '\r', '\n');
 
             return xdoc.DocumentElement.OuterXml;
@@ -811,17 +819,6 @@ namespace QuickMon
         }
         #endregion
 
-        public static string CollectorHostListToString(List<CollectorHost> entries)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<collectorHosts>");
-            foreach (CollectorHost entry in entries)
-            {
-                sb.AppendLine(entry.ToXml());
-            }
-            sb.AppendLine("</collectorHosts>");
-            return sb.ToString();
-        }
         public CollectorHost Clone(bool newId = false)
         {
             CollectorHost clone = FromXml(ToXml());
