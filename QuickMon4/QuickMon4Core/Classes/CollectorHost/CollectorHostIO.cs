@@ -239,6 +239,7 @@ namespace QuickMon
             XmlNode collectorAgentsNode = xmlCollectorEntry.SelectSingleNode("collectorAgents");
             if (collectorAgentsNode != null)
             {
+                newCollectorHost.AgentCheckSequence = AgentCheckSequenceConverter.FromString(collectorAgentsNode.ReadXmlElementAttr("agentCheckSequence", "All")); //  "All|FirstSuccess|FirstError"
                 newCollectorHost.CollectorAgents = new List<ICollector>();
                 foreach (XmlElement collectorAgentNode in collectorAgentsNode.SelectNodes("collectorAgent"))
                 {
@@ -284,7 +285,7 @@ namespace QuickMon
                         newCollectorHost.currentState.ChildStates.Add(new MonitorState() { RawDetails = string.Format("The Collector Host type of '{0}' could not be loaded!", typeName), State = CollectorState.ConfigurationError });
                     }
                 }
-            } 
+            }
             #endregion
             return newCollectorHost;
         }
@@ -387,89 +388,6 @@ namespace QuickMon
         /// <returns>XML config string</returns>
         public string ToXml()
         {
-            StringBuilder collectorAgentsXml = new StringBuilder();
-            collectorAgentsXml.AppendLine("<collectorAgents>");
-            foreach (ICollector c in CollectorAgents)
-            {
-                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
-                System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
-                System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
-                collectorAgentsXml.AppendLine(c.InitialConfiguration); 
-                collectorAgentsXml.AppendLine("</collectorAgent>");
-            }
-            collectorAgentsXml.AppendLine("</collectorAgents>");
-
-            //StringBuilder configVarXml = new StringBuilder();
-            //if (ConfigVariables == null || ConfigVariables.Count == 0)
-            //    configVarXml.AppendLine("<configVars />");
-            //else
-            //{
-            //    configVarXml.AppendLine("<configVars>");
-            //    foreach (ConfigVariable cv in ConfigVariables)
-            //    {
-            //        configVarXml.AppendLine(cv.ToXml());
-            //    }
-            //    configVarXml.AppendLine("</configVars>");
-            //}
-
-            
-
-            //StringBuilder actionScriptsXml = new StringBuilder();
-            //if (ActionScripts != null && ActionScripts.Count > 0)
-            //{
-            //    actionScriptsXml.AppendLine("<actionScripts>");
-            //    foreach (ActionScript acs in ActionScripts)
-            //    {
-            //        actionScriptsXml.AppendLine(acs.ToXml());
-            //    }
-            //    actionScriptsXml.AppendLine("</actionScripts>");
-            //}
-            //else
-            //    actionScriptsXml.AppendLine("<actionScripts />");
-
-            //return ToXml(UniqueId,
-            //    Name,
-            //    Enabled,
-            //    ExpandOnStartOption,
-            //    ParentCollectorId,
-            //    AgentCheckSequence, ChildCheckBehaviour,
-            //    RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec,
-            //    RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls,
-            //    CorrectiveScriptDisabled,
-            //    CorrectiveScriptOnWarningPath,
-            //    CorrectiveScriptOnErrorPath,
-            //    RestorationScriptPath,
-            //    CorrectiveScriptsOnlyOnStateChange,
-            //    EnableRemoteExecute,
-            //    ForceRemoteExcuteOnChildCollectors,
-            //    RemoteAgentHostAddress,
-            //    RemoteAgentHostPort,
-            //    BlockParentOverrideRemoteAgentHostSettings,
-            //    RunLocalOnRemoteHostConnectionFailure,
-
-            //    EnabledPollingOverride,
-            //    OnlyAllowUpdateOncePerXSec,
-            //    EnablePollFrequencySliding,
-            //    PollSlideFrequencyAfterFirstRepeatSec,
-            //    PollSlideFrequencyAfterSecondRepeatSec,
-            //    PollSlideFrequencyAfterThirdRepeatSec,
-            //    AlertsPaused,
-
-            //    RunAsEnabled,
-            //    RunAs,
-
-            //    collectorAgentsXml.ToString(),
-            //    actionScriptsXml.ToString(),
-            //    ServiceWindows.ToXml(),
-            //    configVarXml.ToString(),
-            //    categoriesXml,
-            //    Notes,
-            //    GeneralAlertText,
-            //    ErrorAlertText,
-            //    WarningAlertText,
-            //    GoodAlertText 
-            //    );
-
             string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, GeneralAlertText, ErrorAlertText, WarningAlertText, GoodAlertText);
             string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
             string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
@@ -478,20 +396,20 @@ namespace QuickMon
             string serviceWindowsXml = ServiceWindows.ToXml();
             string configVariablesXml = GetConfigVarXml(ConfigVariables);
             string categoriesXml = GetCategoriesXML();
+            string collectorAgentsXml = GetCollectorAgentsConfigXml(CollectorAgents, AgentCheckSequence);
 
             return ToXml(UniqueId,
                 ParentCollectorId,
                 Name,
                 Enabled,
-                ExpandOnStartOption,
-                AgentCheckSequence,
+                ExpandOnStartOption,            
                 ChildCheckBehaviour,
                 RunAsEnabled, RunAs,
                 Notes,
                 alertingSettingsXml,
                 remoteAgentSettingsXml,
                 pollingSettingsXml,
-                collectorAgentsXml.ToString(),
+                collectorAgentsXml,
                 correctiveScriptsXml,
                 actionScriptsXml,
                 serviceWindowsXml,
@@ -504,7 +422,6 @@ namespace QuickMon
                 string name,
                 bool enabled,
                 ExpandOnStartOption expandOnStartOption,
-                AgentCheckSequence agentCheckSequence,
                 ChildCheckBehaviour childCheckBehaviour,
                 bool runAsEnabled,
                 string runAs,
@@ -538,7 +455,6 @@ namespace QuickMon
             collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
             collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
             collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
-            collectorHostDoc.DocumentElement.SetAttributeValue("agentCheckSequence", agentCheckSequence.ToString());
             collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
             collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
             collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
@@ -693,6 +609,23 @@ namespace QuickMon
             configXml.AppendLine("</collectorHost>");
             return configXml.ToString();
             */
+        }
+
+        private static string GetCollectorAgentsConfigXml(List<ICollector> collectorAgents, AgentCheckSequence agentCheckSequence)
+        {
+            StringBuilder collectorAgentsXml = new StringBuilder();
+            collectorAgentsXml.AppendLine(string.Format("<collectorAgents agentCheckSequence=\"{0}\" >", agentCheckSequence));
+
+            foreach (ICollector c in collectorAgents)
+            {
+                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
+                System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
+                System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
+                collectorAgentsXml.AppendLine(c.InitialConfiguration);
+                collectorAgentsXml.AppendLine("</collectorAgent>");
+            }
+            collectorAgentsXml.AppendLine("</collectorAgents>");
+            return collectorAgentsXml.ToString();
         }
 
         private static string GetAlertingToXml(int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
