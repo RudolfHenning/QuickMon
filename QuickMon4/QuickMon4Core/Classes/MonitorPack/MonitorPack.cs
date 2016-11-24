@@ -466,7 +466,7 @@ namespace QuickMon
                     }
                     if (additionalFooterText.Length > 0)
                     {
-                        alertRaised.MessageRaw += "\r\n" + additionalFooterText;
+                        alertRaised.MessageRaw = alertRaised.MessageRaw.TrimEnd('\r', '\n') + "\r\n" + additionalFooterText;
                         alertRaised.MessageHTML += "<p>" + additionalFooterText + "</p>";
                     }
                 }
