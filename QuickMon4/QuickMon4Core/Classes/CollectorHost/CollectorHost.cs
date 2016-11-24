@@ -190,9 +190,25 @@ namespace QuickMon
         #endregion
 
         #region Alert Text
-        public string GeneralAlertText { get; set; }
+        /// <summary>
+        /// Text that will always be at the top of the Alert text
+        /// </summary>
+        public string AlertHeaderText { get; set; }
+        /// <summary>
+        /// Text that will always be at the bottom of the Alert text
+        /// </summary>
+        public string AlertFooterText { get; set; }
+        /// <summary>
+        /// Text that will only be displayed when Error alert is raised
+        /// </summary>
         public string ErrorAlertText { get; set; }
+        /// <summary>
+        /// Text that will only be displayed when Warning alert is raised
+        /// </summary>
         public string WarningAlertText { get; set; }
+        /// <summary>
+        /// Text that will only be displayed when Good alert is raised
+        /// </summary>
         public string GoodAlertText { get; set; }
         #endregion
 

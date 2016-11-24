@@ -417,7 +417,61 @@ namespace QuickMon
                     alertRaised.MessageRaw = alertRaised.RaisedFor.CurrentState.ReadAllRawDetails();
                 if (alertRaised.MessageHTML.Length == 0)
                     alertRaised.MessageHTML = alertRaised.RaisedFor.CurrentState.ReadAllHtmlDetails();
+
+                if (alertRaised.Level != AlertLevel.Debug &&
+                        (
+                            (alertRaised.RaisedFor.AlertHeaderText != null && alertRaised.RaisedFor.AlertHeaderText.Length > 0) ||
+                            (alertRaised.RaisedFor.AlertFooterText != null && alertRaised.RaisedFor.AlertFooterText.Length > 0) ||
+                            (alertRaised.Level == AlertLevel.Error && alertRaised.RaisedFor.ErrorAlertText != null && alertRaised.RaisedFor.ErrorAlertText.Length > 0) ||
+                            (alertRaised.Level == AlertLevel.Warning && alertRaised.RaisedFor.WarningAlertText != null && alertRaised.RaisedFor.WarningAlertText.Length > 0) ||
+                            (alertRaised.Level == AlertLevel.Info && alertRaised.RaisedFor.GoodAlertText != null && alertRaised.RaisedFor.GoodAlertText.Length > 0)
+                        )
+                    )
+                {
+                    string additionalHeaderText = "";
+                    string additionalFooterText = "";
+                    string additionalLevelText = "";
+
+                    if (alertRaised.RaisedFor.AlertHeaderText != null && alertRaised.RaisedFor.AlertHeaderText.Length > 0)
+                    {
+                        additionalHeaderText = alertRaised.RaisedFor.AlertHeaderText;
+                    }
+                    if (alertRaised.RaisedFor.AlertFooterText != null && alertRaised.RaisedFor.AlertFooterText.Length > 0)
+                    {
+                        additionalFooterText = alertRaised.RaisedFor.AlertFooterText;
+                    }
+
+                    if (alertRaised.Level == AlertLevel.Error && alertRaised.RaisedFor.ErrorAlertText != null && alertRaised.RaisedFor.ErrorAlertText.Length > 0)
+                    {
+                        additionalLevelText = alertRaised.RaisedFor.ErrorAlertText;
+                    }
+                    if (alertRaised.Level == AlertLevel.Warning && alertRaised.RaisedFor.WarningAlertText != null && alertRaised.RaisedFor.WarningAlertText.Length > 0)
+                    {
+                        additionalLevelText = alertRaised.RaisedFor.WarningAlertText;
+                    }
+                    if (alertRaised.Level == AlertLevel.Info && alertRaised.RaisedFor.GoodAlertText != null && alertRaised.RaisedFor.GoodAlertText.Length > 0)
+                    {
+                        additionalLevelText = alertRaised.RaisedFor.GoodAlertText;
+                    }
+
+                    if (additionalLevelText.Length > 0)
+                    {
+                        alertRaised.MessageRaw = additionalLevelText + "\r\n" + alertRaised.MessageRaw;
+                        alertRaised.MessageHTML = "<p>" + additionalLevelText + "</p>" + alertRaised.MessageHTML;
+                    }
+                    if (additionalHeaderText.Length > 0)
+                    {
+                        alertRaised.MessageRaw = additionalHeaderText + "\r\n" + alertRaised.MessageRaw;
+                        alertRaised.MessageHTML = "<p>" + additionalHeaderText + "</p>" + alertRaised.MessageHTML;
+                    }
+                    if (additionalFooterText.Length > 0)
+                    {
+                        alertRaised.MessageRaw += "\r\n" + additionalFooterText;
+                        alertRaised.MessageHTML += "<p>" + additionalFooterText + "</p>";
+                    }
+                }
             }
+
             //If alerts are paused for CollectorHost...
             if (alertRaised != null && alertRaised.RaisedFor != null && alertRaised.RaisedFor.AlertsPaused)
             {

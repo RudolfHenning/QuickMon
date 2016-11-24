@@ -1381,12 +1381,14 @@ namespace QuickMon
             if (cboTextType.SelectedIndex == 0)
                 txtNotesText.Text = editingCollectorHost.Notes;
             else if (cboTextType.SelectedIndex == 1)
-                txtNotesText.Text = editingCollectorHost.GeneralAlertText;
+                txtNotesText.Text = editingCollectorHost.AlertHeaderText;
             else if (cboTextType.SelectedIndex == 2)
-                txtNotesText.Text = editingCollectorHost.ErrorAlertText;
+                txtNotesText.Text = editingCollectorHost.AlertFooterText;
             else if (cboTextType.SelectedIndex == 3)
-                txtNotesText.Text = editingCollectorHost.WarningAlertText;
+                txtNotesText.Text = editingCollectorHost.ErrorAlertText;
             else if (cboTextType.SelectedIndex == 4)
+                txtNotesText.Text = editingCollectorHost.WarningAlertText;
+            else if (cboTextType.SelectedIndex == 5)
                 txtNotesText.Text = editingCollectorHost.GoodAlertText;
             else
                 txtNotesText.Text = editingCollectorHost.Notes;
@@ -1399,12 +1401,14 @@ namespace QuickMon
             if (cboTextType.SelectedIndex == 0)
                 editingCollectorHost.Notes = txtNotesText.Text;
             else if (cboTextType.SelectedIndex == 1)
-                editingCollectorHost.GeneralAlertText = txtNotesText.Text;
+                editingCollectorHost.AlertHeaderText = txtNotesText.Text;
             else if (cboTextType.SelectedIndex == 2)
-                editingCollectorHost.ErrorAlertText = txtNotesText.Text;
+                editingCollectorHost.AlertFooterText = txtNotesText.Text;
             else if (cboTextType.SelectedIndex == 3)
-                editingCollectorHost.WarningAlertText = txtNotesText.Text;
+                editingCollectorHost.ErrorAlertText = txtNotesText.Text;
             else if (cboTextType.SelectedIndex == 4)
+                editingCollectorHost.WarningAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 5)
                 editingCollectorHost.GoodAlertText = txtNotesText.Text;
             else
                 editingCollectorHost.Notes = txtNotesText.Text;
