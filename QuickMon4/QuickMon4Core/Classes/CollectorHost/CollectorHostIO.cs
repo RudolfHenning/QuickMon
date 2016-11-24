@@ -93,9 +93,12 @@ namespace QuickMon
                 XmlNode textsNode = alertingNode.SelectSingleNode("texts");
                 if (textsNode != null)
                 {
-                    XmlNode generalNode = textsNode.SelectSingleNode("general");
-                    if (generalNode != null)
-                        newCollectorHost.GeneralAlertText = generalNode.InnerText;
+                    XmlNode headerNode = textsNode.SelectSingleNode("header");
+                    if (headerNode != null)
+                        newCollectorHost.AlertHeaderText = headerNode.InnerText;
+                    XmlNode footerNode = textsNode.SelectSingleNode("footer");
+                    if (footerNode != null)
+                        newCollectorHost.AlertFooterText = footerNode.InnerText;
                     XmlNode errorNode = textsNode.SelectSingleNode("error");
                     if (errorNode != null)
                         newCollectorHost.ErrorAlertText = errorNode.InnerText;
@@ -391,7 +394,7 @@ namespace QuickMon
         /// <returns>XML config string</returns>
         public string ToXml()
         {
-            string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, GeneralAlertText, ErrorAlertText, WarningAlertText, GoodAlertText);
+            string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
             string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
             string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
             string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptsOnlyOnStateChange, CorrectiveScriptOnWarningPath, CorrectiveScriptOnErrorPath, RestorationScriptPath);
@@ -705,14 +708,14 @@ namespace QuickMon
         }
         private static string GetAlertingToXml(int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
                 int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls, bool alertsPaused,
-                string generalAlertText,
+                string alertHeaderText, string alertFooterText,
                 string errorAlertText,
                 string warningAlertText,
                 string goodAlertText 
             )
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml("<alerting><suppression /><texts><general /><error /><warning /><good /></texts></alerting>");
+            xdoc.LoadXml("<alerting><suppression /><texts><header /><footer /><error /><warning /><good /></texts></alerting>");
             XmlNode suppressionNode = xdoc.DocumentElement.SelectSingleNode("suppression");
             suppressionNode.SetAttributeValue("repeatAlertInXMin", repeatAlertInXMin);
             suppressionNode.SetAttributeValue("alertOnceInXMin", alertOnceInXMin);
@@ -721,8 +724,10 @@ namespace QuickMon
             suppressionNode.SetAttributeValue("alertOnceInXPolls", alertOnceInXPolls);
             suppressionNode.SetAttributeValue("delayErrWarnAlertForXPolls", delayErrWarnAlertForXPolls);
             suppressionNode.SetAttributeValue("alertsPaused", alertsPaused);
-            if (generalAlertText != null && generalAlertText.Trim(' ', '\r', '\n').Length > 0)
-                xdoc.DocumentElement.SelectSingleNode("texts/general").InnerText = generalAlertText.Trim(' ', '\r', '\n');
+            if (alertHeaderText != null && alertHeaderText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/header").InnerText = alertHeaderText.Trim(' ', '\r', '\n');
+            if (alertFooterText != null && alertFooterText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/footer").InnerText = alertFooterText.Trim(' ', '\r', '\n');
             if (errorAlertText != null && errorAlertText.Trim(' ', '\r', '\n').Length > 0)
                 xdoc.DocumentElement.SelectSingleNode("texts/error").InnerText = errorAlertText.Trim(' ', '\r', '\n');
             if (warningAlertText != null && warningAlertText.Trim(' ', '\r', '\n').Length > 0)
