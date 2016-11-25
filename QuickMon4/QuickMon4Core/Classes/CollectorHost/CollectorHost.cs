@@ -47,6 +47,13 @@ namespace QuickMon
             //security and impersonation
             RunAs = "";
             RunAsEnabled = false;
+
+            //Alert Texts
+            AlertHeaderText = "";
+            AlertFooterText = "";
+            ErrorAlertText = "";
+            WarningAlertText = "";
+            GoodAlertText = "";
         }
 
         #region Private vars
