@@ -421,8 +421,15 @@ namespace QuickMon
                         ICollectorConfigEntryEditWindow DetailEditor = agentEditor.DetailEditor;
                         if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                         {
-                            entryConfig.Entries.Add(DetailEditor.SelectedEntry);
-                            LoadAgents();
+                            TreeListViewItem tlvAgentEntry = new TreeListViewItem(DetailEditor.SelectedEntry.Description);
+                            tlvAgentEntry.ImageIndex = 2;
+                            tlvAgentEntry.SubItems.Add(DetailEditor.SelectedEntry.TriggerSummary);
+                            tlvAgentEntry.Tag = DetailEditor.SelectedEntry;
+                            tlviCurrent.Items.Add(tlvAgentEntry);
+                            tlviCurrent.Expand();
+
+                            //entryConfig.Entries.Add(DetailEditor.SelectedEntry);
+                            //LoadAgents();
                         }
                     }
                     else
@@ -517,18 +524,23 @@ namespace QuickMon
                     {
                         if (tlvi.Tag is ICollector)
                         {
-                            ICollector agent = (ICollector)tlvi.Tag;
-                            editingCollectorHost.CollectorAgents.Remove(agent);
+                            agentsTreeListView.Items.Remove(tlvi);
+
+                            //ICollector agent = (ICollector)tlvi.Tag;
+                            //editingCollectorHost.CollectorAgents.Remove(agent);
                         }
                         else if (tlvi.Tag is ICollectorConfigEntry && tlvi.Parent != null && tlvi.Parent.Tag is ICollector)
                         {
-                            ICollector agent = (ICollector)tlvi.Parent.Tag;
-                            ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
-                            ICollectorConfigEntry agentEntry = (ICollectorConfigEntry)tlvi.Tag;
-                            entryConfig.Entries.Remove(agentEntry);
+                            tlvi.Parent.Items.Remove(tlvi);
+                            //agentsTreeListView.Items.Remove(tlvi);
+
+                            //ICollector agent = (ICollector)tlvi.Parent.Tag;
+                            //ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                            //ICollectorConfigEntry agentEntry = (ICollectorConfigEntry)tlvi.Tag;
+                            //entryConfig.Entries.Remove(agentEntry);
                         }
                     }
-                    LoadAgents();
+                    //LoadAgents();
                 }
             }
 
