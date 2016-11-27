@@ -630,6 +630,20 @@ namespace QuickMon
                 }
                 else if (moveItem.Tag is ICollectorConfigEntry && moveItem.Parent != null && moveItem.Parent.Tag is ICollector)
                 {
+                    TreeListViewItem prevItem = moveItem.PrevVisibleItem;
+                    if (prevItem != null)
+                    {
+                        ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                        ICollectorConfigEntry prevConfigEntry = (ICollectorConfigEntry)prevItem.Tag;
+                        prevItem.Tag = null;
+                        prevItem.Tag = moveConfigEntry;
+                        moveItem.Tag = prevConfigEntry;
+                        SetEditingCollectorHostAgents();
+
+                        LoadAgents();
+                    }
+
+                    /*
                     ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
                     ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
                     ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
@@ -644,6 +658,7 @@ namespace QuickMon
                         LoadAgents();
                         agentsTreeListView.Items[agentIndex].Items[index - 1].Selected = true;
                     }
+                    */
                 }
             }
         }
@@ -675,6 +690,19 @@ namespace QuickMon
                 }
                 else if (moveItem.Tag is ICollectorConfigEntry && moveItem.Parent != null && moveItem.Parent.Tag is ICollector)
                 {
+                    TreeListViewItem nextItem = moveItem.NextVisibleItem;
+                    if (nextItem != null)
+                    {
+                        ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                        ICollectorConfigEntry nextConfigEntry = (ICollectorConfigEntry)nextItem.Tag;
+                        nextItem.Tag = null;
+                        nextItem.Tag = moveConfigEntry;
+                        moveItem.Tag = nextConfigEntry;
+                        SetEditingCollectorHostAgents();
+
+                        LoadAgents();
+                    }
+                    /*
                     ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
                     ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
                     ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
@@ -685,9 +713,12 @@ namespace QuickMon
                         entryConfig.Entries.Remove(moveConfigEntry);
                         entryConfig.Entries.Insert(index + 1, moveConfigEntry);
 
-                        LoadAgents();
                         agentsTreeListView.Items[agentIndex].Items[index + 1].Selected = true;
+                        //SetEditingCollectorHostAgents();
+
+                        LoadAgents();
                     }
+                    */
                 }
             }
         }
@@ -1179,23 +1210,8 @@ namespace QuickMon
                         }
                     }
                 }
-
-                editingCollectorHost.CollectorAgents.Clear();
-                foreach(TreeListViewItem tlvi in agentsTreeListView.Items)
-                {
-                    ICollector agent = (ICollector)tlvi.Tag;
-                    ICollectorConfig agentConfig = (ICollectorConfig)agent.AgentConfig;
-                    agentConfig.Entries.Clear();
-                    foreach (TreeListViewItem tlviEntries in tlvi.Items)
-                    {
-                        ICollectorConfigEntry entry = (ICollectorConfigEntry)tlviEntries.Tag;
-                        agentConfig.Entries.Add(entry);
-                    }
-                    string agentConfigString = agentConfig.ToXml();
-                    agent.AgentConfig.FromXml(agentConfigString);
-                    agent.InitialConfiguration = agentConfigString;
-                    editingCollectorHost.CollectorAgents.Add(agent);
-                }
+                SetEditingCollectorHostAgents();
+                
                 if (cmdSetNoteText.Enabled)
                     cmdSetNoteText_Click(null, null);
                 success = true;
@@ -1205,6 +1221,25 @@ namespace QuickMon
                 MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             return success;
+        }
+        private void SetEditingCollectorHostAgents()
+        {
+            editingCollectorHost.CollectorAgents.Clear();
+            foreach (TreeListViewItem tlvi in agentsTreeListView.Items)
+            {
+                ICollector agent = (ICollector)tlvi.Tag;
+                ICollectorConfig agentConfig = (ICollectorConfig)agent.AgentConfig;
+                agentConfig.Entries.Clear();
+                foreach (TreeListViewItem tlviEntries in tlvi.Items)
+                {
+                    ICollectorConfigEntry entry = (ICollectorConfigEntry)tlviEntries.Tag;
+                    agentConfig.Entries.Add(entry);
+                }
+                string agentConfigString = agentConfig.ToXml();
+                agent.AgentConfig.FromXml(agentConfigString);
+                agent.InitialConfiguration = agentConfigString;
+                editingCollectorHost.CollectorAgents.Add(agent);
+            }
         }
         private void cmdRemoteAgentTest_Click(object sender, EventArgs e)
         {
