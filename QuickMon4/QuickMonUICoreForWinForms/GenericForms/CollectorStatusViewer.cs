@@ -124,6 +124,7 @@ namespace QuickMon.Forms
                 LoadAgentStates();
 
                 #region Details and metrics
+                AddUpdateListViewItem(lvwProperties, "General", "Notes", SelectedCollectorHost.Notes);
                 AddUpdateListViewItem(lvwProperties, "General", "Enabled", (SelectedCollectorHost.Enabled ? "Yes" : "No") + (SelectedCollectorHost.ServiceWindows.IsInTimeWindow() ? "" : " (Out of service window)"));
                 AddUpdateListViewItem(lvwProperties, "General", "Agent count", SelectedCollectorHost.CollectorAgents.Count.ToString());
                 

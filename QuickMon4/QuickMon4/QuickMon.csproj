@@ -106,6 +106,12 @@
     <Compile Include="Forms\RemoteAgentHosts.Designer.cs">
       <DependentUpon>RemoteAgentHosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SelectRecentMonitorPackDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectRecentMonitorPackDialog.Designer.cs">
+      <DependentUpon>SelectRecentMonitorPackDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Test\TestCollectorHostEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemoteAgentHosts.resx">
       <DependentUpon>RemoteAgentHosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectRecentMonitorPackDialog.resx">
+      <DependentUpon>SelectRecentMonitorPackDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Test\TestCollectorHostEdit.resx">
       <DependentUpon>TestCollectorHostEdit.cs</DependentUpon>

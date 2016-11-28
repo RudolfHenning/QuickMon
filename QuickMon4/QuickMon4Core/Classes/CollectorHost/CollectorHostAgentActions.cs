@@ -151,6 +151,30 @@ namespace QuickMon
             }
 
             currentState = newState;
+
+            #region Set Alert texts
+            if (AlertHeaderText != null && AlertHeaderText.Trim().Length > 0)
+            {
+                currentState.AlertHeader = AlertHeaderText;
+            }
+            if (AlertFooterText != null && AlertFooterText.Trim().Length > 0)
+            {
+                currentState.AlertFooter = AlertFooterText;
+            }
+            if (currentState.State == CollectorState.Good && GoodAlertText != null && GoodAlertText.Trim().Length > 0)
+            {
+                currentState.AdditionalAlertText = GoodAlertText;
+            }
+            else if (currentState.State == CollectorState.Warning && WarningAlertText != null && WarningAlertText.Trim().Length > 0)
+            {
+                currentState.AdditionalAlertText = WarningAlertText;
+            }
+            else if (currentState.State == CollectorState.Error && ErrorAlertText != null && ErrorAlertText.Trim().Length > 0)
+            {
+                currentState.AdditionalAlertText = ErrorAlertText;
+            }
+            #endregion
+
             RaiseStateUpdated();
 
             #region Raise event for Alert to be handled by Monitorpack
@@ -187,6 +211,15 @@ namespace QuickMon
         public MonitorState RefreshCurrentState(bool disablePollingOverrides = false)
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
+            if (AlertHeaderText!= null && AlertHeaderText.Trim().Length > 0)
+            {
+                resultMonitorState.AlertHeader = AlertHeaderText;
+            }
+            if (AlertFooterText != null && AlertFooterText.Trim().Length > 0)
+            {
+                resultMonitorState.AlertFooter = AlertFooterText;
+            }
+
             RefreshCount++;
             CurrentPollAborted = false;
             if (CurrentState.State != CollectorState.ConfigurationError)
@@ -340,6 +373,7 @@ namespace QuickMon
                     }
                     #endregion
 
+                    
                 }
             }
             else

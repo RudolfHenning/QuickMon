@@ -396,7 +396,7 @@ namespace QuickMon
                     {
                         Level = alertLevel,
                         DetailLevel = detailLevel,
-                        RaisedFor = raisedFor,
+                        RaisedFor = raisedFor,                        
                         MessageRaw = raisedFor.CurrentState.ReadAllRawDetails(),
                         MessageHTML = raisedFor.CurrentState.ReadAllHtmlDetails()
                     });
@@ -418,6 +418,7 @@ namespace QuickMon
                 if (alertRaised.MessageHTML.Length == 0)
                     alertRaised.MessageHTML = alertRaised.RaisedFor.CurrentState.ReadAllHtmlDetails();
 
+                /*
                 if (alertRaised.Level != AlertLevel.Debug &&
                         (
                             (alertRaised.RaisedFor.AlertHeaderText != null && alertRaised.RaisedFor.AlertHeaderText.Length > 0) ||
@@ -470,6 +471,7 @@ namespace QuickMon
                         alertRaised.MessageHTML += "<p>" + additionalFooterText + "</p>";
                     }
                 }
+                */
             }
 
             //If alerts are paused for CollectorHost...

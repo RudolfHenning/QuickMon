@@ -12,6 +12,7 @@ namespace QuickMon
         public class NameAndTypeSummary
         {
             public string Name { get; set; }
+            public bool Exists { get; set; }
             public string Path { get; set; }
             public string TypeName { get; set; }
             public string Version { get; set; }
@@ -24,11 +25,12 @@ namespace QuickMon
 
         public static NameAndTypeSummary GetMonitorPackTypeName(string filePath)
         {
-            NameAndTypeSummary summaryInfo = new NameAndTypeSummary() { Name = System.IO.Path.GetFileNameWithoutExtension(filePath), Path = filePath,  Enabled = false, TypeName = "", Version = "4.0.0.0" };
+            NameAndTypeSummary summaryInfo = new NameAndTypeSummary() { Name = System.IO.Path.GetFileNameWithoutExtension(filePath), Exists = false, Path = filePath,  Enabled = false, TypeName = "", Version = "4.0.0.0" };
             try
             {
                 XmlDocument configurationXml = new XmlDocument();
                 configurationXml.Load(filePath);
+                summaryInfo.Exists = true;
                 XmlElement root = configurationXml.DocumentElement;
                 summaryInfo.Name = root.ReadXmlElementAttr("name", System.IO.Path.GetFileNameWithoutExtension(filePath));
                 if (summaryInfo.Name.Length == 0)

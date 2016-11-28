@@ -617,21 +617,7 @@ namespace QuickMon
             Cursor.Current = Cursors.Default;            
             Application.DoEvents();
         }
-        private void UpdateNotifiersLabel()
-        {
-            TreeNode notifierRoot = tvwNotifiers.Nodes[0];
-            llblNotifierViewToggle.Text = "Show Notifiers";
-            if (notifierRoot.Nodes.Count > 0)
-            {
-                StringBuilder notSummary = new StringBuilder();
-                foreach (TreeNode child in notifierRoot.Nodes)
-                {
-                    notSummary.AppendLine(child.Text);
-                }
-                llblNotifierViewToggle.Text += " (" + notifierRoot.Nodes.Count.ToString() + ")";
-                toolTip1.SetToolTip(llblNotifierViewToggle, notSummary.ToString());
-            }
-        }
+       
         private void LoadCollectorNode(TreeNode root, CollectorHost collector)
         {
             TreeNode collectorNode;
@@ -1903,6 +1889,19 @@ namespace QuickMon
         private void recentMonitorPackToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             HideCollectorContextMenu();
+            SelectRecentMonitorPackDialog rmp = new SelectRecentMonitorPackDialog();
+            if (rmp .ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                CloseAllDetailWindows();
+                LoadMonitorPack(rmp.SelectedMonitorPack);
+                RefreshMonitorPack(true, true);
+            }
+            else
+            {
+                LoadRecentMonitorPackList();
+            }
+
+            /*
             QuickMon.Forms.RecentMonitorPacks recentMonitorPacks = new QuickMon.Forms.RecentMonitorPacks();
             if (recentMonitorPacks.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -1914,6 +1913,7 @@ namespace QuickMon
             {
                 LoadRecentMonitorPackList();
             }
+            */
         }
         #endregion
 
@@ -2018,6 +2018,21 @@ namespace QuickMon
                 }
             }
             catch { }
+        }
+        private void UpdateNotifiersLabel()
+        {
+            TreeNode notifierRoot = tvwNotifiers.Nodes[0];
+            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+            if (notifierRoot.Nodes.Count > 0)
+            {
+                StringBuilder notSummary = new StringBuilder();
+                foreach (TreeNode child in notifierRoot.Nodes)
+                {
+                    notSummary.AppendLine(child.Text);
+                }
+                llblNotifierViewToggle.Text += " (" + notifierRoot.Nodes.Count.ToString() + ")";
+                toolTip1.SetToolTip(llblNotifierViewToggle, notSummary.ToString());
+            }
         }
         private void SetUpContextMenus()
         {
@@ -2544,7 +2559,7 @@ namespace QuickMon
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
-            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+            UpdateNotifiersLabel();
         }
         private void llblNotifierViewToggle_DoubleClick(object sender, EventArgs e)
         {
