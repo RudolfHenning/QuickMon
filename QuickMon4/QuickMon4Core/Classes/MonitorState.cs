@@ -16,6 +16,9 @@ namespace QuickMon
             Timestamp = DateTime.Now;
             AlertsRaised = new List<string>();
             ChildStates = new List<MonitorState>();
+            AlertHeader = "";
+            AlertFooter = "";
+            AdditionalAlertText = "";
         }
         public string UniqueId { get; private set; }
         private CollectorState state = CollectorState.NotAvailable;
@@ -33,12 +36,21 @@ namespace QuickMon
         [DataMember(Name = "ForAgent")]
         public string ForAgent { get; set; }
         [DataMember(Name = "ForAgentId")]
-        public int ForAgentId { get; set; }        
+        public int ForAgentId { get; set; }
+
+
+        [DataMember(Name = "AlertHeader")]
+        public string AlertHeader { get; set; }
+        [DataMember(Name = "AlertFooter")]
+        public string AlertFooter { get; set; }
+        [DataMember(Name = "AdditionalAlertText")]
+        public string AdditionalAlertText { get; set; }
 
         [DataMember(Name = "RawDetails")]
         public string RawDetails { get; set; }
         [DataMember(Name = "HtmlDetails")]
         public string HtmlDetails { get; set; }
+
         [DataMember(Name = "Timestamp")]
         public DateTime Timestamp { get; set; }
         [DataMember(Name = "StateChangedTime")]
@@ -95,6 +107,16 @@ namespace QuickMon
             root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
             root.SetAttributeValue("ranAs", RanAs);
 
+            XmlElement alertHeaderNode = xdoc.CreateElement("alertHeader");
+            alertHeaderNode.InnerText = AlertHeader;
+            root.AppendChild(alertHeaderNode);
+            XmlElement alertFooterNode = xdoc.CreateElement("alertFooter");
+            alertFooterNode.InnerText = AlertFooter;
+            root.AppendChild(alertFooterNode);
+            XmlElement additionalAlertTextNode = xdoc.CreateElement("additionalAlertText");
+            additionalAlertTextNode.InnerText = AdditionalAlertText;
+            root.AppendChild(additionalAlertTextNode);
+
             XmlElement rawDetailsNode = xdoc.CreateElement("rawDetails");
             rawDetailsNode.InnerText = RawDetails;
             root.AppendChild(rawDetailsNode);
@@ -148,6 +170,22 @@ namespace QuickMon
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
             RanAs = root.ReadXmlElementAttr("ranAs", "");
+            try
+            {
+                AlertHeader = root.SelectSingleNode("alertHeader").InnerText;
+            }
+            catch { }
+            try
+            {
+                AlertFooter = root.SelectSingleNode("alertFooter").InnerText;
+            }
+            catch { }
+            try
+            {
+                AdditionalAlertText = root.SelectSingleNode("additionalAlertText").InnerText;
+            }
+            catch { }
+
             RawDetails = root.SelectSingleNode("rawDetails").InnerText;
             HtmlDetails = root.SelectSingleNode("htmlDetails").InnerText;
             XmlNodeList alertNodes = root.SelectNodes("alerts");
@@ -174,6 +212,15 @@ namespace QuickMon
         {
             StringBuilder sb = new StringBuilder();
             string prePadding = new string(linePaddingChar, linePaddingRepeat);
+
+            if (AlertHeader != null && AlertHeader.Trim().Length > 0)
+            {
+                sb.AppendLine(new string(linePaddingChar, linePaddingRepeat) + AlertHeader);
+            }
+            if (AdditionalAlertText != null && AdditionalAlertText.Trim().Length > 0)
+            {
+                sb.AppendLine(new string(linePaddingChar, linePaddingRepeat) + AdditionalAlertText);
+            }
             if (ForAgent != null && ForAgent.Length > 0)
             {
                 prePadding += string.Format("{0}: ", ForAgent);
@@ -191,13 +238,14 @@ namespace QuickMon
                 }
             }
             if (RawDetails != null && RawDetails.Length > 0)
-                prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);          
+                prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);
+
 
             if (prePadding.Trim(linePaddingChar).Length > 0)
             {
                 sb.AppendLine(prePadding);                
                 linePaddingRepeat++;
-            }            
+            }
 
             if (ChildStates != null)
             {
@@ -205,6 +253,10 @@ namespace QuickMon
                 {
                     sb.Append(ms.ReadAllRawDetails(linePaddingChar, linePaddingRepeat));
                 }
+            }    
+            if (AlertFooter != null && AlertFooter.Trim().Length > 0)
+            {
+                sb.AppendLine(new string(linePaddingChar, linePaddingRepeat) + AlertFooter);
             }
             return sb.ToString();
         }
@@ -212,6 +264,14 @@ namespace QuickMon
         {
             StringBuilder sb = new StringBuilder();
 
+            if (AlertHeader != null && AlertHeader.Trim().Length > 0)
+            {
+                sb.Append("<p><b>" + AlertHeader + "</b></p>");
+            }
+            if (AdditionalAlertText != null && AdditionalAlertText.Trim().Length > 0)
+            {
+                sb.Append("<p>" + AdditionalAlertText + "</p>");
+            }
             if ((ForAgent != null && ForAgent.Length > 0) || (HtmlDetails != null && HtmlDetails.Length > 0) || (RawDetails != null && RawDetails.Length > 0))
             {
                 sb.Append("<p>");
@@ -240,6 +300,7 @@ namespace QuickMon
                     sb.AppendLine(RawDetails + "</p>");
                 else
                     sb.AppendLine("</p>");
+                
             }
 
             if (ChildStates != null && ChildStates.Count > 0)
@@ -253,6 +314,10 @@ namespace QuickMon
                     }
                 }
                 sb.AppendLine("</ul>");
+            }
+            if (AlertFooter != null && AlertFooter.Trim().Length > 0)
+            {
+                sb.AppendLine("<p>" + AlertFooter + "</p>");
             }
             return sb.ToString();
         }

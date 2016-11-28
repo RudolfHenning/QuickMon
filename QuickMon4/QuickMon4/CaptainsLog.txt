@@ -109,15 +109,18 @@ Version 4.3.9
 	CredentialManager editing crashed if no items were the list or nothing selected.
 
 Version 4.4.0 - in progress
+	"Show Notifiers" label/link must include number of Notifiers - so you can see if there are none (other than InMemory one) - Done
 	corrective scripts config moved to separate element - allow for whole script with multiple lines. - Done
 	Add comments to Collector host that can be displayed in alert (like tips how to fix, extra info) - Done
 		Error/Warning/Good Additional text + Notes field for General notes - Done
 			Alert text can make use of variables to customize the text e.g. Collector host name, Agent entry name, Agent type, Agent value (provided it is a single value), monitor pack name/path
+	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
+	    Open Recent monitor pack list by keyboard - now Main menu toolbar option as well
+
 	Manual/example correction scripts (Action scripts)
 		Per collector host you can specify scripts that can be clicked on in the Status viewer to run for either more info or manually fixing a problem (like cleaning Temp dir e.g.)
-	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
-	"Show Notifiers" label/link must include number of Notifiers - so you can see if there are none (other than InMemory one) - Done
 	Latest values/states stored in data file so last state/values can be viewed offline even when MP is not running.
+	
 
 =================================================================================================================================================
 Improvement ideas
