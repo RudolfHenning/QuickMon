@@ -8,8 +8,7 @@ namespace QuickMon
     public enum ScriptType
     {
         DOS,
-        PowerShell,
-        JavaScript
+        PowerShell
     }
 
     public static class ScriptTypeConverter
@@ -19,9 +18,7 @@ namespace QuickMon
             if (s.ToLower() == "dos")
                 return ScriptType.DOS;
             else if (s.ToLower() == "powershell")
-                return ScriptType.PowerShell;
-            else if (s.ToLower() == "javascript")
-                return ScriptType.JavaScript;
+                return ScriptType.PowerShell;            
             else
                 return ScriptType.DOS;
         }
