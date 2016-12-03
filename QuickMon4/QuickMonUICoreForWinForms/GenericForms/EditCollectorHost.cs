@@ -1361,6 +1361,25 @@ namespace QuickMon
                     MessageBox.Show(errorString, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        private void cmdSetNoteText_Click(object sender, EventArgs e)
+        {
+            if (cboTextType.SelectedIndex == 0)
+                editingCollectorHost.Notes = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 1)
+                editingCollectorHost.AlertHeaderText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 2)
+                editingCollectorHost.AlertFooterText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 3)
+                editingCollectorHost.ErrorAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 4)
+                editingCollectorHost.WarningAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 5)
+                editingCollectorHost.GoodAlertText = txtNotesText.Text;
+            else
+                editingCollectorHost.Notes = txtNotesText.Text;
+            lblNoteTextChangeIndicator.Text = "Text";
+            cmdSetNoteText.Enabled = false;
+        }
         #endregion
 
         #region Raw editing of config
@@ -1400,7 +1419,6 @@ namespace QuickMon
             MessageBox.Show("Templates have not yet been implemented!", "Templates", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
-
         private void cboRemoteAgentServer_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cboRemoteAgentServer.SelectedItem.ToString().Contains(":"))
@@ -1411,7 +1429,6 @@ namespace QuickMon
                     remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
             }
         }
-
         private void cboRemoteAgentServer_Leave(object sender, EventArgs e)
         {
             if (cboRemoteAgentServer.Text.Contains(":"))
@@ -1422,7 +1439,6 @@ namespace QuickMon
                     remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
             }
         }
-
         private void cboTextType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboTextType.SelectedIndex == 0)
@@ -1442,27 +1458,6 @@ namespace QuickMon
             lblNoteTextChangeIndicator.Text = "Text";
             cmdSetNoteText.Enabled = false; 
         }
-
-        private void cmdSetNoteText_Click(object sender, EventArgs e)
-        {
-            if (cboTextType.SelectedIndex == 0)
-                editingCollectorHost.Notes = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 1)
-                editingCollectorHost.AlertHeaderText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 2)
-                editingCollectorHost.AlertFooterText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 3)
-                editingCollectorHost.ErrorAlertText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 4)
-                editingCollectorHost.WarningAlertText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 5)
-                editingCollectorHost.GoodAlertText = txtNotesText.Text;
-            else
-                editingCollectorHost.Notes = txtNotesText.Text;
-            lblNoteTextChangeIndicator.Text = "Text";
-            cmdSetNoteText.Enabled = false;
-        }
-
         private void txtNotesText_TextChanged(object sender, EventArgs e)
         {
             lblNoteTextChangeIndicator.Text = "Text*";

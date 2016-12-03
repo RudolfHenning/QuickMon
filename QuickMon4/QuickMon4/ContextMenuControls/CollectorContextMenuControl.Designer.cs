@@ -53,9 +53,9 @@ namespace QuickMon.Controls
             // 
             this.label3.BackColor = System.Drawing.Color.DarkGray;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(4, 183);
+            this.label3.Location = new System.Drawing.Point(0, 152);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(228, 1);
+            this.label3.Size = new System.Drawing.Size(236, 1);
             this.label3.TabIndex = 8;
             this.label3.Text = "Add new";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -72,7 +72,7 @@ namespace QuickMon.Controls
             this.cmdPasteWithEdit.Margin = new System.Windows.Forms.Padding(3, 3, 1, 3);
             this.cmdPasteWithEdit.Name = "cmdPasteWithEdit";
             this.cmdPasteWithEdit.Padding = new System.Windows.Forms.Padding(0, 1, 1, 1);
-            this.cmdPasteWithEdit.Size = new System.Drawing.Size(81, 27);
+            this.cmdPasteWithEdit.Size = new System.Drawing.Size(89, 27);
             this.cmdPasteWithEdit.TabIndex = 2;
             this.cmdPasteWithEdit.Text = "Paste+";
             this.cmdPasteWithEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -119,12 +119,12 @@ namespace QuickMon.Controls
             // 
             this.cmdEditCollector.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdEditCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditCollector.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit;
+            this.cmdEditCollector.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
             this.cmdEditCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdEditCollector.Location = new System.Drawing.Point(4, 68);
+            this.cmdEditCollector.Location = new System.Drawing.Point(0, 55);
             this.cmdEditCollector.Name = "cmdEditCollector";
             this.cmdEditCollector.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdEditCollector.Size = new System.Drawing.Size(228, 44);
+            this.cmdEditCollector.Size = new System.Drawing.Size(236, 35);
             this.cmdEditCollector.TabIndex = 2;
             this.cmdEditCollector.Text = "&Configuration";
             this.toolTip1.SetToolTip(this.cmdEditCollector, "Edit collector configuration");
@@ -133,13 +133,14 @@ namespace QuickMon.Controls
             // cmdAddCollector
             // 
             this.cmdAddCollector.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAddCollector.FlatAppearance.BorderSize = 0;
             this.cmdAddCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdAddCollector.Image = global::QuickMon.Properties.Resources.add;
+            this.cmdAddCollector.Image = global::QuickMon.Properties.Resources.add1;
             this.cmdAddCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddCollector.Location = new System.Drawing.Point(4, 24);
+            this.cmdAddCollector.Location = new System.Drawing.Point(0, 20);
             this.cmdAddCollector.Name = "cmdAddCollector";
-            this.cmdAddCollector.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdAddCollector.Size = new System.Drawing.Size(228, 44);
+            this.cmdAddCollector.Padding = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.cmdAddCollector.Size = new System.Drawing.Size(236, 35);
             this.cmdAddCollector.TabIndex = 1;
             this.cmdAddCollector.Text = "&New";
             this.toolTip1.SetToolTip(this.cmdAddCollector, "Add new collector");
@@ -150,12 +151,12 @@ namespace QuickMon.Controls
             this.cmdViewDetails.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdViewDetails.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmdViewDetails.Image = global::QuickMon.Properties.Resources.comp_search;
+            this.cmdViewDetails.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.cmdViewDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdViewDetails.Location = new System.Drawing.Point(4, 112);
+            this.cmdViewDetails.Location = new System.Drawing.Point(0, 90);
             this.cmdViewDetails.Name = "cmdViewDetails";
             this.cmdViewDetails.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdViewDetails.Size = new System.Drawing.Size(228, 44);
+            this.cmdViewDetails.Size = new System.Drawing.Size(236, 35);
             this.cmdViewDetails.TabIndex = 3;
             this.cmdViewDetails.Text = "&Details";
             this.toolTip1.SetToolTip(this.cmdViewDetails, "View collector details");
@@ -168,10 +169,10 @@ namespace QuickMon.Controls
             this.cmdDisableCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdDisableCollector.Image = global::QuickMon.Properties.Resources.ForbiddenBue16x16;
             this.cmdDisableCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDisableCollector.Location = new System.Drawing.Point(4, 184);
+            this.cmdDisableCollector.Location = new System.Drawing.Point(0, 153);
             this.cmdDisableCollector.Name = "cmdDisableCollector";
             this.cmdDisableCollector.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdDisableCollector.Size = new System.Drawing.Size(228, 27);
+            this.cmdDisableCollector.Size = new System.Drawing.Size(236, 27);
             this.cmdDisableCollector.TabIndex = 5;
             this.cmdDisableCollector.Text = "Disable";
             this.toolTip1.SetToolTip(this.cmdDisableCollector, "Enable/Disable");
@@ -184,10 +185,10 @@ namespace QuickMon.Controls
             this.cmdDeleteCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdDeleteCollector.Image = global::QuickMon.Properties.Resources.stop16x16;
             this.cmdDeleteCollector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDeleteCollector.Location = new System.Drawing.Point(4, 211);
+            this.cmdDeleteCollector.Location = new System.Drawing.Point(0, 180);
             this.cmdDeleteCollector.Name = "cmdDeleteCollector";
             this.cmdDeleteCollector.Padding = new System.Windows.Forms.Padding(2);
-            this.cmdDeleteCollector.Size = new System.Drawing.Size(228, 27);
+            this.cmdDeleteCollector.Size = new System.Drawing.Size(236, 27);
             this.cmdDeleteCollector.TabIndex = 6;
             this.cmdDeleteCollector.Text = "Delete";
             this.toolTip1.SetToolTip(this.cmdDeleteCollector, "Delete collector");
@@ -199,9 +200,9 @@ namespace QuickMon.Controls
             this.panel4.Controls.Add(this.cmdPaste);
             this.panel4.Controls.Add(this.cmdCopy);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(4, 156);
+            this.panel4.Location = new System.Drawing.Point(0, 125);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(228, 27);
+            this.panel4.Size = new System.Drawing.Size(236, 27);
             this.panel4.TabIndex = 4;
             // 
             // lblCollectorHeading
@@ -212,9 +213,9 @@ namespace QuickMon.Controls
             this.lblCollectorHeading.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblCollectorHeading.ForeColor = System.Drawing.Color.White;
             this.lblCollectorHeading.Image = global::QuickMon.Properties.Resources.MenuBlueShade;
-            this.lblCollectorHeading.Location = new System.Drawing.Point(4, 4);
+            this.lblCollectorHeading.Location = new System.Drawing.Point(0, 0);
             this.lblCollectorHeading.Name = "lblCollectorHeading";
-            this.lblCollectorHeading.Size = new System.Drawing.Size(228, 20);
+            this.lblCollectorHeading.Size = new System.Drawing.Size(236, 20);
             this.lblCollectorHeading.TabIndex = 0;
             this.lblCollectorHeading.Text = "Collector";
             this.lblCollectorHeading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -233,9 +234,10 @@ namespace QuickMon.Controls
             this.Controls.Add(this.cmdEditCollector);
             this.Controls.Add(this.cmdAddCollector);
             this.Controls.Add(this.lblCollectorHeading);
+            this.DoubleBuffered = true;
             this.Name = "CollectorContextMenuControl";
-            this.Padding = new System.Windows.Forms.Padding(4);
-            this.Size = new System.Drawing.Size(236, 241);
+            this.Padding = new System.Windows.Forms.Padding(0);
+            this.Size = new System.Drawing.Size(236, 207);
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 

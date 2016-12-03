@@ -204,6 +204,9 @@
     <Content Include="QM4-128x128.ico" />
     <Content Include="QM4-64x64.ico" />
     <Content Include="QM4b.ico" />
+    <None Include="Resources\comp_search24.png" />
+    <None Include="Resources\Blue3DGearEdit24.png" />
+    <None Include="Resources\add1.png" />
     <None Include="Resources\remote.png" />
     <None Include="Resources\221_5.ico" />
     <None Include="Resources\135_42.ico" />

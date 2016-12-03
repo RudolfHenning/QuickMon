@@ -1313,7 +1313,8 @@
             // 
             // correctiveScriptsGroupBox
             // 
-            this.correctiveScriptsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.correctiveScriptsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.correctiveScriptsGroupBox.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
             this.correctiveScriptsGroupBox.Controls.Add(this.cmdBrowseForRestorationScript);
@@ -1329,25 +1330,25 @@
             this.correctiveScriptsGroupBox.Controls.Add(this.label12);
             this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(6, 112);
             this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
-            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(561, 138);
+            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(561, 163);
             this.correctiveScriptsGroupBox.TabIndex = 1;
             this.correctiveScriptsGroupBox.TabStop = false;
             // 
             // chkOnlyRunCorrectiveScriptsOnStateChange
             // 
             this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(134, 85);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(284, 2);
             this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(260, 17);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 8;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only run when state change (warnings and errors)\r\n";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(228, 17);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only on state change (warnings and errors)\r\n";
             this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
             // 
             // cmdBrowseForRestorationScript
             // 
             this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(521, 108);
+            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(521, 78);
             this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
             this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
             this.cmdBrowseForRestorationScript.TabIndex = 11;
@@ -1361,7 +1362,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRestorationScript.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtRestorationScript.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtRestorationScript.Location = new System.Drawing.Point(134, 110);
+            this.txtRestorationScript.Location = new System.Drawing.Point(134, 80);
             this.txtRestorationScript.Name = "txtRestorationScript";
             this.txtRestorationScript.Size = new System.Drawing.Size(382, 20);
             this.txtRestorationScript.TabIndex = 10;
@@ -1369,7 +1370,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 113);
+            this.label20.Location = new System.Drawing.Point(9, 83);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(116, 13);
             this.label20.TabIndex = 9;
@@ -1390,10 +1391,10 @@
             // 
             this.cmdBrowseForWarningCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(521, 31);
+            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(521, 25);
             this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
             this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 4;
+            this.cmdBrowseForWarningCorrectiveScript.TabIndex = 5;
             this.cmdBrowseForWarningCorrectiveScript.Text = "- - -";
             this.cmdBrowseForWarningCorrectiveScript.UseVisualStyleBackColor = true;
             this.cmdBrowseForWarningCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForWarningCorrectiveScript_Click);
@@ -1412,20 +1413,20 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 36);
+            this.label7.Location = new System.Drawing.Point(9, 30);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 13);
-            this.label7.TabIndex = 2;
+            this.label7.TabIndex = 3;
             this.label7.Text = "On Warning";
             // 
             // cmdBrowseForErrorCorrectiveScript
             // 
             this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(521, 57);
+            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(521, 51);
             this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
             this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 7;
+            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 8;
             this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
             this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
             this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
@@ -1436,10 +1437,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCorrectiveScriptOnWarning.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtCorrectiveScriptOnWarning.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 33);
+            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 27);
             this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
             this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(382, 20);
-            this.txtCorrectiveScriptOnWarning.TabIndex = 3;
+            this.txtCorrectiveScriptOnWarning.TabIndex = 4;
             // 
             // txtCorrectiveScriptOnError
             // 
@@ -1447,18 +1448,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCorrectiveScriptOnError.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtCorrectiveScriptOnError.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 59);
+            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 53);
             this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
             this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(382, 20);
-            this.txtCorrectiveScriptOnError.TabIndex = 6;
+            this.txtCorrectiveScriptOnError.TabIndex = 7;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 62);
+            this.label12.Location = new System.Drawing.Point(9, 56);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 5;
+            this.label12.TabIndex = 6;
             this.label12.Text = "On Error";
             // 
             // alertSuppressionGroupBox
