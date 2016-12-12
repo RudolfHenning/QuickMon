@@ -69,8 +69,10 @@ namespace QuickMon.UI
                         for (int i = thisNotifier.Alerts.Count - 1; i >= 0; i--)
                         {
                             AlertRaised alertRaised = thisNotifier.Alerts[i];
-
-                            rtfBuilder.Append(string.Format("{0}:", alertRaised.RaisedTime.ToString("yyyy-MM-dd HH:mm:ss"))).FontStyle(FontStyle.Bold);
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("***** ALERT *****");
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
+                            rtfBuilder.Append(string.Format("{0}:", alertRaised.RaisedTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                            rtfBuilder.AppendLine().FontStyle(FontStyle.Bold).Append("Alert Level: ");
                             if (alertRaised.Level == AlertLevel.Error)
                             {
                                 rtfBuilder.ForeColor(Color.DarkRed);
@@ -88,8 +90,21 @@ namespace QuickMon.UI
                             else if (alertRaised.RaisedFor.EnableRemoteExecute)
                                 viaHost = string.Format("(via {0}:{1})", alertRaised.RaisedFor.RemoteAgentHostAddress, alertRaised.RaisedFor.RemoteAgentHostPort);
 
-                            rtfBuilder.Append(string.Format("\r\nCollector:{0} {1}\r\n{2}", alertRaised.RaisedFor.Name, viaHost, alertRaised.MessageRaw));
-                            rtfBuilder.AppendLine();
+                            rtfBuilder.AppendLine().FontStyle(FontStyle.Bold).Append("Collector: ");
+                            rtfBuilder.AppendLine(alertRaised.RaisedFor.Name);
+                            if (viaHost != null && viaHost.Length > 0)
+                            {
+                                rtfBuilder.FontStyle(FontStyle.Bold).Append("Via: ");
+                                rtfBuilder.AppendLine(viaHost);
+                            }
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Alert details: ");
+                            string rawMsg = alertRaised.MessageRaw.TrimEnd('\r', '\n');
+                            rawMsg = "\t" + rawMsg.Replace("\r\n", "\r\n\t");
+                            rtfBuilder.Append(rawMsg);
+
+                            //rtfBuilder.Append(string.Format("{0} {1}\r\n{2}", alertRaised.RaisedFor.Name, viaHost, alertRaised.MessageRaw));
+
+                            rtfBuilder.Append(new string('-', 50)).AppendLine();
                         }
                     }
                     alertsRichTextBox.Rtf = rtfBuilder.ToString();
