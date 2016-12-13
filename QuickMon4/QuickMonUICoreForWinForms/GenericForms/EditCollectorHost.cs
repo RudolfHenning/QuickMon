@@ -38,6 +38,7 @@ namespace QuickMon
         #endregion
 
         private CollectorHost editingCollectorHost = new CollectorHost();
+        private int previousSelectedAlertTextIndex = -1;
 
         public DialogResult ShowDialog(CollectorHost ch, MonitorPack hostingMonitorPack = null)
         {
@@ -61,6 +62,7 @@ namespace QuickMon
                 {
                     editingCollectorHost = CollectorHost.FromXml(SelectedConfig, null, false);
                 }
+
                 cboTextType.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -117,9 +119,12 @@ namespace QuickMon
                 {
                     cboRemoteAgentServer.Items.AddRange(KnownRemoteHosts.ToArray());
                 }
+                cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;                
                 remoteportNumericUpDown.SaveValueSet(editingCollectorHost.RemoteAgentHostPort);
+                remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
                 chkBlockParentRHOverride.Checked = editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings;
                 chkRunLocalOnRemoteHostConnectionFailure.Checked = editingCollectorHost.RunLocalOnRemoteHostConnectionFailure;
+                chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
                 if (editingCollectorHost.ServiceWindows != null)
                     linkLabelServiceWindows.Text = editingCollectorHost.ServiceWindows.ToString();
                 else
@@ -139,6 +144,7 @@ namespace QuickMon
                 txtRestorationScript.Text = editingCollectorHost.RestorationScriptPath;
                 chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
                 txtRunAs.Text = editingCollectorHost.RunAs;
+                txtAdditionalNotes.Text = editingCollectorHost.Notes;
                 cboTextType_SelectedIndexChanged(null, null);
 
                 StringBuilder categories = new StringBuilder();
@@ -166,7 +172,7 @@ namespace QuickMon
             }
             if (HostingMonitorPack != null)
             {
-                txtMonitorPack.Text = string.Format("{0} ({1})", HostingMonitorPack.Name, HostingMonitorPack.MonitorPackPath);
+                //txtMonitorPack.Text = string.Format("{0} ({1})", HostingMonitorPack.Name, HostingMonitorPack.MonitorPackPath);
                 foreach (CollectorHost ce in (from c in HostingMonitorPack.CollectorHosts
                                               where (parentEntry == null && (c.ParentCollectorId == null || c.ParentCollectorId == "")) ||
                                                   (parentEntry != null && parentEntry.UniqueId == c.ParentCollectorId)
@@ -186,7 +192,7 @@ namespace QuickMon
             }
             else
             {
-                txtMonitorPack.Text = "N/A";
+                //txtMonitorPack.Text = "N/A";
                 cboParentCollector.Enabled = false;
             }
         }
@@ -237,6 +243,7 @@ namespace QuickMon
             cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             chkBlockParentRHOverride.Enabled = !chkRemoteAgentEnabled.Checked;
+            chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
             if (chkRemoteAgentEnabled.Checked)
                 chkBlockParentRHOverride.Checked = false;
             CheckOkEnabled();            
@@ -1128,6 +1135,7 @@ namespace QuickMon
                 editingCollectorHost.Enabled = chkEnabled.Checked;
                 editingCollectorHost.ExpandOnStartOption = (ExpandOnStartOption)cboExpandOnStartOption.SelectedIndex;// chkExpandOnStart.Checked;
                 editingCollectorHost.AgentCheckSequence = (AgentCheckSequence)agentCheckSequenceToolStripComboBox.SelectedIndex;
+                editingCollectorHost.Notes = txtAdditionalNotes.Text;
 
                 if (cboParentCollector.SelectedIndex > 0)
                 {
@@ -1364,20 +1372,16 @@ namespace QuickMon
         private void cmdSetNoteText_Click(object sender, EventArgs e)
         {
             if (cboTextType.SelectedIndex == 0)
-                editingCollectorHost.Notes = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 1)
                 editingCollectorHost.AlertHeaderText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 2)
+            else if (cboTextType.SelectedIndex == 1)
                 editingCollectorHost.AlertFooterText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 3)
+            else if (cboTextType.SelectedIndex == 2)
                 editingCollectorHost.ErrorAlertText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 4)
+            else if (cboTextType.SelectedIndex == 3)
                 editingCollectorHost.WarningAlertText = txtNotesText.Text;
-            else if (cboTextType.SelectedIndex == 5)
+            else if (cboTextType.SelectedIndex == 4)
                 editingCollectorHost.GoodAlertText = txtNotesText.Text;
-            else
-                editingCollectorHost.Notes = txtNotesText.Text;
-            lblNoteTextChangeIndicator.Text = "Text";
+            lblNoteTextChangeIndicator.Text = "Alert Texts";
             cmdSetNoteText.Enabled = false;
         }
         #endregion
@@ -1441,27 +1445,43 @@ namespace QuickMon
         }
         private void cboTextType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (previousSelectedAlertTextIndex >= 0)
+            {
+                if (previousSelectedAlertTextIndex == 0)
+                    editingCollectorHost.AlertHeaderText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 1)
+                    editingCollectorHost.AlertFooterText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 2)
+                    editingCollectorHost.ErrorAlertText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 3)
+                    editingCollectorHost.WarningAlertText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 4)
+                    editingCollectorHost.GoodAlertText = txtNotesText.Text;
+            }
+            
             if (cboTextType.SelectedIndex == 0)
-                txtNotesText.Text = editingCollectorHost.Notes;
-            else if (cboTextType.SelectedIndex == 1)
                 txtNotesText.Text = editingCollectorHost.AlertHeaderText;
-            else if (cboTextType.SelectedIndex == 2)
+            else if (cboTextType.SelectedIndex == 1)
                 txtNotesText.Text = editingCollectorHost.AlertFooterText;
-            else if (cboTextType.SelectedIndex == 3)
+            else if (cboTextType.SelectedIndex == 2)
                 txtNotesText.Text = editingCollectorHost.ErrorAlertText;
-            else if (cboTextType.SelectedIndex == 4)
+            else if (cboTextType.SelectedIndex == 3)
                 txtNotesText.Text = editingCollectorHost.WarningAlertText;
-            else if (cboTextType.SelectedIndex == 5)
+            else if (cboTextType.SelectedIndex == 4)
                 txtNotesText.Text = editingCollectorHost.GoodAlertText;
-            else
-                txtNotesText.Text = editingCollectorHost.Notes;
-            lblNoteTextChangeIndicator.Text = "Text";
-            cmdSetNoteText.Enabled = false; 
+            lblNoteTextChangeIndicator.Text = "Alert Texts";
+            cmdSetNoteText.Enabled = false;
+            previousSelectedAlertTextIndex = cboTextType.SelectedIndex;
         }
         private void txtNotesText_TextChanged(object sender, EventArgs e)
         {
-            lblNoteTextChangeIndicator.Text = "Text*";
+            lblNoteTextChangeIndicator.Text = "Alert Texts*";
             cmdSetNoteText.Enabled = true;
+        }
+
+        private void cboTextType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
         }
              
     }
