@@ -896,6 +896,36 @@ namespace QuickMon.Forms
             UpdateDetailViewTable(lvwActionScripts);
         }
 
+        private void lvwActionScripts_DoubleClick(object sender, EventArgs e)
+        {
+            Run(false);
+        }
+
+        private void runWithPauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Run(true);
+        }
+
+        private void Run(bool withPause)
+        {
+            if (lvwActionScripts.SelectedItems.Count == 1 && lvwActionScripts.SelectedItems[0].Tag is ActionScript)
+            {
+                ActionScript selectedScript = (ActionScript)lvwActionScripts.SelectedItems[0].Tag;
+                try
+                {
+                    selectedScript.Run(withPause);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void runActionScriptToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Run(false);
+        }
 
     }
 }

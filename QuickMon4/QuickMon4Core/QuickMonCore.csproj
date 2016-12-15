@@ -97,6 +97,7 @@
     <Compile Include="Enums\QuickMonDialogResult.cs" />
     <Compile Include="Enums\ScriptType.cs" />
     <Compile Include="Enums\TemplateType.cs" />
+    <Compile Include="Enums\WindowSizeStyle.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Interfaces\IAgent.cs" />
     <Compile Include="Interfaces\IAgentConfig.cs" />
