@@ -128,7 +128,7 @@ namespace QuickMon
             if (correctiveScriptsNode != null)
             {
                 newCollectorHost.CorrectiveScriptDisabled = !(correctiveScriptsNode.ReadXmlElementAttr("enabled", true));
-                newCollectorHost.CorrectiveScriptsOnlyOnStateChange = xmlCollectorEntry.ReadXmlElementAttr("onlyOnStateChange", false);
+                newCollectorHost.CorrectiveScriptsOnlyOnStateChange = correctiveScriptsNode.ReadXmlElementAttr("onlyOnStateChange", true);
                 XmlNode warningCorrectiveScriptsNode = correctiveScriptsNode.SelectSingleNode("warning");
                 if (warningCorrectiveScriptsNode != null)
                 {

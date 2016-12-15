@@ -41,5 +41,41 @@ namespace QuickMon
             }
             return list;
         }
+
+        public static List<string> ParseStringToCSV(this string csvText, params char[] separator)
+        {
+            List<string> tokens = new List<string>();
+
+            if (separator == null || separator.Length == 0)
+                separator = new char[] { ',' };
+
+            int last = -1;
+            int current = 0;
+            bool inText = false;
+
+            while (current < csvText.Length)
+            {
+                if (csvText[current] == '"')
+                {
+                    inText = !inText;
+                }
+                else if (separator.Contains(csvText[current]))
+                {
+                    if (!inText)
+                    {
+                        tokens.Add(csvText.Substring(last + 1, (current - last)).Trim(' ', ','));
+                        last = current;
+                    }
+                }
+                current++;
+            }
+
+            if (last != csvText.Length - 1)
+            {
+                tokens.Add(csvText.Substring(last + 1).Trim());
+            }
+
+            return tokens;
+        }
     }
 }

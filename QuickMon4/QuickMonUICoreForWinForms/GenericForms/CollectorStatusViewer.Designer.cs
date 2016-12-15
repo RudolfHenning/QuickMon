@@ -61,7 +61,7 @@
             this.lvwProperties = new QuickMon.ListViewEx();
             this.propertyNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageHistory = new System.Windows.Forms.TabPage();
             this.lvwHistory = new QuickMon.ListViewEx();
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,6 +70,11 @@
             this.alertsRaisedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.executedOncolumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPageActionScripts = new System.Windows.Forms.TabPage();
+            this.lvwActionScripts = new QuickMon.ListViewEx();
+            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdViewDetails = new System.Windows.Forms.Button();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -91,7 +96,8 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.currentStatusTabPage2.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageHistory.SuspendLayout();
+            this.tabPageActionScripts.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -204,7 +210,8 @@
             // 
             this.tabControl1.Controls.Add(this.currentStatusTabPage);
             this.tabControl1.Controls.Add(this.currentStatusTabPage2);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageHistory);
+            this.tabControl1.Controls.Add(this.tabPageActionScripts);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -441,16 +448,16 @@
             this.valueColumnHeader.Text = "Value";
             this.valueColumnHeader.Width = 205;
             // 
-            // tabPage2
+            // tabPageHistory
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.White;
-            this.tabPage2.Controls.Add(this.lvwHistory);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(568, 204);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "History";
+            this.tabPageHistory.BackColor = System.Drawing.Color.White;
+            this.tabPageHistory.Controls.Add(this.lvwHistory);
+            this.tabPageHistory.Location = new System.Drawing.Point(4, 22);
+            this.tabPageHistory.Name = "tabPageHistory";
+            this.tabPageHistory.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHistory.Size = new System.Drawing.Size(568, 204);
+            this.tabPageHistory.TabIndex = 1;
+            this.tabPageHistory.Text = "History";
             // 
             // lvwHistory
             // 
@@ -511,6 +518,50 @@
             // 
             this.ranAsColumnHeader.Text = "Ran as";
             this.ranAsColumnHeader.Width = 90;
+            // 
+            // tabPageActionScripts
+            // 
+            this.tabPageActionScripts.Controls.Add(this.lvwActionScripts);
+            this.tabPageActionScripts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageActionScripts.Name = "tabPageActionScripts";
+            this.tabPageActionScripts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageActionScripts.Size = new System.Drawing.Size(568, 204);
+            this.tabPageActionScripts.TabIndex = 4;
+            this.tabPageActionScripts.Text = "Action scripts";
+            this.tabPageActionScripts.UseVisualStyleBackColor = true;
+            // 
+            // lvwActionScripts
+            // 
+            this.lvwActionScripts.AutoResizeColumnEnabled = false;
+            this.lvwActionScripts.AutoResizeColumnIndex = 2;
+            this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.actionScriptNameColumnHeader,
+            this.columnHeader2,
+            this.columnHeader1});
+            this.lvwActionScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwActionScripts.FullRowSelect = true;
+            this.lvwActionScripts.Location = new System.Drawing.Point(3, 3);
+            this.lvwActionScripts.Name = "lvwActionScripts";
+            this.lvwActionScripts.Size = new System.Drawing.Size(562, 198);
+            this.lvwActionScripts.TabIndex = 3;
+            this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
+            this.lvwActionScripts.View = System.Windows.Forms.View.Details;
+            this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
+            // 
+            // actionScriptNameColumnHeader
+            // 
+            this.actionScriptNameColumnHeader.Text = "Name";
+            this.actionScriptNameColumnHeader.Width = 226;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 99;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Description";
+            this.columnHeader1.Width = 204;
             // 
             // cmdViewDetails
             // 
@@ -615,7 +666,8 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
             this.currentStatusTabPage2.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.tabPageHistory.ResumeLayout(false);
+            this.tabPageActionScripts.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -629,7 +681,7 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage currentStatusTabPage2;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageHistory;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button cmdViewDetails;
         private System.Windows.Forms.RichTextBox rtxDetails;
@@ -671,5 +723,10 @@
         private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
         private System.Windows.Forms.CheckBox chkAutoRefresh;
         private System.Windows.Forms.Timer autoRefreshTimer;
+        private System.Windows.Forms.TabPage tabPageActionScripts;
+        private ListViewEx lvwActionScripts;
+        private System.Windows.Forms.ColumnHeader actionScriptNameColumnHeader;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
