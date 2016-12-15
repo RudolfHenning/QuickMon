@@ -64,6 +64,7 @@ namespace QuickMon
                 }
 
                 cboTextType.SelectedIndex = 0;
+                lvwActionScripts.AutoResizeColumnEnabled = true;
             }
             catch (Exception ex)
             {
@@ -160,7 +161,23 @@ namespace QuickMon
                 LoadConfigVars();
                 LoadAgents();
                 LoadParentCollectorList();
+                LoadActionScripts();
                 CheckOkEnabled();
+            }
+        }
+
+        private void LoadActionScripts()
+        {
+            lvwActionScripts.Items.Clear();
+            foreach (ActionScript actionScript in (from ActionScript a in editingCollectorHost.ActionScripts
+                                                   orderby a.Name
+                                                   select a))
+            {
+                ListViewItem lvi = new ListViewItem(actionScript.Name);
+                lvi.SubItems.Add(actionScript.ScriptType.ToString());
+                lvi.SubItems.Add(actionScript.Description);
+                lvi.Tag = actionScript;
+                lvwActionScripts.Items.Add(lvi);
             }
         }
         private void LoadParentCollectorList(CollectorHost parentEntry = null, int indent = 0)
@@ -1482,6 +1499,49 @@ namespace QuickMon
         private void cboTextType_SelectedValueChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            editActionScriptToolStripButton.Enabled = lvwActionScripts.SelectedItems.Count == 1;
+            deleteActionScriptToolStripButton.Enabled = lvwActionScripts.SelectedItems.Count > 0;
+        }
+
+        private void addActionScriptToolStripButton_Click(object sender, EventArgs e)
+        {
+            EditActionScript editActionScript = new EditActionScript();
+            if (editActionScript.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                editingCollectorHost.ActionScripts.Add(editActionScript.SelectedActionScript);
+                LoadActionScripts();
+            }
+        }
+
+        private void editActionScriptToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (lvwActionScripts.SelectedItems.Count == 1)
+            {
+                EditActionScript editActionScript = new EditActionScript();
+                editActionScript.SelectedActionScript = (ActionScript)lvwActionScripts.SelectedItems[0].Tag;
+                if (editActionScript.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    lvwActionScripts.SelectedItems[0].Text = editActionScript.SelectedActionScript.Name;
+                    lvwActionScripts.SelectedItems[0].SubItems[1].Text = editActionScript.SelectedActionScript.ScriptType.ToString();
+                    lvwActionScripts.SelectedItems[0].SubItems[2].Text = editActionScript.SelectedActionScript.Description;
+                }
+            }
+        }
+
+        private void deleteActionScriptToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the seleted entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                foreach (ListViewItem lvi in lvwActionScripts.SelectedItems)
+                {
+                    editingCollectorHost.ActionScripts.Remove((ActionScript)lvwActionScripts.SelectedItems[0].Tag);
+                }
+                LoadActionScripts();
+            }
         }
              
     }

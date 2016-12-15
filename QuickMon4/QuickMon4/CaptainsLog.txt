@@ -122,6 +122,7 @@ Version 4.4.0 - in progress
 	Latest values/states stored in data file so last state/values can be viewed offline even when MP is not running.
 	
 
+
 =================================================================================================================================================
 Improvement ideas
   CORE
@@ -145,6 +146,10 @@ Improvement ideas
 	  SQL notifier must be updated to contain more details of newer functionality since it was first created.
 	  Collector agent types in config must use fully qualified class name so agent types with same class name (but different namespaces) are possible.
 	    Default namespace could be changed to QuickMon.Core.xxx
+	  Corrective scripts
+	    Setting to suppress running same script in X seconds (stop it running too often)
+		Execution of Corrective scripts must be handled by the Core MP engine - and not client assembly. 
+		  Might have to add another 'impersonation' level - specify user account to run under which could be different than run as account (or not)
 
   UI improvements
 	Recent monitor pack list - group by Type option. Perhaps also quick drop down list on main window...
@@ -156,6 +161,7 @@ Improvement ideas
     Optional 'Alert view' window where only collectors in specified state are displayed.
 	Save/export config of pack/collector/notifier/agent to template
 	corrective script value in xml config  must change to be element text - not attribute. So it can contain special chars and perhaps be a real 'script' with multiple commands.
+	Detail history must include CURRENT record as well (Collector Status Viewer)
 
   FUTURE WILD IDEAS
 	  Status viewer - must be simplified so default view show what status text box show (might need redesign of MonitorState structure to store state of each component)

@@ -2760,7 +2760,16 @@ namespace QuickMon
                 {
                     scriptPath = Environment.ExpandEnvironmentVariables(scriptPath);
                 }
-                if (scriptPath.ToLower().Contains(".ps1"))
+
+                List<string> scriptTokens = scriptPath.ParseStringToCSV(' ');
+                if (scriptTokens == null)
+                {
+                    scriptTokens = new List<string>();
+                    scriptTokens.Add(scriptPath);
+                }
+
+
+                if (scriptPath.TrimEnd('"').ToLower().EndsWith(".ps1") || (scriptTokens != null && scriptTokens[0].TrimEnd('"').ToLower().EndsWith(".ps1") )) //scriptPath.ParseStringToCSV()[0].EndsWith(".ps1", StringComparison.InvariantCultureIgnoreCase)) // 
                 {
                     RunPSScript(scriptPath);
                 }
@@ -2768,21 +2777,30 @@ namespace QuickMon
                 {
                     string commandStr = scriptPath;
                     string parameters = "";
+                    if (scriptTokens != null)
+                    {
+                        commandStr = scriptTokens[0];
+                        for (int i = 1; i < scriptTokens.Count; i++)
+                            parameters += scriptTokens[i] + " ";
+                        parameters = parameters.TrimEnd();
+                    }
+                    
+                    
                     Process p = new Process();                    
 
-                    if (!System.IO.File.Exists(scriptPath) && scriptPath.Contains(' ')) 
-                    {
-                        if (scriptPath.StartsWith("\"") && scriptPath.Substring(1).Contains('"'))
-                        {
-                            commandStr = scriptPath.Substring(1, scriptPath.IndexOf('"', 1) - 1);
-                            parameters = scriptPath.Substring(scriptPath.IndexOf('"', 1) + 1).Trim();
-                        }
-                        else
-                        {
-                            commandStr = scriptPath.Substring(0, scriptPath.IndexOf(' '));
-                            parameters = scriptPath.Substring(scriptPath.IndexOf(' ') + 1).Trim();
-                        }
-                    }
+                    //if (!System.IO.File.Exists(scriptPath) && scriptPath.Contains(' ')) 
+                    //{
+                    //    if (scriptPath.StartsWith("\"") && scriptPath.Substring(1).Contains('"'))
+                    //    {
+                    //        commandStr = scriptPath.Substring(1, scriptPath.IndexOf('"', 1) - 1);
+                    //        parameters = scriptPath.Substring(scriptPath.IndexOf('"', 1) + 1).Trim();
+                    //    }
+                    //    else
+                    //    {
+                    //        commandStr = scriptPath.Substring(0, scriptPath.IndexOf(' '));
+                    //        parameters = scriptPath.Substring(scriptPath.IndexOf(' ') + 1).Trim();
+                    //    }
+                    //}
 
                     p.StartInfo = new ProcessStartInfo(commandStr, parameters);
                     p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -2823,7 +2841,7 @@ namespace QuickMon
             {
                 Process p = new Process();
                 p.StartInfo = new ProcessStartInfo(psExe);
-                p.StartInfo.Arguments = testScript;
+                p.StartInfo.Arguments = "-f " + testScript;
                 p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 p.Start();
             }

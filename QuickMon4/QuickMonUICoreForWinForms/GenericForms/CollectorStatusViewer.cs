@@ -275,18 +275,24 @@ namespace QuickMon.Forms
                 if (tabControl1.SelectedTab == currentStatusTabPage)
                 {
                     UpdateAgentsDetailView();
-                    if (agentsTabControl.SelectedTab ==  agentDetaildataTabPage )
+                    if (agentsTabControl.SelectedTab == agentDetaildataTabPage)
                     {
                         RefreshAgentsDetailsData();
                     }
                 }
                 else if (tabControl1.SelectedTab == currentStatusTabPage2)
                     UpdateDetailView(lvwProperties);
+                else if (tabControl1.SelectedTab == tabPageHistory)
+                    UpdateDetailViewHistory();
+                else if (tabControl1.SelectedTab == tabPageActionScripts)
+                    UpdateDetailViewTable(lvwActionScripts);
                 summaryToolStripStatusLabel.Text = "Last updated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                
+                LoadActionScripts();
             }
         }
+
+
 
         private List<string> ReadValues(MonitorState monitorState)
         {
@@ -446,6 +452,13 @@ namespace QuickMon.Forms
         {
             ListViewItem lvi;
             int totalAlertsRaised = 0;
+            MonitorState previousSelectedhistoryItem = null;
+
+            if (lvwHistory.Items != null && lvwHistory.Items.Count > 0 && lvwHistory.SelectedItems.Count > 0)
+            {
+                previousSelectedhistoryItem = (MonitorState)lvwHistory.SelectedItems[0].Tag;
+            }
+
             lvwHistory.Items.Clear();
             lvwHistory.BeginUpdate();
             try
@@ -475,6 +488,8 @@ namespace QuickMon.Forms
                             lvi.ImageIndex = 0;
                         lvi.Tag = historyItem;
                         lvwHistory.Items.Add(lvi);
+                        if (previousSelectedhistoryItem != null && previousSelectedhistoryItem.Timestamp == historyItem.Timestamp)
+                            lvi.Selected = true;
                     }
                 }
             }
@@ -775,7 +790,75 @@ namespace QuickMon.Forms
                     Cursor.Current = Cursors.Default;
                 }
             }
-        } 
+        }
+        private void LoadActionScripts()
+        {
+            lvwActionScripts.Items.Clear();
+            if (SelectedCollectorHost != null)
+            {
+                foreach (ActionScript actionScript in (from ActionScript a in SelectedCollectorHost.ActionScripts
+                                                       orderby a.Name
+                                                       select a))
+                {
+                    ListViewItem lvi = new ListViewItem(actionScript.Name);
+                    lvi.SubItems.Add(actionScript.ScriptType.ToString());
+                    lvi.SubItems.Add(actionScript.Description);
+                    lvi.Tag = actionScript;
+                    lvwActionScripts.Items.Add(lvi);
+                }
+            }
+        }
+        private void UpdateActionScriptDetailView()
+        {
+            try
+            {
+                RTFBuilder rtfBuilder = new RTFBuilder();
+                ListViewEx currentListView;
+                currentListView = lvwActionScripts;
+                if (currentListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem lvi in currentListView.SelectedItems)
+                    {
+                        if (lvi.Tag is MonitorState)
+                        {
+                            MonitorState historyItem = (MonitorState)lvi.Tag;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
+                            rtfBuilder.AppendLine(lvi.Text);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[1].Text);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[2].Text + " ms");
+                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[3].Text.TrimEnd('\r', '\n'));
+
+                            if (historyItem.AlertsRaised.Count > 0)
+                            {
+                                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Alerts: ");
+                                foreach (string alertEntry in historyItem.AlertsRaised)
+                                {
+                                    rtfBuilder.AppendLine("  " + alertEntry);
+                                }
+                            }
+
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[5].Text);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ");
+                            rtfBuilder.AppendLine(lvi.SubItems[6].Text);
+
+                            rtfBuilder.AppendLine(new string('-', 80));
+                        }
+                    }
+                }
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         private void dtvc_ListSelectedIndexChanged(object sender, EventArgs e)
@@ -806,6 +889,11 @@ namespace QuickMon.Forms
             {
                 RefreshStats();
             }
+        }
+
+        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDetailViewTable(lvwActionScripts);
         }
 
 

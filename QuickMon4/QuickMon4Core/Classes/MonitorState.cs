@@ -251,14 +251,14 @@ namespace QuickMon
             {
                 foreach (MonitorState ms in ChildStates)
                 {
-                    sb.Append(ms.ReadAllRawDetails(linePaddingChar, linePaddingRepeat));
+                    sb.AppendLine(ms.ReadAllRawDetails(linePaddingChar, linePaddingRepeat));
                 }
             }    
             if (AlertFooter != null && AlertFooter.Trim().Length > 0)
             {
                 sb.AppendLine(new string(linePaddingChar, linePaddingRepeat) + AlertFooter);
             }
-            return sb.ToString();
+            return sb.ToString().TrimEnd();
         }
         public string ReadAllHtmlDetails()
         {

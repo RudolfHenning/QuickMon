@@ -203,6 +203,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WinFormUtils.cs" />
+    <Compile Include="GenericForms\EditActionScript.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\EditActionScript.Designer.cs">
+      <DependentUpon>EditActionScript.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\EditCollectorAgentEntries.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -406,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeListView\TreeListView.resx">
       <DependentUpon>TreeListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\EditActionScript.resx">
+      <DependentUpon>EditActionScript.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\EditCollectorAgentEntries.resx">
       <DependentUpon>EditCollectorAgentEntries.cs</DependentUpon>
