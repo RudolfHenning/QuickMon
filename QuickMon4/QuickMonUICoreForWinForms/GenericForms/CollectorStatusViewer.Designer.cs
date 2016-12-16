@@ -75,15 +75,15 @@
             this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.runActionScriptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.runWithPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmdViewDetails = new System.Windows.Forms.Button();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.summaryToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.chkAutoRefresh = new System.Windows.Forms.CheckBox();
             this.autoRefreshTimer = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.runActionScriptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.runWithPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -101,8 +101,8 @@
             this.currentStatusTabPage2.SuspendLayout();
             this.tabPageHistory.SuspendLayout();
             this.tabPageActionScripts.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -551,6 +551,7 @@
             this.lvwActionScripts.TabIndex = 3;
             this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
             this.lvwActionScripts.View = System.Windows.Forms.View.Details;
+            this.lvwActionScripts.EnterKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwActionScripts_EnterKeyPressed);
             this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
             this.lvwActionScripts.DoubleClick += new System.EventHandler(this.lvwActionScripts_DoubleClick);
             // 
@@ -568,6 +569,30 @@
             // 
             this.columnHeader1.Text = "Description";
             this.columnHeader1.Width = 204;
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.runActionScriptToolStripMenuItem1,
+            this.runWithPauseToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip1";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(156, 48);
+            // 
+            // runActionScriptToolStripMenuItem1
+            // 
+            this.runActionScriptToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.lightbulb;
+            this.runActionScriptToolStripMenuItem1.Name = "runActionScriptToolStripMenuItem1";
+            this.runActionScriptToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
+            this.runActionScriptToolStripMenuItem1.Text = "Run";
+            this.runActionScriptToolStripMenuItem1.Click += new System.EventHandler(this.runActionScriptToolStripMenuItem1_Click);
+            // 
+            // runWithPauseToolStripMenuItem
+            // 
+            this.runWithPauseToolStripMenuItem.Image = global::QuickMon.Properties.Resources.lightbulb_off;
+            this.runWithPauseToolStripMenuItem.Name = "runWithPauseToolStripMenuItem";
+            this.runWithPauseToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.runWithPauseToolStripMenuItem.Text = "Run with Pause";
+            this.runWithPauseToolStripMenuItem.Click += new System.EventHandler(this.runWithPauseToolStripMenuItem_Click);
             // 
             // cmdViewDetails
             // 
@@ -632,30 +657,6 @@
             this.autoRefreshTimer.Interval = 30000;
             this.autoRefreshTimer.Tick += new System.EventHandler(this.autoRefreshTimer_Tick);
             // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runActionScriptToolStripMenuItem1,
-            this.runWithPauseToolStripMenuItem});
-            this.contextMenuStrip2.Name = "contextMenuStrip1";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(156, 70);
-            // 
-            // runActionScriptToolStripMenuItem1
-            // 
-            this.runActionScriptToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.lightbulb;
-            this.runActionScriptToolStripMenuItem1.Name = "runActionScriptToolStripMenuItem1";
-            this.runActionScriptToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
-            this.runActionScriptToolStripMenuItem1.Text = "Run";
-            this.runActionScriptToolStripMenuItem1.Click += new System.EventHandler(this.runActionScriptToolStripMenuItem1_Click);
-            // 
-            // runWithPauseToolStripMenuItem
-            // 
-            this.runWithPauseToolStripMenuItem.Image = global::QuickMon.Properties.Resources.lightbulb_off;
-            this.runWithPauseToolStripMenuItem.Name = "runWithPauseToolStripMenuItem";
-            this.runWithPauseToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.runWithPauseToolStripMenuItem.Text = "Run with Pause";
-            this.runWithPauseToolStripMenuItem.Click += new System.EventHandler(this.runWithPauseToolStripMenuItem_Click);
-            // 
             // CollectorStatusViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -698,9 +699,9 @@
             this.currentStatusTabPage2.ResumeLayout(false);
             this.tabPageHistory.ResumeLayout(false);
             this.tabPageActionScripts.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
