@@ -814,46 +814,31 @@ namespace QuickMon.Forms
             try
             {
                 RTFBuilder rtfBuilder = new RTFBuilder();
-                ListViewEx currentListView;
-                currentListView = lvwActionScripts;
-                if (currentListView.SelectedItems.Count > 0)
+                int maxlen = 35;
+                foreach (ColumnHeader col in lvwActionScripts.Columns)
                 {
-                    foreach (ListViewItem lvi in currentListView.SelectedItems)
-                    {
-                        if (lvi.Tag is MonitorState)
-                        {
-                            MonitorState historyItem = (MonitorState)lvi.Tag;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ");
-                            rtfBuilder.AppendLine(lvi.Text);
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ");
-                            rtfBuilder.AppendLine(lvi.SubItems[1].Text);
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Duration: ");
-                            rtfBuilder.AppendLine(lvi.SubItems[2].Text + " ms");
-                            rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Details: ");
-                            rtfBuilder.AppendLine(lvi.SubItems[3].Text.TrimEnd('\r', '\n'));
-
-                            if (historyItem.AlertsRaised.Count > 0)
-                            {
-                                rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Alerts: ");
-                                foreach (string alertEntry in historyItem.AlertsRaised)
-                                {
-                                    rtfBuilder.AppendLine("  " + alertEntry);
-                                }
-                            }
-
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Executed on: ");
-                            rtfBuilder.AppendLine(lvi.SubItems[5].Text);
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Ran as: ");
-                            rtfBuilder.AppendLine(lvi.SubItems[6].Text);
-
-                            rtfBuilder.AppendLine(new string('-', 80));
-                        }
-                    }
+                    if (col.Text.Length + 2 > maxlen)
+                        maxlen = col.Text.Length + 2;
                 }
+                foreach (ListViewItem lvi in lvwActionScripts.SelectedItems)
+                {
+                    ActionScript actionScript = (ActionScript)lvi.Tag;
+                    rtfBuilder.FontStyle(FontStyle.Bold).Append("Name: ");
+                    rtfBuilder.AppendLine(" " + actionScript.Name.Replace("\r\n", "\r\n "));
+                    rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ");
+                    rtfBuilder.AppendLine(" " + actionScript.ScriptType.ToString().Replace("\r\n", "\r\n "));
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Description");
+                    rtfBuilder.AppendLine(" " + actionScript.Description.Replace("\r\n", "\r\n "));
+                    rtfBuilder.FontStyle(FontStyle.Bold).AppendLine("Script");
+                    rtfBuilder.AppendLine(" " + actionScript.Script.Replace("\r\n", "\r\n ").TrimEnd(' ', '\r', '\n'));
+                    rtfBuilder.AppendLine(new string('-', 80));
+                }
+
                 rtxDetails.Rtf = rtfBuilder.ToString();
                 rtxDetails.SelectionStart = 0;
                 rtxDetails.SelectionLength = 0;
                 rtxDetails.ScrollToCaret();
+
             }
             catch (Exception ex)
             {
@@ -894,7 +879,8 @@ namespace QuickMon.Forms
 
         private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateDetailViewTable(lvwActionScripts);
+            UpdateActionScriptDetailView();
+            //UpdateDetailViewTable(lvwActionScripts);
         }
 
         private void lvwActionScripts_DoubleClick(object sender, EventArgs e)
