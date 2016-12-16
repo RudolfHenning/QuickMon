@@ -33,7 +33,8 @@ namespace QuickMon.Forms
         {
             SnappingEnabled = true;
             lvwProperties.AutoResizeColumnIndex = 1;
-            lvwProperties.AutoResizeColumnEnabled = true;            
+            lvwProperties.AutoResizeColumnEnabled = true;
+            lvwActionScripts.AutoResizeColumnEnabled = true;
             //splitContainer1.Panel2Collapsed = true;
             cmdViewDetails.Text = splitContainer1.Panel2Collapsed ? "ttt" : "uuu";
             if (SelectedCollectorHost != null)
@@ -923,6 +924,11 @@ namespace QuickMon.Forms
         }
 
         private void runActionScriptToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Run(false);
+        }
+
+        private void lvwActionScripts_EnterKeyPressed()
         {
             Run(false);
         }

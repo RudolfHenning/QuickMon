@@ -2185,6 +2185,7 @@
             this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
             this.lvwActionScripts.View = System.Windows.Forms.View.Details;
             this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
+            this.lvwActionScripts.DoubleClick += new System.EventHandler(this.editActionScriptToolStripButton_Click);
             // 
             // actionScriptNameColumnHeader
             // 

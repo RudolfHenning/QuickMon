@@ -42,6 +42,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cboWindowSizeStyle = new System.Windows.Forms.ComboBox();
+            this.chkAdminMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -97,12 +98,14 @@
             // 
             // txtDescription
             // 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(85, 89);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(387, 61);
-            this.txtDescription.TabIndex = 8;
+            this.txtDescription.TabIndex = 9;
             // 
             // label3
             // 
@@ -110,7 +113,7 @@
             this.label3.Location = new System.Drawing.Point(12, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 8;
             this.label3.Text = "Description";
             // 
             // txtScript
@@ -123,7 +126,7 @@
             this.txtScript.Name = "txtScript";
             this.txtScript.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtScript.Size = new System.Drawing.Size(387, 167);
-            this.txtScript.TabIndex = 10;
+            this.txtScript.TabIndex = 11;
             this.txtScript.TextChanged += new System.EventHandler(this.txtScript_TextChanged);
             // 
             // label4
@@ -132,7 +135,7 @@
             this.label4.Location = new System.Drawing.Point(12, 159);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 10;
             this.label4.Text = "Script";
             // 
             // cmdCancel
@@ -143,7 +146,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(397, 329);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 12;
+            this.cmdCancel.TabIndex = 13;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -155,7 +158,7 @@
             this.cmdOK.Location = new System.Drawing.Point(316, 329);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 11;
+            this.cmdOK.TabIndex = 12;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -184,12 +187,24 @@
             this.cboWindowSizeStyle.Size = new System.Drawing.Size(125, 21);
             this.cboWindowSizeStyle.TabIndex = 6;
             // 
+            // chkAdminMode
+            // 
+            this.chkAdminMode.AutoSize = true;
+            this.chkAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkAdminMode.Location = new System.Drawing.Point(216, 64);
+            this.chkAdminMode.Name = "chkAdminMode";
+            this.chkAdminMode.Size = new System.Drawing.Size(116, 17);
+            this.chkAdminMode.TabIndex = 7;
+            this.chkAdminMode.Text = "Run in Admin mode";
+            this.chkAdminMode.UseVisualStyleBackColor = true;
+            // 
             // EditActionScript
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(484, 361);
+            this.Controls.Add(this.chkAdminMode);
             this.Controls.Add(this.cboWindowSizeStyle);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdCancel);
@@ -230,5 +245,6 @@
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cboWindowSizeStyle;
+        private System.Windows.Forms.CheckBox chkAdminMode;
     }
 }

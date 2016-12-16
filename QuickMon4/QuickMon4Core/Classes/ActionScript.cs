@@ -13,6 +13,7 @@ namespace QuickMon
         public string Description { get; set; }
         public string Script { get; set; }
         public WindowSizeStyle WindowSizeStyle { get; set; }
+        public bool RunAdminMode { get; set; }
 
         public string ToXml()
         {
@@ -22,6 +23,7 @@ namespace QuickMon
             xdoc.DocumentElement.SetAttributeValue("type", ScriptType.ToString());
             xdoc.DocumentElement.SetAttributeValue("description", Description);
             xdoc.DocumentElement.SetAttributeValue("windowStyle", WindowSizeStyle.ToString());
+            xdoc.DocumentElement.SetAttributeValue("adminMode", RunAdminMode);
 
             xdoc.DocumentElement.InnerText = Script;
 
@@ -44,6 +46,7 @@ namespace QuickMon
                         script.ScriptType = ScriptTypeConverter.FromString(scriptItem.ReadXmlElementAttr("type", "dos"));
                         script.Description = scriptItem.ReadXmlElementAttr("description", "");
                         script.WindowSizeStyle = WindowSizeStyleConverter.FromString(scriptItem.ReadXmlElementAttr("windowStyle", "normal"));
+                        script.RunAdminMode = scriptItem.ReadXmlElementAttr("adminMode", false);
                         script.Script = scriptItem.InnerText;
                         scripts.Add(script);
                     }
@@ -96,7 +99,8 @@ namespace QuickMon
             else
                 p.StartInfo.WindowStyle = (System.Diagnostics.ProcessWindowStyle)WindowSizeStyle;
             
-            p.StartInfo.Verb = "runas";
+            if (RunAdminMode)
+                p.StartInfo.Verb = "runas";
             p.Start();
         }
     }

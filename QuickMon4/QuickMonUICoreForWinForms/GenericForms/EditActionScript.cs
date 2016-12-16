@@ -26,6 +26,8 @@ namespace QuickMon
             txtName.Text = SelectedActionScript.Name;
             optDOS.Checked = SelectedActionScript.ScriptType == ScriptType.DOS;
             optPowerShell.Checked = SelectedActionScript.ScriptType == ScriptType.PowerShell;
+            cboWindowSizeStyle.SelectedIndex = (int)SelectedActionScript.WindowSizeStyle;
+            chkAdminMode.Checked = SelectedActionScript.RunAdminMode;
             txtDescription.Text = SelectedActionScript.Description;
             txtScript.Text = SelectedActionScript.Script;
         }
@@ -49,6 +51,8 @@ namespace QuickMon
         {
             SelectedActionScript.Name = txtName.Text;
             SelectedActionScript.ScriptType = optDOS.Checked ? ScriptType.DOS : ScriptType.PowerShell;
+            SelectedActionScript.WindowSizeStyle = (WindowSizeStyle)cboWindowSizeStyle.SelectedIndex;
+            SelectedActionScript.RunAdminMode = chkAdminMode.Checked;
             SelectedActionScript.Description = txtDescription.Text;
             SelectedActionScript.Script = txtScript.Text;
             DialogResult = System.Windows.Forms.DialogResult.OK;
