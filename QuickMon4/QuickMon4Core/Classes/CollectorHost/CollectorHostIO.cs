@@ -695,12 +695,12 @@ namespace QuickMon
             StringBuilder collectorAgentsXml = new StringBuilder();
             collectorAgentsXml.AppendLine(string.Format("<collectorAgents agentCheckSequence=\"{0}\" >", agentCheckSequence));
 
-            foreach (ICollector c in collectorAgents)
+            foreach (RemoteCollectorAgent c in collectorAgents)
             {
-                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
-                System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
-                System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
-                collectorAgentsXml.AppendLine(c.InitialConfiguration);
+                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.TypeName, c.Enabled));
+                System.Diagnostics.Trace.WriteLine("Initial config: " + c.ConfigString);
+                System.Diagnostics.Trace.WriteLine("Applied config: " + c.ConfigString);
+                collectorAgentsXml.AppendLine(c.ConfigString);
                 collectorAgentsXml.AppendLine("</collectorAgent>");
             }
             collectorAgentsXml.AppendLine("</collectorAgents>");
