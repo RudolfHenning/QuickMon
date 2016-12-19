@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("COLLECTORS");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -60,6 +60,8 @@
             this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
             this.mainToolStrip = new QuickMon.Controls.ToolStripEx();
             this.newMonitorPackToolStripMenuItem2 = new System.Windows.Forms.ToolStripButton();
+            this.openMonitorPackToolStripButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.recentMonitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMonitorPackToolStripMenuItem = new System.Windows.Forms.ToolStripSplitButton();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -94,8 +96,6 @@
             this.showCollectorContextMenuTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.showNotifierContextMenuTimer = new System.Windows.Forms.Timer(this.components);
-            this.openMonitorPackToolStripButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.recentMonitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).BeginInit();
             this.masterSplitContainer.Panel1.SuspendLayout();
             this.masterSplitContainer.Panel2.SuspendLayout();
@@ -184,12 +184,12 @@
             this.tvwCollectors.Location = new System.Drawing.Point(10, 5);
             this.tvwCollectors.Margin = new System.Windows.Forms.Padding(5);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.Name = "root";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS";
+            treeNode2.BackColor = System.Drawing.Color.White;
+            treeNode2.Name = "root";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "COLLECTORS";
             this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.ShowRootLines = false;
@@ -283,12 +283,12 @@
             this.tvwNotifiers.Location = new System.Drawing.Point(5, 0);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "root";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "NOTIFIERS";
+            treeNode3.BackColor = System.Drawing.Color.White;
+            treeNode3.Name = "root";
+            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode3.Text = "NOTIFIERS";
             this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode3});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.ShowRootLines = false;
@@ -504,6 +504,28 @@
             this.newMonitorPackToolStripMenuItem2.ToolTipText = "Create new monitor pack (Ctrl + N)";
             this.newMonitorPackToolStripMenuItem2.Click += new System.EventHandler(this.newMonitorPackToolStripMenuItem_Click);
             // 
+            // openMonitorPackToolStripButton
+            // 
+            this.openMonitorPackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openMonitorPackToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recentMonitorPacksToolStripMenuItem});
+            this.openMonitorPackToolStripButton.Image = global::QuickMon.Properties.Resources.folderOpen;
+            this.openMonitorPackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openMonitorPackToolStripButton.Name = "openMonitorPackToolStripButton";
+            this.openMonitorPackToolStripButton.Size = new System.Drawing.Size(44, 32);
+            this.openMonitorPackToolStripButton.Text = "Monitor Pack Actions";
+            this.openMonitorPackToolStripButton.ToolTipText = "Open monitor pack file (Ctrl + O)";
+            this.openMonitorPackToolStripButton.ButtonClick += new System.EventHandler(this.openMonitorPackToolStripButton_Click);
+            // 
+            // recentMonitorPacksToolStripMenuItem
+            // 
+            this.recentMonitorPacksToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderWLightning;
+            this.recentMonitorPacksToolStripMenuItem.Name = "recentMonitorPacksToolStripMenuItem";
+            this.recentMonitorPacksToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.recentMonitorPacksToolStripMenuItem.Size = new System.Drawing.Size(242, 34);
+            this.recentMonitorPacksToolStripMenuItem.Text = "Recent Monitor Packs";
+            this.recentMonitorPacksToolStripMenuItem.Click += new System.EventHandler(this.recentMonitorPackToolStripMenuItem1_Click);
+            // 
             // saveAsMonitorPackToolStripMenuItem
             // 
             this.saveAsMonitorPackToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -522,7 +544,7 @@
             this.saveAsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.save;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(164, 34);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -796,27 +818,6 @@
             // showNotifierContextMenuTimer
             // 
             this.showNotifierContextMenuTimer.Tick += new System.EventHandler(this.showNotifierContextMenuTimer_Tick);
-            // 
-            // openMonitorPackToolStripButton
-            // 
-            this.openMonitorPackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openMonitorPackToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recentMonitorPacksToolStripMenuItem});
-            this.openMonitorPackToolStripButton.Image = global::QuickMon.Properties.Resources.folderOpen;
-            this.openMonitorPackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openMonitorPackToolStripButton.Name = "openMonitorPackToolStripButton";
-            this.openMonitorPackToolStripButton.Size = new System.Drawing.Size(44, 32);
-            this.openMonitorPackToolStripButton.Text = "Monitor Pack Actions";
-            this.openMonitorPackToolStripButton.ToolTipText = "Open monitor pack file (Ctrl + O)";
-            this.openMonitorPackToolStripButton.Click += new System.EventHandler(this.openMonitorPackToolStripButton_Click);
-            // 
-            // recentMonitorPacksToolStripMenuItem
-            // 
-            this.recentMonitorPacksToolStripMenuItem.Image = global::QuickMon.Properties.Resources.folderWLightning;
-            this.recentMonitorPacksToolStripMenuItem.Name = "recentMonitorPacksToolStripMenuItem";
-            this.recentMonitorPacksToolStripMenuItem.Size = new System.Drawing.Size(201, 34);
-            this.recentMonitorPacksToolStripMenuItem.Text = "Recent Monitor Packs";
-            this.recentMonitorPacksToolStripMenuItem.Click += new System.EventHandler(this.recentMonitorPackToolStripMenuItem1_Click);
             // 
             // MainForm
             // 

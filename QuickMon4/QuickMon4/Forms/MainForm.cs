@@ -2352,29 +2352,7 @@ namespace QuickMon
         }
         private void openMonitorPackToolStripButton_Click(object sender, EventArgs e)
         {
-            HideCollectorContextMenu();
-            try
-            {
-                if (openFileDialogOpen.FileName == null || openFileDialogOpen.FileName.Length == 0)
-                {
-                    string startUpPath = MonitorPack.GetQuickMonUserDataDirectory();
-                    openFileDialogOpen.InitialDirectory = startUpPath;
-                }
-                else
-                {
-                    openFileDialogOpen.InitialDirectory = System.IO.Path.GetDirectoryName(openFileDialogOpen.FileName);
-                }
-                if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    CloseAllDetailWindows();
-                    LoadMonitorPack(openFileDialogOpen.FileName);
-                    RefreshMonitorPack(true, true);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
         }
         private void saveAsMonitorPackToolStripMenuItem_ButtonClick(object sender, EventArgs e)
         {
