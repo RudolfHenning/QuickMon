@@ -327,6 +327,15 @@ namespace QuickMon
         #region Globally Disable/block Agent types if it is not supported for some reason (Set at Run-Time by calling application/service)
         public List<string> BlockedCollectorAgentTypes { get; set; }
         #endregion
+
+        #region CorrectiveScripts
+        public bool CorrectiveScriptDisabled { get; set; }
+        public string CorrectiveScriptOnWarningPath { get; set; }
+        public string CorrectiveScriptOnErrorPath { get; set; }
+        public string RestorationScriptPath { get; set; }
+        public bool CorrectiveScriptsOnlyOnStateChange { get; set; } 
+        #endregion
+
         #endregion
 
         #region Public util methods

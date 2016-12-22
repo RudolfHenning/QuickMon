@@ -14,9 +14,9 @@ namespace QuickMon
                 switch (collectorState.ToLower())
                 {
                     case "good":
-                        return CollectorState.Good;
+                        
                     case "success":
-                        return CollectorState.Good;
+                        
                     case "ok":
                         return CollectorState.Good;
                     case "warning":
@@ -27,9 +27,10 @@ namespace QuickMon
                         return CollectorState.Disabled;
                     case "configurationerror":
                         return CollectorState.ConfigurationError;
-                    //case "folder":
-                    //    return CollectorState.Folder;
-
+                    case "configurationchanged":
+                        return CollectorState.ConfigurationChanged;
+                    case "updateinprogress":
+                        return CollectorState.UpdateInProgress;
                 }
                 return CollectorState.NotAvailable;
             }
