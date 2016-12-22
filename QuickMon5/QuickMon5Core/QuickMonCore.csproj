@@ -58,7 +58,10 @@
     <Compile Include="Classes\CollectorStateConverter.cs" />
     <Compile Include="Classes\ConfigVariable.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPack.cs" />
+    <Compile Include="Classes\MonitorPack\MonitorPackEvents.cs" />
     <Compile Include="Classes\MonitorPack\MonitorPackIO.cs" />
+    <Compile Include="Classes\MonitorPack\MonitorPackLogging.cs" />
+    <Compile Include="Classes\MonitorPack\MonitorPackPerformanceCounters.cs" />
     <Compile Include="Classes\MonitorState.cs" />
     <Compile Include="Classes\NotifierHost\NotifierHost.cs" />
     <Compile Include="Classes\QuickMonDelegates.cs" />
