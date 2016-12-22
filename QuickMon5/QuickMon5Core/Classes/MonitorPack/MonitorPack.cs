@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace QuickMon
 {
@@ -83,6 +84,179 @@ namespace QuickMon
             CollectorState globalState = CollectorState.Good;
 
             return globalState;
+        }
+        #endregion
+
+        #region Async refreshing
+        public void StartPolling()
+        {
+            IsPollingEnabled = true;
+            if (PollingFrequencyOverrideSec > 0)
+                PollingFreq = PollingFrequencyOverrideSec * 1000;
+            ThreadPool.QueueUserWorkItem(new WaitCallback(BackgroundPolling));
+        }
+        private void BackgroundPolling(object o)
+        {
+            DateTime lastMonitorPackFileUpdate = DateTime.Now;
+            System.IO.FileInfo mfi = new System.IO.FileInfo(MonitorPackPath);
+            if (mfi.Exists)
+            {
+                lastMonitorPackFileUpdate = mfi.LastWriteTime;
+            }
+            while (IsPollingEnabled)
+            {
+                try
+                {
+                    RefreshStates();
+                }
+                catch (Exception ex)
+                {
+                    RaiseMonitorPackError(ex.Message);
+                    WriteLogging(string.Format("Error in BackgroundPolling: {0}", ex.Message));
+                }
+                BackgroundWaitIsPolling(PollingFreq);
+                try
+                {
+                    //Update FileInfo object
+                    mfi.Refresh();
+                    if (mfi.Exists && (lastMonitorPackFileUpdate.AddSeconds(1) < mfi.LastWriteTime))
+                    {
+                        //Load everything over again
+                        Load();
+                        lastMonitorPackFileUpdate = mfi.LastWriteTime;
+                        RaiseMonitorPackEventReported(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
+                        WriteLogging(string.Format("The MonitorPack '{0}' was reloaded because the definition file ({1}) was updated ({2})!", Name, MonitorPackPath, lastMonitorPackFileUpdate));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    RaiseMonitorPackError(ex.Message);
+                    WriteLogging(string.Format("Error in BackgroundPolling: {0}", ex.Message));
+                }
+            }
+            ClosePerformanceCounters();
+        }
+        private void BackgroundWaitIsPolling(int nextWaitInterval)
+        {
+            int waitTimeRemaining;
+            int decrementBy = 2000;
+            if (IsPollingEnabled)
+            {
+                try
+                {
+                    if ((nextWaitInterval <= decrementBy) && (nextWaitInterval > 0))
+                    {
+                        Thread.Sleep(nextWaitInterval);
+                    }
+                    else
+                    {
+                        waitTimeRemaining = nextWaitInterval;
+                        while (IsPollingEnabled && (waitTimeRemaining > 0))
+                        {
+                            if (waitTimeRemaining <= decrementBy)
+                            {
+                                waitTimeRemaining = 0;
+                            }
+                            else
+                            {
+                                waitTimeRemaining -= decrementBy;
+                            }
+                            if (decrementBy > 0)
+                            {
+                                Thread.Sleep(decrementBy);
+                            }
+                        }
+                    }
+                }
+                catch { }
+            }
+        }
+        #endregion
+
+        #region Recursively set child properties
+        private void ResetAllOverrides(CollectorHost parentCollector = null)
+        {
+            List<CollectorHost> collectors = null;
+            if (parentCollector == null)
+                collectors = (from c in CollectorHosts
+                              where c.ParentCollectorId.Length == 0
+                              select c).ToList();
+            else
+                collectors = (from c in CollectorHosts
+                              where c.ParentCollectorId == parentCollector.UniqueId
+                              select c).ToList();
+            foreach (CollectorHost childCollector in collectors)
+            {
+                childCollector.MaxStateHistorySize = CollectorStateHistorySize;
+                //Remote agent host
+                childCollector.OverrideForceRemoteExcuteOnChildCollectors = false;
+                childCollector.OverrideRemoteAgentHost = false;
+                childCollector.OverrideRemoteAgentHostAddress = "";
+                childCollector.OverrideRemoteAgentHostPort = GlobalConstants.DefaultRemoteHostPort;
+                ResetAllOverrides(childCollector);
+            }
+        }
+        private void SetDependantCollectorHostStates(CollectorHost collectorHost, CollectorState collectorState)
+        {
+            //Set states without adding to history
+            try
+            {
+                foreach (CollectorHost childCollectorHost in (from c in CollectorHosts
+                                                              where c.ParentCollectorId == collectorHost.UniqueId
+                                                              select c))
+                {
+                    childCollectorHost.UpdateCurrentCollectorState(collectorState);
+                    SetDependantCollectorHostStates(childCollectorHost, collectorState);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
+                    throw;
+            }
+        }
+        private void SetChildCollectorHostRemoteExecuteDetails(CollectorHost collectorHost, string remoteAgentHostAddress, int remoteAgentHostPort)
+        {
+            foreach (CollectorHost childCollector in (from c in CollectorHosts
+                                                      where c.ParentCollectorId == collectorHost.UniqueId
+                                                      select c))
+            {
+                childCollector.OverrideForceRemoteExcuteOnChildCollectors = collectorHost.OverrideForceRemoteExcuteOnChildCollectors;
+                childCollector.OverrideRemoteAgentHost = remoteAgentHostAddress.Length > 0;
+                childCollector.OverrideRemoteAgentHostAddress = remoteAgentHostAddress;
+                childCollector.OverrideRemoteAgentHostPort = remoteAgentHostPort;
+
+                //Set grand children
+                SetChildCollectorHostRemoteExecuteDetails(childCollector, remoteAgentHostAddress, remoteAgentHostPort);
+            }
+        }
+        private void SetChildCollectorHostPollingOverrides(CollectorHost parentCollectorHost)
+        {
+            foreach (CollectorHost childCollector in (from c in CollectorHosts
+                                                      where c.ParentCollectorId == parentCollectorHost.UniqueId
+                                                      select c))
+            {
+                if (!childCollector.EnabledPollingOverride) //check that child does not have its own 
+                {
+                    childCollector.OnlyAllowUpdateOncePerXSec = parentCollectorHost.OnlyAllowUpdateOncePerXSec;
+                    //to make sure child collector does not miss the poll event
+                    childCollector.LastStateUpdate = parentCollectorHost.LastStateUpdate;
+                }
+                else
+                {
+                    if (childCollector.OnlyAllowUpdateOncePerXSec < parentCollectorHost.OnlyAllowUpdateOncePerXSec)
+                    {
+                        childCollector.OnlyAllowUpdateOncePerXSec = parentCollectorHost.OnlyAllowUpdateOncePerXSec;
+                        //to make sure child collector does not miss the poll event
+                        childCollector.LastStateUpdate = parentCollectorHost.LastStateUpdate;
+                    }
+                }
+                //force child settings permanently
+                childCollector.EnabledPollingOverride = true;
+
+                //Set grand children
+                SetChildCollectorHostPollingOverrides(childCollector);
+            }
         }
         #endregion
 
@@ -306,6 +480,70 @@ namespace QuickMon
             });
             LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
                 collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath));
+        }
+        #endregion
+
+        #region GetCollectorLists
+        public List<CollectorHost> GetRootCollectorHosts()
+        {
+            return (from c in CollectorHosts
+                    where c.ParentCollectorId.Length == 0
+                    select c).ToList();
+        }
+        public List<CollectorHost> GetChildCollectorHosts(CollectorHost parentCE)
+        {
+            return (from c in CollectorHosts
+                    where c.ParentCollectorId == parentCE.UniqueId
+                    select c).ToList();
+        }
+        public List<CollectorHost> GetAllChildCollectorHosts(CollectorHost parentCE)
+        {
+            List<CollectorHost> list = new List<CollectorHost>();
+            List<CollectorHost> listChildren = new List<CollectorHost>();
+            listChildren = GetChildCollectorHosts(parentCE);
+            foreach (CollectorHost child in listChildren)
+            {
+                list.Add(child);
+                list.AddRange(GetAllChildCollectorHosts(child));
+            }
+            return list;
+        }
+        #endregion
+
+        #region Sorting/Swapping
+        internal void SwapCollectorEntries(CollectorHost c1, CollectorHost c2)
+        {
+            int index1 = CollectorHosts.FindIndex(c => c.UniqueId == c1.UniqueId);
+            int index2 = CollectorHosts.FindIndex(c => c.UniqueId == c2.UniqueId);
+
+            if (index1 < index2)
+            {
+                int tmp = index1;
+                index1 = index2;
+                index2 = tmp;
+            }
+
+            if (index1 > -1 && index2 > -1 && index1 != index2)
+            {
+
+                CollectorHosts.RemoveAt(index1);
+                CollectorHosts.RemoveAt(index2);
+                CollectorHosts.Insert(index2, c1);
+                CollectorHosts.Insert(index1, c2);
+            }
+        }
+        internal void SwapNotifierEntries(NotifierHost n1, NotifierHost n2)
+        {
+            int index1 = NotifierHosts.FindIndex(c => c.Name == n1.Name);
+            int index2 = NotifierHosts.FindIndex(c => c.Name == n2.Name);
+
+            if (index1 > -1 && index2 > -1 && index1 != index2)
+            {
+                NotifierHosts.RemoveAt(index1);
+                NotifierHosts.RemoveAt(index2);
+                NotifierHosts.Insert(index2, n1);
+                NotifierHosts.Insert(index1, n2);
+            }
         }
         #endregion
 
