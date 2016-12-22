@@ -74,7 +74,7 @@ namespace QuickMon
             else 
                 extension = ".ps1";
 
-            string tmpdirPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 4");
+            string tmpdirPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
             if (!System.IO.Directory.Exists(tmpdirPath))
                 System.IO.Directory.CreateDirectory(tmpdirPath);
             string tmpfilePath = System.IO.Path.Combine(tmpdirPath, safeName + extension);
@@ -103,7 +103,5 @@ namespace QuickMon
                 p.StartInfo.Verb = "runas";
             p.Start();
         }
-    }
-
-    
+    }    
 }

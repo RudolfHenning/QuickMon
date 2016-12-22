@@ -9,6 +9,27 @@ namespace QuickMon
 {
     public partial class MonitorPack
     {
+        public MonitorPack()
+        {
+            CollectorHosts = new List<CollectorHost>();
+            NotifierHosts = new List<NotifierHost>();
+            ConfigVariables = new List<ConfigVariable>();
+            Enabled = true;
+            PollingFreq = 1000;
+            IsPollingEnabled = false;
+            CurrentState = CollectorState.NotAvailable;
+            PreviousState = CollectorState.NotAvailable;
+            ConcurrencyLevel = 1;
+            IsBusyPolling = false;
+            CollectorStateHistorySize = 100;
+            RunningAttended = AttendedOption.AttendedAndUnAttended;
+            AgentLoadingErrors = "";
+            BlockedCollectorAgentTypes = new List<string>();
+            LoggingCollectorCategories = new List<string>();
+
+            LoggingKeepLogFilesXDays = 180;
+            lastLoggingCleanupEvent = new DateTime(2000, 1, 1);
+        }
 
         #region Properties
 
