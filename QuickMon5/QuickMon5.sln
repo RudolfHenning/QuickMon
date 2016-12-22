@@ -24,4 +24,13 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = QuickMon5Core\\QuickMon5Core.csproj
+		SccProjectName1 = QuickMon5Core
+		SccLocalPath1 = QuickMon5Core
+	EndGlobalSection
 EndGlobal
