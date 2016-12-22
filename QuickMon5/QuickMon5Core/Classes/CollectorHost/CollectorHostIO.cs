@@ -9,8 +9,20 @@ namespace QuickMon
 {
     public partial class CollectorHost
     {
-
         #region FromXml
+        public static List<CollectorHost> GetCollectorHostsFromString(string xmlString, List<ConfigVariable> monitorPackVars = null)
+        {
+            List<CollectorHost> collectorHosts = new List<CollectorHost>();
+            XmlDocument collectorHostsXml = new XmlDocument();
+            collectorHostsXml.LoadXml(xmlString);
+            XmlElement root = collectorHostsXml.DocumentElement;
+            foreach (XmlElement xmlCollectorHost in root.SelectNodes("collectorHost"))
+            {
+                CollectorHost newCollectorHost = FromConfig(null, xmlCollectorHost, monitorPackVars);
+                collectorHosts.Add(newCollectorHost);
+            }
+            return collectorHosts;
+        }
         public static CollectorHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
         {
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
@@ -22,6 +34,17 @@ namespace QuickMon
             }
             else
                 return null;
+        }
+        public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        {
+            if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
+            {
+                XmlDocument collectorHostDoc = new XmlDocument();
+                collectorHostDoc.LoadXml(xmlString);
+                XmlElement root = collectorHostDoc.DocumentElement;
+                FromConfig(this, root, monitorPackVars, applyConfigVars);
+                SetCurrentState(new MonitorState() { State = CollectorState.ConfigurationChanged, RawDetails = "Reconfigured", HtmlDetails = "<p>Reconfigured</p>" });
+            }
         }
         private static CollectorHost FromConfig(CollectorHost newCollectorHost, XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
@@ -270,6 +293,81 @@ namespace QuickMon
             #endregion
             return newCollectorHost;
         }
+
+        public void ApplyConfigVarsNow(List<ConfigVariable> monitorPackVars = null)
+        {
+            foreach (IAgent agent in CollectorAgents)
+            {
+                string appliedConfig = agent.InitialConfiguration;
+
+                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
+                appliedConfig = ConfigVariables.ApplyOn(appliedConfig);
+                if (agent.ActiveConfiguration != appliedConfig)
+                {
+                    agent.ActiveConfiguration = appliedConfig;
+                    agent.AgentConfig.FromXml(appliedConfig);
+                }
+            }
+        }
+        public static ICollector GetCollectorAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        {
+            if (xmlString.StartsWith("<collectorAgent"))
+            {
+                XmlDocument collectorAgentXml = new XmlDocument();
+                collectorAgentXml.LoadXml(xmlString);
+                return GetCollectorAgentFromString(collectorAgentXml.DocumentElement, configVars, applyConfigVars);
+            }
+            else
+                return null;
+        }
+        private static ICollector GetCollectorAgentFromString(XmlElement collectorAgentNode, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        {
+            string name = collectorAgentNode.ReadXmlElementAttr("name", "");
+            string typeName = collectorAgentNode.ReadXmlElementAttr("type", "");
+            bool enabled = collectorAgentNode.ReadXmlElementAttr("enabled", true);
+            string configXml = "";
+            XmlNode configNode = collectorAgentNode.SelectSingleNode("config");
+            if (configNode != null)
+            {
+                configXml = configNode.OuterXml;
+            }
+
+            ICollector newAgent = CreateCollectorFromClassName(typeName);
+            if (newAgent != null)
+            {
+                try
+                {
+                    newAgent.Name = name;
+                    newAgent.Enabled = enabled;
+                    if (configXml.Length > 0)
+                        newAgent.InitialConfiguration = configXml;
+                    else
+                    {
+                        if (newAgent.AgentConfig != null)
+                            newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
+                        else
+                            throw new Exception("Could not create AgentConfig!");
+                    }
+                    string appliedConfig = newAgent.InitialConfiguration;
+                    if (applyConfigVars)
+                    {
+                        appliedConfig = configVars.ApplyOn(appliedConfig);
+                    }
+                    newAgent.ActiveConfiguration = appliedConfig;
+                    newAgent.AgentConfig.FromXml(appliedConfig);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    throw new Exception(string.Format("Error loading config for {0}: {1}", name, ex.Message));
+                }
+            }
+            else
+            {
+                throw new Exception(string.Format("The Collector Host type of '{0}' could not be loaded!", typeName));
+            }
+            return newAgent;
+        }
         public static ICollector CreateCollectorFromClassName(string agentClassName)
         {
             ICollector currentAgent = null;
@@ -280,7 +378,7 @@ namespace QuickMon
                 {
                     Assembly collectorEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
                     currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(currentRA.ClassName);
-                    currentAgent.AgentClassName = currentRA.ClassName; //.Replace("QuickMon.Collectors.", "");
+                    currentAgent.AgentClassName = currentRA.ClassName.Replace("QuickMon.Collectors.", "");
                     currentAgent.AgentClassDisplayName = currentRA.DisplayName;
                 }
             }
@@ -289,27 +387,309 @@ namespace QuickMon
         #endregion
 
         #region ToXml
+        /// <summary>
+        /// Export current (Initial) CollectorHost config as XML string
+        /// This is the config before config variables have been applied
+        /// </summary>
+        /// <returns>XML config string</returns>
+        public string ToXml()
+        {
+            string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
+            string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
+            string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
+            string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptsOnlyOnStateChange, CorrectiveScriptOnWarningPath, CorrectiveScriptOnErrorPath, RestorationScriptPath);
+            string actionScriptsXml = GetActionScriptsXml(ActionScripts);
+            string serviceWindowsXml = ServiceWindows.ToXml();
+            string configVariablesXml = GetConfigVarXml(ConfigVariables);
+            string categoriesXml = GetCategoriesXML();
+            string collectorAgentsXml = GetCollectorAgentsConfigXml(CollectorAgents, AgentCheckSequence);
+
+            return ToXml(UniqueId,
+                ParentCollectorId,
+                Name,
+                Enabled,
+                ExpandOnStartOption,
+                ChildCheckBehaviour,
+                RunAsEnabled, RunAs,
+                Notes,
+                alertingSettingsXml,
+                remoteAgentSettingsXml,
+                pollingSettingsXml,
+                collectorAgentsXml,
+                correctiveScriptsXml,
+                actionScriptsXml,
+                serviceWindowsXml,
+                configVariablesXml,
+                categoriesXml);
+        }
+
         public static string ToXml(string uniqueId,
-        string name,
-        bool enabled,
-        ChildCheckBehaviour childCheckBehaviour,
-        bool runAsEnabled,
-        string runAs,
-        string collectorAgentsXml
-        )
+                string parentCollectorId,
+                string name,
+                bool enabled,
+                ExpandOnStartOption expandOnStartOption,
+                ChildCheckBehaviour childCheckBehaviour,
+                bool runAsEnabled,
+                string runAs,
+                string notes,
+
+                string alertingSettingsXml,
+                string remoteAgentSettingsXml,
+                string pollingSettingsXml,
+                string collectorAgentsXml,
+                string correctiveScriptsXml,
+                string actionScriptsXml,
+                string serviceWindowsXml,
+                string configVariablesXml,
+                string categoriesXml)
         {
             XmlDocument collectorHostDoc = new XmlDocument();
             collectorHostDoc.LoadXml("<collectorHost>" +
-                "<!-- Collector Agents -->" + collectorAgentsXml + "</collectorHost>");
+                "<!-- Alerting -->" + alertingSettingsXml +
+                "<!-- Collector Agents -->" + collectorAgentsXml +
+                "<!-- Polling settings -->" + pollingSettingsXml +
+                "<!-- Remote agent settings -->" + remoteAgentSettingsXml +
+                "<!-- Corrective Scripts -->" + correctiveScriptsXml +
+                "<!-- Action scripts -->" + actionScriptsXml +
+                "<!-- ServiceWindows -->" + serviceWindowsXml +
+                "<!-- Config variables -->" + configVariablesXml +
+                "<!-- Categories -->" + categoriesXml +
+                "<notes />" +
+                "</collectorHost>");
             collectorHostDoc.DocumentElement.SetAttributeValue("uniqueId", uniqueId);
+            collectorHostDoc.DocumentElement.SetAttributeValue("dependOnParentId", parentCollectorId);
             collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
             collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
+            collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
             collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
             collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
             collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
+            if (notes != null && notes.Trim(' ', '\r', '\n').Length > 0)
+                collectorHostDoc.DocumentElement.SelectSingleNode("notes").InnerText = notes.Trim(' ', '\r', '\n');
 
             return collectorHostDoc.DocumentElement.OuterXml;
         }
+        /// <summary>
+        /// For use to create CollectorHost instance from RemoteCollectorAgent
+        /// </summary>
+        /// <param name="uniqueId"></param>
+        /// <param name="name"></param>
+        /// <param name="enabled"></param>
+        /// <param name="childCheckBehaviour"></param>
+        /// <param name="runAsEnabled"></param>
+        /// <param name="runAs"></param>
+        /// <param name="collectorAgentsXml"></param>
+        /// <returns></returns>
+        public static string ToXml(string uniqueId,
+                string name,
+                bool enabled,
+                ChildCheckBehaviour childCheckBehaviour,
+                bool runAsEnabled,
+                string runAs,
+                string collectorAgentsXml
+                )
+        {
+            XmlDocument collectorHostDoc = new XmlDocument();
+            collectorHostDoc.LoadXml("<collectorHost>" +
+                //"<!-- Alerting -->" + alertingSettingsXml +
+                "<!-- Collector Agents -->" + collectorAgentsXml +
+                //"<!-- Polling settings -->" + pollingSettingsXml +
+                //"<!-- Remote agent settings -->" + remoteAgentSettingsXml +
+                //"<!-- Corrective Scripts -->" + correctiveScriptsXml +
+                //"<!-- Action scripts -->" + actionScriptsXml +
+                //"<!-- ServiceWindows -->" + serviceWindowsXml +
+                //"<!-- Config variables -->" + configVariablesXml +
+                //"<!-- Categories -->" + categoriesXml +
+                //"<notes />" +
+                "</collectorHost>");
+            collectorHostDoc.DocumentElement.SetAttributeValue("uniqueId", uniqueId);
+            //collectorHostDoc.DocumentElement.SetAttributeValue("dependOnParentId", parentCollectorId);
+            collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
+            collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
+            //collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
+            collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
+            collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
+            //if (notes != null && notes.Trim(' ', '\r', '\n').Length > 0)
+            //    collectorHostDoc.DocumentElement.SelectSingleNode("notes").InnerText = notes.Trim(' ', '\r', '\n');
+
+            return collectorHostDoc.DocumentElement.OuterXml;
+        }
+
+        public static string CollectorHostListToString(List<CollectorHost> entries)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<collectorHosts>");
+            foreach (CollectorHost entry in entries)
+            {
+                sb.AppendLine(entry.ToXml());
+            }
+            sb.AppendLine("</collectorHosts>");
+            return sb.ToString();
+        }
+        //public static string ToXml(string uniqueId,
+        //        string name,
+        //        bool enabled,
+        //        ExpandOnStartOption expandOnStartOption,
+        //        string parentCollectorId,
+        //        AgentCheckSequence agentCheckSequence,
+        //        ChildCheckBehaviour childCheckBehaviour,
+        //        int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
+        //        int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls,
+        //        bool correctiveScriptDisabled, string correctiveScriptOnWarningPath, string correctiveScriptOnErrorPath,
+        //        string restorationScriptPath, bool correctiveScriptsOnlyOnStateChange, bool enableRemoteExecute,
+        //        bool forceRemoteExcuteOnChildCollectors, string remoteAgentHostAddress, int remoteAgentHostPort,
+        //        bool blockParentOverrideRemoteAgentHostSettings, bool runLocalOnRemoteHostConnectionFailure,
+        //        bool enabledPollingOverride,
+        //        int onlyAllowUpdateOncePerXSec,
+        //        bool enablePollFrequencySliding,
+        //        int pollSlideFrequencyAfterFirstRepeatSec,
+        //        int pollSlideFrequencyAfterSecondRepeatSec,
+        //        int pollSlideFrequencyAfterThirdRepeatSec,
+        //        bool alertsPaused,
+        //        bool runAsEnabled,
+        //        string runAs,
+        //        string collectorAgentsXml,
+        //        string actionScriptsXml,
+        //        string serviceWindowsXml,
+        //        string configVariablesXml,
+        //        string categoriesXml,
+        //        string notes,
+        //        string generalAlertText,
+        //        string errorAlertText,
+        //        string warningAlertText,
+        //        string goodAlertText 
+        //    )
+        //{
+        //    string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(correctiveScriptDisabled, correctiveScriptsOnlyOnStateChange, correctiveScriptOnWarningPath, correctiveScriptOnErrorPath, restorationScriptPath);
+
+        //    StringBuilder configXml = new StringBuilder();
+        //    XmlDocument collectorHostDoc = new XmlDocument();
+        //    collectorHostDoc.LoadXml("<collectorHost>" +
+        //        "<!-- alerting -->" + GetAlertingToXml(repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec, repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls, alertsPaused, generalAlertText, errorAlertText, warningAlertText, goodAlertText) +
+        //        "<!-- Corrective Scripts -->" + correctiveScriptsXml +
+        //        "<!-- CollectorAgents -->" + collectorAgentsXml +
+        //        "<!-- Action scripts -->" + actionScriptsXml +
+        //        "<!-- ServiceWindows -->" + serviceWindowsXml +
+        //        "<!-- Config variables -->" + configVariablesXml +
+        //        "<!-- Categories -->" + categoriesXml +
+        //        "<notes />" +
+        //        "</collectorHost>");
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("uniqueId", uniqueId);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("dependOnParentId", parentCollectorId);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("agentCheckSequence", agentCheckSequence.ToString());
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
+
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("enableRemoteExecute", enableRemoteExecute);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("forceRemoteExcuteOnChildCollectors", forceRemoteExcuteOnChildCollectors);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("remoteAgentHostAddress", remoteAgentHostAddress);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("remoteAgentHostPort", remoteAgentHostPort);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("blockParentRemoteAgentHostSettings", blockParentOverrideRemoteAgentHostSettings);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("runLocalOnRemoteHostConnectionFailure", runLocalOnRemoteHostConnectionFailure);
+
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("enabledPollingOverride", enabledPollingOverride);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("onlyAllowUpdateOncePerXSec", onlyAllowUpdateOncePerXSec);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("enablePollFrequencySliding", enablePollFrequencySliding);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterFirstRepeatSec", pollSlideFrequencyAfterFirstRepeatSec);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterSecondRepeatSec", pollSlideFrequencyAfterSecondRepeatSec);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterThirdRepeatSec", pollSlideFrequencyAfterThirdRepeatSec);
+
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
+        //    collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
+        //    collectorHostDoc.DocumentElement.SelectSingleNode("notes").InnerText = notes;
+
+        //    return collectorHostDoc.DocumentElement.OuterXml;
+
+        //    /*
+        //    configXml.AppendLine(string.Format("<collectorHost uniqueId=\"{0}\" name=\"{1}\" enabled=\"{2}\" expandOnStart=\"{3}\" dependOnParentId=\"{4}\" " +
+        //              "agentCheckSequence=\"{5}\" childCheckBehaviour=\"{6}\" " +
+        //              "repeatAlertInXMin=\"{7}\" alertOnceInXMin=\"{8}\" delayErrWarnAlertForXSec=\"{9}\" " +
+        //              "repeatAlertInXPolls=\"{10}\" alertOnceInXPolls=\"{11}\" delayErrWarnAlertForXPolls=\"{12}\" " +
+        //              "correctiveScriptDisabled=\"{13}\" correctiveScriptOnWarningPath=\"{14}\" correctiveScriptOnErrorPath=\"{15}\" " +
+        //              "restorationScriptPath=\"{16}\" correctiveScriptsOnlyOnStateChange=\"{17}\" enableRemoteExecute=\"{18}\" " +
+        //              "forceRemoteExcuteOnChildCollectors=\"{19}\" remoteAgentHostAddress=\"{20}\" remoteAgentHostPort=\"{21}\" " +
+        //              "blockParentRemoteAgentHostSettings=\"{22}\" runLocalOnRemoteHostConnectionFailure=\"{23}\" " +
+        //              "enabledPollingOverride=\"{24}\" onlyAllowUpdateOncePerXSec=\"{25}\" enablePollFrequencySliding=\"{26}\" " +
+        //              "pollSlideFrequencyAfterFirstRepeatSec=\"{27}\" pollSlideFrequencyAfterSecondRepeatSec=\"{28}\" " + 
+        //              "pollSlideFrequencyAfterThirdRepeatSec=\"{29}\" alertsPaused=\"{30}\" runAsEnabled=\"{31}\" runAs=\"{32}\" >",
+        //                uniqueId, name.EscapeXml(), enabled, 
+        //                expandOnStartOption.ToString(),
+        //                parentCollectorId,
+        //                agentCheckSequence, childCheckBehaviour,
+
+        //                repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
+        //                repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls,
+
+        //                correctiveScriptDisabled, correctiveScriptOnWarningPath.EscapeXml(), correctiveScriptOnErrorPath.EscapeXml(),
+        //                restorationScriptPath.EscapeXml(), correctiveScriptsOnlyOnStateChange, 
+
+        //                enableRemoteExecute, forceRemoteExcuteOnChildCollectors, remoteAgentHostAddress, remoteAgentHostPort,
+        //                blockParentOverrideRemoteAgentHostSettings, runLocalOnRemoteHostConnectionFailure,
+        //                enabledPollingOverride, onlyAllowUpdateOncePerXSec, enablePollFrequencySliding,
+        //                pollSlideFrequencyAfterFirstRepeatSec, pollSlideFrequencyAfterSecondRepeatSec, pollSlideFrequencyAfterThirdRepeatSec,
+
+        //                alertsPaused, runAsEnabled, runAs.EscapeXml()
+        //              )
+        //             );
+
+        //    configXml.AppendLine("<!-- alerting -->");
+        //    configXml.AppendLine(GetAlertingToXml(repeatAlertInXMin, alertOnceInXMin, delayErrWarnAlertForXSec,
+        //                repeatAlertInXPolls, alertOnceInXPolls, delayErrWarnAlertForXPolls, alertsPaused));
+
+
+        //    configXml.AppendLine("<!-- Corrective Scripts -->");
+        //    configXml.AppendLine("<correctiveScripts enabled=\"" + (correctiveScriptDisabled ? "False" : "True") + "\" onlyOnStateChange=\"" + (correctiveScriptsOnlyOnStateChange ? "True" : "False") + "\">");
+        //    if (correctiveScriptOnWarningPath == null || correctiveScriptOnWarningPath.Trim().Length == 0)
+        //        configXml.AppendLine("<warning />");
+        //    else
+        //        configXml.AppendLine("<warning>" + correctiveScriptOnWarningPath.Trim('\r','\n').EscapeXml() + "</warning>");
+        //    if (correctiveScriptOnErrorPath == null || correctiveScriptOnErrorPath.Trim().Length == 0)
+        //        configXml.AppendLine("<error/>");
+        //    else
+        //        configXml.AppendLine("<error>" + correctiveScriptOnErrorPath.Trim('\r', '\n').EscapeXml() + "</error>");
+        //    if (restorationScriptPath == null || restorationScriptPath.Trim().Length == 0)
+        //        configXml.AppendLine("<restoration/>");
+        //    else
+        //        configXml.AppendLine("<restoration>" + restorationScriptPath.Trim('\r', '\n').EscapeXml() + "</restoration>");
+        //    configXml.AppendLine("</correctiveScripts>");
+
+        //    configXml.AppendLine("<!-- CollectorAgents -->");
+        //    configXml.AppendLine(collectorAgentsXml);
+
+        //    configXml.AppendLine("<!-- Action scripts -->");
+        //    configXml.AppendLine(actionScriptsXml);
+
+        //    configXml.AppendLine("<!-- ServiceWindows -->");
+        //    configXml.AppendLine(serviceWindowsXml);
+        //    configXml.AppendLine("<!-- Config variables -->");
+        //    configXml.AppendLine(configVariablesXml);
+        //    configXml.AppendLine("<!-- Categories -->");
+        //    configXml.AppendLine(categoriesXml);
+        //    configXml.AppendLine("</collectorHost>");
+        //    return configXml.ToString();
+        //    */
+        //}
+
+        public static string GetCollectorAgentsConfigXml(List<ICollector> collectorAgents, AgentCheckSequence agentCheckSequence)
+        {
+            StringBuilder collectorAgentsXml = new StringBuilder();
+            collectorAgentsXml.AppendLine(string.Format("<collectorAgents agentCheckSequence=\"{0}\" >", agentCheckSequence));
+
+            foreach (ICollector c in collectorAgents)
+            {
+                collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
+                System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
+                System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
+                collectorAgentsXml.AppendLine(c.InitialConfiguration);
+                collectorAgentsXml.AppendLine("</collectorAgent>");
+            }
+            collectorAgentsXml.AppendLine("</collectorAgents>");
+            return collectorAgentsXml.ToString();
+        }
+
         public static string GetRemoteCollectorAgentsConfigXml(List<RemoteCollectorAgent> collectorAgents, AgentCheckSequence agentCheckSequence)
         {
             StringBuilder collectorAgentsXml = new StringBuilder();
@@ -326,6 +706,130 @@ namespace QuickMon
             collectorAgentsXml.AppendLine("</collectorAgents>");
             return collectorAgentsXml.ToString();
         }
+        private static string GetAlertingToXml(int repeatAlertInXMin, int alertOnceInXMin, int delayErrWarnAlertForXSec,
+                int repeatAlertInXPolls, int alertOnceInXPolls, int delayErrWarnAlertForXPolls, bool alertsPaused,
+                string alertHeaderText, string alertFooterText,
+                string errorAlertText,
+                string warningAlertText,
+                string goodAlertText
+            )
+        {
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.LoadXml("<alerting><suppression /><texts><header /><footer /><error /><warning /><good /></texts></alerting>");
+            XmlNode suppressionNode = xdoc.DocumentElement.SelectSingleNode("suppression");
+            suppressionNode.SetAttributeValue("repeatAlertInXMin", repeatAlertInXMin);
+            suppressionNode.SetAttributeValue("alertOnceInXMin", alertOnceInXMin);
+            suppressionNode.SetAttributeValue("delayErrWarnAlertForXSec", delayErrWarnAlertForXSec);
+            suppressionNode.SetAttributeValue("repeatAlertInXPolls", repeatAlertInXPolls);
+            suppressionNode.SetAttributeValue("alertOnceInXPolls", alertOnceInXPolls);
+            suppressionNode.SetAttributeValue("delayErrWarnAlertForXPolls", delayErrWarnAlertForXPolls);
+            suppressionNode.SetAttributeValue("alertsPaused", alertsPaused);
+            if (alertHeaderText != null && alertHeaderText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/header").InnerText = alertHeaderText.Trim(' ', '\r', '\n');
+            if (alertFooterText != null && alertFooterText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/footer").InnerText = alertFooterText.Trim(' ', '\r', '\n');
+            if (errorAlertText != null && errorAlertText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/error").InnerText = errorAlertText.Trim(' ', '\r', '\n');
+            if (warningAlertText != null && warningAlertText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/warning").InnerText = warningAlertText.Trim(' ', '\r', '\n');
+            if (goodAlertText != null && goodAlertText.Trim(' ', '\r', '\n').Length > 0)
+                xdoc.DocumentElement.SelectSingleNode("texts/good").InnerText = goodAlertText.Trim(' ', '\r', '\n');
+
+            return xdoc.DocumentElement.OuterXml;
+        }
+
+        private static string GetRemoteAgentConfigXml(bool enableRemoteExecute,
+            bool forceRemoteExcuteOnChildCollectors,
+            string remoteAgentHostAddress,
+            int remoteAgentHostPort,
+            bool blockParentOverrideRemoteAgentHostSettings,
+            bool runLocalOnRemoteHostConnectionFailure)
+        {
+            XmlDocument remoteDoc = new XmlDocument();
+            remoteDoc.LoadXml("<remoteAgent />");
+
+            remoteDoc.DocumentElement.SetAttributeValue("enableRemoteExecute", enableRemoteExecute);
+            remoteDoc.DocumentElement.SetAttributeValue("forceRemoteExcuteOnChildCollectors", forceRemoteExcuteOnChildCollectors);
+            remoteDoc.DocumentElement.SetAttributeValue("remoteAgentHostAddress", remoteAgentHostAddress);
+            remoteDoc.DocumentElement.SetAttributeValue("remoteAgentHostPort", remoteAgentHostPort);
+            remoteDoc.DocumentElement.SetAttributeValue("blockParentRemoteAgentHostSettings", blockParentOverrideRemoteAgentHostSettings);
+            remoteDoc.DocumentElement.SetAttributeValue("runLocalOnRemoteHostConnectionFailure", runLocalOnRemoteHostConnectionFailure);
+
+            return remoteDoc.DocumentElement.OuterXml;
+        }
+
+        private static string GetPollingConfigXml(bool enabledPollingOverride, int onlyAllowUpdateOncePerXSec,
+            bool enablePollFrequencySliding, int pollSlideFrequencyAfterFirstRepeatSec, int pollSlideFrequencyAfterSecondRepeatSec, int pollSlideFrequencyAfterThirdRepeatSec)
+        {
+            XmlDocument pollingSettingsDoc = new XmlDocument();
+            pollingSettingsDoc.LoadXml("<polling />");
+
+            pollingSettingsDoc.DocumentElement.SetAttributeValue("enabledPollingOverride", enabledPollingOverride);
+            pollingSettingsDoc.DocumentElement.SetAttributeValue("onlyAllowUpdateOncePerXSec", onlyAllowUpdateOncePerXSec);
+            pollingSettingsDoc.DocumentElement.SetAttributeValue("enablePollFrequencySliding", enablePollFrequencySliding);
+            pollingSettingsDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterFirstRepeatSec", pollSlideFrequencyAfterFirstRepeatSec);
+            pollingSettingsDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterSecondRepeatSec", pollSlideFrequencyAfterSecondRepeatSec);
+            pollingSettingsDoc.DocumentElement.SetAttributeValue("pollSlideFrequencyAfterThirdRepeatSec", pollSlideFrequencyAfterThirdRepeatSec);
+
+            return pollingSettingsDoc.DocumentElement.OuterXml;
+        }
+        private static string GetCorrectiveScriptsConfigXml(bool correctiveScriptDisabled, bool correctiveScriptsOnlyOnStateChange,
+            string correctiveScriptOnWarningPath, string correctiveScriptOnErrorPath, string restorationScriptPath)
+        {
+            XmlDocument correctiveScriptsDoc = new XmlDocument();
+            correctiveScriptsDoc.LoadXml("<correctiveScripts><warning /><error/><restoration/></correctiveScripts>");
+
+            correctiveScriptsDoc.DocumentElement.SetAttributeValue("enabled", (correctiveScriptDisabled ? "False" : "True"));
+            correctiveScriptsDoc.DocumentElement.SetAttributeValue("onlyOnStateChange", correctiveScriptsOnlyOnStateChange);
+            if (correctiveScriptOnWarningPath != null && correctiveScriptOnWarningPath.Trim(' ', '\r', '\n').Length > 0)
+                correctiveScriptsDoc.DocumentElement.SelectSingleNode("warning").InnerText = correctiveScriptOnWarningPath.Trim(' ', '\r', '\n');
+            if (correctiveScriptOnErrorPath != null && correctiveScriptOnErrorPath.Trim(' ', '\r', '\n').Length > 0)
+                correctiveScriptsDoc.DocumentElement.SelectSingleNode("error").InnerText = correctiveScriptOnErrorPath.Trim(' ', '\r', '\n');
+            if (restorationScriptPath != null && restorationScriptPath.Trim(' ', '\r', '\n').Length > 0)
+                correctiveScriptsDoc.DocumentElement.SelectSingleNode("restoration").InnerText = restorationScriptPath.Trim(' ', '\r', '\n');
+            return correctiveScriptsDoc.DocumentElement.OuterXml;
+        }
+        private static string GetConfigVarXml(List<ConfigVariable> configVariables)
+        {
+            StringBuilder configVarXml = new StringBuilder();
+            if (configVariables == null || configVariables.Count == 0)
+                configVarXml.AppendLine("<configVars />");
+            else
+            {
+                configVarXml.AppendLine("<configVars>");
+                foreach (ConfigVariable cv in configVariables)
+                {
+                    configVarXml.AppendLine(cv.ToXml());
+                }
+                configVarXml.AppendLine("</configVars>");
+            }
+            return configVarXml.ToString();
+        }
+        private static string GetActionScriptsXml(List<ActionScript> actionScripts)
+        {
+            StringBuilder actionScriptsXml = new StringBuilder();
+            if (actionScripts != null && actionScripts.Count > 0)
+            {
+                actionScriptsXml.AppendLine("<actionScripts>");
+                foreach (ActionScript acs in actionScripts)
+                {
+                    actionScriptsXml.AppendLine(acs.ToXml());
+                }
+                actionScriptsXml.AppendLine("</actionScripts>");
+            }
+            else
+                actionScriptsXml.AppendLine("<actionScripts />");
+            return actionScriptsXml.ToString();
+
+        }
         #endregion
+
+        public CollectorHost Clone(bool newId = false)
+        {
+            CollectorHost clone = FromXml(ToXml());
+            if (newId)
+                clone.UniqueId = Guid.NewGuid().ToString();
+            return clone;
+        }
     }
 }

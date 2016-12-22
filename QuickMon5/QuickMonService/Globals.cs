@@ -7,7 +7,7 @@ namespace QuickMon
 {
     public static class Globals
     {
-        public static string ServiceEventSourceName = "QuickMon 4 Service";
-        public static string ServiceDescription = "QuickMon 4 Monitoring, alerting and Remote Service";
+        public static string ServiceEventSourceName = "QuickMon 5 Service";
+        public static string ServiceDescription = "QuickMon 5 Service for unattended monitoring and Remote Agent Hosting.";
     }
 }
