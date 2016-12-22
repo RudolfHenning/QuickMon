@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>QuickMon4Srvc.ico</ApplicationIcon>
+    <ApplicationIcon>QuickMon5Srvc.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\VersionInfo.cs">
+    <Compile Include="..\QuickMon5Core\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Globals.cs" />
@@ -104,7 +104,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="QuickMon4Srvc.ico" />
+    <Content Include="QuickMon5Srvc.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="InstallerForm.resx">
@@ -115,14 +115,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QuickMon4Core\QuickMonCore.csproj">
-      <Project>{fb528c0f-71b0-4408-b051-bb4385ba6001}</Project>
+    <ProjectReference Include="..\QuickMon5Core\QuickMonCore.csproj">
+      <Project>{ba11f2a5-01db-4e85-8aec-b9420d03dc2b}</Project>
       <Name>QuickMonCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)QuickMon4\$(OutDir)\*.dll" "$(TargetDir)"</PreBuildEvent>
+    <PreBuildEvent>rem copy "$(SolutionDir)QuickMon5\$(OutDir)\*.dll" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
