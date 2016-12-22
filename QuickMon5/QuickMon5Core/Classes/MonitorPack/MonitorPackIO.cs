@@ -170,9 +170,7 @@ namespace QuickMon
             collectorHost.LoggingPollingOverridesTriggeredEvent += collectorHost_LoggingPollingOverridesTriggeredEvent;
             collectorHost.EntereringServiceWindow += collectorHost_EntereringServiceWindow;
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
-
         }
-
 
         public void AddCollectorHost(CollectorHost collectorHost)
         {
@@ -349,7 +347,7 @@ namespace QuickMon
         #region Global settings
         public static string GetQuickMonUserDataDirectory()
         {
-            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 4");
+            string dataDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.DoNotVerify), "Hen IT\\QuickMon 5");
             try
             {
                 if (!System.IO.Directory.Exists(dataDir))

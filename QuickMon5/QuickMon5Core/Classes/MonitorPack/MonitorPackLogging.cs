@@ -110,17 +110,6 @@ namespace QuickMon
                         break;
                     }
                 }
-
-                //if (collectorHost.Categories != null && collectorHost.Categories.Count > 0)
-                //{
-                    
-                //    foreach(string cat in collectorHost.Categories)
-                //        if (LoggingCollectorCategories.Contains(cat))
-                //        {
-                //            matchCategories = true;
-                //            break;
-                //        }
-                //}
             }
             if (LoggingCollectorEvents && (allCollectors || matchCategories))
                 WriteLogging(message);

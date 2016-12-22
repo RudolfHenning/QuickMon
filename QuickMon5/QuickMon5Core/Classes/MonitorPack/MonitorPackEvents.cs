@@ -13,8 +13,7 @@ namespace QuickMon
         {
             try
             {
-                if (MonitorPackPathChanged != null)
-                    MonitorPackPathChanged(newMonitorPackPath);
+                MonitorPackPathChanged?.Invoke(newMonitorPackPath);
             }
             catch (Exception ex)
             {
@@ -24,10 +23,7 @@ namespace QuickMon
         public event SimpleMessageDelegate MonitorPackEventReported;
         private void RaiseMonitorPackEventReported(string message)
         {
-            if (MonitorPackEventReported != null)
-            {
-                MonitorPackEventReported(message);
-            }
+            MonitorPackEventReported?.Invoke(message);
         }
         #endregion
 
@@ -37,8 +33,7 @@ namespace QuickMon
         {
             try
             {
-                if (LoggingEvent != null)
-                    LoggingEvent(message);
+                LoggingEvent?.Invoke(message);
             }
             catch (Exception ex)
             {
@@ -144,10 +139,7 @@ namespace QuickMon
         public event CollectorHostDelegate CollectorHostCalled;
         private void RaiseCollectorHostCalled(CollectorHost collectorHost)
         {
-            if (CollectorHostCalled != null)
-            {
-                CollectorHostCalled(collectorHost);
-            }
+            CollectorHostCalled?.Invoke(collectorHost);
         }
         /// <summary>
         /// Event raised agter Collector host state has been updated
@@ -165,8 +157,7 @@ namespace QuickMon
         {
             PCRaiseCollectorHostsQueried();
 
-            if (CollectorHostStateUpdated != null)
-                CollectorHostStateUpdated(collectorHost);
+            CollectorHostStateUpdated?.Invoke(collectorHost);
             if (collectorHost != null)
             {
                 if (collectorHost.CollectorAgents != null)
@@ -196,33 +187,28 @@ namespace QuickMon
         }
         private void collectorHost_AlertGoodState(CollectorHost collectorHost)
         {
-            if (CollectorHost_AlertRaised_Good != null)
-                CollectorHost_AlertRaised_Good(collectorHost);
+            CollectorHost_AlertRaised_Good?.Invoke(collectorHost);
             SendNotifierAlert(AlertLevel.Info, DetailLevel.Detail, collectorHost);
         }
         private void collectorHost_AlertWarningState(CollectorHost collectorHost)
         {
-            if (CollectorHost_AlertRaised_Warning != null)
-                CollectorHost_AlertRaised_Warning(collectorHost);
+            CollectorHost_AlertRaised_Warning?.Invoke(collectorHost);
             SendNotifierAlert(AlertLevel.Warning, DetailLevel.Detail, collectorHost);
         }
         private void collectorHost_AlertErrorState(CollectorHost collectorHost)
         {
-            if (CollectorHost_AlertRaised_Error != null)
-                CollectorHost_AlertRaised_Error(collectorHost);
+            CollectorHost_AlertRaised_Error?.Invoke(collectorHost);
 
             SendNotifierAlert(AlertLevel.Error, DetailLevel.Detail, collectorHost);
         }
         private void collectorHost_NoStateChanged(CollectorHost collectorHost)
         {
-            if (CollectorHost_AlertRaised_NoStateChanged != null)
-                CollectorHost_AlertRaised_NoStateChanged(collectorHost);
+            CollectorHost_AlertRaised_NoStateChanged?.Invoke(collectorHost);
             SendNotifierAlert(AlertLevel.Debug, DetailLevel.Detail, collectorHost);
         }
         private void collectorHost_AllAgentsExecutionTime(CollectorHost collectorHost, long msTime)
         {
-            if (CollectorHostAllAgentsExecutionTime != null)
-                CollectorHostAllAgentsExecutionTime(collectorHost, msTime);
+            CollectorHostAllAgentsExecutionTime?.Invoke(collectorHost, msTime);
         }
         private void collectorHost_LoggingPollingOverridesTriggeredEvent(CollectorHost collectorHost, string message)
         {
