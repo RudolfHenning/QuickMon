@@ -1,4 +1,4 @@
-QuickMon 4 Read me
+QuickMon 5 Read me
 ---------------------------
 Quick installation overview
 ---------------------------
@@ -16,9 +16,8 @@ List of components
 How to install the Windows service
 ----------------------------------
 1. Open QuickMon.exe in Admin mode
-2. Open Settings (Ctrl+E)
-3. Go to the Remote hosts tab
-4. If the service has not been installed yet you will see an option to 'Install Service/Remote host'
-5. Click on this link and the service installation dialog will show up.
+2. Open Remote Hosts window (Ctrl+H)
+3. If the service has not been installed yet you will see an option to 'Install Service/Remote host'
+4. Click on this link and the service installation dialog will show up.
 5. Specify a user name and password to be used to run the service.
 6. Also remember to click the 'Add firewall exception' rule.

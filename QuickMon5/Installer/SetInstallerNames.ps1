@@ -45,7 +45,7 @@ if (Test-Path $filePath){
     $str
 }
 
-$sourcex86Msi = [System.IO.Path]::Combine($currentDir, "QuickMon4.msi")
+$sourcex86Msi = [System.IO.Path]::Combine($currentDir, "QuickMon5.msi")
 if (Test-Path $sourcex86Msi){
     $versionInfo =  Get-MsiDatabaseVersion($sourcex86Msi)
     $versionArray = ([string]$versionInfo).Split(".")
@@ -59,7 +59,7 @@ if (Test-Path $sourcex86Msi){
     Copy-Item -Path $sourcex86Msi -Destination $installerVersionNamex86 -Force 
 }
 
-$sourcex64Msi = [System.IO.Path]::Combine($currentDir, "QuickMon4x64.msi")
+$sourcex64Msi = [System.IO.Path]::Combine($currentDir, "QuickMon5x64.msi")
 if (Test-Path $sourcex64Msi){
     $versionInfo =  Get-MsiDatabaseVersion($sourcex64Msi)
     $versionArray = ([string]$versionInfo).Split(".")
