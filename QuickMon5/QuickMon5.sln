@@ -18,6 +18,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Description = QuickMon5
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BA11F2A5-01DB-4E85-8AEC-B9420D03DC2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
