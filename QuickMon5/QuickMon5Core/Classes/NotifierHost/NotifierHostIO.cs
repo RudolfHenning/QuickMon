@@ -216,14 +216,16 @@ namespace QuickMon
         public static INotifier CreateNotifierFromClassName(string agentClassName)
         {
             INotifier currentAgent = null;
-            RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + agentClassName, false);
+            if (!agentClassName.Contains("."))
+                agentClassName = "." + agentClassName;
+            RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName(agentClassName, false);
             if (currentRA != null)
             {
                 if (System.IO.File.Exists(currentRA.AssemblyPath))
                 {
                     Assembly notifierEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
                     currentAgent = (INotifier)notifierEntryAssembly.CreateInstance(currentRA.ClassName);
-                    currentAgent.AgentClassName = currentRA.ClassName.Replace("QuickMon.Notifiers.", "");
+                    currentAgent.AgentClassName = currentRA.ClassName;//.Replace("QuickMon.Notifiers.", "");
                     currentAgent.AgentClassDisplayName = currentRA.DisplayName;
                 }
             }

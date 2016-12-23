@@ -371,14 +371,16 @@ namespace QuickMon
         public static ICollector CreateCollectorFromClassName(string agentClassName)
         {
             ICollector currentAgent = null;
-            RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName("." + agentClassName, true);
+            if (!agentClassName.Contains("."))
+                agentClassName = "." + agentClassName;
+            RegisteredAgent currentRA = RegisteredAgentCache.GetRegisteredAgentByClassName(agentClassName, true);
             if (currentRA != null)
             {
                 if (System.IO.File.Exists(currentRA.AssemblyPath))
                 {
                     Assembly collectorEntryAssembly = Assembly.LoadFile(currentRA.AssemblyPath);
                     currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(currentRA.ClassName);
-                    currentAgent.AgentClassName = currentRA.ClassName.Replace("QuickMon.Collectors.", "");
+                    currentAgent.AgentClassName = currentRA.ClassName; //.Replace("QuickMon.Collectors.", "");
                     currentAgent.AgentClassDisplayName = currentRA.DisplayName;
                 }
             }
@@ -491,27 +493,14 @@ namespace QuickMon
         {
             XmlDocument collectorHostDoc = new XmlDocument();
             collectorHostDoc.LoadXml("<collectorHost>" +
-                //"<!-- Alerting -->" + alertingSettingsXml +
                 "<!-- Collector Agents -->" + collectorAgentsXml +
-                //"<!-- Polling settings -->" + pollingSettingsXml +
-                //"<!-- Remote agent settings -->" + remoteAgentSettingsXml +
-                //"<!-- Corrective Scripts -->" + correctiveScriptsXml +
-                //"<!-- Action scripts -->" + actionScriptsXml +
-                //"<!-- ServiceWindows -->" + serviceWindowsXml +
-                //"<!-- Config variables -->" + configVariablesXml +
-                //"<!-- Categories -->" + categoriesXml +
-                //"<notes />" +
                 "</collectorHost>");
             collectorHostDoc.DocumentElement.SetAttributeValue("uniqueId", uniqueId);
-            //collectorHostDoc.DocumentElement.SetAttributeValue("dependOnParentId", parentCollectorId);
             collectorHostDoc.DocumentElement.SetAttributeValue("name", name);
             collectorHostDoc.DocumentElement.SetAttributeValue("enabled", enabled);
-            //collectorHostDoc.DocumentElement.SetAttributeValue("expandOnStart", expandOnStartOption.ToString());
             collectorHostDoc.DocumentElement.SetAttributeValue("childCheckBehaviour", childCheckBehaviour.ToString());
             collectorHostDoc.DocumentElement.SetAttributeValue("runAsEnabled", runAsEnabled);
             collectorHostDoc.DocumentElement.SetAttributeValue("runAs", runAs);
-            //if (notes != null && notes.Trim(' ', '\r', '\n').Length > 0)
-            //    collectorHostDoc.DocumentElement.SelectSingleNode("notes").InnerText = notes.Trim(' ', '\r', '\n');
 
             return collectorHostDoc.DocumentElement.OuterXml;
         }

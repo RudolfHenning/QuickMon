@@ -23,55 +23,41 @@ namespace QuickMon.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:48192/QuickMonRemoteHost")]
         public string ServiceURL {
             get {
                 return ((string)(this["ServiceURL"]));
             }
-            set {
-                this["ServiceURL"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ApplicationMasterKey {
             get {
                 return ((string)(this["ApplicationMasterKey"]));
             }
-            set {
-                this["ApplicationMasterKey"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ApplicationUserNameCacheFilePath {
             get {
                 return ((string)(this["ApplicationUserNameCacheFilePath"]));
             }
-            set {
-                this["ApplicationUserNameCacheFilePath"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"
-                    <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-                        <string>PowerShellScriptRunnerCollector1</string>
-                    </ArrayOfString>
-                ")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>PowerShellScriptRunnerCollector</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection BlockedCollectorAgentTypes {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["BlockedCollectorAgentTypes"]));
-            }
-            set {
-                this["BlockedCollectorAgentTypes"] = value;
             }
         }
     }

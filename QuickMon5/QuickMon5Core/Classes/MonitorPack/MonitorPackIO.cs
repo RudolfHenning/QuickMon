@@ -80,7 +80,7 @@ namespace QuickMon
                 TypeName = root.ReadXmlElementAttr("typeName", "");
                 this.Version = root.ReadXmlElementAttr("version", "5.0.0.0");
                 Enabled = root.ReadXmlElementAttr("enabled", true);
-                CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 1);
+                CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 100);
                 PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0);
                 string defaultNotifierName = root.ReadXmlElementAttr("defaultNotifier");
                 RunCorrectiveScripts = root.ReadXmlElementAttr("runCorrectiveScripts", true);
