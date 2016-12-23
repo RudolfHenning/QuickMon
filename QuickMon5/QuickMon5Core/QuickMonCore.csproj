@@ -9,12 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QuickMon</RootNamespace>
     <AssemblyName>QuickMonCore</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,13 +34,20 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Management.Automation\v4.0_3.0.0.0__31bf3856ad364e35\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +55,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\Collectors\EventLog\EventLogCollector.cs" />
+    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorEntry.cs" />
+    <Compile Include="Agents\Collectors\EventLog\EventLogEntryEx.cs" />
+    <Compile Include="Agents\Collectors\FileSystem\DirectoryFileInfo.cs" />
+    <Compile Include="Agents\Collectors\FileSystem\FileSystemCollector.cs" />
+    <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\FileSystem\FileSystemDirectoryFilterEntry.cs" />
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollector.cs" />
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorEntry.cs" />
+    <Compile Include="Agents\Collectors\Ping\PingCollector.cs" />
+    <Compile Include="Agents\Collectors\Ping\PingCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\Ping\PingCollectorHostEntry.cs" />
+    <Compile Include="Agents\Collectors\Ping\Utility\WebClientEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollector.cs" />
+    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollector.cs" />
+    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorConfigEntry.cs" />
+    <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
+    <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateHostEntry.cs" />
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollector.cs" />
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorConfigEntry.cs" />
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryParser.cs" />
+    <Compile Include="Agents\Notifiers\Audio\AudioNotifier.cs" />
+    <Compile Include="Agents\Notifiers\Audio\AudioNotifierConfig.cs" />
+    <Compile Include="Agents\Notifiers\EventLog\EventLogNotifier.cs" />
+    <Compile Include="Agents\Notifiers\EventLog\EventLogNotifierConfig.cs" />
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifier.cs" />
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierConfig.cs" />
+    <Compile Include="Agents\Notifiers\LogFile\LogFileNotifier.cs" />
+    <Compile Include="Agents\Notifiers\LogFile\LogFileNotifierConfig.cs" />
+    <Compile Include="Agents\Notifiers\RSS\InMemoryRSSDocument.cs" />
+    <Compile Include="Agents\Notifiers\RSS\RSSNotifier.cs" />
+    <Compile Include="Agents\Notifiers\RSS\RSSNotifierConfig.cs" />
+    <Compile Include="Agents\Notifiers\SMTP\SMTPNotifier.cs" />
+    <Compile Include="Agents\Notifiers\SMTP\SMTPNotifierConfig.cs" />
     <Compile Include="BaseClasses\AgentBase.cs" />
     <Compile Include="BaseClasses\AgentHostBase.cs" />
     <Compile Include="BaseClasses\CollectorAgentBase.cs" />
@@ -122,6 +172,7 @@
   <ItemGroup>
     <None Include="Resources\QuickMon4DefaultTemplate.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

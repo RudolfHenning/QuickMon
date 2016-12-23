@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace QuickMon
 {
@@ -23,7 +24,8 @@ namespace QuickMon
             IsBusyPolling = false;
             CollectorStateHistorySize = 100;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
-            AgentLoadingErrors = "";
+            //AgentLoadingErrors = "";
+            LastMPLoadError = "";
             BlockedCollectorAgentTypes = new List<string>();
             LoggingCollectorCategories = new List<string>();
 
@@ -61,7 +63,8 @@ namespace QuickMon
         #endregion
 
         #region Run-time properties
-        public string AgentLoadingErrors { get; set; }
+        //public string AgentLoadingErrors { get; set; }
+        public string LastMPLoadError { get; set; }
         public CollectorState CurrentState { get; set; }
         public CollectorState PreviousState { get; set; }
         #region Polling related properties
@@ -103,8 +106,174 @@ namespace QuickMon
             AbortPolling = false;
             IsBusyPolling = true;
             CollectorState globalState = CollectorState.Good;
+            ResetAllOverrides();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            //First get collectors with no dependancies
+            List<CollectorHost> rootCollectorHosts = (from c in CollectorHosts
+                                                      where c.ParentCollectorId.Length == 0
+                                                      select c).ToList();
+            if (ConcurrencyLevel > 1)
+            {
+                ParallelOptions po = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = ConcurrencyLevel
+                };
+                ParallelLoopResult parResult = Parallel.ForEach(rootCollectorHosts, po, collectorHost =>
+                        CollectorHostRefreshCurrentState(collectorHost, disablePollingOverrides));
+                if (!parResult.IsCompleted)
+                {
+                    SendNotifierAlert(AlertLevel.Error, DetailLevel.All, "Error querying collectors in parralel");
+                }
+            }
+            else //use old single threaded way
+            {
+                //Refresh states
+                foreach (CollectorHost collectorHost in rootCollectorHosts)
+                {
+                    CollectorHostRefreshCurrentState(collectorHost, disablePollingOverrides);
+                }
+            }
+            sw.Stop();
+            PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
+            LastRefreshDurationMS = sw.ElapsedMilliseconds;
+#if DEBUG
+            Trace.WriteLine(string.Format("RefreshStates - Global time: {0}ms", sw.ElapsedMilliseconds));
+#endif
 
+            #region Get Global state
+            //All disabled
+            if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Disabled))
+                globalState = CollectorState.Disabled;
+            //All NotAvailable
+            else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.NotAvailable))
+                globalState = CollectorState.NotAvailable;
+            //All good
+            else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Good ||
+                                                                  c.CurrentState.State == CollectorState.None ||
+                                                                  c.CurrentState.State == CollectorState.Disabled))
+                globalState = CollectorState.Good;
+            //Error state
+            else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Error ||
+                                                                  c.CurrentState.State == CollectorState.ConfigurationError ||
+                                                                  c.CurrentState.State == CollectorState.Disabled))
+                globalState = CollectorState.Error;
+            else
+                globalState = CollectorState.Warning;
+
+            AlertLevel globalAlertLevel = AlertLevel.Info;
+            if (globalState == CollectorState.Error)
+                globalAlertLevel = AlertLevel.Error;
+            else if (globalState == CollectorState.Warning)
+                globalAlertLevel = AlertLevel.Warning;
+            #endregion
+
+            sw.Restart();
+            SendNotifierAlert(globalAlertLevel, DetailLevel.Summary, "GlobalState");
+            sw.Stop();
+            PCSetNotifiersSendTime(sw.ElapsedMilliseconds);
+            IsBusyPolling = false;
+            CurrentState = globalState;
             return globalState;
+        }
+        private void CollectorHostRefreshCurrentState(CollectorHost collectorHost, bool disablePollingOverrides = false)
+        {
+            if (!AbortPolling)
+            {
+                RaiseCollectorHostCalled(collectorHost);
+                try
+                {
+                    MonitorState chms = null;
+
+                    collectorHost.RunTimeMasterKey = "";
+                    collectorHost.RunTimeUserNameCacheFile = "";
+                    collectorHost.BlockedCollectorAgentTypes = new List<string>();
+                    collectorHost.BlockedCollectorAgentTypes.AddRange(BlockedCollectorAgentTypes.ToArray());
+
+                    if (collectorHost.RunAsEnabled && collectorHost.RunAs != null && collectorHost.RunAs.Length > 0)
+                    {
+                        if (UserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(UserNameCacheFilePath) &&
+                                QuickMon.Security.CredentialManager.IsAccountPersisted(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs) &&
+                                QuickMon.Security.CredentialManager.IsAccountDecryptable(UserNameCacheFilePath, UserNameCacheMasterKey, collectorHost.RunAs))
+                        {
+                            collectorHost.RunTimeMasterKey = UserNameCacheMasterKey;
+                            collectorHost.RunTimeUserNameCacheFile = UserNameCacheFilePath;
+                        }
+                        else if (ApplicationUserNameCacheMasterKey != null && ApplicationUserNameCacheFilePath != null &&
+                            ApplicationUserNameCacheMasterKey.Length > 0 && System.IO.File.Exists(ApplicationUserNameCacheFilePath) &&
+                            QuickMon.Security.CredentialManager.IsAccountPersisted(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs) &&
+                            QuickMon.Security.CredentialManager.IsAccountDecryptable(ApplicationUserNameCacheFilePath, ApplicationUserNameCacheMasterKey, collectorHost.RunAs))
+                        {
+                            collectorHost.RunTimeMasterKey = ApplicationUserNameCacheMasterKey;
+                            collectorHost.RunTimeUserNameCacheFile = ApplicationUserNameCacheFilePath;
+                        }
+                    }
+                    collectorHost.ApplyConfigVarsNow(ConfigVariables);
+                    chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
+
+                    #region Do/Check/Set dependant CollectorHosts
+                    if (chms.State == CollectorState.Error && collectorHost.ChildCheckBehaviour != ChildCheckBehaviour.ContinueOnWarningOrError)
+                        SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
+                    else if (chms.State == CollectorState.Warning && collectorHost.ChildCheckBehaviour == ChildCheckBehaviour.OnlyRunOnSuccess)
+                        SetDependantCollectorHostStates(collectorHost, CollectorState.NotAvailable);
+                    else if (chms.State == CollectorState.Disabled || chms.State == CollectorState.ConfigurationError || !collectorHost.IsEnabledNow())
+                        SetDependantCollectorHostStates(collectorHost, CollectorState.Disabled);
+                    else
+                    {
+                        //Remote execute and dependant Collector Hosts
+                        if (collectorHost.ForceRemoteExcuteOnChildCollectors)
+                        {
+                            collectorHost.OverrideForceRemoteExcuteOnChildCollectors = true;
+                            SetChildCollectorHostRemoteExecuteDetails(collectorHost, collectorHost.RemoteAgentHostAddress, collectorHost.RemoteAgentHostPort);
+                        }
+                        //Polling overrides and dependant Collector Hosts
+                        if (collectorHost.EnabledPollingOverride)
+                        {
+                            SetChildCollectorHostPollingOverrides(collectorHost);
+                        }
+
+                        #region Loop through dependant CollectorHosts
+                        if (ConcurrencyLevel > 1)
+                        {
+                            ParallelOptions po = new ParallelOptions()
+                            {
+                                MaxDegreeOfParallelism = ConcurrencyLevel
+                            };
+                            ParallelLoopResult parResult = Parallel.ForEach((from c in CollectorHosts
+                                                                             where c.ParentCollectorId == collectorHost.UniqueId
+                                                                             select c),
+                                        po, dependentCollectorHost =>
+                                    CollectorHostRefreshCurrentState(dependentCollectorHost, disablePollingOverrides));
+                            if (!parResult.IsCompleted)
+                            {
+                                SendNotifierAlert(AlertLevel.Error, DetailLevel.All, "Error querying collectors in parralel");
+                            }
+                        }
+                        else //use old single threaded way
+                        {
+                            //Refresh states
+                            foreach (CollectorHost dependentCollectorHost in (from c in CollectorHosts
+                                                                              where c.ParentCollectorId == collectorHost.UniqueId
+                                                                              select c))
+                            {
+                                CollectorHostRefreshCurrentState(dependentCollectorHost, disablePollingOverrides);
+                            }
+                        }
+                        #endregion
+                    }
+                    #endregion
+
+                    LoggingCollectorEvent(string.Format("Collector '{0}' return state '{1}'", collectorHost.Name, collectorHost.CurrentState), collectorHost);
+                }
+                catch (Exception ex)
+                {
+                    WriteLogging(string.Format("CollectorHostRefreshCurrentState error: {0}", ex.Message));
+                    if (!ex.Message.Contains("Collection was modified; enumeration operation may not execute"))
+                        RaiseMonitorPackError("Internal error. Collector config was modified while in use!");
+                    else
+                        RaiseCollectorError(collectorHost, ex.Message);
+                }
+            }
         }
         #endregion
 
