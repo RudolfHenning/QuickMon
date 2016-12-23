@@ -67,8 +67,6 @@
     <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\Ping\PingCollector.cs" />
-    <Compile Include="Agents\Collectors\Ping\PingCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\Ping\PingCollectorHostEntry.cs" />
     <Compile Include="Agents\Collectors\Ping\Utility\WebClientEx.cs">
       <SubType>Component</SubType>
     </Compile>

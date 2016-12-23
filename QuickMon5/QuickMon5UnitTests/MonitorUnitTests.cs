@@ -228,11 +228,16 @@ namespace QuickMon
                 "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"Ping\" enabled=\"True\" expandOnStart=\"Auto\" " +
                 "     childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
                 "     <collectorAgents agentCheckSequence=\"All\">" +
-                "         <collectorAgent name=\"PowerShell\" type=\"PingCollector\" enabled=\"True\">" +
+                "         <collectorAgent name=\"PowerShell\" type=\"PowerShellScriptRunnerCollector\" enabled=\"True\">" +
                 "                <config>" +
-                "                    <entries>" +
-                "                        <entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"1000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
-                "                    </entries>" +
+                "                    <powerShellScripts>" +
+                "                         <powerShellScriptRunner name = \"Win Dir\" returnCheckSequence=\"GWE\" >" +
+                "                                <testScript>(Get-Item -Path C:\\Windows).Exists</testScript>" +
+                "                                <goodScript resultMatchType=\"Contains\">True</goodScript>" +
+                "                                <warningScript resultMatchType=\"Contains\">[null]</warningScript>" +
+                "                                <errorScript resultMatchType=\"Contains\">False</errorScript>" +
+                "                         </powerShellScriptRunner>" +
+                "                    </powerShellScripts>" +
                 "                </config>" +
                 "         </collectorAgent>" +
                 "     </collectorAgents>" +
@@ -245,6 +250,7 @@ namespace QuickMon
             MonitorPack m = new MonitorPack();
             m.LoadXml(mconfig);
             Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
             if (m != null)
             {
                 Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
