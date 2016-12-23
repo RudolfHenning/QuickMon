@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonService", "QuickMonService\QuickMonService.csproj", "{CD9EED64-763C-4CE5-A23D-D306F34885F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonRemoteHostCMD", "QuickMonRemoteHostCMD\QuickMonRemoteHostCMD.csproj", "{0BE5FD32-1851-4ED0-A972-E1D753AB56E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,12 +28,16 @@ Global
 		{CD9EED64-763C-4CE5-A23D-D306F34885F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD9EED64-763C-4CE5-A23D-D306F34885F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD9EED64-763C-4CE5-A23D-D306F34885F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE5FD32-1851-4ED0-A972-E1D753AB56E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE5FD32-1851-4ED0-A972-E1D753AB56E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE5FD32-1851-4ED0-A972-E1D753AB56E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE5FD32-1851-4ED0-A972-E1D753AB56E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -41,5 +47,8 @@ Global
 		SccProjectUniqueName2 = QuickMon5Core\\QuickMonCore.csproj
 		SccProjectName2 = QuickMon5Core
 		SccLocalPath2 = QuickMon5Core
+		SccProjectUniqueName3 = QuickMonRemoteHostCMD\\QuickMonRemoteHostCMD.csproj
+		SccProjectName3 = QuickMonRemoteHostCMD
+		SccLocalPath3 = QuickMonRemoteHostCMD
 	EndGlobalSection
 EndGlobal

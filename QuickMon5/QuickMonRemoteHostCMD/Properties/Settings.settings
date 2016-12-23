@@ -1,0 +1,22 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QuickMon.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServiceURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:48192/QuickMonRemoteHost</Value>
+    </Setting>
+    <Setting Name="ApplicationMasterKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ApplicationUserNameCacheFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BlockedCollectorAgentTypes" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">
+                    &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+                        &lt;string&gt;PowerShellScriptRunnerCollector1&lt;/string&gt;
+                    &lt;/ArrayOfString&gt;
+                </Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

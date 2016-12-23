@@ -64,96 +64,103 @@ namespace QuickMon
         }
         public void LoadXml(string xmlConfig)
         {
-            Stopwatch sw = new Stopwatch();
-            XmlDocument configurationXml = new XmlDocument();
-            sw.Start();
-            configurationXml.LoadXml(xmlConfig);
-            sw.Stop();
-            System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Loading XML time:{0}ms", sw.ElapsedMilliseconds));
-
-            sw.Reset();
-            sw.Start();
-            XmlElement root = configurationXml.DocumentElement;
-            Name = root.Attributes.GetNamedItem("name").Value;
-            TypeName = root.ReadXmlElementAttr("typeName", "");
-            this.Version = root.ReadXmlElementAttr("version", "5.0.0.0");
-            Enabled = root.ReadXmlElementAttr("enabled", true);
-            CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 1);
-            PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0);
-            string defaultNotifierName = root.ReadXmlElementAttr("defaultNotifier");
-            RunCorrectiveScripts = root.ReadXmlElementAttr("runCorrectiveScripts", true);
-            LoggingEnabled = root.ReadXmlElementAttr("loggingEnabled", false);
-
-            /***************** Load config variables ****************/
-            #region Load config variables
-            XmlNode configVarsNode = root.SelectSingleNode("configVars");
-            ConfigVariables = new List<ConfigVariable>();
-            if (configVarsNode != null)
+            try
             {
-                foreach (XmlElement configVarNodeEntry in configVarsNode.SelectNodes("configVar"))
+                Stopwatch sw = new Stopwatch();
+                XmlDocument configurationXml = new XmlDocument();
+                sw.Start();
+                configurationXml.LoadXml(xmlConfig);
+                sw.Stop();
+                System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Loading XML time:{0}ms", sw.ElapsedMilliseconds));
+
+                sw.Reset();
+                sw.Start();
+                XmlElement root = configurationXml.DocumentElement;
+                Name = root.ReadXmlElementAttr("name", "");
+                TypeName = root.ReadXmlElementAttr("typeName", "");
+                this.Version = root.ReadXmlElementAttr("version", "5.0.0.0");
+                Enabled = root.ReadXmlElementAttr("enabled", true);
+                CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 1);
+                PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0);
+                string defaultNotifierName = root.ReadXmlElementAttr("defaultNotifier");
+                RunCorrectiveScripts = root.ReadXmlElementAttr("runCorrectiveScripts", true);
+                LoggingEnabled = root.ReadXmlElementAttr("loggingEnabled", false);
+
+                /***************** Load config variables ****************/
+                #region Load config variables
+                XmlNode configVarsNode = root.SelectSingleNode("configVars");
+                ConfigVariables = new List<ConfigVariable>();
+                if (configVarsNode != null)
                 {
-                    ConfigVariables.Add(ConfigVariable.FromXml(configVarNodeEntry.OuterXml));
-                }
-            }
-            #endregion
-            /***************** Load Collectors ****************/
-            #region Load Collectors
-            XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
-            if (collectorHostsNode != null)
-            {
-                CollectorHosts = CollectorHost.GetCollectorHostsFromString(collectorHostsNode.OuterXml, ConfigVariables);
-                foreach (CollectorHost collectorHost in CollectorHosts)
-                {
-                    SetCollectorHostEvents(collectorHost);
-                }
-            }
-            #endregion
-            /***************** Load Notifiers ****************/
-            #region Load Notifiers
-            XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
-            if (notifierHostsNode != null)
-            {
-                NotifierHosts = NotifierHost.GetNotifierHostsFromString(notifierHostsNode.OuterXml, ConfigVariables);
-            }
-            #endregion
-
-            #region security
-            UserNameCacheMasterKey = root.ReadXmlElementAttr("usernameCacheMasterKey", "");
-            UserNameCacheFilePath = root.ReadXmlElementAttr("usernameCacheFilePath", "");
-            #endregion
-
-            #region Logging
-            LoggingCollectorCategories = new List<string>();
-            XmlNode loggingNode = root.SelectSingleNode("logging");
-            if (loggingNode != null)
-            {
-                LoggingPath = loggingNode.ReadXmlElementAttr("loggingPath", "");
-                LoggingCollectorEvents = loggingNode.ReadXmlElementAttr("loggingCollectorEvents", false);
-                LoggingNotifierEvents = loggingNode.ReadXmlElementAttr("loggingNotifierEvents", false);
-                LoggingAlertsRaised = loggingNode.ReadXmlElementAttr("loggingAlertsRaised", false);
-                LoggingCorrectiveScriptRun = loggingNode.ReadXmlElementAttr("loggingCorrectiveScriptRun", false);
-                LoggingPollingOverridesTriggered = loggingNode.ReadXmlElementAttr("loggingPollingOverridesTriggered", false);
-                LoggingServiceWindowEvents = loggingNode.ReadXmlElementAttr("loggingServiceWindowEvents", false);
-                LoggingKeepLogFilesXDays = loggingNode.ReadXmlElementAttr("loggingKeepLogFilesXDays", 180);
-
-                XmlNode loggingCollectorCategoriesNode = loggingNode.SelectSingleNode("collectorCategories");
-                if (loggingCollectorCategoriesNode != null)
-                {
-                    foreach (XmlNode categoryNode in loggingCollectorCategoriesNode.SelectNodes("category"))
+                    foreach (XmlElement configVarNodeEntry in configVarsNode.SelectNodes("configVar"))
                     {
-                        LoggingCollectorCategories.Add(categoryNode.InnerText.UnEscapeXml());
+                        ConfigVariables.Add(ConfigVariable.FromXml(configVarNodeEntry.OuterXml));
                     }
                 }
-            }
-            else
-            {
-                LoggingEnabled = false;
-            }
-            #endregion
+                #endregion
+                /***************** Load Collectors ****************/
+                #region Load Collectors
+                XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
+                if (collectorHostsNode != null)
+                {
+                    CollectorHosts = CollectorHost.GetCollectorHostsFromString(collectorHostsNode.OuterXml, ConfigVariables);
+                    foreach (CollectorHost collectorHost in CollectorHosts)
+                    {
+                        SetCollectorHostEvents(collectorHost);
+                    }
+                }
+                #endregion
+                /***************** Load Notifiers ****************/
+                #region Load Notifiers
+                XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
+                if (notifierHostsNode != null)
+                {
+                    NotifierHosts = NotifierHost.GetNotifierHostsFromString(notifierHostsNode.OuterXml, ConfigVariables);
+                }
+                #endregion
 
-            sw.Stop();
-            System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
-            InitializeGlobalPerformanceCounters();
+                #region security
+                UserNameCacheMasterKey = root.ReadXmlElementAttr("usernameCacheMasterKey", "");
+                UserNameCacheFilePath = root.ReadXmlElementAttr("usernameCacheFilePath", "");
+                #endregion
+
+                #region Logging
+                LoggingCollectorCategories = new List<string>();
+                XmlNode loggingNode = root.SelectSingleNode("logging");
+                if (loggingNode != null)
+                {
+                    LoggingPath = loggingNode.ReadXmlElementAttr("loggingPath", "");
+                    LoggingCollectorEvents = loggingNode.ReadXmlElementAttr("loggingCollectorEvents", false);
+                    LoggingNotifierEvents = loggingNode.ReadXmlElementAttr("loggingNotifierEvents", false);
+                    LoggingAlertsRaised = loggingNode.ReadXmlElementAttr("loggingAlertsRaised", false);
+                    LoggingCorrectiveScriptRun = loggingNode.ReadXmlElementAttr("loggingCorrectiveScriptRun", false);
+                    LoggingPollingOverridesTriggered = loggingNode.ReadXmlElementAttr("loggingPollingOverridesTriggered", false);
+                    LoggingServiceWindowEvents = loggingNode.ReadXmlElementAttr("loggingServiceWindowEvents", false);
+                    LoggingKeepLogFilesXDays = loggingNode.ReadXmlElementAttr("loggingKeepLogFilesXDays", 180);
+
+                    XmlNode loggingCollectorCategoriesNode = loggingNode.SelectSingleNode("collectorCategories");
+                    if (loggingCollectorCategoriesNode != null)
+                    {
+                        foreach (XmlNode categoryNode in loggingCollectorCategoriesNode.SelectNodes("category"))
+                        {
+                            LoggingCollectorCategories.Add(categoryNode.InnerText.UnEscapeXml());
+                        }
+                    }
+                }
+                else
+                {
+                    LoggingEnabled = false;
+                }
+                #endregion
+
+                sw.Stop();
+                System.Diagnostics.Trace.WriteLine(string.Format("MonitorPack Parsing XML time:{0}ms", sw.ElapsedMilliseconds));
+                InitializeGlobalPerformanceCounters();
+            }
+            catch(Exception ex)
+            {
+                LastMPLoadError = ex.ToString();
+            }
         }
         private void SetCollectorHostEvents(CollectorHost collectorHost)
         {
