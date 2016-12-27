@@ -26,7 +26,7 @@ namespace QuickMon
                 if (args.Length > 1)
                 {
                     instanceName = args[1];
-                    serviceName = "QuickMon 5 Service - " + instanceName;
+                    serviceName = Globals.ServiceEventSourceName + " - " + instanceName;
                 }
                 if (args[0].ToUpper() == "-?" || args[0].ToUpper() == "-H" || args[0].ToUpper() == "-HELP")
                 {
