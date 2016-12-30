@@ -269,6 +269,25 @@ namespace QuickMon.Forms
                 }
                 #endregion
 
+                #region Corrective scripts
+                AddUpdateListViewItem(lvwProperties, "Corrective scripts", "Enabled", (SelectedCollectorHost.CorrectiveScriptDisabled ? "No" : "Yes"));
+                if (!SelectedCollectorHost.CorrectiveScriptDisabled)
+                {
+                    if (SelectedCollectorHost.LastWarningCorrectiveScriptRun.Year > 2000)
+                        AddUpdateListViewItem(lvwProperties, "Corrective scripts", "Last time warning script ran", SelectedCollectorHost.LastWarningCorrectiveScriptRun.ToString());
+                    if (SelectedCollectorHost.TimesWarningCorrectiveScriptRan > 0)
+                        AddUpdateListViewItem(lvwProperties, "Corrective scripts", "# of Times warning script ran", SelectedCollectorHost.TimesWarningCorrectiveScriptRan.ToString());
+                    if (SelectedCollectorHost.LastErrorCorrectiveScriptRun.Year > 2000)
+                        AddUpdateListViewItem(lvwProperties, "Corrective scripts", "Last time error script ran", SelectedCollectorHost.LastErrorCorrectiveScriptRun.ToString());
+                    if (SelectedCollectorHost.TimesErrorCorrectiveScriptRan > 0)
+                        AddUpdateListViewItem(lvwProperties, "Corrective scripts", "# of Times error script ran", SelectedCollectorHost.TimesErrorCorrectiveScriptRan.ToString());
+                    if (SelectedCollectorHost.LastRestorationScriptRun.Year > 2000)
+                        AddUpdateListViewItem(lvwProperties, "Corrective scripts", "Last time restoration script ran", SelectedCollectorHost.LastRestorationScriptRun.ToString());
+                    if (SelectedCollectorHost.TimesRestorationScriptRan > 0)
+                        AddUpdateListViewItem(lvwProperties, "Corrective scripts", "# of Times restoration script ran", SelectedCollectorHost.TimesRestorationScriptRan.ToString());
+                }
+                #endregion
+
                 #region History
                 LoadCollectorStateHistory();
                 #endregion
@@ -292,9 +311,6 @@ namespace QuickMon.Forms
                 LoadActionScripts();
             }
         }
-
-
-
         private List<string> ReadValues(MonitorState monitorState)
         {
             List<string> values = new List<string>();
@@ -388,12 +404,33 @@ namespace QuickMon.Forms
             //    }
             //}
         }
+        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateActionScriptDetailView();
+            //UpdateDetailViewTable(lvwActionScripts);
+        }
+        private void lvwActionScripts_DoubleClick(object sender, EventArgs e)
+        {
+            Run(false);
+        }
+        private void lvwActionScripts_EnterKeyPressed()
+        {
+            Run(false);
+        }
         #endregion
 
         #region Context menu event
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RefreshStats();
+        }
+        private void runWithPauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Run(true);
+        }
+        private void runActionScriptToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Run(false);
         }
         #endregion
 
@@ -845,6 +882,21 @@ namespace QuickMon.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void Run(bool withPause)
+        {
+            if (lvwActionScripts.SelectedItems.Count == 1 && lvwActionScripts.SelectedItems[0].Tag is ActionScript)
+            {
+                ActionScript selectedScript = (ActionScript)lvwActionScripts.SelectedItems[0].Tag;
+                try
+                {
+                    selectedScript.Run(withPause);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         #endregion
 
         private void dtvc_ListSelectedIndexChanged(object sender, EventArgs e)
@@ -875,48 +927,6 @@ namespace QuickMon.Forms
             {
                 RefreshStats();
             }
-        }
-
-        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateActionScriptDetailView();
-            //UpdateDetailViewTable(lvwActionScripts);
-        }
-
-        private void lvwActionScripts_DoubleClick(object sender, EventArgs e)
-        {
-            Run(false);
-        }
-
-        private void runWithPauseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Run(true);
-        }
-
-        private void Run(bool withPause)
-        {
-            if (lvwActionScripts.SelectedItems.Count == 1 && lvwActionScripts.SelectedItems[0].Tag is ActionScript)
-            {
-                ActionScript selectedScript = (ActionScript)lvwActionScripts.SelectedItems[0].Tag;
-                try
-                {
-                    selectedScript.Run(withPause);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void runActionScriptToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Run(false);
-        }
-
-        private void lvwActionScripts_EnterKeyPressed()
-        {
-            Run(false);
         }
 
     }

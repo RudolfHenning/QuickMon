@@ -191,6 +191,15 @@
             this.cboExpandOnStartOption = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label47 = new System.Windows.Forms.Label();
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
             this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -237,6 +246,9 @@
             this.groupBox8.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).BeginInit();
             this.SuspendLayout();
             // 
             // chkExpandOnStart
@@ -1378,6 +1390,15 @@
             this.correctiveScriptsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownRestorationScriptMinimumRepeatTimeMin);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label53);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label54);
+            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label51);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label52);
+            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label48);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label49);
             this.correctiveScriptsGroupBox.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
             this.correctiveScriptsGroupBox.Controls.Add(this.cmdBrowseForRestorationScript);
             this.correctiveScriptsGroupBox.Controls.Add(this.txtRestorationScript);
@@ -1410,10 +1431,10 @@
             // 
             this.cmdBrowseForRestorationScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForRestorationScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(521, 78);
+            this.cmdBrowseForRestorationScript.Location = new System.Drawing.Point(396, 78);
             this.cmdBrowseForRestorationScript.Name = "cmdBrowseForRestorationScript";
             this.cmdBrowseForRestorationScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForRestorationScript.TabIndex = 11;
+            this.cmdBrowseForRestorationScript.TabIndex = 17;
             this.cmdBrowseForRestorationScript.Text = "- - -";
             this.cmdBrowseForRestorationScript.UseVisualStyleBackColor = true;
             this.cmdBrowseForRestorationScript.Click += new System.EventHandler(this.cmdBrowseForRestorationScript_Click);
@@ -1424,19 +1445,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRestorationScript.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtRestorationScript.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtRestorationScript.Location = new System.Drawing.Point(134, 80);
+            this.txtRestorationScript.Location = new System.Drawing.Point(107, 80);
             this.txtRestorationScript.Name = "txtRestorationScript";
-            this.txtRestorationScript.Size = new System.Drawing.Size(382, 20);
-            this.txtRestorationScript.TabIndex = 10;
+            this.txtRestorationScript.Size = new System.Drawing.Size(283, 20);
+            this.txtRestorationScript.TabIndex = 16;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(9, 83);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(116, 13);
-            this.label20.TabIndex = 9;
-            this.label20.Text = "Restoration (only once)";
+            this.label20.Size = new System.Drawing.Size(61, 13);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "Restoration";
+            this.toolTip1.SetToolTip(this.label20, "only once");
             // 
             // label19
             // 
@@ -1453,7 +1475,7 @@
             // 
             this.cmdBrowseForWarningCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForWarningCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(521, 25);
+            this.cmdBrowseForWarningCorrectiveScript.Location = new System.Drawing.Point(396, 25);
             this.cmdBrowseForWarningCorrectiveScript.Name = "cmdBrowseForWarningCorrectiveScript";
             this.cmdBrowseForWarningCorrectiveScript.Size = new System.Drawing.Size(33, 23);
             this.cmdBrowseForWarningCorrectiveScript.TabIndex = 5;
@@ -1485,10 +1507,10 @@
             // 
             this.cmdBrowseForErrorCorrectiveScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseForErrorCorrectiveScript.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(521, 51);
+            this.cmdBrowseForErrorCorrectiveScript.Location = new System.Drawing.Point(396, 51);
             this.cmdBrowseForErrorCorrectiveScript.Name = "cmdBrowseForErrorCorrectiveScript";
             this.cmdBrowseForErrorCorrectiveScript.Size = new System.Drawing.Size(33, 23);
-            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 8;
+            this.cmdBrowseForErrorCorrectiveScript.TabIndex = 11;
             this.cmdBrowseForErrorCorrectiveScript.Text = "- - -";
             this.cmdBrowseForErrorCorrectiveScript.UseVisualStyleBackColor = true;
             this.cmdBrowseForErrorCorrectiveScript.Click += new System.EventHandler(this.cmdBrowseForErrorCorrectiveScript_Click);
@@ -1499,9 +1521,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCorrectiveScriptOnWarning.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtCorrectiveScriptOnWarning.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(134, 27);
+            this.txtCorrectiveScriptOnWarning.Location = new System.Drawing.Point(107, 27);
             this.txtCorrectiveScriptOnWarning.Name = "txtCorrectiveScriptOnWarning";
-            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(382, 20);
+            this.txtCorrectiveScriptOnWarning.Size = new System.Drawing.Size(283, 20);
             this.txtCorrectiveScriptOnWarning.TabIndex = 4;
             // 
             // txtCorrectiveScriptOnError
@@ -1510,10 +1532,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCorrectiveScriptOnError.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtCorrectiveScriptOnError.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(134, 53);
+            this.txtCorrectiveScriptOnError.Location = new System.Drawing.Point(107, 53);
             this.txtCorrectiveScriptOnError.Name = "txtCorrectiveScriptOnError";
-            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(382, 20);
-            this.txtCorrectiveScriptOnError.TabIndex = 7;
+            this.txtCorrectiveScriptOnError.Size = new System.Drawing.Size(283, 20);
+            this.txtCorrectiveScriptOnError.TabIndex = 10;
             // 
             // label12
             // 
@@ -1521,7 +1543,7 @@
             this.label12.Location = new System.Drawing.Point(9, 56);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 6;
+            this.label12.TabIndex = 9;
             this.label12.Text = "On Error";
             // 
             // alertSuppressionGroupBox
@@ -2100,6 +2122,102 @@
             this.label47.TabIndex = 3;
             this.label47.Text = "Expand";
             // 
+            // numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin
+            // 
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 28);
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin";
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.TabIndex = 7;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(529, 30);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(24, 13);
+            this.label48.TabIndex = 8;
+            this.label48.Text = "Min";
+            this.toolTip1.SetToolTip(this.label48, "Minute");
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(435, 30);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(33, 13);
+            this.label49.TabIndex = 6;
+            this.label49.Text = "Once";
+            this.toolTip1.SetToolTip(this.label49, "Only allow script to run once in X minutes");
+            // 
+            // numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin
+            // 
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 54);
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin";
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.TabIndex = 13;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(529, 56);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(24, 13);
+            this.label51.TabIndex = 14;
+            this.label51.Text = "Min";
+            this.toolTip1.SetToolTip(this.label51, "Minute");
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(435, 56);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(33, 13);
+            this.label52.TabIndex = 12;
+            this.label52.Text = "Once";
+            this.toolTip1.SetToolTip(this.label52, "Only allow script to run once in X minutes");
+            // 
+            // numericUpDownRestorationScriptMinimumRepeatTimeMin
+            // 
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 81);
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Name = "numericUpDownRestorationScriptMinimumRepeatTimeMin";
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.TabIndex = 19;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(529, 83);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(24, 13);
+            this.label53.TabIndex = 20;
+            this.label53.Text = "Min";
+            this.toolTip1.SetToolTip(this.label53, "Minute");
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(435, 83);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(33, 13);
+            this.label54.TabIndex = 18;
+            this.label54.Text = "Once";
+            this.toolTip1.SetToolTip(this.label54, "Only allow script to run once in X minutes");
+            // 
             // agentsTreeListView
             // 
             this.agentsTreeListView.AllowSorting = false;
@@ -2282,6 +2400,9 @@
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2459,5 +2580,14 @@
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ToolStripButton editActionScriptToolStripButton;
+        private System.Windows.Forms.NumericUpDown numericUpDownRestorationScriptMinimumRepeatTimeMin;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.NumericUpDown numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.NumericUpDown numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label49;
     }
 }

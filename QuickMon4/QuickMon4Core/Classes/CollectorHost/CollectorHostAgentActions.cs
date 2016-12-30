@@ -138,15 +138,15 @@ namespace QuickMon
                 {
                     if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
                     {
-                        RunCollectorHostRestorationScript(this);
+                        RaiseRunCollectorHostRestorationScript();
                     }
                     else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
                     {
                         if (newState.State == CollectorState.Error && RunCollectorHostCorrectiveErrorScript != null)
-                            RunCollectorHostCorrectiveErrorScript(this);
+                            RaiseRunCollectorHostCorrectiveErrorScript();
                         else if (newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
-                            RunCollectorHostCorrectiveWarningScript(this);
-                    }                    
+                            RaiseRunCollectorHostCorrectiveWarningScript();
+                    }
                 }
             }
 
