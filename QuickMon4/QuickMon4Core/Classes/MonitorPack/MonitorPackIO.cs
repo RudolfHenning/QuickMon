@@ -167,6 +167,7 @@ namespace QuickMon
             collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;
             collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
             collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
+            collectorHost.CorrectiveScriptMinRepeatTimeBlockedEvent += collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent;
             collectorHost.LoggingPollingOverridesTriggeredEvent += collectorHost_LoggingPollingOverridesTriggeredEvent;
             collectorHost.EntereringServiceWindow += collectorHost_EntereringServiceWindow;
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;

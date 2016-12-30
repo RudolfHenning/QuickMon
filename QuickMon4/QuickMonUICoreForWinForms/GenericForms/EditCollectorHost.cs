@@ -140,9 +140,12 @@ namespace QuickMon
 
                 chkCorrectiveScriptDisabled.Checked = editingCollectorHost.CorrectiveScriptDisabled;
                 txtCorrectiveScriptOnWarning.Text = editingCollectorHost.CorrectiveScriptOnWarningPath;
+                numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin);
                 txtCorrectiveScriptOnError.Text = editingCollectorHost.CorrectiveScriptOnErrorPath;
+                numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin);
                 chkOnlyRunCorrectiveScriptsOnStateChange.Checked = editingCollectorHost.CorrectiveScriptsOnlyOnStateChange;
                 txtRestorationScript.Text = editingCollectorHost.RestorationScriptPath;
+                numericUpDownRestorationScriptMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.RestorationScriptMinimumRepeatTimeMin);
                 chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
                 txtRunAs.Text = editingCollectorHost.RunAs;
                 txtAdditionalNotes.Text = editingCollectorHost.Notes;
@@ -1212,6 +1215,9 @@ namespace QuickMon
                 editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
                 editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
                 editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
+                editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Value;
+                editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Value;
+                editingCollectorHost.RestorationScriptMinimumRepeatTimeMin = (int)numericUpDownRestorationScriptMinimumRepeatTimeMin.Value;
 
                 //impersonation
                 editingCollectorHost.RunAsEnabled = chkRunAsEnabled.Checked;

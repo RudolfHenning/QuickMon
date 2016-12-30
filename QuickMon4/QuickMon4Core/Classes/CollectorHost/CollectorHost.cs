@@ -54,6 +54,13 @@ namespace QuickMon
             ErrorAlertText = "";
             WarningAlertText = "";
             GoodAlertText = "";
+
+            LastErrorCorrectiveScriptRun = new DateTime(2000, 1, 1);
+            LastWarningCorrectiveScriptRun = new DateTime(2000, 1, 1);
+            LastRestorationScriptRun = new DateTime(2000, 1, 1);
+            TimesErrorCorrectiveScriptRan = 0;
+            TimesWarningCorrectiveScriptRan = 0;
+            TimesRestorationScriptRan = 0;
         }
 
         #region Private vars
