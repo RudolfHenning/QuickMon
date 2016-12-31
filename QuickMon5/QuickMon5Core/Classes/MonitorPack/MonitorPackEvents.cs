@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,6 +85,7 @@ namespace QuickMon
         public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
         public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
         public event CollectorHostDelegate RunCollectorHostRestorationScript;
+        public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
         private void collectorHost_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
         {
             try
@@ -112,7 +113,7 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveErrorScript: {0}", ex.ToString()));
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveWarningScript: {0}", ex.ToString()));
             }
         }
         private void collectorHost_RunCollectorHostRestorationScript(CollectorHost collectorHost)
@@ -130,6 +131,22 @@ namespace QuickMon
                 System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostRestorationScript: {0}", ex.ToString()));
             }
         }
+        private void collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent(CollectorHost collectorHost, string message)
+        {
+            try
+            {
+                if (RunCorrectiveScripts && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && message.Length > 0)
+                {
+                    CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(collectorHost, message);
+                    LogCorrectiveScriptMinRepeatTimeBlockedEvent(collectorHost, message);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent: {0}", ex.ToString()));
+            }
+        }
+
         #endregion
 
         #region CollectorHost events

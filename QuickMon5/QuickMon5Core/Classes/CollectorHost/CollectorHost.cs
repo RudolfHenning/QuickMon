@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +54,13 @@ namespace QuickMon
             ErrorAlertText = "";
             WarningAlertText = "";
             GoodAlertText = "";
+
+            LastErrorCorrectiveScriptRun = new DateTime(2000, 1, 1);
+            LastWarningCorrectiveScriptRun = new DateTime(2000, 1, 1);
+            LastRestorationScriptRun = new DateTime(2000, 1, 1);
+            TimesErrorCorrectiveScriptRan = 0;
+            TimesWarningCorrectiveScriptRan = 0;
+            TimesRestorationScriptRan = 0;
         }
 
         #region Private vars
@@ -334,6 +341,15 @@ namespace QuickMon
         public string CorrectiveScriptOnErrorPath { get; set; }
         public string RestorationScriptPath { get; set; }
         public bool CorrectiveScriptsOnlyOnStateChange { get; set; } 
+        public int CorrectiveScriptOnWarningMinimumRepeatTimeMin { get; set; }
+        public int CorrectiveScriptOnErrorMinimumRepeatTimeMin { get; set; }
+        public int RestorationScriptMinimumRepeatTimeMin { get; set; }
+        public DateTime LastErrorCorrectiveScriptRun { get; set; }
+        public DateTime LastWarningCorrectiveScriptRun { get; set; }
+        public DateTime LastRestorationScriptRun { get; set; }
+        public int TimesErrorCorrectiveScriptRan { get; set; }
+        public int TimesWarningCorrectiveScriptRan { get; set; }
+        public int TimesRestorationScriptRan { get; set; }
         #endregion
 
         #endregion

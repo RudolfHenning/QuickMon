@@ -241,8 +241,6 @@ namespace QuickMon
                 "                </config>" +
                 "         </collectorAgent>" +
                 "     </collectorAgents>" +
-                //"     <remoteAgent enableRemoteExecute=\"True\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"localhost\" remoteAgentHostPort=\"48192\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
-                //"     <alerting repeatAlertInXMin=\"1\" alertOnceInXMin=\"1\" />" +
                 "   </collectorHost>" +
                 "</collectorHosts>" +
                 "<notifierHosts></notifierHosts>" +
@@ -271,6 +269,39 @@ namespace QuickMon
                 }
             }
         }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void AllCollectorTest()
+        {
+            if (!System.IO.Directory.Exists("C:\\Test"))
+            {
+                System.IO.Directory.CreateDirectory("C:\\Test");
+            }
+            string testFileName = "C:\\Test\\Test.txt";
+            if (!System.IO.File.Exists(testFileName))
+            {
+                System.IO.File.WriteAllText(testFileName, "0");
+            }
 
+            string mconfig = Properties.Resources.AllCollectorsTest;
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
+            if (m != null)
+            {
+                Assert.AreNotEqual(0, m.CollectorHosts.Count, "No Collector hosts loaded!");
+                Assert.AreEqual(true, m.LoggingEnabled, "Logging not enabled!");
+
+                System.IO.File.WriteAllText(testFileName, "0");
+                Assert.AreEqual(CollectorState.Good, m.RefreshStates(), "Good state expected");
+                Assert.AreEqual(CollectorState.Good, m.CollectorHosts[0].CurrentState.State, "Cannot ping self??");
+
+                System.IO.File.WriteAllText(testFileName, "1");
+                Assert.AreEqual(CollectorState.Warning, m.RefreshStates(), "Warning state expected");
+                System.IO.File.WriteAllText(testFileName, "2");
+                Assert.AreEqual(CollectorState.Warning, m.RefreshStates(), "Error state expected");
+
+            }
+        }
     }
 }

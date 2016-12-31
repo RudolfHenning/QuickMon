@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -136,16 +136,19 @@ namespace QuickMon
 
                 if (!CorrectiveScriptDisabled)
                 {
-                    if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
+                    if (RestorationScriptPath != null && RestorationScriptPath.Trim().Length > 0 && 
+                        newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
                     {
-                        RunCollectorHostRestorationScript(this);
+                        RaiseRunCollectorHostRestorationScript();
                     }
                     else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
                     {
-                        if (newState.State == CollectorState.Error && RunCollectorHostCorrectiveErrorScript != null)
-                            RunCollectorHostCorrectiveErrorScript(this);
-                        else if (newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
-                            RunCollectorHostCorrectiveWarningScript(this);
+                        if (CorrectiveScriptOnErrorPath != null && CorrectiveScriptOnErrorPath.Trim().Length > 0 && 
+                            newState.State == CollectorState.Error && RunCollectorHostCorrectiveErrorScript != null)
+                            RaiseRunCollectorHostCorrectiveErrorScript();
+                        else if (CorrectiveScriptOnWarningPath != null && CorrectiveScriptOnWarningPath.Trim().Length > 0 && 
+                            newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
+                            RaiseRunCollectorHostCorrectiveWarningScript();
                     }
                 }
             }
