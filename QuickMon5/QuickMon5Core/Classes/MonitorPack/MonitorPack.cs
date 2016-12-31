@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -670,6 +670,11 @@ namespace QuickMon
             });
             LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
                 collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath));
+        }
+        private void LogCorrectiveScriptMinRepeatTimeBlockedEvent(CollectorHost collectorEntry, string message)
+        {
+            collectorEntry.CurrentState.RawDetails += "\r\n" + message;
+            LoggingCorrectiveScriptRunEvent(string.Format("Collector host '{0}': {1}", collectorEntry.Name, message));
         }
         #endregion
 

@@ -34,7 +34,7 @@ namespace QuickMon
                 {
                     string logFileName = "";
 
-                    if (MonitorPackPath.Length > 0)
+                    if (MonitorPackPath != null && MonitorPackPath.Length > 0)
                     {
                         logFileName = System.IO.Path.GetFileNameWithoutExtension(MonitorPackPath);
                     }

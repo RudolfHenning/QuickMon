@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -66,6 +66,7 @@ namespace QuickMon
         {
             try
             {
+                LastMPLoadError = "";
                 Stopwatch sw = new Stopwatch();
                 XmlDocument configurationXml = new XmlDocument();
                 sw.Start();
@@ -161,6 +162,10 @@ namespace QuickMon
             {
                 LastMPLoadError = ex.ToString();
             }
+            if (LastMPLoadError.Length == 0)
+                WriteLogging("Monitor config loaded with no errors");
+            else
+                WriteLogging("Monitor config loaded with errors - " + LastMPLoadError);
         }
         private void SetCollectorHostEvents(CollectorHost collectorHost)
         {
@@ -174,6 +179,7 @@ namespace QuickMon
             collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;
             collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
             collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
+            collectorHost.CorrectiveScriptMinRepeatTimeBlockedEvent += collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent;
             collectorHost.LoggingPollingOverridesTriggeredEvent += collectorHost_LoggingPollingOverridesTriggeredEvent;
             collectorHost.EntereringServiceWindow += collectorHost_EntereringServiceWindow;
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
@@ -367,7 +373,7 @@ namespace QuickMon
         }
         public static string GetQuickMonUserDataTemplatesFile()
         {
-            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "Templates", "QuickMon4Templates.qmtemplate");
+            return System.IO.Path.Combine(MonitorPack.GetQuickMonUserDataDirectory(), "Templates", "QuickMon5Templates.qmtemplate");
         }
         #endregion
 
