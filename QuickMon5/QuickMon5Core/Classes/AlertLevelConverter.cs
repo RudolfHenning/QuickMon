@@ -24,11 +24,7 @@ namespace QuickMon
                     case "E":
                         return AlertLevel.Error;
                     case "3":
-                        return AlertLevel.Error;
-                    case "C":
-                        return AlertLevel.Crisis;
-                    case "5":
-                        return AlertLevel.Crisis;
+                        return AlertLevel.Error;                    
                 }
                 return AlertLevel.Info;
             }

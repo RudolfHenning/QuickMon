@@ -41,7 +41,7 @@ namespace QuickMon.Notifiers
                         PlaySoundForState(config.WarningSoundSettings);
                     }
                 }
-                else if (alertRaised.Level == AlertLevel.Error || alertRaised.Level == AlertLevel.Crisis)
+                else if (alertRaised.Level == AlertLevel.Error)
                 {
                     if (config.ErrorSoundSettings.Enabled)
                     {
