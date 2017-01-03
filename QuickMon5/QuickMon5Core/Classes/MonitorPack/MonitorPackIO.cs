@@ -85,7 +85,7 @@ namespace QuickMon
                 PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0);
                 string defaultNotifierName = root.ReadXmlElementAttr("defaultNotifier");
                 RunCorrectiveScripts = root.ReadXmlElementAttr("runCorrectiveScripts", true);
-                LoggingEnabled = root.ReadXmlElementAttr("loggingEnabled", false);
+                LoggingEnabled = root.ReadXmlElementAttr("loggingEnabled", false); //Deprecated
 
                 /***************** Load config variables ****************/
                 #region Load config variables
@@ -130,6 +130,7 @@ namespace QuickMon
                 XmlNode loggingNode = root.SelectSingleNode("logging");
                 if (loggingNode != null)
                 {
+                    LoggingEnabled = loggingNode.ReadXmlElementAttr("enabled", false);
                     LoggingPath = loggingNode.ReadXmlElementAttr("loggingPath", "");
                     LoggingCollectorEvents = loggingNode.ReadXmlElementAttr("loggingCollectorEvents", false);
                     LoggingNotifierEvents = loggingNode.ReadXmlElementAttr("loggingNotifierEvents", false);

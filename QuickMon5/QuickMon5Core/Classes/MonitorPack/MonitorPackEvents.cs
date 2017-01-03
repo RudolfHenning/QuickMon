@@ -85,6 +85,10 @@ namespace QuickMon
         public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
         public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
         public event CollectorHostDelegate RunCollectorHostRestorationScript;
+        private void RunScript(ActionScript scriptToRun)
+        {
+            scriptToRun.Run(false);
+        }
         public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
         private void collectorHost_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
         {

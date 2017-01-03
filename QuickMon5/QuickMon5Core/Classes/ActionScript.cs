@@ -9,6 +9,9 @@ namespace QuickMon
     public class ActionScript
     {
         public string Name { get; set; }
+        public bool IsErrorCorrectiveScript { get; set; }
+        public bool IsWarningCorrectiveScript { get; set; }
+        public bool IsRestorationScript { get; set; }
         public ScriptType ScriptType { get; set; }
         public string Description { get; set; }
         public string Script { get; set; }
@@ -24,6 +27,9 @@ namespace QuickMon
             xdoc.DocumentElement.SetAttributeValue("description", Description);
             xdoc.DocumentElement.SetAttributeValue("windowStyle", WindowSizeStyle.ToString());
             xdoc.DocumentElement.SetAttributeValue("adminMode", RunAdminMode);
+            xdoc.DocumentElement.SetAttributeValue("correctiveErrorScript", IsErrorCorrectiveScript);
+            xdoc.DocumentElement.SetAttributeValue("correctiveWarningScript", IsWarningCorrectiveScript);
+            xdoc.DocumentElement.SetAttributeValue("restorationScript", IsRestorationScript);
 
             xdoc.DocumentElement.InnerText = Script;
 
@@ -47,6 +53,10 @@ namespace QuickMon
                         script.Description = scriptItem.ReadXmlElementAttr("description", "");
                         script.WindowSizeStyle = WindowSizeStyleConverter.FromString(scriptItem.ReadXmlElementAttr("windowStyle", "normal"));
                         script.RunAdminMode = scriptItem.ReadXmlElementAttr("adminMode", false);
+                        script.IsErrorCorrectiveScript = scriptItem.ReadXmlElementAttr("correctiveErrorScript", false);
+                        script.IsWarningCorrectiveScript = scriptItem.ReadXmlElementAttr("correctiveWarningScript", false);
+                        script.IsRestorationScript = scriptItem.ReadXmlElementAttr("restorationScript", false);
+
                         script.Script = scriptItem.InnerText;
                         scripts.Add(script);
                     }

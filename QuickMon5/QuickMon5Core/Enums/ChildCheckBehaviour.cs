@@ -9,8 +9,7 @@ namespace QuickMon
     {
         OnlyRunOnSuccess,
         ContinueOnWarning,
-        ContinueOnWarningOrError//,
-        //IncludeChildStatus
+        ContinueOnWarningOrError
     }
     public static class ChildCheckBehaviourConverter
     {
