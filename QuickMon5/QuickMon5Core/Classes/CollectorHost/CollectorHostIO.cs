@@ -159,10 +159,10 @@ namespace QuickMon
             #endregion
 
             #region Action scripts
-            XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("actionScripts");
+            XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("collectorActionScripts");
             if (actionScriptsNode != null)
             {
-                newCollectorHost.ActionScripts = ActionScript.FromXml(actionScriptsNode.OuterXml);
+                newCollectorHost.ActionScripts = CollectorActionScript.FromXml(actionScriptsNode.OuterXml);
             }
             #endregion
 
@@ -806,22 +806,21 @@ namespace QuickMon
             }
             return configVarXml.ToString();
         }
-        private static string GetActionScriptsXml(List<ActionScript> actionScripts)
+        private static string GetActionScriptsXml(List<CollectorActionScript> actionScripts)
         {
             StringBuilder actionScriptsXml = new StringBuilder();
             if (actionScripts != null && actionScripts.Count > 0)
             {
-                actionScriptsXml.AppendLine("<actionScripts>");
-                foreach (ActionScript acs in actionScripts)
+                actionScriptsXml.AppendLine("<collectorActionScripts>");
+                foreach (CollectorActionScript acs in actionScripts)
                 {
                     actionScriptsXml.AppendLine(acs.ToXml());
                 }
-                actionScriptsXml.AppendLine("</actionScripts>");
+                actionScriptsXml.AppendLine("</collectorActionScripts>");
             }
             else
-                actionScriptsXml.AppendLine("<actionScripts />");
+                actionScriptsXml.AppendLine("<collectorActionScripts />");
             return actionScriptsXml.ToString();
-
         }
         #endregion
 

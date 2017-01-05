@@ -94,7 +94,7 @@ namespace QuickMon
         {
             try
             {
-                if (RunCorrectiveScripts && RunCollectorHostCorrectiveErrorScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnErrorPath.Length > 0)
+                if (CorrectiveScriptsEnabled && RunCollectorHostCorrectiveErrorScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnErrorPath.Length > 0)
                 {
                     RunCollectorHostCorrectiveErrorScript(collectorHost);
                     LogCorrectiveScriptAction(collectorHost, true);
@@ -109,7 +109,7 @@ namespace QuickMon
         {
             try
             {
-                if (RunCorrectiveScripts && RunCollectorHostCorrectiveWarningScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnWarningPath.Length > 0)
+                if (CorrectiveScriptsEnabled && RunCollectorHostCorrectiveWarningScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnWarningPath.Length > 0)
                 {
                     RunCollectorHostCorrectiveWarningScript(collectorHost);
                     LogCorrectiveScriptAction(collectorHost, false);
@@ -124,7 +124,7 @@ namespace QuickMon
         {
             try
             {
-                if (RunCorrectiveScripts && RunCollectorHostRestorationScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.RestorationScriptPath.Length > 0)
+                if (CorrectiveScriptsEnabled && RunCollectorHostRestorationScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.RestorationScriptPath.Length > 0)
                 {
                     RunCollectorHostRestorationScript(collectorHost);
                     LogRestorationScriptAction(collectorHost);
@@ -139,7 +139,7 @@ namespace QuickMon
         {
             try
             {
-                if (RunCorrectiveScripts && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && message.Length > 0)
+                if (CorrectiveScriptsEnabled && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && message.Length > 0)
                 {
                     CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(collectorHost, message);
                     LogCorrectiveScriptMinRepeatTimeBlockedEvent(collectorHost, message);

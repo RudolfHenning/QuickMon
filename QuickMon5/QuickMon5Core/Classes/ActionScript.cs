@@ -8,32 +8,83 @@ namespace QuickMon
 {
     public class ActionScript
     {
+        public ActionScript()
+        {
+            Parameters = new List<ScriptParameter>();
+        }
+        public class ScriptParameter
+        {
+            public string Id { get; set; }
+            public string DefaultValue { get; set; }
+            public string DataType { get; set; }
+
+            public string ToXml()
+            {
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml("<parameter />");
+                xdoc.DocumentElement.SetAttributeValue("id", Id);
+                xdoc.DocumentElement.SetAttributeValue("default", DefaultValue);
+                xdoc.DocumentElement.SetAttributeValue("type", DataType);
+                return xdoc.DocumentElement.OuterXml;
+            }
+            public XmlNode ToXmlNode()
+            {
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml("<parameter />");
+                xdoc.DocumentElement.SetAttributeValue("id", Id);
+                xdoc.DocumentElement.SetAttributeValue("default", DefaultValue);
+                xdoc.DocumentElement.SetAttributeValue("type", DataType);
+                return xdoc.DocumentElement;
+            }
+            public static List<ScriptParameter> FromXml(XmlNode parametersNode)
+            {
+                List<ScriptParameter> parameters = new List<ScriptParameter>();
+                if (parametersNode.OuterXml.StartsWith("<parameters"))
+                {
+                    ScriptParameter sp = new ScriptParameter() { Id = "" };
+                    foreach (XmlNode parameterNode in parametersNode.SelectNodes("parameter"))
+                    {
+                        sp.Id = parameterNode.ReadXmlElementAttr("id", "");
+                        sp.DefaultValue = parameterNode.ReadXmlElementAttr("default", "");
+                        sp.DataType = parameterNode.ReadXmlElementAttr("type", "string");
+                        parameters.Add(sp);
+                    }
+                }
+                return parameters;
+            }
+        }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public bool IsErrorCorrectiveScript { get; set; }
-        public bool IsWarningCorrectiveScript { get; set; }
-        public bool IsRestorationScript { get; set; }
         public ScriptType ScriptType { get; set; }
         public string Description { get; set; }
-        public string Script { get; set; }
         public WindowSizeStyle WindowSizeStyle { get; set; }
         public bool RunAdminMode { get; set; }
+        public string Script { get; set; }
+        public List<ScriptParameter> Parameters { get; set; }
 
-        public string ToXml()
+        public XmlNode ToXmlNode()
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml("<script />");
+            xdoc.LoadXml("<actionScript><scriptText /><parameters /></actionScript>");
+            xdoc.DocumentElement.SetAttributeValue("id", Id);
             xdoc.DocumentElement.SetAttributeValue("name", Name);
             xdoc.DocumentElement.SetAttributeValue("type", ScriptType.ToString());
             xdoc.DocumentElement.SetAttributeValue("description", Description);
             xdoc.DocumentElement.SetAttributeValue("windowStyle", WindowSizeStyle.ToString());
             xdoc.DocumentElement.SetAttributeValue("adminMode", RunAdminMode);
-            xdoc.DocumentElement.SetAttributeValue("correctiveErrorScript", IsErrorCorrectiveScript);
-            xdoc.DocumentElement.SetAttributeValue("correctiveWarningScript", IsWarningCorrectiveScript);
-            xdoc.DocumentElement.SetAttributeValue("restorationScript", IsRestorationScript);
+            XmlNode scriptTextNode = xdoc.DocumentElement.SelectSingleNode("scriptText");
+            scriptTextNode.InnerText = Script;
+            XmlNode parametersNode = xdoc.DocumentElement.SelectSingleNode("parameters");
+            foreach (ScriptParameter parameter in Parameters)
+            {
+                parametersNode.AppendChild(parameter.ToXmlNode());
+            }
 
-            xdoc.DocumentElement.InnerText = Script;
-
-            return xdoc.DocumentElement.OuterXml;
+            return xdoc.DocumentElement;
+        }
+        public string ToXml()
+        {
+            return ToXmlNode().OuterXml;
         }
         public static List<ActionScript> FromXml(string config)
         {
@@ -43,19 +94,22 @@ namespace QuickMon
                 XmlDocument configXml = new XmlDocument();
                 configXml.LoadXml(config);
                 XmlElement root = configXml.DocumentElement;
-                foreach (XmlNode scriptItem in root.SelectNodes("script"))
+                foreach (XmlNode scriptItem in root.SelectNodes("actionScript"))
                 {
                     try
                     {
                         ActionScript script = new ActionScript();
+                        script.Id = scriptItem.ReadXmlElementAttr("id", "");
                         script.Name = scriptItem.ReadXmlElementAttr("name", "");
                         script.ScriptType = ScriptTypeConverter.FromString(scriptItem.ReadXmlElementAttr("type", "dos"));
                         script.Description = scriptItem.ReadXmlElementAttr("description", "");
                         script.WindowSizeStyle = WindowSizeStyleConverter.FromString(scriptItem.ReadXmlElementAttr("windowStyle", "normal"));
                         script.RunAdminMode = scriptItem.ReadXmlElementAttr("adminMode", false);
-                        script.IsErrorCorrectiveScript = scriptItem.ReadXmlElementAttr("correctiveErrorScript", false);
-                        script.IsWarningCorrectiveScript = scriptItem.ReadXmlElementAttr("correctiveWarningScript", false);
-                        script.IsRestorationScript = scriptItem.ReadXmlElementAttr("restorationScript", false);
+                        XmlNode parametersNode = scriptItem.SelectSingleNode("parameters");
+                        if (parametersNode != null)
+                        {
+                            script.Parameters = ScriptParameter.FromXml(parametersNode);
+                        }
 
                         script.Script = scriptItem.InnerText;
                         scripts.Add(script);

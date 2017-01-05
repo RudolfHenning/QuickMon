@@ -12,6 +12,7 @@ namespace QuickMon
     {
         public MonitorPack()
         {
+            ActionScripts = new List<ActionScript>();
             CollectorHosts = new List<CollectorHost>();
             NotifierHosts = new List<NotifierHost>();
             ConfigVariables = new List<ConfigVariable>();
@@ -23,6 +24,7 @@ namespace QuickMon
             ConcurrencyLevel = 1;
             IsBusyPolling = false;
             CollectorStateHistorySize = 100;
+            CorrectiveScriptsEnabled = true;
             RunningAttended = AttendedOption.AttendedAndUnAttended;
             //AgentLoadingErrors = "";
             LastMPLoadError = "";
@@ -40,7 +42,7 @@ namespace QuickMon
         public string Version { get; set; }
         public bool Enabled { get; set; }
         public string TypeName { get; set; }
-        public bool RunCorrectiveScripts { get; set; }
+        public bool CorrectiveScriptsEnabled { get; set; }
         public string MonitorPackPath { get; set; }
         public int CollectorStateHistorySize { get; set; }
         /// <summary>
@@ -52,7 +54,7 @@ namespace QuickMon
         /// </summary>
         public int PollingFrequencyOverrideSec { get; set; }
         public bool PreloadCollectorInstances { get; set; }
-
+        public List<ActionScript> ActionScripts { get; set; }
         public List<CollectorHost> CollectorHosts { get; private set; }
         public List<NotifierHost> NotifierHosts { get; private set; }
         //public NotifierHost DefaultViewerNotifier { get; set; }
