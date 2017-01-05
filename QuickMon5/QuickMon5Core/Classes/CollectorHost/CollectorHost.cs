@@ -42,7 +42,7 @@ namespace QuickMon
             PollSlideFrequencyAfterSecondRepeatSec = 5;
             PollSlideFrequencyAfterThirdRepeatSec = 30;
             ConfigVariables = new List<ConfigVariable>();
-            ActionScripts = new List<ActionScript>();
+            ActionScripts = new List<CollectorActionScript>();
 
             //security and impersonation
             RunAs = "";
@@ -105,7 +105,7 @@ namespace QuickMon
         #endregion
 
         /// ActionScripts
-        public List<ActionScript> ActionScripts { get; set; }
+        public List<CollectorActionScript> ActionScripts { get; set; }
 
         #region UI specific
         //public bool ExpandOnStart { get; set; }

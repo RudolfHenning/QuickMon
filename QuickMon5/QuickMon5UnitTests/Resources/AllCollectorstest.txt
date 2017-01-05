@@ -1,6 +1,14 @@
-<monitorPack version="5.0.0.0001" name="All Collectors Test" typeName="" enabled="True" runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="30" loggingEnabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.0001" name="All Collectors Test" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
 	<configVars></configVars>
-	<collectorHosts>
+	<collectorHosts correctiveScriptsEnabled="True" stateHistorySize="100" pollingFreqSecOverride="30">
+		<actionScripts>
+			<actionScript id="1" name="List C drive" type="dos" description="" windowStyle="normal" adminMode="False">
+				<scriptText>dir c:\</scriptText>
+				<parameters>
+					<parameter id="ComputerName" default="localhost" type="string" />
+				</parameters>
+			</actionScript>
+		</actionScripts>
   		<collectorHost uniqueId="PINGTEST" dependOnParentId="" name="Ping Self" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs=""><!-- Alerting --><alerting><suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" /><texts><header /><footer /><error /><warning /><good /></texts></alerting><!-- Collector Agents -->
 			<collectorAgents agentCheckSequence="All">
 				<collectorAgent name="Ping" type="PingCollector" enabled="True">
@@ -22,7 +30,14 @@
 				<restoration />
 			</correctiveScripts>
 			<!-- Action scripts -->
-			<actionScripts />
+			<!-- Action scripts -->
+			<collectorActionScripts>
+				<actionScript mpId="1" correctiveErrorScript="False" correctiveWarningScript="False" restorationScript="False">
+					<parameters>
+						<parameter id="ComputerName" value="LOCALHOST" />
+					</parameters>
+				</actionScript>
+			</collectorActionScripts>
 			<!-- ServiceWindows -->
 			<serviceWindows />
 			<!-- Config variables -->
@@ -98,7 +113,7 @@
 			<collectorAgent name="Windows Service State" type="WindowsServiceStateCollector" enabled="True">
 				<config>
 					<machine name=".">
-						<service name="QuickMon 5 Service" />
+						<service name="QuickMon 4 Service" />
 					</machine>
 				</config>
 			</collectorAgent>
@@ -143,7 +158,7 @@
 		</notifierAgents>
 	</notifierHost>
 </notifierHosts>
-  <logging loggingPath="C:\Test" loggingCollectorEvents="False" loggingNotifierEvents="False" loggingAlertsRaised="False" loggingCorrectiveScriptRun="True" loggingPollingOverridesTriggered="False" loggingServiceWindowEvents="False" loggingKeepLogFilesXDays="180">
+<logging enabled="True" loggingPath="C:\Test" loggingCollectorEvents="False" loggingNotifierEvents="False" loggingAlertsRaised="False" loggingCorrectiveScriptRun="True" loggingPollingOverridesTriggered="False" loggingServiceWindowEvents="False" loggingKeepLogFilesXDays="180">
     <collectorCategories>
       <category>*</category>
     </collectorCategories>

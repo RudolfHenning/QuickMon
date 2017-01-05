@@ -36,7 +36,7 @@ namespace QuickMon
                 Assert.AreEqual("5.0.0", m.Version, "Version is not set");
                 Assert.AreEqual("Test", m.TypeName, "Type is not set");
                 Assert.AreEqual("true", m.Enabled.ToString().ToLower(), "Enabled is not set");
-                Assert.AreEqual("true", m.RunCorrectiveScripts.ToString().ToLower(), "runCorrectiveScripts is not set");
+                Assert.AreEqual("true", m.CorrectiveScriptsEnabled.ToString().ToLower(), "CorrectiveScriptsEnabled is not set");
                 Assert.AreEqual(100, m.CollectorStateHistorySize, string.Format("CollectorStateHistorySize is not set: {0}", m.CollectorStateHistorySize));
                 Assert.AreEqual(60, m.PollingFrequencyOverrideSec, string.Format("PollingFrequencyOverrideSec is not set: {0}", m.PollingFrequencyOverrideSec));
                 Assert.IsNotNull(m.ConfigVariables, "ConfigVariables is null");
@@ -83,7 +83,7 @@ namespace QuickMon
                 Assert.AreEqual("5.0.0", m.Version, "Version is not set");
                 Assert.AreEqual("TestType", m.TypeName, "Type is not set");
                 Assert.AreEqual(true, m.Enabled, "Enabled is not set");
-                Assert.AreEqual(true, m.RunCorrectiveScripts, "runCorrectiveScripts is not set");
+                Assert.AreEqual(true, m.CorrectiveScriptsEnabled, "CorrectiveScriptsEnabled is not set");
                 Assert.AreEqual(101, m.CollectorStateHistorySize, string.Format("CollectorStateHistorySize is not set: {0}", m.CollectorStateHistorySize));
                 Assert.AreEqual(12, m.PollingFrequencyOverrideSec, string.Format("PollingFrequencyOverrideSec is not set: {0}", m.PollingFrequencyOverrideSec));
                 Assert.IsNotNull(m.ConfigVariables, "ConfigVariables is null");
@@ -102,7 +102,7 @@ namespace QuickMon
                 Assert.AreEqual(true, System.IO.File.Exists(outputFileName));
                 Assert.AreEqual("TestType", m.TypeName, "Type is not set (2nd test)");
                 Assert.AreEqual(true, m.Enabled, "Enabled is not set (2nd test)");
-                Assert.AreEqual(true, m.RunCorrectiveScripts, "runCorrectiveScripts is not set (2nd test)");
+                Assert.AreEqual(true, m.CorrectiveScriptsEnabled, "CorrectiveScriptsEnabled is not set (2nd test)");
                 Assert.AreEqual(101, m.CollectorStateHistorySize, string.Format("CollectorStateHistorySize is not set: {0} (2nd test)", m.CollectorStateHistorySize));
                 Assert.AreEqual(12, m.PollingFrequencyOverrideSec, string.Format("PollingFrequencyOverrideSec is not set: {0} (2nd test)", m.PollingFrequencyOverrideSec));
                 Assert.IsNotNull(m.ConfigVariables, "ConfigVariables is null (2nd test)");
