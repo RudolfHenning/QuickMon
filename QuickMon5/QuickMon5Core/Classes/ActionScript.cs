@@ -77,7 +77,8 @@ namespace QuickMon
             XmlNode parametersNode = xdoc.DocumentElement.SelectSingleNode("parameters");
             foreach (ScriptParameter parameter in Parameters)
             {
-                parametersNode.AppendChild(parameter.ToXmlNode());
+                XmlNode parameterNode = xdoc.ImportNode(parameter.ToXmlNode(), true);
+                parametersNode.AppendChild(parameterNode);
             }
 
             return xdoc.DocumentElement;
@@ -86,32 +87,29 @@ namespace QuickMon
         {
             return ToXmlNode().OuterXml;
         }
-        public static List<ActionScript> FromXml(string config)
+        public static List<ActionScript> FromXml(XmlNode actionScriptsNode)
         {
             List<ActionScript> scripts = new List<ActionScript>();
-            if (config != null && config.Trim().Length > 0)
+            if (actionScriptsNode != null)
             {
-                XmlDocument configXml = new XmlDocument();
-                configXml.LoadXml(config);
-                XmlElement root = configXml.DocumentElement;
-                foreach (XmlNode scriptItem in root.SelectNodes("actionScript"))
+                foreach (XmlNode actionScriptNode in actionScriptsNode.SelectNodes("actionScript"))
                 {
                     try
                     {
                         ActionScript script = new ActionScript();
-                        script.Id = scriptItem.ReadXmlElementAttr("id", "");
-                        script.Name = scriptItem.ReadXmlElementAttr("name", "");
-                        script.ScriptType = ScriptTypeConverter.FromString(scriptItem.ReadXmlElementAttr("type", "dos"));
-                        script.Description = scriptItem.ReadXmlElementAttr("description", "");
-                        script.WindowSizeStyle = WindowSizeStyleConverter.FromString(scriptItem.ReadXmlElementAttr("windowStyle", "normal"));
-                        script.RunAdminMode = scriptItem.ReadXmlElementAttr("adminMode", false);
-                        XmlNode parametersNode = scriptItem.SelectSingleNode("parameters");
+                        script.Id = actionScriptNode.ReadXmlElementAttr("id", "");
+                        script.Name = actionScriptNode.ReadXmlElementAttr("name", "");
+                        script.ScriptType = ScriptTypeConverter.FromString(actionScriptNode.ReadXmlElementAttr("type", "dos"));
+                        script.Description = actionScriptNode.ReadXmlElementAttr("description", "");
+                        script.WindowSizeStyle = WindowSizeStyleConverter.FromString(actionScriptNode.ReadXmlElementAttr("windowStyle", "normal"));
+                        script.RunAdminMode = actionScriptNode.ReadXmlElementAttr("adminMode", false);
+                        XmlNode parametersNode = actionScriptNode.SelectSingleNode("parameters");
                         if (parametersNode != null)
                         {
                             script.Parameters = ScriptParameter.FromXml(parametersNode);
                         }
 
-                        script.Script = scriptItem.InnerText;
+                        script.Script = actionScriptNode.InnerText;
                         scripts.Add(script);
                     }
                     catch { }
@@ -120,6 +118,89 @@ namespace QuickMon
             return scripts;
         }
 
+        public static List<ActionScript> FromXml(string config)
+        {
+            List<ActionScript> scripts = new List<ActionScript>();
+            if (config != null && config.Trim().Length > 0)
+            {
+                XmlDocument configXml = new XmlDocument();
+                configXml.LoadXml(config);
+                scripts = FromXml(configXml.DocumentElement);                
+            }
+            return scripts;
+        }
+
+        public string Run(bool withPause = false, List<CollectorActionScript.ScriptParameter> CollectorScriptParameters = null)
+        {
+            string runTimeScript = Script;
+            foreach (ScriptParameter parameter in Parameters)
+            {
+                CollectorActionScript.ScriptParameter currentCollectorScriptParameter = null;
+                if (CollectorScriptParameters != null)
+                {
+                    currentCollectorScriptParameter = (from csp in CollectorScriptParameters
+                                                       where csp.Id == parameter.Id
+                                                       select csp).FirstOrDefault();
+                }
+                if (currentCollectorScriptParameter != null)
+                {
+                    runTimeScript = runTimeScript.Replace(parameter.Id, currentCollectorScriptParameter.Value);
+                }
+                else
+                {
+                    runTimeScript = runTimeScript.Replace(parameter.Id, parameter.DefaultValue);
+                }
+            }            
+
+            Run(runTimeScript, withPause);
+            return runTimeScript;
+        }
+        private void Run(string runtTimeScript, bool withPause)
+        {
+            //Step one save script as temporary batch/ps1 file
+            string safeName = "";
+            string extension = "";
+            for (int i = 0; i < Name.Length; i++)
+            {
+                if ((Name[i] >= 'a' && Name[i] <= 'z') || (Name[i] >= 'A' && Name[i] <= 'Z') || (Name[i] >= '0' && Name[i] <= '9'))
+                {
+                    safeName += Name[i].ToString();
+                }
+            }
+            if (ScriptType == QuickMon.ScriptType.DOS)
+                extension = ".cmd";
+            else
+                extension = ".ps1";
+
+            string tmpdirPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "Hen IT", "QuickMon 5");
+            if (!System.IO.Directory.Exists(tmpdirPath))
+                System.IO.Directory.CreateDirectory(tmpdirPath);
+            string tmpfilePath = System.IO.Path.Combine(tmpdirPath, safeName + extension);
+            string scriptToRun = runtTimeScript;
+            if (withPause)
+                scriptToRun = runtTimeScript + "\r\npause";
+            System.IO.File.WriteAllText(tmpfilePath, scriptToRun);
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            if (ScriptType == QuickMon.ScriptType.DOS)
+            {
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(tmpfilePath);
+            }
+            else
+            {
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe");
+                p.StartInfo.Arguments = "-File \"" + tmpfilePath + "\"";
+            }
+
+            if (withPause)
+                p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+            else
+                p.StartInfo.WindowStyle = (System.Diagnostics.ProcessWindowStyle)WindowSizeStyle;
+
+            if (RunAdminMode)
+                p.StartInfo.Verb = "runas";
+            p.Start();
+        }
         public void Run(bool withPause = false)
         {
             //Script

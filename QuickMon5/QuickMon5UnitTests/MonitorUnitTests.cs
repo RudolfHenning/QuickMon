@@ -55,7 +55,7 @@ namespace QuickMon
         {
             MonitorPack m = new MonitorPack();
             string mconfig = "<monitorPack version=\"5.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
-                "defaultNotifier=\"In Memory\" runCorrectiveScripts=\"True\" " +
+                "runCorrectiveScripts=\"True\" " +
                 "stateHistorySize=\"101\" pollingFreqSecOverride=\"12\">\r\n" +
                 "<configVars />" +
                 "<collectorHosts />" +
@@ -74,7 +74,7 @@ namespace QuickMon
             Assert.IsNotNull(m, "Monitor pack is null");
             if (m != null)
             {
-                string outputFileName = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon4SaveTest.qmp5");
+                string outputFileName = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon5SaveTest.qmp");
                 if (System.IO.File.Exists(outputFileName))
                     System.IO.File.Delete(outputFileName);
                 m.Save(outputFileName);
@@ -290,17 +290,26 @@ namespace QuickMon
             if (m != null)
             {
                 Assert.AreNotEqual(0, m.CollectorHosts.Count, "No Collector hosts loaded!");
+                Assert.AreNotEqual(0, m.NotifierHosts.Count, "No Notifier hosts loaded!");
                 Assert.AreEqual(true, m.LoggingEnabled, "Logging not enabled!");
 
                 System.IO.File.WriteAllText(testFileName, "0");
                 Assert.AreEqual(CollectorState.Good, m.RefreshStates(), "Good state expected");
                 Assert.AreEqual(CollectorState.Good, m.CollectorHosts[0].CurrentState.State, "Cannot ping self??");
+                Assert.AreEqual(1, m.ActionScripts.Count, "No Action scripts found for Monitor Pack");
+                Assert.AreEqual(1, m.CollectorHosts[0].ActionScripts.Count, "No Action scripts found for Collector");
 
                 System.IO.File.WriteAllText(testFileName, "1");
                 Assert.AreEqual(CollectorState.Warning, m.RefreshStates(), "Warning state expected");
                 System.IO.File.WriteAllText(testFileName, "2");
                 Assert.AreEqual(CollectorState.Warning, m.RefreshStates(), "Error state expected");
-
+                m.Save("c:\\Test\\Test.qmp");
+                m = new MonitorPack();
+                m.Load("c:\\Test\\Test.qmp");
+                Assert.AreNotEqual(0, m.CollectorHosts.Count, "After reload: No Collector hosts loaded!");
+                Assert.AreNotEqual(0, m.NotifierHosts.Count, "After reload: No Notifier hosts loaded!");
+                Assert.AreEqual(1, m.CollectorHosts[0].ActionScripts.Count, "After reload: No Action scripts found for Collector");
+                System.IO.File.WriteAllText("c:\\Test\\ActionScript.txt", m.CollectorHosts[0].ActionScripts[0].Run());
             }
         }
     }

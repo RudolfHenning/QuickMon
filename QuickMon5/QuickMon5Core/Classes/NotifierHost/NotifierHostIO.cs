@@ -9,17 +9,22 @@ namespace QuickMon
 {
     public partial class NotifierHost
     {
+        public static List<NotifierHost> GetNotifierHosts(XmlNode notifierHostsNode, List<ConfigVariable> monitorPackVars = null)
+        {
+            List<NotifierHost> notifierHosts = new List<NotifierHost>();
+            foreach (XmlElement xmlNotifierHost in notifierHostsNode.SelectNodes("notifierHost"))
+            {
+                NotifierHost newNotifierHost = NotifierHost.FromConfig(null, xmlNotifierHost, monitorPackVars);
+                notifierHosts.Add(newNotifierHost);
+            }
+            return notifierHosts;
+        }
         public static List<NotifierHost> GetNotifierHostsFromString(string xmlString, List<ConfigVariable> monitorPackVars = null)
         {
             List<NotifierHost> notifierHosts = new List<NotifierHost>();
             XmlDocument notifierHostsXml = new XmlDocument();
             notifierHostsXml.LoadXml(xmlString);
-            XmlElement root = notifierHostsXml.DocumentElement;
-            foreach (XmlElement xmlNotifierHost in root.SelectNodes("notifierHost"))
-            {
-                NotifierHost newNotifierHost = NotifierHost.FromConfig(null, xmlNotifierHost, monitorPackVars);
-                notifierHosts.Add(newNotifierHost);
-            }
+            notifierHosts = GetNotifierHosts(notifierHostsXml.DocumentElement, monitorPackVars);            
             return notifierHosts;
         }
         public static NotifierHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
@@ -230,6 +235,72 @@ namespace QuickMon
                 }
             }
             return currentAgent;
+        }
+
+        public XmlNode ToXmlNode()
+        {
+            XmlDocument notifierHostNode = new XmlDocument();
+            StringBuilder configXml = new StringBuilder();
+            configXml.AppendLine(string.Format("<notifierHost name=\"{0}\" enabled=\"{1}\" alertLevel=\"{2}\" " +
+                      "detailLevel=\"{3}\" attendedOptionOverride=\"{4}\">\r\n",
+                        Name.EscapeXml(), Enabled, AlertLevel, DetailLevel, AttendedOptionOverride));
+
+            configXml.AppendLine("<!-- collectorHosts -->");
+            if (AlertForCollectors == null || AlertForCollectors.Count == 0)
+                configXml.AppendLine("<collectorHosts />");
+            else
+            {
+                configXml.AppendLine("<collectorHosts>");
+                foreach (string collectorHostName in AlertForCollectors)
+                {
+                    configXml.AppendLine(string.Format("<collectorHost name=\"{0}\" />", collectorHostName.EscapeXml()));
+                }
+                configXml.AppendLine("</collectorHosts>");
+            }
+            configXml.AppendLine("<!-- ServiceWindows -->");
+            configXml.AppendLine(ServiceWindows.ToXml());
+
+            configXml.AppendLine("<!-- Categories -->");
+            configXml.AppendLine(GetCategoriesXML());
+
+            configXml.AppendLine("<!-- Config variables -->");
+            if (ConfigVariables == null || ConfigVariables.Count == 0)
+                configXml.AppendLine("<configVars />");
+            else
+            {
+                configXml.AppendLine("<configVars>");
+                foreach (ConfigVariable cv in ConfigVariables)
+                {
+                    configXml.AppendLine(cv.ToXml());
+                }
+                configXml.AppendLine("</configVars>");
+            }
+
+            if (OnlyRecordAlertOnHosts != null && OnlyRecordAlertOnHosts.Count > 0)
+            {
+                configXml.AppendLine("<recordOnHosts>");
+                foreach (string host in OnlyRecordAlertOnHosts)
+                {
+                    configXml.AppendLine(string.Format("<host name=\"{0}\" />", host.EscapeXml()));
+                }
+                configXml.AppendLine("</recordOnHosts>");
+            }
+            else
+                configXml.AppendLine("<recordOnHosts />");
+
+            configXml.AppendLine("<!-- notifierAgents -->");
+            configXml.AppendLine("<notifierAgents>");
+            foreach (INotifier notifierAgent in NotifierAgents)
+            {
+                configXml.AppendLine(string.Format("<notifierAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">",
+                    notifierAgent.Name.EscapeXml(), notifierAgent.AgentClassName.EscapeXml(), notifierAgent.Enabled));
+                configXml.AppendLine(notifierAgent.AgentConfig.ToXml());
+                configXml.AppendLine("</notifierAgent>");
+            }
+            configXml.AppendLine("</notifierAgents>");
+            configXml.AppendLine("</notifierHost>");
+            notifierHostNode.LoadXml(configXml.ToString());
+            return notifierHostNode.DocumentElement;
         }
         /// <summary>
         /// Export current NotifierHost config as XML string

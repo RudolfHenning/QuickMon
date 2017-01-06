@@ -1,11 +1,14 @@
 <monitorPack version="5.0.0.0001" name="All Collectors Test" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
-	<configVars></configVars>
+	<configVars>
+		<configVar find="%ComputerName%" replace="localhost" />
+	</configVars>
 	<collectorHosts correctiveScriptsEnabled="True" stateHistorySize="100" pollingFreqSecOverride="30">
 		<actionScripts>
 			<actionScript id="1" name="List C drive" type="dos" description="" windowStyle="normal" adminMode="False">
-				<scriptText>dir c:\</scriptText>
+				<scriptText>rem @ComputerName
+dir c:\</scriptText>
 				<parameters>
-					<parameter id="ComputerName" default="localhost" type="string" />
+					<parameter id="@ComputerName" default="localhost" type="string" />
 				</parameters>
 			</actionScript>
 		</actionScripts>
@@ -30,11 +33,10 @@
 				<restoration />
 			</correctiveScripts>
 			<!-- Action scripts -->
-			<!-- Action scripts -->
 			<collectorActionScripts>
 				<actionScript mpId="1" correctiveErrorScript="False" correctiveWarningScript="False" restorationScript="False">
 					<parameters>
-						<parameter id="ComputerName" value="LOCALHOST" />
+						<parameter id="@ComputerName" value="LOCALHOST" />
 					</parameters>
 				</actionScript>
 			</collectorActionScripts>
