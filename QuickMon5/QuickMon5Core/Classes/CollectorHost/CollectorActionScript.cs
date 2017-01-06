@@ -49,24 +49,33 @@ namespace QuickMon
                 return parameters;
             }
         }
+
+        #region Properties set by Config
         public string MPId { get; set; }
         public bool IsErrorCorrectiveScript { get; set; }
         public bool IsWarningCorrectiveScript { get; set; }
         public bool IsRestorationScript { get; set; }
         public List<ScriptParameter> Parameters { get; set; }
+        #endregion
 
+        #region Run time properties
+        public ActionScript RunTimeLinkedActionScript{ get; set; }
+        #endregion
+
+        #region IO
         public XmlNode ToXmlNode()
         {
             XmlDocument xdoc = new XmlDocument();
             xdoc.LoadXml("<actionScript><parameters /></actionScript>");
-            xdoc.DocumentElement.SetAttributeValue("mpId", MPId);            
+            xdoc.DocumentElement.SetAttributeValue("mpId", MPId);
             xdoc.DocumentElement.SetAttributeValue("correctiveErrorScript", IsErrorCorrectiveScript);
             xdoc.DocumentElement.SetAttributeValue("correctiveWarningScript", IsWarningCorrectiveScript);
             xdoc.DocumentElement.SetAttributeValue("restorationScript", IsRestorationScript);
             XmlNode parametersNode = xdoc.DocumentElement.SelectSingleNode("parameters");
             foreach (ScriptParameter parameter in Parameters)
             {
-                parametersNode.AppendChild(parameter.ToXmlNode());
+                XmlNode parameterNode = xdoc.ImportNode(parameter.ToXmlNode(), true);
+                parametersNode.AppendChild(parameterNode);
             }
 
             return xdoc.DocumentElement;
@@ -75,24 +84,21 @@ namespace QuickMon
         {
             return ToXmlNode().OuterXml;
         }
-        public static List<CollectorActionScript> FromXml(string config)
+        public static List<CollectorActionScript> FromXml(XmlNode actionScriptsNode)
         {
             List<CollectorActionScript> scripts = new List<CollectorActionScript>();
-            if (config != null && config.Trim().Length > 0)
+            if (actionScriptsNode != null)
             {
-                XmlDocument configXml = new XmlDocument();
-                configXml.LoadXml(config);
-                XmlElement root = configXml.DocumentElement;
-                foreach (XmlNode scriptItem in root.SelectNodes("actionScript"))
+                foreach (XmlNode actionScriptNode in actionScriptsNode.SelectNodes("actionScript"))
                 {
                     try
                     {
                         CollectorActionScript script = new CollectorActionScript();
-                        script.MPId = scriptItem.ReadXmlElementAttr("mpId", "");
-                        script.IsErrorCorrectiveScript = scriptItem.ReadXmlElementAttr("correctiveErrorScript", false);
-                        script.IsWarningCorrectiveScript = scriptItem.ReadXmlElementAttr("correctiveWarningScript", false);
-                        script.IsRestorationScript = scriptItem.ReadXmlElementAttr("restorationScript", false);
-                        XmlNode parametersNode = scriptItem.SelectSingleNode("parameters");
+                        script.MPId = actionScriptNode.ReadXmlElementAttr("mpId", "");
+                        script.IsErrorCorrectiveScript = actionScriptNode.ReadXmlElementAttr("correctiveErrorScript", false);
+                        script.IsWarningCorrectiveScript = actionScriptNode.ReadXmlElementAttr("correctiveWarningScript", false);
+                        script.IsRestorationScript = actionScriptNode.ReadXmlElementAttr("restorationScript", false);
+                        XmlNode parametersNode = actionScriptNode.SelectSingleNode("parameters");
                         if (parametersNode != null)
                         {
                             script.Parameters = ScriptParameter.FromXml(parametersNode);
@@ -104,5 +110,35 @@ namespace QuickMon
             }
             return scripts;
         }
+        public static List<CollectorActionScript> FromXml(string config)
+        {
+            List<CollectorActionScript> scripts = new List<CollectorActionScript>();
+            if (config != null && config.Trim().Length > 0)
+            {
+                XmlDocument configXml = new XmlDocument();
+                configXml.LoadXml(config);
+                scripts = FromXml(configXml.DocumentElement);
+            }
+            return scripts;
+        } 
+
+        public void InitializeScript(ActionScript actionScript)
+        {
+            if (MPId == actionScript.Id)
+            {
+                RunTimeLinkedActionScript = null;
+                RunTimeLinkedActionScript = actionScript;
+            }
+        }        
+        public string Run(bool withPause = false)
+        {
+            string scriptRan = "";
+            if (RunTimeLinkedActionScript != null)
+            {
+                scriptRan = RunTimeLinkedActionScript.Run(withPause, Parameters);
+            }
+            return scriptRan;
+        }
+        #endregion
     }
 }

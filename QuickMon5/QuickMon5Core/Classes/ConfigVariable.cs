@@ -24,14 +24,19 @@ namespace QuickMon
             root.SetAttributeValue("replace", ReplaceValue);
             return config.OuterXml;
         }
+        public static ConfigVariable FromXml(XmlNode configVarNode)
+        {
+            ConfigVariable newConfigVariable = new ConfigVariable();
+            newConfigVariable.FindValue = configVarNode.ReadXmlElementAttr("find", "");
+            newConfigVariable.ReplaceValue = configVarNode.ReadXmlElementAttr("replace", "");
+            return newConfigVariable;
+        }
         public static ConfigVariable FromXml(string xmlStr)
         {
             ConfigVariable newConfigVariable = new ConfigVariable();
             XmlDocument config = new XmlDocument();
             config.LoadXml(xmlStr);
-            XmlElement root = config.DocumentElement;
-            newConfigVariable.FindValue = root.ReadXmlElementAttr("find", "");
-            newConfigVariable.ReplaceValue = root.ReadXmlElementAttr("replace", "");
+            newConfigVariable = FromXml(config.DocumentElement);
             return newConfigVariable;
         }
         public ConfigVariable Clone()

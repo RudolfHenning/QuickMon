@@ -87,7 +87,6 @@ namespace QuickMon
                 Enabled = root.ReadXmlElementAttr("enabled", true);
                 CollectorStateHistorySize = root.ReadXmlElementAttr("stateHistorySize", 100); //Depricated
                 PollingFrequencyOverrideSec = root.ReadXmlElementAttr("pollingFreqSecOverride", 0); //Depricated
-                string defaultNotifierName = root.ReadXmlElementAttr("defaultNotifier");
                 CorrectiveScriptsEnabled = root.ReadXmlElementAttr("runCorrectiveScripts", true); //Depricated
                 LoggingEnabled = root.ReadXmlElementAttr("loggingEnabled", false); //Deprecated
 
@@ -97,9 +96,9 @@ namespace QuickMon
                 ConfigVariables = new List<ConfigVariable>();
                 if (configVarsNode != null)
                 {
-                    foreach (XmlElement configVarNodeEntry in configVarsNode.SelectNodes("configVar"))
+                    foreach (XmlElement configVarNode in configVarsNode.SelectNodes("configVar"))
                     {
-                        ConfigVariables.Add(ConfigVariable.FromXml(configVarNodeEntry.OuterXml));
+                        ConfigVariables.Add(ConfigVariable.FromXml(configVarNode));
                     }
                 }
                 #endregion
@@ -115,13 +114,14 @@ namespace QuickMon
                     XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
                     if (actionScriptsNode != null)
                     {
-                        ActionScripts = ActionScript.FromXml(actionScriptsNode.OuterXml);                        
+                        ActionScripts = ActionScript.FromXml(actionScriptsNode);                        
                     }
 
-                    CollectorHosts = CollectorHost.GetCollectorHostsFromString(collectorHostsNode.OuterXml, ConfigVariables);
+                    CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, ConfigVariables);
                     foreach (CollectorHost collectorHost in CollectorHosts)
                     {
                         SetCollectorHostEvents(collectorHost);
+                        InitializeCollectorActionScripts(collectorHost);
                     }
                 }
                 #endregion
@@ -130,7 +130,7 @@ namespace QuickMon
                 XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
                 if (notifierHostsNode != null)
                 {
-                    NotifierHosts = NotifierHost.GetNotifierHostsFromString(notifierHostsNode.OuterXml, ConfigVariables);
+                    NotifierHosts = NotifierHost.GetNotifierHosts(notifierHostsNode, ConfigVariables);
                 }
                 #endregion
 
@@ -199,12 +199,35 @@ namespace QuickMon
             collectorHost.EntereringServiceWindow += collectorHost_EntereringServiceWindow;
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
         }
+        public void InitializeCollectorActionScripts(CollectorHost collectorHost)
+        {
+            if (collectorHost != null && collectorHost.ActionScripts != null)
+            {
+                foreach(var collectorActionScript in collectorHost.ActionScripts)
+                {
+                    ActionScript currentActionScript = (from acs in ActionScripts
+                                                        where acs.Id == collectorActionScript.MPId
+                                                        select acs).FirstOrDefault();
+                    if (currentActionScript != null)
+                        collectorActionScript.InitializeScript(currentActionScript);
+                }
+            }
+        }
 
+        /// <summary>
+        /// When adding a new collector host manually or by editing it needs to be initialized for events, config vars, scripts etc.
+        /// </summary>
+        /// <param name="collectorHost"></param>
         public void AddCollectorHost(CollectorHost collectorHost)
         {
             SetCollectorHostEvents(collectorHost);
+            InitializeCollectorActionScripts(collectorHost);
             CollectorHosts.Add(collectorHost);
         }
+        /// <summary>
+        /// When adding a new notifier host manually or by editing it needs to be initialized for events, config vars etc.
+        /// </summary>
+        /// <param name="notifierHost"></param>
         public void AddNotifierHost(NotifierHost notifierHost)
         {
             NotifierHosts.Add(notifierHost);
@@ -229,57 +252,7 @@ namespace QuickMon
         public void Save(string configurationFile)
         {
             XmlDocument outDoc = new XmlDocument();
-            outDoc.LoadXml(ToXml());
-            /*
-
-            outDoc.LoadXml(emptyConfig);
-            XmlElement root = outDoc.DocumentElement;
-            root.SetAttributeValue("version", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            root.SetAttributeValue("name", Name);
-            root.SetAttributeValue("typeName", TypeName);
-            root.SetAttributeValue("enabled", Enabled);
-            
-            //root.SetAttributeValue("loggingEnabled", LoggingEnabled); //deprecated
-
-            #region security
-            root.SetAttributeValue("usernameCacheMasterKey", UserNameCacheMasterKey);
-            root.SetAttributeValue("usernameCacheFilePath", UserNameCacheFilePath);
-            #endregion
-
-            root.SelectSingleNode("configVars").InnerXml = GetConfigVarXml();
-            XmlNode collectorHostsNode = root.SelectSingleNode("collectorHosts");
-            collectorHostsNode.SetAttributeValue("runCorrectiveScripts", CorrectiveScriptsEnabled);
-            collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
-            collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
-            XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
-            foreach (ActionScript ascr in ActionScripts)
-            {
-                actionScriptsNode.AppendChild(ascr.ToXmlNode());
-            }
-
-            root.SelectSingleNode("collectorHosts").InnerXml = GetConfigForCollectors();
-            root.SelectSingleNode("notifierHosts").InnerXml = GetConfigForNotifiers();
-
-            #region Logging
-            XmlNode loggingNode = root.SelectSingleNode("logging");
-            loggingNode.SetAttributeValue("enabled", LoggingEnabled);
-            loggingNode.SetAttributeValue("loggingPath", LoggingPath);
-            loggingNode.SetAttributeValue("loggingCollectorEvents", LoggingCollectorEvents);
-            loggingNode.SetAttributeValue("loggingNotifierEvents", LoggingNotifierEvents);
-            loggingNode.SetAttributeValue("loggingAlertsRaised", LoggingAlertsRaised);
-            loggingNode.SetAttributeValue("loggingCorrectiveScriptRun", LoggingCorrectiveScriptRun);
-            loggingNode.SetAttributeValue("loggingPollingOverridesTriggered", LoggingPollingOverridesTriggered);
-            loggingNode.SetAttributeValue("loggingServiceWindowEvents", LoggingServiceWindowEvents);
-            loggingNode.SetAttributeValue("loggingKeepLogFilesXDays", LoggingKeepLogFilesXDays);
-            XmlNode loggingCollectorCategoriesNode = loggingNode.SelectSingleNode("collectorCategories");
-            foreach (string s in LoggingCollectorCategories)
-            {
-                XmlNode category = outDoc.CreateElement("category");
-                category.InnerText = s;
-                loggingCollectorCategoriesNode.AppendChild(category);
-            }
-            #endregion
-            */
+            outDoc.LoadXml(ToXml()); 
 
             outDoc.PreserveWhitespace = false;
             outDoc.Normalize();
@@ -320,9 +293,6 @@ namespace QuickMon
             root.SetAttributeValue("name", Name);
             root.SetAttributeValue("typeName", TypeName);
             root.SetAttributeValue("enabled", Enabled);
-            //root.SetAttributeValue("runCorrectiveScripts", RunCorrectiveScripts);
-            //root.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
-            //root.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
 
             #region security
             root.SetAttributeValue("usernameCacheMasterKey", UserNameCacheMasterKey);
@@ -336,13 +306,25 @@ namespace QuickMon
             collectorHostsNode.SetAttributeValue("stateHistorySize", CollectorStateHistorySize);
             collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
             XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
+
             foreach (ActionScript ascr in ActionScripts)
             {
-                actionScriptsNode.AppendChild(ascr.ToXmlNode());
+                XmlNode scriptParameterNode = outDoc.ImportNode(ascr.ToXmlNode(), true);
+                actionScriptsNode.AppendChild(scriptParameterNode);
             }
 
-            root.SelectSingleNode("collectorHosts").InnerXml = GetConfigForCollectors();
-            root.SelectSingleNode("notifierHosts").InnerXml = GetConfigForNotifiers();
+            foreach(CollectorHost collectorHost in CollectorHosts)
+            {
+                XmlNode collectorHostNode = outDoc.ImportNode(collectorHost.ToXmlNode(), true);
+                collectorHostsNode.AppendChild(collectorHostNode);
+            }
+            XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
+
+            foreach (NotifierHost notifierHost in NotifierHosts)
+            {
+                XmlNode notifierHostNode = outDoc.ImportNode(notifierHost.ToXmlNode(), true);
+                notifierHostsNode.AppendChild(notifierHostNode);
+            }
 
             #region Logging
             XmlNode loggingNode = root.SelectSingleNode("logging");
@@ -364,8 +346,6 @@ namespace QuickMon
             }
             #endregion
 
-            //outDoc.PreserveWhitespace = false;
-            //outDoc.Normalize();
             return XmlFormattingUtils.NormalizeXML(outDoc.OuterXml);
         }
         private string GetConfigVarXml()
@@ -377,24 +357,24 @@ namespace QuickMon
             }
             return configVarXml.ToString();
         }
-        private string GetConfigForCollectors()
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (CollectorHost collectorHost in CollectorHosts)
-            {
-                sb.AppendLine(collectorHost.ToXml());
-            }
-            return sb.ToString();
-        }
-        private string GetConfigForNotifiers()
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (NotifierHost notifierHost in NotifierHosts)
-            {
-                sb.AppendLine(notifierHost.ToXml());
-            }
-            return sb.ToString();
-        }
+        //private string GetConfigForCollectors()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    foreach (CollectorHost collectorHost in CollectorHosts)
+        //    {
+        //        sb.AppendLine(collectorHost.ToXml());
+        //    }
+        //    return sb.ToString();
+        //}
+        //private string GetConfigForNotifiers()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    foreach (NotifierHost notifierHost in NotifierHosts)
+        //    {
+        //        sb.AppendLine(notifierHost.ToXml());
+        //    }
+        //    return sb.ToString();
+        //}
         #endregion
 
         #region Global settings

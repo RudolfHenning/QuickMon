@@ -10,17 +10,22 @@ namespace QuickMon
     public partial class CollectorHost
     {
         #region FromXml
+        public static List<CollectorHost> GetCollectorHosts(XmlNode collectorHostsNode, List<ConfigVariable> monitorPackVars = null)
+        {
+            List<CollectorHost> collectorHosts = new List<CollectorHost>();            
+            foreach (XmlElement xmlCollectorHost in collectorHostsNode.SelectNodes("collectorHost"))
+            {
+                CollectorHost newCollectorHost = FromConfig(null, xmlCollectorHost, monitorPackVars);
+                collectorHosts.Add(newCollectorHost);
+            }
+            return collectorHosts;
+        }
         public static List<CollectorHost> GetCollectorHostsFromString(string xmlString, List<ConfigVariable> monitorPackVars = null)
         {
             List<CollectorHost> collectorHosts = new List<CollectorHost>();
             XmlDocument collectorHostsXml = new XmlDocument();
             collectorHostsXml.LoadXml(xmlString);
-            XmlElement root = collectorHostsXml.DocumentElement;
-            foreach (XmlElement xmlCollectorHost in root.SelectNodes("collectorHost"))
-            {
-                CollectorHost newCollectorHost = FromConfig(null, xmlCollectorHost, monitorPackVars);
-                collectorHosts.Add(newCollectorHost);
-            }
+            collectorHosts = GetCollectorHosts(collectorHostsXml.DocumentElement, monitorPackVars);            
             return collectorHosts;
         }
         public static CollectorHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
@@ -35,6 +40,12 @@ namespace QuickMon
             else
                 return null;
         }
+        /// <summary>
+        /// Load configuration without loosing state history and other statistics
+        /// </summary>
+        /// <param name="xmlString">xml xonfig string</param>
+        /// <param name="monitorPackVars">Any monitor pack level config variables</param>
+        /// <param name="applyConfigVars">Should config variables be applied</param>
         public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
@@ -162,7 +173,7 @@ namespace QuickMon
             XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("collectorActionScripts");
             if (actionScriptsNode != null)
             {
-                newCollectorHost.ActionScripts = CollectorActionScript.FromXml(actionScriptsNode.OuterXml);
+                newCollectorHost.ActionScripts = CollectorActionScript.FromXml(actionScriptsNode);
             }
             #endregion
 
@@ -392,6 +403,38 @@ namespace QuickMon
         #endregion
 
         #region ToXml
+        public XmlNode ToXmlNode()
+        {
+            XmlDocument collectorHostNode = new XmlDocument(); 
+            string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
+            string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
+            string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
+            string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptsOnlyOnStateChange, CorrectiveScriptOnWarningPath, CorrectiveScriptOnErrorPath, RestorationScriptPath, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
+            string actionScriptsXml = GetActionScriptsXml(ActionScripts);
+            string serviceWindowsXml = ServiceWindows.ToXml();
+            string configVariablesXml = GetConfigVarXml(ConfigVariables);
+            string categoriesXml = GetCategoriesXML();
+            string collectorAgentsXml = GetCollectorAgentsConfigXml(CollectorAgents, AgentCheckSequence);
+
+            collectorHostNode.LoadXml(ToXml(UniqueId,
+                ParentCollectorId,
+                Name,
+                Enabled,
+                ExpandOnStartOption,
+                ChildCheckBehaviour,
+                RunAsEnabled, RunAs,
+                Notes,
+                alertingSettingsXml,
+                remoteAgentSettingsXml,
+                pollingSettingsXml,
+                collectorAgentsXml,
+                correctiveScriptsXml,
+                actionScriptsXml,
+                serviceWindowsXml,
+                configVariablesXml,
+                categoriesXml));
+            return collectorHostNode.DocumentElement;
+        }
         /// <summary>
         /// Export current (Initial) CollectorHost config as XML string
         /// This is the config before config variables have been applied
@@ -427,7 +470,6 @@ namespace QuickMon
                 configVariablesXml,
                 categoriesXml);
         }
-
         public static string ToXml(string uniqueId,
                 string parentCollectorId,
                 string name,

@@ -104,7 +104,9 @@ namespace QuickMon
         public string Notes { get; set; }
         #endregion
 
-        /// ActionScripts
+        /// <summary>
+        /// 
+        /// </summary>
         public List<CollectorActionScript> ActionScripts { get; set; }
 
         #region UI specific

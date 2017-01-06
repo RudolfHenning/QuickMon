@@ -61,6 +61,9 @@ namespace QuickMon
         }
 
         #region CorrectiveScripts
+        public event CollectorHostWithMessageDelegate RestorationScriptExecuted;
+        public event CollectorHostWithMessageDelegate RestorationScriptFailed;
+
         public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
         private void RaiseRunCollectorHostCorrectiveWarningScript()
         {
