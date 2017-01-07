@@ -16,9 +16,12 @@ namespace QuickMon
             Timestamp = DateTime.Now;
             AlertsRaised = new List<string>();
             ChildStates = new List<MonitorState>();
+            ScriptsRan = new List<string>();
             AlertHeader = "";
             AlertFooter = "";
             AdditionalAlertText = "";
+            RawDetails = "";
+            HtmlDetails = "";
         }
         public string UniqueId { get; private set; }
         private CollectorState state = CollectorState.NotAvailable;
@@ -61,6 +64,7 @@ namespace QuickMon
         public string ExecutedOnHostComputer { get; set; }
         [DataMember(Name = "AlertsRaised")]
         public List<string> AlertsRaised { get; set; }
+        public List<string> ScriptsRan { get; set; }
 
         [DataMember(Name = "RanAs")]
         public string RanAs { get; set; }
@@ -69,6 +73,8 @@ namespace QuickMon
         {
             List<string> cloneAlerts = new List<string>();
             cloneAlerts.AddRange(AlertsRaised.ToArray());
+            List<string> cloneScripts = new List<string>();
+            cloneScripts.AddRange(ScriptsRan.ToArray());
             return new MonitorState()
             {
                 State = this.State,
@@ -80,7 +86,8 @@ namespace QuickMon
                 StateChangedTime = this.StateChangedTime,
                 CallDurationMS = this.CallDurationMS,
                 ExecutedOnHostComputer = this.ExecutedOnHostComputer,
-                AlertsRaised = cloneAlerts
+                AlertsRaised = cloneAlerts,
+                ScriptsRan = cloneScripts
             };
         }
 
@@ -131,6 +138,17 @@ namespace QuickMon
                 alerts.AppendChild(alertNode);
             }
             root.AppendChild(alerts);
+
+            XmlElement scriptsRanElement = xdoc.CreateElement("scriptsRan");
+            foreach (string scriptName in ScriptsRan)
+            {
+                XmlElement scriptNode = xdoc.CreateElement("script");
+                scriptNode.InnerText = scriptName;
+                scriptsRanElement.AppendChild(scriptNode);
+            }
+            root.AppendChild(scriptsRanElement);
+            
+
             StringBuilder childStates = new StringBuilder();
             if (ChildStates != null && ChildStates.Count > 0)
             {
@@ -195,6 +213,15 @@ namespace QuickMon
                 if (alertNode.InnerText.Trim().Length > 0)
                     AlertsRaised.Add(alertNode.InnerText);
             }
+
+            XmlNodeList scriptsRanNodes = root.SelectNodes("scriptsRan");
+            ScriptsRan = new List<string>();
+            foreach (XmlNode scriptNode in scriptsRanNodes)
+            {
+                if (scriptNode.InnerText.Trim().Length > 0)
+                    ScriptsRan.Add(scriptNode.InnerText);
+            }
+
             ChildStates = new List<MonitorState>();
             XmlNodeList childStates = root.SelectNodes("childStates/monitorState");
             foreach (XmlNode childStateNode in childStates)
@@ -240,11 +267,19 @@ namespace QuickMon
             if (RawDetails != null && RawDetails.Length > 0)
                 prePadding += RawDetails.TrimEnd('\r', '\n').Replace("\r\n", "\r\n" + linePaddingChar);
 
-
             if (prePadding.Trim(linePaddingChar).Length > 0)
             {
                 sb.AppendLine(prePadding);                
                 linePaddingRepeat++;
+            }
+
+            if (ScriptsRan.Count > 0)
+            {
+                sb.AppendLine((new string(linePaddingChar, linePaddingRepeat)) + "Scripts ran:");
+                foreach (string scriptName in ScriptsRan)
+                {
+                    sb.AppendLine((new string(linePaddingChar, linePaddingRepeat + 1)) + scriptName);
+                }
             }
 
             if (ChildStates != null)

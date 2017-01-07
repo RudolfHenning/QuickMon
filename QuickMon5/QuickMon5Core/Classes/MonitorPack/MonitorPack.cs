@@ -647,6 +647,11 @@ namespace QuickMon
         #endregion
 
         #region Corrective script actions
+        private void LogRestorationScriptAction(CollectorHost collectorEntry, string script)
+        {
+            LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following restoration script was executed: '{1}'", collectorEntry.Name, script));
+        }
+
         private void LogRestorationScriptAction(CollectorHost collectorEntry)
         {
             collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
