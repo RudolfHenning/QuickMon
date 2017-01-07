@@ -82,13 +82,51 @@ namespace QuickMon
         #endregion
 
         #region Corrective script events
-        public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
-        public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
-        public event CollectorHostDelegate RunCollectorHostRestorationScript;
-        private void RunScript(ActionScript scriptToRun)
+        public event CollectorHostWithMessageDelegate CollectorHostRestorationScriptExecuted;
+        public event CollectorHostWithMessageDelegate CollectorHostRestorationScriptFailed;
+        public event CollectorHostWithMessageDelegate CollectorHostWarningCorrectiveScriptExecuted;
+        public event CollectorHostWithMessageDelegate CollectorHostWarningCorrectiveScriptFailed;
+        public event CollectorHostWithMessageDelegate CollectorHostErrorCorrectiveScriptExecuted;
+        public event CollectorHostWithMessageDelegate CollectorHostErrorCorrectiveScriptFailed;
+        private void CollectorHost_RestorationScriptExecuted(CollectorHost collectorHost, string scriptName)
         {
-            scriptToRun.Run(false);
+            LogRestorationScriptAction(collectorHost);
         }
+        private void CollectorHost_RestorationScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
+        {
+            throw new NotImplementedException();
+        }
+        private void CollectorHost_WarningCorrectiveScriptExecuted(CollectorHost collectorHost, string message)
+        {
+            throw new NotImplementedException();
+        }
+        private void CollectorHost_WarningCorrectiveScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
+        {
+            throw new NotImplementedException();
+        }
+        private void CollectorHost_ErrorCorrectiveScriptExecuted(CollectorHost collectorHost, string scriptName)
+        {
+            throw new NotImplementedException();
+        }
+        private void CollectorHost_ErrorCorrectiveScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
+
+        //public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
+        //public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
+        //public event CollectorHostDelegate RunCollectorHostRestorationScript;
+
         public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
         private void collectorHost_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
         {

@@ -24,6 +24,8 @@ namespace QuickMon
                     FirstStateUpdate = DateTime.Now;
 
                 bool stateChanged = currentState.State != newState.State;
+
+                #region Polling overide stuff
                 if (stateChanged)
                 {
                     LastStateChange = DateTime.Now;
@@ -53,8 +55,8 @@ namespace QuickMon
                         StagnantStateThirdRepeat = true;
                         RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 3rd stagnant stage");
                     }
-                }
-
+                } 
+                #endregion
 
                 #region Check if alert should be raised now
                 if (stateChanged)
@@ -134,62 +136,35 @@ namespace QuickMon
 
                 AddStateToHistory(currentState);
 
-                if (!CorrectiveScriptDisabled)
+                #region Corrective scripts
+                if (!CorrectiveScriptDisabled && (ParentMonitorPack == null || ParentMonitorPack.CorrectiveScriptsEnabled))
                 {
                     if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
                     {
-                        RunRestorationScripts();
+                        foreach (string scriptName in RunRestorationScripts())
+                        {
+                            newState.ScriptsRan.Add("Restoration script: " + scriptName);
+                        }
                     }
                     else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
                     {
                         if (newState.State == CollectorState.Error)
                         {
-                            RunErrorCorrectiveScripts();
+                            foreach (string scriptName in RunErrorCorrectiveScripts())
+                            {
+                                newState.ScriptsRan.Add("Error corrective script: " + scriptName);
+                            }
                         }
                         else if (newState.State == CollectorState.Warning)
                         {
-                            RunWarningCorrectiveScripts();
+                            foreach (string scriptName in RunWarningCorrectiveScripts())
+                            {
+                                newState.ScriptsRan.Add("Warning corrective script: " + scriptName);
+                            }
                         }
                     }
-
-
-                    //if (RestorationScriptPath != null && RestorationScriptPath.Trim().Length > 0 && 
-                    //    newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
-                    //{
-                    //    if (RestorationScriptMinimumRepeatTimeMin > 0 && DateTime.Now < LastRestorationScriptRun.AddMinutes(RestorationScriptMinimumRepeatTimeMin))
-                    //        RaiseCorrectiveScriptMinRepeatTimeBlockedEvent("Error corrective script blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
-                    //    else
-                    //    {
-                    //        RunCollectorHostRestorationScript?.Invoke(this);
-                    //        LastRestorationScriptRun = DateTime.Now;
-                    //        TimesRestorationScriptRan++;
-                    //    }
-                    //}
-                    //else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
-                    //{
-                    //    if (CorrectiveScriptOnErrorPath != null && CorrectiveScriptOnErrorPath.Trim().Length > 0 &&
-                    //        newState.State == CollectorState.Error && RunCollectorHostCorrectiveErrorScript != null)
-                    //    {
-                    //        if (CorrectiveScriptOnErrorMinimumRepeatTimeMin > 0 && DateTime.Now < LastErrorCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnErrorMinimumRepeatTimeMin))
-                    //        {
-                    //            RaiseCorrectiveScriptMinRepeatTimeBlockedEvent("Error corrective script blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
-                    //        }
-                    //        else
-                    //        {
-                    //            RunCollectorHostCorrectiveErrorScript?.Invoke(this);
-                    //            LastErrorCorrectiveScriptRun = DateTime.Now;
-                    //            TimesErrorCorrectiveScriptRan++;
-                    //        }
-                    //    }
-                    //    else if (CorrectiveScriptOnWarningPath != null && CorrectiveScriptOnWarningPath.Trim().Length > 0 &&
-                    //        newState.State == CollectorState.Warning && RunCollectorHostCorrectiveWarningScript != null)
-                    //    {
-                    //        RunCollectorHostCorrectiveWarningScript?.Invoke(this);
-                    //        LastWarningCorrectiveScriptRun = DateTime.Now;
-                    //        TimesWarningCorrectiveScriptRan++;
-                    //    }
-                    //}
-                }
+                } 
+                #endregion
             }
 
             currentState = newState;
@@ -250,41 +225,8 @@ namespace QuickMon
                 RaiseNoStateChanged();
             #endregion
         }
-        private void RunRestorationScripts()
-        {
-            if (RestorationScriptPath != null && RestorationScriptPath.Trim().Length > 0)
-            {
-                if (RestorationScriptMinimumRepeatTimeMin > 0 && DateTime.Now < LastRestorationScriptRun.AddMinutes(RestorationScriptMinimumRepeatTimeMin))
-                    RaiseCorrectiveScriptMinRepeatTimeBlockedEvent("Error corrective script blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
-                else
-                {
-                    foreach(var restorationScript in (from s in ActionScripts
-                                                      where s.IsRestorationScript
-                                                      select s))
-                    {
-                        try
-                        {
-                            restorationScript.Run(false);
-                            RestorationScriptExecuted?.Invoke(this, "The restoration script '" + restorationScript.RunTimeLinkedActionScript.Name + "' was executed.");
-                            LastRestorationScriptRun = DateTime.Now;
-                            TimesRestorationScriptRan++;
-                        }
-                        catch(Exception ex)
-                        {
-                            RestorationScriptFailed?.Invoke(this, "The restoration script '" + restorationScript.RunTimeLinkedActionScript.Name + "' failed to run!: " + ex.Message);
-                        }
-                    }                    
-                }
-            }
-        }
-        private void RunWarningCorrectiveScripts()
-        {
 
-        }
-        private void RunErrorCorrectiveScripts()
-        {
 
-        }
         public MonitorState RefreshCurrentState(bool disablePollingOverrides = false)
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
@@ -661,6 +603,93 @@ namespace QuickMon
             System.Data.DataSet result = new System.Data.DataSet();
             result = RemoteCollectorHostService.GetRemoteHostAllAgentDetails(this, hostAddress, hostPort);
             return result;
+        }
+        #endregion
+
+        #region Run Corrective Scripts
+        private List<string> RunRestorationScripts()
+        {
+            List<string> scriptsRan = new List<string>();
+            if (RestorationScriptMinimumRepeatTimeMin > 0 && DateTime.Now < LastRestorationScriptRun.AddMinutes(RestorationScriptMinimumRepeatTimeMin))
+                CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Restoration script(s) blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
+            else
+            {
+                foreach (var restorationScript in (from s in ActionScripts
+                                                   where s.IsRestorationScript
+                                                   select s))
+                {
+                    try
+                    {
+                        restorationScript.Run(false);
+                        RestorationScriptExecuted?.Invoke(this, restorationScript.RunTimeLinkedActionScript.Name);
+                        LastRestorationScriptRun = DateTime.Now;
+                        scriptsRan.Add(restorationScript.RunTimeLinkedActionScript.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        RestorationScriptFailed?.Invoke(this, restorationScript.RunTimeLinkedActionScript.Name, ex.Message);
+                    }
+                }
+                if (scriptsRan.Count > 0)
+                    TimesRestorationScriptRan++;
+            }
+            return scriptsRan;
+        }
+        private List<string> RunWarningCorrectiveScripts()
+        {
+            List<string> scriptsRan = new List<string>();
+            if (CorrectiveScriptOnWarningMinimumRepeatTimeMin > 0 && DateTime.Now < LastWarningCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnWarningMinimumRepeatTimeMin))
+                CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Warning corrective script(s) blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
+            else
+            {
+                foreach (var warningScript in (from s in ActionScripts
+                                                   where s.IsWarningCorrectiveScript
+                                                   select s))
+                {
+                    try
+                    {
+                        warningScript.Run(false);
+                        WarningCorrectiveScriptExecuted?.Invoke(this, warningScript.RunTimeLinkedActionScript.Name);
+                        LastWarningCorrectiveScriptRun = DateTime.Now;
+                        scriptsRan.Add(warningScript.RunTimeLinkedActionScript.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        WarningCorrectiveScriptFailed?.Invoke(this, warningScript.RunTimeLinkedActionScript.Name, ex.Message);
+                    }
+                }
+                if (scriptsRan.Count > 0)
+                    TimesWarningCorrectiveScriptRan++;
+            }
+            return scriptsRan;
+        }
+        private List<string> RunErrorCorrectiveScripts()
+        {
+            List<string> scriptsRan = new List<string>();
+            if (CorrectiveScriptOnErrorMinimumRepeatTimeMin > 0 && DateTime.Now < LastErrorCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnErrorMinimumRepeatTimeMin))
+                CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Error corrective script(s) blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
+            else
+            {
+                foreach (var errorScript in (from s in ActionScripts
+                                               where s.IsErrorCorrectiveScript
+                                               select s))
+                {
+                    try
+                    {
+                        errorScript.Run(false);
+                        ErrorCorrectiveScriptExecuted?.Invoke(this, errorScript.RunTimeLinkedActionScript.Name);
+                        LastErrorCorrectiveScriptRun = DateTime.Now;
+                        scriptsRan.Add(errorScript.RunTimeLinkedActionScript.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorCorrectiveScriptFailed?.Invoke(this, errorScript.RunTimeLinkedActionScript.Name,  ex.Message);
+                    }
+                }
+                if (scriptsRan.Count > 0)
+                    TimesErrorCorrectiveScriptRan++;
+            }
+            return scriptsRan;
         }
         #endregion
     }

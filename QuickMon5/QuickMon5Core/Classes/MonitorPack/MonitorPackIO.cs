@@ -191,14 +191,20 @@ namespace QuickMon
             collectorHost.NoStateChanged += collectorHost_NoStateChanged;
             collectorHost.StateUpdated += collectorHost_StateUpdated;
             collectorHost.AllAgentsExecutionTime += collectorHost_AllAgentsExecutionTime;
-            collectorHost.RunCollectorHostRestorationScript += collectorHost_RunCollectorHostRestorationScript;
-            collectorHost.RunCollectorHostCorrectiveWarningScript += collectorHost_RunCollectorHostCorrectiveWarningScript;
-            collectorHost.RunCollectorHostCorrectiveErrorScript += collectorHost_RunCollectorHostCorrectiveErrorScript;
+            collectorHost.RestorationScriptExecuted += CollectorHost_RestorationScriptExecuted;
+            collectorHost.RestorationScriptFailed += CollectorHost_RestorationScriptFailed;
+            collectorHost.WarningCorrectiveScriptExecuted += CollectorHost_WarningCorrectiveScriptExecuted;
+            collectorHost.WarningCorrectiveScriptFailed += CollectorHost_WarningCorrectiveScriptFailed;
+            collectorHost.ErrorCorrectiveScriptExecuted += CollectorHost_ErrorCorrectiveScriptExecuted;
+            collectorHost.ErrorCorrectiveScriptFailed += CollectorHost_ErrorCorrectiveScriptFailed;
             collectorHost.CorrectiveScriptMinRepeatTimeBlockedEvent += collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent;
             collectorHost.LoggingPollingOverridesTriggeredEvent += collectorHost_LoggingPollingOverridesTriggeredEvent;
             collectorHost.EntereringServiceWindow += collectorHost_EntereringServiceWindow;
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
         }
+
+
+
         public void InitializeCollectorActionScripts(CollectorHost collectorHost)
         {
             if (collectorHost != null && collectorHost.ActionScripts != null)
