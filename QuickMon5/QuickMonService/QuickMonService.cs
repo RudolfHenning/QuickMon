@@ -68,13 +68,13 @@ namespace QuickMon
             }
             if (monitorPacksLoaded == 0)
             {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "No (valid) monitor pack specified in service config! This service will only operate as a Remote Agent. To hide this warning please add some MonitorPacks in QuickMonService.exe.config",
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "No (valid) monitor pack specified in service config! This service will only operate as a Remote Agent. To hide this warning please add some MonitorPacks in MonitorPackList.txt (default)",
                     EventLogEntryType.Warning, 0);
             }
             else
             {
                 EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Started QuickMon Service with {0} monitor pack(s).",
-                    packs.Count), EventLogEntryType.Information, 0);
+                    packs.Count), EventLogEntryType.Information, (int)QuickMonServiceEventIDs.General);
             }
 
             EventLog.WriteEntry(Globals.ServiceEventSourceName,
@@ -83,7 +83,7 @@ namespace QuickMon
                     System.Reflection.Assembly.GetAssembly(typeof(MonitorPack)).GetName().Version.ToString(),
                     concurrencyLevel
                     ),
-                EventLogEntryType.Information, 0);
+                EventLogEntryType.Information, (int)QuickMonServiceEventIDs.General);
 
             if (Properties.Settings.Default.EnableRemoteHost)
             {
@@ -97,7 +97,7 @@ namespace QuickMon
                     if (Properties.Settings.Default.WcfServiceURL.Contains("localhost"))
                         baseAddress = new Uri(Properties.Settings.Default.WcfServiceURL.Replace("localhost", System.Net.Dns.GetHostName()));
                 }
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Starting Remote Collector Host service for : " + baseAddress.OriginalString, EventLogEntryType.Information, 0);
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Starting Remote Collector Host service for : " + baseAddress.OriginalString, EventLogEntryType.Information, (int)QuickMonServiceEventIDs.General);
                 wcfServiceHost = new ServiceHost(typeof(RemoteCollectorHostService), baseAddress);
                 if (Properties.Settings.Default.WcfEnableMetadata)
                 {
@@ -180,7 +180,7 @@ namespace QuickMon
             {
                 StringBuilder sbNotifiers = new StringBuilder();
                 MonitorPack monitorPack = new MonitorPack();
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Starting QuickMon MonitorPack '{0}'", monitorPackPath), EventLogEntryType.Information, 0);
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Starting QuickMon MonitorPack '{0}'", monitorPackPath), EventLogEntryType.Information, (int)QuickMonServiceEventIDs.MonitorPack);
                 monitorPack.Load(monitorPackPath);
                 monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
                 monitorPack.ApplicationUserNameCacheFilePath = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
@@ -190,13 +190,16 @@ namespace QuickMon
                     foreach (var notifier in monitorPack.NotifierHosts)
                         sbNotifiers.AppendLine("\t" + notifier.Name);
                 }
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("MonitorPack '{0}' has the following notifiers\r\n{1}", monitorPack.Name, sbNotifiers.ToString()), EventLogEntryType.Information, 0);
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("MonitorPack '{0}' has the following notifiers\r\n{1}", monitorPack.Name, sbNotifiers.ToString()), EventLogEntryType.Information, (int)QuickMonServiceEventIDs.MonitorPack);
                 monitorPack.OnNotifierError += new NotifierHostWithMessageDelegate(monitorPack_NotifierError);
                 monitorPack.OnCollectorError += new CollectorHostWithMessageDelegate(monitorPack_RaiseCollectorError);
                 monitorPack.CollectorHostAllAgentsExecutionTime += new CollectorHostExecutionTimeDelegate(monitorPack_CollectorHostAllAgentsExecutionTime);
-                monitorPack.RunCollectorHostCorrectiveWarningScript += new CollectorHostDelegate(monitorPack_RunCollectorCorrectiveWarningScript);
-                monitorPack.RunCollectorHostCorrectiveErrorScript += new CollectorHostDelegate(monitorPack_RunCollectorCorrectiveErrorScript);
-                monitorPack.RunCollectorHostRestorationScript += new CollectorHostDelegate(monitorPack_RunRestorationScript);
+                monitorPack.CollectorHostRestorationScriptExecuted += MonitorPack_CollectorHostRestorationScriptExecuted;
+                monitorPack.CollectorHostRestorationScriptFailed += MonitorPack_CollectorHostRestorationScriptFailed;
+                monitorPack.CollectorHostWarningCorrectiveScriptExecuted += MonitorPack_CollectorHostWarningCorrectiveScriptExecuted;
+                monitorPack.CollectorHostWarningCorrectiveScriptFailed += MonitorPack_CollectorHostWarningCorrectiveScriptFailed;
+                monitorPack.CollectorHostErrorCorrectiveScriptExecuted += MonitorPack_CollectorHostErrorCorrectiveScriptExecuted;
+                monitorPack.CollectorHostErrorCorrectiveScriptFailed += MonitorPack_CollectorHostErrorCorrectiveScriptFailed;
                 monitorPack.MonitorPackEventReported += monitorPack_MonitorPackEventReported;
                 monitorPack.PollingFreq = Properties.Settings.Default.PollingFreqSec * 1000;
                 monitorPack.ConcurrencyLevel = concurrencyLevel;
@@ -207,9 +210,9 @@ namespace QuickMon
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Error loading/starting MonitorPack '{0}'\r\n{1}", monitorPackPath, ex.Message), EventLogEntryType.Error, 11);
+                EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Error loading/starting MonitorPack '{0}'\r\n{1}", monitorPackPath, ex.Message), EventLogEntryType.Error, (int)QuickMonServiceEventIDs.MonitorPack);
             }
-        }        
+        }
         #endregion
 
         #region Monitor pack events
@@ -232,99 +235,129 @@ namespace QuickMon
         {
             PCRaiseCollectorExecutionTime(msTime);
         }
-        private void monitorPack_RunCollectorCorrectiveWarningScript(CollectorHost collector)
+        private void MonitorPack_CollectorHostRestorationScriptExecuted(CollectorHost collectorHost, string scriptName)
         {
-            try
-            {
-                if (collector != null &&
-                    System.IO.File.Exists(collector.CorrectiveScriptOnWarningPath))
-                {
-                    EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
-                        , EventLogEntryType.Information, 21);
-                    RunCorrectiveScript(collector.CorrectiveScriptOnWarningPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error(Warning):" + ex.Message, EventLogEntryType.Error, 23);
-            }
+            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("The restoration script '{0}' for collector '{1}' ran successfully.", scriptName, collectorHost.Name)
+                        , EventLogEntryType.Information, (int)QuickMonServiceEventIDs.RestorationScript);
         }
-        private void monitorPack_RunCollectorCorrectiveErrorScript(CollectorHost collector)
+        private void MonitorPack_CollectorHostRestorationScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
         {
-            try
-            {
-                if (collector != null &&
-                    System.IO.File.Exists(collector.CorrectiveScriptOnErrorPath))
-                {
-                    EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
-                        , EventLogEntryType.Information, 22);
-                    RunCorrectiveScript(collector.CorrectiveScriptOnErrorPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
-            }
+            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Restoration script '{0}' for collector '{1}' failed to run!: {2}", scriptName, collectorHost.Name, errorMsg)
+                        , EventLogEntryType.Error, (int)QuickMonServiceEventIDs.RestorationScript);
         }
-        private void monitorPack_RunRestorationScript(CollectorHost collector)
+        private void MonitorPack_CollectorHostWarningCorrectiveScriptExecuted(CollectorHost collectorHost, string scriptName)
         {
-            try
-            {
-                if (collector != null &&
-                    System.IO.File.Exists(collector.RestorationScriptPath))
-                {
-                    EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the restoration script '{0}' for collector '{1}'", collector.RestorationScriptPath, collector.Name)
-                        , EventLogEntryType.Information, 22);
-                    RunCorrectiveScript(collector.RestorationScriptPath);                    
-                }
-            }
-            catch (Exception ex)
-            {
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
-            }
+            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("The (Warning) corrective script '{0}' for collector '{1}' ran successfully.", scriptName, collectorHost.Name)
+                        , EventLogEntryType.Information, (int)QuickMonServiceEventIDs.WarningCorrectiveScript);
         }
-        private void RunCorrectiveScript(string scriptPath)
+        private void MonitorPack_CollectorHostWarningCorrectiveScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
         {
-            try
-            {
-                if (scriptPath.Contains("%"))
-                {
-                    scriptPath = Environment.ExpandEnvironmentVariables(scriptPath);
-                }
-                if (scriptPath.ToLower().Contains(".ps1"))
-                {
-                    RunPSScript(scriptPath);
-                }
-                else
-                {
-                    string commandStr = scriptPath;
-                    string parameters = "";
-                    Process p = new Process();
+            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("The (Warning) corrective script '{0}' for collector '{1}' failed to run!: {2}", scriptName, collectorHost.Name, errorMsg)
+                        , EventLogEntryType.Error, (int)QuickMonServiceEventIDs.WarningCorrectiveScript);
+        }
+        private void MonitorPack_CollectorHostErrorCorrectiveScriptExecuted(CollectorHost collectorHost, string scriptName)
+        {
+            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("The (Error) corrective script '{0}' for collector '{1}' ran successfully.", scriptName, collectorHost.Name)
+                        , EventLogEntryType.Information, (int)QuickMonServiceEventIDs.ErrorCorrectiveScript);
+        }
+        private void MonitorPack_CollectorHostErrorCorrectiveScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
+        {
+            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("The (Error) corrective script '{0}' for collector '{1}' failed to run!: {2}", scriptName, collectorHost.Name, errorMsg)
+                   , EventLogEntryType.Error, (int)QuickMonServiceEventIDs.ErrorCorrectiveScript);
+        }
+        //private void monitorPack_RunCollectorCorrectiveWarningScript(CollectorHost collector)
+        //{
+        //    try
+        //    {
+        //        if (collector != null &&
+        //            System.IO.File.Exists(collector.CorrectiveScriptOnWarningPath))
+        //        {
+        //            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
+        //                , EventLogEntryType.Information, 21);
+        //            RunCorrectiveScript(collector.CorrectiveScriptOnWarningPath);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error(Warning):" + ex.Message, EventLogEntryType.Error, 23);
+        //    }
+        //}
+        //private void monitorPack_RunCollectorCorrectiveErrorScript(CollectorHost collector)
+        //{
+        //    try
+        //    {
+        //        if (collector != null &&
+        //            System.IO.File.Exists(collector.CorrectiveScriptOnErrorPath))
+        //        {
+        //            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the corrective script '{0}' for collector '{1}'", collector.CorrectiveScriptOnWarningPath, collector.Name)
+        //                , EventLogEntryType.Information, 22);
+        //            RunCorrectiveScript(collector.CorrectiveScriptOnErrorPath);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
+        //    }
+        //}
+        //private void monitorPack_RunRestorationScript(CollectorHost collector)
+        //{
+        //    try
+        //    {
+        //        if (collector != null &&
+        //            System.IO.File.Exists(collector.RestorationScriptPath))
+        //        {
+        //            EventLog.WriteEntry(Globals.ServiceEventSourceName, string.Format("Running the restoration script '{0}' for collector '{1}'", collector.RestorationScriptPath, collector.Name)
+        //                , EventLogEntryType.Information, 22);
+        //            RunCorrectiveScript(collector.RestorationScriptPath);                    
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
+        //    }
+        //}
+        //private void RunCorrectiveScript(string scriptPath)
+        //{
+        //    try
+        //    {
+        //        if (scriptPath.Contains("%"))
+        //        {
+        //            scriptPath = Environment.ExpandEnvironmentVariables(scriptPath);
+        //        }
+        //        if (scriptPath.ToLower().Contains(".ps1"))
+        //        {
+        //            RunPSScript(scriptPath);
+        //        }
+        //        else
+        //        {
+        //            string commandStr = scriptPath;
+        //            string parameters = "";
+        //            Process p = new Process();
 
-                    if (!System.IO.File.Exists(scriptPath) && scriptPath.Contains(" "))
-                    {
-                        if (scriptPath.StartsWith("\"") && scriptPath.Substring(1).Contains("\""))
-                        {
-                            commandStr = scriptPath.Substring(1, scriptPath.IndexOf('"', 1) - 1);
-                            parameters = scriptPath.Substring(scriptPath.IndexOf('"', 1) + 1).Trim();
-                        }
-                        else
-                        {
-                            commandStr = scriptPath.Substring(0, scriptPath.IndexOf(' '));
-                            parameters = scriptPath.Substring(scriptPath.IndexOf(' ') + 1).Trim();
-                        }
-                    }
+        //            if (!System.IO.File.Exists(scriptPath) && scriptPath.Contains(" "))
+        //            {
+        //                if (scriptPath.StartsWith("\"") && scriptPath.Substring(1).Contains("\""))
+        //                {
+        //                    commandStr = scriptPath.Substring(1, scriptPath.IndexOf('"', 1) - 1);
+        //                    parameters = scriptPath.Substring(scriptPath.IndexOf('"', 1) + 1).Trim();
+        //                }
+        //                else
+        //                {
+        //                    commandStr = scriptPath.Substring(0, scriptPath.IndexOf(' '));
+        //                    parameters = scriptPath.Substring(scriptPath.IndexOf(' ') + 1).Trim();
+        //                }
+        //            }
 
-                    p.StartInfo = new ProcessStartInfo(commandStr, parameters);
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
-                }
-            }
-            catch (Exception ex)
-            {            
-                EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
-            }
-        }
+        //            p.StartInfo = new ProcessStartInfo(commandStr, parameters);
+        //            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        //            p.Start();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {            
+        //        EventLog.WriteEntry(Globals.ServiceEventSourceName, "Corrective script error:" + ex.Message, EventLogEntryType.Error, 24);
+        //    }
+        //}
         private void monitorPack_MonitorPackEventReported(string message)
         {
             try

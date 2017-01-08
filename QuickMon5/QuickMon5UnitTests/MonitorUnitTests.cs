@@ -161,8 +161,6 @@ namespace QuickMon
                 "                </config>" +
                 "         </collectorAgent>" +
                 "     </collectorAgents>" +
-                //"     <remoteAgent enableRemoteExecute=\"True\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"localhost\" remoteAgentHostPort=\"48192\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
-                //"     <alerting repeatAlertInXMin=\"1\" alertOnceInXMin=\"1\" />" +
                 "   </collectorHost>" +
                 "</collectorHosts>" +
                 "<notifierHosts></notifierHosts>" +

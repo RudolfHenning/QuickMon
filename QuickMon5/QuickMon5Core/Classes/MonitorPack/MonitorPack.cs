@@ -651,36 +651,48 @@ namespace QuickMon
         {
             LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following restoration script was executed: '{1}'", collectorEntry.Name, script));
         }
+        private void LogRestorationScriptFailedAction(CollectorHost collectorEntry, string script, string errorMessage)
+        {
+            LoggingCorrectiveScriptRunEvent(string.Format("The restoration script '{0}' for the collector '{1}' failed to run: '{2}'", script, collectorEntry.Name, errorMessage));
+        }
+        private void LogCorrectiveScriptAction(CollectorHost collectorEntry, string script)
+        {
+            LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'", collectorEntry.Name, script));
+        }
+        private void LogCorrectiveScriptFailedAction(CollectorHost collectorEntry, string script, string errorMessage)
+        {
+            LoggingCorrectiveScriptRunEvent(string.Format("The corrective script '{0}' for the collector '{1}' failed to run: '{2}'", script, collectorEntry.Name, errorMessage));
+        }
 
-        private void LogRestorationScriptAction(CollectorHost collectorEntry)
-        {
-            collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
-                collectorEntry.Name, collectorEntry.RestorationScriptPath);
-            SendNotifierAlert(new AlertRaised()
-            {
-                Level = collectorEntry.PreviousState.State == CollectorState.Warning ? AlertLevel.Warning : AlertLevel.Error,
-                DetailLevel = DetailLevel.Detail,
-                RaisedFor = collectorEntry
-            });
-            LoggingCorrectiveScriptRunEvent(string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
-                collectorEntry.Name, collectorEntry.RestorationScriptPath));
-        }
-        private void LogCorrectiveScriptAction(CollectorHost collectorEntry, bool error)
-        {
-            collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
-                collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath);
-            SendNotifierAlert(new AlertRaised()
-            {
-                Level = error ? AlertLevel.Error : AlertLevel.Warning,
-                DetailLevel = DetailLevel.Detail,
-                RaisedFor = collectorEntry
-            });
-            LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
-                collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath));
-        }
+
+        //private void LogRestorationScriptAction(CollectorHost collectorEntry)
+        //{
+        //    collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
+        //        collectorEntry.Name, collectorEntry.RestorationScriptPath);
+        //    SendNotifierAlert(new AlertRaised()
+        //    {
+        //        Level = collectorEntry.PreviousState.State == CollectorState.Warning ? AlertLevel.Warning : AlertLevel.Error,
+        //        DetailLevel = DetailLevel.Detail,
+        //        RaisedFor = collectorEntry
+        //    });
+        //    LoggingCorrectiveScriptRunEvent(string.Format("Due to an earlier alert raised on the collector '{0}' the following restoration script was executed: '{1}'",
+        //        collectorEntry.Name, collectorEntry.RestorationScriptPath));
+        //}
+        //private void LogCorrectiveScriptAction(CollectorHost collectorEntry, bool error)
+        //{
+        //    collectorEntry.CurrentState.RawDetails += "\r\n" + string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
+        //        collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath);
+        //    SendNotifierAlert(new AlertRaised()
+        //    {
+        //        Level = error ? AlertLevel.Error : AlertLevel.Warning,
+        //        DetailLevel = DetailLevel.Detail,
+        //        RaisedFor = collectorEntry
+        //    });
+        //    LoggingCorrectiveScriptRunEvent(string.Format("Due to an alert raised on the collector '{0}' the following corrective script was executed: '{1}'",
+        //        collectorEntry.Name, error ? collectorEntry.CorrectiveScriptOnErrorPath : collectorEntry.CorrectiveScriptOnWarningPath));
+        //}
         private void LogCorrectiveScriptMinRepeatTimeBlockedEvent(CollectorHost collectorEntry, string message)
         {
-            collectorEntry.CurrentState.RawDetails += "\r\n" + message;
             LoggingCorrectiveScriptRunEvent(string.Format("Collector host '{0}': {1}", collectorEntry.Name, message));
         }
         #endregion
