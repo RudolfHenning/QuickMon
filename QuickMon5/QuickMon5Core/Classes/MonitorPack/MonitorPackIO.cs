@@ -203,8 +203,6 @@ namespace QuickMon
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
         }
 
-
-
         public void InitializeCollectorActionScripts(CollectorHost collectorHost)
         {
             if (collectorHost != null && collectorHost.ActionScripts != null)

@@ -96,6 +96,7 @@
     <Compile Include="QuickMonService.Designer.cs">
       <DependentUpon>QuickMonService.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuickMonServiceEventIDs.cs" />
     <Compile Include="ServiceRegister.cs" />
   </ItemGroup>
   <ItemGroup>

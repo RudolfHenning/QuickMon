@@ -57,6 +57,7 @@ namespace QuickMon
         public event CollectorHostWith2MessagesDelegate WarningCorrectiveScriptFailed;
         public event CollectorHostWithMessageDelegate ErrorCorrectiveScriptExecuted;
         public event CollectorHostWith2MessagesDelegate ErrorCorrectiveScriptFailed;
+        public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
 
         //public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
         //private void RaiseRunCollectorHostCorrectiveWarningScript()
@@ -100,7 +101,6 @@ namespace QuickMon
         //        TimesRestorationScriptRan++;
         //    }
         //}
-        public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
         //private void RaiseCorrectiveScriptMinRepeatTimeBlockedEvent(string message)
         //{
         //    if (CorrectiveScriptMinRepeatTimeBlockedEvent != null)

@@ -83,111 +83,99 @@ namespace QuickMon
 
         #region Corrective script events
         public event CollectorHostWithMessageDelegate CollectorHostRestorationScriptExecuted;
-        public event CollectorHostWithMessageDelegate CollectorHostRestorationScriptFailed;
+        public event CollectorHostWith2MessagesDelegate CollectorHostRestorationScriptFailed;
         public event CollectorHostWithMessageDelegate CollectorHostWarningCorrectiveScriptExecuted;
-        public event CollectorHostWithMessageDelegate CollectorHostWarningCorrectiveScriptFailed;
+        public event CollectorHostWith2MessagesDelegate CollectorHostWarningCorrectiveScriptFailed;
         public event CollectorHostWithMessageDelegate CollectorHostErrorCorrectiveScriptExecuted;
-        public event CollectorHostWithMessageDelegate CollectorHostErrorCorrectiveScriptFailed;
+        public event CollectorHostWith2MessagesDelegate CollectorHostErrorCorrectiveScriptFailed;
+        public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
         private void CollectorHost_RestorationScriptExecuted(CollectorHost collectorHost, string scriptName)
         {
-            LogRestorationScriptAction(collectorHost);
+            LogRestorationScriptAction(collectorHost, scriptName);
+            CollectorHostRestorationScriptExecuted?.Invoke(collectorHost, scriptName);
         }
         private void CollectorHost_RestorationScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
         {
-            throw new NotImplementedException();
+            LogRestorationScriptFailedAction(collectorHost, scriptName, errorMsg);
+            CollectorHostRestorationScriptFailed?.Invoke(collectorHost, scriptName, errorMsg);
         }
-        private void CollectorHost_WarningCorrectiveScriptExecuted(CollectorHost collectorHost, string message)
+        private void CollectorHost_WarningCorrectiveScriptExecuted(CollectorHost collectorHost, string scriptName)
         {
-            throw new NotImplementedException();
+            LogCorrectiveScriptAction(collectorHost, scriptName);
+            CollectorHostWarningCorrectiveScriptExecuted?.Invoke(collectorHost, scriptName);
         }
         private void CollectorHost_WarningCorrectiveScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
         {
-            throw new NotImplementedException();
+            LogCorrectiveScriptFailedAction(collectorHost, scriptName, errorMsg);
+            CollectorHostWarningCorrectiveScriptFailed?.Invoke(collectorHost, scriptName, errorMsg);
         }
         private void CollectorHost_ErrorCorrectiveScriptExecuted(CollectorHost collectorHost, string scriptName)
         {
-            throw new NotImplementedException();
+            LogCorrectiveScriptAction(collectorHost, scriptName);
+            CollectorHostErrorCorrectiveScriptExecuted?.Invoke(collectorHost, scriptName);
         }
         private void CollectorHost_ErrorCorrectiveScriptFailed(CollectorHost collectorHost, string scriptName, string errorMsg)
         {
-            throw new NotImplementedException();
+            LogCorrectiveScriptFailedAction(collectorHost, scriptName, errorMsg);
+            CollectorHostErrorCorrectiveScriptFailed?.Invoke(collectorHost, scriptName, errorMsg);
         }
-
-
-
-
-
-
-
-
-
-
+        private void collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent(CollectorHost collectorHost, string message)
+        {
+            LogCorrectiveScriptMinRepeatTimeBlockedEvent(collectorHost, message);
+            CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(collectorHost, message);            
+        }
 
         //public event CollectorHostDelegate RunCollectorHostCorrectiveWarningScript;
         //public event CollectorHostDelegate RunCollectorHostCorrectiveErrorScript;
         //public event CollectorHostDelegate RunCollectorHostRestorationScript;
 
-        public event CollectorHostWithMessageDelegate CorrectiveScriptMinRepeatTimeBlockedEvent;
-        private void collectorHost_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
-        {
-            try
-            {
-                if (CorrectiveScriptsEnabled && RunCollectorHostCorrectiveErrorScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnErrorPath.Length > 0)
-                {
-                    RunCollectorHostCorrectiveErrorScript(collectorHost);
-                    LogCorrectiveScriptAction(collectorHost, true);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveErrorScript: {0}", ex.ToString()));
-            }
-        }
-        private void collectorHost_RunCollectorHostCorrectiveWarningScript(CollectorHost collectorHost)
-        {
-            try
-            {
-                if (CorrectiveScriptsEnabled && RunCollectorHostCorrectiveWarningScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnWarningPath.Length > 0)
-                {
-                    RunCollectorHostCorrectiveWarningScript(collectorHost);
-                    LogCorrectiveScriptAction(collectorHost, false);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveWarningScript: {0}", ex.ToString()));
-            }
-        }
-        private void collectorHost_RunCollectorHostRestorationScript(CollectorHost collectorHost)
-        {
-            try
-            {
-                if (CorrectiveScriptsEnabled && RunCollectorHostRestorationScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.RestorationScriptPath.Length > 0)
-                {
-                    RunCollectorHostRestorationScript(collectorHost);
-                    LogRestorationScriptAction(collectorHost);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostRestorationScript: {0}", ex.ToString()));
-            }
-        }
-        private void collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent(CollectorHost collectorHost, string message)
-        {
-            try
-            {
-                if (CorrectiveScriptsEnabled && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && message.Length > 0)
-                {
-                    CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(collectorHost, message);
-                    LogCorrectiveScriptMinRepeatTimeBlockedEvent(collectorHost, message);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent: {0}", ex.ToString()));
-            }
-        }
+        //
+        //private void collectorHost_RunCollectorHostCorrectiveErrorScript(CollectorHost collectorHost)
+        //{
+        //    try
+        //    {
+        //        if (CorrectiveScriptsEnabled && RunCollectorHostCorrectiveErrorScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnErrorPath.Length > 0)
+        //        {
+        //            RunCollectorHostCorrectiveErrorScript(collectorHost);
+        //            LogCorrectiveScriptAction(collectorHost, true);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveErrorScript: {0}", ex.ToString()));
+        //    }
+        //}
+        //private void collectorHost_RunCollectorHostCorrectiveWarningScript(CollectorHost collectorHost)
+        //{
+        //    try
+        //    {
+        //        if (CorrectiveScriptsEnabled && RunCollectorHostCorrectiveWarningScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.CorrectiveScriptOnWarningPath.Length > 0)
+        //        {
+        //            RunCollectorHostCorrectiveWarningScript(collectorHost);
+        //            LogCorrectiveScriptAction(collectorHost, false);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostCorrectiveWarningScript: {0}", ex.ToString()));
+        //    }
+        //}
+        //private void collectorHost_RunCollectorHostRestorationScript(CollectorHost collectorHost)
+        //{
+        //    try
+        //    {
+        //        if (CorrectiveScriptsEnabled && RunCollectorHostRestorationScript != null && collectorHost != null && !collectorHost.CorrectiveScriptDisabled && collectorHost.RestorationScriptPath.Length > 0)
+        //        {
+        //            RunCollectorHostRestorationScript(collectorHost);
+        //            LogRestorationScriptAction(collectorHost);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Trace.WriteLine(string.Format("Error in collectorHost_RunCollectorHostRestorationScript: {0}", ex.ToString()));
+        //    }
+        //}
+
 
         #endregion
 

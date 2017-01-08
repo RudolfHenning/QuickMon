@@ -31,7 +31,6 @@ namespace QuickMon
             LastErrorState = null;
 
             //UI
-            //ExpandOnStart = true;
             ExpandOnStartOption = QuickMon.ExpandOnStartOption.Auto;
 
             //Polling overrides
