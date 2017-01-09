@@ -1,0 +1,2 @@
+﻿Variable inheritance in Collector hosts
+	'Child' collector hosts can 'inherit' parent collector host config variables.

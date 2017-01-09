@@ -308,6 +308,53 @@ namespace QuickMon
             return newCollectorHost;
         }
 
+
+        public void ApplyConfigVarsNow()
+        {
+            List<ConfigVariable> allConfigVars = new List<ConfigVariable>(); 
+            //applying its own
+            foreach (ConfigVariable cv in ConfigVariables)
+            {
+                ConfigVariable eistingCV = (from ConfigVariable c in allConfigVars
+                                            where c.FindValue == cv.FindValue
+                                            select c).FirstOrDefault();
+                if (eistingCV == null)
+                {
+                    allConfigVars.Add(cv.Clone());
+                }
+            }
+            if (ParentMonitorPack != null)
+            {
+                foreach (CollectorHost parentCollector in ParentMonitorPack.GetParentCollectorHostTree(this))
+                {
+                    foreach (ConfigVariable cv in parentCollector.ConfigVariables)
+                    {
+                        ConfigVariable eistingCV = (from ConfigVariable c in allConfigVars
+                                                    where c.FindValue == cv.FindValue
+                                                    select c).FirstOrDefault();
+                        if (eistingCV == null)
+                        {
+                            allConfigVars.Add(cv.Clone());
+                        }
+                    }
+                }
+                foreach (ConfigVariable cv in ParentMonitorPack.ConfigVariables)
+                    allConfigVars.Add(cv.Clone());
+            }
+           
+
+            foreach (IAgent agent in CollectorAgents)
+            {
+                string appliedConfig = agent.InitialConfiguration;
+                appliedConfig = allConfigVars.ApplyOn(appliedConfig);
+                if (agent.ActiveConfiguration != appliedConfig)
+                {
+                    agent.ActiveConfiguration = appliedConfig;
+                    agent.AgentConfig.FromXml(appliedConfig);
+                }
+            }
+        }
+
         public void ApplyConfigVarsNow(List<ConfigVariable> monitorPackVars = null)
         {
             foreach (IAgent agent in CollectorAgents)
