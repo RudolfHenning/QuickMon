@@ -310,5 +310,71 @@ namespace QuickMon
                 System.IO.File.WriteAllText("c:\\Test\\ActionScript.txt", m.CollectorHosts[0].ActionScripts[0].Run());
             }
         }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void CollectorHostConfigVarsTests()
+        {
+            MonitorPack m = new MonitorPack();
+            string mconfig = "<monitorPack version=\"5.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                "runCorrectiveScripts=\"True\" " +
+                "stateHistorySize=\"100\" pollingFreqSecOverride=\"60\">\r\n" +
+                "<configVars>" +
+                    "<configVar find=\"%ComputerName%\" replace=\"localhost\" />" +
+                 "</configVars>" +
+                "<collectorHosts>" +
+                //Parent Collector Host
+                    "<collectorHost uniqueId=\"ParentPing\" dependOnParentId=\"\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars />" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
+                    //Child Collector Host
+                    "<collectorHost uniqueId=\"ChildPing\" dependOnParentId=\"ParentPing\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars>" +
+                    "      <configVar find=\"%ComputerName%\" replace=\"LOCALHOST\" />" +
+                    "  </configVars>" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
+                "</collectorHosts>" +
+                "<notifierHosts />" +
+                "</monitorPack>";
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
+            Assert.AreNotEqual(0, m.CollectorHosts.Count, "No Collector hosts loaded!");
+            Assert.AreNotEqual(0, m.CollectorHosts[0].CollectorAgents.Count, "No Collector host agents loaded!");
+            m.RefreshStates();
+            
+        }
     }
 }

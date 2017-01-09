@@ -185,6 +185,27 @@ namespace QuickMon
         private void SetCollectorHostEvents(CollectorHost collectorHost)
         {
             collectorHost.ParentMonitorPack = this;
+            //to ensure events are only subscribed once first unsubscribe any existing ones. This does not fail if no events have been subscribed already.
+            try
+            {
+                collectorHost.AlertGoodState -= collectorHost_AlertGoodState;
+                collectorHost.AlertWarningState -= collectorHost_AlertWarningState;
+                collectorHost.AlertErrorState -= collectorHost_AlertErrorState;
+                collectorHost.NoStateChanged -= collectorHost_NoStateChanged;
+                collectorHost.StateUpdated -= collectorHost_StateUpdated;
+                collectorHost.AllAgentsExecutionTime -= collectorHost_AllAgentsExecutionTime;
+                collectorHost.RestorationScriptExecuted -= CollectorHost_RestorationScriptExecuted;
+                collectorHost.RestorationScriptFailed -= CollectorHost_RestorationScriptFailed;
+                collectorHost.WarningCorrectiveScriptExecuted -= CollectorHost_WarningCorrectiveScriptExecuted;
+                collectorHost.WarningCorrectiveScriptFailed -= CollectorHost_WarningCorrectiveScriptFailed;
+                collectorHost.ErrorCorrectiveScriptExecuted -= CollectorHost_ErrorCorrectiveScriptExecuted;
+                collectorHost.ErrorCorrectiveScriptFailed -= CollectorHost_ErrorCorrectiveScriptFailed;
+                collectorHost.CorrectiveScriptMinRepeatTimeBlockedEvent -= collectorHost_CorrectiveScriptMinRepeatTimeBlockedEvent;
+                collectorHost.LoggingPollingOverridesTriggeredEvent -= collectorHost_LoggingPollingOverridesTriggeredEvent;
+                collectorHost.EntereringServiceWindow -= collectorHost_EntereringServiceWindow;
+                collectorHost.ExitingServiceWindow -= collectorHost_ExitingServiceWindow;
+            }
+            catch { }
             collectorHost.AlertGoodState += collectorHost_AlertGoodState;
             collectorHost.AlertWarningState += collectorHost_AlertWarningState;
             collectorHost.AlertErrorState += collectorHost_AlertErrorState;
@@ -216,6 +237,29 @@ namespace QuickMon
                         collectorActionScript.InitializeScript(currentActionScript);
                 }
             }
+        }
+        public CollectorHost GetParentCollectorHost(CollectorHost child)
+        {
+            CollectorHost selectedCH = null;
+            if (CollectorHosts != null && child != null && child.ParentCollectorId != null && child.ParentCollectorId.Length > 0)
+            {
+                selectedCH = (from CollectorHost c in CollectorHosts
+                              where c.UniqueId == child.ParentCollectorId
+                              select c).FirstOrDefault();
+            }
+
+            return selectedCH;
+        }
+        public List<CollectorHost> GetParentCollectorHostTree(CollectorHost child)
+        {
+            List<CollectorHost> list = new List<CollectorHost>();
+            CollectorHost currentParent = GetParentCollectorHost(child);
+            while (currentParent != null)
+            {
+                list.Add(currentParent);
+                currentParent = GetParentCollectorHost(currentParent);
+            }            
+            return list; 
         }
 
         /// <summary>
