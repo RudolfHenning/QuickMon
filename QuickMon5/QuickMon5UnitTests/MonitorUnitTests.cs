@@ -319,6 +319,7 @@ namespace QuickMon
                 "stateHistorySize=\"100\" pollingFreqSecOverride=\"60\">\r\n" +
                 "<configVars>" +
                     "<configVar find=\"%ComputerName%\" replace=\"localhost\" />" +
+                    "<configVar find=\"%TestValue%\" replace=\"123\" />" +
                  "</configVars>" +
                 "<collectorHosts>" +
                 //Parent Collector Host
@@ -338,18 +339,20 @@ namespace QuickMon
                     "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
                     "  <collectorActionScripts />" +
                     "  <serviceWindows />			" +
-                    "  <configVars />" +
+                    "  <configVars>" +
+                    "      <configVar find=\"%TestValue%\" replace=\"ABC\" />" +
+                    "  </configVars>" +
                     "  <categories />" +
                     "  <notes />" +
                     "</collectorHost>" +
                     //Child Collector Host
-                    "<collectorHost uniqueId=\"ChildPing\" dependOnParentId=\"ParentPing\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "<collectorHost uniqueId=\"ChildPing\" dependOnParentId=\"ParentPing\" name=\"Child Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
                     "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
                     "  <collectorAgents agentCheckSequence=\"All\">" +
                     "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
                     "      <config>" +
                     "        <entries>" +
-                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"%TestValue%\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
                     "        </entries>" +
                     "      </config>" +
                     "    </collectorAgent>" +
@@ -365,16 +368,43 @@ namespace QuickMon
                     "  <categories />" +
                     "  <notes />" +
                     "</collectorHost>" +
+                    //Grand Child Collector Host
+                    "<collectorHost uniqueId=\"GrandChildPing\" dependOnParentId=\"ChildPing\" name=\"Grand Child Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"Ping %ComputerName% - %TestValue%\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars />" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
                 "</collectorHosts>" +
                 "<notifierHosts />" +
                 "</monitorPack>";
             m.LoadXml(mconfig);
             Assert.IsNotNull(m, "Monitor pack is null");
             Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
-            Assert.AreNotEqual(0, m.CollectorHosts.Count, "No Collector hosts loaded!");
+            Assert.AreNotEqual(0, m.ConfigVariables.Count, "No Monitor pack Config variables loaded!");
+            Assert.AreEqual(3, m.CollectorHosts.Count, "3 Collector hosts expected!");
+            Assert.AreNotEqual(0, m.CollectorHosts[0].ConfigVariables.Count, "No Collector host Config variables loaded!");
             Assert.AreNotEqual(0, m.CollectorHosts[0].CollectorAgents.Count, "No Collector host agents loaded!");
             m.RefreshStates();
-            
+
+            Assert.AreEqual(true, m.CollectorHosts[0].CollectorAgents[0].ActiveConfiguration.Contains("localhost"), "Config variable for child Collector host not set!");
+            Assert.AreEqual(true, m.CollectorHosts[1].CollectorAgents[0].ActiveConfiguration.Contains("LOCALHOST"), "Config variable for child Collector host not set!");
+            Assert.AreEqual(true, m.CollectorHosts[1].CollectorAgents[0].ActiveConfiguration.Contains("ABC"), "Config variable for child Collector host not set!");
+            Assert.AreEqual(true, m.CollectorHosts[2].CollectorAgents[0].ActiveConfiguration.Contains("LOCALHOST - ABC"), "Config variable for grand child Collector host not set!");
         }
     }
 }

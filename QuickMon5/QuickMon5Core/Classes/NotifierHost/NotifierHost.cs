@@ -27,6 +27,7 @@ namespace QuickMon
         public AttendedOption AttendedOptionOverride { get; set; }
         public List<INotifier> NotifierAgents { get; set; }
         public List<string> OnlyRecordAlertOnHosts { get; set; }
+        public MonitorPack ParentMonitorPack { get; set; }
 
         public override string ToString()
         {

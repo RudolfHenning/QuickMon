@@ -117,7 +117,7 @@ namespace QuickMon
                         ActionScripts = ActionScript.FromXml(actionScriptsNode);                        
                     }
 
-                    CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, ConfigVariables);
+                    CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, this);// , ConfigVariables);
                     foreach (CollectorHost collectorHost in CollectorHosts)
                     {
                         SetCollectorHostEvents(collectorHost);
@@ -130,7 +130,7 @@ namespace QuickMon
                 XmlNode notifierHostsNode = root.SelectSingleNode("notifierHosts");
                 if (notifierHostsNode != null)
                 {
-                    NotifierHosts = NotifierHost.GetNotifierHosts(notifierHostsNode, ConfigVariables);
+                    NotifierHosts = NotifierHost.GetNotifierHosts(notifierHostsNode, this); //, ConfigVariables);                    
                 }
                 #endregion
 
@@ -184,7 +184,6 @@ namespace QuickMon
         }
         private void SetCollectorHostEvents(CollectorHost collectorHost)
         {
-            collectorHost.ParentMonitorPack = this;
             //to ensure events are only subscribed once first unsubscribe any existing ones. This does not fail if no events have been subscribed already.
             try
             {
@@ -268,6 +267,7 @@ namespace QuickMon
         /// <param name="collectorHost"></param>
         public void AddCollectorHost(CollectorHost collectorHost)
         {
+            collectorHost.ParentMonitorPack = this;
             SetCollectorHostEvents(collectorHost);
             InitializeCollectorActionScripts(collectorHost);
             CollectorHosts.Add(collectorHost);
@@ -278,6 +278,7 @@ namespace QuickMon
         /// <param name="notifierHost"></param>
         public void AddNotifierHost(NotifierHost notifierHost)
         {
+            notifierHost.ParentMonitorPack = this;
             NotifierHosts.Add(notifierHost);
         }
         #endregion

@@ -210,8 +210,7 @@ namespace QuickMon
                             collectorHost.RunTimeUserNameCacheFile = ApplicationUserNameCacheFilePath;
                         }
                     }
-                    //collectorHost.ApplyConfigVarsNow(ConfigVariables);
-                    collectorHost.ApplyConfigVarsNow();
+                    //collectorHost.ApplyConfigVarsNow(ConfigVariables);                    
                     chms = collectorHost.RefreshCurrentState(disablePollingOverrides);
 
                     #region Do/Check/Set dependant CollectorHosts
@@ -590,6 +589,7 @@ namespace QuickMon
                         bool allowedToRun = true;
                         List<string> alertsRecorded = new List<string>();
 
+                        notifierEntry.ApplyConfigVarsNow();
                         foreach (INotifier notifierAgent in notifierEntry.NotifierAgents)
                         {
                             if (RunningAttended == AttendedOption.AttendedAndUnAttended) //no Attended option set on MonitorPack
@@ -610,6 +610,7 @@ namespace QuickMon
                             if (allowedToRun)
                             {
                                 PCRaiseNotifierAlertSend();
+                                
                                 notifierAgent.RecordMessage(alertRaised);
 
                                 if (notifierAgent.AgentConfig != null)

@@ -226,7 +226,6 @@ namespace QuickMon
             #endregion
         }
 
-
         public MonitorState RefreshCurrentState(bool disablePollingOverrides = false)
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable };
@@ -324,6 +323,8 @@ namespace QuickMon
                     //*********** Call actual collector GetState **********
                     LastStateCheckAttemptBegin = DateTime.Now;
                     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+                    //Applies config vars to Initial configs of agents (on the run)
+                    ApplyConfigVarsNow();
                     sw.Start();
 
                     //first check if remote host exection is required
@@ -391,7 +392,6 @@ namespace QuickMon
                         }
                     }
                     #endregion
-
 
                 }
             }

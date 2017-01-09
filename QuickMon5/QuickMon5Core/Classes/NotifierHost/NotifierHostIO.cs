@@ -9,12 +9,13 @@ namespace QuickMon
 {
     public partial class NotifierHost
     {
-        public static List<NotifierHost> GetNotifierHosts(XmlNode notifierHostsNode, List<ConfigVariable> monitorPackVars = null)
+        public static List<NotifierHost> GetNotifierHosts(XmlNode notifierHostsNode, MonitorPack parentMonitorPack = null) //, List<ConfigVariable> monitorPackVars = null)
         {
             List<NotifierHost> notifierHosts = new List<NotifierHost>();
             foreach (XmlElement xmlNotifierHost in notifierHostsNode.SelectNodes("notifierHost"))
             {
-                NotifierHost newNotifierHost = NotifierHost.FromConfig(null, xmlNotifierHost, monitorPackVars);
+                NotifierHost newNotifierHost = NotifierHost.FromConfig(null, xmlNotifierHost); //, monitorPackVars);
+                newNotifierHost.ParentMonitorPack = parentMonitorPack;
                 notifierHosts.Add(newNotifierHost);
             }
             return notifierHosts;
@@ -24,7 +25,7 @@ namespace QuickMon
             List<NotifierHost> notifierHosts = new List<NotifierHost>();
             XmlDocument notifierHostsXml = new XmlDocument();
             notifierHostsXml.LoadXml(xmlString);
-            notifierHosts = GetNotifierHosts(notifierHostsXml.DocumentElement, monitorPackVars);            
+            notifierHosts = GetNotifierHosts(notifierHostsXml.DocumentElement); //, monitorPackVars);            
             return notifierHosts;
         }
         public static NotifierHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
@@ -34,23 +35,23 @@ namespace QuickMon
                 XmlDocument notifierHostDoc = new XmlDocument();
                 notifierHostDoc.LoadXml(xmlString);
                 XmlElement root = notifierHostDoc.DocumentElement;
-                return FromConfig(null, root, monitorPackVars, applyConfigVars);
+                return FromConfig(null, root); //, monitorPackVars, applyConfigVars);
             }
             else
                 return null;
         }
-        public void ReconfigureFromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        public void ReconfigureFromXml(string xmlString) //, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<notifierHost"))
             {
                 XmlDocument notifierHostDoc = new XmlDocument();
                 notifierHostDoc.LoadXml(xmlString);
                 XmlElement root = notifierHostDoc.DocumentElement;
-                FromConfig(this, root, monitorPackVars, applyConfigVars);
+                FromConfig(this, root); //, monitorPackVars, applyConfigVars);
             }
         }
 
-        private static NotifierHost FromConfig(NotifierHost newNotifierHost, XmlElement xmlNotifierHost, List<ConfigVariable> monitorPackVars, bool applyConfigVars = true)
+        private static NotifierHost FromConfig(NotifierHost newNotifierHost, XmlElement xmlNotifierHost) //, List<ConfigVariable> monitorPackVars, bool applyConfigVars = true)
         {
             if (newNotifierHost == null)
                 newNotifierHost = new NotifierHost();
@@ -140,16 +141,15 @@ namespace QuickMon
                                 else
                                     newNotifierHost.Enabled = false;
                             }
-                            string appliedConfig = newAgent.InitialConfiguration;
-                            if (applyConfigVars)
-                            {
-                                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
-                                appliedConfig = newNotifierHost.ConfigVariables.ApplyOn(appliedConfig);
-                            }
-                            newAgent.ActiveConfiguration = appliedConfig;
+                            //string appliedConfig = newAgent.InitialConfiguration;
+                            //if (applyConfigVars)
+                            //{
+                            //    appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
+                            //    appliedConfig = newNotifierHost.ConfigVariables.ApplyOn(appliedConfig);
+                            //}
+                            //newAgent.ActiveConfiguration = appliedConfig;
                             newNotifierHost.NotifierAgents.Add(newAgent);
-
-                            newAgent.AgentConfig.FromXml(appliedConfig);
+                            newAgent.AgentConfig.FromXml(newAgent.InitialConfiguration);
                         }
                         catch (Exception ex)
                         {
@@ -368,6 +368,48 @@ namespace QuickMon
             configXml.AppendLine("</notifierAgents>");
             configXml.AppendLine("</notifierHost>");
             return configXml.ToString();
+        }
+
+        public void ApplyConfigVarsNow()
+        {
+            List<ConfigVariable> allConfigVars = new List<ConfigVariable>();
+            //applying its own first
+            foreach (ConfigVariable cv in ConfigVariables)
+            {
+                ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
+                                             where c.FindValue == cv.FindValue
+                                             select c).FirstOrDefault();
+                if (existingCV == null)
+                {
+                    allConfigVars.Add(cv.Clone());
+                }
+            }
+            if (ParentMonitorPack != null)
+            {
+                //then applying parent monitor pack variables
+                foreach (ConfigVariable cv in ParentMonitorPack.ConfigVariables)
+                {
+                    ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
+                                                 where c.FindValue == cv.FindValue
+                                                 select c).FirstOrDefault();
+                    if (existingCV == null)
+                    {
+                        allConfigVars.Add(cv.Clone());
+                    }
+                }
+            }
+
+            foreach (IAgent agent in NotifierAgents)
+            {
+                string appliedConfig = agent.InitialConfiguration;
+                appliedConfig = allConfigVars.ApplyOn(appliedConfig);
+                //only reapply if it is different from existing
+                if (agent.ActiveConfiguration != appliedConfig)
+                {
+                    agent.ActiveConfiguration = appliedConfig;
+                    agent.AgentConfig.FromXml(appliedConfig);
+                }
+            }
         }
     }
 }

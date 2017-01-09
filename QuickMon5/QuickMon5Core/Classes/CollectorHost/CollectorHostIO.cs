@@ -10,32 +10,33 @@ namespace QuickMon
     public partial class CollectorHost
     {
         #region FromXml
-        public static List<CollectorHost> GetCollectorHosts(XmlNode collectorHostsNode, List<ConfigVariable> monitorPackVars = null)
+        public static List<CollectorHost> GetCollectorHosts(XmlNode collectorHostsNode, MonitorPack parentMonitorPack = null) //, List<ConfigVariable> monitorPackVars = null)
         {
             List<CollectorHost> collectorHosts = new List<CollectorHost>();            
             foreach (XmlElement xmlCollectorHost in collectorHostsNode.SelectNodes("collectorHost"))
             {
-                CollectorHost newCollectorHost = FromConfig(null, xmlCollectorHost, monitorPackVars);
+                CollectorHost newCollectorHost = FromConfig(null, xmlCollectorHost); //, monitorPackVars);
+                newCollectorHost.ParentMonitorPack = parentMonitorPack;
                 collectorHosts.Add(newCollectorHost);
             }
             return collectorHosts;
         }
-        public static List<CollectorHost> GetCollectorHostsFromString(string xmlString, List<ConfigVariable> monitorPackVars = null)
+        public static List<CollectorHost> GetCollectorHostsFromString(string xmlString) //, List<ConfigVariable> monitorPackVars = null)
         {
             List<CollectorHost> collectorHosts = new List<CollectorHost>();
             XmlDocument collectorHostsXml = new XmlDocument();
             collectorHostsXml.LoadXml(xmlString);
-            collectorHosts = GetCollectorHosts(collectorHostsXml.DocumentElement, monitorPackVars);            
+            collectorHosts = GetCollectorHosts(collectorHostsXml.DocumentElement); //, monitorPackVars);            
             return collectorHosts;
         }
-        public static CollectorHost FromXml(string xmlString, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
+        public static CollectorHost FromXml(string xmlString)// , List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = false)
         {
             if (xmlString != null && xmlString.Length > 0 && xmlString.StartsWith("<collectorHost"))
             {
                 XmlDocument collectorHostDoc = new XmlDocument();
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
-                return FromConfig(null, root, monitorPackVars, applyConfigVars);
+                return FromConfig(null, root); //, monitorPackVars, applyConfigVars);
             }
             else
                 return null;
@@ -53,11 +54,11 @@ namespace QuickMon
                 XmlDocument collectorHostDoc = new XmlDocument();
                 collectorHostDoc.LoadXml(xmlString);
                 XmlElement root = collectorHostDoc.DocumentElement;
-                FromConfig(this, root, monitorPackVars, applyConfigVars);
+                FromConfig(this, root); //, monitorPackVars, applyConfigVars);
                 SetCurrentState(new MonitorState() { State = CollectorState.ConfigurationChanged, RawDetails = "Reconfigured", HtmlDetails = "<p>Reconfigured</p>" });
             }
         }
-        private static CollectorHost FromConfig(CollectorHost newCollectorHost, XmlElement xmlCollectorEntry, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
+        private static CollectorHost FromConfig(CollectorHost newCollectorHost, XmlElement xmlCollectorEntry) //, List<ConfigVariable> monitorPackVars = null, bool applyConfigVars = true)
         {
             if (newCollectorHost == null)
                 newCollectorHost = new CollectorHost();
@@ -307,128 +308,121 @@ namespace QuickMon
             #endregion
             return newCollectorHost;
         }
-
-
         public void ApplyConfigVarsNow()
         {
             List<ConfigVariable> allConfigVars = new List<ConfigVariable>(); 
-            //applying its own
+            //applying its own first
             foreach (ConfigVariable cv in ConfigVariables)
             {
-                ConfigVariable eistingCV = (from ConfigVariable c in allConfigVars
+                ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
                                             where c.FindValue == cv.FindValue
                                             select c).FirstOrDefault();
-                if (eistingCV == null)
+                if (existingCV == null)
                 {
                     allConfigVars.Add(cv.Clone());
                 }
             }
+            //then applying parent Collector Host variables
             if (ParentMonitorPack != null)
             {
                 foreach (CollectorHost parentCollector in ParentMonitorPack.GetParentCollectorHostTree(this))
                 {
                     foreach (ConfigVariable cv in parentCollector.ConfigVariables)
                     {
-                        ConfigVariable eistingCV = (from ConfigVariable c in allConfigVars
+                        ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
                                                     where c.FindValue == cv.FindValue
                                                     select c).FirstOrDefault();
-                        if (eistingCV == null)
+                        if (existingCV == null)
                         {
                             allConfigVars.Add(cv.Clone());
                         }
                     }
                 }
+                //then applying parent monitor pack variables
                 foreach (ConfigVariable cv in ParentMonitorPack.ConfigVariables)
-                    allConfigVars.Add(cv.Clone());
-            }
-           
+                {
+                    ConfigVariable existingCV = (from ConfigVariable c in allConfigVars
+                                                 where c.FindValue == cv.FindValue
+                                                 select c).FirstOrDefault();
+                    if (existingCV == null)
+                    {
+                        allConfigVars.Add(cv.Clone());
+                    }
+                }
+            }           
 
             foreach (IAgent agent in CollectorAgents)
             {
                 string appliedConfig = agent.InitialConfiguration;
                 appliedConfig = allConfigVars.ApplyOn(appliedConfig);
+                //only reapply if it is different from existing
                 if (agent.ActiveConfiguration != appliedConfig)
                 {
                     agent.ActiveConfiguration = appliedConfig;
                     agent.AgentConfig.FromXml(appliedConfig);
                 }
             }
-        }
+        }        
 
-        public void ApplyConfigVarsNow(List<ConfigVariable> monitorPackVars = null)
-        {
-            foreach (IAgent agent in CollectorAgents)
-            {
-                string appliedConfig = agent.InitialConfiguration;
+        //public static ICollector GetCollectorAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
+        //{
+        //    if (xmlString.StartsWith("<collectorAgent"))
+        //    {
+        //        XmlDocument collectorAgentXml = new XmlDocument();
+        //        collectorAgentXml.LoadXml(xmlString);
+        //        return GetCollectorAgentFromString(collectorAgentXml.DocumentElement, configVars, applyConfigVars);
+        //    }
+        //    else
+        //        return null;
+        //}
+        //private static ICollector GetCollectorAgentFromString(XmlElement collectorAgentNode, List<ConfigVariable> configVars = null, bool applyConfigVars = true) //)
+        //{
+        //    string name = collectorAgentNode.ReadXmlElementAttr("name", "");
+        //    string typeName = collectorAgentNode.ReadXmlElementAttr("type", "");
+        //    bool enabled = collectorAgentNode.ReadXmlElementAttr("enabled", true);
+        //    string configXml = "";
+        //    XmlNode configNode = collectorAgentNode.SelectSingleNode("config");
+        //    if (configNode != null)
+        //    {
+        //        configXml = configNode.OuterXml;
+        //    }
 
-                appliedConfig = monitorPackVars.ApplyOn(appliedConfig);
-                appliedConfig = ConfigVariables.ApplyOn(appliedConfig);
-                if (agent.ActiveConfiguration != appliedConfig)
-                {
-                    agent.ActiveConfiguration = appliedConfig;
-                    agent.AgentConfig.FromXml(appliedConfig);
-                }
-            }
-        }
-        public static ICollector GetCollectorAgentFromString(string xmlString, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
-        {
-            if (xmlString.StartsWith("<collectorAgent"))
-            {
-                XmlDocument collectorAgentXml = new XmlDocument();
-                collectorAgentXml.LoadXml(xmlString);
-                return GetCollectorAgentFromString(collectorAgentXml.DocumentElement, configVars, applyConfigVars);
-            }
-            else
-                return null;
-        }
-        private static ICollector GetCollectorAgentFromString(XmlElement collectorAgentNode, List<ConfigVariable> configVars = null, bool applyConfigVars = true)
-        {
-            string name = collectorAgentNode.ReadXmlElementAttr("name", "");
-            string typeName = collectorAgentNode.ReadXmlElementAttr("type", "");
-            bool enabled = collectorAgentNode.ReadXmlElementAttr("enabled", true);
-            string configXml = "";
-            XmlNode configNode = collectorAgentNode.SelectSingleNode("config");
-            if (configNode != null)
-            {
-                configXml = configNode.OuterXml;
-            }
-
-            ICollector newAgent = CreateCollectorFromClassName(typeName);
-            if (newAgent != null)
-            {
-                try
-                {
-                    newAgent.Name = name;
-                    newAgent.Enabled = enabled;
-                    if (configXml.Length > 0)
-                        newAgent.InitialConfiguration = configXml;
-                    else
-                    {
-                        if (newAgent.AgentConfig != null)
-                            newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
-                        else
-                            throw new Exception("Could not create AgentConfig!");
-                    }
-                    string appliedConfig = newAgent.InitialConfiguration;
-                    if (applyConfigVars)
-                    {
-                        appliedConfig = configVars.ApplyOn(appliedConfig);
-                    }
-                    newAgent.ActiveConfiguration = appliedConfig;
-                    newAgent.AgentConfig.FromXml(appliedConfig);
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Trace.WriteLine(ex.ToString());
-                    throw new Exception(string.Format("Error loading config for {0}: {1}", name, ex.Message));
-                }
-            }
-            else
-            {
-                throw new Exception(string.Format("The Collector Host type of '{0}' could not be loaded!", typeName));
-            }
-            return newAgent;
-        }
+        //    ICollector newAgent = CreateCollectorFromClassName(typeName);
+        //    if (newAgent != null)
+        //    {
+        //        try
+        //        {
+        //            newAgent.Name = name;
+        //            newAgent.Enabled = enabled;
+        //            if (configXml.Length > 0)
+        //                newAgent.InitialConfiguration = configXml;
+        //            else
+        //            {
+        //                if (newAgent.AgentConfig != null)
+        //                    newAgent.InitialConfiguration = newAgent.AgentConfig.GetDefaultOrEmptyXml();
+        //                else
+        //                    throw new Exception("Could not create AgentConfig!");
+        //            }
+        //            string appliedConfig = newAgent.InitialConfiguration;
+        //            if (applyConfigVars)
+        //            {
+        //                appliedConfig = configVars.ApplyOn(appliedConfig);
+        //            }
+        //            newAgent.ActiveConfiguration = appliedConfig;
+        //            newAgent.AgentConfig.FromXml(appliedConfig);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            System.Diagnostics.Trace.WriteLine(ex.ToString());
+        //            throw new Exception(string.Format("Error loading config for {0}: {1}", name, ex.Message));
+        //        }
+        //    }
+        //    else
+        //    {
+        //        throw new Exception(string.Format("The Collector Host type of '{0}' could not be loaded!", typeName));
+        //    }
+        //    return newAgent;
+        //}
         public static ICollector CreateCollectorFromClassName(string agentClassName)
         {
             ICollector currentAgent = null;
