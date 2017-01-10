@@ -78,8 +78,6 @@
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateHostEntry.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollector.cs" />
-    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorConfigEntry.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryParser.cs" />
     <Compile Include="Agents\Notifiers\Audio\AudioNotifier.cs" />
     <Compile Include="Agents\Notifiers\Audio\AudioNotifierConfig.cs" />

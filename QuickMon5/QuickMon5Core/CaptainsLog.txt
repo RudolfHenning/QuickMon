@@ -1,2 +1,6 @@
 ﻿Variable inheritance in Collector hosts
 	'Child' collector hosts can 'inherit' parent collector host config variables.
+More collector agents must use the CollectorAgentReturnValueCompareEngine
+	Registry, WMI
+Collector agents that must be part of Core
+	Web Service, Database agents
