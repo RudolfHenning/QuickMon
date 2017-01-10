@@ -14,7 +14,7 @@ dir c:\</scriptText>
 		</actionScripts>
   		<collectorHost uniqueId="PINGTEST" dependOnParentId="" name="Ping Self" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs=""><!-- Alerting --><alerting><suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" /><texts><header /><footer /><error /><warning /><good /></texts></alerting><!-- Collector Agents -->
 			<collectorAgents agentCheckSequence="All">
-				<collectorAgent name="Ping" type="PingCollector" enabled="True">
+				<collectorAgent name="Ping" type="QuickMon.Collectors.PingCollector" enabled="True">
 					<config>
 						<entries>
 							<entry pingMethod="Ping" address="localhost" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
@@ -64,7 +64,7 @@ dir c:\</scriptText>
       <!-- Collector Agents -->
       <collectorAgents agentCheckSequence="All">
 	    
-        <collectorAgent name="File System" type="FileSystemCollector" enabled="True">
+        <collectorAgent name="File System" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
           <config>
             <directoryList>
               <directory directoryPathFilter="C:\Test\Test.txt" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="False" containsText="1" useRegEx="False" warningFileCountMax="1" errorFileCountMax="2" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" />
@@ -92,7 +92,7 @@ dir c:\</scriptText>
       <categories />
       <notes />
     </collectorHost>
-	<collectorHost uniqueId="bb57fcdb-67df-416e-85bc-f5d88d316945" dependOnParentId="" name="Test.txt" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs=""><!-- Alerting --><alerting><suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" /><texts><header /><footer /><error /><warning /><good /></texts></alerting><!-- Collector Agents --><collectorAgents agentCheckSequence="All"><collectorAgent name="PowerShell Script Runner" type="PowerShellScriptRunnerCollector" enabled="True"><config><powerShellScripts><powerShellScriptRunner name="Test.txt" returnCheckSequence="GWE"><testScript>$content = (Get-Content -Path C:\Test\Test.txt)
+	<collectorHost uniqueId="bb57fcdb-67df-416e-85bc-f5d88d316945" dependOnParentId="" name="Test.txt" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs=""><!-- Alerting --><alerting><suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" /><texts><header /><footer /><error /><warning /><good /></texts></alerting><!-- Collector Agents --><collectorAgents agentCheckSequence="All"><collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True"><config><powerShellScripts><powerShellScriptRunner name="Test.txt" returnCheckSequence="GWE"><testScript>$content = (Get-Content -Path C:\Test\Test.txt)
 	if ($content -eq '0') { "Good" }
 	elseif ($content -eq '1') { "Warning" }
 	else { "Error" }</testScript><goodScript resultMatchType="Contains">Good</goodScript><warningScript resultMatchType="Contains">Warning</warningScript><errorScript resultMatchType="Contains">Error</errorScript></powerShellScriptRunner></powerShellScripts></config></collectorAgent></collectorAgents><!-- Polling settings --><polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" /><!-- Remote agent settings --><remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" /><!-- Corrective Scripts --><correctiveScripts enabled="True" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="1">dir c:\test</warning><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0">dir c:\test</restoration></correctiveScripts><!-- Action scripts --><actionScripts /><!-- ServiceWindows --><serviceWindows /><!-- Config variables --><configVars /><!-- Categories --><categories /><notes />
@@ -112,7 +112,7 @@ dir c:\</scriptText>
 		</alerting>
 		<!-- Collector Agents -->
 		<collectorAgents agentCheckSequence="All">
-			<collectorAgent name="Windows Service State" type="WindowsServiceStateCollector" enabled="True">
+			<collectorAgent name="Windows Service State" type="QuickMon.Collectors.WindowsServiceStateCollector" enabled="True">
 				<config>
 					<machine name=".">
 						<service name="QuickMon 4 Service" />
@@ -140,6 +140,48 @@ dir c:\</scriptText>
 		<categories />
 		<notes />
 	</collectorHost>
+
+	<collectorHost uniqueId="WMI test" dependOnParentId="" name="WMI test" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+		<!-- Alerting -->
+		<alerting>
+			<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+			<texts><header /><footer /><error /><warning /><good /></texts>
+		</alerting>
+		<!-- Collector Agents -->
+		<collectorAgents agentCheckSequence="All">
+			<collectorAgent name="WMI Query" type="QuickMon.Collectors.WMIQueryCollector" enabled="True">
+				<config>
+					<wmiQueries>
+						<wmiQuery name="Win32_ComputerSystem query" namespace="root\CIMV2" machineName="localhost">
+							<stateQuery syntax="select Caption from Win32_ComputerSystem" returnValueIsInt="True" returnValueInverted="True" warningValue="0" errorValue="[null]" successValue="1" useRowCountAsValue="True" />
+							<detailQuery syntax="select Caption from Win32_ComputerSystem" columnNames="Caption" />
+						</wmiQuery>
+					</wmiQueries>
+				</config>
+			</collectorAgent>
+		</collectorAgents>
+		<!-- Polling settings -->
+		<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+		<!-- Remote agent settings -->
+		<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+		<!-- Corrective Scripts -->
+		<correctiveScripts enabled="True" onlyOnStateChange="False">
+			<warning warningMinRepeatTimeMin="0" />
+			<error errorMinRepeatTimeMin="0" />
+			<restoration restoreMinRepeatTimeMin="0" />
+		</correctiveScripts>
+		<!-- Action scripts -->
+		<actionScripts />
+		<!-- ServiceWindows -->
+		<serviceWindows />
+		<!-- Config variables -->
+		<configVars />
+		<!-- Categories -->
+		<categories />
+		<notes />
+	</collectorHost>
+
+
 </collectorHosts>
 <notifierHosts>
     <notifierHost name="Debugging" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
