@@ -406,5 +406,261 @@ namespace QuickMon
             Assert.AreEqual(true, m.CollectorHosts[1].CollectorAgents[0].ActiveConfiguration.Contains("ABC"), "Config variable for child Collector host not set!");
             Assert.AreEqual(true, m.CollectorHosts[2].CollectorAgents[0].ActiveConfiguration.Contains("LOCALHOST - ABC"), "Config variable for grand child Collector host not set!");
         }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void TestLogFileNotifier()
+        {
+            string logNotifierOutFile = "C:\\Test\\LogFileNotifierTest.log";
+            if (!System.IO.Directory.Exists("C:\\Test"))
+            {
+                System.IO.Directory.CreateDirectory("C:\\Test");
+            }
+            else if (System.IO.File.Exists(logNotifierOutFile))
+            {
+                System.IO.File.Delete(logNotifierOutFile);
+            }
+
+            MonitorPack m = new MonitorPack();
+            string mconfig = "<monitorPack version=\"5.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                "runCorrectiveScripts=\"True\" " +
+                "stateHistorySize=\"100\" pollingFreqSecOverride=\"60\">\r\n" +
+                "<configVars>" +
+                    "<configVar find=\"%ComputerName%\" replace=\"invalidhost\" />" +
+                    "<configVar find=\"%TestValue%\" replace=\"123\" />" +
+                 "</configVars>" +
+                "<collectorHosts>" +
+                    //Parent Collector Host
+                    "<collectorHost uniqueId=\"ParentPing\" dependOnParentId=\"\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars>" +
+                    "      <configVar find=\"%TestValue%\" replace=\"ABC\" />" +
+                    "  </configVars>" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
+                    
+                "</collectorHosts>" +
+                "<notifierHosts>" +
+                "<notifierHost name=\"Log file\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"AttendedAndUnAttended\">" +
+                    "<notifierAgents>" +
+                    "<notifierAgent name=\"Log file agent\" type=\"LogFileNotifier\" enabled=\"True\" >" +     
+                     "<config><logFile path=\"" + logNotifierOutFile + "\" createNewFileSizeKB=\"0\" /></config>" +
+                    "</notifierAgent>" +
+                    "</notifierAgents>" +
+                    "</notifierHost>" +
+                  "</notifierHosts>" +
+                "</monitorPack>";
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
+            Assert.AreNotEqual(0, m.ConfigVariables.Count, "No Monitor pack Config variables loaded!");
+            Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts.Count, "1 Notifier hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts[0].NotifierAgents.Count, "1 Notifier agent expected!");
+            Assert.AreEqual(CollectorState.Error, m.RefreshStates(), "Impossible host found!");
+
+            Assert.AreEqual(true, System.IO.File.Exists(logNotifierOutFile), "Log file Notifier file not created!");
+            string[] logLings = System.IO.File.ReadAllLines(logNotifierOutFile);
+            if (logLings.Length > 2)
+            {
+                Assert.AreEqual(true, logLings[logLings.Length-2].Contains("invalidhost:  (Error) Response details : 'No such host is known'"), "Alert not found in log file!");
+            }
+        }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void TestAudioNotifier()
+        {
+            MonitorPack m = new MonitorPack();
+            string mconfig = "<monitorPack version=\"5.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                "runCorrectiveScripts=\"True\" " +
+                "stateHistorySize=\"100\" pollingFreqSecOverride=\"60\">\r\n" +
+                "<configVars>" +
+                    "<configVar find=\"%ComputerName%\" replace=\"invalidhost\" />" +
+                    "<configVar find=\"%TestValue%\" replace=\"123\" />" +
+                 "</configVars>" +
+                "<collectorHosts>" +
+                    //Parent Collector Host
+                    "<collectorHost uniqueId=\"ParentPing\" dependOnParentId=\"\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars>" +
+                    "      <configVar find=\"%TestValue%\" replace=\"ABC\" />" +
+                    "  </configVars>" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
+
+                "</collectorHosts>" +
+                "<notifierHosts>" +
+                "<notifierHost name=\"Audio\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"AttendedAndUnAttended\">" +
+                    "<notifierAgents>" +
+                    "<notifierAgent name=\"Audio agent\" type=\"QuickMon.Notifiers.AudioNotifier\" enabled=\"True\" >" +
+                        "<config>\r\n" +
+                          "<audioConfig>\r\n" +
+                            "<goodState enabled=\"false\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"1\" repeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                            "<warningState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"3\" repeatCount=\"1\" soundVolumePerc=\"-1\" />\r\n" +
+                            "<errorState enabled=\"true\" useSystemSounds=\"true\" soundPath=\"\" systemSound=\"2\" repeatCount=\"2\" soundVolumePerc=\"-1\" />\r\n" +
+                          "</audioConfig>\r\n" +
+                        "</config>" +
+                    "</notifierAgent>" +
+                    "</notifierAgents>" +
+                    "</notifierHost>" +
+                  "</notifierHosts>" +
+                "</monitorPack>";
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
+            Assert.AreNotEqual(0, m.ConfigVariables.Count, "No Monitor pack Config variables loaded!");
+            Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts.Count, "1 Notifier hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts[0].NotifierAgents.Count, "1 Notifier agent expected!");
+            Assert.AreEqual(CollectorState.Error, m.RefreshStates(), "Impossible host found!");
+            
+        }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void TestSMTPNotifier()
+        {
+            Assert.AreEqual(true, System.IO.File.Exists("c:\\Test\\G.txt"), "G.txt not found!");
+            string pwd = System.IO.File.ReadAllText("c:\\Test\\G.txt"); //manually created
+            MonitorPack m = new MonitorPack();
+            string mconfig = "<monitorPack version=\"5.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                "runCorrectiveScripts=\"True\" " +
+                "stateHistorySize=\"100\" pollingFreqSecOverride=\"60\">\r\n" +
+                "<configVars>" +
+                    "<configVar find=\"%ComputerName%\" replace=\"invalidhost\" />" +
+                    "<configVar find=\"%TestValue%\" replace=\"123\" />" +
+                 "</configVars>" +
+                "<collectorHosts>" +
+                    //Parent Collector Host
+                    "<collectorHost uniqueId=\"ParentPing\" dependOnParentId=\"\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars>" +
+                    "      <configVar find=\"%TestValue%\" replace=\"ABC\" />" +
+                    "  </configVars>" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
+
+                "</collectorHosts>" +
+                "<notifierHosts>" +
+                "<notifierHost name=\"Audio\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"AttendedAndUnAttended\">" +
+                    "<notifierAgents>" +
+                    "        <notifierAgent name=\"SMTP Notifier\" type=\"SMTPNotifier\" enabled=\"True\">" +
+                    "            <config>" +
+                    "                <smtp hostServer=\"smtp.gmail.com\" useDefaultCredentials=\"False\" domain=\"\" userName=\"rudolf.henning@gmail.com\" password=\"" + pwd + "\" fromAddress=\"rudolf.henning@gmail.com\" toAddress=\"rudolf.henning@gmail.com\" senderAddress=\"rudolf.henning@gmail.com\" replyToAddress=\"rudolf.henning@gmail.com\" mailPriority=\"0\" useTLS=\"True\" isBodyHtml=\"True\" port=\"587\" subject=\"%AlertLevel% - %CollectorName%\" body=\"QuickMon alert raised for &lt;b&gt;'%CollectorName%'&lt;/b&gt;&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Agents:&lt;/b&gt; %CollectorAgents%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Details&lt;/b&gt;&lt;blockquote&gt;%Details%&lt;/blockquote&gt;\" />" +
+                    "            </config>" +
+                    "       </notifierAgent>" +
+                    "</notifierAgents>" +
+                    "</notifierHost>" +
+                  "</notifierHosts>" +
+                "</monitorPack>";
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
+            Assert.AreNotEqual(0, m.ConfigVariables.Count, "No Monitor pack Config variables loaded!");
+            Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts.Count, "1 Notifier hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts[0].NotifierAgents.Count, "1 Notifier agent expected!");
+            Assert.AreEqual(CollectorState.Error, m.RefreshStates(), "Impossible host found!");
+
+        }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void TestRSSNotifier()
+        {
+            MonitorPack m = new MonitorPack();
+            string mconfig = "<monitorPack version=\"5.0.0\" name=\"Test\" typeName=\"TestType\" enabled=\"True\" " +
+                "runCorrectiveScripts=\"True\" " +
+                "stateHistorySize=\"100\" pollingFreqSecOverride=\"60\">\r\n" +
+                "<configVars>" +
+                    "<configVar find=\"%ComputerName%\" replace=\"invalidhost\" />" +
+                    "<configVar find=\"%TestValue%\" replace=\"123\" />" +
+                 "</configVars>" +
+                "<collectorHosts>" +
+                    //Parent Collector Host
+                    "<collectorHost uniqueId=\"ParentPing\" dependOnParentId=\"\" name=\"Parent Ping\" enabled=\"True\" expandOnStart=\"Auto\" childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                    "  <alerting><suppression repeatAlertInXMin=\"0\" alertOnceInXMin=\"0\" delayErrWarnAlertForXSec=\"0\" repeatAlertInXPolls=\"0\" alertOnceInXPolls=\"0\" delayErrWarnAlertForXPolls=\"0\" alertsPaused=\"False\" /><texts><header /><footer /><error /><warning /><good /></texts></alerting>" +
+                    "  <collectorAgents agentCheckSequence=\"All\">" +
+                    "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
+                    "      <config>" +
+                    "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "        </entries>" +
+                    "      </config>" +
+                    "    </collectorAgent>" +
+                    "  </collectorAgents>" +
+                    "  <polling enabledPollingOverride=\"False\" onlyAllowUpdateOncePerXSec=\"1\" enablePollFrequencySliding=\"False\" pollSlideFrequencyAfterFirstRepeatSec=\"2\" pollSlideFrequencyAfterSecondRepeatSec=\"5\" pollSlideFrequencyAfterThirdRepeatSec=\"30\" />" +
+                    "  <remoteAgent enableRemoteExecute=\"False\" forceRemoteExcuteOnChildCollectors=\"False\" remoteAgentHostAddress=\"\" remoteAgentHostPort=\"48181\" blockParentRemoteAgentHostSettings=\"False\" runLocalOnRemoteHostConnectionFailure=\"False\" />" +
+                    "  <correctiveScripts enabled=\"False\" onlyOnStateChange=\"False\"><warning /><error /><restoration /></correctiveScripts>" +
+                    "  <collectorActionScripts />" +
+                    "  <serviceWindows />			" +
+                    "  <configVars>" +
+                    "      <configVar find=\"%TestValue%\" replace=\"ABC\" />" +
+                    "  </configVars>" +
+                    "  <categories />" +
+                    "  <notes />" +
+                    "</collectorHost>" +
+
+                "</collectorHosts>" +
+                "<notifierHosts>" +
+                "<notifierHost name=\"Audio\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"AttendedAndUnAttended\">" +
+                    "<notifierAgents>" +
+                    "        <notifierAgent name=\"RSS Notifier\" type=\"RSSNotifier\" enabled=\"True\">" +
+                    "            <config>" +
+                    "                <rss rssFilePath=\"C:\\Test\\QuickMon.rss.xml\" title=\"QuickMon RSS alerts\" link=\"http://localhost/QuickMon.rss.xml\" description=\"\" keepEntriesDays=\"10\" language=\"en-us\" generator=\"QuickMon RSS notifier\" lineTitle=\"%CollectorName% - %AlertLevel%\" lineCategory=\"%CurrentState%, %CollectorName%\" lineLink=\"\" lineDescription=\"&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br/&gt;&#xD;&#xA;&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br/&gt;&#xD;&#xA;&lt;b&gt;Collector:&lt;/b&gt; %CollectorName%&lt;br/&gt;&#xD;&#xA;&lt;b&gt;Details&lt;/b&gt;&lt;br/&gt;&#xD;&#xA;%Details%\" />" +
+                    "            </config>" +
+                    "        </notifierAgent>" +
+                    "</notifierAgents>" +
+                    "</notifierHost>" +
+                  "</notifierHosts>" +
+                "</monitorPack>";
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
+            Assert.AreNotEqual(0, m.ConfigVariables.Count, "No Monitor pack Config variables loaded!");
+            Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts.Count, "1 Notifier hosts expected!");
+            Assert.AreEqual(1, m.NotifierHosts[0].NotifierAgents.Count, "1 Notifier agent expected!");
+            Assert.AreEqual(CollectorState.Error, m.RefreshStates(), "Impossible host found!");
+
+        }
     }
 }
