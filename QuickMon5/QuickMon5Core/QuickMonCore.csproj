@@ -38,7 +38,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -48,6 +50,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\Collectors\Database\Generic\GenericSQLServerDAL.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogCollector.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogCollectorEntry.cs" />
@@ -64,8 +68,6 @@
     <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\FileSystem\FileSystemDirectoryFilterEntry.cs" />
     <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollector.cs" />
-    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\Ping\PingCollector.cs" />
     <Compile Include="Agents\Collectors\Ping\Utility\WebClientEx.cs">
       <SubType>Component</SubType>
@@ -74,11 +76,28 @@
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollector.cs" />
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorConfigEntry.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEntry.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollector.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorEntry.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollector.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorConfig.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateHostEntry.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollector.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryParser.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicObject.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicProxy.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicProxyConstants.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicProxyException.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicProxyFactory.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicProxyFactoryOptions.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\WebServiceCollectorEnums.cs" />
+    <Compile Include="Agents\Collectors\WSCollector\WS.cs" />
     <Compile Include="Agents\Notifiers\Audio\AudioNotifier.cs" />
     <Compile Include="Agents\Notifiers\EventLog\EventLogNotifier.cs" />
     <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifier.cs" />
@@ -86,6 +105,7 @@
     <Compile Include="Agents\Notifiers\RSS\InMemoryRSSDocument.cs" />
     <Compile Include="Agents\Notifiers\RSS\RSSNotifier.cs" />
     <Compile Include="Agents\Notifiers\SMTP\SMTPNotifier.cs" />
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifier.cs" />
     <Compile Include="BaseClasses\AgentBase.cs" />
     <Compile Include="BaseClasses\AgentHostBase.cs" />
     <Compile Include="BaseClasses\CollectorAgentBase.cs" />
@@ -165,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CaptainsLog.txt" />
+    <None Include="Resources\SelectDatabaseSizeScript.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
