@@ -219,6 +219,44 @@ namespace QuickMon
             }
         }
         [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void PerformanceCounterCollectorTest()
+        {
+            string mconfig = "<monitorPack><configVars></configVars>" +
+                "<collectorHosts>" +
+                "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"PerfCounters\" enabled=\"True\" expandOnStart=\"Auto\" " +
+                " childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                "     <collectorAgents agentCheckSequence=\"All\">" +
+                "         <collectorAgent name=\"Ping localhost\" type=\"QuickMon.Collectors.PerfCounterCollector\" enabled=\"True\">" +
+                "                <config>" +
+                "                     <performanceCounters>" +
+                "                           <performanceCounter computer=\".\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" warningValue=\"90\" errorValue=\"95\" numberOfSamples=\"3\" multiSampleWaitMS=\"100\" />" +
+                "                     </performanceCounters>" +
+                "                </config>" +
+                "         </collectorAgent>" +
+                "     </collectorAgents>" +
+                "   </collectorHost>" +
+                "</collectorHosts>" +
+                "<notifierHosts></notifierHosts>" +
+                "<logging><collectorCategories/></logging></monitorPack>";
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            if (m != null)
+            {
+                Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
+                if (m.CollectorHosts.Count == 1)
+                {
+                    Assert.AreEqual("PerfCounters", m.CollectorHosts[0].Name, "Collector host name not set");
+                    Assert.AreEqual("123", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set");
+                    Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set");
+                    
+                    CollectorState cs = m.RefreshStates();
+
+                    Assert.AreNotEqual(CollectorState.ConfigurationChanged, cs, "Configuration wrong!");                    
+                }
+            }
+        }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
         public void PowerShellCollectorTest()
         {
             string mconfig = "<monitorPack><configVars></configVars>" +
@@ -262,8 +300,46 @@ namespace QuickMon
 
                     CollectorState cs = m.RefreshStates();
 
-                    Assert.AreEqual(CollectorState.Good, cs, "Ping failed");
+                    Assert.AreEqual(CollectorState.Good, cs, "Test failed");
 
+                }
+            }
+        }
+        [TestMethod, TestCategory("MonitorPack-Agents")]
+        public void WebServiceCollectorTest()
+        {
+            string mconfig = "<monitorPack><configVars></configVars>" +
+                "<collectorHosts>" +
+                "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"QuickMon 4 Web service\" enabled=\"True\" expandOnStart=\"Auto\" " +
+                "     childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
+                "     <collectorAgents agentCheckSequence=\"All\">" +
+                "    <collectorAgent name=\"Web Service\" type=\"WSCollector\" enabled=\"True\">" +
+                "            <config>" +
+                "                <webServices>" +
+                "                    <webService url=\"http://localhost:48181/QuickMonRemoteHost\" serviceBindingName=\"BasicHttpBinding_IRemoteCollectorHostService\" method=\"GetQuickMonCoreVersion\" paramatersCSV=\"\" resultIsSuccess=\"True\" valueExpectedReturnType=\"CheckAvailabilityOnly\" macroFormatType=\"None\" arrayIndex=\"0\" columnIndex=\"0\" valueOrMacro=\"\" useRegEx=\"False\" />" +
+                "                </webServices>" +
+                "            </config>" +
+                "        </collectorAgent>" +
+                "     </collectorAgents>" +
+                "   </collectorHost>" +
+                "</collectorHosts>" +
+                "<notifierHosts></notifierHosts>" +
+                "<logging><collectorCategories/></logging></monitorPack>";
+            MonitorPack m = new MonitorPack();
+            m.LoadXml(mconfig);
+            Assert.IsNotNull(m, "Monitor pack is null");
+            if (m != null)
+            {
+                Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
+                if (m.CollectorHosts.Count == 1)
+                {
+                    Assert.AreEqual("QuickMon 4 Web service", m.CollectorHosts[0].Name, "Collector host name not set");
+                    Assert.AreEqual("123", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set");
+                    Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set");
+
+                    CollectorState cs = m.RefreshStates();
+
+                    Assert.AreNotEqual(CollectorState.ConfigurationChanged, cs, "Configuration wrong!");
                 }
             }
         }

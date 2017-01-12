@@ -76,5 +76,29 @@ namespace QuickMon.Properties {
                 return ResourceManager.GetString("QuickMon4DefaultTemplate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to use master
+        ///declare @PageSize varchar(10)
+        ///select @PageSize=v.low/1024.0
+        ///from master..spt_values v
+        ///where v.number=1 and v.type=&apos;E&apos;
+        ///
+        ///select name as DatabaseName, convert(float,null) as Size
+        ///into #tem
+        ///From sysdatabases where name like &apos;&lt;Database&gt;&apos; --dbid&gt;4 and 
+        ///
+        ///declare @SQL varchar (8000)
+        ///set @SQL=&apos;&apos;
+        ///
+        ///while exists (select * from #tem where size is null)
+        ///begin
+        ///select @SQL=&apos;update #tem set size=(select round(sum(size)*&apos;+@PageSize+&apos;/1024,0) From &apos;+quotename(databasename)+&apos;.dbo.sysfiles) where Datab [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SelectDatabaseSizeScript {
+            get {
+                return ResourceManager.GetString("SelectDatabaseSizeScript", resourceCulture);
+            }
+        }
     }
 }
