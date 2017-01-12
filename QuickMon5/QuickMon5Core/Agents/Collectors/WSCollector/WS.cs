@@ -57,9 +57,7 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Description,
                                 State = CollectorState.Error,
-                                CurrentValue =  wsData.ToString()//,
-                                //RawDetails = string.Format("'{0}' (Error)", wsData.ToString()),
-                                //HtmlDetails = string.Format("'{0}' (<b>Error</b>)", wsData.ToString())
+                                CurrentValue =  wsData.ToString()
                             });
                     }
                     else if (currentState == CollectorState.Warning)
@@ -70,9 +68,7 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Description,
                                 State = CollectorState.Warning,
-                                CurrentValue = wsData.ToString()//,
-                                //RawDetails = string.Format("'{0}' (Warning)", wsData.ToString()),
-                                //HtmlDetails = string.Format("'{0}' (<b>Warning</b>)", wsData.ToString())
+                                CurrentValue = wsData.ToString()
                             });
                     }
                     else
@@ -83,13 +79,10 @@ namespace QuickMon.Collectors
                             {
                                 ForAgent = entry.Description,
                                 State = CollectorState.Good,
-                                CurrentValue = wsData.ToString()//,
-                                //RawDetails = string.Format("'{0}'", wsData.ToString()),
-                                //HtmlDetails = string.Format("'{0}'", wsData.ToString())
+                                CurrentValue = wsData.ToString()
                             });
                     }                    
                 }
-                //returnState.CurrentValue = pingTotalTime;
 
                 if (errors > 0 && warnings == 0 && success == 0) // any errors
                     returnState.State = CollectorState.Error;
