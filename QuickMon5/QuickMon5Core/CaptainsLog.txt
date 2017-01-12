@@ -3,4 +3,4 @@
 More collector agents must use the CollectorAgentReturnValueCompareEngine
 	Registry, WMI, Web Service
 Collector agents that must be part of Core
-	Web Service, Database agents
+	Web Service, Database agents. Done
