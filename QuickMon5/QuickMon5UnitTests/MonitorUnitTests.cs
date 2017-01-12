@@ -593,8 +593,16 @@ namespace QuickMon
                     "</notifierHost>" +
                   "</notifierHosts>" +
                 "</monitorPack>";
-            m.LoadXml(mconfig);
-            Assert.IsNotNull(m, "Monitor pack is null");
+            if (System.IO.File.Exists("c:\\Test\\QuickMonSMTPTest.qmp"))
+            {
+                m.Load("c:\\Test\\QuickMonSMTPTest.qmp");
+            }
+            else
+            {
+                m.LoadXml(mconfig);
+                m.Save("c:\\Test\\QuickMonSMTPTest.qmp");
+            }
+            Assert.IsNotNull(m, "Monitor pack is null");            
             Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
             Assert.AreNotEqual(0, m.ConfigVariables.Count, "No Monitor pack Config variables loaded!");
             Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector hosts expected!");
