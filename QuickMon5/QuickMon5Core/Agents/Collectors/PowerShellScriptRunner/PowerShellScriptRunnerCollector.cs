@@ -29,8 +29,6 @@ namespace QuickMon.Collectors
             try
             {
                 PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
-                //returnState.RawDetails = string.Format("Calling {0} services", currentConfig.Entries.Count);
-                //returnState.HtmlDetails = string.Format("<b>Calling {0} services</b>", currentConfig.Entries.Count);
                 foreach (PowerShellScriptRunnerEntry entry in currentConfig.Entries)
                 {
                     CollectorState currentState = CollectorState.NotAvailable;
@@ -213,15 +211,15 @@ namespace QuickMon.Collectors
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config>\r\n" +
-            "	<powerShellScripts>\r\n" +
-            "		<powerShellScriptRunner name=\"\" returnCheckSequence=\"GWE\">\r\n" +
-            "			<testScript></testScript>\r\n" +
-            "			<goodScript resultMatchType=\"match|contains|regex\"></goodScript>\r\n" +
-            "			<warningScript resultMatchType=\"match|contains|regex\"></warningScript>\r\n" +
-            "			<errorScript resultMatchType=\"match|contains|regex\"></errorScript>\r\n" +
-            "		</powerShellScriptRunner>\r\n" +
-            "	</powerShellScripts>\r\n" +
+            return "<config>" +
+                "<powerShellScripts>" +
+                    "<powerShellScriptRunner name=\"\" returnCheckSequence=\"GWE\">" +
+                        "<testScript></testScript>" +
+                        "<goodScript resultMatchType=\"match|contains|regex\"></goodScript>" +
+                        "<warningScript resultMatchType=\"match|contains|regex\"></warningScript>" +
+                        "<errorScript resultMatchType=\"match|contains|regex\"></errorScript>" +
+                    "</powerShellScriptRunner>" +
+                "</powerShellScripts>" +
             "</config>";
         }
         public string ConfigSummary

@@ -7,6 +7,21 @@ namespace QuickMon
 {
     public static class CollectorAgentReturnValueCompareEngine
     {
+        /* expecting config like this
+         <config>
+	        <carvcesEntries>
+		        <carvceEntry name="">
+			        <testCondition></testCondition>
+			        <matches testSequence="GWE">
+				        <success testType="match"></success>
+				        <warning testType="match"></warning>
+				        <error testType="match"></error>
+			        </matches>
+		        </carvceEntry>
+	        </carvcesEntries>		
+        </config>
+        */
+
         #region Casting Enums to usable formats
         public static List<string> ReturnValueCompareMatchTypesToList()
         {
