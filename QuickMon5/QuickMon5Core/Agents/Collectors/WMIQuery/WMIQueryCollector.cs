@@ -199,9 +199,12 @@ namespace QuickMon.Collectors
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><wmiQueries><wmiQuery name=\"Example\" namespace=\"root\\CIMV2\" machineName=\".\">\r\n" +
-                "<stateQuery syntax=\"SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'\" returnValueIsInt=\"True\" returnValueInverted=\"True\" warningValue=\"1048576000\" errorValue=\"524288000\" successValue=\"[any]\" useRowCountAsValue=\"False\" />\r\n" +
-                "<detailQuery syntax=\"SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'\" columnNames=\"Caption, Size, FreeSpace, Description\" keyColumn=\"0\" />\r\n" +
+            return "<config><wmiQueries><wmiQuery name=\"Example\" namespace=\"root\\CIMV2\" machineName=\".\">" +
+                    "<stateQuery syntax=\"SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'\" " +
+                        "returnValueIsInt=\"True\" returnValueInverted=\"True\" useRowCountAsValue=\"False\" " +
+                        "warningValue=\"1048576000\" errorValue=\"524288000\" successValue=\"[any]\" />" +
+                    "<detailQuery syntax=\"SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'\" " + 
+                        "columnNames=\"Caption, Size, FreeSpace, Description\" keyColumn=\"0\" />" +
                 "</wmiQuery></wmiQueries></config>";
         }
         public string ConfigSummary

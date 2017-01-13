@@ -201,16 +201,17 @@ namespace QuickMon.Collectors
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config>\r\n" +
-                "  <webServices>\r\n" +
-                "    <!--\r\n" +
-                "      <webService url=\"\" serviceBindingName=\"\" method=\"\" paramatersCSV=\"\"\r\n" +
-                "        resultIsSuccess=\"True\"\r\n" +
-                "		valueExpectedReturnType=\"0\" macroFormatType=\"0\" arrayIndex=\"0\" columnIndex=\"0\"\r\n" +
-                "		valueOrMacro=\"\" useRegEx=\"False\" />\r\n" +
-                "      -->\r\n" +
-                "  </webServices>\r\n" +
-                "</config>";
+            return "<config><webServices /></config>";
+            /*
+            +
+                "    <!--" +
+                "      <webService url=\"\" serviceBindingName=\"\" method=\"\" paramatersCSV=\"\" " +
+                "        resultIsSuccess=\"True\" " +
+                "		valueExpectedReturnType=\"0\" macroFormatType=\"0\" arrayIndex=\"0\" columnIndex=\"0\"" +
+                "		valueOrMacro=\"\" useRegEx=\"False\" />" +
+                "      -->" +
+                "</webServices></config>";
+            */
         }
         public string ConfigSummary
         {
