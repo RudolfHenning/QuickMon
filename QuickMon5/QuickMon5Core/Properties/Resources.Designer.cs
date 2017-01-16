@@ -71,9 +71,9 @@ namespace QuickMon.Properties {
         ///			&lt;notifierHosts&gt;
         ///				&lt;notifierHost name=&quot;Debugging&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;De [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string QuickMon4DefaultTemplate {
+        internal static string QuickMon5DefaultTemplate {
             get {
-                return ResourceManager.GetString("QuickMon4DefaultTemplate", resourceCulture);
+                return ResourceManager.GetString("QuickMon5DefaultTemplate", resourceCulture);
             }
         }
         

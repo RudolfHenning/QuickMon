@@ -8,6 +8,10 @@ namespace QuickMon
     public enum CollectorAgentReturnValueCheckSequence
     {
         GWE, //Test first for Good then Warning and then assume Error
-        EWG  //Test first for Error then Warning and then assume good
+        EWG,  //Test first for Error then Warning and then assume good
+        GEW,
+        EGW,
+        WGE,
+        WEG
     }
 }
