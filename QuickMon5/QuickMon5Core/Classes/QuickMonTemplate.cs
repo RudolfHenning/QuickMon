@@ -83,7 +83,7 @@ namespace QuickMon
             string path = MonitorPack.GetQuickMonUserDataTemplatesFile();
             if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(path)))
                 System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
-            System.IO.File.WriteAllText(path, Properties.Resources.QuickMon4DefaultTemplate);
+            System.IO.File.WriteAllText(path, Properties.Resources.QuickMon5DefaultTemplate);
         } 
         #endregion
         

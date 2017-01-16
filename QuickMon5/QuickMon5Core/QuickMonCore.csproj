@@ -74,8 +74,6 @@
     </Compile>
     <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollector.cs" />
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollector.cs" />
-    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorConfigEntry.cs" />
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEntry.cs" />
@@ -178,10 +176,11 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\QuickMon4DefaultTemplate.txt" />
+    <None Include="Resources\QuickMon5DefaultTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CaptainsLog.txt" />

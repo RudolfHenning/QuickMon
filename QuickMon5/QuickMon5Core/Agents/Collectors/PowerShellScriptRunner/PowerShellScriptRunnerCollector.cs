@@ -161,6 +161,7 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             Entries.Clear();
             XmlElement root = config.DocumentElement;
+            //Old format
             foreach (XmlElement powerShellScriptRunnerNode in root.SelectNodes("powerShellScripts/powerShellScriptRunner"))
             {
                 PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
@@ -183,6 +184,31 @@ namespace QuickMon.Collectors
 
                 Entries.Add(entry);
             }
+            //New format
+            foreach (XmlElement carvceEntryNode in root.SelectNodes("carvcesEntries/carvceEntry"))
+            {
+                PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
+                entry.Name = carvceEntryNode.ReadXmlElementAttr("name", "");
+                XmlNode testScriptNode = carvceEntryNode.SelectSingleNode("dataSource");
+                entry.TestScript = testScriptNode.InnerText;
+
+                XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
+                entry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+
+                XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                entry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                entry.GoodScriptText = goodScriptNode.InnerText;
+
+                XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                entry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                entry.WarningScriptText = warningScriptNode.InnerText;
+
+                XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                entry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                entry.ErrorScriptText = errorScriptNode.InnerText;
+
+                Entries.Add(entry);
+            }
         }
         public string ToXml()
         {
@@ -190,28 +216,71 @@ namespace QuickMon.Collectors
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
 
-            XmlNode powerShellScriptsNode = root.SelectSingleNode("powerShellScripts");
-            powerShellScriptsNode.InnerXml = "";
-
+            XmlNode carvcesEntriesNode = root.SelectSingleNode("carvcesEntries");
+            carvcesEntriesNode.InnerXml = "";
             foreach (PowerShellScriptRunnerEntry queryEntry in Entries)
             {
-                XmlElement powerShellScriptNode = config.CreateElement("powerShellScriptRunner");
-                powerShellScriptNode.SetAttributeValue("name", queryEntry.Name);
-                powerShellScriptNode.SetAttributeValue("returnCheckSequence", queryEntry.ReturnCheckSequence.ToString());
-                XmlNode testScriptNode = powerShellScriptNode.AppendElementWithText("testScript", queryEntry.TestScript);
-                XmlNode goodScriptNode = powerShellScriptNode.AppendElementWithText("goodScript", queryEntry.GoodScriptText);
-                goodScriptNode.SetAttributeValue("resultMatchType", queryEntry.GoodResultMatchType.ToString());
-                XmlNode warningScriptNode = powerShellScriptNode.AppendElementWithText("warningScript", queryEntry.WarningScriptText);
-                warningScriptNode.SetAttributeValue("resultMatchType", queryEntry.WarningResultMatchType.ToString());
-                XmlNode errorScriptNode = powerShellScriptNode.AppendElementWithText("errorScript", queryEntry.ErrorScriptText);
-                errorScriptNode.SetAttributeValue("resultMatchType", queryEntry.ErrorResultMatchType.ToString());
-                powerShellScriptsNode.AppendChild(powerShellScriptNode);
+                XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
+                carvceEntryNode.SetAttributeValue("name", queryEntry.Name);
+                XmlElement dataSourceNode = config.CreateElement("dataSource");
+                dataSourceNode.InnerText = queryEntry.TestScript;
+                XmlElement testConditionsNode = config.CreateElement("testConditions");
+                testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
+                XmlElement successNode = config.CreateElement("success");
+                successNode.SetAttributeValue("testType", queryEntry.GoodResultMatchType.ToString());
+                successNode.InnerText = queryEntry.GoodScriptText;
+                XmlElement warningNode = config.CreateElement("warning");
+                warningNode.SetAttributeValue("testType", queryEntry.WarningResultMatchType.ToString());
+                warningNode.InnerText = queryEntry.WarningScriptText;
+                XmlElement errorNode = config.CreateElement("error");
+                errorNode.SetAttributeValue("testType", queryEntry.ErrorResultMatchType.ToString());
+                errorNode.InnerText = queryEntry.ErrorScriptText;
+
+                testConditionsNode.AppendChild(successNode);
+                testConditionsNode.AppendChild(warningNode);
+                testConditionsNode.AppendChild(errorNode);
+
+                carvceEntryNode.AppendChild(dataSourceNode);
+                carvceEntryNode.AppendChild(testConditionsNode);
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
+
+            //XmlNode powerShellScriptsNode = root.SelectSingleNode("powerShellScripts");
+            //powerShellScriptsNode.InnerXml = "";
+
+            //foreach (PowerShellScriptRunnerEntry queryEntry in Entries)
+            //{
+            //    XmlElement powerShellScriptNode = config.CreateElement("powerShellScriptRunner");
+            //    powerShellScriptNode.SetAttributeValue("name", queryEntry.Name);
+            //    powerShellScriptNode.SetAttributeValue("returnCheckSequence", queryEntry.ReturnCheckSequence.ToString());
+            //    XmlNode testScriptNode = powerShellScriptNode.AppendElementWithText("testScript", queryEntry.TestScript);
+            //    XmlNode goodScriptNode = powerShellScriptNode.AppendElementWithText("goodScript", queryEntry.GoodScriptText);
+            //    goodScriptNode.SetAttributeValue("resultMatchType", queryEntry.GoodResultMatchType.ToString());
+            //    XmlNode warningScriptNode = powerShellScriptNode.AppendElementWithText("warningScript", queryEntry.WarningScriptText);
+            //    warningScriptNode.SetAttributeValue("resultMatchType", queryEntry.WarningResultMatchType.ToString());
+            //    XmlNode errorScriptNode = powerShellScriptNode.AppendElementWithText("errorScript", queryEntry.ErrorScriptText);
+            //    errorScriptNode.SetAttributeValue("resultMatchType", queryEntry.ErrorResultMatchType.ToString());
+            //    powerShellScriptsNode.AppendChild(powerShellScriptNode);
+            //}
             return config.OuterXml;
         }
         public string GetDefaultOrEmptyXml()
         {
             return "<config>" +
+                "  <carvcesEntries>" +
+                "    <carvceEntry name=\"\">" +
+                "      <dataSource></dataSource>" +
+                "      <testCondition testSequence=\"GWE\">" +
+                "        <success testType=\"match\"></success>" +
+                "        <warning testType=\"match\"></warning>" +
+                "        <error testType=\"match\"></error>" +
+                "      </testCondition>" +
+                "    </carvceEntry>" +
+                "  </carvcesEntries>" +
+                "</config>";
+
+            /*
+                "<config>" +
                 "<powerShellScripts>" +
                     "<powerShellScriptRunner name=\"\" returnCheckSequence=\"GWE\">" +
                         "<testScript></testScript>" +
@@ -221,6 +290,7 @@ namespace QuickMon.Collectors
                     "</powerShellScriptRunner>" +
                 "</powerShellScripts>" +
             "</config>";
+            */
         }
         public string ConfigSummary
         {
