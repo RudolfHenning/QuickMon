@@ -16,6 +16,7 @@ namespace QuickMon
             CollectorHosts = new List<CollectorHost>();
             NotifierHosts = new List<NotifierHost>();
             ConfigVariables = new List<ConfigVariable>();
+            LastChangeDate = new DateTime();
             Enabled = true;
             PollingFreq = 1000;
             IsPollingEnabled = false;
@@ -40,6 +41,7 @@ namespace QuickMon
         #region User configurable
         public string Name { get; set; }
         public string Version { get; set; }
+        public DateTime LastChangeDate { get; set; }
         public bool Enabled { get; set; }
         public string TypeName { get; set; }
         public bool CorrectiveScriptsEnabled { get; set; }

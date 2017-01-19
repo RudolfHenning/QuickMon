@@ -60,13 +60,9 @@
   <ItemGroup>
     <Compile Include="Agents\Collectors\Database\Generic\GenericSQLServerDAL.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogCollector.cs" />
-    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogEntryEx.cs" />
     <Compile Include="Agents\Collectors\FileSystem\DirectoryFileInfo.cs" />
     <Compile Include="Agents\Collectors\FileSystem\FileSystemCollector.cs" />
-    <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\FileSystem\FileSystemDirectoryFilterEntry.cs" />
     <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollector.cs" />
     <Compile Include="Agents\Collectors\Ping\PingCollector.cs" />
     <Compile Include="Agents\Collectors\Ping\Utility\WebClientEx.cs">
@@ -78,8 +74,6 @@
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollector.cs" />
-    <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEntry.cs" />

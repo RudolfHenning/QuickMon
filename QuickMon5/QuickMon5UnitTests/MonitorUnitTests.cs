@@ -263,10 +263,10 @@ namespace QuickMon
             {
                 System.IO.Directory.CreateDirectory("C:\\Test");
             }
-            string mconfig = "<monitorPack>" +
+            string mconfig = "<monitorPack lastChanged=\"2017-1-1\">" +
                 "<configVars><configVar find=\"%Name%\" replace=\"Test Name\" /></configVars>" +
                 "<collectorHosts>" +
-                "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"Ping\" enabled=\"True\" expandOnStart=\"Auto\" " +
+                "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"PowerShell\" enabled=\"True\" expandOnStart=\"Auto\" " +
                 "     childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
                 "     <collectorAgents agentCheckSequence=\"All\">" +
                 "         <collectorAgent name=\"PowerShell\" type=\"PowerShellScriptRunnerCollector\" enabled=\"True\">" +
@@ -311,10 +311,11 @@ namespace QuickMon
             Assert.AreEqual("", m.LastMPLoadError, "There are load errors");
             if (m != null)
             {
+                Assert.AreEqual(new DateTime(2017,1,1), m.LastChangeDate, "Last changed date wrong!");
                 Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector host is expected");
                 if (m.CollectorHosts.Count == 1)
                 {
-                    Assert.AreEqual("Ping", m.CollectorHosts[0].Name, "Collector host name not set");
+                    Assert.AreEqual("PowerShell", m.CollectorHosts[0].Name, "Collector host name not set");
                     Assert.AreEqual("123", m.CollectorHosts[0].UniqueId, "Collector host UniqueId not set");
                     Assert.AreEqual(true, m.CollectorHosts[0].Enabled, "Collector host Enabled property not set");
                     Assert.AreEqual(ExpandOnStartOption.Auto, m.CollectorHosts[0].ExpandOnStartOption, "Collector host ExpandOnStart property not set");
@@ -326,7 +327,7 @@ namespace QuickMon
 
                     Assert.AreEqual(CollectorState.Good, cs, "Test failed");
 
-                    m.CollectorHosts[0].CollectorAgents[0].InitialConfiguration = m.CollectorHosts[0].CollectorAgents[0].AgentConfig.ToXml();
+                    //m.CollectorHosts[0].CollectorAgents[0].InitialConfiguration = m.CollectorHosts[0].CollectorAgents[0].AgentConfig.ToXml();
 
                     m.Save("C:\\Test\\PSTest.qmp");
                     m.Load("C:\\Test\\PSTest.qmp");

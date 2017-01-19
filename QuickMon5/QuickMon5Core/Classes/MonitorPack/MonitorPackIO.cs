@@ -82,6 +82,7 @@ namespace QuickMon
                 sw.Start();
                 XmlElement root = configurationXml.DocumentElement;
                 Name = root.ReadXmlElementAttr("name", "");
+                LastChangeDate = root.ReadXmlElementAttr("lastChanged", DateTime.Now);
                 TypeName = root.ReadXmlElementAttr("typeName", "");
                 this.Version = root.ReadXmlElementAttr("version", "5.0.0.0");
                 Enabled = root.ReadXmlElementAttr("enabled", true);
@@ -340,6 +341,8 @@ namespace QuickMon
             XmlElement root = outDoc.DocumentElement;
             root.SetAttributeValue("version", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             root.SetAttributeValue("name", Name);
+            LastChangeDate = DateTime.Now;
+            root.SetAttributeValue("lastChanged", LastChangeDate.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("typeName", TypeName);
             root.SetAttributeValue("enabled", Enabled);
 
