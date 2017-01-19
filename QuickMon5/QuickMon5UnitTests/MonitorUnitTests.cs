@@ -259,22 +259,46 @@ namespace QuickMon
         [TestMethod, TestCategory("MonitorPack-Agents")]
         public void PowerShellCollectorTest()
         {
-            string mconfig = "<monitorPack><configVars></configVars>" +
+            if (!System.IO.Directory.Exists("C:\\Test"))
+            {
+                System.IO.Directory.CreateDirectory("C:\\Test");
+            }
+            string mconfig = "<monitorPack>" +
+                "<configVars><configVar find=\"%Name%\" replace=\"Test Name\" /></configVars>" +
                 "<collectorHosts>" +
                 "   <collectorHost uniqueId=\"123\" dependOnParentId=\"\" name=\"Ping\" enabled=\"True\" expandOnStart=\"Auto\" " +
                 "     childCheckBehaviour=\"OnlyRunOnSuccess\" runAsEnabled=\"False\" runAs=\"\">" +
                 "     <collectorAgents agentCheckSequence=\"All\">" +
                 "         <collectorAgent name=\"PowerShell\" type=\"PowerShellScriptRunnerCollector\" enabled=\"True\">" +
+
+
+                //"                <config><carvcesEntries><carvceEntry name=\"Win Dir\"><dataSource>(Get-Item -Path C:\\Windows).Exists</dataSource><testConditions testSequence=\"GWE\"><success testType=\"Contains\">True</success><warning testType=\"Contains\">[null]</warning><error testType=\"Contains\">False</error></testConditions></carvceEntry><carvceEntry name=\"Win Dir\"><dataSource>(Get-Item -Path C:\\Windows).Exists</dataSource><testConditions testSequence=\"GWE\"><success testType=\"Contains\">True</success><warning testType=\"Contains\">[null]</warning><error testType=\"Contains\">False</error></testConditions></carvceEntry></carvcesEntries></config>" +
+
+                
                 "                <config>" +
                 "                    <powerShellScripts>" +
-                "                         <powerShellScriptRunner name = \"Win Dir\" returnCheckSequence=\"GWE\" >" +
-                "                                <testScript>(Get-Item -Path C:\\Windows).Exists</testScript>" +
+                "                         <powerShellScriptRunner name = \"Win Dir %Name%\" returnCheckSequence=\"GWE\" >" +
+                "                                <testScript>(Get-Item -Path C:\\Windows\\System32).Exists</testScript>" +
                 "                                <goodScript resultMatchType=\"Contains\">True</goodScript>" +
                 "                                <warningScript resultMatchType=\"Contains\">[null]</warningScript>" +
                 "                                <errorScript resultMatchType=\"Contains\">False</errorScript>" +
                 "                         </powerShellScriptRunner>" +
                 "                    </powerShellScripts>" +
+
+                "                    <carvcesEntries>" +
+                "                         <carvceEntry name = \"Win Dir\">" +
+                "                                <dataSource>(Get-Item -Path C:\\Windows).Exists</dataSource>" +
+                "                                <testConditions testSequence=\"GWE\" >" +
+                "                                   <success testType=\"Contains\">True</success>" +
+                "                                   <warning testType=\"Contains\">[null]</warning>" +
+                "                                   <error testType=\"Contains\">False</error>" +
+                "                                </testConditions>" +
+                "                         </carvceEntry>" +
+                "                    </carvcesEntries>" +
+
                 "                </config>" +
+                
+
                 "         </collectorAgent>" +
                 "     </collectorAgents>" +
                 "   </collectorHost>" +
@@ -301,6 +325,13 @@ namespace QuickMon
                     CollectorState cs = m.RefreshStates();
 
                     Assert.AreEqual(CollectorState.Good, cs, "Test failed");
+
+                    m.CollectorHosts[0].CollectorAgents[0].InitialConfiguration = m.CollectorHosts[0].CollectorAgents[0].AgentConfig.ToXml();
+
+                    m.Save("C:\\Test\\PSTest.qmp");
+                    m.Load("C:\\Test\\PSTest.qmp");
+                    Assert.AreEqual(CollectorState.Good, cs, "Test failed: second test");
+                    m.Save("C:\\Test\\PSTest.qmp");
 
                 }
             }

@@ -756,8 +756,11 @@ namespace QuickMon
             foreach (ICollector c in collectorAgents)
             {
                 collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.AgentClassName, c.Enabled));
+#if DEBUG
                 System.Diagnostics.Trace.WriteLine("Initial config: " + c.InitialConfiguration);
+                System.Diagnostics.Trace.WriteLine("Active config: " + c.ActiveConfiguration);
                 System.Diagnostics.Trace.WriteLine("Applied config: " + c.AgentConfig.ToXml());
+#endif
                 collectorAgentsXml.AppendLine(c.InitialConfiguration);
                 collectorAgentsXml.AppendLine("</collectorAgent>");
             }
@@ -773,8 +776,10 @@ namespace QuickMon
             foreach (RemoteCollectorAgent c in collectorAgents)
             {
                 collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.TypeName, c.Enabled));
+#if DEBUG
                 System.Diagnostics.Trace.WriteLine("Initial config: " + c.ConfigString);
                 System.Diagnostics.Trace.WriteLine("Applied config: " + c.ConfigString);
+#endif
                 collectorAgentsXml.AppendLine(c.ConfigString);
                 collectorAgentsXml.AppendLine("</collectorAgent>");
             }
