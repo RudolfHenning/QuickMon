@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
 namespace QuickMon
 {
@@ -37,6 +38,12 @@ namespace QuickMon
         {
             bool returnValue = defaultValue;
             bool.TryParse(ReadXmlElementAttr(e, attrName, defaultValue.ToString()), out returnValue);
+            return returnValue;
+        }
+        public static DateTime ReadXmlElementAttr(this XmlNode e, string attrName, DateTime defaultValue = new DateTime())
+        {
+            DateTime returnValue = defaultValue;
+            DateTime.TryParse(ReadXmlElementAttr(e, attrName, defaultValue.ToString()), out returnValue);
             return returnValue;
         }
         public static XmlAttribute CreateAttributeWithValue(this XmlDocument xml, string attrName, bool value)
