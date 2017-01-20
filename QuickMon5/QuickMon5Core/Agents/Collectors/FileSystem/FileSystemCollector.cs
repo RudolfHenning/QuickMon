@@ -17,143 +17,143 @@ namespace QuickMon.Collectors
             AgentConfig = new FileSystemCollectorConfig();
         }
 
-        public override MonitorState RefreshState()
-        {
-            MonitorState returnState = new MonitorState();
-            int errorCount = 0;
-            int warningCount = 0;
-            int okCount = 0;
-            int totalFileCount = 0;
-            int totalEntryCount = 0;
-            try
-            {
-                FileSystemCollectorConfig currentConfig = (FileSystemCollectorConfig)AgentConfig;
-                foreach (FileSystemDirectoryFilterEntry directoryFilter in currentConfig.Entries)
-                {
-                    DirectoryFileInfo directoryFileInfo = directoryFilter.GetFileListByFilters();
-                    CollectorState currentState = directoryFilter.GetState(directoryFileInfo);
-                    totalEntryCount++;
+        //public override MonitorState RefreshState()
+        //{
+        //    MonitorState returnState = new MonitorState();
+        //    int errorCount = 0;
+        //    int warningCount = 0;
+        //    int okCount = 0;
+        //    int totalFileCount = 0;
+        //    int totalEntryCount = 0;
+        //    try
+        //    {
+        //        FileSystemCollectorConfig currentConfig = (FileSystemCollectorConfig)AgentConfig;
+        //        foreach (FileSystemDirectoryFilterEntry directoryFilter in currentConfig.Entries)
+        //        {
+        //            DirectoryFileInfo directoryFileInfo = directoryFilter.GetFileListByFilters();
+        //            CollectorState currentState = directoryFilter.GetState(directoryFileInfo);
+        //            totalEntryCount++;
 
-                    if (directoryFilter.DirectoryExistOnly && currentState != CollectorState.Good)
-                    {
-                        errorCount++;
-                        returnState.ChildStates.Add(
-                           new MonitorState()
-                           {
-                               ForAgent = directoryFilter.DirectoryPath,
-                               State = CollectorState.Error,
-                               CurrentValue = directoryFilter.LastErrorMsg
-                           });
-                    }
-                    else if (directoryFilter.DirectoryExistOnly)
-                    {
-                        okCount++;
-                        returnState.ChildStates.Add(
-                           new MonitorState()
-                           {
-                               ForAgent = directoryFilter.DirectoryPath,
-                               State = currentState,
-                               CurrentValue = directoryFilter.LastErrorMsg
-                           });                        
-                    }
-                    else 
-                    {
-                        if (directoryFileInfo.FileCount == -1)
-                        {
-                            errorCount++;
-                            returnState.ChildStates.Add(
-                           new MonitorState()
-                           {
-                               ForAgent = directoryFilter.DirectoryPath,
-                               State = CollectorState.Error,
-                               CurrentValue = directoryFilter.LastErrorMsg
-                           });
-                        }
-                        else
-                        {
-                            totalFileCount += directoryFileInfo.FileCount;
-                            if (directoryFileInfo.FileCount > 0)
-                            {
-                                if (directoryFilter.LastErrorMsg.Length > 0)
-                                {
-                                    returnState.ChildStates.Add(
-                                           new MonitorState()
-                                           {
-                                               ForAgent = directoryFilter.DirectoryPath,
-                                               State = currentState,
-                                               CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize))
-                                           });
-                                }
-                                else
-                                {
-                                    returnState.ChildStates.Add(
-                                          new MonitorState()
-                                          {
-                                              ForAgent = directoryFilter.DirectoryPath,
-                                              State = currentState,
-                                              CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count)
-                                          });
+        //            if (directoryFilter.DirectoryExistOnly && currentState != CollectorState.Good)
+        //            {
+        //                errorCount++;
+        //                returnState.ChildStates.Add(
+        //                   new MonitorState()
+        //                   {
+        //                       ForAgent = directoryFilter.DirectoryPath,
+        //                       State = CollectorState.Error,
+        //                       CurrentValue = directoryFilter.LastErrorMsg
+        //                   });
+        //            }
+        //            else if (directoryFilter.DirectoryExistOnly)
+        //            {
+        //                okCount++;
+        //                returnState.ChildStates.Add(
+        //                   new MonitorState()
+        //                   {
+        //                       ForAgent = directoryFilter.DirectoryPath,
+        //                       State = currentState,
+        //                       CurrentValue = directoryFilter.LastErrorMsg
+        //                   });                        
+        //            }
+        //            else 
+        //            {
+        //                if (directoryFileInfo.FileCount == -1)
+        //                {
+        //                    errorCount++;
+        //                    returnState.ChildStates.Add(
+        //                   new MonitorState()
+        //                   {
+        //                       ForAgent = directoryFilter.DirectoryPath,
+        //                       State = CollectorState.Error,
+        //                       CurrentValue = directoryFilter.LastErrorMsg
+        //                   });
+        //                }
+        //                else
+        //                {
+        //                    totalFileCount += directoryFileInfo.FileCount;
+        //                    if (directoryFileInfo.FileCount > 0)
+        //                    {
+        //                        if (directoryFilter.LastErrorMsg.Length > 0)
+        //                        {
+        //                            returnState.ChildStates.Add(
+        //                                   new MonitorState()
+        //                                   {
+        //                                       ForAgent = directoryFilter.DirectoryPath,
+        //                                       State = currentState,
+        //                                       CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize))
+        //                                   });
+        //                        }
+        //                        else
+        //                        {
+        //                            returnState.ChildStates.Add(
+        //                                  new MonitorState()
+        //                                  {
+        //                                      ForAgent = directoryFilter.DirectoryPath,
+        //                                      State = currentState,
+        //                                      CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count)
+        //                                  });
 
-                                    if (directoryFilter.ShowFilenamesInDetails)
-                                    {
-                                        int topCount = 10;
-                                        for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
-                                        {
-                                            FileInfo fi = directoryFileInfo.FileInfos[i];
-                                            returnState.ChildStates.Add(
-                                               new MonitorState()
-                                               {
-                                                   ForAgent = fi.Name,
-                                                   State = currentState,
-                                                   CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))                                                   
-                                               });
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                returnState.ChildStates.Add(
-                                          new MonitorState()
-                                          {
-                                              ForAgent = directoryFilter.DirectoryPath,
-                                              State = currentState,
-                                              CurrentValue = "No files found"
-                                          });
-                            }
-                            if (currentState == CollectorState.Warning)
-                            {
-                                warningCount++;
-                            }
-                            else if (currentState == CollectorState.Error)
-                            {
-                                errorCount++;
-                            }
-                            else
-                            {
-                                okCount++;
-                            }
-                        }
-                    }
-                }
-                if (errorCount > 0 && totalEntryCount == errorCount) // any errors
-                    returnState.State = CollectorState.Error;
-                else if (okCount != totalEntryCount) //any warnings
-                    returnState.State = CollectorState.Warning;
-                else
-                    returnState.State = CollectorState.Good;
+        //                            if (directoryFilter.ShowFilenamesInDetails)
+        //                            {
+        //                                int topCount = 10;
+        //                                for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
+        //                                {
+        //                                    FileInfo fi = directoryFileInfo.FileInfos[i];
+        //                                    returnState.ChildStates.Add(
+        //                                       new MonitorState()
+        //                                       {
+        //                                           ForAgent = fi.Name,
+        //                                           State = currentState,
+        //                                           CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))                                                   
+        //                                       });
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        returnState.ChildStates.Add(
+        //                                  new MonitorState()
+        //                                  {
+        //                                      ForAgent = directoryFilter.DirectoryPath,
+        //                                      State = currentState,
+        //                                      CurrentValue = "No files found"
+        //                                  });
+        //                    }
+        //                    if (currentState == CollectorState.Warning)
+        //                    {
+        //                        warningCount++;
+        //                    }
+        //                    else if (currentState == CollectorState.Error)
+        //                    {
+        //                        errorCount++;
+        //                    }
+        //                    else
+        //                    {
+        //                        okCount++;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        if (errorCount > 0 && totalEntryCount == errorCount) // any errors
+        //            returnState.State = CollectorState.Error;
+        //        else if (okCount != totalEntryCount) //any warnings
+        //            returnState.State = CollectorState.Warning;
+        //        else
+        //            returnState.State = CollectorState.Good;
 
-                returnState.CurrentValue = totalFileCount;
-            }
-            catch (Exception ex)
-            {
-                returnState.RawDetails = ex.Message;
-                returnState.HtmlDetails = ex.Message;
-                returnState.State = CollectorState.Error;
-            }
+        //        returnState.CurrentValue = totalFileCount;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        returnState.RawDetails = ex.Message;
+        //        returnState.HtmlDetails = ex.Message;
+        //        returnState.State = CollectorState.Error;
+        //    }
 
-            return returnState;
-        }
+        //    return returnState;
+        //}
         private string GetTop10FileInfos(List<FileInfo> fileInfos)
         {
             StringBuilder sb = new StringBuilder();
@@ -336,6 +336,7 @@ namespace QuickMon.Collectors
         }
 
         #region Properties
+        public object CurrentAgentValue { get; set; }
         public string DirectoryPath { get; set; }
         public string FilterFullPath
         {
@@ -464,6 +465,69 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public MonitorState GetCurrentState()
+        {
+            DirectoryFileInfo directoryFileInfo = GetFileListByFilters();
+            int totalFileCount = 0;
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = DirectoryPath,
+                State = GetState(directoryFileInfo)
+            };
+
+            if (DirectoryExistOnly && currentState.State != CollectorState.Good)
+            {
+                currentState.CurrentValue = LastErrorMsg;
+            }
+            else if (DirectoryExistOnly)
+            {
+                currentState.CurrentValue = LastErrorMsg;                
+            }
+            else
+            {
+                if (directoryFileInfo.FileCount == -1)
+                {
+                    currentState.CurrentValue = LastErrorMsg;                    
+                }
+                else
+                {
+                    totalFileCount += directoryFileInfo.FileCount;
+                    if (directoryFileInfo.FileCount > 0)
+                    {
+                        if (LastErrorMsg.Length > 0)
+                        {
+                            currentState.CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize));
+                        }
+                        else
+                        {
+                            currentState.CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
+                            if (ShowFilenamesInDetails)
+                            {
+                                int topCount = 10;
+                                for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
+                                {
+                                    FileInfo fi = directoryFileInfo.FileInfos[i];
+                                    currentState.ChildStates.Add(
+                                       new MonitorState()
+                                       {
+                                           ForAgent = fi.Name,
+                                           CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))
+                                       });
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        currentState.CurrentValue = "No files found";
+                    }                   
+                }
+            }
+            
+            CurrentAgentValue = totalFileCount;
+
+            return currentState;
+        }
         #endregion
 
         public static string GetDirectoryFromPath(string path)
@@ -554,7 +618,7 @@ namespace QuickMon.Collectors
             }
             return fileInfo;
         }
-        public CollectorState GetState(DirectoryFileInfo fileInfo)
+        private CollectorState GetState(DirectoryFileInfo fileInfo)
         {
             CollectorState returnState = CollectorState.NotAvailable;
             LastErrorMsg = "";

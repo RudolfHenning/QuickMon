@@ -36,6 +36,8 @@ namespace QuickMon
         string Description { get; }
         string TriggerSummary { get; }
         List<ICollectorConfigSubEntry> SubItems { get; set; }
+        object CurrentAgentValue { get; set; }
+        MonitorState GetCurrentState();
     }
     public interface ICollectorConfigSubEntry
     {

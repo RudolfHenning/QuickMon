@@ -16,94 +16,94 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new PingCollectorConfig();
         }
-        public override MonitorState RefreshState()
-        {
-            MonitorState returnState = new MonitorState();
-            string lastAction = "";
-            long pingTotalTime = 0;
-            int errors = 0;
-            int warnings = 0;
-            int success = 0;
+        //public override MonitorState RefreshState()
+        //{
+        //    MonitorState returnState = new MonitorState();
+        //    string lastAction = "";
+        //    long pingTotalTime = 0;
+        //    int errors = 0;
+        //    int warnings = 0;
+        //    int success = 0;
 
-            try
-            {
-                PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Pinging {0} entries", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<b>Pinging {0} entries</b>", currentConfig.Entries.Count);
-                foreach (PingCollectorHostEntry host in currentConfig.Entries)
-                {
-                    PingCollectorResult pingResult = host.Ping();
-                    CollectorState currentState = host.GetState(pingResult);
-                    if (pingResult.Success)
-                    {
-                        pingTotalTime += pingResult.PingTime;
-                        if (currentState == CollectorState.Error)
-                        {
-                            errors++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = host.Address,
-                                    State = CollectorState.Error,
-                                    CurrentValue = pingResult.PingTime,
-                                    RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)
-                                });
-                        }
-                        else if (currentState == CollectorState.Warning)
-                        {
-                            warnings++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = host.Address,
-                                    State = CollectorState.Warning,
-                                    CurrentValue = pingResult.PingTime,
-                                    RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
-                                });
-                        }
-                        else
-                        {
-                            success++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = host.Address,
-                                    State = CollectorState.Good,
-                                    CurrentValue = pingResult.PingTime,
-                                    RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
-                                });
-                        }
-                    }
-                    else
-                    {
-                        errors++;
-                        returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    ForAgent = host.Address,
-                                    State = CollectorState.Error,
-                                    CurrentValue = "",
-                                    RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
-                                });
-                    }
-                }
-                returnState.CurrentValue = pingTotalTime;
+        //    try
+        //    {
+        //        PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
+        //        returnState.RawDetails = string.Format("Pinging {0} entries", currentConfig.Entries.Count);
+        //        returnState.HtmlDetails = string.Format("<b>Pinging {0} entries</b>", currentConfig.Entries.Count);
+        //        foreach (PingCollectorHostEntry host in currentConfig.Entries)
+        //        {
+        //            PingCollectorResult pingResult = host.Ping();
+        //            CollectorState currentState = host.GetState(pingResult);
+        //            if (pingResult.Success)
+        //            {
+        //                pingTotalTime += pingResult.PingTime;
+        //                if (currentState == CollectorState.Error)
+        //                {
+        //                    errors++;
+        //                    returnState.ChildStates.Add(
+        //                        new MonitorState()
+        //                        {
+        //                            ForAgent = host.Address,
+        //                            State = CollectorState.Error,
+        //                            CurrentValue = pingResult.PingTime,
+        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)
+        //                        });
+        //                }
+        //                else if (currentState == CollectorState.Warning)
+        //                {
+        //                    warnings++;
+        //                    returnState.ChildStates.Add(
+        //                        new MonitorState()
+        //                        {
+        //                            ForAgent = host.Address,
+        //                            State = CollectorState.Warning,
+        //                            CurrentValue = pingResult.PingTime,
+        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
+        //                        });
+        //                }
+        //                else
+        //                {
+        //                    success++;
+        //                    returnState.ChildStates.Add(
+        //                        new MonitorState()
+        //                        {
+        //                            ForAgent = host.Address,
+        //                            State = CollectorState.Good,
+        //                            CurrentValue = pingResult.PingTime,
+        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
+        //                        });
+        //                }
+        //            }
+        //            else
+        //            {
+        //                errors++;
+        //                returnState.ChildStates.Add(
+        //                        new MonitorState()
+        //                        {
+        //                            ForAgent = host.Address,
+        //                            State = CollectorState.Error,
+        //                            CurrentValue = "",
+        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
+        //                        });
+        //            }
+        //        }
+        //        returnState.CurrentValue = pingTotalTime;
 
-                if (errors > 0 && warnings == 0 && success == 0) // any errors
-                    returnState.State = CollectorState.Error;
-                else if (errors > 0 || warnings > 0) //any warnings
-                    returnState.State = CollectorState.Warning;
-                else
-                    returnState.State = CollectorState.Good;
-            }
-            catch (Exception ex)
-            {
-                returnState.RawDetails = ex.Message;
-                returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
-                returnState.State = CollectorState.Error;
-            }
-            return returnState;
-        }
+        //        if (errors > 0 && warnings == 0 && success == 0) // any errors
+        //            returnState.State = CollectorState.Error;
+        //        else if (errors > 0 || warnings > 0) //any warnings
+        //            returnState.State = CollectorState.Warning;
+        //        else
+        //            returnState.State = CollectorState.Good;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        returnState.RawDetails = ex.Message;
+        //        returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
+        //        returnState.State = CollectorState.Error;
+        //    }
+        //    return returnState;
+        //}
         public override List<System.Data.DataTable> GetDetailDataTables()
         {
             List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
@@ -350,6 +350,7 @@ namespace QuickMon.Collectors
         public PingCollectorResult LastPingResult { get; set; }
 
         #region General properties
+        public object CurrentAgentValue { get; set; }
         private string address = "";
         public string Address { get { return address; } set { address = value; } }
         private string description = "";
@@ -379,7 +380,7 @@ namespace QuickMon.Collectors
         public int SendTimeOutMS { get { return sendTimeOutMS; } set { sendTimeOutMS = value; } }
         public bool UseTelnetLogin { get; set; }
         public string TelnetUserName { get; set; }
-        public string TelnetPassword { get; set; }
+        public string TelnetPassword { get; set; }        
         #endregion
 
         #region Ping methods
@@ -735,37 +736,78 @@ namespace QuickMon.Collectors
         #endregion
         #endregion
 
-        #region GetState
-        public CollectorState GetState(PingCollectorResult pingResult)
+        #region GetCurrentState
+        //public CollectorState GetState(PingCollectorResult pingResult)
+        //{
+        //    CollectorState result = CollectorState.Good;
+        //    if (pingResult.PingTime > -1)
+        //    {
+        //        if (pingResult.PingTime > TimeOutMS)
+        //        {
+        //            result = CollectorState.Error;
+        //            pingResult.ResponseDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
+        //        }
+        //        else if (pingResult.PingTime > MaxTimeMS)
+        //        {
+        //            result = CollectorState.Warning;
+        //            pingResult.ResponseDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
+        //        }
+        //        else if (pingType == PingCollectorType.HTTP && HTMLContentContain != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
+        //        {
+        //            result = CollectorState.Warning;
+        //            pingResult.ResponseDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
+        //        }
+        //        else
+        //        {
+        //            result = CollectorState.Good;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        result = CollectorState.Error;
+        //    }
+        //    return result;
+        //}
+        
+        public MonitorState GetCurrentState()
         {
-            CollectorState result = CollectorState.Good;
+            PingCollectorResult pingResult = Ping();
+            CurrentAgentValue = pingResult;
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Address,
+                CurrentValue = pingResult.PingTime
+            };
             if (pingResult.PingTime > -1)
             {
                 if (pingResult.PingTime > TimeOutMS)
                 {
-                    result = CollectorState.Error;
-                    pingResult.ResponseDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
+                    currentState.State = CollectorState.Error;
+                    currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
                 }
                 else if (pingResult.PingTime > MaxTimeMS)
                 {
-                    result = CollectorState.Warning;
-                    pingResult.ResponseDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
+                    currentState.State = CollectorState.Warning;
+                    currentState.RawDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
                 }
                 else if (pingType == PingCollectorType.HTTP && HTMLContentContain != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
                 {
-                    result = CollectorState.Warning;
-                    pingResult.ResponseDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
+                    currentState.State = CollectorState.Warning;
+                    currentState.RawDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
                 }
                 else
                 {
-                    result = CollectorState.Good;
+                    currentState.State = CollectorState.Good;
+                    currentState.RawDetails = "Ping was successful";
                 }
             }
             else
             {
-                result = CollectorState.Error;
+                currentState.State = CollectorState.Error;
+                currentState.RawDetails = "Unknown error occurred during ping operation";
             }
-            return result;
+           
+            return currentState;
         }
         #endregion
     }

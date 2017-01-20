@@ -301,6 +301,7 @@ namespace QuickMon.Collectors
         #endregion
 
         #region ICollectorConfigEntry Members
+
         public string Description
         {
             get { return string.Format("{0}({1}):{2}", ServiceBaseURL, ServiceBindingName, MethodName); }
@@ -309,6 +310,19 @@ namespace QuickMon.Collectors
         public string TriggerSummary
         {
             get { return string.Format("Type:{0}{1} Format:{2} Value:{3}", (ResultIsSuccess ? "" : "!"), ValueExpectedReturnType, MacroFormatType, CheckValueOrMacro); }
+        }
+
+        public object CurrentAgentValue
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
         #endregion
 
@@ -573,6 +587,11 @@ namespace QuickMon.Collectors
                 }
             }
             return result;
+        }
+
+        public MonitorState GetCurrentState()
+        {
+            throw new NotImplementedException();
         }
     }
 }

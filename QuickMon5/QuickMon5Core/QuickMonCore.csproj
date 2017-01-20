@@ -78,8 +78,6 @@
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorConfig.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
-    <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateHostEntry.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollector.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryParser.cs" />
     <Compile Include="Agents\Collectors\WSCollector\DynamicProxy\DynamicObject.cs" />

@@ -16,88 +16,88 @@ namespace QuickMon.Collectors
             AgentConfig = new PerfCounterCollectorConfig();
         }
 
-        public override MonitorState RefreshState()
-        {
-            MonitorState returnState = new MonitorState();
-            string lastAction = "";
-            int errors = 0;
-            int warnings = 0;
-            int success = 0;
-            string outputFormat = "F3";
-            try
-            {
-                PerfCounterCollectorConfig currentConfig = (PerfCounterCollectorConfig)AgentConfig;
-                returnState.RawDetails = string.Format("Querying {0} performance counters", currentConfig.Entries.Count);
-                returnState.HtmlDetails = string.Format("<i>Querying {0} performance counters</i>", currentConfig.Entries.Count);
-                foreach (PerfCounterCollectorEntry entry in currentConfig.Entries)
-                {
-                    CollectorState currentState = CollectorState.Good;
-                    float value = 0;
-                    outputFormat = "F3";
-                    try
-                    {
-                        value = entry.GetNextValue();
-                        if (value > 9999)
-                            outputFormat = "F1";
-                        currentState = entry.GetState(value);
+        //public override MonitorState RefreshState()
+        //{
+        //    MonitorState returnState = new MonitorState();
+        //    string lastAction = "";
+        //    int errors = 0;
+        //    int warnings = 0;
+        //    int success = 0;
+        //    string outputFormat = "F3";
+        //    try
+        //    {
+        //        PerfCounterCollectorConfig currentConfig = (PerfCounterCollectorConfig)AgentConfig;
+        //        returnState.RawDetails = string.Format("Querying {0} performance counters", currentConfig.Entries.Count);
+        //        returnState.HtmlDetails = string.Format("<i>Querying {0} performance counters</i>", currentConfig.Entries.Count);
+        //        foreach (PerfCounterCollectorEntry entry in currentConfig.Entries)
+        //        {
+        //            CollectorState currentState = CollectorState.Good;
+        //            float value = 0;
+        //            outputFormat = "F3";
+        //            try
+        //            {
+        //                value = entry.GetNextValue();
+        //                if (value > 9999)
+        //                    outputFormat = "F1";
+        //                currentState = entry.GetState(value);
 
-                        if (currentState == CollectorState.Error)
-                        {
-                            errors++;
-                            returnState.ChildStates.Add(
-                                new MonitorState() { 
-                                    State = CollectorState.Error,
-                                    ForAgent = entry.Description,
-                                    CurrentValue = value.ToString(outputFormat),
-                                    RawDetails = string.Format("(Trigger {0})", entry.ErrorValue.ToString(outputFormat))
-                            });
-                        }
-                        else if (currentState == CollectorState.Warning)
-                        {
-                            warnings++;
-                            returnState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    State = CollectorState.Warning,
-                                    ForAgent = entry.Description,
-                                    CurrentValue = value,
-                                    RawDetails = string.Format("(Trigger {0})", entry.WarningValue.ToString(outputFormat))
-                                });
-                        }
-                        else
-                        {
-                            success++;
-                            returnState.ChildStates.Add(
-                                 new MonitorState()
-                                 {
-                                     State = CollectorState.Good,
-                                     ForAgent = entry.Description,
-                                     CurrentValue = value
-                                 });
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        errors++;
-                        returnState.ChildStates.Add(new MonitorState() { State = CollectorState.Error, ForAgent = entry.Description, RawDetails = ex.Message});
-                    }                    
-                }
-                if (errors > 0 && warnings == 0 && success == 0)
-                    returnState.State = CollectorState.Error;
-                else if (errors > 0 || warnings > 0)
-                    returnState.State = CollectorState.Warning;
-                else
-                    returnState.State = CollectorState.Good;
-            }
-            catch (Exception ex)
-            {
-                returnState.RawDetails = ex.Message;
-                returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
-                returnState.State = CollectorState.Error;
-            }
+        //                if (currentState == CollectorState.Error)
+        //                {
+        //                    errors++;
+        //                    returnState.ChildStates.Add(
+        //                        new MonitorState() { 
+        //                            State = CollectorState.Error,
+        //                            ForAgent = entry.Description,
+        //                            CurrentValue = value.ToString(outputFormat),
+        //                            RawDetails = string.Format("(Trigger {0})", entry.ErrorValue.ToString(outputFormat))
+        //                    });
+        //                }
+        //                else if (currentState == CollectorState.Warning)
+        //                {
+        //                    warnings++;
+        //                    returnState.ChildStates.Add(
+        //                        new MonitorState()
+        //                        {
+        //                            State = CollectorState.Warning,
+        //                            ForAgent = entry.Description,
+        //                            CurrentValue = value,
+        //                            RawDetails = string.Format("(Trigger {0})", entry.WarningValue.ToString(outputFormat))
+        //                        });
+        //                }
+        //                else
+        //                {
+        //                    success++;
+        //                    returnState.ChildStates.Add(
+        //                         new MonitorState()
+        //                         {
+        //                             State = CollectorState.Good,
+        //                             ForAgent = entry.Description,
+        //                             CurrentValue = value
+        //                         });
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                errors++;
+        //                returnState.ChildStates.Add(new MonitorState() { State = CollectorState.Error, ForAgent = entry.Description, RawDetails = ex.Message});
+        //            }                    
+        //        }
+        //        if (errors > 0 && warnings == 0 && success == 0)
+        //            returnState.State = CollectorState.Error;
+        //        else if (errors > 0 || warnings > 0)
+        //            returnState.State = CollectorState.Warning;
+        //        else
+        //            returnState.State = CollectorState.Good;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        returnState.RawDetails = ex.Message;
+        //        returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
+        //        returnState.State = CollectorState.Error;
+        //    }
 
-            return returnState;
-        }
+        //    return returnState;
+        //}
 
         public override List<System.Data.DataTable> GetDetailDataTables()
         {
@@ -225,6 +225,7 @@ namespace QuickMon.Collectors
         private PerformanceCounter pc = null;
 
         #region Properties
+        public object CurrentAgentValue { get; set; }
         public string Computer { get; set; }
         public string Category { get; set; }
         public string Counter { get; set; }
@@ -289,7 +290,7 @@ namespace QuickMon.Collectors
             }
             return value;
         }
-        public CollectorState GetState(float value)
+        private CollectorState GetState(float value)
         {
             CollectorState state = CollectorState.Good;
             if (WarningValue < ErrorValue)
@@ -323,6 +324,7 @@ namespace QuickMon.Collectors
         {
             get { return string.Format("{0}\\{1}\\{2}", Category, Counter, Instance); }
         }
+
         public static PerfCounterCollectorEntry FromStringDefinition(string definition)
         {
             if (definition != null && definition.Length > 0 && definition.Contains('\\') && definition.Split('\\').Length >= 3)
@@ -340,6 +342,33 @@ namespace QuickMon.Collectors
             }
             else
                 return null;
+        }
+
+        public MonitorState GetCurrentState()
+        {
+            string outputFormat = "F3";
+            float value = 0;
+            value = GetNextValue();
+            CurrentAgentValue = value;
+            if (value > 9999)
+                outputFormat = "F1";
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Description,
+                CurrentValue = value.ToString(outputFormat),
+                State = GetState(value)
+            };
+
+            if (currentState.State == CollectorState.Error)
+            {
+                currentState.RawDetails = string.Format("(Trigger {0})", ErrorValue.ToString(outputFormat));
+            }
+            else if (currentState.State == CollectorState.Warning)
+            {
+                currentState.RawDetails = string.Format("(Trigger {0})", WarningValue.ToString(outputFormat));                
+            }
+
+            return currentState;
         }
     }
 }
