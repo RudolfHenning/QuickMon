@@ -543,6 +543,8 @@ namespace QuickMon
                     "    <collectorAgent name=\"Ping\" type=\"PingCollector\" enabled=\"True\">" +
                     "      <config>" +
                     "        <entries>" +
+                    "          <entry pingMethod=\"Ping\" address=\"localhost\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
+                    "          <entry pingMethod=\"HTTP\" address=\"http://www.google.com\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
                     "          <entry pingMethod=\"Ping\" address=\"%ComputerName%\" description=\"\" maxTimeMS=\"3000\" timeOutMS=\"5000\" httpHeaderUser=\"\" httpHeaderPwd=\"\" httpProxyServer=\"\" httpProxyUser=\"\" httpProxyPwd=\"\" socketPort=\"23\" receiveTimeoutMS=\"30000\" sendTimeoutMS=\"30000\" useTelnetLogin=\"False\" userName=\"\" password=\"\" ignoreInvalidHTTPSCerts=\"False\" />" +
                     "        </entries>" +
                     "      </config>" +
@@ -578,13 +580,13 @@ namespace QuickMon
             Assert.AreEqual(1, m.CollectorHosts.Count, "1 Collector hosts expected!");
             Assert.AreEqual(1, m.NotifierHosts.Count, "1 Notifier hosts expected!");
             Assert.AreEqual(1, m.NotifierHosts[0].NotifierAgents.Count, "1 Notifier agent expected!");
-            Assert.AreEqual(CollectorState.Error, m.RefreshStates(), "Impossible host found!");
+            Assert.AreEqual(CollectorState.Warning, m.RefreshStates(), "Impossible host found!");
 
             Assert.AreEqual(true, System.IO.File.Exists(logNotifierOutFile), "Log file Notifier file not created!");
             string[] logLings = System.IO.File.ReadAllLines(logNotifierOutFile);
             if (logLings.Length > 2)
             {
-                Assert.AreEqual(true, logLings[logLings.Length-2].Contains("invalidhost:  (Error) Response details : 'No such host is known'"), "Alert not found in log file!");
+                Assert.AreEqual(true, logLings[logLings.Length-2].Contains("invalidhost"), "Alert not found in log file!");
             }
         }
         [TestMethod, TestCategory("MonitorPack-Agents")]

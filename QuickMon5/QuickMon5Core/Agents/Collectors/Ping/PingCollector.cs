@@ -343,6 +343,48 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public MonitorState GetCurrentState()
+        {
+            PingCollectorResult pingResult = Ping();
+            CurrentAgentValue = pingResult;
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Address,
+                CurrentValue = pingResult.PingTime,
+                CurrentValueUnit = "ms"
+            };
+            if (pingResult.PingTime > -1)
+            {
+                if (pingResult.PingTime > TimeOutMS)
+                {
+                    currentState.State = CollectorState.Error;
+                    currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
+                }
+                else if (pingResult.PingTime > MaxTimeMS)
+                {
+                    currentState.State = CollectorState.Warning;
+                    currentState.RawDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
+                }
+                else if (pingType == PingCollectorType.HTTP && HTMLContentContain != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
+                {
+                    currentState.State = CollectorState.Warning;
+                    currentState.RawDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
+                }
+                else
+                {
+                    currentState.State = CollectorState.Good;                    
+                }
+            }
+            else
+            {
+                currentState.State = CollectorState.Error;
+                if (pingResult.ResponseDetails == "No such host is known")
+                    currentState.CurrentValue = "";
+                currentState.RawDetails = pingResult.ResponseDetails;
+            }
+           
+            return currentState;
+        }
         #endregion
 
         private PingCollectorType pingType = PingCollectorType.Ping;
@@ -769,46 +811,7 @@ namespace QuickMon.Collectors
         //    return result;
         //}
         
-        public MonitorState GetCurrentState()
-        {
-            PingCollectorResult pingResult = Ping();
-            CurrentAgentValue = pingResult;
-            MonitorState currentState = new MonitorState()
-            {
-                ForAgent = Address,
-                CurrentValue = pingResult.PingTime
-            };
-            if (pingResult.PingTime > -1)
-            {
-                if (pingResult.PingTime > TimeOutMS)
-                {
-                    currentState.State = CollectorState.Error;
-                    currentState.RawDetails = string.Format("Operation timed out! Max time allowed: {0}ms, {1}", TimeOutMS, pingResult.ResponseDetails);
-                }
-                else if (pingResult.PingTime > MaxTimeMS)
-                {
-                    currentState.State = CollectorState.Warning;
-                    currentState.RawDetails = string.Format("Operation did not finished in allowed time! Excepted time: {0}ms, {1}", MaxTimeMS, pingResult.ResponseDetails);
-                }
-                else if (pingType == PingCollectorType.HTTP && HTMLContentContain != null && pingResult.ResponseContent.Trim().Length > 0 && HTMLContentContain.Trim().Length > 0 && !pingResult.ResponseContent.Contains(HTMLContentContain))
-                {
-                    currentState.State = CollectorState.Warning;
-                    currentState.RawDetails = string.Format("The returned HTML does not contain the specified string '{0}'", HTMLContentContain);
-                }
-                else
-                {
-                    currentState.State = CollectorState.Good;
-                    currentState.RawDetails = "Ping was successful";
-                }
-            }
-            else
-            {
-                currentState.State = CollectorState.Error;
-                currentState.RawDetails = "Unknown error occurred during ping operation";
-            }
-           
-            return currentState;
-        }
+
         #endregion
     }
 }
