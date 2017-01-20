@@ -777,7 +777,6 @@ namespace QuickMon
             {
                 collectorAgentsXml.AppendLine(string.Format("<collectorAgent name=\"{0}\" type=\"{1}\" enabled=\"{2}\">", c.Name, c.TypeName, c.Enabled));
 #if DEBUG
-                System.Diagnostics.Trace.WriteLine("Initial config: " + c.ConfigString);
                 System.Diagnostics.Trace.WriteLine("Applied config: " + c.ConfigString);
 #endif
                 collectorAgentsXml.AppendLine(c.ConfigString);
