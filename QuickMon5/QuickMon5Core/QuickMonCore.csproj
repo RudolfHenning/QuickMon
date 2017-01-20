@@ -71,12 +71,8 @@
     <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollector.cs" />
     <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollector.cs" />
-    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollector.cs" />
     <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollector.cs" />
-    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorConfig.cs" />
-    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEntry.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollector.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollector.cs" />
     <Compile Include="Agents\Collectors\WMIQuery\WMIQueryParser.cs" />

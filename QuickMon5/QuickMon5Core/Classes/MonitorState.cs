@@ -256,7 +256,7 @@ namespace QuickMon
                     if (CurrentValue != null)
                     {
                         prePadding += string.Format("{0} ", CurrentValue);
-                        if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                        if (CurrentValue.ToString().Length > 0 && CurrentValueUnit != null && CurrentValueUnit.Length > 0)
                         {
                             prePadding += string.Format("{0} ", CurrentValueUnit);
                         }
