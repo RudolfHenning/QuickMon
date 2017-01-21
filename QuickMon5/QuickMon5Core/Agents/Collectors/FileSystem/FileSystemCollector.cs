@@ -522,10 +522,8 @@ namespace QuickMon.Collectors
                         currentState.CurrentValue = "No files found";
                     }                   
                 }
-            }
-            
+            }            
             CurrentAgentValue = totalFileCount;
-
             return currentState;
         }
         #endregion

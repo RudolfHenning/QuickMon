@@ -316,7 +316,7 @@ namespace QuickMon.Collectors
                 ForAgent = Name,
                 CurrentValue = CollectorAgentReturnValueCompareEngine.GetState(ValueReturnCheckSequence, SuccessMatchType, SuccessValueOrMacro,
                  WarningMatchType, WarningValueOrMacro, ErrorMatchType, ErrorValueOrMacro, value)
-            };            
+            };
 
             return currentState;
         }

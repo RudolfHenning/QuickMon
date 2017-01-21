@@ -164,13 +164,104 @@ namespace QuickMon.Collectors
                 webServicePingEntry.Parameters = new List<string>();
                 if (parameterStr.Trim().Length > 0)
                     webServicePingEntry.Parameters.AddRange(parameterStr.Split(','));
-                webServicePingEntry.ResultIsSuccess = addressNode.ReadXmlElementAttr("resultIsSuccess", true);
+                //webServicePingEntry.ResultIsSuccess = addressNode.ReadXmlElementAttr("resultIsSuccess", true);
                 webServicePingEntry.ValueExpectedReturnType = WebServiceValueExpectedReturnTypeConverter.FromString(addressNode.ReadXmlElementAttr("valueExpectedReturnType", ""));
                 webServicePingEntry.MacroFormatType = WebServiceMacroFormatTypeConverter.FromString(addressNode.ReadXmlElementAttr("macroFormatType", ""));
                 webServicePingEntry.CheckValueArrayIndex = addressNode.ReadXmlElementAttr("arrayIndex", 0);
                 webServicePingEntry.CheckValueColumnIndex = addressNode.ReadXmlElementAttr("columnIndex", 0);
-                webServicePingEntry.CheckValueOrMacro = addressNode.ReadXmlElementAttr("valueOrMacro", "");
-                webServicePingEntry.UseRegEx = addressNode.ReadXmlElementAttr("useRegEx", false);
+
+                if (addressNode.ReadXmlElementAttr("resultIsSuccess", true))
+                    webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+                else
+                    webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.EWG;
+
+                webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Contains;
+                webServicePingEntry.GoodScriptText = addressNode.ReadXmlElementAttr("valueOrMacro", "");
+                if (addressNode.ReadXmlElementAttr("useRegEx", false))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.RegEx;
+                }
+                else if (webServicePingEntry.GoodScriptText.StartsWith("[Between] "))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Between;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Substring("[Between] ".Length);
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Replace("[and]", "and");
+                }
+                else if (webServicePingEntry.GoodScriptText.StartsWith("[LargerThan] "))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.LargerThan;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Substring("[LargerThan] ".Length);
+                }
+                else if (webServicePingEntry.GoodScriptText.StartsWith("[SmallerThan] "))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.SmallerThan;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Substring("[SmallerThan] ".Length);
+                }
+                else if (webServicePingEntry.GoodScriptText.StartsWith("[Contains] "))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Contains;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Substring("[Contains] ".Length);
+                }
+                else if (webServicePingEntry.GoodScriptText.StartsWith("[BeginsWith] "))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.StartsWith;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Substring("[BeginsWith] ".Length);
+                }
+                else if (webServicePingEntry.GoodScriptText.StartsWith("[EndsWith] "))
+                {
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.EndsWith;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.GoodScriptText.Substring("[EndsWith] ".Length);
+                }
+
+                webServicePingEntry.WarningResultMatchType = CollectorAgentReturnValueCompareMatchType.Contains;
+                webServicePingEntry.WarningScriptText = "[null]";
+
+                webServicePingEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareMatchType.Contains;
+                webServicePingEntry.ErrorScriptText = "[any]";
+
+                if (webServicePingEntry.ReturnCheckSequence == CollectorAgentReturnValueCheckSequence.EWG)
+                {
+                    CollectorAgentReturnValueCompareMatchType tmpMT = webServicePingEntry.GoodResultMatchType;
+                    string tmpTestValue = webServicePingEntry.GoodScriptText;
+                    webServicePingEntry.GoodResultMatchType = webServicePingEntry.ErrorResultMatchType;
+                    webServicePingEntry.GoodScriptText = webServicePingEntry.ErrorScriptText;
+                    webServicePingEntry.ErrorResultMatchType = tmpMT;
+                    webServicePingEntry.ErrorScriptText = tmpTestValue;
+                }
+
+                Entries.Add(webServicePingEntry);
+            }
+            foreach (XmlElement carvceEntryNode in root.SelectNodes("carvcesEntries/carvceEntry"))
+            {
+                WSCollectorConfigEntry webServicePingEntry = new WSCollectorConfigEntry();
+                XmlNode dataSourceNode = carvceEntryNode.SelectSingleNode("dataSource");
+                webServicePingEntry.ServiceBaseURL = dataSourceNode.ReadXmlElementAttr("url", "");
+                webServicePingEntry.ServiceBindingName = dataSourceNode.ReadXmlElementAttr("serviceBindingName", "");
+                webServicePingEntry.MethodName = dataSourceNode.ReadXmlElementAttr("method","");
+                string parameterStr = dataSourceNode.ReadXmlElementAttr("paramatersCSV","");
+                webServicePingEntry.Parameters = new List<string>();
+                if (parameterStr.Trim().Length > 0)
+                    webServicePingEntry.Parameters.AddRange(parameterStr.Split(','));
+                webServicePingEntry.ValueExpectedReturnType = WebServiceValueExpectedReturnTypeConverter.FromString(dataSourceNode.ReadXmlElementAttr("valueExpectedReturnType", ""));
+                webServicePingEntry.MacroFormatType = WebServiceMacroFormatTypeConverter.FromString(dataSourceNode.ReadXmlElementAttr("macroFormatType", ""));
+                webServicePingEntry.CheckValueArrayIndex = dataSourceNode.ReadXmlElementAttr("arrayIndex", 0);
+                webServicePingEntry.CheckValueColumnIndex = dataSourceNode.ReadXmlElementAttr("columnIndex", 0);
+
+                XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
+                webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+
+                XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                webServicePingEntry.GoodScriptText = goodScriptNode.InnerText;
+
+                XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                webServicePingEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                webServicePingEntry.WarningScriptText = warningScriptNode.InnerText;
+
+                XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                webServicePingEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                webServicePingEntry.ErrorScriptText = errorScriptNode.InnerText;
+
                 Entries.Add(webServicePingEntry);
             }
         }
@@ -179,29 +270,58 @@ namespace QuickMon.Collectors
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
-            XmlNode addressesNode = root.SelectSingleNode("webServices");
-            addressesNode.InnerXml = "";
+            XmlNode carvcesEntriesNode = root.SelectSingleNode("carvcesEntries");
+            carvcesEntriesNode.InnerXml = "";
             foreach (WSCollectorConfigEntry webServiceEntry in Entries)
             {
-                XmlElement webServicePingNode = config.CreateElement("webService");
-                webServicePingNode.SetAttributeValue("url", webServiceEntry.ServiceBaseURL);
-                webServicePingNode.SetAttributeValue("serviceBindingName", webServiceEntry.ServiceBindingName);
-                webServicePingNode.SetAttributeValue("method", webServiceEntry.MethodName);
-                webServicePingNode.SetAttributeValue("paramatersCSV", webServiceEntry.ToStringFromParameters());
-                webServicePingNode.SetAttributeValue("resultIsSuccess", webServiceEntry.ResultIsSuccess);
-                webServicePingNode.SetAttributeValue("valueExpectedReturnType", webServiceEntry.ValueExpectedReturnType.ToString());
-                webServicePingNode.SetAttributeValue("macroFormatType", webServiceEntry.MacroFormatType.ToString());
-                webServicePingNode.SetAttributeValue("arrayIndex", webServiceEntry.CheckValueArrayIndex);
-                webServicePingNode.SetAttributeValue("columnIndex", webServiceEntry.CheckValueColumnIndex);
-                webServicePingNode.SetAttributeValue("valueOrMacro", webServiceEntry.CheckValueOrMacro);
-                webServicePingNode.SetAttributeValue("useRegEx", webServiceEntry.UseRegEx);
-                addressesNode.AppendChild(webServicePingNode);
+                XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
+                XmlElement dataSourceNode = config.CreateElement("dataSource");
+                dataSourceNode.SetAttributeValue("url", webServiceEntry.ServiceBaseURL);
+                dataSourceNode.SetAttributeValue("serviceBindingName", webServiceEntry.ServiceBindingName);
+                dataSourceNode.SetAttributeValue("method", webServiceEntry.MethodName);
+                dataSourceNode.SetAttributeValue("paramatersCSV", webServiceEntry.ToStringFromParameters());
+                dataSourceNode.SetAttributeValue("valueExpectedReturnType", webServiceEntry.ValueExpectedReturnType.ToString());
+                dataSourceNode.SetAttributeValue("macroFormatType", webServiceEntry.MacroFormatType.ToString());
+                dataSourceNode.SetAttributeValue("arrayIndex", webServiceEntry.CheckValueArrayIndex);
+                dataSourceNode.SetAttributeValue("columnIndex", webServiceEntry.CheckValueColumnIndex);
+                XmlElement testConditionsNode = config.CreateElement("testConditions");
+                testConditionsNode.SetAttributeValue("testSequence", webServiceEntry.ReturnCheckSequence.ToString());
+                XmlElement successNode = config.CreateElement("success");
+                successNode.SetAttributeValue("testType", webServiceEntry.GoodResultMatchType.ToString());
+                successNode.InnerText = webServiceEntry.GoodScriptText;
+                XmlElement warningNode = config.CreateElement("warning");
+                warningNode.SetAttributeValue("testType", webServiceEntry.WarningResultMatchType.ToString());
+                warningNode.InnerText = webServiceEntry.WarningScriptText;
+                XmlElement errorNode = config.CreateElement("error");
+                errorNode.SetAttributeValue("testType", webServiceEntry.ErrorResultMatchType.ToString());
+                errorNode.InnerText = webServiceEntry.ErrorScriptText;
+
+                testConditionsNode.AppendChild(successNode);
+                testConditionsNode.AppendChild(warningNode);
+                testConditionsNode.AppendChild(errorNode);
+
+                carvceEntryNode.AppendChild(dataSourceNode);
+                carvceEntryNode.AppendChild(testConditionsNode);
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
+
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
             return config.OuterXml;
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><webServices /></config>";
+            return "<config>" +
+                "  <carvcesEntries>" +
+                "    <carvceEntry name=\"\">" +
+                "      <dataSource></dataSource>" +
+                "      <testCondition testSequence=\"GWE\">" +
+                "        <success testType=\"match\"></success>" +
+                "        <warning testType=\"match\"></warning>" +
+                "        <error testType=\"match\"></error>" +
+                "      </testCondition>" +
+                "    </carvceEntry>" +
+                "  </carvcesEntries>" +
+                "</config>";
             /*
             +
                 "    <!--" +
@@ -238,7 +358,7 @@ namespace QuickMon.Collectors
     {
         public WSCollectorConfigEntry()
         {
-            ResultIsSuccess = true;
+            //ResultIsSuccess = true;
             Parameters = new List<string>();
         }
 
@@ -263,13 +383,22 @@ namespace QuickMon.Collectors
             set { methodName = value; proxy = null; }
         }
         public List<string> Parameters { get; set; }
-        public bool ResultIsSuccess { get; set; }
+        //public bool ResultIsSuccess { get; set; }
         public WebServiceValueExpectedReturnTypeEnum ValueExpectedReturnType { get; set; }
         public WebServiceMacroFormatTypeEnum MacroFormatType { get; set; }
         public int CheckValueArrayIndex { get; set; }
         public int CheckValueColumnIndex { get; set; }
-        public string CheckValueOrMacro { get; set; }
-        public bool UseRegEx { get; set; }
+
+        public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
+        public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
+        public string GoodScriptText { get; set; }
+        public CollectorAgentReturnValueCompareMatchType WarningResultMatchType { get; set; }
+        public string WarningScriptText { get; set; }
+        public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
+        public string ErrorScriptText { get; set; }
+
+        //public string CheckValueOrMacro { get; set; }
+        //public bool UseRegEx { get; set; }
 
         public string ToStringFromParameters()
         {
@@ -293,7 +422,7 @@ namespace QuickMon.Collectors
                     Parameters.Add(par);
             }
         }
-        public string LastFormattedValue { get; private set; }
+        //public string LastFormattedValue { get; private set; }
         #endregion
 
         #region Private vars
@@ -310,9 +439,19 @@ namespace QuickMon.Collectors
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
         public string TriggerSummary
         {
-            get { return string.Format("Type:{0}{1} Format:{2} Value:{3}", (ResultIsSuccess ? "" : "!"), ValueExpectedReturnType, MacroFormatType, CheckValueOrMacro); }
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(string.Format("Type:{0} Format:{1} ", ValueExpectedReturnType, MacroFormatType));
+                sb.Append(ReturnCheckSequence.ToString() + ": ");
+                sb.Append("{G:" + GoodResultMatchType.ToString() + ": " + GoodScriptText + "}");
+                sb.Append("{W:" + WarningResultMatchType.ToString() + ": " + WarningScriptText + "}");
+                sb.Append("{E:" + ErrorResultMatchType.ToString() + ": " + ErrorScriptText + "}");
+                
+                return sb.ToString();
+            }
         }
-       
+
         #endregion
 
         public object RunMethod()
@@ -400,60 +539,55 @@ namespace QuickMon.Collectors
             }
             return obj;
         }
-        public CollectorState GetState(object value)
+        private object FormatCurrentAgentValue(object testValue)
         {
-            bool result = false;
             switch (ValueExpectedReturnType)
             {
                 case WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly:
                     #region CheckAvailabilityOnly
-                    LastFormattedValue = "[Available]";
-                    result = true;
+                    CurrentAgentValue = "[Available]";
                     break;
                     #endregion
                 case WebServiceValueExpectedReturnTypeEnum.SingleValue:
                     #region SingleValue
-                    if (value is System.Data.DataSet || value.GetType().IsArray)
+                    if (testValue is System.Data.DataSet || testValue.GetType().IsArray)
                         throw new Exception("Returned value is an array or dataset!");
-                    if (value == null)
-                        LastFormattedValue = "Null";
-                    else if (value.ToString().Length == 0)
-                        LastFormattedValue = "Empty";
+                    else if (testValue == null)
+                        CurrentAgentValue = null;
+                    else if (testValue.ToString().Length == 0)
+                        CurrentAgentValue = testValue;
                     else
-                        LastFormattedValue = value.ToString();
+                        CurrentAgentValue = testValue;
                     switch (MacroFormatType)
                     {
                         case WebServiceMacroFormatTypeEnum.None:
-                            result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
                             break;
                         case WebServiceMacroFormatTypeEnum.NoValueOnly:
-                            result = (value == null || value.ToString().Length == 0);
+                            CurrentAgentValue = (testValue == null || testValue.ToString().Length == 0);
                             break;
                         case WebServiceMacroFormatTypeEnum.Length:
-                            LastFormattedValue = LastFormattedValue.Length.ToString();
-                            result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
+                            CurrentAgentValue = testValue.ToString().Length.ToString();
                             break;
                         default:
-                            result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
                             break;
                     }
                     break;
-                    #endregion
+                #endregion
                 case WebServiceValueExpectedReturnTypeEnum.Array:
                     #region Array
-                    if (!value.GetType().IsArray)
+                    if (!testValue.GetType().IsArray)
                         throw new Exception("Returned value is not an array!");
-                    Array arr = (Array)value;
+                    Array arr = (Array)testValue;
                     switch (MacroFormatType)
                     {
                         case WebServiceMacroFormatTypeEnum.Count:
-                            LastFormattedValue = arr.Length.ToString();
+                            CurrentAgentValue = arr.Length.ToString();
                             break;
                         case WebServiceMacroFormatTypeEnum.FirstValue:
-                            LastFormattedValue = arr.GetValue(0).ToString();
+                            CurrentAgentValue = arr.GetValue(0).ToString();
                             break;
                         case WebServiceMacroFormatTypeEnum.LastValue:
-                            LastFormattedValue = arr.GetValue(arr.Length - 1).ToString();
+                            CurrentAgentValue = arr.GetValue(arr.Length - 1).ToString();
                             break;
                         case WebServiceMacroFormatTypeEnum.Sum:
                             double sum = 0;
@@ -462,25 +596,24 @@ namespace QuickMon.Collectors
                                 if (arrEntry.IsNumber())
                                     sum += double.Parse(arrEntry.ToString());
                             }
-                            LastFormattedValue = sum.ToString();
+                            CurrentAgentValue = sum.ToString();
                             break;
                         default:
                             if (CheckValueArrayIndex > 0 && CheckValueArrayIndex < arr.Length)
-                                LastFormattedValue = arr.GetValue(CheckValueArrayIndex).ToString();
+                                CurrentAgentValue = arr.GetValue(CheckValueArrayIndex).ToString();
                             else
-                                LastFormattedValue = arr.GetValue(0).ToString();
+                                CurrentAgentValue = arr.GetValue(0).ToString();
                             break;
                     }
-                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
                     break;
-                    #endregion
+                #endregion
                 case WebServiceValueExpectedReturnTypeEnum.DataSet:
                     #region DataSet
-                    if (!(value is System.Data.DataSet))
+                    if (!(testValue is System.Data.DataSet))
                         throw new Exception("Returned value is not a DataSet!");
                     else
                     {
-                        System.Data.DataSet ds = (System.Data.DataSet)value;
+                        System.Data.DataSet ds = (System.Data.DataSet)testValue;
                         if (ds.Tables.Count == 0)
                             throw new Exception("DataSet contains no tables!");
                         else
@@ -489,98 +622,235 @@ namespace QuickMon.Collectors
                             switch (MacroFormatType)
                             {
                                 case WebServiceMacroFormatTypeEnum.Count:
-                                    LastFormattedValue = tab.Rows.Count.ToString();
+                                    CurrentAgentValue = tab.Rows.Count.ToString();
                                     break;
                                 case WebServiceMacroFormatTypeEnum.FirstValue:
-                                    LastFormattedValue = tab.Rows[0][0].ToString();
+                                    CurrentAgentValue = tab.Rows[0][0].ToString();
                                     break;
                                 case WebServiceMacroFormatTypeEnum.LastValue:
-                                    LastFormattedValue = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString();
+                                    CurrentAgentValue = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString();
                                     break;
                                 default:
                                     if (CheckValueArrayIndex >= 0 && CheckValueArrayIndex < tab.Rows.Count && CheckValueColumnIndex >= 0 && CheckValueColumnIndex < tab.Columns.Count)
-                                        LastFormattedValue = tab.Rows[CheckValueArrayIndex][CheckValueColumnIndex].ToString();
+                                        CurrentAgentValue = tab.Rows[CheckValueArrayIndex][CheckValueColumnIndex].ToString();
                                     else
-                                        LastFormattedValue = tab.Rows[0][0].ToString();
+                                        CurrentAgentValue = tab.Rows[0][0].ToString();
                                     break;
                             }
                         }
-                        result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
                     }
                     break;
                     #endregion
-                default:
-                    throw new Exception("Expected return value type not specified!");
             }
-            return (ResultIsSuccess == result) ? CollectorState.Good : CollectorState.Error;
+            return CurrentAgentValue;
         }
-        private bool TestValueWithMacro(string value, string macroOrTestValue)
-        {
-            bool result = false;
-            if (UseRegEx)
-            {
-                System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(value, macroOrTestValue, System.Text.RegularExpressions.RegexOptions.Multiline);
-                result = match.Success;
-            }
-            else
-            {
-                if (!macroOrTestValue.StartsWith("[")) //compare raw value
-                {
-                    result = value.ToString() == macroOrTestValue;
-                }
-                else if (macroOrTestValue.ToLower().StartsWith("[between]") && macroOrTestValue.ToLower().Contains("[and]"))
-                {
-                    string[] queryItems = macroOrTestValue.Split(' ');
-                    if (value.IsNumber() && queryItems.Length == 4 && queryItems[1].IsNumber() && queryItems[3].IsNumber())
-                        result = (double.Parse(queryItems[1]) < double.Parse(value.ToString()))
-                            && (double.Parse(value.ToString()) < double.Parse(queryItems[3]));
-                    else
-                        throw new Exception("Value is not a number or macro syntax invalid!");
-                }
-                else if (macroOrTestValue.ToLower().StartsWith("[largerthan]"))
-                {
-                    string macroValue = macroOrTestValue.ToLower().Replace("[largerthan]", "").Trim();
-                    if (value.IsNumber() && macroValue.IsNumber())
-                        result = (double.Parse(macroValue) < double.Parse(value.ToString()));
-                    else
-                        throw new Exception("Value is not a number or check value contains invalid macro!");
-                }
-                else if (macroOrTestValue.ToLower().StartsWith("[smallerthan]"))
-                {
-                    string macroValue = macroOrTestValue.ToLower().Replace("[smallerthan]", "").Trim();
-                    if (value.IsNumber() && macroValue.IsNumber())
-                        result = (double.Parse(macroValue) > double.Parse(value.ToString()));
-                    else
-                        throw new Exception("Value is not a number or check value cotains invalid macro!");
-                }
-                else if (macroOrTestValue.ToLower().StartsWith("[contains]"))
-                {
-                    string macroValue = macroOrTestValue.ToLower().Replace("[contains]", "").Trim();
-                    if (macroValue.StartsWith(" "))
-                        macroValue = macroValue.Substring(1);
-                    result = value.ToLower().Contains(macroValue);
-                }
-                else if (macroOrTestValue.ToLower().StartsWith("[beginswith]"))
-                {
-                    string macroValue = macroOrTestValue.ToLower().Replace("[beginswith]", "").Trim();
-                    if (macroValue.StartsWith(" "))
-                        macroValue = macroValue.Substring(1);
-                    result = value.ToLower().StartsWith(macroValue);
-                }
-                else if (macroOrTestValue.ToLower().StartsWith("[endswith]"))
-                {
-                    string macroValue = macroOrTestValue.ToLower().Replace("[endswith]", "").Trim();
-                    if (macroValue.StartsWith(" "))
-                        macroValue = macroValue.Substring(1);
-                    result = value.ToLower().EndsWith(macroValue);
-                }
-            }
-            return result;
-        }
+        //private CollectorState GetState(object value)
+        //{
+        //    bool result = false;
+        //    switch (ValueExpectedReturnType)
+        //    {
+        //        case WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly:
+        //            #region CheckAvailabilityOnly
+        //            LastFormattedValue = "[Available]";
+        //            result = true;
+        //            break;
+        //            #endregion
+        //        case WebServiceValueExpectedReturnTypeEnum.SingleValue:
+        //            #region SingleValue
+        //            if (value is System.Data.DataSet || value.GetType().IsArray)
+        //                throw new Exception("Returned value is an array or dataset!");
+        //            if (value == null)
+        //                LastFormattedValue = "Null";
+        //            else if (value.ToString().Length == 0)
+        //                LastFormattedValue = "Empty";
+        //            else
+        //                LastFormattedValue = value.ToString();
+        //            switch (MacroFormatType)
+        //            {
+        //                case WebServiceMacroFormatTypeEnum.None:
+        //                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
+        //                    break;
+        //                case WebServiceMacroFormatTypeEnum.NoValueOnly:
+        //                    result = (value == null || value.ToString().Length == 0);
+        //                    break;
+        //                case WebServiceMacroFormatTypeEnum.Length:
+        //                    LastFormattedValue = LastFormattedValue.Length.ToString();
+        //                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
+        //                    break;
+        //                default:
+        //                    result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
+        //                    break;
+        //            }
+        //            break;
+        //            #endregion
+        //        case WebServiceValueExpectedReturnTypeEnum.Array:
+        //            #region Array
+        //            if (!value.GetType().IsArray)
+        //                throw new Exception("Returned value is not an array!");
+        //            Array arr = (Array)value;
+        //            switch (MacroFormatType)
+        //            {
+        //                case WebServiceMacroFormatTypeEnum.Count:
+        //                    LastFormattedValue = arr.Length.ToString();
+        //                    break;
+        //                case WebServiceMacroFormatTypeEnum.FirstValue:
+        //                    LastFormattedValue = arr.GetValue(0).ToString();
+        //                    break;
+        //                case WebServiceMacroFormatTypeEnum.LastValue:
+        //                    LastFormattedValue = arr.GetValue(arr.Length - 1).ToString();
+        //                    break;
+        //                case WebServiceMacroFormatTypeEnum.Sum:
+        //                    double sum = 0;
+        //                    foreach (var arrEntry in arr)
+        //                    {
+        //                        if (arrEntry.IsNumber())
+        //                            sum += double.Parse(arrEntry.ToString());
+        //                    }
+        //                    LastFormattedValue = sum.ToString();
+        //                    break;
+        //                default:
+        //                    if (CheckValueArrayIndex > 0 && CheckValueArrayIndex < arr.Length)
+        //                        LastFormattedValue = arr.GetValue(CheckValueArrayIndex).ToString();
+        //                    else
+        //                        LastFormattedValue = arr.GetValue(0).ToString();
+        //                    break;
+        //            }
+        //            result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
+        //            break;
+        //            #endregion
+        //        case WebServiceValueExpectedReturnTypeEnum.DataSet:
+        //            #region DataSet
+        //            if (!(value is System.Data.DataSet))
+        //                throw new Exception("Returned value is not a DataSet!");
+        //            else
+        //            {
+        //                System.Data.DataSet ds = (System.Data.DataSet)value;
+        //                if (ds.Tables.Count == 0)
+        //                    throw new Exception("DataSet contains no tables!");
+        //                else
+        //                {
+        //                    System.Data.DataTable tab = ds.Tables[0];
+        //                    switch (MacroFormatType)
+        //                    {
+        //                        case WebServiceMacroFormatTypeEnum.Count:
+        //                            LastFormattedValue = tab.Rows.Count.ToString();
+        //                            break;
+        //                        case WebServiceMacroFormatTypeEnum.FirstValue:
+        //                            LastFormattedValue = tab.Rows[0][0].ToString();
+        //                            break;
+        //                        case WebServiceMacroFormatTypeEnum.LastValue:
+        //                            LastFormattedValue = tab.Rows[tab.Rows.Count - 1][tab.Columns.Count - 1].ToString();
+        //                            break;
+        //                        default:
+        //                            if (CheckValueArrayIndex >= 0 && CheckValueArrayIndex < tab.Rows.Count && CheckValueColumnIndex >= 0 && CheckValueColumnIndex < tab.Columns.Count)
+        //                                LastFormattedValue = tab.Rows[CheckValueArrayIndex][CheckValueColumnIndex].ToString();
+        //                            else
+        //                                LastFormattedValue = tab.Rows[0][0].ToString();
+        //                            break;
+        //                    }
+        //                }
+        //                result = TestValueWithMacro(LastFormattedValue, CheckValueOrMacro);
+        //            }
+        //            break;
+        //            #endregion
+        //        default:
+        //            throw new Exception("Expected return value type not specified!");
+        //    }
+        //    return (ResultIsSuccess == result) ? CollectorState.Good : CollectorState.Error;
+        //}
+        //private bool TestValueWithMacro(string value, string macroOrTestValue)
+        //{
+        //    bool result = false;
+        //    if (UseRegEx)
+        //    {
+        //        System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(value, macroOrTestValue, System.Text.RegularExpressions.RegexOptions.Multiline);
+        //        result = match.Success;
+        //    }
+        //    else
+        //    {
+        //        if (!macroOrTestValue.StartsWith("[")) //compare raw value
+        //        {
+        //            result = value.ToString() == macroOrTestValue;
+        //        }
+        //        else if (macroOrTestValue.ToLower().StartsWith("[between]") && macroOrTestValue.ToLower().Contains("[and]"))
+        //        {
+        //            string[] queryItems = macroOrTestValue.Split(' ');
+        //            if (value.IsNumber() && queryItems.Length == 4 && queryItems[1].IsNumber() && queryItems[3].IsNumber())
+        //                result = (double.Parse(queryItems[1]) < double.Parse(value.ToString()))
+        //                    && (double.Parse(value.ToString()) < double.Parse(queryItems[3]));
+        //            else
+        //                throw new Exception("Value is not a number or macro syntax invalid!");
+        //        }
+        //        else if (macroOrTestValue.ToLower().StartsWith("[largerthan]"))
+        //        {
+        //            string macroValue = macroOrTestValue.ToLower().Replace("[largerthan]", "").Trim();
+        //            if (value.IsNumber() && macroValue.IsNumber())
+        //                result = (double.Parse(macroValue) < double.Parse(value.ToString()));
+        //            else
+        //                throw new Exception("Value is not a number or check value contains invalid macro!");
+        //        }
+        //        else if (macroOrTestValue.ToLower().StartsWith("[smallerthan]"))
+        //        {
+        //            string macroValue = macroOrTestValue.ToLower().Replace("[smallerthan]", "").Trim();
+        //            if (value.IsNumber() && macroValue.IsNumber())
+        //                result = (double.Parse(macroValue) > double.Parse(value.ToString()));
+        //            else
+        //                throw new Exception("Value is not a number or check value cotains invalid macro!");
+        //        }
+        //        else if (macroOrTestValue.ToLower().StartsWith("[contains]"))
+        //        {
+        //            string macroValue = macroOrTestValue.ToLower().Replace("[contains]", "").Trim();
+        //            if (macroValue.StartsWith(" "))
+        //                macroValue = macroValue.Substring(1);
+        //            result = value.ToLower().Contains(macroValue);
+        //        }
+        //        else if (macroOrTestValue.ToLower().StartsWith("[beginswith]"))
+        //        {
+        //            string macroValue = macroOrTestValue.ToLower().Replace("[beginswith]", "").Trim();
+        //            if (macroValue.StartsWith(" "))
+        //                macroValue = macroValue.Substring(1);
+        //            result = value.ToLower().StartsWith(macroValue);
+        //        }
+        //        else if (macroOrTestValue.ToLower().StartsWith("[endswith]"))
+        //        {
+        //            string macroValue = macroOrTestValue.ToLower().Replace("[endswith]", "").Trim();
+        //            if (macroValue.StartsWith(" "))
+        //                macroValue = macroValue.Substring(1);
+        //            result = value.ToLower().EndsWith(macroValue);
+        //        }
+        //    }
+        //    return result;
+        //}
 
         public MonitorState GetCurrentState()
         {
-            throw new NotImplementedException();
+            object wsData = null;
+            CollectorState agentState = CollectorState.NotAvailable;
+            try
+            {
+                wsData = RunMethod();
+                FormatCurrentAgentValue(wsData);
+
+                agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
+                   GoodResultMatchType, GoodScriptText,
+                   WarningResultMatchType, WarningScriptText,
+                   ErrorResultMatchType, ErrorScriptText,
+                   CurrentAgentValue);
+            }
+            catch (Exception wsException)
+            {
+                agentState = CollectorState.Error;
+                wsData = wsException.Message;
+            }
+
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Description,
+                State = agentState,
+                CurrentValue = wsData == null ? "N/A" : wsData.ToString()
+            };
+
+            return currentState;
         }
     }
 }
