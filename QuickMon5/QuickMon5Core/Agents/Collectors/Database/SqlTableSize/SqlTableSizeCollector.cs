@@ -249,7 +249,8 @@ namespace QuickMon.Collectors
                 currentState.ChildStates.Add(tableState);
             }
             currentState.CurrentValue = totalValue;
-            
+            CurrentAgentValue = totalValue;
+
             return currentState;
         }
         #endregion

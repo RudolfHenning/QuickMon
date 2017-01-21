@@ -348,20 +348,11 @@ namespace QuickMon.Collectors
             get
             {
                 StringBuilder sb = new StringBuilder();
-                if (ReturnCheckSequence == CollectorAgentReturnValueCheckSequence.GWE)
-                {
-                    sb.Append("GWE:");
-                    sb.Append("{" + GoodResultMatchType.ToString() + " : " + GoodScriptText + "}");
-                    sb.Append("{" + WarningResultMatchType.ToString() + " : " + WarningScriptText + "}");
-                    sb.Append("{" + ErrorResultMatchType.ToString() + " : " + ErrorScriptText + "}");
-                }
-                else
-                {
-                    sb.Append("EWG:");
-                    sb.Append("{" + ErrorResultMatchType.ToString() + " : " + ErrorScriptText + "}");
-                    sb.Append("{" + WarningResultMatchType.ToString() + " : " + WarningScriptText + "}");
-                    sb.Append("{" + GoodResultMatchType.ToString() + " : " + GoodScriptText + "}");
-                }
+                sb.Append(ReturnCheckSequence.ToString() + ": ");
+                sb.Append("{G:" + GoodResultMatchType.ToString() + ": " + GoodScriptText + "}");
+                sb.Append("{W:" + WarningResultMatchType.ToString() + ": " + WarningScriptText + "}");
+                sb.Append("{E:" + ErrorResultMatchType.ToString() + ": " + ErrorScriptText + "}");
+                
                 return sb.ToString();
             }
         }

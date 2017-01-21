@@ -43,11 +43,8 @@ namespace QuickMon
             return summaryInfo;
         }
 
-        private string emptyConfig = "<monitorPack>\r\n" + 
-            "<configVars />\r\n" +
-            "<collectorHosts>\r\n<actionScripts />\r\n</collectorHosts>\r\n" + 
-            "<notifierHosts>\r\n</notifierHosts>\r\n" + 
-            "<logging>\r\n<collectorCategories/>\r\n</logging>\r\n</monitorPack>";
+        private string emptyConfig = "<monitorPack><configVars /><collectorHosts><actionScripts /></collectorHosts>" + 
+            "<notifierHosts>\r\n</notifierHosts><logging>\r\n<collectorCategories/>\r\n</logging>\r\n</monitorPack>";
 
         #region Loading
         public void Load()
