@@ -177,7 +177,11 @@ namespace QuickMon.Collectors
 
                 webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Contains;
                 webServicePingEntry.GoodScriptText = addressNode.ReadXmlElementAttr("valueOrMacro", "");
-                if (addressNode.ReadXmlElementAttr("useRegEx", false))
+                if (webServicePingEntry.ValueExpectedReturnType == WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly)
+                {
+                    webServicePingEntry.GoodScriptText = "[Available]";
+                }
+                else if (addressNode.ReadXmlElementAttr("useRegEx", false))
                 {
                     webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.RegEx;
                 }
@@ -253,6 +257,10 @@ namespace QuickMon.Collectors
                 XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
                 webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
                 webServicePingEntry.GoodScriptText = goodScriptNode.InnerText;
+                if (webServicePingEntry.ValueExpectedReturnType == WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly)
+                {
+                    webServicePingEntry.GoodScriptText = "[Available]";
+                }
 
                 XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
                 webServicePingEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));

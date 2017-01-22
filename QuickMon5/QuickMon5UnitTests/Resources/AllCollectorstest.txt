@@ -49,7 +49,7 @@ dir c:\</scriptText>
 			<notes />
 		</collectorHost>
 
-	<collectorHost uniqueId="17e074d3-d8ec-4d58-915f-8f8a785c8010" dependOnParentId="" name="New Collector" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+	<collectorHost uniqueId="17e074d3-d8ec-4d58-915f-8f8a785c8010" dependOnParentId="" name="File Collector" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
