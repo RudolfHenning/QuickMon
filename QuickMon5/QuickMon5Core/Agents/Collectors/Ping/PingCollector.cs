@@ -685,7 +685,7 @@ namespace QuickMon.Collectors
 
                     s += Read(tcpSocket);
                 }
-                Write(tcpSocket, "Hello");
+                Write(tcpSocket, "QuickMon Ping Test");
                 s = Read(tcpSocket); // not doing anything with response
                 sw.Stop();
                 try
