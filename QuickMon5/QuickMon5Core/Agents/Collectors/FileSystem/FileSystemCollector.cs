@@ -554,7 +554,6 @@ namespace QuickMon.Collectors
             }
             return filter;
         }
-
         public DirectoryFileInfo GetFileListByFilters()
         {
             DirectoryFileInfo fileInfo;
