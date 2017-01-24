@@ -101,6 +101,45 @@
   <ItemGroup>
     <None Include="Resources\refresh.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folderWLightning16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QuickMon5Background2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QuickMon5Background1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folderWLightning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tables.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTLLIBR_9825.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
