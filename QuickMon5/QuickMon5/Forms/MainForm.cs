@@ -34,5 +34,11 @@ namespace QuickMon5
             splitContainer1.Panel1Collapsed = true;
             splitContainer2.Panel1Collapsed = false;
         }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = true;
+            splitContainer2.Panel1Collapsed = false;
+        }
     }
 }
