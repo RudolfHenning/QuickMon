@@ -33,10 +33,11 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.button1 = new System.Windows.Forms.Button();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripSplitButton();
             this.recentMonitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripSplitButton();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -59,6 +60,8 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -70,6 +73,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(538, 344);
+            this.splitContainer1.SplitterDistance = 52;
             this.splitContainer1.TabIndex = 2;
             // 
             // toolStrip1
@@ -78,6 +82,7 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton4,
             this.toolStripButton1,
             this.toolStripButton2,
             this.toolStripButton3});
@@ -92,6 +97,8 @@
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             // 
@@ -99,8 +106,8 @@
             // 
             this.splitContainer2.Panel1.Controls.Add(this.button1);
             this.splitContainer2.Panel1MinSize = 37;
-            this.splitContainer2.Size = new System.Drawing.Size(484, 344);
-            this.splitContainer2.SplitterDistance = 37;
+            this.splitContainer2.Size = new System.Drawing.Size(482, 344);
+            this.splitContainer2.SplitterDistance = 47;
             this.splitContainer2.TabIndex = 0;
             // 
             // button1
@@ -110,14 +117,26 @@
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 35);
+            this.button1.Size = new System.Drawing.Size(47, 35);
             this.button1.TabIndex = 0;
             this.button1.Text = "Ξ";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.AutoSize = false;
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.toolStripButton4.Image = global::QuickMon5.Properties.Resources.menu_alt_16b;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(46, 33);
+            this.toolStripButton4.Text = "Ξ";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // toolStripButton1
             // 
@@ -142,6 +161,12 @@
             this.toolStripButton2.Size = new System.Drawing.Size(46, 36);
             this.toolStripButton2.Text = "toolStripButton2";
             // 
+            // recentMonitorPacksToolStripMenuItem
+            // 
+            this.recentMonitorPacksToolStripMenuItem.Name = "recentMonitorPacksToolStripMenuItem";
+            this.recentMonitorPacksToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.recentMonitorPacksToolStripMenuItem.Text = "Recent Monitor Packs";
+            // 
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -153,16 +178,10 @@
             this.toolStripButton3.Size = new System.Drawing.Size(46, 36);
             this.toolStripButton3.Text = "toolStripButton3";
             // 
-            // recentMonitorPacksToolStripMenuItem
-            // 
-            this.recentMonitorPacksToolStripMenuItem.Name = "recentMonitorPacksToolStripMenuItem";
-            this.recentMonitorPacksToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.recentMonitorPacksToolStripMenuItem.Text = "Recent Monitor Packs";
-            // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             // 
             // MainForm
@@ -203,6 +222,7 @@
         private System.Windows.Forms.ToolStripSplitButton toolStripButton3;
         private System.Windows.Forms.ToolStripMenuItem recentMonitorPacksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
     }
 }
 
