@@ -20,7 +20,10 @@ namespace QuickMon5
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Ξ
-            ShowMenu();
+            if (Properties.Settings.Default.ShowMenuOnStart)
+                ShowMenu();
+            else
+                HideMenu();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -47,6 +50,39 @@ namespace QuickMon5
         {
             splitContainer1.Panel1Collapsed = true;
             splitContainer2.Panel1Collapsed = false;
+        }
+
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            bool ctrl = ((Control.ModifierKeys & Keys.Control) == Keys.Control);
+            if (ctrl)
+            {
+                if (e.KeyChar == 'M')
+                {
+                    
+                }
+            }
+
+
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.M)
+                {
+                    splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
+                    splitContainer2.Panel1Collapsed = !splitContainer2.Panel1Collapsed;
+                    e.SuppressKeyPress = true;
+                }
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.ShowMenuOnStart = splitContainer2.Panel1Collapsed;
+            Properties.Settings.Default.Save();
         }
     }
 }
