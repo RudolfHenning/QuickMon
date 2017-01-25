@@ -33,11 +33,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panelSlimMenu = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -54,30 +49,35 @@
             this.adminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
             this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.panelSlimMenu = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.panelSlimMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.panelSlimMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -114,68 +114,6 @@
             this.splitContainer1.SplitterDistance = 105;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // treeView1
-            // 
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageListTreeView;
-            this.treeView1.Location = new System.Drawing.Point(30, 73);
-            this.treeView1.Name = "treeView1";
-            treeNode2.Name = "Node0";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "COLLECTORS ";
-            treeNode2.ToolTipText = "COLLECTORS";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowRootLines = false;
-            this.treeView1.Size = new System.Drawing.Size(402, 271);
-            this.treeView1.TabIndex = 1;
-            // 
-            // imageListTreeView
-            // 
-            this.imageListTreeView.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTreeView.ImageStream")));
-            this.imageListTreeView.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListTreeView.Images.SetKeyName(0, "folder_32a.png");
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer2.IsSplitterFixed = true;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background1;
-            this.splitContainer2.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitContainer2.Panel1.Controls.Add(this.button1);
-            this.splitContainer2.Panel1MinSize = 37;
-            this.splitContainer2.Size = new System.Drawing.Size(432, 33);
-            this.splitContainer2.SplitterDistance = 44;
-            this.splitContainer2.SplitterWidth = 1;
-            this.splitContainer2.TabIndex = 0;
-            this.splitContainer2.Visible = false;
-            // 
-            // panelSlimMenu
-            // 
-            this.panelSlimMenu.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background2;
-            this.panelSlimMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelSlimMenu.Controls.Add(this.button8);
-            this.panelSlimMenu.Controls.Add(this.button7);
-            this.panelSlimMenu.Controls.Add(this.button6);
-            this.panelSlimMenu.Controls.Add(this.button5);
-            this.panelSlimMenu.Controls.Add(this.button4);
-            this.panelSlimMenu.Controls.Add(this.button9);
-            this.panelSlimMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSlimMenu.Location = new System.Drawing.Point(0, 33);
-            this.panelSlimMenu.Name = "panelSlimMenu";
-            this.panelSlimMenu.Size = new System.Drawing.Size(30, 311);
-            this.panelSlimMenu.TabIndex = 2;
             // 
             // toolStrip1
             // 
@@ -241,7 +179,8 @@
             // 
             // recentMonitorPacksToolStripMenuItem
             // 
-            this.recentMonitorPacksToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.folderWLightning;
+            this.recentMonitorPacksToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.folderWLightning16x16;
+            this.recentMonitorPacksToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.recentMonitorPacksToolStripMenuItem.Name = "recentMonitorPacksToolStripMenuItem";
             this.recentMonitorPacksToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.recentMonitorPacksToolStripMenuItem.Text = "Recent Monitor Packs";
@@ -260,9 +199,10 @@
             // 
             // saveAsToolStripMenuItem
             // 
-            this.saveAsToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.save;
+            this.saveAsToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.save16x16;
+            this.saveAsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             // 
             // toolStripButton5
@@ -294,7 +234,7 @@
             this.pollingToolStripMenuItem,
             this.templatesToolStripMenuItem,
             this.adminModeToolStripMenuItem});
-            this.toolStripSplitButton1.Image = global::QuickMon5.Properties.Resources.clock;
+            this.toolStripSplitButton1.Image = global::QuickMon5.Properties.Resources.tools;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(102, 36);
@@ -340,6 +280,118 @@
             this.remoteHostsToolStripMenuItem.Text = "Remote Hosts";
             this.remoteHostsToolStripMenuItem.ToolTipText = "Remote Hosts (CTRL + H)";
             // 
+            // treeView1
+            // 
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageListTreeView;
+            this.treeView1.Location = new System.Drawing.Point(35, 73);
+            this.treeView1.Name = "treeView1";
+            treeNode2.Name = "Node0";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "COLLECTORS ";
+            treeNode2.ToolTipText = "COLLECTORS";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowRootLines = false;
+            this.treeView1.Size = new System.Drawing.Size(397, 271);
+            this.treeView1.TabIndex = 1;
+            // 
+            // imageListTreeView
+            // 
+            this.imageListTreeView.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTreeView.ImageStream")));
+            this.imageListTreeView.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListTreeView.Images.SetKeyName(0, "folder_32a.png");
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer3.IsSplitterFixed = true;
+            this.splitContainer3.Location = new System.Drawing.Point(35, 33);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitContainer3.Panel1.Controls.Add(this.linkLabel1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitContainer3.Panel2.Controls.Add(this.button3);
+            this.splitContainer3.Panel2.Controls.Add(this.button2);
+            this.splitContainer3.Size = new System.Drawing.Size(397, 40);
+            this.splitContainer3.SplitterDistance = 328;
+            this.splitContainer3.SplitterWidth = 1;
+            this.splitContainer3.TabIndex = 3;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel1.Location = new System.Drawing.Point(0, 0);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(328, 40);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "<New Monitor Pack>";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.BackgroundImage = global::QuickMon5.Properties.Resources.refresh24x24;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(-2, 0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(35, 40);
+            this.button3.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.button3, "Refresh current Monitor Pack");
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::QuickMon5.Properties.Resources.folderWLightning16x16;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(33, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(35, 40);
+            this.button2.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.button2, "Recent Monitor Packs");
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // panelSlimMenu
+            // 
+            this.panelSlimMenu.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background2;
+            this.panelSlimMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelSlimMenu.Controls.Add(this.button8);
+            this.panelSlimMenu.Controls.Add(this.button7);
+            this.panelSlimMenu.Controls.Add(this.button6);
+            this.panelSlimMenu.Controls.Add(this.button5);
+            this.panelSlimMenu.Controls.Add(this.button4);
+            this.panelSlimMenu.Controls.Add(this.button9);
+            this.panelSlimMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelSlimMenu.Location = new System.Drawing.Point(0, 33);
+            this.panelSlimMenu.Name = "panelSlimMenu";
+            this.panelSlimMenu.Size = new System.Drawing.Size(35, 311);
+            this.panelSlimMenu.TabIndex = 2;
+            // 
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.Transparent;
@@ -350,7 +402,7 @@
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Location = new System.Drawing.Point(0, 153);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(30, 30);
+            this.button8.Size = new System.Drawing.Size(35, 30);
             this.button8.TabIndex = 7;
             this.button8.UseVisualStyleBackColor = false;
             // 
@@ -364,7 +416,7 @@
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Location = new System.Drawing.Point(0, 123);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(30, 30);
+            this.button7.Size = new System.Drawing.Size(35, 30);
             this.button7.TabIndex = 6;
             this.button7.UseVisualStyleBackColor = false;
             // 
@@ -378,7 +430,7 @@
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Location = new System.Drawing.Point(0, 93);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(30, 30);
+            this.button6.Size = new System.Drawing.Size(35, 30);
             this.button6.TabIndex = 5;
             this.button6.UseVisualStyleBackColor = false;
             // 
@@ -392,7 +444,7 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Location = new System.Drawing.Point(0, 63);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(30, 30);
+            this.button5.Size = new System.Drawing.Size(35, 30);
             this.button5.TabIndex = 4;
             this.button5.UseVisualStyleBackColor = false;
             // 
@@ -406,9 +458,49 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Location = new System.Drawing.Point(0, 33);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(30, 30);
+            this.button4.Size = new System.Drawing.Size(35, 30);
             this.button4.TabIndex = 3;
             this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.Color.Transparent;
+            this.button9.BackgroundImage = global::QuickMon5.Properties.Resources.menu_alt_16b1;
+            this.button9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button9.FlatAppearance.BorderSize = 0;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button9.Location = new System.Drawing.Point(0, 0);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(35, 33);
+            this.button9.TabIndex = 8;
+            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.button9, "Menu (CTRL + M)");
+            this.button9.UseVisualStyleBackColor = false;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.IsSplitterFixed = true;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background1;
+            this.splitContainer2.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitContainer2.Panel1.Controls.Add(this.button1);
+            this.splitContainer2.Panel1MinSize = 37;
+            this.splitContainer2.Size = new System.Drawing.Size(432, 33);
+            this.splitContainer2.SplitterDistance = 44;
+            this.splitContainer2.SplitterWidth = 1;
+            this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.Visible = false;
             // 
             // button1
             // 
@@ -428,96 +520,6 @@
             this.toolTip1.SetToolTip(this.button1, "Menu (CTRL + M)");
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.Transparent;
-            this.button9.BackgroundImage = global::QuickMon5.Properties.Resources.menu_alt_16b1;
-            this.button9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(0, 0);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(30, 33);
-            this.button9.TabIndex = 8;
-            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.button9, "Menu (CTRL + M)");
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer3.IsSplitterFixed = true;
-            this.splitContainer3.Location = new System.Drawing.Point(30, 33);
-            this.splitContainer3.Name = "splitContainer3";
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitContainer3.Panel1.Controls.Add(this.linkLabel1);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitContainer3.Panel2.Controls.Add(this.button3);
-            this.splitContainer3.Panel2.Controls.Add(this.button2);
-            this.splitContainer3.Size = new System.Drawing.Size(402, 40);
-            this.splitContainer3.SplitterDistance = 330;
-            this.splitContainer3.SplitterWidth = 1;
-            this.splitContainer3.TabIndex = 3;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabel1.Location = new System.Drawing.Point(0, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(330, 40);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "<New Monitor Pack>";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::QuickMon5.Properties.Resources.refresh24x24;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(1, 0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(35, 40);
-            this.button3.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.button3, "Refresh current Monitor Pack");
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::QuickMon5.Properties.Resources.folderWLightning16x16;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(36, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(35, 40);
-            this.button2.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.button2, "Recent Monitor Packs");
-            this.button2.UseVisualStyleBackColor = false;
             // 
             // MainForm
             // 
@@ -540,16 +542,16 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
-            this.panelSlimMenu.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.panelSlimMenu.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
