@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCollectorHost));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCollectorHost));
             this.chkExpandOnStart = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
@@ -42,6 +42,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabAgents = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
+            this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addAgentEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,6 +129,15 @@
             this.lblNoteTextChangeIndicator = new System.Windows.Forms.Label();
             this.cboTextType = new System.Windows.Forms.ComboBox();
             this.correctiveScriptsGroupBox = new System.Windows.Forms.GroupBox();
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
             this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
             this.cmdBrowseForRestorationScript = new System.Windows.Forms.Button();
             this.txtRestorationScript = new System.Windows.Forms.TextBox();
@@ -172,6 +184,9 @@
             this.label41 = new System.Windows.Forms.Label();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label37 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -181,6 +196,10 @@
             this.deleteActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.label38 = new System.Windows.Forms.Label();
+            this.lvwActionScripts = new QuickMon.ListViewEx();
+            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label50 = new System.Windows.Forms.Label();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.llblExportConfigAsTemplate = new System.Windows.Forms.LinkLabel();
@@ -191,25 +210,6 @@
             this.cboExpandOnStartOption = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label47 = new System.Windows.Forms.Label();
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
-            this.nameColumnHeadertlv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.summaryColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwActionScripts = new QuickMon.ListViewEx();
-            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabAgents.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -232,6 +232,9 @@
             this.tabAlerts.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.correctiveScriptsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin)).BeginInit();
             this.alertSuppressionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertPollsNumericUpDown)).BeginInit();
@@ -246,9 +249,6 @@
             this.groupBox8.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).BeginInit();
             this.SuspendLayout();
             // 
             // chkExpandOnStart
@@ -384,6 +384,42 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(569, 282);
             this.panel2.TabIndex = 2;
+            // 
+            // agentsTreeListView
+            // 
+            this.agentsTreeListView.AllowSorting = false;
+            this.agentsTreeListView.AutoResizeColumnEnabled = false;
+            this.agentsTreeListView.AutoResizeColumnIndex = 0;
+            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeadertlv,
+            this.summaryColumnHeader});
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.LabelEdit = true;
+            this.agentsTreeListView.Location = new System.Drawing.Point(0, 0);
+            this.agentsTreeListView.Name = "agentsTreeListView";
+            this.agentsTreeListView.Size = new System.Drawing.Size(569, 282);
+            this.agentsTreeListView.SmallImageList = this.agentsImageList;
+            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.TabIndex = 0;
+            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
+            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
+            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
+            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
+            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
+            // 
+            // nameColumnHeadertlv
+            // 
+            this.nameColumnHeadertlv.Text = "Agent/Entry name";
+            this.nameColumnHeadertlv.Width = 270;
+            // 
+            // summaryColumnHeader
+            // 
+            this.summaryColumnHeader.Text = "Summary";
+            this.summaryColumnHeader.Width = 277;
             // 
             // agentsContextMenuStrip
             // 
@@ -1417,6 +1453,111 @@
             this.correctiveScriptsGroupBox.TabIndex = 1;
             this.correctiveScriptsGroupBox.TabStop = false;
             // 
+            // numericUpDownRestorationScriptMinimumRepeatTimeMin
+            // 
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 81);
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Name = "numericUpDownRestorationScriptMinimumRepeatTimeMin";
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.TabIndex = 19;
+            // 
+            // label53
+            // 
+            this.label53.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(529, 83);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(24, 13);
+            this.label53.TabIndex = 20;
+            this.label53.Text = "Min";
+            this.toolTip1.SetToolTip(this.label53, "Minute");
+            // 
+            // label54
+            // 
+            this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(435, 83);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(33, 13);
+            this.label54.TabIndex = 18;
+            this.label54.Text = "Once";
+            this.toolTip1.SetToolTip(this.label54, "Only allow script to run once in X minutes");
+            // 
+            // numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin
+            // 
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 54);
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin";
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.TabIndex = 13;
+            // 
+            // label51
+            // 
+            this.label51.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(529, 56);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(24, 13);
+            this.label51.TabIndex = 14;
+            this.label51.Text = "Min";
+            this.toolTip1.SetToolTip(this.label51, "Minute");
+            // 
+            // label52
+            // 
+            this.label52.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(435, 56);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(33, 13);
+            this.label52.TabIndex = 12;
+            this.label52.Text = "Once";
+            this.toolTip1.SetToolTip(this.label52, "Only allow script to run once in X minutes");
+            // 
+            // numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin
+            // 
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 28);
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin";
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.TabIndex = 7;
+            // 
+            // label48
+            // 
+            this.label48.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(529, 30);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(24, 13);
+            this.label48.TabIndex = 8;
+            this.label48.Text = "Min";
+            this.toolTip1.SetToolTip(this.label48, "Minute");
+            // 
+            // label49
+            // 
+            this.label49.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(435, 30);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(33, 13);
+            this.label49.TabIndex = 6;
+            this.label49.Text = "Once";
+            this.toolTip1.SetToolTip(this.label49, "Only allow script to run once in X minutes");
+            // 
             // chkOnlyRunCorrectiveScriptsOnStateChange
             // 
             this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
@@ -1924,6 +2065,36 @@
             this.label40.TabIndex = 3;
             this.label40.Text = "Search for";
             // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(3, 44);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(553, 197);
+            this.lvwConfigVars.TabIndex = 2;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
+            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Search for";
+            this.nameColumnHeader.Width = 243;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Replace by";
+            this.valueColumnHeader.Width = 262;
+            // 
             // label37
             // 
             this.label37.AutoSize = true;
@@ -2029,6 +2200,42 @@
     "ripts can be used to take (manual) additional corrective actions or gain more in" +
     "fo on alert details.";
             // 
+            // lvwActionScripts
+            // 
+            this.lvwActionScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwActionScripts.AutoResizeColumnEnabled = false;
+            this.lvwActionScripts.AutoResizeColumnIndex = 2;
+            this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.actionScriptNameColumnHeader,
+            this.columnHeader2,
+            this.columnHeader1});
+            this.lvwActionScripts.FullRowSelect = true;
+            this.lvwActionScripts.Location = new System.Drawing.Point(3, 44);
+            this.lvwActionScripts.Name = "lvwActionScripts";
+            this.lvwActionScripts.Size = new System.Drawing.Size(553, 224);
+            this.lvwActionScripts.TabIndex = 2;
+            this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
+            this.lvwActionScripts.View = System.Windows.Forms.View.Details;
+            this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
+            this.lvwActionScripts.DoubleClick += new System.EventHandler(this.editActionScriptToolStripButton_Click);
+            // 
+            // actionScriptNameColumnHeader
+            // 
+            this.actionScriptNameColumnHeader.Text = "Name";
+            this.actionScriptNameColumnHeader.Width = 226;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 99;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Description";
+            this.columnHeader1.Width = 204;
+            // 
             // label50
             // 
             this.label50.AutoSize = true;
@@ -2122,204 +2329,6 @@
             this.label47.TabIndex = 3;
             this.label47.Text = "Expand";
             // 
-            // numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin
-            // 
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 28);
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin";
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.TabIndex = 7;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(529, 30);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(24, 13);
-            this.label48.TabIndex = 8;
-            this.label48.Text = "Min";
-            this.toolTip1.SetToolTip(this.label48, "Minute");
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(435, 30);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(33, 13);
-            this.label49.TabIndex = 6;
-            this.label49.Text = "Once";
-            this.toolTip1.SetToolTip(this.label49, "Only allow script to run once in X minutes");
-            // 
-            // numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin
-            // 
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 54);
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin";
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.TabIndex = 13;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(529, 56);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(24, 13);
-            this.label51.TabIndex = 14;
-            this.label51.Text = "Min";
-            this.toolTip1.SetToolTip(this.label51, "Minute");
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(435, 56);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(33, 13);
-            this.label52.TabIndex = 12;
-            this.label52.Text = "Once";
-            this.toolTip1.SetToolTip(this.label52, "Only allow script to run once in X minutes");
-            // 
-            // numericUpDownRestorationScriptMinimumRepeatTimeMin
-            // 
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Location = new System.Drawing.Point(474, 81);
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Name = "numericUpDownRestorationScriptMinimumRepeatTimeMin";
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.TabIndex = 19;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(529, 83);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(24, 13);
-            this.label53.TabIndex = 20;
-            this.label53.Text = "Min";
-            this.toolTip1.SetToolTip(this.label53, "Minute");
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(435, 83);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(33, 13);
-            this.label54.TabIndex = 18;
-            this.label54.Text = "Once";
-            this.toolTip1.SetToolTip(this.label54, "Only allow script to run once in X minutes");
-            // 
-            // agentsTreeListView
-            // 
-            this.agentsTreeListView.AllowSorting = false;
-            this.agentsTreeListView.AutoResizeColumnEnabled = false;
-            this.agentsTreeListView.AutoResizeColumnIndex = 0;
-            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeadertlv,
-            this.summaryColumnHeader});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
-            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
-            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.agentsTreeListView.LabelEdit = true;
-            this.agentsTreeListView.Location = new System.Drawing.Point(0, 0);
-            this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(569, 282);
-            this.agentsTreeListView.SmallImageList = this.agentsImageList;
-            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.TabIndex = 0;
-            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
-            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
-            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
-            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
-            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
-            // 
-            // nameColumnHeadertlv
-            // 
-            this.nameColumnHeadertlv.Text = "Agent/Entry name";
-            this.nameColumnHeadertlv.Width = 270;
-            // 
-            // summaryColumnHeader
-            // 
-            this.summaryColumnHeader.Text = "Summary";
-            this.summaryColumnHeader.Width = 277;
-            // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(3, 44);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(553, 197);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            this.lvwConfigVars.DeleteKeyPressed += new System.Windows.Forms.MethodInvoker(this.lvwConfigVars_DeleteKeyPressed);
-            this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Search for";
-            this.nameColumnHeader.Width = 243;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Replace by";
-            this.valueColumnHeader.Width = 262;
-            // 
-            // lvwActionScripts
-            // 
-            this.lvwActionScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwActionScripts.AutoResizeColumnEnabled = false;
-            this.lvwActionScripts.AutoResizeColumnIndex = 2;
-            this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.actionScriptNameColumnHeader,
-            this.columnHeader2,
-            this.columnHeader1});
-            this.lvwActionScripts.FullRowSelect = true;
-            this.lvwActionScripts.Location = new System.Drawing.Point(3, 44);
-            this.lvwActionScripts.Name = "lvwActionScripts";
-            this.lvwActionScripts.Size = new System.Drawing.Size(553, 224);
-            this.lvwActionScripts.TabIndex = 2;
-            this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
-            this.lvwActionScripts.View = System.Windows.Forms.View.Details;
-            this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
-            this.lvwActionScripts.DoubleClick += new System.EventHandler(this.editActionScriptToolStripButton_Click);
-            // 
-            // actionScriptNameColumnHeader
-            // 
-            this.actionScriptNameColumnHeader.Text = "Name";
-            this.actionScriptNameColumnHeader.Width = 226;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Type";
-            this.columnHeader2.Width = 99;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Description";
-            this.columnHeader1.Width = 204;
-            // 
             // EditCollectorHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2381,6 +2390,9 @@
             this.groupBox9.PerformLayout();
             this.correctiveScriptsGroupBox.ResumeLayout(false);
             this.correctiveScriptsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin)).EndInit();
             this.alertSuppressionGroupBox.ResumeLayout(false);
             this.alertSuppressionGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXPolls)).EndInit();
@@ -2400,9 +2412,6 @@
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

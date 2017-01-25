@@ -118,6 +118,12 @@ Version 4.4.0
 
 	Manual/example correction scripts (Action scripts)
 		Per collector host you can specify scripts that can be clicked on in the Status viewer to run for either more info or manually fixing a problem (like cleaning Temp dir e.g.)
+Version 4.4.1
+	Fix UI bug - Open monitor pack toolbar button broken
+Version 4.4.2
+	Corrective scripts have setting to limit the number of times it can run within a specified number of minutes
+Version 4.4.3
+	Fix UI bug on Collector Config Editor (resizing)
 
 
 =================================================================================================================================================
