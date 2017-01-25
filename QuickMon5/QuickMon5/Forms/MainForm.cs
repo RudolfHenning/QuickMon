@@ -24,6 +24,8 @@ namespace QuickMon5
                 ShowMenu();
             else
                 HideMenu();
+            treeView1.FullRowSelect = true;
+            treeView1.FullRowSelect = false;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -45,11 +47,13 @@ namespace QuickMon5
         {
             splitContainer1.Panel1Collapsed = false;
             splitContainer2.Panel1Collapsed = true;
+            panelSlimMenu.Visible = false;
         }
         private void HideMenu()
         {
             splitContainer1.Panel1Collapsed = true;
             splitContainer2.Panel1Collapsed = false;
+            panelSlimMenu.Visible = true;
         }
 
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
@@ -74,6 +78,7 @@ namespace QuickMon5
                 {
                     splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
                     splitContainer2.Panel1Collapsed = !splitContainer2.Panel1Collapsed;
+                    panelSlimMenu.Visible = !panelSlimMenu.Visible;
                     e.SuppressKeyPress = true;
                 }
             }
@@ -83,6 +88,11 @@ namespace QuickMon5
         {
             Properties.Settings.Default.ShowMenuOnStart = splitContainer2.Panel1Collapsed;
             Properties.Settings.Default.Save();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            ShowMenu();
         }
     }
 }
