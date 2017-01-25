@@ -140,6 +140,21 @@
   <ItemGroup>
     <None Include="Resources\OUTLLIBR_9825.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_new16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folderOpen16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tools16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info16x16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
