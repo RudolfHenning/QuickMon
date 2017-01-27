@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmdMainButton = new System.Windows.Forms.Button();
             this.cmdSideButton = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // cmdMainButton
@@ -80,5 +82,6 @@
 
         private System.Windows.Forms.Button cmdSideButton;
         private System.Windows.Forms.Button cmdMainButton;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
