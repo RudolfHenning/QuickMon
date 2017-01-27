@@ -21,11 +21,11 @@ namespace QuickMon5.Controls.SplitButton
         {
             get
             {
-                return cmdMainButton.BackgroundImage;
+                return cmdMainButton.Image;
             }
             set
             {
-                cmdMainButton.BackgroundImage = value;
+                cmdMainButton.Image = value;
             }
         }
         public ImageLayout ButtonImageLayOut
@@ -39,6 +39,87 @@ namespace QuickMon5.Controls.SplitButton
                 cmdMainButton.BackgroundImageLayout = value;
             }
         }
+
+        public ContentAlignment ButtonImageAlignment
+        {
+            get
+            {
+                return cmdMainButton.ImageAlign;
+            }
+            set
+            {
+                cmdMainButton.ImageAlign = value;
+            }
+        }
+
+        public Padding ButtonPadding
+        {
+            get
+            {
+                return cmdMainButton.Padding;
+            }
+            set
+            {
+                cmdMainButton.Padding = value;
+            }
+        }
+        public Padding ButtonMargin
+        {
+            get
+            {
+                return cmdMainButton.Margin;
+            }
+            set
+            {
+                cmdMainButton.Margin = value;
+            }
+        }
+        public string ButtonText
+        {
+            get
+            {
+                return cmdMainButton.Text;
+            }
+            set
+            {
+                cmdMainButton.Text = value;
+            }
+        }
+        public ContentAlignment ButtonTextAlign
+        {
+            get
+            {
+                return cmdMainButton.TextAlign ;
+            }
+            set
+            {
+                cmdMainButton.TextAlign = value;
+            }
+        }
+        public Font ButtonFont
+        {
+            get
+            {
+                return cmdMainButton.Font;
+            }
+            set
+            {
+                cmdMainButton.Font = value;
+            }
+        }
+
+        public string ButtonToolTip
+        {
+            get
+            {
+                return toolTip1.GetToolTip(cmdMainButton);
+            }
+            set
+            {
+                toolTip1.SetToolTip(cmdMainButton, value);
+            }
+        }
+
 
         public event EventHandler ButtonClicked;
         public event EventHandler SplitButtonClicked;

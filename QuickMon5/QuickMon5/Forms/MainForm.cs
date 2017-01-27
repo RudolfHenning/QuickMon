@@ -97,7 +97,8 @@ namespace QuickMon5
 
         private void splitButton1_ButtonClicked(object sender, EventArgs e)
         {
-            MessageBox.Show("Open");
+            
+            
         }
 
         private void splitButton1_SplitButtonClicked(object sender, EventArgs e)
