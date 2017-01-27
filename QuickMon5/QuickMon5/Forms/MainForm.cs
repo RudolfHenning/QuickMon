@@ -46,13 +46,13 @@ namespace QuickMon5
         private void ShowMenu()
         {
             splitContainer1.Panel1Collapsed = false;
-            splitContainer2.Panel1Collapsed = true;
+            //splitContainer2.Panel1Collapsed = true;
             panelSlimMenu.Visible = false;
         }
         private void HideMenu()
         {
             splitContainer1.Panel1Collapsed = true;
-            splitContainer2.Panel1Collapsed = false;
+            //splitContainer2.Panel1Collapsed = false;
             panelSlimMenu.Visible = true;
         }
 
@@ -77,7 +77,7 @@ namespace QuickMon5
                 if (e.KeyCode == Keys.M)
                 {
                     splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
-                    splitContainer2.Panel1Collapsed = !splitContainer2.Panel1Collapsed;
+                    //splitContainer2.Panel1Collapsed = !splitContainer2.Panel1Collapsed;
                     panelSlimMenu.Visible = !panelSlimMenu.Visible;
                     e.SuppressKeyPress = true;
                 }
@@ -86,13 +86,23 @@ namespace QuickMon5
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.ShowMenuOnStart = splitContainer2.Panel1Collapsed;
+            Properties.Settings.Default.ShowMenuOnStart = !splitContainer1.Panel1Collapsed;
             Properties.Settings.Default.Save();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             ShowMenu();
+        }
+
+        private void splitButton1_ButtonClicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("Open");
+        }
+
+        private void splitButton1_SplitButtonClicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("Recent");
         }
     }
 }
