@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.cmdMainButton = new System.Windows.Forms.Button();
-            this.cmdSideButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cmdSideButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmdMainButton
@@ -43,8 +43,10 @@
             this.cmdMainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMainButton.Location = new System.Drawing.Point(0, 0);
             this.cmdMainButton.Name = "cmdMainButton";
-            this.cmdMainButton.Size = new System.Drawing.Size(31, 31);
-            this.cmdMainButton.TabIndex = 1;
+            this.cmdMainButton.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
+            this.cmdMainButton.Size = new System.Drawing.Size(59, 31);
+            this.cmdMainButton.TabIndex = 0;
+            this.cmdMainButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cmdMainButton.UseVisualStyleBackColor = false;
             this.cmdMainButton.Click += new System.EventHandler(this.cmdMainButton_Click);
             // 
@@ -58,11 +60,11 @@
             this.cmdSideButton.FlatAppearance.BorderSize = 0;
             this.cmdSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSideButton.Location = new System.Drawing.Point(31, 0);
+            this.cmdSideButton.Location = new System.Drawing.Point(59, 0);
             this.cmdSideButton.Margin = new System.Windows.Forms.Padding(0);
             this.cmdSideButton.Name = "cmdSideButton";
             this.cmdSideButton.Size = new System.Drawing.Size(10, 31);
-            this.cmdSideButton.TabIndex = 0;
+            this.cmdSideButton.TabIndex = 1;
             this.cmdSideButton.UseVisualStyleBackColor = false;
             this.cmdSideButton.Click += new System.EventHandler(this.cmdSideButton_Click);
             // 
@@ -73,7 +75,7 @@
             this.Controls.Add(this.cmdMainButton);
             this.Controls.Add(this.cmdSideButton);
             this.Name = "SplitButton";
-            this.Size = new System.Drawing.Size(41, 31);
+            this.Size = new System.Drawing.Size(69, 31);
             this.ResumeLayout(false);
 
         }

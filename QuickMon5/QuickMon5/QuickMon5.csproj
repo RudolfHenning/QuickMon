@@ -167,6 +167,27 @@
   <ItemGroup>
     <None Include="Resources\smlrightTriangle.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_new1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folderOpen24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tools24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveAs24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes24x24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

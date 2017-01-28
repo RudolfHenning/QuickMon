@@ -105,5 +105,60 @@ namespace QuickMon5
         {
             MessageBox.Show("Recent");
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (panelSlimMenu.Width != 45)
+            {
+                panelSlimMenu.Width = 45;
+                cmdMenu.Text = "";
+                cmdNew.Text = "";
+                splitButtonOpen.ButtonText = "";
+                splitButtonSave.ButtonText = "";
+                splitButtonTools.ButtonText = "";
+                splitButtonInfo.ButtonText = "";
+            }
+            else
+            {
+                panelSlimMenu.Width = 105;
+                cmdMenu.Text = " Menu";
+                cmdNew.Text = " New";
+                splitButtonOpen.ButtonText = " Open";
+                splitButtonSave.ButtonText = " Save";
+                splitButtonTools.ButtonText = " Settings";
+                splitButtonInfo.ButtonText = " About";
+            }
+        }
+
+        private void splitButtonSave_SplitButtonClicked(object sender, EventArgs e)
+        {
+            saveContextMenuStrip.Show(splitButtonSave, new Point(splitButtonSave.Width, 0));
+        }
+
+        private void cmdMenu_Click(object sender, EventArgs e)
+        {
+            if (panelSlimMenu.Width != 45)
+            {
+                panelSlimMenu.Width = 45;
+                cmdMenu.Text = "";
+                cmdNew.Text = "";
+                splitButtonOpen.ButtonText = "";
+                splitButtonSave.ButtonText = "";
+                splitButtonAgents.ButtonText = "";
+                splitButtonTools.ButtonText = "";
+                splitButtonInfo.ButtonText = "";
+            }
+            else
+            {
+                panelSlimMenu.Width = 105;
+                cmdMenu.Text = " Menu";
+                cmdNew.Text = " New";
+                splitButtonOpen.ButtonText = " Open";
+                splitButtonSave.ButtonText = " Save";
+                splitButtonAgents.ButtonText = " Agents";
+                splitButtonTools.ButtonText = " Settings";
+                splitButtonInfo.ButtonText = " About";
+            }
+        }
     }
 }

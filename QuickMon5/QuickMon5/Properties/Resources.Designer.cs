@@ -73,6 +73,16 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cubes24x24 {
+            get {
+                object obj = ResourceManager.GetObject("cubes24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cubes3 {
             get {
                 object obj = ResourceManager.GetObject("cubes3", resourceCulture);
@@ -86,6 +96,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap doc_new {
             get {
                 object obj = ResourceManager.GetObject("doc_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_new1 {
+            get {
+                object obj = ResourceManager.GetObject("doc_new1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +136,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap folderOpen16x16 {
             get {
                 object obj = ResourceManager.GetObject("folderOpen16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folderOpen24x24 {
+            get {
+                object obj = ResourceManager.GetObject("folderOpen24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +186,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap info16x16 {
             get {
                 object obj = ResourceManager.GetObject("info16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info24x24 {
+            get {
+                object obj = ResourceManager.GetObject("info24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,6 +313,26 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap save24x24 {
+            get {
+                object obj = ResourceManager.GetObject("save24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaveAs24x24 {
+            get {
+                object obj = ResourceManager.GetObject("SaveAs24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap smlrightTriangle {
             get {
                 object obj = ResourceManager.GetObject("smlrightTriangle", resourceCulture);
@@ -306,6 +366,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap tools16x16 {
             get {
                 object obj = ResourceManager.GetObject("tools16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tools24x24 {
+            get {
+                object obj = ResourceManager.GetObject("tools24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
