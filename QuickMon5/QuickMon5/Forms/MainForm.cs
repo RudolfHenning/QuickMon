@@ -20,41 +20,15 @@ namespace QuickMon5
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Ξ
-            if (Properties.Settings.Default.ShowMenuOnStart)
-                ShowMenu();
-            else
-                HideMenu();
+            //if (Properties.Settings.Default.ShowMenuOnStart)
+            //    ShowMenu();
+            //else
+            //    HideMenu();
             treeView1.FullRowSelect = true;
             treeView1.FullRowSelect = false;
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            HideMenu();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            ShowMenu();
-        }
-
-        private void ShowMenu()
-        {
-            splitContainer1.Panel1Collapsed = false;
-            //splitContainer2.Panel1Collapsed = true;
-            panelSlimMenu.Visible = false;
-        }
-        private void HideMenu()
-        {
-            splitContainer1.Panel1Collapsed = true;
-            //splitContainer2.Panel1Collapsed = false;
-            panelSlimMenu.Visible = true;
-        }
+             
 
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -76,9 +50,7 @@ namespace QuickMon5
             {
                 if (e.KeyCode == Keys.M)
                 {
-                    splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
-                    //splitContainer2.Panel1Collapsed = !splitContainer2.Panel1Collapsed;
-                    panelSlimMenu.Visible = !panelSlimMenu.Visible;
+                    ToggleMenuSize();
                     e.SuppressKeyPress = true;
                 }
             }
@@ -86,56 +58,21 @@ namespace QuickMon5
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.ShowMenuOnStart = !splitContainer1.Panel1Collapsed;
+            //Properties.Settings.Default.ShowMenuOnStart = !splitContainer1.Panel1Collapsed;
             Properties.Settings.Default.Save();
         }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            ShowMenu();
-        }
-
-        private void splitButton1_ButtonClicked(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void splitButton1_SplitButtonClicked(object sender, EventArgs e)
-        {
-            MessageBox.Show("Recent");
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            if (panelSlimMenu.Width != 45)
-            {
-                panelSlimMenu.Width = 45;
-                cmdMenu.Text = "";
-                cmdNew.Text = "";
-                splitButtonOpen.ButtonText = "";
-                splitButtonSave.ButtonText = "";
-                splitButtonTools.ButtonText = "";
-                splitButtonInfo.ButtonText = "";
-            }
-            else
-            {
-                panelSlimMenu.Width = 105;
-                cmdMenu.Text = " Menu";
-                cmdNew.Text = " New";
-                splitButtonOpen.ButtonText = " Open";
-                splitButtonSave.ButtonText = " Save";
-                splitButtonTools.ButtonText = " Settings";
-                splitButtonInfo.ButtonText = " About";
-            }
-        }
-
+        
         private void splitButtonSave_SplitButtonClicked(object sender, EventArgs e)
         {
             saveContextMenuStrip.Show(splitButtonSave, new Point(splitButtonSave.Width, 0));
         }
 
         private void cmdMenu_Click(object sender, EventArgs e)
+        {
+            ToggleMenuSize();
+        }
+
+        private void ToggleMenuSize()
         {
             if (panelSlimMenu.Width != 45)
             {
@@ -159,6 +96,31 @@ namespace QuickMon5
                 splitButtonTools.ButtonText = " Settings";
                 splitButtonInfo.ButtonText = " About";
             }
+        }
+
+        private void splitButtonOpen_ButtonClicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void splitButton1_SplitButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitButtonOpen_SplitButtonClicked(object sender, EventArgs e)
+        {
+            openContextMenuStrip.Show(splitButtonOpen, new Point(splitButtonOpen.Width, 0));
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void splitButtonAgents_SplitButtonClicked(object sender, EventArgs e)
+        {
+            agentsContextMenuStrip.Show(splitButtonAgents, new Point(splitButtonAgents.Width, 0));
         }
     }
 }

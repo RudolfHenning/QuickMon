@@ -63,9 +63,29 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add {
+            get {
+                object obj = ResourceManager.GetObject("add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clock {
             get {
                 object obj = ResourceManager.GetObject("clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap comp_search24 {
+            get {
+                object obj = ResourceManager.GetObject("comp_search24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,6 +106,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap cubes3 {
             get {
                 object obj = ResourceManager.GetObject("cubes3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_edit24x24 {
+            get {
+                object obj = ResourceManager.GetObject("doc_edit24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +186,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap folderWLightning {
             get {
                 object obj = ResourceManager.GetObject("folderWLightning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folderWLightning1 {
+            get {
+                object obj = ResourceManager.GetObject("folderWLightning1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -336,6 +376,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap smlrightTriangle {
             get {
                 object obj = ResourceManager.GetObject("smlrightTriangle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stop24x24 {
+            get {
+                object obj = ResourceManager.GetObject("stop24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
