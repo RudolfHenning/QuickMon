@@ -103,6 +103,16 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap comp_web24x24 {
+            get {
+                object obj = ResourceManager.GetObject("comp_web24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cubes24x24 {
             get {
                 object obj = ResourceManager.GetObject("cubes24x24", resourceCulture);
@@ -296,6 +306,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap QuickMon5Background2 {
             get {
                 object obj = ResourceManager.GetObject("QuickMon5Background2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QuickMon5Background3 {
+            get {
+                object obj = ResourceManager.GetObject("QuickMon5Background3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
