@@ -42,14 +42,11 @@
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.collectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.aboutContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panelSlimMenu = new System.Windows.Forms.Panel();
-            this.splitButtonInfo = new QuickMon5.Controls.SplitButton.SplitButton();
-            this.splitButtonTools = new QuickMon5.Controls.SplitButton.SplitButton();
-            this.splitButtonAgents = new QuickMon5.Controls.SplitButton.SplitButton();
-            this.splitButtonSave = new QuickMon5.Controls.SplitButton.SplitButton();
-            this.splitButtonOpen = new QuickMon5.Controls.SplitButton.SplitButton();
             this.cmdNew = new System.Windows.Forms.Button();
             this.cmdMenu = new System.Windows.Forms.Button();
             this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,10 +55,25 @@
             this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitButtonInfo = new QuickMon5.Controls.SplitButton.SplitButton();
+            this.splitButtonTools = new QuickMon5.Controls.SplitButton.SplitButton();
+            this.splitButtonAgents = new QuickMon5.Controls.SplitButton.SplitButton();
+            this.splitButtonSave = new QuickMon5.Controls.SplitButton.SplitButton();
+            this.splitButtonOpen = new QuickMon5.Controls.SplitButton.SplitButton();
+            this.addNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.agentsContextMenuStrip.SuspendLayout();
+            this.settingsContextMenuStrip.SuspendLayout();
+            this.aboutContextMenuStrip.SuspendLayout();
             this.panelSlimMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,8 +90,8 @@
             // 
             this.imageListTreeView.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTreeView.ImageStream")));
             this.imageListTreeView.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListTreeView.Images.SetKeyName(0, "folder-24.png");
-            this.imageListTreeView.Images.SetKeyName(1, "folder_32a.png");
+            this.imageListTreeView.Images.SetKeyName(0, "open_folder_blue24x24.png");
+            this.imageListTreeView.Images.SetKeyName(1, "folder-24.png");
             // 
             // saveContextMenuStrip
             // 
@@ -95,7 +107,7 @@
             this.openContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.openContextMenuStrip.Name = "saveContextMenuStrip";
-            this.openContextMenuStrip.Size = new System.Drawing.Size(198, 34);
+            this.openContextMenuStrip.Size = new System.Drawing.Size(239, 34);
             // 
             // panel1
             // 
@@ -126,6 +138,7 @@
             // 
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.FullRowSelect = true;
             this.treeView1.ImageIndex = 0;
             this.treeView1.ImageList = this.imageListTreeView;
             this.treeView1.Location = new System.Drawing.Point(45, 40);
@@ -148,7 +161,7 @@
             this.collectorsToolStripMenuItem,
             this.notifiersToolStripMenuItem});
             this.agentsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.agentsContextMenuStrip.Size = new System.Drawing.Size(128, 48);
+            this.agentsContextMenuStrip.Size = new System.Drawing.Size(153, 70);
             // 
             // collectorsToolStripMenuItem
             // 
@@ -158,14 +171,37 @@
             this.deleteToolStripMenuItem,
             this.detailsToolStripMenuItem});
             this.collectorsToolStripMenuItem.Name = "collectorsToolStripMenuItem";
-            this.collectorsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.collectorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.collectorsToolStripMenuItem.Text = "Collectors";
             // 
             // notifiersToolStripMenuItem
             // 
+            this.notifiersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNotifierToolStripMenuItem,
+            this.editNotifierToolStripMenuItem,
+            this.deleteNotifierToolStripMenuItem,
+            this.detailsNotifierToolStripMenuItem});
             this.notifiersToolStripMenuItem.Name = "notifiersToolStripMenuItem";
-            this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.notifiersToolStripMenuItem.Text = "Notifiers";
+            // 
+            // settingsContextMenuStrip
+            // 
+            this.settingsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.settingsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pollingToolStripMenuItem,
+            this.templatesToolStripMenuItem,
+            this.adminModeToolStripMenuItem});
+            this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
+            this.settingsContextMenuStrip.Size = new System.Drawing.Size(153, 94);
+            // 
+            // aboutContextMenuStrip
+            // 
+            this.aboutContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.aboutContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.remoteHostsToolStripMenuItem});
+            this.aboutContextMenuStrip.Name = "saveContextMenuStrip";
+            this.aboutContextMenuStrip.Size = new System.Drawing.Size(200, 34);
             // 
             // button3
             // 
@@ -218,103 +254,6 @@
             this.panelSlimMenu.Size = new System.Drawing.Size(45, 355);
             this.panelSlimMenu.TabIndex = 2;
             // 
-            // splitButtonInfo
-            // 
-            this.splitButtonInfo.BackColor = System.Drawing.Color.Transparent;
-            this.splitButtonInfo.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitButtonInfo.ButtonImage = global::QuickMon5.Properties.Resources.info24x24;
-            this.splitButtonInfo.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonInfo.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitButtonInfo.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitButtonInfo.ButtonPadding = new System.Windows.Forms.Padding(0);
-            this.splitButtonInfo.ButtonText = "";
-            this.splitButtonInfo.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonInfo.ButtonToolTip = "Open existing monitor pack (CTRL + O)";
-            this.splitButtonInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonInfo.Location = new System.Drawing.Point(0, 187);
-            this.splitButtonInfo.Name = "splitButtonInfo";
-            this.splitButtonInfo.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonInfo.TabIndex = 6;
-            // 
-            // splitButtonTools
-            // 
-            this.splitButtonTools.BackColor = System.Drawing.Color.Transparent;
-            this.splitButtonTools.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitButtonTools.ButtonImage = global::QuickMon5.Properties.Resources.tools24x24;
-            this.splitButtonTools.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonTools.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitButtonTools.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitButtonTools.ButtonPadding = new System.Windows.Forms.Padding(0);
-            this.splitButtonTools.ButtonText = "";
-            this.splitButtonTools.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonTools.ButtonToolTip = "Open existing monitor pack (CTRL + O)";
-            this.splitButtonTools.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonTools.Location = new System.Drawing.Point(0, 156);
-            this.splitButtonTools.Name = "splitButtonTools";
-            this.splitButtonTools.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonTools.TabIndex = 5;
-            // 
-            // splitButtonAgents
-            // 
-            this.splitButtonAgents.BackColor = System.Drawing.Color.Transparent;
-            this.splitButtonAgents.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitButtonAgents.ButtonImage = global::QuickMon5.Properties.Resources.cubes24x24;
-            this.splitButtonAgents.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonAgents.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitButtonAgents.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitButtonAgents.ButtonPadding = new System.Windows.Forms.Padding(0);
-            this.splitButtonAgents.ButtonText = "";
-            this.splitButtonAgents.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonAgents.ButtonToolTip = "Open existing monitor pack (CTRL + O)";
-            this.splitButtonAgents.ContextMenuStrip = this.agentsContextMenuStrip;
-            this.splitButtonAgents.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonAgents.Location = new System.Drawing.Point(0, 125);
-            this.splitButtonAgents.Name = "splitButtonAgents";
-            this.splitButtonAgents.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonAgents.TabIndex = 4;
-            this.splitButtonAgents.SplitButtonClicked += new System.EventHandler(this.splitButtonAgents_SplitButtonClicked);
-            // 
-            // splitButtonSave
-            // 
-            this.splitButtonSave.BackColor = System.Drawing.Color.Transparent;
-            this.splitButtonSave.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitButtonSave.ButtonImage = global::QuickMon5.Properties.Resources.save24x24;
-            this.splitButtonSave.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonSave.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitButtonSave.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitButtonSave.ButtonPadding = new System.Windows.Forms.Padding(0);
-            this.splitButtonSave.ButtonText = "";
-            this.splitButtonSave.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonSave.ButtonToolTip = "Open existing monitor pack (CTRL + O)";
-            this.splitButtonSave.ContextMenuStrip = this.saveContextMenuStrip;
-            this.splitButtonSave.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonSave.Location = new System.Drawing.Point(0, 94);
-            this.splitButtonSave.Name = "splitButtonSave";
-            this.splitButtonSave.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonSave.TabIndex = 3;
-            this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
-            // 
-            // splitButtonOpen
-            // 
-            this.splitButtonOpen.BackColor = System.Drawing.Color.Transparent;
-            this.splitButtonOpen.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitButtonOpen.ButtonImage = global::QuickMon5.Properties.Resources.folderOpen24x24;
-            this.splitButtonOpen.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonOpen.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitButtonOpen.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitButtonOpen.ButtonPadding = new System.Windows.Forms.Padding(0);
-            this.splitButtonOpen.ButtonText = "";
-            this.splitButtonOpen.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.splitButtonOpen.ButtonToolTip = "Open existing monitor pack (CTRL + O)";
-            this.splitButtonOpen.ContextMenuStrip = this.openContextMenuStrip;
-            this.splitButtonOpen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitButtonOpen.Location = new System.Drawing.Point(0, 63);
-            this.splitButtonOpen.Name = "splitButtonOpen";
-            this.splitButtonOpen.Size = new System.Drawing.Size(45, 31);
-            this.splitButtonOpen.TabIndex = 2;
-            this.splitButtonOpen.ButtonClicked += new System.EventHandler(this.splitButtonOpen_ButtonClicked);
-            this.splitButtonOpen.SplitButtonClicked += new System.EventHandler(this.splitButtonOpen_SplitButtonClicked);
-            // 
             // cmdNew
             // 
             this.cmdNew.BackColor = System.Drawing.Color.Transparent;
@@ -330,6 +269,7 @@
             this.cmdNew.Size = new System.Drawing.Size(45, 30);
             this.cmdNew.TabIndex = 1;
             this.cmdNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdNew, "New  CTRL+N");
             this.cmdNew.UseVisualStyleBackColor = false;
             // 
             // cmdMenu
@@ -350,7 +290,7 @@
             this.cmdMenu.TabIndex = 0;
             this.cmdMenu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdMenu, "Menu (CTRL + M)");
+            this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
             this.cmdMenu.UseVisualStyleBackColor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
             // 
@@ -365,7 +305,8 @@
             // 
             this.toolStripMenuItem1.Image = global::QuickMon5.Properties.Resources.folderWLightning1;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(197, 30);
+            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(238, 30);
             this.toolStripMenuItem1.Text = "Recent Monitor Packs";
             // 
             // addCollectorToolStripMenuItem
@@ -396,6 +337,165 @@
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.detailsToolStripMenuItem.Text = "Details";
             // 
+            // pollingToolStripMenuItem
+            // 
+            this.pollingToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.clock24x24;
+            this.pollingToolStripMenuItem.Name = "pollingToolStripMenuItem";
+            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.pollingToolStripMenuItem.Text = "Polling";
+            // 
+            // templatesToolStripMenuItem
+            // 
+            this.templatesToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.tables24x24;
+            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.templatesToolStripMenuItem.Text = "Templates";
+            // 
+            // adminModeToolStripMenuItem
+            // 
+            this.adminModeToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.Shield24x24;
+            this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
+            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.adminModeToolStripMenuItem.Text = "Admin mode";
+            // 
+            // remoteHostsToolStripMenuItem
+            // 
+            this.remoteHostsToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.remote24x24;
+            this.remoteHostsToolStripMenuItem.Name = "remoteHostsToolStripMenuItem";
+            this.remoteHostsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.remoteHostsToolStripMenuItem.Size = new System.Drawing.Size(199, 30);
+            this.remoteHostsToolStripMenuItem.Text = "Remote Hosts";
+            // 
+            // splitButtonInfo
+            // 
+            this.splitButtonInfo.BackColor = System.Drawing.Color.Transparent;
+            this.splitButtonInfo.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButtonInfo.ButtonImage = global::QuickMon5.Properties.Resources.info24x24;
+            this.splitButtonInfo.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonInfo.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitButtonInfo.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.splitButtonInfo.ButtonPadding = new System.Windows.Forms.Padding(0);
+            this.splitButtonInfo.ButtonText = "";
+            this.splitButtonInfo.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonInfo.ButtonToolTip = "About";
+            this.splitButtonInfo.ContextMenuStrip = this.aboutContextMenuStrip;
+            this.splitButtonInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonInfo.Location = new System.Drawing.Point(0, 187);
+            this.splitButtonInfo.Name = "splitButtonInfo";
+            this.splitButtonInfo.Size = new System.Drawing.Size(45, 31);
+            this.splitButtonInfo.TabIndex = 6;
+            this.splitButtonInfo.SplitButtonClicked += new System.EventHandler(this.splitButtonInfo_SplitButtonClicked);
+            // 
+            // splitButtonTools
+            // 
+            this.splitButtonTools.BackColor = System.Drawing.Color.Transparent;
+            this.splitButtonTools.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButtonTools.ButtonImage = global::QuickMon5.Properties.Resources.tools24x24;
+            this.splitButtonTools.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonTools.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitButtonTools.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.splitButtonTools.ButtonPadding = new System.Windows.Forms.Padding(0);
+            this.splitButtonTools.ButtonText = "";
+            this.splitButtonTools.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonTools.ButtonToolTip = "Settings  CTRL+E ";
+            this.splitButtonTools.ContextMenuStrip = this.settingsContextMenuStrip;
+            this.splitButtonTools.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonTools.Location = new System.Drawing.Point(0, 156);
+            this.splitButtonTools.Name = "splitButtonTools";
+            this.splitButtonTools.Size = new System.Drawing.Size(45, 31);
+            this.splitButtonTools.TabIndex = 5;
+            this.splitButtonTools.SplitButtonClicked += new System.EventHandler(this.splitButtonTools_SplitButtonClicked);
+            // 
+            // splitButtonAgents
+            // 
+            this.splitButtonAgents.BackColor = System.Drawing.Color.Transparent;
+            this.splitButtonAgents.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButtonAgents.ButtonImage = global::QuickMon5.Properties.Resources.cubes24x24;
+            this.splitButtonAgents.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonAgents.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitButtonAgents.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.splitButtonAgents.ButtonPadding = new System.Windows.Forms.Padding(0);
+            this.splitButtonAgents.ButtonText = "";
+            this.splitButtonAgents.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonAgents.ButtonToolTip = "Agents";
+            this.splitButtonAgents.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.splitButtonAgents.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonAgents.Location = new System.Drawing.Point(0, 125);
+            this.splitButtonAgents.Name = "splitButtonAgents";
+            this.splitButtonAgents.Size = new System.Drawing.Size(45, 31);
+            this.splitButtonAgents.TabIndex = 4;
+            this.splitButtonAgents.SplitButtonClicked += new System.EventHandler(this.splitButtonAgents_SplitButtonClicked);
+            // 
+            // splitButtonSave
+            // 
+            this.splitButtonSave.BackColor = System.Drawing.Color.Transparent;
+            this.splitButtonSave.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButtonSave.ButtonImage = global::QuickMon5.Properties.Resources.save24x24;
+            this.splitButtonSave.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonSave.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitButtonSave.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.splitButtonSave.ButtonPadding = new System.Windows.Forms.Padding(0);
+            this.splitButtonSave.ButtonText = "";
+            this.splitButtonSave.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonSave.ButtonToolTip = "Save  CTRL+S";
+            this.splitButtonSave.ContextMenuStrip = this.saveContextMenuStrip;
+            this.splitButtonSave.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonSave.Location = new System.Drawing.Point(0, 94);
+            this.splitButtonSave.Name = "splitButtonSave";
+            this.splitButtonSave.Size = new System.Drawing.Size(45, 31);
+            this.splitButtonSave.TabIndex = 3;
+            this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
+            // 
+            // splitButtonOpen
+            // 
+            this.splitButtonOpen.BackColor = System.Drawing.Color.Transparent;
+            this.splitButtonOpen.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButtonOpen.ButtonImage = global::QuickMon5.Properties.Resources.folderOpen24x24;
+            this.splitButtonOpen.ButtonImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonOpen.ButtonImageLayOut = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitButtonOpen.ButtonMargin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.splitButtonOpen.ButtonPadding = new System.Windows.Forms.Padding(0);
+            this.splitButtonOpen.ButtonText = "";
+            this.splitButtonOpen.ButtonTextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButtonOpen.ButtonToolTip = "Open CTRL+O";
+            this.splitButtonOpen.ContextMenuStrip = this.openContextMenuStrip;
+            this.splitButtonOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitButtonOpen.Location = new System.Drawing.Point(0, 63);
+            this.splitButtonOpen.Name = "splitButtonOpen";
+            this.splitButtonOpen.Size = new System.Drawing.Size(45, 31);
+            this.splitButtonOpen.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.splitButtonOpen, "Open  CTRL+O");
+            this.splitButtonOpen.ButtonClicked += new System.EventHandler(this.splitButtonOpen_ButtonClicked);
+            this.splitButtonOpen.SplitButtonClicked += new System.EventHandler(this.splitButtonOpen_SplitButtonClicked);
+            // 
+            // addNotifierToolStripMenuItem
+            // 
+            this.addNotifierToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.add;
+            this.addNotifierToolStripMenuItem.Name = "addNotifierToolStripMenuItem";
+            this.addNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.addNotifierToolStripMenuItem.Text = "Add";
+            // 
+            // editNotifierToolStripMenuItem
+            // 
+            this.editNotifierToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.doc_edit24x24;
+            this.editNotifierToolStripMenuItem.Name = "editNotifierToolStripMenuItem";
+            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.editNotifierToolStripMenuItem.Text = "Edit";
+            // 
+            // deleteNotifierToolStripMenuItem
+            // 
+            this.deleteNotifierToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.stop24x24;
+            this.deleteNotifierToolStripMenuItem.Name = "deleteNotifierToolStripMenuItem";
+            this.deleteNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.deleteNotifierToolStripMenuItem.Text = "Delete";
+            // 
+            // detailsNotifierToolStripMenuItem
+            // 
+            this.detailsNotifierToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.comp_search24;
+            this.detailsNotifierToolStripMenuItem.Name = "detailsNotifierToolStripMenuItem";
+            this.detailsNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.detailsNotifierToolStripMenuItem.Text = "Details";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,6 +518,8 @@
             this.openContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.agentsContextMenuStrip.ResumeLayout(false);
+            this.settingsContextMenuStrip.ResumeLayout(false);
+            this.aboutContextMenuStrip.ResumeLayout(false);
             this.panelSlimMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -453,6 +555,16 @@
         private System.Windows.Forms.ToolStripMenuItem editCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip settingsContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem pollingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem templatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adminModeToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip aboutContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem remoteHostsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addNotifierToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editNotifierToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteNotifierToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detailsNotifierToolStripMenuItem;
     }
 }
 

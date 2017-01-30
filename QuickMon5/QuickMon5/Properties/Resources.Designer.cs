@@ -83,6 +83,16 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clock24x24 {
+            get {
+                object obj = ResourceManager.GetObject("clock24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap comp_search24 {
             get {
                 object obj = ResourceManager.GetObject("comp_search24", resourceCulture);
@@ -323,6 +333,16 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap remote24x24 {
+            get {
+                object obj = ResourceManager.GetObject("remote24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
@@ -373,6 +393,16 @@ namespace QuickMon5.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Shield24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Shield24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap smlrightTriangle {
             get {
                 object obj = ResourceManager.GetObject("smlrightTriangle", resourceCulture);
@@ -396,6 +426,16 @@ namespace QuickMon5.Properties {
         internal static System.Drawing.Bitmap tables {
             get {
                 object obj = ResourceManager.GetObject("tables", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tables24x24 {
+            get {
+                object obj = ResourceManager.GetObject("tables24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
