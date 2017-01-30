@@ -79,7 +79,7 @@ namespace QuickMon5
                 panelSlimMenu.Width = 45;
                 cmdMenu.Text = "";
                 cmdNew.Text = "";
-                splitButtonOpen.ButtonText = "";
+                cmdOpen.Text = "";
                 splitButtonSave.ButtonText = "";
                 splitButtonAgents.ButtonText = "";
                 splitButtonTools.ButtonText = "";
@@ -90,7 +90,7 @@ namespace QuickMon5
                 panelSlimMenu.Width = 105;
                 cmdMenu.Text = " Menu";
                 cmdNew.Text = " New";
-                splitButtonOpen.ButtonText = " Open";
+                cmdOpen.Text = " Open";
                 splitButtonSave.ButtonText = " Save";
                 splitButtonAgents.ButtonText = " Agents";
                 splitButtonTools.ButtonText = " Settings";
@@ -101,12 +101,6 @@ namespace QuickMon5
         private void splitButtonOpen_ButtonClicked(object sender, EventArgs e)
         {
             
-        }
-
-
-        private void splitButtonOpen_SplitButtonClicked(object sender, EventArgs e)
-        {
-            openContextMenuStrip.Show(splitButtonOpen, new Point(splitButtonOpen.Width, 0));
         }
 
         private void splitButtonAgents_SplitButtonClicked(object sender, EventArgs e)
