@@ -203,6 +203,18 @@
   <ItemGroup>
     <None Include="Resources\comp_search24.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tables24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shield24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remote24x24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

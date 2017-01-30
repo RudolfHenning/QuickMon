@@ -20,8 +20,8 @@ namespace QuickMon5
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Ξ
-            //if (Properties.Settings.Default.ShowMenuOnStart)
-            //    ShowMenu();
+            if (Properties.Settings.Default.ShowMenuOnStart)
+                ToggleMenuSize();
             //else
             //    HideMenu();
             treeView1.FullRowSelect = true;
@@ -58,7 +58,7 @@ namespace QuickMon5
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Properties.Settings.Default.ShowMenuOnStart = !splitContainer1.Panel1Collapsed;
+            Properties.Settings.Default.ShowMenuOnStart = (panelSlimMenu.Width != 45);
             Properties.Settings.Default.Save();
         }
         
@@ -103,24 +103,25 @@ namespace QuickMon5
             
         }
 
-        private void splitButton1_SplitButtonClicked(object sender, EventArgs e)
-        {
-
-        }
 
         private void splitButtonOpen_SplitButtonClicked(object sender, EventArgs e)
         {
             openContextMenuStrip.Show(splitButtonOpen, new Point(splitButtonOpen.Width, 0));
         }
 
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void splitButtonAgents_SplitButtonClicked(object sender, EventArgs e)
         {
             agentsContextMenuStrip.Show(splitButtonAgents, new Point(splitButtonAgents.Width, 0));
+        }
+
+        private void splitButtonTools_SplitButtonClicked(object sender, EventArgs e)
+        {
+            settingsContextMenuStrip.Show(splitButtonTools, new Point(splitButtonTools.Width, 0));
+        }
+
+        private void splitButtonInfo_SplitButtonClicked(object sender, EventArgs e)
+        {
+            aboutContextMenuStrip.Show(splitButtonInfo, new Point(splitButtonInfo.Width , 0));
         }
     }
 }
