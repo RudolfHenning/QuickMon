@@ -55,6 +55,12 @@
     <Compile Include="Controls\SplitButton\SplitButton.Designer.cs">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeViewEx\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeViewEx\TreeViewExBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
