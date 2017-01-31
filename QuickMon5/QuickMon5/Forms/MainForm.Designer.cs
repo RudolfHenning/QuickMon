@@ -1,4 +1,7 @@
-﻿namespace QuickMon5
+﻿using QuickMon;
+using QuickMon.Controls;
+
+namespace QuickMon5
 {
     partial class MainForm
     {
@@ -30,12 +33,13 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Health");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Health", 3, 3);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Ping localhost", new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Health");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Health", 4, 4);
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Ping server", new System.Windows.Forms.TreeNode[] {
             treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("NOTIFIERS");
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
             this.saveContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -48,7 +52,6 @@
             this.cmdOpen = new System.Windows.Forms.Button();
             this.cmdNew = new System.Windows.Forms.Button();
             this.cmdMenu = new System.Windows.Forms.Button();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.collectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,14 +72,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panelSlimMenu = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.optCollectors = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
+            this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
+            this.treeView1 = new QuickMon.Controls.TreeViewExBase();
+            this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
             this.splitButtonInfo = new QuickMon5.Controls.SplitButton.SplitButton();
             this.splitButtonTools = new QuickMon5.Controls.SplitButton.SplitButton();
             this.splitButtonAgents = new QuickMon5.Controls.SplitButton.SplitButton();
             this.splitButtonSave = new QuickMon5.Controls.SplitButton.SplitButton();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblCollectors = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
             this.agentsContextMenuStrip.SuspendLayout();
@@ -84,15 +90,19 @@
             this.aboutContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelSlimMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).BeginInit();
+            this.masterSplitContainer.Panel1.SuspendLayout();
+            this.masterSplitContainer.Panel2.SuspendLayout();
+            this.masterSplitContainer.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.White;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 289);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 465);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(334, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(505, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -151,7 +161,7 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(219, 0);
+            this.button3.Location = new System.Drawing.Point(390, 0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(35, 40);
             this.button3.TabIndex = 1;
@@ -168,7 +178,7 @@
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(254, 0);
+            this.button2.Location = new System.Drawing.Point(425, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(35, 40);
             this.button2.TabIndex = 2;
@@ -232,33 +242,6 @@
             this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
             this.cmdMenu.UseVisualStyleBackColor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
-            // 
-            // treeView1
-            // 
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageListTreeView;
-            this.treeView1.Location = new System.Drawing.Point(45, 40);
-            this.treeView1.Name = "treeView1";
-            treeNode1.ImageIndex = 3;
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Health";
-            treeNode2.Name = "Node0";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "Ping localhost";
-            treeNode3.ImageIndex = 4;
-            treeNode3.Name = "Node2";
-            treeNode3.Text = "Health";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Ping server";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4});
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(289, 226);
-            this.treeView1.TabIndex = 0;
             // 
             // agentsContextMenuStrip
             // 
@@ -404,7 +387,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(45, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(289, 40);
+            this.panel1.Size = new System.Drawing.Size(460, 40);
             this.panel1.TabIndex = 3;
             // 
             // linkLabel1
@@ -415,7 +398,7 @@
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabel1.Location = new System.Drawing.Point(0, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(219, 40);
+            this.linkLabel1.Size = new System.Drawing.Size(390, 40);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "<New Monitor Pack>";
@@ -435,56 +418,119 @@
             this.panelSlimMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSlimMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSlimMenu.Name = "panelSlimMenu";
-            this.panelSlimMenu.Size = new System.Drawing.Size(45, 289);
+            this.panelSlimMenu.Size = new System.Drawing.Size(45, 465);
             this.panelSlimMenu.TabIndex = 2;
             // 
-            // panel2
+            // masterSplitContainer
             // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.radioButton1);
-            this.panel2.Controls.Add(this.optCollectors);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(45, 266);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(289, 23);
-            this.panel2.TabIndex = 5;
+            this.masterSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.masterSplitContainer.Location = new System.Drawing.Point(45, 40);
+            this.masterSplitContainer.Name = "masterSplitContainer";
+            this.masterSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // optCollectors
+            // masterSplitContainer.Panel1
             // 
-            this.optCollectors.BackColor = System.Drawing.Color.White;
-            this.optCollectors.Checked = true;
-            this.optCollectors.Dock = System.Windows.Forms.DockStyle.Left;
-            this.optCollectors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.optCollectors.Location = new System.Drawing.Point(38, 0);
-            this.optCollectors.Name = "optCollectors";
-            this.optCollectors.Size = new System.Drawing.Size(80, 23);
-            this.optCollectors.TabIndex = 0;
-            this.optCollectors.TabStop = true;
-            this.optCollectors.Text = "Collectors";
-            this.optCollectors.UseVisualStyleBackColor = false;
+            this.masterSplitContainer.Panel1.Controls.Add(this.treeView1);
+            this.masterSplitContainer.Panel1.Controls.Add(this.panel2);
+            this.masterSplitContainer.Panel1.Controls.Add(this.llblNotifierViewToggle);
             // 
-            // radioButton1
+            // masterSplitContainer.Panel2
             // 
-            this.radioButton1.BackColor = System.Drawing.Color.White;
-            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton1.Location = new System.Drawing.Point(118, 0);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(80, 23);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.Text = "Notifiers";
-            this.radioButton1.UseVisualStyleBackColor = false;
+            this.masterSplitContainer.Panel2.Controls.Add(this.tvwNotifiers);
+            this.masterSplitContainer.Size = new System.Drawing.Size(460, 425);
+            this.masterSplitContainer.SplitterDistance = 264;
+            this.masterSplitContainer.SplitterWidth = 6;
+            this.masterSplitContainer.TabIndex = 6;
             // 
-            // label1
+            // llblNotifierViewToggle
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 23);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "View:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblNotifierViewToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.llblNotifierViewToggle.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.llblNotifierViewToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llblNotifierViewToggle.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.llblNotifierViewToggle.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 244);
+            this.llblNotifierViewToggle.Name = "llblNotifierViewToggle";
+            this.llblNotifierViewToggle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
+            this.llblNotifierViewToggle.Size = new System.Drawing.Size(460, 20);
+            this.llblNotifierViewToggle.TabIndex = 40;
+            this.llblNotifierViewToggle.TabStop = true;
+            this.llblNotifierViewToggle.Text = "Show Notifiers";
+            this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
+            // 
+            // treeView1
+            // 
+            this.treeView1.AllowDrop = true;
+            this.treeView1.AllowKeyBoardNodeReorder = true;
+            this.treeView1.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.CheckBoxEnhancements = false;
+            this.treeView1.DisableCollapseOnDoubleClick = true;
+            this.treeView1.DisableExpandOnDoubleClick = false;
+            this.treeView1.DisableNode0Collapse = false;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.DragColor = System.Drawing.Color.Aquamarine;
+            this.treeView1.EnableAutoScrollToSelectedNode = false;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView1.FullRowSelect = true;
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageListTreeView;
+            this.treeView1.Indent = 20;
+            this.treeView1.ItemHeight = 22;
+            this.treeView1.Location = new System.Drawing.Point(0, 25);
+            this.treeView1.Name = "treeView1";
+            treeNode1.ImageIndex = 3;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 3;
+            treeNode1.Text = "Health";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Ping localhost";
+            treeNode3.ImageIndex = 4;
+            treeNode3.Name = "Node2";
+            treeNode3.SelectedImageIndex = 4;
+            treeNode3.Text = "Health";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Ping server";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4});
+            this.treeView1.RootAlwaysExpanded = false;
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.Size = new System.Drawing.Size(460, 219);
+            this.treeView1.TabIndex = 0;
+            // 
+            // tvwNotifiers
+            // 
+            this.tvwNotifiers.AllowKeyBoardNodeReorder = false;
+            this.tvwNotifiers.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwNotifiers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwNotifiers.CheckBoxEnhancements = false;
+            this.tvwNotifiers.DisableCollapseOnDoubleClick = true;
+            this.tvwNotifiers.DisableExpandOnDoubleClick = false;
+            this.tvwNotifiers.DisableNode0Collapse = false;
+            this.tvwNotifiers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwNotifiers.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwNotifiers.EnableAutoScrollToSelectedNode = false;
+            this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwNotifiers.FullRowSelect = true;
+            this.tvwNotifiers.HideSelection = false;
+            this.tvwNotifiers.Indent = 20;
+            this.tvwNotifiers.ItemHeight = 22;
+            this.tvwNotifiers.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tvwNotifiers.Location = new System.Drawing.Point(0, 0);
+            this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
+            this.tvwNotifiers.Name = "tvwNotifiers";
+            treeNode5.BackColor = System.Drawing.Color.White;
+            treeNode5.Name = "root";
+            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode5.Text = "NOTIFIERS";
+            this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode5});
+            this.tvwNotifiers.RootAlwaysExpanded = false;
+            this.tvwNotifiers.ShowRootLines = false;
+            this.tvwNotifiers.Size = new System.Drawing.Size(460, 155);
+            this.tvwNotifiers.TabIndex = 4;
             // 
             // splitButtonInfo
             // 
@@ -567,14 +613,47 @@
             this.splitButtonSave.TabIndex = 3;
             this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblCollectors);
+            this.panel2.Controls.Add(this.lblVersion);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(460, 25);
+            this.panel2.TabIndex = 42;
+            // 
+            // lblCollectors
+            // 
+            this.lblCollectors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCollectors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCollectors.Location = new System.Drawing.Point(0, 0);
+            this.lblCollectors.Name = "lblCollectors";
+            this.lblCollectors.Size = new System.Drawing.Size(402, 25);
+            this.lblCollectors.TabIndex = 42;
+            this.lblCollectors.Text = "Collectors";
+            this.lblCollectors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(402, 0);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(58, 25);
+            this.lblVersion.TabIndex = 43;
+            this.lblVersion.Text = "5.0.0";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(334, 311);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(505, 487);
+            this.Controls.Add(this.masterSplitContainer);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelSlimMenu);
             this.Controls.Add(this.statusStrip1);
@@ -594,6 +673,10 @@
             this.aboutContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panelSlimMenu.ResumeLayout(false);
+            this.masterSplitContainer.Panel1.ResumeLayout(false);
+            this.masterSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.masterSplitContainer)).EndInit();
+            this.masterSplitContainer.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -620,7 +703,7 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TreeView treeView1;
+        private TreeViewExBase treeView1;
         private System.Windows.Forms.ContextMenuStrip agentsContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem collectorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
@@ -639,10 +722,12 @@
         private System.Windows.Forms.ToolStripMenuItem deleteNotifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detailsNotifierToolStripMenuItem;
         private System.Windows.Forms.Button cmdOpen;
+        private System.Windows.Forms.SplitContainer masterSplitContainer;
+        private System.Windows.Forms.LinkLabel llblNotifierViewToggle;
+        private TreeViewExBase tvwNotifiers;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton optCollectors;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCollectors;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
 

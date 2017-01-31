@@ -26,9 +26,11 @@ namespace QuickMon5
             //    HideMenu();
             treeView1.FullRowSelect = true;
             treeView1.FullRowSelect = false;
+            tvwNotifiers.FullRowSelect = true;
+            tvwNotifiers.FullRowSelect = false;
+            masterSplitContainer.Panel2Collapsed = true;
         }
-
-             
+               
 
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -107,8 +109,30 @@ namespace QuickMon5
         private void splitButtonInfo_SplitButtonClicked(object sender, EventArgs e)
         {
             aboutContextMenuStrip.Show(splitButtonInfo, new Point(splitButtonInfo.Width, 0));
-        } 
+        }
+
         #endregion
 
+        private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
+            UpdateNotifiersLabel();
+        }
+
+        private void UpdateNotifiersLabel()
+        {
+            TreeNode notifierRoot = tvwNotifiers.Nodes[0];
+            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+            if (notifierRoot.Nodes.Count > 0)
+            {
+                StringBuilder notSummary = new StringBuilder();
+                foreach (TreeNode child in notifierRoot.Nodes)
+                {
+                    notSummary.AppendLine(child.Text);
+                }
+                llblNotifierViewToggle.Text += " (" + notifierRoot.Nodes.Count.ToString() + ")";
+                toolTip1.SetToolTip(llblNotifierViewToggle, notSummary.ToString());
+            }
+        }
     }
 }
