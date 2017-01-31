@@ -61,17 +61,12 @@ namespace QuickMon5
             Properties.Settings.Default.ShowMenuOnStart = (panelSlimMenu.Width != 45);
             Properties.Settings.Default.Save();
         }
-        
-        private void splitButtonSave_SplitButtonClicked(object sender, EventArgs e)
-        {
-            saveContextMenuStrip.Show(splitButtonSave, new Point(splitButtonSave.Width, 0));
-        }
 
+        #region Menu
         private void cmdMenu_Click(object sender, EventArgs e)
         {
             ToggleMenuSize();
         }
-
         private void ToggleMenuSize()
         {
             if (panelSlimMenu.Width != 45)
@@ -97,25 +92,23 @@ namespace QuickMon5
                 splitButtonInfo.ButtonText = " About";
             }
         }
-
-        private void splitButtonOpen_ButtonClicked(object sender, EventArgs e)
+        private void splitButtonSave_SplitButtonClicked(object sender, EventArgs e)
         {
-            
+            saveContextMenuStrip.Show(splitButtonSave, new Point(splitButtonSave.Width, 0));
         }
-
         private void splitButtonAgents_SplitButtonClicked(object sender, EventArgs e)
         {
             agentsContextMenuStrip.Show(splitButtonAgents, new Point(splitButtonAgents.Width, 0));
         }
-
         private void splitButtonTools_SplitButtonClicked(object sender, EventArgs e)
         {
             settingsContextMenuStrip.Show(splitButtonTools, new Point(splitButtonTools.Width, 0));
         }
-
         private void splitButtonInfo_SplitButtonClicked(object sender, EventArgs e)
         {
-            aboutContextMenuStrip.Show(splitButtonInfo, new Point(splitButtonInfo.Width , 0));
-        }
+            aboutContextMenuStrip.Show(splitButtonInfo, new Point(splitButtonInfo.Width, 0));
+        } 
+        #endregion
+
     }
 }

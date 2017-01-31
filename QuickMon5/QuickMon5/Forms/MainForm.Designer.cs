@@ -30,40 +30,49 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("COLLECTORS ");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Health");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Ping localhost", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Health");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Ping server", new System.Windows.Forms.TreeNode[] {
+            treeNode3});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
             this.saveContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.collectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.aboutContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.panelSlimMenu = new System.Windows.Forms.Panel();
             this.cmdOpen = new System.Windows.Forms.Button();
             this.cmdNew = new System.Windows.Forms.Button();
             this.cmdMenu = new System.Windows.Forms.Button();
-            this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.collectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsNotifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.panelSlimMenu = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.optCollectors = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.splitButtonInfo = new QuickMon5.Controls.SplitButton.SplitButton();
             this.splitButtonTools = new QuickMon5.Controls.SplitButton.SplitButton();
             this.splitButtonAgents = new QuickMon5.Controls.SplitButton.SplitButton();
@@ -75,6 +84,7 @@
             this.aboutContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelSlimMenu.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -92,6 +102,13 @@
             this.imageListTreeView.TransparentColor = System.Drawing.Color.Transparent;
             this.imageListTreeView.Images.SetKeyName(0, "open_folder_blue24x24.png");
             this.imageListTreeView.Images.SetKeyName(1, "folder-24.png");
+            this.imageListTreeView.Images.SetKeyName(2, "helpbwy24x24.png");
+            this.imageListTreeView.Images.SetKeyName(3, "ok.png");
+            this.imageListTreeView.Images.SetKeyName(4, "triang_yellow.png");
+            this.imageListTreeView.Images.SetKeyName(5, "Error24x24.png");
+            this.imageListTreeView.Images.SetKeyName(6, "ok3.png");
+            this.imageListTreeView.Images.SetKeyName(7, "triang_yellow2.png");
+            this.imageListTreeView.Images.SetKeyName(8, "Error2_24x24.png");
             // 
             // saveContextMenuStrip
             // 
@@ -101,6 +118,13 @@
             this.saveContextMenuStrip.Name = "saveContextMenuStrip";
             this.saveContextMenuStrip.Size = new System.Drawing.Size(123, 34);
             // 
+            // saveAsToolStripMenuItem1
+            // 
+            this.saveAsToolStripMenuItem1.Image = global::QuickMon5.Properties.Resources.SaveAs24x24;
+            this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
+            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(122, 30);
+            this.saveAsToolStripMenuItem1.Text = "Save As";
+            // 
             // openContextMenuStrip
             // 
             this.openContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -109,101 +133,13 @@
             this.openContextMenuStrip.Name = "saveContextMenuStrip";
             this.openContextMenuStrip.Size = new System.Drawing.Size(239, 34);
             // 
-            // treeView1
+            // toolStripMenuItem1
             // 
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageListTreeView;
-            this.treeView1.Location = new System.Drawing.Point(45, 40);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node0";
-            treeNode1.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode1.Text = "COLLECTORS ";
-            treeNode1.ToolTipText = "COLLECTORS";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowRootLines = false;
-            this.treeView1.Size = new System.Drawing.Size(289, 249);
-            this.treeView1.TabIndex = 0;
-            // 
-            // agentsContextMenuStrip
-            // 
-            this.agentsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.agentsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.collectorsToolStripMenuItem,
-            this.notifiersToolStripMenuItem});
-            this.agentsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.agentsContextMenuStrip.Size = new System.Drawing.Size(128, 48);
-            // 
-            // collectorsToolStripMenuItem
-            // 
-            this.collectorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCollectorToolStripMenuItem,
-            this.editCollectorToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.detailsToolStripMenuItem});
-            this.collectorsToolStripMenuItem.Name = "collectorsToolStripMenuItem";
-            this.collectorsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.collectorsToolStripMenuItem.Text = "Collectors";
-            // 
-            // notifiersToolStripMenuItem
-            // 
-            this.notifiersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNotifierToolStripMenuItem,
-            this.editNotifierToolStripMenuItem,
-            this.deleteNotifierToolStripMenuItem,
-            this.detailsNotifierToolStripMenuItem});
-            this.notifiersToolStripMenuItem.Name = "notifiersToolStripMenuItem";
-            this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.notifiersToolStripMenuItem.Text = "Notifiers";
-            // 
-            // settingsContextMenuStrip
-            // 
-            this.settingsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.settingsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pollingToolStripMenuItem,
-            this.templatesToolStripMenuItem,
-            this.adminModeToolStripMenuItem});
-            this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.settingsContextMenuStrip.Size = new System.Drawing.Size(153, 94);
-            // 
-            // aboutContextMenuStrip
-            // 
-            this.aboutContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.aboutContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.remoteHostsToolStripMenuItem});
-            this.aboutContextMenuStrip.Name = "saveContextMenuStrip";
-            this.aboutContextMenuStrip.Size = new System.Drawing.Size(200, 34);
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background3;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.linkLabel1);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(45, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(289, 40);
-            this.panel1.TabIndex = 3;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabel1.Location = new System.Drawing.Point(0, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(219, 40);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "<New Monitor Pack>";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripMenuItem1.Image = global::QuickMon5.Properties.Resources.folderWLightning1;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(238, 30);
+            this.toolStripMenuItem1.Text = "Recent Monitor Packs";
             // 
             // button3
             // 
@@ -238,23 +174,6 @@
             this.button2.TabIndex = 2;
             this.toolTip1.SetToolTip(this.button2, "Recent Monitor Packs");
             this.button2.UseVisualStyleBackColor = false;
-            // 
-            // panelSlimMenu
-            // 
-            this.panelSlimMenu.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background2;
-            this.panelSlimMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelSlimMenu.Controls.Add(this.splitButtonInfo);
-            this.panelSlimMenu.Controls.Add(this.splitButtonTools);
-            this.panelSlimMenu.Controls.Add(this.splitButtonAgents);
-            this.panelSlimMenu.Controls.Add(this.splitButtonSave);
-            this.panelSlimMenu.Controls.Add(this.cmdOpen);
-            this.panelSlimMenu.Controls.Add(this.cmdNew);
-            this.panelSlimMenu.Controls.Add(this.cmdMenu);
-            this.panelSlimMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSlimMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelSlimMenu.Name = "panelSlimMenu";
-            this.panelSlimMenu.Size = new System.Drawing.Size(45, 289);
-            this.panelSlimMenu.TabIndex = 2;
             // 
             // cmdOpen
             // 
@@ -314,20 +233,52 @@
             this.cmdMenu.UseVisualStyleBackColor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
             // 
-            // saveAsToolStripMenuItem1
+            // treeView1
             // 
-            this.saveAsToolStripMenuItem1.Image = global::QuickMon5.Properties.Resources.SaveAs24x24;
-            this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(122, 30);
-            this.saveAsToolStripMenuItem1.Text = "Save As";
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.FullRowSelect = true;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageListTreeView;
+            this.treeView1.Location = new System.Drawing.Point(45, 40);
+            this.treeView1.Name = "treeView1";
+            treeNode1.ImageIndex = 3;
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Health";
+            treeNode2.Name = "Node0";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "Ping localhost";
+            treeNode3.ImageIndex = 4;
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "Health";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Ping server";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4});
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.Size = new System.Drawing.Size(289, 226);
+            this.treeView1.TabIndex = 0;
             // 
-            // toolStripMenuItem1
+            // agentsContextMenuStrip
             // 
-            this.toolStripMenuItem1.Image = global::QuickMon5.Properties.Resources.folderWLightning1;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(238, 30);
-            this.toolStripMenuItem1.Text = "Recent Monitor Packs";
+            this.agentsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.agentsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.collectorsToolStripMenuItem,
+            this.notifiersToolStripMenuItem});
+            this.agentsContextMenuStrip.Name = "saveContextMenuStrip";
+            this.agentsContextMenuStrip.Size = new System.Drawing.Size(128, 48);
+            // 
+            // collectorsToolStripMenuItem
+            // 
+            this.collectorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCollectorToolStripMenuItem,
+            this.editCollectorToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.detailsToolStripMenuItem});
+            this.collectorsToolStripMenuItem.Name = "collectorsToolStripMenuItem";
+            this.collectorsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.collectorsToolStripMenuItem.Text = "Collectors";
             // 
             // addCollectorToolStripMenuItem
             // 
@@ -357,6 +308,17 @@
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.detailsToolStripMenuItem.Text = "Details";
             // 
+            // notifiersToolStripMenuItem
+            // 
+            this.notifiersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNotifierToolStripMenuItem,
+            this.editNotifierToolStripMenuItem,
+            this.deleteNotifierToolStripMenuItem,
+            this.detailsNotifierToolStripMenuItem});
+            this.notifiersToolStripMenuItem.Name = "notifiersToolStripMenuItem";
+            this.notifiersToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.notifiersToolStripMenuItem.Text = "Notifiers";
+            // 
             // addNotifierToolStripMenuItem
             // 
             this.addNotifierToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.add;
@@ -385,6 +347,16 @@
             this.detailsNotifierToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.detailsNotifierToolStripMenuItem.Text = "Details";
             // 
+            // settingsContextMenuStrip
+            // 
+            this.settingsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.settingsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pollingToolStripMenuItem,
+            this.templatesToolStripMenuItem,
+            this.adminModeToolStripMenuItem});
+            this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
+            this.settingsContextMenuStrip.Size = new System.Drawing.Size(153, 94);
+            // 
             // pollingToolStripMenuItem
             // 
             this.pollingToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.clock24x24;
@@ -406,6 +378,14 @@
             this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
             this.adminModeToolStripMenuItem.Text = "Admin mode";
             // 
+            // aboutContextMenuStrip
+            // 
+            this.aboutContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.aboutContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.remoteHostsToolStripMenuItem});
+            this.aboutContextMenuStrip.Name = "saveContextMenuStrip";
+            this.aboutContextMenuStrip.Size = new System.Drawing.Size(200, 34);
+            // 
             // remoteHostsToolStripMenuItem
             // 
             this.remoteHostsToolStripMenuItem.Image = global::QuickMon5.Properties.Resources.comp_web24x24;
@@ -413,6 +393,98 @@
             this.remoteHostsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.remoteHostsToolStripMenuItem.Size = new System.Drawing.Size(199, 30);
             this.remoteHostsToolStripMenuItem.Text = "Remote Hosts";
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background3;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.linkLabel1);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(45, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(289, 40);
+            this.panel1.TabIndex = 3;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel1.Location = new System.Drawing.Point(0, 0);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(219, 40);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "<New Monitor Pack>";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelSlimMenu
+            // 
+            this.panelSlimMenu.BackgroundImage = global::QuickMon5.Properties.Resources.QuickMon5Background2;
+            this.panelSlimMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelSlimMenu.Controls.Add(this.splitButtonInfo);
+            this.panelSlimMenu.Controls.Add(this.splitButtonTools);
+            this.panelSlimMenu.Controls.Add(this.splitButtonAgents);
+            this.panelSlimMenu.Controls.Add(this.splitButtonSave);
+            this.panelSlimMenu.Controls.Add(this.cmdOpen);
+            this.panelSlimMenu.Controls.Add(this.cmdNew);
+            this.panelSlimMenu.Controls.Add(this.cmdMenu);
+            this.panelSlimMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelSlimMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelSlimMenu.Name = "panelSlimMenu";
+            this.panelSlimMenu.Size = new System.Drawing.Size(45, 289);
+            this.panelSlimMenu.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.radioButton1);
+            this.panel2.Controls.Add(this.optCollectors);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(45, 266);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(289, 23);
+            this.panel2.TabIndex = 5;
+            // 
+            // optCollectors
+            // 
+            this.optCollectors.BackColor = System.Drawing.Color.White;
+            this.optCollectors.Checked = true;
+            this.optCollectors.Dock = System.Windows.Forms.DockStyle.Left;
+            this.optCollectors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optCollectors.Location = new System.Drawing.Point(38, 0);
+            this.optCollectors.Name = "optCollectors";
+            this.optCollectors.Size = new System.Drawing.Size(80, 23);
+            this.optCollectors.TabIndex = 0;
+            this.optCollectors.TabStop = true;
+            this.optCollectors.Text = "Collectors";
+            this.optCollectors.UseVisualStyleBackColor = false;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.BackColor = System.Drawing.Color.White;
+            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton1.Location = new System.Drawing.Point(118, 0);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(80, 23);
+            this.radioButton1.TabIndex = 1;
+            this.radioButton1.Text = "Notifiers";
+            this.radioButton1.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 23);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "View:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // splitButtonInfo
             // 
@@ -502,6 +574,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(334, 311);
             this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelSlimMenu);
             this.Controls.Add(this.statusStrip1);
@@ -521,6 +594,7 @@
             this.aboutContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panelSlimMenu.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -565,6 +639,10 @@
         private System.Windows.Forms.ToolStripMenuItem deleteNotifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detailsNotifierToolStripMenuItem;
         private System.Windows.Forms.Button cmdOpen;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton optCollectors;
+        private System.Windows.Forms.Label label1;
     }
 }
 
