@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QuickMon5
+namespace QuickMon
 {
     public partial class MainForm : Form
     {

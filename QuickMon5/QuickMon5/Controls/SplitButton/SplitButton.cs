@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QuickMon5.Controls.SplitButton
+namespace QuickMon.Controls.SplitButton
 {
     public partial class SplitButton : UserControl
     {
