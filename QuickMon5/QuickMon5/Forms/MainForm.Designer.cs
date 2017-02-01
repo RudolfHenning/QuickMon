@@ -30,7 +30,7 @@ namespace QuickMon
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void InitializeComponent() 
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
@@ -40,9 +40,11 @@ namespace QuickMon
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Health", 4, 4);
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Ping server", new System.Windows.Forms.TreeNode[] {
             treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("NOTIFIERS");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Memory agent");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("NOTIFIERS", new System.Windows.Forms.TreeNode[] {
+            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
+            this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.saveContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -53,7 +55,6 @@ namespace QuickMon
             this.cmdOpen = new System.Windows.Forms.Button();
             this.cmdNew = new System.Windows.Forms.Button();
             this.cmdMenu = new System.Windows.Forms.Button();
-            this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.collectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,17 +75,19 @@ namespace QuickMon
             this.panel1 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panelSlimMenu = new System.Windows.Forms.Panel();
+            this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
+            this.imagesNotifiersTree = new System.Windows.Forms.ImageList(this.components);
+            this.treeView1 = new QuickMon.Controls.TreeViewExBase();
+            this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
+            this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
+            this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
+            this.lblNotifiers = new HenIT.Windows.Controls.HiLightLabel();
             this.splitButtonInfo = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonTools = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonAgents = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
-            this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new QuickMon.Controls.TreeViewExBase();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblCollectors = new System.Windows.Forms.Label();
-            this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
-            this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
-            this.label1 = new System.Windows.Forms.Label();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
             this.agentsContextMenuStrip.SuspendLayout();
@@ -108,19 +111,19 @@ namespace QuickMon
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // imageListTreeView
+            // imagesCollectorTree
             // 
-            this.imageListTreeView.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTreeView.ImageStream")));
-            this.imageListTreeView.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListTreeView.Images.SetKeyName(0, "open_folder_blue24x24.png");
-            this.imageListTreeView.Images.SetKeyName(1, "folder-24.png");
-            this.imageListTreeView.Images.SetKeyName(2, "helpbwy24x24.png");
-            this.imageListTreeView.Images.SetKeyName(3, "ok.png");
-            this.imageListTreeView.Images.SetKeyName(4, "triang_yellow.png");
-            this.imageListTreeView.Images.SetKeyName(5, "Error24x24.png");
-            this.imageListTreeView.Images.SetKeyName(6, "ok3.png");
-            this.imageListTreeView.Images.SetKeyName(7, "triang_yellow2.png");
-            this.imageListTreeView.Images.SetKeyName(8, "Error2_24x24.png");
+            this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
+            this.imagesCollectorTree.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesCollectorTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(1, "folder-24.png");
+            this.imagesCollectorTree.Images.SetKeyName(2, "helpbwy24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(3, "ok.png");
+            this.imagesCollectorTree.Images.SetKeyName(4, "triang_yellow.png");
+            this.imagesCollectorTree.Images.SetKeyName(5, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(6, "ok3.png");
+            this.imagesCollectorTree.Images.SetKeyName(7, "triang_yellow2.png");
+            this.imagesCollectorTree.Images.SetKeyName(8, "Error2_24x24.png");
             // 
             // saveContextMenuStrip
             // 
@@ -244,27 +247,6 @@ namespace QuickMon
             this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
             this.cmdMenu.UseVisualStyleBackColor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.BoldHighLighFont = false;
-            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblVersion.FadedBackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.FadedColor = System.Drawing.SystemColors.WindowText;
-            this.lblVersion.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.HighLightBackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblVersion.HighLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblVersion.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(369, 0);
-            this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 4, 10, 4);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lblVersion.Size = new System.Drawing.Size(58, 23);
-            this.lblVersion.TabIndex = 43;
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.lblVersion, "Version");
             // 
             // agentsContextMenuStrip
             // 
@@ -444,6 +426,210 @@ namespace QuickMon
             this.panelSlimMenu.Size = new System.Drawing.Size(45, 481);
             this.panelSlimMenu.TabIndex = 2;
             // 
+            // masterSplitContainer
+            // 
+            this.masterSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.masterSplitContainer.Location = new System.Drawing.Point(45, 38);
+            this.masterSplitContainer.Name = "masterSplitContainer";
+            this.masterSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // masterSplitContainer.Panel1
+            // 
+            this.masterSplitContainer.Panel1.Controls.Add(this.treeView1);
+            this.masterSplitContainer.Panel1.Controls.Add(this.panel2);
+            this.masterSplitContainer.Panel1.Controls.Add(this.llblNotifierViewToggle);
+            // 
+            // masterSplitContainer.Panel2
+            // 
+            this.masterSplitContainer.Panel2.Controls.Add(this.tvwNotifiers);
+            this.masterSplitContainer.Panel2.Controls.Add(this.lblNotifiers);
+            this.masterSplitContainer.Size = new System.Drawing.Size(427, 443);
+            this.masterSplitContainer.SplitterDistance = 275;
+            this.masterSplitContainer.SplitterWidth = 6;
+            this.masterSplitContainer.TabIndex = 6;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblCollectors);
+            this.panel2.Controls.Add(this.lblVersion);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(427, 23);
+            this.panel2.TabIndex = 42;
+            // 
+            // llblNotifierViewToggle
+            // 
+            this.llblNotifierViewToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.llblNotifierViewToggle.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.llblNotifierViewToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llblNotifierViewToggle.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.llblNotifierViewToggle.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 255);
+            this.llblNotifierViewToggle.Name = "llblNotifierViewToggle";
+            this.llblNotifierViewToggle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
+            this.llblNotifierViewToggle.Size = new System.Drawing.Size(427, 20);
+            this.llblNotifierViewToggle.TabIndex = 40;
+            this.llblNotifierViewToggle.TabStop = true;
+            this.llblNotifierViewToggle.Text = "Show Notifiers";
+            this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
+            // 
+            // imagesNotifiersTree
+            // 
+            this.imagesNotifiersTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesNotifiersTree.ImageStream")));
+            this.imagesNotifiersTree.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesNotifiersTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
+            this.imagesNotifiersTree.Images.SetKeyName(1, "SpeakerBlue.ico");
+            this.imagesNotifiersTree.Images.SetKeyName(2, "SpeakerBW.ico");
+            this.imagesNotifiersTree.Images.SetKeyName(3, "Speaker_doc.png");
+            this.imagesNotifiersTree.Images.SetKeyName(4, "Speaker_docBW.png");
+            // 
+            // treeView1
+            // 
+            this.treeView1.AllowDrop = true;
+            this.treeView1.AllowKeyBoardNodeReorder = true;
+            this.treeView1.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.CheckBoxEnhancements = false;
+            this.treeView1.DisableCollapseOnDoubleClick = true;
+            this.treeView1.DisableExpandOnDoubleClick = false;
+            this.treeView1.DisableNode0Collapse = false;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.DragColor = System.Drawing.Color.Aquamarine;
+            this.treeView1.EnableAutoScrollToSelectedNode = false;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView1.FullRowSelect = true;
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imagesCollectorTree;
+            this.treeView1.Indent = 20;
+            this.treeView1.ItemHeight = 22;
+            this.treeView1.Location = new System.Drawing.Point(0, 23);
+            this.treeView1.Name = "treeView1";
+            treeNode1.ImageIndex = 3;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 3;
+            treeNode1.Text = "Health";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Ping localhost";
+            treeNode3.ImageIndex = 4;
+            treeNode3.Name = "Node2";
+            treeNode3.SelectedImageIndex = 4;
+            treeNode3.Text = "Health";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Ping server";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4});
+            this.treeView1.RootAlwaysExpanded = false;
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.Size = new System.Drawing.Size(427, 232);
+            this.treeView1.TabIndex = 0;
+            // 
+            // lblCollectors
+            // 
+            this.lblCollectors.BackColor = System.Drawing.Color.Transparent;
+            this.lblCollectors.BoldHighLighFont = true;
+            this.lblCollectors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCollectors.FadedBackColor = System.Drawing.Color.Transparent;
+            this.lblCollectors.FadedColor = System.Drawing.SystemColors.ControlText;
+            this.lblCollectors.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCollectors.HighLightBackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblCollectors.HighLightColor = System.Drawing.SystemColors.ControlText;
+            this.lblCollectors.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCollectors.Location = new System.Drawing.Point(0, 0);
+            this.lblCollectors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lblCollectors.Name = "lblCollectors";
+            this.lblCollectors.Size = new System.Drawing.Size(369, 23);
+            this.lblCollectors.StartFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblCollectors.StartForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCollectors.TabIndex = 42;
+            this.lblCollectors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.BoldHighLighFont = true;
+            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblVersion.FadedBackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.FadedColor = System.Drawing.Color.Silver;
+            this.lblVersion.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.HighLightBackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblVersion.HighLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblVersion.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(369, 0);
+            this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 4, 10, 4);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.lblVersion.Size = new System.Drawing.Size(58, 23);
+            this.lblVersion.StartFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lblVersion.StartForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblVersion.TabIndex = 43;
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.lblVersion, "Version");
+            // 
+            // tvwNotifiers
+            // 
+            this.tvwNotifiers.AllowKeyBoardNodeReorder = false;
+            this.tvwNotifiers.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwNotifiers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwNotifiers.CheckBoxEnhancements = false;
+            this.tvwNotifiers.DisableCollapseOnDoubleClick = true;
+            this.tvwNotifiers.DisableExpandOnDoubleClick = false;
+            this.tvwNotifiers.DisableNode0Collapse = false;
+            this.tvwNotifiers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwNotifiers.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwNotifiers.EnableAutoScrollToSelectedNode = false;
+            this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwNotifiers.FullRowSelect = true;
+            this.tvwNotifiers.HideSelection = false;
+            this.tvwNotifiers.ImageIndex = 0;
+            this.tvwNotifiers.ImageList = this.imagesNotifiersTree;
+            this.tvwNotifiers.Indent = 20;
+            this.tvwNotifiers.ItemHeight = 22;
+            this.tvwNotifiers.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tvwNotifiers.Location = new System.Drawing.Point(0, 23);
+            this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
+            this.tvwNotifiers.Name = "tvwNotifiers";
+            treeNode5.ImageKey = "Speaker_doc.png";
+            treeNode5.Name = "Node0";
+            treeNode5.SelectedImageKey = "Speaker_doc.png";
+            treeNode5.Text = "Memory agent";
+            treeNode6.BackColor = System.Drawing.Color.White;
+            treeNode6.ImageKey = "SpeakerBlue.ico";
+            treeNode6.Name = "root";
+            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode6.SelectedImageKey = "SpeakerBlue.ico";
+            treeNode6.Text = "NOTIFIERS";
+            this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode6});
+            this.tvwNotifiers.RootAlwaysExpanded = false;
+            this.tvwNotifiers.SelectedImageIndex = 0;
+            this.tvwNotifiers.Size = new System.Drawing.Size(427, 139);
+            this.tvwNotifiers.TabIndex = 4;
+            this.tvwNotifiers.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwNotifiers_AfterSelect);
+            // 
+            // lblNotifiers
+            // 
+            this.lblNotifiers.BackColor = System.Drawing.Color.Transparent;
+            this.lblNotifiers.BoldHighLighFont = true;
+            this.lblNotifiers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblNotifiers.FadedBackColor = System.Drawing.Color.Transparent;
+            this.lblNotifiers.FadedColor = System.Drawing.SystemColors.ControlText;
+            this.lblNotifiers.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNotifiers.HighLightBackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblNotifiers.HighLightColor = System.Drawing.SystemColors.ControlText;
+            this.lblNotifiers.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNotifiers.Location = new System.Drawing.Point(0, 0);
+            this.lblNotifiers.Margin = new System.Windows.Forms.Padding(4);
+            this.lblNotifiers.Name = "lblNotifiers";
+            this.lblNotifiers.Size = new System.Drawing.Size(427, 23);
+            this.lblNotifiers.StartFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblNotifiers.StartForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblNotifiers.TabIndex = 44;
+            this.lblNotifiers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // splitButtonInfo
             // 
             this.splitButtonInfo.BackColor = System.Drawing.Color.Transparent;
@@ -525,152 +711,6 @@ namespace QuickMon
             this.splitButtonSave.TabIndex = 3;
             this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
             // 
-            // masterSplitContainer
-            // 
-            this.masterSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.masterSplitContainer.Location = new System.Drawing.Point(45, 38);
-            this.masterSplitContainer.Name = "masterSplitContainer";
-            this.masterSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // masterSplitContainer.Panel1
-            // 
-            this.masterSplitContainer.Panel1.Controls.Add(this.treeView1);
-            this.masterSplitContainer.Panel1.Controls.Add(this.panel2);
-            this.masterSplitContainer.Panel1.Controls.Add(this.llblNotifierViewToggle);
-            // 
-            // masterSplitContainer.Panel2
-            // 
-            this.masterSplitContainer.Panel2.Controls.Add(this.tvwNotifiers);
-            this.masterSplitContainer.Panel2.Controls.Add(this.label1);
-            this.masterSplitContainer.Size = new System.Drawing.Size(427, 443);
-            this.masterSplitContainer.SplitterDistance = 275;
-            this.masterSplitContainer.SplitterWidth = 6;
-            this.masterSplitContainer.TabIndex = 6;
-            // 
-            // treeView1
-            // 
-            this.treeView1.AllowDrop = true;
-            this.treeView1.AllowKeyBoardNodeReorder = true;
-            this.treeView1.AutoScrollToSelectedNodeWaitTimeMS = 500;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.CheckBoxEnhancements = false;
-            this.treeView1.DisableCollapseOnDoubleClick = true;
-            this.treeView1.DisableExpandOnDoubleClick = false;
-            this.treeView1.DisableNode0Collapse = false;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.DragColor = System.Drawing.Color.Aquamarine;
-            this.treeView1.EnableAutoScrollToSelectedNode = false;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeView1.FullRowSelect = true;
-            this.treeView1.HideSelection = false;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageListTreeView;
-            this.treeView1.Indent = 20;
-            this.treeView1.ItemHeight = 22;
-            this.treeView1.Location = new System.Drawing.Point(0, 23);
-            this.treeView1.Name = "treeView1";
-            treeNode1.ImageIndex = 3;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 3;
-            treeNode1.Text = "Health";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Ping localhost";
-            treeNode3.ImageIndex = 4;
-            treeNode3.Name = "Node2";
-            treeNode3.SelectedImageIndex = 4;
-            treeNode3.Text = "Health";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Ping server";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4});
-            this.treeView1.RootAlwaysExpanded = false;
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(427, 232);
-            this.treeView1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblCollectors);
-            this.panel2.Controls.Add(this.lblVersion);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(427, 23);
-            this.panel2.TabIndex = 42;
-            // 
-            // lblCollectors
-            // 
-            this.lblCollectors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCollectors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCollectors.Location = new System.Drawing.Point(0, 0);
-            this.lblCollectors.Name = "lblCollectors";
-            this.lblCollectors.Size = new System.Drawing.Size(369, 23);
-            this.lblCollectors.TabIndex = 42;
-            this.lblCollectors.Text = "Collectors";
-            this.lblCollectors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // llblNotifierViewToggle
-            // 
-            this.llblNotifierViewToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.llblNotifierViewToggle.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.llblNotifierViewToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llblNotifierViewToggle.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.llblNotifierViewToggle.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 255);
-            this.llblNotifierViewToggle.Name = "llblNotifierViewToggle";
-            this.llblNotifierViewToggle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.llblNotifierViewToggle.Size = new System.Drawing.Size(427, 20);
-            this.llblNotifierViewToggle.TabIndex = 40;
-            this.llblNotifierViewToggle.TabStop = true;
-            this.llblNotifierViewToggle.Text = "Show Notifiers";
-            this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
-            // 
-            // tvwNotifiers
-            // 
-            this.tvwNotifiers.AllowKeyBoardNodeReorder = false;
-            this.tvwNotifiers.AutoScrollToSelectedNodeWaitTimeMS = 500;
-            this.tvwNotifiers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvwNotifiers.CheckBoxEnhancements = false;
-            this.tvwNotifiers.DisableCollapseOnDoubleClick = true;
-            this.tvwNotifiers.DisableExpandOnDoubleClick = false;
-            this.tvwNotifiers.DisableNode0Collapse = false;
-            this.tvwNotifiers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwNotifiers.DragColor = System.Drawing.Color.Aquamarine;
-            this.tvwNotifiers.EnableAutoScrollToSelectedNode = false;
-            this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwNotifiers.FullRowSelect = true;
-            this.tvwNotifiers.HideSelection = false;
-            this.tvwNotifiers.Indent = 20;
-            this.tvwNotifiers.ItemHeight = 22;
-            this.tvwNotifiers.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tvwNotifiers.Location = new System.Drawing.Point(0, 25);
-            this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
-            this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode5.BackColor = System.Drawing.Color.White;
-            treeNode5.Name = "root";
-            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode5.Text = "NOTIFIERS";
-            this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5});
-            this.tvwNotifiers.RootAlwaysExpanded = false;
-            this.tvwNotifiers.ShowRootLines = false;
-            this.tvwNotifiers.Size = new System.Drawing.Size(427, 137);
-            this.tvwNotifiers.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(427, 25);
-            this.label1.TabIndex = 43;
-            this.label1.Text = "Notifiers";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,7 +751,7 @@ namespace QuickMon
 
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ImageList imageListTreeView;
+        private System.Windows.Forms.ImageList imagesCollectorTree;
         private System.Windows.Forms.Panel panelSlimMenu;
         private System.Windows.Forms.Button cmdNew;
         private System.Windows.Forms.Button cmdMenu;
@@ -750,9 +790,10 @@ namespace QuickMon
         private System.Windows.Forms.LinkLabel llblNotifierViewToggle;
         private TreeViewExBase tvwNotifiers;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lblCollectors;
+        private HiLightLabel lblCollectors;
         private HiLightLabel lblVersion;
-        private System.Windows.Forms.Label label1;
+        private HiLightLabel lblNotifiers;
+        private System.Windows.Forms.ImageList imagesNotifiersTree;
     }
 }
 

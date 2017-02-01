@@ -17,9 +17,9 @@ namespace HenIT.Windows.Controls
             InitializeComponent();
             HighLightColor = Color.Aqua;
             HighLightBackColor = Color.WhiteSmoke;
-            HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblContent.TextAlign = ContentAlignment.MiddleCenter;
             lblContent.Click += lblContent_Click;
+            lblContent.Text = "Label";
         }
 
         void lblContent_Click(object sender, EventArgs e)
@@ -33,7 +33,6 @@ namespace HenIT.Windows.Controls
             get { return fadedColor; }
             set
             {
-                lblContent.ForeColor = value;
                 fadedColor = value;
             }
         }
@@ -44,7 +43,6 @@ namespace HenIT.Windows.Controls
             get { return fadedBackColor; }
             set
             {
-                lblContent.BackColor = value;
                 fadedBackColor = value;
             }
         }
@@ -56,18 +54,25 @@ namespace HenIT.Windows.Controls
             get { return fadedFont; }
             set
             {
-                lblContent.Font = new System.Drawing.Font(fadedFont, FontStyle.Regular);
                 fadedFont = value;
             }
         }
-        public Font HighLightFont { get; set; }
+        private Font highLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        public Font HighLightFont
+        {
+            get { return highLightFont; }
+            set
+            {
+                highLightFont = value;
+            }
+        }
         public ContentAlignment TextAlign
         {
             get { return lblContent.TextAlign; }
             set { lblContent.TextAlign = value; }
         }
-        [BrowsableAttribute(true)]
-        public new string Text
+        [Browsable(true)]
+        public override string Text
         {
             get
             {
@@ -75,9 +80,29 @@ namespace HenIT.Windows.Controls
             }
             set
             {
+
                 lblContent.Text = value;
             }
         }
+        [Browsable(true)]
+        public Font StartFont
+        {
+            get { return lblContent.Font; }
+            set
+            {
+                lblContent.Font = new System.Drawing.Font(value, value.Style);
+            }
+        }
+        [Browsable(true)]
+        public Color StartForeColor
+        {
+            get { return lblContent.ForeColor; }
+            set
+            {
+                lblContent.ForeColor = value;
+            }
+        }
+
 
         private void lblContent_MouseEnter(object sender, EventArgs e)
         {
