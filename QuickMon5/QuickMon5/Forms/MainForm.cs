@@ -29,6 +29,10 @@ namespace QuickMon
             tvwNotifiers.FullRowSelect = true;
             tvwNotifiers.FullRowSelect = false;
             masterSplitContainer.Panel2Collapsed = true;
+            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            lblVersion.Text = string.Format("v{0}.{1}.{2}", v.Major, v.Minor, v.Build);
+            lblCollectors.Text = "Collectors";
+            lblNotifiers.Text = "Notifiers";
         }
                
 
@@ -133,6 +137,11 @@ namespace QuickMon
                 llblNotifierViewToggle.Text += " (" + notifierRoot.Nodes.Count.ToString() + ")";
                 toolTip1.SetToolTip(llblNotifierViewToggle, notSummary.ToString());
             }
+        }
+
+        private void tvwNotifiers_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }

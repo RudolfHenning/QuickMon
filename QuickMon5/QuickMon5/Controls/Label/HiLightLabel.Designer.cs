@@ -43,7 +43,6 @@
             this.lblContent.Name = "lblContent";
             this.lblContent.Size = new System.Drawing.Size(47, 18);
             this.lblContent.TabIndex = 0;
-            this.lblContent.Text = "label1";
             this.lblContent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblContent.MouseEnter += new System.EventHandler(this.lblContent_MouseEnter);
             this.lblContent.MouseLeave += new System.EventHandler(this.lblContent_MouseLeave);
