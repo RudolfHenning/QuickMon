@@ -1,4 +1,4 @@
-﻿namespace QuickMon5.Controls.SplitButton
+﻿namespace QuickMon.Controls.SplitButton
 {
     partial class SplitButton
     {
@@ -53,7 +53,7 @@
             // cmdSideButton
             // 
             this.cmdSideButton.BackColor = System.Drawing.Color.Transparent;
-            this.cmdSideButton.BackgroundImage = global::QuickMon5.Properties.Resources.smlrightTriangle;
+            this.cmdSideButton.BackgroundImage = global::QuickMon.Properties.Resources.smlrightTriangle;
             this.cmdSideButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdSideButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdSideButton.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;

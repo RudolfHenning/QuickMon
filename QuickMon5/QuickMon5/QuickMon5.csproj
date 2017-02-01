@@ -7,7 +7,7 @@
     <ProjectGuid>{A3AB65A9-10F1-44C5-A6AF-403B658AF605}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QuickMon5</RootNamespace>
+    <RootNamespace>QuickMon</RootNamespace>
     <AssemblyName>QuickMon5</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Label\HiLightLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Label\HiLightLabel.Designer.cs">
+      <DependentUpon>HiLightLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SplitButton\SplitButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
