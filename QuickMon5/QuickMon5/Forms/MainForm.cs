@@ -33,6 +33,7 @@ namespace QuickMon
             lblVersion.Text = string.Format("v{0}.{1}.{2}", v.Major, v.Minor, v.Build);
             lblCollectors.Text = "Collectors";
             lblNotifiers.Text = "Notifiers";
+            UpdateNotifiersLabel();
         }
                
 
@@ -126,7 +127,7 @@ namespace QuickMon
         private void UpdateNotifiersLabel()
         {
             TreeNode notifierRoot = tvwNotifiers.Nodes[0];
-            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "Show Notifiers" : "Hide Notifiers";
+            llblNotifierViewToggle.Text = masterSplitContainer.Panel2Collapsed ? "► Show Notifiers" : "▼ Hide Notifiers";
             if (notifierRoot.Nodes.Count > 0)
             {
                 StringBuilder notSummary = new StringBuilder();
@@ -142,6 +143,12 @@ namespace QuickMon
         private void tvwNotifiers_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+        }
+
+        private void llblNotifierViewToggle_DoubleClick(object sender, EventArgs e)
+        {
+            masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
+            UpdateNotifiersLabel();
         }
     }
 }

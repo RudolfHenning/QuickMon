@@ -444,7 +444,7 @@ namespace QuickMon
             this.masterSplitContainer.Panel2.Controls.Add(this.tvwNotifiers);
             this.masterSplitContainer.Panel2.Controls.Add(this.lblNotifiers);
             this.masterSplitContainer.Size = new System.Drawing.Size(427, 443);
-            this.masterSplitContainer.SplitterDistance = 275;
+            this.masterSplitContainer.SplitterDistance = 262;
             this.masterSplitContainer.SplitterWidth = 6;
             this.masterSplitContainer.TabIndex = 6;
             // 
@@ -462,17 +462,19 @@ namespace QuickMon
             // 
             this.llblNotifierViewToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.llblNotifierViewToggle.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.llblNotifierViewToggle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llblNotifierViewToggle.Font = new System.Drawing.Font("Arial Unicode MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llblNotifierViewToggle.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.llblNotifierViewToggle.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 255);
+            this.llblNotifierViewToggle.Location = new System.Drawing.Point(0, 237);
             this.llblNotifierViewToggle.Name = "llblNotifierViewToggle";
             this.llblNotifierViewToggle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.llblNotifierViewToggle.Size = new System.Drawing.Size(427, 20);
+            this.llblNotifierViewToggle.Size = new System.Drawing.Size(427, 25);
             this.llblNotifierViewToggle.TabIndex = 40;
             this.llblNotifierViewToggle.TabStop = true;
-            this.llblNotifierViewToggle.Text = "Show Notifiers";
+            this.llblNotifierViewToggle.Text = "► Show Notifiers";
+            this.llblNotifierViewToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.llblNotifierViewToggle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblNotifierViewToggle_LinkClicked);
+            this.llblNotifierViewToggle.DoubleClick += new System.EventHandler(this.llblNotifierViewToggle_DoubleClick);
             // 
             // imagesNotifiersTree
             // 
@@ -523,7 +525,7 @@ namespace QuickMon
             treeNode4});
             this.treeView1.RootAlwaysExpanded = false;
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(427, 232);
+            this.treeView1.Size = new System.Drawing.Size(427, 214);
             this.treeView1.TabIndex = 0;
             // 
             // lblCollectors
@@ -564,7 +566,7 @@ namespace QuickMon
             this.lblVersion.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.lblVersion.Size = new System.Drawing.Size(58, 23);
             this.lblVersion.StartFont = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblVersion.StartForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblVersion.StartForeColor = System.Drawing.Color.Silver;
             this.lblVersion.TabIndex = 43;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
@@ -606,7 +608,7 @@ namespace QuickMon
             treeNode6});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
-            this.tvwNotifiers.Size = new System.Drawing.Size(427, 139);
+            this.tvwNotifiers.Size = new System.Drawing.Size(427, 152);
             this.tvwNotifiers.TabIndex = 4;
             this.tvwNotifiers.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwNotifiers_AfterSelect);
             // 
