@@ -52,6 +52,9 @@
     <Compile Include="..\QuickMon5Core\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\FadeSnapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\Label\HiLightLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -64,6 +67,7 @@
     <Compile Include="Controls\SplitButton\SplitButton.Designer.cs">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeViewEx\TreeNodeEx.cs" />
     <Compile Include="Controls\TreeViewEx\TreeViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -235,6 +239,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\QuickMon5Background3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\ContextMenuControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Collectors24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notifiers24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blue3DGearEdit24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pastewithedit24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ForbiddenBlue24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\131.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\141.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickMon5Core\QuickMonCore.csproj">
+      <Project>{ba11f2a5-01db-4e85-8aec-b9420d03dc2b}</Project>
+      <Name>QuickMonCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankMonitorPack.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
