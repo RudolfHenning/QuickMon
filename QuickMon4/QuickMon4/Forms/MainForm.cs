@@ -2352,7 +2352,7 @@ namespace QuickMon
         }
         private void openMonitorPackToolStripButton_Click(object sender, EventArgs e)
         {
-             	HideCollectorContextMenu( 	) 	;
+            HideCollectorContextMenu();
             try
             {
                 if (openFileDialogOpen.FileName == null || openFileDialogOpen.FileName.Length == 0)
