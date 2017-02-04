@@ -63,9 +63,52 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _131 {
+            get {
+                object obj = ResourceManager.GetObject("131", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _141 {
+            get {
+                object obj = ResourceManager.GetObject("141", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;Test&quot; typeName=&quot;Test&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;60&quot; &gt;
+        ///&lt;configVars /&gt;
+        ///&lt;collectorHosts /&gt;
+        ///&lt;notifierHosts /&gt;
+        ///&lt;/monitorPack&gt;.
+        /// </summary>
+        internal static string BlankMonitorPack {
+            get {
+                return ResourceManager.GetString("BlankMonitorPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Blue3DGearEdit24 {
+            get {
+                object obj = ResourceManager.GetObject("Blue3DGearEdit24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,6 +136,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Collectors24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Collectors24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap comp_search24 {
             get {
                 object obj = ResourceManager.GetObject("comp_search24", resourceCulture);
@@ -106,6 +159,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap comp_web24x24 {
             get {
                 object obj = ResourceManager.GetObject("comp_web24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap copy24x24 {
+            get {
+                object obj = ResourceManager.GetObject("copy24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,6 +296,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ForbiddenBlue24x24 {
+            get {
+                object obj = ResourceManager.GetObject("ForbiddenBlue24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap info {
             get {
                 object obj = ResourceManager.GetObject("info", resourceCulture);
@@ -283,9 +356,39 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Notifiers24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Notifiers24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OUTLLIBR_9825 {
             get {
                 object obj = ResourceManager.GetObject("OUTLLIBR_9825", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap paste24x24 {
+            get {
+                object obj = ResourceManager.GetObject("paste24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pastewithedit24x24 {
+            get {
+                object obj = ResourceManager.GetObject("pastewithedit24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

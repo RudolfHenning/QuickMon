@@ -1,0 +1,13 @@
+<monitorPack version="5.0.0" name="Test" typeName="Test" enabled="True" pollingFreqSecOverride="60" >
+	<configVars />
+	<collectorHosts />
+    <notifierHosts>
+		<notifierHost name="Default Notifier" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+			<notifierAgents>
+				<notifierAgent name="Memory agent" type="InMemoryNotifier">
+					<config><inMemory maxEntryCount="99999" /></config>
+				</notifierAgent>
+			</notifierAgents>
+		</notifierHost>
+	</notifierHosts>
+</monitorPack>

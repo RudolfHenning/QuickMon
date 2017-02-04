@@ -72,7 +72,7 @@ namespace HenIT.Windows.Controls
             set { lblContent.TextAlign = value; }
         }
         [Browsable(true)]
-        public override string Text
+        public string LabelText
         {
             get
             {
