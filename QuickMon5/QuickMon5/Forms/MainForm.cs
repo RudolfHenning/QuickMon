@@ -451,6 +451,126 @@ namespace QuickMon
         }
         private void LoadControlsFromMonitorPack()
         {
+            firstRefresh = true;
+            SetMonitorPackNameDescription();
+            tvwCollectors.Nodes.Clear();
+            lblCollectors.LabelText = "Collectors - Loading...";
+            
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+
+            #region Load Collectors
+            if (monitorPack != null)
+            {
+                List<CollectorHost> noDependantCollectors = monitorPack.GetRootCollectorHosts();
+                foreach (CollectorHost collector in noDependantCollectors)
+                {
+                    LoadCollectorNode(null, collector);
+                }
+            }
+            lblCollectors.LabelText = "Collectors";
+            #endregion
+
+            #region Load Notifiers
+            tvwNotifiers.Nodes.Clear();            
+            if (monitorPack != null && monitorPack.NotifierHosts != null && monitorPack.NotifierHosts.Count > 0)
+            {
+                foreach (NotifierHost n in monitorPack.NotifierHosts)
+                {
+                    LoadNotifierNode(n);
+                }
+            }            
+
+            UpdateNotifiersLabel();
+            #endregion
+
+            UpdateAppTitle();
+
+            if (monitorPack != null)
+            {
+                UpdateStatusbar(string.Format("{0} collector(s), {1} notifier(s)",
+                     monitorPack.CollectorHosts.Count,
+                     monitorPack.NotifierHosts.Count));
+            }
+
+            //tvwCollectors.SelectedNode = root;
+            //root.EnsureVisible();
+
+            Cursor.Current = Cursors.Default;
+            Application.DoEvents();
+        }
+        private void LoadCollectorNode(TreeNode root, CollectorHost collector)
+        {
+            TreeNode collectorNode;
+            if (collector.CollectorAgents == null || collector.CollectorAgents.Count == 0)
+            {
+                collectorNode = new TreeNode(collector.DisplayName, 1, 1);
+                collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            }
+            else
+                collectorNode = new TreeNode(collector.DisplayName, 2, 2);
+            collectorNode.Tag = collector;
+            collector.Tag = collectorNode;
+            collectorNode.ForeColor = collector.Enabled ? SystemColors.WindowText : Color.Gray;
+            foreach (CollectorHost childCollector in (from c in monitorPack.CollectorHosts
+                                                      where c.ParentCollectorId == collector.UniqueId &&
+                                                      c.ParentCollectorId != c.UniqueId
+                                                      select c))
+            {
+                LoadCollectorNode(collectorNode, childCollector);
+            }
+            if (root == null)
+            {
+                tvwCollectors.Nodes.Add(collectorNode);
+            }
+            else 
+                root.Nodes.Add(collectorNode);
+            if (collector.Enabled)
+            {
+                if (collector.ExpandOnStartOption == ExpandOnStartOption.Auto || collector.ExpandOnStartOption == ExpandOnStartOption.Always)
+                {
+                    collectorNode.Expand();
+                }
+            }
+        }
+        private void LoadNotifierNode(NotifierHost n)
+        {
+            //TreeNode notifierRoot = tvwNotifiers.Nodes[0];
+            TreeNode notifierHostNode = new TreeNode(n.Name);
+            if (n.Enabled)
+            {
+                notifierHostNode.ImageIndex = 1;
+            }
+            else
+            {
+                notifierHostNode.ImageIndex = 2;
+            }
+            notifierHostNode.SelectedImageIndex = notifierHostNode.ImageIndex;
+            notifierHostNode.Tag = n;
+            LoadNotifierAgents(notifierHostNode, n);
+            tvwNotifiers.Nodes.Add(notifierHostNode);
+        }
+        private void LoadNotifierAgents(TreeNode notifierHostNode, NotifierHost n)
+        {
+            foreach (INotifier nAgent in n.NotifierAgents)
+            {
+                TreeNode notifierAgentNode = new TreeNode(nAgent.Name);
+                try
+                {
+                    if (UI.RegisteredAgentUIMapper.HasAgentViewer(nAgent))
+                        notifierAgentNode.ImageIndex = 3;
+                    else
+                        notifierAgentNode.ImageIndex = 4;
+                }
+                catch
+                {
+                    notifierAgentNode.ImageIndex = 4;
+                }
+                notifierAgentNode.SelectedImageIndex = notifierAgentNode.ImageIndex;
+                notifierAgentNode.Tag = nAgent;
+                notifierHostNode.Nodes.Add(notifierAgentNode);
+            }
+            notifierHostNode.Expand();
         }
         private void SetMonitorPackEvents()
         {
