@@ -1,0 +1,68 @@
+<monitorPack version="5.0.0.0001" name="Sample test" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+	<configVars>
+		<configVar find="%ComputerName%" replace="localhost" />
+	</configVars>
+	<collectorHosts correctiveScriptsEnabled="True" stateHistorySize="100" pollingFreqSecOverride="30">
+		<actionScripts />
+		<collectorHost uniqueId="PINGTEST" dependOnParentId="" name="Ping Self" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs=""><!-- Alerting --><alerting><suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" /><texts><header /><footer /><error /><warning /><good /></texts></alerting><!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All">
+				<collectorAgent name="Ping" type="QuickMon.Collectors.PingCollector" enabled="True">
+					<config>
+						<entries>
+							<entry pingMethod="Ping" address="localhost" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
+						</entries>
+					</config>
+				</collectorAgent>			
+			</collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="False" onlyOnStateChange="False">
+				<warning />
+				<error />
+				<restoration />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<collectorActionScripts>
+				<actionScript mpId="1" correctiveErrorScript="False" correctiveWarningScript="False" restorationScript="False">
+					<parameters>
+						<parameter id="@ComputerName" value="LOCALHOST" />
+					</parameters>
+				</actionScript>
+			</collectorActionScripts>
+			<!-- ServiceWindows -->
+			<serviceWindows />
+			<!-- Config variables -->
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
+		</collectorHost>
+	</collectorHosts>
+<notifierHosts>
+    <notifierHost name="Debugging" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+		<!-- collectorHosts -->
+		<collectorHosts />
+		<!-- ServiceWindows -->
+		<serviceWindows />
+		<!-- Categories -->
+		<categories />
+		<!-- Config variables -->
+		<configVars />
+		<recordOnHosts />
+		<!-- notifierAgents -->
+		<notifierAgents>
+			<notifierAgent name="Memory agent" type="InMemoryNotifier" enabled="True">
+				<config><inMemory maxEntryCount="99999" /></config>
+			</notifierAgent>
+		</notifierAgents>
+	</notifierHost>
+</notifierHosts>
+<logging enabled="True" loggingPath="C:\Test" loggingCollectorEvents="False" loggingNotifierEvents="False" loggingAlertsRaised="False" loggingCorrectiveScriptRun="True" loggingPollingOverridesTriggered="False" loggingServiceWindowEvents="False" loggingKeepLogFilesXDays="180">
+    <collectorCategories>
+      <category>*</category>
+    </collectorCategories>
+  </logging>
+</monitorPack>

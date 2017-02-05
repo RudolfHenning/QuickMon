@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonCore", "QuickMon5Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9221E5FF-9CA4-45EC-99BE-8A99FA598B02}"
 	ProjectSection(SolutionItems) = preProject
+		SampleMP.qmp = SampleMP.qmp
+		SampleMP2.qmp = SampleMP2.qmp
 		QuickMon5Core\VersionInfo.cs = QuickMon5Core\VersionInfo.cs
 	EndProjectSection
 EndProject
