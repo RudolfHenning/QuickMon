@@ -277,4 +277,28 @@
   <data name="BlankMonitorPack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BlankMonitorPack.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="QM4BlueStateErrA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateErrA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateErrB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateErrB.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateGoodA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateGoodA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateGoodB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateGoodB.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateNAA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateNAA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateNAB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateNAB.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateWarnA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateWarnA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QM4BlueStateWarnB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QM4BlueStateWarnB.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

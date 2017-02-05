@@ -191,13 +191,36 @@ namespace QuickMon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ApplicationUserNameCache {
+        public global::System.Collections.Specialized.StringCollection ApplicationUserNameCache {
             get {
-                return ((string)(this["ApplicationUserNameCache"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["ApplicationUserNameCache"]));
             }
             set {
                 this["ApplicationUserNameCache"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastMonitorPack {
+            get {
+                return ((string)(this["LastMonitorPack"]));
+            }
+            set {
+                this["LastMonitorPack"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableAutoAdminMode {
+            get {
+                return ((bool)(this["DisableAutoAdminMode"]));
+            }
+            set {
+                this["DisableAutoAdminMode"] = value;
             }
         }
     }

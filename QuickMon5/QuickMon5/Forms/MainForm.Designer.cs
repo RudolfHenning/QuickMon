@@ -34,70 +34,63 @@ namespace QuickMon
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Health", 3, 3);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Ping localhost", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Health", 4, 4);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Ping server", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Memory agent");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Default Notifier", new System.Windows.Forms.TreeNode[] {
-            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.saveContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.cmdPauseRunMP = new System.Windows.Forms.Button();
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.cmdAbout = new System.Windows.Forms.Button();
+            this.cmdRemoteHosts = new System.Windows.Forms.Button();
+            this.cmdOpen = new System.Windows.Forms.Button();
+            this.cmdNew = new System.Windows.Forms.Button();
+            this.cmdMenu = new System.Windows.Forms.Button();
             this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
             this.collectorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
-            this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
-            this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
-            this.notifiersContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.imagesNotifiersTree = new System.Windows.Forms.ImageList(this.components);
-            this.lblNotifiers = new HenIT.Windows.Controls.HiLightLabel();
-            this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteAndEditCollectorConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblCollectors = new HenIT.Windows.Controls.HiLightLabel();
+            this.llblNotifierViewToggle = new System.Windows.Forms.LinkLabel();
+            this.tvwNotifiers = new QuickMon.Controls.TreeViewExBase();
+            this.notifiersContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.imagesNotifiersTree = new System.Windows.Forms.ImageList(this.components);
+            this.lblNotifiers = new HenIT.Windows.Controls.HiLightLabel();
+            this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.cmdPauseRunMP = new System.Windows.Forms.Button();
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
-            this.button3 = new System.Windows.Forms.Button();
             this.panelSlimMenu = new System.Windows.Forms.Panel();
-            this.cmdAbout = new System.Windows.Forms.Button();
-            this.cmdRemoteHosts = new System.Windows.Forms.Button();
             this.splitButtonTools = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonNotifiers = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonCollectors = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
-            this.cmdOpen = new System.Windows.Forms.Button();
-            this.cmdNew = new System.Windows.Forms.Button();
-            this.cmdMenu = new System.Windows.Forms.Button();
-            this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -151,9 +144,17 @@ namespace QuickMon
             // 
             this.saveContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.saveContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem1});
+            this.saveAsToolStripMenuItem});
             this.saveContextMenuStrip.Name = "saveContextMenuStrip";
             this.saveContextMenuStrip.Size = new System.Drawing.Size(123, 34);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.SaveAs24x24;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(122, 30);
+            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // openContextMenuStrip
             // 
@@ -162,6 +163,14 @@ namespace QuickMon
             this.toolStripMenuItem1});
             this.openContextMenuStrip.Name = "saveContextMenuStrip";
             this.openContextMenuStrip.Size = new System.Drawing.Size(239, 34);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::QuickMon.Properties.Resources.folderWLightning1;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(238, 30);
+            this.toolStripMenuItem1.Text = "Recent Monitor Packs";
             // 
             // lblVersion
             // 
@@ -173,7 +182,7 @@ namespace QuickMon
             this.lblVersion.FadedFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.HighLightBackColor = System.Drawing.Color.WhiteSmoke;
             this.lblVersion.HighLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblVersion.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.HighLightFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.LabelText = "Label";
             this.lblVersion.Location = new System.Drawing.Point(369, 0);
             this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 4, 10, 4);
@@ -186,6 +195,156 @@ namespace QuickMon
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::QuickMon.Properties.Resources.folderWLightning16x16;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(322, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(35, 38);
+            this.button2.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.button2, "Recent Monitor Packs");
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // cmdPauseRunMP
+            // 
+            this.cmdPauseRunMP.BackColor = System.Drawing.Color.Transparent;
+            this.cmdPauseRunMP.BackgroundImage = global::QuickMon.Properties.Resources._141;
+            this.cmdPauseRunMP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdPauseRunMP.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdPauseRunMP.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdPauseRunMP.FlatAppearance.BorderSize = 0;
+            this.cmdPauseRunMP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdPauseRunMP.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdPauseRunMP.Location = new System.Drawing.Point(357, 0);
+            this.cmdPauseRunMP.Name = "cmdPauseRunMP";
+            this.cmdPauseRunMP.Size = new System.Drawing.Size(35, 38);
+            this.cmdPauseRunMP.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.cmdPauseRunMP, "Pause Auto refresh");
+            this.cmdPauseRunMP.UseVisualStyleBackColor = false;
+            this.cmdPauseRunMP.Click += new System.EventHandler(this.cmdPauseRunMP_Click);
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
+            this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdRefresh.FlatAppearance.BorderSize = 0;
+            this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRefresh.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRefresh.Location = new System.Drawing.Point(392, 0);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(35, 38);
+            this.cmdRefresh.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.cmdRefresh, "Refresh current Monitor Pack");
+            this.cmdRefresh.UseVisualStyleBackColor = false;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // cmdAbout
+            // 
+            this.cmdAbout.BackColor = System.Drawing.Color.Transparent;
+            this.cmdAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdAbout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAbout.FlatAppearance.BorderSize = 0;
+            this.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAbout.Image = global::QuickMon.Properties.Resources.info24x24;
+            this.cmdAbout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAbout.Location = new System.Drawing.Point(0, 247);
+            this.cmdAbout.Name = "cmdAbout";
+            this.cmdAbout.Size = new System.Drawing.Size(45, 30);
+            this.cmdAbout.TabIndex = 9;
+            this.cmdAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdAbout, "About");
+            this.cmdAbout.UseVisualStyleBackColor = false;
+            this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
+            // 
+            // cmdRemoteHosts
+            // 
+            this.cmdRemoteHosts.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRemoteHosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRemoteHosts.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRemoteHosts.FlatAppearance.BorderSize = 0;
+            this.cmdRemoteHosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRemoteHosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRemoteHosts.Image = global::QuickMon.Properties.Resources.remote24x24;
+            this.cmdRemoteHosts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 217);
+            this.cmdRemoteHosts.Name = "cmdRemoteHosts";
+            this.cmdRemoteHosts.Size = new System.Drawing.Size(45, 30);
+            this.cmdRemoteHosts.TabIndex = 8;
+            this.cmdRemoteHosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdRemoteHosts, "About");
+            this.cmdRemoteHosts.UseVisualStyleBackColor = false;
+            // 
+            // cmdOpen
+            // 
+            this.cmdOpen.BackColor = System.Drawing.Color.Transparent;
+            this.cmdOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdOpen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdOpen.FlatAppearance.BorderSize = 0;
+            this.cmdOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdOpen.Image = global::QuickMon.Properties.Resources.folderOpen24x24;
+            this.cmdOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdOpen.Location = new System.Drawing.Point(0, 63);
+            this.cmdOpen.Name = "cmdOpen";
+            this.cmdOpen.Size = new System.Drawing.Size(45, 30);
+            this.cmdOpen.TabIndex = 2;
+            this.cmdOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdOpen, "New  CTRL+O");
+            this.cmdOpen.UseVisualStyleBackColor = false;
+            this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
+            // 
+            // cmdNew
+            // 
+            this.cmdNew.BackColor = System.Drawing.Color.Transparent;
+            this.cmdNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdNew.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdNew.FlatAppearance.BorderSize = 0;
+            this.cmdNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdNew.Image = global::QuickMon.Properties.Resources.doc_new1;
+            this.cmdNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdNew.Location = new System.Drawing.Point(0, 33);
+            this.cmdNew.Name = "cmdNew";
+            this.cmdNew.Size = new System.Drawing.Size(45, 30);
+            this.cmdNew.TabIndex = 1;
+            this.cmdNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdNew, "New  CTRL+N");
+            this.cmdNew.UseVisualStyleBackColor = false;
+            this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
+            // 
+            // cmdMenu
+            // 
+            this.cmdMenu.BackColor = System.Drawing.Color.Transparent;
+            this.cmdMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdMenu.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdMenu.FlatAppearance.BorderSize = 0;
+            this.cmdMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdMenu.Image = global::QuickMon.Properties.Resources.menu_alt_16b1;
+            this.cmdMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdMenu.Location = new System.Drawing.Point(0, 0);
+            this.cmdMenu.Name = "cmdMenu";
+            this.cmdMenu.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.cmdMenu.Size = new System.Drawing.Size(45, 33);
+            this.cmdMenu.TabIndex = 0;
+            this.cmdMenu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
+            this.cmdMenu.UseVisualStyleBackColor = false;
+            this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
+            // 
             // settingsContextMenuStrip
             // 
             this.settingsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -196,6 +355,27 @@ namespace QuickMon
             this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
             this.settingsContextMenuStrip.Size = new System.Drawing.Size(153, 94);
             // 
+            // pollingToolStripMenuItem
+            // 
+            this.pollingToolStripMenuItem.Image = global::QuickMon.Properties.Resources.clock24x24;
+            this.pollingToolStripMenuItem.Name = "pollingToolStripMenuItem";
+            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.pollingToolStripMenuItem.Text = "Polling";
+            // 
+            // templatesToolStripMenuItem
+            // 
+            this.templatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables24x24;
+            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.templatesToolStripMenuItem.Text = "Templates";
+            // 
+            // adminModeToolStripMenuItem
+            // 
+            this.adminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Shield24x24;
+            this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
+            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.adminModeToolStripMenuItem.Text = "Admin mode";
+            // 
             // aboutContextMenuStrip
             // 
             this.aboutContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -203,6 +383,14 @@ namespace QuickMon
             this.remoteHostsToolStripMenuItem});
             this.aboutContextMenuStrip.Name = "saveContextMenuStrip";
             this.aboutContextMenuStrip.Size = new System.Drawing.Size(200, 34);
+            // 
+            // remoteHostsToolStripMenuItem
+            // 
+            this.remoteHostsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_web24x24;
+            this.remoteHostsToolStripMenuItem.Name = "remoteHostsToolStripMenuItem";
+            this.remoteHostsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.remoteHostsToolStripMenuItem.Size = new System.Drawing.Size(199, 30);
+            this.remoteHostsToolStripMenuItem.Text = "Remote Hosts";
             // 
             // masterSplitContainer
             // 
@@ -249,25 +437,6 @@ namespace QuickMon
             this.tvwCollectors.ItemHeight = 24;
             this.tvwCollectors.Location = new System.Drawing.Point(0, 23);
             this.tvwCollectors.Name = "tvwCollectors";
-            treeNode1.BackColor = System.Drawing.Color.White;
-            treeNode1.ImageIndex = 3;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 3;
-            treeNode1.Text = "Health";
-            treeNode2.BackColor = System.Drawing.Color.White;
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Ping localhost";
-            treeNode3.BackColor = System.Drawing.Color.White;
-            treeNode3.ImageIndex = 4;
-            treeNode3.Name = "Node2";
-            treeNode3.SelectedImageIndex = 4;
-            treeNode3.Text = "Health";
-            treeNode4.BackColor = System.Drawing.Color.White;
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Ping server";
-            this.tvwCollectors.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4});
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
             this.tvwCollectors.Size = new System.Drawing.Size(427, 214);
@@ -289,10 +458,66 @@ namespace QuickMon
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
             this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 250);
             // 
+            // addCollectorToolStripMenuItem
+            // 
+            this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
+            this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
+            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.addCollectorToolStripMenuItem.Text = "Add";
+            // 
+            // editCollectorToolStripMenuItem
+            // 
+            this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
+            this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
+            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.editCollectorToolStripMenuItem.Text = "Edit";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // disableCollectorToolStripMenuItem
+            // 
+            this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
+            this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.disableCollectorToolStripMenuItem.Text = "Disable";
+            // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.detailsToolStripMenuItem.Text = "Details";
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            // 
+            // copyCollectorToolStripMenuItem
+            // 
+            this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
+            this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
+            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.copyCollectorToolStripMenuItem.Text = "Copy";
+            // 
+            // pasteCollectorToolStripMenuItem
+            // 
+            this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
+            this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
+            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteCollectorToolStripMenuItem.Text = "Paste";
+            // 
+            // pasteAndEditCollectorConfigToolStripMenuItem
+            // 
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
             // 
             // panel2
             // 
@@ -369,16 +594,6 @@ namespace QuickMon
             this.tvwNotifiers.Location = new System.Drawing.Point(0, 23);
             this.tvwNotifiers.Margin = new System.Windows.Forms.Padding(5);
             this.tvwNotifiers.Name = "tvwNotifiers";
-            treeNode5.ImageKey = "Speaker_doc.png";
-            treeNode5.Name = "Node0";
-            treeNode5.SelectedImageKey = "Speaker_doc.png";
-            treeNode5.Text = "Memory agent";
-            treeNode6.ImageKey = "SpeakerBlue.ico";
-            treeNode6.Name = "root";
-            treeNode6.SelectedImageKey = "SpeakerBlue.ico";
-            treeNode6.Text = "Default Notifier";
-            this.tvwNotifiers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6});
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
             this.tvwNotifiers.Size = new System.Drawing.Size(427, 152);
@@ -395,6 +610,41 @@ namespace QuickMon
             this.toolStripMenuItem6});
             this.notifiersContextMenuStrip.Name = "saveContextMenuStrip";
             this.notifiersContextMenuStrip.Size = new System.Drawing.Size(121, 154);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Image = global::QuickMon.Properties.Resources.add;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(120, 30);
+            this.toolStripMenuItem2.Text = "Add";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(120, 30);
+            this.toolStripMenuItem3.Text = "Edit";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Image = global::QuickMon.Properties.Resources.stop24x24;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(120, 30);
+            this.toolStripMenuItem4.Text = "Delete";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(120, 30);
+            this.toolStripMenuItem5.Text = "Disable";
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Image = global::QuickMon.Properties.Resources.comp_search24;
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(120, 30);
+            this.toolStripMenuItem6.Text = "Details";
             // 
             // imagesNotifiersTree
             // 
@@ -433,97 +683,6 @@ namespace QuickMon
             this.openFileDialogOpen.DefaultExt = "qmp";
             this.openFileDialogOpen.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
-            // addCollectorToolStripMenuItem
-            // 
-            this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
-            this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
-            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.addCollectorToolStripMenuItem.Text = "Add";
-            // 
-            // editCollectorToolStripMenuItem
-            // 
-            this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
-            this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.editCollectorToolStripMenuItem.Text = "Edit";
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            // 
-            // disableCollectorToolStripMenuItem
-            // 
-            this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
-            this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.disableCollectorToolStripMenuItem.Text = "Disable";
-            // 
-            // detailsToolStripMenuItem
-            // 
-            this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
-            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.detailsToolStripMenuItem.Text = "Details";
-            // 
-            // copyCollectorToolStripMenuItem
-            // 
-            this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
-            this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
-            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.copyCollectorToolStripMenuItem.Text = "Copy";
-            // 
-            // pasteCollectorToolStripMenuItem
-            // 
-            this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
-            this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
-            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.pasteCollectorToolStripMenuItem.Text = "Paste";
-            // 
-            // pasteAndEditCollectorConfigToolStripMenuItem
-            // 
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Image = global::QuickMon.Properties.Resources.add;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(120, 30);
-            this.toolStripMenuItem2.Text = "Add";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(120, 30);
-            this.toolStripMenuItem3.Text = "Edit";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Image = global::QuickMon.Properties.Resources.stop24x24;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(120, 30);
-            this.toolStripMenuItem4.Text = "Delete";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(120, 30);
-            this.toolStripMenuItem5.Text = "Disable";
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Image = global::QuickMon.Properties.Resources.comp_search24;
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(120, 30);
-            this.toolStripMenuItem6.Text = "Details";
-            // 
             // panel1
             // 
             this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.QuickMon5Background3;
@@ -531,47 +690,12 @@ namespace QuickMon
             this.panel1.Controls.Add(this.llblMonitorPack);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.cmdPauseRunMP);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.cmdRefresh);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(45, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(427, 38);
             this.panel1.TabIndex = 3;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::QuickMon.Properties.Resources.folderWLightning16x16;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(322, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(35, 38);
-            this.button2.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.button2, "Recent Monitor Packs");
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // cmdPauseRunMP
-            // 
-            this.cmdPauseRunMP.BackColor = System.Drawing.Color.Transparent;
-            this.cmdPauseRunMP.BackgroundImage = global::QuickMon.Properties.Resources._141;
-            this.cmdPauseRunMP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdPauseRunMP.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdPauseRunMP.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.cmdPauseRunMP.FlatAppearance.BorderSize = 0;
-            this.cmdPauseRunMP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdPauseRunMP.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPauseRunMP.Location = new System.Drawing.Point(357, 0);
-            this.cmdPauseRunMP.Name = "cmdPauseRunMP";
-            this.cmdPauseRunMP.Size = new System.Drawing.Size(35, 38);
-            this.cmdPauseRunMP.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.cmdPauseRunMP, "Pause Auto refresh");
-            this.cmdPauseRunMP.UseVisualStyleBackColor = false;
-            this.cmdPauseRunMP.Click += new System.EventHandler(this.cmdPauseRunMP_Click);
             // 
             // llblMonitorPack
             // 
@@ -586,23 +710,6 @@ namespace QuickMon
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(392, 0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(35, 38);
-            this.button3.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.button3, "Refresh current Monitor Pack");
-            this.button3.UseVisualStyleBackColor = false;
             // 
             // panelSlimMenu
             // 
@@ -622,43 +729,6 @@ namespace QuickMon
             this.panelSlimMenu.Name = "panelSlimMenu";
             this.panelSlimMenu.Size = new System.Drawing.Size(45, 481);
             this.panelSlimMenu.TabIndex = 2;
-            // 
-            // cmdAbout
-            // 
-            this.cmdAbout.BackColor = System.Drawing.Color.Transparent;
-            this.cmdAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdAbout.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdAbout.FlatAppearance.BorderSize = 0;
-            this.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAbout.Image = global::QuickMon.Properties.Resources.info24x24;
-            this.cmdAbout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAbout.Location = new System.Drawing.Point(0, 247);
-            this.cmdAbout.Name = "cmdAbout";
-            this.cmdAbout.Size = new System.Drawing.Size(45, 30);
-            this.cmdAbout.TabIndex = 9;
-            this.cmdAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdAbout, "About");
-            this.cmdAbout.UseVisualStyleBackColor = false;
-            this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
-            // 
-            // cmdRemoteHosts
-            // 
-            this.cmdRemoteHosts.BackColor = System.Drawing.Color.Transparent;
-            this.cmdRemoteHosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdRemoteHosts.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdRemoteHosts.FlatAppearance.BorderSize = 0;
-            this.cmdRemoteHosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRemoteHosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdRemoteHosts.Image = global::QuickMon.Properties.Resources.remote24x24;
-            this.cmdRemoteHosts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRemoteHosts.Location = new System.Drawing.Point(0, 217);
-            this.cmdRemoteHosts.Name = "cmdRemoteHosts";
-            this.cmdRemoteHosts.Size = new System.Drawing.Size(45, 30);
-            this.cmdRemoteHosts.TabIndex = 8;
-            this.cmdRemoteHosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdRemoteHosts, "About");
-            this.cmdRemoteHosts.UseVisualStyleBackColor = false;
             // 
             // splitButtonTools
             // 
@@ -740,111 +810,13 @@ namespace QuickMon
             this.splitButtonSave.Name = "splitButtonSave";
             this.splitButtonSave.Size = new System.Drawing.Size(45, 31);
             this.splitButtonSave.TabIndex = 3;
+            this.splitButtonSave.ButtonClicked += new System.EventHandler(this.splitButtonSave_ButtonClicked);
             this.splitButtonSave.SplitButtonClicked += new System.EventHandler(this.splitButtonSave_SplitButtonClicked);
             // 
-            // cmdOpen
+            // saveFileDialogSave
             // 
-            this.cmdOpen.BackColor = System.Drawing.Color.Transparent;
-            this.cmdOpen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdOpen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdOpen.FlatAppearance.BorderSize = 0;
-            this.cmdOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdOpen.Image = global::QuickMon.Properties.Resources.folderOpen24x24;
-            this.cmdOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdOpen.Location = new System.Drawing.Point(0, 63);
-            this.cmdOpen.Name = "cmdOpen";
-            this.cmdOpen.Size = new System.Drawing.Size(45, 30);
-            this.cmdOpen.TabIndex = 2;
-            this.cmdOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdOpen, "New  CTRL+O");
-            this.cmdOpen.UseVisualStyleBackColor = false;
-            this.cmdOpen.Click += new System.EventHandler(this.cmdOpen_Click);
-            // 
-            // cmdNew
-            // 
-            this.cmdNew.BackColor = System.Drawing.Color.Transparent;
-            this.cmdNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdNew.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdNew.FlatAppearance.BorderSize = 0;
-            this.cmdNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdNew.Image = global::QuickMon.Properties.Resources.doc_new1;
-            this.cmdNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdNew.Location = new System.Drawing.Point(0, 33);
-            this.cmdNew.Name = "cmdNew";
-            this.cmdNew.Size = new System.Drawing.Size(45, 30);
-            this.cmdNew.TabIndex = 1;
-            this.cmdNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdNew, "New  CTRL+N");
-            this.cmdNew.UseVisualStyleBackColor = false;
-            this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
-            // 
-            // cmdMenu
-            // 
-            this.cmdMenu.BackColor = System.Drawing.Color.Transparent;
-            this.cmdMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdMenu.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.cmdMenu.FlatAppearance.BorderSize = 0;
-            this.cmdMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdMenu.Image = global::QuickMon.Properties.Resources.menu_alt_16b1;
-            this.cmdMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdMenu.Location = new System.Drawing.Point(0, 0);
-            this.cmdMenu.Name = "cmdMenu";
-            this.cmdMenu.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.cmdMenu.Size = new System.Drawing.Size(45, 33);
-            this.cmdMenu.TabIndex = 0;
-            this.cmdMenu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
-            this.cmdMenu.UseVisualStyleBackColor = false;
-            this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
-            // 
-            // saveAsToolStripMenuItem1
-            // 
-            this.saveAsToolStripMenuItem1.Image = global::QuickMon.Properties.Resources.SaveAs24x24;
-            this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(122, 30);
-            this.saveAsToolStripMenuItem1.Text = "Save As";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::QuickMon.Properties.Resources.folderWLightning1;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(238, 30);
-            this.toolStripMenuItem1.Text = "Recent Monitor Packs";
-            // 
-            // pollingToolStripMenuItem
-            // 
-            this.pollingToolStripMenuItem.Image = global::QuickMon.Properties.Resources.clock24x24;
-            this.pollingToolStripMenuItem.Name = "pollingToolStripMenuItem";
-            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
-            this.pollingToolStripMenuItem.Text = "Polling";
-            // 
-            // templatesToolStripMenuItem
-            // 
-            this.templatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables24x24;
-            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
-            this.templatesToolStripMenuItem.Text = "Templates";
-            // 
-            // adminModeToolStripMenuItem
-            // 
-            this.adminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Shield24x24;
-            this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
-            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
-            this.adminModeToolStripMenuItem.Text = "Admin mode";
-            // 
-            // remoteHostsToolStripMenuItem
-            // 
-            this.remoteHostsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_web24x24;
-            this.remoteHostsToolStripMenuItem.Name = "remoteHostsToolStripMenuItem";
-            this.remoteHostsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.remoteHostsToolStripMenuItem.Size = new System.Drawing.Size(199, 30);
-            this.remoteHostsToolStripMenuItem.Text = "Remote Hosts";
+            this.saveFileDialogSave.DefaultExt = "qmp";
+            this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
             // MainForm
             // 
@@ -897,12 +869,12 @@ namespace QuickMon
         private Controls.SplitButton.SplitButton splitButtonTools;
         private Controls.SplitButton.SplitButton splitButtonSave;
         private System.Windows.Forms.ContextMenuStrip saveContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip openContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel llblMonitorPack;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button cmdRefresh;
         private System.Windows.Forms.Button button2;
         private TreeViewExBase tvwCollectors;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
@@ -943,6 +915,8 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatus;
         private System.Windows.Forms.Button cmdPauseRunMP;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
+        private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
     }
 }
 

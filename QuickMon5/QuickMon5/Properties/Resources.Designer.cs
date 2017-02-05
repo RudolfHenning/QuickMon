@@ -92,10 +92,17 @@ namespace QuickMon.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;Test&quot; typeName=&quot;Test&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;60&quot; &gt;
-        ///&lt;configVars /&gt;
-        ///&lt;collectorHosts /&gt;
-        ///&lt;notifierHosts /&gt;
-        ///&lt;/monitorPack&gt;.
+        ///	&lt;configVars /&gt;
+        ///	&lt;collectorHosts /&gt;
+        ///    &lt;notifierHosts&gt;
+        ///		&lt;notifierHost name=&quot;Default Notifier&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;Detail&quot; attendedOptionOverride=&quot;OnlyAttended&quot;&gt;
+        ///			&lt;notifierAgents&gt;
+        ///				&lt;notifierAgent name=&quot;Memory agent&quot; type=&quot;InMemoryNotifier&quot;&gt;
+        ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
+        ///				&lt;/notifierAgent&gt;
+        ///			&lt;/notifierAgents&gt;
+        ///		&lt;/notifierHost&gt;
+        ///	&lt;/not [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankMonitorPack {
             get {
@@ -390,6 +397,86 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("pastewithedit24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateErrA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateErrA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateErrB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateErrB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateGoodA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateGoodA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateGoodB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateGoodB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateNAA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateNAA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateNAB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateNAB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateWarnA {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateWarnA", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon QM4BlueStateWarnB {
+            get {
+                object obj = ResourceManager.GetObject("QM4BlueStateWarnB", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
