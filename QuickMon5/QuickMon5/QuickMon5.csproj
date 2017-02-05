@@ -242,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\ContextMenuControls\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Collectors24x24.png" />
