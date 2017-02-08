@@ -63,6 +63,49 @@
         </collectorAgent>
 	</collectorAgents>
 </collectorHost>
+    <collectorHost uniqueId="17e074d3-d8ec-4d58-915f-8f8a785c8010" dependOnParentId="" name="File Collector" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+
+        <collectorAgent name="File System" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Test\Test.txt" testDirectoryExistOnly="False" testFilesExistOnly="True" errorOnFilesExist="False" includeSubDirs="False" containsText="1" useRegEx="False" warningFileCountMax="1" errorFileCountMax="2" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="60">dir c:\test</warning>
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0">dir c:\test</restoration>
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <actionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
   </collectorHosts>
   <notifierHosts>
     <notifierHost name="Debugging" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
