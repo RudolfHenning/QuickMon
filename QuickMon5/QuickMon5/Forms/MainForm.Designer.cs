@@ -43,7 +43,7 @@ namespace QuickMon
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblVersion = new HenIT.Windows.Controls.HiLightLabel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cmdRecentMonitorPacks = new System.Windows.Forms.Button();
             this.cmdPauseRunMP = new System.Windows.Forms.Button();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.cmdAbout = new System.Windows.Forms.Button();
@@ -84,6 +84,7 @@ namespace QuickMon
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.llblMonitorPack = new System.Windows.Forms.LinkLabel();
+            this.cboRecentMonitorPacks = new System.Windows.Forms.ComboBox();
             this.panelSlimMenu = new System.Windows.Forms.Panel();
             this.splitButtonTools = new QuickMon.Controls.SplitButton.SplitButton();
             this.splitButtonNotifiers = new QuickMon.Controls.SplitButton.SplitButton();
@@ -195,22 +196,23 @@ namespace QuickMon
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
             // 
-            // button2
+            // cmdRecentMonitorPacks
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::QuickMon.Properties.Resources.folderWLightning16x16;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(322, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(35, 38);
-            this.button2.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.button2, "Recent Monitor Packs");
-            this.button2.UseVisualStyleBackColor = false;
+            this.cmdRecentMonitorPacks.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRecentMonitorPacks.BackgroundImage = global::QuickMon.Properties.Resources.folderWLightning16x16;
+            this.cmdRecentMonitorPacks.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRecentMonitorPacks.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdRecentMonitorPacks.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.cmdRecentMonitorPacks.FlatAppearance.BorderSize = 0;
+            this.cmdRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRecentMonitorPacks.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRecentMonitorPacks.Location = new System.Drawing.Point(322, 0);
+            this.cmdRecentMonitorPacks.Name = "cmdRecentMonitorPacks";
+            this.cmdRecentMonitorPacks.Size = new System.Drawing.Size(35, 38);
+            this.cmdRecentMonitorPacks.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.cmdRecentMonitorPacks, "Recent Monitor Packs");
+            this.cmdRecentMonitorPacks.UseVisualStyleBackColor = false;
+            this.cmdRecentMonitorPacks.Click += new System.EventHandler(this.cmdRecentMonitorPacks_Click);
             // 
             // cmdPauseRunMP
             // 
@@ -688,7 +690,8 @@ namespace QuickMon
             this.panel1.BackgroundImage = global::QuickMon.Properties.Resources.QuickMon5Background3;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.llblMonitorPack);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.cboRecentMonitorPacks);
+            this.panel1.Controls.Add(this.cmdRecentMonitorPacks);
             this.panel1.Controls.Add(this.cmdPauseRunMP);
             this.panel1.Controls.Add(this.cmdRefresh);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -703,13 +706,29 @@ namespace QuickMon
             this.llblMonitorPack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.llblMonitorPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llblMonitorPack.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblMonitorPack.Location = new System.Drawing.Point(0, 0);
+            this.llblMonitorPack.Location = new System.Drawing.Point(120, 0);
             this.llblMonitorPack.Name = "llblMonitorPack";
-            this.llblMonitorPack.Size = new System.Drawing.Size(322, 38);
+            this.llblMonitorPack.Size = new System.Drawing.Size(202, 38);
             this.llblMonitorPack.TabIndex = 0;
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cboRecentMonitorPacks
+            // 
+            this.cboRecentMonitorPacks.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cboRecentMonitorPacks.DropDownHeight = 126;
+            this.cboRecentMonitorPacks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboRecentMonitorPacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.cboRecentMonitorPacks.FormattingEnabled = true;
+            this.cboRecentMonitorPacks.IntegralHeight = false;
+            this.cboRecentMonitorPacks.Location = new System.Drawing.Point(0, 0);
+            this.cboRecentMonitorPacks.Name = "cboRecentMonitorPacks";
+            this.cboRecentMonitorPacks.Size = new System.Drawing.Size(120, 24);
+            this.cboRecentMonitorPacks.TabIndex = 4;
+            this.cboRecentMonitorPacks.SelectionChangeCommitted += new System.EventHandler(this.cboRecentMonitorPacks_SelectionChangeCommitted);
+            this.cboRecentMonitorPacks.DropDownClosed += new System.EventHandler(this.cboRecentMonitorPacks_DropDownClosed);
             // 
             // panelSlimMenu
             // 
@@ -875,7 +894,7 @@ namespace QuickMon
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel llblMonitorPack;
         private System.Windows.Forms.Button cmdRefresh;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cmdRecentMonitorPacks;
         private TreeViewExBase tvwCollectors;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editCollectorToolStripMenuItem;
@@ -917,6 +936,7 @@ namespace QuickMon
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
         private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
+        private System.Windows.Forms.ComboBox cboRecentMonitorPacks;
     }
 }
 

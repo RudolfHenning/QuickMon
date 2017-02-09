@@ -77,6 +77,7 @@ namespace QuickMon
             lblCollectors.LabelText = "Collectors";
             lblNotifiers.LabelText = "Notifiers";
             UpdateNotifiersLabel();
+            cboRecentMonitorPacks.Visible = false;
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -127,6 +128,30 @@ namespace QuickMon
                     ToggleMenuSize();
                     e.SuppressKeyPress = true;
                 }
+                else if (e.KeyCode == Keys.O)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    cmdOpen_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.T)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    cmdRecentMonitorPacks_Click(null, null);
+                }
+                else if (e.KeyCode == Keys.N)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    cmdNew_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.E)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    //generalSettingsToolStripSplitButton_ButtonClick(sender, e);
+                }
             }
             else if (e.KeyCode == Keys.F5)
             {
@@ -134,30 +159,6 @@ namespace QuickMon
                 e.SuppressKeyPress = true;
                 InitializeBackgroundWorker();
                 RefreshMonitorPack(true, true);
-            }
-            else if (e.Control && e.KeyCode == Keys.O)
-            {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-                cmdOpen_Click(sender, e);
-            }
-            else if (e.Control && e.KeyCode == Keys.T)
-            {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-                //recentMonitorPackToolStripMenuItem1_Click(sender, e);
-            }
-            else if (e.Control && e.KeyCode == Keys.N)
-            {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-                cmdNew_Click(sender, e);
-            }
-            else if (e.Control && e.KeyCode == Keys.E)
-            {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-                //generalSettingsToolStripSplitButton_ButtonClick(sender, e);
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -488,7 +489,7 @@ namespace QuickMon
                     }
                 }
                 UpdateStatusbar("Pausing polling...");
-                PausePolling();
+                PausePolling(false);
                 WaitForPollingToFinish(5);
                 UpdateStatusbar("Waiting for loading to finish");
 
@@ -1282,71 +1283,72 @@ namespace QuickMon
             Properties.Settings.Default.LastMonitorPack = monitorPackPath;
             //LoadRecentMonitorPackList();
         }
-        //private void LoadRecentMonitorPackList()
-        //{
-        //    cboRecentMonitorPacks.Items.Clear();
-        //    cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem("", ""));
+        private void LoadRecentMonitorPackList()
+        {
+            cboRecentMonitorPacks.Items.Clear();
+            cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem("", ""));
 
-        //    try
-        //    {
-        //        List<string> allowFilters = new List<string>();
-        //        List<string> disallowFilters = new List<string>();
-        //        string typeFilters = Properties.Settings.Default.RecentQMConfigFileFilters;
-        //        if (typeFilters.Trim().Length == 0)
-        //            typeFilters = "*";
-        //        foreach (string typeFilter in typeFilters.Split(','))
-        //        {
-        //            if (typeFilter.Trim().StartsWith("!"))
-        //                disallowFilters.Add(typeFilter.Trim(' ', '!'));
-        //            else
-        //                allowFilters.Add(typeFilter.Trim());
-        //        }
+            try
+            {
+                List<string> allowFilters = new List<string>();
+                List<string> disallowFilters = new List<string>();
+                string typeFilters = Properties.Settings.Default.RecentQMConfigFileFilters;
+                if (typeFilters.Trim().Length == 0)
+                    typeFilters = "*";
+                foreach (string typeFilter in typeFilters.Split(','))
+                {
+                    if (typeFilter.Trim().StartsWith("!"))
+                        disallowFilters.Add(typeFilter.Trim(' ', '!'));
+                    else
+                        allowFilters.Add(typeFilter.Trim());
+                }
 
-        //        foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
-        //                                     orderby s
-        //                                     select s))
-        //        {
-        //            bool mpVisible = false;
-        //            if (System.IO.File.Exists(filePath))
-        //            {
-        //                MonitorPack.NameAndTypeSummary summary = MonitorPack.GetMonitorPackTypeName(filePath);
-        //                if ((from string s in allowFilters
-        //                     where s == "*" || s.ToLower() == summary.TypeName.ToLower()
-        //                     select s).Count() > 0)
-        //                    mpVisible = true;
-        //                if ((from string s in disallowFilters
-        //                     where s.ToLower() == summary.TypeName.ToLower()
-        //                     select s).Count() > 0)
-        //                    mpVisible = false;
-        //                if (mpVisible)
-        //                {
-        //                    string entryDisplayName = filePath;
-        //                    if (!Properties.Settings.Default.ShowFullPathForQuickRecentist)
-        //                        entryDisplayName = summary.Name;
+                foreach (string filePath in (from string s in Properties.Settings.Default.RecentQMConfigFiles
+                                             orderby s
+                                             select s))
+                {
+                    bool mpVisible = false;
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        MonitorPack.NameAndTypeSummary summary = MonitorPack.GetMonitorPackTypeName(filePath);
+                        if ((from string s in allowFilters
+                             where s == "*" || s.ToLower() == summary.TypeName.ToLower()
+                             select s).Count() > 0)
+                            mpVisible = true;
+                        if ((from string s in disallowFilters
+                             where s.ToLower() == summary.TypeName.ToLower()
+                             select s).Count() > 0)
+                            mpVisible = false;
+                        if (mpVisible)
+                        {
+                            string entryDisplayName = filePath;
+                            if (!Properties.Settings.Default.ShowFullPathForQuickRecentist)
+                                entryDisplayName = summary.Name;
 
-        //                    if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width)
-        //                    {
-        //                        string ellipseText = entryDisplayName.Substring(0, 20) + "....";
-        //                        string tmpStr = entryDisplayName.Substring(4);
-        //                        while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
-        //                        {
-        //                            tmpStr = tmpStr.Substring(1);
-        //                        }
-        //                        cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, summary));
-        //                    }
-        //                    else
-        //                    {
-        //                        cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, summary));
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+                            if (cboRecentMonitorPacks.DropDownWidth < TextRenderer.MeasureText(entryDisplayName + "........", cboRecentMonitorPacks.Font).Width && entryDisplayName.Length > 20)
+                            {
+                                string ellipseText = entryDisplayName.Substring(0, 20) + "....";
+                                string tmpStr = entryDisplayName.Substring(4);
+                                while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
+                                {
+                                    tmpStr = tmpStr.Substring(1);
+                                }
+                                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(ellipseText + tmpStr, summary));
+                            }
+                            else
+                            {
+                                cboRecentMonitorPacks.Items.Add(new QuickMon.Controls.ComboItem(entryDisplayName, summary));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         //private void recentMonitorPackToolStripMenuItem1_Click(object sender, EventArgs e)
         //{
         //HideCollectorContextMenu();
@@ -1362,8 +1364,45 @@ namespace QuickMon
         //    LoadRecentMonitorPackList();
         //}  
         //}
+
+        private void cmdRecentMonitorPacks_Click(object sender, EventArgs e)
+        {
+            cboRecentMonitorPacks.Visible = true;
+            llblMonitorPack.Visible = false;
+            cboRecentMonitorPacks.Dock = DockStyle.Fill;
+            LoadRecentMonitorPackList();
+            cboRecentMonitorPacks.Focus();
+            SendKeys.Send("{F4}");
+        }
+
+        private void cboRecentMonitorPacks_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cboRecentMonitorPacks.SelectedIndex > 0 && cboRecentMonitorPacks.SelectedItem is QuickMon.Controls.ComboItem)
+            {
+                llblMonitorPack.Visible = true;
+                cboRecentMonitorPacks.Visible = false;                
+                cboRecentMonitorPacks.Dock = DockStyle.Left;
+
+                CloseAllDetailWindows();
+                MonitorPack.NameAndTypeSummary summary = (MonitorPack.NameAndTypeSummary)((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value;
+
+                LoadMonitorPack(summary.Path);
+                RefreshMonitorPack(true, true);
+            }
+            else
+            {
+                llblMonitorPack.Visible = true;
+                cboRecentMonitorPacks.Visible = false;
+                cboRecentMonitorPacks.Dock = DockStyle.Left;
+            }
+        }
+
+        private void cboRecentMonitorPacks_DropDownClosed(object sender, EventArgs e)
+        {
+            llblMonitorPack.Visible = true;
+            cboRecentMonitorPacks.Visible = false;
+            cboRecentMonitorPacks.Dock = DockStyle.Left;
+        }
         #endregion
-
-
     }
 }

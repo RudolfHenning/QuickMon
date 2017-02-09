@@ -53,6 +53,7 @@
       <Link>VersionInfo.cs</Link>
     </Compile>
     <Compile Include="AdminMode\AdminModeTools.cs" />
+    <Compile Include="Controls\ComboItem.cs" />
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
     </Compile>
