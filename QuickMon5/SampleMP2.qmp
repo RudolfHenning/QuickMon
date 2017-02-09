@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-02-05 21:36:29" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-05 21:36:29" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -52,7 +52,7 @@
       <categories />
       <notes />
     </collectorHost>
-    <collectorHost uniqueId="123" dependOnParentId="" name="QuickMon 4 Web service" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="123" dependOnParentId="PINGTEST" name="QuickMon 4 Web service" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
 	<collectorAgents agentCheckSequence="All">
 		<collectorAgent name="Web Service" type="WSCollector" enabled="True">
 			<config>
