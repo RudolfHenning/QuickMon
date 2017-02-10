@@ -19,7 +19,7 @@ namespace QuickMon.Controls
         public TreeViewExBase()
             : base()
         {
-            DoubleBuffered = true;
+            //DoubleBuffered = true;
             //AllowDrop = true;
             DragColor = Color.Aquamarine;
             EnableAutoScrollToSelectedNode = false;
@@ -27,6 +27,8 @@ namespace QuickMon.Controls
             autoScrollSelectedNode = new Timer();
             autoScrollSelectedNode.Tick += autoScrollSelectedNode_Tick;
             RootAlwaysExpanded = false;
+
+            this.DrawMode = TreeViewDrawMode.OwnerDrawText; //.OwnerDrawAll;
         }
 
         private Timer autoScrollSelectedNode;
@@ -503,6 +505,54 @@ namespace QuickMon.Controls
                 }
             }
         }
+        #endregion
+
+        #region OnDrawNode 
+        // example http://stackoverflow.com/questions/8787876/correct-rendering-of-overridden-treeview
+        // More http://stackoverflow.com/questions/11500917/cannot-set-icon-for-node-of-treeview
+        // http://stackoverflow.com/questions/9136910/treeview-custom-drawnode-net-3-5-windows-forms
+        protected override void OnDrawNode(DrawTreeNodeEventArgs e)
+        {
+            //base.OnDrawNode(e);
+
+            SolidBrush selectedTreeBrush = new SolidBrush(Color.FromArgb(255, 205, 232, 255));// .LightSkyBlue);
+            Pen selectedColorPen = new Pen(Color.FromArgb(255, 23, 23, 23));
+
+            SizeF drawsize = e.Graphics.MeasureString(e.Node.Text, this.Font);
+            int yDiff = (int)((e.Bounds.Height - drawsize.Height) / 2);
+            int xDiff = (int)((e.Bounds.Width - drawsize.Width) / 2);
+            Rectangle newBounds = new Rectangle(e.Bounds.X + xDiff, e.Bounds.Y + yDiff, e.Bounds.Width - xDiff, e.Bounds.Height - yDiff);
+            string extraDisplayValue = "";
+            int lineEnd = this.DisplayRectangle.X + this.DisplayRectangle.Width - 5;
+
+            if (e.Node is TreeNodeEx)
+            {
+                TreeNodeEx currentNode = (TreeNodeEx)e.Node;
+                extraDisplayValue = currentNode.DisplayValue;
+            }
+            if (extraDisplayValue != null && extraDisplayValue.Length    > 0)
+            {
+                SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, this.Font);
+                Rectangle extraDisplayValueRec = new Rectangle(lineEnd - (int)extraDisplayValueSize.Width, e.Bounds.Y + yDiff, lineEnd, e.Bounds.Height - yDiff);
+                e.Graphics.DrawString(extraDisplayValue, this.Font, new SolidBrush(this.ForeColor), extraDisplayValueRec);
+            }
+
+            if (e.Node != e.Node.TreeView.SelectedNode)
+            {                
+                e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(selectedTreeBrush, e.Bounds);
+                e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
+
+                
+                e.Graphics.DrawLine(selectedColorPen, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height - 1, lineEnd , e.Bounds.Y + e.Bounds.Height - 1); //e.Bounds.X + e.Bounds.Width + 30
+
+            }
+              //Nodes  
+        }
+
         #endregion
     }
 }
