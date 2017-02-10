@@ -925,7 +925,10 @@ namespace QuickMon
                                 currentTreeNode.ImageIndex = imageIndex;
                                 currentTreeNode.SelectedImageIndex = imageIndex;
                                 if (collectorHost.CurrentState != null)
-                                    currentTreeNode.DisplayValue = collectorHost.CurrentState.ReadValues();
+                                {
+                                    string value = collectorHost.CurrentState.ReadValues().Split('\r', '\n')[0];
+                                    currentTreeNode.DisplayValue = value; // collectorHost.CurrentState.ReadValues().Replace("\r","`").Replace("\n","");
+                                }
                                 else
                                     currentTreeNode.DisplayValue = "";
                                 if (firstRefresh && (imageIndex == collectorGoodStateImage1 || imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
@@ -1371,12 +1374,7 @@ namespace QuickMon
 
         private void cmdRecentMonitorPacks_Click(object sender, EventArgs e)
         {
-            cboRecentMonitorPacks.Visible = true;
-            llblMonitorPack.Visible = false;
-            cboRecentMonitorPacks.Dock = DockStyle.Fill;
-            LoadRecentMonitorPackList();
-            cboRecentMonitorPacks.Focus();
-            SendKeys.Send("{F4}");
+            ShowRecentMonitorPackDropdown();
         }
 
         private void cboRecentMonitorPacks_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1408,5 +1406,23 @@ namespace QuickMon
             cboRecentMonitorPacks.Dock = DockStyle.Left;
         }
         #endregion
+
+        private void llblMonitorPack_Click(object sender, EventArgs e)
+        {
+            if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
+            {
+                ShowRecentMonitorPackDropdown();
+            }
+        }
+
+        private void ShowRecentMonitorPackDropdown()
+        {
+            cboRecentMonitorPacks.Visible = true;
+            llblMonitorPack.Visible = false;
+            cboRecentMonitorPacks.Dock = DockStyle.Fill;
+            LoadRecentMonitorPackList();
+            cboRecentMonitorPacks.Focus();
+            SendKeys.Send("{F4}");
+        }
     }
 }

@@ -16,10 +16,9 @@ namespace QuickMon.Controls
     {
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
         public extern static int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
-        public TreeViewExBase()
-            : base()
+        public TreeViewExBase() : base()
         {
-            //DoubleBuffered = true;
+            DoubleBuffered = true;
             //AllowDrop = true;
             DragColor = Color.Aquamarine;
             EnableAutoScrollToSelectedNode = false;
@@ -27,8 +26,10 @@ namespace QuickMon.Controls
             autoScrollSelectedNode = new Timer();
             autoScrollSelectedNode.Tick += autoScrollSelectedNode_Tick;
             RootAlwaysExpanded = false;
+            ExtraColumnWidth = 100;
 
             this.DrawMode = TreeViewDrawMode.OwnerDrawText; //.OwnerDrawAll;
+            FullRowSelect = true;
         }
 
         private Timer autoScrollSelectedNode;
@@ -44,6 +45,7 @@ namespace QuickMon.Controls
         public bool DisableCollapseOnDoubleClick { get; set; }
         public bool AllowKeyBoardNodeReorder { get; set; }
         public bool DisableNode0Collapse { get; set; }
+        public int ExtraColumnWidth { get; set; }
 
         #region Overrides
         protected override void OnHandleCreated(EventArgs e)
@@ -341,7 +343,7 @@ namespace QuickMon.Controls
         }
         protected override void OnDragOver(DragEventArgs drgevent)
         {
-            if (AllowDrop && drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
+            if (AllowDrop && (drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true) || drgevent.Data.GetDataPresent("QuickMon.TreeNodeEx", true)))
             {
                 Point pt = this.PointToClient(new Point(drgevent.X, drgevent.Y));
                 TreeNode targetNode = this.GetNodeAt(pt);
@@ -377,21 +379,29 @@ namespace QuickMon.Controls
         }
         protected override void OnDragDrop(DragEventArgs drgevent)
         {
-            if (AllowDrop && drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true))
+            if (AllowDrop && (drgevent.Data.GetDataPresent("System.Windows.Forms.TreeNode", true) || drgevent.Data.GetDataPresent("QuickMon.TreeNodeEx", true)))
             {
                 Point pt = this.PointToClient(new Point(drgevent.X, drgevent.Y));
                 TreeNode targetNode = this.GetNodeAt(pt);
-                if (AllowNodeMove(dragNode, targetNode) || (dragNode != null && targetNode == null))
+                if (dragNode != targetNode && ( AllowNodeMove(dragNode, targetNode) || (dragNode != null && targetNode == null)))
                 {
                     TreeNode oldParent = dragNode.Parent;
-                    if (oldParent == null) //for completenes sake
+                    if (oldParent == null && targetNode != null) //for completenes sake
                     {
                         //do nothing
+                        this.Nodes.Remove(dragNode);
+                        int index = targetNode.Index;
+                        targetNode.Nodes.Insert(index - 1, dragNode);
+                    }
+                    else if (oldParent == null && targetNode == null)
+                    {
+                        this.Nodes.Remove(dragNode);
+                        this.Nodes.Add(dragNode);
                     }
                     else if (targetNode == null)
                     {
                         oldParent.Nodes.Remove(dragNode);
-                        this.Nodes[0].Nodes.Add(dragNode);
+                        this.Nodes.Add(dragNode);
                     }
                     else if (dragNode == targetNode) //dropped on itself
                     {
@@ -530,29 +540,44 @@ namespace QuickMon.Controls
                 TreeNodeEx currentNode = (TreeNodeEx)e.Node;
                 extraDisplayValue = currentNode.DisplayValue;
             }
-            if (extraDisplayValue != null && extraDisplayValue.Length    > 0)
+            Rectangle backGroundRec = new Rectangle(e.Bounds.X, e.Bounds.Y, lineEnd - e.Bounds.X, e.Bounds.Height);
+
+            if (e.Node != e.Node.TreeView.SelectedNode)
             {
+                e.Graphics.FillRectangle(new SolidBrush(this.BackColor) , backGroundRec);
+                //e.Graphics.DrawLine(selectedColorPen, backGroundRec.X, backGroundRec.Y, backGroundRec.Right, backGroundRec.Bottom);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(selectedTreeBrush, backGroundRec);               
+                //e.Graphics.DrawLine(selectedColorPen, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height - 1, lineEnd , e.Bounds.Y + e.Bounds.Height - 1); //e.Bounds.X + e.Bounds.Width + 30
+            }
+
+            e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
+
+            if (extraDisplayValue != null && extraDisplayValue.Length > 0)
+            {
+                //if (extraDisplayValue.Length > 20)
+                //    extraDisplayValue = extraDisplayValue.Substring(0, 20);
                 SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, this.Font);
+                if (extraDisplayValueSize.Width > ExtraColumnWidth)
+                    extraDisplayValueSize.Width = ExtraColumnWidth;
+                e.Graphics.FillRectangle(new SolidBrush(this.BackColor), new RectangleF(lineEnd - ExtraColumnWidth, e.Bounds.Y, lineEnd, e.Bounds.Bottom));
+
                 Rectangle extraDisplayValueRec = new Rectangle(lineEnd - (int)extraDisplayValueSize.Width, e.Bounds.Y + yDiff, lineEnd, e.Bounds.Height - yDiff);
                 e.Graphics.DrawString(extraDisplayValue, this.Font, new SolidBrush(this.ForeColor), extraDisplayValueRec);
             }
 
-            if (e.Node != e.Node.TreeView.SelectedNode)
-            {                
-                e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(selectedTreeBrush, e.Bounds);
-                e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
-
-                
-                e.Graphics.DrawLine(selectedColorPen, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height - 1, lineEnd , e.Bounds.Y + e.Bounds.Height - 1); //e.Bounds.X + e.Bounds.Width + 30
-
-            }
-              //Nodes  
+            Pen columnSeparator = new Pen(Color.FromArgb(255, 195, 222, 245));
+            e.Graphics.DrawLine(columnSeparator, lineEnd - 100, e.Bounds.Y, lineEnd - 100 , e.Bounds.Bottom);
         }
 
         #endregion
+
+        protected override void OnResize(EventArgs e)
+        {
+            Refresh();
+            base.OnResize(e);
+        }
     }
 }
