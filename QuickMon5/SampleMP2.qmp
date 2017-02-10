@@ -170,7 +170,214 @@
       <categories />
       <notes />
     </collectorHost>
-    
+    <collectorHost uniqueId="PINGGoogle" dependOnParentId="" name="Ping Google" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts><header /><footer /><error /><warning /><good /></texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Ping Google" type="QuickMon.Collectors.PingCollector" enabled="True">
+          <config>
+            <entries>
+              <entry pingMethod="Http" address="http://www.google.com" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
+            </entries>
+          </config>
+        </collectorAgent>        
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="True" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" /></correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />        
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="SYSTEM" dependOnParentId="" name="System" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts><header /><footer /><error /><warning /><good /></texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+      </collectorAgents>  
+         <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" /></correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />        
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+
+    </collectorHost>
+    <collectorHost uniqueId="CPUPerc" dependOnParentId="SYSTEM" name="CPU Perc" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts><header /><footer /><error /><warning /><good /></texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
+          <config>
+           <performanceCounters>
+                <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="90" errorValue="95" numberOfSamples="1" multiSampleWaitMS="100" />
+             </performanceCounters>
+          </config>
+        </collectorAgent>        
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" /></correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />        
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="MemUsage" dependOnParentId="SYSTEM" name="Memory usage" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts><header /><footer /><error /><warning /><good /></texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
+          <config>
+           <performanceCounters>
+                <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="90" errorValue="95" numberOfSamples="1" multiSampleWaitMS="100" />
+             </performanceCounters>
+          </config>
+        </collectorAgent>        
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" /></correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />        
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="NetworkUsage" dependOnParentId="SYSTEM" name="Network usage" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts><header /><footer /><error /><warning /><good /></texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
+          <config>
+           <performanceCounters>
+                <performanceCounter computer="." category="Network Interface" counter="Bytes Total/sec" instance="Realtek PCI GBE Family Controller" warningValue="300000" errorValue="1000000" numberOfSamples="3" multiSampleWaitMS="300" />
+             </performanceCounters>
+          </config>
+        </collectorAgent>        
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" /></correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />        
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="FirefoxVersion" dependOnParentId="SYSTEM" name="Firefox version" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts><header /><footer /><error /><warning /><good /></texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Firefox version" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True">
+          <config>
+                <powerShellScripts>
+                    <powerShellScriptRunner name="Firefox version test" returnCheckSequence="GWE">
+                        <testScript>function GetFFNewestVer() {
+    $ver = "N/A"
+    $site = Invoke-WebRequest -uri "https://www.mozilla.org/en-US/firefox/releases/"
+    if ($site.Content.Contains("data-latest-firefox=")){
+        $ver = $site.Content.Substring($site.Content.IndexOf("data-latest-firefox=")+21)
+        $ver = $ver.Substring(0,$ver.IndexOf('"'))    
+    }
+    return $ver
+}
+$ver = GetFFNewestVer
+$localVer = (Get-ItemProperty -Path 'HKCU:\SOFTWARE\Mozilla\Mozilla Firefox').'(default)'
+"Installed: " + $localVer
+"Latest: " + $ver
+if ($ver -ne $localVer){
+    "This computer does not have the latest version"
+}
+else {
+    "This computer has the latest version"
+}</testScript>
+                            <goodScript resultMatchType="Contains">This computer has the latest version</goodScript>
+                            <warningScript resultMatchType="Contains">This computer does not have the latest version</warningScript>
+                            <errorScript resultMatchType="Contains">[any]</errorScript>
+                        </powerShellScriptRunner>
+                    </powerShellScripts>
+                </config>
+        </collectorAgent>        
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False"><warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" /></correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />        
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
   </collectorHosts>
   <notifierHosts>
     <notifierHost name="Debugging" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">

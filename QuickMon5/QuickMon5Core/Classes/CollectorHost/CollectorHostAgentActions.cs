@@ -293,8 +293,18 @@ namespace QuickMon
                 {
                     //Not time yet for update
                     CurrentPollAborted = true;
-                    resultMonitorState.State = CurrentState.State;
-                    resultMonitorState.RawDetails = "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
+                    //repeat same State
+                    resultMonitorState = null;
+                    resultMonitorState = CurrentState;
+                    if (resultMonitorState.RawDetails == null)
+                        resultMonitorState.RawDetails = "";
+                    if (resultMonitorState.RawDetails.Length > 0)
+                        resultMonitorState.RawDetails += "\r\n";
+                    resultMonitorState.RawDetails += "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
+
+                    //resultMonitorState.State = CurrentState.State;
+                    //resultMonitorState.CurrentValue = CurrentState.ReadValues();
+                    //resultMonitorState.RawDetails = "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
                     RaiseLoggingPollingOverridesTriggeredEvent(string.Format("Polling override of {0} seconds not reached yet", OnlyAllowUpdateOncePerXSec));
                 }
                 else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding &&
@@ -308,15 +318,24 @@ namespace QuickMon
                 {
                     //Not time yet for update
                     CurrentPollAborted = true;
-                    resultMonitorState.State = CurrentState.State;
+                    //repeat same State
+                    resultMonitorState = null;
+                    resultMonitorState = CurrentState;
+                    if (resultMonitorState.RawDetails == null)
+                        resultMonitorState.RawDetails = "";
+                    if (resultMonitorState.RawDetails.Length > 0)
+                        resultMonitorState.RawDetails += "\r\n";
+
+                    //resultMonitorState.State = CurrentState.State;
+                    //resultMonitorState.CurrentValue = CurrentState.ReadValues();
                     if (StagnantStateThirdRepeat)
-                        resultMonitorState.RawDetails = "Due to polling override (StagnantStateThirdRepeat) the previous state is repeated.";
+                        resultMonitorState.RawDetails += "Due to polling override (StagnantStateThirdRepeat) the previous state is repeated.";
                     else if (StagnantStateSecondRepeat)
-                        resultMonitorState.RawDetails = "Due to polling override (StagnantStateSecondRepeat) the previous state is repeated.";
+                        resultMonitorState.RawDetails += "Due to polling override (StagnantStateSecondRepeat) the previous state is repeated.";
                     else if (StagnantStateFirstRepeat)
-                        resultMonitorState.RawDetails = "Due to polling override (StagnantStateFirstRepeat) the previous state is repeated.";
+                        resultMonitorState.RawDetails += "Due to polling override (StagnantStateFirstRepeat) the previous state is repeated.";
                     else
-                        resultMonitorState.RawDetails = "Due to polling override (EnablePollFrequencySliding) the previous state is repeated.";
+                        resultMonitorState.RawDetails += "Due to polling override (EnablePollFrequencySliding) the previous state is repeated.";
                 }
                 else
                 {

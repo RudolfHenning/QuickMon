@@ -431,6 +431,7 @@ namespace QuickMon
             this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwCollectors.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
+            this.tvwCollectors.ExtraColumnWidth = 100;
             this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwCollectors.FullRowSelect = true;
             this.tvwCollectors.HideSelection = false;
@@ -588,6 +589,7 @@ namespace QuickMon
             this.tvwNotifiers.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwNotifiers.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.tvwNotifiers.EnableAutoScrollToSelectedNode = false;
+            this.tvwNotifiers.ExtraColumnWidth = 100;
             this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwNotifiers.FullRowSelect = true;
             this.tvwNotifiers.HideSelection = false;
@@ -716,6 +718,7 @@ namespace QuickMon
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblMonitorPack.Click += new System.EventHandler(this.llblMonitorPack_Click);
             // 
             // cboRecentMonitorPacks
             // 
