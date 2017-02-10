@@ -579,14 +579,14 @@ namespace QuickMon
         }
         private void LoadCollectorNode(TreeNode root, CollectorHost collector)
         {
-            TreeNode collectorNode;
+            TreeNodeEx collectorNode;
             if (collector.CollectorAgents == null || collector.CollectorAgents.Count == 0)
             {
-                collectorNode = new TreeNode(collector.DisplayName, 1, 1);
+                collectorNode = new TreeNodeEx(collector.DisplayName, 1, 1);
                 collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             }
             else
-                collectorNode = new TreeNode(collector.DisplayName, 2, 2);
+                collectorNode = new TreeNodeEx(collector.DisplayName, 2, 2);
             collectorNode.Tag = collector;
             collector.Tag = collectorNode;
             collectorNode.ForeColor = collector.Enabled ? SystemColors.WindowText : Color.Gray;
@@ -848,10 +848,10 @@ namespace QuickMon
             {
                 try
                 {
-                    if (collectorHost != null && collectorHost.Tag is TreeNode)
+                    if (collectorHost != null && collectorHost.Tag is TreeNodeEx)
                     {
                         System.Diagnostics.Trace.WriteLine("Updating " + collectorHost.Name);
-                        TreeNode currentTreeNode = (TreeNode)collectorHost.Tag;
+                        TreeNodeEx currentTreeNode = (TreeNodeEx)collectorHost.Tag;
 
                         bool nodeChanged = false;
                         Color foreColor = currentTreeNode.ForeColor;
@@ -924,6 +924,10 @@ namespace QuickMon
                             {
                                 currentTreeNode.ImageIndex = imageIndex;
                                 currentTreeNode.SelectedImageIndex = imageIndex;
+                                if (collectorHost.CurrentState != null)
+                                    currentTreeNode.DisplayValue = collectorHost.CurrentState.ReadValues();
+                                else
+                                    currentTreeNode.DisplayValue = "";
                                 if (firstRefresh && (imageIndex == collectorGoodStateImage1 || imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
                                 {
                                     TreeNode currentFocusNode = tvwCollectors.SelectedNode;

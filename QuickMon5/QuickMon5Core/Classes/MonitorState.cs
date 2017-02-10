@@ -356,5 +356,19 @@ namespace QuickMon
             }
             return sb.ToString();
         }
+
+        public string ReadValues()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentValue != null)
+                sb.AppendLine(CurrentValue.ToString());
+            foreach(MonitorState cs in ChildStates)
+            {
+                string scValue = cs.ReadValues();
+                if (scValue.Length > 0)
+                    sb.AppendLine(scValue);
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -6,7 +6,20 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public static class TreeNodeEx
+    public class TreeNodeEx : TreeNode
+    {
+        public TreeNodeEx() : base()
+        {
+
+        }
+        public TreeNodeEx(string text, int imageIndex, int selectedImageIndex) : base(text, imageIndex, selectedImageIndex)
+        {
+
+        }
+        public string DisplayValue { get; set; }
+        
+    }
+    public static class TreeNodeExStatic
     {
         public static void ExpandAllParents(this TreeNode node)
         {
