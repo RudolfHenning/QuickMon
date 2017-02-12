@@ -16,7 +16,6 @@ namespace QuickMon
         public MainForm()
         {
             InitializeComponent();
-            autoRefreshTimer = new Timer() { Enabled = false, Interval = Properties.Settings.Default.PollFrequencySec * 1000 };
         }
 
         #region Private vars
@@ -30,7 +29,7 @@ namespace QuickMon
         #endregion
 
         #region Main timer
-        private Timer autoRefreshTimer;
+        private Timer autoRefreshTimer = new Timer() { Enabled = false, Interval = Properties.Settings.Default.PollFrequencySec * 1000 };
         //private bool isPollingPaused = false;
         private bool isPollingEnabled = true;
         #endregion
@@ -80,16 +79,15 @@ namespace QuickMon
             cboRecentMonitorPacks.Visible = false;
         }
         private void MainForm_Shown(object sender, EventArgs e)
-        {
-            
+        {            
             try
             {
                 //InitializeGlobalPerformanceCounters();
                 if (Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                 {
                     LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
-                    System.Threading.Thread.Sleep(100);
-                    RefreshMonitorPack();
+                    //System.Threading.Thread.Sleep(100);
+                    //RefreshMonitorPack();
                 }
                 else
                 {
@@ -133,6 +131,12 @@ namespace QuickMon
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                     cmdOpen_Click(sender, e);
+                }
+                else if (e.KeyCode == Keys.S)
+                {
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    splitButtonSave_ButtonClicked(null, null);
                 }
                 else if (e.KeyCode == Keys.T)
                 {
@@ -272,7 +276,8 @@ namespace QuickMon
         }
         private void cmdAbout_Click(object sender, EventArgs e)
         {
-
+            AboutQuickMon aboutQuickMon = new AboutQuickMon();
+            aboutQuickMon.ShowDialog();
         }
         private void cmdPauseRunMP_Click(object sender, EventArgs e)
         {
@@ -1423,6 +1428,44 @@ namespace QuickMon
             LoadRecentMonitorPackList();
             cboRecentMonitorPacks.Focus();
             SendKeys.Send("{F4}");
+        }
+
+        private void tvwCollectors_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            TreeViewHitTestInfo tvi = tvwCollectors.HitTest(e.Location);
+            if (tvi.Node != null && tvi.Location == TreeViewHitTestLocations.RightOfLabel)
+                tvwCollectors.SelectedNode = tvi.Node;
+
+        }
+        private void tvwCollectors_TreeNodeMoved(TreeNode dragNode)
+        {
+            if (dragNode != null)
+            {
+                //set Collector Parent if needed
+                if (dragNode.Tag is CollectorHost)
+                {
+                    if (dragNode.Parent != null && dragNode.Parent.Tag is CollectorHost)
+                    {
+                        ((CollectorHost)dragNode.Tag).ParentCollectorId = ((CollectorHost)dragNode.Parent.Tag).UniqueId;
+                    }
+                    else
+                        ((CollectorHost)dragNode.Tag).ParentCollectorId = "";
+                }
+                SetMonitorChanged();
+                DoAutoSave();
+            }
+        }
+
+        private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
+        {
+            GeneralSettings generalSettings = new GeneralSettings();
+            if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                LoadRecentMonitorPackList();
+                this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
+                if (monitorPack != null)
+                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;                
+            }
         }
     }
 }

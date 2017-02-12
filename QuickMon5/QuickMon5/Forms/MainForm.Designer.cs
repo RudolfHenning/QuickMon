@@ -435,6 +435,7 @@ namespace QuickMon
             this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwCollectors.FullRowSelect = true;
             this.tvwCollectors.HideSelection = false;
+            this.tvwCollectors.HighLightWholeNode = true;
             this.tvwCollectors.ImageIndex = 0;
             this.tvwCollectors.ImageList = this.imagesCollectorTree;
             this.tvwCollectors.Indent = 20;
@@ -443,9 +444,12 @@ namespace QuickMon
             this.tvwCollectors.Name = "tvwCollectors";
             this.tvwCollectors.RootAlwaysExpanded = false;
             this.tvwCollectors.SelectedImageIndex = 0;
+            this.tvwCollectors.ShowColumnSeparatorLine = true;
             this.tvwCollectors.ShowLines = false;
             this.tvwCollectors.Size = new System.Drawing.Size(427, 214);
             this.tvwCollectors.TabIndex = 0;
+            this.tvwCollectors.TreeNodeMoved += new QuickMon.Controls.TreeNodeMovedDelegate(this.tvwCollectors_TreeNodeMoved);
+            this.tvwCollectors.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwCollectors_NodeMouseClick);
             // 
             // collectorsContextMenuStrip
             // 
@@ -593,6 +597,7 @@ namespace QuickMon
             this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwNotifiers.FullRowSelect = true;
             this.tvwNotifiers.HideSelection = false;
+            this.tvwNotifiers.HighLightWholeNode = false;
             this.tvwNotifiers.ImageIndex = 0;
             this.tvwNotifiers.ImageList = this.imagesNotifiersTree;
             this.tvwNotifiers.Indent = 20;
@@ -603,6 +608,8 @@ namespace QuickMon
             this.tvwNotifiers.Name = "tvwNotifiers";
             this.tvwNotifiers.RootAlwaysExpanded = false;
             this.tvwNotifiers.SelectedImageIndex = 0;
+            this.tvwNotifiers.ShowColumnSeparatorLine = false;
+            this.tvwNotifiers.ShowLines = false;
             this.tvwNotifiers.Size = new System.Drawing.Size(427, 152);
             this.tvwNotifiers.TabIndex = 4;
             // 
@@ -773,6 +780,7 @@ namespace QuickMon
             this.splitButtonTools.Name = "splitButtonTools";
             this.splitButtonTools.Size = new System.Drawing.Size(45, 31);
             this.splitButtonTools.TabIndex = 6;
+            this.splitButtonTools.ButtonClicked += new System.EventHandler(this.splitButtonTools_ButtonClicked);
             this.splitButtonTools.SplitButtonClicked += new System.EventHandler(this.splitButtonTools_SplitButtonClicked);
             // 
             // splitButtonNotifiers

@@ -247,5 +247,17 @@ namespace QuickMon.Properties {
                 this["ShowFullPathForQuickRecentist"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseTemplatesForNewObjects {
+            get {
+                return ((bool)(this["UseTemplatesForNewObjects"]));
+            }
+            set {
+                this["UseTemplatesForNewObjects"] = value;
+            }
+        }
     }
 }

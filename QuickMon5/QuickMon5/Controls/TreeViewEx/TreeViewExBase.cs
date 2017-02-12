@@ -29,6 +29,7 @@ namespace QuickMon.Controls
             ExtraColumnWidth = 100;
 
             this.DrawMode = TreeViewDrawMode.OwnerDrawText; //.OwnerDrawAll;
+            ShowLines = false;
             FullRowSelect = true;
         }
 
@@ -46,6 +47,8 @@ namespace QuickMon.Controls
         public bool AllowKeyBoardNodeReorder { get; set; }
         public bool DisableNode0Collapse { get; set; }
         public int ExtraColumnWidth { get; set; }
+        public bool ShowColumnSeparatorLine { get; set; }
+        public bool HighLightWholeNode { get; set; }
 
         #region Overrides
         protected override void OnHandleCreated(EventArgs e)
@@ -238,14 +241,19 @@ namespace QuickMon.Controls
         private void MoveNodeUpInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null)
             {
-                TreeNode parentNode = currentNode.Parent;
+                TreeNodeCollection nodes;
+                if (currentNode.Parent == null)
+                    nodes = Nodes;
+                else
+                    nodes = currentNode.Parent.Nodes;
+
                 int currentIndex = currentNode.Index;
-                if (currentIndex > 0 && currentNode != parentNode.Nodes[0]) // && AllowNodeMove(currentNode, parentNode))
+                if (currentIndex > 0 && currentNode != nodes[0])
                 {
-                    parentNode.Nodes.Remove(currentNode);
-                    parentNode.Nodes.Insert(currentIndex - 1, currentNode);
+                    nodes.Remove(currentNode);
+                    nodes.Insert(currentIndex - 1, currentNode);
                     this.SelectedNode = currentNode;
                     RaiseTreeNodeMoved(currentNode);
                     currentNode.EnsureVisible();
@@ -255,14 +263,19 @@ namespace QuickMon.Controls
         private void MoveNodeDownInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null)
             {
-                TreeNode parentNode = currentNode.Parent;
+                TreeNodeCollection nodes;
+                if (currentNode.Parent == null)
+                    nodes = Nodes;
+                else
+                    nodes = currentNode.Parent.Nodes;
+
                 int currentIndex = currentNode.Index;
-                if (currentIndex < parentNode.Nodes.Count - 1) // && AllowNodeMove(currentNode, )
+                if (currentIndex < nodes.Count - 1)
                 {
-                    parentNode.Nodes.Remove(currentNode);
-                    parentNode.Nodes.Insert(currentIndex + 1, currentNode);
+                    nodes.Remove(currentNode);
+                    nodes.Insert(currentIndex + 1, currentNode);
                     this.SelectedNode = currentNode;
                     RaiseTreeNodeMoved(currentNode);
                     currentNode.EnsureVisible();
@@ -275,27 +288,33 @@ namespace QuickMon.Controls
             if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
             {
                 TreeNode parentNode = currentNode.Parent;
-                if (parentNode != this.Nodes[0])
+                int parentIndex = parentNode.Index;
+                TreeNode parentParentNode = parentNode.Parent;
+                parentNode.Nodes.Remove(currentNode);
+                if (parentParentNode == null) //parent is top node
                 {
-                    int parentIndex = parentNode.Index;
-                    TreeNode parentParentNode = parentNode.Parent;
-                    if (AllowNodeMove(currentNode, parentParentNode))
-                    {
-                        parentNode.Nodes.Remove(currentNode);
-                        parentParentNode.Nodes.Insert(parentIndex + 1, currentNode);
-                        this.SelectedNode = currentNode;
-                        RaiseTreeNodeMoved(currentNode);
-                        currentNode.EnsureVisible();
-                    }
+                    this.Nodes.Insert(parentIndex + 1, currentNode);
                 }
+                else
+                {                    
+                    parentParentNode.Nodes.Insert(parentIndex + 1, currentNode);
+                }
+                this.SelectedNode = currentNode;
+                RaiseTreeNodeMoved(currentNode);
+                currentNode.EnsureVisible();
             }
         }
         private void MoveNodeRightInTree()
         {
             TreeNode currentNode = this.SelectedNode;
-            if (AllowKeyBoardNodeReorder && currentNode != null && currentNode.Parent != null)
+            if (AllowKeyBoardNodeReorder && currentNode != null)
             {
-                TreeNode parentNode = currentNode.Parent;
+                TreeNodeCollection nodes;
+                if (currentNode.Parent == null)
+                    nodes = Nodes;
+                else
+                    nodes = currentNode.Parent.Nodes;
+
                 int currentIndex = currentNode.Index;
                 if (currentIndex > 0)
                 {
@@ -304,7 +323,7 @@ namespace QuickMon.Controls
                         TreeNode preSibling = currentNode.PrevNode;
                         if (AllowNodeMove(currentNode, preSibling))
                         {
-                            parentNode.Nodes.Remove(currentNode);
+                            nodes.Remove(currentNode);
                             preSibling.Nodes.Add(currentNode);
                             this.SelectedNode = currentNode;
                             RaiseTreeNodeMoved(currentNode);
@@ -525,8 +544,9 @@ namespace QuickMon.Controls
         {
             //base.OnDrawNode(e);
 
-            SolidBrush selectedTreeBrush = new SolidBrush(Color.FromArgb(255, 205, 232, 255));// .LightSkyBlue);
-            Pen selectedColorPen = new Pen(Color.FromArgb(255, 23, 23, 23));
+            //SolidBrush selectedTreeBrush = new SolidBrush(Color.FromArgb(255, 205, 232, 255));// .LightSkyBlue);
+
+            //Pen selectedColorPen = new Pen(Color.FromArgb(255, 23, 23, 23));
 
             SizeF drawsize = e.Graphics.MeasureString(e.Node.Text, this.Font);
             int yDiff = (int)((e.Bounds.Height - drawsize.Height) / 2);
@@ -541,35 +561,56 @@ namespace QuickMon.Controls
                 extraDisplayValue = currentNode.DisplayValue;
             }
             Rectangle backGroundRec = new Rectangle(e.Bounds.X, e.Bounds.Y, lineEnd - e.Bounds.X, e.Bounds.Height);
-
+            Brush backgroundColor;
+            //SolidBrush backgroundColor;
             if (e.Node != e.Node.TreeView.SelectedNode)
             {
-                e.Graphics.FillRectangle(new SolidBrush(this.BackColor) , backGroundRec);
-                //e.Graphics.DrawLine(selectedColorPen, backGroundRec.X, backGroundRec.Y, backGroundRec.Right, backGroundRec.Bottom);
+                backgroundColor = new SolidBrush(this.BackColor);
             }
             else
             {
-                e.Graphics.FillRectangle(selectedTreeBrush, backGroundRec);               
-                //e.Graphics.DrawLine(selectedColorPen, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height - 1, lineEnd , e.Bounds.Y + e.Bounds.Height - 1); //e.Bounds.X + e.Bounds.Width + 30
+                backgroundColor = new System.Drawing.Drawing2D.LinearGradientBrush(backGroundRec, Color.FromArgb(255, 205, 232, 255), Color.FromArgb(255, 235, 252, 255), 0f);
+                //backgroundColor = selectedTreeBrush;
             }
+            if (HighLightWholeNode)
+                e.Graphics.FillRectangle(backgroundColor, backGroundRec);
+            else
+                e.Graphics.FillRectangle(backgroundColor, e.Bounds);
+
+
+            //if (e.Node != e.Node.TreeView.SelectedNode)
+            //{
+            //    e.Graphics.FillRectangle(new SolidBrush(this.BackColor) , backGroundRec);
+            //    //e.Graphics.DrawLine(selectedColorPen, backGroundRec.X, backGroundRec.Y, backGroundRec.Right, backGroundRec.Bottom);
+            //}
+            //else
+            //{
+            //    e.Graphics.FillRectangle(selectedTreeBrush, backGroundRec);               
+            //    //e.Graphics.DrawLine(selectedColorPen, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height - 1, lineEnd , e.Bounds.Y + e.Bounds.Height - 1); //e.Bounds.X + e.Bounds.Width + 30
+            //}
 
             e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
 
             if (extraDisplayValue != null && extraDisplayValue.Length > 0)
             {
-                //if (extraDisplayValue.Length > 20)
-                //    extraDisplayValue = extraDisplayValue.Substring(0, 20);
+
                 SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, this.Font);
                 if (extraDisplayValueSize.Width > ExtraColumnWidth)
                     extraDisplayValueSize.Width = ExtraColumnWidth;
-                e.Graphics.FillRectangle(new SolidBrush(this.BackColor), new RectangleF(lineEnd - ExtraColumnWidth, e.Bounds.Y, lineEnd, e.Bounds.Bottom));
+                e.Graphics.FillRectangle(backgroundColor, new RectangleF(lineEnd - ExtraColumnWidth, e.Bounds.Y, ExtraColumnWidth, e.Bounds.Height));
 
                 Rectangle extraDisplayValueRec = new Rectangle(lineEnd - (int)extraDisplayValueSize.Width, e.Bounds.Y + yDiff, lineEnd, e.Bounds.Height - yDiff);
                 e.Graphics.DrawString(extraDisplayValue, this.Font, new SolidBrush(this.ForeColor), extraDisplayValueRec);
             }
 
-            Pen columnSeparator = new Pen(Color.FromArgb(255, 195, 222, 245));
-            e.Graphics.DrawLine(columnSeparator, lineEnd - 100, e.Bounds.Y, lineEnd - 100 , e.Bounds.Bottom);
+            if (ShowColumnSeparatorLine)
+            {
+                Pen columnSeparator = new Pen(Color.FromArgb(255, 195, 222, 245));
+                e.Graphics.DrawLine(columnSeparator, lineEnd - 100, e.Bounds.Y, lineEnd - 100, e.Bounds.Bottom);
+            }
+
+            if (backgroundColor != null)
+                backgroundColor.Dispose();
         }
 
         #endregion
