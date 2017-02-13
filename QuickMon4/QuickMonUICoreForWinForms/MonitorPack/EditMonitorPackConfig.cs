@@ -46,6 +46,176 @@ namespace QuickMon
         {
             SetFrequency((int)freqSecNumericUpDown.Value);
         }
+        private void lblMonitorPackPath_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SelectedMonitorPack != null && SelectedMonitorPack.MonitorPackPath.Length > 0 && System.IO.File.Exists(SelectedMonitorPack.MonitorPackPath))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + SelectedMonitorPack.MonitorPackPath);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (ValidateInput())
+                {
+                    SelectedMonitorPack.Name = txtName.Text;
+                    SelectedMonitorPack.TypeName = txtType.Text;
+                    SelectedMonitorPack.RunCorrectiveScripts = chkCorrectiveScripts.Checked;
+                    SelectedMonitorPack.Enabled = chkEnabled.Checked;
+                    SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
+                    SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
+                    //if (cboDefaultNotifier.SelectedIndex > -1)
+                    //    SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
+                    //else
+                    //    SelectedMonitorPack.DefaultViewerNotifier = null;
+                    SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
+                    foreach (ListViewItem lvi in lvwConfigVars.Items)
+                    {
+                        SelectedMonitorPack.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
+                    }
+                    RAWXmlEditor editor = new RAWXmlEditor();
+                    string oldMarkUp = SelectedMonitorPack.ToXml();
+                    editor.SelectedMarkup = oldMarkUp;
+                    if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        TriggerMonitorPackReload = true;
+                        MonitorPack newMP = new MonitorPack();
+                        newMP.LoadXml(editor.SelectedMarkup);
+                        newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
+                        SelectedMonitorPack = null;
+                        SelectedMonitorPack = newMP;
+                        LoadFormControls();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+        private void lvwUserNameCache_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //setPwdToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
+            //cmdAddUserNameToCache.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
+            removeUserToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
+            cmdRemoveUserNameFromCache.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
+        }
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshUserNameList();
+        }  
+        private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
+        {
+            qmmxmlOpenFileDialog.FileName = txtMasterKeyFilePath.Text;
+            if (qmmxmlOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtMasterKeyFilePath.Text = qmmxmlOpenFileDialog.FileName;
+            }
+        }
+        private void cmdAddUserNameToCache_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
+                {
+                    credMan.OpenCache(txtMasterKeyFilePath.Text);
+                }
+                credMan.MasterKey = txtMasterKey.Text;
+                QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
+                if (lvwUserNameCache.SelectedItems.Count == 1)
+                    ld.UserName = lvwUserNameCache.SelectedItems[0].Text;
+                if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    credMan.SetAccount(ld.UserName, ld.Password);
+                    credMan.SaveCache(txtMasterKeyFilePath.Text);
+                    if (lvwUserNameCache.SelectedItems.Count == 1)
+                    {
+                        lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
+                        lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
+                    }
+                    RefreshUserNameList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void cmdRemoveUserNameFromCache_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                credMan.MasterKey = txtMasterKey.Text;
+                try
+                {
+                    credMan.OpenCache(txtMasterKeyFilePath.Text);
+                    foreach (int index in (from int i in lvwUserNameCache.SelectedIndices
+                                           orderby i descending
+                                           select i))
+                    {
+                        //if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
+                        //{
+                        //    foreach (CollectorHost host in (from ch in SelectedMonitorPack.CollectorHosts
+                        //                                    where ch.RunAs == lvwUserNameCache.Items[index].Text
+                        //                                 select ch))
+                        //    {
+                        //        host.RunAs = "";
+                        //    }
+                        //}
+
+                        try
+                        {
+                            credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
+                        }
+                        catch { }
+                        //lvwUserNameCache.Items.RemoveAt(index);
+                    }
+                    credMan.SaveCache(txtMasterKeyFilePath.Text);
+                    RefreshUserNameList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void cmdLoggingPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fbdLogging.SelectedPath = txtLoggingPath.Text;
+                if (fbdLogging.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    txtLoggingPath.Text = fbdLogging.SelectedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void txtLoggingPath_DoubleClick(object sender, EventArgs e)
+        {
+            if (txtLoggingPath.Text.Trim().Length > 0 && System.IO.Directory.Exists(txtLoggingPath.Text))
+            {
+                if (SelectedMonitorPack != null && SelectedMonitorPack.LoggingFileName.Length > 0 && System.IO.File.Exists(SelectedMonitorPack.LoggingFileName))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + SelectedMonitorPack.LoggingFileName);
+                }
+                else
+                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + txtLoggingPath.Text);
+            }
+        }
         #endregion
 
         #region Button events
@@ -179,21 +349,64 @@ namespace QuickMon
                 freChanging = false;
             }
         } 
-        #endregion
-
-        private void lblMonitorPackPath_DoubleClick(object sender, EventArgs e)
+        private void RefreshUserNameList()
         {
-            try
+            lvwUserNameCache.Items.Clear();
+            if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
             {
-                if (SelectedMonitorPack != null && SelectedMonitorPack.MonitorPackPath.Length > 0 && System.IO.File.Exists(SelectedMonitorPack.MonitorPackPath))
+                foreach (string userName in (from ch in SelectedMonitorPack.CollectorHosts
+                                             where ch.RunAs != null && ch.RunAs.Length > 0
+                                             group ch by ch.RunAs into u
+                                             orderby u.Key
+                                             select u.Key))
                 {
-                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + SelectedMonitorPack.MonitorPackPath);
+                    ListViewItem lvi = new ListViewItem(userName);
+                    lvi.ImageIndex = 0;
+                    lvi.SubItems.Add("No");
+                    lvi.SubItems.Add("No");
+                    lvwUserNameCache.Items.Add(lvi);
+                }
+                Application.DoEvents();
+
+                try
+                {
+                    //if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
+                    {
+                        //QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                        //credMan.MasterKey = txtMasterKey.Text;
+                        //credMan.OpenCache(txtMasterKeyFilePath.Text);
+
+                        foreach (ListViewItem lvi in lvwUserNameCache.Items)
+                        {
+                            if (QuickMon.Security.CredentialManager.IsAccountPersisted(txtMasterKeyFilePath.Text, txtMasterKey.Text, lvi.Text))
+                            {
+                                lvi.SubItems[1].Text = "Yes";
+                            }
+                            else if (QuickMon.Security.CredentialManager.IsAccountPersisted(SelectedMonitorPack.ApplicationUserNameCacheFilePath, SelectedMonitorPack.ApplicationUserNameCacheMasterKey, lvi.Text))
+                            {
+                                lvi.SubItems[1].Text = "Global";
+                            }
+                            if (lvi.SubItems[1].Text != "No")
+                            {
+                                if (QuickMon.Security.CredentialManager.IsAccountDecryptable(txtMasterKeyFilePath.Text, txtMasterKey.Text, lvi.Text))
+                                {
+                                    lvi.SubItems[2].Text = "Yes";
+                                }
+                                else if (QuickMon.Security.CredentialManager.IsAccountDecryptable(SelectedMonitorPack.ApplicationUserNameCacheFilePath, SelectedMonitorPack.ApplicationUserNameCacheMasterKey, lvi.Text))
+                                {
+                                    lvi.SubItems[2].Text = "Global";
+                                }
+                            }                            
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception)
-            {
-            }
         }
+        #endregion
 
         #region Config Vars
         private bool loadConfigVarEntry = false;
@@ -341,227 +554,6 @@ namespace QuickMon
             }
         }
         #endregion
-
-        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                if (ValidateInput())
-                {
-                    SelectedMonitorPack.Name = txtName.Text;
-                    SelectedMonitorPack.TypeName = txtType.Text;
-                    SelectedMonitorPack.RunCorrectiveScripts = chkCorrectiveScripts.Checked;
-                    SelectedMonitorPack.Enabled = chkEnabled.Checked;
-                    SelectedMonitorPack.CollectorStateHistorySize = (int)collectorStateHistorySizeNumericUpDown.Value;
-                    SelectedMonitorPack.PollingFrequencyOverrideSec = (int)freqSecNumericUpDown.Value;
-                    //if (cboDefaultNotifier.SelectedIndex > -1)
-                    //    SelectedMonitorPack.DefaultViewerNotifier = (NotifierHost)cboDefaultNotifier.SelectedItem;
-                    //else
-                    //    SelectedMonitorPack.DefaultViewerNotifier = null;
-                    SelectedMonitorPack.ConfigVariables = new List<ConfigVariable>();
-                    foreach (ListViewItem lvi in lvwConfigVars.Items)
-                    {
-                        SelectedMonitorPack.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
-                    }
-                    RAWXmlEditor editor = new RAWXmlEditor();
-                    string oldMarkUp = SelectedMonitorPack.ToXml();
-                    editor.SelectedMarkup = oldMarkUp;
-                    if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        TriggerMonitorPackReload = true;
-                        MonitorPack newMP = new MonitorPack();
-                        newMP.LoadXml(editor.SelectedMarkup);
-                        newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
-                        SelectedMonitorPack = null;
-                        SelectedMonitorPack = newMP;
-                        LoadFormControls();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-        }
-
-        private void lvwUserNameCache_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //setPwdToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
-            //cmdAddUserNameToCache.Enabled = lvwUserNameCache.SelectedItems.Count == 1;
-            removeUserToolStripMenuItem.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
-            cmdRemoveUserNameFromCache.Enabled = lvwUserNameCache.SelectedItems.Count > 0;
-        }
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RefreshUserNameList();
-        }
-        private void RefreshUserNameList()
-        {
-            lvwUserNameCache.Items.Clear();
-            if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
-            {
-                foreach (string userName in (from ch in SelectedMonitorPack.CollectorHosts
-                                             where ch.RunAs != null && ch.RunAs.Length > 0
-                                             group ch by ch.RunAs into u
-                                             orderby u.Key
-                                             select u.Key))
-                {
-                    ListViewItem lvi = new ListViewItem(userName);
-                    lvi.ImageIndex = 0;
-                    lvi.SubItems.Add("No");
-                    lvi.SubItems.Add("No");
-                    lvwUserNameCache.Items.Add(lvi);
-                }
-                Application.DoEvents();
-
-                try
-                {
-                    //if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
-                    {
-                        //QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
-                        //credMan.MasterKey = txtMasterKey.Text;
-                        //credMan.OpenCache(txtMasterKeyFilePath.Text);
-
-                        foreach (ListViewItem lvi in lvwUserNameCache.Items)
-                        {
-                            if (QuickMon.Security.CredentialManager.IsAccountPersisted(txtMasterKeyFilePath.Text, txtMasterKey.Text, lvi.Text))
-                            {
-                                lvi.SubItems[1].Text = "Yes";
-                            }
-                            else if (QuickMon.Security.CredentialManager.IsAccountPersisted(SelectedMonitorPack.ApplicationUserNameCacheFilePath, SelectedMonitorPack.ApplicationUserNameCacheMasterKey, lvi.Text))
-                            {
-                                lvi.SubItems[1].Text = "Global";
-                            }
-                            if (lvi.SubItems[1].Text != "No")
-                            {
-                                if (QuickMon.Security.CredentialManager.IsAccountDecryptable(txtMasterKeyFilePath.Text, txtMasterKey.Text, lvi.Text))
-                                {
-                                    lvi.SubItems[2].Text = "Yes";
-                                }
-                                else if (QuickMon.Security.CredentialManager.IsAccountDecryptable(SelectedMonitorPack.ApplicationUserNameCacheFilePath, SelectedMonitorPack.ApplicationUserNameCacheMasterKey, lvi.Text))
-                                {
-                                    lvi.SubItems[2].Text = "Global";
-                                }
-                            }                            
-                        }
-                    }
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void cmdSelectMasterKeyFile_Click(object sender, EventArgs e)
-        {
-            qmmxmlOpenFileDialog.FileName = txtMasterKeyFilePath.Text;
-            if (qmmxmlOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtMasterKeyFilePath.Text = qmmxmlOpenFileDialog.FileName;
-            }
-        }
-
-        private void cmdAddUserNameToCache_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
-                if (txtMasterKeyFilePath.Text.Length > 0 && System.IO.File.Exists(txtMasterKeyFilePath.Text))
-                {
-                    credMan.OpenCache(txtMasterKeyFilePath.Text);
-                }
-                credMan.MasterKey = txtMasterKey.Text;
-                QuickMon.Security.LogonDialog ld = new QuickMon.Security.LogonDialog();
-                if (lvwUserNameCache.SelectedItems.Count == 1)
-                    ld.UserName = lvwUserNameCache.SelectedItems[0].Text;
-                if (ld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    credMan.SetAccount(ld.UserName, ld.Password);
-                    credMan.SaveCache(txtMasterKeyFilePath.Text);
-                    if (lvwUserNameCache.SelectedItems.Count == 1)
-                    {
-                        lvwUserNameCache.SelectedItems[0].SubItems[1].Text = "Yes";
-                        lvwUserNameCache.SelectedItems[0].SubItems[2].Text = "Yes";
-                    }
-                    RefreshUserNameList();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void cmdRemoveUserNameFromCache_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-            {
-                QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
-                credMan.MasterKey = txtMasterKey.Text;
-                try
-                {
-                    credMan.OpenCache(txtMasterKeyFilePath.Text);
-                    foreach (int index in (from int i in lvwUserNameCache.SelectedIndices
-                                           orderby i descending
-                                           select i))
-                    {
-                        //if (SelectedMonitorPack.CollectorHosts != null && SelectedMonitorPack.CollectorHosts.Count > 0)
-                        //{
-                        //    foreach (CollectorHost host in (from ch in SelectedMonitorPack.CollectorHosts
-                        //                                    where ch.RunAs == lvwUserNameCache.Items[index].Text
-                        //                                 select ch))
-                        //    {
-                        //        host.RunAs = "";
-                        //    }
-                        //}
-
-                        try
-                        {
-                            credMan.RemoveAccount(lvwUserNameCache.Items[index].Text);
-                        }
-                        catch { }
-                        //lvwUserNameCache.Items.RemoveAt(index);
-                    }
-                    credMan.SaveCache(txtMasterKeyFilePath.Text);
-                    RefreshUserNameList();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void cmdLoggingPath_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                fbdLogging.SelectedPath = txtLoggingPath.Text;
-                if (fbdLogging.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    txtLoggingPath.Text = fbdLogging.SelectedPath;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void txtLoggingPath_DoubleClick(object sender, EventArgs e)
-        {
-            if (txtLoggingPath.Text.Trim().Length > 0 && System.IO.Directory.Exists(txtLoggingPath.Text))
-            {
-                if (SelectedMonitorPack != null && SelectedMonitorPack.LoggingFileName.Length > 0 && System.IO.File.Exists(SelectedMonitorPack.LoggingFileName))
-                {
-                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + SelectedMonitorPack.LoggingFileName);
-                }
-                else
-                    System.Diagnostics.Process.Start("explorer.exe", "/select, " + txtLoggingPath.Text);
-            }
-        }
 
     }
 }
