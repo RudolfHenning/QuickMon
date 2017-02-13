@@ -70,6 +70,7 @@ namespace QuickMon.Controls
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            dblClick = false;
             if (e.KeyCode == Keys.Enter)
             {
                 if (EnterKeyDown != null)

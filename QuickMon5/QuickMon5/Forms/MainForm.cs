@@ -758,21 +758,23 @@ namespace QuickMon
                 UpdateStatusbar("Waiting for editing to finish");
             }
 
+            MonitorPackEditor mpEdit = new MonitorPackEditor();
+
             //EditMonitorPackConfig emc = new EditMonitorPackConfig();
-            //emc.SelectedMonitorPack = monitorPack;
-            //if (emc.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    SetMonitorChanged();
-            //    if (emc.TriggerMonitorPackReload)
-            //    {
-            //        monitorPack = emc.SelectedMonitorPack;
-            //        UpdateStatusbar("Reloading monitor pack...");
-            //        SetMonitorPackEvents();
-            //        LoadControlsFromMonitorPack();
-            //    }
-            //    SetMonitorPackNameDescription();
-            //    DoAutoSave();
-            //}
+            mpEdit.SelectedMonitorPack = monitorPack;
+            if (mpEdit.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SetMonitorChanged();
+                if (mpEdit.TriggerMonitorPackReload)
+                {
+                    monitorPack = mpEdit.SelectedMonitorPack;
+                    UpdateStatusbar("Reloading monitor pack...");
+                    SetMonitorPackEvents();
+                    LoadControlsFromMonitorPack();
+                }
+                SetMonitorPackNameDescription();
+                DoAutoSave();
+            }
             if (isPollingEnabled)
             {
                 UpdateStatusbar("Starting/Resuming polling...");
@@ -1631,5 +1633,11 @@ namespace QuickMon
             SetCounterValue(collectorsQueryTime, elapsedMilliseconds, "Collector Hosts query time (ms)");
         }
         #endregion
+
+        private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditMonitorSettings();
+
+        }
     }
 }
