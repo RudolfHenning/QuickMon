@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonUnitTests", "QuickM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMon5", "QuickMon5\QuickMon5.csproj", "{A3AB65A9-10F1-44C5-A6AF-403B658AF605}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastColoredTextBox", "FastColoredTextBox\FastColoredTextBox.csproj", "{6DD14A85-CCFC-4774-BD26-0F5772512319}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,12 +49,16 @@ Global
 		{A3AB65A9-10F1-44C5-A6AF-403B658AF605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3AB65A9-10F1-44C5-A6AF-403B658AF605}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AB65A9-10F1-44C5-A6AF-403B658AF605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD14A85-CCFC-4774-BD26-0F5772512319}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -71,5 +77,8 @@ Global
 		SccProjectUniqueName5 = QuickMon5\\QuickMon5.csproj
 		SccProjectName5 = QuickMon5
 		SccLocalPath5 = QuickMon5
+		SccProjectUniqueName6 = FastColoredTextBox\\FastColoredTextBox.csproj
+		SccProjectName6 = FastColoredTextBox
+		SccLocalPath6 = FastColoredTextBox
 	EndGlobalSection
 EndGlobal

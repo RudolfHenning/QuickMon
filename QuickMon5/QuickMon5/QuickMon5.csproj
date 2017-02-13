@@ -105,15 +105,34 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MonitorPackEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MonitorPackEditor.Designer.cs">
+      <DependentUpon>MonitorPackEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenericForms\CSVEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GenericForms\CSVEditor.designer.cs">
       <DependentUpon>CSVEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenericForms\LogonDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\LogonDialog.Designer.cs">
+      <DependentUpon>LogonDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericForms\RAWXmlEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericForms\RAWXmlEditor.designer.cs">
+      <DependentUpon>RAWXmlEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellUtils\Shortcuts.cs" />
+    <Compile Include="ShellUtils\WinFormUtils.cs" />
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,8 +145,17 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MonitorPackEditor.resx">
+      <DependentUpon>MonitorPackEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenericForms\CSVEditor.resx">
       <DependentUpon>CSVEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\LogonDialog.resx">
+      <DependentUpon>LogonDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">
+      <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -314,6 +342,10 @@
     <None Include="Resources\141.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FastColoredTextBox\FastColoredTextBox.csproj">
+      <Project>{6dd14a85-ccfc-4774-bd26-0f5772512319}</Project>
+      <Name>FastColoredTextBox</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuickMon5Core\QuickMonCore.csproj">
       <Project>{ba11f2a5-01db-4e85-8aec-b9420d03dc2b}</Project>
       <Name>QuickMonCore</Name>
@@ -369,6 +401,9 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\Down16x16.png" />
+    <None Include="Resources\Up16x16.png" />
+    <None Include="Resources\Plus16x16.png" />
     <None Include="Resources\icon-expand16x16.png" />
     <None Include="Resources\icon-contract16x16.png" />
     <None Include="Resources\133.png" />

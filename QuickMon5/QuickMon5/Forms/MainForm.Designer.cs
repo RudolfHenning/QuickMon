@@ -35,6 +35,7 @@ namespace QuickMon
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.adminModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.saveContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -92,7 +93,6 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.adminModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -120,6 +120,12 @@ namespace QuickMon
             this.statusStrip1.Size = new System.Drawing.Size(472, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // adminModeToolStripStatusLabel
+            // 
+            this.adminModeToolStripStatusLabel.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.adminModeToolStripStatusLabel.Name = "adminModeToolStripStatusLabel";
+            this.adminModeToolStripStatusLabel.Size = new System.Drawing.Size(16, 17);
             // 
             // toolStripStatusLabelStatus
             // 
@@ -728,6 +734,7 @@ namespace QuickMon
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
             this.llblMonitorPack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.llblMonitorPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblMonitorPack_LinkClicked);
             this.llblMonitorPack.Click += new System.EventHandler(this.llblMonitorPack_Click);
             // 
             // cboRecentMonitorPacks
@@ -853,12 +860,6 @@ namespace QuickMon
             // 
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
-            // 
-            // adminModeToolStripStatusLabel
-            // 
-            this.adminModeToolStripStatusLabel.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
-            this.adminModeToolStripStatusLabel.Name = "adminModeToolStripStatusLabel";
-            this.adminModeToolStripStatusLabel.Size = new System.Drawing.Size(16, 17);
             // 
             // MainForm
             // 
