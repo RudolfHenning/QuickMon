@@ -45,6 +45,16 @@ namespace QuickMon
         private readonly int collectorErrorStateImage2 = 7;
         private readonly int collectorDisabled = 8;
         #endregion
+
+        #region Performance Counter Vars
+        private string quickMonPCCategory = "QuickMon 5 UI Client";
+        private PerformanceCounter collectorErrorStatePerSec = null;
+        private PerformanceCounter collectorWarningStatePerSec = null;
+        private PerformanceCounter collectorInfoStatePerSec = null;
+        private PerformanceCounter collectorsQueriedPerSecond = null;
+        private PerformanceCounter collectorsQueryTime = null;
+        private PerformanceCounter selectedCollectorsQueryTime = null;
+        #endregion
         #endregion
 
         #region Form events
@@ -77,12 +87,15 @@ namespace QuickMon
             lblNotifiers.LabelText = "Notifiers";
             UpdateNotifiersLabel();
             cboRecentMonitorPacks.Visible = false;
+            pollingToolStripMenuItem.Visible = false;
+            adminModeToolStripStatusLabel.Visible = Security.UACTools.IsInAdminMode();
+            adminModeToolStripMenuItem.Visible = !Security.UACTools.IsInAdminMode();
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {            
             try
             {
-                //InitializeGlobalPerformanceCounters();
+                InitializeGlobalPerformanceCounters();
                 if (Properties.Settings.Default.LastMonitorPack != null && System.IO.File.Exists(Properties.Settings.Default.LastMonitorPack))
                 {
                     LoadMonitorPack(Properties.Settings.Default.LastMonitorPack);
@@ -363,7 +376,7 @@ namespace QuickMon
                         Application.DoEvents();
                     }
                     Cursor.Current = Cursors.WaitCursor;
-                    //ClosePerformanceCounters();
+                    ClosePerformanceCounters();
                 }
 
                 if (WindowState == FormWindowState.Normal)
@@ -857,6 +870,12 @@ namespace QuickMon
                     {
                         System.Diagnostics.Trace.WriteLine("Updating " + collectorHost.Name);
                         TreeNodeEx currentTreeNode = (TreeNodeEx)collectorHost.Tag;
+                        try
+                        {
+                            if (currentTreeNode.IsSelected)
+                                SetCounterValue(selectedCollectorsQueryTime, collectorHost.CurrentState.CallDurationMS, "Selected collector query time (ms)");
+                        }
+                        catch { }
 
                         bool nodeChanged = false;
                         Color foreColor = currentTreeNode.ForeColor;
@@ -895,7 +914,7 @@ namespace QuickMon
                             {
                                 nodeChanged = true;
                                 imageIndex = collectorErrorStateImage1;
-                                //PCRaiseCollectorErrorState();
+                                PCRaiseCollectorErrorState();
                             }
                         }
                         else if (collectorHost.CurrentState.State == CollectorState.Warning)
@@ -904,7 +923,7 @@ namespace QuickMon
                             {
                                 nodeChanged = true;
                                 imageIndex = collectorWarningStateImage1;
-                                //PCRaiseCollectorWarningState();
+                                PCRaiseCollectorWarningState();
                             }
                         }
                         else if (collectorHost.CurrentState.State == CollectorState.Good)
@@ -913,7 +932,7 @@ namespace QuickMon
                             {
                                 nodeChanged = true;
                                 imageIndex = collectorGoodStateImage1;
-                                //PCRaiseCollectorSuccessState();
+                                PCRaiseCollectorSuccessState();
                             }
                         }
                         else if (currentTreeNode.ImageIndex != collectorNAstateImage)
@@ -967,6 +986,8 @@ namespace QuickMon
                 }
             });
         }
+
+
 
         #endregion
 
@@ -1069,7 +1090,7 @@ namespace QuickMon
                     CollectorState globalState = monitorPack.RefreshStates(disablePollingOverride);
                     sw.Stop();
                     Cursor.Current = Cursors.WaitCursor;
-                    //PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
+                    PCSetCollectorsQueryTime(sw.ElapsedMilliseconds);
                     SetAppIcon(monitorPack.CurrentState);
 
                     string refreshIntervalStr = autoRefreshTimer == null ? "N/A" : (autoRefreshTimer.Interval / 1000).ToString();
@@ -1096,6 +1117,9 @@ namespace QuickMon
                 firstRefresh = false;
             }
         }
+
+        
+
         private void SetNodesToBeingRefreshed(TreeNode root = null)
         {
             if (root != null && root.Tag != null && root.Tag is CollectorHost)
@@ -1467,5 +1491,145 @@ namespace QuickMon
                     monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;                
             }
         }
+
+        private void adminModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!PerformCleanShutdown(true))
+                return;
+            if (!HenIT.Security.AdminModeTools.IsInAdminMode())
+            {
+                Properties.Settings.Default.Save();
+                HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
+            }
+        }
+
+        #region Performance counters
+        private void InitializeGlobalPerformanceCounters()
+        {
+            try
+            {
+                CounterCreationData[] quickMonCreationData = new CounterCreationData[]
+                    {
+                        new CounterCreationData("Collector Host success states/Sec", "Collector successful states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Host warning states/Sec", "Collector warning states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Host error states/Sec", "Collector error states per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Hosts queried/Sec", "Number of Collectors queried per second", PerformanceCounterType.RateOfCountsPerSecond32),
+                        new CounterCreationData("Collector Hosts query time", "Collector total query time (ms)", PerformanceCounterType.NumberOfItems32),
+                        new CounterCreationData("Selected Collector Host query time", "Selected Collector query time (ms)", PerformanceCounterType.NumberOfItems32)
+                    };
+
+                if (PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {
+                    PerformanceCounterCategory pcC = new PerformanceCounterCategory(quickMonPCCategory);
+                    if (pcC.GetCounters().Count() != quickMonCreationData.Length)
+                    {
+                        PerformanceCounterCategory.Delete(quickMonPCCategory);
+                    }
+                }
+
+                if (!PerformanceCounterCategory.Exists(quickMonPCCategory))
+                {
+                    PerformanceCounterCategory.Create(quickMonPCCategory, "QuickMon", PerformanceCounterCategoryType.SingleInstance, new CounterCreationDataCollection(quickMonCreationData));
+                }
+                try
+                {
+                    collectorErrorStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host error states/Sec");
+                    collectorWarningStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host warning states/Sec");
+                    collectorInfoStatePerSec = InitializePerfCounterInstance(quickMonPCCategory, "Collector Host success states/Sec");
+                    collectorsQueriedPerSecond = InitializePerfCounterInstance(quickMonPCCategory, "Collector Hosts queried/Sec");
+                    collectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Collector Hosts query time");
+                    selectedCollectorsQueryTime = InitializePerfCounterInstance(quickMonPCCategory, "Selected Collector Host query time");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error initializing application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Requested registry access is not allowed"))
+                {
+                    if (Security.UACTools.IsInAdminMode())
+                        MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else //try launching in admin mode
+                    {
+                        MessageBox.Show("QuickMon 4 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Properties.Settings.Default.Save();
+                        Security.UACTools.RestartInAdminMode(Application.ExecutablePath);
+                    }
+                }
+                else
+                    MessageBox.Show("Error creating application performance counters\r\n" + ex.Message, "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private PerformanceCounter InitializePerfCounterInstance(string categoryName, string counterName)
+        {
+            PerformanceCounter counter = new PerformanceCounter(categoryName, counterName, false);
+            counter.BeginInit();
+            counter.RawValue = 0;
+            counter.EndInit();
+            return counter;
+        }
+        public void ClosePerformanceCounters()
+        {
+            SetCounterValue(collectorsQueryTime, 0, "Collector total query time (ms)");
+            SetCounterValue(selectedCollectorsQueryTime, 0, "Selected collector query time (ms)");
+        }
+        private void SetCounterValue(PerformanceCounter counter, long value, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    UpdateStatusbar("Performance counter not set up or installed! : " + description);
+                }
+                else
+                {
+                    counter.RawValue = value;
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
+        }
+        private void IncrementCounter(PerformanceCounter counter, string description)
+        {
+            try
+            {
+                if (counter == null)
+                {
+                    UpdateStatusbar("Performance counter not set up or installed! : " + description);
+                }
+                else
+                {
+                    counter.Increment();
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusbar(string.Format("Increment performance counter error! : {0}\r\n{1}", description, ex.ToString()));
+            }
+        }
+        private void PCRaiseCollectorSuccessState()
+        {
+            IncrementCounter(collectorInfoStatePerSec, "Collector Host info states/Sec");
+            IncrementCounter(collectorsQueriedPerSecond, "Collector Hosts queried/Sec");
+        }
+        private void PCRaiseCollectorWarningState()
+        {
+            IncrementCounter(collectorWarningStatePerSec, "Collector Host warning states/Sec");
+            IncrementCounter(collectorsQueriedPerSecond, "Collector Hosts queried/Sec");
+        }
+        private void PCRaiseCollectorErrorState()
+        {
+            IncrementCounter(collectorErrorStatePerSec, "Collector Host error states/Sec");
+            IncrementCounter(collectorsQueriedPerSecond, "Collector Hosts queried/Sec");
+        }
+        private void PCSetCollectorsQueryTime(long elapsedMilliseconds)
+        {
+            SetCounterValue(collectorsQueryTime, elapsedMilliseconds, "Collector Hosts query time (ms)");
+        }
+        #endregion
     }
 }

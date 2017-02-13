@@ -20,7 +20,7 @@ namespace QuickMon
 
         private bool loading = false;
         private bool freChanging = false;
-        private bool shortcutChanged = false;
+        //private bool shortcutChanged = false;
 
         private void flowLayoutPanelSettings_Resize(object sender, EventArgs e)
         {
@@ -36,9 +36,9 @@ namespace QuickMon
 
         private void GeneralSettings_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(530, 423);
+            this.Size = new Size(550, 450);
             cmdPollingSettingsToggle_Click(null, null);
-            cmdRecentToggle_Click(null, null);
+            //cmdRecentToggle_Click(null, null);
             cmdPasswordManagementToggle_Click(null, null);
 
             loading = true;
@@ -75,16 +75,16 @@ namespace QuickMon
                     }
                 }
             }
-            try
-            {
-                chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
-                chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
-                chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists(AppGlobals.AppId);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //try
+            //{
+            //    chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
+            //    chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
+            //    chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists(AppGlobals.AppId);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
             loading = false;
         }
 
@@ -122,19 +122,19 @@ namespace QuickMon
             }
         }
 
-        private void cmdRecentToggle_Click(object sender, EventArgs e)
-        {
-            if (cmdRecentToggle.Height == panelRecentList.Height)
-            {
-                panelRecentList.Height = 100;
-                this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            }
-            else
-            {
-                panelRecentList.Height = cmdRecentToggle.Height;
-                this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            }
-        }
+        //private void cmdRecentToggle_Click(object sender, EventArgs e)
+        //{
+        //    if (cmdRecentToggle.Height == panelRecentList.Height)
+        //    {
+        //        panelRecentList.Height = 100;
+        //        this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+        //    }
+        //    else
+        //    {
+        //        panelRecentList.Height = cmdRecentToggle.Height;
+        //        this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+        //    }
+        //}
 
         private void cmdPasswordManagementToggle_Click(object sender, EventArgs e)
         {
@@ -167,29 +167,32 @@ namespace QuickMon
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (shortcutChanged)
-                {
-                    Shortcuts.UnPinToTaskBar(); //just to make sure old instance is renewed
-                    Shortcuts.UnPinToStartMenu();
-                    Shortcuts.DeleteDesktopShortcut("", AppGlobals.AppId);
+            //try
+            //{
+            //    if (shortcutChanged)
+            //    {
+            //        Shortcuts.UnPinToTaskBar(); //just to make sure old instance is renewed
+            //        Shortcuts.UnPinToStartMenu();
+            //        Shortcuts.DeleteDesktopShortcut("", AppGlobals.AppId);
 
-                    if (chkPinToTaskbar.Checked)
-                    {
-                        Shortcuts.PinToTaskBar();
-                    }
-                    if (chkPinToStartMenu.Checked)
-                    {
-                        Shortcuts.PinToStartMenu();
-                    }
-                    if (chkDesktopShortcut.Checked)
-                    {
-                        Shortcuts.CreateDesktopShortcut("", AppGlobals.AppId);
-                    }
-                }
-            }
-            catch { }
+            //        if (chkPinToTaskbar.Checked)
+            //        {
+            //            if (!Shortcuts.PinToTaskBar())
+            //            {
+            //                MessageBox.Show("Pin to Taskbar failed!", "Pin to Taskbar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //            }
+            //        }
+            //        if (chkPinToStartMenu.Checked)
+            //        {
+            //            Shortcuts.PinToStartMenu();
+            //        }
+            //        if (chkDesktopShortcut.Checked)
+            //        {
+            //            Shortcuts.CreateDesktopShortcut("", AppGlobals.AppId);
+            //        }
+            //    }
+            //}
+            //catch { }
             try
             {
                 if (Security.UACTools.IsInAdminMode() && chkDisableAutoAdminMode.Checked)
@@ -236,21 +239,21 @@ namespace QuickMon
         }
 
         #region Shortcuts
-        private void chkPinToTaskbar_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!loading)
-                shortcutChanged = true;
-        }
-        private void chkPinToStartMenu_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!loading)
-                shortcutChanged = true;
-        }
-        private void chkDesktopShortcut_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!loading)
-                shortcutChanged = true;
-        }
+        //private void chkPinToTaskbar_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (!loading)
+        //        shortcutChanged = true;
+        //}
+        //private void chkPinToStartMenu_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (!loading)
+        //        shortcutChanged = true;
+        //}
+        //private void chkDesktopShortcut_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (!loading)
+        //        shortcutChanged = true;
+        //}
         #endregion
 
         private void cmdEditQuickSelectTypeFilters_Click(object sender, EventArgs e)

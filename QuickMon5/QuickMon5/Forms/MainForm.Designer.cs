@@ -92,6 +92,7 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
+            this.adminModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -112,6 +113,7 @@ namespace QuickMon
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.White;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adminModeToolStripStatusLabel,
             this.toolStripStatusLabelStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 481);
             this.statusStrip1.Name = "statusStrip1";
@@ -123,7 +125,7 @@ namespace QuickMon
             // 
             this.toolStripStatusLabelStatus.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(457, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(441, 17);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -377,6 +379,7 @@ namespace QuickMon
             this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
             this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
             this.adminModeToolStripMenuItem.Text = "Admin mode";
+            this.adminModeToolStripMenuItem.Click += new System.EventHandler(this.adminModeToolStripMenuItem_Click);
             // 
             // aboutContextMenuStrip
             // 
@@ -851,6 +854,12 @@ namespace QuickMon
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
+            // adminModeToolStripStatusLabel
+            // 
+            this.adminModeToolStripStatusLabel.Image = global::QuickMon.Properties.Resources.OUTLLIBR_9825;
+            this.adminModeToolStripStatusLabel.Name = "adminModeToolStripStatusLabel";
+            this.adminModeToolStripStatusLabel.Size = new System.Drawing.Size(16, 17);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -951,6 +960,7 @@ namespace QuickMon
         private System.ComponentModel.BackgroundWorker refreshBackgroundWorker;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
         private System.Windows.Forms.ComboBox cboRecentMonitorPacks;
+        private System.Windows.Forms.ToolStripStatusLabel adminModeToolStripStatusLabel;
     }
 }
 
