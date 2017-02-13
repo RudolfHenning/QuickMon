@@ -5,11 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shell32;
+using System.Runtime.InteropServices;
 
 namespace HenIT.ShellTools
 {
     public static class Shortcuts
     {
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        internal static extern IntPtr LoadLibrary(string lpLibFileName);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        internal static extern int LoadString(IntPtr hInstance, uint wID, StringBuilder lpBuffer, int nBufferMax);
+
         #region Desktop shortcut
         public static bool DesktopShortCutExists(string fileName = "")
         {
@@ -71,17 +77,17 @@ namespace HenIT.ShellTools
         #endregion
 
         #region Taskbar shortcut
-        public static void PinToTaskBar(string exeFilePath = "")
+        public static bool PinToTaskBar(string exeFilePath = "")
         {
             if (exeFilePath == null || exeFilePath.Length == 0)
                 exeFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            PinUnpinTaskBar(exeFilePath, true);
+            return PinToTaskBar(exeFilePath, true);// PinUnpinTaskBar(exeFilePath, true);
         }
-        public static void UnPinToTaskBar(string exeFilePath = "")
+        public static bool UnPinToTaskBar(string exeFilePath = "")
         {
             if (exeFilePath == null || exeFilePath.Length == 0)
                 exeFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            PinUnpinTaskBar(exeFilePath, false);
+            return PinUnpinTaskBar(exeFilePath, false);
         }
         public static bool PinnedToTaskbar(string filePath = "")
         {
@@ -120,8 +126,9 @@ namespace HenIT.ShellTools
             }
             return pinnedAlready;
         }
-        private static void PinUnpinTaskBar(string filePath, bool pin)
+        private static bool PinUnpinTaskBar(string filePath, bool pin)
         {
+            bool success = false;
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
             // create the shell application object
@@ -139,13 +146,48 @@ namespace HenIT.ShellTools
                 FolderItemVerb verb = verbs.Item(i);
                 string verbName = verb.Name.Replace(@"&", string.Empty).ToLower();
 
+                System.Diagnostics.Trace.WriteLine(string.Format("Verb:{0}", verbName));
                 if ((pin && verbName.Equals("pin to taskbar")) || (!pin && verbName.Equals("unpin from taskbar")))
                 {
                     verb.DoIt();
+                    success = true;
                 }
             }
 
             shellApplication = null;
+            return success;
+        }
+        private static bool PinToTaskBar(string filePath, bool pin)
+        {
+            bool success = false;
+            int MAX_PATH = 255;
+            var actionIndex = pin ? 5386 : 5387; // 5386 is the DLL index for"Pin to Tas&kbar", ref. http://www.win7dll.info/shell32_dll.html
+            StringBuilder szPinToStartLocalized = new StringBuilder(MAX_PATH);
+            IntPtr hShell32 = LoadLibrary("Shell32.dll");
+            LoadString(hShell32, (uint)actionIndex, szPinToStartLocalized, MAX_PATH);
+            string localizedVerb = szPinToStartLocalized.ToString();
+
+            // create the shell application object
+            dynamic shellApplication = Activator.CreateInstance(Type.GetTypeFromProgID("Shell.Application"));
+
+            string path = Path.GetDirectoryName(filePath);
+            string fileName = Path.GetFileName(filePath);
+
+            dynamic directory = shellApplication.NameSpace(path);
+            dynamic link = directory.ParseName(fileName);
+
+            dynamic verbs = link.Verbs();
+            for (int i = 0; i < verbs.Count(); i++)
+            {
+                dynamic verb = verbs.Item(i);
+
+                if ((pin && verb.Name.Equals(localizedVerb)) || (!pin && verb.Name.Equals(localizedVerb)))
+                {
+                    verb.DoIt();
+                    success = true;
+                }
+            }
+            return success;
         }
         #endregion
 

@@ -34,10 +34,6 @@
             this.panelAppSettings = new System.Windows.Forms.Panel();
             this.chkDisableAutoAdminMode = new System.Windows.Forms.CheckBox();
             this.chkUseTemplates = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkPinToTaskbar = new System.Windows.Forms.CheckBox();
-            this.chkDesktopShortcut = new System.Windows.Forms.CheckBox();
-            this.chkPinToStartMenu = new System.Windows.Forms.CheckBox();
             this.chkCreateBackupOnSave = new System.Windows.Forms.CheckBox();
             this.chkSnapToDesktop = new System.Windows.Forms.CheckBox();
             this.chkAutosaveChanges = new System.Windows.Forms.CheckBox();
@@ -52,34 +48,30 @@
             this.freqSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.concurrencyLevelNnumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cmdPollingSettingsToggle = new System.Windows.Forms.Button();
-            this.cmdOK = new System.Windows.Forms.Button();
-            this.panelRecentList = new System.Windows.Forms.Panel();
-            this.cmdRecentToggle = new System.Windows.Forms.Button();
             this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
             this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
             this.txtRecentMonitorPackFilter = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panelPasswordManagement = new System.Windows.Forms.Panel();
-            this.cmdPasswordManagementToggle = new System.Windows.Forms.Button();
+            this.lvwUserNameCache = new QuickMon.ListViewEx();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label8 = new System.Windows.Forms.Label();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtApplicationMasterKey = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
             this.txtApplicationMasterKeyFilePath = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.cmdPasswordManagementToggle = new System.Windows.Forms.Button();
+            this.cmdOK = new System.Windows.Forms.Button();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwUserNameCache = new QuickMon.ListViewEx();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.panelPollingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
-            this.panelRecentList.SuspendLayout();
             this.panelPasswordManagement.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,7 +96,6 @@
             this.flowLayoutPanelSettings.AutoScroll = true;
             this.flowLayoutPanelSettings.Controls.Add(this.panelAppSettings);
             this.flowLayoutPanelSettings.Controls.Add(this.panelPollingSettings);
-            this.flowLayoutPanelSettings.Controls.Add(this.panelRecentList);
             this.flowLayoutPanelSettings.Controls.Add(this.panelPasswordManagement);
             this.flowLayoutPanelSettings.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelSettings.Location = new System.Drawing.Point(0, 0);
@@ -116,10 +107,13 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.chkDisplayFullPathForQuickRecentEntries);
             this.panelAppSettings.Controls.Add(this.chkDisableAutoAdminMode);
+            this.panelAppSettings.Controls.Add(this.cmdEditQuickSelectTypeFilters);
             this.panelAppSettings.Controls.Add(this.chkUseTemplates);
-            this.panelAppSettings.Controls.Add(this.groupBox1);
+            this.panelAppSettings.Controls.Add(this.txtRecentMonitorPackFilter);
             this.panelAppSettings.Controls.Add(this.chkCreateBackupOnSave);
+            this.panelAppSettings.Controls.Add(this.label5);
             this.panelAppSettings.Controls.Add(this.chkSnapToDesktop);
             this.panelAppSettings.Controls.Add(this.chkAutosaveChanges);
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
@@ -132,10 +126,10 @@
             // 
             this.chkDisableAutoAdminMode.AutoSize = true;
             this.chkDisableAutoAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(9, 141);
+            this.chkDisableAutoAdminMode.Location = new System.Drawing.Point(9, 85);
             this.chkDisableAutoAdminMode.Name = "chkDisableAutoAdminMode";
             this.chkDisableAutoAdminMode.Size = new System.Drawing.Size(399, 17);
-            this.chkDisableAutoAdminMode.TabIndex = 8;
+            this.chkDisableAutoAdminMode.TabIndex = 5;
             this.chkDisableAutoAdminMode.Text = "Disable automatic Admin mode (Must be in Admin mode to remove existing task)";
             this.chkDisableAutoAdminMode.UseVisualStyleBackColor = true;
             // 
@@ -143,62 +137,12 @@
             // 
             this.chkUseTemplates.AutoSize = true;
             this.chkUseTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseTemplates.Location = new System.Drawing.Point(9, 118);
+            this.chkUseTemplates.Location = new System.Drawing.Point(9, 62);
             this.chkUseTemplates.Name = "chkUseTemplates";
             this.chkUseTemplates.Size = new System.Drawing.Size(385, 17);
-            this.chkUseTemplates.TabIndex = 7;
+            this.chkUseTemplates.TabIndex = 4;
             this.chkUseTemplates.Text = "Use \'Templates\' when creating new objects (Monitor packs and Agent hosts)";
             this.chkUseTemplates.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.chkPinToTaskbar);
-            this.groupBox1.Controls.Add(this.chkDesktopShortcut);
-            this.groupBox1.Controls.Add(this.chkPinToStartMenu);
-            this.groupBox1.Location = new System.Drawing.Point(9, 62);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(433, 50);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Shortcuts";
-            // 
-            // chkPinToTaskbar
-            // 
-            this.chkPinToTaskbar.AutoSize = true;
-            this.chkPinToTaskbar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkPinToTaskbar.Location = new System.Drawing.Point(19, 19);
-            this.chkPinToTaskbar.Name = "chkPinToTaskbar";
-            this.chkPinToTaskbar.Size = new System.Drawing.Size(93, 17);
-            this.chkPinToTaskbar.TabIndex = 0;
-            this.chkPinToTaskbar.Text = "Pin to Taskbar";
-            this.chkPinToTaskbar.UseVisualStyleBackColor = true;
-            this.chkPinToTaskbar.CheckedChanged += new System.EventHandler(this.chkPinToTaskbar_CheckedChanged);
-            // 
-            // chkDesktopShortcut
-            // 
-            this.chkDesktopShortcut.AutoSize = true;
-            this.chkDesktopShortcut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDesktopShortcut.Location = new System.Drawing.Point(234, 19);
-            this.chkDesktopShortcut.Name = "chkDesktopShortcut";
-            this.chkDesktopShortcut.Size = new System.Drawing.Size(152, 17);
-            this.chkDesktopShortcut.TabIndex = 2;
-            this.chkDesktopShortcut.Text = "Create shortcut on desktop";
-            this.chkDesktopShortcut.UseVisualStyleBackColor = true;
-            this.chkDesktopShortcut.CheckedChanged += new System.EventHandler(this.chkDesktopShortcut_CheckedChanged);
-            // 
-            // chkPinToStartMenu
-            // 
-            this.chkPinToStartMenu.AutoSize = true;
-            this.chkPinToStartMenu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkPinToStartMenu.Location = new System.Drawing.Point(120, 19);
-            this.chkPinToStartMenu.Name = "chkPinToStartMenu";
-            this.chkPinToStartMenu.Size = new System.Drawing.Size(106, 17);
-            this.chkPinToStartMenu.TabIndex = 1;
-            this.chkPinToStartMenu.Text = "Pin to Start Menu";
-            this.chkPinToStartMenu.UseVisualStyleBackColor = true;
-            this.chkPinToStartMenu.CheckedChanged += new System.EventHandler(this.chkPinToStartMenu_CheckedChanged);
             // 
             // chkCreateBackupOnSave
             // 
@@ -207,7 +151,7 @@
             this.chkCreateBackupOnSave.Location = new System.Drawing.Point(265, 39);
             this.chkCreateBackupOnSave.Name = "chkCreateBackupOnSave";
             this.chkCreateBackupOnSave.Size = new System.Drawing.Size(160, 17);
-            this.chkCreateBackupOnSave.TabIndex = 5;
+            this.chkCreateBackupOnSave.TabIndex = 3;
             this.chkCreateBackupOnSave.Text = "Back up previous saved files";
             this.chkCreateBackupOnSave.UseVisualStyleBackColor = true;
             // 
@@ -218,7 +162,7 @@
             this.chkSnapToDesktop.Location = new System.Drawing.Point(9, 39);
             this.chkSnapToDesktop.Name = "chkSnapToDesktop";
             this.chkSnapToDesktop.Size = new System.Drawing.Size(129, 17);
-            this.chkSnapToDesktop.TabIndex = 3;
+            this.chkSnapToDesktop.TabIndex = 1;
             this.chkSnapToDesktop.Text = "Snap to desktop sides";
             this.chkSnapToDesktop.UseVisualStyleBackColor = true;
             // 
@@ -229,7 +173,7 @@
             this.chkAutosaveChanges.Location = new System.Drawing.Point(141, 39);
             this.chkAutosaveChanges.Name = "chkAutosaveChanges";
             this.chkAutosaveChanges.Size = new System.Drawing.Size(116, 17);
-            this.chkAutosaveChanges.TabIndex = 4;
+            this.chkAutosaveChanges.TabIndex = 2;
             this.chkAutosaveChanges.Text = "Auto save changes";
             this.chkAutosaveChanges.UseVisualStyleBackColor = true;
             // 
@@ -242,7 +186,7 @@
             this.cmdAppSettingsToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdAppSettingsToggle.Name = "cmdAppSettingsToggle";
             this.cmdAppSettingsToggle.Size = new System.Drawing.Size(495, 33);
-            this.cmdAppSettingsToggle.TabIndex = 1;
+            this.cmdAppSettingsToggle.TabIndex = 0;
             this.cmdAppSettingsToggle.Text = "Application Settings";
             this.cmdAppSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdAppSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -386,55 +330,14 @@
             this.cmdPollingSettingsToggle.UseVisualStyleBackColor = true;
             this.cmdPollingSettingsToggle.Click += new System.EventHandler(this.cmdPollingSettingsToggle_Click);
             // 
-            // cmdOK
-            // 
-            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.BackColor = System.Drawing.Color.Transparent;
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(362, 497);
-            this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 0;
-            this.cmdOK.Text = "OK";
-            this.cmdOK.UseVisualStyleBackColor = false;
-            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
-            // 
-            // panelRecentList
-            // 
-            this.panelRecentList.Controls.Add(this.chkDisplayFullPathForQuickRecentEntries);
-            this.panelRecentList.Controls.Add(this.cmdEditQuickSelectTypeFilters);
-            this.panelRecentList.Controls.Add(this.txtRecentMonitorPackFilter);
-            this.panelRecentList.Controls.Add(this.label5);
-            this.panelRecentList.Controls.Add(this.cmdRecentToggle);
-            this.panelRecentList.Location = new System.Drawing.Point(3, 337);
-            this.panelRecentList.Name = "panelRecentList";
-            this.panelRecentList.Size = new System.Drawing.Size(495, 100);
-            this.panelRecentList.TabIndex = 2;
-            // 
-            // cmdRecentToggle
-            // 
-            this.cmdRecentToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdRecentToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdRecentToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRecentToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdRecentToggle.Name = "cmdRecentToggle";
-            this.cmdRecentToggle.Size = new System.Drawing.Size(495, 33);
-            this.cmdRecentToggle.TabIndex = 1;
-            this.cmdRecentToggle.Text = "Recent List";
-            this.cmdRecentToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdRecentToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdRecentToggle.UseVisualStyleBackColor = true;
-            this.cmdRecentToggle.Click += new System.EventHandler(this.cmdRecentToggle_Click);
-            // 
             // chkDisplayFullPathForQuickRecentEntries
             // 
             this.chkDisplayFullPathForQuickRecentEntries.AutoSize = true;
             this.chkDisplayFullPathForQuickRecentEntries.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(25, 72);
+            this.chkDisplayFullPathForQuickRecentEntries.Location = new System.Drawing.Point(9, 133);
             this.chkDisplayFullPathForQuickRecentEntries.Name = "chkDisplayFullPathForQuickRecentEntries";
             this.chkDisplayFullPathForQuickRecentEntries.Size = new System.Drawing.Size(184, 17);
-            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 7;
+            this.chkDisplayFullPathForQuickRecentEntries.TabIndex = 9;
             this.chkDisplayFullPathForQuickRecentEntries.Text = "Display full path in quick select list";
             this.chkDisplayFullPathForQuickRecentEntries.UseVisualStyleBackColor = true;
             // 
@@ -442,10 +345,10 @@
             // 
             this.cmdEditQuickSelectTypeFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditQuickSelectTypeFilters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(450, 38);
+            this.cmdEditQuickSelectTypeFilters.Location = new System.Drawing.Point(450, 105);
             this.cmdEditQuickSelectTypeFilters.Name = "cmdEditQuickSelectTypeFilters";
             this.cmdEditQuickSelectTypeFilters.Size = new System.Drawing.Size(42, 23);
-            this.cmdEditQuickSelectTypeFilters.TabIndex = 6;
+            this.cmdEditQuickSelectTypeFilters.TabIndex = 8;
             this.cmdEditQuickSelectTypeFilters.Text = "- - -";
             this.cmdEditQuickSelectTypeFilters.UseVisualStyleBackColor = true;
             this.cmdEditQuickSelectTypeFilters.Click += new System.EventHandler(this.cmdEditQuickSelectTypeFilters_Click);
@@ -454,18 +357,18 @@
             // 
             this.txtRecentMonitorPackFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 40);
+            this.txtRecentMonitorPackFilter.Location = new System.Drawing.Point(164, 107);
             this.txtRecentMonitorPackFilter.Name = "txtRecentMonitorPackFilter";
             this.txtRecentMonitorPackFilter.Size = new System.Drawing.Size(280, 20);
-            this.txtRecentMonitorPackFilter.TabIndex = 5;
+            this.txtRecentMonitorPackFilter.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 43);
+            this.label5.Location = new System.Drawing.Point(9, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 13);
-            this.label5.TabIndex = 4;
+            this.label5.TabIndex = 6;
             this.label5.Text = "Quick select Type Filters (csv)";
             // 
             // panelPasswordManagement
@@ -480,26 +383,32 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 443);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 337);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 3;
             // 
-            // cmdPasswordManagementToggle
+            // lvwUserNameCache
             // 
-            this.cmdPasswordManagementToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdPasswordManagementToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdPasswordManagementToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdPasswordManagementToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdPasswordManagementToggle.Name = "cmdPasswordManagementToggle";
-            this.cmdPasswordManagementToggle.Size = new System.Drawing.Size(495, 33);
-            this.cmdPasswordManagementToggle.TabIndex = 1;
-            this.cmdPasswordManagementToggle.Text = "Password management";
-            this.cmdPasswordManagementToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdPasswordManagementToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdPasswordManagementToggle.UseVisualStyleBackColor = true;
-            this.cmdPasswordManagementToggle.Click += new System.EventHandler(this.cmdPasswordManagementToggle_Click);
+            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
+            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
+            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3});
+            this.lvwUserNameCache.FullRowSelect = true;
+            this.lvwUserNameCache.Location = new System.Drawing.Point(12, 110);
+            this.lvwUserNameCache.Name = "lvwUserNameCache";
+            this.lvwUserNameCache.Size = new System.Drawing.Size(426, 141);
+            this.lvwUserNameCache.TabIndex = 17;
+            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
+            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "User name cache";
+            this.columnHeader3.Width = 356;
             // 
             // label8
             // 
@@ -537,11 +446,6 @@
             this.cmdAddUserNameToCache.TabIndex = 14;
             this.cmdAddUserNameToCache.Text = "+";
             this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "User name cache";
-            this.columnHeader1.Width = 356;
             // 
             // txtApplicationMasterKey
             // 
@@ -594,32 +498,44 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Master key file";
             // 
+            // cmdPasswordManagementToggle
+            // 
+            this.cmdPasswordManagementToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdPasswordManagementToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdPasswordManagementToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPasswordManagementToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdPasswordManagementToggle.Name = "cmdPasswordManagementToggle";
+            this.cmdPasswordManagementToggle.Size = new System.Drawing.Size(495, 33);
+            this.cmdPasswordManagementToggle.TabIndex = 1;
+            this.cmdPasswordManagementToggle.Text = "Password management";
+            this.cmdPasswordManagementToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPasswordManagementToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdPasswordManagementToggle.UseVisualStyleBackColor = true;
+            this.cmdPasswordManagementToggle.Click += new System.EventHandler(this.cmdPasswordManagementToggle_Click);
+            // 
+            // cmdOK
+            // 
+            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdOK.BackColor = System.Drawing.Color.Transparent;
+            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdOK.Location = new System.Drawing.Point(362, 497);
+            this.cmdOK.Name = "cmdOK";
+            this.cmdOK.Size = new System.Drawing.Size(75, 23);
+            this.cmdOK.TabIndex = 0;
+            this.cmdOK.Text = "OK";
+            this.cmdOK.UseVisualStyleBackColor = false;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "User name cache";
+            this.columnHeader1.Width = 356;
+            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "User name cache";
             this.columnHeader2.Width = 356;
-            // 
-            // lvwUserNameCache
-            // 
-            this.lvwUserNameCache.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwUserNameCache.AutoResizeColumnEnabled = false;
-            this.lvwUserNameCache.AutoResizeColumnIndex = 0;
-            this.lvwUserNameCache.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3});
-            this.lvwUserNameCache.FullRowSelect = true;
-            this.lvwUserNameCache.Location = new System.Drawing.Point(12, 110);
-            this.lvwUserNameCache.Name = "lvwUserNameCache";
-            this.lvwUserNameCache.Size = new System.Drawing.Size(426, 141);
-            this.lvwUserNameCache.TabIndex = 17;
-            this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
-            this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "User name cache";
-            this.columnHeader3.Width = 356;
             // 
             // GeneralSettings
             // 
@@ -644,14 +560,10 @@
             this.flowLayoutPanelSettings.ResumeLayout(false);
             this.panelAppSettings.ResumeLayout(false);
             this.panelAppSettings.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.panelPollingSettings.ResumeLayout(false);
             this.panelPollingSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).EndInit();
-            this.panelRecentList.ResumeLayout(false);
-            this.panelRecentList.PerformLayout();
             this.panelPasswordManagement.ResumeLayout(false);
             this.panelPasswordManagement.PerformLayout();
             this.ResumeLayout(false);
@@ -668,10 +580,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSettings;
         private System.Windows.Forms.CheckBox chkDisableAutoAdminMode;
         private System.Windows.Forms.CheckBox chkUseTemplates;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox chkPinToTaskbar;
-        private System.Windows.Forms.CheckBox chkDesktopShortcut;
-        private System.Windows.Forms.CheckBox chkPinToStartMenu;
         private System.Windows.Forms.CheckBox chkCreateBackupOnSave;
         private System.Windows.Forms.CheckBox chkSnapToDesktop;
         private System.Windows.Forms.CheckBox chkAutosaveChanges;
@@ -683,12 +591,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown freqSecNumericUpDown;
         private System.Windows.Forms.NumericUpDown concurrencyLevelNnumericUpDown;
-        private System.Windows.Forms.Panel panelRecentList;
         private System.Windows.Forms.CheckBox chkDisplayFullPathForQuickRecentEntries;
         private System.Windows.Forms.Button cmdEditQuickSelectTypeFilters;
         private System.Windows.Forms.TextBox txtRecentMonitorPackFilter;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button cmdRecentToggle;
         private System.Windows.Forms.Panel panelPasswordManagement;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button cmdRemoveUserNameFromCache;
