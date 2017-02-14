@@ -44,6 +44,7 @@
             this.txtType = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmdGeneralSettingsToggle = new System.Windows.Forms.Button();
+            this.lblMonitorPackPath = new System.Windows.Forms.Label();
             this.panelAgentSettings = new System.Windows.Forms.Panel();
             this.collectorStateHistorySizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,6 +52,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmdAgentSettingsToggle = new System.Windows.Forms.Button();
             this.panelVariables = new System.Windows.Forms.Panel();
+            this.panelVarEdit = new System.Windows.Forms.Panel();
+            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.toolStripVariables = new System.Windows.Forms.ToolStrip();
             this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -58,29 +64,28 @@
             this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.cmdVariablesToggle = new System.Windows.Forms.Button();
-            this.panelSecuritySettings = new System.Windows.Forms.Panel();
-            this.cmdSecuritySettingsToggle = new System.Windows.Forms.Button();
-            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
-            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.panelVarEdit = new System.Windows.Forms.Panel();
-            this.panelLoggingSettings = new System.Windows.Forms.Panel();
-            this.cmdLoggingSettingsToggle = new System.Windows.Forms.Button();
             this.label42 = new System.Windows.Forms.Label();
-            this.lblMonitorPackPath = new System.Windows.Forms.Label();
+            this.panelSecuritySettings = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdRemoveUserNameFromCache = new System.Windows.Forms.Button();
             this.cmdAddUserNameToCache = new System.Windows.Forms.Button();
+            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
             this.txtMasterKey = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.cmdSelectMasterKeyFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMasterKeyFilePath = new System.Windows.Forms.TextBox();
+            this.cmdSecuritySettingsToggle = new System.Windows.Forms.Button();
+            this.panelLoggingSettings = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
             this.txtLoggingCollectorCategories = new System.Windows.Forms.TextBox();
             this.nudKeepLogFilesXDays = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -94,15 +99,10 @@
             this.cmdLoggingPath = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.txtLoggingPath = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.userCacheContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.setPwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdLoggingSettingsToggle = new System.Windows.Forms.Button();
+            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.fbdLogging = new System.Windows.Forms.FolderBrowserDialog();
             this.qmmxmlOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.userCacheImageList = new System.Windows.Forms.ImageList(this.components);
             this.lvwConfigVars = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -116,13 +116,13 @@
             this.panelAgentSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).BeginInit();
             this.panelVariables.SuspendLayout();
+            this.panelVarEdit.SuspendLayout();
             this.toolStripVariables.SuspendLayout();
             this.panelSecuritySettings.SuspendLayout();
-            this.panelVarEdit.SuspendLayout();
-            this.panelLoggingSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
             this.userCacheContextMenuStrip.SuspendLayout();
+            this.panelLoggingSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).BeginInit();
             this.SuspendLayout();
             // 
             // chkEnabled
@@ -132,10 +132,10 @@
             this.chkEnabled.Checked = true;
             this.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkEnabled.Location = new System.Drawing.Point(26, 70);
+            this.chkEnabled.Location = new System.Drawing.Point(20, 70);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(129, 17);
-            this.chkEnabled.TabIndex = 5;
+            this.chkEnabled.TabIndex = 3;
             this.chkEnabled.Text = "Monitor Pack &Enabled";
             this.chkEnabled.UseVisualStyleBackColor = false;
             // 
@@ -147,7 +147,7 @@
             this.txtName.Location = new System.Drawing.Point(125, 40);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(412, 22);
-            this.txtName.TabIndex = 4;
+            this.txtName.TabIndex = 2;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // lblName
@@ -157,7 +157,7 @@
             this.lblName.Location = new System.Drawing.Point(9, 41);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(52, 18);
-            this.lblName.TabIndex = 3;
+            this.lblName.TabIndex = 1;
             this.lblName.Text = "&Name";
             // 
             // cmdOK
@@ -166,10 +166,10 @@
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(413, 493);
+            this.cmdOK.Location = new System.Drawing.Point(413, 631);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 6;
+            this.cmdOK.TabIndex = 0;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = false;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -180,10 +180,10 @@
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(494, 493);
+            this.cmdCancel.Location = new System.Drawing.Point(494, 631);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 1;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = false;
             // 
@@ -193,6 +193,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelSettings.AutoScroll = true;
+            this.flowLayoutPanelSettings.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanelSettings.Controls.Add(this.panelGeneralSettings);
             this.flowLayoutPanelSettings.Controls.Add(this.panelAgentSettings);
             this.flowLayoutPanelSettings.Controls.Add(this.panelVariables);
@@ -200,8 +201,8 @@
             this.flowLayoutPanelSettings.Controls.Add(this.panelLoggingSettings);
             this.flowLayoutPanelSettings.Location = new System.Drawing.Point(1, 0);
             this.flowLayoutPanelSettings.Name = "flowLayoutPanelSettings";
-            this.flowLayoutPanelSettings.Size = new System.Drawing.Size(579, 487);
-            this.flowLayoutPanelSettings.TabIndex = 8;
+            this.flowLayoutPanelSettings.Size = new System.Drawing.Size(579, 625);
+            this.flowLayoutPanelSettings.TabIndex = 2;
             this.flowLayoutPanelSettings.Resize += new System.EventHandler(this.flowLayoutPanelSettings_Resize);
             // 
             // panelGeneralSettings
@@ -220,7 +221,7 @@
             this.panelGeneralSettings.Location = new System.Drawing.Point(3, 3);
             this.panelGeneralSettings.Name = "panelGeneralSettings";
             this.panelGeneralSettings.Size = new System.Drawing.Size(549, 174);
-            this.panelGeneralSettings.TabIndex = 2;
+            this.panelGeneralSettings.TabIndex = 0;
             // 
             // label6
             // 
@@ -237,7 +238,7 @@
             this.label4.Location = new System.Drawing.Point(237, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(229, 13);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 9;
             this.label4.Text = "If frequency = 0 then application setting is used";
             // 
             // label5
@@ -246,7 +247,7 @@
             this.label5.Location = new System.Drawing.Point(190, 125);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 13);
-            this.label5.TabIndex = 9;
+            this.label5.TabIndex = 8;
             this.label5.Text = "Sec";
             // 
             // freqSecNumericUpDown
@@ -259,7 +260,7 @@
             0});
             this.freqSecNumericUpDown.Name = "freqSecNumericUpDown";
             this.freqSecNumericUpDown.Size = new System.Drawing.Size(59, 20);
-            this.freqSecNumericUpDown.TabIndex = 8;
+            this.freqSecNumericUpDown.TabIndex = 7;
             this.freqSecNumericUpDown.ValueChanged += new System.EventHandler(this.freqSecNumericUpDown_ValueChanged);
             // 
             // txtType
@@ -269,20 +270,21 @@
             this.txtType.Location = new System.Drawing.Point(125, 93);
             this.txtType.Name = "txtType";
             this.txtType.Size = new System.Drawing.Size(412, 20);
-            this.txtType.TabIndex = 3;
+            this.txtType.TabIndex = 5;
             this.txtType.TextChanged += new System.EventHandler(this.txtType_TextChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 96);
+            this.label7.Location = new System.Drawing.Point(13, 96);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 13);
-            this.label7.TabIndex = 2;
+            this.label7.TabIndex = 4;
             this.label7.Text = "&Type";
             // 
             // cmdGeneralSettingsToggle
             // 
+            this.cmdGeneralSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdGeneralSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdGeneralSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGeneralSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -290,12 +292,28 @@
             this.cmdGeneralSettingsToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdGeneralSettingsToggle.Name = "cmdGeneralSettingsToggle";
             this.cmdGeneralSettingsToggle.Size = new System.Drawing.Size(549, 33);
-            this.cmdGeneralSettingsToggle.TabIndex = 1;
+            this.cmdGeneralSettingsToggle.TabIndex = 0;
             this.cmdGeneralSettingsToggle.Text = "General Settings";
             this.cmdGeneralSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdGeneralSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdGeneralSettingsToggle.UseVisualStyleBackColor = true;
+            this.cmdGeneralSettingsToggle.UseVisualStyleBackColor = false;
             this.cmdGeneralSettingsToggle.Click += new System.EventHandler(this.cmdGeneralSettingsToggle_Click);
+            // 
+            // lblMonitorPackPath
+            // 
+            this.lblMonitorPackPath.AutoEllipsis = true;
+            this.lblMonitorPackPath.BackColor = System.Drawing.Color.Transparent;
+            this.lblMonitorPackPath.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMonitorPackPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DimGray;
+            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 154);
+            this.lblMonitorPackPath.Name = "lblMonitorPackPath";
+            this.lblMonitorPackPath.Size = new System.Drawing.Size(549, 20);
+            this.lblMonitorPackPath.TabIndex = 10;
+            this.lblMonitorPackPath.Text = " <Path>";
+            this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMonitorPackPath.DoubleClick += new System.EventHandler(this.lblMonitorPackPath_DoubleClick);
             // 
             // panelAgentSettings
             // 
@@ -307,7 +325,7 @@
             this.panelAgentSettings.Location = new System.Drawing.Point(3, 183);
             this.panelAgentSettings.Name = "panelAgentSettings";
             this.panelAgentSettings.Size = new System.Drawing.Size(549, 103);
-            this.panelAgentSettings.TabIndex = 3;
+            this.panelAgentSettings.TabIndex = 1;
             // 
             // collectorStateHistorySizeNumericUpDown
             // 
@@ -319,7 +337,7 @@
             0});
             this.collectorStateHistorySizeNumericUpDown.Name = "collectorStateHistorySizeNumericUpDown";
             this.collectorStateHistorySizeNumericUpDown.Size = new System.Drawing.Size(55, 20);
-            this.collectorStateHistorySizeNumericUpDown.TabIndex = 6;
+            this.collectorStateHistorySizeNumericUpDown.TabIndex = 3;
             // 
             // label2
             // 
@@ -327,7 +345,7 @@
             this.label2.Location = new System.Drawing.Point(9, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Collector &history";
             // 
             // chkCorrectiveScripts
@@ -336,7 +354,7 @@
             this.chkCorrectiveScripts.Location = new System.Drawing.Point(12, 41);
             this.chkCorrectiveScripts.Name = "chkCorrectiveScripts";
             this.chkCorrectiveScripts.Size = new System.Drawing.Size(187, 17);
-            this.chkCorrectiveScripts.TabIndex = 4;
+            this.chkCorrectiveScripts.TabIndex = 1;
             this.chkCorrectiveScripts.Text = "&Allow corrective scripts to execute";
             this.chkCorrectiveScripts.UseVisualStyleBackColor = true;
             // 
@@ -346,11 +364,12 @@
             this.label3.Location = new System.Drawing.Point(152, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(139, 13);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 4;
             this.label3.Text = "# of collector states to keep";
             // 
             // cmdAgentSettingsToggle
             // 
+            this.cmdAgentSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAgentSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdAgentSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdAgentSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -358,11 +377,11 @@
             this.cmdAgentSettingsToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdAgentSettingsToggle.Name = "cmdAgentSettingsToggle";
             this.cmdAgentSettingsToggle.Size = new System.Drawing.Size(549, 33);
-            this.cmdAgentSettingsToggle.TabIndex = 1;
+            this.cmdAgentSettingsToggle.TabIndex = 0;
             this.cmdAgentSettingsToggle.Text = "Collectors and Notifiers";
             this.cmdAgentSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdAgentSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdAgentSettingsToggle.UseVisualStyleBackColor = true;
+            this.cmdAgentSettingsToggle.UseVisualStyleBackColor = false;
             this.cmdAgentSettingsToggle.Click += new System.EventHandler(this.cmdAgentSettingsToggle_Click);
             // 
             // panelVariables
@@ -375,7 +394,57 @@
             this.panelVariables.Location = new System.Drawing.Point(3, 292);
             this.panelVariables.Name = "panelVariables";
             this.panelVariables.Size = new System.Drawing.Size(549, 265);
-            this.panelVariables.TabIndex = 4;
+            this.panelVariables.TabIndex = 2;
+            // 
+            // panelVarEdit
+            // 
+            this.panelVarEdit.Controls.Add(this.txtConfigVarSearchFor);
+            this.panelVarEdit.Controls.Add(this.label40);
+            this.panelVarEdit.Controls.Add(this.txtConfigVarReplaceByValue);
+            this.panelVarEdit.Controls.Add(this.label41);
+            this.panelVarEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelVarEdit.Location = new System.Drawing.Point(0, 210);
+            this.panelVarEdit.Name = "panelVarEdit";
+            this.panelVarEdit.Size = new System.Drawing.Size(549, 26);
+            this.panelVarEdit.TabIndex = 3;
+            // 
+            // txtConfigVarSearchFor
+            // 
+            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(91, 3);
+            this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
+            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarSearchFor.TabIndex = 1;
+            this.txtConfigVarSearchFor.TextChanged += new System.EventHandler(this.txtConfigVarSearchFor_TextChanged);
+            // 
+            // label40
+            // 
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(16, 6);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(56, 13);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "Search for";
+            // 
+            // txtConfigVarReplaceByValue
+            // 
+            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(345, 3);
+            this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
+            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarReplaceByValue.TabIndex = 3;
+            this.txtConfigVarReplaceByValue.TextChanged += new System.EventHandler(this.txtConfigVarReplaceByValue_TextChanged);
+            // 
+            // label41
+            // 
+            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(270, 6);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(69, 13);
+            this.label41.TabIndex = 2;
+            this.label41.Text = "Replace with";
             // 
             // toolStripVariables
             // 
@@ -389,7 +458,7 @@
             this.toolStripVariables.Location = new System.Drawing.Point(0, 33);
             this.toolStripVariables.Name = "toolStripVariables";
             this.toolStripVariables.Size = new System.Drawing.Size(549, 25);
-            this.toolStripVariables.TabIndex = 2;
+            this.toolStripVariables.TabIndex = 1;
             this.toolStripVariables.TabStop = true;
             this.toolStripVariables.Text = "toolStrip1";
             // 
@@ -444,6 +513,7 @@
             // 
             // cmdVariablesToggle
             // 
+            this.cmdVariablesToggle.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdVariablesToggle.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdVariablesToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdVariablesToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
@@ -451,138 +521,12 @@
             this.cmdVariablesToggle.Location = new System.Drawing.Point(0, 0);
             this.cmdVariablesToggle.Name = "cmdVariablesToggle";
             this.cmdVariablesToggle.Size = new System.Drawing.Size(549, 33);
-            this.cmdVariablesToggle.TabIndex = 1;
+            this.cmdVariablesToggle.TabIndex = 0;
             this.cmdVariablesToggle.Text = "Variables";
             this.cmdVariablesToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmdVariablesToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdVariablesToggle.UseVisualStyleBackColor = true;
+            this.cmdVariablesToggle.UseVisualStyleBackColor = false;
             this.cmdVariablesToggle.Click += new System.EventHandler(this.cmdVariablesToggle_Click);
-            // 
-            // panelSecuritySettings
-            // 
-            this.panelSecuritySettings.Controls.Add(this.groupBox2);
-            this.panelSecuritySettings.Controls.Add(this.cmdSecuritySettingsToggle);
-            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 563);
-            this.panelSecuritySettings.Name = "panelSecuritySettings";
-            this.panelSecuritySettings.Size = new System.Drawing.Size(549, 289);
-            this.panelSecuritySettings.TabIndex = 5;
-            // 
-            // cmdSecuritySettingsToggle
-            // 
-            this.cmdSecuritySettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdSecuritySettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSecuritySettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdSecuritySettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdSecuritySettingsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdSecuritySettingsToggle.Name = "cmdSecuritySettingsToggle";
-            this.cmdSecuritySettingsToggle.Size = new System.Drawing.Size(549, 33);
-            this.cmdSecuritySettingsToggle.TabIndex = 1;
-            this.cmdSecuritySettingsToggle.Text = "Security Settings";
-            this.cmdSecuritySettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdSecuritySettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdSecuritySettingsToggle.UseVisualStyleBackColor = true;
-            this.cmdSecuritySettingsToggle.Click += new System.EventHandler(this.cmdSecuritySettingsToggle_Click);
-            // 
-            // llblRawEdit
-            // 
-            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblRawEdit.AutoSize = true;
-            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRawEdit.Location = new System.Drawing.Point(12, 498);
-            this.llblRawEdit.Name = "llblRawEdit";
-            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
-            this.llblRawEdit.TabIndex = 9;
-            this.llblRawEdit.TabStop = true;
-            this.llblRawEdit.Text = "Edit RAW config";
-            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
-            // 
-            // txtConfigVarReplaceByValue
-            // 
-            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(345, 3);
-            this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
-            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
-            this.txtConfigVarReplaceByValue.TabIndex = 10;
-            this.txtConfigVarReplaceByValue.TextChanged += new System.EventHandler(this.txtConfigVarReplaceByValue_TextChanged);
-            // 
-            // label41
-            // 
-            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(270, 6);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(69, 13);
-            this.label41.TabIndex = 9;
-            this.label41.Text = "Replace with";
-            // 
-            // txtConfigVarSearchFor
-            // 
-            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(91, 3);
-            this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
-            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
-            this.txtConfigVarSearchFor.TabIndex = 8;
-            this.txtConfigVarSearchFor.TextChanged += new System.EventHandler(this.txtConfigVarSearchFor_TextChanged);
-            // 
-            // label40
-            // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(16, 6);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(56, 13);
-            this.label40.TabIndex = 7;
-            this.label40.Text = "Search for";
-            // 
-            // panelVarEdit
-            // 
-            this.panelVarEdit.Controls.Add(this.txtConfigVarSearchFor);
-            this.panelVarEdit.Controls.Add(this.label40);
-            this.panelVarEdit.Controls.Add(this.txtConfigVarReplaceByValue);
-            this.panelVarEdit.Controls.Add(this.label41);
-            this.panelVarEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelVarEdit.Location = new System.Drawing.Point(0, 210);
-            this.panelVarEdit.Name = "panelVarEdit";
-            this.panelVarEdit.Size = new System.Drawing.Size(549, 26);
-            this.panelVarEdit.TabIndex = 12;
-            // 
-            // panelLoggingSettings
-            // 
-            this.panelLoggingSettings.Controls.Add(this.label14);
-            this.panelLoggingSettings.Controls.Add(this.txtLoggingCollectorCategories);
-            this.panelLoggingSettings.Controls.Add(this.nudKeepLogFilesXDays);
-            this.panelLoggingSettings.Controls.Add(this.label13);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingServiceWindowEvents);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingPollingOverridesTriggered);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingCorrectiveScriptRun);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingAlertsRaised);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingNotifierEvents);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingCollectorEvents);
-            this.panelLoggingSettings.Controls.Add(this.chkLoggingEnabled);
-            this.panelLoggingSettings.Controls.Add(this.cmdLoggingPath);
-            this.panelLoggingSettings.Controls.Add(this.label12);
-            this.panelLoggingSettings.Controls.Add(this.txtLoggingPath);
-            this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
-            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 858);
-            this.panelLoggingSettings.Name = "panelLoggingSettings";
-            this.panelLoggingSettings.Size = new System.Drawing.Size(549, 260);
-            this.panelLoggingSettings.TabIndex = 6;
-            // 
-            // cmdLoggingSettingsToggle
-            // 
-            this.cmdLoggingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdLoggingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdLoggingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdLoggingSettingsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdLoggingSettingsToggle.Name = "cmdLoggingSettingsToggle";
-            this.cmdLoggingSettingsToggle.Size = new System.Drawing.Size(549, 33);
-            this.cmdLoggingSettingsToggle.TabIndex = 1;
-            this.cmdLoggingSettingsToggle.Text = "Logging Settings";
-            this.cmdLoggingSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdLoggingSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdLoggingSettingsToggle.UseVisualStyleBackColor = true;
-            this.cmdLoggingSettingsToggle.Click += new System.EventHandler(this.cmdLoggingSettingsToggle_Click);
             // 
             // label42
             // 
@@ -591,26 +535,19 @@
             this.label42.Location = new System.Drawing.Point(0, 236);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(549, 29);
-            this.label42.TabIndex = 13;
+            this.label42.TabIndex = 4;
             this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
     "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
     " \'special\' in XML.";
             // 
-            // lblMonitorPackPath
+            // panelSecuritySettings
             // 
-            this.lblMonitorPackPath.AutoEllipsis = true;
-            this.lblMonitorPackPath.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMonitorPackPath.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblMonitorPackPath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblMonitorPackPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonitorPackPath.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblMonitorPackPath.Location = new System.Drawing.Point(0, 154);
-            this.lblMonitorPackPath.Name = "lblMonitorPackPath";
-            this.lblMonitorPackPath.Size = new System.Drawing.Size(549, 20);
-            this.lblMonitorPackPath.TabIndex = 15;
-            this.lblMonitorPackPath.Text = " ";
-            this.lblMonitorPackPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMonitorPackPath.DoubleClick += new System.EventHandler(this.lblMonitorPackPath_DoubleClick);
+            this.panelSecuritySettings.Controls.Add(this.groupBox2);
+            this.panelSecuritySettings.Controls.Add(this.cmdSecuritySettingsToggle);
+            this.panelSecuritySettings.Location = new System.Drawing.Point(3, 563);
+            this.panelSecuritySettings.Name = "panelSecuritySettings";
+            this.panelSecuritySettings.Size = new System.Drawing.Size(549, 289);
+            this.panelSecuritySettings.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -629,7 +566,7 @@
             this.groupBox2.Location = new System.Drawing.Point(0, 33);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(549, 256);
-            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
             // label11
@@ -638,7 +575,7 @@
             this.label11.Location = new System.Drawing.Point(13, 91);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(398, 13);
-            this.label11.TabIndex = 10;
+            this.label11.TabIndex = 7;
             this.label11.Text = "The list below contains user names used by the collector hosts in this monitor pa" +
     "ck.";
             // 
@@ -661,7 +598,7 @@
             this.cmdRemoveUserNameFromCache.Location = new System.Drawing.Point(501, 154);
             this.cmdRemoveUserNameFromCache.Name = "cmdRemoveUserNameFromCache";
             this.cmdRemoveUserNameFromCache.Size = new System.Drawing.Size(42, 23);
-            this.cmdRemoveUserNameFromCache.TabIndex = 9;
+            this.cmdRemoveUserNameFromCache.TabIndex = 10;
             this.cmdRemoveUserNameFromCache.Text = "Ä";
             this.cmdRemoveUserNameFromCache.UseVisualStyleBackColor = true;
             this.cmdRemoveUserNameFromCache.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
@@ -674,10 +611,53 @@
             this.cmdAddUserNameToCache.Location = new System.Drawing.Point(501, 125);
             this.cmdAddUserNameToCache.Name = "cmdAddUserNameToCache";
             this.cmdAddUserNameToCache.Size = new System.Drawing.Size(42, 23);
-            this.cmdAddUserNameToCache.TabIndex = 8;
+            this.cmdAddUserNameToCache.TabIndex = 9;
             this.cmdAddUserNameToCache.Text = "¬";
             this.cmdAddUserNameToCache.UseVisualStyleBackColor = true;
             this.cmdAddUserNameToCache.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
+            // 
+            // userCacheContextMenuStrip
+            // 
+            this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setPwdToolStripMenuItem,
+            this.removeUserToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.refreshToolStripMenuItem});
+            this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
+            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(230, 76);
+            // 
+            // setPwdToolStripMenuItem
+            // 
+            this.setPwdToolStripMenuItem.Name = "setPwdToolStripMenuItem";
+            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.setPwdToolStripMenuItem.Text = "Set/Add account && password";
+            this.setPwdToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
+            // 
+            // removeUserToolStripMenuItem
+            // 
+            this.removeUserToolStripMenuItem.Enabled = false;
+            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.removeUserToolStripMenuItem.Text = "Remove";
+            this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // userCacheImageList
+            // 
+            this.userCacheImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("userCacheImageList.ImageStream")));
+            this.userCacheImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.userCacheImageList.Images.SetKeyName(0, "125_31.ico");
             // 
             // txtMasterKey
             // 
@@ -741,6 +721,54 @@
             this.txtMasterKeyFilePath.Size = new System.Drawing.Size(364, 20);
             this.txtMasterKeyFilePath.TabIndex = 5;
             // 
+            // cmdSecuritySettingsToggle
+            // 
+            this.cmdSecuritySettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdSecuritySettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdSecuritySettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdSecuritySettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdSecuritySettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdSecuritySettingsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdSecuritySettingsToggle.Name = "cmdSecuritySettingsToggle";
+            this.cmdSecuritySettingsToggle.Size = new System.Drawing.Size(549, 33);
+            this.cmdSecuritySettingsToggle.TabIndex = 0;
+            this.cmdSecuritySettingsToggle.Text = "Security Settings";
+            this.cmdSecuritySettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdSecuritySettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdSecuritySettingsToggle.UseVisualStyleBackColor = false;
+            this.cmdSecuritySettingsToggle.Click += new System.EventHandler(this.cmdSecuritySettingsToggle_Click);
+            // 
+            // panelLoggingSettings
+            // 
+            this.panelLoggingSettings.Controls.Add(this.label14);
+            this.panelLoggingSettings.Controls.Add(this.txtLoggingCollectorCategories);
+            this.panelLoggingSettings.Controls.Add(this.nudKeepLogFilesXDays);
+            this.panelLoggingSettings.Controls.Add(this.label13);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingServiceWindowEvents);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingPollingOverridesTriggered);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingCorrectiveScriptRun);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingAlertsRaised);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingNotifierEvents);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingCollectorEvents);
+            this.panelLoggingSettings.Controls.Add(this.chkLoggingEnabled);
+            this.panelLoggingSettings.Controls.Add(this.cmdLoggingPath);
+            this.panelLoggingSettings.Controls.Add(this.label12);
+            this.panelLoggingSettings.Controls.Add(this.txtLoggingPath);
+            this.panelLoggingSettings.Controls.Add(this.cmdLoggingSettingsToggle);
+            this.panelLoggingSettings.Location = new System.Drawing.Point(3, 858);
+            this.panelLoggingSettings.Name = "panelLoggingSettings";
+            this.panelLoggingSettings.Size = new System.Drawing.Size(549, 260);
+            this.panelLoggingSettings.TabIndex = 4;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(55, 121);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(203, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Only for Collector categories (one per line)";
+            // 
             // txtLoggingCollectorCategories
             // 
             this.txtLoggingCollectorCategories.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -750,7 +778,7 @@
             this.txtLoggingCollectorCategories.Name = "txtLoggingCollectorCategories";
             this.txtLoggingCollectorCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLoggingCollectorCategories.Size = new System.Drawing.Size(215, 104);
-            this.txtLoggingCollectorCategories.TabIndex = 21;
+            this.txtLoggingCollectorCategories.TabIndex = 9;
             // 
             // nudKeepLogFilesXDays
             // 
@@ -767,7 +795,7 @@
             0});
             this.nudKeepLogFilesXDays.Name = "nudKeepLogFilesXDays";
             this.nudKeepLogFilesXDays.Size = new System.Drawing.Size(61, 20);
-            this.nudKeepLogFilesXDays.TabIndex = 16;
+            this.nudKeepLogFilesXDays.TabIndex = 3;
             this.nudKeepLogFilesXDays.Value = new decimal(new int[] {
             180,
             0,
@@ -780,7 +808,7 @@
             this.label13.Location = new System.Drawing.Point(133, 43);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(108, 13);
-            this.label13.TabIndex = 15;
+            this.label13.TabIndex = 2;
             this.label13.Text = "Days to keep log files";
             // 
             // chkLoggingServiceWindowEvents
@@ -790,7 +818,7 @@
             this.chkLoggingServiceWindowEvents.Location = new System.Drawing.Point(304, 190);
             this.chkLoggingServiceWindowEvents.Name = "chkLoggingServiceWindowEvents";
             this.chkLoggingServiceWindowEvents.Size = new System.Drawing.Size(142, 17);
-            this.chkLoggingServiceWindowEvents.TabIndex = 26;
+            this.chkLoggingServiceWindowEvents.TabIndex = 14;
             this.chkLoggingServiceWindowEvents.Text = "Service windows Events";
             this.chkLoggingServiceWindowEvents.UseVisualStyleBackColor = true;
             // 
@@ -801,7 +829,7 @@
             this.chkLoggingPollingOverridesTriggered.Location = new System.Drawing.Point(304, 167);
             this.chkLoggingPollingOverridesTriggered.Name = "chkLoggingPollingOverridesTriggered";
             this.chkLoggingPollingOverridesTriggered.Size = new System.Drawing.Size(183, 17);
-            this.chkLoggingPollingOverridesTriggered.TabIndex = 25;
+            this.chkLoggingPollingOverridesTriggered.TabIndex = 13;
             this.chkLoggingPollingOverridesTriggered.Text = "Polling overrides triggered Events";
             this.chkLoggingPollingOverridesTriggered.UseVisualStyleBackColor = true;
             // 
@@ -812,7 +840,7 @@
             this.chkLoggingCorrectiveScriptRun.Location = new System.Drawing.Point(304, 144);
             this.chkLoggingCorrectiveScriptRun.Name = "chkLoggingCorrectiveScriptRun";
             this.chkLoggingCorrectiveScriptRun.Size = new System.Drawing.Size(156, 17);
-            this.chkLoggingCorrectiveScriptRun.TabIndex = 24;
+            this.chkLoggingCorrectiveScriptRun.TabIndex = 12;
             this.chkLoggingCorrectiveScriptRun.Text = "Corrective script run Events";
             this.chkLoggingCorrectiveScriptRun.UseVisualStyleBackColor = true;
             // 
@@ -823,7 +851,7 @@
             this.chkLoggingAlertsRaised.Location = new System.Drawing.Point(304, 121);
             this.chkLoggingAlertsRaised.Name = "chkLoggingAlertsRaised";
             this.chkLoggingAlertsRaised.Size = new System.Drawing.Size(83, 17);
-            this.chkLoggingAlertsRaised.TabIndex = 23;
+            this.chkLoggingAlertsRaised.TabIndex = 11;
             this.chkLoggingAlertsRaised.Text = "Alert Events";
             this.chkLoggingAlertsRaised.UseVisualStyleBackColor = true;
             // 
@@ -834,7 +862,7 @@
             this.chkLoggingNotifierEvents.Location = new System.Drawing.Point(304, 98);
             this.chkLoggingNotifierEvents.Name = "chkLoggingNotifierEvents";
             this.chkLoggingNotifierEvents.Size = new System.Drawing.Size(95, 17);
-            this.chkLoggingNotifierEvents.TabIndex = 22;
+            this.chkLoggingNotifierEvents.TabIndex = 10;
             this.chkLoggingNotifierEvents.Text = "Notifier Events";
             this.chkLoggingNotifierEvents.UseVisualStyleBackColor = true;
             // 
@@ -844,7 +872,7 @@
             this.chkLoggingCollectorEvents.Location = new System.Drawing.Point(38, 98);
             this.chkLoggingCollectorEvents.Name = "chkLoggingCollectorEvents";
             this.chkLoggingCollectorEvents.Size = new System.Drawing.Size(103, 17);
-            this.chkLoggingCollectorEvents.TabIndex = 20;
+            this.chkLoggingCollectorEvents.TabIndex = 7;
             this.chkLoggingCollectorEvents.Text = "Collector Events";
             this.chkLoggingCollectorEvents.UseVisualStyleBackColor = true;
             // 
@@ -854,7 +882,7 @@
             this.chkLoggingEnabled.Location = new System.Drawing.Point(12, 42);
             this.chkLoggingEnabled.Name = "chkLoggingEnabled";
             this.chkLoggingEnabled.Size = new System.Drawing.Size(115, 17);
-            this.chkLoggingEnabled.TabIndex = 14;
+            this.chkLoggingEnabled.TabIndex = 1;
             this.chkLoggingEnabled.Text = "Logging is enabled";
             this.chkLoggingEnabled.UseVisualStyleBackColor = true;
             // 
@@ -865,7 +893,7 @@
             this.cmdLoggingPath.Location = new System.Drawing.Point(501, 67);
             this.cmdLoggingPath.Name = "cmdLoggingPath";
             this.cmdLoggingPath.Size = new System.Drawing.Size(42, 23);
-            this.cmdLoggingPath.TabIndex = 19;
+            this.cmdLoggingPath.TabIndex = 6;
             this.cmdLoggingPath.Text = "- - -";
             this.cmdLoggingPath.UseVisualStyleBackColor = true;
             this.cmdLoggingPath.Click += new System.EventHandler(this.cmdLoggingPath_Click);
@@ -876,7 +904,7 @@
             this.label12.Location = new System.Drawing.Point(13, 72);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(65, 13);
-            this.label12.TabIndex = 17;
+            this.label12.TabIndex = 4;
             this.label12.Text = "Log file path";
             // 
             // txtLoggingPath
@@ -886,54 +914,38 @@
             this.txtLoggingPath.Location = new System.Drawing.Point(136, 69);
             this.txtLoggingPath.Name = "txtLoggingPath";
             this.txtLoggingPath.Size = new System.Drawing.Size(359, 20);
-            this.txtLoggingPath.TabIndex = 18;
+            this.txtLoggingPath.TabIndex = 5;
             this.txtLoggingPath.DoubleClick += new System.EventHandler(this.txtLoggingPath_DoubleClick);
             // 
-            // label14
+            // cmdLoggingSettingsToggle
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(55, 121);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(203, 13);
-            this.label14.TabIndex = 27;
-            this.label14.Text = "Only for Collector categories (one per line)";
+            this.cmdLoggingSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdLoggingSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdLoggingSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdLoggingSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdLoggingSettingsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdLoggingSettingsToggle.Name = "cmdLoggingSettingsToggle";
+            this.cmdLoggingSettingsToggle.Size = new System.Drawing.Size(549, 33);
+            this.cmdLoggingSettingsToggle.TabIndex = 0;
+            this.cmdLoggingSettingsToggle.Text = "Logging Settings";
+            this.cmdLoggingSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdLoggingSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdLoggingSettingsToggle.UseVisualStyleBackColor = false;
+            this.cmdLoggingSettingsToggle.Click += new System.EventHandler(this.cmdLoggingSettingsToggle_Click);
             // 
-            // userCacheContextMenuStrip
+            // llblRawEdit
             // 
-            this.userCacheContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setPwdToolStripMenuItem,
-            this.removeUserToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.refreshToolStripMenuItem});
-            this.userCacheContextMenuStrip.Name = "contextMenuStrip1";
-            this.userCacheContextMenuStrip.Size = new System.Drawing.Size(230, 98);
-            // 
-            // setPwdToolStripMenuItem
-            // 
-            this.setPwdToolStripMenuItem.Name = "setPwdToolStripMenuItem";
-            this.setPwdToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.setPwdToolStripMenuItem.Text = "Set/Add account && password";
-            this.setPwdToolStripMenuItem.Click += new System.EventHandler(this.cmdAddUserNameToCache_Click);
-            // 
-            // removeUserToolStripMenuItem
-            // 
-            this.removeUserToolStripMenuItem.Enabled = false;
-            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.removeUserToolStripMenuItem.Text = "Remove";
-            this.removeUserToolStripMenuItem.Click += new System.EventHandler(this.cmdRemoveUserNameFromCache_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblRawEdit.AutoSize = true;
+            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRawEdit.Location = new System.Drawing.Point(12, 636);
+            this.llblRawEdit.Name = "llblRawEdit";
+            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
+            this.llblRawEdit.TabIndex = 3;
+            this.llblRawEdit.TabStop = true;
+            this.llblRawEdit.Text = "Edit RAW config";
+            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
             // 
             // fbdLogging
             // 
@@ -945,12 +957,6 @@
             this.qmmxmlOpenFileDialog.DefaultExt = "qmmxml";
             this.qmmxmlOpenFileDialog.Filter = "QuickMon master key files|*.qmmxml";
             this.qmmxmlOpenFileDialog.Title = "Select QuickMon master key file";
-            // 
-            // userCacheImageList
-            // 
-            this.userCacheImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("userCacheImageList.ImageStream")));
-            this.userCacheImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.userCacheImageList.Images.SetKeyName(0, "125_31.ico");
             // 
             // lvwConfigVars
             // 
@@ -964,7 +970,7 @@
             this.lvwConfigVars.Location = new System.Drawing.Point(0, 58);
             this.lvwConfigVars.Name = "lvwConfigVars";
             this.lvwConfigVars.Size = new System.Drawing.Size(549, 152);
-            this.lvwConfigVars.TabIndex = 3;
+            this.lvwConfigVars.TabIndex = 2;
             this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
             this.lvwConfigVars.View = System.Windows.Forms.View.Details;
             this.lvwConfigVars.SelectedIndexChanged += new System.EventHandler(this.lvwConfigVars_SelectedIndexChanged);
@@ -996,7 +1002,7 @@
             this.lvwUserNameCache.Name = "lvwUserNameCache";
             this.lvwUserNameCache.Size = new System.Drawing.Size(486, 143);
             this.lvwUserNameCache.SmallImageList = this.userCacheImageList;
-            this.lvwUserNameCache.TabIndex = 7;
+            this.lvwUserNameCache.TabIndex = 8;
             this.lvwUserNameCache.UseCompatibleStateImageBehavior = false;
             this.lvwUserNameCache.View = System.Windows.Forms.View.Details;
             this.lvwUserNameCache.SelectedIndexChanged += new System.EventHandler(this.lvwUserNameCache_SelectedIndexChanged);
@@ -1021,7 +1027,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(581, 528);
+            this.BackgroundImage = global::QuickMon.Properties.Resources.QuickMon5Background3;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(581, 666);
             this.Controls.Add(this.llblRawEdit);
             this.Controls.Add(this.flowLayoutPanelSettings);
             this.Controls.Add(this.cmdOK);
@@ -1043,17 +1051,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.collectorStateHistorySizeNumericUpDown)).EndInit();
             this.panelVariables.ResumeLayout(false);
             this.panelVariables.PerformLayout();
+            this.panelVarEdit.ResumeLayout(false);
+            this.panelVarEdit.PerformLayout();
             this.toolStripVariables.ResumeLayout(false);
             this.toolStripVariables.PerformLayout();
             this.panelSecuritySettings.ResumeLayout(false);
-            this.panelVarEdit.ResumeLayout(false);
-            this.panelVarEdit.PerformLayout();
-            this.panelLoggingSettings.ResumeLayout(false);
-            this.panelLoggingSettings.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
             this.userCacheContextMenuStrip.ResumeLayout(false);
+            this.panelLoggingSettings.ResumeLayout(false);
+            this.panelLoggingSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKeepLogFilesXDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
