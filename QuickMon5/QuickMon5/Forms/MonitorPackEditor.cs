@@ -98,6 +98,7 @@ namespace QuickMon
                 toolStripVariables.Visible = true;
                 panelVarEdit.Visible = true;
                 this.cmdVariablesToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+                flowLayoutPanelSettings.ScrollControlIntoView(panelVarEdit);
             }
             else
             {
@@ -113,6 +114,7 @@ namespace QuickMon
             {
                 panelSecuritySettings.Height = panelSecuritySettingsHeight;
                 this.cmdSecuritySettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+                flowLayoutPanelSettings.ScrollControlIntoView(panelSecuritySettings);
             }
             else
             {
@@ -126,6 +128,7 @@ namespace QuickMon
             {
                 panelLoggingSettings.Height = panelLoggingSettingsHeight;
                 this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+                flowLayoutPanelSettings.ScrollControlIntoView(panelLoggingSettings);
             }
             else
             {

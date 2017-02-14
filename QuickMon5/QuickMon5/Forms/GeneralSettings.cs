@@ -20,7 +20,9 @@ namespace QuickMon
 
         private bool loading = false;
         private bool freChanging = false;
-        //private bool shortcutChanged = false;
+        private int panelAppSettingsHeight = 0;
+        private int panelPollingSettingsHeight = 0;
+        private int panelPasswordManagementHeight = 0;
 
         private void flowLayoutPanelSettings_Resize(object sender, EventArgs e)
         {
@@ -37,8 +39,10 @@ namespace QuickMon
         private void GeneralSettings_Load(object sender, EventArgs e)
         {
             this.Size = new Size(550, 450);
-            cmdPollingSettingsToggle_Click(null, null);
-            //cmdRecentToggle_Click(null, null);
+            panelAppSettingsHeight = panelAppSettings.Height;
+            panelPollingSettingsHeight = panelPollingSettings.Height;
+            panelPasswordManagementHeight = panelPasswordManagement.Height;
+            //cmdPollingSettingsToggle_Click(null, null);
             cmdPasswordManagementToggle_Click(null, null);
 
             loading = true;
@@ -75,17 +79,9 @@ namespace QuickMon
                     }
                 }
             }
-            //try
-            //{
-            //    chkPinToTaskbar.Checked = Shortcuts.PinnedToTaskbar();
-            //    chkPinToStartMenu.Checked = Shortcuts.PinnedToStartMenu();
-            //    chkDesktopShortcut.Checked = Shortcuts.DesktopShortCutExists(AppGlobals.AppId);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
             loading = false;
+
+
         }
 
         private void GeneralSettings_Shown(object sender, EventArgs e)
@@ -98,7 +94,7 @@ namespace QuickMon
         {
             if(cmdAppSettingsToggle.Height == panelAppSettings.Height)
             {
-                panelAppSettings.Height = 172;
+                panelAppSettings.Height = panelAppSettingsHeight;
                 this.cmdAppSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             }
             else
@@ -112,7 +108,7 @@ namespace QuickMon
         {
             if (cmdPollingSettingsToggle.Height == panelPollingSettings.Height)
             {
-                panelPollingSettings.Height = 150;
+                panelPollingSettings.Height = panelPollingSettingsHeight;
                 this.cmdPollingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
             }
             else
@@ -122,26 +118,13 @@ namespace QuickMon
             }
         }
 
-        //private void cmdRecentToggle_Click(object sender, EventArgs e)
-        //{
-        //    if (cmdRecentToggle.Height == panelRecentList.Height)
-        //    {
-        //        panelRecentList.Height = 100;
-        //        this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-        //    }
-        //    else
-        //    {
-        //        panelRecentList.Height = cmdRecentToggle.Height;
-        //        this.cmdRecentToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-        //    }
-        //}
-
         private void cmdPasswordManagementToggle_Click(object sender, EventArgs e)
         {
             if (cmdPasswordManagementToggle.Height == panelPasswordManagement.Height)
             {
-                panelPasswordManagement.Height = 260;
+                panelPasswordManagement.Height = panelPasswordManagementHeight;
                 this.cmdPasswordManagementToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+                flowLayoutPanelSettings.ScrollControlIntoView(panelPasswordManagement);
             }
             else
             {
