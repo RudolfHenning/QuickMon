@@ -57,6 +57,9 @@ namespace QuickMon
                 txtRecentMonitorPackFilter.Text = Properties.Settings.Default.RecentQMConfigFileFilters;
             chkDisplayFullPathForQuickRecentEntries.Checked = Properties.Settings.Default.ShowFullPathForQuickRecentist;
             SetFrequency(Properties.Settings.Default.PollFrequencySec);
+            nudMainWindowTreeViewExtraColumnSize.SaveValueSet(Properties.Settings.Default.MainWindowTreeViewExtraColumnSize);
+            optTvwDetailLeftAlign.Checked = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 0;
+            optTvwDetailRightAlign.Checked = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign != 0;
 
             chkUseTemplates.Checked = Properties.Settings.Default.UseTemplatesForNewObjects;
             chkDisableAutoAdminMode.Checked = Properties.Settings.Default.DisableAutoAdminMode;
@@ -198,6 +201,8 @@ namespace QuickMon
             Properties.Settings.Default.ShowFullPathForQuickRecentist = chkDisplayFullPathForQuickRecentEntries.Checked;
             Properties.Settings.Default.UseTemplatesForNewObjects = chkUseTemplates.Checked;
             Properties.Settings.Default.DisableAutoAdminMode = chkDisableAutoAdminMode.Checked;
+            Properties.Settings.Default.MainWindowTreeViewExtraColumnSize = (int)nudMainWindowTreeViewExtraColumnSize.Value;
+            Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign = optTvwDetailRightAlign.Checked ? 1 : 0;
             if (txtRecentMonitorPackFilter.Text.Trim().Length == 0)
                 Properties.Settings.Default.RecentQMConfigFileFilters = "*";
             else

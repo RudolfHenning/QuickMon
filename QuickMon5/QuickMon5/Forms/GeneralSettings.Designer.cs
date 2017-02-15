@@ -32,6 +32,11 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAppSettings = new System.Windows.Forms.Panel();
+            this.panelTvwDetailTextAlign = new System.Windows.Forms.Panel();
+            this.optTvwDetailRightAlign = new System.Windows.Forms.RadioButton();
+            this.optTvwDetailLeftAlign = new System.Windows.Forms.RadioButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.nudMainWindowTreeViewExtraColumnSize = new System.Windows.Forms.NumericUpDown();
             this.chkDisplayFullPathForQuickRecentEntries = new System.Windows.Forms.CheckBox();
             this.chkDisableAutoAdminMode = new System.Windows.Forms.CheckBox();
             this.cmdEditQuickSelectTypeFilters = new System.Windows.Forms.Button();
@@ -69,6 +74,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
+            this.panelTvwDetailTextAlign.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMainWindowTreeViewExtraColumnSize)).BeginInit();
             this.panelPollingSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.concurrencyLevelNnumericUpDown)).BeginInit();
@@ -108,6 +115,9 @@
             // 
             // panelAppSettings
             // 
+            this.panelAppSettings.Controls.Add(this.panelTvwDetailTextAlign);
+            this.panelAppSettings.Controls.Add(this.label9);
+            this.panelAppSettings.Controls.Add(this.nudMainWindowTreeViewExtraColumnSize);
             this.panelAppSettings.Controls.Add(this.chkDisplayFullPathForQuickRecentEntries);
             this.panelAppSettings.Controls.Add(this.chkDisableAutoAdminMode);
             this.panelAppSettings.Controls.Add(this.cmdEditQuickSelectTypeFilters);
@@ -120,8 +130,65 @@
             this.panelAppSettings.Controls.Add(this.cmdAppSettingsToggle);
             this.panelAppSettings.Location = new System.Drawing.Point(3, 3);
             this.panelAppSettings.Name = "panelAppSettings";
-            this.panelAppSettings.Size = new System.Drawing.Size(495, 159);
+            this.panelAppSettings.Size = new System.Drawing.Size(495, 187);
             this.panelAppSettings.TabIndex = 0;
+            // 
+            // panelTvwDetailTextAlign
+            // 
+            this.panelTvwDetailTextAlign.Controls.Add(this.optTvwDetailRightAlign);
+            this.panelTvwDetailTextAlign.Controls.Add(this.optTvwDetailLeftAlign);
+            this.panelTvwDetailTextAlign.Location = new System.Drawing.Point(180, 148);
+            this.panelTvwDetailTextAlign.Name = "panelTvwDetailTextAlign";
+            this.panelTvwDetailTextAlign.Size = new System.Drawing.Size(306, 28);
+            this.panelTvwDetailTextAlign.TabIndex = 12;
+            // 
+            // optTvwDetailRightAlign
+            // 
+            this.optTvwDetailRightAlign.AutoSize = true;
+            this.optTvwDetailRightAlign.Location = new System.Drawing.Point(80, 8);
+            this.optTvwDetailRightAlign.Name = "optTvwDetailRightAlign";
+            this.optTvwDetailRightAlign.Size = new System.Drawing.Size(75, 17);
+            this.optTvwDetailRightAlign.TabIndex = 1;
+            this.optTvwDetailRightAlign.TabStop = true;
+            this.optTvwDetailRightAlign.Text = "Right align";
+            this.optTvwDetailRightAlign.UseVisualStyleBackColor = true;
+            // 
+            // optTvwDetailLeftAlign
+            // 
+            this.optTvwDetailLeftAlign.AutoSize = true;
+            this.optTvwDetailLeftAlign.Location = new System.Drawing.Point(3, 8);
+            this.optTvwDetailLeftAlign.Name = "optTvwDetailLeftAlign";
+            this.optTvwDetailLeftAlign.Size = new System.Drawing.Size(68, 17);
+            this.optTvwDetailLeftAlign.TabIndex = 0;
+            this.optTvwDetailLeftAlign.TabStop = true;
+            this.optTvwDetailLeftAlign.Text = "Left align";
+            this.optTvwDetailLeftAlign.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 158);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(99, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Detail column width";
+            // 
+            // nudMainWindowTreeViewExtraColumnSize
+            // 
+            this.nudMainWindowTreeViewExtraColumnSize.Location = new System.Drawing.Point(115, 156);
+            this.nudMainWindowTreeViewExtraColumnSize.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudMainWindowTreeViewExtraColumnSize.Name = "nudMainWindowTreeViewExtraColumnSize";
+            this.nudMainWindowTreeViewExtraColumnSize.Size = new System.Drawing.Size(59, 20);
+            this.nudMainWindowTreeViewExtraColumnSize.TabIndex = 11;
+            this.nudMainWindowTreeViewExtraColumnSize.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // chkDisplayFullPathForQuickRecentEntries
             // 
@@ -247,7 +314,7 @@
             this.panelPollingSettings.Controls.Add(this.freqSecNumericUpDown);
             this.panelPollingSettings.Controls.Add(this.concurrencyLevelNnumericUpDown);
             this.panelPollingSettings.Controls.Add(this.cmdPollingSettingsToggle);
-            this.panelPollingSettings.Location = new System.Drawing.Point(3, 168);
+            this.panelPollingSettings.Location = new System.Drawing.Point(3, 196);
             this.panelPollingSettings.Name = "panelPollingSettings";
             this.panelPollingSettings.Size = new System.Drawing.Size(495, 150);
             this.panelPollingSettings.TabIndex = 1;
@@ -386,7 +453,7 @@
             this.panelPasswordManagement.Controls.Add(this.txtApplicationMasterKeyFilePath);
             this.panelPasswordManagement.Controls.Add(this.label6);
             this.panelPasswordManagement.Controls.Add(this.cmdPasswordManagementToggle);
-            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 324);
+            this.panelPasswordManagement.Location = new System.Drawing.Point(3, 352);
             this.panelPasswordManagement.Name = "panelPasswordManagement";
             this.panelPasswordManagement.Size = new System.Drawing.Size(495, 260);
             this.panelPasswordManagement.TabIndex = 0;
@@ -566,6 +633,9 @@
             this.flowLayoutPanelSettings.ResumeLayout(false);
             this.panelAppSettings.ResumeLayout(false);
             this.panelAppSettings.PerformLayout();
+            this.panelTvwDetailTextAlign.ResumeLayout(false);
+            this.panelTvwDetailTextAlign.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMainWindowTreeViewExtraColumnSize)).EndInit();
             this.panelPollingSettings.ResumeLayout(false);
             this.panelPollingSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.freqSecNumericUpDown)).EndInit();
@@ -615,5 +685,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private ListViewEx lvwUserNameCache;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Panel panelTvwDetailTextAlign;
+        private System.Windows.Forms.RadioButton optTvwDetailRightAlign;
+        private System.Windows.Forms.RadioButton optTvwDetailLeftAlign;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown nudMainWindowTreeViewExtraColumnSize;
     }
 }

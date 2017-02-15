@@ -31,6 +31,7 @@ namespace QuickMon.Controls
             this.DrawMode = TreeViewDrawMode.OwnerDrawText; //.OwnerDrawAll;
             ShowLines = false;
             FullRowSelect = true;
+            ExtraColumnTextAlign = TreeViewExExtraColumnTextAlign.Left;
         }
 
         private Timer autoScrollSelectedNode;
@@ -47,6 +48,7 @@ namespace QuickMon.Controls
         public bool AllowKeyBoardNodeReorder { get; set; }
         public bool DisableNode0Collapse { get; set; }
         public int ExtraColumnWidth { get; set; }
+        public TreeViewExExtraColumnTextAlign ExtraColumnTextAlign { get; set; }
         public bool ShowColumnSeparatorLine { get; set; }
         public bool HighLightWholeNode { get; set; }
 
@@ -594,10 +596,13 @@ namespace QuickMon.Controls
 
             if (extraDisplayValue != null && extraDisplayValue.Length > 0)
             {
-
                 SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, this.Font);
-                if (extraDisplayValueSize.Width > ExtraColumnWidth)
+
+                if (ExtraColumnTextAlign == TreeViewExExtraColumnTextAlign.Left)
                     extraDisplayValueSize.Width = ExtraColumnWidth;
+
+                if (extraDisplayValueSize.Width >= ExtraColumnWidth - 5)
+                    extraDisplayValueSize.Width = ExtraColumnWidth - 5;
                 e.Graphics.FillRectangle(backgroundColor, new RectangleF(lineEnd - ExtraColumnWidth, e.Bounds.Y, ExtraColumnWidth, e.Bounds.Height));
 
                 Rectangle extraDisplayValueRec = new Rectangle(lineEnd - (int)extraDisplayValueSize.Width, e.Bounds.Y + yDiff, lineEnd, e.Bounds.Height - yDiff);
@@ -607,7 +612,7 @@ namespace QuickMon.Controls
             if (ShowColumnSeparatorLine)
             {
                 Pen columnSeparator = new Pen(Color.FromArgb(255, 195, 222, 245));
-                e.Graphics.DrawLine(columnSeparator, lineEnd - 100, e.Bounds.Y, lineEnd - 100, e.Bounds.Bottom);
+                e.Graphics.DrawLine(columnSeparator, lineEnd - ExtraColumnWidth, e.Bounds.Y, lineEnd - ExtraColumnWidth, e.Bounds.Bottom);
             }
 
             if (backgroundColor != null)
@@ -621,5 +626,11 @@ namespace QuickMon.Controls
             Refresh();
             base.OnResize(e);
         }
+    }
+
+    public enum TreeViewExExtraColumnTextAlign
+    {
+        Left,
+        Right
     }
 }

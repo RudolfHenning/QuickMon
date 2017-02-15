@@ -76,8 +76,9 @@ namespace QuickMon
             if (Properties.Settings.Default.ShowMenuOnStart)
                 ToggleMenuSize();
 
-            tvwCollectors.FullRowSelect = true;
-            tvwCollectors.FullRowSelect = false;
+            //tvwCollectors.FullRowSelect = true;
+            //tvwCollectors.FullRowSelect = false;
+            SetCollectorTreeViewProperties();
             tvwNotifiers.FullRowSelect = true;
             tvwNotifiers.FullRowSelect = false;
             masterSplitContainer.Panel2Collapsed = true;
@@ -447,6 +448,15 @@ namespace QuickMon
                 if (!isPollingEnabled)
                     Text += " (Paused)";
             }
+        }
+        private void SetCollectorTreeViewProperties()
+        {
+            if (Properties.Settings.Default.MainWindowTreeViewExtraColumnSize > 0)
+                tvwCollectors.ExtraColumnWidth = Properties.Settings.Default.MainWindowTreeViewExtraColumnSize;
+            else
+                tvwCollectors.ExtraColumnWidth = 100;
+            tvwCollectors.ExtraColumnTextAlign = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 1 ? QuickMon.Controls.TreeViewExExtraColumnTextAlign.Right : QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
+            tvwCollectors.Refresh();
         }
         #endregion
 
@@ -1490,7 +1500,8 @@ namespace QuickMon
                 LoadRecentMonitorPackList();
                 this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
                 if (monitorPack != null)
-                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;                
+                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                SetCollectorTreeViewProperties();
             }
         }
 

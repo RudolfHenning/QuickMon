@@ -309,6 +309,16 @@ namespace QuickMon.Collectors
                                 });
             }
 
+            int errors = machineState.ChildStates.Where(cs => cs.State == CollectorState.Error).Count();
+            int warnings = machineState.ChildStates.Where(cs => cs.State == CollectorState.Warning).Count();
+            int successes = machineState.ChildStates.Where(cs => cs.State == CollectorState.Good).Count();
+            if (errors > 0 && warnings == 0 && successes == 0)
+                machineState.CurrentValue = errors.ToString() + " stopped";
+            else if (errors > 0)
+                machineState.CurrentValue = errors.ToString() + " stopped," + successes.ToString() + " running";
+            else
+                machineState.CurrentValue = successes.ToString() + " running";
+            
             return machineState;
         }
     }
