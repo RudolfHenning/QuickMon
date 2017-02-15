@@ -1,5 +1,6 @@
 ﻿Variable inheritance in Collector hosts
 	'Child' collector hosts can 'inherit' parent collector host config variables. Done
+Variables must also apply to Action scripts (incl corrective script)
 More collector agents must use the CollectorAgentReturnValueCompareEngine
 	Registry, WMI, Web Service
 Collector agents that must be part of Core

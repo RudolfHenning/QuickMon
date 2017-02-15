@@ -440,7 +440,7 @@ namespace QuickMon
             this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwCollectors.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
-            this.tvwCollectors.ExtraColumnWidth = 100;
+            this.tvwCollectors.ExtraColumnWidth = 120;
             this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwCollectors.FullRowSelect = true;
             this.tvwCollectors.HideSelection = false;

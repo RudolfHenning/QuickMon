@@ -259,5 +259,29 @@ namespace QuickMon.Properties {
                 this["UseTemplatesForNewObjects"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int MainWindowTreeViewExtraColumnSize {
+            get {
+                return ((int)(this["MainWindowTreeViewExtraColumnSize"]));
+            }
+            set {
+                this["MainWindowTreeViewExtraColumnSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MainWindowTreeViewExtraColumnTextAlign {
+            get {
+                return ((int)(this["MainWindowTreeViewExtraColumnTextAlign"]));
+            }
+            set {
+                this["MainWindowTreeViewExtraColumnTextAlign"] = value;
+            }
+        }
     }
 }
