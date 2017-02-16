@@ -168,6 +168,8 @@ namespace QuickMon.Collectors
                 entry.ErrorValue = float.Parse(pcNode.ReadXmlElementAttr("errorValue", "100"));
                 entry.NumberOfSamplesPerRefresh = pcNode.ReadXmlElementAttr("numberOfSamples", 1);
                 entry.MultiSampleWaitMS = pcNode.ReadXmlElementAttr("multiSampleWaitMS", 100);
+                entry.OutputValueUnit = pcNode.ReadXmlElementAttr("outputValueUnit", "");
+                
                 Entries.Add(entry);
             }
         }
@@ -189,6 +191,7 @@ namespace QuickMon.Collectors
                 performanceCounterNode.SetAttributeValue("errorValue", entry.ErrorValue);
                 performanceCounterNode.SetAttributeValue("numberOfSamples", entry.NumberOfSamplesPerRefresh);
                 performanceCounterNode.SetAttributeValue("multiSampleWaitMS", entry.MultiSampleWaitMS);
+                performanceCounterNode.SetAttributeValue("outputValueUnit", entry.OutputValueUnit);
                 performanceCountersNode.AppendChild(performanceCounterNode);
             }
             return config.OuterXml;
@@ -220,7 +223,11 @@ namespace QuickMon.Collectors
 
     public class PerfCounterCollectorEntry : ICollectorConfigEntry
     {
-        public PerfCounterCollectorEntry() { MultiSampleWaitMS = 100; }
+        public PerfCounterCollectorEntry()
+        {
+            MultiSampleWaitMS = 100;
+            OutputValueUnit = "";
+        }
 
         private PerformanceCounter pc = null;
 
@@ -234,6 +241,7 @@ namespace QuickMon.Collectors
         public float ErrorValue { get; set; }
         public int NumberOfSamplesPerRefresh { get; set; }
         public int MultiSampleWaitMS { get; set; }
+        public string OutputValueUnit { get; set; }
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -356,7 +364,8 @@ namespace QuickMon.Collectors
             {
                 ForAgent = Description,
                 CurrentValue = value.ToString(outputFormat),
-                State = GetState(value)
+                State = GetState(value),
+                CurrentValueUnit = OutputValueUnit
             };
 
             if (currentState.State == CollectorState.Error)

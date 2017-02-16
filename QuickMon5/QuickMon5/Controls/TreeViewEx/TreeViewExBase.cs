@@ -30,7 +30,7 @@ namespace QuickMon.Controls
 
             this.DrawMode = TreeViewDrawMode.OwnerDrawText; //.OwnerDrawAll;
             ShowLines = false;
-            FullRowSelect = true;
+            //FullRowSelect = true;
             ExtraColumnTextAlign = TreeViewExExtraColumnTextAlign.Left;
         }
 
@@ -564,8 +564,11 @@ namespace QuickMon.Controls
                 extraDisplayValue = currentNode.DisplayValue;
             }
             Rectangle backGroundRec = new Rectangle(e.Bounds.X, e.Bounds.Y, lineEnd - e.Bounds.X, e.Bounds.Height);
+            if (backGroundRec.Height == 0)
+                backGroundRec.Height = 1;
+            if (backGroundRec.Width == 0)
+                backGroundRec.Width = 1;
             Brush backgroundColor;
-            //SolidBrush backgroundColor;
             if (e.Node != e.Node.TreeView.SelectedNode)
             {
                 backgroundColor = new SolidBrush(this.BackColor);
@@ -573,24 +576,11 @@ namespace QuickMon.Controls
             else
             {
                 backgroundColor = new System.Drawing.Drawing2D.LinearGradientBrush(backGroundRec, Color.FromArgb(255, 205, 232, 255), Color.FromArgb(255, 235, 252, 255), 0f);
-                //backgroundColor = selectedTreeBrush;
             }
             if (HighLightWholeNode)
                 e.Graphics.FillRectangle(backgroundColor, backGroundRec);
             else
                 e.Graphics.FillRectangle(backgroundColor, e.Bounds);
-
-
-            //if (e.Node != e.Node.TreeView.SelectedNode)
-            //{
-            //    e.Graphics.FillRectangle(new SolidBrush(this.BackColor) , backGroundRec);
-            //    //e.Graphics.DrawLine(selectedColorPen, backGroundRec.X, backGroundRec.Y, backGroundRec.Right, backGroundRec.Bottom);
-            //}
-            //else
-            //{
-            //    e.Graphics.FillRectangle(selectedTreeBrush, backGroundRec);               
-            //    //e.Graphics.DrawLine(selectedColorPen, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height - 1, lineEnd , e.Bounds.Y + e.Bounds.Height - 1); //e.Bounds.X + e.Bounds.Width + 30
-            //}
 
             e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
 
