@@ -310,12 +310,14 @@ namespace QuickMon.Collectors
         public MonitorState GetCurrentState()
         {
             object value = GetStateQueryValue();
+            string unitName = ValueReturnType == DataBaseQueryValueReturnType.RowCount ? "row(s)" : ValueReturnType == DataBaseQueryValueReturnType.QueryTime ? "ms" : "";
             MonitorState currentState = new MonitorState()
             {
-                State = CollectorState.Error,
+                State = CollectorAgentReturnValueCompareEngine.GetState(ValueReturnCheckSequence, SuccessMatchType, SuccessValueOrMacro,
+                 WarningMatchType, WarningValueOrMacro, ErrorMatchType, ErrorValueOrMacro, value),
                 ForAgent = Name,
-                CurrentValue = CollectorAgentReturnValueCompareEngine.GetState(ValueReturnCheckSequence, SuccessMatchType, SuccessValueOrMacro,
-                 WarningMatchType, WarningValueOrMacro, ErrorMatchType, ErrorValueOrMacro, value)
+                CurrentValue = value,
+                CurrentValueUnit = unitName
             };
 
             return currentState;

@@ -471,12 +471,12 @@ namespace QuickMon
                         return;
                 }
             }
-            PausePolling();
+            PausePolling(false);
             try
             {
                 CloseAllDetailWindows();
 
-                monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
+                //monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
                 monitorPack.CloseMonitorPack();
                 monitorPack = null;
             }
@@ -498,7 +498,7 @@ namespace QuickMon
             monitorPack.MonitorPackPath = "";
             LoadControlsFromMonitorPack();
             monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
-            monitorPack.CollectorHostStateUpdated += monitorPack_CollectorHostStateUpdated;
+            SetMonitorPackEvents();            
             monitorPackChanged = false;
             EditMonitorSettings();
         }
@@ -998,8 +998,6 @@ namespace QuickMon
                 }
             });
         }
-
-
 
         #endregion
 

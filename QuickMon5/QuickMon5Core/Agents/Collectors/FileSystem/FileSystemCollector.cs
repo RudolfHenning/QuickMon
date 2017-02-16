@@ -265,6 +265,8 @@ namespace QuickMon.Collectors
                     directoryFilterEntry.FileMaxSize = tmpl;
 
                 directoryFilterEntry.ShowFilenamesInDetails = host.ReadXmlElementAttr("showFilenamesInDetails", false);
+                directoryFilterEntry.ShowFileCountInOutputValue = host.ReadXmlElementAttr("showFileCountInOutputValue", true);
+                directoryFilterEntry.ShowFileSizeInOutputValue = host.ReadXmlElementAttr("showFileSizeInOutputValue", false);
 
                 Entries.Add(directoryFilterEntry);
             }
@@ -297,6 +299,8 @@ namespace QuickMon.Collectors
                 directoryXmlNode.SetAttributeValue("fileMinSize", de.FileMinSize);
                 directoryXmlNode.SetAttributeValue("fileMaxSize", de.FileMaxSize);
                 directoryXmlNode.SetAttributeValue("showFilenamesInDetails", de.ShowFilenamesInDetails);
+                directoryXmlNode.SetAttributeValue("showFileCountInOutputValue", de.ShowFileCountInOutputValue);
+                directoryXmlNode.SetAttributeValue("showFileSizeInOutputValue", de.ShowFileSizeInOutputValue);
 
                 directoryList.AppendChild(directoryXmlNode);
             }
@@ -333,7 +337,10 @@ namespace QuickMon.Collectors
             FileAgeUnit = TimeUnits.Minute;
             FileSizeUnit = FileSizeUnits.KB;
             IncludeSubDirectories = false;
+            ShowFileCountInOutputValue = true;
         }
+
+        private string stateDescription = "";
 
         #region Properties
         public object CurrentAgentValue { get; set; }
@@ -427,6 +434,8 @@ namespace QuickMon.Collectors
         /// Show file names in RAW/Html details
         /// </summary>
         public bool ShowFilenamesInDetails { get; set; }
+        public bool ShowFileCountInOutputValue { get; set; }
+        public bool ShowFileSizeInOutputValue { get; set; }
         #endregion
 
         #region ICollectorConfigEntry
@@ -468,7 +477,7 @@ namespace QuickMon.Collectors
         public MonitorState GetCurrentState()
         {
             DirectoryFileInfo directoryFileInfo = GetFileListByFilters();
-            int totalFileCount = 0;
+            //int totalFileCount = 0;
             MonitorState currentState = new MonitorState()
             {
                 ForAgent = DirectoryPath,
@@ -477,30 +486,52 @@ namespace QuickMon.Collectors
 
             if (DirectoryExistOnly && currentState.State != CollectorState.Good)
             {
-                currentState.CurrentValue = LastErrorMsg;
+                currentState.CurrentValue = stateDescription;
             }
             else if (DirectoryExistOnly)
             {
-                currentState.CurrentValue = LastErrorMsg;                
+                currentState.CurrentValue = stateDescription;                
             }
             else
             {
+                currentState.RawDetails = stateDescription;
                 if (directoryFileInfo.FileCount == -1)
                 {
-                    currentState.CurrentValue = LastErrorMsg;                    
+                    currentState.CurrentValue = stateDescription;                    
                 }
                 else
                 {
-                    totalFileCount += directoryFileInfo.FileCount;
+                    //totalFileCount += directoryFileInfo.FileCount;
                     if (directoryFileInfo.FileCount > 0)
                     {
-                        if (LastErrorMsg.Length > 0)
+
+                        //if (LastErrorMsg.Length > 0)
+                        //{
+                        //    currentState.CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize));
+                        //}
+                        //else
+                        //{
+                        //currentState.CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
+
+                        if (ShowFileCountInOutputValue && ShowFileSizeInOutputValue)
                         {
                             currentState.CurrentValue = string.Format("{0} file(s), {1}", directoryFileInfo.FileCount, FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize));
                         }
+                        else if (ShowFileCountInOutputValue)
+                        {
+                            currentState.CurrentValue = directoryFileInfo.FileInfos.Count;
+                            currentState.CurrentValueUnit = "file(s)";
+                        }
+                        else if (ShowFileSizeInOutputValue)
+                        {
+                            currentState.CurrentValue = FormatUtils.FormatFileSize(directoryFileInfo.TotalFileSize);
+                        }
                         else
                         {
-                            currentState.CurrentValue = string.Format("{0} file(s) found", directoryFileInfo.FileInfos.Count);
+                            currentState.CurrentValue = stateDescription;
+                        }
+                            
+
                             if (ShowFilenamesInDetails)
                             {
                                 int topCount = 10;
@@ -515,15 +546,17 @@ namespace QuickMon.Collectors
                                        });
                                 }
                             }
-                        }
+                        //}
                     }
                     else
                     {
-                        currentState.CurrentValue = "No files found";
+                        //currentState.CurrentValue = "No files found";
+                        currentState.CurrentValue = "No";
+                        currentState.CurrentValueUnit = "file(s)";
                     }                   
                 }
-            }            
-            CurrentAgentValue = totalFileCount;
+            }
+            CurrentAgentValue = currentState.CurrentValue;
             return currentState;
         }
         #endregion
@@ -618,11 +651,11 @@ namespace QuickMon.Collectors
         private CollectorState GetState(DirectoryFileInfo fileInfo)
         {
             CollectorState returnState = CollectorState.NotAvailable;
-            LastErrorMsg = "";
+            stateDescription = "";
             if (!fileInfo.DirectoryExists)
             {
                 returnState = CollectorState.Error;
-                LastErrorMsg = string.Format("Directory '{0}' not found or not accessible!", DirectoryPath);
+                stateDescription = string.Format("Directory '{0}' not found or not accessible!", DirectoryPath);
             }
             else if (DirectoryExistOnly)
             {
@@ -631,7 +664,7 @@ namespace QuickMon.Collectors
             else if (fileInfo.FileCount == -1)
             {
                 returnState = CollectorState.Error;
-                LastErrorMsg = string.Format("An error occured while accessing '{0}'\r\n\t{1}", FilterFullPath, LastErrorMsg);
+                stateDescription = string.Format("An error occured while accessing '{0}'\r\n\t{1}", FilterFullPath, LastErrorMsg);
             }
             else if (ErrorOnFilesExist)
             {
@@ -688,9 +721,9 @@ namespace QuickMon.Collectors
                     }
                 }
                 if (returnState == CollectorState.Warning)
-                    LastErrorMsg = string.Format("Warning state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
+                    stateDescription = string.Format("Warning state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
                 else if (returnState == CollectorState.Error)
-                    LastErrorMsg = string.Format("Error state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
+                    stateDescription = string.Format("Error state reached for '{0}': {1} file(s), {2}", FilterFullPath, fileInfo.FileCount, FormatUtils.FormatFileSize(fileInfo.TotalFileSize));
             }
             return returnState;
         }

@@ -440,9 +440,9 @@ namespace QuickMon
             this.tvwCollectors.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwCollectors.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.tvwCollectors.EnableAutoScrollToSelectedNode = false;
+            this.tvwCollectors.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
             this.tvwCollectors.ExtraColumnWidth = 120;
             this.tvwCollectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwCollectors.FullRowSelect = true;
             this.tvwCollectors.HideSelection = false;
             this.tvwCollectors.HighLightWholeNode = true;
             this.tvwCollectors.ImageIndex = 0;
@@ -602,6 +602,7 @@ namespace QuickMon
             this.tvwNotifiers.DragColor = System.Drawing.Color.Aquamarine;
             this.tvwNotifiers.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.tvwNotifiers.EnableAutoScrollToSelectedNode = false;
+            this.tvwNotifiers.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
             this.tvwNotifiers.ExtraColumnWidth = 100;
             this.tvwNotifiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tvwNotifiers.FullRowSelect = true;
