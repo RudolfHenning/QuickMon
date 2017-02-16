@@ -38,7 +38,7 @@ namespace QuickMon
 
         private void GeneralSettings_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(550, 450);
+            this.Size = new Size(600, 500);
             panelAppSettingsHeight = panelAppSettings.Height;
             panelPollingSettingsHeight = panelPollingSettings.Height;
             panelPasswordManagementHeight = panelPasswordManagement.Height;

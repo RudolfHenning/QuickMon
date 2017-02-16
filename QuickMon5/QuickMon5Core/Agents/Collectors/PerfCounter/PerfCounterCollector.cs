@@ -354,11 +354,13 @@ namespace QuickMon.Collectors
 
         public MonitorState GetCurrentState()
         {
-            string outputFormat = "F3";
+            string outputFormat = "F2";
             float value = 0;
             value = GetNextValue();
             CurrentAgentValue = value;
             if (value > 9999)
+                outputFormat = "F0";
+            else if (value > 99)
                 outputFormat = "F1";
             MonitorState currentState = new MonitorState()
             {
