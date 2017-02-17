@@ -93,6 +93,7 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
+            this.actionScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -361,29 +362,30 @@ namespace QuickMon
             this.settingsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pollingToolStripMenuItem,
             this.templatesToolStripMenuItem,
+            this.actionScriptsToolStripMenuItem,
             this.adminModeToolStripMenuItem});
             this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.settingsContextMenuStrip.Size = new System.Drawing.Size(153, 94);
+            this.settingsContextMenuStrip.Size = new System.Drawing.Size(161, 146);
             // 
             // pollingToolStripMenuItem
             // 
             this.pollingToolStripMenuItem.Image = global::QuickMon.Properties.Resources.clock24x24;
             this.pollingToolStripMenuItem.Name = "pollingToolStripMenuItem";
-            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pollingToolStripMenuItem.Text = "Polling";
             // 
             // templatesToolStripMenuItem
             // 
             this.templatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables24x24;
             this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.templatesToolStripMenuItem.Text = "Templates";
             // 
             // adminModeToolStripMenuItem
             // 
             this.adminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Shield24x24;
             this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
-            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(152, 30);
+            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.adminModeToolStripMenuItem.Text = "Admin mode";
             this.adminModeToolStripMenuItem.Click += new System.EventHandler(this.adminModeToolStripMenuItem_Click);
             // 
@@ -475,6 +477,7 @@ namespace QuickMon
             this.pasteAndEditCollectorConfigToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
             this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 250);
+            this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem
             // 
@@ -482,6 +485,7 @@ namespace QuickMon
             this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
             this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.addCollectorToolStripMenuItem.Text = "Add";
+            this.addCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
             // editCollectorToolStripMenuItem
             // 
@@ -728,9 +732,9 @@ namespace QuickMon
             this.llblMonitorPack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.llblMonitorPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llblMonitorPack.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblMonitorPack.Location = new System.Drawing.Point(120, 0);
+            this.llblMonitorPack.Location = new System.Drawing.Point(0, 0);
             this.llblMonitorPack.Name = "llblMonitorPack";
-            this.llblMonitorPack.Size = new System.Drawing.Size(202, 38);
+            this.llblMonitorPack.Size = new System.Drawing.Size(322, 38);
             this.llblMonitorPack.TabIndex = 0;
             this.llblMonitorPack.TabStop = true;
             this.llblMonitorPack.Text = "<New Monitor Pack>";
@@ -740,8 +744,7 @@ namespace QuickMon
             // 
             // cboRecentMonitorPacks
             // 
-            this.cboRecentMonitorPacks.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cboRecentMonitorPacks.DropDownHeight = 126;
+            this.cboRecentMonitorPacks.DropDownHeight = 100;
             this.cboRecentMonitorPacks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboRecentMonitorPacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -862,6 +865,13 @@ namespace QuickMon
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
             // 
+            // actionScriptsToolStripMenuItem
+            // 
+            this.actionScriptsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.scroll24x24;
+            this.actionScriptsToolStripMenuItem.Name = "actionScriptsToolStripMenuItem";
+            this.actionScriptsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.actionScriptsToolStripMenuItem.Text = "Action Scripts";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -963,6 +973,7 @@ namespace QuickMon
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
         private System.Windows.Forms.ComboBox cboRecentMonitorPacks;
         private System.Windows.Forms.ToolStripStatusLabel adminModeToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem actionScriptsToolStripMenuItem;
     }
 }
 

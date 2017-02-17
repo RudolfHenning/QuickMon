@@ -93,6 +93,12 @@
     <Compile Include="Forms\AboutQuickMon.Designer.cs">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CollectorDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CollectorDetails.Designer.cs">
+      <DependentUpon>CollectorDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CollectorHostEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CollectorDetails.resx">
+      <DependentUpon>CollectorDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CollectorHostEditor.resx">
       <DependentUpon>CollectorHostEditor.cs</DependentUpon>
@@ -410,6 +419,7 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\scroll24x24.png" />
     <None Include="Resources\Down16x16.png" />
     <None Include="Resources\Up16x16.png" />
     <None Include="Resources\Plus16x16.png" />

@@ -61,9 +61,10 @@ namespace QuickMon
                     c.Width = clientSize;
                 }
             }
-        } 
+        }
         #endregion
 
+        #region PanelToggles
         private void cmdGeneralSettingsToggle_Click(object sender, EventArgs e)
         {
             if (cmdGeneralSettingsToggle.Height == panelGeneralSettings.Height)
@@ -135,7 +136,8 @@ namespace QuickMon
                 panelLoggingSettings.Height = cmdLoggingSettingsToggle.Height;
                 this.cmdLoggingSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
             }
-        }
+        } 
+        #endregion
 
         #region Private methods
         private void LoadFormControls()

@@ -101,7 +101,7 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;Test&quot; typeName=&quot;Test&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;60&quot; &gt;
+        ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;&amp;lt;New Monitor Pack&amp;gt;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;60&quot; &gt;
         ///	&lt;configVars /&gt;
         ///	&lt;collectorHosts /&gt;
         ///    &lt;notifierHosts&gt;
@@ -111,8 +111,7 @@ namespace QuickMon.Properties {
         ///					&lt;config&gt;&lt;inMemory maxEntryCount=&quot;99999&quot; /&gt;&lt;/config&gt;
         ///				&lt;/notifierAgent&gt;
         ///			&lt;/notifierAgents&gt;
-        ///		&lt;/notifierHost&gt;
-        ///	&lt;/not [rest of string was truncated]&quot;;.
+        ///		&lt;/notif [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BlankMonitorPack {
             get {
@@ -656,6 +655,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap SaveAs24x24 {
             get {
                 object obj = ResourceManager.GetObject("SaveAs24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap scroll24x24 {
+            get {
+                object obj = ResourceManager.GetObject("scroll24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
