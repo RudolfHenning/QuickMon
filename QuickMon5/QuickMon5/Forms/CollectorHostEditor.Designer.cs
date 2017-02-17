@@ -1,4 +1,4 @@
-﻿namespace QuickMon.Forms
+﻿namespace QuickMon
 {
     partial class CollectorHostEditor
     {
@@ -32,48 +32,48 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.panelGeneralSettings = new System.Windows.Forms.Panel();
-            this.cmdGeneralSettingsToggle = new System.Windows.Forms.Button();
-            this.lblName = new System.Windows.Forms.Label();
-            this.chkEnabled = new System.Windows.Forms.CheckBox();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelGeneralSettingsContent = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.panel16 = new System.Windows.Forms.Panel();
-            this.button8 = new System.Windows.Forms.Button();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.chkEnabled = new System.Windows.Forms.CheckBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.cmdGeneralSettingsToggle = new System.Windows.Forms.Button();
+            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
+            this.flowLayoutPanelSettings = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelAgents = new System.Windows.Forms.Panel();
+            this.panelAgentsContent = new System.Windows.Forms.Panel();
+            this.cmdAgentsToggle = new System.Windows.Forms.Button();
+            this.panelPolling = new System.Windows.Forms.Panel();
+            this.panelPollingContent = new System.Windows.Forms.Panel();
+            this.cmdPollingToggle = new System.Windows.Forms.Button();
+            this.panelRemoteAgent = new System.Windows.Forms.Panel();
+            this.panelRemoteAgentContent = new System.Windows.Forms.Panel();
+            this.cmdRemoteAgentToggle = new System.Windows.Forms.Button();
+            this.panelRunAs = new System.Windows.Forms.Panel();
+            this.panelRunAsContent = new System.Windows.Forms.Panel();
+            this.cmdRunAsToggle = new System.Windows.Forms.Button();
+            this.panelServiceWindows = new System.Windows.Forms.Panel();
+            this.panelServiceWindowsContent = new System.Windows.Forms.Panel();
+            this.cmdServiceWindowsToggle = new System.Windows.Forms.Button();
+            this.panelAlerting = new System.Windows.Forms.Panel();
+            this.panelAlertingContent = new System.Windows.Forms.Panel();
+            this.cmdAlertingToggle = new System.Windows.Forms.Button();
+            this.panelVariables = new System.Windows.Forms.Panel();
+            this.panelVariablesContent = new System.Windows.Forms.Panel();
+            this.cmdVariablesToggle = new System.Windows.Forms.Button();
+            this.panelActionScripts = new System.Windows.Forms.Panel();
+            this.panelActionScriptsContent = new System.Windows.Forms.Panel();
+            this.cmdActionScriptsToggle = new System.Windows.Forms.Button();
             this.panelGeneralSettings.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.panelGeneralSettingsContent.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.panel15.SuspendLayout();
+            this.flowLayoutPanelSettings.SuspendLayout();
+            this.panelAgents.SuspendLayout();
+            this.panelPolling.SuspendLayout();
+            this.panelRemoteAgent.SuspendLayout();
+            this.panelRunAs.SuspendLayout();
+            this.panelServiceWindows.SuspendLayout();
+            this.panelAlerting.SuspendLayout();
+            this.panelVariables.SuspendLayout();
+            this.panelActionScripts.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -111,31 +111,26 @@
             this.panelGeneralSettings.Size = new System.Drawing.Size(582, 152);
             this.panelGeneralSettings.TabIndex = 4;
             // 
-            // cmdGeneralSettingsToggle
+            // panelGeneralSettingsContent
             // 
-            this.cmdGeneralSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdGeneralSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdGeneralSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdGeneralSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdGeneralSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdGeneralSettingsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdGeneralSettingsToggle.Name = "cmdGeneralSettingsToggle";
-            this.cmdGeneralSettingsToggle.Size = new System.Drawing.Size(582, 33);
-            this.cmdGeneralSettingsToggle.TabIndex = 0;
-            this.cmdGeneralSettingsToggle.Text = "General Settings";
-            this.cmdGeneralSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdGeneralSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdGeneralSettingsToggle.UseVisualStyleBackColor = false;
+            this.panelGeneralSettingsContent.Controls.Add(this.txtName);
+            this.panelGeneralSettingsContent.Controls.Add(this.chkEnabled);
+            this.panelGeneralSettingsContent.Controls.Add(this.lblName);
+            this.panelGeneralSettingsContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGeneralSettingsContent.Location = new System.Drawing.Point(0, 25);
+            this.panelGeneralSettingsContent.Name = "panelGeneralSettingsContent";
+            this.panelGeneralSettingsContent.Size = new System.Drawing.Size(582, 127);
+            this.panelGeneralSettingsContent.TabIndex = 4;
             // 
-            // lblName
+            // txtName
             // 
-            this.lblName.AutoSize = true;
-            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(6, 4);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(52, 18);
-            this.lblName.TabIndex = 1;
-            this.lblName.Text = "&Name";
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.Location = new System.Drawing.Point(109, 3);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(398, 22);
+            this.txtName.TabIndex = 2;
             // 
             // chkEnabled
             // 
@@ -152,15 +147,32 @@
             this.chkEnabled.Text = "&Enabled";
             this.chkEnabled.UseVisualStyleBackColor = false;
             // 
-            // txtName
+            // lblName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(109, 3);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(398, 22);
-            this.txtName.TabIndex = 2;
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(6, 4);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(52, 18);
+            this.lblName.TabIndex = 1;
+            this.lblName.Text = "&Name";
+            // 
+            // cmdGeneralSettingsToggle
+            // 
+            this.cmdGeneralSettingsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdGeneralSettingsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdGeneralSettingsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdGeneralSettingsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdGeneralSettingsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdGeneralSettingsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdGeneralSettingsToggle.Name = "cmdGeneralSettingsToggle";
+            this.cmdGeneralSettingsToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdGeneralSettingsToggle.TabIndex = 0;
+            this.cmdGeneralSettingsToggle.Text = "General Settings";
+            this.cmdGeneralSettingsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdGeneralSettingsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdGeneralSettingsToggle.UseVisualStyleBackColor = false;
+            this.cmdGeneralSettingsToggle.Click += new System.EventHandler(this.cmdGeneralSettingsToggle_Click);
             // 
             // llblRawEdit
             // 
@@ -174,309 +186,307 @@
             this.llblRawEdit.TabStop = true;
             this.llblRawEdit.Text = "Edit RAW config";
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanelSettings
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.flowLayoutPanelSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.panelGeneralSettings);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.panel3);
-            this.flowLayoutPanel1.Controls.Add(this.panel5);
-            this.flowLayoutPanel1.Controls.Add(this.panel7);
-            this.flowLayoutPanel1.Controls.Add(this.panel9);
-            this.flowLayoutPanel1.Controls.Add(this.panel11);
-            this.flowLayoutPanel1.Controls.Add(this.panel13);
-            this.flowLayoutPanel1.Controls.Add(this.panel15);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 2);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(612, 684);
-            this.flowLayoutPanel1.TabIndex = 6;
+            this.flowLayoutPanelSettings.AutoScroll = true;
+            this.flowLayoutPanelSettings.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanelSettings.Controls.Add(this.panelGeneralSettings);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelAgents);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelPolling);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelRemoteAgent);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelRunAs);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelServiceWindows);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelAlerting);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelVariables);
+            this.flowLayoutPanelSettings.Controls.Add(this.panelActionScripts);
+            this.flowLayoutPanelSettings.Location = new System.Drawing.Point(2, 2);
+            this.flowLayoutPanelSettings.Name = "flowLayoutPanelSettings";
+            this.flowLayoutPanelSettings.Size = new System.Drawing.Size(612, 684);
+            this.flowLayoutPanelSettings.TabIndex = 6;
+            this.flowLayoutPanelSettings.Resize += new System.EventHandler(this.flowLayoutPanelSettings_Resize);
             // 
-            // panelGeneralSettingsContent
+            // panelAgents
             // 
-            this.panelGeneralSettingsContent.Controls.Add(this.txtName);
-            this.panelGeneralSettingsContent.Controls.Add(this.chkEnabled);
-            this.panelGeneralSettingsContent.Controls.Add(this.lblName);
-            this.panelGeneralSettingsContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelGeneralSettingsContent.Location = new System.Drawing.Point(0, 33);
-            this.panelGeneralSettingsContent.Name = "panelGeneralSettingsContent";
-            this.panelGeneralSettingsContent.Size = new System.Drawing.Size(582, 119);
-            this.panelGeneralSettingsContent.TabIndex = 4;
+            this.panelAgents.BackColor = System.Drawing.Color.Transparent;
+            this.panelAgents.Controls.Add(this.panelAgentsContent);
+            this.panelAgents.Controls.Add(this.cmdAgentsToggle);
+            this.panelAgents.Location = new System.Drawing.Point(3, 161);
+            this.panelAgents.Name = "panelAgents";
+            this.panelAgents.Size = new System.Drawing.Size(582, 179);
+            this.panelAgents.TabIndex = 5;
             // 
-            // panel1
+            // panelAgentsContent
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(3, 161);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(582, 179);
-            this.panel1.TabIndex = 5;
+            this.panelAgentsContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAgentsContent.Location = new System.Drawing.Point(0, 25);
+            this.panelAgentsContent.Name = "panelAgentsContent";
+            this.panelAgentsContent.Size = new System.Drawing.Size(582, 154);
+            this.panelAgentsContent.TabIndex = 4;
             // 
-            // panel2
+            // cmdAgentsToggle
             // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 33);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(582, 146);
-            this.panel2.TabIndex = 4;
+            this.cmdAgentsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdAgentsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAgentsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAgentsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdAgentsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAgentsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdAgentsToggle.Name = "cmdAgentsToggle";
+            this.cmdAgentsToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdAgentsToggle.TabIndex = 0;
+            this.cmdAgentsToggle.Text = "Agents";
+            this.cmdAgentsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAgentsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdAgentsToggle.UseVisualStyleBackColor = false;
+            this.cmdAgentsToggle.Click += new System.EventHandler(this.cmdAgentsToggle_Click);
             // 
-            // button1
+            // panelPolling
             // 
-            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(582, 33);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Agents";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
+            this.panelPolling.BackColor = System.Drawing.Color.Transparent;
+            this.panelPolling.Controls.Add(this.panelPollingContent);
+            this.panelPolling.Controls.Add(this.cmdPollingToggle);
+            this.panelPolling.Location = new System.Drawing.Point(3, 346);
+            this.panelPolling.Name = "panelPolling";
+            this.panelPolling.Size = new System.Drawing.Size(582, 179);
+            this.panelPolling.TabIndex = 6;
             // 
-            // panel3
+            // panelPollingContent
             // 
-            this.panel3.BackColor = System.Drawing.Color.Transparent;
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Controls.Add(this.button2);
-            this.panel3.Location = new System.Drawing.Point(3, 346);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(582, 179);
-            this.panel3.TabIndex = 6;
+            this.panelPollingContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPollingContent.Location = new System.Drawing.Point(0, 25);
+            this.panelPollingContent.Name = "panelPollingContent";
+            this.panelPollingContent.Size = new System.Drawing.Size(582, 154);
+            this.panelPollingContent.TabIndex = 4;
             // 
-            // panel4
+            // cmdPollingToggle
             // 
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 33);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(582, 146);
-            this.panel4.TabIndex = 4;
+            this.cmdPollingToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdPollingToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdPollingToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdPollingToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdPollingToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPollingToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdPollingToggle.Name = "cmdPollingToggle";
+            this.cmdPollingToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdPollingToggle.TabIndex = 0;
+            this.cmdPollingToggle.Text = "Polling";
+            this.cmdPollingToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPollingToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdPollingToggle.UseVisualStyleBackColor = false;
+            this.cmdPollingToggle.Click += new System.EventHandler(this.cmdPollingToggle_Click);
             // 
-            // button2
+            // panelRemoteAgent
             // 
-            this.button2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(582, 33);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Polling";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button2.UseVisualStyleBackColor = false;
+            this.panelRemoteAgent.BackColor = System.Drawing.Color.Transparent;
+            this.panelRemoteAgent.Controls.Add(this.panelRemoteAgentContent);
+            this.panelRemoteAgent.Controls.Add(this.cmdRemoteAgentToggle);
+            this.panelRemoteAgent.Location = new System.Drawing.Point(3, 531);
+            this.panelRemoteAgent.Name = "panelRemoteAgent";
+            this.panelRemoteAgent.Size = new System.Drawing.Size(582, 179);
+            this.panelRemoteAgent.TabIndex = 7;
             // 
-            // panel5
+            // panelRemoteAgentContent
             // 
-            this.panel5.BackColor = System.Drawing.Color.Transparent;
-            this.panel5.Controls.Add(this.panel6);
-            this.panel5.Controls.Add(this.button3);
-            this.panel5.Location = new System.Drawing.Point(3, 531);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(582, 179);
-            this.panel5.TabIndex = 7;
+            this.panelRemoteAgentContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRemoteAgentContent.Location = new System.Drawing.Point(0, 25);
+            this.panelRemoteAgentContent.Name = "panelRemoteAgentContent";
+            this.panelRemoteAgentContent.Size = new System.Drawing.Size(582, 154);
+            this.panelRemoteAgentContent.TabIndex = 4;
             // 
-            // panel6
+            // cmdRemoteAgentToggle
             // 
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 33);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(582, 146);
-            this.panel6.TabIndex = 4;
+            this.cmdRemoteAgentToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdRemoteAgentToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRemoteAgentToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRemoteAgentToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdRemoteAgentToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRemoteAgentToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdRemoteAgentToggle.Name = "cmdRemoteAgentToggle";
+            this.cmdRemoteAgentToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdRemoteAgentToggle.TabIndex = 0;
+            this.cmdRemoteAgentToggle.Text = "Remote agent";
+            this.cmdRemoteAgentToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRemoteAgentToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdRemoteAgentToggle.UseVisualStyleBackColor = false;
+            this.cmdRemoteAgentToggle.Click += new System.EventHandler(this.cmdRemoteAgentToggle_Click);
             // 
-            // button3
+            // panelRunAs
             // 
-            this.button3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(0, 0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(582, 33);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Remote agent";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button3.UseVisualStyleBackColor = false;
+            this.panelRunAs.BackColor = System.Drawing.Color.Transparent;
+            this.panelRunAs.Controls.Add(this.panelRunAsContent);
+            this.panelRunAs.Controls.Add(this.cmdRunAsToggle);
+            this.panelRunAs.Location = new System.Drawing.Point(3, 716);
+            this.panelRunAs.Name = "panelRunAs";
+            this.panelRunAs.Size = new System.Drawing.Size(582, 109);
+            this.panelRunAs.TabIndex = 8;
             // 
-            // panel7
+            // panelRunAsContent
             // 
-            this.panel7.BackColor = System.Drawing.Color.Transparent;
-            this.panel7.Controls.Add(this.panel8);
-            this.panel7.Controls.Add(this.button4);
-            this.panel7.Location = new System.Drawing.Point(3, 716);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(582, 109);
-            this.panel7.TabIndex = 8;
+            this.panelRunAsContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRunAsContent.Location = new System.Drawing.Point(0, 25);
+            this.panelRunAsContent.Name = "panelRunAsContent";
+            this.panelRunAsContent.Size = new System.Drawing.Size(582, 84);
+            this.panelRunAsContent.TabIndex = 4;
             // 
-            // panel8
+            // cmdRunAsToggle
             // 
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(0, 33);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(582, 76);
-            this.panel8.TabIndex = 4;
+            this.cmdRunAsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdRunAsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdRunAsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRunAsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdRunAsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRunAsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdRunAsToggle.Name = "cmdRunAsToggle";
+            this.cmdRunAsToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdRunAsToggle.TabIndex = 0;
+            this.cmdRunAsToggle.Text = "Run as";
+            this.cmdRunAsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdRunAsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdRunAsToggle.UseVisualStyleBackColor = false;
+            this.cmdRunAsToggle.Click += new System.EventHandler(this.cmdRunAsToggle_Click);
             // 
-            // button4
+            // panelServiceWindows
             // 
-            this.button4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(0, 0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(582, 33);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "Run as";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button4.UseVisualStyleBackColor = false;
+            this.panelServiceWindows.BackColor = System.Drawing.Color.Transparent;
+            this.panelServiceWindows.Controls.Add(this.panelServiceWindowsContent);
+            this.panelServiceWindows.Controls.Add(this.cmdServiceWindowsToggle);
+            this.panelServiceWindows.Location = new System.Drawing.Point(3, 831);
+            this.panelServiceWindows.Name = "panelServiceWindows";
+            this.panelServiceWindows.Size = new System.Drawing.Size(582, 179);
+            this.panelServiceWindows.TabIndex = 9;
             // 
-            // panel9
+            // panelServiceWindowsContent
             // 
-            this.panel9.BackColor = System.Drawing.Color.Transparent;
-            this.panel9.Controls.Add(this.panel10);
-            this.panel9.Controls.Add(this.button5);
-            this.panel9.Location = new System.Drawing.Point(3, 831);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(582, 179);
-            this.panel9.TabIndex = 9;
+            this.panelServiceWindowsContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelServiceWindowsContent.Location = new System.Drawing.Point(0, 25);
+            this.panelServiceWindowsContent.Name = "panelServiceWindowsContent";
+            this.panelServiceWindowsContent.Size = new System.Drawing.Size(582, 154);
+            this.panelServiceWindowsContent.TabIndex = 4;
             // 
-            // panel10
+            // cmdServiceWindowsToggle
             // 
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(0, 33);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(582, 146);
-            this.panel10.TabIndex = 4;
+            this.cmdServiceWindowsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdServiceWindowsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdServiceWindowsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdServiceWindowsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdServiceWindowsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdServiceWindowsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdServiceWindowsToggle.Name = "cmdServiceWindowsToggle";
+            this.cmdServiceWindowsToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdServiceWindowsToggle.TabIndex = 0;
+            this.cmdServiceWindowsToggle.Text = "Service windows";
+            this.cmdServiceWindowsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdServiceWindowsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdServiceWindowsToggle.UseVisualStyleBackColor = false;
+            this.cmdServiceWindowsToggle.Click += new System.EventHandler(this.cmdServiceWindowsToggle_Click);
             // 
-            // button5
+            // panelAlerting
             // 
-            this.button5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(0, 0);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(582, 33);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "Service window(s)";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button5.UseVisualStyleBackColor = false;
+            this.panelAlerting.BackColor = System.Drawing.Color.Transparent;
+            this.panelAlerting.Controls.Add(this.panelAlertingContent);
+            this.panelAlerting.Controls.Add(this.cmdAlertingToggle);
+            this.panelAlerting.Location = new System.Drawing.Point(3, 1016);
+            this.panelAlerting.Name = "panelAlerting";
+            this.panelAlerting.Size = new System.Drawing.Size(582, 179);
+            this.panelAlerting.TabIndex = 10;
             // 
-            // panel11
+            // panelAlertingContent
             // 
-            this.panel11.BackColor = System.Drawing.Color.Transparent;
-            this.panel11.Controls.Add(this.panel12);
-            this.panel11.Controls.Add(this.button6);
-            this.panel11.Location = new System.Drawing.Point(3, 1016);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(582, 179);
-            this.panel11.TabIndex = 10;
+            this.panelAlertingContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAlertingContent.Location = new System.Drawing.Point(0, 25);
+            this.panelAlertingContent.Name = "panelAlertingContent";
+            this.panelAlertingContent.Size = new System.Drawing.Size(582, 154);
+            this.panelAlertingContent.TabIndex = 4;
             // 
-            // panel12
+            // cmdAlertingToggle
             // 
-            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(0, 33);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(582, 146);
-            this.panel12.TabIndex = 4;
+            this.cmdAlertingToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdAlertingToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdAlertingToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAlertingToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdAlertingToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAlertingToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdAlertingToggle.Name = "cmdAlertingToggle";
+            this.cmdAlertingToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdAlertingToggle.TabIndex = 0;
+            this.cmdAlertingToggle.Text = "Alerting";
+            this.cmdAlertingToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAlertingToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdAlertingToggle.UseVisualStyleBackColor = false;
+            this.cmdAlertingToggle.Click += new System.EventHandler(this.cmdAlertingToggle_Click);
             // 
-            // button6
+            // panelVariables
             // 
-            this.button6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(0, 0);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(582, 33);
-            this.button6.TabIndex = 0;
-            this.button6.Text = "Alerting";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button6.UseVisualStyleBackColor = false;
+            this.panelVariables.BackColor = System.Drawing.Color.Transparent;
+            this.panelVariables.Controls.Add(this.panelVariablesContent);
+            this.panelVariables.Controls.Add(this.cmdVariablesToggle);
+            this.panelVariables.Location = new System.Drawing.Point(3, 1201);
+            this.panelVariables.Name = "panelVariables";
+            this.panelVariables.Size = new System.Drawing.Size(582, 179);
+            this.panelVariables.TabIndex = 11;
             // 
-            // panel13
+            // panelVariablesContent
             // 
-            this.panel13.BackColor = System.Drawing.Color.Transparent;
-            this.panel13.Controls.Add(this.panel14);
-            this.panel13.Controls.Add(this.button7);
-            this.panel13.Location = new System.Drawing.Point(3, 1201);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(582, 179);
-            this.panel13.TabIndex = 11;
+            this.panelVariablesContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelVariablesContent.Location = new System.Drawing.Point(0, 25);
+            this.panelVariablesContent.Name = "panelVariablesContent";
+            this.panelVariablesContent.Size = new System.Drawing.Size(582, 154);
+            this.panelVariablesContent.TabIndex = 4;
             // 
-            // panel14
+            // cmdVariablesToggle
             // 
-            this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel14.Location = new System.Drawing.Point(0, 33);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(582, 146);
-            this.panel14.TabIndex = 4;
+            this.cmdVariablesToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdVariablesToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdVariablesToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdVariablesToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdVariablesToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdVariablesToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdVariablesToggle.Name = "cmdVariablesToggle";
+            this.cmdVariablesToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdVariablesToggle.TabIndex = 0;
+            this.cmdVariablesToggle.Text = "Variables";
+            this.cmdVariablesToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdVariablesToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdVariablesToggle.UseVisualStyleBackColor = false;
+            this.cmdVariablesToggle.Click += new System.EventHandler(this.cmdVariablesToggle_Click);
             // 
-            // button7
+            // panelActionScripts
             // 
-            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(0, 0);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(582, 33);
-            this.button7.TabIndex = 0;
-            this.button7.Text = "Variables";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button7.UseVisualStyleBackColor = false;
+            this.panelActionScripts.BackColor = System.Drawing.Color.Transparent;
+            this.panelActionScripts.Controls.Add(this.panelActionScriptsContent);
+            this.panelActionScripts.Controls.Add(this.cmdActionScriptsToggle);
+            this.panelActionScripts.Location = new System.Drawing.Point(3, 1386);
+            this.panelActionScripts.Name = "panelActionScripts";
+            this.panelActionScripts.Size = new System.Drawing.Size(582, 179);
+            this.panelActionScripts.TabIndex = 12;
             // 
-            // panel15
+            // panelActionScriptsContent
             // 
-            this.panel15.BackColor = System.Drawing.Color.Transparent;
-            this.panel15.Controls.Add(this.panel16);
-            this.panel15.Controls.Add(this.button8);
-            this.panel15.Location = new System.Drawing.Point(3, 1386);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(582, 179);
-            this.panel15.TabIndex = 12;
+            this.panelActionScriptsContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelActionScriptsContent.Location = new System.Drawing.Point(0, 25);
+            this.panelActionScriptsContent.Name = "panelActionScriptsContent";
+            this.panelActionScriptsContent.Size = new System.Drawing.Size(582, 154);
+            this.panelActionScriptsContent.TabIndex = 4;
             // 
-            // panel16
+            // cmdActionScriptsToggle
             // 
-            this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel16.Location = new System.Drawing.Point(0, 33);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(582, 146);
-            this.panel16.TabIndex = 4;
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 0);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(582, 33);
-            this.button8.TabIndex = 0;
-            this.button8.Text = "Action scripts";
-            this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button8.UseVisualStyleBackColor = false;
+            this.cmdActionScriptsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdActionScriptsToggle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdActionScriptsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdActionScriptsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdActionScriptsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdActionScriptsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdActionScriptsToggle.Name = "cmdActionScriptsToggle";
+            this.cmdActionScriptsToggle.Size = new System.Drawing.Size(582, 25);
+            this.cmdActionScriptsToggle.TabIndex = 0;
+            this.cmdActionScriptsToggle.Text = "Action scripts";
+            this.cmdActionScriptsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdActionScriptsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdActionScriptsToggle.UseVisualStyleBackColor = false;
+            this.cmdActionScriptsToggle.Click += new System.EventHandler(this.cmdActionScriptsToggle_Click);
             // 
             // CollectorHostEditor
             // 
@@ -486,7 +496,7 @@
             this.BackgroundImage = global::QuickMon.Properties.Resources.QuickMon5Background3;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(614, 727);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.flowLayoutPanelSettings);
             this.Controls.Add(this.llblRawEdit);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
@@ -495,18 +505,20 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Collector Host Editor";
+            this.Load += new System.EventHandler(this.CollectorHostEditor_Load);
+            this.Shown += new System.EventHandler(this.CollectorHostEditor_Shown);
             this.panelGeneralSettings.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.panelGeneralSettingsContent.ResumeLayout(false);
             this.panelGeneralSettingsContent.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel9.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
-            this.panel13.ResumeLayout(false);
-            this.panel15.ResumeLayout(false);
+            this.flowLayoutPanelSettings.ResumeLayout(false);
+            this.panelAgents.ResumeLayout(false);
+            this.panelPolling.ResumeLayout(false);
+            this.panelRemoteAgent.ResumeLayout(false);
+            this.panelRunAs.ResumeLayout(false);
+            this.panelServiceWindows.ResumeLayout(false);
+            this.panelAlerting.ResumeLayout(false);
+            this.panelVariables.ResumeLayout(false);
+            this.panelActionScripts.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,31 +534,31 @@
         private System.Windows.Forms.CheckBox chkEnabled;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.LinkLabel llblRawEdit;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSettings;
         private System.Windows.Forms.Panel panelGeneralSettingsContent;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Panel panelAgents;
+        private System.Windows.Forms.Panel panelAgentsContent;
+        private System.Windows.Forms.Button cmdAgentsToggle;
+        private System.Windows.Forms.Panel panelPolling;
+        private System.Windows.Forms.Panel panelPollingContent;
+        private System.Windows.Forms.Button cmdPollingToggle;
+        private System.Windows.Forms.Panel panelRemoteAgent;
+        private System.Windows.Forms.Panel panelRemoteAgentContent;
+        private System.Windows.Forms.Button cmdRemoteAgentToggle;
+        private System.Windows.Forms.Panel panelRunAs;
+        private System.Windows.Forms.Panel panelRunAsContent;
+        private System.Windows.Forms.Button cmdRunAsToggle;
+        private System.Windows.Forms.Panel panelServiceWindows;
+        private System.Windows.Forms.Panel panelServiceWindowsContent;
+        private System.Windows.Forms.Button cmdServiceWindowsToggle;
+        private System.Windows.Forms.Panel panelAlerting;
+        private System.Windows.Forms.Panel panelAlertingContent;
+        private System.Windows.Forms.Button cmdAlertingToggle;
+        private System.Windows.Forms.Panel panelVariables;
+        private System.Windows.Forms.Panel panelVariablesContent;
+        private System.Windows.Forms.Button cmdVariablesToggle;
+        private System.Windows.Forms.Panel panelActionScripts;
+        private System.Windows.Forms.Panel panelActionScriptsContent;
+        private System.Windows.Forms.Button cmdActionScriptsToggle;
     }
 }

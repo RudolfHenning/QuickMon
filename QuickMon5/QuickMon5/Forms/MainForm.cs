@@ -78,6 +78,7 @@ namespace QuickMon
 
             //tvwCollectors.FullRowSelect = true;
             //tvwCollectors.FullRowSelect = false;
+            
             SetCollectorTreeViewProperties();
             tvwNotifiers.FullRowSelect = true;
             tvwNotifiers.FullRowSelect = false;
@@ -87,6 +88,7 @@ namespace QuickMon
             lblCollectors.LabelText = "Collectors";
             lblNotifiers.LabelText = "Notifiers";
             UpdateNotifiersLabel();
+            cboRecentMonitorPacks.Dock = DockStyle.Left;
             cboRecentMonitorPacks.Visible = false;
             pollingToolStripMenuItem.Visible = false;
             adminModeToolStripStatusLabel.Visible = Security.UACTools.IsInAdminMode();
@@ -1446,30 +1448,13 @@ namespace QuickMon
         }
         #endregion
 
-        private void llblMonitorPack_Click(object sender, EventArgs e)
-        {
-            if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
-            {
-                ShowRecentMonitorPackDropdown();
-            }
-        }
 
-        private void ShowRecentMonitorPackDropdown()
-        {
-            cboRecentMonitorPacks.Visible = true;
-            llblMonitorPack.Visible = false;
-            cboRecentMonitorPacks.Dock = DockStyle.Fill;
-            LoadRecentMonitorPackList();
-            cboRecentMonitorPacks.Focus();
-            SendKeys.Send("{F4}");
-        }
-
+        #region Collector Tree events
         private void tvwCollectors_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeViewHitTestInfo tvi = tvwCollectors.HitTest(e.Location);
             if (tvi.Node != null && tvi.Location == TreeViewHitTestLocations.RightOfLabel)
                 tvwCollectors.SelectedNode = tvi.Node;
-
         }
         private void tvwCollectors_TreeNodeMoved(TreeNode dragNode)
         {
@@ -1489,6 +1474,35 @@ namespace QuickMon
                 DoAutoSave();
             }
         }
+        private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            editCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+        }        
+        #endregion
+        private void llblMonitorPack_Click(object sender, EventArgs e)
+        {
+            if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
+            {
+                ShowRecentMonitorPackDropdown();
+            }
+        }
+
+        private void ShowRecentMonitorPackDropdown()
+        {
+            cboRecentMonitorPacks.Visible = true;
+            llblMonitorPack.Visible = false;
+            cboRecentMonitorPacks.Dock = DockStyle.Fill;
+            LoadRecentMonitorPackList();
+            cboRecentMonitorPacks.Focus();
+            SendKeys.Send("{F4}");
+        }
+
+
+
 
         private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
         {
@@ -1647,6 +1661,21 @@ namespace QuickMon
         {
             EditMonitorSettings();
 
+        }
+
+        private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CollectorHostEditor collectorHostEditor = new CollectorHostEditor();
+            collectorHostEditor.ShowDialog();
+        }
+
+        private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            editCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
     }
 }
