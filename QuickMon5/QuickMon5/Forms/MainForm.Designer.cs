@@ -55,6 +55,7 @@ namespace QuickMon
             this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.actionScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.remoteHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +94,6 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.actionScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -365,27 +365,34 @@ namespace QuickMon
             this.actionScriptsToolStripMenuItem,
             this.adminModeToolStripMenuItem});
             this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.settingsContextMenuStrip.Size = new System.Drawing.Size(161, 146);
+            this.settingsContextMenuStrip.Size = new System.Drawing.Size(156, 124);
             // 
             // pollingToolStripMenuItem
             // 
             this.pollingToolStripMenuItem.Image = global::QuickMon.Properties.Resources.clock24x24;
             this.pollingToolStripMenuItem.Name = "pollingToolStripMenuItem";
-            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
             this.pollingToolStripMenuItem.Text = "Polling";
             // 
             // templatesToolStripMenuItem
             // 
             this.templatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables24x24;
             this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
             this.templatesToolStripMenuItem.Text = "Templates";
+            // 
+            // actionScriptsToolStripMenuItem
+            // 
+            this.actionScriptsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.scroll24x24;
+            this.actionScriptsToolStripMenuItem.Name = "actionScriptsToolStripMenuItem";
+            this.actionScriptsToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
+            this.actionScriptsToolStripMenuItem.Text = "Action Scripts";
             // 
             // adminModeToolStripMenuItem
             // 
             this.adminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Shield24x24;
             this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
-            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
             this.adminModeToolStripMenuItem.Text = "Admin mode";
             this.adminModeToolStripMenuItem.Click += new System.EventHandler(this.adminModeToolStripMenuItem_Click);
             // 
@@ -476,14 +483,14 @@ namespace QuickMon
             this.pasteCollectorToolStripMenuItem,
             this.pasteAndEditCollectorConfigToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 250);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(161, 272);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem
             // 
             this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
-            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.addCollectorToolStripMenuItem.Text = "Add";
             this.addCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
             // 
@@ -491,54 +498,55 @@ namespace QuickMon
             // 
             this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
             this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.editCollectorToolStripMenuItem.Text = "Edit";
+            this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.editCollectorToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // disableCollectorToolStripMenuItem
             // 
             this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
             this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             // 
             // detailsToolStripMenuItem
             // 
             this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.detailsToolStripMenuItem.Text = "Details";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
             // 
             // copyCollectorToolStripMenuItem
             // 
             this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
             this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
-            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.copyCollectorToolStripMenuItem.Text = "Copy";
             // 
             // pasteCollectorToolStripMenuItem
             // 
             this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
             this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
-            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteCollectorToolStripMenuItem.Text = "Paste";
             // 
             // pasteAndEditCollectorConfigToolStripMenuItem
             // 
             this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
             this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
             // 
             // panel2
@@ -864,13 +872,6 @@ namespace QuickMon
             // 
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
-            // 
-            // actionScriptsToolStripMenuItem
-            // 
-            this.actionScriptsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.scroll24x24;
-            this.actionScriptsToolStripMenuItem.Name = "actionScriptsToolStripMenuItem";
-            this.actionScriptsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
-            this.actionScriptsToolStripMenuItem.Text = "Action Scripts";
             // 
             // MainForm
             // 

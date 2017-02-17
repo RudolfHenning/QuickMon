@@ -1677,5 +1677,11 @@ namespace QuickMon
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
+
+        private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CollectorDetails collectorDetails = new CollectorDetails();
+            collectorDetails.Show();
+        }
     }
 }
