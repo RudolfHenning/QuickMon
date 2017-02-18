@@ -27,5 +27,10 @@ namespace QuickMon
         /// reference to MainForm for bidirectional updating
         /// </summary>
         private MainForm mainForm;
+
+        private void chkActionScriptsVisible_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainerMain.Panel2Collapsed = !chkActionScriptsVisible.Checked;
+        }
     }
 }
