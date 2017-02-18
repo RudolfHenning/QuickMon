@@ -305,6 +305,7 @@ namespace QuickMon.Collectors
                                 {
                                     State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good : CollectorState.Warning),
                                     ForAgent = string.Format("{0}", serviceEntry.DisplayName),
+                                    ForAgentType = "CollectorConfigSubEntry",
                                     CurrentValue = serviceEntry.Status.ToString()
                                 });
             }

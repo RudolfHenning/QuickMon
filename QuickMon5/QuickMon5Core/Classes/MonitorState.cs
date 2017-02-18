@@ -22,6 +22,8 @@ namespace QuickMon
             AdditionalAlertText = "";
             RawDetails = "";
             HtmlDetails = "";
+            ForAgent = "";
+            ForAgentType = "";
         }
         public string UniqueId { get; private set; }
         private CollectorState state = CollectorState.NotAvailable;
@@ -38,6 +40,8 @@ namespace QuickMon
 
         [DataMember(Name = "ForAgent")]
         public string ForAgent { get; set; }
+        [DataMember(Name = "ForAgentType")]
+        public string ForAgentType { get; set; }
         [DataMember(Name = "ForAgentId")]
         public int ForAgentId { get; set; }
 
@@ -80,6 +84,7 @@ namespace QuickMon
                 State = this.State,
                 CurrentValue = this.CurrentValue,
                 ForAgent = this.ForAgent,
+                ForAgentType = this.ForAgentType,
                 RawDetails = this.RawDetails,
                 HtmlDetails = this.HtmlDetails,
                 Timestamp = this.Timestamp,
@@ -104,6 +109,7 @@ namespace QuickMon
             root.SetAttributeValue("state", State.ToString());
             root.SetAttributeValue("stateChangedTime", StateChangedTime.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("forAgent", ForAgent);
+            root.SetAttributeValue("forAgentType", ForAgentType);
             root.SetAttributeValue("forAgentId", ForAgentId);
             root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
@@ -184,6 +190,7 @@ namespace QuickMon
             }
             catch { }
             ForAgent = root.ReadXmlElementAttr("forAgent", "");
+            ForAgentType = root.ReadXmlElementAttr("forAgentType", "");
             ForAgentId = root.ReadXmlElementAttr("forAgentId", -1);
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");

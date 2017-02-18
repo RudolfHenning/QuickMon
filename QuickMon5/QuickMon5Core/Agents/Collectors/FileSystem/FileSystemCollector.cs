@@ -530,22 +530,22 @@ namespace QuickMon.Collectors
                         {
                             currentState.CurrentValue = stateDescription;
                         }
-                            
 
-                            if (ShowFilenamesInDetails)
+                        if (ShowFilenamesInDetails)
+                        {
+                            int topCount = 10;
+                            for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
                             {
-                                int topCount = 10;
-                                for (int i = 0; i < topCount && i < directoryFileInfo.FileInfos.Count; i++)
-                                {
-                                    FileInfo fi = directoryFileInfo.FileInfos[i];
-                                    currentState.ChildStates.Add(
-                                       new MonitorState()
-                                       {
-                                           ForAgent = fi.Name,
-                                           CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))
-                                       });
-                                }
+                                FileInfo fi = directoryFileInfo.FileInfos[i];
+                                currentState.ChildStates.Add(
+                                   new MonitorState()
+                                   {
+                                       ForAgent = fi.Name,
+                                       ForAgentType = "FileInfo",
+                                       CurrentValue = string.Format("{0}", FormatUtils.FormatFileSize(fi.Length))
+                                   });
                             }
+                        }
                         //}
                     }
                     else
