@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace QuickMon
 {
-    public partial class MainForm : FadeSnapForm
+    public partial class MainForm : FadeSnapForm, IParentWindow
     {
         public MainForm()
         {
@@ -55,6 +55,8 @@ namespace QuickMon
         private PerformanceCounter collectorsQueryTime = null;
         private PerformanceCounter selectedCollectorsQueryTime = null;
         #endregion
+
+        private List<IChildWindowIdentity> childWindows = new List<IChildWindowIdentity>();
         #endregion
 
         #region Form events
@@ -393,11 +395,7 @@ namespace QuickMon
             catch { }
             return notAborted;
         }
-        private void CloseAllDetailWindows()
-        {
-            //CloseAllCollectorStatusViews();
-            //CloseAllNotifierViewers();
-        }
+        
         private void UpdateStatusbar(string msg)
         {
             try
@@ -1448,7 +1446,6 @@ namespace QuickMon
         }
         #endregion
 
-
         #region Collector Tree events
         private void tvwCollectors_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -1481,8 +1478,49 @@ namespace QuickMon
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-        }        
+        }
         #endregion
+
+        #region Child Window Management
+        public void RegisterChildWindow(IChildWindowIdentity child)
+        {
+            childWindows.Add(child);
+        }
+        public void RemoveChildWindow(IChildWindowIdentity childWindow)
+        {
+            IChildWindowIdentity child = (from IChildWindowIdentity c in childWindows
+
+                                          where c.Identifier == childWindow.Identifier
+                                          select c).FirstOrDefault();
+            if (child != null)
+            {
+                childWindows.Remove(child);
+            }
+        }
+        private void CloseAllDetailWindows()
+        {
+            while (childWindows.Count > 0)
+                ((Form)childWindows[0]).Close();
+
+            //This code cause an exeption because the Close() method causes items to be removed from the childWindows List
+            //foreach (Form child in childWindows)
+            //{
+            //    child.Close();
+            //}
+
+            //CloseAllCollectorStatusViews();
+            //CloseAllNotifierViewers();
+        }
+        private IChildWindowIdentity GetChildWindowByIdentity(string identity)
+        {
+            IChildWindowIdentity child = (from IChildWindowIdentity c in childWindows
+
+                                          where c.Identifier == identity
+                                          select c).FirstOrDefault();
+            return child;
+        }
+        #endregion
+
         private void llblMonitorPack_Click(object sender, EventArgs e)
         {
             if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
@@ -1500,9 +1538,6 @@ namespace QuickMon
             cboRecentMonitorPacks.Focus();
             SendKeys.Send("{F4}");
         }
-
-
-
 
         private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
         {
@@ -1680,8 +1715,36 @@ namespace QuickMon
 
         private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CollectorDetails collectorDetails = new CollectorDetails();
-            collectorDetails.Show();
+            if (tvwCollectors.SelectedNode != null)
+            {
+                TreeNode collectorNode = tvwCollectors.SelectedNode;
+                if (collectorNode.Tag != null && collectorNode.Tag is CollectorHost)
+                {
+                    CollectorHost ch = (CollectorHost)collectorNode.Tag;
+                    IChildWindowIdentity childWindow = GetChildWindowByIdentity(ch.UniqueId);
+                    if (childWindow == null)
+                    {
+                        CollectorDetails collectorDetails = new CollectorDetails();
+                        collectorDetails.SelectedCollectorHost = ch;
+                        collectorDetails.Identifier = ch.UniqueId;
+                        collectorDetails.ParentWindow = this;
+                        collectorDetails.ShowChildWindow();
+                    }
+                    else
+                    {
+                        Form childForm = ((Form)childWindow);
+                        if (childForm.WindowState == FormWindowState.Minimized)
+                            childForm.WindowState = FormWindowState.Normal;
+                        childForm.Focus();
+                    }
+                }
+            }
+            
+        }
+
+        private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            editCollectorToolStripMenuItem_Click(null, null);
         }
     }
 }
