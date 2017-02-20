@@ -419,6 +419,10 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\triang_yellow16x16.png" />
+    <None Include="Resources\stop16x16.png" />
+    <None Include="Resources\ok16x16.png" />
+    <None Include="Resources\helpbwy16x16.png" />
     <None Include="Resources\rungreen24x24.png" />
     <None Include="Resources\102.png" />
     <None Include="Resources\scroll24x24.png" />

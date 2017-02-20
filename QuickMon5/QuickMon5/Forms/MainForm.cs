@@ -777,6 +777,7 @@ namespace QuickMon
                 SetMonitorChanged();
                 if (mpEdit.TriggerMonitorPackReload)
                 {
+                    CloseAllDetailWindows();
                     monitorPack = mpEdit.SelectedMonitorPack;
                     UpdateStatusbar("Reloading monitor pack...");
                     SetMonitorPackEvents();
@@ -880,7 +881,7 @@ namespace QuickMon
                 {
                     if (collectorHost != null && collectorHost.Tag is TreeNodeEx)
                     {
-                        System.Diagnostics.Trace.WriteLine("Updating " + collectorHost.Name);
+                        Trace.WriteLine("Updating " + collectorHost.Name);
                         TreeNodeEx currentTreeNode = (TreeNodeEx)collectorHost.Tag;
                         try
                         {
@@ -989,6 +990,12 @@ namespace QuickMon
                                     currentFocusNode.EnsureVisible();
                                 }
                             }
+
+                            IChildWindowIdentity detailWindow = GetChildWindowByIdentity(collectorHost.UniqueId);
+                            if (detailWindow != null && detailWindow.AutoRefreshEnabled)
+                            {
+                                detailWindow.RefreshDetails();
+                            }
                         }
                     }
                 }
@@ -998,7 +1005,10 @@ namespace QuickMon
                 }
             });
         }
-
+        public void UpdateCollector(CollectorHost collectorHost)
+        {
+            monitorPack_CollectorHostStateUpdated(collectorHost);
+        }
         #endregion
 
         #region Refresh collector statusses
@@ -1479,6 +1489,10 @@ namespace QuickMon
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
+        private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            editCollectorToolStripMenuItem_Click(null, null);
+        }
         #endregion
 
         #region Child Window Management
@@ -1695,7 +1709,6 @@ namespace QuickMon
         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EditMonitorSettings();
-
         }
 
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1742,9 +1755,6 @@ namespace QuickMon
             
         }
 
-        private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            editCollectorToolStripMenuItem_Click(null, null);
-        }
+
     }
 }
