@@ -33,7 +33,8 @@ namespace QuickMon
         {
             if (SelectedCollectorHost != null)
             {
-                txtName.Text = SelectedCollectorHost.Name;
+                LoadControls();                
+
             }
         }
         public void CloseChildWindow()
@@ -55,7 +56,8 @@ namespace QuickMon
                 SelectedCollectorHost = new CollectorHost();
             RefreshDetails();
             splitContainerMain.Panel2Collapsed = true;
-            SetActivePanel(panelAgentStates); 
+            SetActivePanel(panelAgentStates);
+            UpdateStatusBar();
         }
 
         private void CollectorDetails_FormClosing(object sender, FormClosingEventArgs e)
@@ -148,6 +150,57 @@ namespace QuickMon
         private void cmdCancel_Click(object sender, EventArgs e)
         {
             StopEditMode();
+        }
+
+        private void statusStripCollector_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Name == "toolStripStatusLabelEnabled")
+            {
+                SelectedCollectorHost.Enabled = !SelectedCollectorHost.Enabled;
+                UpdateStatusBar();
+
+                ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost);
+            }
+            else if (e.ClickedItem.Name == "toolStripStatusLabelAutoRefresh")
+            {
+                AutoRefreshEnabled = !AutoRefreshEnabled;
+                UpdateStatusBar();
+            }
+        }
+
+        private void CollectorDetails_Shown(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void LoadControls()
+        {
+            if (SelectedCollectorHost.CurrentState != null)
+            {
+                if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.ok16x16;
+                else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.triang_yellow16x16;
+                else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error || SelectedCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.stop16x16;
+                else
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+            }
+            
+            txtName.Text = SelectedCollectorHost.Name;
+        }
+
+        private void UpdateStatusBar()
+        {
+            toolStripStatusLabelEnabled.Text = SelectedCollectorHost.Enabled ? "Enabled" : "Disabled";
+            toolStripStatusLabelEnabled.Image = SelectedCollectorHost.Enabled ? global::QuickMon.Properties.Resources._131 : global::QuickMon.Properties.Resources._141;
+            toolStripStatusLabelAutoRefresh.Text = AutoRefreshEnabled ? "Auto Refresh ON" : "Auto Refresh OFF";
+            toolStripStatusLabelAutoRefresh.Image = AutoRefreshEnabled ? global::QuickMon.Properties.Resources._131 : global::QuickMon.Properties.Resources._141;
+        }
+
+        private void cmdRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshDetails();
         }
     }
 }

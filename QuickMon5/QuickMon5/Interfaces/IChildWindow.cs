@@ -11,6 +11,7 @@ namespace QuickMon
     {
         string Identifier { get; set; }
         IParentWindow ParentWindow { get; set; }
+        bool AutoRefreshEnabled { get; set; }
         void RefreshDetails();
         /// <summary>
         /// Child window must remove itself from Main form reference list
