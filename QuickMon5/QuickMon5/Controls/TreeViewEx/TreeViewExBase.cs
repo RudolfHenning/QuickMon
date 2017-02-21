@@ -550,11 +550,14 @@ namespace QuickMon.Controls
             //SolidBrush selectedTreeBrush = new SolidBrush(Color.FromArgb(255, 205, 232, 255));// .LightSkyBlue);
 
             //Pen selectedColorPen = new Pen(Color.FromArgb(255, 23, 23, 23));
+            Font drawingFont = e.Node.NodeFont;
+            if (drawingFont == null)
+                drawingFont = this.Font;
 
-            SizeF drawsize = e.Graphics.MeasureString(e.Node.Text, this.Font);
-            int yDiff = (int)((e.Bounds.Height - drawsize.Height) / 2);
-            int xDiff = (int)((e.Bounds.Width - drawsize.Width) / 2);
-            Rectangle newBounds = new Rectangle(e.Bounds.X + xDiff, e.Bounds.Y + yDiff, e.Bounds.Width - xDiff, e.Bounds.Height - yDiff);
+            SizeF drawsize = e.Graphics.MeasureString(e.Node.Text, drawingFont);
+            int yDiff = (int)((1 + e.Bounds.Height - drawsize.Height) / 2);
+            int xDiff = (int)((1 + e.Bounds.Width - drawsize.Width) / 2);
+            Rectangle newBounds = new Rectangle(e.Bounds.X, e.Bounds.Y + yDiff, (int) Math.Ceiling(drawsize.Width), e.Bounds.Height - yDiff);
             string extraDisplayValue = "";
             int lineEnd = this.DisplayRectangle.X + this.DisplayRectangle.Width - 5;
 
@@ -582,11 +585,12 @@ namespace QuickMon.Controls
             else
                 e.Graphics.FillRectangle(backgroundColor, e.Bounds);
 
-            e.Graphics.DrawString(e.Node.Text, this.Font, new SolidBrush(this.ForeColor), newBounds);
+            e.Graphics.DrawString(e.Node.Text, drawingFont, new SolidBrush(this.ForeColor), newBounds);
+            //e.Graphics.DrawRectangle(new Pen(new SolidBrush(this.ForeColor)), newBounds);
 
             if (extraDisplayValue != null && extraDisplayValue.Length > 0)
             {
-                SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, this.Font);
+                SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, drawingFont);
 
                 if (ExtraColumnTextAlign == TreeViewExExtraColumnTextAlign.Left)
                     extraDisplayValueSize.Width = ExtraColumnWidth;

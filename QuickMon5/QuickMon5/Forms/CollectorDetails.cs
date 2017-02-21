@@ -17,6 +17,18 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region TreeNodeImage contants
+        private readonly int collectorFolderImage = 0;
+        private readonly int collectorNAstateImage = 1;
+        private readonly int collectorGoodStateImage1 = 2;
+        private readonly int collectorGoodStateImage2 = 5;
+        private readonly int collectorWarningStateImage1 = 3;
+        private readonly int collectorWarningStateImage2 = 6;
+        private readonly int collectorErrorStateImage1 = 4;
+        private readonly int collectorErrorStateImage2 = 7;
+        private readonly int collectorDisabled = 8;
+        #endregion
+
         /// <summary>
         /// If set to true the main window refresh cycle will also trigger a refresh of this window's details (the states/current value/history etc)
         /// </summary>
@@ -159,7 +171,7 @@ namespace QuickMon
                 SelectedCollectorHost.Enabled = !SelectedCollectorHost.Enabled;
                 UpdateStatusBar();
 
-                ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost);
+                ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
             }
             else if (e.ClickedItem.Name == "toolStripStatusLabelAutoRefresh")
             {
@@ -178,16 +190,109 @@ namespace QuickMon
             if (SelectedCollectorHost.CurrentState != null)
             {
                 if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
+                {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.ok16x16;
+                    txtName.BackColor = Color.White;
+                }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
+                {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.triang_yellow16x16;
+                    txtName.BackColor = Color.LightYellow;
+                }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error || SelectedCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
+                {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.stop16x16;
+                    txtName.BackColor = Color.FromArgb(255, 240, 240);
+                }
                 else
+                {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+                    txtName.BackColor = Color.White;
+                }
             }
             
             txtName.Text = SelectedCollectorHost.Name;
+
+            tvwAgentStates.Nodes.Clear();
+            foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
+            {
+                TreeNodeEx agentNode = new TreeNodeEx(agent.Name, collectorNAstateImage, collectorNAstateImage);
+                agentNode.DisplayValue = "";
+                tvwAgentStates.Nodes.Add(agentNode);
+                foreach (ICollectorConfigEntry entry in ((ICollectorConfig)agent.AgentConfig).Entries)
+                {
+                    TreeNodeEx entryNode = new TreeNodeEx(entry.Description, collectorNAstateImage, collectorNAstateImage);
+                    entryNode.DisplayValue = "";
+                    agentNode.Nodes.Add(entryNode);
+                    if (entry.SubItems != null)
+                    {
+                        foreach (ICollectorConfigSubEntry subEntry in entry.SubItems)
+                        {
+                            TreeNodeEx subEntryNode = new TreeNodeEx(subEntry.Description, collectorNAstateImage, collectorNAstateImage);
+                            subEntryNode.DisplayValue = "";
+                            entryNode.Nodes.Add(subEntryNode);
+                        }
+                    }
+                }
+                agentNode.ExpandAll();
+            }
+
+            //trying to match up Agents/Entries to States
+            if (SelectedCollectorHost.CurrentState != null && SelectedCollectorHost.CurrentState.ChildStates.Count == SelectedCollectorHost.CollectorAgents.Count)
+            {
+                for (int i = 0; i < tvwAgentStates.Nodes.Count; i++)
+                {
+                    int stateImageIndex = collectorNAstateImage;
+                    if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Good)
+                        stateImageIndex = collectorGoodStateImage1;
+                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Warning )
+                        stateImageIndex = collectorWarningStateImage1;
+                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
+                        stateImageIndex = collectorErrorStateImage1;
+
+                    tvwAgentStates.Nodes[i].ImageIndex = stateImageIndex;
+                    tvwAgentStates.Nodes[i].SelectedImageIndex = stateImageIndex;
+                    ((TreeNodeEx)tvwAgentStates.Nodes[i]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].FormatValue();
+
+                    if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes.Count)
+                    {
+                        for (int j = 0; j < tvwAgentStates.Nodes[i].Nodes.Count; j++)
+                        {
+                            stateImageIndex = collectorNAstateImage;
+                            if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Good)
+                                stateImageIndex = collectorGoodStateImage1;
+                            else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Warning)
+                                stateImageIndex = collectorWarningStateImage1;
+                            else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
+                                stateImageIndex = collectorErrorStateImage1;
+
+                            tvwAgentStates.Nodes[i].Nodes[j].ImageIndex = stateImageIndex;
+                            tvwAgentStates.Nodes[i].Nodes[j].SelectedImageIndex = stateImageIndex;
+                            ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].FormatValue();
+
+                            if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count)
+                            {
+                                for (int k = 0; k < tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count; k++)
+                                {
+                                    stateImageIndex = collectorNAstateImage;
+                                    if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Good)
+                                        stateImageIndex = collectorGoodStateImage1;
+                                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Warning)
+                                        stateImageIndex = collectorWarningStateImage1;
+                                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
+                                        stateImageIndex = collectorErrorStateImage1;
+
+                                    tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].ImageIndex = stateImageIndex;
+                                    tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].SelectedImageIndex = stateImageIndex;
+                                    ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j].Nodes[k]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].FormatValue();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            SetCollectorTreeViewProperties();
         }
 
         private void UpdateStatusBar()
@@ -197,10 +302,26 @@ namespace QuickMon
             toolStripStatusLabelAutoRefresh.Text = AutoRefreshEnabled ? "Auto Refresh ON" : "Auto Refresh OFF";
             toolStripStatusLabelAutoRefresh.Image = AutoRefreshEnabled ? global::QuickMon.Properties.Resources._131 : global::QuickMon.Properties.Resources._141;
         }
+        private void SetCollectorTreeViewProperties()
+        {
+            if (Properties.Settings.Default.MainWindowTreeViewExtraColumnSize > 0)
+                tvwAgentStates.ExtraColumnWidth = Properties.Settings.Default.MainWindowTreeViewExtraColumnSize;
+            else
+                tvwAgentStates.ExtraColumnWidth = 100;
+            tvwAgentStates.ExtraColumnTextAlign = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 1 ? QuickMon.Controls.TreeViewExExtraColumnTextAlign.Right : QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
+            tvwAgentStates.Refresh();
+        }
 
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
             RefreshDetails();
+        }
+
+        private void tvwAgentStates_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            TreeViewHitTestInfo tvi = tvwAgentStates.HitTest(e.Location);
+            if (tvi.Node != null && tvi.Location == TreeViewHitTestLocations.RightOfLabel)
+                tvwAgentStates.SelectedNode = tvi.Node;
         }
     }
 }

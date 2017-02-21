@@ -364,6 +364,19 @@ namespace QuickMon
             return sb.ToString();
         }
 
+        public string FormatValue()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentValue != null)
+            {
+                sb.Append(CurrentValue.ToString());
+                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                {
+                    sb.Append(" " + CurrentValueUnit);
+                }             
+            }
+            return sb.ToString();
+        }
         public string ReadValues(bool trimCrLf = true)
         {
             StringBuilder sb = new StringBuilder();
