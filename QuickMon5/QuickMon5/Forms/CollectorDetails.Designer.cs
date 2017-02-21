@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Agent 1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
             treeNode3});
@@ -37,16 +41,15 @@
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
             treeNode5,
             treeNode6});
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Agent 1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelEnabled = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelAutoRefresh = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelRawEdit = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.panelCollectorDetails = new System.Windows.Forms.Panel();
             this.panelEditing = new System.Windows.Forms.Panel();
@@ -62,13 +65,14 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
+            this.tvwAgentStates = new QuickMon.Controls.TreeViewExBase();
+            this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
             this.cmdActionScriptsVisible = new System.Windows.Forms.Button();
             this.optHistory = new System.Windows.Forms.RadioButton();
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
-            this.lblCollectorState = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
@@ -77,12 +81,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
-            this.tvwAgentStates = new QuickMon.Controls.TreeViewExBase();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -147,6 +147,12 @@
             this.toolStripStatusLabelEnabled.Text = "Enabled";
             this.toolStripStatusLabelEnabled.ToolTipText = "Enabled";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel1.Text = "|";
+            // 
             // toolStripStatusLabelAutoRefresh
             // 
             this.toolStripStatusLabelAutoRefresh.AutoToolTip = true;
@@ -157,6 +163,12 @@
             this.toolStripStatusLabelAutoRefresh.Text = "Auto Refresh ON";
             this.toolStripStatusLabelAutoRefresh.ToolTipText = "Auto refresh";
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel2.Text = "|";
+            // 
             // toolStripStatusLabelRawEdit
             // 
             this.toolStripStatusLabelRawEdit.IsLink = true;
@@ -164,6 +176,12 @@
             this.toolStripStatusLabelRawEdit.Name = "toolStripStatusLabelRawEdit";
             this.toolStripStatusLabelRawEdit.Size = new System.Drawing.Size(91, 17);
             this.toolStripStatusLabelRawEdit.Text = "Edit Raw Config";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel3.Text = "|";
             // 
             // splitContainerMain
             // 
@@ -306,12 +324,62 @@
             // 
             // panelAgentStates
             // 
-            this.panelAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelAgentStates.Controls.Add(this.tvwAgentStates);
             this.panelAgentStates.Location = new System.Drawing.Point(5, 20);
             this.panelAgentStates.Name = "panelAgentStates";
             this.panelAgentStates.Size = new System.Drawing.Size(520, 198);
             this.panelAgentStates.TabIndex = 1;
+            // 
+            // tvwAgentStates
+            // 
+            this.tvwAgentStates.AllowKeyBoardNodeReorder = false;
+            this.tvwAgentStates.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvwAgentStates.CheckBoxEnhancements = false;
+            this.tvwAgentStates.DisableCollapseOnDoubleClick = true;
+            this.tvwAgentStates.DisableExpandOnDoubleClick = false;
+            this.tvwAgentStates.DisableNode0Collapse = false;
+            this.tvwAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwAgentStates.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwAgentStates.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.tvwAgentStates.EnableAutoScrollToSelectedNode = false;
+            this.tvwAgentStates.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
+            this.tvwAgentStates.ExtraColumnWidth = 150;
+            this.tvwAgentStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwAgentStates.HideSelection = false;
+            this.tvwAgentStates.HighLightWholeNode = true;
+            this.tvwAgentStates.ImageIndex = 0;
+            this.tvwAgentStates.ImageList = this.imagesCollectorTree;
+            this.tvwAgentStates.Indent = 20;
+            this.tvwAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tvwAgentStates.Name = "tvwAgentStates";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Node1";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Agent 1";
+            this.tvwAgentStates.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
+            this.tvwAgentStates.RootAlwaysExpanded = false;
+            this.tvwAgentStates.SelectedImageIndex = 0;
+            this.tvwAgentStates.ShowColumnSeparatorLine = true;
+            this.tvwAgentStates.ShowLines = false;
+            this.tvwAgentStates.Size = new System.Drawing.Size(520, 198);
+            this.tvwAgentStates.TabIndex = 0;
+            this.tvwAgentStates.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwAgentStates_NodeMouseClick);
+            // 
+            // imagesCollectorTree
+            // 
+            this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
+            this.imagesCollectorTree.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesCollectorTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
+            this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
+            this.imagesCollectorTree.Images.SetKeyName(4, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
+            this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
+            this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
             // 
             // panel1
             // 
@@ -396,16 +464,6 @@
             this.optAgentStates.Text = "Agent states";
             this.optAgentStates.UseVisualStyleBackColor = true;
             this.optAgentStates.CheckedChanged += new System.EventHandler(this.optAgentStates_CheckedChanged);
-            // 
-            // lblCollectorState
-            // 
-            this.lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
-            this.lblCollectorState.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCollectorState.Location = new System.Drawing.Point(7, 6);
-            this.lblCollectorState.Name = "lblCollectorState";
-            this.lblCollectorState.Size = new System.Drawing.Size(26, 25);
-            this.lblCollectorState.TabIndex = 6;
-            this.lblCollectorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // treeView1
             // 
@@ -516,6 +574,16 @@
             this.label1.Size = new System.Drawing.Size(2, 500);
             this.label1.TabIndex = 4;
             // 
+            // lblCollectorState
+            // 
+            this.lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+            this.lblCollectorState.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblCollectorState.Location = new System.Drawing.Point(7, 6);
+            this.lblCollectorState.Name = "lblCollectorState";
+            this.lblCollectorState.Size = new System.Drawing.Size(26, 25);
+            this.lblCollectorState.TabIndex = 6;
+            this.lblCollectorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // cmdRefresh
             // 
             this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -529,75 +597,6 @@
             this.cmdRefresh.TabIndex = 9;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel1.Text = "|";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel2.Text = "|";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel3.Text = "|";
-            // 
-            // imagesCollectorTree
-            // 
-            this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
-            this.imagesCollectorTree.TransparentColor = System.Drawing.Color.Transparent;
-            this.imagesCollectorTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
-            this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
-            this.imagesCollectorTree.Images.SetKeyName(4, "Error24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
-            this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
-            this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
-            this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
-            // 
-            // tvwAgentStates
-            // 
-            this.tvwAgentStates.AllowKeyBoardNodeReorder = false;
-            this.tvwAgentStates.AutoScrollToSelectedNodeWaitTimeMS = 500;
-            this.tvwAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvwAgentStates.CheckBoxEnhancements = false;
-            this.tvwAgentStates.DisableCollapseOnDoubleClick = true;
-            this.tvwAgentStates.DisableExpandOnDoubleClick = false;
-            this.tvwAgentStates.DisableNode0Collapse = false;
-            this.tvwAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwAgentStates.DragColor = System.Drawing.Color.Aquamarine;
-            this.tvwAgentStates.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.tvwAgentStates.EnableAutoScrollToSelectedNode = false;
-            this.tvwAgentStates.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
-            this.tvwAgentStates.ExtraColumnWidth = 150;
-            this.tvwAgentStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwAgentStates.HideSelection = false;
-            this.tvwAgentStates.HighLightWholeNode = true;
-            this.tvwAgentStates.ImageIndex = 0;
-            this.tvwAgentStates.ImageList = this.imagesCollectorTree;
-            this.tvwAgentStates.Indent = 20;
-            this.tvwAgentStates.Location = new System.Drawing.Point(0, 0);
-            this.tvwAgentStates.Name = "tvwAgentStates";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Node1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Agent 1";
-            this.tvwAgentStates.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.tvwAgentStates.RootAlwaysExpanded = false;
-            this.tvwAgentStates.SelectedImageIndex = 0;
-            this.tvwAgentStates.ShowColumnSeparatorLine = true;
-            this.tvwAgentStates.ShowLines = false;
-            this.tvwAgentStates.Size = new System.Drawing.Size(518, 196);
-            this.tvwAgentStates.TabIndex = 0;
-            this.tvwAgentStates.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwAgentStates_NodeMouseClick);
             // 
             // CollectorDetails
             // 
