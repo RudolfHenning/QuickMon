@@ -56,6 +56,7 @@ namespace QuickMon
         }
         public void ShowChildWindow()
         {
+            tvwAgentStates.BorderStyle = BorderStyle.None;
             if (ParentWindow != null)
                 ParentWindow.RegisterChildWindow(this);
             Show();
@@ -71,7 +72,6 @@ namespace QuickMon
             SetActivePanel(panelAgentStates);
             UpdateStatusBar();
         }
-
         private void CollectorDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
             CloseChildWindow();
@@ -185,6 +185,18 @@ namespace QuickMon
             
         }
 
+
+        private int GetNodeStateImageIndex(CollectorState state)
+        {
+            int stateImageIndex = collectorNAstateImage;
+            if (state == CollectorState.Good)
+                stateImageIndex = collectorGoodStateImage1;
+            else if (state == CollectorState.Warning)
+                stateImageIndex = collectorWarningStateImage1;
+            else if (state == CollectorState.Error || state == CollectorState.ConfigurationError)
+                stateImageIndex = collectorErrorStateImage1;
+            return stateImageIndex;
+        }
         private void LoadControls()
         {
             if (SelectedCollectorHost.CurrentState != null)
@@ -214,83 +226,117 @@ namespace QuickMon
             txtName.Text = SelectedCollectorHost.Name;
 
             tvwAgentStates.Nodes.Clear();
-            foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
+
+            if (SelectedCollectorHost.CurrentState == null || SelectedCollectorHost.CurrentState.State == CollectorState.UpdateInProgress || SelectedCollectorHost.CurrentState.State == CollectorState.NotAvailable)
             {
-                TreeNodeEx agentNode = new TreeNodeEx(agent.Name, collectorNAstateImage, collectorNAstateImage);
-                agentNode.DisplayValue = "";
-                tvwAgentStates.Nodes.Add(agentNode);
-                foreach (ICollectorConfigEntry entry in ((ICollectorConfig)agent.AgentConfig).Entries)
+                foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
                 {
-                    TreeNodeEx entryNode = new TreeNodeEx(entry.Description, collectorNAstateImage, collectorNAstateImage);
-                    entryNode.DisplayValue = "";
-                    agentNode.Nodes.Add(entryNode);
-                    if (entry.SubItems != null)
+                    TreeNodeEx agentNode = new TreeNodeEx(agent.Name, collectorNAstateImage, collectorNAstateImage);
+                    agentNode.DisplayValue = "";
+                    tvwAgentStates.Nodes.Add(agentNode);
+                    foreach (ICollectorConfigEntry entry in ((ICollectorConfig)agent.AgentConfig).Entries)
                     {
-                        foreach (ICollectorConfigSubEntry subEntry in entry.SubItems)
+                        TreeNodeEx entryNode = new TreeNodeEx(entry.Description, collectorNAstateImage, collectorNAstateImage);
+                        entryNode.DisplayValue = "";
+                        agentNode.Nodes.Add(entryNode);
+                        if (entry.SubItems != null)
                         {
-                            TreeNodeEx subEntryNode = new TreeNodeEx(subEntry.Description, collectorNAstateImage, collectorNAstateImage);
-                            subEntryNode.DisplayValue = "";
-                            entryNode.Nodes.Add(subEntryNode);
-                        }
-                    }
-                }
-                agentNode.ExpandAll();
-            }
-
-            //trying to match up Agents/Entries to States
-            if (SelectedCollectorHost.CurrentState != null && SelectedCollectorHost.CurrentState.ChildStates.Count == SelectedCollectorHost.CollectorAgents.Count)
-            {
-                for (int i = 0; i < tvwAgentStates.Nodes.Count; i++)
-                {
-                    int stateImageIndex = collectorNAstateImage;
-                    if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Good)
-                        stateImageIndex = collectorGoodStateImage1;
-                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Warning )
-                        stateImageIndex = collectorWarningStateImage1;
-                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
-                        stateImageIndex = collectorErrorStateImage1;
-
-                    tvwAgentStates.Nodes[i].ImageIndex = stateImageIndex;
-                    tvwAgentStates.Nodes[i].SelectedImageIndex = stateImageIndex;
-                    ((TreeNodeEx)tvwAgentStates.Nodes[i]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].FormatValue();
-
-                    if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes.Count)
-                    {
-                        for (int j = 0; j < tvwAgentStates.Nodes[i].Nodes.Count; j++)
-                        {
-                            stateImageIndex = collectorNAstateImage;
-                            if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Good)
-                                stateImageIndex = collectorGoodStateImage1;
-                            else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Warning)
-                                stateImageIndex = collectorWarningStateImage1;
-                            else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
-                                stateImageIndex = collectorErrorStateImage1;
-
-                            tvwAgentStates.Nodes[i].Nodes[j].ImageIndex = stateImageIndex;
-                            tvwAgentStates.Nodes[i].Nodes[j].SelectedImageIndex = stateImageIndex;
-                            ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].FormatValue();
-
-                            if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count)
+                            foreach (ICollectorConfigSubEntry subEntry in entry.SubItems)
                             {
-                                for (int k = 0; k < tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count; k++)
-                                {
-                                    stateImageIndex = collectorNAstateImage;
-                                    if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Good)
-                                        stateImageIndex = collectorGoodStateImage1;
-                                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Warning)
-                                        stateImageIndex = collectorWarningStateImage1;
-                                    else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
-                                        stateImageIndex = collectorErrorStateImage1;
-
-                                    tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].ImageIndex = stateImageIndex;
-                                    tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].SelectedImageIndex = stateImageIndex;
-                                    ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j].Nodes[k]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].FormatValue();
-                                }
+                                TreeNodeEx subEntryNode = new TreeNodeEx(subEntry.Description, collectorNAstateImage, collectorNAstateImage);
+                                subEntryNode.DisplayValue = "";
+                                entryNode.Nodes.Add(subEntryNode);
                             }
                         }
                     }
+                    agentNode.ExpandAll();
                 }
             }
+            else
+            {
+                foreach (MonitorState agentState in SelectedCollectorHost.CurrentState.ChildStates)
+                {
+                    int agentNodeStateIndex = GetNodeStateImageIndex(agentState.State);
+                    TreeNodeEx agentNode = new TreeNodeEx(agentState.ForAgent, agentNodeStateIndex, agentNodeStateIndex);
+                    agentNode.DisplayValue = agentState.FormatValue();
+                    agentNode.Tag = agentState;
+                    tvwAgentStates.Nodes.Add(agentNode);
+                    foreach (MonitorState entryState in agentState.ChildStates)
+                    {
+                        int entryNodeStateIndex = GetNodeStateImageIndex(entryState.State);
+                        TreeNodeEx entryNode = new TreeNodeEx(entryState.ForAgent, entryNodeStateIndex, entryNodeStateIndex);
+                        entryNode.DisplayValue = entryState.FormatValue();
+                        entryNode.Tag = entryNode;
+                        agentNode.Nodes.Add(entryNode);
+                        foreach (MonitorState subEntryState in entryState.ChildStates)
+                        {
+                            int subEntryNodeStateIndex = GetNodeStateImageIndex(subEntryState.State);
+                            TreeNodeEx subEntryNode = new TreeNodeEx(subEntryState.ForAgent, subEntryNodeStateIndex, subEntryNodeStateIndex);
+                            subEntryNode.DisplayValue = subEntryState.FormatValue();
+                            subEntryNode.Tag = subEntryState;
+                            entryNode.Nodes.Add(subEntryNode);
+                        }
+                    }
+                    agentNode.ExpandAll();
+                }
+            }
+
+            
+
+            //trying to match up Agents/Entries to States
+            //if (SelectedCollectorHost.CurrentState != null && SelectedCollectorHost.CurrentState.ChildStates.Count == SelectedCollectorHost.CollectorAgents.Count)
+            //{
+            //    for (int i = 0; i < tvwAgentStates.Nodes.Count; i++)
+            //    {
+            //        int stateImageIndex = collectorNAstateImage;
+            //        if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Good)
+            //            stateImageIndex = collectorGoodStateImage1;
+            //        else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Warning )
+            //            stateImageIndex = collectorWarningStateImage1;
+            //        else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
+            //            stateImageIndex = collectorErrorStateImage1;
+
+            //        tvwAgentStates.Nodes[i].ImageIndex = stateImageIndex;
+            //        tvwAgentStates.Nodes[i].SelectedImageIndex = stateImageIndex;
+            //        ((TreeNodeEx)tvwAgentStates.Nodes[i]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].FormatValue();
+
+            //        if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes.Count)
+            //        {
+            //            for (int j = 0; j < tvwAgentStates.Nodes[i].Nodes.Count; j++)
+            //            {
+            //                stateImageIndex = collectorNAstateImage;
+            //                if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Good)
+            //                    stateImageIndex = collectorGoodStateImage1;
+            //                else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Warning)
+            //                    stateImageIndex = collectorWarningStateImage1;
+            //                else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
+            //                    stateImageIndex = collectorErrorStateImage1;
+
+            //                tvwAgentStates.Nodes[i].Nodes[j].ImageIndex = stateImageIndex;
+            //                tvwAgentStates.Nodes[i].Nodes[j].SelectedImageIndex = stateImageIndex;
+            //                ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].FormatValue();
+
+            //                if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count)
+            //                {
+            //                    for (int k = 0; k < tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count; k++)
+            //                    {
+            //                        stateImageIndex = collectorNAstateImage;
+            //                        if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Good)
+            //                            stateImageIndex = collectorGoodStateImage1;
+            //                        else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Warning)
+            //                            stateImageIndex = collectorWarningStateImage1;
+            //                        else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
+            //                            stateImageIndex = collectorErrorStateImage1;
+
+            //                        tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].ImageIndex = stateImageIndex;
+            //                        tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].SelectedImageIndex = stateImageIndex;
+            //                        ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j].Nodes[k]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].FormatValue();
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             SetCollectorTreeViewProperties();
         }

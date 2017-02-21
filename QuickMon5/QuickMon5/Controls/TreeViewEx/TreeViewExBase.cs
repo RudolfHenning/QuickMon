@@ -559,7 +559,7 @@ namespace QuickMon.Controls
             int xDiff = (int)((1 + e.Bounds.Width - drawsize.Width) / 2);
             Rectangle newBounds = new Rectangle(e.Bounds.X, e.Bounds.Y + yDiff, (int) Math.Ceiling(drawsize.Width), e.Bounds.Height - yDiff);
             string extraDisplayValue = "";
-            int lineEnd = this.DisplayRectangle.X + this.DisplayRectangle.Width - 5;
+            int lineEnd = this.DisplayRectangle.X + this.DisplayRectangle.Width;// - 1;
 
             if (e.Node is TreeNodeEx)
             {
@@ -590,7 +590,7 @@ namespace QuickMon.Controls
 
             if (extraDisplayValue != null && extraDisplayValue.Length > 0)
             {
-                SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue, drawingFont);
+                SizeF extraDisplayValueSize = e.Graphics.MeasureString(extraDisplayValue + " ", drawingFont);
 
                 if (ExtraColumnTextAlign == TreeViewExExtraColumnTextAlign.Left)
                     extraDisplayValueSize.Width = ExtraColumnWidth;
@@ -600,7 +600,7 @@ namespace QuickMon.Controls
                 e.Graphics.FillRectangle(backgroundColor, new RectangleF(lineEnd - ExtraColumnWidth, e.Bounds.Y, ExtraColumnWidth, e.Bounds.Height));
 
                 Rectangle extraDisplayValueRec = new Rectangle(lineEnd - (int)extraDisplayValueSize.Width, e.Bounds.Y + yDiff, lineEnd, e.Bounds.Height - yDiff);
-                e.Graphics.DrawString(extraDisplayValue, this.Font, new SolidBrush(this.ForeColor), extraDisplayValueRec);
+                e.Graphics.DrawString(extraDisplayValue, drawingFont, new SolidBrush(this.ForeColor), extraDisplayValueRec);
             }
 
             if (ShowColumnSeparatorLine)
