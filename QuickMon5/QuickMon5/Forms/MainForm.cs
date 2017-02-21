@@ -1005,9 +1005,11 @@ namespace QuickMon
                 }
             });
         }
-        public void UpdateCollector(CollectorHost collectorHost)
+        public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
         {
             monitorPack_CollectorHostStateUpdated(collectorHost);
+            if (setChanged)
+                SetMonitorChanged();
         }
         #endregion
 

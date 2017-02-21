@@ -10,7 +10,7 @@ namespace QuickMon
         #region ICollector Members
         public virtual MonitorState GetState()
         {
-            MonitorState returnState = new MonitorState() { ForAgentType = "Collector" };
+            MonitorState returnState = new MonitorState() { ForAgentType = "CollectorAgent", ForAgent = Name };
             int errors = 0;
             int warnings = 0;
             int success = 0;
@@ -24,7 +24,7 @@ namespace QuickMon
                     {
                         lastAction = "Getting state for agent: " + entry.Description;
                         MonitorState entryState = entry.GetCurrentState();
-                        entryState.ForAgentType = "CollectorConfigEntry";
+                        entryState.ForAgentType = "CollectorAgentEntry";
                         returnState.ChildStates.Add(entryState);
                     }
                     catch(Exception exEntry)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
             treeNode3});
@@ -36,19 +37,16 @@
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
             treeNode5,
             treeNode6});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Agent 1", new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.enabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabelEnabled = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelAutoRefresh = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelRawEdit = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.panelCollectorDetails = new System.Windows.Forms.Panel();
             this.panelEditing = new System.Windows.Forms.Panel();
@@ -80,6 +78,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.tvwAgentStates = new QuickMon.Controls.TreeViewExBase();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
@@ -102,17 +104,17 @@
             this.txtName.BackColor = System.Drawing.Color.White;
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(89, 11);
+            this.txtName.Location = new System.Drawing.Point(97, 11);
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(651, 15);
+            this.txtName.Size = new System.Drawing.Size(643, 15);
             this.txtName.TabIndex = 5;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(8, 9);
+            this.lblName.Location = new System.Drawing.Point(39, 8);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(52, 18);
             this.lblName.TabIndex = 4;
@@ -122,9 +124,11 @@
             // 
             this.statusStripCollector.BackColor = System.Drawing.Color.Transparent;
             this.statusStripCollector.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1,
             this.toolStripStatusLabelEnabled,
+            this.toolStripStatusLabel1,
             this.toolStripStatusLabelAutoRefresh,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabelRawEdit,
             this.toolStripStatusLabel3});
             this.statusStripCollector.Location = new System.Drawing.Point(0, 539);
             this.statusStripCollector.Name = "statusStripCollector";
@@ -132,36 +136,6 @@
             this.statusStripCollector.TabIndex = 7;
             this.statusStripCollector.Text = "statusStrip1";
             this.statusStripCollector.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStripCollector_ItemClicked);
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enabledToolStripMenuItem,
-            this.autoRefreshToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = global::QuickMon.Properties.Resources.menu_alt_16b;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // enabledToolStripMenuItem
-            // 
-            this.enabledToolStripMenuItem.Checked = true;
-            this.enabledToolStripMenuItem.CheckOnClick = true;
-            this.enabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enabledToolStripMenuItem.Name = "enabledToolStripMenuItem";
-            this.enabledToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.enabledToolStripMenuItem.Text = "Enabled";
-            // 
-            // autoRefreshToolStripMenuItem
-            // 
-            this.autoRefreshToolStripMenuItem.Checked = true;
-            this.autoRefreshToolStripMenuItem.CheckOnClick = true;
-            this.autoRefreshToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
-            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
             // 
             // toolStripStatusLabelEnabled
             // 
@@ -183,13 +157,13 @@
             this.toolStripStatusLabelAutoRefresh.Text = "Auto Refresh ON";
             this.toolStripStatusLabelAutoRefresh.ToolTipText = "Auto refresh";
             // 
-            // toolStripStatusLabel3
+            // toolStripStatusLabelRawEdit
             // 
-            this.toolStripStatusLabel3.IsLink = true;
-            this.toolStripStatusLabel3.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(91, 17);
-            this.toolStripStatusLabel3.Text = "Edit Raw Config";
+            this.toolStripStatusLabelRawEdit.IsLink = true;
+            this.toolStripStatusLabelRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.toolStripStatusLabelRawEdit.Name = "toolStripStatusLabelRawEdit";
+            this.toolStripStatusLabelRawEdit.Size = new System.Drawing.Size(91, 17);
+            this.toolStripStatusLabelRawEdit.Text = "Edit Raw Config";
             // 
             // splitContainerMain
             // 
@@ -197,7 +171,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainerMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainerMain.Location = new System.Drawing.Point(6, 36);
+            this.splitContainerMain.Location = new System.Drawing.Point(7, 36);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
@@ -211,8 +185,8 @@
             this.splitContainerMain.Panel2.Controls.Add(this.panel2);
             this.splitContainerMain.Panel2.Controls.Add(this.label1);
             this.splitContainerMain.Panel2MinSize = 200;
-            this.splitContainerMain.Size = new System.Drawing.Size(766, 500);
-            this.splitContainerMain.SplitterDistance = 562;
+            this.splitContainerMain.Size = new System.Drawing.Size(770, 500);
+            this.splitContainerMain.SplitterDistance = 566;
             this.splitContainerMain.TabIndex = 8;
             // 
             // panelCollectorDetails
@@ -225,7 +199,7 @@
             this.panelCollectorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCollectorDetails.Location = new System.Drawing.Point(0, 25);
             this.panelCollectorDetails.Name = "panelCollectorDetails";
-            this.panelCollectorDetails.Size = new System.Drawing.Size(562, 475);
+            this.panelCollectorDetails.Size = new System.Drawing.Size(566, 475);
             this.panelCollectorDetails.TabIndex = 3;
             // 
             // panelEditing
@@ -346,11 +320,10 @@
             this.panel1.Controls.Add(this.optHistory);
             this.panel1.Controls.Add(this.optMetrics);
             this.panel1.Controls.Add(this.optAgentStates);
-            this.panel1.Controls.Add(this.lblCollectorState);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(562, 25);
+            this.panel1.Size = new System.Drawing.Size(566, 25);
             this.panel1.TabIndex = 1;
             // 
             // cmdCollectorEdit
@@ -361,7 +334,7 @@
             this.cmdCollectorEdit.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdCollectorEdit.FlatAppearance.BorderSize = 0;
             this.cmdCollectorEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCollectorEdit.Location = new System.Drawing.Point(508, 0);
+            this.cmdCollectorEdit.Location = new System.Drawing.Point(512, 0);
             this.cmdCollectorEdit.Name = "cmdCollectorEdit";
             this.cmdCollectorEdit.Size = new System.Drawing.Size(27, 25);
             this.cmdCollectorEdit.TabIndex = 5;
@@ -376,7 +349,7 @@
             this.cmdActionScriptsVisible.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdActionScriptsVisible.FlatAppearance.BorderSize = 0;
             this.cmdActionScriptsVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(535, 0);
+            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(539, 0);
             this.cmdActionScriptsVisible.Name = "cmdActionScriptsVisible";
             this.cmdActionScriptsVisible.Size = new System.Drawing.Size(27, 25);
             this.cmdActionScriptsVisible.TabIndex = 4;
@@ -388,7 +361,7 @@
             this.optHistory.AutoSize = true;
             this.optHistory.Dock = System.Windows.Forms.DockStyle.Left;
             this.optHistory.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.optHistory.Location = new System.Drawing.Point(239, 0);
+            this.optHistory.Location = new System.Drawing.Point(184, 0);
             this.optHistory.Name = "optHistory";
             this.optHistory.Size = new System.Drawing.Size(98, 25);
             this.optHistory.TabIndex = 2;
@@ -401,7 +374,7 @@
             this.optMetrics.AutoSize = true;
             this.optMetrics.Dock = System.Windows.Forms.DockStyle.Left;
             this.optMetrics.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.optMetrics.Location = new System.Drawing.Point(138, 0);
+            this.optMetrics.Location = new System.Drawing.Point(83, 0);
             this.optMetrics.Name = "optMetrics";
             this.optMetrics.Size = new System.Drawing.Size(101, 25);
             this.optMetrics.TabIndex = 1;
@@ -415,7 +388,7 @@
             this.optAgentStates.Checked = true;
             this.optAgentStates.Dock = System.Windows.Forms.DockStyle.Left;
             this.optAgentStates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.optAgentStates.Location = new System.Drawing.Point(55, 0);
+            this.optAgentStates.Location = new System.Drawing.Point(0, 0);
             this.optAgentStates.Name = "optAgentStates";
             this.optAgentStates.Size = new System.Drawing.Size(83, 25);
             this.optAgentStates.TabIndex = 0;
@@ -426,14 +399,12 @@
             // 
             // lblCollectorState
             // 
-            this.lblCollectorState.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
             this.lblCollectorState.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCollectorState.Location = new System.Drawing.Point(0, 0);
+            this.lblCollectorState.Location = new System.Drawing.Point(7, 6);
             this.lblCollectorState.Name = "lblCollectorState";
-            this.lblCollectorState.Size = new System.Drawing.Size(55, 25);
+            this.lblCollectorState.Size = new System.Drawing.Size(26, 25);
             this.lblCollectorState.TabIndex = 6;
-            this.lblCollectorState.Text = "State";
             this.lblCollectorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // treeView1
@@ -559,13 +530,45 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel1.Text = "|";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel2.Text = "|";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel3.Text = "|";
+            // 
+            // imagesCollectorTree
+            // 
+            this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
+            this.imagesCollectorTree.TransparentColor = System.Drawing.Color.Transparent;
+            this.imagesCollectorTree.Images.SetKeyName(0, "open_folder_blue24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(1, "helpbwy24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(2, "ok.png");
+            this.imagesCollectorTree.Images.SetKeyName(3, "triang_yellow.png");
+            this.imagesCollectorTree.Images.SetKeyName(4, "Error24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(5, "ok3.png");
+            this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
+            this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
+            this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
+            // 
             // tvwAgentStates
             // 
             this.tvwAgentStates.AllowKeyBoardNodeReorder = false;
             this.tvwAgentStates.AutoScrollToSelectedNodeWaitTimeMS = 500;
             this.tvwAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tvwAgentStates.CheckBoxEnhancements = false;
-            this.tvwAgentStates.DisableCollapseOnDoubleClick = false;
+            this.tvwAgentStates.DisableCollapseOnDoubleClick = true;
             this.tvwAgentStates.DisableExpandOnDoubleClick = false;
             this.tvwAgentStates.DisableNode0Collapse = false;
             this.tvwAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -574,7 +577,12 @@
             this.tvwAgentStates.EnableAutoScrollToSelectedNode = false;
             this.tvwAgentStates.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
             this.tvwAgentStates.ExtraColumnWidth = 150;
+            this.tvwAgentStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwAgentStates.HideSelection = false;
             this.tvwAgentStates.HighLightWholeNode = true;
+            this.tvwAgentStates.ImageIndex = 0;
+            this.tvwAgentStates.ImageList = this.imagesCollectorTree;
+            this.tvwAgentStates.Indent = 20;
             this.tvwAgentStates.Location = new System.Drawing.Point(0, 0);
             this.tvwAgentStates.Name = "tvwAgentStates";
             treeNode1.Name = "Node1";
@@ -584,10 +592,12 @@
             this.tvwAgentStates.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2});
             this.tvwAgentStates.RootAlwaysExpanded = false;
+            this.tvwAgentStates.SelectedImageIndex = 0;
             this.tvwAgentStates.ShowColumnSeparatorLine = true;
             this.tvwAgentStates.ShowLines = false;
             this.tvwAgentStates.Size = new System.Drawing.Size(518, 196);
             this.tvwAgentStates.TabIndex = 0;
+            this.tvwAgentStates.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwAgentStates_NodeMouseClick);
             // 
             // CollectorDetails
             // 
@@ -600,6 +610,7 @@
             this.Controls.Add(this.statusStripCollector);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
+            this.Controls.Add(this.lblCollectorState);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CollectorDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -631,9 +642,6 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.StatusStrip statusStripCollector;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem enabledToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem autoRefreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEnabled;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAutoRefresh;
         private System.Windows.Forms.SplitContainer splitContainerMain;
@@ -666,8 +674,12 @@
         private System.Windows.Forms.Panel panelEditing;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdCancel;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelRawEdit;
         private System.Windows.Forms.Panel panelCollectorDetails;
         private System.Windows.Forms.Label lblCollectorState;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ImageList imagesCollectorTree;
     }
 }
