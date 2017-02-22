@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>QM5-64.ico</ApplicationIcon>
@@ -59,6 +61,20 @@
       <Link>VersionInfo.cs</Link>
     </Compile>
     <Compile Include="AdminMode\AdminModeTools.cs" />
+    <Compile Include="Controls\API\APIsClipboard.cs" />
+    <Compile Include="Controls\API\APIsComctl32.cs" />
+    <Compile Include="Controls\API\APIsEnums.cs" />
+    <Compile Include="Controls\API\APIsGdi.cs" />
+    <Compile Include="Controls\API\APIsMenu.cs" />
+    <Compile Include="Controls\API\APIsShell.cs" />
+    <Compile Include="Controls\API\APIsShlwapi.cs" />
+    <Compile Include="Controls\API\APIsStructs.cs" />
+    <Compile Include="Controls\API\APIsUser32.cs" />
+    <Compile Include="Controls\API\APIsUxTheme.cs" />
+    <Compile Include="Controls\API\APIsWndProc.cs" />
+    <Compile Include="Controls\API\ColorUtil.cs" />
+    <Compile Include="Controls\API\COMInterfaces.cs" />
+    <Compile Include="Controls\API\TextUtil.cs" />
     <Compile Include="Controls\ComboItem.cs" />
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
@@ -80,6 +96,14 @@
     <Compile Include="Controls\SplitButton\SplitButton.Designer.cs">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeListView\ITreeListViewItemComparer.cs" />
+    <Compile Include="Controls\TreeListView\SelectedTreeListViewItemCollection.cs" />
+    <Compile Include="Controls\TreeListView\TreeListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeListView\TreeListViewItem.cs" />
+    <Compile Include="Controls\TreeListView\TreeListViewItemCollection.cs" />
+    <Compile Include="Controls\TreeListView\TreeListViewSubItemEdit.cs" />
     <Compile Include="Controls\TreeViewEx\TreeNodeEx.cs" />
     <Compile Include="Controls\TreeViewEx\TreeViewEx.cs">
       <SubType>Component</SubType>
@@ -148,6 +172,9 @@
     <Compile Include="ShellUtils\WinFormUtils.cs" />
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeListView\TreeListView.resx">
+      <DependentUpon>TreeListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutQuickMon.resx">
       <DependentUpon>AboutQuickMon.cs</DependentUpon>

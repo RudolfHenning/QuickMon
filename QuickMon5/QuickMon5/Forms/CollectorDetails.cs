@@ -65,6 +65,9 @@ namespace QuickMon
 
         private void CollectorDetails_Load(object sender, EventArgs e)
         {
+            tlvAgentStates.AutoResizeColumnEnabled = true;
+            agentStateSplitContainer.Panel2Collapsed = true;
+
             if (SelectedCollectorHost == null)
                 SelectedCollectorHost = new CollectorHost();
             RefreshDetails();
@@ -368,6 +371,16 @@ namespace QuickMon
             TreeViewHitTestInfo tvi = tvwAgentStates.HitTest(e.Location);
             if (tvi.Node != null && tvi.Location == TreeViewHitTestLocations.RightOfLabel)
                 tvwAgentStates.SelectedNode = tvi.Node;
+        }
+
+        private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = true;
+        }
+
+        private void optHistoricStateView_CheckedChanged(object sender, EventArgs e)
+        {
+            agentStateSplitContainer.Panel2Collapsed = false;
         }
     }
 }
