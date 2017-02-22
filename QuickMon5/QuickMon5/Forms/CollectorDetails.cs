@@ -45,8 +45,7 @@ namespace QuickMon
         {
             if (SelectedCollectorHost != null)
             {
-                LoadControls();                
-
+                LoadControls();
             }
         }
         public void CloseChildWindow()
@@ -56,16 +55,19 @@ namespace QuickMon
         }
         public void ShowChildWindow()
         {
-            tvwAgentStates.BorderStyle = BorderStyle.None;
+            tlvAgentStates.BorderStyle = BorderStyle.None;
             if (ParentWindow != null)
                 ParentWindow.RegisterChildWindow(this);
             Show();
         }
         #endregion
 
+        #region Form events
         private void CollectorDetails_Load(object sender, EventArgs e)
         {
+            this.Size = new Size(700, 500);
             tlvAgentStates.AutoResizeColumnEnabled = true;
+            lvwHistory.AutoResizeColumnEnabled = true;
             agentStateSplitContainer.Panel2Collapsed = true;
 
             if (SelectedCollectorHost == null)
@@ -79,60 +81,13 @@ namespace QuickMon
         {
             CloseChildWindow();
         }
-
-        private void cmdActionScriptsVisible_Click(object sender, EventArgs e)
+        private void CollectorDetails_Shown(object sender, EventArgs e)
         {
-            splitContainerMain.Panel2Collapsed = !splitContainerMain.Panel2Collapsed;
-        }
 
-        private void cmdCollectorEdit_Click(object sender, EventArgs e)
-        {
-            StartEditMode();
         }
+        #endregion
 
-        private void StartEditMode()
-        {
-            optAgentStates.Enabled = false;
-            optMetrics.Enabled = false;
-            optHistory.Enabled = false;
-            txtName.ReadOnly = false;
-            txtName.BorderStyle = BorderStyle.FixedSingle;
-            SetActivePanel(panelEditing);
-        }
-        private void StopEditMode()
-        {
-            optAgentStates.Enabled = true;
-            optMetrics.Enabled = true;
-            optHistory.Enabled = true;
-            txtName.ReadOnly = true;
-            txtName.BorderStyle = BorderStyle.None;
-            if (optAgentStates.Checked)
-                optAgentStates_CheckedChanged(null, null);
-            else if (optMetrics.Checked)
-                optMetrics_CheckedChanged(null, null);
-            else
-                optHistory_CheckedChanged(null, null);
-        }
-
-        //private void flowLayoutPanelCollectorStuff_Resize(object sender, EventArgs e)
-        //{
-        //    int clientSizeWidth = flowLayoutPanelCollectorStuff.ClientSize.Width - flowLayoutPanelCollectorStuff.Margin.Left - flowLayoutPanelCollectorStuff.Margin.Right - 1;
-        //    int clientSizeHeight = flowLayoutPanelCollectorStuff.ClientSize.Height - flowLayoutPanelCollectorStuff.Margin.Top - flowLayoutPanelCollectorStuff.Margin.Bottom - 1;
-        //    foreach (Control c in flowLayoutPanelCollectorStuff.Controls)
-        //    {
-        //        if (c is Panel)
-        //        {
-        //            c.Width = clientSizeWidth;
-        //            c.Height = clientSizeHeight;
-        //        }
-        //    }
-        //}
-
-        private void optAgentStates_CheckedChanged(object sender, EventArgs e)
-        {
-            SetActivePanel(panelAgentStates);
-        }
-
+        #region Private methods
         private void SetActivePanel(Panel panelAgentStates)
         {
             
@@ -151,44 +106,25 @@ namespace QuickMon
 
             }
         }
-
-        private void optMetrics_CheckedChanged(object sender, EventArgs e)
+        private void StartEditMode()
         {
-            SetActivePanel(panelMetrics);
+            optAgentStates.Enabled = false;
+            optMetrics.Enabled = false;
+            txtName.ReadOnly = false;
+            txtName.BorderStyle = BorderStyle.FixedSingle;
+            SetActivePanel(panelEditing);
         }
-
-        private void optHistory_CheckedChanged(object sender, EventArgs e)
+        private void StopEditMode()
         {
-            SetActivePanel(panelHistory);
+            optAgentStates.Enabled = true;
+            optMetrics.Enabled = true;
+            txtName.ReadOnly = true;
+            txtName.BorderStyle = BorderStyle.None;
+            if (optAgentStates.Checked)
+                optAgentStates_CheckedChanged(null, null);
+            else if (optMetrics.Checked)
+                optMetrics_CheckedChanged(null, null);
         }
-
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            StopEditMode();
-        }
-
-        private void statusStripCollector_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Name == "toolStripStatusLabelEnabled")
-            {
-                SelectedCollectorHost.Enabled = !SelectedCollectorHost.Enabled;
-                UpdateStatusBar();
-
-                ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
-            }
-            else if (e.ClickedItem.Name == "toolStripStatusLabelAutoRefresh")
-            {
-                AutoRefreshEnabled = !AutoRefreshEnabled;
-                UpdateStatusBar();
-            }
-        }
-
-        private void CollectorDetails_Shown(object sender, EventArgs e)
-        {
-            
-        }
-
-
         private int GetNodeStateImageIndex(CollectorState state)
         {
             int stateImageIndex = collectorNAstateImage;
@@ -202,6 +138,7 @@ namespace QuickMon
         }
         private void LoadControls()
         {
+            SetWindowTitle();
             if (SelectedCollectorHost.CurrentState != null)
             {
                 if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
@@ -227,123 +164,62 @@ namespace QuickMon
             }
             
             txtName.Text = SelectedCollectorHost.Name;
-
-            tvwAgentStates.Nodes.Clear();
-
-            if (SelectedCollectorHost.CurrentState == null || SelectedCollectorHost.CurrentState.State == CollectorState.UpdateInProgress || SelectedCollectorHost.CurrentState.State == CollectorState.NotAvailable)
-            {
-                foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
-                {
-                    TreeNodeEx agentNode = new TreeNodeEx(agent.Name, collectorNAstateImage, collectorNAstateImage);
-                    agentNode.DisplayValue = "";
-                    tvwAgentStates.Nodes.Add(agentNode);
-                    foreach (ICollectorConfigEntry entry in ((ICollectorConfig)agent.AgentConfig).Entries)
-                    {
-                        TreeNodeEx entryNode = new TreeNodeEx(entry.Description, collectorNAstateImage, collectorNAstateImage);
-                        entryNode.DisplayValue = "";
-                        agentNode.Nodes.Add(entryNode);
-                        if (entry.SubItems != null)
-                        {
-                            foreach (ICollectorConfigSubEntry subEntry in entry.SubItems)
-                            {
-                                TreeNodeEx subEntryNode = new TreeNodeEx(subEntry.Description, collectorNAstateImage, collectorNAstateImage);
-                                subEntryNode.DisplayValue = "";
-                                entryNode.Nodes.Add(subEntryNode);
-                            }
-                        }
-                    }
-                    agentNode.ExpandAll();
-                }
-            }
-            else
-            {
-                foreach (MonitorState agentState in SelectedCollectorHost.CurrentState.ChildStates)
-                {
-                    int agentNodeStateIndex = GetNodeStateImageIndex(agentState.State);
-                    TreeNodeEx agentNode = new TreeNodeEx(agentState.ForAgent, agentNodeStateIndex, agentNodeStateIndex);
-                    agentNode.DisplayValue = agentState.FormatValue();
-                    agentNode.Tag = agentState;
-                    tvwAgentStates.Nodes.Add(agentNode);
-                    foreach (MonitorState entryState in agentState.ChildStates)
-                    {
-                        int entryNodeStateIndex = GetNodeStateImageIndex(entryState.State);
-                        TreeNodeEx entryNode = new TreeNodeEx(entryState.ForAgent, entryNodeStateIndex, entryNodeStateIndex);
-                        entryNode.DisplayValue = entryState.FormatValue();
-                        entryNode.Tag = entryNode;
-                        agentNode.Nodes.Add(entryNode);
-                        foreach (MonitorState subEntryState in entryState.ChildStates)
-                        {
-                            int subEntryNodeStateIndex = GetNodeStateImageIndex(subEntryState.State);
-                            TreeNodeEx subEntryNode = new TreeNodeEx(subEntryState.ForAgent, subEntryNodeStateIndex, subEntryNodeStateIndex);
-                            subEntryNode.DisplayValue = subEntryState.FormatValue();
-                            subEntryNode.Tag = subEntryState;
-                            entryNode.Nodes.Add(subEntryNode);
-                        }
-                    }
-                    agentNode.ExpandAll();
-                }
-            }
-
+            LoadHistory();
+            UpdateAgentStateTree();
             
 
-            //trying to match up Agents/Entries to States
-            //if (SelectedCollectorHost.CurrentState != null && SelectedCollectorHost.CurrentState.ChildStates.Count == SelectedCollectorHost.CollectorAgents.Count)
-            //{
-            //    for (int i = 0; i < tvwAgentStates.Nodes.Count; i++)
-            //    {
-            //        int stateImageIndex = collectorNAstateImage;
-            //        if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Good)
-            //            stateImageIndex = collectorGoodStateImage1;
-            //        else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Warning )
-            //            stateImageIndex = collectorWarningStateImage1;
-            //        else if (SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
-            //            stateImageIndex = collectorErrorStateImage1;
-
-            //        tvwAgentStates.Nodes[i].ImageIndex = stateImageIndex;
-            //        tvwAgentStates.Nodes[i].SelectedImageIndex = stateImageIndex;
-            //        ((TreeNodeEx)tvwAgentStates.Nodes[i]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].FormatValue();
-
-            //        if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes.Count)
-            //        {
-            //            for (int j = 0; j < tvwAgentStates.Nodes[i].Nodes.Count; j++)
-            //            {
-            //                stateImageIndex = collectorNAstateImage;
-            //                if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Good)
-            //                    stateImageIndex = collectorGoodStateImage1;
-            //                else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Warning)
-            //                    stateImageIndex = collectorWarningStateImage1;
-            //                else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
-            //                    stateImageIndex = collectorErrorStateImage1;
-
-            //                tvwAgentStates.Nodes[i].Nodes[j].ImageIndex = stateImageIndex;
-            //                tvwAgentStates.Nodes[i].Nodes[j].SelectedImageIndex = stateImageIndex;
-            //                ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].FormatValue();
-
-            //                if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates.Count == tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count)
-            //                {
-            //                    for (int k = 0; k < tvwAgentStates.Nodes[i].Nodes[j].Nodes.Count; k++)
-            //                    {
-            //                        stateImageIndex = collectorNAstateImage;
-            //                        if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Good)
-            //                            stateImageIndex = collectorGoodStateImage1;
-            //                        else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Warning)
-            //                            stateImageIndex = collectorWarningStateImage1;
-            //                        else if (SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].State == CollectorState.Error || SelectedCollectorHost.CurrentState.ChildStates[i].State == CollectorState.ConfigurationError)
-            //                            stateImageIndex = collectorErrorStateImage1;
-
-            //                        tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].ImageIndex = stateImageIndex;
-            //                        tvwAgentStates.Nodes[i].Nodes[j].Nodes[k].SelectedImageIndex = stateImageIndex;
-            //                        ((TreeNodeEx)tvwAgentStates.Nodes[i].Nodes[j].Nodes[k]).DisplayValue = SelectedCollectorHost.CurrentState.ChildStates[i].ChildStates[j].ChildStates[k].FormatValue();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-            SetCollectorTreeViewProperties();
         }
-
+        private void SetWindowTitle()
+        {
+            Text = "Collector Details";
+            if (SelectedCollectorHost != null)
+            {
+                Text += " - " + SelectedCollectorHost.Name;
+                SetAppIcon(SelectedCollectorHost.CurrentState.State);
+            }
+        }
+        private void SetAppIcon(CollectorState state)
+        {
+            try
+            {
+                Icon icon;
+                if (state == CollectorState.Error)
+                {
+                    icon = Properties.Resources.QM4BlueStateErrA;
+                }
+                else if (state == CollectorState.Warning)
+                {
+                    icon = Properties.Resources.QM4BlueStateWarnA;
+                }
+                else if (state == CollectorState.Good)
+                {
+                    icon = Properties.Resources.QM4BlueStateGoodA;
+                }
+                else
+                {
+                    icon = Properties.Resources.QM4BlueStateNAA;
+                }
+                Icon oldIcon = this.Icon;
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        this.Icon = icon;
+                    }
+                    );
+                }
+                else
+                {
+                    this.Icon = icon;
+                }
+                oldIcon.Dispose();
+            }
+            catch (Exception)
+            {
+                //to be added
+                this.Icon = Properties.Resources.QM4BlueStateNAA;
+            }
+        }
         private void UpdateStatusBar()
         {
             toolStripStatusLabelEnabled.Text = SelectedCollectorHost.Enabled ? "Enabled" : "Disabled";
@@ -351,36 +227,204 @@ namespace QuickMon
             toolStripStatusLabelAutoRefresh.Text = AutoRefreshEnabled ? "Auto Refresh ON" : "Auto Refresh OFF";
             toolStripStatusLabelAutoRefresh.Image = AutoRefreshEnabled ? global::QuickMon.Properties.Resources._131 : global::QuickMon.Properties.Resources._141;
         }
-        private void SetCollectorTreeViewProperties()
+        private void UpdateAgentStateTree()
         {
-            if (Properties.Settings.Default.MainWindowTreeViewExtraColumnSize > 0)
-                tvwAgentStates.ExtraColumnWidth = Properties.Settings.Default.MainWindowTreeViewExtraColumnSize;
-            else
-                tvwAgentStates.ExtraColumnWidth = 100;
-            tvwAgentStates.ExtraColumnTextAlign = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 1 ? QuickMon.Controls.TreeViewExExtraColumnTextAlign.Right : QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
-            tvwAgentStates.Refresh();
-        }
+            MonitorState selectedMonitorState;
+            tlvAgentStates.Items.Clear();
 
+            if (optHistoricStateView.Checked && lvwHistory.SelectedItems.Count == 1 && lvwHistory.SelectedItems[0].Tag is MonitorState)
+            {
+                selectedMonitorState = (MonitorState)lvwHistory.SelectedItems[0].Tag;
+            }
+            else
+            {
+                selectedMonitorState = SelectedCollectorHost.CurrentState;
+            }
+
+            if (selectedMonitorState == null || selectedMonitorState.State == CollectorState.UpdateInProgress || selectedMonitorState.State == CollectorState.NotAvailable)
+            {
+                foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
+                {
+                    HenIT.Windows.Controls.TreeListViewItem agentNode = new HenIT.Windows.Controls.TreeListViewItem(agent.Name, collectorNAstateImage);
+                    agentNode.SubItems.Add("");
+
+                    foreach (ICollectorConfigEntry entry in ((ICollectorConfig)agent.AgentConfig).Entries)
+                    {
+                        HenIT.Windows.Controls.TreeListViewItem entryNode = new HenIT.Windows.Controls.TreeListViewItem(entry.Description, collectorNAstateImage);
+                        entryNode.SubItems.Add("");
+                        agentNode.Items.Add(entryNode);
+                        if (entry.SubItems != null)
+                        {
+                            foreach (ICollectorConfigSubEntry subEntry in entry.SubItems)
+                            {
+                                HenIT.Windows.Controls.TreeListViewItem subEntryNode = new HenIT.Windows.Controls.TreeListViewItem(subEntry.Description, collectorNAstateImage);
+                                subEntryNode.SubItems.Add("");
+                                entryNode.Items.Add(subEntryNode);
+                            }
+                        }
+                    }
+                    tlvAgentStates.Items.Add(agentNode);
+                    agentNode.ExpandAll();
+                }
+            }
+            else
+            {
+                foreach (MonitorState agentState in selectedMonitorState.ChildStates)
+                {
+                    int agentNodeStateIndex = GetNodeStateImageIndex(agentState.State);
+                    HenIT.Windows.Controls.TreeListViewItem agentNode = new HenIT.Windows.Controls.TreeListViewItem(agentState.ForAgent, agentNodeStateIndex);
+                    agentNode.SubItems.Add(agentState.FormatValue());
+                    agentNode.Tag = agentState;
+                    tlvAgentStates.Items.Add(agentNode);
+                    foreach (MonitorState entryState in agentState.ChildStates)
+                    {
+                        int entryNodeStateIndex = GetNodeStateImageIndex(entryState.State);
+                        HenIT.Windows.Controls.TreeListViewItem entryNode = new HenIT.Windows.Controls.TreeListViewItem(entryState.ForAgent, entryNodeStateIndex);
+                        entryNode.SubItems.Add(entryState.FormatValue());
+                        entryNode.Tag = entryNode;
+                        agentNode.Items.Add(entryNode);
+                        foreach (MonitorState subEntryState in entryState.ChildStates)
+                        {
+                            int subEntryNodeStateIndex = GetNodeStateImageIndex(subEntryState.State);
+                            HenIT.Windows.Controls.TreeListViewItem subEntryNode = new HenIT.Windows.Controls.TreeListViewItem(subEntryState.ForAgent, subEntryNodeStateIndex);
+                            subEntryNode.SubItems.Add(subEntryState.FormatValue());
+                            subEntryNode.Tag = subEntryState;
+                            entryNode.Items.Add(subEntryNode);
+                        }
+                    }
+                    agentNode.ExpandAll();
+                }
+            }    
+        }
+        private void LoadHistory()
+        {
+            MonitorState hi;
+            DateTime selectedTimeStamp = new DateTime(1900, 1, 1);
+            if (lvwHistory.SelectedItems.Count == 1 && lvwHistory.SelectedItems[0].Tag is MonitorState)
+            {
+                hi = (MonitorState)lvwHistory.SelectedItems[0].Tag;
+                selectedTimeStamp = hi.Timestamp;
+            }
+
+            lvwHistory.Items.Clear();
+            if (SelectedCollectorHost != null && SelectedCollectorHost.StateHistory != null && SelectedCollectorHost.CurrentState != null)
+            {
+                
+                hi = SelectedCollectorHost.CurrentState;
+                ListViewItem lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                lvi.ImageIndex = GetNodeStateImageIndex(hi.State);
+                lvi.SubItems.Add(hi.State.ToString());
+                lvi.SubItems.Add(hi.CallDurationMS.ToString());
+                lvi.SubItems.Add(hi.AlertsRaised.Count.ToString());
+                lvi.SubItems.Add(hi.ExecutedOnHostComputer);
+                lvi.SubItems.Add(hi.RanAs);
+                lvi.SubItems.Add(hi.ReadFirstValue());
+                lvi.Tag = hi;
+                lvwHistory.Items.Add(lvi);
+                if (selectedTimeStamp == hi.Timestamp)
+                    lvi.Selected = true;
+
+                for (int i = SelectedCollectorHost.StateHistory.Count - 1; i >= 0; i--)
+                {
+                    hi = SelectedCollectorHost.StateHistory[i];
+                    lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                    lvi.ImageIndex = GetNodeStateImageIndex(hi.State);
+                    lvi.SubItems.Add(hi.State.ToString());
+                    lvi.SubItems.Add(hi.CallDurationMS.ToString());
+                    lvi.SubItems.Add(hi.AlertsRaised.Count.ToString());
+                    lvi.SubItems.Add(hi.ExecutedOnHostComputer);
+                    lvi.SubItems.Add(hi.RanAs);
+                    lvi.SubItems.Add(hi.ReadFirstValue());
+                    lvi.Tag = hi;
+                    lvwHistory.Items.Add(lvi);
+                    if (selectedTimeStamp == hi.Timestamp)
+                        lvi.Selected = true;
+                }
+            }
+        }
+        #endregion
+
+        #region Button events
+        private void cmdActionScriptsVisible_Click(object sender, EventArgs e)
+        {
+            splitContainerMain.Panel2Collapsed = !splitContainerMain.Panel2Collapsed;
+        }
+        private void cmdCollectorEdit_Click(object sender, EventArgs e)
+        {
+            StartEditMode();
+        }
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            StopEditMode();
+        }
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
             RefreshDetails();
         }
+        #endregion
 
-        private void tvwAgentStates_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        //private void flowLayoutPanelCollectorStuff_Resize(object sender, EventArgs e)
+        //{
+        //    int clientSizeWidth = flowLayoutPanelCollectorStuff.ClientSize.Width - flowLayoutPanelCollectorStuff.Margin.Left - flowLayoutPanelCollectorStuff.Margin.Right - 1;
+        //    int clientSizeHeight = flowLayoutPanelCollectorStuff.ClientSize.Height - flowLayoutPanelCollectorStuff.Margin.Top - flowLayoutPanelCollectorStuff.Margin.Bottom - 1;
+        //    foreach (Control c in flowLayoutPanelCollectorStuff.Controls)
+        //    {
+        //        if (c is Panel)
+        //        {
+        //            c.Width = clientSizeWidth;
+        //            c.Height = clientSizeHeight;
+        //        }
+        //    }
+        //}
+
+        private void optAgentStates_CheckedChanged(object sender, EventArgs e)
         {
-            TreeViewHitTestInfo tvi = tvwAgentStates.HitTest(e.Location);
-            if (tvi.Node != null && tvi.Location == TreeViewHitTestLocations.RightOfLabel)
-                tvwAgentStates.SelectedNode = tvi.Node;
+            SetActivePanel(panelAgentStates);
+        }
+        private void optMetrics_CheckedChanged(object sender, EventArgs e)
+        {
+            SetActivePanel(panelMetrics);
+        }
+
+        private void statusStripCollector_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Name == "toolStripStatusLabelEnabled")
+            {
+                SelectedCollectorHost.Enabled = !SelectedCollectorHost.Enabled;
+                UpdateStatusBar();
+
+                ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+            }
+            else if (e.ClickedItem.Name == "toolStripStatusLabelAutoRefresh")
+            {
+                AutoRefreshEnabled = !AutoRefreshEnabled;
+                UpdateStatusBar();
+            }
         }
 
         private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
         {
             agentStateSplitContainer.Panel2Collapsed = true;
+            UpdateAgentStateTree();
         }
-
         private void optHistoricStateView_CheckedChanged(object sender, EventArgs e)
         {
             agentStateSplitContainer.Panel2Collapsed = false;
+            if (lvwHistory.SelectedItems.Count == 0 && lvwHistory.Items.Count > 0)
+            {
+                lvwHistory.Items[0].Selected = true;
+            }
+            UpdateAgentStateTree();
+        }
+
+        private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvwHistory.SelectedItems.Count == 1)
+            {
+                UpdateAgentStateTree();
+            }
+            
         }
     }
 }
