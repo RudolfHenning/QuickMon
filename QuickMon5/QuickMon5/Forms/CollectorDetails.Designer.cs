@@ -29,18 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Agent 1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Agent 1", new System.Windows.Forms.TreeNode[] {
+            treeNode8});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -65,7 +66,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
-            this.tvwAgentStates = new QuickMon.Controls.TreeViewExBase();
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
@@ -83,6 +83,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tvwAgentStates = new QuickMon.Controls.TreeViewExBase();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.optCurrentStateView = new System.Windows.Forms.RadioButton();
+            this.optHistoricStateView = new System.Windows.Forms.RadioButton();
+            this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.listViewEx1 = new QuickMon.ListViewEx();
+            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -95,6 +110,11 @@
             this.panelAgentStates.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
+            this.agentStateSplitContainer.Panel1.SuspendLayout();
+            this.agentStateSplitContainer.Panel2.SuspendLayout();
+            this.agentStateSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -259,7 +279,7 @@
             // 
             this.panelHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelHistory.Controls.Add(this.listView2);
-            this.panelHistory.Location = new System.Drawing.Point(13, 375);
+            this.panelHistory.Location = new System.Drawing.Point(13, 597);
             this.panelHistory.Name = "panelHistory";
             this.panelHistory.Size = new System.Drawing.Size(500, 191);
             this.panelHistory.TabIndex = 3;
@@ -295,7 +315,7 @@
             // 
             this.panelMetrics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMetrics.Controls.Add(this.listView1);
-            this.panelMetrics.Location = new System.Drawing.Point(9, 224);
+            this.panelMetrics.Location = new System.Drawing.Point(9, 455);
             this.panelMetrics.Name = "panelMetrics";
             this.panelMetrics.Size = new System.Drawing.Size(500, 125);
             this.panelMetrics.TabIndex = 2;
@@ -324,48 +344,12 @@
             // 
             // panelAgentStates
             // 
+            this.panelAgentStates.Controls.Add(this.agentStateSplitContainer);
             this.panelAgentStates.Controls.Add(this.tvwAgentStates);
             this.panelAgentStates.Location = new System.Drawing.Point(5, 20);
             this.panelAgentStates.Name = "panelAgentStates";
-            this.panelAgentStates.Size = new System.Drawing.Size(520, 198);
+            this.panelAgentStates.Size = new System.Drawing.Size(520, 396);
             this.panelAgentStates.TabIndex = 1;
-            // 
-            // tvwAgentStates
-            // 
-            this.tvwAgentStates.AllowKeyBoardNodeReorder = false;
-            this.tvwAgentStates.AutoScrollToSelectedNodeWaitTimeMS = 500;
-            this.tvwAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tvwAgentStates.CheckBoxEnhancements = false;
-            this.tvwAgentStates.DisableCollapseOnDoubleClick = true;
-            this.tvwAgentStates.DisableExpandOnDoubleClick = false;
-            this.tvwAgentStates.DisableNode0Collapse = false;
-            this.tvwAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwAgentStates.DragColor = System.Drawing.Color.Aquamarine;
-            this.tvwAgentStates.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.tvwAgentStates.EnableAutoScrollToSelectedNode = false;
-            this.tvwAgentStates.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
-            this.tvwAgentStates.ExtraColumnWidth = 150;
-            this.tvwAgentStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvwAgentStates.HideSelection = false;
-            this.tvwAgentStates.HighLightWholeNode = true;
-            this.tvwAgentStates.ImageIndex = 0;
-            this.tvwAgentStates.ImageList = this.imagesCollectorTree;
-            this.tvwAgentStates.Indent = 20;
-            this.tvwAgentStates.Location = new System.Drawing.Point(0, 0);
-            this.tvwAgentStates.Name = "tvwAgentStates";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Node1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Agent 1";
-            this.tvwAgentStates.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.tvwAgentStates.RootAlwaysExpanded = false;
-            this.tvwAgentStates.SelectedImageIndex = 0;
-            this.tvwAgentStates.ShowColumnSeparatorLine = true;
-            this.tvwAgentStates.ShowLines = false;
-            this.tvwAgentStates.Size = new System.Drawing.Size(520, 198);
-            this.tvwAgentStates.TabIndex = 0;
-            this.tvwAgentStates.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwAgentStates_NodeMouseClick);
             // 
             // imagesCollectorTree
             // 
@@ -470,19 +454,19 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(2, 25);
             this.treeView1.Name = "treeView1";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Parameter 1";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Script 1";
-            treeNode5.Name = "Node3";
-            treeNode5.Text = "Parameter 1";
-            treeNode6.Name = "Node4";
-            treeNode6.Text = "Parameter 2";
-            treeNode7.Name = "Node2";
-            treeNode7.Text = "Script 2";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Parameter 1";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Script 1";
+            treeNode10.Name = "Node3";
+            treeNode10.Text = "Parameter 1";
+            treeNode11.Name = "Node4";
+            treeNode11.Text = "Parameter 2";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "Script 2";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7});
+            treeNode2,
+            treeNode12});
             this.treeView1.Size = new System.Drawing.Size(198, 475);
             this.treeView1.TabIndex = 5;
             // 
@@ -598,6 +582,177 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
+            // tlvAgentStates
+            // 
+            this.tlvAgentStates.AllowSorting = false;
+            this.tlvAgentStates.AutoResizeColumnEnabled = false;
+            this.tlvAgentStates.AutoResizeColumnIndex = 0;
+            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlvAgentStates.HideSelection = false;
+            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tlvAgentStates.MultiSelect = false;
+            this.tlvAgentStates.Name = "tlvAgentStates";
+            this.tlvAgentStates.Size = new System.Drawing.Size(492, 116);
+            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
+            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.TabIndex = 1;
+            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 325;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Value";
+            this.valueColumnHeader.Width = 150;
+            // 
+            // tvwAgentStates
+            // 
+            this.tvwAgentStates.AllowKeyBoardNodeReorder = false;
+            this.tvwAgentStates.AutoScrollToSelectedNodeWaitTimeMS = 500;
+            this.tvwAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvwAgentStates.CheckBoxEnhancements = false;
+            this.tvwAgentStates.DisableCollapseOnDoubleClick = true;
+            this.tvwAgentStates.DisableExpandOnDoubleClick = false;
+            this.tvwAgentStates.DisableNode0Collapse = false;
+            this.tvwAgentStates.DragColor = System.Drawing.Color.Aquamarine;
+            this.tvwAgentStates.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.tvwAgentStates.EnableAutoScrollToSelectedNode = false;
+            this.tvwAgentStates.ExtraColumnTextAlign = QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
+            this.tvwAgentStates.ExtraColumnWidth = 150;
+            this.tvwAgentStates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvwAgentStates.HideSelection = false;
+            this.tvwAgentStates.HighLightWholeNode = true;
+            this.tvwAgentStates.ImageIndex = 0;
+            this.tvwAgentStates.ImageList = this.imagesCollectorTree;
+            this.tvwAgentStates.Indent = 20;
+            this.tvwAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tvwAgentStates.Name = "tvwAgentStates";
+            treeNode8.Name = "Node1";
+            treeNode8.Text = "Node1";
+            treeNode9.Name = "Node0";
+            treeNode9.Text = "Agent 1";
+            this.tvwAgentStates.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode9});
+            this.tvwAgentStates.RootAlwaysExpanded = false;
+            this.tvwAgentStates.SelectedImageIndex = 0;
+            this.tvwAgentStates.ShowColumnSeparatorLine = true;
+            this.tvwAgentStates.ShowLines = false;
+            this.tvwAgentStates.Size = new System.Drawing.Size(520, 89);
+            this.tvwAgentStates.TabIndex = 0;
+            this.tvwAgentStates.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwAgentStates_NodeMouseClick);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.optHistoricStateView);
+            this.panel3.Controls.Add(this.optCurrentStateView);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 116);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(492, 28);
+            this.panel3.TabIndex = 2;
+            // 
+            // optCurrentStateView
+            // 
+            this.optCurrentStateView.AutoSize = true;
+            this.optCurrentStateView.Checked = true;
+            this.optCurrentStateView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.optCurrentStateView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optCurrentStateView.Location = new System.Drawing.Point(0, 0);
+            this.optCurrentStateView.Name = "optCurrentStateView";
+            this.optCurrentStateView.Size = new System.Drawing.Size(58, 28);
+            this.optCurrentStateView.TabIndex = 1;
+            this.optCurrentStateView.Text = "Current";
+            this.optCurrentStateView.UseVisualStyleBackColor = true;
+            this.optCurrentStateView.CheckedChanged += new System.EventHandler(this.optCurrentStateView_CheckedChanged);
+            // 
+            // optHistoricStateView
+            // 
+            this.optHistoricStateView.AutoSize = true;
+            this.optHistoricStateView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.optHistoricStateView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.optHistoricStateView.Location = new System.Drawing.Point(58, 0);
+            this.optHistoricStateView.Name = "optHistoricStateView";
+            this.optHistoricStateView.Size = new System.Drawing.Size(59, 28);
+            this.optHistoricStateView.TabIndex = 2;
+            this.optHistoricStateView.Text = "Historic";
+            this.optHistoricStateView.UseVisualStyleBackColor = true;
+            this.optHistoricStateView.CheckedChanged += new System.EventHandler(this.optHistoricStateView_CheckedChanged);
+            // 
+            // agentStateSplitContainer
+            // 
+            this.agentStateSplitContainer.Location = new System.Drawing.Point(8, 95);
+            this.agentStateSplitContainer.Name = "agentStateSplitContainer";
+            this.agentStateSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // agentStateSplitContainer.Panel1
+            // 
+            this.agentStateSplitContainer.Panel1.Controls.Add(this.tlvAgentStates);
+            this.agentStateSplitContainer.Panel1.Controls.Add(this.panel3);
+            // 
+            // agentStateSplitContainer.Panel2
+            // 
+            this.agentStateSplitContainer.Panel2.Controls.Add(this.listViewEx1);
+            this.agentStateSplitContainer.Size = new System.Drawing.Size(492, 288);
+            this.agentStateSplitContainer.SplitterDistance = 144;
+            this.agentStateSplitContainer.TabIndex = 3;
+            // 
+            // listViewEx1
+            // 
+            this.listViewEx1.AutoResizeColumnEnabled = false;
+            this.listViewEx1.AutoResizeColumnIndex = 0;
+            this.listViewEx1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.timeColumnHeader,
+            this.stateColumnHeader,
+            this.durationColumnHeader,
+            this.alertCountColumnHeader,
+            this.executedOnColumnHeader,
+            this.ranAsColumnHeader});
+            this.listViewEx1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewEx1.Location = new System.Drawing.Point(0, 0);
+            this.listViewEx1.Name = "listViewEx1";
+            this.listViewEx1.Size = new System.Drawing.Size(492, 140);
+            this.listViewEx1.TabIndex = 0;
+            this.listViewEx1.UseCompatibleStateImageBehavior = false;
+            this.listViewEx1.View = System.Windows.Forms.View.Details;
+            // 
+            // timeColumnHeader
+            // 
+            this.timeColumnHeader.Text = "Time";
+            this.timeColumnHeader.Width = 128;
+            // 
+            // stateColumnHeader
+            // 
+            this.stateColumnHeader.Text = "State";
+            this.stateColumnHeader.Width = 65;
+            // 
+            // durationColumnHeader
+            // 
+            this.durationColumnHeader.Text = "Duration (ms)";
+            this.durationColumnHeader.Width = 84;
+            // 
+            // alertCountColumnHeader
+            // 
+            this.alertCountColumnHeader.Text = "Alerts";
+            // 
+            // executedOnColumnHeader
+            // 
+            this.executedOnColumnHeader.Text = "Executed on";
+            this.executedOnColumnHeader.Width = 82;
+            // 
+            // ranAsColumnHeader
+            // 
+            this.ranAsColumnHeader.Text = "Ran as";
+            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -631,6 +786,12 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.agentStateSplitContainer.Panel1.ResumeLayout(false);
+            this.agentStateSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).EndInit();
+            this.agentStateSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -680,5 +841,19 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ImageList imagesCollectorTree;
+        private HenIT.Windows.Controls.TreeListView tlvAgentStates;
+        private System.Windows.Forms.ColumnHeader nameColumnHeader;
+        private System.Windows.Forms.ColumnHeader valueColumnHeader;
+        private System.Windows.Forms.SplitContainer agentStateSplitContainer;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton optHistoricStateView;
+        private System.Windows.Forms.RadioButton optCurrentStateView;
+        private ListViewEx listViewEx1;
+        private System.Windows.Forms.ColumnHeader timeColumnHeader;
+        private System.Windows.Forms.ColumnHeader stateColumnHeader;
+        private System.Windows.Forms.ColumnHeader durationColumnHeader;
+        private System.Windows.Forms.ColumnHeader alertCountColumnHeader;
+        private System.Windows.Forms.ColumnHeader executedOnColumnHeader;
+        private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
     }
 }
