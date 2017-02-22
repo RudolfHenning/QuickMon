@@ -377,6 +377,31 @@ namespace QuickMon
             }
             return sb.ToString();
         }
+        public string ReadFirstValue()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentValue != null)
+            {
+                sb.Append(CurrentValue.ToString());
+                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                {
+                    sb.Append(" " + CurrentValueUnit);
+                }                
+            }
+            else if (ChildStates.Count > 0)
+            {
+                foreach (MonitorState cs in ChildStates)
+                {
+                    string scValue = cs.ReadFirstValue();
+                    if (scValue.Length > 0)
+                    {
+                        sb.Append(scValue);
+                        break;
+                    }
+                }
+            }
+            return sb.ToString();
+        }
         public string ReadValues(bool trimCrLf = true)
         {
             StringBuilder sb = new StringBuilder();

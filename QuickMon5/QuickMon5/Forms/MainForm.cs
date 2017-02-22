@@ -1140,8 +1140,6 @@ namespace QuickMon
             }
         }
 
-        
-
         private void SetNodesToBeingRefreshed(TreeNode root = null)
         {
             if (root != null && root.Tag != null && root.Tag is CollectorHost)
