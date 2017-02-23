@@ -310,7 +310,7 @@ namespace QuickMon
             lvwHistory.Items.Clear();
             if (SelectedCollectorHost != null && SelectedCollectorHost.StateHistory != null && SelectedCollectorHost.CurrentState != null)
             {
-                
+                optHistoricStateView.Text = "Historic (" + SelectedCollectorHost.StateHistory.Count.ToString() + ")";
                 hi = SelectedCollectorHost.CurrentState;
                 ListViewItem lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
                 lvi = new ListViewItem(hi.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -342,6 +342,10 @@ namespace QuickMon
                     if (selectedTimeStamp == hi.Timestamp)
                         lvi.Selected = true;
                 }
+            }
+            else
+            {
+                optHistoricStateView.Text = "Historic";
             }
         }
         #endregion
