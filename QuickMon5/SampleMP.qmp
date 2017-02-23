@@ -15,9 +15,9 @@
 				</collectorAgent>			
 			</collectorAgents>
 			<!-- Polling settings -->
-			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<polling enabledPollingOverride="True" onlyAllowUpdateOncePerXSec="29" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="45" pollSlideFrequencyAfterSecondRepeatSec="60" pollSlideFrequencyAfterThirdRepeatSec="75" />
 			<!-- Remote agent settings -->
-			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
 			<!-- Corrective Scripts -->
 			<correctiveScripts enabled="False" onlyOnStateChange="False">
 				<warning />

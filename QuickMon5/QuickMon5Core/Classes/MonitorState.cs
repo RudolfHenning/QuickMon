@@ -89,6 +89,7 @@ namespace QuickMon
             {
                 State = this.State,
                 CurrentValue = this.CurrentValue,
+                CurrentValueUnit = this.CurrentValueUnit,
                 ForAgent = this.ForAgent,
                 ForAgentType = this.ForAgentType,
                 RawDetails = this.RawDetails,
@@ -99,6 +100,10 @@ namespace QuickMon
                 ExecutedOnHostComputer = this.ExecutedOnHostComputer,
                 AlertsRaised = cloneAlerts,
                 ScriptsRan = cloneScripts,
+                AdditionalAlertText = this.AdditionalAlertText,
+                AlertHeader = this.AlertHeader,
+                AlertFooter = this.AlertFooter,
+                RanAs = this.RanAs,
                 RepeatCount = this.RepeatCount
             };
         }

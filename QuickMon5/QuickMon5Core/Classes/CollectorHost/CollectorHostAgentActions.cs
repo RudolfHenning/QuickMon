@@ -16,182 +16,190 @@ namespace QuickMon
         public void SetCurrentState(MonitorState newState)
         {
             bool raiseAlertNow = false;
-            if (currentState != null)
+            if (!PollingOverrideActive)
             {
-                if (!CurrentPollAborted)
+                if (currentState != null)
+                {
                     LastStateUpdate = DateTime.Now;
-                if (FirstStateUpdate < (new DateTime(2000, 1, 1)))
-                    FirstStateUpdate = DateTime.Now;
+                    if (FirstStateUpdate < (new DateTime(2000, 1, 1)))
+                        FirstStateUpdate = DateTime.Now;
 
-                bool stateChanged = currentState.State != newState.State;
+                    bool stateChanged = currentState.State != newState.State;
 
-                #region Polling overide stuff
-                if (stateChanged)
-                {
-                    LastStateChange = DateTime.Now;
-                    StagnantStateFirstRepeat = false;
-                    StagnantStateSecondRepeat = false;
-                    StagnantStateThirdRepeat = false;
-                    if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
-                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding cancelled due to collector state value changed");
-                }
-                else if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
-                {
-                    if (!StagnantStateFirstRepeat)
+                    #region Polling overide stuff
+                    if (stateChanged)
                     {
-                        StagnantStateFirstRepeat = true;
+                        LastStateChange = DateTime.Now;
+                        StagnantStateFirstRepeat = false;
                         StagnantStateSecondRepeat = false;
                         StagnantStateThirdRepeat = false;
-                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 1st stagnant stage");
+                        if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
+                            RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding cancelled due to collector state value changed");
                     }
-                    else if (!StagnantStateSecondRepeat)
+                    else if (EnabledPollingOverride && EnablePollFrequencySliding && CurrentState.State != CollectorState.NotAvailable)
                     {
-                        StagnantStateSecondRepeat = true;
-                        StagnantStateThirdRepeat = false;
-                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 2nd stagnant stage");
-                    }
-                    else if (!StagnantStateThirdRepeat)
-                    {
-                        StagnantStateThirdRepeat = true;
-                        RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 3rd stagnant stage");
-                    }
-                } 
-                #endregion
 
-                #region Check if alert should be raised now
-                if (stateChanged)
-                {
-                    if (newState.State == CollectorState.Good)
-                        numberOfPollingsInErrWarn = 0;
-                    if (DelayErrWarnAlertForXSec > 0 || DelayErrWarnAlertForXPolls > 0) // alert should be delayed
-                    {
-                        delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
-                        numberOfPollingsInErrWarn = 0;
-                        waitAlertTimeErrWarnInMinFlagged = true;
-                    }
-                    else
-                    {
-                        raiseAlertNow = true;
-                    }
-                }
-                else
-                {
-                    if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
-                    {
-                        if (DelayErrWarnAlertForXSec > 0 && DateTime.Now > delayErrWarnAlertTime)
+                        if (!StagnantStateFirstRepeat)
                         {
-                            raiseAlertNow = true;
-                            waitAlertTimeErrWarnInMinFlagged = false;
-                            numberOfPollingsInErrWarn = 0;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
+                            newState.RepeatCount = 1;
+                            StagnantStateFirstRepeat = true;
+                            StagnantStateSecondRepeat = false;
+                            StagnantStateThirdRepeat = false;
+                            RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 1st stagnant stage");
+
                         }
-                        else if (DelayErrWarnAlertForXPolls > 0 && DelayErrWarnAlertForXPolls <= numberOfPollingsInErrWarn)
+                        else if (!StagnantStateSecondRepeat)
                         {
-                            raiseAlertNow = true;
-                            waitAlertTimeErrWarnInMinFlagged = false;
+                            newState.RepeatCount = 2;
+                            StagnantStateSecondRepeat = true;
+                            StagnantStateThirdRepeat = false;
+                            RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 2nd stagnant stage");
+
+                        }
+                        else if (!StagnantStateThirdRepeat)
+                        {
+                            newState.RepeatCount = 3;
+                            StagnantStateThirdRepeat = true;
+                            RaiseLoggingPollingOverridesTriggeredEvent("Frequency sliding reached 3rd stagnant stage");
+
+                        }
+                    }
+                    #endregion
+
+                    #region Check if alert should be raised now
+                    if (stateChanged)
+                    {
+                        if (newState.State == CollectorState.Good)
                             numberOfPollingsInErrWarn = 0;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
+                        if (DelayErrWarnAlertForXSec > 0 || DelayErrWarnAlertForXPolls > 0) // alert should be delayed
+                        {
+                            delayErrWarnAlertTime = DateTime.Now.AddSeconds(DelayErrWarnAlertForXSec);
+                            numberOfPollingsInErrWarn = 0;
+                            waitAlertTimeErrWarnInMinFlagged = true;
                         }
                         else
                         {
-                            raiseAlertNow = false;
+                            raiseAlertNow = true;
                         }
                     }
                     else
                     {
-                        if (
-                                (RepeatAlertInXMin > 0 && (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)) ||
-                                (RepeatAlertInXPolls > 0 && RepeatAlertInXPolls <= numberOfPollingsInErrWarn)
-                            )
+                        if (waitAlertTimeErrWarnInMinFlagged) //waiting for delayed alert
                         {
-                            raiseAlertNow = true;
-                            numberOfPollingsInErrWarn = 0;
-                            //handle further alerts as if it changed now again
-                            LastStateChange = DateTime.Now;
+                            if (DelayErrWarnAlertForXSec > 0 && DateTime.Now > delayErrWarnAlertTime)
+                            {
+                                raiseAlertNow = true;
+                                waitAlertTimeErrWarnInMinFlagged = false;
+                                numberOfPollingsInErrWarn = 0;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else if (DelayErrWarnAlertForXPolls > 0 && DelayErrWarnAlertForXPolls <= numberOfPollingsInErrWarn)
+                            {
+                                raiseAlertNow = true;
+                                waitAlertTimeErrWarnInMinFlagged = false;
+                                numberOfPollingsInErrWarn = 0;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else
+                            {
+                                raiseAlertNow = false;
+                            }
                         }
                         else
                         {
-                            raiseAlertNow = false;
+                            if (
+                                    (RepeatAlertInXMin > 0 && (LastStateChange.AddMinutes(RepeatAlertInXMin) < DateTime.Now)) ||
+                                    (RepeatAlertInXPolls > 0 && RepeatAlertInXPolls <= numberOfPollingsInErrWarn)
+                                )
+                            {
+                                raiseAlertNow = true;
+                                numberOfPollingsInErrWarn = 0;
+                                //handle further alerts as if it changed now again
+                                LastStateChange = DateTime.Now;
+                            }
+                            else
+                            {
+                                raiseAlertNow = false;
+                            }
                         }
                     }
-                }
-                if (raiseAlertNow)
-                {
-                    //only allow repeat alert after specified minutes
-                    if (AlertOnceInXMin > 0 && LastAlertTime.AddMinutes(AlertOnceInXMin) > DateTime.Now)
+                    if (raiseAlertNow)
                     {
-                        raiseAlertNow = false; //cancel alert
+                        //only allow repeat alert after specified minutes
+                        if (AlertOnceInXMin > 0 && LastAlertTime.AddMinutes(AlertOnceInXMin) > DateTime.Now)
+                        {
+                            raiseAlertNow = false; //cancel alert
+                        }
                     }
-                }
-                else
-                {
-                    if (newState.State == CollectorState.Warning || newState.State == CollectorState.Error)
-                        numberOfPollingsInErrWarn++;
                     else
-                        numberOfPollingsInErrWarn = 0;
-                }
-                #endregion
+                    {
+                        if (newState.State == CollectorState.Warning || newState.State == CollectorState.Error)
+                            numberOfPollingsInErrWarn++;
+                        else
+                            numberOfPollingsInErrWarn = 0;
+                    }
+                    #endregion
 
-                if (currentState.RepeatCount == 0)
                     AddStateToHistory(currentState);
 
-                #region Corrective scripts
-                if (!CorrectiveScriptDisabled && (ParentMonitorPack == null || ParentMonitorPack.CorrectiveScriptsEnabled))
+                    #region Corrective scripts
+                    if (!CorrectiveScriptDisabled && (ParentMonitorPack == null || ParentMonitorPack.CorrectiveScriptsEnabled))
+                    {
+                        if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
+                        {
+                            foreach (string scriptName in RunRestorationScripts())
+                            {
+                                newState.ScriptsRan.Add("Restoration script: " + scriptName);
+                            }
+                        }
+                        else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
+                        {
+                            if (newState.State == CollectorState.Error)
+                            {
+                                foreach (string scriptName in RunErrorCorrectiveScripts())
+                                {
+                                    newState.ScriptsRan.Add("Error corrective script: " + scriptName);
+                                }
+                            }
+                            else if (newState.State == CollectorState.Warning)
+                            {
+                                foreach (string scriptName in RunWarningCorrectiveScripts())
+                                {
+                                    newState.ScriptsRan.Add("Warning corrective script: " + scriptName);
+                                }
+                            }
+                        }
+                    }
+                    #endregion
+                }
+
+                currentState = newState;
+
+                #region Set Alert texts
+                if (AlertHeaderText != null && AlertHeaderText.Trim().Length > 0)
                 {
-                    if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
-                    {
-                        foreach (string scriptName in RunRestorationScripts())
-                        {
-                            newState.ScriptsRan.Add("Restoration script: " + scriptName);
-                        }
-                    }
-                    else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
-                    {
-                        if (newState.State == CollectorState.Error)
-                        {
-                            foreach (string scriptName in RunErrorCorrectiveScripts())
-                            {
-                                newState.ScriptsRan.Add("Error corrective script: " + scriptName);
-                            }
-                        }
-                        else if (newState.State == CollectorState.Warning)
-                        {
-                            foreach (string scriptName in RunWarningCorrectiveScripts())
-                            {
-                                newState.ScriptsRan.Add("Warning corrective script: " + scriptName);
-                            }
-                        }
-                    }
-                } 
+                    currentState.AlertHeader = AlertHeaderText;
+                }
+                if (AlertFooterText != null && AlertFooterText.Trim().Length > 0)
+                {
+                    currentState.AlertFooter = AlertFooterText;
+                }
+                if (currentState.State == CollectorState.Good && GoodAlertText != null && GoodAlertText.Trim().Length > 0)
+                {
+                    currentState.AdditionalAlertText = GoodAlertText;
+                }
+                else if (currentState.State == CollectorState.Warning && WarningAlertText != null && WarningAlertText.Trim().Length > 0)
+                {
+                    currentState.AdditionalAlertText = WarningAlertText;
+                }
+                else if (currentState.State == CollectorState.Error && ErrorAlertText != null && ErrorAlertText.Trim().Length > 0)
+                {
+                    currentState.AdditionalAlertText = ErrorAlertText;
+                }
                 #endregion
             }
-
-            currentState = newState;
-
-            #region Set Alert texts
-            if (AlertHeaderText != null && AlertHeaderText.Trim().Length > 0)
-            {
-                currentState.AlertHeader = AlertHeaderText;
-            }
-            if (AlertFooterText != null && AlertFooterText.Trim().Length > 0)
-            {
-                currentState.AlertFooter = AlertFooterText;
-            }
-            if (currentState.State == CollectorState.Good && GoodAlertText != null && GoodAlertText.Trim().Length > 0)
-            {
-                currentState.AdditionalAlertText = GoodAlertText;
-            }
-            else if (currentState.State == CollectorState.Warning && WarningAlertText != null && WarningAlertText.Trim().Length > 0)
-            {
-                currentState.AdditionalAlertText = WarningAlertText;
-            }
-            else if (currentState.State == CollectorState.Error && ErrorAlertText != null && ErrorAlertText.Trim().Length > 0)
-            {
-                currentState.AdditionalAlertText = ErrorAlertText;
-            }
-            #endregion
 
             RaiseStateUpdated();
 
@@ -227,7 +235,7 @@ namespace QuickMon
             #endregion
         }
 
-        public MonitorState RefreshCurrentState(bool disablePollingOverrides = false)
+        public MonitorState RefreshCurrentState(bool forceRefreshNow = false)
         {
             MonitorState resultMonitorState = new MonitorState() { State = CollectorState.NotAvailable, RepeatCount = 0 };
             if (AlertHeaderText != null && AlertHeaderText.Trim().Length > 0)
@@ -240,7 +248,8 @@ namespace QuickMon
             }
 
             RefreshCount++;
-            CurrentPollAborted = false;
+            //CurrentPollAborted = false;
+            PollingOverrideActive = false;
             if (CurrentState.State != CollectorState.ConfigurationError)
             {
                 if (InServiceWindow) //currently in Service window
@@ -289,15 +298,17 @@ namespace QuickMon
                     StagnantStateThirdRepeat = false;
                     resultMonitorState.RawDetails = "Disabled because all agents are disabled.";
                 }
-                else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && !EnablePollFrequencySliding &&
+                else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && !EnablePollFrequencySliding &&
                     (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
                 {
                     //Not time yet for update
-                    CurrentPollAborted = true;
+                    PollingOverrideActive = true;
+                    //CurrentPollAborted = true;
                     //repeat same State
                     resultMonitorState = null;
                     resultMonitorState = CurrentState;
-                    resultMonitorState.RepeatCount++;
+                    //resultMonitorState.Timestamp = DateTime.Now;
+
                     //if (resultMonitorState.RawDetails == null)
                     //    resultMonitorState.RawDetails = "";
                     //if (resultMonitorState.RawDetails.Length > 0)
@@ -309,39 +320,93 @@ namespace QuickMon
                     //resultMonitorState.RawDetails = "Due to polling override (OnlyAllowUpdateOncePerXSec) the previous state is repeated.";
                     RaiseLoggingPollingOverridesTriggeredEvent(string.Format("Polling override of {0} seconds not reached yet", OnlyAllowUpdateOncePerXSec));
                 }
-                else if (CurrentState.State != CollectorState.NotAvailable && !disablePollingOverrides && EnabledPollingOverride && EnablePollFrequencySliding &&
-                    (
-                        (StagnantStateThirdRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec) > DateTime.Now)) ||
-                        (!StagnantStateThirdRepeat && StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec) > DateTime.Now)) ||
-                        (!StagnantStateThirdRepeat && !StagnantStateSecondRepeat && StagnantStateFirstRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec) > DateTime.Now)) ||
-                        (!StagnantStateFirstRepeat && !StagnantStateThirdRepeat && !StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
-                    )
-                   )
+                else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
+                        !StagnantStateFirstRepeat && !StagnantStateThirdRepeat && !StagnantStateSecondRepeat &&
+                    LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec-1) > DateTime.Now)
                 {
-                    //Not time yet for update
-                    CurrentPollAborted = true;
-                    //repeat same State
+                    PollingOverrideActive = true;
                     resultMonitorState = null;
                     resultMonitorState = CurrentState;
-                    resultMonitorState.RepeatCount++;
-                    //if (resultMonitorState.RawDetails == null)
-                    //    resultMonitorState.RawDetails = "";
-                    //if (resultMonitorState.RawDetails.Length > 0)
-                    //    resultMonitorState.RawDetails += "\r\n";
-
-                    //resultMonitorState.State = CurrentState.State;
-                    //resultMonitorState.CurrentValue = CurrentState.ReadValues();
-                    //if (StagnantStateThirdRepeat)
-                    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateThirdRepeat) the previous state is repeated.";
-                    //else if (StagnantStateSecondRepeat)
-                    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateSecondRepeat) the previous state is repeated.";
-                    //else if (StagnantStateFirstRepeat)
-                    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateFirstRepeat) the previous state is repeated.";
-                    //else
-                    //    resultMonitorState.RawDetails += "Due to polling override (EnablePollFrequencySliding) the previous state is repeated.";
+                    StagnantStateFirstRepeat = true;
+                    LastStateUpdate = DateTime.Now;
                 }
+                else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
+                        StagnantStateFirstRepeat && !StagnantStateThirdRepeat && !StagnantStateSecondRepeat &&
+                    LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec-1) > DateTime.Now)
+                {
+                    PollingOverrideActive = true;
+                    resultMonitorState = null;
+                    resultMonitorState = CurrentState;
+                    StagnantStateFirstRepeat = true;
+                    StagnantStateSecondRepeat = true;
+                    LastStateUpdate = DateTime.Now;
+                }
+                else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
+                        StagnantStateFirstRepeat && StagnantStateThirdRepeat && !StagnantStateSecondRepeat &&
+                    LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec-1) > DateTime.Now)
+                {
+                    PollingOverrideActive = true;
+                    resultMonitorState = null;
+                    resultMonitorState = CurrentState;
+                    StagnantStateFirstRepeat = true;
+                    StagnantStateSecondRepeat = true;
+                    StagnantStateThirdRepeat = true;
+                    LastStateUpdate = DateTime.Now;
+                }
+                else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
+                        StagnantStateFirstRepeat && StagnantStateThirdRepeat && StagnantStateSecondRepeat &&
+                    LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec-1) > DateTime.Now)
+                {
+                    PollingOverrideActive = true;
+                    resultMonitorState = null;
+                    resultMonitorState = CurrentState;
+                    StagnantStateFirstRepeat = true;
+                    StagnantStateSecondRepeat = true;
+                    StagnantStateThirdRepeat = true;
+                    if (!stagnantStateMaxReached)
+                    {
+                        LastStateUpdate = DateTime.Now;
+                        stagnantStateMaxReached = true;
+                    }
+                }
+
+
+
+                //else if (CurrentState.State != CollectorState.NotAvailable && !forceRefreshNow && EnabledPollingOverride && EnablePollFrequencySliding &&
+                //    (
+                //        (StagnantStateThirdRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterThirdRepeatSec) > DateTime.Now)) ||
+                //        (!StagnantStateThirdRepeat && StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterSecondRepeatSec) > DateTime.Now)) ||
+                //        (!StagnantStateThirdRepeat && !StagnantStateSecondRepeat && StagnantStateFirstRepeat && (LastStateUpdate.AddSeconds(PollSlideFrequencyAfterFirstRepeatSec) > DateTime.Now)) ||
+                //        (!StagnantStateFirstRepeat && !StagnantStateThirdRepeat && !StagnantStateSecondRepeat && (LastStateUpdate.AddSeconds(OnlyAllowUpdateOncePerXSec) > DateTime.Now))
+                //    )
+                //   )
+                //{
+                //    //Not time yet for update
+                //    //CurrentPollAborted = true;
+                //    //repeat same State
+                //    resultMonitorState = null;
+                //    resultMonitorState = CurrentState.Clone();
+                //    resultMonitorState.Timestamp = DateTime.Now;
+
+                //    //if (resultMonitorState.RawDetails == null)
+                //    //    resultMonitorState.RawDetails = "";
+                //    //if (resultMonitorState.RawDetails.Length > 0)
+                //    //    resultMonitorState.RawDetails += "\r\n";
+
+                //    //resultMonitorState.State = CurrentState.State;
+                //    //resultMonitorState.CurrentValue = CurrentState.ReadValues();
+                //    //if (StagnantStateThirdRepeat)
+                //    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateThirdRepeat) the previous state is repeated.";
+                //    //else if (StagnantStateSecondRepeat)
+                //    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateSecondRepeat) the previous state is repeated.";
+                //    //else if (StagnantStateFirstRepeat)
+                //    //    resultMonitorState.RawDetails += "Due to polling override (StagnantStateFirstRepeat) the previous state is repeated.";
+                //    //else
+                //    //    resultMonitorState.RawDetails += "Due to polling override (EnablePollFrequencySliding) the previous state is repeated.";
+                //}
                 else
                 {
+                    stagnantStateMaxReached = false;
                     //*********** Call actual collector GetState **********
                     LastStateCheckAttemptBegin = DateTime.Now;
                     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -423,7 +488,8 @@ namespace QuickMon
             }
 
             //Set current CH state plus raise any alerts if required
-            SetCurrentState(resultMonitorState);
+           // if (!PollingOverrideActive)
+                SetCurrentState(resultMonitorState);
             return resultMonitorState;
         }
         private MonitorState GetRemoteState()

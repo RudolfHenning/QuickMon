@@ -316,7 +316,9 @@ namespace QuickMon
         public bool StagnantStateFirstRepeat { get; private set; }
         public bool StagnantStateSecondRepeat { get; private set; }
         public bool StagnantStateThirdRepeat { get; private set; }
-        public bool CurrentPollAborted { get; set; }
+        public bool PollingOverrideActive { get; set; }
+        private bool stagnantStateMaxReached;
+        //private bool pollingOverrideActive = false;
         #endregion 
 
         #region Impersonation
