@@ -68,6 +68,7 @@ namespace QuickMon
             this.Size = new Size(700, 500);
             tlvAgentStates.AutoResizeColumnEnabled = true;
             lvwHistory.AutoResizeColumnEnabled = true;
+            lvwHistory.BorderStyle = BorderStyle.None;
             agentStateSplitContainer.Panel2Collapsed = true;
 
             if (SelectedCollectorHost == null)
@@ -411,10 +412,10 @@ namespace QuickMon
         private void optHistoricStateView_CheckedChanged(object sender, EventArgs e)
         {
             agentStateSplitContainer.Panel2Collapsed = false;
-            if (lvwHistory.SelectedItems.Count == 0 && lvwHistory.Items.Count > 0)
-            {
-                lvwHistory.Items[0].Selected = true;
-            }
+            //if (lvwHistory.SelectedItems.Count == 0 && lvwHistory.Items.Count > 0)
+            //{
+            //    lvwHistory.Items[0].Selected = true;
+            //}
             UpdateAgentStateTree();
         }
 

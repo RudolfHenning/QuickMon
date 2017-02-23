@@ -78,6 +78,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -318,6 +319,7 @@
             // agentStateSplitContainer.Panel2
             // 
             this.agentStateSplitContainer.Panel2.Controls.Add(this.lvwHistory);
+            this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
             this.agentStateSplitContainer.Size = new System.Drawing.Size(740, 384);
             this.agentStateSplitContainer.SplitterDistance = 192;
             this.agentStateSplitContainer.TabIndex = 3;
@@ -577,6 +579,15 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(740, 1);
+            this.label3.TabIndex = 1;
+            // 
             // tlvAgentStates
             // 
             this.tlvAgentStates.AllowSorting = false;
@@ -614,6 +625,7 @@
             // 
             this.lvwHistory.AutoResizeColumnEnabled = false;
             this.lvwHistory.AutoResizeColumnIndex = 6;
+            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.timeColumnHeader,
             this.stateColumnHeader,
@@ -624,9 +636,9 @@
             this.collectorValueColumnHeader});
             this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwHistory.FullRowSelect = true;
-            this.lvwHistory.Location = new System.Drawing.Point(0, 0);
+            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
             this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(740, 188);
+            this.lvwHistory.Size = new System.Drawing.Size(740, 187);
             this.lvwHistory.SmallImageList = this.imagesCollectorTree;
             this.lvwHistory.TabIndex = 0;
             this.lvwHistory.UseCompatibleStateImageBehavior = false;
@@ -764,5 +776,6 @@
         private System.Windows.Forms.ColumnHeader executedOnColumnHeader;
         private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
         private System.Windows.Forms.ColumnHeader collectorValueColumnHeader;
+        private System.Windows.Forms.Label label3;
     }
 }
