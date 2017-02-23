@@ -24,6 +24,7 @@ namespace QuickMon
             HtmlDetails = "";
             ForAgent = "";
             ForAgentType = "";
+            RepeatCount = 0;
         }
         public string UniqueId { get; private set; }
         private CollectorState state = CollectorState.NotAvailable;
@@ -69,9 +70,14 @@ namespace QuickMon
         [DataMember(Name = "AlertsRaised")]
         public List<string> AlertsRaised { get; set; }
         public List<string> ScriptsRan { get; set; }
-
         [DataMember(Name = "RanAs")]
         public string RanAs { get; set; }
+        /// <summary>
+        /// When Polling overrides are enabled new MonitorStates are suppressed
+        /// RepeatCount = 0 means it ran once
+        /// </summary>
+        [DataMember(Name = "RepeatCount")]
+        public int RepeatCount { get; set; }
 
         public MonitorState Clone()
         {
@@ -92,7 +98,8 @@ namespace QuickMon
                 CallDurationMS = this.CallDurationMS,
                 ExecutedOnHostComputer = this.ExecutedOnHostComputer,
                 AlertsRaised = cloneAlerts,
-                ScriptsRan = cloneScripts
+                ScriptsRan = cloneScripts,
+                RepeatCount = this.RepeatCount
             };
         }
 
@@ -113,6 +120,8 @@ namespace QuickMon
             root.SetAttributeValue("forAgentId", ForAgentId);
             root.SetAttributeValue("timeStamp", Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
             root.SetAttributeValue("callDurationMS", CallDurationMS.ToString());
+            root.SetAttributeValue("repeatCount", RepeatCount);
+            
             if (CurrentValue != null)
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
             else
@@ -195,6 +204,8 @@ namespace QuickMon
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
             RanAs = root.ReadXmlElementAttr("ranAs", "");
+            RanAs = root.ReadXmlElementAttr("ranAs", "");
+            RepeatCount = root.ReadXmlElementAttr("repeatCount", 0);
             try
             {
                 AlertHeader = root.SelectSingleNode("alertHeader").InnerText;
