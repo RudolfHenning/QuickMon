@@ -63,7 +63,6 @@ namespace QuickMon
             this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
             this.collectorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -475,7 +474,6 @@ namespace QuickMon
             this.collectorsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.collectorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCollectorToolStripMenuItem,
-            this.editCollectorToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.disableCollectorToolStripMenuItem,
             this.detailsToolStripMenuItem,
@@ -484,70 +482,63 @@ namespace QuickMon
             this.pasteCollectorToolStripMenuItem,
             this.pasteAndEditCollectorConfigToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 250);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(161, 242);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem
             // 
             this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addCollectorToolStripMenuItem.Name = "addCollectorToolStripMenuItem";
-            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.addCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.addCollectorToolStripMenuItem.Text = "Add";
             this.addCollectorToolStripMenuItem.Click += new System.EventHandler(this.addCollectorToolStripMenuItem_Click);
-            // 
-            // editCollectorToolStripMenuItem
-            // 
-            this.editCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
-            this.editCollectorToolStripMenuItem.Name = "editCollectorToolStripMenuItem";
-            this.editCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.editCollectorToolStripMenuItem.Text = "Edit";
-            this.editCollectorToolStripMenuItem.Click += new System.EventHandler(this.editCollectorToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // disableCollectorToolStripMenuItem
             // 
             this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
             this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             // 
             // detailsToolStripMenuItem
             // 
             this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.detailsToolStripMenuItem.Text = "Details";
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
             // 
             // copyCollectorToolStripMenuItem
             // 
             this.copyCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.copy24x24;
             this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
-            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.copyCollectorToolStripMenuItem.Text = "Copy";
             // 
             // pasteCollectorToolStripMenuItem
             // 
             this.pasteCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.paste24x24;
             this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
-            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteCollectorToolStripMenuItem.Text = "Paste";
             // 
             // pasteAndEditCollectorConfigToolStripMenuItem
             // 
             this.pasteAndEditCollectorConfigToolStripMenuItem.Image = global::QuickMon.Properties.Resources.pastewithedit24x24;
             this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
-            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
             // 
             // panel2
@@ -753,7 +744,7 @@ namespace QuickMon
             // 
             // cboRecentMonitorPacks
             // 
-            this.cboRecentMonitorPacks.DropDownHeight = 100;
+            this.cboRecentMonitorPacks.DropDownHeight = 200;
             this.cboRecentMonitorPacks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRecentMonitorPacks.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboRecentMonitorPacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -934,7 +925,6 @@ namespace QuickMon
         private System.Windows.Forms.Button cmdRecentMonitorPacks;
         private TreeViewExBase tvwCollectors;
         private System.Windows.Forms.ToolStripMenuItem addCollectorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editCollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip settingsContextMenuStrip;

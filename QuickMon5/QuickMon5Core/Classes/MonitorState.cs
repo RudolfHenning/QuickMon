@@ -82,9 +82,11 @@ namespace QuickMon
         public MonitorState Clone()
         {
             List<string> cloneAlerts = new List<string>();
-            cloneAlerts.AddRange(AlertsRaised.ToArray());
+            if (AlertsRaised != null)
+                cloneAlerts.AddRange(AlertsRaised.ToArray());
             List<string> cloneScripts = new List<string>();
-            cloneScripts.AddRange(ScriptsRan.ToArray());
+            if (ScriptsRan != null)
+                cloneScripts.AddRange(ScriptsRan.ToArray());
             return new MonitorState()
             {
                 State = this.State,
@@ -296,7 +298,7 @@ namespace QuickMon
                 linePaddingRepeat++;
             }
 
-            if (ScriptsRan.Count > 0)
+            if (ScriptsRan != null && ScriptsRan.Count > 0)
             {
                 sb.AppendLine((new string(linePaddingChar, linePaddingRepeat)) + "Scripts ran:");
                 foreach (string scriptName in ScriptsRan)

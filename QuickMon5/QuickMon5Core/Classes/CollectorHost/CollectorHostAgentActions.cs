@@ -506,11 +506,13 @@ namespace QuickMon
                     ca.CurrentState = new MonitorState() { ForAgent = ca.Name, State = CollectorState.NotAvailable, RawDetails = "Remote agent used", HtmlDetails = "<p>Remote agent used</p>" };
                 }
                 resultMonitorState = RemoteCollectorHostService.GetCollectorHostState(this, currentHostAddress, currentHostPort);
+
+                //What is this doing???
                 foreach (var agentState in resultMonitorState.ChildStates)
                 {
                     if (agentState.ForAgentId > -1 && agentState.ForAgentId < CollectorAgents.Count)
                     {
-                        CollectorAgents[agentState.ForAgentId].CurrentState.FromXml(agentState.ToXml());
+                        CollectorAgents[agentState.ForAgentId].CurrentState = agentState.Clone();
                     }
                 }
             }
@@ -527,6 +529,7 @@ namespace QuickMon
                 {
                     resultMonitorState.State = CollectorState.Error;
                     resultMonitorState.RawDetails = ex.ToString();
+                    resultMonitorState.CurrentValue = "Remote excution failed";
                     resultMonitorState.ExecutedOnHostComputer = System.Net.Dns.GetHostName();
                 }
             }

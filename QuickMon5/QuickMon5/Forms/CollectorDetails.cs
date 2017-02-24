@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HenIT.RTF;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -70,6 +71,7 @@ namespace QuickMon
             lvwHistory.AutoResizeColumnEnabled = true;
             lvwHistory.BorderStyle = BorderStyle.None;
             agentStateSplitContainer.Panel2Collapsed = true;
+            collectorDetailSplitContainer.Panel2Collapsed = true;
 
             if (SelectedCollectorHost == null)
                 SelectedCollectorHost = new CollectorHost();
@@ -242,12 +244,14 @@ namespace QuickMon
                 selectedMonitorState = SelectedCollectorHost.CurrentState;
             }
 
-            if (selectedMonitorState == null || selectedMonitorState.State == CollectorState.UpdateInProgress || selectedMonitorState.State == CollectorState.NotAvailable)
+            if (selectedMonitorState == null || selectedMonitorState.ChildStates== null || selectedMonitorState.ChildStates.Count == 0 || selectedMonitorState.State == CollectorState.UpdateInProgress || selectedMonitorState.State == CollectorState.NotAvailable)
             {
+                int agentNodeStateIndex = GetNodeStateImageIndex(selectedMonitorState.State);
                 foreach (ICollector agent in SelectedCollectorHost.CollectorAgents)
                 {
-                    HenIT.Windows.Controls.TreeListViewItem agentNode = new HenIT.Windows.Controls.TreeListViewItem(agent.Name, collectorNAstateImage);
+                    HenIT.Windows.Controls.TreeListViewItem agentNode = new HenIT.Windows.Controls.TreeListViewItem(agent.Name, agentNodeStateIndex);
                     agentNode.SubItems.Add("");
+                    agentNode.Tag = agent;
 
                     foreach (ICollectorConfigEntry entry in ((ICollectorConfig)agent.AgentConfig).Entries)
                     {
@@ -282,7 +286,7 @@ namespace QuickMon
                         int entryNodeStateIndex = GetNodeStateImageIndex(entryState.State);
                         HenIT.Windows.Controls.TreeListViewItem entryNode = new HenIT.Windows.Controls.TreeListViewItem(entryState.ForAgent, entryNodeStateIndex);
                         entryNode.SubItems.Add(entryState.FormatValue());
-                        entryNode.Tag = entryNode;
+                        entryNode.Tag = entryState;
                         agentNode.Items.Add(entryNode);
                         foreach (MonitorState subEntryState in entryState.ChildStates)
                         {
@@ -342,6 +346,8 @@ namespace QuickMon
                     if (selectedTimeStamp == hi.Timestamp)
                         lvi.Selected = true;
                 }
+                if (lvwHistory.SelectedItems.Count == 1)
+                    lvwHistory.SelectedItems[0].EnsureVisible();
             }
             else
             {
@@ -406,6 +412,41 @@ namespace QuickMon
                 AutoRefreshEnabled = !AutoRefreshEnabled;
                 UpdateStatusBar();
             }
+            else if (e.ClickedItem.Name == "toolStripStatusLabelRawEdit")
+            {
+                DoRAWEdit();
+            }
+        }
+
+        private void DoRAWEdit()
+        {
+            if (ValidateInput())
+            {
+                SelectedCollectorHost.Name = txtName.Text;
+                SelectedCollectorHost.ToXml();
+
+                RAWXmlEditor editor = new RAWXmlEditor();
+                string oldMarkUp = SelectedCollectorHost.ToXml();
+                editor.SelectedMarkup = oldMarkUp;
+                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    SelectedCollectorHost.ReconfigureFromXml(editor.SelectedMarkup);
+                    LoadControls();
+                    ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+                    //TriggerMonitorPackReload = true;
+                    //MonitorPack newMP = new MonitorPack();
+                    //newMP.LoadXml(editor.SelectedMarkup);
+                    //newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
+                    //SelectedMonitorPack = null;
+                    //SelectedMonitorPack = newMP;
+                    //LoadFormControls();
+                }
+            }
+        }
+
+        private bool ValidateInput()
+        {
+            return true;
         }
 
         private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
@@ -428,8 +469,72 @@ namespace QuickMon
             if (lvwHistory.SelectedItems.Count == 1)
             {
                 UpdateAgentStateTree();
+                UpdateRawView();
+            }            
+        }
+
+        private void cmdRawDetails_Click(object sender, EventArgs e)
+        {
+            collectorDetailSplitContainer.Panel2Collapsed = !collectorDetailSplitContainer.Panel2Collapsed;
+        }
+
+        private void tlvAgentStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateRawView();
+        }
+
+        private static bool updateAgentsDetailViewBusy = false;
+        private void UpdateRawView()
+        {
+            if (!updateAgentsDetailViewBusy)
+            {
+                updateAgentsDetailViewBusy = true;
+                RTFBuilder rtfBuilder = new RTFBuilder();
+
+                if (tlvAgentStates.Focused)
+                {
+                    if (tlvAgentStates.SelectedItems.Count == 0)
+                    {                        
+                        rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                    }
+                    else
+                    {
+                        object selectedObject = tlvAgentStates.SelectedItems[0].Tag;
+                        if (selectedObject == null)
+                        {
+
+                        }
+                        else if (selectedObject is ICollector)
+                        {
+
+                        }
+                        else if (selectedObject is ICollectorConfigEntry)
+                        {
+
+                        }
+                        else if (selectedObject is ICollectorConfigSubEntry)
+                        {
+
+                        }
+                        else if (selectedObject is MonitorState)
+                        {
+                            rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
+                        }
+                        else if (selectedObject is string)
+                        {
+                            rtfBuilder.AppendLine(selectedObject.ToString());
+                        }
+
+                    }
+                }
+
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+
+                updateAgentsDetailViewBusy = false;
             }
-            
         }
     }
 }
