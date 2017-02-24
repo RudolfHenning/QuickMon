@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-16 10:26:15" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-24 21:18:48" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -598,7 +598,7 @@ else {
       <!-- Polling settings -->
       <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
       <!-- Remote agent settings -->
-      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <remoteAgent enableRemoteExecute="True" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="localhost" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
       <!-- Corrective Scripts -->
       <correctiveScripts enabled="False" onlyOnStateChange="False">
         <warning warningMinRepeatTimeMin="0" />
