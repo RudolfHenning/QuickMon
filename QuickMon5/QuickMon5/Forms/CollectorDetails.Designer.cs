@@ -60,6 +60,7 @@
             this.panelAgentStates = new System.Windows.Forms.Panel();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.optHistoricStateView = new System.Windows.Forms.RadioButton();
             this.optCurrentStateView = new System.Windows.Forms.RadioButton();
@@ -78,7 +79,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.collectorDetailSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.rtxDetails = new System.Windows.Forms.RichTextBox();
+            this.cmdRawDetails = new System.Windows.Forms.Button();
             this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -106,6 +109,10 @@
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.collectorDetailSplitContainer)).BeginInit();
+            this.collectorDetailSplitContainer.Panel1.SuspendLayout();
+            this.collectorDetailSplitContainer.Panel2.SuspendLayout();
+            this.collectorDetailSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -205,7 +212,7 @@
             // 
             // splitContainerMain.Panel1
             // 
-            this.splitContainerMain.Panel1.Controls.Add(this.panelCollectorDetails);
+            this.splitContainerMain.Panel1.Controls.Add(this.collectorDetailSplitContainer);
             this.splitContainerMain.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainerMain.Panel2
@@ -225,9 +232,9 @@
             this.panelCollectorDetails.Controls.Add(this.panelMetrics);
             this.panelCollectorDetails.Controls.Add(this.panelAgentStates);
             this.panelCollectorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCollectorDetails.Location = new System.Drawing.Point(0, 25);
+            this.panelCollectorDetails.Location = new System.Drawing.Point(0, 0);
             this.panelCollectorDetails.Name = "panelCollectorDetails";
-            this.panelCollectorDetails.Size = new System.Drawing.Size(839, 475);
+            this.panelCollectorDetails.Size = new System.Drawing.Size(839, 302);
             this.panelCollectorDetails.TabIndex = 3;
             // 
             // panelEditing
@@ -338,6 +345,15 @@
             this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
             // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(740, 1);
+            this.label3.TabIndex = 1;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.optHistoricStateView);
@@ -378,10 +394,11 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.cmdCollectorEdit);
+            this.panel1.Controls.Add(this.cmdRawDetails);
             this.panel1.Controls.Add(this.cmdActionScriptsVisible);
             this.panel1.Controls.Add(this.optMetrics);
             this.panel1.Controls.Add(this.optAgentStates);
+            this.panel1.Controls.Add(this.cmdCollectorEdit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -396,7 +413,7 @@
             this.cmdCollectorEdit.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdCollectorEdit.FlatAppearance.BorderSize = 0;
             this.cmdCollectorEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCollectorEdit.Location = new System.Drawing.Point(785, 0);
+            this.cmdCollectorEdit.Location = new System.Drawing.Point(812, 0);
             this.cmdCollectorEdit.Name = "cmdCollectorEdit";
             this.cmdCollectorEdit.Size = new System.Drawing.Size(27, 25);
             this.cmdCollectorEdit.TabIndex = 5;
@@ -411,7 +428,7 @@
             this.cmdActionScriptsVisible.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdActionScriptsVisible.FlatAppearance.BorderSize = 0;
             this.cmdActionScriptsVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(812, 0);
+            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(785, 0);
             this.cmdActionScriptsVisible.Name = "cmdActionScriptsVisible";
             this.cmdActionScriptsVisible.Size = new System.Drawing.Size(27, 25);
             this.cmdActionScriptsVisible.TabIndex = 4;
@@ -579,14 +596,49 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
-            // label3
+            // collectorDetailSplitContainer
             // 
-            this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(740, 1);
-            this.label3.TabIndex = 1;
+            this.collectorDetailSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.collectorDetailSplitContainer.Location = new System.Drawing.Point(0, 25);
+            this.collectorDetailSplitContainer.Name = "collectorDetailSplitContainer";
+            this.collectorDetailSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // collectorDetailSplitContainer.Panel1
+            // 
+            this.collectorDetailSplitContainer.Panel1.Controls.Add(this.panelCollectorDetails);
+            // 
+            // collectorDetailSplitContainer.Panel2
+            // 
+            this.collectorDetailSplitContainer.Panel2.Controls.Add(this.rtxDetails);
+            this.collectorDetailSplitContainer.Size = new System.Drawing.Size(839, 475);
+            this.collectorDetailSplitContainer.SplitterDistance = 302;
+            this.collectorDetailSplitContainer.TabIndex = 4;
+            // 
+            // rtxDetails
+            // 
+            this.rtxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxDetails.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxDetails.Location = new System.Drawing.Point(0, 0);
+            this.rtxDetails.Name = "rtxDetails";
+            this.rtxDetails.ReadOnly = true;
+            this.rtxDetails.Size = new System.Drawing.Size(839, 169);
+            this.rtxDetails.TabIndex = 2;
+            this.rtxDetails.Text = "";
+            // 
+            // cmdRawDetails
+            // 
+            this.cmdRawDetails.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRawDetails.BackgroundImage = global::QuickMon.Properties.Resources.comp_search24;
+            this.cmdRawDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRawDetails.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdRawDetails.FlatAppearance.BorderSize = 0;
+            this.cmdRawDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRawDetails.Location = new System.Drawing.Point(758, 0);
+            this.cmdRawDetails.Name = "cmdRawDetails";
+            this.cmdRawDetails.Size = new System.Drawing.Size(27, 25);
+            this.cmdRawDetails.TabIndex = 6;
+            this.cmdRawDetails.UseVisualStyleBackColor = false;
+            this.cmdRawDetails.Click += new System.EventHandler(this.cmdRawDetails_Click);
             // 
             // tlvAgentStates
             // 
@@ -610,6 +662,7 @@
             this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
             this.tlvAgentStates.TabIndex = 1;
             this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
+            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
             // 
             // nameColumnHeader
             // 
@@ -719,6 +772,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.collectorDetailSplitContainer.Panel1.ResumeLayout(false);
+            this.collectorDetailSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.collectorDetailSplitContainer)).EndInit();
+            this.collectorDetailSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -777,5 +834,8 @@
         private System.Windows.Forms.ColumnHeader ranAsColumnHeader;
         private System.Windows.Forms.ColumnHeader collectorValueColumnHeader;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.SplitContainer collectorDetailSplitContainer;
+        private System.Windows.Forms.RichTextBox rtxDetails;
+        private System.Windows.Forms.Button cmdRawDetails;
     }
 }

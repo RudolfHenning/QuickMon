@@ -882,9 +882,12 @@ namespace QuickMon
                     if (collectorHost != null && collectorHost.Tag is TreeNodeEx)
                     {
                         Trace.WriteLine("Updating " + collectorHost.Name);
+                        
                         TreeNodeEx currentTreeNode = (TreeNodeEx)collectorHost.Tag;
                         try
                         {
+                            if (currentTreeNode.Text != collectorHost.Name)
+                                currentTreeNode.Text = collectorHost.Name;
                             if (currentTreeNode.IsSelected)
                                 SetCounterValue(selectedCollectorsQueryTime, collectorHost.CurrentState.CallDurationMS, "Selected collector query time (ms)");
                         }
@@ -1483,7 +1486,6 @@ namespace QuickMon
         }
         private void tvwCollectors_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            editCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
@@ -1719,7 +1721,6 @@ namespace QuickMon
 
         private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
-            editCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
@@ -1727,6 +1728,12 @@ namespace QuickMon
         }
 
         private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            
+        }
+
+        private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (tvwCollectors.SelectedNode != null)
             {
@@ -1752,9 +1759,6 @@ namespace QuickMon
                     }
                 }
             }
-            
         }
-
-
     }
 }

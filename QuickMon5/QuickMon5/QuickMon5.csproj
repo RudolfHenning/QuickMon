@@ -90,6 +90,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewEx\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RawFonts.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFBuilderUnWrapped.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFFormatWrap.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFImage.cs" />
+    <Compile Include="Controls\RTF\RTFBuilder.RTFParaWrap.cs" />
+    <Compile Include="Controls\RTF\RTFBuilderbase.cs" />
+    <Compile Include="Controls\RTF\RTFFont.cs" />
     <Compile Include="Controls\SplitButton\SplitButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
