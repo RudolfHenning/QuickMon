@@ -188,15 +188,15 @@ namespace QuickMon
                 Icon icon;
                 if (state == CollectorState.Error)
                 {
-                    icon = Properties.Resources.QM4BlueStateErrA;
+                    icon = Properties.Resources.Err;
                 }
                 else if (state == CollectorState.Warning)
                 {
-                    icon = Properties.Resources.QM4BlueStateWarnA;
+                    icon = Properties.Resources.warn;
                 }
                 else if (state == CollectorState.Good)
                 {
-                    icon = Properties.Resources.QM4BlueStateGoodA;
+                    icon = Properties.Resources.ok;
                 }
                 else
                 {
@@ -473,11 +473,6 @@ namespace QuickMon
             }            
         }
 
-        private void cmdRawDetails_Click(object sender, EventArgs e)
-        {
-            collectorDetailSplitContainer.Panel2Collapsed = !collectorDetailSplitContainer.Panel2Collapsed;
-        }
-
         private void tlvAgentStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateRawView();
@@ -535,6 +530,12 @@ namespace QuickMon
 
                 updateAgentsDetailViewBusy = false;
             }
+        }
+
+        private void chkRAWDetails_CheckedChanged(object sender, EventArgs e)
+        {
+            collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
+            chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
         }
     }
 }

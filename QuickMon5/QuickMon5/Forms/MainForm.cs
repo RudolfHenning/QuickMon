@@ -395,7 +395,64 @@ namespace QuickMon
             catch { }
             return notAborted;
         }
-        
+        private void SetAppIcon(CollectorState state)
+        {
+            refreshCycleA = !refreshCycleA;
+            try
+            {
+                Icon icon;
+                if (state == CollectorState.Error)
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateErrA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateErrB;
+                }
+                else if (state == CollectorState.Warning)
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateWarnA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateWarnB;
+                }
+                else if (state == CollectorState.Good)
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateGoodA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateGoodB;
+                }
+                else
+                {
+                    if (refreshCycleA)
+                        icon = Properties.Resources.QM4BlueStateNAA;
+                    else
+                        icon = Properties.Resources.QM4BlueStateNAB;
+                }
+                Icon oldIcon = this.Icon;
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        this.Icon = icon;
+                    }
+                    );
+                }
+                else
+                {
+                    this.Icon = icon;
+                }
+                oldIcon.Dispose();
+            }
+            catch (Exception)
+            {
+                //to be added
+                if (refreshCycleA)
+                    this.Icon = Properties.Resources.QM4BlueStateNAA;
+                else
+                    this.Icon = Properties.Resources.QM4BlueStateNAB;
+            }
+        }       
         private void UpdateStatusbar(string msg)
         {
             try
@@ -458,6 +515,7 @@ namespace QuickMon
             tvwCollectors.ExtraColumnTextAlign = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 1 ? QuickMon.Controls.TreeViewExExtraColumnTextAlign.Right : QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
             tvwCollectors.Refresh();
         }
+
         #endregion
 
         #region Monitor pack actions
@@ -886,8 +944,8 @@ namespace QuickMon
                         TreeNodeEx currentTreeNode = (TreeNodeEx)collectorHost.Tag;
                         try
                         {
-                            if (currentTreeNode.Text != collectorHost.Name)
-                                currentTreeNode.Text = collectorHost.Name;
+                            if (currentTreeNode.Text != collectorHost.DisplayName)
+                                currentTreeNode.Text = collectorHost.DisplayName;
                             if (currentTreeNode.IsSelected)
                                 SetCounterValue(selectedCollectorsQueryTime, collectorHost.CurrentState.CallDurationMS, "Selected collector query time (ms)");
                         }
@@ -1174,64 +1232,7 @@ namespace QuickMon
                 foreach (TreeNode childNode in root.Nodes)
                     SetNodesToBeingRefreshed(childNode);
         }
-        private void SetAppIcon(CollectorState state)
-        {
-            refreshCycleA = !refreshCycleA;
-            try
-            {
-                Icon icon;
-                if (state == CollectorState.Error)
-                {
-                    if (refreshCycleA)
-                        icon = Properties.Resources.QM4BlueStateErrA;
-                    else
-                        icon = Properties.Resources.QM4BlueStateErrB;
-                }
-                else if (state == CollectorState.Warning)
-                {
-                    if (refreshCycleA)
-                        icon = Properties.Resources.QM4BlueStateWarnA;
-                    else
-                        icon = Properties.Resources.QM4BlueStateWarnB;
-                }
-                else if (state == CollectorState.Good)
-                {
-                    if (refreshCycleA)
-                        icon = Properties.Resources.QM4BlueStateGoodA;
-                    else
-                        icon = Properties.Resources.QM4BlueStateGoodB;
-                }
-                else
-                {
-                    if (refreshCycleA)
-                        icon = Properties.Resources.QM4BlueStateNAA;
-                    else
-                        icon = Properties.Resources.QM4BlueStateNAB;
-                }
-                Icon oldIcon = this.Icon;
-                if (this.InvokeRequired)
-                {
-                    this.Invoke((MethodInvoker)delegate ()
-                    {
-                        this.Icon = icon;
-                    }
-                    );
-                }
-                else
-                {
-                    this.Icon = icon;
-                }
-                oldIcon.Dispose();
-            }
-            catch (Exception)
-            {
-                //to be added
-                if (refreshCycleA)
-                    this.Icon = Properties.Resources.QM4BlueStateNAA;
-                else
-                    this.Icon = Properties.Resources.QM4BlueStateNAB;
-            }
-        }
+
         #endregion
 
         #region Auto refreshing timer
@@ -1323,9 +1324,6 @@ namespace QuickMon
                 cmdPauseRunMP.BackColor = System.Drawing.Color.Transparent;
             }
         }
-
-
-
         #endregion
 
         #region RecentMonitorPackList
@@ -1493,7 +1491,7 @@ namespace QuickMon
         }
         private void tvwCollectors_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            editCollectorToolStripMenuItem_Click(null, null);
+            detailsToolStripMenuItem_Click(null, null);
         }
         #endregion
 
