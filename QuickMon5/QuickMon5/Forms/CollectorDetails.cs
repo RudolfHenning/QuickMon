@@ -446,7 +446,10 @@ namespace QuickMon
 
         private bool ValidateInput()
         {
-            return true;
+            bool success = true;
+            if (txtName.Text.Length == 0)
+                success = false;
+            return success;
         }
 
         private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
@@ -536,6 +539,23 @@ namespace QuickMon
         {
             collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
             chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            OKButtonCheck();
+        }
+
+        private void OKButtonCheck()
+        {
+            cmdOK.Enabled = ValidateInput();
+        }
+
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+            SelectedCollectorHost.Name = txtName.Text;
+            ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+            StopEditMode();
         }
     }
 }

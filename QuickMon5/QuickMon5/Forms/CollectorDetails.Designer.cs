@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -63,6 +63,7 @@
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.chkRAWDetails = new System.Windows.Forms.CheckBox();
             this.optHistoricStateView = new System.Windows.Forms.RadioButton();
             this.optCurrentStateView = new System.Windows.Forms.RadioButton();
             this.rtxDetails = new System.Windows.Forms.RichTextBox();
@@ -71,7 +72,6 @@
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -81,7 +81,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.chkRAWDetails = new System.Windows.Forms.CheckBox();
             this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -93,6 +92,7 @@
             this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tvwScripts = new QuickMon.TreeViewEx();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -125,8 +125,9 @@
             this.txtName.Location = new System.Drawing.Point(97, 11);
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(918, 15);
+            this.txtName.Size = new System.Drawing.Size(1058, 15);
             this.txtName.TabIndex = 5;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // lblName
             // 
@@ -148,9 +149,9 @@
             this.toolStripStatusLabel2,
             this.toolStripStatusLabelRawEdit,
             this.toolStripStatusLabel3});
-            this.statusStripCollector.Location = new System.Drawing.Point(0, 586);
+            this.statusStripCollector.Location = new System.Drawing.Point(0, 679);
             this.statusStripCollector.Name = "statusStripCollector";
-            this.statusStripCollector.Size = new System.Drawing.Size(1059, 22);
+            this.statusStripCollector.Size = new System.Drawing.Size(1199, 22);
             this.statusStripCollector.TabIndex = 7;
             this.statusStripCollector.Text = "statusStrip1";
             this.statusStripCollector.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStripCollector_ItemClicked);
@@ -217,12 +218,12 @@
             // 
             // splitContainerMain.Panel2
             // 
-            this.splitContainerMain.Panel2.Controls.Add(this.treeView1);
+            this.splitContainerMain.Panel2.Controls.Add(this.tvwScripts);
             this.splitContainerMain.Panel2.Controls.Add(this.panel2);
             this.splitContainerMain.Panel2.Controls.Add(this.label1);
             this.splitContainerMain.Panel2MinSize = 200;
-            this.splitContainerMain.Size = new System.Drawing.Size(1045, 547);
-            this.splitContainerMain.SplitterDistance = 841;
+            this.splitContainerMain.Size = new System.Drawing.Size(1185, 640);
+            this.splitContainerMain.SplitterDistance = 981;
             this.splitContainerMain.TabIndex = 8;
             // 
             // collectorDetailSplitContainer
@@ -239,8 +240,8 @@
             // collectorDetailSplitContainer.Panel2
             // 
             this.collectorDetailSplitContainer.Panel2.Controls.Add(this.rtxDetails);
-            this.collectorDetailSplitContainer.Size = new System.Drawing.Size(841, 522);
-            this.collectorDetailSplitContainer.SplitterDistance = 319;
+            this.collectorDetailSplitContainer.Size = new System.Drawing.Size(981, 615);
+            this.collectorDetailSplitContainer.SplitterDistance = 391;
             this.collectorDetailSplitContainer.TabIndex = 4;
             // 
             // panelCollectorDetails
@@ -252,7 +253,7 @@
             this.panelCollectorDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCollectorDetails.Location = new System.Drawing.Point(0, 0);
             this.panelCollectorDetails.Name = "panelCollectorDetails";
-            this.panelCollectorDetails.Size = new System.Drawing.Size(841, 319);
+            this.panelCollectorDetails.Size = new System.Drawing.Size(981, 391);
             this.panelCollectorDetails.TabIndex = 3;
             // 
             // panelEditing
@@ -260,29 +261,31 @@
             this.panelEditing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelEditing.Controls.Add(this.cmdOK);
             this.panelEditing.Controls.Add(this.cmdCancel);
-            this.panelEditing.Location = new System.Drawing.Point(13, 991);
+            this.panelEditing.Location = new System.Drawing.Point(13, 954);
             this.panelEditing.Name = "panelEditing";
-            this.panelEditing.Size = new System.Drawing.Size(500, 394);
+            this.panelEditing.Size = new System.Drawing.Size(813, 385);
             this.panelEditing.TabIndex = 4;
             // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
+            this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(339, 366);
+            this.cmdOK.Location = new System.Drawing.Point(652, 357);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 2;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = false;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(420, 366);
+            this.cmdCancel.Location = new System.Drawing.Point(733, 357);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 3;
@@ -384,6 +387,23 @@
             this.panel3.Size = new System.Drawing.Size(740, 28);
             this.panel3.TabIndex = 2;
             // 
+            // chkRAWDetails
+            // 
+            this.chkRAWDetails.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkRAWDetails.Dock = System.Windows.Forms.DockStyle.Right;
+            this.chkRAWDetails.FlatAppearance.BorderSize = 0;
+            this.chkRAWDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkRAWDetails.Image = global::QuickMon.Properties.Resources._131;
+            this.chkRAWDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.chkRAWDetails.Location = new System.Drawing.Point(645, 0);
+            this.chkRAWDetails.Name = "chkRAWDetails";
+            this.chkRAWDetails.Size = new System.Drawing.Size(95, 28);
+            this.chkRAWDetails.TabIndex = 3;
+            this.chkRAWDetails.Text = "More details";
+            this.chkRAWDetails.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.chkRAWDetails.UseVisualStyleBackColor = true;
+            this.chkRAWDetails.CheckedChanged += new System.EventHandler(this.chkRAWDetails_CheckedChanged);
+            // 
             // optHistoricStateView
             // 
             this.optHistoricStateView.AutoSize = true;
@@ -419,7 +439,7 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(841, 199);
+            this.rtxDetails.Size = new System.Drawing.Size(981, 220);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
             // 
@@ -432,7 +452,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(841, 25);
+            this.panel1.Size = new System.Drawing.Size(981, 25);
             this.panel1.TabIndex = 1;
             // 
             // cmdActionScriptsVisible
@@ -443,7 +463,7 @@
             this.cmdActionScriptsVisible.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdActionScriptsVisible.FlatAppearance.BorderSize = 0;
             this.cmdActionScriptsVisible.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(787, 0);
+            this.cmdActionScriptsVisible.Location = new System.Drawing.Point(954, 0);
             this.cmdActionScriptsVisible.Name = "cmdActionScriptsVisible";
             this.cmdActionScriptsVisible.Size = new System.Drawing.Size(27, 25);
             this.cmdActionScriptsVisible.TabIndex = 4;
@@ -455,7 +475,7 @@
             this.optMetrics.AutoSize = true;
             this.optMetrics.Dock = System.Windows.Forms.DockStyle.Left;
             this.optMetrics.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.optMetrics.Location = new System.Drawing.Point(83, 0);
+            this.optMetrics.Location = new System.Drawing.Point(110, 0);
             this.optMetrics.Name = "optMetrics";
             this.optMetrics.Size = new System.Drawing.Size(101, 25);
             this.optMetrics.TabIndex = 1;
@@ -469,7 +489,7 @@
             this.optAgentStates.Checked = true;
             this.optAgentStates.Dock = System.Windows.Forms.DockStyle.Left;
             this.optAgentStates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.optAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.optAgentStates.Location = new System.Drawing.Point(27, 0);
             this.optAgentStates.Name = "optAgentStates";
             this.optAgentStates.Size = new System.Drawing.Size(83, 25);
             this.optAgentStates.TabIndex = 0;
@@ -483,36 +503,15 @@
             this.cmdCollectorEdit.BackColor = System.Drawing.Color.Transparent;
             this.cmdCollectorEdit.BackgroundImage = global::QuickMon.Properties.Resources.doc_edit24x24;
             this.cmdCollectorEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdCollectorEdit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdCollectorEdit.Dock = System.Windows.Forms.DockStyle.Left;
             this.cmdCollectorEdit.FlatAppearance.BorderSize = 0;
             this.cmdCollectorEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCollectorEdit.Location = new System.Drawing.Point(814, 0);
+            this.cmdCollectorEdit.Location = new System.Drawing.Point(0, 0);
             this.cmdCollectorEdit.Name = "cmdCollectorEdit";
             this.cmdCollectorEdit.Size = new System.Drawing.Size(27, 25);
             this.cmdCollectorEdit.TabIndex = 5;
             this.cmdCollectorEdit.UseVisualStyleBackColor = false;
             this.cmdCollectorEdit.Click += new System.EventHandler(this.cmdCollectorEdit_Click);
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(2, 25);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Parameter 1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Script 1";
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Parameter 1";
-            treeNode4.Name = "Node4";
-            treeNode4.Text = "Parameter 2";
-            treeNode5.Name = "Node2";
-            treeNode5.Text = "Script 2";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode5});
-            this.treeView1.Size = new System.Drawing.Size(198, 522);
-            this.treeView1.TabIndex = 5;
             // 
             // panel2
             // 
@@ -599,7 +598,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2, 547);
+            this.label1.Size = new System.Drawing.Size(2, 640);
             this.label1.TabIndex = 4;
             // 
             // lblCollectorState
@@ -620,29 +619,12 @@
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(1021, 5);
+            this.cmdRefresh.Location = new System.Drawing.Point(1161, 5);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(26, 26);
             this.cmdRefresh.TabIndex = 9;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
-            // 
-            // chkRAWDetails
-            // 
-            this.chkRAWDetails.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkRAWDetails.Dock = System.Windows.Forms.DockStyle.Right;
-            this.chkRAWDetails.FlatAppearance.BorderSize = 0;
-            this.chkRAWDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkRAWDetails.Image = global::QuickMon.Properties.Resources._131;
-            this.chkRAWDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.chkRAWDetails.Location = new System.Drawing.Point(645, 0);
-            this.chkRAWDetails.Name = "chkRAWDetails";
-            this.chkRAWDetails.Size = new System.Drawing.Size(95, 28);
-            this.chkRAWDetails.TabIndex = 3;
-            this.chkRAWDetails.Text = "More details";
-            this.chkRAWDetails.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.chkRAWDetails.UseVisualStyleBackColor = true;
-            this.chkRAWDetails.CheckedChanged += new System.EventHandler(this.chkRAWDetails_CheckedChanged);
             // 
             // tlvAgentStates
             // 
@@ -653,9 +635,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer1;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -737,12 +719,36 @@
             this.collectorValueColumnHeader.Text = "Value";
             this.collectorValueColumnHeader.Width = 150;
             // 
+            // tvwScripts
+            // 
+            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwScripts.FullRowSelect = true;
+            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
+            this.tvwScripts.Name = "tvwScripts";
+            treeNode6.Name = "Node1";
+            treeNode6.Text = "Parameter 1";
+            treeNode7.Name = "Node0";
+            treeNode7.Text = "Script 1";
+            treeNode8.Name = "Node3";
+            treeNode8.Text = "Parameter 1";
+            treeNode9.Name = "Node4";
+            treeNode9.Text = "Parameter 2";
+            treeNode10.Name = "Node2";
+            treeNode10.Text = "Script 2";
+            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode10});
+            this.tvwScripts.ShowLines = false;
+            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
+            this.tvwScripts.TabIndex = 5;
+            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1059, 608);
+            this.ClientSize = new System.Drawing.Size(1199, 701);
             this.Controls.Add(this.cmdRefresh);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.statusStripCollector);
@@ -811,7 +817,7 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.TreeView treeView1;
+        private TreeViewEx tvwScripts;
         private System.Windows.Forms.Panel panelEditing;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdCancel;
