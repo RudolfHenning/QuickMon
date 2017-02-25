@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-24 21:18:48" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-25 22:20:30" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -221,7 +221,7 @@
       <categories />
       <notes />
     </collectorHost>
-    <collectorHost uniqueId="PINGGoogle" dependOnParentId="" name="Ping Google" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="PINGGoogle" dependOnParentId="" name="ICMP Ping Google" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -236,6 +236,48 @@
       <!-- Collector Agents -->
       <collectorAgents agentCheckSequence="All">
         <collectorAgent name="Ping Google" type="QuickMon.Collectors.PingCollector" enabled="True">
+          <config>
+            <entries>
+              <entry pingMethod="Ping" address="www.google.com" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
+            </entries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="True" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="HTTPPINGGoogle" dependOnParentId="" name="HTTP Ping Google" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="HTTP Ping Google" type="QuickMon.Collectors.PingCollector" enabled="True">
           <config>
             <entries>
               <entry pingMethod="Http" address="http://www.google.com" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
@@ -314,7 +356,7 @@
         <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="90" errorValue="95" numberOfSamples="1" multiSampleWaitMS="100" />
+              <performanceCounter computer="." category="Processor" counter="% Processor Time" instance="_Total" warningValue="90" errorValue="95" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -356,7 +398,7 @@
         <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="90" errorValue="95" numberOfSamples="1" multiSampleWaitMS="100" />
+              <performanceCounter computer="." category="Memory" counter="% Committed Bytes In Use" instance="" warningValue="90" errorValue="95" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -398,7 +440,7 @@
         <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="Network Interface" counter="Bytes Total/sec" instance="Realtek PCI GBE Family Controller" warningValue="300000" errorValue="1000000" numberOfSamples="3" multiSampleWaitMS="300" />
+              <performanceCounter computer="." category="Network Interface" counter="Bytes Total/sec" instance="Realtek PCI GBE Family Controller" warningValue="300000" errorValue="1000000" numberOfSamples="3" multiSampleWaitMS="300" outputValueUnit="Bytes/Sec" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -440,7 +482,7 @@
         <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" />
+              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="C:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -482,7 +524,7 @@
         <collectorAgent name="System Health" type="QuickMon.Collectors.PerfCounterCollector" enabled="True">
           <config>
             <performanceCounters>
-              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="D:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" />
+              <performanceCounter computer="." category="LogicalDisk" counter="% Free Space" instance="D:" warningValue="15" errorValue="5" numberOfSamples="1" multiSampleWaitMS="100" outputValueUnit="%" />
             </performanceCounters>
           </config>
         </collectorAgent>
@@ -589,8 +631,8 @@ else {
         <collectorAgent name="File System" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
           <config>
             <directoryList>
-              <directory directoryPathFilter="%windir%\Temp\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="500" errorFileCountMax="1000" fileSizeIndicatorUnit="MB" warningFileSizeMax="100" errorFileSizeMax="500" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" />
-              <directory directoryPathFilter="%USERPROFILE%\AppData\Local\Temp\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="500" errorFileCountMax="1000" fileSizeIndicatorUnit="MB" warningFileSizeMax="100" errorFileSizeMax="500" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" />
+              <directory directoryPathFilter="%windir%\Temp\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="500" errorFileCountMax="1000" fileSizeIndicatorUnit="MB" warningFileSizeMax="100" errorFileSizeMax="500" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="false" showFileSizeInOutputValue="True" />
+              <directory directoryPathFilter="%USERPROFILE%\AppData\Local\Temp\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="500" errorFileCountMax="1000" fileSizeIndicatorUnit="MB" warningFileSizeMax="100" errorFileSizeMax="500" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" showFileSizeInOutputValue="True" />
             </directoryList>
           </config>
         </collectorAgent>
