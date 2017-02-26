@@ -120,6 +120,9 @@
   <metadata name="statusStripCollector.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="collectorAgentsEditToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>345, 14</value>
+  </metadata>
   <metadata name="imagesCollectorTree.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>182, 14</value>
   </metadata>
@@ -128,7 +131,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADs
-        PgAAAk1TRnQBSQFMAgEBCQEAASgBCwEoAQsBGAEAARgBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        PgAAAk1TRnQBSQFMAgEBCQEAAWABCwFgAQsBGAEAARgBAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABSAMAAQEBAAEYBgABUScAA/4D+wPzA+0D6wPuA/YD+wP+A//5AAP/A/wD9QPpA9gDxAO4A7UDugPK
         A9sD6wP3A/32AAP+A/QD0AOTA2EDSwNNA04DTQNRA2sDlwPcA/cD/+0AA/4D+wPZA6wDgANmA1YDTgZP
         BlADWQNoA40DvgPvA/sD/+QAA/4D9wPcA5wDZgNOA1ADTwNOBkwDTQNPBlEDVwOAA8AD7QP85AAD/QPh
