@@ -70,6 +70,8 @@ namespace QuickMon
             tlvAgentStates.AutoResizeColumnEnabled = true;
             lvwHistory.AutoResizeColumnEnabled = true;
             lvwHistory.BorderStyle = BorderStyle.None;
+            panelEditing.BorderStyle = BorderStyle.None;
+            txtName.BorderStyle = BorderStyle.None;
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
 
@@ -556,6 +558,11 @@ namespace QuickMon
             SelectedCollectorHost.Name = txtName.Text;
             ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
             StopEditMode();
+        }
+
+        private void agentsTabPage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

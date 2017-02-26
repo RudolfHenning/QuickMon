@@ -111,6 +111,16 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addGreen24x24 {
+            get {
+                object obj = ResourceManager.GetObject("addGreen24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;monitorPack version=&quot;5.0.0&quot; name=&quot;&amp;lt;New Monitor Pack&amp;gt;&quot; typeName=&quot;&quot; enabled=&quot;True&quot; pollingFreqSecOverride=&quot;60&quot; &gt;
         ///	&lt;configVars /&gt;
         ///	&lt;collectorHosts /&gt;
