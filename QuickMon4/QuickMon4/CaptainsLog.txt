@@ -124,6 +124,8 @@ Version 4.4.2
 	Corrective scripts have setting to limit the number of times it can run within a specified number of minutes
 Version 4.4.3
 	Fix UI bug on Collector Config Editor (resizing)
+Version 4.4.4
+	Fix UI bugs on Collector Config Editor (resizing)
 
 
 =================================================================================================================================================

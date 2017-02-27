@@ -1404,8 +1404,6 @@
             // 
             // cboTextType
             // 
-            this.cboTextType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboTextType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTextType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboTextType.Items.AddRange(new object[] {
@@ -1423,8 +1421,7 @@
             // 
             // correctiveScriptsGroupBox
             // 
-            this.correctiveScriptsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.correctiveScriptsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownRestorationScriptMinimumRepeatTimeMin);
             this.correctiveScriptsGroupBox.Controls.Add(this.label53);
