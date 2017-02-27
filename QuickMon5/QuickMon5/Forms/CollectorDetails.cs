@@ -18,6 +18,14 @@ namespace QuickMon
             InitializeComponent();
         }
 
+        #region Private vars
+        /// <summary>
+        /// CollectorHost tyo temporarily store editing changes before it is saved
+        /// </summary>
+        private CollectorHost editingCollectorHost = null;
+        private int previousSelectedAlertTextIndex = -1; 
+        #endregion
+
         #region TreeNodeImage contants
         private readonly int collectorFolderImage = 0;
         private readonly int collectorNAstateImage = 1;
@@ -30,6 +38,7 @@ namespace QuickMon
         private readonly int collectorDisabled = 8;
         #endregion
 
+        #region Public properties
         /// <summary>
         /// If set to true the main window refresh cycle will also trigger a refresh of this window's details (the states/current value/history etc)
         /// </summary>
@@ -38,7 +47,8 @@ namespace QuickMon
         /// <summary>
         /// reference to MainForm for bidirectional updating
         /// </summary>
-        public IParentWindow ParentWindow { get; set; }
+        public IParentWindow ParentWindow { get; set; } 
+        #endregion
 
         #region IChildWindowIdentity
         public string Identifier { get; set; }
@@ -113,6 +123,11 @@ namespace QuickMon
         }
         private void StartEditMode()
         {
+            if (this.Size.Height < 450)
+            {
+                this.Size = new Size(this.Size.Width, 450);
+            }
+            collectorDetailSplitContainer.Panel2Collapsed = true;
             optAgentStates.Enabled = false;
             optMetrics.Enabled = false;
             txtName.ReadOnly = false;
@@ -171,7 +186,56 @@ namespace QuickMon
             txtName.Text = SelectedCollectorHost.Name;
             LoadHistory();
             UpdateAgentStateTree();
-            
+
+            #region Editing controls
+            editingCollectorHost = SelectedCollectorHost.Clone();
+
+            agentCheckSequenceToolStripComboBox.SelectedIndex = (int)editingCollectorHost.AgentCheckSequence;
+            cboChildCheckBehaviour.SelectedIndex = (int)editingCollectorHost.ChildCheckBehaviour;
+            chkEnablePollingOverride.Checked = editingCollectorHost.EnabledPollingOverride;
+            onlyAllowUpdateOncePerXSecNumericUpDown.SaveValueSet(editingCollectorHost.OnlyAllowUpdateOncePerXSec);
+            chkEnablePollingFrequencySliding.Checked = editingCollectorHost.EnablePollFrequencySliding;
+            pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.SaveValueSet(editingCollectorHost.PollSlideFrequencyAfterFirstRepeatSec);
+            pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.SaveValueSet(editingCollectorHost.PollSlideFrequencyAfterSecondRepeatSec);
+            pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.SaveValueSet(editingCollectorHost.PollSlideFrequencyAfterThirdRepeatSec);
+            chkRemoteAgentEnabled.Checked = editingCollectorHost.EnableRemoteExecute;
+            chkForceRemoteExcuteOnChildCollectors.Checked = editingCollectorHost.ForceRemoteExcuteOnChildCollectors;
+            cboRemoteAgentServer.Text = editingCollectorHost.RemoteAgentHostAddress;
+            cboRemoteAgentServer.Items.Clear();
+
+            if (Properties.Settings.Default.KnownRemoteHosts != null && Properties.Settings.Default.KnownRemoteHosts.Count > 0)
+            {
+                cboRemoteAgentServer.Items.AddRange((from string krh in Properties.Settings.Default.KnownRemoteHosts
+                                                     select krh).ToArray());
+            }            
+            cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
+            remoteportNumericUpDown.SaveValueSet(editingCollectorHost.RemoteAgentHostPort);
+            remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
+            chkBlockParentRHOverride.Checked = editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings;
+            chkRunLocalOnRemoteHostConnectionFailure.Checked = editingCollectorHost.RunLocalOnRemoteHostConnectionFailure;
+            chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
+            if (editingCollectorHost.ServiceWindows != null)
+                linkLabelServiceWindows.Text = editingCollectorHost.ServiceWindows.ToString();
+            else
+                linkLabelServiceWindows.Text = "None";
+            chkAlertsPaused.Checked = editingCollectorHost.AlertsPaused;
+            numericUpDownRepeatAlertInXMin.SaveValueSet(editingCollectorHost.RepeatAlertInXMin); ;
+            numericUpDownRepeatAlertInXPolls.SaveValueSet(editingCollectorHost.RepeatAlertInXPolls);
+            AlertOnceInXMinNumericUpDown.SaveValueSet(editingCollectorHost.AlertOnceInXMin);
+            AlertOnceInXPollsNumericUpDown.SaveValueSet(editingCollectorHost.AlertOnceInXPolls);
+            delayAlertSecNumericUpDown.SaveValueSet(editingCollectorHost.DelayErrWarnAlertForXSec);
+            delayAlertPollsNumericUpDown.SaveValueSet(editingCollectorHost.DelayErrWarnAlertForXPolls);
+
+            chkCorrectiveScriptDisabled.Checked = editingCollectorHost.CorrectiveScriptDisabled;
+            numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin);
+            numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin);
+            chkOnlyRunCorrectiveScriptsOnStateChange.Checked = editingCollectorHost.CorrectiveScriptsOnlyOnStateChange;
+            numericUpDownRestorationScriptMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.RestorationScriptMinimumRepeatTimeMin);
+            chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
+            txtRunAs.Text = editingCollectorHost.RunAs;
+            txtAdditionalNotes.Text = editingCollectorHost.Notes;
+            cboTextType_SelectedIndexChanged(null, null);
+            #endregion
 
         }
         private void SetWindowTitle()
@@ -563,6 +627,37 @@ namespace QuickMon
         private void agentsTabPage_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cboTextType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (previousSelectedAlertTextIndex >= 0)
+            {
+                if (previousSelectedAlertTextIndex == 0)
+                    editingCollectorHost.AlertHeaderText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 1)
+                    editingCollectorHost.AlertFooterText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 2)
+                    editingCollectorHost.ErrorAlertText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 3)
+                    editingCollectorHost.WarningAlertText = txtNotesText.Text;
+                else if (previousSelectedAlertTextIndex == 4)
+                    editingCollectorHost.GoodAlertText = txtNotesText.Text;
+            }
+
+            if (cboTextType.SelectedIndex == 0)
+                txtNotesText.Text = editingCollectorHost.AlertHeaderText;
+            else if (cboTextType.SelectedIndex == 1)
+                txtNotesText.Text = editingCollectorHost.AlertFooterText;
+            else if (cboTextType.SelectedIndex == 2)
+                txtNotesText.Text = editingCollectorHost.ErrorAlertText;
+            else if (cboTextType.SelectedIndex == 3)
+                txtNotesText.Text = editingCollectorHost.WarningAlertText;
+            else if (cboTextType.SelectedIndex == 4)
+                txtNotesText.Text = editingCollectorHost.GoodAlertText;
+            lblNoteTextChangeIndicator.Text = "Alert Texts";
+            cmdSetNoteText.Enabled = false;
+            previousSelectedAlertTextIndex = cboTextType.SelectedIndex;
         }
     }
 }
