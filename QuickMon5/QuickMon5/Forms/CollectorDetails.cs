@@ -1,4 +1,5 @@
 ﻿using HenIT.RTF;
+using HenIT.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,16 @@ namespace QuickMon
 {
     public partial class CollectorDetails : Form, IChildWindowIdentity
     {
+        private class CollectorEntryDisplay
+        {
+            public int Ident { get; set; }
+            public CollectorHost CH { get; set; }
+            public override string ToString()
+            {
+                return new string(' ', Ident * 2) + CH.Name;
+            }
+        }
+
         public CollectorDetails()
         {
             InitializeComponent();
@@ -48,6 +59,7 @@ namespace QuickMon
         /// reference to MainForm for bidirectional updating
         /// </summary>
         public IParentWindow ParentWindow { get; set; } 
+        public MonitorPack HostingMonitorPack { get; set; }
         #endregion
 
         #region IChildWindowIdentity
@@ -86,7 +98,13 @@ namespace QuickMon
             collectorDetailSplitContainer.Panel2Collapsed = true;
 
             if (SelectedCollectorHost == null)
+            {
                 SelectedCollectorHost = new CollectorHost();
+            }
+            else
+            {
+                HostingMonitorPack = SelectedCollectorHost.ParentMonitorPack; 
+            }
             RefreshDetails();
             splitContainerMain.Panel2Collapsed = true;
             SetActivePanel(panelAgentStates);
@@ -235,8 +253,75 @@ namespace QuickMon
             txtRunAs.Text = editingCollectorHost.RunAs;
             txtAdditionalNotes.Text = editingCollectorHost.Notes;
             cboTextType_SelectedIndexChanged(null, null);
+
+            StringBuilder categories = new StringBuilder();
+            if (editingCollectorHost.Categories != null && editingCollectorHost.Categories.Count > 0)
+            {
+                foreach (string category in editingCollectorHost.Categories)
+                {
+                    categories.AppendLine(category);
+                }
+                txtCategories.Text = categories.ToString();
+            }
+            LoadConfigVars();
+            LoadAgents();
+            LoadParentCollectorList();
             #endregion
 
+        }
+        private void LoadParentCollectorList(CollectorHost parentEntry = null, int indent = 0)
+        {
+            if (cboParentCollector.Items.Count == 0)
+            {
+                cboParentCollector.Items.Add("<None>");
+                cboParentCollector.SelectedIndex = 0;
+            }
+            if (HostingMonitorPack != null)
+            {
+                //txtMonitorPack.Text = string.Format("{0} ({1})", HostingMonitorPack.Name, HostingMonitorPack.MonitorPackPath);
+                foreach (CollectorHost ce in (from c in HostingMonitorPack.CollectorHosts
+                                              where (parentEntry == null && (c.ParentCollectorId == null || c.ParentCollectorId == "")) ||
+                                                  (parentEntry != null && parentEntry.UniqueId == c.ParentCollectorId)
+                                              select c))
+                {
+                    CollectorEntryDisplay ceDisplay = new CollectorEntryDisplay() { Ident = indent, CH = ce };
+                    if (IsNotInCurrentDependantTree(editingCollectorHost.UniqueId, ce))
+                    {
+                        cboParentCollector.Items.Add(ceDisplay);
+                    }
+                    if (ce.UniqueId == editingCollectorHost.ParentCollectorId)
+                        cboParentCollector.SelectedItem = ceDisplay;
+
+                    LoadParentCollectorList(ce, indent + 1);
+                    cboParentCollector.Enabled = true;
+                }
+            }
+            else
+            {
+                //txtMonitorPack.Text = "N/A";
+                cboParentCollector.Enabled = false;
+            }
+        }
+        private bool IsNotInCurrentDependantTree(string uniqueId, CollectorHost ce)
+        {
+            if (HostingMonitorPack != null)
+            {
+                if (ce.UniqueId != uniqueId)
+                {
+                    if (ce.ParentCollectorId != null)
+                    {
+                        CollectorHost parentCe = (from pce in HostingMonitorPack.CollectorHosts
+                                                  where pce.UniqueId == ce.ParentCollectorId
+                                                  select pce).FirstOrDefault();
+                        if (parentCe != null)
+                        {
+                            return IsNotInCurrentDependantTree(uniqueId, parentCe);
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
         private void SetWindowTitle()
         {
@@ -418,6 +503,200 @@ namespace QuickMon
             else
             {
                 optHistoricStateView.Text = "Historic";
+            }
+        }
+        #endregion
+
+        #region Agents
+        private void LoadAgents()
+        {
+            try
+            {
+                agentsTreeListView.BeginUpdate();
+                agentsTreeListView.Items.Clear();
+                if (editingCollectorHost.CollectorAgents != null)
+                {
+                    foreach (ICollector agent in editingCollectorHost.CollectorAgents)
+                    {
+                        agent.AgentConfig.FromXml(agent.InitialConfiguration);
+
+                        TreeListViewItem tlvi = new TreeListViewItem(string.Format("{0}", agent.Name));
+                        if (agent.Enabled)
+                            tlvi.ImageIndex = 1;
+                        else
+                            tlvi.ImageIndex = 0;
+                        tlvi.SubItems.Add(agent.AgentClassDisplayName);
+                        tlvi.Tag = agent;
+                        agentsTreeListView.Items.Add(tlvi);
+
+                        ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                        foreach (ICollectorConfigEntry entry in entryConfig.Entries)
+                        {
+                            TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
+                            tlvAgentEntry.ImageIndex = 2;
+                            tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
+                            tlvAgentEntry.Tag = entry;
+                            tlvi.Items.Add(tlvAgentEntry);
+                            tlvi.Expand();
+                        }
+                    }
+                }
+            }
+            catch { }
+            finally
+            {
+                agentsTreeListView.EndUpdate();
+            }
+        }
+
+        #endregion
+
+        #region Config Vars
+        private bool loadConfigVarEntry = false;
+        private void LoadConfigVars()
+        {
+            loadConfigVarEntry = true;
+            lvwConfigVars.Items.Clear();
+            if (editingCollectorHost.ConfigVariables != null && editingCollectorHost.ConfigVariables.Count > 0)
+            {
+
+                foreach (ConfigVariable cv in editingCollectorHost.ConfigVariables)
+                {
+                    ListViewItem lvi = new ListViewItem(cv.FindValue);
+                    lvi.SubItems.Add(cv.ReplaceValue);
+                    lvi.Tag = cv;
+                    lvwConfigVars.Items.Add(lvi);
+                }
+
+            }
+            loadConfigVarEntry = false;
+        }
+        private void lvwConfigVars_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvwConfigVars.SelectedItems.Count == 1)
+            {
+                loadConfigVarEntry = true;
+                txtConfigVarSearchFor.Text = lvwConfigVars.SelectedItems[0].Text;
+                txtConfigVarReplaceByValue.Text = lvwConfigVars.SelectedItems[0].SubItems[1].Text;
+                loadConfigVarEntry = false;
+            }
+            else
+            {
+                loadConfigVarEntry = true;
+                txtConfigVarSearchFor.Text = "";
+                txtConfigVarReplaceByValue.Text = "";
+                loadConfigVarEntry = false;
+            }
+            moveUpConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count == 1 && lvwConfigVars.SelectedItems[0].Index > 0;
+            moveDownConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count == 1 && lvwConfigVars.SelectedItems[0].Index < lvwConfigVars.Items.Count - 1;
+            deleteConfigVarToolStripButton.Enabled = lvwConfigVars.SelectedItems.Count > 0;
+        }
+        private void lvwConfigVars_DeleteKeyPressed()
+        {
+            deleteConfigVarToolStripButton_Click(null, null);
+        }
+        private void txtConfigVarSearchFor_TextChanged(object sender, EventArgs e)
+        {
+            UpdateConfigVarListFromText();
+        }
+        private void txtConfigVarReplaceByValue_TextChanged(object sender, EventArgs e)
+        {
+            UpdateConfigVarListFromText();
+
+        }
+        private void UpdateConfigVarListFromText()
+        {
+            if (!loadConfigVarEntry)
+            {
+                if (lvwConfigVars.SelectedItems.Count == 1)
+                {
+                    lvwConfigVars.SelectedItems[0].Text = txtConfigVarSearchFor.Text;
+                    lvwConfigVars.SelectedItems[0].SubItems[1].Text = txtConfigVarReplaceByValue.Text;
+                    ((ConfigVariable)lvwConfigVars.SelectedItems[0].Tag).FindValue = txtConfigVarSearchFor.Text;
+                    ((ConfigVariable)lvwConfigVars.SelectedItems[0].Tag).ReplaceValue = txtConfigVarReplaceByValue.Text;
+                }
+                else if (lvwConfigVars.SelectedItems.Count == 0)
+                {
+                    ListViewItem lvi = new ListViewItem(txtConfigVarSearchFor.Text);
+                    lvi.SubItems.Add(txtConfigVarReplaceByValue.Text);
+                    lvi.Tag = new ConfigVariable() { FindValue = txtConfigVarSearchFor.Text, ReplaceValue = txtConfigVarReplaceByValue.Text };
+                    lvwConfigVars.Items.Add(lvi);
+                    lvi.Selected = true;
+                }
+            }
+        }
+        private void addConfigVarToolStripButton_Click(object sender, EventArgs e)
+        {
+            loadConfigVarEntry = true;
+            lvwConfigVars.SelectedItems.Clear();
+            txtConfigVarSearchFor.Text = "";
+            txtConfigVarReplaceByValue.Text = "";
+            loadConfigVarEntry = false;
+            txtConfigVarSearchFor.Focus();
+        }
+        private void deleteConfigVarToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (lvwConfigVars.SelectedItems.Count > 0)
+            {
+                loadConfigVarEntry = true;
+                if (MessageBox.Show("Are you sure you want to delete the seleted entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    foreach (ListViewItem lvi in lvwConfigVars.SelectedItems)
+                        lvwConfigVars.Items.Remove(lvi);
+                }
+                txtConfigVarSearchFor.Text = "";
+                txtConfigVarReplaceByValue.Text = "";
+                loadConfigVarEntry = false;
+            }
+        }
+        private void moveUpConfigVarToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (lvwConfigVars.SelectedItems.Count == 1)
+            {
+                int index = lvwConfigVars.SelectedItems[0].Index;
+                if (index > 0)
+                {
+                    loadConfigVarEntry = true;
+                    ConfigVariable tmpBottom = (ConfigVariable)lvwConfigVars.Items[index].Tag;
+                    ConfigVariable tmpTop = (ConfigVariable)lvwConfigVars.Items[index - 1].Tag;
+                    lvwConfigVars.Items[index].Tag = tmpTop;
+                    lvwConfigVars.Items[index].Text = tmpTop.FindValue;
+                    lvwConfigVars.Items[index].SubItems[1].Text = tmpTop.ReplaceValue;
+                    lvwConfigVars.Items[index - 1].Tag = tmpBottom;
+                    lvwConfigVars.Items[index - 1].Text = tmpBottom.FindValue;
+                    lvwConfigVars.Items[index - 1].SubItems[1].Text = tmpBottom.ReplaceValue;
+                    lvwConfigVars.Items[index].Selected = false;
+                    lvwConfigVars.Items[index].Focused = false;
+                    lvwConfigVars.Items[index - 1].Selected = true;
+                    lvwConfigVars.Items[index - 1].Focused = true;
+                    lvwConfigVars.Items[index - 1].EnsureVisible();
+                    loadConfigVarEntry = false;
+                }
+            }
+        }
+        private void moveDownConfigVarToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (lvwConfigVars.SelectedItems.Count == 1)
+            {
+                int index = lvwConfigVars.SelectedItems[0].Index;
+                if (index < lvwConfigVars.Items.Count - 1)
+                {
+                    loadConfigVarEntry = true;
+                    ConfigVariable tmpBottom = (ConfigVariable)lvwConfigVars.Items[index + 1].Tag;
+                    ConfigVariable tmpTop = (ConfigVariable)lvwConfigVars.Items[index].Tag;
+                    lvwConfigVars.Items[index + 1].Tag = tmpTop;
+                    lvwConfigVars.Items[index + 1].Text = tmpTop.FindValue;
+                    lvwConfigVars.Items[index + 1].SubItems[1].Text = tmpTop.ReplaceValue;
+                    lvwConfigVars.Items[index].Tag = tmpBottom;
+                    lvwConfigVars.Items[index].Text = tmpBottom.FindValue;
+                    lvwConfigVars.Items[index].SubItems[1].Text = tmpBottom.ReplaceValue;
+                    lvwConfigVars.Items[index].Selected = false;
+                    lvwConfigVars.Items[index].Focused = false;
+                    lvwConfigVars.Items[index + 1].Selected = true;
+                    lvwConfigVars.Items[index + 1].Focused = true;
+                    lvwConfigVars.Items[index].EnsureVisible();
+                    loadConfigVarEntry = false;
+                }
             }
         }
         #endregion
