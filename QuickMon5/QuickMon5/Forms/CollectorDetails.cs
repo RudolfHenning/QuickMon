@@ -34,7 +34,13 @@ namespace QuickMon
         /// CollectorHost tyo temporarily store editing changes before it is saved
         /// </summary>
         private CollectorHost editingCollectorHost = null;
-        private int previousSelectedAlertTextIndex = -1; 
+        private int previousSelectedAlertTextIndex = -1;
+
+        private int agentsEditSplitContainerHeight = 0;
+        private int hostSettingsSplitContainerHeight = 0;
+        private int operationalSplitContainerHeight = 0;
+        private int alertsSplitContainerHeight = 0;
+        private int configVariSplitContainerHeight = 0;
         #endregion
 
         #region TreeNodeImage contants
@@ -90,12 +96,19 @@ namespace QuickMon
         {
             this.Size = new Size(700, 500);
             tlvAgentStates.AutoResizeColumnEnabled = true;
+            agentsTreeListView.AutoResizeColumnEnabled = true;
             lvwHistory.AutoResizeColumnEnabled = true;
             lvwHistory.BorderStyle = BorderStyle.None;
             panelEditing.BorderStyle = BorderStyle.None;
             txtName.BorderStyle = BorderStyle.None;
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
+
+            agentsEditSplitContainerHeight = agentsEditSplitContainer.Height;
+            hostSettingsSplitContainerHeight = hostSettingsSplitContainer.Height;
+            operationalSplitContainerHeight = operationalSplitContainer.Height;
+            alertsSplitContainerHeight = alertsSplitContainer.Height;
+            configVariSplitContainerHeight = configVariSplitContainer.Height;
 
             if (SelectedCollectorHost == null)
             {
@@ -141,6 +154,20 @@ namespace QuickMon
         }
         private void StartEditMode()
         {
+            agentsEditSplitContainer.Panel2Collapsed = false;
+            hostSettingsSplitContainer.Panel2Collapsed = true;
+            hostSettingsSplitContainer.Height = 25;
+            cmdHostsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            operationalSplitContainer.Panel2Collapsed = true;
+            operationalSplitContainer.Height = 25;
+            cmdOperationalToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            alertsSplitContainer.Panel2Collapsed = true;
+            alertsSplitContainer.Height = 25;
+            cmdAlertsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            configVariSplitContainer.Panel2Collapsed = true;
+            configVariSplitContainer.Height = 25;
+            cmdConfigVarsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+
             if (this.Size.Height < 450)
             {
                 this.Size = new Size(this.Size.Width, 450);
@@ -903,11 +930,6 @@ namespace QuickMon
             StopEditMode();
         }
 
-        private void agentsTabPage_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cboTextType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (previousSelectedAlertTextIndex >= 0)
@@ -937,6 +959,49 @@ namespace QuickMon
             lblNoteTextChangeIndicator.Text = "Alert Texts";
             cmdSetNoteText.Enabled = false;
             previousSelectedAlertTextIndex = cboTextType.SelectedIndex;
+        }
+
+        private void agentsSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void cmdAgentsToggle_Click(object sender, EventArgs e)
+        {
+            TogglePanel(cmdAgentsToggle, agentsEditSplitContainer, agentsEditSplitContainerHeight);
+        }
+        private void cmdHostsToggle_Click(object sender, EventArgs e)
+        {
+            TogglePanel(cmdHostsToggle, hostSettingsSplitContainer, hostSettingsSplitContainerHeight);
+        }
+        private void cmdOperationalToggle_Click(object sender, EventArgs e)
+        {
+            TogglePanel(cmdOperationalToggle, operationalSplitContainer, operationalSplitContainerHeight);
+        }
+        private void cmdAlertsToggle_Click(object sender, EventArgs e)
+        {
+            TogglePanel(cmdAlertsToggle, alertsSplitContainer, alertsSplitContainerHeight);
+        }
+        private void cmdConfigVarsToggle_Click(object sender, EventArgs e)
+        {
+            TogglePanel(cmdConfigVarsToggle, configVariSplitContainer, configVariSplitContainerHeight);
+        }
+
+        private void TogglePanel(Button toggleButton, SplitContainer togglePanel, int expandedheight)
+        {
+            if (togglePanel.Panel2Collapsed)
+            {
+                togglePanel.Panel2Collapsed = false;
+                togglePanel.Height = expandedheight;
+                toggleButton.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+                splitContainer2.Panel1.ScrollControlIntoView(togglePanel);
+            }
+            else
+            {
+                togglePanel.Panel2Collapsed = true;
+                togglePanel.Height = 25;
+                toggleButton.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            }
         }
     }
 }

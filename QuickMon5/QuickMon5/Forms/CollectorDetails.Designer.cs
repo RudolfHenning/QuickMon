@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
@@ -39,7 +40,6 @@
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
             treeNode3,
             treeNode4});
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -53,75 +53,27 @@
             this.collectorDetailSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panelCollectorDetails = new System.Windows.Forms.Panel();
             this.panelEditing = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.agentsTabPage = new System.Windows.Forms.TabPage();
-            this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
-            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.enableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.disableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.agentCheckSequenceToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.txtCategories = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtAdditionalNotes = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.cboParentCollector = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.serviceWindowsGroupBox = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
-            this.runAsGroupBox = new System.Windows.Forms.GroupBox();
-            this.cmdTestRunAs = new System.Windows.Forms.Button();
-            this.label45 = new System.Windows.Forms.Label();
-            this.chkRunAsEnabled = new System.Windows.Forms.CheckBox();
-            this.txtRunAs = new System.Windows.Forms.TextBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.remoteAgentGroupBox = new System.Windows.Forms.GroupBox();
-            this.cboRemoteAgentServer = new System.Windows.Forms.ComboBox();
-            this.chkRunLocalOnRemoteHostConnectionFailure = new System.Windows.Forms.CheckBox();
-            this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
-            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
-            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.chkRemoteAgentEnabled = new System.Windows.Forms.CheckBox();
-            this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.cmdRemoteAgentTest = new System.Windows.Forms.Button();
-            this.pollingOverridesGroupBox = new System.Windows.Forms.GroupBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.chkEnablePollingOverride = new System.Windows.Forms.CheckBox();
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.chkEnablePollingFrequencySliding = new System.Windows.Forms.CheckBox();
-            this.onlyAllowUpdateOncePerXSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.configVariSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.cmdConfigVarsToggle = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.alertsSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.cmdAlertsToggle = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.cmdSetNoteText = new System.Windows.Forms.Button();
             this.txtNotesText = new System.Windows.Forms.TextBox();
@@ -161,7 +113,83 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.operationalSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.cmdOperationalToggle = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.serviceWindowsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
+            this.runAsGroupBox = new System.Windows.Forms.GroupBox();
+            this.cmdTestRunAs = new System.Windows.Forms.Button();
+            this.label45 = new System.Windows.Forms.Label();
+            this.chkRunAsEnabled = new System.Windows.Forms.CheckBox();
+            this.txtRunAs = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.remoteAgentGroupBox = new System.Windows.Forms.GroupBox();
+            this.cboRemoteAgentServer = new System.Windows.Forms.ComboBox();
+            this.chkRunLocalOnRemoteHostConnectionFailure = new System.Windows.Forms.CheckBox();
+            this.chkBlockParentRHOverride = new System.Windows.Forms.CheckBox();
+            this.chkForceRemoteExcuteOnChildCollectors = new System.Windows.Forms.CheckBox();
+            this.llblRemoteAgentInstallHelp = new System.Windows.Forms.LinkLabel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.chkRemoteAgentEnabled = new System.Windows.Forms.CheckBox();
+            this.remoteportNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmdRemoteAgentTest = new System.Windows.Forms.Button();
+            this.pollingOverridesGroupBox = new System.Windows.Forms.GroupBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.chkEnablePollingOverride = new System.Windows.Forms.CheckBox();
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.chkEnablePollingFrequencySliding = new System.Windows.Forms.CheckBox();
+            this.onlyAllowUpdateOncePerXSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.hostSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.cmdHostsToggle = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.txtCategories = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtAdditionalNotes = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.cboParentCollector = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.agentsEditSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.cmdAgentsToggle = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
+            this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
+            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.enableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.disableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.agentCheckSequenceToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.panelMetrics = new System.Windows.Forms.Panel();
@@ -170,7 +198,18 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
+            this.lvwHistory = new QuickMon.ListViewEx();
+            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chkRAWDetails = new System.Windows.Forms.CheckBox();
@@ -182,6 +221,7 @@
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
+            this.tvwScripts = new QuickMon.TreeViewEx();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -191,38 +231,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvwHistory = new QuickMon.ListViewEx();
-            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tvwScripts = new QuickMon.TreeViewEx();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.label42 = new System.Windows.Forms.Label();
-            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label38 = new System.Windows.Forms.Label();
-            this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -234,24 +242,19 @@
             this.collectorDetailSplitContainer.SuspendLayout();
             this.panelCollectorDetails.SuspendLayout();
             this.panelEditing.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.agentsTabPage.SuspendLayout();
-            this.collectorAgentsEditToolStrip.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.serviceWindowsGroupBox.SuspendLayout();
-            this.runAsGroupBox.SuspendLayout();
-            this.remoteAgentGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
-            this.pollingOverridesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configVariSplitContainer)).BeginInit();
+            this.configVariSplitContainer.Panel1.SuspendLayout();
+            this.configVariSplitContainer.Panel2.SuspendLayout();
+            this.configVariSplitContainer.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.alertsSplitContainer)).BeginInit();
+            this.alertsSplitContainer.Panel1.SuspendLayout();
+            this.alertsSplitContainer.Panel2.SuspendLayout();
+            this.alertsSplitContainer.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.correctiveScriptsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).BeginInit();
@@ -264,7 +267,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
-            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.operationalSplitContainer)).BeginInit();
+            this.operationalSplitContainer.Panel1.SuspendLayout();
+            this.operationalSplitContainer.Panel2.SuspendLayout();
+            this.operationalSplitContainer.SuspendLayout();
+            this.serviceWindowsGroupBox.SuspendLayout();
+            this.runAsGroupBox.SuspendLayout();
+            this.remoteAgentGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
+            this.pollingOverridesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hostSettingsSplitContainer)).BeginInit();
+            this.hostSettingsSplitContainer.Panel1.SuspendLayout();
+            this.hostSettingsSplitContainer.Panel2.SuspendLayout();
+            this.hostSettingsSplitContainer.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.agentsEditSplitContainer)).BeginInit();
+            this.agentsEditSplitContainer.Panel1.SuspendLayout();
+            this.agentsEditSplitContainer.Panel2.SuspendLayout();
+            this.agentsEditSplitContainer.SuspendLayout();
+            this.collectorAgentsEditToolStrip.SuspendLayout();
             this.panelMetrics.SuspendLayout();
             this.panelAgentStates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
@@ -274,8 +301,6 @@
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -424,339 +449,784 @@
             // panelEditing
             // 
             this.panelEditing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelEditing.Controls.Add(this.tabControl1);
-            this.panelEditing.Controls.Add(this.cmdOK);
-            this.panelEditing.Controls.Add(this.cmdCancel);
+            this.panelEditing.Controls.Add(this.splitContainer2);
             this.panelEditing.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEditing.Location = new System.Drawing.Point(0, 401);
             this.panelEditing.Name = "panelEditing";
-            this.panelEditing.Size = new System.Drawing.Size(964, 400);
+            this.panelEditing.Size = new System.Drawing.Size(964, 465);
             this.panelEditing.TabIndex = 4;
             // 
-            // tabControl1
+            // splitContainer2
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.AutoScroll = true;
+            this.splitContainer2.Panel1.Controls.Add(this.configVariSplitContainer);
+            this.splitContainer2.Panel1.Controls.Add(this.alertsSplitContainer);
+            this.splitContainer2.Panel1.Controls.Add(this.operationalSplitContainer);
+            this.splitContainer2.Panel1.Controls.Add(this.hostSettingsSplitContainer);
+            this.splitContainer2.Panel1.Controls.Add(this.agentsEditSplitContainer);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.cmdOK);
+            this.splitContainer2.Panel2.Controls.Add(this.cmdCancel);
+            this.splitContainer2.Size = new System.Drawing.Size(962, 463);
+            this.splitContainer2.SplitterDistance = 421;
+            this.splitContainer2.TabIndex = 7;
+            // 
+            // configVariSplitContainer
+            // 
+            this.configVariSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.configVariSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.configVariSplitContainer.Location = new System.Drawing.Point(0, 1261);
+            this.configVariSplitContainer.Name = "configVariSplitContainer";
+            this.configVariSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // configVariSplitContainer.Panel1
+            // 
+            this.configVariSplitContainer.Panel1.Controls.Add(this.cmdConfigVarsToggle);
+            this.configVariSplitContainer.Panel1.Controls.Add(this.button13);
+            // 
+            // configVariSplitContainer.Panel2
+            // 
+            this.configVariSplitContainer.Panel2.Controls.Add(this.lvwConfigVars);
+            this.configVariSplitContainer.Panel2.Controls.Add(this.txtConfigVarReplaceByValue);
+            this.configVariSplitContainer.Panel2.Controls.Add(this.label42);
+            this.configVariSplitContainer.Panel2.Controls.Add(this.label41);
+            this.configVariSplitContainer.Panel2.Controls.Add(this.toolStrip1);
+            this.configVariSplitContainer.Panel2.Controls.Add(this.txtConfigVarSearchFor);
+            this.configVariSplitContainer.Panel2.Controls.Add(this.label40);
+            this.configVariSplitContainer.Panel2MinSize = 0;
+            this.configVariSplitContainer.Size = new System.Drawing.Size(945, 300);
+            this.configVariSplitContainer.SplitterDistance = 25;
+            this.configVariSplitContainer.TabIndex = 10;
+            // 
+            // cmdConfigVarsToggle
+            // 
+            this.cmdConfigVarsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdConfigVarsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdConfigVarsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdConfigVarsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdConfigVarsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdConfigVarsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdConfigVarsToggle.Name = "cmdConfigVarsToggle";
+            this.cmdConfigVarsToggle.Size = new System.Drawing.Size(945, 25);
+            this.cmdConfigVarsToggle.TabIndex = 1;
+            this.cmdConfigVarsToggle.Text = "Config Variables";
+            this.cmdConfigVarsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdConfigVarsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdConfigVarsToggle.UseVisualStyleBackColor = false;
+            this.cmdConfigVarsToggle.Click += new System.EventHandler(this.cmdConfigVarsToggle_Click);
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button13.Location = new System.Drawing.Point(0, 0);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(945, 25);
+            this.button13.TabIndex = 1;
+            this.button13.Text = "Collector Host settings";
+            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button13.UseVisualStyleBackColor = false;
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.agentsTabPage);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(-1, -1);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(964, 367);
-            this.tabControl1.TabIndex = 4;
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(2, 30);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(940, 184);
+            this.lvwConfigVars.TabIndex = 2;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
             // 
-            // agentsTabPage
+            // columnHeader5
             // 
-            this.agentsTabPage.Controls.Add(this.agentsTreeListView);
-            this.agentsTabPage.Controls.Add(this.collectorAgentsEditToolStrip);
-            this.agentsTabPage.Location = new System.Drawing.Point(4, 22);
-            this.agentsTabPage.Name = "agentsTabPage";
-            this.agentsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.agentsTabPage.Size = new System.Drawing.Size(956, 341);
-            this.agentsTabPage.TabIndex = 0;
-            this.agentsTabPage.Text = "Agents";
-            this.agentsTabPage.UseVisualStyleBackColor = true;
-            this.agentsTabPage.Click += new System.EventHandler(this.agentsTabPage_Click);
+            this.columnHeader5.Text = "Search for";
+            this.columnHeader5.Width = 244;
             // 
-            // collectorAgentsEditToolStrip
+            // columnHeader6
             // 
-            this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.collectorAgentsEditToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCollectorConfigEntryToolStripButton,
-            this.addAgentEntryToolStripButton,
-            this.editCollectorAgentToolStripButton,
-            this.deleteCollectorAgentToolStripButton,
-            this.toolStripSeparator2,
-            this.moveUpAgentToolStripButton,
-            this.moveDownAgentToolStripButton,
-            this.toolStripSeparator3,
-            this.enableAgentToolStripButton,
-            this.disableAgentToolStripButton,
-            this.toolStripLabel1,
-            this.agentCheckSequenceToolStripComboBox});
-            this.collectorAgentsEditToolStrip.Location = new System.Drawing.Point(3, 3);
-            this.collectorAgentsEditToolStrip.Name = "collectorAgentsEditToolStrip";
-            this.collectorAgentsEditToolStrip.Size = new System.Drawing.Size(950, 27);
-            this.collectorAgentsEditToolStrip.TabIndex = 1;
-            this.collectorAgentsEditToolStrip.TabStop = true;
-            this.collectorAgentsEditToolStrip.Text = "toolStrip1";
+            this.columnHeader6.Text = "Replace by";
+            this.columnHeader6.Width = 262;
             // 
-            // addCollectorConfigEntryToolStripButton
+            // txtConfigVarReplaceByValue
             // 
-            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.add;
-            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
-            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
-            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
+            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(337, 220);
+            this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
+            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarReplaceByValue.TabIndex = 6;
             // 
-            // addAgentEntryToolStripButton
+            // label42
             // 
-            this.addAgentEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addAgentEntryToolStripButton.Enabled = false;
-            this.addAgentEntryToolStripButton.Image = global::QuickMon.Properties.Resources.addGreen24x24;
-            this.addAgentEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addAgentEntryToolStripButton.Name = "addAgentEntryToolStripButton";
-            this.addAgentEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addAgentEntryToolStripButton.Text = "Add new Agent entry";
+            this.label42.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(0, 243);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(945, 28);
+            this.label42.TabIndex = 7;
+            this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
+    "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
+    " \'special\' in XML.";
             // 
-            // editCollectorAgentToolStripButton
+            // label41
             // 
-            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editCollectorAgentToolStripButton.Enabled = false;
-            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.doc_edit24x24;
-            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
-            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
+            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(262, 223);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(69, 13);
+            this.label41.TabIndex = 5;
+            this.label41.Text = "Replace with";
             // 
-            // deleteCollectorAgentToolStripButton
+            // toolStrip1
             // 
-            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteCollectorAgentToolStripButton.Enabled = false;
-            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
-            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addConfigVarToolStripButton,
+            this.deleteConfigVarToolStripButton,
+            this.toolStripSeparator1,
+            this.moveUpConfigVarToolStripButton,
+            this.moveDownConfigVarToolStripButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(945, 27);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.TabStop = true;
+            this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripSeparator2
+            // addConfigVarToolStripButton
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
+            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addConfigVarToolStripButton.Text = "Create new";
+            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
             // 
-            // moveUpAgentToolStripButton
+            // deleteConfigVarToolStripButton
             // 
-            this.moveUpAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpAgentToolStripButton.Enabled = false;
-            this.moveUpAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
-            this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveUpAgentToolStripButton.Text = "Move selected item up";
+            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteConfigVarToolStripButton.Enabled = false;
+            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
+            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
             // 
-            // moveDownAgentToolStripButton
+            // toolStripSeparator1
             // 
-            this.moveDownAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownAgentToolStripButton.Enabled = false;
-            this.moveDownAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
-            this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveDownAgentToolStripButton.Text = "Move selected item down";
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripSeparator3
+            // moveUpConfigVarToolStripButton
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpConfigVarToolStripButton.Enabled = false;
+            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
+            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
             // 
-            // enableAgentToolStripButton
+            // moveDownConfigVarToolStripButton
             // 
-            this.enableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.enableAgentToolStripButton.Enabled = false;
-            this.enableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
-            this.enableAgentToolStripButton.Size = new System.Drawing.Size(23, 24);
-            this.enableAgentToolStripButton.Text = "Enable";
+            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownConfigVarToolStripButton.Enabled = false;
+            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
+            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
             // 
-            // disableAgentToolStripButton
+            // txtConfigVarSearchFor
             // 
-            this.disableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.disableAgentToolStripButton.Enabled = false;
-            this.disableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
-            this.disableAgentToolStripButton.Size = new System.Drawing.Size(23, 24);
-            this.disableAgentToolStripButton.Text = "Disable";
+            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(83, 220);
+            this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
+            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarSearchFor.TabIndex = 4;
             // 
-            // toolStripLabel1
+            // label40
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(126, 24);
-            this.toolStripLabel1.Text = "Agent check se&quence";
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(8, 223);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(56, 13);
+            this.label40.TabIndex = 3;
+            this.label40.Text = "Search for";
             // 
-            // agentCheckSequenceToolStripComboBox
+            // alertsSplitContainer
             // 
-            this.agentCheckSequenceToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.agentCheckSequenceToolStripComboBox.Items.AddRange(new object[] {
-            "All",
-            "First Success",
-            "First Error"});
-            this.agentCheckSequenceToolStripComboBox.Name = "agentCheckSequenceToolStripComboBox";
-            this.agentCheckSequenceToolStripComboBox.Size = new System.Drawing.Size(121, 27);
+            this.alertsSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.alertsSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.alertsSplitContainer.Location = new System.Drawing.Point(0, 942);
+            this.alertsSplitContainer.Name = "alertsSplitContainer";
+            this.alertsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // tabPage2
+            // alertsSplitContainer.Panel1
             // 
-            this.tabPage2.AutoScroll = true;
-            this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(956, 341);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "General";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.alertsSplitContainer.Panel1.Controls.Add(this.cmdAlertsToggle);
+            this.alertsSplitContainer.Panel1.Controls.Add(this.button11);
             // 
-            // groupBox7
+            // alertsSplitContainer.Panel2
             // 
-            this.groupBox7.Controls.Add(this.txtCategories);
-            this.groupBox7.Controls.Add(this.label46);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox7.Location = new System.Drawing.Point(3, 175);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(950, 105);
-            this.groupBox7.TabIndex = 3;
-            this.groupBox7.TabStop = false;
+            this.alertsSplitContainer.Panel2.Controls.Add(this.groupBox9);
+            this.alertsSplitContainer.Panel2.Controls.Add(this.correctiveScriptsGroupBox);
+            this.alertsSplitContainer.Panel2.Controls.Add(this.alertSuppressionGroupBox);
+            this.alertsSplitContainer.Panel2MinSize = 0;
+            this.alertsSplitContainer.Size = new System.Drawing.Size(945, 319);
+            this.alertsSplitContainer.SplitterDistance = 25;
+            this.alertsSplitContainer.TabIndex = 9;
             // 
-            // txtCategories
+            // cmdAlertsToggle
             // 
-            this.txtCategories.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCategories.Location = new System.Drawing.Point(3, 16);
-            this.txtCategories.Multiline = true;
-            this.txtCategories.Name = "txtCategories";
-            this.txtCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCategories.Size = new System.Drawing.Size(944, 86);
-            this.txtCategories.TabIndex = 6;
+            this.cmdAlertsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdAlertsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdAlertsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAlertsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdAlertsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAlertsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdAlertsToggle.Name = "cmdAlertsToggle";
+            this.cmdAlertsToggle.Size = new System.Drawing.Size(945, 25);
+            this.cmdAlertsToggle.TabIndex = 1;
+            this.cmdAlertsToggle.Text = "Alerts";
+            this.cmdAlertsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAlertsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdAlertsToggle.UseVisualStyleBackColor = false;
+            this.cmdAlertsToggle.Click += new System.EventHandler(this.cmdAlertsToggle_Click);
             // 
-            // label46
+            // button11
             // 
-            this.label46.AutoSize = true;
-            this.label46.BackColor = System.Drawing.Color.White;
-            this.label46.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(6, 0);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(222, 13);
-            this.label46.TabIndex = 0;
-            this.label46.Text = "Categories - (each line is a new entry)";
+            this.button11.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button11.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button11.Location = new System.Drawing.Point(0, 0);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(945, 25);
+            this.button11.TabIndex = 1;
+            this.button11.Text = "Collector Host settings";
+            this.button11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button11.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button11.UseVisualStyleBackColor = false;
             // 
-            // groupBox4
+            // groupBox9
             // 
-            this.groupBox4.Controls.Add(this.txtAdditionalNotes);
-            this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox4.Location = new System.Drawing.Point(3, 80);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(950, 95);
-            this.groupBox4.TabIndex = 2;
-            this.groupBox4.TabStop = false;
+            this.groupBox9.Controls.Add(this.cmdSetNoteText);
+            this.groupBox9.Controls.Add(this.txtNotesText);
+            this.groupBox9.Controls.Add(this.lblNoteTextChangeIndicator);
+            this.groupBox9.Controls.Add(this.cboTextType);
+            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox9.Location = new System.Drawing.Point(0, 152);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(945, 131);
+            this.groupBox9.TabIndex = 8;
+            this.groupBox9.TabStop = false;
             // 
-            // txtAdditionalNotes
+            // cmdSetNoteText
             // 
-            this.txtAdditionalNotes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAdditionalNotes.Location = new System.Drawing.Point(3, 16);
-            this.txtAdditionalNotes.Multiline = true;
-            this.txtAdditionalNotes.Name = "txtAdditionalNotes";
-            this.txtAdditionalNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAdditionalNotes.Size = new System.Drawing.Size(944, 76);
-            this.txtAdditionalNotes.TabIndex = 1;
+            this.cmdSetNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSetNoteText.Enabled = false;
+            this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdSetNoteText.Location = new System.Drawing.Point(902, 14);
+            this.cmdSetNoteText.Name = "cmdSetNoteText";
+            this.cmdSetNoteText.Size = new System.Drawing.Size(39, 23);
+            this.cmdSetNoteText.TabIndex = 3;
+            this.cmdSetNoteText.Text = "Set";
+            this.cmdSetNoteText.UseVisualStyleBackColor = true;
             // 
-            // label15
+            // txtNotesText
             // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.White;
-            this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(6, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(227, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Additional Notes for this Collector Host";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.cboChildCheckBehaviour);
-            this.groupBox1.Controls.Add(this.label39);
-            this.groupBox1.Controls.Add(this.cboParentCollector);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(950, 77);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 1);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Parent/Child Host";
-            // 
-            // cboChildCheckBehaviour
-            // 
-            this.cboChildCheckBehaviour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtNotesText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboChildCheckBehaviour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboChildCheckBehaviour.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboChildCheckBehaviour.FormattingEnabled = true;
-            this.cboChildCheckBehaviour.Items.AddRange(new object[] {
-            "Only Run On Success",
-            "Continue On Warning",
-            "Continue On Warning Or Error"});
-            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(134, 44);
-            this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
-            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(810, 21);
-            this.cboChildCheckBehaviour.TabIndex = 4;
+            this.txtNotesText.Location = new System.Drawing.Point(134, 12);
+            this.txtNotesText.Multiline = true;
+            this.txtNotesText.Name = "txtNotesText";
+            this.txtNotesText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNotesText.Size = new System.Drawing.Size(764, 113);
+            this.txtNotesText.TabIndex = 2;
             // 
-            // label39
+            // lblNoteTextChangeIndicator
             // 
-            this.label39.Location = new System.Drawing.Point(10, 43);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(118, 31);
-            this.label39.TabIndex = 3;
-            this.label39.Text = "Child Collector Host Check behaviour";
+            this.lblNoteTextChangeIndicator.AutoSize = true;
+            this.lblNoteTextChangeIndicator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblNoteTextChangeIndicator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoteTextChangeIndicator.Location = new System.Drawing.Point(6, 0);
+            this.lblNoteTextChangeIndicator.Name = "lblNoteTextChangeIndicator";
+            this.lblNoteTextChangeIndicator.Size = new System.Drawing.Size(68, 13);
+            this.lblNoteTextChangeIndicator.TabIndex = 0;
+            this.lblNoteTextChangeIndicator.Text = "Alert Texts";
             // 
-            // cboParentCollector
+            // cboTextType
             // 
-            this.cboParentCollector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboParentCollector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboParentCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboParentCollector.FormattingEnabled = true;
-            this.cboParentCollector.Location = new System.Drawing.Point(134, 17);
-            this.cboParentCollector.Name = "cboParentCollector";
-            this.cboParentCollector.Size = new System.Drawing.Size(810, 21);
-            this.cboParentCollector.TabIndex = 2;
+            this.cboTextType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTextType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboTextType.Items.AddRange(new object[] {
+            "Header (All alerts)",
+            "Footer (All alerts)",
+            "Error Alert",
+            "Warning Alert",
+            "Good Alert"});
+            this.cboTextType.Location = new System.Drawing.Point(6, 16);
+            this.cboTextType.Name = "cboTextType";
+            this.cboTextType.Size = new System.Drawing.Size(122, 21);
+            this.cboTextType.TabIndex = 1;
             // 
-            // label5
+            // correctiveScriptsGroupBox
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Parent Collector Host";
+            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownRestorationScriptMinimumRepeatTimeMin);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label53);
+            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label51);
+            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label48);
+            this.correctiveScriptsGroupBox.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label20);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label19);
+            this.correctiveScriptsGroupBox.Controls.Add(this.chkCorrectiveScriptDisabled);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label7);
+            this.correctiveScriptsGroupBox.Controls.Add(this.label12);
+            this.correctiveScriptsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(0, 94);
+            this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
+            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(945, 58);
+            this.correctiveScriptsGroupBox.TabIndex = 7;
+            this.correctiveScriptsGroupBox.TabStop = false;
             // 
-            // tabPage1
+            // numericUpDownRestorationScriptMinimumRepeatTimeMin
             // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Controls.Add(this.serviceWindowsGroupBox);
-            this.tabPage1.Controls.Add(this.runAsGroupBox);
-            this.tabPage1.Controls.Add(this.remoteAgentGroupBox);
-            this.tabPage1.Controls.Add(this.pollingOverridesGroupBox);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(956, 341);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Operational";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Location = new System.Drawing.Point(545, 28);
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Name = "numericUpDownRestorationScriptMinimumRepeatTimeMin";
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.TabIndex = 19;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(600, 30);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(24, 13);
+            this.label53.TabIndex = 20;
+            this.label53.Text = "Min";
+            // 
+            // numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin
+            // 
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Location = new System.Drawing.Point(323, 28);
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin";
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.TabIndex = 13;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(378, 30);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(24, 13);
+            this.label51.TabIndex = 14;
+            this.label51.Text = "Min";
+            // 
+            // numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin
+            // 
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Location = new System.Drawing.Point(130, 28);
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin";
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.TabIndex = 7;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(185, 30);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(24, 13);
+            this.label48.TabIndex = 8;
+            this.label48.Text = "Min";
+            // 
+            // chkOnlyRunCorrectiveScriptsOnStateChange
+            // 
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(284, 2);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(228, 17);
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only on state change (warnings and errors)\r\n";
+            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(411, 30);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(129, 13);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "Restoration - Only once in";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(6, 1);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(106, 13);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Corrective scripts";
+            // 
+            // chkCorrectiveScriptDisabled
+            // 
+            this.chkCorrectiveScriptDisabled.AutoSize = true;
+            this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(134, 2);
+            this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
+            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(144, 17);
+            this.chkCorrectiveScriptDisabled.TabIndex = 1;
+            this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
+            this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(115, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Warning - Only once in";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(220, 30);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(97, 13);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Error - Only once in";
+            // 
+            // alertSuppressionGroupBox
+            // 
+            this.alertSuppressionGroupBox.Controls.Add(this.chkAlertsPaused);
+            this.alertSuppressionGroupBox.Controls.Add(this.label26);
+            this.alertSuppressionGroupBox.Controls.Add(this.label25);
+            this.alertSuppressionGroupBox.Controls.Add(this.label24);
+            this.alertSuppressionGroupBox.Controls.Add(this.label23);
+            this.alertSuppressionGroupBox.Controls.Add(this.numericUpDownRepeatAlertInXPolls);
+            this.alertSuppressionGroupBox.Controls.Add(this.delayAlertPollsNumericUpDown);
+            this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXPollsNumericUpDown);
+            this.alertSuppressionGroupBox.Controls.Add(this.label22);
+            this.alertSuppressionGroupBox.Controls.Add(this.label21);
+            this.alertSuppressionGroupBox.Controls.Add(this.label18);
+            this.alertSuppressionGroupBox.Controls.Add(this.label6);
+            this.alertSuppressionGroupBox.Controls.Add(this.numericUpDownRepeatAlertInXMin);
+            this.alertSuppressionGroupBox.Controls.Add(this.delayAlertSecNumericUpDown);
+            this.alertSuppressionGroupBox.Controls.Add(this.label8);
+            this.alertSuppressionGroupBox.Controls.Add(this.label10);
+            this.alertSuppressionGroupBox.Controls.Add(this.label9);
+            this.alertSuppressionGroupBox.Controls.Add(this.label11);
+            this.alertSuppressionGroupBox.Controls.Add(this.label37);
+            this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXMinNumericUpDown);
+            this.alertSuppressionGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
+            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(945, 94);
+            this.alertSuppressionGroupBox.TabIndex = 6;
+            this.alertSuppressionGroupBox.TabStop = false;
+            // 
+            // chkAlertsPaused
+            // 
+            this.chkAlertsPaused.AutoSize = true;
+            this.chkAlertsPaused.Location = new System.Drawing.Point(125, -1);
+            this.chkAlertsPaused.Name = "chkAlertsPaused";
+            this.chkAlertsPaused.Size = new System.Drawing.Size(208, 17);
+            this.chkAlertsPaused.TabIndex = 1;
+            this.chkAlertsPaused.Text = "Pause/ignore all alerts for this collector";
+            this.chkAlertsPaused.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(313, 45);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(239, 13);
+            this.label26.TabIndex = 13;
+            this.label26.Text = "Note that # of polls depends on polling frequency";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(269, 68);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(29, 13);
+            this.label25.TabIndex = 18;
+            this.label25.Text = "Polls";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(269, 45);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(29, 13);
+            this.label24.TabIndex = 12;
+            this.label24.Text = "Polls";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(269, 22);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(29, 13);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "Polls";
+            // 
+            // numericUpDownRepeatAlertInXPolls
+            // 
+            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
+            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
+            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXPolls.TabIndex = 5;
+            // 
+            // delayAlertPollsNumericUpDown
+            // 
+            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 66);
+            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
+            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertPollsNumericUpDown.TabIndex = 17;
+            // 
+            // AlertOnceInXPollsNumericUpDown
+            // 
+            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 43);
+            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
+            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXPollsNumericUpDown.TabIndex = 11;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(313, 68);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(224, 13);
+            this.label22.TabIndex = 19;
+            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(313, 22);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(232, 13);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(6, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(98, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Alert suppresion";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(89, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Repeat alert after";
+            // 
+            // numericUpDownRepeatAlertInXMin
+            // 
+            this.numericUpDownRepeatAlertInXMin.Location = new System.Drawing.Point(107, 20);
+            this.numericUpDownRepeatAlertInXMin.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.numericUpDownRepeatAlertInXMin.Name = "numericUpDownRepeatAlertInXMin";
+            this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownRepeatAlertInXMin.TabIndex = 3;
+            // 
+            // delayAlertSecNumericUpDown
+            // 
+            this.delayAlertSecNumericUpDown.Location = new System.Drawing.Point(107, 66);
+            this.delayAlertSecNumericUpDown.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.delayAlertSecNumericUpDown.Name = "delayAlertSecNumericUpDown";
+            this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.delayAlertSecNumericUpDown.TabIndex = 15;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 45);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Only alert once in";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(162, 68);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "Seconds";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(162, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Minutes";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Delay alert";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(162, 45);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(44, 13);
+            this.label37.TabIndex = 10;
+            this.label37.Text = "Minutes";
+            // 
+            // AlertOnceInXMinNumericUpDown
+            // 
+            this.AlertOnceInXMinNumericUpDown.Location = new System.Drawing.Point(107, 43);
+            this.AlertOnceInXMinNumericUpDown.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.AlertOnceInXMinNumericUpDown.Name = "AlertOnceInXMinNumericUpDown";
+            this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
+            this.AlertOnceInXMinNumericUpDown.TabIndex = 9;
+            // 
+            // operationalSplitContainer
+            // 
+            this.operationalSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.operationalSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.operationalSplitContainer.Location = new System.Drawing.Point(0, 610);
+            this.operationalSplitContainer.Name = "operationalSplitContainer";
+            this.operationalSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // operationalSplitContainer.Panel1
+            // 
+            this.operationalSplitContainer.Panel1.Controls.Add(this.cmdOperationalToggle);
+            this.operationalSplitContainer.Panel1.Controls.Add(this.button9);
+            // 
+            // operationalSplitContainer.Panel2
+            // 
+            this.operationalSplitContainer.Panel2.Controls.Add(this.serviceWindowsGroupBox);
+            this.operationalSplitContainer.Panel2.Controls.Add(this.runAsGroupBox);
+            this.operationalSplitContainer.Panel2.Controls.Add(this.remoteAgentGroupBox);
+            this.operationalSplitContainer.Panel2.Controls.Add(this.pollingOverridesGroupBox);
+            this.operationalSplitContainer.Panel2MinSize = 0;
+            this.operationalSplitContainer.Size = new System.Drawing.Size(945, 332);
+            this.operationalSplitContainer.SplitterDistance = 25;
+            this.operationalSplitContainer.TabIndex = 8;
+            // 
+            // cmdOperationalToggle
+            // 
+            this.cmdOperationalToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdOperationalToggle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdOperationalToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdOperationalToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdOperationalToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdOperationalToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdOperationalToggle.Name = "cmdOperationalToggle";
+            this.cmdOperationalToggle.Size = new System.Drawing.Size(945, 25);
+            this.cmdOperationalToggle.TabIndex = 1;
+            this.cmdOperationalToggle.Text = "Operational";
+            this.cmdOperationalToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdOperationalToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdOperationalToggle.UseVisualStyleBackColor = false;
+            this.cmdOperationalToggle.Click += new System.EventHandler(this.cmdOperationalToggle_Click);
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button9.Location = new System.Drawing.Point(0, 0);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(945, 25);
+            this.button9.TabIndex = 1;
+            this.button9.Text = "Collector Host settings";
+            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button9.UseVisualStyleBackColor = false;
             // 
             // serviceWindowsGroupBox
             // 
@@ -764,11 +1234,11 @@
             this.serviceWindowsGroupBox.Controls.Add(this.linkLabelServiceWindows);
             this.serviceWindowsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.serviceWindowsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.serviceWindowsGroupBox.Location = new System.Drawing.Point(3, 235);
+            this.serviceWindowsGroupBox.Location = new System.Drawing.Point(0, 232);
             this.serviceWindowsGroupBox.MinimumSize = new System.Drawing.Size(100, 50);
             this.serviceWindowsGroupBox.Name = "serviceWindowsGroupBox";
-            this.serviceWindowsGroupBox.Size = new System.Drawing.Size(950, 70);
-            this.serviceWindowsGroupBox.TabIndex = 7;
+            this.serviceWindowsGroupBox.Size = new System.Drawing.Size(945, 70);
+            this.serviceWindowsGroupBox.TabIndex = 11;
             this.serviceWindowsGroupBox.TabStop = false;
             // 
             // label16
@@ -789,7 +1259,7 @@
             this.linkLabelServiceWindows.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelServiceWindows.Location = new System.Drawing.Point(3, 16);
             this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(944, 51);
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(939, 51);
             this.linkLabelServiceWindows.TabIndex = 1;
             this.linkLabelServiceWindows.TabStop = true;
             this.linkLabelServiceWindows.Text = "None";
@@ -804,10 +1274,10 @@
             this.runAsGroupBox.Controls.Add(this.label44);
             this.runAsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.runAsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.runAsGroupBox.Location = new System.Drawing.Point(3, 173);
+            this.runAsGroupBox.Location = new System.Drawing.Point(0, 170);
             this.runAsGroupBox.Name = "runAsGroupBox";
-            this.runAsGroupBox.Size = new System.Drawing.Size(950, 62);
-            this.runAsGroupBox.TabIndex = 6;
+            this.runAsGroupBox.Size = new System.Drawing.Size(945, 62);
+            this.runAsGroupBox.TabIndex = 10;
             this.runAsGroupBox.TabStop = false;
             // 
             // cmdTestRunAs
@@ -815,7 +1285,7 @@
             this.cmdTestRunAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestRunAs.Enabled = false;
             this.cmdTestRunAs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestRunAs.Location = new System.Drawing.Point(874, 17);
+            this.cmdTestRunAs.Location = new System.Drawing.Point(869, 17);
             this.cmdTestRunAs.Name = "cmdTestRunAs";
             this.cmdTestRunAs.Size = new System.Drawing.Size(70, 23);
             this.cmdTestRunAs.TabIndex = 4;
@@ -852,7 +1322,7 @@
             this.txtRunAs.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRunAs.Location = new System.Drawing.Point(108, 19);
             this.txtRunAs.Name = "txtRunAs";
-            this.txtRunAs.Size = new System.Drawing.Size(760, 20);
+            this.txtRunAs.Size = new System.Drawing.Size(755, 20);
             this.txtRunAs.TabIndex = 3;
             // 
             // label43
@@ -890,10 +1360,10 @@
             this.remoteAgentGroupBox.Controls.Add(this.cmdRemoteAgentTest);
             this.remoteAgentGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.remoteAgentGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.remoteAgentGroupBox.Location = new System.Drawing.Point(3, 98);
+            this.remoteAgentGroupBox.Location = new System.Drawing.Point(0, 95);
             this.remoteAgentGroupBox.Name = "remoteAgentGroupBox";
-            this.remoteAgentGroupBox.Size = new System.Drawing.Size(950, 75);
-            this.remoteAgentGroupBox.TabIndex = 5;
+            this.remoteAgentGroupBox.Size = new System.Drawing.Size(945, 75);
+            this.remoteAgentGroupBox.TabIndex = 9;
             this.remoteAgentGroupBox.TabStop = false;
             // 
             // cboRemoteAgentServer
@@ -903,7 +1373,7 @@
             this.cboRemoteAgentServer.FormattingEnabled = true;
             this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
             this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
-            this.cboRemoteAgentServer.Size = new System.Drawing.Size(618, 21);
+            this.cboRemoteAgentServer.Size = new System.Drawing.Size(613, 21);
             this.cboRemoteAgentServer.Sorted = true;
             this.cboRemoteAgentServer.TabIndex = 5;
             // 
@@ -943,7 +1413,7 @@
             this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.llblRemoteAgentInstallHelp.AutoSize = true;
             this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(883, 1);
+            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(878, 1);
             this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
             this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
             this.llblRemoteAgentInstallHelp.TabIndex = 3;
@@ -977,7 +1447,7 @@
             // 
             this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.remoteportNumericUpDown.Enabled = false;
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(797, 24);
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(792, 24);
             this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -1010,7 +1480,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(765, 26);
+            this.label14.Location = new System.Drawing.Point(760, 26);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 6;
@@ -1021,7 +1491,7 @@
             this.cmdRemoteAgentTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRemoteAgentTest.Enabled = false;
             this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(874, 21);
+            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(869, 21);
             this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
             this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
             this.cmdRemoteAgentTest.TabIndex = 8;
@@ -1047,10 +1517,10 @@
             this.pollingOverridesGroupBox.Controls.Add(this.label29);
             this.pollingOverridesGroupBox.Controls.Add(this.label27);
             this.pollingOverridesGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(0, 0);
             this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
-            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(950, 95);
-            this.pollingOverridesGroupBox.TabIndex = 4;
+            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(945, 95);
+            this.pollingOverridesGroupBox.TabIndex = 8;
             this.pollingOverridesGroupBox.TabStop = false;
             // 
             // label36
@@ -1255,466 +1725,422 @@
             this.label27.TabIndex = 0;
             this.label27.Text = "Polling overrides";
             // 
-            // tabPage3
+            // hostSettingsSplitContainer
             // 
-            this.tabPage3.Controls.Add(this.groupBox9);
-            this.tabPage3.Controls.Add(this.correctiveScriptsGroupBox);
-            this.tabPage3.Controls.Add(this.alertSuppressionGroupBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(956, 341);
-            this.tabPage3.TabIndex = 3;
-            this.tabPage3.Text = "Alerts";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.hostSettingsSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hostSettingsSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.hostSettingsSplitContainer.Location = new System.Drawing.Point(0, 300);
+            this.hostSettingsSplitContainer.Name = "hostSettingsSplitContainer";
+            this.hostSettingsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // groupBox9
+            // hostSettingsSplitContainer.Panel1
             // 
-            this.groupBox9.Controls.Add(this.cmdSetNoteText);
-            this.groupBox9.Controls.Add(this.txtNotesText);
-            this.groupBox9.Controls.Add(this.lblNoteTextChangeIndicator);
-            this.groupBox9.Controls.Add(this.cboTextType);
-            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox9.Location = new System.Drawing.Point(3, 155);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(950, 131);
-            this.groupBox9.TabIndex = 5;
-            this.groupBox9.TabStop = false;
+            this.hostSettingsSplitContainer.Panel1.Controls.Add(this.cmdHostsToggle);
+            this.hostSettingsSplitContainer.Panel1.Controls.Add(this.button7);
             // 
-            // cmdSetNoteText
+            // hostSettingsSplitContainer.Panel2
             // 
-            this.cmdSetNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSetNoteText.Enabled = false;
-            this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSetNoteText.Location = new System.Drawing.Point(907, 14);
-            this.cmdSetNoteText.Name = "cmdSetNoteText";
-            this.cmdSetNoteText.Size = new System.Drawing.Size(39, 23);
-            this.cmdSetNoteText.TabIndex = 3;
-            this.cmdSetNoteText.Text = "Set";
-            this.cmdSetNoteText.UseVisualStyleBackColor = true;
+            this.hostSettingsSplitContainer.Panel2.Controls.Add(this.groupBox7);
+            this.hostSettingsSplitContainer.Panel2.Controls.Add(this.groupBox4);
+            this.hostSettingsSplitContainer.Panel2.Controls.Add(this.groupBox1);
+            this.hostSettingsSplitContainer.Panel2MinSize = 0;
+            this.hostSettingsSplitContainer.Size = new System.Drawing.Size(945, 310);
+            this.hostSettingsSplitContainer.SplitterDistance = 25;
+            this.hostSettingsSplitContainer.TabIndex = 7;
             // 
-            // txtNotesText
+            // cmdHostsToggle
             // 
-            this.txtNotesText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmdHostsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdHostsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdHostsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdHostsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdHostsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdHostsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdHostsToggle.Name = "cmdHostsToggle";
+            this.cmdHostsToggle.Size = new System.Drawing.Size(945, 25);
+            this.cmdHostsToggle.TabIndex = 1;
+            this.cmdHostsToggle.Text = "Host settings";
+            this.cmdHostsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdHostsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdHostsToggle.UseVisualStyleBackColor = false;
+            this.cmdHostsToggle.Click += new System.EventHandler(this.cmdHostsToggle_Click);
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button7.Location = new System.Drawing.Point(0, 0);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(945, 25);
+            this.button7.TabIndex = 1;
+            this.button7.Text = "Collector Host settings";
+            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.txtCategories);
+            this.groupBox7.Controls.Add(this.label46);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox7.Location = new System.Drawing.Point(0, 172);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(945, 105);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            // 
+            // txtCategories
+            // 
+            this.txtCategories.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCategories.Location = new System.Drawing.Point(3, 16);
+            this.txtCategories.Multiline = true;
+            this.txtCategories.Name = "txtCategories";
+            this.txtCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCategories.Size = new System.Drawing.Size(939, 86);
+            this.txtCategories.TabIndex = 6;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.BackColor = System.Drawing.Color.White;
+            this.label46.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(6, 0);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(222, 13);
+            this.label46.TabIndex = 0;
+            this.label46.Text = "Categories - (each line is a new entry)";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.txtAdditionalNotes);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox4.Location = new System.Drawing.Point(0, 77);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(945, 95);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            // 
+            // txtAdditionalNotes
+            // 
+            this.txtAdditionalNotes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtAdditionalNotes.Location = new System.Drawing.Point(3, 16);
+            this.txtAdditionalNotes.Multiline = true;
+            this.txtAdditionalNotes.Name = "txtAdditionalNotes";
+            this.txtAdditionalNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtAdditionalNotes.Size = new System.Drawing.Size(939, 76);
+            this.txtAdditionalNotes.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.White;
+            this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(6, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(227, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Additional Notes for this Collector Host";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cboChildCheckBehaviour);
+            this.groupBox1.Controls.Add(this.label39);
+            this.groupBox1.Controls.Add(this.cboParentCollector);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(945, 77);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 1);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Parent/Child Host";
+            // 
+            // cboChildCheckBehaviour
+            // 
+            this.cboChildCheckBehaviour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNotesText.Location = new System.Drawing.Point(134, 12);
-            this.txtNotesText.Multiline = true;
-            this.txtNotesText.Name = "txtNotesText";
-            this.txtNotesText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotesText.Size = new System.Drawing.Size(769, 113);
-            this.txtNotesText.TabIndex = 2;
-            // 
-            // lblNoteTextChangeIndicator
-            // 
-            this.lblNoteTextChangeIndicator.AutoSize = true;
-            this.lblNoteTextChangeIndicator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblNoteTextChangeIndicator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoteTextChangeIndicator.Location = new System.Drawing.Point(6, 0);
-            this.lblNoteTextChangeIndicator.Name = "lblNoteTextChangeIndicator";
-            this.lblNoteTextChangeIndicator.Size = new System.Drawing.Size(68, 13);
-            this.lblNoteTextChangeIndicator.TabIndex = 0;
-            this.lblNoteTextChangeIndicator.Text = "Alert Texts";
-            // 
-            // cboTextType
-            // 
-            this.cboTextType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTextType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboTextType.Items.AddRange(new object[] {
-            "Header (All alerts)",
-            "Footer (All alerts)",
-            "Error Alert",
-            "Warning Alert",
-            "Good Alert"});
-            this.cboTextType.Location = new System.Drawing.Point(6, 16);
-            this.cboTextType.Name = "cboTextType";
-            this.cboTextType.Size = new System.Drawing.Size(122, 21);
-            this.cboTextType.TabIndex = 1;
-            this.cboTextType.SelectedIndexChanged += new System.EventHandler(this.cboTextType_SelectedIndexChanged);
-            // 
-            // correctiveScriptsGroupBox
-            // 
-            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownRestorationScriptMinimumRepeatTimeMin);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label53);
-            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label51);
-            this.correctiveScriptsGroupBox.Controls.Add(this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label48);
-            this.correctiveScriptsGroupBox.Controls.Add(this.chkOnlyRunCorrectiveScriptsOnStateChange);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label20);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label19);
-            this.correctiveScriptsGroupBox.Controls.Add(this.chkCorrectiveScriptDisabled);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label7);
-            this.correctiveScriptsGroupBox.Controls.Add(this.label12);
-            this.correctiveScriptsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(3, 97);
-            this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
-            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(950, 58);
-            this.correctiveScriptsGroupBox.TabIndex = 4;
-            this.correctiveScriptsGroupBox.TabStop = false;
-            // 
-            // numericUpDownRestorationScriptMinimumRepeatTimeMin
-            // 
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Location = new System.Drawing.Point(545, 28);
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Name = "numericUpDownRestorationScriptMinimumRepeatTimeMin";
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin.TabIndex = 19;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(600, 30);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(24, 13);
-            this.label53.TabIndex = 20;
-            this.label53.Text = "Min";
-            // 
-            // numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin
-            // 
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Location = new System.Drawing.Point(323, 28);
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin";
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.TabIndex = 13;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(378, 30);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(24, 13);
-            this.label51.TabIndex = 14;
-            this.label51.Text = "Min";
-            // 
-            // numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin
-            // 
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Location = new System.Drawing.Point(130, 28);
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Name = "numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin";
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.TabIndex = 7;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(185, 30);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(24, 13);
-            this.label48.TabIndex = 8;
-            this.label48.Text = "Min";
-            // 
-            // chkOnlyRunCorrectiveScriptsOnStateChange
-            // 
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.AutoSize = true;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Location = new System.Drawing.Point(284, 2);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Name = "chkOnlyRunCorrectiveScriptsOnStateChange";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Size = new System.Drawing.Size(228, 17);
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.TabIndex = 2;
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.Text = "Only on state change (warnings and errors)\r\n";
-            this.chkOnlyRunCorrectiveScriptsOnStateChange.UseVisualStyleBackColor = true;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(411, 30);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(129, 13);
-            this.label20.TabIndex = 15;
-            this.label20.Text = "Restoration - Only once in";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(6, 1);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(106, 13);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "Corrective scripts";
-            // 
-            // chkCorrectiveScriptDisabled
-            // 
-            this.chkCorrectiveScriptDisabled.AutoSize = true;
-            this.chkCorrectiveScriptDisabled.Location = new System.Drawing.Point(134, 2);
-            this.chkCorrectiveScriptDisabled.Name = "chkCorrectiveScriptDisabled";
-            this.chkCorrectiveScriptDisabled.Size = new System.Drawing.Size(144, 17);
-            this.chkCorrectiveScriptDisabled.TabIndex = 1;
-            this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
-            this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(115, 13);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Warning - Only once in";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(220, 30);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(97, 13);
-            this.label12.TabIndex = 9;
-            this.label12.Text = "Error - Only once in";
-            // 
-            // alertSuppressionGroupBox
-            // 
-            this.alertSuppressionGroupBox.Controls.Add(this.chkAlertsPaused);
-            this.alertSuppressionGroupBox.Controls.Add(this.label26);
-            this.alertSuppressionGroupBox.Controls.Add(this.label25);
-            this.alertSuppressionGroupBox.Controls.Add(this.label24);
-            this.alertSuppressionGroupBox.Controls.Add(this.label23);
-            this.alertSuppressionGroupBox.Controls.Add(this.numericUpDownRepeatAlertInXPolls);
-            this.alertSuppressionGroupBox.Controls.Add(this.delayAlertPollsNumericUpDown);
-            this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXPollsNumericUpDown);
-            this.alertSuppressionGroupBox.Controls.Add(this.label22);
-            this.alertSuppressionGroupBox.Controls.Add(this.label21);
-            this.alertSuppressionGroupBox.Controls.Add(this.label18);
-            this.alertSuppressionGroupBox.Controls.Add(this.label6);
-            this.alertSuppressionGroupBox.Controls.Add(this.numericUpDownRepeatAlertInXMin);
-            this.alertSuppressionGroupBox.Controls.Add(this.delayAlertSecNumericUpDown);
-            this.alertSuppressionGroupBox.Controls.Add(this.label8);
-            this.alertSuppressionGroupBox.Controls.Add(this.label10);
-            this.alertSuppressionGroupBox.Controls.Add(this.label9);
-            this.alertSuppressionGroupBox.Controls.Add(this.label11);
-            this.alertSuppressionGroupBox.Controls.Add(this.label37);
-            this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXMinNumericUpDown);
-            this.alertSuppressionGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(3, 3);
-            this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
-            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(950, 94);
-            this.alertSuppressionGroupBox.TabIndex = 3;
-            this.alertSuppressionGroupBox.TabStop = false;
-            // 
-            // chkAlertsPaused
-            // 
-            this.chkAlertsPaused.AutoSize = true;
-            this.chkAlertsPaused.Location = new System.Drawing.Point(125, -1);
-            this.chkAlertsPaused.Name = "chkAlertsPaused";
-            this.chkAlertsPaused.Size = new System.Drawing.Size(208, 17);
-            this.chkAlertsPaused.TabIndex = 1;
-            this.chkAlertsPaused.Text = "Pause/ignore all alerts for this collector";
-            this.chkAlertsPaused.UseVisualStyleBackColor = true;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(313, 45);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(239, 13);
-            this.label26.TabIndex = 13;
-            this.label26.Text = "Note that # of polls depends on polling frequency";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(269, 68);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(29, 13);
-            this.label25.TabIndex = 18;
-            this.label25.Text = "Polls";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(269, 45);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(29, 13);
-            this.label24.TabIndex = 12;
-            this.label24.Text = "Polls";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(269, 22);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(29, 13);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "Polls";
-            // 
-            // numericUpDownRepeatAlertInXPolls
-            // 
-            this.numericUpDownRepeatAlertInXPolls.Location = new System.Drawing.Point(214, 20);
-            this.numericUpDownRepeatAlertInXPolls.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numericUpDownRepeatAlertInXPolls.Name = "numericUpDownRepeatAlertInXPolls";
-            this.numericUpDownRepeatAlertInXPolls.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXPolls.TabIndex = 5;
-            // 
-            // delayAlertPollsNumericUpDown
-            // 
-            this.delayAlertPollsNumericUpDown.Location = new System.Drawing.Point(214, 66);
-            this.delayAlertPollsNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.delayAlertPollsNumericUpDown.Name = "delayAlertPollsNumericUpDown";
-            this.delayAlertPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertPollsNumericUpDown.TabIndex = 17;
-            // 
-            // AlertOnceInXPollsNumericUpDown
-            // 
-            this.AlertOnceInXPollsNumericUpDown.Location = new System.Drawing.Point(214, 43);
-            this.AlertOnceInXPollsNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.AlertOnceInXPollsNumericUpDown.Name = "AlertOnceInXPollsNumericUpDown";
-            this.AlertOnceInXPollsNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXPollsNumericUpDown.TabIndex = 11;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(313, 68);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(224, 13);
-            this.label22.TabIndex = 19;
-            this.label22.Text = "(Only raise alert if Error/Warning state persists)";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(313, 22);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(232, 13);
-            this.label21.TabIndex = 7;
-            this.label21.Text = "(0 = never, Only applies to Errors and Warnings)";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(6, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(98, 13);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "Alert suppresion";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Repeat alert after";
-            // 
-            // numericUpDownRepeatAlertInXMin
-            // 
-            this.numericUpDownRepeatAlertInXMin.Location = new System.Drawing.Point(107, 20);
-            this.numericUpDownRepeatAlertInXMin.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.numericUpDownRepeatAlertInXMin.Name = "numericUpDownRepeatAlertInXMin";
-            this.numericUpDownRepeatAlertInXMin.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownRepeatAlertInXMin.TabIndex = 3;
-            // 
-            // delayAlertSecNumericUpDown
-            // 
-            this.delayAlertSecNumericUpDown.Location = new System.Drawing.Point(107, 66);
-            this.delayAlertSecNumericUpDown.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.delayAlertSecNumericUpDown.Name = "delayAlertSecNumericUpDown";
-            this.delayAlertSecNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.delayAlertSecNumericUpDown.TabIndex = 15;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 45);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Only alert once in";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(162, 68);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(49, 13);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Seconds";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(162, 22);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Minutes";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 68);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Delay alert";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(162, 45);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(44, 13);
-            this.label37.TabIndex = 10;
-            this.label37.Text = "Minutes";
-            // 
-            // AlertOnceInXMinNumericUpDown
-            // 
-            this.AlertOnceInXMinNumericUpDown.Location = new System.Drawing.Point(107, 43);
-            this.AlertOnceInXMinNumericUpDown.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.AlertOnceInXMinNumericUpDown.Name = "AlertOnceInXMinNumericUpDown";
-            this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
-            this.AlertOnceInXMinNumericUpDown.TabIndex = 9;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox5);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(956, 341);
-            this.tabPage4.TabIndex = 4;
-            this.tabPage4.Text = "Variables";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.cboChildCheckBehaviour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboChildCheckBehaviour.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboChildCheckBehaviour.FormattingEnabled = true;
+            this.cboChildCheckBehaviour.Items.AddRange(new object[] {
+            "Only Run On Success",
+            "Continue On Warning",
+            "Continue On Warning Or Error"});
+            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(134, 44);
+            this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
+            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(805, 21);
+            this.cboChildCheckBehaviour.TabIndex = 4;
+            // 
+            // label39
+            // 
+            this.label39.Location = new System.Drawing.Point(10, 43);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(118, 31);
+            this.label39.TabIndex = 3;
+            this.label39.Text = "Child Collector Host Check behaviour";
+            // 
+            // cboParentCollector
+            // 
+            this.cboParentCollector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboParentCollector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboParentCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboParentCollector.FormattingEnabled = true;
+            this.cboParentCollector.Location = new System.Drawing.Point(134, 17);
+            this.cboParentCollector.Name = "cboParentCollector";
+            this.cboParentCollector.Size = new System.Drawing.Size(805, 21);
+            this.cboParentCollector.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(107, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Parent Collector Host";
+            // 
+            // agentsEditSplitContainer
+            // 
+            this.agentsEditSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.agentsEditSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.agentsEditSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.agentsEditSplitContainer.Name = "agentsEditSplitContainer";
+            this.agentsEditSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // agentsEditSplitContainer.Panel1
+            // 
+            this.agentsEditSplitContainer.Panel1.Controls.Add(this.cmdAgentsToggle);
+            this.agentsEditSplitContainer.Panel1.Controls.Add(this.button1);
+            // 
+            // agentsEditSplitContainer.Panel2
+            // 
+            this.agentsEditSplitContainer.Panel2.Controls.Add(this.agentsTreeListView);
+            this.agentsEditSplitContainer.Panel2.Controls.Add(this.collectorAgentsEditToolStrip);
+            this.agentsEditSplitContainer.Panel2MinSize = 0;
+            this.agentsEditSplitContainer.Size = new System.Drawing.Size(945, 300);
+            this.agentsEditSplitContainer.SplitterDistance = 25;
+            this.agentsEditSplitContainer.TabIndex = 6;
+            // 
+            // cmdAgentsToggle
+            // 
+            this.cmdAgentsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmdAgentsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdAgentsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAgentsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.cmdAgentsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAgentsToggle.Location = new System.Drawing.Point(0, 0);
+            this.cmdAgentsToggle.Name = "cmdAgentsToggle";
+            this.cmdAgentsToggle.Size = new System.Drawing.Size(945, 25);
+            this.cmdAgentsToggle.TabIndex = 1;
+            this.cmdAgentsToggle.Text = "Agents";
+            this.cmdAgentsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAgentsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cmdAgentsToggle.UseVisualStyleBackColor = false;
+            this.cmdAgentsToggle.Click += new System.EventHandler(this.cmdAgentsToggle_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(945, 25);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Collector Host settings";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // agentsTreeListView
+            // 
+            this.agentsTreeListView.AllowSorting = false;
+            this.agentsTreeListView.AutoResizeColumnEnabled = false;
+            this.agentsTreeListView.AutoResizeColumnIndex = 1;
+            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.LabelEdit = true;
+            this.agentsTreeListView.Location = new System.Drawing.Point(0, 27);
+            this.agentsTreeListView.Name = "agentsTreeListView";
+            this.agentsTreeListView.Size = new System.Drawing.Size(945, 244);
+            this.agentsTreeListView.SmallImageList = this.agentsImageList;
+            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.TabIndex = 2;
+            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Agent/Entry";
+            this.columnHeader3.Width = 316;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Summary";
+            this.columnHeader4.Width = 337;
+            // 
+            // agentsImageList
+            // 
+            this.agentsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("agentsImageList.ImageStream")));
+            this.agentsImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.agentsImageList.Images.SetKeyName(0, "NoGo.ico");
+            this.agentsImageList.Images.SetKeyName(1, "Configuration.ico");
+            this.agentsImageList.Images.SetKeyName(2, "127_9.ico");
+            // 
+            // collectorAgentsEditToolStrip
+            // 
+            this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.collectorAgentsEditToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCollectorConfigEntryToolStripButton,
+            this.addAgentEntryToolStripButton,
+            this.editCollectorAgentToolStripButton,
+            this.deleteCollectorAgentToolStripButton,
+            this.toolStripSeparator2,
+            this.moveUpAgentToolStripButton,
+            this.moveDownAgentToolStripButton,
+            this.toolStripSeparator3,
+            this.enableAgentToolStripButton,
+            this.disableAgentToolStripButton,
+            this.toolStripLabel1,
+            this.agentCheckSequenceToolStripComboBox});
+            this.collectorAgentsEditToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.collectorAgentsEditToolStrip.Name = "collectorAgentsEditToolStrip";
+            this.collectorAgentsEditToolStrip.Size = new System.Drawing.Size(945, 27);
+            this.collectorAgentsEditToolStrip.TabIndex = 2;
+            this.collectorAgentsEditToolStrip.TabStop = true;
+            this.collectorAgentsEditToolStrip.Text = "toolStrip1";
+            // 
+            // addCollectorConfigEntryToolStripButton
+            // 
+            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.add;
+            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
+            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
+            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
+            // 
+            // addAgentEntryToolStripButton
+            // 
+            this.addAgentEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addAgentEntryToolStripButton.Enabled = false;
+            this.addAgentEntryToolStripButton.Image = global::QuickMon.Properties.Resources.addGreen24x24;
+            this.addAgentEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addAgentEntryToolStripButton.Name = "addAgentEntryToolStripButton";
+            this.addAgentEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addAgentEntryToolStripButton.Text = "Add new Agent entry";
+            // 
+            // editCollectorAgentToolStripButton
+            // 
+            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editCollectorAgentToolStripButton.Enabled = false;
+            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.doc_edit24x24;
+            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
+            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
+            // 
+            // deleteCollectorAgentToolStripButton
+            // 
+            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteCollectorAgentToolStripButton.Enabled = false;
+            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
+            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // moveUpAgentToolStripButton
+            // 
+            this.moveUpAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpAgentToolStripButton.Enabled = false;
+            this.moveUpAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
+            this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveUpAgentToolStripButton.Text = "Move selected item up";
+            // 
+            // moveDownAgentToolStripButton
+            // 
+            this.moveDownAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownAgentToolStripButton.Enabled = false;
+            this.moveDownAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
+            this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveDownAgentToolStripButton.Text = "Move selected item down";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            // 
+            // enableAgentToolStripButton
+            // 
+            this.enableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.enableAgentToolStripButton.Enabled = false;
+            this.enableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
+            this.enableAgentToolStripButton.Size = new System.Drawing.Size(23, 24);
+            this.enableAgentToolStripButton.Text = "Enable";
+            // 
+            // disableAgentToolStripButton
+            // 
+            this.disableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.disableAgentToolStripButton.Enabled = false;
+            this.disableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
+            this.disableAgentToolStripButton.Size = new System.Drawing.Size(23, 24);
+            this.disableAgentToolStripButton.Text = "Disable";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(126, 24);
+            this.toolStripLabel1.Text = "Agent check se&quence";
+            // 
+            // agentCheckSequenceToolStripComboBox
+            // 
+            this.agentCheckSequenceToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.agentCheckSequenceToolStripComboBox.Items.AddRange(new object[] {
+            "All",
+            "First Success",
+            "First Error"});
+            this.agentCheckSequenceToolStripComboBox.Name = "agentCheckSequenceToolStripComboBox";
+            this.agentCheckSequenceToolStripComboBox.Size = new System.Drawing.Size(121, 27);
             // 
             // cmdOK
             // 
@@ -1722,7 +2148,7 @@
             this.cmdOK.BackColor = System.Drawing.Color.Transparent;
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(803, 372);
+            this.cmdOK.Location = new System.Drawing.Point(800, 7);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 2;
@@ -1735,7 +2161,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(884, 372);
+            this.cmdCancel.Location = new System.Drawing.Point(881, 7);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 3;
@@ -1805,6 +2231,40 @@
             this.agentStateSplitContainer.SplitterDistance = 124;
             this.agentStateSplitContainer.TabIndex = 3;
             // 
+            // tlvAgentStates
+            // 
+            this.tlvAgentStates.AllowSorting = false;
+            this.tlvAgentStates.AutoResizeColumnEnabled = false;
+            this.tlvAgentStates.AutoResizeColumnIndex = 0;
+            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlvAgentStates.HideSelection = false;
+            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tlvAgentStates.MultiSelect = false;
+            this.tlvAgentStates.Name = "tlvAgentStates";
+            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
+            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
+            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.TabIndex = 1;
+            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
+            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 325;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Value";
+            this.valueColumnHeader.Width = 150;
+            // 
             // imagesCollectorTree
             // 
             this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
@@ -1818,6 +2278,65 @@
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
             this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
+            // 
+            // lvwHistory
+            // 
+            this.lvwHistory.AutoResizeColumnEnabled = false;
+            this.lvwHistory.AutoResizeColumnIndex = 6;
+            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.timeColumnHeader,
+            this.stateColumnHeader,
+            this.durationColumnHeader,
+            this.alertCountColumnHeader,
+            this.executedOnColumnHeader,
+            this.ranAsColumnHeader,
+            this.collectorValueColumnHeader});
+            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
+            this.lvwHistory.Name = "lvwHistory";
+            this.lvwHistory.Size = new System.Drawing.Size(964, 119);
+            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
+            this.lvwHistory.TabIndex = 0;
+            this.lvwHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwHistory.View = System.Windows.Forms.View.Details;
+            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
+            // 
+            // timeColumnHeader
+            // 
+            this.timeColumnHeader.Text = "Time";
+            this.timeColumnHeader.Width = 153;
+            // 
+            // stateColumnHeader
+            // 
+            this.stateColumnHeader.Text = "State";
+            this.stateColumnHeader.Width = 85;
+            // 
+            // durationColumnHeader
+            // 
+            this.durationColumnHeader.Text = "Duration (ms)";
+            this.durationColumnHeader.Width = 87;
+            // 
+            // alertCountColumnHeader
+            // 
+            this.alertCountColumnHeader.Text = "Alerts";
+            this.alertCountColumnHeader.Width = 48;
+            // 
+            // executedOnColumnHeader
+            // 
+            this.executedOnColumnHeader.Text = "Executed on";
+            this.executedOnColumnHeader.Width = 88;
+            // 
+            // ranAsColumnHeader
+            // 
+            this.ranAsColumnHeader.Text = "Ran as";
+            this.ranAsColumnHeader.Width = 103;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 150;
             // 
             // label3
             // 
@@ -1966,6 +2485,30 @@
             this.cmdCollectorEdit.UseVisualStyleBackColor = false;
             this.cmdCollectorEdit.Click += new System.EventHandler(this.cmdCollectorEdit_Click);
             // 
+            // tvwScripts
+            // 
+            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwScripts.FullRowSelect = true;
+            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
+            this.tvwScripts.Name = "tvwScripts";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Parameter 1";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Script 1";
+            treeNode3.Name = "Node3";
+            treeNode3.Text = "Parameter 1";
+            treeNode4.Name = "Node4";
+            treeNode4.Text = "Parameter 2";
+            treeNode5.Name = "Node2";
+            treeNode5.Text = "Script 2";
+            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode5});
+            this.tvwScripts.ShowLines = false;
+            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
+            this.tvwScripts.TabIndex = 5;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button5);
@@ -2079,329 +2622,6 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
-            // agentsTreeListView
-            // 
-            this.agentsTreeListView.AllowSorting = false;
-            this.agentsTreeListView.AutoResizeColumnEnabled = false;
-            this.agentsTreeListView.AutoResizeColumnIndex = 0;
-            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
-            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.agentsTreeListView.LabelEdit = true;
-            this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
-            this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(950, 308);
-            this.agentsTreeListView.SmallImageList = this.agentsImageList;
-            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.TabIndex = 2;
-            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Agent/Entry";
-            this.columnHeader3.Width = 316;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Summary";
-            this.columnHeader4.Width = 337;
-            // 
-            // tlvAgentStates
-            // 
-            this.tlvAgentStates.AllowSorting = false;
-            this.tlvAgentStates.AutoResizeColumnEnabled = false;
-            this.tlvAgentStates.AutoResizeColumnIndex = 0;
-            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
-            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlvAgentStates.HideSelection = false;
-            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
-            this.tlvAgentStates.MultiSelect = false;
-            this.tlvAgentStates.Name = "tlvAgentStates";
-            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
-            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
-            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.TabIndex = 1;
-            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
-            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 325;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Value";
-            this.valueColumnHeader.Width = 150;
-            // 
-            // lvwHistory
-            // 
-            this.lvwHistory.AutoResizeColumnEnabled = false;
-            this.lvwHistory.AutoResizeColumnIndex = 6;
-            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.timeColumnHeader,
-            this.stateColumnHeader,
-            this.durationColumnHeader,
-            this.alertCountColumnHeader,
-            this.executedOnColumnHeader,
-            this.ranAsColumnHeader,
-            this.collectorValueColumnHeader});
-            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwHistory.FullRowSelect = true;
-            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
-            this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(964, 119);
-            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
-            this.lvwHistory.TabIndex = 0;
-            this.lvwHistory.UseCompatibleStateImageBehavior = false;
-            this.lvwHistory.View = System.Windows.Forms.View.Details;
-            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
-            // 
-            // timeColumnHeader
-            // 
-            this.timeColumnHeader.Text = "Time";
-            this.timeColumnHeader.Width = 153;
-            // 
-            // stateColumnHeader
-            // 
-            this.stateColumnHeader.Text = "State";
-            this.stateColumnHeader.Width = 85;
-            // 
-            // durationColumnHeader
-            // 
-            this.durationColumnHeader.Text = "Duration (ms)";
-            this.durationColumnHeader.Width = 87;
-            // 
-            // alertCountColumnHeader
-            // 
-            this.alertCountColumnHeader.Text = "Alerts";
-            this.alertCountColumnHeader.Width = 48;
-            // 
-            // executedOnColumnHeader
-            // 
-            this.executedOnColumnHeader.Text = "Executed on";
-            this.executedOnColumnHeader.Width = 88;
-            // 
-            // ranAsColumnHeader
-            // 
-            this.ranAsColumnHeader.Text = "Ran as";
-            this.ranAsColumnHeader.Width = 103;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 150;
-            // 
-            // tvwScripts
-            // 
-            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwScripts.FullRowSelect = true;
-            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
-            this.tvwScripts.Name = "tvwScripts";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Parameter 1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Script 1";
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Parameter 1";
-            treeNode4.Name = "Node4";
-            treeNode4.Text = "Parameter 2";
-            treeNode5.Name = "Node2";
-            treeNode5.Text = "Script 2";
-            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode5});
-            this.tvwScripts.ShowLines = false;
-            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
-            this.tvwScripts.TabIndex = 5;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.toolStrip1);
-            this.groupBox5.Controls.Add(this.label42);
-            this.groupBox5.Controls.Add(this.txtConfigVarReplaceByValue);
-            this.groupBox5.Controls.Add(this.label41);
-            this.groupBox5.Controls.Add(this.txtConfigVarSearchFor);
-            this.groupBox5.Controls.Add(this.label40);
-            this.groupBox5.Controls.Add(this.lvwConfigVars);
-            this.groupBox5.Controls.Add(this.label38);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(3, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(950, 335);
-            this.groupBox5.TabIndex = 1;
-            this.groupBox5.TabStop = false;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addConfigVarToolStripButton,
-            this.deleteConfigVarToolStripButton,
-            this.toolStripSeparator1,
-            this.moveUpConfigVarToolStripButton,
-            this.moveDownConfigVarToolStripButton});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 16);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(944, 27);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.TabStop = true;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // addConfigVarToolStripButton
-            // 
-            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
-            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addConfigVarToolStripButton.Text = "Create new";
-            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
-            // 
-            // deleteConfigVarToolStripButton
-            // 
-            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteConfigVarToolStripButton.Enabled = false;
-            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
-            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
-            // 
-            // moveUpConfigVarToolStripButton
-            // 
-            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpConfigVarToolStripButton.Enabled = false;
-            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
-            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
-            // 
-            // moveDownConfigVarToolStripButton
-            // 
-            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownConfigVarToolStripButton.Enabled = false;
-            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
-            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
-            // 
-            // label42
-            // 
-            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(6, 303);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(938, 29);
-            this.label42.TabIndex = 7;
-            this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
-    "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
-    " \'special\' in XML.";
-            // 
-            // txtConfigVarReplaceByValue
-            // 
-            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(335, 279);
-            this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
-            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
-            this.txtConfigVarReplaceByValue.TabIndex = 6;
-            // 
-            // label41
-            // 
-            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(260, 282);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(69, 13);
-            this.label41.TabIndex = 5;
-            this.label41.Text = "Replace with";
-            // 
-            // txtConfigVarSearchFor
-            // 
-            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(81, 279);
-            this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
-            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
-            this.txtConfigVarSearchFor.TabIndex = 4;
-            // 
-            // label40
-            // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(6, 282);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(56, 13);
-            this.label40.TabIndex = 3;
-            this.label40.Text = "Search for";
-            // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(3, 44);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(941, 229);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Search for";
-            this.columnHeader5.Width = 244;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Replace by";
-            this.columnHeader6.Width = 262;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(6, 0);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(98, 13);
-            this.label38.TabIndex = 0;
-            this.label38.Text = "Config variables";
-            // 
-            // agentsImageList
-            // 
-            this.agentsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("agentsImageList.ImageStream")));
-            this.agentsImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.agentsImageList.Images.SetKeyName(0, "NoGo.ico");
-            this.agentsImageList.Images.SetKeyName(1, "Configuration.ico");
-            this.agentsImageList.Images.SetKeyName(2, "127_9.ico");
-            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2434,33 +2654,21 @@
             this.collectorDetailSplitContainer.ResumeLayout(false);
             this.panelCollectorDetails.ResumeLayout(false);
             this.panelEditing.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.agentsTabPage.ResumeLayout(false);
-            this.agentsTabPage.PerformLayout();
-            this.collectorAgentsEditToolStrip.ResumeLayout(false);
-            this.collectorAgentsEditToolStrip.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.serviceWindowsGroupBox.ResumeLayout(false);
-            this.serviceWindowsGroupBox.PerformLayout();
-            this.runAsGroupBox.ResumeLayout(false);
-            this.runAsGroupBox.PerformLayout();
-            this.remoteAgentGroupBox.ResumeLayout(false);
-            this.remoteAgentGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
-            this.pollingOverridesGroupBox.ResumeLayout(false);
-            this.pollingOverridesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
-            this.tabPage3.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.configVariSplitContainer.Panel1.ResumeLayout(false);
+            this.configVariSplitContainer.Panel2.ResumeLayout(false);
+            this.configVariSplitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.configVariSplitContainer)).EndInit();
+            this.configVariSplitContainer.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.alertsSplitContainer.Panel1.ResumeLayout(false);
+            this.alertsSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.alertsSplitContainer)).EndInit();
+            this.alertsSplitContainer.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.correctiveScriptsGroupBox.ResumeLayout(false);
@@ -2476,7 +2684,40 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
-            this.tabPage4.ResumeLayout(false);
+            this.operationalSplitContainer.Panel1.ResumeLayout(false);
+            this.operationalSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.operationalSplitContainer)).EndInit();
+            this.operationalSplitContainer.ResumeLayout(false);
+            this.serviceWindowsGroupBox.ResumeLayout(false);
+            this.serviceWindowsGroupBox.PerformLayout();
+            this.runAsGroupBox.ResumeLayout(false);
+            this.runAsGroupBox.PerformLayout();
+            this.remoteAgentGroupBox.ResumeLayout(false);
+            this.remoteAgentGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
+            this.pollingOverridesGroupBox.ResumeLayout(false);
+            this.pollingOverridesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
+            this.hostSettingsSplitContainer.Panel1.ResumeLayout(false);
+            this.hostSettingsSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.hostSettingsSplitContainer)).EndInit();
+            this.hostSettingsSplitContainer.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.agentsEditSplitContainer.Panel1.ResumeLayout(false);
+            this.agentsEditSplitContainer.Panel2.ResumeLayout(false);
+            this.agentsEditSplitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.agentsEditSplitContainer)).EndInit();
+            this.agentsEditSplitContainer.ResumeLayout(false);
+            this.collectorAgentsEditToolStrip.ResumeLayout(false);
+            this.collectorAgentsEditToolStrip.PerformLayout();
             this.panelMetrics.ResumeLayout(false);
             this.panelAgentStates.ResumeLayout(false);
             this.agentStateSplitContainer.Panel1.ResumeLayout(false);
@@ -2488,10 +2729,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2553,9 +2790,19 @@
         private System.Windows.Forms.SplitContainer collectorDetailSplitContainer;
         private System.Windows.Forms.RichTextBox rtxDetails;
         private System.Windows.Forms.CheckBox chkRAWDetails;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage agentsTabPage;
-        private System.Windows.Forms.TabPage tabPage2;
+        private HenIT.Windows.Controls.TreeListView agentsTreeListView;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.TextBox txtConfigVarReplaceByValue;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TextBox txtConfigVarSearchFor;
+        private System.Windows.Forms.Label label40;
+        private ListViewEx lvwConfigVars;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ImageList agentsImageList;
+        private System.Windows.Forms.Button cmdAgentsToggle;
         private System.Windows.Forms.ToolStrip collectorAgentsEditToolStrip;
         private System.Windows.Forms.ToolStripButton addCollectorConfigEntryToolStripButton;
         private System.Windows.Forms.ToolStripButton addAgentEntryToolStripButton;
@@ -2569,12 +2816,27 @@
         private System.Windows.Forms.ToolStripButton disableAgentToolStripButton;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox agentCheckSequenceToolStripComboBox;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private HenIT.Windows.Controls.TreeListView agentsTreeListView;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer agentsEditSplitContainer;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SplitContainer configVariSplitContainer;
+        private System.Windows.Forms.Button cmdConfigVarsToggle;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton addConfigVarToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteConfigVarToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton moveUpConfigVarToolStripButton;
+        private System.Windows.Forms.ToolStripButton moveDownConfigVarToolStripButton;
+        private System.Windows.Forms.SplitContainer alertsSplitContainer;
+        private System.Windows.Forms.Button cmdAlertsToggle;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.SplitContainer operationalSplitContainer;
+        private System.Windows.Forms.Button cmdOperationalToggle;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.SplitContainer hostSettingsSplitContainer;
+        private System.Windows.Forms.Button cmdHostsToggle;
+        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TextBox txtCategories;
         private System.Windows.Forms.Label label46;
@@ -2587,45 +2849,6 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.ComboBox cboParentCollector;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox remoteAgentGroupBox;
-        private System.Windows.Forms.ComboBox cboRemoteAgentServer;
-        private System.Windows.Forms.CheckBox chkRunLocalOnRemoteHostConnectionFailure;
-        private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
-        private System.Windows.Forms.CheckBox chkForceRemoteExcuteOnChildCollectors;
-        private System.Windows.Forms.LinkLabel llblRemoteAgentInstallHelp;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox chkRemoteAgentEnabled;
-        private System.Windows.Forms.NumericUpDown remoteportNumericUpDown;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button cmdRemoteAgentTest;
-        private System.Windows.Forms.GroupBox runAsGroupBox;
-        private System.Windows.Forms.Button cmdTestRunAs;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.CheckBox chkRunAsEnabled;
-        private System.Windows.Forms.TextBox txtRunAs;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.GroupBox serviceWindowsGroupBox;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.LinkLabel linkLabelServiceWindows;
-        private System.Windows.Forms.GroupBox pollingOverridesGroupBox;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.CheckBox chkEnablePollingOverride;
-        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterThirdRepeatSecNumericUpDown;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterSecondRepeatSecNumericUpDown;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterFirstRepeatSecNumericUpDown;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.CheckBox chkEnablePollingFrequencySliding;
-        private System.Windows.Forms.NumericUpDown onlyAllowUpdateOncePerXSecNumericUpDown;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Button cmdSetNoteText;
         private System.Windows.Forms.TextBox txtNotesText;
@@ -2665,22 +2888,44 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton addConfigVarToolStripButton;
-        private System.Windows.Forms.ToolStripButton deleteConfigVarToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton moveUpConfigVarToolStripButton;
-        private System.Windows.Forms.ToolStripButton moveDownConfigVarToolStripButton;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.TextBox txtConfigVarReplaceByValue;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.TextBox txtConfigVarSearchFor;
-        private System.Windows.Forms.Label label40;
-        private ListViewEx lvwConfigVars;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.ImageList agentsImageList;
+        private System.Windows.Forms.GroupBox serviceWindowsGroupBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.LinkLabel linkLabelServiceWindows;
+        private System.Windows.Forms.GroupBox runAsGroupBox;
+        private System.Windows.Forms.Button cmdTestRunAs;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.CheckBox chkRunAsEnabled;
+        private System.Windows.Forms.TextBox txtRunAs;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.GroupBox remoteAgentGroupBox;
+        private System.Windows.Forms.ComboBox cboRemoteAgentServer;
+        private System.Windows.Forms.CheckBox chkRunLocalOnRemoteHostConnectionFailure;
+        private System.Windows.Forms.CheckBox chkBlockParentRHOverride;
+        private System.Windows.Forms.CheckBox chkForceRemoteExcuteOnChildCollectors;
+        private System.Windows.Forms.LinkLabel llblRemoteAgentInstallHelp;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox chkRemoteAgentEnabled;
+        private System.Windows.Forms.NumericUpDown remoteportNumericUpDown;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button cmdRemoteAgentTest;
+        private System.Windows.Forms.GroupBox pollingOverridesGroupBox;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.CheckBox chkEnablePollingOverride;
+        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterThirdRepeatSecNumericUpDown;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterSecondRepeatSecNumericUpDown;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown pollSlideFrequencyAfterFirstRepeatSecNumericUpDown;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.CheckBox chkEnablePollingFrequencySliding;
+        private System.Windows.Forms.NumericUpDown onlyAllowUpdateOncePerXSecNumericUpDown;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label27;
     }
 }

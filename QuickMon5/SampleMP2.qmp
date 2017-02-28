@@ -1,8 +1,8 @@
-<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-25 22:20:30" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-28 18:20:34" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
-  <collectorHosts runCorrectiveScripts="True" stateHistorySize="100" pollingFreqSecOverride="30">
+  <collectorHosts runCorrectiveScripts="True" stateHistorySize="300" pollingFreqSecOverride="30">
     <actionScripts />
     <collectorHost uniqueId="PINGTEST" dependOnParentId="" name="Ping Self" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
