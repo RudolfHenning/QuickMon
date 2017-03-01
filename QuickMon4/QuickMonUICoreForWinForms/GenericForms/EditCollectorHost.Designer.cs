@@ -1417,7 +1417,6 @@
             this.cboTextType.Size = new System.Drawing.Size(119, 21);
             this.cboTextType.TabIndex = 1;
             this.cboTextType.SelectedIndexChanged += new System.EventHandler(this.cboTextType_SelectedIndexChanged);
-            this.cboTextType.SelectedValueChanged += new System.EventHandler(this.cboTextType_SelectedValueChanged);
             // 
             // correctiveScriptsGroupBox
             // 
