@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-02-28 18:20:34" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-03-01 22:06:22" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -31,7 +31,7 @@
       <!-- Remote agent settings -->
       <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
       <!-- Corrective Scripts -->
-      <correctiveScripts enabled="False" onlyOnStateChange="False">
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
         <warning warningMinRepeatTimeMin="0" />
         <error errorMinRepeatTimeMin="0" />
         <restoration restoreMinRepeatTimeMin="0" />
@@ -52,7 +52,7 @@
       <categories />
       <notes />
     </collectorHost>
-    <collectorHost uniqueId="123" dependOnParentId="PINGTEST" name="QuickMon 4 Web service" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+    <collectorHost uniqueId="123" dependOnParentId="PINGTEST" name="QuickMon Web services" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
       <!-- Alerting -->
       <alerting>
         <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -68,9 +68,24 @@
       <collectorAgents agentCheckSequence="All">
         <collectorAgent name="Web Service" type="QuickMon.Collectors.WSCollector" enabled="True">
           <config>
-            <webServices>
-              <webService url="http://localhost:48181/QuickMonRemoteHost" serviceBindingName="BasicHttpBinding_IRemoteCollectorHostService" method="GetQuickMonCoreVersion" paramatersCSV="" resultIsSuccess="True" valueExpectedReturnType="CheckAvailabilityOnly" macroFormatType="None" arrayIndex="0" columnIndex="0" valueOrMacro="" useRegEx="False" />
-            </webServices>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource url="http://localhost:48181/QuickMonRemoteHost" serviceBindingName="BasicHttpBinding_IRemoteCollectorHostService" method="GetQuickMonCoreVersion" paramatersCSV="" valueExpectedReturnType="CheckAvailabilityOnly" macroFormatType="None" arrayIndex="0" columnIndex="0" />
+                <testConditions testSequence="GWE">
+                  <success testType="Contains">[Available]</success>
+                  <warning testType="Contains">[null]</warning>
+                  <error testType="Contains">[any]</error>
+                </testConditions>
+              </carvceEntry>
+              <carvceEntry>
+                <dataSource url="http://localhost:48191/QuickMonRemoteHost" serviceBindingName="BasicHttpBinding_IRemoteCollectorHostService" method="GetQuickMonCoreVersion" paramatersCSV="" valueExpectedReturnType="CheckAvailabilityOnly" macroFormatType="None" arrayIndex="0" columnIndex="0" />
+                <testConditions testSequence="GWE">
+                  <success testType="Contains">[Available]</success>
+                  <warning testType="Contains">[null]</warning>
+                  <error testType="Contains">[any]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
           </config>
         </collectorAgent>
       </collectorAgents>

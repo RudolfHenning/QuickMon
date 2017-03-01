@@ -1,5 +1,7 @@
 ﻿using HenIT.RTF;
 using HenIT.Windows.Controls;
+using QuickMon.Forms;
+using QuickMon.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -104,11 +106,11 @@ namespace QuickMon
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
 
-            agentsEditSplitContainerHeight = agentsEditSplitContainer.Height;
-            hostSettingsSplitContainerHeight = hostSettingsSplitContainer.Height;
-            operationalSplitContainerHeight = operationalSplitContainer.Height;
-            alertsSplitContainerHeight = alertsSplitContainer.Height;
-            configVariSplitContainerHeight = configVariSplitContainer.Height;
+            //agentsEditSplitContainerHeight = agentsEditSplitContainer.Height;
+            //hostSettingsSplitContainerHeight = hostSettingsSplitContainer.Height;
+            //operationalSplitContainerHeight = operationalSplitContainer.Height;
+            //alertsSplitContainerHeight = alertsSplitContainer.Height;
+            //configVariSplitContainerHeight = configVariSplitContainer.Height;
 
             if (SelectedCollectorHost == null)
             {
@@ -154,19 +156,19 @@ namespace QuickMon
         }
         private void StartEditMode()
         {
-            agentsEditSplitContainer.Panel2Collapsed = false;
-            hostSettingsSplitContainer.Panel2Collapsed = true;
-            hostSettingsSplitContainer.Height = 25;
-            cmdHostsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            operationalSplitContainer.Panel2Collapsed = true;
-            operationalSplitContainer.Height = 25;
-            cmdOperationalToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            alertsSplitContainer.Panel2Collapsed = true;
-            alertsSplitContainer.Height = 25;
-            cmdAlertsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            configVariSplitContainer.Panel2Collapsed = true;
-            configVariSplitContainer.Height = 25;
-            cmdConfigVarsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //agentsEditSplitContainer.Panel2Collapsed = false;
+            //hostSettingsSplitContainer.Panel2Collapsed = true;
+            //hostSettingsSplitContainer.Height = 25;
+            //cmdHostsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //operationalSplitContainer.Panel2Collapsed = true;
+            //operationalSplitContainer.Height = 25;
+            //cmdOperationalToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //alertsSplitContainer.Panel2Collapsed = true;
+            //alertsSplitContainer.Height = 25;
+            //cmdAlertsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            //configVariSplitContainer.Panel2Collapsed = true;
+            //configVariSplitContainer.Height = 25;
+            //cmdConfigVarsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
 
             if (this.Size.Height < 450)
             {
@@ -178,6 +180,7 @@ namespace QuickMon
             txtName.ReadOnly = false;
             txtName.BorderStyle = BorderStyle.FixedSingle;
             SetActivePanel(panelEditing);
+            CheckOkEnabled();
         }
         private void StopEditMode()
         {
@@ -783,45 +786,7 @@ namespace QuickMon
             {
                 AutoRefreshEnabled = !AutoRefreshEnabled;
                 UpdateStatusBar();
-            }
-            else if (e.ClickedItem.Name == "toolStripStatusLabelRawEdit")
-            {
-                DoRAWEdit();
-            }
-        }
-
-        private void DoRAWEdit()
-        {
-            if (ValidateInput())
-            {
-                SelectedCollectorHost.Name = txtName.Text;
-                SelectedCollectorHost.ToXml();
-
-                RAWXmlEditor editor = new RAWXmlEditor();
-                string oldMarkUp = SelectedCollectorHost.ToXml();
-                editor.SelectedMarkup = oldMarkUp;
-                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    SelectedCollectorHost.ReconfigureFromXml(editor.SelectedMarkup);
-                    LoadControls();
-                    ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
-                    //TriggerMonitorPackReload = true;
-                    //MonitorPack newMP = new MonitorPack();
-                    //newMP.LoadXml(editor.SelectedMarkup);
-                    //newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
-                    //SelectedMonitorPack = null;
-                    //SelectedMonitorPack = newMP;
-                    //LoadFormControls();
-                }
-            }
-        }
-
-        private bool ValidateInput()
-        {
-            bool success = true;
-            if (txtName.Text.Length == 0)
-                success = false;
-            return success;
+            }            
         }
 
         private void optCurrentStateView_CheckedChanged(object sender, EventArgs e)
@@ -838,7 +803,6 @@ namespace QuickMon
             //}
             UpdateAgentStateTree();
         }
-
         private void lvwHistory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvwHistory.SelectedItems.Count == 1)
@@ -847,12 +811,10 @@ namespace QuickMon
                 UpdateRawView();
             }            
         }
-
         private void tlvAgentStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateRawView();
         }
-
         private static bool updateAgentsDetailViewBusy = false;
         private void UpdateRawView()
         {
@@ -906,30 +868,639 @@ namespace QuickMon
                 updateAgentsDetailViewBusy = false;
             }
         }
-
         private void chkRAWDetails_CheckedChanged(object sender, EventArgs e)
         {
             collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
             chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
         }
 
+        #region Editing
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            OKButtonCheck();
+            CheckOkEnabled();
         }
-
-        private void OKButtonCheck()
-        {
-            cmdOK.Enabled = ValidateInput();
-        }
-
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            SelectedCollectorHost.Name = txtName.Text;
-            ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
-            StopEditMode();
+            try
+            {
+                if (SetEditingCollectorHost())
+                {
+                    SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
+                    LoadControls();                    
+                    
+                    ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+                    StopEditMode();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }            
         }
+        private void llblRawEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            DoRAWEdit();
+        }
+        private void DoRAWEdit()
+        {
+            if (SetEditingCollectorHost())
+            {
+                SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
 
+                RAWXmlEditor editor = new RAWXmlEditor();
+                string oldMarkUp = SelectedCollectorHost.ToXml();
+                editor.SelectedMarkup = oldMarkUp;
+                if (editor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    SelectedCollectorHost.ReconfigureFromXml(editor.SelectedMarkup);
+                    LoadControls();
+                    ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
+                    //TriggerMonitorPackReload = true;
+                    //MonitorPack newMP = new MonitorPack();
+                    //newMP.LoadXml(editor.SelectedMarkup);
+                    //newMP.MonitorPackPath = SelectedMonitorPack.MonitorPackPath;
+                    //SelectedMonitorPack = null;
+                    //SelectedMonitorPack = newMP;
+                    //LoadFormControls();
+                }
+            }
+        }
+        private bool ValidateInput()
+        {
+            bool success = true;
+            if (txtName.Text.Length == 0)
+                success = false;
+            return success;
+        }
+        #region Agents edit
+        private void CreateAgent()
+        {
+            //Display a list of existing types of agents/by template...
+            //Once type is selected add new Agent to treelistview
+            //  if from template use Name as specified in template
+            //  else use collector agent type (without the word Collector)
+            //    and show new agent entry dialog
+            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            {
+                ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;
+                agent.Enabled = true;
+                if (agent.Name == null || agent.Name.Trim().Length == 0)
+                    agent.Name = agent.AgentClassDisplayName.Replace("Collector", "").Trim();
+
+                TreeListViewItem tlvi = new TreeListViewItem(agent.Name);
+                if (agent.Enabled)
+                    tlvi.ImageIndex = 1;
+                else
+                    tlvi.ImageIndex = 0;
+                tlvi.SubItems.Add(agent.AgentClassDisplayName);
+                tlvi.Tag = agent;
+                agentsTreeListView.Items.Add(tlvi);
+
+                ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                foreach (ICollectorConfigEntry entry in entryConfig.Entries)
+                {
+                    TreeListViewItem tlvAgentEntry = new TreeListViewItem(entry.Description);
+                    tlvAgentEntry.ImageIndex = 2;
+                    tlvAgentEntry.SubItems.Add(entry.TriggerSummary);
+                    tlvAgentEntry.Tag = entry;
+                    tlvi.Items.Add(tlvAgentEntry);
+                    tlvi.Expand();
+                }
+                editingCollectorHost.CollectorAgents.Add(agent);
+                agentsTreeListView.SelectedItems.Clear();
+                tlvi.Selected = true;
+                if (entryConfig.Entries.Count == 1)
+                {
+                    tlvi.Selected = false;
+                    tlvi.Items[0].Selected = true;
+                    EditAgent();
+                }
+                else if (entryConfig.Entries.Count == 0)
+                {
+                    CreateAgentEntry();
+                }
+            }
+        }
+        private void CreateAgentEntry()
+        {
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem tlviCurrent = agentsTreeListView.SelectedItems[0];
+                if (tlviCurrent.Tag is ICollector)
+                {
+                    ICollector agent = (ICollector)tlviCurrent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)agent.AgentConfig;
+                    WinFormsUICollectorBase agentEditor = (WinFormsUICollectorBase)RegisteredAgentUIMapper.GetUIClass(agent);
+                    if (agentEditor != null && agentEditor.DetailEditor != null)
+                    {
+                        ICollectorConfigEntryEditWindow DetailEditor = agentEditor.DetailEditor;
+                        if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                        {
+                            TreeListViewItem tlvAgentEntry = new TreeListViewItem(DetailEditor.SelectedEntry.Description);
+                            tlvAgentEntry.ImageIndex = 2;
+                            tlvAgentEntry.SubItems.Add(DetailEditor.SelectedEntry.TriggerSummary);
+                            tlvAgentEntry.Tag = DetailEditor.SelectedEntry;
+                            tlviCurrent.Items.Add(tlvAgentEntry);
+                            tlviCurrent.Expand();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+        }
+        private void EditAgent()
+        {
+            //Call local (in this assembly) utility that match editor type for agent class.
+            //  This assembly will search through all assemblies in local directory for classes that inherits IWinFormsUI
+            //  each IWinFormsUI class must provide the name of the IAgent class it can edit
+            //  thus each IAgent class name must be unique...
+            //  each IWinFormsUI class must have a method to edit the IAgent class.  EditAgent(xmlConfigString) 
+            //If no default editor can be found show raw xml editor...
+            try
+            {
+                if (agentsTreeListView.SelectedItems.Count == 1)
+                {
+                    TreeListViewItem tlviCurrent = agentsTreeListView.SelectedItems[0];
+                    if (tlviCurrent.Tag is ICollector)
+                    {
+                        tlviCurrent.BeginEdit(0);
+                    }
+                    else if (tlviCurrent.Tag is ICollectorConfigEntry && tlviCurrent.Parent != null && tlviCurrent.Parent.Tag is ICollector)
+                    {
+                        ICollector agent = (ICollector)tlviCurrent.Parent.Tag;
+                        ICollectorConfigEntry entryConfig = (ICollectorConfigEntry)tlviCurrent.Tag;
+                        WinFormsUICollectorBase agentEditor = (WinFormsUICollectorBase)RegisteredAgentUIMapper.GetUIClass(agent);
+                        if (agentEditor != null && agentEditor.DetailEditor != null)
+                        {
+                            ICollectorConfigEntryEditWindow DetailEditor = agentEditor.DetailEditor;
+                            DetailEditor.SelectedEntry = entryConfig;
+                            if (DetailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                            {
+                                tlviCurrent.Tag = DetailEditor.SelectedEntry;
+                                tlviCurrent.Text = DetailEditor.SelectedEntry.Description;
+                                tlviCurrent.SubItems[1].Text = DetailEditor.SelectedEntry.TriggerSummary;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("There is no registered UI editor for this type of agent yet! Please contact the creator of the agent type.", "Agent type", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                    }
+                }    
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void DeleteAgents()
+        {
+            if (agentsTreeListView.SelectedItems.Count > 0)
+            {
+                if (MessageBox.Show("Are you sure you want to delete the seleted entry(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    foreach (TreeListViewItem tlvi in agentsTreeListView.SelectedItems)
+                    {
+                        if (tlvi.Tag is ICollector)
+                        {
+                            agentsTreeListView.Items.Remove(tlvi);
+                        }
+                        else if (tlvi.Tag is ICollectorConfigEntry && tlvi.Parent != null && tlvi.Parent.Tag is ICollector)
+                        {
+                            tlvi.Parent.Items.Remove(tlvi);
+                        }
+                    }
+                }
+            }
+        }
+        private void EnableAgents()
+        {
+            if (agentsTreeListView.SelectedItems.Count > 0)
+            {
+                foreach (TreeListViewItem tlvi in agentsTreeListView.SelectedItems)
+                {
+                    if (tlvi.Tag is ICollector)
+                    {
+                        ICollector agent = (ICollector)tlvi.Tag;
+                        agent.Enabled = true;
+                        tlvi.ImageIndex = 1;
+                    }
+                }
+                agentsTreeListView_SelectedIndexChanged(null, null);
+            }
+        }
+        private void DisableAgents()
+        {
+            if (agentsTreeListView.SelectedItems.Count > 0)
+            {
+                foreach (TreeListViewItem tlvi in agentsTreeListView.SelectedItems)
+                {
+                    if (tlvi.Tag is ICollector)
+                    {
+                        ICollector agent = (ICollector)tlvi.Tag;
+                        agent.Enabled = false;
+                        tlvi.ImageIndex = 0;
+                    }
+                }
+                agentsTreeListView_SelectedIndexChanged(null, null);
+            }
+        }
+        private bool SetEditingCollectorHost()
+        {
+            bool success = false;
+            try
+            {
+                editingCollectorHost.Name = txtName.Text;
+                editingCollectorHost.Enabled = SelectedCollectorHost.Enabled; //current value
+                //editingCollectorHost.ExpandOnStartOption = (ExpandOnStartOption)cboExpandOnStartOption.SelectedIndex;
+                editingCollectorHost.AgentCheckSequence = (AgentCheckSequence)agentCheckSequenceToolStripComboBox.SelectedIndex;
+                editingCollectorHost.Notes = txtAdditionalNotes.Text;
+
+                if (cboParentCollector.SelectedIndex > 0)
+                {
+                    CollectorEntryDisplay ced = (CollectorEntryDisplay)cboParentCollector.SelectedItem;
+                    editingCollectorHost.ParentCollectorId = ced.CH.UniqueId;
+                }
+                else
+                    editingCollectorHost.ParentCollectorId = "";
+                editingCollectorHost.ChildCheckBehaviour = (ChildCheckBehaviour)cboChildCheckBehaviour.SelectedIndex;
+
+                //Remote agents
+                editingCollectorHost.EnableRemoteExecute = chkRemoteAgentEnabled.Checked;
+                editingCollectorHost.ForceRemoteExcuteOnChildCollectors = chkForceRemoteExcuteOnChildCollectors.Checked;
+                editingCollectorHost.RemoteAgentHostAddress = cboRemoteAgentServer.Text;
+                editingCollectorHost.RemoteAgentHostPort = (int)remoteportNumericUpDown.Value;
+                editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings = chkBlockParentRHOverride.Checked && !chkRemoteAgentEnabled.Checked;
+                editingCollectorHost.RunLocalOnRemoteHostConnectionFailure = chkRunLocalOnRemoteHostConnectionFailure.Checked;
+                //if (chkRemoteAgentEnabled.Checked && editingCollectorHost.RemoteAgentHostAddress.Length > 0)
+                //{
+                //    if (KnownRemoteHosts == null)
+                //        KnownRemoteHosts = new List<string>();
+                //    if ((from string rh in KnownRemoteHosts
+                //         where rh.ToLower() == editingCollectorHost.RemoteAgentHostAddress.ToLower() + ":" + editingCollectorHost.RemoteAgentHostPort.ToString()
+                //         select rh).Count() == 0
+                //             )
+                //    {
+                //        KnownRemoteHosts.Add(editingCollectorHost.RemoteAgentHostAddress + ":" + editingCollectorHost.RemoteAgentHostPort.ToString());
+                //    }
+                //}
+
+                //Polling overrides
+                if (onlyAllowUpdateOncePerXSecNumericUpDown.Value >= pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value)
+                    pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = onlyAllowUpdateOncePerXSecNumericUpDown.Value + 1;
+                if (pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value)
+                    pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value + 1;
+                if (pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value >= pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value)
+                    pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value + 1;
+
+                editingCollectorHost.EnabledPollingOverride = chkEnablePollingOverride.Checked;
+                editingCollectorHost.OnlyAllowUpdateOncePerXSec = (int)onlyAllowUpdateOncePerXSecNumericUpDown.Value;
+                editingCollectorHost.EnablePollFrequencySliding = chkEnablePollingFrequencySliding.Checked;
+                editingCollectorHost.PollSlideFrequencyAfterFirstRepeatSec = (int)pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value;
+                editingCollectorHost.PollSlideFrequencyAfterSecondRepeatSec = (int)pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value;
+                editingCollectorHost.PollSlideFrequencyAfterThirdRepeatSec = (int)pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value;
+
+                //Alert suppresion
+                editingCollectorHost.AlertsPaused = chkAlertsPaused.Checked;
+                editingCollectorHost.RepeatAlertInXMin = (int)numericUpDownRepeatAlertInXMin.Value;
+                editingCollectorHost.RepeatAlertInXPolls = (int)numericUpDownRepeatAlertInXPolls.Value;
+                editingCollectorHost.AlertOnceInXMin = (int)AlertOnceInXMinNumericUpDown.Value;
+                editingCollectorHost.AlertOnceInXPolls = (int)AlertOnceInXPollsNumericUpDown.Value;
+                editingCollectorHost.DelayErrWarnAlertForXSec = (int)delayAlertSecNumericUpDown.Value;
+                editingCollectorHost.DelayErrWarnAlertForXPolls = (int)delayAlertPollsNumericUpDown.Value;
+                //Corrective scripts
+                editingCollectorHost.CorrectiveScriptDisabled = chkCorrectiveScriptDisabled.Checked;
+                //editingCollectorHost.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
+                //editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
+                //editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
+                editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
+                editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Value;
+                editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Value;
+                editingCollectorHost.RestorationScriptMinimumRepeatTimeMin = (int)numericUpDownRestorationScriptMinimumRepeatTimeMin.Value;
+
+                //impersonation
+                editingCollectorHost.RunAsEnabled = chkRunAsEnabled.Checked;
+                editingCollectorHost.RunAs = txtRunAs.Text;
+
+                //Service windows - Done already            
+                editingCollectorHost.ConfigVariables = new List<ConfigVariable>();
+                foreach (ListViewItem lvi in lvwConfigVars.Items)
+                {
+                    editingCollectorHost.ConfigVariables.Add(((ConfigVariable)lvi.Tag).Clone());
+                }
+                //Categories
+                editingCollectorHost.Categories = new List<string>();
+                if (txtCategories.Text.Length > 0)
+                {
+                    foreach (string line in txtCategories.Lines)
+                    {
+                        if (line.Length > 0)
+                        {
+                            editingCollectorHost.Categories.Add(line);
+                        }
+                    }
+                }
+                SetEditingCollectorHostAgents();
+
+                if (cmdSetNoteText.Enabled)
+                    cmdSetNoteText_Click(null, null);
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while saving the config!\r\n" + ex.Message, "Saving config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return success;
+        }
+        private void SetEditingCollectorHostAgents()
+        {
+            editingCollectorHost.CollectorAgents.Clear();
+            foreach (TreeListViewItem tlvi in agentsTreeListView.Items)
+            {
+                ICollector agent = (ICollector)tlvi.Tag;
+                ICollectorConfig agentConfig = (ICollectorConfig)agent.AgentConfig;
+                agentConfig.Entries.Clear();
+                foreach (TreeListViewItem tlviEntries in tlvi.Items)
+                {
+                    ICollectorConfigEntry entry = (ICollectorConfigEntry)tlviEntries.Tag;
+                    agentConfig.Entries.Add(entry);
+                }
+                string agentConfigString = agentConfig.ToXml();
+                agent.AgentConfig.FromXml(agentConfigString);
+                agent.InitialConfiguration = agentConfigString;
+                editingCollectorHost.CollectorAgents.Add(agent);
+            }
+        }
+        private void agentsTreeListView_AfterLabelEdit(object sender, TreeListViewLabelEditEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && agentsTreeListView.FocusedItem.Tag is ICollector)
+            {
+                ICollector agent = (ICollector)agentsTreeListView.FocusedItem.Tag;
+                agent.Name = e.Label;
+                agentsTreeListView.FocusedItem.Tag = agent;
+            }
+        }
+        private void agentsTreeListView_BeforeLabelEdit(object sender, TreeListViewBeforeLabelEditEventArgs e)
+        {
+            if (!(e.Item.Tag is ICollector && e.ColumnIndex == 0))
+            {
+                e.Cancel = true;
+            }
+        }
+        private void agentsTreeListView_DoubleClick(object sender, EventArgs e)
+        {
+            EditAgent();
+        }
+        private void agentsTreeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool addAgentEntry = false;
+            bool moveUpEnabled = false;
+            bool moveDownEnabled = false;
+            bool agentEnabledEnabled = false;
+            bool agentEDisabledEnabled = false;
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    ICollector agent = (ICollector)moveItem.Tag;
+                    ICollectorConfig currentCollectorConfig = (ICollectorConfig)agent.AgentConfig;
+
+                    int index = editingCollectorHost.CollectorAgents.IndexOf(agent);
+                    moveUpEnabled = index > 0;
+                    moveDownEnabled = index < editingCollectorHost.CollectorAgents.Count - 1;
+
+                    addAgentEntry = (!((ICollectorConfig)agent.AgentConfig).SingleEntryOnly) || currentCollectorConfig.Entries.Count == 0;
+                    agentEnabledEnabled = !agent.Enabled;
+                    agentEDisabledEnabled = agent.Enabled;
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry)
+                {
+                    ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                    ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
+                    int index = entryConfig.Entries.IndexOf(moveConfigEntry);
+                    moveUpEnabled = index > 0;
+                    moveDownEnabled = index < entryConfig.Entries.Count - 1;
+                    addAgentEntry = false;
+                }
+            }
+            else
+            {
+                foreach (TreeListViewItem tlvi in agentsTreeListView.SelectedItems)
+                {
+                    if (tlvi.Tag is ICollector)
+                    {
+                        ICollector agent = (ICollector)tlvi.Tag;
+                        if (!agent.Enabled)
+                            agentEnabledEnabled = true;
+                        else
+                            agentEDisabledEnabled = true;
+                    }
+                    else
+                    {
+                        agentEnabledEnabled = false;
+                        agentEDisabledEnabled = false;
+                        break;
+                    }
+                }
+            }
+            addAgentEntryToolStripButton.Enabled = addAgentEntry;
+            addAgentEntryToolStripMenuItem.Enabled = addAgentEntry;
+            editCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count == 1;
+            editToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count == 1;
+            deleteCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count > 0;
+            deleteToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count > 0;
+            moveUpAgentToolStripButton.Enabled = moveUpEnabled;
+            moveUpToolStripMenuItem.Enabled = moveUpEnabled;
+            moveDownAgentToolStripButton.Enabled = moveDownEnabled;
+            moveDownToolStripMenuItem.Enabled = moveDownEnabled;
+            enableAgentToolStripButton.Enabled = agentEnabledEnabled;
+            disableAgentToolStripButton.Enabled = agentEDisabledEnabled;
+            enableToolStripMenuItem.Enabled = agentEnabledEnabled || agentEDisabledEnabled;
+            this.enableToolStripMenuItem.Image = agentEnabledEnabled ? global::QuickMon.Properties.Resources._131 : global::QuickMon.Properties.Resources._133;
+            this.enableToolStripMenuItem.Text = agentEnabledEnabled ? "Enable" : "Disable";
+        }
+        private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
+        {
+            CreateAgent();
+        }
+        private void addAgentEntryToolStripButton_Click(object sender, EventArgs e)
+        {
+            CreateAgentEntry();
+        }
+        private void editCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            EditAgent();
+        }
+        private void deleteCollectorAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            DeleteAgents();
+        }
+        private void moveUpAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    ICollector moveAgent = (ICollector)moveItem.Tag;
+                    int index = editingCollectorHost.CollectorAgents.IndexOf(moveAgent);
+                    if (index > 0)
+                    {
+                        editingCollectorHost.CollectorAgents.Remove(moveAgent);
+                        editingCollectorHost.CollectorAgents.Insert(index - 1, moveAgent);
+
+                        LoadAgents();
+                        agentsTreeListView.Items[index - 1].Selected = true;
+                    }
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry && moveItem.Parent != null && moveItem.Parent.Tag is ICollector)
+                {
+                    TreeListViewItem prevItem = moveItem.PrevVisibleItem;
+                    if (prevItem != null)
+                    {
+                        ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                        ICollectorConfigEntry prevConfigEntry = (ICollectorConfigEntry)prevItem.Tag;
+                        prevItem.Tag = null;
+                        prevItem.Tag = moveConfigEntry;
+                        moveItem.Tag = prevConfigEntry;
+                        SetEditingCollectorHostAgents();
+
+                        LoadAgents();
+                    }
+                }
+            }
+        }
+        private void moveDownAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    ICollector moveAgent = (ICollector)moveItem.Tag;
+                    int index = editingCollectorHost.CollectorAgents.IndexOf(moveAgent);
+                    if (index < editingCollectorHost.CollectorAgents.Count - 1)
+                    {
+                        editingCollectorHost.CollectorAgents.Remove(moveAgent);
+                        editingCollectorHost.CollectorAgents.Insert(index + 1, moveAgent);
+
+                        LoadAgents();
+                        agentsTreeListView.Items[index + 1].Selected = true;
+                    }
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry && moveItem.Parent != null && moveItem.Parent.Tag is ICollector)
+                {
+                    TreeListViewItem nextItem = moveItem.NextVisibleItem;
+                    if (nextItem != null)
+                    {
+                        ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                        ICollectorConfigEntry nextConfigEntry = (ICollectorConfigEntry)nextItem.Tag;
+                        nextItem.Tag = null;
+                        nextItem.Tag = moveConfigEntry;
+                        moveItem.Tag = nextConfigEntry;
+                        SetEditingCollectorHostAgents();
+
+                        LoadAgents();
+                    }
+                }
+            }
+        }
+        private void enableAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            EnableAgents();
+        }
+        private void disableAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            DisableAgents();
+        }
+        #endregion
+
+        #region Polling overrides
+        private void PollingOverrideControlsEnable()
+        {
+            chkEnablePollingFrequencySliding.Enabled = chkEnablePollingOverride.Checked;
+            onlyAllowUpdateOncePerXSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked;
+            pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked && chkEnablePollingFrequencySliding.Checked;
+            pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked && chkEnablePollingFrequencySliding.Checked;
+            pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Enabled = chkEnablePollingOverride.Checked && chkEnablePollingFrequencySliding.Checked;
+        }
+        private void chkEnablePollingOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            PollingOverrideControlsEnable();
+        }
+        private void chkEnablePollingFrequencySliding_CheckedChanged(object sender, EventArgs e)
+        {
+            PollingOverrideControlsEnable();
+        }
+        #endregion
+
+        #region Change tracking
+        private void CheckOkEnabled()
+        {
+            cmdOK.Enabled = (txtName.Text.Length > 0) && cboParentCollector.SelectedIndex > -1 &&
+                    ((!chkRemoteAgentEnabled.Checked && !chkForceRemoteExcuteOnChildCollectors.Checked) || cboRemoteAgentServer.Text.Length > 0);
+            cmdRemoteAgentTest.Enabled = (chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked) && cboRemoteAgentServer.Text.Length > 0;
+        }
+        private void chkRemoteAgentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
+            remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
+            chkBlockParentRHOverride.Enabled = !chkRemoteAgentEnabled.Checked;
+            chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
+            if (chkRemoteAgentEnabled.Checked)
+                chkBlockParentRHOverride.Checked = false;
+            CheckOkEnabled();
+        }
+        private void chkForceRemoteExcuteOnChildCollectors_CheckedChanged(object sender, EventArgs e)
+        {
+            chkRemoteAgentEnabled_CheckedChanged(null, null);
+        }
+        private void cboRemoteAgentServer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckOkEnabled();
+        }
+        private void cboRemoteAgentServer_TextChanged(object sender, EventArgs e)
+        {
+            CheckOkEnabled();
+        }
+        private void chkRunAsEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            txtRunAs.Enabled = chkRunAsEnabled.Checked;
+            cmdTestRunAs.Enabled = chkRunAsEnabled.Checked;
+        }
+        #endregion
+
+        #region Corrective scripts
+        private void chkCorrectiveScriptDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Enabled = !chkCorrectiveScriptDisabled.Checked;
+            numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Enabled = !chkCorrectiveScriptDisabled.Checked;
+            numericUpDownRestorationScriptMinimumRepeatTimeMin.Enabled = !chkCorrectiveScriptDisabled.Checked;
+        }
+        #endregion
+
+        #region Service Windows
+        private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //EditServiceWindows editServiceWindows = new EditServiceWindows();
+            //editServiceWindows.SelectedServiceWindows = editingCollectorHost.ServiceWindows;
+            //if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    editingCollectorHost.ServiceWindows = editServiceWindows.SelectedServiceWindows;
+            //    linkLabelServiceWindows.Text = editServiceWindows.SelectedServiceWindows.ToString();
+            //    toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + editingCollectorHost.ServiceWindows.ToString());
+            //    CheckOkEnabled();
+            //}
+        }
+        #endregion
+
+        #region Alert texts
         private void cboTextType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (previousSelectedAlertTextIndex >= 0)
@@ -960,48 +1531,67 @@ namespace QuickMon
             cmdSetNoteText.Enabled = false;
             previousSelectedAlertTextIndex = cboTextType.SelectedIndex;
         }
+        private void txtNotesText_TextChanged(object sender, EventArgs e)
+        {
+            lblNoteTextChangeIndicator.Text = "Alert Texts*";
+            cmdSetNoteText.Enabled = true;
+        }
+        private void cmdSetNoteText_Click(object sender, EventArgs e)
+        {
+            if (cboTextType.SelectedIndex == 0)
+                editingCollectorHost.AlertHeaderText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 1)
+                editingCollectorHost.AlertFooterText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 2)
+                editingCollectorHost.ErrorAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 3)
+                editingCollectorHost.WarningAlertText = txtNotesText.Text;
+            else if (cboTextType.SelectedIndex == 4)
+                editingCollectorHost.GoodAlertText = txtNotesText.Text;
+            lblNoteTextChangeIndicator.Text = "Alert Texts";
+            cmdSetNoteText.Enabled = false;
+        }
+        #endregion
 
-        private void agentsSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
-        {
 
-        }
+        #endregion
 
-        private void cmdAgentsToggle_Click(object sender, EventArgs e)
-        {
-            TogglePanel(cmdAgentsToggle, agentsEditSplitContainer, agentsEditSplitContainerHeight);
-        }
-        private void cmdHostsToggle_Click(object sender, EventArgs e)
-        {
-            TogglePanel(cmdHostsToggle, hostSettingsSplitContainer, hostSettingsSplitContainerHeight);
-        }
-        private void cmdOperationalToggle_Click(object sender, EventArgs e)
-        {
-            TogglePanel(cmdOperationalToggle, operationalSplitContainer, operationalSplitContainerHeight);
-        }
-        private void cmdAlertsToggle_Click(object sender, EventArgs e)
-        {
-            TogglePanel(cmdAlertsToggle, alertsSplitContainer, alertsSplitContainerHeight);
-        }
-        private void cmdConfigVarsToggle_Click(object sender, EventArgs e)
-        {
-            TogglePanel(cmdConfigVarsToggle, configVariSplitContainer, configVariSplitContainerHeight);
-        }
+        //private void cmdAgentsToggle_Click(object sender, EventArgs e)
+        //{
+        //    TogglePanel(cmdAgentsToggle, agentsEditSplitContainer, agentsEditSplitContainerHeight);
+        //}
+        //private void cmdHostsToggle_Click(object sender, EventArgs e)
+        //{
+        //    TogglePanel(cmdHostsToggle, hostSettingsSplitContainer, hostSettingsSplitContainerHeight);
+        //}
+        //private void cmdOperationalToggle_Click(object sender, EventArgs e)
+        //{
+        //    TogglePanel(cmdOperationalToggle, operationalSplitContainer, operationalSplitContainerHeight);
+        //}
+        //private void cmdAlertsToggle_Click(object sender, EventArgs e)
+        //{
+        //    TogglePanel(cmdAlertsToggle, alertsSplitContainer, alertsSplitContainerHeight);
+        //}
+        //private void cmdConfigVarsToggle_Click(object sender, EventArgs e)
+        //{
+        //    TogglePanel(cmdConfigVarsToggle, configVariSplitContainer, configVariSplitContainerHeight);
+        //}
 
-        private void TogglePanel(Button toggleButton, SplitContainer togglePanel, int expandedheight)
-        {
-            if (togglePanel.Panel2Collapsed)
-            {
-                togglePanel.Panel2Collapsed = false;
-                togglePanel.Height = expandedheight;
-                toggleButton.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-                splitContainer2.Panel1.ScrollControlIntoView(togglePanel);
-            }
-            else
-            {
-                togglePanel.Panel2Collapsed = true;
-                togglePanel.Height = 25;
-                toggleButton.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            }
-        }
+        //private void TogglePanel(Button toggleButton, SplitContainer togglePanel, int expandedheight)
+        //{
+        //    if (togglePanel.Panel2Collapsed)
+        //    {
+        //        togglePanel.Panel2Collapsed = false;
+        //        togglePanel.Height = expandedheight;
+        //        toggleButton.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+        //        splitContainer2.Panel1.ScrollControlIntoView(togglePanel);
+        //    }
+        //    else
+        //    {
+        //        togglePanel.Panel2Collapsed = true;
+        //        togglePanel.Height = 25;
+        //        toggleButton.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+        //    }
+        //}
     }
 }
