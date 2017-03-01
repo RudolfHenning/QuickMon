@@ -27,11 +27,11 @@ namespace QuickMon.UI
         /// Show the edit dialogbox
         /// </summary>
         /// <returns></returns>
-        bool EditAgent();
+        //bool EditAgent();
         /// <summary>
         /// Indicates if this UI class has a detail window
         /// </summary>
-        bool HasDetailView { get; }
+        //bool HasDetailView { get; }
         /// <summary>
         /// When called it show custom detail Window for the type of agent.
         /// </summary>

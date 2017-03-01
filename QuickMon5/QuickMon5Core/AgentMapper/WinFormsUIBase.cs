@@ -12,7 +12,7 @@ namespace QuickMon.UI
         public string AgentName { get; set; }
         public bool AgentEnabled { get; set; }
         public string SelectedAgentConfig { get; set; }
-        public abstract bool EditAgent();
+        //public abstract bool EditAgent();
         public abstract bool HasDetailView { get; }
     }
     public abstract class WinFormsUICollectorBase : WinFormsUIBase

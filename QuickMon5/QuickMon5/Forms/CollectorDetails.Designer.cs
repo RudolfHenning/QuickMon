@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode16});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode18,
+            treeNode19});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -47,75 +47,51 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelAutoRefresh = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelRawEdit = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.collectorDetailSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panelCollectorDetails = new System.Windows.Forms.Panel();
             this.panelEditing = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.configVariSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.cmdConfigVarsToggle = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.alertsSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.cmdAlertsToggle = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.cmdSetNoteText = new System.Windows.Forms.Button();
-            this.txtNotesText = new System.Windows.Forms.TextBox();
-            this.lblNoteTextChangeIndicator = new System.Windows.Forms.Label();
-            this.cboTextType = new System.Windows.Forms.ComboBox();
-            this.correctiveScriptsGroupBox = new System.Windows.Forms.GroupBox();
-            this.numericUpDownRestorationScriptMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
-            this.label53 = new System.Windows.Forms.Label();
-            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
-            this.label51 = new System.Windows.Forms.Label();
-            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
-            this.label48 = new System.Windows.Forms.Label();
-            this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.chkCorrectiveScriptDisabled = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.alertSuppressionGroupBox = new System.Windows.Forms.GroupBox();
-            this.chkAlertsPaused = new System.Windows.Forms.CheckBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.numericUpDownRepeatAlertInXPolls = new System.Windows.Forms.NumericUpDown();
-            this.delayAlertPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.AlertOnceInXPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDownRepeatAlertInXMin = new System.Windows.Forms.NumericUpDown();
-            this.delayAlertSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.operationalSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.cmdOperationalToggle = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.agentsEditTabPage = new System.Windows.Forms.TabPage();
+            this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAgentEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
+            this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
+            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.enableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.disableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.agentCheckSequenceToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.hostSettingsTabPage = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.txtCategories = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtAdditionalNotes = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.cboParentCollector = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.operationalTabPage = new System.Windows.Forms.TabPage();
             this.serviceWindowsGroupBox = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
             this.linkLabelServiceWindows = new System.Windows.Forms.LinkLabel();
@@ -155,41 +131,58 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.hostSettingsSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.cmdHostsToggle = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.txtCategories = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtAdditionalNotes = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.cboParentCollector = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.agentsEditSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.cmdAgentsToggle = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.agentsImageList = new System.Windows.Forms.ImageList(this.components);
-            this.collectorAgentsEditToolStrip = new System.Windows.Forms.ToolStrip();
-            this.addCollectorConfigEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addAgentEntryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteCollectorAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveUpAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.moveDownAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.enableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.disableAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.agentCheckSequenceToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.alertsTabPage = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cmdSetNoteText = new System.Windows.Forms.Button();
+            this.txtNotesText = new System.Windows.Forms.TextBox();
+            this.lblNoteTextChangeIndicator = new System.Windows.Forms.Label();
+            this.cboTextType = new System.Windows.Forms.ComboBox();
+            this.correctiveScriptsGroupBox = new System.Windows.Forms.GroupBox();
+            this.numericUpDownRestorationScriptMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label53 = new System.Windows.Forms.Label();
+            this.numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin = new System.Windows.Forms.NumericUpDown();
+            this.label48 = new System.Windows.Forms.Label();
+            this.chkOnlyRunCorrectiveScriptsOnStateChange = new System.Windows.Forms.CheckBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.chkCorrectiveScriptDisabled = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.alertSuppressionGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkAlertsPaused = new System.Windows.Forms.CheckBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.numericUpDownRepeatAlertInXPolls = new System.Windows.Forms.NumericUpDown();
+            this.delayAlertPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AlertOnceInXPollsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDownRepeatAlertInXMin = new System.Windows.Forms.NumericUpDown();
+            this.delayAlertSecNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.configVarsTabPage = new System.Windows.Forms.TabPage();
+            this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.addConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.panelMetrics = new System.Windows.Forms.Panel();
@@ -198,18 +191,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
-            this.lvwHistory = new QuickMon.ListViewEx();
-            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chkRAWDetails = new System.Windows.Forms.CheckBox();
@@ -221,7 +203,6 @@
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
-            this.tvwScripts = new QuickMon.TreeViewEx();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -231,6 +212,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwHistory = new QuickMon.ListViewEx();
+            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tvwScripts = new QuickMon.TreeViewEx();
+            this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -246,15 +246,25 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.configVariSplitContainer)).BeginInit();
-            this.configVariSplitContainer.Panel1.SuspendLayout();
-            this.configVariSplitContainer.Panel2.SuspendLayout();
-            this.configVariSplitContainer.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.alertsSplitContainer)).BeginInit();
-            this.alertsSplitContainer.Panel1.SuspendLayout();
-            this.alertsSplitContainer.Panel2.SuspendLayout();
-            this.alertsSplitContainer.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.agentsEditTabPage.SuspendLayout();
+            this.agentsContextMenuStrip.SuspendLayout();
+            this.collectorAgentsEditToolStrip.SuspendLayout();
+            this.hostSettingsTabPage.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.operationalTabPage.SuspendLayout();
+            this.serviceWindowsGroupBox.SuspendLayout();
+            this.runAsGroupBox.SuspendLayout();
+            this.remoteAgentGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
+            this.pollingOverridesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
+            this.alertsTabPage.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.correctiveScriptsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRestorationScriptMinimumRepeatTimeMin)).BeginInit();
@@ -267,31 +277,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.operationalSplitContainer)).BeginInit();
-            this.operationalSplitContainer.Panel1.SuspendLayout();
-            this.operationalSplitContainer.Panel2.SuspendLayout();
-            this.operationalSplitContainer.SuspendLayout();
-            this.serviceWindowsGroupBox.SuspendLayout();
-            this.runAsGroupBox.SuspendLayout();
-            this.remoteAgentGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
-            this.pollingOverridesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hostSettingsSplitContainer)).BeginInit();
-            this.hostSettingsSplitContainer.Panel1.SuspendLayout();
-            this.hostSettingsSplitContainer.Panel2.SuspendLayout();
-            this.hostSettingsSplitContainer.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.agentsEditSplitContainer)).BeginInit();
-            this.agentsEditSplitContainer.Panel1.SuspendLayout();
-            this.agentsEditSplitContainer.Panel2.SuspendLayout();
-            this.agentsEditSplitContainer.SuspendLayout();
-            this.collectorAgentsEditToolStrip.SuspendLayout();
+            this.configVarsTabPage.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.panelMetrics.SuspendLayout();
             this.panelAgentStates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
@@ -336,9 +323,7 @@
             this.toolStripStatusLabelEnabled,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabelAutoRefresh,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabelRawEdit,
-            this.toolStripStatusLabel3});
+            this.toolStripStatusLabel2});
             this.statusStripCollector.Location = new System.Drawing.Point(0, 679);
             this.statusStripCollector.Name = "statusStripCollector";
             this.statusStripCollector.Size = new System.Drawing.Size(1199, 22);
@@ -377,20 +362,6 @@
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabel2.Text = "|";
-            // 
-            // toolStripStatusLabelRawEdit
-            // 
-            this.toolStripStatusLabelRawEdit.IsLink = true;
-            this.toolStripStatusLabelRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.toolStripStatusLabelRawEdit.Name = "toolStripStatusLabelRawEdit";
-            this.toolStripStatusLabelRawEdit.Size = new System.Drawing.Size(91, 17);
-            this.toolStripStatusLabelRawEdit.Text = "Edit Raw Config";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel3.Text = "|";
             // 
             // splitContainerMain
             // 
@@ -467,273 +438,948 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.AutoScroll = true;
-            this.splitContainer2.Panel1.Controls.Add(this.configVariSplitContainer);
-            this.splitContainer2.Panel1.Controls.Add(this.alertsSplitContainer);
-            this.splitContainer2.Panel1.Controls.Add(this.operationalSplitContainer);
-            this.splitContainer2.Panel1.Controls.Add(this.hostSettingsSplitContainer);
-            this.splitContainer2.Panel1.Controls.Add(this.agentsEditSplitContainer);
+            this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.llblRawEdit);
             this.splitContainer2.Panel2.Controls.Add(this.cmdOK);
             this.splitContainer2.Panel2.Controls.Add(this.cmdCancel);
             this.splitContainer2.Size = new System.Drawing.Size(962, 463);
             this.splitContainer2.SplitterDistance = 421;
             this.splitContainer2.TabIndex = 7;
             // 
-            // configVariSplitContainer
+            // tabControl1
             // 
-            this.configVariSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.configVariSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.configVariSplitContainer.Location = new System.Drawing.Point(0, 1261);
-            this.configVariSplitContainer.Name = "configVariSplitContainer";
-            this.configVariSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.tabControl1.Controls.Add(this.agentsEditTabPage);
+            this.tabControl1.Controls.Add(this.hostSettingsTabPage);
+            this.tabControl1.Controls.Add(this.operationalTabPage);
+            this.tabControl1.Controls.Add(this.alertsTabPage);
+            this.tabControl1.Controls.Add(this.configVarsTabPage);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(962, 421);
+            this.tabControl1.TabIndex = 11;
             // 
-            // configVariSplitContainer.Panel1
+            // agentsEditTabPage
             // 
-            this.configVariSplitContainer.Panel1.Controls.Add(this.cmdConfigVarsToggle);
-            this.configVariSplitContainer.Panel1.Controls.Add(this.button13);
+            this.agentsEditTabPage.Controls.Add(this.agentsTreeListView);
+            this.agentsEditTabPage.Controls.Add(this.collectorAgentsEditToolStrip);
+            this.agentsEditTabPage.Location = new System.Drawing.Point(4, 22);
+            this.agentsEditTabPage.Name = "agentsEditTabPage";
+            this.agentsEditTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.agentsEditTabPage.Size = new System.Drawing.Size(954, 395);
+            this.agentsEditTabPage.TabIndex = 0;
+            this.agentsEditTabPage.Text = "Agents";
+            this.agentsEditTabPage.UseVisualStyleBackColor = true;
             // 
-            // configVariSplitContainer.Panel2
+            // agentsContextMenuStrip
             // 
-            this.configVariSplitContainer.Panel2.Controls.Add(this.lvwConfigVars);
-            this.configVariSplitContainer.Panel2.Controls.Add(this.txtConfigVarReplaceByValue);
-            this.configVariSplitContainer.Panel2.Controls.Add(this.label42);
-            this.configVariSplitContainer.Panel2.Controls.Add(this.label41);
-            this.configVariSplitContainer.Panel2.Controls.Add(this.toolStrip1);
-            this.configVariSplitContainer.Panel2.Controls.Add(this.txtConfigVarSearchFor);
-            this.configVariSplitContainer.Panel2.Controls.Add(this.label40);
-            this.configVariSplitContainer.Panel2MinSize = 0;
-            this.configVariSplitContainer.Size = new System.Drawing.Size(945, 300);
-            this.configVariSplitContainer.SplitterDistance = 25;
-            this.configVariSplitContainer.TabIndex = 10;
+            this.agentsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.agentsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addAgentToolStripMenuItem,
+            this.addAgentEntryToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.moveUpToolStripMenuItem,
+            this.moveDownToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.enableToolStripMenuItem});
+            this.agentsContextMenuStrip.Name = "agentsContextMenuStrip";
+            this.agentsContextMenuStrip.Size = new System.Drawing.Size(166, 198);
             // 
-            // cmdConfigVarsToggle
+            // addAgentToolStripMenuItem
             // 
-            this.cmdConfigVarsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdConfigVarsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdConfigVarsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdConfigVarsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdConfigVarsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdConfigVarsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdConfigVarsToggle.Name = "cmdConfigVarsToggle";
-            this.cmdConfigVarsToggle.Size = new System.Drawing.Size(945, 25);
-            this.cmdConfigVarsToggle.TabIndex = 1;
-            this.cmdConfigVarsToggle.Text = "Config Variables";
-            this.cmdConfigVarsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdConfigVarsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdConfigVarsToggle.UseVisualStyleBackColor = false;
-            this.cmdConfigVarsToggle.Click += new System.EventHandler(this.cmdConfigVarsToggle_Click);
+            this.addAgentToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
+            this.addAgentToolStripMenuItem.Name = "addAgentToolStripMenuItem";
+            this.addAgentToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.addAgentToolStripMenuItem.Text = "Add Agent";
             // 
-            // button13
+            // addAgentEntryToolStripMenuItem
             // 
-            this.button13.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button13.Location = new System.Drawing.Point(0, 0);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(945, 25);
-            this.button13.TabIndex = 1;
-            this.button13.Text = "Collector Host settings";
-            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button13.UseVisualStyleBackColor = false;
+            this.addAgentEntryToolStripMenuItem.Image = global::QuickMon.Properties.Resources.addGreen24x24;
+            this.addAgentEntryToolStripMenuItem.Name = "addAgentEntryToolStripMenuItem";
+            this.addAgentEntryToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.addAgentEntryToolStripMenuItem.Text = "Add Agent entry";
             // 
-            // lvwConfigVars
+            // editToolStripMenuItem
             // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.editToolStripMenuItem.Image = global::QuickMon.Properties.Resources.doc_edit24x24;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 6);
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            this.moveUpToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.moveUpToolStripMenuItem.Text = "Move up";
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            this.moveDownToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.moveDownToolStripMenuItem.Text = "Move down";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(162, 6);
+            // 
+            // enableToolStripMenuItem
+            // 
+            this.enableToolStripMenuItem.Image = global::QuickMon.Properties.Resources._131;
+            this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.enableToolStripMenuItem.Text = "Enable";
+            // 
+            // agentsImageList
+            // 
+            this.agentsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("agentsImageList.ImageStream")));
+            this.agentsImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.agentsImageList.Images.SetKeyName(0, "NoGo.ico");
+            this.agentsImageList.Images.SetKeyName(1, "Configuration.ico");
+            this.agentsImageList.Images.SetKeyName(2, "127_9.ico");
+            // 
+            // collectorAgentsEditToolStrip
+            // 
+            this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.collectorAgentsEditToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCollectorConfigEntryToolStripButton,
+            this.addAgentEntryToolStripButton,
+            this.editCollectorAgentToolStripButton,
+            this.deleteCollectorAgentToolStripButton,
+            this.toolStripSeparator2,
+            this.moveUpAgentToolStripButton,
+            this.moveDownAgentToolStripButton,
+            this.toolStripSeparator3,
+            this.enableAgentToolStripButton,
+            this.disableAgentToolStripButton,
+            this.toolStripLabel1,
+            this.agentCheckSequenceToolStripComboBox});
+            this.collectorAgentsEditToolStrip.Location = new System.Drawing.Point(3, 3);
+            this.collectorAgentsEditToolStrip.Name = "collectorAgentsEditToolStrip";
+            this.collectorAgentsEditToolStrip.Size = new System.Drawing.Size(948, 27);
+            this.collectorAgentsEditToolStrip.TabIndex = 3;
+            this.collectorAgentsEditToolStrip.TabStop = true;
+            this.collectorAgentsEditToolStrip.Text = "toolStrip1";
+            // 
+            // addCollectorConfigEntryToolStripButton
+            // 
+            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.add;
+            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
+            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
+            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
+            this.addCollectorConfigEntryToolStripButton.Click += new System.EventHandler(this.addCollectorConfigEntryToolStripButton_Click);
+            // 
+            // addAgentEntryToolStripButton
+            // 
+            this.addAgentEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addAgentEntryToolStripButton.Enabled = false;
+            this.addAgentEntryToolStripButton.Image = global::QuickMon.Properties.Resources.addGreen24x24;
+            this.addAgentEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addAgentEntryToolStripButton.Name = "addAgentEntryToolStripButton";
+            this.addAgentEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addAgentEntryToolStripButton.Text = "Add new Agent entry";
+            this.addAgentEntryToolStripButton.Click += new System.EventHandler(this.addAgentEntryToolStripButton_Click);
+            // 
+            // editCollectorAgentToolStripButton
+            // 
+            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editCollectorAgentToolStripButton.Enabled = false;
+            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.doc_edit24x24;
+            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
+            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
+            this.editCollectorAgentToolStripButton.Click += new System.EventHandler(this.editCollectorAgentToolStripButton_Click);
+            // 
+            // deleteCollectorAgentToolStripButton
+            // 
+            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteCollectorAgentToolStripButton.Enabled = false;
+            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
+            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
+            this.deleteCollectorAgentToolStripButton.Click += new System.EventHandler(this.deleteCollectorAgentToolStripButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // moveUpAgentToolStripButton
+            // 
+            this.moveUpAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpAgentToolStripButton.Enabled = false;
+            this.moveUpAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
+            this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveUpAgentToolStripButton.Text = "Move selected item up";
+            this.moveUpAgentToolStripButton.Click += new System.EventHandler(this.moveUpAgentToolStripButton_Click);
+            // 
+            // moveDownAgentToolStripButton
+            // 
+            this.moveDownAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownAgentToolStripButton.Enabled = false;
+            this.moveDownAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
+            this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveDownAgentToolStripButton.Text = "Move selected item down";
+            this.moveDownAgentToolStripButton.Click += new System.EventHandler(this.moveDownAgentToolStripButton_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            // 
+            // enableAgentToolStripButton
+            // 
+            this.enableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.enableAgentToolStripButton.Enabled = false;
+            this.enableAgentToolStripButton.Image = global::QuickMon.Properties.Resources._131;
+            this.enableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
+            this.enableAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.enableAgentToolStripButton.Text = "Enable";
+            this.enableAgentToolStripButton.Click += new System.EventHandler(this.enableAgentToolStripButton_Click);
+            // 
+            // disableAgentToolStripButton
+            // 
+            this.disableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.disableAgentToolStripButton.Enabled = false;
+            this.disableAgentToolStripButton.Image = global::QuickMon.Properties.Resources._141;
+            this.disableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
+            this.disableAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.disableAgentToolStripButton.Text = "Disable";
+            this.disableAgentToolStripButton.Click += new System.EventHandler(this.disableAgentToolStripButton_Click);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(126, 24);
+            this.toolStripLabel1.Text = "Agent check se&quence";
+            // 
+            // agentCheckSequenceToolStripComboBox
+            // 
+            this.agentCheckSequenceToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.agentCheckSequenceToolStripComboBox.Items.AddRange(new object[] {
+            "All",
+            "First Success",
+            "First Error"});
+            this.agentCheckSequenceToolStripComboBox.Name = "agentCheckSequenceToolStripComboBox";
+            this.agentCheckSequenceToolStripComboBox.Size = new System.Drawing.Size(121, 27);
+            // 
+            // hostSettingsTabPage
+            // 
+            this.hostSettingsTabPage.AutoScroll = true;
+            this.hostSettingsTabPage.Controls.Add(this.groupBox7);
+            this.hostSettingsTabPage.Controls.Add(this.groupBox4);
+            this.hostSettingsTabPage.Controls.Add(this.groupBox1);
+            this.hostSettingsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.hostSettingsTabPage.Name = "hostSettingsTabPage";
+            this.hostSettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.hostSettingsTabPage.Size = new System.Drawing.Size(954, 395);
+            this.hostSettingsTabPage.TabIndex = 1;
+            this.hostSettingsTabPage.Text = "Host settings";
+            this.hostSettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.txtCategories);
+            this.groupBox7.Controls.Add(this.label46);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox7.Location = new System.Drawing.Point(3, 175);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(948, 105);
+            this.groupBox7.TabIndex = 5;
+            this.groupBox7.TabStop = false;
+            // 
+            // txtCategories
+            // 
+            this.txtCategories.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCategories.Location = new System.Drawing.Point(3, 16);
+            this.txtCategories.Multiline = true;
+            this.txtCategories.Name = "txtCategories";
+            this.txtCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCategories.Size = new System.Drawing.Size(942, 86);
+            this.txtCategories.TabIndex = 6;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.BackColor = System.Drawing.Color.White;
+            this.label46.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(6, 0);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(222, 13);
+            this.label46.TabIndex = 0;
+            this.label46.Text = "Categories - (each line is a new entry)";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.txtAdditionalNotes);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox4.Location = new System.Drawing.Point(3, 80);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(948, 95);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            // 
+            // txtAdditionalNotes
+            // 
+            this.txtAdditionalNotes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtAdditionalNotes.Location = new System.Drawing.Point(3, 16);
+            this.txtAdditionalNotes.Multiline = true;
+            this.txtAdditionalNotes.Name = "txtAdditionalNotes";
+            this.txtAdditionalNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtAdditionalNotes.Size = new System.Drawing.Size(942, 76);
+            this.txtAdditionalNotes.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.White;
+            this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(6, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(227, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Additional Notes for this Collector Host";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cboChildCheckBehaviour);
+            this.groupBox1.Controls.Add(this.label39);
+            this.groupBox1.Controls.Add(this.cboParentCollector);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(948, 77);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 1);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Parent/Child Host";
+            // 
+            // cboChildCheckBehaviour
+            // 
+            this.cboChildCheckBehaviour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(2, 30);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(940, 184);
-            this.lvwConfigVars.TabIndex = 2;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            this.cboChildCheckBehaviour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboChildCheckBehaviour.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboChildCheckBehaviour.FormattingEnabled = true;
+            this.cboChildCheckBehaviour.Items.AddRange(new object[] {
+            "Only Run On Success",
+            "Continue On Warning",
+            "Continue On Warning Or Error"});
+            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(134, 44);
+            this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
+            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(808, 21);
+            this.cboChildCheckBehaviour.TabIndex = 4;
             // 
-            // columnHeader5
+            // label39
             // 
-            this.columnHeader5.Text = "Search for";
-            this.columnHeader5.Width = 244;
+            this.label39.Location = new System.Drawing.Point(10, 43);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(118, 31);
+            this.label39.TabIndex = 3;
+            this.label39.Text = "Child Collector Host Check behaviour";
             // 
-            // columnHeader6
+            // cboParentCollector
             // 
-            this.columnHeader6.Text = "Replace by";
-            this.columnHeader6.Width = 262;
+            this.cboParentCollector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboParentCollector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboParentCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboParentCollector.FormattingEnabled = true;
+            this.cboParentCollector.Location = new System.Drawing.Point(134, 17);
+            this.cboParentCollector.Name = "cboParentCollector";
+            this.cboParentCollector.Size = new System.Drawing.Size(808, 21);
+            this.cboParentCollector.TabIndex = 2;
             // 
-            // txtConfigVarReplaceByValue
+            // label5
             // 
-            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(337, 220);
-            this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
-            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
-            this.txtConfigVarReplaceByValue.TabIndex = 6;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(107, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Parent Collector Host";
             // 
-            // label42
+            // operationalTabPage
             // 
-            this.label42.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(0, 243);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(945, 28);
-            this.label42.TabIndex = 7;
-            this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
-    "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
-    " \'special\' in XML.";
+            this.operationalTabPage.AutoScroll = true;
+            this.operationalTabPage.Controls.Add(this.serviceWindowsGroupBox);
+            this.operationalTabPage.Controls.Add(this.runAsGroupBox);
+            this.operationalTabPage.Controls.Add(this.remoteAgentGroupBox);
+            this.operationalTabPage.Controls.Add(this.pollingOverridesGroupBox);
+            this.operationalTabPage.Location = new System.Drawing.Point(4, 22);
+            this.operationalTabPage.Name = "operationalTabPage";
+            this.operationalTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.operationalTabPage.Size = new System.Drawing.Size(954, 395);
+            this.operationalTabPage.TabIndex = 2;
+            this.operationalTabPage.Text = "Operational";
+            this.operationalTabPage.UseVisualStyleBackColor = true;
             // 
-            // label41
+            // serviceWindowsGroupBox
             // 
-            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(262, 223);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(69, 13);
-            this.label41.TabIndex = 5;
-            this.label41.Text = "Replace with";
+            this.serviceWindowsGroupBox.Controls.Add(this.label16);
+            this.serviceWindowsGroupBox.Controls.Add(this.linkLabelServiceWindows);
+            this.serviceWindowsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.serviceWindowsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.serviceWindowsGroupBox.Location = new System.Drawing.Point(3, 235);
+            this.serviceWindowsGroupBox.MinimumSize = new System.Drawing.Size(100, 50);
+            this.serviceWindowsGroupBox.Name = "serviceWindowsGroupBox";
+            this.serviceWindowsGroupBox.Size = new System.Drawing.Size(948, 70);
+            this.serviceWindowsGroupBox.TabIndex = 12;
+            this.serviceWindowsGroupBox.TabStop = false;
             // 
-            // toolStrip1
+            // label16
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addConfigVarToolStripButton,
-            this.deleteConfigVarToolStripButton,
-            this.toolStripSeparator1,
-            this.moveUpConfigVarToolStripButton,
-            this.moveDownConfigVarToolStripButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(945, 27);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.TabStop = true;
-            this.toolStrip1.Text = "toolStrip1";
+            this.label16.AutoSize = true;
+            this.label16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(6, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(110, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Service window(s)";
             // 
-            // addConfigVarToolStripButton
+            // linkLabelServiceWindows
             // 
-            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
-            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addConfigVarToolStripButton.Text = "Create new";
-            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
+            this.linkLabelServiceWindows.AutoEllipsis = true;
+            this.linkLabelServiceWindows.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.linkLabelServiceWindows.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabelServiceWindows.Location = new System.Drawing.Point(3, 16);
+            this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
+            this.linkLabelServiceWindows.Size = new System.Drawing.Size(942, 51);
+            this.linkLabelServiceWindows.TabIndex = 1;
+            this.linkLabelServiceWindows.TabStop = true;
+            this.linkLabelServiceWindows.Text = "None";
+            this.linkLabelServiceWindows.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelServiceWindows_LinkClicked);
             // 
-            // deleteConfigVarToolStripButton
+            // runAsGroupBox
             // 
-            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteConfigVarToolStripButton.Enabled = false;
-            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
-            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
+            this.runAsGroupBox.Controls.Add(this.cmdTestRunAs);
+            this.runAsGroupBox.Controls.Add(this.label45);
+            this.runAsGroupBox.Controls.Add(this.chkRunAsEnabled);
+            this.runAsGroupBox.Controls.Add(this.txtRunAs);
+            this.runAsGroupBox.Controls.Add(this.label43);
+            this.runAsGroupBox.Controls.Add(this.label44);
+            this.runAsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.runAsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.runAsGroupBox.Location = new System.Drawing.Point(3, 173);
+            this.runAsGroupBox.Name = "runAsGroupBox";
+            this.runAsGroupBox.Size = new System.Drawing.Size(948, 62);
+            this.runAsGroupBox.TabIndex = 11;
+            this.runAsGroupBox.TabStop = false;
             // 
-            // toolStripSeparator1
+            // cmdTestRunAs
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.cmdTestRunAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTestRunAs.Enabled = false;
+            this.cmdTestRunAs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTestRunAs.Location = new System.Drawing.Point(872, 17);
+            this.cmdTestRunAs.Name = "cmdTestRunAs";
+            this.cmdTestRunAs.Size = new System.Drawing.Size(70, 23);
+            this.cmdTestRunAs.TabIndex = 4;
+            this.cmdTestRunAs.Text = "Test";
+            this.cmdTestRunAs.UseVisualStyleBackColor = true;
             // 
-            // moveUpConfigVarToolStripButton
+            // label45
             // 
-            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpConfigVarToolStripButton.Enabled = false;
-            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
-            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(105, 42);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(305, 13);
+            this.label45.TabIndex = 5;
+            this.label45.Text = "To set up a password use the Monitor pack configuration editor";
             // 
-            // moveDownConfigVarToolStripButton
+            // chkRunAsEnabled
             // 
-            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownConfigVarToolStripButton.Enabled = false;
-            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
-            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
+            this.chkRunAsEnabled.AutoSize = true;
+            this.chkRunAsEnabled.BackColor = System.Drawing.Color.White;
+            this.chkRunAsEnabled.Checked = true;
+            this.chkRunAsEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRunAsEnabled.Location = new System.Drawing.Point(72, 0);
+            this.chkRunAsEnabled.Name = "chkRunAsEnabled";
+            this.chkRunAsEnabled.Size = new System.Drawing.Size(65, 17);
+            this.chkRunAsEnabled.TabIndex = 1;
+            this.chkRunAsEnabled.Text = "Enabled";
+            this.chkRunAsEnabled.UseVisualStyleBackColor = false;
+            this.chkRunAsEnabled.CheckedChanged += new System.EventHandler(this.chkRunAsEnabled_CheckedChanged);
             // 
-            // txtConfigVarSearchFor
+            // txtRunAs
             // 
-            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(83, 220);
-            this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
-            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
-            this.txtConfigVarSearchFor.TabIndex = 4;
+            this.txtRunAs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRunAs.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtRunAs.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtRunAs.Location = new System.Drawing.Point(108, 19);
+            this.txtRunAs.Name = "txtRunAs";
+            this.txtRunAs.Size = new System.Drawing.Size(758, 20);
+            this.txtRunAs.TabIndex = 3;
             // 
-            // label40
+            // label43
             // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(8, 223);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(56, 13);
-            this.label40.TabIndex = 3;
-            this.label40.Text = "Search for";
+            this.label43.AutoSize = true;
+            this.label43.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label43.Location = new System.Drawing.Point(6, 1);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(47, 13);
+            this.label43.TabIndex = 0;
+            this.label43.Text = "Run as";
             // 
-            // alertsSplitContainer
+            // label44
             // 
-            this.alertsSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.alertsSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.alertsSplitContainer.Location = new System.Drawing.Point(0, 942);
-            this.alertsSplitContainer.Name = "alertsSplitContainer";
-            this.alertsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(10, 22);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(58, 13);
+            this.label44.TabIndex = 2;
+            this.label44.Text = "User name";
             // 
-            // alertsSplitContainer.Panel1
+            // remoteAgentGroupBox
             // 
-            this.alertsSplitContainer.Panel1.Controls.Add(this.cmdAlertsToggle);
-            this.alertsSplitContainer.Panel1.Controls.Add(this.button11);
+            this.remoteAgentGroupBox.Controls.Add(this.cboRemoteAgentServer);
+            this.remoteAgentGroupBox.Controls.Add(this.chkRunLocalOnRemoteHostConnectionFailure);
+            this.remoteAgentGroupBox.Controls.Add(this.chkBlockParentRHOverride);
+            this.remoteAgentGroupBox.Controls.Add(this.chkForceRemoteExcuteOnChildCollectors);
+            this.remoteAgentGroupBox.Controls.Add(this.llblRemoteAgentInstallHelp);
+            this.remoteAgentGroupBox.Controls.Add(this.label17);
+            this.remoteAgentGroupBox.Controls.Add(this.chkRemoteAgentEnabled);
+            this.remoteAgentGroupBox.Controls.Add(this.remoteportNumericUpDown);
+            this.remoteAgentGroupBox.Controls.Add(this.label13);
+            this.remoteAgentGroupBox.Controls.Add(this.label14);
+            this.remoteAgentGroupBox.Controls.Add(this.cmdRemoteAgentTest);
+            this.remoteAgentGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.remoteAgentGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.remoteAgentGroupBox.Location = new System.Drawing.Point(3, 98);
+            this.remoteAgentGroupBox.Name = "remoteAgentGroupBox";
+            this.remoteAgentGroupBox.Size = new System.Drawing.Size(948, 75);
+            this.remoteAgentGroupBox.TabIndex = 10;
+            this.remoteAgentGroupBox.TabStop = false;
             // 
-            // alertsSplitContainer.Panel2
+            // cboRemoteAgentServer
             // 
-            this.alertsSplitContainer.Panel2.Controls.Add(this.groupBox9);
-            this.alertsSplitContainer.Panel2.Controls.Add(this.correctiveScriptsGroupBox);
-            this.alertsSplitContainer.Panel2.Controls.Add(this.alertSuppressionGroupBox);
-            this.alertsSplitContainer.Panel2MinSize = 0;
-            this.alertsSplitContainer.Size = new System.Drawing.Size(945, 319);
-            this.alertsSplitContainer.SplitterDistance = 25;
-            this.alertsSplitContainer.TabIndex = 9;
+            this.cboRemoteAgentServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboRemoteAgentServer.FormattingEnabled = true;
+            this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
+            this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
+            this.cboRemoteAgentServer.Size = new System.Drawing.Size(616, 21);
+            this.cboRemoteAgentServer.Sorted = true;
+            this.cboRemoteAgentServer.TabIndex = 5;
             // 
-            // cmdAlertsToggle
+            // chkRunLocalOnRemoteHostConnectionFailure
             // 
-            this.cmdAlertsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdAlertsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdAlertsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAlertsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdAlertsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAlertsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdAlertsToggle.Name = "cmdAlertsToggle";
-            this.cmdAlertsToggle.Size = new System.Drawing.Size(945, 25);
-            this.cmdAlertsToggle.TabIndex = 1;
-            this.cmdAlertsToggle.Text = "Alerts";
-            this.cmdAlertsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAlertsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdAlertsToggle.UseVisualStyleBackColor = false;
-            this.cmdAlertsToggle.Click += new System.EventHandler(this.cmdAlertsToggle_Click);
+            this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
+            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 50);
+            this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
+            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
+            this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
+            this.chkRunLocalOnRemoteHostConnectionFailure.Text = "Run locally if remote host connection fails";
+            this.chkRunLocalOnRemoteHostConnectionFailure.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // chkBlockParentRHOverride
             // 
-            this.button11.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button11.Location = new System.Drawing.Point(0, 0);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(945, 25);
-            this.button11.TabIndex = 1;
-            this.button11.Text = "Collector Host settings";
-            this.button11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button11.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button11.UseVisualStyleBackColor = false;
+            this.chkBlockParentRHOverride.AutoSize = true;
+            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(28, 50);
+            this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
+            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
+            this.chkBlockParentRHOverride.TabIndex = 9;
+            this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
+            this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
+            // 
+            // chkForceRemoteExcuteOnChildCollectors
+            // 
+            this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
+            this.chkForceRemoteExcuteOnChildCollectors.BackColor = System.Drawing.Color.White;
+            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(256, 0);
+            this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
+            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
+            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
+            this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
+            this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = false;
+            this.chkForceRemoteExcuteOnChildCollectors.CheckedChanged += new System.EventHandler(this.chkForceRemoteExcuteOnChildCollectors_CheckedChanged);
+            // 
+            // llblRemoteAgentInstallHelp
+            // 
+            this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.llblRemoteAgentInstallHelp.AutoSize = true;
+            this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(881, 1);
+            this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
+            this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
+            this.llblRemoteAgentInstallHelp.TabIndex = 3;
+            this.llblRemoteAgentInstallHelp.TabStop = true;
+            this.llblRemoteAgentInstallHelp.Text = "Install help";
+            this.llblRemoteAgentInstallHelp.Visible = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(6, 1);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Remote agent";
+            // 
+            // chkRemoteAgentEnabled
+            // 
+            this.chkRemoteAgentEnabled.AutoSize = true;
+            this.chkRemoteAgentEnabled.BackColor = System.Drawing.Color.White;
+            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(108, 0);
+            this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
+            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
+            this.chkRemoteAgentEnabled.TabIndex = 1;
+            this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
+            this.chkRemoteAgentEnabled.UseVisualStyleBackColor = false;
+            this.chkRemoteAgentEnabled.CheckedChanged += new System.EventHandler(this.chkRemoteAgentEnabled_CheckedChanged);
+            // 
+            // remoteportNumericUpDown
+            // 
+            this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.remoteportNumericUpDown.Enabled = false;
+            this.remoteportNumericUpDown.Location = new System.Drawing.Point(795, 24);
+            this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.remoteportNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
+            this.remoteportNumericUpDown.Size = new System.Drawing.Size(71, 20);
+            this.remoteportNumericUpDown.TabIndex = 7;
+            this.remoteportNumericUpDown.Value = new decimal(new int[] {
+            48191,
+            0,
+            0,
+            0});
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(15, 26);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(105, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Remote server name";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(763, 26);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(26, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Port";
+            // 
+            // cmdRemoteAgentTest
+            // 
+            this.cmdRemoteAgentTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdRemoteAgentTest.Enabled = false;
+            this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(872, 21);
+            this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
+            this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
+            this.cmdRemoteAgentTest.TabIndex = 8;
+            this.cmdRemoteAgentTest.Text = "Test";
+            this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
+            // 
+            // pollingOverridesGroupBox
+            // 
+            this.pollingOverridesGroupBox.Controls.Add(this.label36);
+            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
+            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label34);
+            this.pollingOverridesGroupBox.Controls.Add(this.label35);
+            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label32);
+            this.pollingOverridesGroupBox.Controls.Add(this.label33);
+            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label30);
+            this.pollingOverridesGroupBox.Controls.Add(this.label31);
+            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingFrequencySliding);
+            this.pollingOverridesGroupBox.Controls.Add(this.onlyAllowUpdateOncePerXSecNumericUpDown);
+            this.pollingOverridesGroupBox.Controls.Add(this.label28);
+            this.pollingOverridesGroupBox.Controls.Add(this.label29);
+            this.pollingOverridesGroupBox.Controls.Add(this.label27);
+            this.pollingOverridesGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
+            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(948, 95);
+            this.pollingOverridesGroupBox.TabIndex = 9;
+            this.pollingOverridesGroupBox.TabStop = false;
+            // 
+            // label36
+            // 
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(269, 22);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(284, 22);
+            this.label36.TabIndex = 5;
+            this.label36.Text = "Child collectors will Inherit setting unless overridden by higher value";
+            // 
+            // chkEnablePollingOverride
+            // 
+            this.chkEnablePollingOverride.AutoSize = true;
+            this.chkEnablePollingOverride.Checked = true;
+            this.chkEnablePollingOverride.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEnablePollingOverride.Location = new System.Drawing.Point(117, -1);
+            this.chkEnablePollingOverride.Name = "chkEnablePollingOverride";
+            this.chkEnablePollingOverride.Size = new System.Drawing.Size(65, 17);
+            this.chkEnablePollingOverride.TabIndex = 1;
+            this.chkEnablePollingOverride.Text = "Enabled";
+            this.chkEnablePollingOverride.UseVisualStyleBackColor = true;
+            this.chkEnablePollingOverride.CheckedChanged += new System.EventHandler(this.chkEnablePollingOverride_CheckedChanged);
+            // 
+            // pollSlideFrequencyAfterThirdRepeatSecNumericUpDown
+            // 
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Location = new System.Drawing.Point(410, 66);
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
+            3603,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterThirdRepeatSecNumericUpDown";
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.TabIndex = 14;
+            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(467, 68);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(49, 13);
+            this.label34.TabIndex = 15;
+            this.label34.Text = "Seconds";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(382, 68);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(22, 13);
+            this.label35.TabIndex = 13;
+            this.label35.Text = "3rd";
+            // 
+            // pollSlideFrequencyAfterSecondRepeatSecNumericUpDown
+            // 
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Location = new System.Drawing.Point(287, 66);
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
+            3602,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterSecondRepeatSecNumericUpDown";
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.TabIndex = 11;
+            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(343, 68);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(26, 13);
+            this.label32.TabIndex = 12;
+            this.label32.Text = "Sec";
+            // 
+            // label33
+            // 
+            this.label33.Location = new System.Drawing.Point(239, 68);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(42, 13);
+            this.label33.TabIndex = 10;
+            this.label33.Text = "2nd";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // pollSlideFrequencyAfterFirstRepeatSecNumericUpDown
+            // 
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Location = new System.Drawing.Point(155, 66);
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
+            3601,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterFirstRepeatSecNumericUpDown";
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.TabIndex = 8;
+            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(210, 68);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(26, 13);
+            this.label30.TabIndex = 9;
+            this.label30.Text = "Sec";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(11, 68);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(133, 13);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Frequency after first repeat";
+            // 
+            // chkEnablePollingFrequencySliding
+            // 
+            this.chkEnablePollingFrequencySliding.AutoSize = true;
+            this.chkEnablePollingFrequencySliding.Location = new System.Drawing.Point(14, 45);
+            this.chkEnablePollingFrequencySliding.Name = "chkEnablePollingFrequencySliding";
+            this.chkEnablePollingFrequencySliding.Size = new System.Drawing.Size(370, 17);
+            this.chkEnablePollingFrequencySliding.TabIndex = 6;
+            this.chkEnablePollingFrequencySliding.Text = "Enable frequency sliding - (Frequency decrease if state does not change)";
+            this.chkEnablePollingFrequencySliding.UseVisualStyleBackColor = true;
+            this.chkEnablePollingFrequencySliding.CheckedChanged += new System.EventHandler(this.chkEnablePollingFrequencySliding_CheckedChanged);
+            // 
+            // onlyAllowUpdateOncePerXSecNumericUpDown
+            // 
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(155, 19);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Name = "onlyAllowUpdateOncePerXSecNumericUpDown";
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.TabIndex = 3;
+            this.onlyAllowUpdateOncePerXSecNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(214, 21);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(49, 13);
+            this.label28.TabIndex = 4;
+            this.label28.Text = "Seconds";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(11, 21);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(120, 13);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "Only update once every";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(6, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(101, 13);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Polling overrides";
+            // 
+            // alertsTabPage
+            // 
+            this.alertsTabPage.AutoScroll = true;
+            this.alertsTabPage.Controls.Add(this.groupBox9);
+            this.alertsTabPage.Controls.Add(this.correctiveScriptsGroupBox);
+            this.alertsTabPage.Controls.Add(this.alertSuppressionGroupBox);
+            this.alertsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.alertsTabPage.Name = "alertsTabPage";
+            this.alertsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.alertsTabPage.Size = new System.Drawing.Size(954, 395);
+            this.alertsTabPage.TabIndex = 3;
+            this.alertsTabPage.Text = "Alerts";
+            this.alertsTabPage.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
@@ -743,10 +1389,10 @@
             this.groupBox9.Controls.Add(this.cboTextType);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox9.Location = new System.Drawing.Point(0, 152);
+            this.groupBox9.Location = new System.Drawing.Point(3, 155);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(945, 131);
-            this.groupBox9.TabIndex = 8;
+            this.groupBox9.Size = new System.Drawing.Size(948, 131);
+            this.groupBox9.TabIndex = 9;
             this.groupBox9.TabStop = false;
             // 
             // cmdSetNoteText
@@ -754,12 +1400,13 @@
             this.cmdSetNoteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSetNoteText.Enabled = false;
             this.cmdSetNoteText.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdSetNoteText.Location = new System.Drawing.Point(902, 14);
+            this.cmdSetNoteText.Location = new System.Drawing.Point(905, 14);
             this.cmdSetNoteText.Name = "cmdSetNoteText";
             this.cmdSetNoteText.Size = new System.Drawing.Size(39, 23);
             this.cmdSetNoteText.TabIndex = 3;
             this.cmdSetNoteText.Text = "Set";
             this.cmdSetNoteText.UseVisualStyleBackColor = true;
+            this.cmdSetNoteText.Click += new System.EventHandler(this.cmdSetNoteText_Click);
             // 
             // txtNotesText
             // 
@@ -770,8 +1417,9 @@
             this.txtNotesText.Multiline = true;
             this.txtNotesText.Name = "txtNotesText";
             this.txtNotesText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotesText.Size = new System.Drawing.Size(764, 113);
+            this.txtNotesText.Size = new System.Drawing.Size(767, 113);
             this.txtNotesText.TabIndex = 2;
+            this.txtNotesText.TextChanged += new System.EventHandler(this.txtNotesText_TextChanged);
             // 
             // lblNoteTextChangeIndicator
             // 
@@ -798,6 +1446,7 @@
             this.cboTextType.Name = "cboTextType";
             this.cboTextType.Size = new System.Drawing.Size(122, 21);
             this.cboTextType.TabIndex = 1;
+            this.cboTextType.SelectedIndexChanged += new System.EventHandler(this.cboTextType_SelectedIndexChanged);
             // 
             // correctiveScriptsGroupBox
             // 
@@ -814,10 +1463,10 @@
             this.correctiveScriptsGroupBox.Controls.Add(this.label7);
             this.correctiveScriptsGroupBox.Controls.Add(this.label12);
             this.correctiveScriptsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(0, 94);
+            this.correctiveScriptsGroupBox.Location = new System.Drawing.Point(3, 97);
             this.correctiveScriptsGroupBox.Name = "correctiveScriptsGroupBox";
-            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(945, 58);
-            this.correctiveScriptsGroupBox.TabIndex = 7;
+            this.correctiveScriptsGroupBox.Size = new System.Drawing.Size(948, 58);
+            this.correctiveScriptsGroupBox.TabIndex = 8;
             this.correctiveScriptsGroupBox.TabStop = false;
             // 
             // numericUpDownRestorationScriptMinimumRepeatTimeMin
@@ -922,6 +1571,7 @@
             this.chkCorrectiveScriptDisabled.TabIndex = 1;
             this.chkCorrectiveScriptDisabled.Text = "Disable corrective scripts";
             this.chkCorrectiveScriptDisabled.UseVisualStyleBackColor = true;
+            this.chkCorrectiveScriptDisabled.CheckedChanged += new System.EventHandler(this.chkCorrectiveScriptDisabled_CheckedChanged);
             // 
             // label7
             // 
@@ -964,10 +1614,10 @@
             this.alertSuppressionGroupBox.Controls.Add(this.label37);
             this.alertSuppressionGroupBox.Controls.Add(this.AlertOnceInXMinNumericUpDown);
             this.alertSuppressionGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.alertSuppressionGroupBox.Location = new System.Drawing.Point(3, 3);
             this.alertSuppressionGroupBox.Name = "alertSuppressionGroupBox";
-            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(945, 94);
-            this.alertSuppressionGroupBox.TabIndex = 6;
+            this.alertSuppressionGroupBox.Size = new System.Drawing.Size(948, 94);
+            this.alertSuppressionGroupBox.TabIndex = 7;
             this.alertSuppressionGroupBox.TabStop = false;
             // 
             // chkAlertsPaused
@@ -1171,976 +1821,132 @@
             this.AlertOnceInXMinNumericUpDown.Size = new System.Drawing.Size(49, 20);
             this.AlertOnceInXMinNumericUpDown.TabIndex = 9;
             // 
-            // operationalSplitContainer
-            // 
-            this.operationalSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.operationalSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.operationalSplitContainer.Location = new System.Drawing.Point(0, 610);
-            this.operationalSplitContainer.Name = "operationalSplitContainer";
-            this.operationalSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // operationalSplitContainer.Panel1
-            // 
-            this.operationalSplitContainer.Panel1.Controls.Add(this.cmdOperationalToggle);
-            this.operationalSplitContainer.Panel1.Controls.Add(this.button9);
-            // 
-            // operationalSplitContainer.Panel2
-            // 
-            this.operationalSplitContainer.Panel2.Controls.Add(this.serviceWindowsGroupBox);
-            this.operationalSplitContainer.Panel2.Controls.Add(this.runAsGroupBox);
-            this.operationalSplitContainer.Panel2.Controls.Add(this.remoteAgentGroupBox);
-            this.operationalSplitContainer.Panel2.Controls.Add(this.pollingOverridesGroupBox);
-            this.operationalSplitContainer.Panel2MinSize = 0;
-            this.operationalSplitContainer.Size = new System.Drawing.Size(945, 332);
-            this.operationalSplitContainer.SplitterDistance = 25;
-            this.operationalSplitContainer.TabIndex = 8;
-            // 
-            // cmdOperationalToggle
-            // 
-            this.cmdOperationalToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdOperationalToggle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdOperationalToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOperationalToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdOperationalToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdOperationalToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdOperationalToggle.Name = "cmdOperationalToggle";
-            this.cmdOperationalToggle.Size = new System.Drawing.Size(945, 25);
-            this.cmdOperationalToggle.TabIndex = 1;
-            this.cmdOperationalToggle.Text = "Operational";
-            this.cmdOperationalToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdOperationalToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdOperationalToggle.UseVisualStyleBackColor = false;
-            this.cmdOperationalToggle.Click += new System.EventHandler(this.cmdOperationalToggle_Click);
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(0, 0);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(945, 25);
-            this.button9.TabIndex = 1;
-            this.button9.Text = "Collector Host settings";
-            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button9.UseVisualStyleBackColor = false;
-            // 
-            // serviceWindowsGroupBox
-            // 
-            this.serviceWindowsGroupBox.Controls.Add(this.label16);
-            this.serviceWindowsGroupBox.Controls.Add(this.linkLabelServiceWindows);
-            this.serviceWindowsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.serviceWindowsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.serviceWindowsGroupBox.Location = new System.Drawing.Point(0, 232);
-            this.serviceWindowsGroupBox.MinimumSize = new System.Drawing.Size(100, 50);
-            this.serviceWindowsGroupBox.Name = "serviceWindowsGroupBox";
-            this.serviceWindowsGroupBox.Size = new System.Drawing.Size(945, 70);
-            this.serviceWindowsGroupBox.TabIndex = 11;
-            this.serviceWindowsGroupBox.TabStop = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(6, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(110, 13);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Service window(s)";
-            // 
-            // linkLabelServiceWindows
-            // 
-            this.linkLabelServiceWindows.AutoEllipsis = true;
-            this.linkLabelServiceWindows.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.linkLabelServiceWindows.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabelServiceWindows.Location = new System.Drawing.Point(3, 16);
-            this.linkLabelServiceWindows.Name = "linkLabelServiceWindows";
-            this.linkLabelServiceWindows.Size = new System.Drawing.Size(939, 51);
-            this.linkLabelServiceWindows.TabIndex = 1;
-            this.linkLabelServiceWindows.TabStop = true;
-            this.linkLabelServiceWindows.Text = "None";
-            // 
-            // runAsGroupBox
-            // 
-            this.runAsGroupBox.Controls.Add(this.cmdTestRunAs);
-            this.runAsGroupBox.Controls.Add(this.label45);
-            this.runAsGroupBox.Controls.Add(this.chkRunAsEnabled);
-            this.runAsGroupBox.Controls.Add(this.txtRunAs);
-            this.runAsGroupBox.Controls.Add(this.label43);
-            this.runAsGroupBox.Controls.Add(this.label44);
-            this.runAsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.runAsGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.runAsGroupBox.Location = new System.Drawing.Point(0, 170);
-            this.runAsGroupBox.Name = "runAsGroupBox";
-            this.runAsGroupBox.Size = new System.Drawing.Size(945, 62);
-            this.runAsGroupBox.TabIndex = 10;
-            this.runAsGroupBox.TabStop = false;
-            // 
-            // cmdTestRunAs
-            // 
-            this.cmdTestRunAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTestRunAs.Enabled = false;
-            this.cmdTestRunAs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestRunAs.Location = new System.Drawing.Point(869, 17);
-            this.cmdTestRunAs.Name = "cmdTestRunAs";
-            this.cmdTestRunAs.Size = new System.Drawing.Size(70, 23);
-            this.cmdTestRunAs.TabIndex = 4;
-            this.cmdTestRunAs.Text = "Test";
-            this.cmdTestRunAs.UseVisualStyleBackColor = true;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(105, 42);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(305, 13);
-            this.label45.TabIndex = 5;
-            this.label45.Text = "To set up a password use the Monitor pack configuration editor";
-            // 
-            // chkRunAsEnabled
-            // 
-            this.chkRunAsEnabled.AutoSize = true;
-            this.chkRunAsEnabled.BackColor = System.Drawing.Color.White;
-            this.chkRunAsEnabled.Checked = true;
-            this.chkRunAsEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRunAsEnabled.Location = new System.Drawing.Point(72, 0);
-            this.chkRunAsEnabled.Name = "chkRunAsEnabled";
-            this.chkRunAsEnabled.Size = new System.Drawing.Size(65, 17);
-            this.chkRunAsEnabled.TabIndex = 1;
-            this.chkRunAsEnabled.Text = "Enabled";
-            this.chkRunAsEnabled.UseVisualStyleBackColor = false;
-            // 
-            // txtRunAs
-            // 
-            this.txtRunAs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRunAs.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtRunAs.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtRunAs.Location = new System.Drawing.Point(108, 19);
-            this.txtRunAs.Name = "txtRunAs";
-            this.txtRunAs.Size = new System.Drawing.Size(755, 20);
-            this.txtRunAs.TabIndex = 3;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(6, 1);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(47, 13);
-            this.label43.TabIndex = 0;
-            this.label43.Text = "Run as";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(10, 22);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(58, 13);
-            this.label44.TabIndex = 2;
-            this.label44.Text = "User name";
-            // 
-            // remoteAgentGroupBox
-            // 
-            this.remoteAgentGroupBox.Controls.Add(this.cboRemoteAgentServer);
-            this.remoteAgentGroupBox.Controls.Add(this.chkRunLocalOnRemoteHostConnectionFailure);
-            this.remoteAgentGroupBox.Controls.Add(this.chkBlockParentRHOverride);
-            this.remoteAgentGroupBox.Controls.Add(this.chkForceRemoteExcuteOnChildCollectors);
-            this.remoteAgentGroupBox.Controls.Add(this.llblRemoteAgentInstallHelp);
-            this.remoteAgentGroupBox.Controls.Add(this.label17);
-            this.remoteAgentGroupBox.Controls.Add(this.chkRemoteAgentEnabled);
-            this.remoteAgentGroupBox.Controls.Add(this.remoteportNumericUpDown);
-            this.remoteAgentGroupBox.Controls.Add(this.label13);
-            this.remoteAgentGroupBox.Controls.Add(this.label14);
-            this.remoteAgentGroupBox.Controls.Add(this.cmdRemoteAgentTest);
-            this.remoteAgentGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.remoteAgentGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.remoteAgentGroupBox.Location = new System.Drawing.Point(0, 95);
-            this.remoteAgentGroupBox.Name = "remoteAgentGroupBox";
-            this.remoteAgentGroupBox.Size = new System.Drawing.Size(945, 75);
-            this.remoteAgentGroupBox.TabIndex = 9;
-            this.remoteAgentGroupBox.TabStop = false;
-            // 
-            // cboRemoteAgentServer
-            // 
-            this.cboRemoteAgentServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboRemoteAgentServer.FormattingEnabled = true;
-            this.cboRemoteAgentServer.Location = new System.Drawing.Point(138, 23);
-            this.cboRemoteAgentServer.Name = "cboRemoteAgentServer";
-            this.cboRemoteAgentServer.Size = new System.Drawing.Size(613, 21);
-            this.cboRemoteAgentServer.Sorted = true;
-            this.cboRemoteAgentServer.TabIndex = 5;
-            // 
-            // chkRunLocalOnRemoteHostConnectionFailure
-            // 
-            this.chkRunLocalOnRemoteHostConnectionFailure.AutoSize = true;
-            this.chkRunLocalOnRemoteHostConnectionFailure.Location = new System.Drawing.Point(256, 50);
-            this.chkRunLocalOnRemoteHostConnectionFailure.Name = "chkRunLocalOnRemoteHostConnectionFailure";
-            this.chkRunLocalOnRemoteHostConnectionFailure.Size = new System.Drawing.Size(221, 17);
-            this.chkRunLocalOnRemoteHostConnectionFailure.TabIndex = 10;
-            this.chkRunLocalOnRemoteHostConnectionFailure.Text = "Run locally if remote host connection fails";
-            this.chkRunLocalOnRemoteHostConnectionFailure.UseVisualStyleBackColor = true;
-            // 
-            // chkBlockParentRHOverride
-            // 
-            this.chkBlockParentRHOverride.AutoSize = true;
-            this.chkBlockParentRHOverride.Location = new System.Drawing.Point(28, 50);
-            this.chkBlockParentRHOverride.Name = "chkBlockParentRHOverride";
-            this.chkBlockParentRHOverride.Size = new System.Drawing.Size(190, 17);
-            this.chkBlockParentRHOverride.TabIndex = 9;
-            this.chkBlockParentRHOverride.Text = "Block parent remote agent settings";
-            this.chkBlockParentRHOverride.UseVisualStyleBackColor = true;
-            // 
-            // chkForceRemoteExcuteOnChildCollectors
-            // 
-            this.chkForceRemoteExcuteOnChildCollectors.AutoSize = true;
-            this.chkForceRemoteExcuteOnChildCollectors.BackColor = System.Drawing.Color.White;
-            this.chkForceRemoteExcuteOnChildCollectors.Location = new System.Drawing.Point(256, 0);
-            this.chkForceRemoteExcuteOnChildCollectors.Name = "chkForceRemoteExcuteOnChildCollectors";
-            this.chkForceRemoteExcuteOnChildCollectors.Size = new System.Drawing.Size(139, 17);
-            this.chkForceRemoteExcuteOnChildCollectors.TabIndex = 2;
-            this.chkForceRemoteExcuteOnChildCollectors.Text = "Override child collectors";
-            this.chkForceRemoteExcuteOnChildCollectors.UseVisualStyleBackColor = false;
-            // 
-            // llblRemoteAgentInstallHelp
-            // 
-            this.llblRemoteAgentInstallHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.llblRemoteAgentInstallHelp.AutoSize = true;
-            this.llblRemoteAgentInstallHelp.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblRemoteAgentInstallHelp.Location = new System.Drawing.Point(878, 1);
-            this.llblRemoteAgentInstallHelp.Name = "llblRemoteAgentInstallHelp";
-            this.llblRemoteAgentInstallHelp.Size = new System.Drawing.Size(57, 13);
-            this.llblRemoteAgentInstallHelp.TabIndex = 3;
-            this.llblRemoteAgentInstallHelp.TabStop = true;
-            this.llblRemoteAgentInstallHelp.Text = "Install help";
-            this.llblRemoteAgentInstallHelp.Visible = false;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(6, 1);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(86, 13);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Remote agent";
-            // 
-            // chkRemoteAgentEnabled
-            // 
-            this.chkRemoteAgentEnabled.AutoSize = true;
-            this.chkRemoteAgentEnabled.BackColor = System.Drawing.Color.White;
-            this.chkRemoteAgentEnabled.Location = new System.Drawing.Point(108, 0);
-            this.chkRemoteAgentEnabled.Name = "chkRemoteAgentEnabled";
-            this.chkRemoteAgentEnabled.Size = new System.Drawing.Size(142, 17);
-            this.chkRemoteAgentEnabled.TabIndex = 1;
-            this.chkRemoteAgentEnabled.Text = "Enabled for this collector";
-            this.chkRemoteAgentEnabled.UseVisualStyleBackColor = false;
-            // 
-            // remoteportNumericUpDown
-            // 
-            this.remoteportNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.remoteportNumericUpDown.Enabled = false;
-            this.remoteportNumericUpDown.Location = new System.Drawing.Point(792, 24);
-            this.remoteportNumericUpDown.Maximum = new decimal(new int[] {
-            65536,
-            0,
-            0,
-            0});
-            this.remoteportNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.remoteportNumericUpDown.Name = "remoteportNumericUpDown";
-            this.remoteportNumericUpDown.Size = new System.Drawing.Size(71, 20);
-            this.remoteportNumericUpDown.TabIndex = 7;
-            this.remoteportNumericUpDown.Value = new decimal(new int[] {
-            48181,
-            0,
-            0,
-            0});
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 26);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(105, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Remote server name";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(760, 26);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(26, 13);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "Port";
-            // 
-            // cmdRemoteAgentTest
-            // 
-            this.cmdRemoteAgentTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRemoteAgentTest.Enabled = false;
-            this.cmdRemoteAgentTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRemoteAgentTest.Location = new System.Drawing.Point(869, 21);
-            this.cmdRemoteAgentTest.Name = "cmdRemoteAgentTest";
-            this.cmdRemoteAgentTest.Size = new System.Drawing.Size(70, 23);
-            this.cmdRemoteAgentTest.TabIndex = 8;
-            this.cmdRemoteAgentTest.Text = "Test";
-            this.cmdRemoteAgentTest.UseVisualStyleBackColor = true;
-            // 
-            // pollingOverridesGroupBox
-            // 
-            this.pollingOverridesGroupBox.Controls.Add(this.label36);
-            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingOverride);
-            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown);
-            this.pollingOverridesGroupBox.Controls.Add(this.label34);
-            this.pollingOverridesGroupBox.Controls.Add(this.label35);
-            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown);
-            this.pollingOverridesGroupBox.Controls.Add(this.label32);
-            this.pollingOverridesGroupBox.Controls.Add(this.label33);
-            this.pollingOverridesGroupBox.Controls.Add(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown);
-            this.pollingOverridesGroupBox.Controls.Add(this.label30);
-            this.pollingOverridesGroupBox.Controls.Add(this.label31);
-            this.pollingOverridesGroupBox.Controls.Add(this.chkEnablePollingFrequencySliding);
-            this.pollingOverridesGroupBox.Controls.Add(this.onlyAllowUpdateOncePerXSecNumericUpDown);
-            this.pollingOverridesGroupBox.Controls.Add(this.label28);
-            this.pollingOverridesGroupBox.Controls.Add(this.label29);
-            this.pollingOverridesGroupBox.Controls.Add(this.label27);
-            this.pollingOverridesGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pollingOverridesGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.pollingOverridesGroupBox.Name = "pollingOverridesGroupBox";
-            this.pollingOverridesGroupBox.Size = new System.Drawing.Size(945, 95);
-            this.pollingOverridesGroupBox.TabIndex = 8;
-            this.pollingOverridesGroupBox.TabStop = false;
-            // 
-            // label36
-            // 
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(269, 22);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(284, 22);
-            this.label36.TabIndex = 5;
-            this.label36.Text = "Child collectors will Inherit setting unless overridden by higher value";
-            // 
-            // chkEnablePollingOverride
-            // 
-            this.chkEnablePollingOverride.AutoSize = true;
-            this.chkEnablePollingOverride.Checked = true;
-            this.chkEnablePollingOverride.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEnablePollingOverride.Location = new System.Drawing.Point(117, -1);
-            this.chkEnablePollingOverride.Name = "chkEnablePollingOverride";
-            this.chkEnablePollingOverride.Size = new System.Drawing.Size(65, 17);
-            this.chkEnablePollingOverride.TabIndex = 1;
-            this.chkEnablePollingOverride.Text = "Enabled";
-            this.chkEnablePollingOverride.UseVisualStyleBackColor = true;
-            // 
-            // pollSlideFrequencyAfterThirdRepeatSecNumericUpDown
-            // 
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Location = new System.Drawing.Point(410, 66);
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
-            3603,
-            0,
-            0,
-            0});
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterThirdRepeatSecNumericUpDown";
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.TabIndex = 14;
-            this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(467, 68);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(49, 13);
-            this.label34.TabIndex = 15;
-            this.label34.Text = "Seconds";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(382, 68);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(22, 13);
-            this.label35.TabIndex = 13;
-            this.label35.Text = "3rd";
-            // 
-            // pollSlideFrequencyAfterSecondRepeatSecNumericUpDown
-            // 
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Location = new System.Drawing.Point(287, 66);
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
-            3602,
-            0,
-            0,
-            0});
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterSecondRepeatSecNumericUpDown";
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.TabIndex = 11;
-            this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(343, 68);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(26, 13);
-            this.label32.TabIndex = 12;
-            this.label32.Text = "Sec";
-            // 
-            // label33
-            // 
-            this.label33.Location = new System.Drawing.Point(239, 68);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(42, 13);
-            this.label33.TabIndex = 10;
-            this.label33.Text = "2nd";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // pollSlideFrequencyAfterFirstRepeatSecNumericUpDown
-            // 
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Location = new System.Drawing.Point(155, 66);
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Maximum = new decimal(new int[] {
-            3601,
-            0,
-            0,
-            0});
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Name = "pollSlideFrequencyAfterFirstRepeatSecNumericUpDown";
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.TabIndex = 8;
-            this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(210, 68);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(26, 13);
-            this.label30.TabIndex = 9;
-            this.label30.Text = "Sec";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(11, 68);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(133, 13);
-            this.label31.TabIndex = 7;
-            this.label31.Text = "Frequency after first repeat";
-            // 
-            // chkEnablePollingFrequencySliding
-            // 
-            this.chkEnablePollingFrequencySliding.AutoSize = true;
-            this.chkEnablePollingFrequencySliding.Location = new System.Drawing.Point(14, 45);
-            this.chkEnablePollingFrequencySliding.Name = "chkEnablePollingFrequencySliding";
-            this.chkEnablePollingFrequencySliding.Size = new System.Drawing.Size(370, 17);
-            this.chkEnablePollingFrequencySliding.TabIndex = 6;
-            this.chkEnablePollingFrequencySliding.Text = "Enable frequency sliding - (Frequency decrease if state does not change)";
-            this.chkEnablePollingFrequencySliding.UseVisualStyleBackColor = true;
-            // 
-            // onlyAllowUpdateOncePerXSecNumericUpDown
-            // 
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Location = new System.Drawing.Point(155, 19);
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Name = "onlyAllowUpdateOncePerXSecNumericUpDown";
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Size = new System.Drawing.Size(50, 20);
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.TabIndex = 3;
-            this.onlyAllowUpdateOncePerXSecNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(214, 21);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(49, 13);
-            this.label28.TabIndex = 4;
-            this.label28.Text = "Seconds";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(11, 21);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(120, 13);
-            this.label29.TabIndex = 2;
-            this.label29.Text = "Only update once every";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(6, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(101, 13);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Polling overrides";
-            // 
-            // hostSettingsSplitContainer
-            // 
-            this.hostSettingsSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hostSettingsSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.hostSettingsSplitContainer.Location = new System.Drawing.Point(0, 300);
-            this.hostSettingsSplitContainer.Name = "hostSettingsSplitContainer";
-            this.hostSettingsSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // hostSettingsSplitContainer.Panel1
-            // 
-            this.hostSettingsSplitContainer.Panel1.Controls.Add(this.cmdHostsToggle);
-            this.hostSettingsSplitContainer.Panel1.Controls.Add(this.button7);
-            // 
-            // hostSettingsSplitContainer.Panel2
-            // 
-            this.hostSettingsSplitContainer.Panel2.Controls.Add(this.groupBox7);
-            this.hostSettingsSplitContainer.Panel2.Controls.Add(this.groupBox4);
-            this.hostSettingsSplitContainer.Panel2.Controls.Add(this.groupBox1);
-            this.hostSettingsSplitContainer.Panel2MinSize = 0;
-            this.hostSettingsSplitContainer.Size = new System.Drawing.Size(945, 310);
-            this.hostSettingsSplitContainer.SplitterDistance = 25;
-            this.hostSettingsSplitContainer.TabIndex = 7;
-            // 
-            // cmdHostsToggle
-            // 
-            this.cmdHostsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdHostsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdHostsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdHostsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdHostsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdHostsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdHostsToggle.Name = "cmdHostsToggle";
-            this.cmdHostsToggle.Size = new System.Drawing.Size(945, 25);
-            this.cmdHostsToggle.TabIndex = 1;
-            this.cmdHostsToggle.Text = "Host settings";
-            this.cmdHostsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdHostsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdHostsToggle.UseVisualStyleBackColor = false;
-            this.cmdHostsToggle.Click += new System.EventHandler(this.cmdHostsToggle_Click);
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(0, 0);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(945, 25);
-            this.button7.TabIndex = 1;
-            this.button7.Text = "Collector Host settings";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button7.UseVisualStyleBackColor = false;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.txtCategories);
-            this.groupBox7.Controls.Add(this.label46);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox7.Location = new System.Drawing.Point(0, 172);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(945, 105);
-            this.groupBox7.TabIndex = 4;
-            this.groupBox7.TabStop = false;
-            // 
-            // txtCategories
-            // 
-            this.txtCategories.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCategories.Location = new System.Drawing.Point(3, 16);
-            this.txtCategories.Multiline = true;
-            this.txtCategories.Name = "txtCategories";
-            this.txtCategories.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCategories.Size = new System.Drawing.Size(939, 86);
-            this.txtCategories.TabIndex = 6;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.BackColor = System.Drawing.Color.White;
-            this.label46.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(6, 0);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(222, 13);
-            this.label46.TabIndex = 0;
-            this.label46.Text = "Categories - (each line is a new entry)";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.txtAdditionalNotes);
-            this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox4.Location = new System.Drawing.Point(0, 77);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(945, 95);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            // 
-            // txtAdditionalNotes
-            // 
-            this.txtAdditionalNotes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAdditionalNotes.Location = new System.Drawing.Point(3, 16);
-            this.txtAdditionalNotes.Multiline = true;
-            this.txtAdditionalNotes.Name = "txtAdditionalNotes";
-            this.txtAdditionalNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAdditionalNotes.Size = new System.Drawing.Size(939, 76);
-            this.txtAdditionalNotes.TabIndex = 1;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.White;
-            this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(6, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(227, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Additional Notes for this Collector Host";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.cboChildCheckBehaviour);
-            this.groupBox1.Controls.Add(this.label39);
-            this.groupBox1.Controls.Add(this.cboParentCollector);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(945, 77);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 1);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Parent/Child Host";
-            // 
-            // cboChildCheckBehaviour
-            // 
-            this.cboChildCheckBehaviour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboChildCheckBehaviour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboChildCheckBehaviour.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboChildCheckBehaviour.FormattingEnabled = true;
-            this.cboChildCheckBehaviour.Items.AddRange(new object[] {
-            "Only Run On Success",
-            "Continue On Warning",
-            "Continue On Warning Or Error"});
-            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(134, 44);
-            this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
-            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(805, 21);
-            this.cboChildCheckBehaviour.TabIndex = 4;
-            // 
-            // label39
-            // 
-            this.label39.Location = new System.Drawing.Point(10, 43);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(118, 31);
-            this.label39.TabIndex = 3;
-            this.label39.Text = "Child Collector Host Check behaviour";
-            // 
-            // cboParentCollector
-            // 
-            this.cboParentCollector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboParentCollector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboParentCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboParentCollector.FormattingEnabled = true;
-            this.cboParentCollector.Location = new System.Drawing.Point(134, 17);
-            this.cboParentCollector.Name = "cboParentCollector";
-            this.cboParentCollector.Size = new System.Drawing.Size(805, 21);
-            this.cboParentCollector.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Parent Collector Host";
-            // 
-            // agentsEditSplitContainer
-            // 
-            this.agentsEditSplitContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.agentsEditSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.agentsEditSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.agentsEditSplitContainer.Name = "agentsEditSplitContainer";
-            this.agentsEditSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // agentsEditSplitContainer.Panel1
-            // 
-            this.agentsEditSplitContainer.Panel1.Controls.Add(this.cmdAgentsToggle);
-            this.agentsEditSplitContainer.Panel1.Controls.Add(this.button1);
-            // 
-            // agentsEditSplitContainer.Panel2
-            // 
-            this.agentsEditSplitContainer.Panel2.Controls.Add(this.agentsTreeListView);
-            this.agentsEditSplitContainer.Panel2.Controls.Add(this.collectorAgentsEditToolStrip);
-            this.agentsEditSplitContainer.Panel2MinSize = 0;
-            this.agentsEditSplitContainer.Size = new System.Drawing.Size(945, 300);
-            this.agentsEditSplitContainer.SplitterDistance = 25;
-            this.agentsEditSplitContainer.TabIndex = 6;
-            // 
-            // cmdAgentsToggle
-            // 
-            this.cmdAgentsToggle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cmdAgentsToggle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmdAgentsToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAgentsToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.cmdAgentsToggle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAgentsToggle.Location = new System.Drawing.Point(0, 0);
-            this.cmdAgentsToggle.Name = "cmdAgentsToggle";
-            this.cmdAgentsToggle.Size = new System.Drawing.Size(945, 25);
-            this.cmdAgentsToggle.TabIndex = 1;
-            this.cmdAgentsToggle.Text = "Agents";
-            this.cmdAgentsToggle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAgentsToggle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdAgentsToggle.UseVisualStyleBackColor = false;
-            this.cmdAgentsToggle.Click += new System.EventHandler(this.cmdAgentsToggle_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(945, 25);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Collector Host settings";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // agentsTreeListView
-            // 
-            this.agentsTreeListView.AllowSorting = false;
-            this.agentsTreeListView.AutoResizeColumnEnabled = false;
-            this.agentsTreeListView.AutoResizeColumnIndex = 1;
-            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
-            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.agentsTreeListView.LabelEdit = true;
-            this.agentsTreeListView.Location = new System.Drawing.Point(0, 27);
-            this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(945, 244);
-            this.agentsTreeListView.SmallImageList = this.agentsImageList;
-            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.TabIndex = 2;
-            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Agent/Entry";
-            this.columnHeader3.Width = 316;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Summary";
-            this.columnHeader4.Width = 337;
-            // 
-            // agentsImageList
-            // 
-            this.agentsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("agentsImageList.ImageStream")));
-            this.agentsImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.agentsImageList.Images.SetKeyName(0, "NoGo.ico");
-            this.agentsImageList.Images.SetKeyName(1, "Configuration.ico");
-            this.agentsImageList.Images.SetKeyName(2, "127_9.ico");
-            // 
-            // collectorAgentsEditToolStrip
-            // 
-            this.collectorAgentsEditToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.collectorAgentsEditToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.collectorAgentsEditToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCollectorConfigEntryToolStripButton,
-            this.addAgentEntryToolStripButton,
-            this.editCollectorAgentToolStripButton,
-            this.deleteCollectorAgentToolStripButton,
-            this.toolStripSeparator2,
-            this.moveUpAgentToolStripButton,
-            this.moveDownAgentToolStripButton,
-            this.toolStripSeparator3,
-            this.enableAgentToolStripButton,
-            this.disableAgentToolStripButton,
-            this.toolStripLabel1,
-            this.agentCheckSequenceToolStripComboBox});
-            this.collectorAgentsEditToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.collectorAgentsEditToolStrip.Name = "collectorAgentsEditToolStrip";
-            this.collectorAgentsEditToolStrip.Size = new System.Drawing.Size(945, 27);
-            this.collectorAgentsEditToolStrip.TabIndex = 2;
-            this.collectorAgentsEditToolStrip.TabStop = true;
-            this.collectorAgentsEditToolStrip.Text = "toolStrip1";
-            // 
-            // addCollectorConfigEntryToolStripButton
-            // 
-            this.addCollectorConfigEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addCollectorConfigEntryToolStripButton.Image = global::QuickMon.Properties.Resources.add;
-            this.addCollectorConfigEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addCollectorConfigEntryToolStripButton.Name = "addCollectorConfigEntryToolStripButton";
-            this.addCollectorConfigEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addCollectorConfigEntryToolStripButton.Text = "Add new Agent";
-            this.addCollectorConfigEntryToolStripButton.ToolTipText = "Add entry";
-            // 
-            // addAgentEntryToolStripButton
-            // 
-            this.addAgentEntryToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addAgentEntryToolStripButton.Enabled = false;
-            this.addAgentEntryToolStripButton.Image = global::QuickMon.Properties.Resources.addGreen24x24;
-            this.addAgentEntryToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addAgentEntryToolStripButton.Name = "addAgentEntryToolStripButton";
-            this.addAgentEntryToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addAgentEntryToolStripButton.Text = "Add new Agent entry";
-            // 
-            // editCollectorAgentToolStripButton
-            // 
-            this.editCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editCollectorAgentToolStripButton.Enabled = false;
-            this.editCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.doc_edit24x24;
-            this.editCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editCollectorAgentToolStripButton.Name = "editCollectorAgentToolStripButton";
-            this.editCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.editCollectorAgentToolStripButton.Text = "Edit selected Agent";
-            // 
-            // deleteCollectorAgentToolStripButton
-            // 
-            this.deleteCollectorAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteCollectorAgentToolStripButton.Enabled = false;
-            this.deleteCollectorAgentToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
-            this.deleteCollectorAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteCollectorAgentToolStripButton.Name = "deleteCollectorAgentToolStripButton";
-            this.deleteCollectorAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteCollectorAgentToolStripButton.Text = "Delete selected Agent(s)";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
-            // 
-            // moveUpAgentToolStripButton
-            // 
-            this.moveUpAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveUpAgentToolStripButton.Enabled = false;
-            this.moveUpAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
-            this.moveUpAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveUpAgentToolStripButton.Name = "moveUpAgentToolStripButton";
-            this.moveUpAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveUpAgentToolStripButton.Text = "Move selected item up";
-            // 
-            // moveDownAgentToolStripButton
-            // 
-            this.moveDownAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveDownAgentToolStripButton.Enabled = false;
-            this.moveDownAgentToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
-            this.moveDownAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.moveDownAgentToolStripButton.Name = "moveDownAgentToolStripButton";
-            this.moveDownAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.moveDownAgentToolStripButton.Text = "Move selected item down";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
-            // 
-            // enableAgentToolStripButton
-            // 
-            this.enableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.enableAgentToolStripButton.Enabled = false;
-            this.enableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.enableAgentToolStripButton.Name = "enableAgentToolStripButton";
-            this.enableAgentToolStripButton.Size = new System.Drawing.Size(23, 24);
-            this.enableAgentToolStripButton.Text = "Enable";
-            // 
-            // disableAgentToolStripButton
-            // 
-            this.disableAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.disableAgentToolStripButton.Enabled = false;
-            this.disableAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.disableAgentToolStripButton.Name = "disableAgentToolStripButton";
-            this.disableAgentToolStripButton.Size = new System.Drawing.Size(23, 24);
-            this.disableAgentToolStripButton.Text = "Disable";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(126, 24);
-            this.toolStripLabel1.Text = "Agent check se&quence";
-            // 
-            // agentCheckSequenceToolStripComboBox
-            // 
-            this.agentCheckSequenceToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.agentCheckSequenceToolStripComboBox.Items.AddRange(new object[] {
-            "All",
-            "First Success",
-            "First Error"});
-            this.agentCheckSequenceToolStripComboBox.Name = "agentCheckSequenceToolStripComboBox";
-            this.agentCheckSequenceToolStripComboBox.Size = new System.Drawing.Size(121, 27);
+            // configVarsTabPage
+            // 
+            this.configVarsTabPage.Controls.Add(this.lvwConfigVars);
+            this.configVarsTabPage.Controls.Add(this.txtConfigVarReplaceByValue);
+            this.configVarsTabPage.Controls.Add(this.label41);
+            this.configVarsTabPage.Controls.Add(this.txtConfigVarSearchFor);
+            this.configVarsTabPage.Controls.Add(this.label40);
+            this.configVarsTabPage.Controls.Add(this.label42);
+            this.configVarsTabPage.Controls.Add(this.toolStrip1);
+            this.configVarsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.configVarsTabPage.Name = "configVarsTabPage";
+            this.configVarsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.configVarsTabPage.Size = new System.Drawing.Size(954, 395);
+            this.configVarsTabPage.TabIndex = 4;
+            this.configVarsTabPage.Text = "Variables";
+            this.configVarsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // txtConfigVarReplaceByValue
+            // 
+            this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtConfigVarReplaceByValue.Location = new System.Drawing.Point(337, 339);
+            this.txtConfigVarReplaceByValue.Name = "txtConfigVarReplaceByValue";
+            this.txtConfigVarReplaceByValue.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarReplaceByValue.TabIndex = 13;
+            // 
+            // label41
+            // 
+            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(262, 342);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(69, 13);
+            this.label41.TabIndex = 12;
+            this.label41.Text = "Replace with";
+            // 
+            // txtConfigVarSearchFor
+            // 
+            this.txtConfigVarSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtConfigVarSearchFor.Location = new System.Drawing.Point(83, 339);
+            this.txtConfigVarSearchFor.Name = "txtConfigVarSearchFor";
+            this.txtConfigVarSearchFor.Size = new System.Drawing.Size(173, 20);
+            this.txtConfigVarSearchFor.TabIndex = 11;
+            // 
+            // label40
+            // 
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(8, 342);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(56, 13);
+            this.label40.TabIndex = 10;
+            this.label40.Text = "Search for";
+            // 
+            // label42
+            // 
+            this.label42.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(3, 364);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(948, 28);
+            this.label42.TabIndex = 8;
+            this.label42.Text = "Suggestions: Use \'variable\' names that are unique in the config XML. e.g. %SomeVa" +
+    "lue%. Be careful when using quotes/doublequotes or any other characters that are" +
+    " \'special\' in XML.";
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addConfigVarToolStripButton,
+            this.deleteConfigVarToolStripButton,
+            this.toolStripSeparator1,
+            this.moveUpConfigVarToolStripButton,
+            this.moveDownConfigVarToolStripButton});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(948, 27);
+            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.TabStop = true;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // addConfigVarToolStripButton
+            // 
+            this.addConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addConfigVarToolStripButton.Name = "addConfigVarToolStripButton";
+            this.addConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addConfigVarToolStripButton.Text = "Create new";
+            this.addConfigVarToolStripButton.ToolTipText = "Add entry";
+            // 
+            // deleteConfigVarToolStripButton
+            // 
+            this.deleteConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteConfigVarToolStripButton.Enabled = false;
+            this.deleteConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.stop16x16;
+            this.deleteConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteConfigVarToolStripButton.Name = "deleteConfigVarToolStripButton";
+            this.deleteConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteConfigVarToolStripButton.Text = "Delete selected item(s)";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // moveUpConfigVarToolStripButton
+            // 
+            this.moveUpConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveUpConfigVarToolStripButton.Enabled = false;
+            this.moveUpConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Up16x16;
+            this.moveUpConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveUpConfigVarToolStripButton.Name = "moveUpConfigVarToolStripButton";
+            this.moveUpConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveUpConfigVarToolStripButton.Text = "Move selected item up";
+            // 
+            // moveDownConfigVarToolStripButton
+            // 
+            this.moveDownConfigVarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.moveDownConfigVarToolStripButton.Enabled = false;
+            this.moveDownConfigVarToolStripButton.Image = global::QuickMon.Properties.Resources.Down16x16;
+            this.moveDownConfigVarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.moveDownConfigVarToolStripButton.Name = "moveDownConfigVarToolStripButton";
+            this.moveDownConfigVarToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.moveDownConfigVarToolStripButton.Text = "Move selected item down";
             // 
             // cmdOK
             // 
@@ -2231,40 +2037,6 @@
             this.agentStateSplitContainer.SplitterDistance = 124;
             this.agentStateSplitContainer.TabIndex = 3;
             // 
-            // tlvAgentStates
-            // 
-            this.tlvAgentStates.AllowSorting = false;
-            this.tlvAgentStates.AutoResizeColumnEnabled = false;
-            this.tlvAgentStates.AutoResizeColumnIndex = 0;
-            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
-            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlvAgentStates.HideSelection = false;
-            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
-            this.tlvAgentStates.MultiSelect = false;
-            this.tlvAgentStates.Name = "tlvAgentStates";
-            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
-            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
-            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.TabIndex = 1;
-            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
-            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 325;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Value";
-            this.valueColumnHeader.Width = 150;
-            // 
             // imagesCollectorTree
             // 
             this.imagesCollectorTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imagesCollectorTree.ImageStream")));
@@ -2278,65 +2050,6 @@
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
             this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
-            // 
-            // lvwHistory
-            // 
-            this.lvwHistory.AutoResizeColumnEnabled = false;
-            this.lvwHistory.AutoResizeColumnIndex = 6;
-            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.timeColumnHeader,
-            this.stateColumnHeader,
-            this.durationColumnHeader,
-            this.alertCountColumnHeader,
-            this.executedOnColumnHeader,
-            this.ranAsColumnHeader,
-            this.collectorValueColumnHeader});
-            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwHistory.FullRowSelect = true;
-            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
-            this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(964, 119);
-            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
-            this.lvwHistory.TabIndex = 0;
-            this.lvwHistory.UseCompatibleStateImageBehavior = false;
-            this.lvwHistory.View = System.Windows.Forms.View.Details;
-            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
-            // 
-            // timeColumnHeader
-            // 
-            this.timeColumnHeader.Text = "Time";
-            this.timeColumnHeader.Width = 153;
-            // 
-            // stateColumnHeader
-            // 
-            this.stateColumnHeader.Text = "State";
-            this.stateColumnHeader.Width = 85;
-            // 
-            // durationColumnHeader
-            // 
-            this.durationColumnHeader.Text = "Duration (ms)";
-            this.durationColumnHeader.Width = 87;
-            // 
-            // alertCountColumnHeader
-            // 
-            this.alertCountColumnHeader.Text = "Alerts";
-            this.alertCountColumnHeader.Width = 48;
-            // 
-            // executedOnColumnHeader
-            // 
-            this.executedOnColumnHeader.Text = "Executed on";
-            this.executedOnColumnHeader.Width = 88;
-            // 
-            // ranAsColumnHeader
-            // 
-            this.ranAsColumnHeader.Text = "Ran as";
-            this.ranAsColumnHeader.Width = 103;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 150;
             // 
             // label3
             // 
@@ -2485,30 +2198,6 @@
             this.cmdCollectorEdit.UseVisualStyleBackColor = false;
             this.cmdCollectorEdit.Click += new System.EventHandler(this.cmdCollectorEdit_Click);
             // 
-            // tvwScripts
-            // 
-            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwScripts.FullRowSelect = true;
-            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
-            this.tvwScripts.Name = "tvwScripts";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Parameter 1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Script 1";
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Parameter 1";
-            treeNode4.Name = "Node4";
-            treeNode4.Text = "Parameter 2";
-            treeNode5.Name = "Node2";
-            treeNode5.Text = "Script 2";
-            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode5});
-            this.tvwScripts.ShowLines = false;
-            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
-            this.tvwScripts.TabIndex = 5;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button5);
@@ -2622,6 +2311,200 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
+            // agentsTreeListView
+            // 
+            this.agentsTreeListView.AllowSorting = false;
+            this.agentsTreeListView.AutoResizeColumnEnabled = false;
+            this.agentsTreeListView.AutoResizeColumnIndex = 1;
+            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.LabelEdit = true;
+            this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
+            this.agentsTreeListView.Name = "agentsTreeListView";
+            this.agentsTreeListView.Size = new System.Drawing.Size(948, 362);
+            this.agentsTreeListView.SmallImageList = this.agentsImageList;
+            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.TabIndex = 4;
+            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
+            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
+            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
+            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
+            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Agent/Entry";
+            this.columnHeader3.Width = 316;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Summary";
+            this.columnHeader4.Width = 337;
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
+            this.lvwConfigVars.TabIndex = 9;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Search for";
+            this.columnHeader5.Width = 244;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Replace by";
+            this.columnHeader6.Width = 262;
+            // 
+            // tlvAgentStates
+            // 
+            this.tlvAgentStates.AllowSorting = false;
+            this.tlvAgentStates.AutoResizeColumnEnabled = false;
+            this.tlvAgentStates.AutoResizeColumnIndex = 0;
+            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlvAgentStates.HideSelection = false;
+            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tlvAgentStates.MultiSelect = false;
+            this.tlvAgentStates.Name = "tlvAgentStates";
+            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
+            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
+            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.TabIndex = 1;
+            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
+            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 325;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Value";
+            this.valueColumnHeader.Width = 150;
+            // 
+            // lvwHistory
+            // 
+            this.lvwHistory.AutoResizeColumnEnabled = false;
+            this.lvwHistory.AutoResizeColumnIndex = 6;
+            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.timeColumnHeader,
+            this.stateColumnHeader,
+            this.durationColumnHeader,
+            this.alertCountColumnHeader,
+            this.executedOnColumnHeader,
+            this.ranAsColumnHeader,
+            this.collectorValueColumnHeader});
+            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
+            this.lvwHistory.Name = "lvwHistory";
+            this.lvwHistory.Size = new System.Drawing.Size(964, 119);
+            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
+            this.lvwHistory.TabIndex = 0;
+            this.lvwHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwHistory.View = System.Windows.Forms.View.Details;
+            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
+            // 
+            // timeColumnHeader
+            // 
+            this.timeColumnHeader.Text = "Time";
+            this.timeColumnHeader.Width = 153;
+            // 
+            // stateColumnHeader
+            // 
+            this.stateColumnHeader.Text = "State";
+            this.stateColumnHeader.Width = 85;
+            // 
+            // durationColumnHeader
+            // 
+            this.durationColumnHeader.Text = "Duration (ms)";
+            this.durationColumnHeader.Width = 87;
+            // 
+            // alertCountColumnHeader
+            // 
+            this.alertCountColumnHeader.Text = "Alerts";
+            this.alertCountColumnHeader.Width = 48;
+            // 
+            // executedOnColumnHeader
+            // 
+            this.executedOnColumnHeader.Text = "Executed on";
+            this.executedOnColumnHeader.Width = 88;
+            // 
+            // ranAsColumnHeader
+            // 
+            this.ranAsColumnHeader.Text = "Ran as";
+            this.ranAsColumnHeader.Width = 103;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 150;
+            // 
+            // tvwScripts
+            // 
+            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwScripts.FullRowSelect = true;
+            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
+            this.tvwScripts.Name = "tvwScripts";
+            treeNode16.Name = "Node1";
+            treeNode16.Text = "Parameter 1";
+            treeNode17.Name = "Node0";
+            treeNode17.Text = "Script 1";
+            treeNode18.Name = "Node3";
+            treeNode18.Text = "Parameter 1";
+            treeNode19.Name = "Node4";
+            treeNode19.Text = "Parameter 2";
+            treeNode20.Name = "Node2";
+            treeNode20.Text = "Script 2";
+            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode17,
+            treeNode20});
+            this.tvwScripts.ShowLines = false;
+            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
+            this.tvwScripts.TabIndex = 5;
+            // 
+            // llblRawEdit
+            // 
+            this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llblRawEdit.AutoSize = true;
+            this.llblRawEdit.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblRawEdit.Location = new System.Drawing.Point(10, 12);
+            this.llblRawEdit.Name = "llblRawEdit";
+            this.llblRawEdit.Size = new System.Drawing.Size(86, 13);
+            this.llblRawEdit.TabIndex = 7;
+            this.llblRawEdit.TabStop = true;
+            this.llblRawEdit.Text = "Edit RAW config";
+            this.llblRawEdit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblRawEdit_LinkClicked);
+            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2656,19 +2539,37 @@
             this.panelEditing.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.configVariSplitContainer.Panel1.ResumeLayout(false);
-            this.configVariSplitContainer.Panel2.ResumeLayout(false);
-            this.configVariSplitContainer.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.configVariSplitContainer)).EndInit();
-            this.configVariSplitContainer.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.alertsSplitContainer.Panel1.ResumeLayout(false);
-            this.alertsSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.alertsSplitContainer)).EndInit();
-            this.alertsSplitContainer.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.agentsEditTabPage.ResumeLayout(false);
+            this.agentsEditTabPage.PerformLayout();
+            this.agentsContextMenuStrip.ResumeLayout(false);
+            this.collectorAgentsEditToolStrip.ResumeLayout(false);
+            this.collectorAgentsEditToolStrip.PerformLayout();
+            this.hostSettingsTabPage.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.operationalTabPage.ResumeLayout(false);
+            this.serviceWindowsGroupBox.ResumeLayout(false);
+            this.serviceWindowsGroupBox.PerformLayout();
+            this.runAsGroupBox.ResumeLayout(false);
+            this.runAsGroupBox.PerformLayout();
+            this.remoteAgentGroupBox.ResumeLayout(false);
+            this.remoteAgentGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
+            this.pollingOverridesGroupBox.ResumeLayout(false);
+            this.pollingOverridesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
+            this.alertsTabPage.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.correctiveScriptsGroupBox.ResumeLayout(false);
@@ -2684,40 +2585,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeatAlertInXMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delayAlertSecNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlertOnceInXMinNumericUpDown)).EndInit();
-            this.operationalSplitContainer.Panel1.ResumeLayout(false);
-            this.operationalSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.operationalSplitContainer)).EndInit();
-            this.operationalSplitContainer.ResumeLayout(false);
-            this.serviceWindowsGroupBox.ResumeLayout(false);
-            this.serviceWindowsGroupBox.PerformLayout();
-            this.runAsGroupBox.ResumeLayout(false);
-            this.runAsGroupBox.PerformLayout();
-            this.remoteAgentGroupBox.ResumeLayout(false);
-            this.remoteAgentGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
-            this.pollingOverridesGroupBox.ResumeLayout(false);
-            this.pollingOverridesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterThirdRepeatSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterSecondRepeatSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pollSlideFrequencyAfterFirstRepeatSecNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.onlyAllowUpdateOncePerXSecNumericUpDown)).EndInit();
-            this.hostSettingsSplitContainer.Panel1.ResumeLayout(false);
-            this.hostSettingsSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.hostSettingsSplitContainer)).EndInit();
-            this.hostSettingsSplitContainer.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.agentsEditSplitContainer.Panel1.ResumeLayout(false);
-            this.agentsEditSplitContainer.Panel2.ResumeLayout(false);
-            this.agentsEditSplitContainer.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.agentsEditSplitContainer)).EndInit();
-            this.agentsEditSplitContainer.ResumeLayout(false);
-            this.collectorAgentsEditToolStrip.ResumeLayout(false);
-            this.collectorAgentsEditToolStrip.PerformLayout();
+            this.configVarsTabPage.ResumeLayout(false);
+            this.configVarsTabPage.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.panelMetrics.ResumeLayout(false);
             this.panelAgentStates.ResumeLayout(false);
             this.agentStateSplitContainer.Panel1.ResumeLayout(false);
@@ -2764,12 +2635,10 @@
         private System.Windows.Forms.Panel panelEditing;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdCancel;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelRawEdit;
         private System.Windows.Forms.Panel panelCollectorDetails;
         private System.Windows.Forms.Label lblCollectorState;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ImageList imagesCollectorTree;
         private HenIT.Windows.Controls.TreeListView tlvAgentStates;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
@@ -2790,19 +2659,13 @@
         private System.Windows.Forms.SplitContainer collectorDetailSplitContainer;
         private System.Windows.Forms.RichTextBox rtxDetails;
         private System.Windows.Forms.CheckBox chkRAWDetails;
+        private System.Windows.Forms.ImageList agentsImageList;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage agentsEditTabPage;
         private HenIT.Windows.Controls.TreeListView agentsTreeListView;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.TextBox txtConfigVarReplaceByValue;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.TextBox txtConfigVarSearchFor;
-        private System.Windows.Forms.Label label40;
-        private ListViewEx lvwConfigVars;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ImageList agentsImageList;
-        private System.Windows.Forms.Button cmdAgentsToggle;
         private System.Windows.Forms.ToolStrip collectorAgentsEditToolStrip;
         private System.Windows.Forms.ToolStripButton addCollectorConfigEntryToolStripButton;
         private System.Windows.Forms.ToolStripButton addAgentEntryToolStripButton;
@@ -2816,27 +2679,7 @@
         private System.Windows.Forms.ToolStripButton disableAgentToolStripButton;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox agentCheckSequenceToolStripComboBox;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.SplitContainer agentsEditSplitContainer;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.SplitContainer configVariSplitContainer;
-        private System.Windows.Forms.Button cmdConfigVarsToggle;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton addConfigVarToolStripButton;
-        private System.Windows.Forms.ToolStripButton deleteConfigVarToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton moveUpConfigVarToolStripButton;
-        private System.Windows.Forms.ToolStripButton moveDownConfigVarToolStripButton;
-        private System.Windows.Forms.SplitContainer alertsSplitContainer;
-        private System.Windows.Forms.Button cmdAlertsToggle;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.SplitContainer operationalSplitContainer;
-        private System.Windows.Forms.Button cmdOperationalToggle;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.SplitContainer hostSettingsSplitContainer;
-        private System.Windows.Forms.Button cmdHostsToggle;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TabPage hostSettingsTabPage;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TextBox txtCategories;
         private System.Windows.Forms.Label label46;
@@ -2849,45 +2692,7 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.ComboBox cboParentCollector;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Button cmdSetNoteText;
-        private System.Windows.Forms.TextBox txtNotesText;
-        private System.Windows.Forms.Label lblNoteTextChangeIndicator;
-        private System.Windows.Forms.ComboBox cboTextType;
-        private System.Windows.Forms.GroupBox correctiveScriptsGroupBox;
-        private System.Windows.Forms.NumericUpDown numericUpDownRestorationScriptMinimumRepeatTimeMin;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.NumericUpDown numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.NumericUpDown numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin;
-        private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.CheckBox chkOnlyRunCorrectiveScriptsOnStateChange;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.CheckBox chkCorrectiveScriptDisabled;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.GroupBox alertSuppressionGroupBox;
-        private System.Windows.Forms.CheckBox chkAlertsPaused;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.NumericUpDown numericUpDownRepeatAlertInXPolls;
-        private System.Windows.Forms.NumericUpDown delayAlertPollsNumericUpDown;
-        private System.Windows.Forms.NumericUpDown AlertOnceInXPollsNumericUpDown;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDownRepeatAlertInXMin;
-        private System.Windows.Forms.NumericUpDown delayAlertSecNumericUpDown;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
+        private System.Windows.Forms.TabPage operationalTabPage;
         private System.Windows.Forms.GroupBox serviceWindowsGroupBox;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.LinkLabel linkLabelServiceWindows;
@@ -2927,5 +2732,71 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TabPage alertsTabPage;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button cmdSetNoteText;
+        private System.Windows.Forms.TextBox txtNotesText;
+        private System.Windows.Forms.Label lblNoteTextChangeIndicator;
+        private System.Windows.Forms.ComboBox cboTextType;
+        private System.Windows.Forms.GroupBox correctiveScriptsGroupBox;
+        private System.Windows.Forms.NumericUpDown numericUpDownRestorationScriptMinimumRepeatTimeMin;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.NumericUpDown numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.NumericUpDown numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.CheckBox chkOnlyRunCorrectiveScriptsOnStateChange;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox chkCorrectiveScriptDisabled;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox alertSuppressionGroupBox;
+        private System.Windows.Forms.CheckBox chkAlertsPaused;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericUpDownRepeatAlertInXPolls;
+        private System.Windows.Forms.NumericUpDown delayAlertPollsNumericUpDown;
+        private System.Windows.Forms.NumericUpDown AlertOnceInXPollsNumericUpDown;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDownRepeatAlertInXMin;
+        private System.Windows.Forms.NumericUpDown delayAlertSecNumericUpDown;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown AlertOnceInXMinNumericUpDown;
+        private System.Windows.Forms.TabPage configVarsTabPage;
+        private ListViewEx lvwConfigVars;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.TextBox txtConfigVarReplaceByValue;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TextBox txtConfigVarSearchFor;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton addConfigVarToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteConfigVarToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton moveUpConfigVarToolStripButton;
+        private System.Windows.Forms.ToolStripButton moveDownConfigVarToolStripButton;
+        private System.Windows.Forms.ContextMenuStrip agentsContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem addAgentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addAgentEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem moveUpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel llblRawEdit;
     }
 }
