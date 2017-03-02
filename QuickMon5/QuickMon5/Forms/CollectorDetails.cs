@@ -204,6 +204,7 @@ namespace QuickMon
             SetWindowTitle();
             if (SelectedCollectorHost.CurrentState != null)
             {
+                lastUpdateTimeToolStripStatusLabel.Text = SelectedCollectorHost.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
                 if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.ok16x16;
@@ -911,6 +912,7 @@ namespace QuickMon
                 {
                     SelectedCollectorHost.ReconfigureFromXml(editor.SelectedMarkup);
                     LoadControls();
+                    LoadEditControls();
                     ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
                     //TriggerMonitorPackReload = true;
                     //MonitorPack newMP = new MonitorPack();
