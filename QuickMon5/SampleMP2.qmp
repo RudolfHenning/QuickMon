@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-03-01 22:06:22" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test 2" lastChanged="2017-03-02 21:37:28" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -457,6 +457,82 @@
             <performanceCounters>
               <performanceCounter computer="." category="Network Interface" counter="Bytes Total/sec" instance="Realtek PCI GBE Family Controller" warningValue="300000" errorValue="1000000" numberOfSamples="3" multiSampleWaitMS="300" outputValueUnit="Bytes/Sec" />
             </performanceCounters>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="60" enablePollFrequencySliding="True" pollSlideFrequencyAfterFirstRepeatSec="90" pollSlideFrequencyAfterSecondRepeatSec="120" pollSlideFrequencyAfterThirdRepeatSec="150" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="False" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="NetworkUsage" dependOnParentId="SYSTEM" name="Network usage %" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry name="Calc Network % usage">
+                <dataSource>$currentBandwidth = 0
+Get-Counter -Counter "\Network Interface(*)\Current Bandwidth" | % {
+    $_.CounterSamples | select CookedValue | % {        
+        $currentBandwidth = $currentBandwidth + $_.CookedValue
+    }
+}
+#$currentBandwidth
+$totalBytes = 0
+Get-Counter -Counter "\Network Interface(*)\Bytes Total/sec" | % {
+    $_.CounterSamples | select CookedValue | % {        
+        $totalBytes = $totalBytes + $_.CookedValue
+    }
+}
+#$totalBytes
+$bandwidthUsage = (($totalBytes * 8) / $currentBandwidth)
+#$bandwidthUsage
+$bandwidthUsage = ($bandwidthUsage * 100.0).ToString("0.0000")
+if ($bandwidthUsage -lt 0.01) {
+    "Good $bandwidthUsage %"
+}
+else { 
+    if ($bandwidthUsage -gt 0.1) {
+    "Warning $bandwidthUsage %"
+    }
+    else {
+    "Error $bandwidthUsage %"
+    }
+}</dataSource>
+                <testConditions testSequence="GWE">
+                  <success testType="Contains">Good</success>
+                  <warning testType="Contains">Warning</warning>
+                  <error testType="Contains">Error</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
           </config>
         </collectorAgent>
       </collectorAgents>

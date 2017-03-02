@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode26});
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode28,
-            treeNode29});
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -231,6 +231,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.lastUpdateTimeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -297,11 +298,12 @@
             this.txtName.BackColor = System.Drawing.Color.White;
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(97, 10);
+            this.txtName.Location = new System.Drawing.Point(97, 9);
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(1058, 15);
+            this.txtName.Size = new System.Drawing.Size(1058, 21);
             this.txtName.TabIndex = 5;
             this.txtName.WordWrap = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
@@ -323,7 +325,8 @@
             this.toolStripStatusLabelEnabled,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabelAutoRefresh,
-            this.toolStripStatusLabel2});
+            this.toolStripStatusLabel2,
+            this.lastUpdateTimeToolStripStatusLabel});
             this.statusStripCollector.Location = new System.Drawing.Point(0, 679);
             this.statusStripCollector.Name = "statusStripCollector";
             this.statusStripCollector.Size = new System.Drawing.Size(1199, 22);
@@ -483,9 +486,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer2;
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -2128,9 +2131,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer3.Column = 0;
-            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer3;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2270,9 +2273,9 @@
             this.optHistoricStateView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.optHistoricStateView.Location = new System.Drawing.Point(58, 0);
             this.optHistoricStateView.Name = "optHistoricStateView";
-            this.optHistoricStateView.Size = new System.Drawing.Size(59, 28);
+            this.optHistoricStateView.Size = new System.Drawing.Size(56, 28);
             this.optHistoricStateView.TabIndex = 2;
-            this.optHistoricStateView.Text = "Historic";
+            this.optHistoricStateView.Text = "History";
             this.optHistoricStateView.UseVisualStyleBackColor = true;
             this.optHistoricStateView.CheckedChanged += new System.EventHandler(this.optHistoricStateView_CheckedChanged);
             // 
@@ -2380,19 +2383,19 @@
             this.tvwScripts.FullRowSelect = true;
             this.tvwScripts.Location = new System.Drawing.Point(2, 25);
             this.tvwScripts.Name = "tvwScripts";
-            treeNode26.Name = "Node1";
-            treeNode26.Text = "Parameter 1";
-            treeNode27.Name = "Node0";
-            treeNode27.Text = "Script 1";
-            treeNode28.Name = "Node3";
-            treeNode28.Text = "Parameter 1";
-            treeNode29.Name = "Node4";
-            treeNode29.Text = "Parameter 2";
-            treeNode30.Name = "Node2";
-            treeNode30.Text = "Script 2";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Parameter 1";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Script 1";
+            treeNode3.Name = "Node3";
+            treeNode3.Text = "Parameter 1";
+            treeNode4.Name = "Node4";
+            treeNode4.Text = "Parameter 2";
+            treeNode5.Name = "Node2";
+            treeNode5.Text = "Script 2";
             this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode27,
-            treeNode30});
+            treeNode2,
+            treeNode5});
             this.tvwScripts.ShowLines = false;
             this.tvwScripts.Size = new System.Drawing.Size(198, 615);
             this.tvwScripts.TabIndex = 5;
@@ -2509,6 +2512,12 @@
             this.cmdRefresh.TabIndex = 9;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // lastUpdateTimeToolStripStatusLabel
+            // 
+            this.lastUpdateTimeToolStripStatusLabel.Name = "lastUpdateTimeToolStripStatusLabel";
+            this.lastUpdateTimeToolStripStatusLabel.Size = new System.Drawing.Size(65, 17);
+            this.lastUpdateTimeToolStripStatusLabel.Text = "<No data>";
             // 
             // CollectorDetails
             // 
@@ -2803,5 +2812,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
         private System.Windows.Forms.LinkLabel llblRawEdit;
+        private System.Windows.Forms.ToolStripStatusLabel lastUpdateTimeToolStripStatusLabel;
     }
 }
