@@ -106,12 +106,6 @@ namespace QuickMon
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
 
-            //agentsEditSplitContainerHeight = agentsEditSplitContainer.Height;
-            //hostSettingsSplitContainerHeight = hostSettingsSplitContainer.Height;
-            //operationalSplitContainerHeight = operationalSplitContainer.Height;
-            //alertsSplitContainerHeight = alertsSplitContainer.Height;
-            //configVariSplitContainerHeight = configVariSplitContainer.Height;
-
             if (SelectedCollectorHost == null)
             {
                 SelectedCollectorHost = new CollectorHost();
@@ -121,6 +115,7 @@ namespace QuickMon
                 HostingMonitorPack = SelectedCollectorHost.ParentMonitorPack; 
             }
             RefreshDetails();
+            LoadEditControls();
             splitContainerMain.Panel2Collapsed = true;
             SetActivePanel(panelAgentStates);
             UpdateStatusBar();
@@ -233,8 +228,10 @@ namespace QuickMon
             
             txtName.Text = SelectedCollectorHost.Name;
             LoadHistory();
-            UpdateAgentStateTree();
-
+            UpdateAgentStateTree();            
+        }
+        private void LoadEditControls()
+        {
             #region Editing controls
             editingCollectorHost = SelectedCollectorHost.Clone();
 
@@ -297,7 +294,6 @@ namespace QuickMon
             LoadAgents();
             LoadParentCollectorList();
             #endregion
-
         }
         private void LoadParentCollectorList(CollectorHost parentEntry = null, int indent = 0)
         {
@@ -747,6 +743,7 @@ namespace QuickMon
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
             RefreshDetails();
+            LoadEditControls();
         }
         #endregion
 
@@ -1445,16 +1442,17 @@ namespace QuickMon
         {
             cmdOK.Enabled = (txtName.Text.Length > 0) && cboParentCollector.SelectedIndex > -1 &&
                     ((!chkRemoteAgentEnabled.Checked && !chkForceRemoteExcuteOnChildCollectors.Checked) || cboRemoteAgentServer.Text.Length > 0);
-            cmdRemoteAgentTest.Enabled = (chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked) && cboRemoteAgentServer.Text.Length > 0;
+            
         }
         private void chkRemoteAgentEnabled_CheckedChanged(object sender, EventArgs e)
         {
             cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
-            chkBlockParentRHOverride.Enabled = !chkRemoteAgentEnabled.Checked;
+            chkBlockParentRHOverride.Enabled = chkRemoteAgentEnabled.Checked;
             chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
             if (chkRemoteAgentEnabled.Checked)
                 chkBlockParentRHOverride.Checked = false;
+            cmdRemoteAgentTest.Enabled = (chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked) && cboRemoteAgentServer.Text.Length > 0;
             CheckOkEnabled();
         }
         private void chkForceRemoteExcuteOnChildCollectors_CheckedChanged(object sender, EventArgs e)
@@ -1463,16 +1461,146 @@ namespace QuickMon
         }
         private void cboRemoteAgentServer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CheckOkEnabled();
+            chkRemoteAgentEnabled_CheckedChanged(null, null);
         }
         private void cboRemoteAgentServer_TextChanged(object sender, EventArgs e)
         {
-            CheckOkEnabled();
+            chkRemoteAgentEnabled_CheckedChanged(null, null);
         }
         private void chkRunAsEnabled_CheckedChanged(object sender, EventArgs e)
         {
             txtRunAs.Enabled = chkRunAsEnabled.Checked;
             cmdTestRunAs.Enabled = chkRunAsEnabled.Checked;
+        }
+        #endregion
+
+        #region Remote hosts
+        private void cmdRemoteAgentTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboRemoteAgentServer.Text.Length > 0)
+                {
+                    string versionInfo = RemoteCollectorHostService.GetRemoteAgentHostVersion(cboRemoteAgentServer.Text, (int)remoteportNumericUpDown.Value);
+                    MessageBox.Show("Success\r\nVersion Info: " + versionInfo, "Remote server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Remote server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+
+        #region RunAs
+        private void txtRunAs_TextChanged(object sender, EventArgs e)
+        {
+            cmdTestRunAs.Enabled = txtRunAs.Text.Length > 0 && HostingMonitorPack != null;
+        }
+        private void cmdTestRunAs_Click(object sender, EventArgs e)
+        {
+            string errorString = "";
+            if (HostingMonitorPack != null && txtRunAs.Text.Length > 0)
+            {
+                if (HostingMonitorPack.UserNameCacheFilePath != null && System.IO.File.Exists(HostingMonitorPack.UserNameCacheFilePath) &&
+                    HostingMonitorPack.UserNameCacheMasterKey != null && HostingMonitorPack.UserNameCacheMasterKey.Length > 0
+                    )
+                {
+                    QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                    try
+                    {
+                        credMan.MasterKey = HostingMonitorPack.UserNameCacheMasterKey;
+                        credMan.OpenCache(HostingMonitorPack.UserNameCacheFilePath);
+                        if (credMan.IsAccountPersisted(txtRunAs.Text))
+                        {
+                            if (credMan.IsAccountDecryptable(txtRunAs.Text))
+                            {
+                                string password = credMan.GetAccountPassword(txtRunAs.Text);
+                                string userName = txtRunAs.Text;
+                                string domainName = System.Net.Dns.GetHostName();
+                                if (userName.Contains('\\'))
+                                {
+                                    domainName = userName.Substring(0, userName.IndexOf('\\'));
+                                    userName = userName.Substring(domainName.Length + 1);
+                                }
+                                if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache but the password is incorrect or cannot be authenticated!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache and can be authenticated!\r\n" +
+                                        System.Security.Principal.WindowsIdentity.GetCurrent().Name, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    QuickMon.Security.Impersonator.UnImpersonate();
+                                }
+                                return;
+                            }
+                            else
+                            {
+                                errorString = "The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!";
+                            }
+                        }
+                        else
+                        {
+                            errorString = "The specified 'Run as' user name was not found in the credential cache!";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                if (HostingMonitorPack.ApplicationUserNameCacheFilePath != null && System.IO.File.Exists(HostingMonitorPack.ApplicationUserNameCacheFilePath) &&
+                    HostingMonitorPack.ApplicationUserNameCacheMasterKey != null && HostingMonitorPack.ApplicationUserNameCacheMasterKey.Length > 0
+                    )
+                {
+                    QuickMon.Security.CredentialManager credMan = new Security.CredentialManager();
+                    try
+                    {
+                        credMan.MasterKey = HostingMonitorPack.ApplicationUserNameCacheMasterKey;
+                        credMan.OpenCache(HostingMonitorPack.ApplicationUserNameCacheFilePath);
+                        if (credMan.IsAccountPersisted(txtRunAs.Text))
+                        {
+                            if (credMan.IsAccountDecryptable(txtRunAs.Text))
+                            {
+                                string password = credMan.GetAccountPassword(txtRunAs.Text);
+                                string userName = txtRunAs.Text;
+                                string domainName = System.Net.Dns.GetHostName();
+                                if (userName.Contains('\\'))
+                                {
+                                    domainName = userName.Substring(0, userName.IndexOf('\\'));
+                                    userName = userName.Substring(domainName.Length + 1);
+                                }
+                                if (!QuickMon.Security.Impersonator.Impersonate(userName, password, domainName))
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache but the password is incorrect or cannot be authenticated!", "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The specified 'Run as' user name was found in the credential cache and can be authenticated!\r\n" +
+                                        System.Security.Principal.WindowsIdentity.GetCurrent().Name, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    QuickMon.Security.Impersonator.UnImpersonate();
+                                }
+                                return;
+                            }
+                            else
+                            {
+                                errorString = "The specified 'Run as' user name could not be decrypted!\r\nPlease check the specified 'Master key' value!";
+                            }
+                        }
+                        else
+                        {
+                            errorString = "The specified 'Run as' user name was not found in the credential cache!";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                if (errorString.Length > 0)
+                    MessageBox.Show(errorString, "Credential cache", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         #endregion
 
@@ -1552,7 +1680,6 @@ namespace QuickMon
             cmdSetNoteText.Enabled = false;
         }
         #endregion
-
 
         #endregion
 
