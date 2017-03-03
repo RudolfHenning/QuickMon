@@ -260,10 +260,7 @@ namespace QuickMon
             chkBlockParentRHOverride.Checked = editingCollectorHost.BlockParentOverrideRemoteAgentHostSettings;
             chkRunLocalOnRemoteHostConnectionFailure.Checked = editingCollectorHost.RunLocalOnRemoteHostConnectionFailure;
             chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
-            if (editingCollectorHost.ServiceWindows != null)
-                linkLabelServiceWindows.Text = editingCollectorHost.ServiceWindows.ToString();
-            else
-                linkLabelServiceWindows.Text = "None";
+            
             chkAlertsPaused.Checked = editingCollectorHost.AlertsPaused;
             numericUpDownRepeatAlertInXMin.SaveValueSet(editingCollectorHost.RepeatAlertInXMin); ;
             numericUpDownRepeatAlertInXPolls.SaveValueSet(editingCollectorHost.RepeatAlertInXPolls);
@@ -291,44 +288,18 @@ namespace QuickMon
                 }
                 txtCategories.Text = categories.ToString();
             }
+            LoadServiceWindows();
             LoadConfigVars();
-            LoadAgents();
-            LoadParentCollectorList();
+            LoadAgents();         
             #endregion
         }
-        private void LoadParentCollectorList(CollectorHost parentEntry = null, int indent = 0)
+        private void LoadServiceWindows()
         {
-            if (cboParentCollector.Items.Count == 0)
-            {
-                cboParentCollector.Items.Add("<None>");
-                cboParentCollector.SelectedIndex = 0;
-            }
-            if (HostingMonitorPack != null)
-            {
-                //txtMonitorPack.Text = string.Format("{0} ({1})", HostingMonitorPack.Name, HostingMonitorPack.MonitorPackPath);
-                foreach (CollectorHost ce in (from c in HostingMonitorPack.CollectorHosts
-                                              where (parentEntry == null && (c.ParentCollectorId == null || c.ParentCollectorId == "")) ||
-                                                  (parentEntry != null && parentEntry.UniqueId == c.ParentCollectorId)
-                                              select c))
-                {
-                    CollectorEntryDisplay ceDisplay = new CollectorEntryDisplay() { Ident = indent, CH = ce };
-                    if (IsNotInCurrentDependantTree(editingCollectorHost.UniqueId, ce))
-                    {
-                        cboParentCollector.Items.Add(ceDisplay);
-                    }
-                    if (ce.UniqueId == editingCollectorHost.ParentCollectorId)
-                        cboParentCollector.SelectedItem = ceDisplay;
-
-                    LoadParentCollectorList(ce, indent + 1);
-                    cboParentCollector.Enabled = true;
-                }
-            }
+            if (editingCollectorHost.ServiceWindows != null)
+                linkLabelServiceWindows.Text = editingCollectorHost.ServiceWindows.ToString();
             else
-            {
-                //txtMonitorPack.Text = "N/A";
-                cboParentCollector.Enabled = false;
-            }
-        }
+                linkLabelServiceWindows.Text = "None";
+        }   
         private bool IsNotInCurrentDependantTree(string uniqueId, CollectorHost ce)
         {
             if (HostingMonitorPack != null)
@@ -482,11 +453,17 @@ namespace QuickMon
         private void LoadHistory()
         {
             MonitorState hi;
+            bool currentStateSelected = false;
             DateTime selectedTimeStamp = new DateTime(1900, 1, 1);
             if (lvwHistory.SelectedItems.Count == 1 && lvwHistory.SelectedItems[0].Tag is MonitorState)
             {
-                hi = (MonitorState)lvwHistory.SelectedItems[0].Tag;
-                selectedTimeStamp = hi.Timestamp;
+                if (lvwHistory.SelectedItems[0].Index == 0)
+                    currentStateSelected = true;
+                else
+                {
+                    hi = (MonitorState)lvwHistory.SelectedItems[0].Tag;
+                    selectedTimeStamp = hi.Timestamp;
+                }
             }
 
             lvwHistory.Items.Clear();
@@ -505,7 +482,7 @@ namespace QuickMon
                 lvi.SubItems.Add(hi.ReadFirstValue());
                 lvi.Tag = hi;
                 lvwHistory.Items.Add(lvi);
-                if (selectedTimeStamp == hi.Timestamp)
+                if (selectedTimeStamp == hi.Timestamp || currentStateSelected)
                     lvi.Selected = true;
 
                 for (int i = SelectedCollectorHost.StateHistory.Count - 1; i >= 0; i--)
@@ -873,6 +850,11 @@ namespace QuickMon
         {
             collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
             chkRAWDetails.Image = chkRAWDetails.Checked ? global::QuickMon.Properties.Resources._133 : global::QuickMon.Properties.Resources._131;
+
+            if (collectorDetailSplitContainer.Panel2.Height < 100)
+            {
+                collectorDetailSplitContainer.SplitterDistance = collectorDetailSplitContainer.Height - 100;
+            }
         }
 
         #region Editing
@@ -1121,14 +1103,7 @@ namespace QuickMon
                 //editingCollectorHost.ExpandOnStartOption = (ExpandOnStartOption)cboExpandOnStartOption.SelectedIndex;
                 editingCollectorHost.AgentCheckSequence = (AgentCheckSequence)agentCheckSequenceToolStripComboBox.SelectedIndex;
                 editingCollectorHost.Notes = txtAdditionalNotes.Text;
-
-                if (cboParentCollector.SelectedIndex > 0)
-                {
-                    CollectorEntryDisplay ced = (CollectorEntryDisplay)cboParentCollector.SelectedItem;
-                    editingCollectorHost.ParentCollectorId = ced.CH.UniqueId;
-                }
-                else
-                    editingCollectorHost.ParentCollectorId = "";
+                editingCollectorHost.ParentCollectorId = SelectedCollectorHost.ParentCollectorId;
                 editingCollectorHost.ChildCheckBehaviour = (ChildCheckBehaviour)cboChildCheckBehaviour.SelectedIndex;
 
                 //Remote agents
@@ -1445,7 +1420,7 @@ namespace QuickMon
         #region Change tracking
         private void CheckOkEnabled()
         {
-            cmdOK.Enabled = (txtName.Text.Length > 0) && cboParentCollector.SelectedIndex > -1 &&
+            cmdOK.Enabled = (txtName.Text.Length > 0) && 
                     ((!chkRemoteAgentEnabled.Checked && !chkForceRemoteExcuteOnChildCollectors.Checked) || cboRemoteAgentServer.Text.Length > 0);
             
         }
@@ -1453,7 +1428,7 @@ namespace QuickMon
         {
             cboRemoteAgentServer.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
             remoteportNumericUpDown.Enabled = chkRemoteAgentEnabled.Checked || chkForceRemoteExcuteOnChildCollectors.Checked;
-            chkBlockParentRHOverride.Enabled = chkRemoteAgentEnabled.Checked;
+            chkBlockParentRHOverride.Enabled = !chkRemoteAgentEnabled.Checked;
             chkRunLocalOnRemoteHostConnectionFailure.Enabled = chkRemoteAgentEnabled.Checked;
             if (chkRemoteAgentEnabled.Checked)
                 chkBlockParentRHOverride.Checked = false;
@@ -1621,15 +1596,15 @@ namespace QuickMon
         #region Service Windows
         private void linkLabelServiceWindows_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //EditServiceWindows editServiceWindows = new EditServiceWindows();
-            //editServiceWindows.SelectedServiceWindows = editingCollectorHost.ServiceWindows;
-            //if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    editingCollectorHost.ServiceWindows = editServiceWindows.SelectedServiceWindows;
-            //    linkLabelServiceWindows.Text = editServiceWindows.SelectedServiceWindows.ToString();
-            //    toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + editingCollectorHost.ServiceWindows.ToString());
-            //    CheckOkEnabled();
-            //}
+            EditServiceWindows editServiceWindows = new EditServiceWindows();
+            editServiceWindows.SelectedServiceWindows = editingCollectorHost.ServiceWindows;
+            if (editServiceWindows.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                editingCollectorHost.ServiceWindows = editServiceWindows.SelectedServiceWindows;
+                linkLabelServiceWindows.Text = editServiceWindows.SelectedServiceWindows.ToString();
+                toolTip1.SetToolTip(linkLabelServiceWindows, "Only operate within specified times. Return 'disabled' status otherwise\r\n" + editingCollectorHost.ServiceWindows.ToString());
+                LoadServiceWindows();                
+            }
         }
         #endregion
 

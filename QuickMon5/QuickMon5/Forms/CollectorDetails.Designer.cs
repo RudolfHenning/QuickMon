@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode16});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode18,
+            treeNode19});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -47,6 +47,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelAutoRefresh = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lastUpdateTimeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.collectorDetailSplitContainer = new System.Windows.Forms.SplitContainer();
             this.panelCollectorDetails = new System.Windows.Forms.Panel();
@@ -54,9 +55,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.agentsEditTabPage = new System.Windows.Forms.TabPage();
-            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.agentsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addAgentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addAgentEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,8 +90,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cboChildCheckBehaviour = new System.Windows.Forms.ComboBox();
             this.label39 = new System.Windows.Forms.Label();
-            this.cboParentCollector = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.operationalTabPage = new System.Windows.Forms.TabPage();
             this.serviceWindowsGroupBox = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -175,9 +171,6 @@
             this.label37 = new System.Windows.Forms.Label();
             this.AlertOnceInXMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.configVarsTabPage = new System.Windows.Forms.TabPage();
-            this.lvwConfigVars = new QuickMon.ListViewEx();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtConfigVarReplaceByValue = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.txtConfigVarSearchFor = new System.Windows.Forms.TextBox();
@@ -198,18 +191,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
             this.agentStateSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
-            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imagesCollectorTree = new System.Windows.Forms.ImageList(this.components);
-            this.lvwHistory = new QuickMon.ListViewEx();
-            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chkRAWDetails = new System.Windows.Forms.CheckBox();
@@ -221,7 +203,6 @@
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
-            this.tvwScripts = new QuickMon.TreeViewEx();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -231,7 +212,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
-            this.lastUpdateTimeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.agentsTreeListView = new HenIT.Windows.Controls.TreeListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwConfigVars = new QuickMon.ListViewEx();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tlvAgentStates = new HenIT.Windows.Controls.TreeListView();
+            this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvwHistory = new QuickMon.ListViewEx();
+            this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.stateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.durationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alertCountColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.executedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ranAsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.collectorValueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tvwScripts = new QuickMon.TreeViewEx();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -366,6 +365,12 @@
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabel2.Text = "|";
             // 
+            // lastUpdateTimeToolStripStatusLabel
+            // 
+            this.lastUpdateTimeToolStripStatusLabel.Name = "lastUpdateTimeToolStripStatusLabel";
+            this.lastUpdateTimeToolStripStatusLabel.Size = new System.Drawing.Size(65, 17);
+            this.lastUpdateTimeToolStripStatusLabel.Text = "<No data>";
+            // 
             // splitContainerMain
             // 
             this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -406,6 +411,7 @@
             this.collectorDetailSplitContainer.Panel2.Controls.Add(this.rtxDetails);
             this.collectorDetailSplitContainer.Size = new System.Drawing.Size(981, 615);
             this.collectorDetailSplitContainer.SplitterDistance = 503;
+            this.collectorDetailSplitContainer.SplitterWidth = 6;
             this.collectorDetailSplitContainer.TabIndex = 4;
             // 
             // panelCollectorDetails
@@ -434,6 +440,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -477,42 +484,6 @@
             this.agentsEditTabPage.TabIndex = 0;
             this.agentsEditTabPage.Text = "Agents";
             this.agentsEditTabPage.UseVisualStyleBackColor = true;
-            // 
-            // agentsTreeListView
-            // 
-            this.agentsTreeListView.AllowSorting = false;
-            this.agentsTreeListView.AutoResizeColumnEnabled = false;
-            this.agentsTreeListView.AutoResizeColumnIndex = 1;
-            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
-            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
-            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.agentsTreeListView.LabelEdit = true;
-            this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
-            this.agentsTreeListView.Name = "agentsTreeListView";
-            this.agentsTreeListView.Size = new System.Drawing.Size(948, 362);
-            this.agentsTreeListView.SmallImageList = this.agentsImageList;
-            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.TabIndex = 4;
-            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
-            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
-            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
-            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
-            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Agent/Entry";
-            this.columnHeader3.Width = 316;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Summary";
-            this.columnHeader4.Width = 337;
             // 
             // agentsContextMenuStrip
             // 
@@ -755,7 +726,7 @@
             this.groupBox7.Controls.Add(this.label46);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox7.Location = new System.Drawing.Point(3, 175);
+            this.groupBox7.Location = new System.Drawing.Point(3, 150);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(948, 105);
             this.groupBox7.TabIndex = 5;
@@ -789,7 +760,7 @@
             this.groupBox4.Controls.Add(this.label15);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox4.Location = new System.Drawing.Point(3, 80);
+            this.groupBox4.Location = new System.Drawing.Point(3, 55);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(948, 95);
             this.groupBox4.TabIndex = 4;
@@ -822,26 +793,25 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cboChildCheckBehaviour);
             this.groupBox1.Controls.Add(this.label39);
-            this.groupBox1.Controls.Add(this.cboParentCollector);
-            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(948, 77);
+            this.groupBox1.Size = new System.Drawing.Size(948, 52);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 1);
+            this.label4.Location = new System.Drawing.Point(7, 1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 13);
+            this.label4.Size = new System.Drawing.Size(167, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Parent/Child Host";
+            this.label4.Text = "Child Collector Host settings";
             // 
             // cboChildCheckBehaviour
             // 
@@ -854,39 +824,18 @@
             "Only Run On Success",
             "Continue On Warning",
             "Continue On Warning Or Error"});
-            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(134, 44);
+            this.cboChildCheckBehaviour.Location = new System.Drawing.Point(172, 20);
             this.cboChildCheckBehaviour.Name = "cboChildCheckBehaviour";
-            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(808, 21);
+            this.cboChildCheckBehaviour.Size = new System.Drawing.Size(770, 21);
             this.cboChildCheckBehaviour.TabIndex = 4;
             // 
             // label39
             // 
-            this.label39.Location = new System.Drawing.Point(10, 43);
+            this.label39.Location = new System.Drawing.Point(16, 23);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(118, 31);
+            this.label39.Size = new System.Drawing.Size(158, 18);
             this.label39.TabIndex = 3;
-            this.label39.Text = "Child Collector Host Check behaviour";
-            // 
-            // cboParentCollector
-            // 
-            this.cboParentCollector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboParentCollector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboParentCollector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboParentCollector.FormattingEnabled = true;
-            this.cboParentCollector.Location = new System.Drawing.Point(134, 17);
-            this.cboParentCollector.Name = "cboParentCollector";
-            this.cboParentCollector.Size = new System.Drawing.Size(808, 21);
-            this.cboParentCollector.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Parent Collector Host";
+            this.label39.Text = "Check sequence behaviour";
             // 
             // operationalTabPage
             // 
@@ -1882,34 +1831,6 @@
             this.configVarsTabPage.Text = "Variables";
             this.configVarsTabPage.UseVisualStyleBackColor = true;
             // 
-            // lvwConfigVars
-            // 
-            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwConfigVars.AutoResizeColumnEnabled = false;
-            this.lvwConfigVars.AutoResizeColumnIndex = 0;
-            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lvwConfigVars.FullRowSelect = true;
-            this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
-            this.lvwConfigVars.Name = "lvwConfigVars";
-            this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
-            this.lvwConfigVars.TabIndex = 9;
-            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
-            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Search for";
-            this.columnHeader5.Width = 244;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Replace by";
-            this.columnHeader6.Width = 262;
-            // 
             // txtConfigVarReplaceByValue
             // 
             this.txtConfigVarReplaceByValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -2120,41 +2041,8 @@
             this.agentStateSplitContainer.Panel2.Controls.Add(this.label3);
             this.agentStateSplitContainer.Size = new System.Drawing.Size(964, 248);
             this.agentStateSplitContainer.SplitterDistance = 124;
+            this.agentStateSplitContainer.SplitterWidth = 6;
             this.agentStateSplitContainer.TabIndex = 3;
-            // 
-            // tlvAgentStates
-            // 
-            this.tlvAgentStates.AllowSorting = false;
-            this.tlvAgentStates.AutoResizeColumnEnabled = false;
-            this.tlvAgentStates.AutoResizeColumnIndex = 0;
-            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.nameColumnHeader,
-            this.valueColumnHeader});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
-            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlvAgentStates.HideSelection = false;
-            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
-            this.tlvAgentStates.MultiSelect = false;
-            this.tlvAgentStates.Name = "tlvAgentStates";
-            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
-            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
-            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.TabIndex = 1;
-            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
-            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
-            // 
-            // nameColumnHeader
-            // 
-            this.nameColumnHeader.Text = "Name";
-            this.nameColumnHeader.Width = 325;
-            // 
-            // valueColumnHeader
-            // 
-            this.valueColumnHeader.Text = "Value";
-            this.valueColumnHeader.Width = 150;
             // 
             // imagesCollectorTree
             // 
@@ -2169,65 +2057,6 @@
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
             this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
-            // 
-            // lvwHistory
-            // 
-            this.lvwHistory.AutoResizeColumnEnabled = false;
-            this.lvwHistory.AutoResizeColumnIndex = 6;
-            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.timeColumnHeader,
-            this.stateColumnHeader,
-            this.durationColumnHeader,
-            this.alertCountColumnHeader,
-            this.executedOnColumnHeader,
-            this.ranAsColumnHeader,
-            this.collectorValueColumnHeader});
-            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwHistory.FullRowSelect = true;
-            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
-            this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(964, 119);
-            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
-            this.lvwHistory.TabIndex = 0;
-            this.lvwHistory.UseCompatibleStateImageBehavior = false;
-            this.lvwHistory.View = System.Windows.Forms.View.Details;
-            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
-            // 
-            // timeColumnHeader
-            // 
-            this.timeColumnHeader.Text = "Time";
-            this.timeColumnHeader.Width = 153;
-            // 
-            // stateColumnHeader
-            // 
-            this.stateColumnHeader.Text = "State";
-            this.stateColumnHeader.Width = 85;
-            // 
-            // durationColumnHeader
-            // 
-            this.durationColumnHeader.Text = "Duration (ms)";
-            this.durationColumnHeader.Width = 87;
-            // 
-            // alertCountColumnHeader
-            // 
-            this.alertCountColumnHeader.Text = "Alerts";
-            this.alertCountColumnHeader.Width = 48;
-            // 
-            // executedOnColumnHeader
-            // 
-            this.executedOnColumnHeader.Text = "Executed on";
-            this.executedOnColumnHeader.Width = 88;
-            // 
-            // ranAsColumnHeader
-            // 
-            this.ranAsColumnHeader.Text = "Ran as";
-            this.ranAsColumnHeader.Width = 103;
-            // 
-            // collectorValueColumnHeader
-            // 
-            this.collectorValueColumnHeader.Text = "Value";
-            this.collectorValueColumnHeader.Width = 150;
             // 
             // label3
             // 
@@ -2301,7 +2130,7 @@
             this.rtxDetails.Location = new System.Drawing.Point(0, 0);
             this.rtxDetails.Name = "rtxDetails";
             this.rtxDetails.ReadOnly = true;
-            this.rtxDetails.Size = new System.Drawing.Size(981, 108);
+            this.rtxDetails.Size = new System.Drawing.Size(981, 106);
             this.rtxDetails.TabIndex = 2;
             this.rtxDetails.Text = "";
             // 
@@ -2375,30 +2204,6 @@
             this.cmdCollectorEdit.TabIndex = 5;
             this.cmdCollectorEdit.UseVisualStyleBackColor = false;
             this.cmdCollectorEdit.Click += new System.EventHandler(this.cmdCollectorEdit_Click);
-            // 
-            // tvwScripts
-            // 
-            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwScripts.FullRowSelect = true;
-            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
-            this.tvwScripts.Name = "tvwScripts";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Parameter 1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Script 1";
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Parameter 1";
-            treeNode4.Name = "Node4";
-            treeNode4.Text = "Parameter 2";
-            treeNode5.Name = "Node2";
-            treeNode5.Text = "Script 2";
-            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode5});
-            this.tvwScripts.ShowLines = false;
-            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
-            this.tvwScripts.TabIndex = 5;
             // 
             // panel2
             // 
@@ -2513,11 +2318,186 @@
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
-            // lastUpdateTimeToolStripStatusLabel
+            // agentsTreeListView
             // 
-            this.lastUpdateTimeToolStripStatusLabel.Name = "lastUpdateTimeToolStripStatusLabel";
-            this.lastUpdateTimeToolStripStatusLabel.Size = new System.Drawing.Size(65, 17);
-            this.lastUpdateTimeToolStripStatusLabel.Text = "<No data>";
+            this.agentsTreeListView.AllowSorting = false;
+            this.agentsTreeListView.AutoResizeColumnEnabled = false;
+            this.agentsTreeListView.AutoResizeColumnIndex = 1;
+            this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
+            this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.agentsTreeListView.LabelEdit = true;
+            this.agentsTreeListView.Location = new System.Drawing.Point(3, 30);
+            this.agentsTreeListView.Name = "agentsTreeListView";
+            this.agentsTreeListView.Size = new System.Drawing.Size(948, 362);
+            this.agentsTreeListView.SmallImageList = this.agentsImageList;
+            this.agentsTreeListView.Sorting = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.TabIndex = 4;
+            this.agentsTreeListView.UseCompatibleStateImageBehavior = false;
+            this.agentsTreeListView.AfterLabelEdit += new HenIT.Windows.Controls.TreeListViewLabelEditEventHandler(this.agentsTreeListView_AfterLabelEdit);
+            this.agentsTreeListView.BeforeLabelEdit += new HenIT.Windows.Controls.TreeListViewBeforeLabelEditEventHandler(this.agentsTreeListView_BeforeLabelEdit);
+            this.agentsTreeListView.SelectedIndexChanged += new System.EventHandler(this.agentsTreeListView_SelectedIndexChanged);
+            this.agentsTreeListView.DoubleClick += new System.EventHandler(this.agentsTreeListView_DoubleClick);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Agent/Entry";
+            this.columnHeader3.Width = 316;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Summary";
+            this.columnHeader4.Width = 337;
+            // 
+            // lvwConfigVars
+            // 
+            this.lvwConfigVars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwConfigVars.AutoResizeColumnEnabled = false;
+            this.lvwConfigVars.AutoResizeColumnIndex = 0;
+            this.lvwConfigVars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lvwConfigVars.FullRowSelect = true;
+            this.lvwConfigVars.Location = new System.Drawing.Point(2, 33);
+            this.lvwConfigVars.Name = "lvwConfigVars";
+            this.lvwConfigVars.Size = new System.Drawing.Size(949, 300);
+            this.lvwConfigVars.TabIndex = 9;
+            this.lvwConfigVars.UseCompatibleStateImageBehavior = false;
+            this.lvwConfigVars.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Search for";
+            this.columnHeader5.Width = 244;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Replace by";
+            this.columnHeader6.Width = 262;
+            // 
+            // tlvAgentStates
+            // 
+            this.tlvAgentStates.AllowSorting = false;
+            this.tlvAgentStates.AutoResizeColumnEnabled = false;
+            this.tlvAgentStates.AutoResizeColumnIndex = 0;
+            this.tlvAgentStates.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameColumnHeader,
+            this.valueColumnHeader});
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlvAgentStates.HideSelection = false;
+            this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
+            this.tlvAgentStates.MultiSelect = false;
+            this.tlvAgentStates.Name = "tlvAgentStates";
+            this.tlvAgentStates.Size = new System.Drawing.Size(964, 124);
+            this.tlvAgentStates.SmallImageList = this.imagesCollectorTree;
+            this.tlvAgentStates.Sorting = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.TabIndex = 1;
+            this.tlvAgentStates.UseCompatibleStateImageBehavior = false;
+            this.tlvAgentStates.SelectedIndexChanged += new System.EventHandler(this.tlvAgentStates_SelectedIndexChanged);
+            // 
+            // nameColumnHeader
+            // 
+            this.nameColumnHeader.Text = "Name";
+            this.nameColumnHeader.Width = 325;
+            // 
+            // valueColumnHeader
+            // 
+            this.valueColumnHeader.Text = "Value";
+            this.valueColumnHeader.Width = 150;
+            // 
+            // lvwHistory
+            // 
+            this.lvwHistory.AutoResizeColumnEnabled = false;
+            this.lvwHistory.AutoResizeColumnIndex = 6;
+            this.lvwHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.timeColumnHeader,
+            this.stateColumnHeader,
+            this.durationColumnHeader,
+            this.alertCountColumnHeader,
+            this.executedOnColumnHeader,
+            this.ranAsColumnHeader,
+            this.collectorValueColumnHeader});
+            this.lvwHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.Location = new System.Drawing.Point(0, 1);
+            this.lvwHistory.Name = "lvwHistory";
+            this.lvwHistory.Size = new System.Drawing.Size(964, 117);
+            this.lvwHistory.SmallImageList = this.imagesCollectorTree;
+            this.lvwHistory.TabIndex = 0;
+            this.lvwHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwHistory.View = System.Windows.Forms.View.Details;
+            this.lvwHistory.SelectedIndexChanged += new System.EventHandler(this.lvwHistory_SelectedIndexChanged);
+            // 
+            // timeColumnHeader
+            // 
+            this.timeColumnHeader.Text = "Time";
+            this.timeColumnHeader.Width = 153;
+            // 
+            // stateColumnHeader
+            // 
+            this.stateColumnHeader.Text = "State";
+            this.stateColumnHeader.Width = 85;
+            // 
+            // durationColumnHeader
+            // 
+            this.durationColumnHeader.Text = "Duration (ms)";
+            this.durationColumnHeader.Width = 87;
+            // 
+            // alertCountColumnHeader
+            // 
+            this.alertCountColumnHeader.Text = "Alerts";
+            this.alertCountColumnHeader.Width = 48;
+            // 
+            // executedOnColumnHeader
+            // 
+            this.executedOnColumnHeader.Text = "Executed on";
+            this.executedOnColumnHeader.Width = 88;
+            // 
+            // ranAsColumnHeader
+            // 
+            this.ranAsColumnHeader.Text = "Ran as";
+            this.ranAsColumnHeader.Width = 103;
+            // 
+            // collectorValueColumnHeader
+            // 
+            this.collectorValueColumnHeader.Text = "Value";
+            this.collectorValueColumnHeader.Width = 150;
+            // 
+            // tvwScripts
+            // 
+            this.tvwScripts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvwScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwScripts.FullRowSelect = true;
+            this.tvwScripts.Location = new System.Drawing.Point(2, 25);
+            this.tvwScripts.Name = "tvwScripts";
+            treeNode16.Name = "Node1";
+            treeNode16.Text = "Parameter 1";
+            treeNode17.Name = "Node0";
+            treeNode17.Text = "Script 1";
+            treeNode18.Name = "Node3";
+            treeNode18.Text = "Parameter 1";
+            treeNode19.Name = "Node4";
+            treeNode19.Text = "Parameter 2";
+            treeNode20.Name = "Node2";
+            treeNode20.Text = "Script 2";
+            this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode17,
+            treeNode20});
+            this.tvwScripts.ShowLines = false;
+            this.tvwScripts.Size = new System.Drawing.Size(198, 615);
+            this.tvwScripts.TabIndex = 5;
             // 
             // CollectorDetails
             // 
@@ -2704,8 +2684,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cboChildCheckBehaviour;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.ComboBox cboParentCollector;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage operationalTabPage;
         private System.Windows.Forms.GroupBox serviceWindowsGroupBox;
         private System.Windows.Forms.Label label16;
@@ -2813,5 +2791,6 @@
         private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;
         private System.Windows.Forms.LinkLabel llblRawEdit;
         private System.Windows.Forms.ToolStripStatusLabel lastUpdateTimeToolStripStatusLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
