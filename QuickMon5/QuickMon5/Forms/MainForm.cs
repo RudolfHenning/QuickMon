@@ -598,6 +598,19 @@ namespace QuickMon
                 monitorPack = new MonitorPack();
 
                 monitorPack.Load(monitorPackPath);
+                foreach(var ch in monitorPack.CollectorHosts.GroupBy(c => c.UniqueId))
+                {
+                    if (ch.Count() > 1)
+                    {
+                        string names = "";
+                        foreach(var c in ch)
+                        {
+                            names += c.Name + "\r\n";
+                        }
+                        MessageBox.Show("There are multiple Collector hosts with the unique ID '" + ch.Key + "'. This is not supported. Please change each ID to be unique.\r\n" + names, "Unique ID", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+
                 LoadControlsFromMonitorPack();
                 SetMonitorPackEvents();
 
