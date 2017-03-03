@@ -400,11 +400,15 @@ namespace QuickMon
             StringBuilder sb = new StringBuilder();
             if (CurrentValue != null)
             {
-                sb.Append(CurrentValue.ToString());
-                if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                string[] lines = CurrentValue.ToString().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                if (lines.Length > 0)
                 {
-                    sb.Append(" " + CurrentValueUnit);
-                }                
+                    sb.Append(lines[0]); // CurrentValue.ToString());
+                    if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                    {
+                        sb.Append(" " + CurrentValueUnit);
+                    }
+                }               
             }
             else if (ChildStates.Count > 0)
             {
