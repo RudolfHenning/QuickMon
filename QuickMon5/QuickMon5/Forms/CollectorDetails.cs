@@ -776,6 +776,7 @@ namespace QuickMon
             if (e.ClickedItem.Name == "toolStripStatusLabelEnabled")
             {
                 SelectedCollectorHost.Enabled = !SelectedCollectorHost.Enabled;
+                
                 UpdateStatusBar();
 
                 ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
@@ -783,6 +784,8 @@ namespace QuickMon
             else if (e.ClickedItem.Name == "toolStripStatusLabelAutoRefresh")
             {
                 AutoRefreshEnabled = !AutoRefreshEnabled;
+                if (AutoRefreshEnabled)
+                    RefreshDetails();
                 UpdateStatusBar();
             }            
         }
