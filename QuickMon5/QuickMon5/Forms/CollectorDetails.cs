@@ -174,6 +174,7 @@ namespace QuickMon
             optMetrics.Enabled = false;
             txtName.ReadOnly = false;
             txtName.BorderStyle = BorderStyle.FixedSingle;
+            cboTextType.SelectedIndex = 0;
             SetActivePanel(panelEditing);
             CheckOkEnabled();
         }
@@ -571,7 +572,6 @@ namespace QuickMon
                     lvi.Tag = cv;
                     lvwConfigVars.Items.Add(lvi);
                 }
-
             }
             loadConfigVarEntry = false;
         }
@@ -1659,8 +1659,9 @@ namespace QuickMon
             lblNoteTextChangeIndicator.Text = "Alert Texts";
             cmdSetNoteText.Enabled = false;
         }
-        #endregion
 
+
+        #endregion
         #endregion
 
         //private void cmdAgentsToggle_Click(object sender, EventArgs e)

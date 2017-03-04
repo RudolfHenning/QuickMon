@@ -179,6 +179,9 @@
     <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
+      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
