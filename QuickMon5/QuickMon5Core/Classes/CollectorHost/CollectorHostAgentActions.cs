@@ -276,13 +276,13 @@ namespace QuickMon
                 }
                 else if (InServiceWindow)
                 {
-                    resultMonitorState.State = CollectorState.Disabled;
+                    resultMonitorState.State = CollectorState.NotInServiceWindow;
                     StagnantStateFirstRepeat = false;
                     StagnantStateSecondRepeat = false;
                     StagnantStateThirdRepeat = false;
                     resultMonitorState.RawDetails = "Disabled due to 'out of service window' event.";
                 }
-                else if (CollectorAgents == null || CollectorAgents.Count == 0)//like old folder type collector
+                else if (CollectorAgents == null || CollectorAgents.Count == 0) //like old folder type collector
                 {
                     resultMonitorState.State = CollectorState.None;
                     StagnantStateFirstRepeat = false;

@@ -148,6 +148,7 @@ namespace QuickMon
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
             this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
+            this.imagesCollectorTree.Images.SetKeyName(9, "clock1.png");
             // 
             // saveContextMenuStrip
             // 
@@ -526,6 +527,7 @@ namespace QuickMon
             this.copyCollectorToolStripMenuItem.Name = "copyCollectorToolStripMenuItem";
             this.copyCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.copyCollectorToolStripMenuItem.Text = "Copy";
+            this.copyCollectorToolStripMenuItem.Click += new System.EventHandler(this.copyCollectorToolStripMenuItem_Click);
             // 
             // pasteCollectorToolStripMenuItem
             // 
@@ -533,6 +535,7 @@ namespace QuickMon
             this.pasteCollectorToolStripMenuItem.Name = "pasteCollectorToolStripMenuItem";
             this.pasteCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteCollectorToolStripMenuItem.Text = "Paste";
+            this.pasteCollectorToolStripMenuItem.Click += new System.EventHandler(this.pasteCollectorToolStripMenuItem_Click);
             // 
             // pasteAndEditCollectorConfigToolStripMenuItem
             // 
@@ -540,6 +543,7 @@ namespace QuickMon
             this.pasteAndEditCollectorConfigToolStripMenuItem.Name = "pasteAndEditCollectorConfigToolStripMenuItem";
             this.pasteAndEditCollectorConfigToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pasteAndEditCollectorConfigToolStripMenuItem.Text = "Paste and Edit";
+            this.pasteAndEditCollectorConfigToolStripMenuItem.Click += new System.EventHandler(this.pasteAndEditCollectorConfigToolStripMenuItem_Click);
             // 
             // panel2
             // 

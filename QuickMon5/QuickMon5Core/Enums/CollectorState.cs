@@ -15,6 +15,7 @@ namespace QuickMon
         ConfigurationChanged,
         ConfigurationError,
         UpdateInProgress,
+        NotInServiceWindow,
         None
     }
 }
