@@ -25,7 +25,7 @@ namespace QuickMon
         private bool refreshCycleA = true;
 
         #region Copy and Paste of collector hosts
-        //private List<CollectorHost> copiedCollectorList = new List<CollectorHost>();
+        private List<CollectorHost> copiedCollectorList = new List<CollectorHost>();
         #endregion
 
         #region Main timer
@@ -44,6 +44,7 @@ namespace QuickMon
         private readonly int collectorErrorStateImage1 = 4;
         private readonly int collectorErrorStateImage2 = 7;
         private readonly int collectorDisabled = 8;
+        private readonly int collectorOutOfServiceWindowstateImage = 9;
         #endregion
 
         #region Performance Counter Vars
@@ -227,13 +228,11 @@ namespace QuickMon
         }
         private void cmdNew_Click(object sender, EventArgs e)
         {
-            HideCollectorContextMenu();
             CloseAllDetailWindows();
             NewMonitorPack();
         }
         private void cmdOpen_Click(object sender, EventArgs e)
         {
-            HideCollectorContextMenu();
             try
             {
                 if (openFileDialogOpen.FileName == null || openFileDialogOpen.FileName.Length == 0)
@@ -312,7 +311,6 @@ namespace QuickMon
         }
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
-            HideCollectorContextMenu();
             InitializeBackgroundWorker();
             RefreshMonitorPack(true, true);
         }
@@ -331,26 +329,45 @@ namespace QuickMon
         }
 
         #region Collector and Notifier Context menus
-        private void HideCollectorContextMenu()
+        private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (tvwCollectors.SelectedNode != null)
             {
-                //if (popperContainerForTreeView != null)
-                //    popperContainerForTreeView.Close();
+                TreeNode collectorNode = tvwCollectors.SelectedNode;
+                if (collectorNode.Tag != null && collectorNode.Tag is CollectorHost)
+                {
+                    CollectorHost ch = (CollectorHost)collectorNode.Tag;
+                    IChildWindowIdentity childWindow = GetChildWindowByIdentity(ch.UniqueId);
+                    if (childWindow == null)
+                    {
+                        CollectorDetails collectorDetails = new CollectorDetails();
+                        collectorDetails.SelectedCollectorHost = ch;
+                        collectorDetails.Identifier = ch.UniqueId;
+                        collectorDetails.ParentWindow = this;
+                        collectorDetails.ShowChildWindow();
+                    }
+                    else
+                    {
+                        Form childForm = ((Form)childWindow);
+                        if (childForm.WindowState == FormWindowState.Minimized)
+                            childForm.WindowState = FormWindowState.Normal;
+                        childForm.Focus();
+                    }
+                }
             }
-            catch { }
         }
-        private void HideNotifierContextMenu()
+        private void copyCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //if (popperContainerForListView != null)
-                //    popperContainerForListView.Close();
-            }
-            catch { }
+            CopySelectedCollectorAndDependants();
         }
-
-
+        private void pasteCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PasteSelectedCollectorAndDependant(false);
+        }
+        private void pasteAndEditCollectorConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PasteSelectedCollectorAndDependant(true);
+        }
         #endregion
 
         #region Private methods
@@ -515,7 +532,93 @@ namespace QuickMon
             tvwCollectors.ExtraColumnTextAlign = Properties.Settings.Default.MainWindowTreeViewExtraColumnTextAlign == 1 ? QuickMon.Controls.TreeViewExExtraColumnTextAlign.Right : QuickMon.Controls.TreeViewExExtraColumnTextAlign.Left;
             tvwCollectors.Refresh();
         }
+        private void CopySelectedCollectorAndDependants()
+        {
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost entry = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                List<CollectorHost> sourceList = monitorPack.GetAllChildCollectorHosts(entry);
+                copiedCollectorList = new List<CollectorHost>();
+                copiedCollectorList.Add(entry.Clone());
+                foreach (CollectorHost en in sourceList)
+                {
+                    //Copy as is with same IDs
+                    copiedCollectorList.Add(en.Clone());
+                }
+                Clipboard.SetText(XmlFormattingUtils.NormalizeXML(CollectorHost.CollectorHostListToString(copiedCollectorList)));
+            }
+        }
+        private void PasteSelectedCollectorAndDependant(bool showEditList)
+        {
+            try
+            {
+                if (Clipboard.ContainsText() && Clipboard.GetText().StartsWith("<collectorHosts"))
+                {
+                    copiedCollectorList = CollectorHost.GetCollectorHostsFromString(Clipboard.GetText());
+                }
 
+                if (copiedCollectorList != null && copiedCollectorList.Count > 0)
+                {
+                    if (showEditList)
+                    {
+                        RAWXmlEditor editor = new RAWXmlEditor();
+                        editor.SelectedMarkup = CollectorHost.CollectorHostListToString(copiedCollectorList);
+                        if (editor.ShowDialog() == DialogResult.OK)
+                        {
+                            copiedCollectorList = CollectorHost.GetCollectorHostsFromString(editor.SelectedMarkup);
+                        }
+                        else
+                            return;
+                    }
+
+                    if (copiedCollectorList != null && copiedCollectorList.Count > 0)
+                    {
+                        SetMonitorChanged();
+                        for (int i = 0; i < copiedCollectorList.Count; i++)
+                        {
+                            string newId = Guid.NewGuid().ToString();
+                            string oldId = copiedCollectorList[i].UniqueId;
+                            for (int j = 0; j < copiedCollectorList.Count; j++)
+                            {
+                                if (i != j && copiedCollectorList[j].ParentCollectorId == oldId)
+                                {
+                                    copiedCollectorList[j].ParentCollectorId = newId;
+                                }
+                            }
+                            copiedCollectorList[i].UniqueId = newId;
+                        }
+
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                        {
+                            copiedCollectorList[0].ParentCollectorId = ((CollectorHost)tvwCollectors.SelectedNode.Tag).UniqueId;
+                        }
+                        else
+                            copiedCollectorList[0].ParentCollectorId = "";
+                        CollectorHost rootChild = null;
+                        for (int i = 0; i < copiedCollectorList.Count; i++)
+                        {
+                            CollectorHost newChild = copiedCollectorList[i].Clone();
+                            if (rootChild == null)
+                                rootChild = newChild;
+                            monitorPack.AddCollectorHost(newChild);
+                        }
+                        TreeNode root = null;
+                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                        {
+                            root = tvwCollectors.SelectedNode;
+                        }                        
+
+                        LoadCollectorNode(root, rootChild);
+                        root.Expand();
+                        DoAutoSave();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Monitor pack actions
@@ -830,7 +933,6 @@ namespace QuickMon
         }
         private void EditMonitorSettings()
         {
-            HideCollectorContextMenu();
             if (!isPollingEnabled)
             {
                 UpdateStatusbar("Pausing polling...");
@@ -1021,6 +1123,11 @@ namespace QuickMon
                                 imageIndex = collectorGoodStateImage1;
                                 PCRaiseCollectorSuccessState();
                             }
+                        }
+                        else if (collectorHost.CurrentState.State == CollectorState.NotInServiceWindow)
+                        {
+                            nodeChanged = true;
+                            imageIndex = collectorOutOfServiceWindowstateImage;
                         }
                         else if (currentTreeNode.ImageIndex != collectorNAstateImage)
                         {
@@ -1738,38 +1845,8 @@ namespace QuickMon
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
 
-        private void editCollectorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
 
-        private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (tvwCollectors.SelectedNode != null)
-            {
-                TreeNode collectorNode = tvwCollectors.SelectedNode;
-                if (collectorNode.Tag != null && collectorNode.Tag is CollectorHost)
-                {
-                    CollectorHost ch = (CollectorHost)collectorNode.Tag;
-                    IChildWindowIdentity childWindow = GetChildWindowByIdentity(ch.UniqueId);
-                    if (childWindow == null)
-                    {
-                        CollectorDetails collectorDetails = new CollectorDetails();
-                        collectorDetails.SelectedCollectorHost = ch;
-                        collectorDetails.Identifier = ch.UniqueId;
-                        collectorDetails.ParentWindow = this;
-                        collectorDetails.ShowChildWindow();
-                    }
-                    else
-                    {
-                        Form childForm = ((Form)childWindow);
-                        if (childForm.WindowState == FormWindowState.Minimized)
-                            childForm.WindowState = FormWindowState.Normal;
-                        childForm.Focus();
-                    }
-                }
-            }
-        }
+
+
     }
 }

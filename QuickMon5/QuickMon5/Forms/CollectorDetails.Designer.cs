@@ -32,14 +32,14 @@
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode16});
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode18,
-            treeNode19});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -2163,6 +2163,7 @@
             this.imagesCollectorTree.Images.SetKeyName(6, "triang_yellow2.png");
             this.imagesCollectorTree.Images.SetKeyName(7, "Error2_24x24.png");
             this.imagesCollectorTree.Images.SetKeyName(8, "ForbiddenBW16x16.png");
+            this.imagesCollectorTree.Images.SetKeyName(9, "clock1.png");
             // 
             // lvwHistory
             // 
@@ -2377,19 +2378,19 @@
             this.tvwScripts.FullRowSelect = true;
             this.tvwScripts.Location = new System.Drawing.Point(2, 25);
             this.tvwScripts.Name = "tvwScripts";
-            treeNode16.Name = "Node1";
-            treeNode16.Text = "Parameter 1";
-            treeNode17.Name = "Node0";
-            treeNode17.Text = "Script 1";
-            treeNode18.Name = "Node3";
-            treeNode18.Text = "Parameter 1";
-            treeNode19.Name = "Node4";
-            treeNode19.Text = "Parameter 2";
-            treeNode20.Name = "Node2";
-            treeNode20.Text = "Script 2";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Parameter 1";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Script 1";
+            treeNode3.Name = "Node3";
+            treeNode3.Text = "Parameter 1";
+            treeNode4.Name = "Node4";
+            treeNode4.Text = "Parameter 2";
+            treeNode5.Name = "Node2";
+            treeNode5.Text = "Script 2";
             this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode17,
-            treeNode20});
+            treeNode2,
+            treeNode5});
             this.tvwScripts.ShowLines = false;
             this.tvwScripts.Size = new System.Drawing.Size(198, 615);
             this.tvwScripts.TabIndex = 5;

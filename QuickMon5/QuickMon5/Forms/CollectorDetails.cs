@@ -43,6 +43,7 @@ namespace QuickMon
         private int operationalSplitContainerHeight = 0;
         private int alertsSplitContainerHeight = 0;
         private int configVariSplitContainerHeight = 0;
+        
         #endregion
 
         #region TreeNodeImage contants
@@ -55,6 +56,7 @@ namespace QuickMon
         private readonly int collectorErrorStateImage1 = 4;
         private readonly int collectorErrorStateImage2 = 7;
         private readonly int collectorDisabled = 8;
+        private readonly int collectorOutOfServiceWindowstateImage = 9;
         #endregion
 
         #region Public properties
@@ -198,6 +200,8 @@ namespace QuickMon
                 stateImageIndex = collectorWarningStateImage1;
             else if (state == CollectorState.Error || state == CollectorState.ConfigurationError)
                 stateImageIndex = collectorErrorStateImage1;
+            else if (state == CollectorState.NotInServiceWindow)
+                stateImageIndex = collectorOutOfServiceWindowstateImage;
             return stateImageIndex;
         }
         private void LoadControls()
@@ -220,6 +224,11 @@ namespace QuickMon
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.stop16x16;
                     txtName.BackColor = Color.FromArgb(255, 240, 240);
+                }
+                else if (SelectedCollectorHost.CurrentState.State == CollectorState.NotInServiceWindow)
+                {
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.clock_16;
+                    txtName.BackColor = Color.White;
                 }
                 else
                 {
@@ -347,6 +356,10 @@ namespace QuickMon
                 else if (state == CollectorState.Good)
                 {
                     icon = Properties.Resources.ok;
+                }
+                else if (state == CollectorState.NotInServiceWindow)
+                {
+                    icon = Properties.Resources.CLOCK02;
                 }
                 else
                 {
