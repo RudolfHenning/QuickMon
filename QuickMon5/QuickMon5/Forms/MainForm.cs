@@ -329,6 +329,44 @@ namespace QuickMon
         }
 
         #region Collector and Notifier Context menus
+        private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode currentNode = tvwCollectors.SelectedNode;
+            if (currentNode != null && currentNode.Tag is CollectorHost)
+            {
+                if (MessageBox.Show("Are you sure you want to remove this collector (and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    SetMonitorChanged();
+                    RemoveCollector(currentNode);
+                    RefreshMonitorPack(true, true);
+                    if (currentNode.Parent != null)
+                    {
+                        currentNode.Parent.Nodes.Remove(currentNode);
+                    }
+                    else
+                    {
+                        tvwCollectors.Nodes.Remove(currentNode);
+                    }
+                    DoAutoSave();
+                }
+            }
+        }
+        private void disableCollectorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode currentNode = tvwCollectors.SelectedNode;
+            if (currentNode != null && currentNode.Tag is CollectorHost)
+            {
+                CollectorHost ch = (CollectorHost)currentNode.Tag;
+                ch.Enabled = !ch.Enabled;
+                UpdateCollector(ch, true);
+                DoAutoSave();
+            }
+                
+        }
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (tvwCollectors.SelectedNode != null)
@@ -552,6 +590,7 @@ namespace QuickMon
         {
             try
             {
+                TreeNode currentlySelected = tvwCollectors.SelectedNode;
                 if (Clipboard.ContainsText() && Clipboard.GetText().StartsWith("<collectorHosts"))
                 {
                     copiedCollectorList = CollectorHost.GetCollectorHostsFromString(Clipboard.GetText());
@@ -588,9 +627,9 @@ namespace QuickMon
                             copiedCollectorList[i].UniqueId = newId;
                         }
 
-                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                        if (currentlySelected != null && currentlySelected.Tag != null && currentlySelected.Tag is CollectorHost)
                         {
-                            copiedCollectorList[0].ParentCollectorId = ((CollectorHost)tvwCollectors.SelectedNode.Tag).UniqueId;
+                            copiedCollectorList[0].ParentCollectorId = ((CollectorHost)currentlySelected.Tag).UniqueId;
                         }
                         else
                             copiedCollectorList[0].ParentCollectorId = "";
@@ -603,13 +642,14 @@ namespace QuickMon
                             monitorPack.AddCollectorHost(newChild);
                         }
                         TreeNode root = null;
-                        if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+                        if (currentlySelected != null && currentlySelected.Tag != null && currentlySelected.Tag is CollectorHost)
                         {
-                            root = tvwCollectors.SelectedNode;
+                            root = currentlySelected;
                         }                        
 
                         LoadCollectorNode(root, rootChild);
-                        root.Expand();
+                        if (root != null)
+                            root.Expand();
                         DoAutoSave();
                     }
                 }
@@ -1191,6 +1231,21 @@ namespace QuickMon
             monitorPack_CollectorHostStateUpdated(collectorHost);
             if (setChanged)
                 SetMonitorChanged();
+        }
+        private void RemoveCollector(TreeNode parentNode)
+        {
+            foreach (TreeNode collectorNode in parentNode.Nodes)
+            {
+                RemoveCollector(collectorNode);
+            }
+            CollectorHost ce = (CollectorHost)parentNode.Tag;
+            IChildWindowIdentity childWindow = GetChildWindowByIdentity(ce.UniqueId);
+            if (childWindow != null)
+            {
+                ((Form)childWindow).Close();
+            }
+            monitorPack.CollectorHosts.Remove(ce);
+            
         }
         #endregion
 
@@ -1831,21 +1886,38 @@ namespace QuickMon
             EditMonitorSettings();
         }
 
-        private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CollectorHostEditor collectorHostEditor = new CollectorHostEditor();
-            collectorHostEditor.ShowDialog();
-        }
+        
 
         private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                disableCollectorToolStripMenuItem.Text = ch.Enabled ? "Disable" : "Enable";
+            }
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
         }
 
+        private void tvwCollectors_MouseClick(object sender, MouseEventArgs e)
+        {
+            TreeViewHitTestInfo ht = tvwCollectors.HitTest(e.Location);
+            if (ht.Node == null)
+            {
+                tvwCollectors.SelectedNode = null;
+            }
+        }
 
+        private void tvwCollectors_MouseUp(object sender, MouseEventArgs e)
+        {
+            TreeViewHitTestInfo ht = tvwCollectors.HitTest(e.Location);
+            if (ht.Node == null)
+            {
+                tvwCollectors.SelectedNode = null;
+            }
+        }
 
 
     }
