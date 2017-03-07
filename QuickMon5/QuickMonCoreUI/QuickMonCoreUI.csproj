@@ -133,11 +133,11 @@
     <Compile Include="GenericForms\RAWXmlEditor.designer.cs">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericForms\SelectNewAgentType.cs">
+    <Compile Include="GenericForms\SelectNewEntityType.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenericForms\SelectNewAgentType.Designer.cs">
-      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    <Compile Include="GenericForms\SelectNewEntityType.Designer.cs">
+      <DependentUpon>SelectNewEntityType.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IChildWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,8 +179,9 @@
     <EmbeddedResource Include="GenericForms\RAWXmlEditor.resx">
       <DependentUpon>RAWXmlEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenericForms\SelectNewAgentType.resx">
-      <DependentUpon>SelectNewAgentType.cs</DependentUpon>
+    <EmbeddedResource Include="GenericForms\SelectNewEntityType.resx">
+      <DependentUpon>SelectNewEntityType.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

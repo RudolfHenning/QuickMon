@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickMon.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -331,7 +332,17 @@ namespace QuickMon
         #region Collector and Notifier Context menus
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SelectNewEntityType newType = new SelectNewEntityType();
+            if (newType.ShowCollectorHostSelection() == DialogResult.OK)
+            {
+                CollectorHost newCh = newType.SelectedCollectorHost;
+                if (tvwCollectors.SelectedNode != null)
+                {
+                    newCh.ParentCollectorId = ((CollectorHost)(tvwCollectors.SelectedNode.Tag)).UniqueId;                    
+                }
+                monitorPack.CollectorHosts.Add(newCh);
+                LoadCollectorNode(tvwCollectors.SelectedNode, newCh);
+            }
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
