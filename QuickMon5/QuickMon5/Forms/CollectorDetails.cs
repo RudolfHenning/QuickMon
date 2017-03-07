@@ -937,7 +937,7 @@ namespace QuickMon
             //  if from template use Name as specified in template
             //  else use collector agent type (without the word Collector)
             //    and show new agent entry dialog
-            SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
+            SelectNewEntityType selectNewAgentType = new SelectNewEntityType();
             if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
             {
                 ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;

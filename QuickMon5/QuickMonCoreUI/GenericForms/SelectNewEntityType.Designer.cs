@@ -1,6 +1,6 @@
-﻿namespace QuickMon.Forms
+﻿namespace QuickMon.UI
 {
-    partial class SelectNewAgentType
+    partial class SelectNewEntityType
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectNewAgentType));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectNewEntityType));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.lvwAgentType = new QuickMon.ListViewEx();
@@ -59,6 +59,7 @@
             this.cmdOK.TabIndex = 7;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // lvwAgentType
             // 
@@ -79,6 +80,7 @@
             this.lvwAgentType.TabIndex = 9;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
             this.lvwAgentType.View = System.Windows.Forms.View.Details;
+            this.lvwAgentType.SelectedIndexChanged += new System.EventHandler(this.lvwAgentType_SelectedIndexChanged);
             // 
             // nameColumnHeader
             // 
@@ -90,7 +92,7 @@
             this.detailsColumnHeader.Text = "Details";
             this.detailsColumnHeader.Width = 264;
             // 
-            // SelectNewAgentType
+            // SelectNewEntityType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +103,7 @@
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SelectNewAgentType";
+            this.Name = "SelectNewEntityType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Select New Type";
             this.ResumeLayout(false);
