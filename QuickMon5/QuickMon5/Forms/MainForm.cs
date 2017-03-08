@@ -332,16 +332,22 @@ namespace QuickMon
         #region Collector and Notifier Context menus
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            TreeNode parentNode = tvwCollectors.SelectedNode;
             SelectNewEntityType newType = new SelectNewEntityType();
             if (newType.ShowCollectorHostSelection() == DialogResult.OK)
             {
                 CollectorHost newCh = newType.SelectedCollectorHost;
-                if (tvwCollectors.SelectedNode != null)
+                if (parentNode != null)
                 {
-                    newCh.ParentCollectorId = ((CollectorHost)(tvwCollectors.SelectedNode.Tag)).UniqueId;                    
+                    newCh.ParentCollectorId = ((CollectorHost)(parentNode.Tag)).UniqueId;                    
                 }
-                monitorPack.CollectorHosts.Add(newCh);
-                LoadCollectorNode(tvwCollectors.SelectedNode, newCh);
+                monitorPack.AddCollectorHost(newCh);
+                LoadCollectorNode(parentNode, newCh);
+                tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
+                if (newCh.CollectorAgents.Count > 0)
+                {
+                    detailsToolStripMenuItem_Click(null, null);
+                }
             }
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
