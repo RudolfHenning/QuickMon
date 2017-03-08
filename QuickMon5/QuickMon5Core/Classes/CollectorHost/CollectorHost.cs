@@ -14,6 +14,7 @@ namespace QuickMon
             Name = "";
             Enabled = true;
             UniqueId = Guid.NewGuid().ToString();
+            ParentCollectorId = "";
             CollectorAgents = new List<ICollector>();
             RemoteAgentHostPort = GlobalConstants.DefaultRemoteHostPort;
             Categories = new List<string>();

@@ -41,6 +41,12 @@ namespace QuickMon.UI
             lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };
             lvwAgentType.Items.Add(lviEmptyCollector);
 
+            ListViewItem lviPingCollector = new ListViewItem("Ping");
+            lviPingCollector.SubItems.Add("Creates a Ping Collector");
+            lviPingCollector.Group = generalGroup;
+            lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"PING\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>");
+            lvwAgentType.Items.Add(lviPingCollector);
+
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
             lvwAgentType.Groups.Add(templatesGroup);
 
@@ -73,6 +79,9 @@ namespace QuickMon.UI
             lviEmptyCollector.Group = generalGroup;
             lvwAgentType.Items.Add(lviEmptyCollector);
 
+            
+
+
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
             lvwAgentType.Groups.Add(templatesGroup);
 
@@ -99,10 +108,11 @@ namespace QuickMon.UI
         {
             if (lvwAgentType.SelectedItems.Count == 1)
             {
-                if (selectingCollectorHosts)
+                if (lvwAgentType.SelectedItems[0].Tag is CollectorHost)
                 {
                     SelectedCollectorHost = (CollectorHost)lvwAgentType.SelectedItems[0].Tag;
                 }
+
                 DialogResult = DialogResult.OK;
                 Close();
             }
