@@ -378,10 +378,10 @@ namespace QuickMon
                 monitorPack.AddCollectorHost(newCh);
                 LoadCollectorNode(parentNode, newCh);
                 tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
-                //if (newCh.CollectorAgents.Count > 0)
-                {
-                    detailsToolStripMenuItem_Click(null, null);
-                }
+                EditCollector(true);
+                
+                SetMonitorChanged();
+                DoAutoSave();
             }
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -402,6 +402,7 @@ namespace QuickMon
                     {
                         tvwCollectors.Nodes.Remove(currentNode);
                     }
+                    SetMonitorChanged();
                     DoAutoSave();
                 }
             }
@@ -420,30 +421,7 @@ namespace QuickMon
         }
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (tvwCollectors.SelectedNode != null)
-            {
-                TreeNode collectorNode = tvwCollectors.SelectedNode;
-                if (collectorNode.Tag != null && collectorNode.Tag is CollectorHost)
-                {
-                    CollectorHost ch = (CollectorHost)collectorNode.Tag;
-                    IChildWindowIdentity childWindow = GetChildWindowByIdentity(ch.UniqueId);
-                    if (childWindow == null)
-                    {
-                        CollectorDetails collectorDetails = new CollectorDetails();
-                        collectorDetails.SelectedCollectorHost = ch;
-                        collectorDetails.Identifier = ch.UniqueId;
-                        collectorDetails.ParentWindow = this;
-                        collectorDetails.ShowChildWindow();
-                    }
-                    else
-                    {
-                        Form childForm = ((Form)childWindow);
-                        if (childForm.WindowState == FormWindowState.Minimized)
-                            childForm.WindowState = FormWindowState.Normal;
-                        childForm.Focus();
-                    }
-                }
-            }
+            EditCollector();
         }
         private void copyCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -718,6 +696,35 @@ namespace QuickMon
             LoadRecentMonitorPackList();
             cboRecentMonitorPacks.Focus();
             SendKeys.Send("{F4}");
+        }
+        private void EditCollector(bool editmode = false)
+        {
+            if (tvwCollectors.SelectedNode != null)
+            {
+                TreeNode collectorNode = tvwCollectors.SelectedNode;
+                if (collectorNode.Tag != null && collectorNode.Tag is CollectorHost)
+                {
+                    CollectorHost ch = (CollectorHost)collectorNode.Tag;
+                    IChildWindowIdentity childWindow = GetChildWindowByIdentity(ch.UniqueId);
+                    if (childWindow == null)
+                    {
+                        CollectorDetails collectorDetails = new CollectorDetails();
+                        collectorDetails.SelectedCollectorHost = ch;
+                        collectorDetails.Identifier = ch.UniqueId;
+                        collectorDetails.ParentWindow = this;
+                        collectorDetails.ShowChildWindow();
+                        if (editmode)
+                            collectorDetails.StartEditMode();
+                    }
+                    else
+                    {
+                        Form childForm = ((Form)childWindow);
+                        if (childForm.WindowState == FormWindowState.Minimized)
+                            childForm.WindowState = FormWindowState.Normal;
+                        childForm.Focus();
+                    }
+                }
+            }
         }
         #endregion
 

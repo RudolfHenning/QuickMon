@@ -476,16 +476,16 @@ namespace QuickMon
             // 
             this.collectorsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.collectorsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.detailsToolStripMenuItem,
             this.addCollectorToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.disableCollectorToolStripMenuItem,
-            this.detailsToolStripMenuItem,
             this.toolStripSeparator1,
             this.copyCollectorToolStripMenuItem,
             this.pasteCollectorToolStripMenuItem,
             this.pasteAndEditCollectorConfigToolStripMenuItem});
             this.collectorsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(161, 242);
+            this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 220);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
             // addCollectorToolStripMenuItem
@@ -500,7 +500,7 @@ namespace QuickMon
             // 
             this.deleteToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -508,12 +508,13 @@ namespace QuickMon
             // 
             this.disableCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
             this.disableCollectorToolStripMenuItem.Name = "disableCollectorToolStripMenuItem";
-            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             this.disableCollectorToolStripMenuItem.Click += new System.EventHandler(this.disableCollectorToolStripMenuItem_Click);
             // 
             // detailsToolStripMenuItem
             // 
+            this.detailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
