@@ -151,7 +151,7 @@ namespace QuickMon
 
             }
         }
-        private void StartEditMode()
+        public void StartEditMode()
         {
             //agentsEditSplitContainer.Panel2Collapsed = false;
             //hostSettingsSplitContainer.Panel2Collapsed = true;

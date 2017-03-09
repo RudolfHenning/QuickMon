@@ -147,7 +147,7 @@ namespace QuickMon
 
             #region Get Global state
             //All disabled
-            if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Disabled))
+            if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Disabled || c.CurrentState.State == CollectorState.NotInServiceWindow) )
                 globalState = CollectorState.Disabled;
             //All NotAvailable
             else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.NotAvailable))
@@ -155,12 +155,14 @@ namespace QuickMon
             //All good
             else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Good ||
                                                                   c.CurrentState.State == CollectorState.None ||
-                                                                  c.CurrentState.State == CollectorState.Disabled))
+                                                                  c.CurrentState.State == CollectorState.Disabled ||
+                                                                  c.CurrentState.State == CollectorState.NotInServiceWindow))
                 globalState = CollectorState.Good;
             //Error state
             else if (CollectorHosts.Count == CollectorHosts.Count(c => c.CurrentState.State == CollectorState.Error ||
                                                                   c.CurrentState.State == CollectorState.ConfigurationError ||
-                                                                  c.CurrentState.State == CollectorState.Disabled))
+                                                                  c.CurrentState.State == CollectorState.Disabled ||
+                                                                  c.CurrentState.State == CollectorState.NotInServiceWindow))
                 globalState = CollectorState.Error;
             else
                 globalState = CollectorState.Warning;
