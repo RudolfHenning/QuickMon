@@ -81,6 +81,7 @@
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
             this.lvwAgentType.View = System.Windows.Forms.View.Details;
             this.lvwAgentType.SelectedIndexChanged += new System.EventHandler(this.lvwAgentType_SelectedIndexChanged);
+            this.lvwAgentType.DoubleClick += new System.EventHandler(this.lvwAgentType_DoubleClick);
             // 
             // nameColumnHeader
             // 

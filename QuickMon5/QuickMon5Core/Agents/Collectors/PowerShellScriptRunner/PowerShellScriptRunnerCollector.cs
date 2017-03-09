@@ -368,44 +368,53 @@ namespace QuickMon.Collectors
             string output = "";
             try
             {
+                Collection<PSObject> results = null;
                 // create Powershell runspace
-                Runspace runspace = RunspaceFactory.CreateRunspace();
+                using (Runspace runspace = RunspaceFactory.CreateRunspace())
+                {
 
-                // open it
-                runspace.Open();
-                // create a pipeline and feed it the script text
+                    // open it
+                    runspace.Open();
+                    // create a pipeline and feed it the script text
 
-                Pipeline pipeline = runspace.CreatePipeline();
-                pipeline.Commands.AddScript(testScript);
+                    using (Pipeline pipeline = runspace.CreatePipeline())
+                    {
+                        pipeline.Commands.AddScript(testScript);
 
-                // add an extra command to transform the script
-                // output objects into nicely formatted strings
+                        // add an extra command to transform the script
+                        // output objects into nicely formatted strings
 
-                // remove this line to get the actual objects
-                // that the script returns. For example, the script
+                        // remove this line to get the actual objects
+                        // that the script returns. For example, the script
 
-                // "Get-Process" returns a collection
-                // of System.Diagnostics.Process instances.
+                        // "Get-Process" returns a collection
+                        // of System.Diagnostics.Process instances.
 
-                pipeline.Commands.Add("Out-String");
+                        pipeline.Commands.Add("Out-String");
 
-                // execute the script
+                        // execute the script
 
-                Collection<PSObject> results = pipeline.Invoke();
+                        results = pipeline.Invoke();
+                    }
+                    // close the runspace
 
-                // close the runspace
-
-                runspace.Close();
-                runspace = null;
-
+                    runspace.Close();
+                }
                 // convert the script result into a single string
                 StringBuilder stringBuilder = new StringBuilder();
-                foreach (PSObject obj in results)
+                if (results != null)
                 {
-                    if (obj != null)
-                        stringBuilder.AppendLine(obj.ToString());
-                    else
-                        stringBuilder.AppendLine("[null]");
+                    foreach (PSObject obj in results)
+                    {
+                        if (obj != null)
+                            stringBuilder.AppendLine(obj.ToString());
+                        else
+                            stringBuilder.AppendLine("[null]");
+                    }
+                }
+                else
+                {
+                    stringBuilder.AppendLine("[null]");
                 }
                 output = stringBuilder.ToString();
             }
