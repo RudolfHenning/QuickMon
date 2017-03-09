@@ -288,9 +288,31 @@ namespace QuickMon
         {
             notifiersContextMenuStrip.Show(splitButtonNotifiers, new Point(splitButtonNotifiers.Width, 0));
         }
+        private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
+        {
+            GeneralSettings generalSettings = new GeneralSettings();
+            if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                LoadRecentMonitorPackList();
+                this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
+                if (monitorPack != null)
+                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                SetCollectorTreeViewProperties();
+            }
+        }
         private void splitButtonTools_SplitButtonClicked(object sender, EventArgs e)
         {
             settingsContextMenuStrip.Show(splitButtonTools, new Point(splitButtonTools.Width, 0));
+        }
+        private void adminModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!PerformCleanShutdown(true))
+                return;
+            if (!HenIT.Security.AdminModeTools.IsInAdminMode())
+            {
+                Properties.Settings.Default.Save();
+                HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
+            }
         }
         private void cmdAbout_Click(object sender, EventArgs e)
         {
@@ -330,6 +352,18 @@ namespace QuickMon
         }
 
         #region Collector and Notifier Context menus
+        private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
+            {
+                CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
+                disableCollectorToolStripMenuItem.Text = ch.Enabled ? "Disable" : "Enable";
+            }
+            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+        }
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = tvwCollectors.SelectedNode;
@@ -344,7 +378,7 @@ namespace QuickMon
                 monitorPack.AddCollectorHost(newCh);
                 LoadCollectorNode(parentNode, newCh);
                 tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
-                if (newCh.CollectorAgents.Count > 0)
+                //if (newCh.CollectorAgents.Count > 0)
                 {
                     detailsToolStripMenuItem_Click(null, null);
                 }
@@ -675,6 +709,15 @@ namespace QuickMon
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void ShowRecentMonitorPackDropdown()
+        {
+            cboRecentMonitorPacks.Visible = true;
+            llblMonitorPack.Visible = false;
+            cboRecentMonitorPacks.Dock = DockStyle.Fill;
+            LoadRecentMonitorPackList();
+            cboRecentMonitorPacks.Focus();
+            SendKeys.Send("{F4}");
         }
         #endregion
 
@@ -1685,6 +1728,22 @@ namespace QuickMon
         {
             detailsToolStripMenuItem_Click(null, null);
         }
+        private void tvwCollectors_MouseClick(object sender, MouseEventArgs e)
+        {
+            TreeViewHitTestInfo ht = tvwCollectors.HitTest(e.Location);
+            if (ht.Node == null)
+            {
+                tvwCollectors.SelectedNode = null;
+            }
+        }
+        private void tvwCollectors_MouseUp(object sender, MouseEventArgs e)
+        {
+            TreeViewHitTestInfo ht = tvwCollectors.HitTest(e.Location);
+            if (ht.Node == null)
+            {
+                tvwCollectors.SelectedNode = null;
+            }
+        }
         #endregion
 
         #region Child Window Management
@@ -1732,40 +1791,6 @@ namespace QuickMon
             if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
             {
                 ShowRecentMonitorPackDropdown();
-            }
-        }
-
-        private void ShowRecentMonitorPackDropdown()
-        {
-            cboRecentMonitorPacks.Visible = true;
-            llblMonitorPack.Visible = false;
-            cboRecentMonitorPacks.Dock = DockStyle.Fill;
-            LoadRecentMonitorPackList();
-            cboRecentMonitorPacks.Focus();
-            SendKeys.Send("{F4}");
-        }
-
-        private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
-        {
-            GeneralSettings generalSettings = new GeneralSettings();
-            if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                LoadRecentMonitorPackList();
-                this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
-                if (monitorPack != null)
-                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
-                SetCollectorTreeViewProperties();
-            }
-        }
-
-        private void adminModeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!PerformCleanShutdown(true))
-                return;
-            if (!HenIT.Security.AdminModeTools.IsInAdminMode())
-            {
-                Properties.Settings.Default.Save();
-                HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
             }
         }
 
@@ -1901,39 +1926,6 @@ namespace QuickMon
         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EditMonitorSettings();
-        }
-
-        
-
-        private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
-        {
-            deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
-            {
-                CollectorHost ch = (CollectorHost)tvwCollectors.SelectedNode.Tag;
-                disableCollectorToolStripMenuItem.Text = ch.Enabled ? "Disable" : "Enable";
-            }
-            detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-            copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
-        }
-
-        private void tvwCollectors_MouseClick(object sender, MouseEventArgs e)
-        {
-            TreeViewHitTestInfo ht = tvwCollectors.HitTest(e.Location);
-            if (ht.Node == null)
-            {
-                tvwCollectors.SelectedNode = null;
-            }
-        }
-
-        private void tvwCollectors_MouseUp(object sender, MouseEventArgs e)
-        {
-            TreeViewHitTestInfo ht = tvwCollectors.HitTest(e.Location);
-            if (ht.Node == null)
-            {
-                tvwCollectors.SelectedNode = null;
-            }
         }
 
 
