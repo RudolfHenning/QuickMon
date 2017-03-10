@@ -144,9 +144,11 @@ namespace QuickMon.Collectors
             foreach (XmlElement wmiQueryNode in root.SelectNodes("wmiQueries/wmiQuery"))
             {
                 WMIQueryCollectorConfigEntry entry = new WMIQueryCollectorConfigEntry();
-                entry.Namespace = wmiQueryNode.ReadXmlElementAttr("namespace", "root\\CIMV2");
-                entry.Machinename = wmiQueryNode.ReadXmlElementAttr("machineName", ".");
                 entry.Name = wmiQueryNode.ReadXmlElementAttr("name", entry.Machinename);
+                entry.Namespace = wmiQueryNode.ReadXmlElementAttr("namespace", "root\\CIMV2");
+                entry.Machinename = wmiQueryNode.ReadXmlElementAttr("machineName", ".");                
+                entry.PrimaryUIValue = wmiQueryNode.ReadXmlElementAttr("primaryUIValue", false);
+
                 XmlNode stateQueryNode = wmiQueryNode.SelectSingleNode("stateQuery");
                 entry.StateQuery = stateQueryNode.ReadXmlElementAttr("syntax", "");
                 entry.ReturnValueIsInt = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueIsInt", "True"));
@@ -179,6 +181,7 @@ namespace QuickMon.Collectors
                 entryNode.SetAttributeValue("name", entry.Name);
                 entryNode.SetAttributeValue("namespace", entry.Namespace);
                 entryNode.SetAttributeValue("machineName", entry.Machinename);
+                entryNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
                 XmlElement stateQueryNode = config.CreateElement("stateQuery");
                 stateQueryNode.SetAttributeValue("syntax", entry.StateQuery);
                 stateQueryNode.SetAttributeValue("returnValueIsInt", entry.ReturnValueIsInt);
@@ -278,6 +281,7 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public bool PrimaryUIValue { get; set; }
         #endregion
 
         #region Properties

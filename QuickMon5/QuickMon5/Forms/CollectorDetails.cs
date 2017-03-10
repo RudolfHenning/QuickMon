@@ -493,7 +493,7 @@ namespace QuickMon
                 lvi.SubItems.Add(hi.AlertsRaised.Count.ToString());
                 lvi.SubItems.Add(hi.ExecutedOnHostComputer);
                 lvi.SubItems.Add(hi.RanAs);
-                lvi.SubItems.Add(hi.ReadFirstValue());
+                lvi.SubItems.Add(hi.ReadPrimaryOrFirstUIValue());
                 lvi.Tag = hi;
                 lvwHistory.Items.Add(lvi);
                 if (selectedTimeStamp == hi.Timestamp || currentStateSelected)
@@ -509,7 +509,7 @@ namespace QuickMon
                     lvi.SubItems.Add(hi.AlertsRaised.Count.ToString());
                     lvi.SubItems.Add(hi.ExecutedOnHostComputer);
                     lvi.SubItems.Add(hi.RanAs);
-                    lvi.SubItems.Add(hi.ReadFirstValue());
+                    lvi.SubItems.Add(hi.ReadPrimaryOrFirstUIValue());
                     lvi.Tag = hi;
                     lvwHistory.Items.Add(lvi);
                     if (selectedTimeStamp == hi.Timestamp)

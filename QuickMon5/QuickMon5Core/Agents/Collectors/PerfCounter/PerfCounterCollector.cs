@@ -169,7 +169,8 @@ namespace QuickMon.Collectors
                 entry.NumberOfSamplesPerRefresh = pcNode.ReadXmlElementAttr("numberOfSamples", 1);
                 entry.MultiSampleWaitMS = pcNode.ReadXmlElementAttr("multiSampleWaitMS", 100);
                 entry.OutputValueUnit = pcNode.ReadXmlElementAttr("outputValueUnit", "");
-                
+                entry.PrimaryUIValue = pcNode.ReadXmlElementAttr("primaryUIValue", false);
+
                 Entries.Add(entry);
             }
         }
@@ -192,6 +193,7 @@ namespace QuickMon.Collectors
                 performanceCounterNode.SetAttributeValue("numberOfSamples", entry.NumberOfSamplesPerRefresh);
                 performanceCounterNode.SetAttributeValue("multiSampleWaitMS", entry.MultiSampleWaitMS);
                 performanceCounterNode.SetAttributeValue("outputValueUnit", entry.OutputValueUnit);
+                performanceCounterNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
                 performanceCountersNode.AppendChild(performanceCounterNode);
             }
             return config.OuterXml;
@@ -232,7 +234,6 @@ namespace QuickMon.Collectors
         private PerformanceCounter pc = null;
 
         #region Properties
-        public object CurrentAgentValue { get; set; }
         public string Computer { get; set; }
         public string Category { get; set; }
         public string Counter { get; set; }
@@ -257,6 +258,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         #endregion
 
         public void InitializePerfCounter()

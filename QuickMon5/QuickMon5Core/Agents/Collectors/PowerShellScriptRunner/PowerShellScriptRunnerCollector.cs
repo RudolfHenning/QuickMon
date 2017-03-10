@@ -160,6 +160,7 @@ namespace QuickMon.Collectors
                 PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
                 entry.Name = powerShellScriptRunnerNode.ReadXmlElementAttr("name", "");
                 entry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(powerShellScriptRunnerNode.ReadXmlElementAttr("returnCheckSequence", "gwe"));
+
                 XmlNode testScriptNode = powerShellScriptRunnerNode.SelectSingleNode("testScript");
                 entry.TestScript = testScriptNode.InnerText;
 
@@ -182,6 +183,7 @@ namespace QuickMon.Collectors
             {
                 PowerShellScriptRunnerEntry entry = new PowerShellScriptRunnerEntry();
                 entry.Name = carvceEntryNode.ReadXmlElementAttr("name", "");
+                entry.PrimaryUIValue = carvceEntryNode.ReadXmlElementAttr("primaryUIValue", false);
                 XmlNode testScriptNode = carvceEntryNode.SelectSingleNode("dataSource");
                 entry.TestScript = testScriptNode.InnerText;
 
@@ -215,6 +217,7 @@ namespace QuickMon.Collectors
             {
                 XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
                 carvceEntryNode.SetAttributeValue("name", queryEntry.Name);
+                carvceEntryNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
                 XmlElement dataSourceNode = config.CreateElement("dataSource");
                 dataSourceNode.InnerText = queryEntry.TestScript;
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
@@ -308,8 +311,7 @@ namespace QuickMon.Collectors
     public class PowerShellScriptRunnerEntry : ICollectorConfigEntry
     {
         #region Properties
-        public string Name { get; set; }
-        public object CurrentAgentValue { get; set; }
+        public string Name { get; set; }        
         public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
         public string TestScript { get; set; }
         public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
@@ -357,6 +359,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         #endregion
 
         public string RunScript()

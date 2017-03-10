@@ -62,10 +62,10 @@ namespace QuickMon
             this.masterSplitContainer = new System.Windows.Forms.SplitContainer();
             this.tvwCollectors = new QuickMon.Controls.TreeViewExBase();
             this.collectorsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -488,6 +488,15 @@ namespace QuickMon
             this.collectorsContextMenuStrip.Size = new System.Drawing.Size(157, 220);
             this.collectorsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.collectorsContextMenuStrip_Opening);
             // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.detailsToolStripMenuItem.Text = "Details";
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
+            // 
             // addCollectorToolStripMenuItem
             // 
             this.addCollectorToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
@@ -511,15 +520,6 @@ namespace QuickMon
             this.disableCollectorToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.disableCollectorToolStripMenuItem.Text = "Disable";
             this.disableCollectorToolStripMenuItem.Click += new System.EventHandler(this.disableCollectorToolStripMenuItem_Click);
-            // 
-            // detailsToolStripMenuItem
-            // 
-            this.detailsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.detailsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
-            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
-            this.detailsToolStripMenuItem.Text = "Details";
-            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -582,6 +582,7 @@ namespace QuickMon
             this.lblCollectors.StartForeColor = System.Drawing.SystemColors.ControlText;
             this.lblCollectors.TabIndex = 42;
             this.lblCollectors.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCollectors.Click += new System.EventHandler(this.lblCollectors_Click);
             // 
             // llblNotifierViewToggle
             // 

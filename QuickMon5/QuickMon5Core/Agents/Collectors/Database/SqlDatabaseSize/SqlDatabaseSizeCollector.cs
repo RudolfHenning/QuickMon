@@ -138,6 +138,7 @@ namespace QuickMon.Collectors
                 databaseEntry.SqlCmndTimeOutSec = databaseNode.ReadXmlElementAttr("sqlCmndTimeOutSec", 30);
                 databaseEntry.WarningSizeMB = databaseNode.ReadXmlElementAttr("warningValueMB", 1024);
                 databaseEntry.ErrorSizeMB = databaseNode.ReadXmlElementAttr("errorValueMB", 4096);
+                databaseEntry.PrimaryUIValue = databaseNode.ReadXmlElementAttr("primaryUIValue", true);
                 Entries.Add(databaseEntry);
             }
         }
@@ -160,6 +161,7 @@ namespace QuickMon.Collectors
                 dbSizeNode.SetAttributeValue("sqlCmndTimeOutSec", entry.SqlCmndTimeOutSec);
                 dbSizeNode.SetAttributeValue("warningValueMB", entry.WarningSizeMB);
                 dbSizeNode.SetAttributeValue("errorValueMB", entry.ErrorSizeMB);
+                dbSizeNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
                 dbsNode.AppendChild(dbSizeNode);
             }
             return config.OuterXml;
@@ -198,8 +200,7 @@ namespace QuickMon.Collectors
             ErrorSizeMB = 4096;
         }
 
-        #region Properties
-        public object CurrentAgentValue { get; set; }
+        #region Properties        
         public string SqlServer { get; set; }
         public string Database { get; set; }
         public bool IntegratedSecurity { get; set; }
@@ -223,6 +224,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
             long size = GetDBSize();

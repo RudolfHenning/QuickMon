@@ -178,6 +178,7 @@ namespace QuickMon.Collectors
                 queryEntry.ErrorValue = queryNode.ReadXmlElementAttr("errorValue", "");
                 queryEntry.ReturnValueInARange = bool.Parse(queryNode.ReadXmlElementAttr("returnValueInARange", "False"));
                 queryEntry.ReturnValueInverted = bool.Parse(queryNode.ReadXmlElementAttr("returnValueInverted", "False"));
+                queryEntry.PrimaryUIValue = queryNode.ReadXmlElementAttr("primaryUIValue", false);
                 Entries.Add(queryEntry);
             }
         }
@@ -206,6 +207,7 @@ namespace QuickMon.Collectors
                 queryNode.SetAttributeValue("errorValue", queryEntry.ErrorValue);
                 queryNode.SetAttributeValue("returnValueInARange", queryEntry.ReturnValueInARange);
                 queryNode.SetAttributeValue("returnValueInverted", queryEntry.ReturnValueInverted);
+                queryNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
                 queriesNode.AppendChild(queryNode);
             }
             return config.OuterXml;
@@ -286,6 +288,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         #endregion
 
         #region Properties
@@ -302,7 +306,7 @@ namespace QuickMon.Collectors
         public string SuccessValue { get; set; }
         public string WarningValue { get; set; }
         public string ErrorValue { get; set; }
-        public object CurrentAgentValue { get; set; }        
+        
         #endregion
 
         #region Static methods
