@@ -322,6 +322,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Error24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Error24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folderOpen {
             get {
                 object obj = ResourceManager.GetObject("folderOpen", resourceCulture);
@@ -395,6 +405,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap helpbwy16x16 {
             get {
                 object obj = ResourceManager.GetObject("helpbwy16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap helpbwy24x24 {
+            get {
+                object obj = ResourceManager.GetObject("helpbwy24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -495,6 +515,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap ok16x16 {
             get {
                 object obj = ResourceManager.GetObject("ok16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ok24x24 {
+            get {
+                object obj = ResourceManager.GetObject("ok24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -865,6 +895,16 @@ namespace QuickMon.Properties {
         internal static System.Drawing.Bitmap triang_yellow16x16 {
             get {
                 object obj = ResourceManager.GetObject("triang_yellow16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap triang_yellow24x24 {
+            get {
+                object obj = ResourceManager.GetObject("triang_yellow24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
             HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Parameter 1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Parameter 2");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Script 1", new System.Windows.Forms.TreeNode[] {
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Parameter 1");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Parameter 2");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Script 2", new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9});
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -192,7 +192,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.panelMetrics = new System.Windows.Forms.Panel();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvwMetrics = new QuickMon.ListViewEx();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelAgentStates = new System.Windows.Forms.Panel();
@@ -493,9 +493,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer2;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -2056,25 +2056,29 @@
             // panelMetrics
             // 
             this.panelMetrics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelMetrics.Controls.Add(this.listView1);
+            this.panelMetrics.Controls.Add(this.lvwMetrics);
             this.panelMetrics.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMetrics.Location = new System.Drawing.Point(0, 276);
             this.panelMetrics.Name = "panelMetrics";
             this.panelMetrics.Size = new System.Drawing.Size(964, 125);
             this.panelMetrics.TabIndex = 2;
             // 
-            // listView1
+            // lvwMetrics
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvwMetrics.AutoResizeColumnEnabled = false;
+            this.lvwMetrics.AutoResizeColumnIndex = 1;
+            this.lvwMetrics.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwMetrics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(962, 123);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvwMetrics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwMetrics.FullRowSelect = true;
+            this.lvwMetrics.Location = new System.Drawing.Point(0, 0);
+            this.lvwMetrics.Name = "lvwMetrics";
+            this.lvwMetrics.Size = new System.Drawing.Size(962, 123);
+            this.lvwMetrics.TabIndex = 0;
+            this.lvwMetrics.UseCompatibleStateImageBehavior = false;
+            this.lvwMetrics.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -2125,9 +2129,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
+            treeListViewItemCollectionComparer3.Column = 0;
+            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer3;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2378,19 +2382,19 @@
             this.tvwScripts.FullRowSelect = true;
             this.tvwScripts.Location = new System.Drawing.Point(2, 25);
             this.tvwScripts.Name = "tvwScripts";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Parameter 1";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Script 1";
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Parameter 1";
-            treeNode4.Name = "Node4";
-            treeNode4.Text = "Parameter 2";
-            treeNode5.Name = "Node2";
-            treeNode5.Text = "Script 2";
+            treeNode6.Name = "Node1";
+            treeNode6.Text = "Parameter 1";
+            treeNode7.Name = "Node0";
+            treeNode7.Text = "Script 1";
+            treeNode8.Name = "Node3";
+            treeNode8.Text = "Parameter 1";
+            treeNode9.Name = "Node4";
+            treeNode9.Text = "Parameter 2";
+            treeNode10.Name = "Node2";
+            treeNode10.Text = "Script 2";
             this.tvwScripts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode5});
+            treeNode7,
+            treeNode10});
             this.tvwScripts.ShowLines = false;
             this.tvwScripts.Size = new System.Drawing.Size(198, 615);
             this.tvwScripts.TabIndex = 5;
@@ -2485,11 +2489,11 @@
             // 
             // lblCollectorState
             // 
-            this.lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+            this.lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy24x24;
             this.lblCollectorState.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCollectorState.Location = new System.Drawing.Point(7, 6);
+            this.lblCollectorState.Location = new System.Drawing.Point(0, 2);
             this.lblCollectorState.Name = "lblCollectorState";
-            this.lblCollectorState.Size = new System.Drawing.Size(26, 25);
+            this.lblCollectorState.Size = new System.Drawing.Size(34, 31);
             this.lblCollectorState.TabIndex = 6;
             this.lblCollectorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -2631,7 +2635,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panelAgentStates;
         private System.Windows.Forms.Panel panelMetrics;
-        private System.Windows.Forms.ListView listView1;
+        private ListViewEx lvwMetrics;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private TreeViewEx tvwScripts;
