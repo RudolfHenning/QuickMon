@@ -364,6 +364,10 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\Error24x24.png" />
+    <None Include="Resources\triang_yellow24x24.png" />
+    <None Include="Resources\ok24x24.png" />
+    <None Include="Resources\helpbwy24x24.png" />
     <None Include="Resources\CLOCK02.ICO" />
     <None Include="Resources\clock1.png" />
     <None Include="Resources\clock_16.png" />

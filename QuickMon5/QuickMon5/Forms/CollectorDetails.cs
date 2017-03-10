@@ -102,8 +102,10 @@ namespace QuickMon
             tlvAgentStates.AutoResizeColumnEnabled = true;
             agentsTreeListView.AutoResizeColumnEnabled = true;
             lvwHistory.AutoResizeColumnEnabled = true;
+            lvwMetrics.AutoResizeColumnEnabled = true;
             lvwHistory.BorderStyle = BorderStyle.None;
             panelEditing.BorderStyle = BorderStyle.None;
+            panelMetrics.BorderStyle = BorderStyle.None;
             txtName.BorderStyle = BorderStyle.None;
             agentStateSplitContainer.Panel2Collapsed = true;
             collectorDetailSplitContainer.Panel2Collapsed = true;
@@ -212,35 +214,122 @@ namespace QuickMon
                 lastUpdateTimeToolStripStatusLabel.Text = SelectedCollectorHost.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
                 if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
                 {
-                    lblCollectorState.Image = global::QuickMon.Properties.Resources.ok16x16;
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.ok24x24;
                     txtName.BackColor = Color.White;
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
                 {
-                    lblCollectorState.Image = global::QuickMon.Properties.Resources.triang_yellow16x16;
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.triang_yellow24x24;
                     txtName.BackColor = Color.LightYellow;
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error || SelectedCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
                 {
-                    lblCollectorState.Image = global::QuickMon.Properties.Resources.stop16x16;
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.Error24x24;
                     txtName.BackColor = Color.FromArgb(255, 240, 240);
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.NotInServiceWindow)
                 {
-                    lblCollectorState.Image = global::QuickMon.Properties.Resources.clock_16;
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.clock1;
                     txtName.BackColor = Color.White;
                 }
                 else
                 {
-                    lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy16x16;
+                    lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy24x24;
                     txtName.BackColor = Color.White;
                 }
             }
             
             txtName.Text = SelectedCollectorHost.Name;
+            LoadMetrics();
             LoadHistory();
             UpdateAgentStateTree();            
         }
+
+        private void LoadMetrics()
+        {
+            AddUpdateListViewItem(lvwMetrics, "General", "Notes", SelectedCollectorHost.Notes);
+            AddUpdateListViewItem(lvwMetrics, "General", "Enabled", (SelectedCollectorHost.Enabled ? "Yes" : "No") + (SelectedCollectorHost.ServiceWindows.IsInTimeWindow() ? "" : " (Out of service window)"));
+            AddUpdateListViewItem(lvwMetrics, "General", "Agent count", SelectedCollectorHost.CollectorAgents.Count.ToString());
+
+            if (SelectedCollectorHost.Categories != null)
+            {
+                StringBuilder sbCats = new StringBuilder();
+                foreach (string category in SelectedCollectorHost.Categories)
+                {
+                    sbCats.Append(category + ",");
+                }
+                if (sbCats.ToString().Length > 0)
+                    AddUpdateListViewItem(lvwMetrics, "General", "Categories", sbCats.ToString().TrimEnd(','));
+                else
+                    AddUpdateListViewItem(lvwMetrics, "General", "Categories", "None");
+            }
+
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state", SelectedCollectorHost.CurrentState.State.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state time", FormatDate(SelectedCollectorHost.CurrentState.Timestamp));
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state check duration (ms)", SelectedCollectorHost.CurrentState.CallDurationMS.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state Executed on", SelectedCollectorHost.CurrentState.ExecutedOnHostComputer);
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state Ran as", SelectedCollectorHost.CurrentState.RanAs);
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state Alerts raised", SelectedCollectorHost.CurrentState.AlertsRaised.Count > 0 ? "Yes" : "No");
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state Alerts details", SelectedCollectorHost.CurrentState.AlertsRaised, SelectedCollectorHost.CurrentState.AlertsRaised.Count > 0);
+            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state details", SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+
+            List<string> values = ReadValues(SelectedCollectorHost.CurrentState);
+            if (values != null && values.Count > 0)
+            {
+                for (int i = 0; i < values.Count; i++)
+                    AddUpdateListViewItem(lvwMetrics, "Current state", "Current state value:" + (i + 1).ToString(), values[i]);
+            }
+            //if (values != null && values.Count > 0)
+            //{
+            //    if (previousCurrentStateValueCount > 0 && values.Count < previousCurrentStateValueCount)
+            //    {
+            //        for (int i = values.Count; i < previousCurrentStateValueCount + 1; i++)
+            //            AddUpdateListViewItem(lvwMetrics, "Current state", "Current state value:" + (i + 1).ToString(), "", false);
+            //    }
+            //    previousCurrentStateValueCount = values.Count;
+            //}
+            //else
+            //{
+            //    previousCurrentStateValueCount = 0;
+            //}
+
+
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.State.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state time", SelectedCollectorHost.PreviousState == null ? "N/A" : FormatDate(SelectedCollectorHost.PreviousState.Timestamp));
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state check duration (ms)", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.CallDurationMS.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state Executed on", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.ExecutedOnHostComputer);
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state Ran as", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.RanAs);
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state Alerts raised", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.AlertsRaised.Count > 0 ? "Yes" : "No");
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state Alerts details", SelectedCollectorHost.PreviousState == null ? new List<string>() : SelectedCollectorHost.PreviousState.AlertsRaised, SelectedCollectorHost.PreviousState != null);
+            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state details", SelectedCollectorHost.PreviousState == null ? "N/A" : SelectedCollectorHost.PreviousState.ReadAllRawDetails());
+            if (SelectedCollectorHost.PreviousState != null)
+            {
+                values = ReadValues(SelectedCollectorHost.PreviousState);
+                if (values != null && values.Count > 0)
+                {
+                    for (int i = 0; i < values.Count; i++)
+                        AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state value:" + (i + 1).ToString(), values[i]);
+                }
+            }
+            //if (values != null && values.Count > 0)
+            //{
+            //    if (previousPreviousStateValueCount > 0 && values.Count < previousPreviousStateValueCount)
+            //    {
+            //        for (int i = values.Count; i < previousPreviousStateValueCount + 1; i++)
+            //            AddUpdateListViewItem(lvwMetrics, "Previous state", "Previous state value:" + (i + 1).ToString(), "", false);
+            //    }
+            //    previousPreviousStateValueCount = values.Count;
+            //}
+            //else
+            //{
+            //    previousPreviousStateValueCount = 0;
+            //}
+
+            bool remoteHostEnabled = SelectedCollectorHost.EnableRemoteExecute || (SelectedCollectorHost.OverrideRemoteAgentHost && !SelectedCollectorHost.BlockParentOverrideRemoteAgentHostSettings);
+            AddUpdateListViewItem(lvwMetrics, "Remote agent host", "Enabled", remoteHostEnabled ? "Yes" : "No");
+            AddUpdateListViewItem(lvwMetrics, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(), remoteHostEnabled);
+        }
+
         private void LoadEditControls()
         {
             #region Editing controls
@@ -522,6 +611,71 @@ namespace QuickMon
             {
                 optHistoricStateView.Text = "Historic";
             }
+        }
+        private void AddUpdateListViewItem(ListView lvw, string groupName, string propName, List<string> values, bool visible = true)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (values != null)
+            {
+                values.ForEach(v => sb.AppendLine(v));
+            }
+            AddUpdateListViewItem(lvw, groupName, propName, sb.ToString(), visible);
+        }
+        private void AddUpdateListViewItem(ListView lvw, string groupName, string propName, string value, bool visible = true)
+        {
+            ListViewGroup lvg = (from ListViewGroup g in lvw.Groups
+                                 where g.Header == groupName
+                                 select g).FirstOrDefault();
+            if (lvg == null)
+            {
+                lvg = new ListViewGroup(groupName);
+                lvw.Groups.Add(lvg);
+            }
+            ListViewItem lvi = (from ListViewItem i in lvw.Items
+                                where i.Text == propName &&
+                                i.Group == lvg
+                                select i).FirstOrDefault();
+            if (lvi == null)
+            {
+                lvi = new ListViewItem(propName);
+                lvi.SubItems.Add(value);
+                lvi.Group = lvg;
+                lvw.Items.Add(lvi);
+            }
+            lvi.SubItems[1].Text = value;
+            if (!visible)
+            {
+                lvw.Items.Remove(lvi);
+            }
+        }
+        private string FormatDate(DateTime date)
+        {
+            if (date == null || date <= (new DateTime(2000, 1, 1)))
+                return "N/A";
+            else
+                return date.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+        private List<string> ReadValues(MonitorState monitorState)
+        {
+            List<string> values = new List<string>();
+            if (monitorState.ChildStates != null) // && monitorState.ChildStates.Count(cs=>cs.CurrentValue != null) > 0)
+            {
+                foreach (MonitorState childEntry in monitorState.ChildStates)
+                {
+                    foreach (string v in ReadValues(childEntry))
+                    {
+                        values.Add(v);
+                    }
+                }
+            }
+            if (values.Count == 0 && monitorState.CurrentValue != null)
+            {
+                if (monitorState.ForAgent != null && monitorState.ForAgent.Length > 0)
+                    values.Add(string.Format("{0}:{1}", monitorState.ForAgent, monitorState.CurrentValue));
+                else
+                    values.Add(string.Format("{0}", monitorState.CurrentValue));
+            }
+            return values;
         }
         #endregion
 
