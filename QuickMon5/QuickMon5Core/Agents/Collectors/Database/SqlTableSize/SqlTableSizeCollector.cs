@@ -146,6 +146,7 @@ namespace QuickMon.Collectors
                 entry.UserName = databaseNode.ReadXmlElementAttr("userName", "");
                 entry.Password = databaseNode.ReadXmlElementAttr("password", "");
                 entry.SqlCmndTimeOutSec = databaseNode.ReadXmlElementAttr("sqlCmndTimeOutSec", 30);
+                entry.PrimaryUIValue = databaseNode.ReadXmlElementAttr("primaryUIValue", true);
 
                 foreach (XmlElement tableNode in databaseNode.SelectNodes("table"))
                 {
@@ -176,6 +177,7 @@ namespace QuickMon.Collectors
                 databaseNode.SetAttributeValue("userName", databaseEntry.UserName);
                 databaseNode.SetAttributeValue("password", databaseEntry.Password);
                 databaseNode.SetAttributeValue("sqlCmndTimeOutSec", databaseEntry.SqlCmndTimeOutSec);
+                databaseNode.SetAttributeValue("primaryUIValue", databaseEntry.PrimaryUIValue);
 
                 foreach (TableSizeEntry tableSizeEntry in databaseEntry.Tables)
                 {
@@ -220,6 +222,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
             RefreshRowCounts();
@@ -255,8 +259,7 @@ namespace QuickMon.Collectors
         }
         #endregion
 
-        #region Properties
-        public object CurrentAgentValue { get; set; }
+        #region Properties        
         public string SqlServer { get; set; }
         public string Database { get; set; }
         public bool IntegratedSecurity { get; set; }

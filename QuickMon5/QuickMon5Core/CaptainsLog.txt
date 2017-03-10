@@ -5,3 +5,4 @@ More collector agents must use the CollectorAgentReturnValueCompareEngine
 	Registry, WMI, Web Service
 Collector agents that must be part of Core
 	Web Service, Database agents. Done
+Agents/entries can be flagged for which one will be used for primary output value to screen

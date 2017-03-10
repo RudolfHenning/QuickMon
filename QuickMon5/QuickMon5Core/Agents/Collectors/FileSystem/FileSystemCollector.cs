@@ -267,6 +267,7 @@ namespace QuickMon.Collectors
                 directoryFilterEntry.ShowFilenamesInDetails = host.ReadXmlElementAttr("showFilenamesInDetails", false);
                 directoryFilterEntry.ShowFileCountInOutputValue = host.ReadXmlElementAttr("showFileCountInOutputValue", true);
                 directoryFilterEntry.ShowFileSizeInOutputValue = host.ReadXmlElementAttr("showFileSizeInOutputValue", false);
+                directoryFilterEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
                 Entries.Add(directoryFilterEntry);
             }
@@ -301,6 +302,7 @@ namespace QuickMon.Collectors
                 directoryXmlNode.SetAttributeValue("showFilenamesInDetails", de.ShowFilenamesInDetails);
                 directoryXmlNode.SetAttributeValue("showFileCountInOutputValue", de.ShowFileCountInOutputValue);
                 directoryXmlNode.SetAttributeValue("showFileSizeInOutputValue", de.ShowFileSizeInOutputValue);
+                directoryXmlNode.SetAttributeValue("primaryUIValue", de.PrimaryUIValue);
 
                 directoryList.AppendChild(directoryXmlNode);
             }
@@ -342,8 +344,7 @@ namespace QuickMon.Collectors
 
         private string stateDescription = "";
 
-        #region Properties
-        public object CurrentAgentValue { get; set; }
+        #region Properties        
         public string DirectoryPath { get; set; }
         public string FilterFullPath
         {
@@ -474,6 +475,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
             DirectoryFileInfo directoryFileInfo = GetFileListByFilters();

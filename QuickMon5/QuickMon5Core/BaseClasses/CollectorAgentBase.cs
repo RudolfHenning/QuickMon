@@ -25,6 +25,7 @@ namespace QuickMon
                         lastAction = "Getting state for agent: " + entry.Description;
                         MonitorState entryState = entry.GetCurrentState();
                         entryState.ForAgentType = "CollectorAgentEntry";
+                        entryState.PrimaryUIValue = entry.PrimaryUIValue;
                         returnState.ChildStates.Add(entryState);
                     }
                     catch(Exception exEntry)

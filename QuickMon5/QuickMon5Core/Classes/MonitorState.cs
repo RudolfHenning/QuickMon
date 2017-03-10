@@ -25,6 +25,7 @@ namespace QuickMon
             ForAgent = "";
             ForAgentType = "";
             RepeatCount = 0;
+            PrimaryUIValue = false;
         }
         public string UniqueId { get; private set; }
         private CollectorState state = CollectorState.NotAvailable;
@@ -78,6 +79,8 @@ namespace QuickMon
         /// </summary>
         [DataMember(Name = "RepeatCount")]
         public int RepeatCount { get; set; }
+        [DataMember(Name = "PrimaryUIValue")]
+        public bool PrimaryUIValue { get; set; }
 
         public MonitorState Clone()
         {
@@ -106,7 +109,8 @@ namespace QuickMon
                 AlertHeader = this.AlertHeader,
                 AlertFooter = this.AlertFooter,
                 RanAs = this.RanAs,
-                RepeatCount = this.RepeatCount
+                RepeatCount = this.RepeatCount,
+                PrimaryUIValue = this.PrimaryUIValue
             };
         }
 
@@ -133,6 +137,7 @@ namespace QuickMon
                 root.SetAttributeValue("currentValue", CurrentValue.ToString());
             else
                 root.SetAttributeValue("currentValue", "");
+            root.SetAttributeValue("primaryUIValue", PrimaryUIValue);
             root.SetAttributeValue("executedOnHostComputer", ExecutedOnHostComputer);
             root.SetAttributeValue("ranAs", RanAs);
 
@@ -209,8 +214,8 @@ namespace QuickMon
             ForAgentType = root.ReadXmlElementAttr("forAgentType", "");
             ForAgentId = root.ReadXmlElementAttr("forAgentId", -1);
             CurrentValue = root.ReadXmlElementAttr("currentValue", "");
+            PrimaryUIValue = root.ReadXmlElementAttr("primaryUIValue", false);
             ExecutedOnHostComputer = root.ReadXmlElementAttr("executedOnHostComputer", "");
-            RanAs = root.ReadXmlElementAttr("ranAs", "");
             RanAs = root.ReadXmlElementAttr("ranAs", "");
             RepeatCount = root.ReadXmlElementAttr("repeatCount", 0);
             try
@@ -392,6 +397,42 @@ namespace QuickMon
                 {
                     sb.Append(" " + CurrentValueUnit);
                 }             
+            }
+            return sb.ToString();
+        }
+        public string ReadPrimaryOrFirstUIValue()
+        {
+            string output = ReadPrimaryUIValue();
+            if (output == null || output.Trim().Length == 0)
+                output = ReadFirstValue();
+            return output;
+        }
+        public string ReadPrimaryUIValue()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (CurrentValue != null && PrimaryUIValue)
+            {
+                string[] lines = CurrentValue.ToString().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                if (lines.Length > 0)
+                {
+                    sb.Append(lines[0]); // CurrentValue.ToString());
+                    if (CurrentValueUnit != null && CurrentValueUnit.Length > 0)
+                    {
+                        sb.Append(" " + CurrentValueUnit);
+                    }
+                }
+            }
+            else
+            {
+                foreach (MonitorState cs in ChildStates)
+                {
+                    string scValue = cs.ReadPrimaryUIValue();
+                    if (scValue.Length > 0)
+                    {
+                        sb.Append(scValue);
+                        break;
+                    }
+                }
             }
             return sb.ToString();
         }

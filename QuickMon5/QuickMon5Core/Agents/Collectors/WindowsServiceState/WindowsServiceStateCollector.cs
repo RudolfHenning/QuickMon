@@ -153,7 +153,8 @@ namespace QuickMon.Collectors
             foreach (XmlElement machine in root.SelectNodes("machine"))
             {
                 WindowsServiceStateHostEntry serviceStateDefinition = new WindowsServiceStateHostEntry();
-                serviceStateDefinition.MachineName = machine.Attributes.GetNamedItem("name").Value;
+                serviceStateDefinition.MachineName = machine.ReadXmlElementAttr("name", "");
+                serviceStateDefinition.PrimaryUIValue = machine.ReadXmlElementAttr("primaryUIValue", false);
                 serviceStateDefinition.SubItems = new List<ICollectorConfigSubEntry>();
                 foreach (XmlElement service in machine.SelectNodes("service"))
                 {
@@ -170,9 +171,8 @@ namespace QuickMon.Collectors
             foreach (WindowsServiceStateHostEntry ssd in Entries)
             {
                 XmlNode machineXmlNode = config.CreateElement("machine");
-                XmlAttribute machineNameXmlAttribute = config.CreateAttribute("name");
-                machineNameXmlAttribute.Value = ssd.MachineName;
-                machineXmlNode.Attributes.Append(machineNameXmlAttribute);
+                machineXmlNode.SetAttributeValue("name", ssd.MachineName);
+                machineXmlNode.SetAttributeValue("primaryUIValue", ssd.PrimaryUIValue);
 
                 foreach (WindowsServiceStateServiceEntry serviceEntry in ssd.SubItems)
                 {
@@ -219,7 +219,7 @@ namespace QuickMon.Collectors
 
         #region Properties
         public string MachineName { get; set; }
-        public object CurrentAgentValue { get; set; }
+
         #endregion
 
         #region ICollectorConfigEntry Members
@@ -234,7 +234,46 @@ namespace QuickMon.Collectors
                 return string.Format("Service(s): {0}", SubItems.Count);
             }
         }
-        public List<ICollectorConfigSubEntry> SubItems { get; set; }        
+        public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
+        public MonitorState GetCurrentState()
+        {
+            List<ServiceStateInfo> serviceStates = GetServiceStates();
+            CurrentAgentValue = "";
+            string machineName = MachineName;
+            if (machineName == "." || machineName.ToLower() == "localhost")
+                machineName = System.Net.Dns.GetHostName();
+            MonitorState machineState = new MonitorState()
+            {
+                ForAgent = machineName,
+                State = GetState(serviceStates)
+            };
+
+            foreach (ServiceStateInfo serviceEntry in serviceStates)
+            {
+                machineState.ChildStates.Add(
+                                new MonitorState()
+                                {
+                                    State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good : CollectorState.Warning),
+                                    ForAgent = string.Format("{0}", serviceEntry.DisplayName),
+                                    ForAgentType = "CollectorConfigSubEntry",
+                                    CurrentValue = serviceEntry.Status.ToString()
+                                });
+            }
+
+            int errors = machineState.ChildStates.Where(cs => cs.State == CollectorState.Error).Count();
+            int warnings = machineState.ChildStates.Where(cs => cs.State == CollectorState.Warning).Count();
+            int successes = machineState.ChildStates.Where(cs => cs.State == CollectorState.Good).Count();
+            if (errors > 0 && warnings == 0 && successes == 0)
+                machineState.CurrentValue = errors.ToString() + " stopped";
+            else if (errors > 0)
+                machineState.CurrentValue = errors.ToString() + " stopped," + successes.ToString() + " running";
+            else
+                machineState.CurrentValue = successes.ToString() + " running";
+            
+            return machineState;
+        }
         #endregion
 
         public List<ServiceStateInfo> GetServiceStates()
@@ -285,43 +324,7 @@ namespace QuickMon.Collectors
             return result;
         }
 
-        public MonitorState GetCurrentState()
-        {
-            List<ServiceStateInfo> serviceStates = GetServiceStates();
-            CurrentAgentValue = "";
-            string machineName = MachineName;
-            if (machineName == "." || machineName.ToLower() == "localhost")
-                machineName = System.Net.Dns.GetHostName();
-            MonitorState machineState = new MonitorState()
-            {
-                ForAgent = machineName,
-                State = GetState(serviceStates)
-            };
 
-            foreach (ServiceStateInfo serviceEntry in serviceStates)
-            {
-                machineState.ChildStates.Add(
-                                new MonitorState()
-                                {
-                                    State = (serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ? CollectorState.Error : serviceEntry.Status == System.ServiceProcess.ServiceControllerStatus.Running ? CollectorState.Good : CollectorState.Warning),
-                                    ForAgent = string.Format("{0}", serviceEntry.DisplayName),
-                                    ForAgentType = "CollectorConfigSubEntry",
-                                    CurrentValue = serviceEntry.Status.ToString()
-                                });
-            }
-
-            int errors = machineState.ChildStates.Where(cs => cs.State == CollectorState.Error).Count();
-            int warnings = machineState.ChildStates.Where(cs => cs.State == CollectorState.Warning).Count();
-            int successes = machineState.ChildStates.Where(cs => cs.State == CollectorState.Good).Count();
-            if (errors > 0 && warnings == 0 && successes == 0)
-                machineState.CurrentValue = errors.ToString() + " stopped";
-            else if (errors > 0)
-                machineState.CurrentValue = errors.ToString() + " stopped," + successes.ToString() + " running";
-            else
-                machineState.CurrentValue = successes.ToString() + " running";
-            
-            return machineState;
-        }
     }
     public class ServiceStateInfo
     {

@@ -154,6 +154,7 @@ namespace QuickMon.Collectors
                 queryEntry.CmndTimeOut = int.Parse(queryNode.ReadXmlElementAttr("cmndTimeOut", "60"));
                 queryEntry.UsePersistentConnection = bool.Parse(queryNode.ReadXmlElementAttr("usePersistentConnection", "False"));
                 queryEntry.ApplicationName = queryNode.ReadXmlElementAttr("applicationName", "QuickMon");
+                queryEntry.PrimaryUIValue = queryNode.ReadXmlElementAttr("primaryUIValue", false);
 
                 XmlNode alertTriggersNode = queryNode.SelectSingleNode("alertTriggers");
                 queryEntry.ValueReturnType = DataBaseQueryValueReturnTypeConverter.FromString(alertTriggersNode.ReadXmlElementAttr("valueReturnType", "RawValue"));
@@ -205,6 +206,7 @@ namespace QuickMon.Collectors
                 queryNode.SetAttributeValue("cmndTimeOut", queryEntry.CmndTimeOut);
                 queryNode.SetAttributeValue("usePersistentConnection", queryEntry.UsePersistentConnection);
                 queryNode.SetAttributeValue("applicationName", queryEntry.ApplicationName);
+                queryNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
 
                 XmlElement alertTriggersNode = config.CreateElement("alertTriggers");
                 alertTriggersNode.SetAttributeValue("valueReturnType", queryEntry.ValueReturnType.ToString());
@@ -307,6 +309,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
             object value = GetStateQueryValue();
@@ -325,8 +329,7 @@ namespace QuickMon.Collectors
         #endregion
 
         #region Properties
-        public string Name { get; set; }
-        public object CurrentAgentValue { get; set; }
+        public string Name { get; set; }        
         public DataSourceType DataSourceType { get; set; }
         /// <summary>
         /// Full connectionstring. If specified then Server/Database settings are ignored

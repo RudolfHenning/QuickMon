@@ -174,6 +174,7 @@ namespace QuickMon.Collectors
                 eventLogEntry.WithInLastXMinutes = int.Parse(logNode.ReadXmlElementAttr("withInLastXMinutes", "60"));
                 eventLogEntry.WarningValue = int.Parse(logNode.ReadXmlElementAttr("warningValue", "1"));
                 eventLogEntry.ErrorValue = int.Parse(logNode.ReadXmlElementAttr("errorValue", "10"));
+                eventLogEntry.PrimaryUIValue = logNode.ReadXmlElementAttr("primaryUIValue", false);
                 eventLogEntry.Sources = new List<string>();
 
                 foreach (XmlElement sourceNode in logNode.SelectNodes("sources/source"))
@@ -212,6 +213,7 @@ namespace QuickMon.Collectors
                 logNode.SetAttributeValue("withInLastXMinutes", eventLogEntry.WithInLastXMinutes);
                 logNode.SetAttributeValue("warningValue", eventLogEntry.WarningValue);
                 logNode.SetAttributeValue("errorValue", eventLogEntry.ErrorValue);
+                logNode.SetAttributeValue("primaryUIValue", eventLogEntry.PrimaryUIValue);
 
                 XmlElement sourcesNode = config.CreateElement("sources");
                 foreach (string source in eventLogEntry.Sources)
@@ -273,8 +275,7 @@ namespace QuickMon.Collectors
             ErrorValue = 10;
         }
 
-        #region Properties
-        public object CurrentAgentValue { get; set; }
+        #region Properties        
         public string Computer { get; set; }
         public string EventLog { get; set; }
         public bool TypeInfo { get; set; }
@@ -327,6 +328,8 @@ namespace QuickMon.Collectors
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         public MonitorState GetCurrentState()
         {
             bool errorCondition = false;

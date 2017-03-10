@@ -193,6 +193,7 @@ namespace QuickMon.Collectors
                 hostEntry.TelnetUserName = host.ReadXmlElementAttr("userName");
                 hostEntry.TelnetPassword = host.ReadXmlElementAttr("password");
                 hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
+                hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
                 Entries.Add(hostEntry);
             }
@@ -222,6 +223,7 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("userName", hostEntry.TelnetUserName);
                 hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
                 hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
+                hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
 
                 if (hostEntry.PingType == PingCollectorType.HTTP && hostEntry.HTMLContentContain.Trim().Length > 0)
                 {
@@ -385,6 +387,8 @@ namespace QuickMon.Collectors
            
             return currentState;
         }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
         #endregion
 
         private PingCollectorType pingType = PingCollectorType.Ping;
@@ -392,7 +396,7 @@ namespace QuickMon.Collectors
         public PingCollectorResult LastPingResult { get; set; }
 
         #region General properties
-        public object CurrentAgentValue { get; set; }
+
         private string address = "";
         public string Address { get { return address; } set { address = value; } }
         private string description = "";

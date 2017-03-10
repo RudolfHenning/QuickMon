@@ -339,21 +339,41 @@ namespace QuickMon
         }
         #endregion
 
+        #region Labels
+        private void llblMonitorPack_Click(object sender, EventArgs e)
+        {
+            if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
+            {
+                ShowRecentMonitorPackDropdown();
+            }
+        }    
+         private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EditMonitorSettings();
+        }
+        private void lblCollectors_Click(object sender, EventArgs e)
+        {
+            tvwCollectors.SelectedNode = null;
+        }          
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
             UpdateNotifiersLabel();
         }
-        
         private void llblNotifierViewToggle_DoubleClick(object sender, EventArgs e)
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
             UpdateNotifiersLabel();
         }
+        #endregion
 
         #region Collector and Notifier Context menus
         private void collectorsContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
+            if (lblCollectors.Focused)
+            {
+                tvwCollectors.SelectedNode = null;
+            }
             deleteToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             disableCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             if (tvwCollectors.SelectedNode != null && tvwCollectors.SelectedNode.Tag != null && tvwCollectors.SelectedNode.Tag is CollectorHost)
@@ -895,7 +915,10 @@ namespace QuickMon
                 collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             }
             else
+            {
                 collectorNode = new TreeNodeEx(collector.DisplayName, 2, 2);
+                collectorNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular);
+            }
             collectorNode.Tag = collector;
             collector.Tag = collectorNode;
             collectorNode.ForeColor = collector.Enabled ? SystemColors.WindowText : Color.Gray;
@@ -1173,6 +1196,15 @@ namespace QuickMon
                         }
                         catch { }
 
+                        if (collectorHost.CollectorAgents == null || collectorHost.CollectorAgents.Count == 0)
+                        {
+                            currentTreeNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+                        }
+                        else
+                        {
+                            currentTreeNode.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular);
+                        }
+
                         bool nodeChanged = false;
                         Color foreColor = currentTreeNode.ForeColor;
                         int imageIndex = currentTreeNode.ImageIndex;
@@ -1249,13 +1281,15 @@ namespace QuickMon
                             {
                                 currentTreeNode.ImageIndex = imageIndex;
                                 currentTreeNode.SelectedImageIndex = imageIndex;
-                                if (collectorHost.CurrentState != null)
-                                {
-                                    string value = collectorHost.CurrentState.ReadValues().Split('\r', '\n')[0];
-                                    currentTreeNode.DisplayValue = value; // collectorHost.CurrentState.ReadValues().Replace("\r","`").Replace("\n","");
-                                }
-                                else
-                                    currentTreeNode.DisplayValue = "";
+
+                                currentTreeNode.DisplayValue = collectorHost.CurrentState.ReadPrimaryOrFirstUIValue();
+                                //if (collectorHost.CurrentState != null)
+                                //{
+                                //    string value = collectorHost.CurrentState.ReadValues().Split('\r', '\n')[0];
+                                //    currentTreeNode.DisplayValue = value; // collectorHost.CurrentState.ReadValues().Replace("\r","`").Replace("\n","");
+                                //}
+                                //else
+                                //    currentTreeNode.DisplayValue = "";
                                 if (firstRefresh && (imageIndex == collectorGoodStateImage1 || imageIndex == collectorWarningStateImage1 || imageIndex == collectorErrorStateImage1))
                                 {
                                     TreeNode currentFocusNode = tvwCollectors.SelectedNode;
@@ -1793,14 +1827,6 @@ namespace QuickMon
         }
         #endregion
 
-        private void llblMonitorPack_Click(object sender, EventArgs e)
-        {
-            if (((System.Windows.Forms.MouseEventArgs)e).Button == MouseButtons.Right)
-            {
-                ShowRecentMonitorPackDropdown();
-            }
-        }
-
         #region Performance counters
         private void InitializeGlobalPerformanceCounters()
         {
@@ -1929,12 +1955,6 @@ namespace QuickMon
             SetCounterValue(collectorsQueryTime, elapsedMilliseconds, "Collector Hosts query time (ms)");
         }
         #endregion
-
-        private void llblMonitorPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            EditMonitorSettings();
-        }
-
 
     }
 }

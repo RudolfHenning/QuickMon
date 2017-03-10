@@ -250,6 +250,7 @@ namespace QuickMon.Collectors
                 webServicePingEntry.MacroFormatType = WebServiceMacroFormatTypeConverter.FromString(dataSourceNode.ReadXmlElementAttr("macroFormatType", ""));
                 webServicePingEntry.CheckValueArrayIndex = dataSourceNode.ReadXmlElementAttr("arrayIndex", 0);
                 webServicePingEntry.CheckValueColumnIndex = dataSourceNode.ReadXmlElementAttr("columnIndex", 0);
+                webServicePingEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
 
                 XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
                 webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
@@ -292,6 +293,8 @@ namespace QuickMon.Collectors
                 dataSourceNode.SetAttributeValue("macroFormatType", webServiceEntry.MacroFormatType.ToString());
                 dataSourceNode.SetAttributeValue("arrayIndex", webServiceEntry.CheckValueArrayIndex);
                 dataSourceNode.SetAttributeValue("columnIndex", webServiceEntry.CheckValueColumnIndex);
+                dataSourceNode.SetAttributeValue("primaryUIValue", webServiceEntry.PrimaryUIValue);
+
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
                 testConditionsNode.SetAttributeValue("testSequence", webServiceEntry.ReturnCheckSequence.ToString());
                 XmlElement successNode = config.CreateElement("success");
@@ -371,7 +374,7 @@ namespace QuickMon.Collectors
         }
 
         #region Properties
-        public object CurrentAgentValue { get; set; }
+        
         private string serviceBaseURL = "";
         public string ServiceBaseURL
         {
@@ -459,7 +462,38 @@ namespace QuickMon.Collectors
                 return sb.ToString();
             }
         }
+        public object CurrentAgentValue { get; set; }
+        public bool PrimaryUIValue { get; set; }
+        public MonitorState GetCurrentState()
+        {
+            object wsData = null;
+            CollectorState agentState = CollectorState.NotAvailable;
+            try
+            {
+                wsData = RunMethod();
+                FormatCurrentAgentValue(wsData);
 
+                agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
+                   GoodResultMatchType, GoodScriptText,
+                   WarningResultMatchType, WarningScriptText,
+                   ErrorResultMatchType, ErrorScriptText,
+                   CurrentAgentValue);
+            }
+            catch (Exception wsException)
+            {
+                agentState = CollectorState.Error;
+                wsData = wsException.Message;
+            }
+
+            MonitorState currentState = new MonitorState()
+            {
+                ForAgent = Description,
+                State = agentState,
+                CurrentValue = wsData == null ? "N/A" : wsData.ToString()
+            };
+
+            return currentState;
+        }
         #endregion
 
         public object RunMethod()
@@ -830,35 +864,6 @@ namespace QuickMon.Collectors
         //    return result;
         //}
 
-        public MonitorState GetCurrentState()
-        {
-            object wsData = null;
-            CollectorState agentState = CollectorState.NotAvailable;
-            try
-            {
-                wsData = RunMethod();
-                FormatCurrentAgentValue(wsData);
 
-                agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
-                   GoodResultMatchType, GoodScriptText,
-                   WarningResultMatchType, WarningScriptText,
-                   ErrorResultMatchType, ErrorScriptText,
-                   CurrentAgentValue);
-            }
-            catch (Exception wsException)
-            {
-                agentState = CollectorState.Error;
-                wsData = wsException.Message;
-            }
-
-            MonitorState currentState = new MonitorState()
-            {
-                ForAgent = Description,
-                State = agentState,
-                CurrentValue = wsData == null ? "N/A" : wsData.ToString()
-            };
-
-            return currentState;
-        }
     }
 }

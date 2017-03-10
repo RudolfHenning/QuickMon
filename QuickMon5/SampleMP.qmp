@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-08 19:27:29" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-10 14:23:50" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -21,7 +21,8 @@
         <collectorAgent name="Ping" type="QuickMon.Collectors.PingCollector" enabled="True">
           <config>
             <entries>
-              <entry pingMethod="Ping" address="%ComputerName%" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" />
+              <entry pingMethod="Ping" address="%ComputerName%" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" primaryUIValue="False" />
+              <entry pingMethod="Ping" address="127.0.0.1" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" primaryUIValue="True" />
             </entries>
           </config>
         </collectorAgent>
