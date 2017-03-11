@@ -30,5 +30,14 @@ namespace QuickMon
                 ExpandAllParents(node.Parent);
             }
         }
+        public static int GetAllChileNodeCount(this TreeNodeCollection nodes)
+        {
+            int count = nodes.Count;
+            foreach(TreeNode node in nodes)
+            {
+                count += node.Nodes.GetAllChileNodeCount();
+            }
+            return count;
+        }
     }
 }
