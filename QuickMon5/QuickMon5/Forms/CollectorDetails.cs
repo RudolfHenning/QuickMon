@@ -264,6 +264,86 @@ namespace QuickMon
                     AddUpdateListViewItem(lvwMetrics, "General", "Categories", "None");
             }
 
+            #region Polling metrics
+            //AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times polled", SelectedCollectorHost.PollCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times refreshed", SelectedCollectorHost.RefreshCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Polling override enabled", SelectedCollectorHost.EnabledPollingOverride ? "Yes" : "No");
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Poll frequency sliding enabled", SelectedCollectorHost.EnablePollFrequencySliding ? "Yes" : "No", SelectedCollectorHost.EnabledPollingOverride);
+            int currentPollFreq = 0;
+            if (SelectedCollectorHost.EnabledPollingOverride)
+            {
+                if (SelectedCollectorHost.EnablePollFrequencySliding)
+                {
+                    if (SelectedCollectorHost.StagnantStateThirdRepeat)
+                        currentPollFreq = SelectedCollectorHost.PollSlideFrequencyAfterThirdRepeatSec;
+                    else if (SelectedCollectorHost.StagnantStateSecondRepeat)
+                        currentPollFreq = SelectedCollectorHost.PollSlideFrequencyAfterSecondRepeatSec;
+                    else if (SelectedCollectorHost.StagnantStateFirstRepeat)
+                        currentPollFreq = SelectedCollectorHost.PollSlideFrequencyAfterFirstRepeatSec;
+                    else
+                        currentPollFreq = SelectedCollectorHost.OnlyAllowUpdateOncePerXSec;
+                }
+                else
+                    currentPollFreq = SelectedCollectorHost.OnlyAllowUpdateOncePerXSec;
+            }
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Current poll frequency (Sec)", currentPollFreq.ToString(), SelectedCollectorHost.EnabledPollingOverride);
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "First polled time", FormatDate(SelectedCollectorHost.FirstStateUpdate));
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times good states", SelectedCollectorHost.GoodStateCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times warning states", SelectedCollectorHost.WarningStateCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times error states", SelectedCollectorHost.ErrorStateCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last attempted polling time", FormatDate(SelectedCollectorHost.LastStateCheckAttemptBegin));
+
+            if (SelectedCollectorHost.LastGoodState != null)
+            {
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last good state time", FormatDate(SelectedCollectorHost.LastGoodState.Timestamp));
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last good state details", SelectedCollectorHost.LastGoodState.ReadAllRawDetails());
+            }
+            else
+            {
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last good state time", "N/A");
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last good state details", "N/A");
+            }
+            if (SelectedCollectorHost.LastWarningState != null)
+            {
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last warning state time", FormatDate(SelectedCollectorHost.LastWarningState.Timestamp));
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last warning state details", SelectedCollectorHost.LastWarningState.ReadAllRawDetails());
+            }
+            else
+            {
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last warning state time", "N/A");
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last warning state details", "N/A");
+            }
+            if (SelectedCollectorHost.LastErrorState != null)
+            {
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last error state time", FormatDate(SelectedCollectorHost.LastErrorState.Timestamp));
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last error state details", SelectedCollectorHost.LastErrorState.ReadAllRawDetails());
+            }
+            else
+            {
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last error state time", "N/A");
+                AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last error state details", "N/A");
+            }
+            #endregion
+
+            #region Corrective scripts
+            AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "Enabled", (SelectedCollectorHost.CorrectiveScriptDisabled ? "No" : "Yes"));
+            if (!SelectedCollectorHost.CorrectiveScriptDisabled)
+            {
+                if (SelectedCollectorHost.LastWarningCorrectiveScriptRun.Year > 2000)
+                    AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "Last time warning script ran", SelectedCollectorHost.LastWarningCorrectiveScriptRun.ToString());
+                if (SelectedCollectorHost.TimesWarningCorrectiveScriptRan > 0)
+                    AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "# of Times warning script ran", SelectedCollectorHost.TimesWarningCorrectiveScriptRan.ToString());
+                if (SelectedCollectorHost.LastErrorCorrectiveScriptRun.Year > 2000)
+                    AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "Last time error script ran", SelectedCollectorHost.LastErrorCorrectiveScriptRun.ToString());
+                if (SelectedCollectorHost.TimesErrorCorrectiveScriptRan > 0)
+                    AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "# of Times error script ran", SelectedCollectorHost.TimesErrorCorrectiveScriptRan.ToString());
+                if (SelectedCollectorHost.LastRestorationScriptRun.Year > 2000)
+                    AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "Last time restoration script ran", SelectedCollectorHost.LastRestorationScriptRun.ToString());
+                if (SelectedCollectorHost.TimesRestorationScriptRan > 0)
+                    AddUpdateListViewItem(lvwMetrics, "Corrective scripts", "# of Times restoration script ran", SelectedCollectorHost.TimesRestorationScriptRan.ToString());
+            }
+            #endregion
+
             AddUpdateListViewItem(lvwMetrics, "Current state", "Current state", SelectedCollectorHost.CurrentState.State.ToString());
             AddUpdateListViewItem(lvwMetrics, "Current state", "Current state time", FormatDate(SelectedCollectorHost.CurrentState.Timestamp));
             AddUpdateListViewItem(lvwMetrics, "Current state", "Current state check duration (ms)", SelectedCollectorHost.CurrentState.CallDurationMS.ToString());

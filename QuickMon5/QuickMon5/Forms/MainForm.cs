@@ -398,6 +398,8 @@ namespace QuickMon
                 monitorPack.AddCollectorHost(newCh);
                 LoadCollectorNode(parentNode, newCh);
                 tvwCollectors.SelectedNode = (TreeNodeEx)newCh.Tag;
+                if (parentNode != null)
+                    UpdateParentFolderNode((TreeNodeEx)parentNode);
                 EditCollector(true);
                 
                 SetMonitorChanged();
@@ -416,7 +418,9 @@ namespace QuickMon
                     RefreshMonitorPack(true, true);
                     if (currentNode.Parent != null)
                     {
-                        currentNode.Parent.Nodes.Remove(currentNode);
+                        TreeNodeEx parent = (TreeNodeEx)currentNode.Parent;
+                        parent.Nodes.Remove(currentNode);
+                        UpdateParentFolderNode(parent);
                     }
                     else
                     {
@@ -902,6 +906,11 @@ namespace QuickMon
 
             //tvwCollectors.SelectedNode = root;
             //root.EnsureVisible();
+            if (tvwCollectors.Nodes.Count > 0)
+            {
+                tvwCollectors.SelectedNode = tvwCollectors.Nodes[0];
+                tvwCollectors.Nodes[0].EnsureVisible();
+            }
 
             Cursor.Current = Cursors.Default;
             Application.DoEvents();
@@ -929,6 +938,8 @@ namespace QuickMon
             {
                 LoadCollectorNode(collectorNode, childCollector);
             }
+            if (collector.CollectorAgents.Count == 0)
+                collectorNode.DisplayValue = "Child collectors: " + collectorNode.Nodes.GetAllChileNodeCount().ToString();
             if (root == null)
             {
                 tvwCollectors.Nodes.Add(collectorNode);
@@ -1227,6 +1238,7 @@ namespace QuickMon
                                 nodeChanged = true;
                                 imageIndex = collectorFolderImage;
                             }
+                            
                         }
                         else if (!collectorHost.Enabled || collectorHost.CurrentState.State == CollectorState.Disabled)
                         {
@@ -1282,7 +1294,10 @@ namespace QuickMon
                                 currentTreeNode.ImageIndex = imageIndex;
                                 currentTreeNode.SelectedImageIndex = imageIndex;
 
-                                currentTreeNode.DisplayValue = collectorHost.CurrentState.ReadPrimaryOrFirstUIValue();
+                                if (collectorHost.CollectorAgents.Count > 0)
+                                {
+                                    currentTreeNode.DisplayValue = collectorHost.CurrentState.ReadPrimaryOrFirstUIValue();
+                                }                                
                                 //if (collectorHost.CurrentState != null)
                                 //{
                                 //    string value = collectorHost.CurrentState.ReadValues().Split('\r', '\n')[0];
@@ -1332,6 +1347,18 @@ namespace QuickMon
             monitorPack_CollectorHostStateUpdated(collectorHost);
             if (setChanged)
                 SetMonitorChanged();
+        }
+        private void UpdateParentFolderNode(TreeNodeEx parentNode)
+        {
+            if (parentNode != null && parentNode.Tag != null && parentNode.Tag is CollectorHost)
+            {
+                CollectorHost collectorHost = (CollectorHost)(parentNode.Tag);
+                if (collectorHost.CollectorAgents.Count == 0)
+                {
+                    ((TreeNodeEx)parentNode).DisplayValue = "Child collectors: " + parentNode.Nodes.GetAllChileNodeCount().ToString();
+                    tvwCollectors.Refresh();
+                }
+            }
         }
         private void RemoveCollector(TreeNode parentNode)
         {
