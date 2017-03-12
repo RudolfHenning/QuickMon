@@ -18,88 +18,6 @@ namespace QuickMon.Collectors
             AgentConfig = new PowerShellScriptRunnerCollectorConfig();
         }
 
-        //public override MonitorState RefreshState()
-        //{
-        //    MonitorState returnState = new MonitorState();
-        //    string lastAction = "";
-        //    int errors = 0;
-        //    int warnings = 0;
-        //    int success = 0;
-
-        //    try
-        //    {
-        //        PowerShellScriptRunnerCollectorConfig currentConfig = (PowerShellScriptRunnerCollectorConfig)AgentConfig;
-        //        foreach (PowerShellScriptRunnerEntry entry in currentConfig.Entries)
-        //        {
-        //            CollectorState currentState = CollectorState.NotAvailable;
-        //            string output = "N/A";
-        //            try
-        //            {
-        //                lastAction = "Running PowerShell script " + entry.Description;
-        //                output = entry.RunScript();
-        //                lastAction = "Checking states of " + entry.Description;
-        //                currentState = entry.GetState(output);
-        //                lastAction = output;
-        //            }
-        //            catch (Exception wsException)
-        //            {
-        //                currentState = CollectorState.Error;
-        //                lastAction = wsException.Message;
-        //                output = wsException.Message;
-        //            }
-        //            if (output == null)
-        //                output = "N/A";
-        //            if (currentState == CollectorState.Error)
-        //            {
-        //                errors++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        ForAgent = entry.Description,
-        //                        State = CollectorState.Error,
-        //                        CurrentValue = output
-        //                    });
-        //            }
-        //            else if (currentState == CollectorState.Warning)
-        //            {
-        //                warnings++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        ForAgent = entry.Description,
-        //                        State = CollectorState.Warning,
-        //                        CurrentValue = output
-        //                    });
-        //            }
-        //            else
-        //            {
-        //                success++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        ForAgent = entry.Description,
-        //                        State = CollectorState.Good,
-        //                        CurrentValue = output
-        //                    });
-        //            }
-        //        }
-
-        //        if (errors > 0 && warnings == 0 && success == 0) // any errors
-        //            returnState.State = CollectorState.Error;
-        //        else if (errors > 0 || warnings > 0) //any warnings
-        //            returnState.State = CollectorState.Warning;
-        //        else
-        //            returnState.State = CollectorState.Good;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        returnState.RawDetails = ex.Message;
-        //        returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
-        //        returnState.State = CollectorState.Error;
-        //    }
-        //    return returnState;
-        //}
-
         public override List<System.Data.DataTable> GetDetailDataTables()
         {
             List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
@@ -428,7 +346,7 @@ namespace QuickMon.Collectors
             }
             return output.Trim('\r', '\n');
         }
-        private CollectorState GetState(string scriptResultText)
+        public CollectorState GetState(string scriptResultText)
         {
             return CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
                GoodResultMatchType, GoodScriptText,

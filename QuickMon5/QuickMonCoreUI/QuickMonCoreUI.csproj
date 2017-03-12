@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +52,65 @@
   <ItemGroup>
     <Compile Include="..\QuickMon5Core\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorEditEntry.Designer.cs">
+      <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\EventLog\EventLogCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\EventLog\EventLogUtil.cs" />
+    <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorEditFilterEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorEditFilterEntry.Designer.cs">
+      <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\FileSystem\FileSystemCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorEditEntry.Designer.cs">
+      <DependentUpon>PerfCounterCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\PerfCounter\PerfCounterEdit.designer.cs">
+      <DependentUpon>PerfCounterEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\Ping\PingCollectorEditHostAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\Ping\PingCollectorEditHostAddress.Designer.cs">
+      <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\Ping\PingCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollectorEditEntry.Designer.cs">
+      <DependentUpon>PowerShellScriptRunnerCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.Designer.cs">
+      <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\WS\WSCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\WS\WSCollectorEditEntry.designer.cs">
+      <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\WS\WSCollectorUI.cs" />
+    <Compile Include="BaseClasses\CollectorConfigEntryEditWindowBase.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\API\APIsClipboard.cs" />
     <Compile Include="Controls\API\APIsComctl32.cs" />
@@ -161,6 +222,30 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Agents\Collectors\EventLog\EventLogCollectorEditEntry.resx">
+      <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\FileSystem\FileSystemCollectorEditFilterEntry.resx">
+      <DependentUpon>FileSystemCollectorEditFilterEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\PerfCounter\PerfCounterCollectorEditEntry.resx">
+      <DependentUpon>PerfCounterCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\PerfCounter\PerfCounterEdit.resx">
+      <DependentUpon>PerfCounterEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\Ping\PingCollectorEditHostAddress.resx">
+      <DependentUpon>PingCollectorEditHostAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollectorEditEntry.resx">
+      <DependentUpon>PowerShellScriptRunnerCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
+      <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\WS\WSCollectorEditEntry.resx">
+      <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </EmbeddedResource>
@@ -202,7 +287,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BaseClasses\" />
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTLLIBR_9825.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTLLIBR_98251.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTLLIBR_98252.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

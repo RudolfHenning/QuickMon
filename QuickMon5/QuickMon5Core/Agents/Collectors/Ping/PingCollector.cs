@@ -16,94 +16,6 @@ namespace QuickMon.Collectors
         {
             AgentConfig = new PingCollectorConfig();
         }
-        //public override MonitorState RefreshState()
-        //{
-        //    MonitorState returnState = new MonitorState();
-        //    string lastAction = "";
-        //    long pingTotalTime = 0;
-        //    int errors = 0;
-        //    int warnings = 0;
-        //    int success = 0;
-
-        //    try
-        //    {
-        //        PingCollectorConfig currentConfig = (PingCollectorConfig)AgentConfig;
-        //        returnState.RawDetails = string.Format("Pinging {0} entries", currentConfig.Entries.Count);
-        //        returnState.HtmlDetails = string.Format("<b>Pinging {0} entries</b>", currentConfig.Entries.Count);
-        //        foreach (PingCollectorHostEntry host in currentConfig.Entries)
-        //        {
-        //            PingCollectorResult pingResult = host.Ping();
-        //            CollectorState currentState = host.GetState(pingResult);
-        //            if (pingResult.Success)
-        //            {
-        //                pingTotalTime += pingResult.PingTime;
-        //                if (currentState == CollectorState.Error)
-        //                {
-        //                    errors++;
-        //                    returnState.ChildStates.Add(
-        //                        new MonitorState()
-        //                        {
-        //                            ForAgent = host.Address,
-        //                            State = CollectorState.Error,
-        //                            CurrentValue = pingResult.PingTime,
-        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)
-        //                        });
-        //                }
-        //                else if (currentState == CollectorState.Warning)
-        //                {
-        //                    warnings++;
-        //                    returnState.ChildStates.Add(
-        //                        new MonitorState()
-        //                        {
-        //                            ForAgent = host.Address,
-        //                            State = CollectorState.Warning,
-        //                            CurrentValue = pingResult.PingTime,
-        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
-        //                        });
-        //                }
-        //                else
-        //                {
-        //                    success++;
-        //                    returnState.ChildStates.Add(
-        //                        new MonitorState()
-        //                        {
-        //                            ForAgent = host.Address,
-        //                            State = CollectorState.Good,
-        //                            CurrentValue = pingResult.PingTime,
-        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
-        //                        });
-        //                }
-        //            }
-        //            else
-        //            {
-        //                errors++;
-        //                returnState.ChildStates.Add(
-        //                        new MonitorState()
-        //                        {
-        //                            ForAgent = host.Address,
-        //                            State = CollectorState.Error,
-        //                            CurrentValue = "",
-        //                            RawDetails = string.Format("Response details : '{0}'", pingResult.ResponseDetails)                                    
-        //                        });
-        //            }
-        //        }
-        //        returnState.CurrentValue = pingTotalTime;
-
-        //        if (errors > 0 && warnings == 0 && success == 0) // any errors
-        //            returnState.State = CollectorState.Error;
-        //        else if (errors > 0 || warnings > 0) //any warnings
-        //            returnState.State = CollectorState.Warning;
-        //        else
-        //            returnState.State = CollectorState.Good;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        returnState.RawDetails = ex.Message;
-        //        returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
-        //        returnState.State = CollectorState.Error;
-        //    }
-        //    return returnState;
-        //}
         public override List<System.Data.DataTable> GetDetailDataTables()
         {
             List<System.Data.DataTable> tables = new List<System.Data.DataTable>();
@@ -193,6 +105,7 @@ namespace QuickMon.Collectors
                 hostEntry.TelnetUserName = host.ReadXmlElementAttr("userName");
                 hostEntry.TelnetPassword = host.ReadXmlElementAttr("password");
                 hostEntry.IgnoreInvalidHTTPSCerts = host.ReadXmlElementAttr("ignoreInvalidHTTPSCerts", false);
+                hostEntry.SocketPingMsgBody = host.ReadXmlElementAttr("socketPingMsgBody", "QuickMon Ping Test");
                 hostEntry.PrimaryUIValue = host.ReadXmlElementAttr("primaryUIValue", false);
 
                 Entries.Add(hostEntry);
@@ -223,6 +136,7 @@ namespace QuickMon.Collectors
                 hostXmlNode.SetAttributeValue("userName", hostEntry.TelnetUserName);
                 hostXmlNode.SetAttributeValue("password", hostEntry.TelnetPassword);
                 hostXmlNode.SetAttributeValue("ignoreInvalidHTTPSCerts", hostEntry.IgnoreInvalidHTTPSCerts);
+                hostXmlNode.SetAttributeValue("socketPingMsgBody", hostEntry.SocketPingMsgBody);
                 hostXmlNode.SetAttributeValue("primaryUIValue", hostEntry.PrimaryUIValue);
 
                 if (hostEntry.PingType == PingCollectorType.HTTP && hostEntry.HTMLContentContain.Trim().Length > 0)
@@ -326,6 +240,7 @@ namespace QuickMon.Collectors
         {
             IgnoreInvalidHTTPSCerts = false;
             HTMLContentContain = "";
+            SocketPingMsgBody = "QuickMon Ping Test";
         }
 
         #region ICollectorConfigEntry Members
@@ -426,7 +341,8 @@ namespace QuickMon.Collectors
         public int SendTimeOutMS { get { return sendTimeOutMS; } set { sendTimeOutMS = value; } }
         public bool UseTelnetLogin { get; set; }
         public string TelnetUserName { get; set; }
-        public string TelnetPassword { get; set; }        
+        public string TelnetPassword { get; set; }
+        public string SocketPingMsgBody { get; set; }
         #endregion
 
         #region Ping methods
@@ -555,7 +471,6 @@ namespace QuickMon.Collectors
                         wc.Proxy = null;
                     }
                     wc.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.BypassCache);
-                    sw.Start();
 
                     if (HttpHeaderUserName.Trim().Length > 0)
                     {
@@ -565,6 +480,7 @@ namespace QuickMon.Collectors
                     else
                         wc.UseDefaultCredentials = true;
 
+                     sw.Start();
                     lastStep = "[OpenRead]";
                     using (System.IO.Stream webRequest = wc.OpenRead(Address))
                     {
@@ -689,7 +605,7 @@ namespace QuickMon.Collectors
 
                     s += Read(tcpSocket);
                 }
-                Write(tcpSocket, "QuickMon Ping Test");
+                Write(tcpSocket, SocketPingMsgBody);
                 s = Read(tcpSocket); // not doing anything with response
                 sw.Stop();
                 try
