@@ -643,7 +643,7 @@ namespace QuickMon
         {
             try
             {
-                TreeNode currentlySelected = tvwCollectors.SelectedNode;
+                TreeNodeEx currentlySelected = (TreeNodeEx)(tvwCollectors.SelectedNode);
                 if (Clipboard.ContainsText() && Clipboard.GetText().StartsWith("<collectorHosts"))
                 {
                     copiedCollectorList = CollectorHost.GetCollectorHostsFromString(Clipboard.GetText());
@@ -694,13 +694,14 @@ namespace QuickMon
                                 rootChild = newChild;
                             monitorPack.AddCollectorHost(newChild);
                         }
-                        TreeNode root = null;
+                        TreeNodeEx root = null;
                         if (currentlySelected != null && currentlySelected.Tag != null && currentlySelected.Tag is CollectorHost)
                         {
                             root = currentlySelected;
                         }                        
 
                         LoadCollectorNode(root, rootChild);
+                        UpdateParentFolderNode(root);
                         if (root != null)
                             root.Expand();
                         DoAutoSave();

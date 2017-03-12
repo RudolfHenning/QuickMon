@@ -288,9 +288,9 @@ namespace QuickMon
             }
             AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Current poll frequency (Sec)", currentPollFreq.ToString(), SelectedCollectorHost.EnabledPollingOverride);
             AddUpdateListViewItem(lvwMetrics, "Polling metrics", "First polled time", FormatDate(SelectedCollectorHost.FirstStateUpdate));
-            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times good states", SelectedCollectorHost.GoodStateCount.ToString());
-            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times warning states", SelectedCollectorHost.WarningStateCount.ToString());
-            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of times error states", SelectedCollectorHost.ErrorStateCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of unique times good states", SelectedCollectorHost.GoodStateCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of unique times warning states", SelectedCollectorHost.WarningStateCount.ToString());
+            AddUpdateListViewItem(lvwMetrics, "Polling metrics", "# of unique times error states", SelectedCollectorHost.ErrorStateCount.ToString());
             AddUpdateListViewItem(lvwMetrics, "Polling metrics", "Last attempted polling time", FormatDate(SelectedCollectorHost.LastStateCheckAttemptBegin));
 
             if (SelectedCollectorHost.LastGoodState != null)
