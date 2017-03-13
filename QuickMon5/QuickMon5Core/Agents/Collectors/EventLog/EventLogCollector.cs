@@ -348,12 +348,18 @@ namespace QuickMon.Collectors
 
             if (errorCondition)
             {
-                currentState.RawDetails = string.Format("(Trigger: {0})", ErrorValue);                
+                currentState.State = CollectorState.Error;
+                currentState.RawDetails = string.Format("(Trigger: {0})", ErrorValue);
             }
             else if (warningCondition)
             {
-                currentState.RawDetails = string.Format("(Trigger: {0})", WarningValue);                
-            }           
+                currentState.State = CollectorState.Warning;
+                currentState.RawDetails = string.Format("(Trigger: {0})", WarningValue);
+            }
+            else
+            {
+                currentState.State = CollectorState.Good;
+            }
 
             return currentState;
         }

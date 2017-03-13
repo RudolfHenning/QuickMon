@@ -16,6 +16,7 @@ namespace QuickMon.UI
         public SelectNewEntityType()
         {
             InitializeComponent();
+            Templates = new List<QuickMonTemplate>();
         }
 
         private bool selectingCollectors = false;
@@ -24,6 +25,7 @@ namespace QuickMon.UI
         #region Properties
         public IAgent SelectedAgent { get; set; }
         public CollectorHost SelectedCollectorHost { get; set; }
+        public List<QuickMonTemplate> Templates { get; set; }
         #endregion
 
         public DialogResult ShowCollectorHostSelection()
@@ -33,6 +35,9 @@ namespace QuickMon.UI
             //SetDetailColumnSizing();
             lvwAgentType.Items.Clear();
             lvwAgentType.Groups.Clear();
+
+            
+
 
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
@@ -48,14 +53,25 @@ namespace QuickMon.UI
             lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
             lvwAgentType.Items.Add(lviPingCollector);
 
-            ListViewItem lviPerfCounterCollector = new ListViewItem("Performance Counter");
-            lviPerfCounterCollector.SubItems.Add("Creates a collector with a Performance Counter agent");
-            lviPerfCounterCollector.Group = generalGroup;
-            lviPerfCounterCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Performance Counter\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"PerfCounter\" type=\"QuickMon.Collectors.PerfCounterCollector\" enabled=\"True\"><config><performanceCounters><performanceCounter computer=\".\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" warningValue=\"90\" errorValue=\"95\" numberOfSamples=\"3\" multiSampleWaitMS=\"100\" outputValueUnit=\"%\" /></performanceCounters></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
-            lvwAgentType.Items.Add(lviPerfCounterCollector);
-
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
             lvwAgentType.Groups.Add(templatesGroup);
+
+            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.CollectorHost))
+            {
+                ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
+                lviTemplateCollector.SubItems.Add(qt.Description);
+                lviTemplateCollector.Group = templatesGroup;
+                lviTemplateCollector.Tag = qt;
+                lvwAgentType.Items.Add(lviTemplateCollector);
+            }            
+
+            //ListViewItem lviPerfCounterCollector = new ListViewItem("Performance Counter");
+            //lviPerfCounterCollector.SubItems.Add("Creates a collector with a Performance Counter agent");
+            //lviPerfCounterCollector.Group = generalGroup;
+            //lviPerfCounterCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Performance Counter\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"PerfCounter\" type=\"QuickMon.Collectors.PerfCounterCollector\" enabled=\"True\"><config><performanceCounters><performanceCounter computer=\".\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" warningValue=\"90\" errorValue=\"95\" numberOfSamples=\"3\" multiSampleWaitMS=\"100\" outputValueUnit=\"%\" /></performanceCounters></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
+            //lvwAgentType.Items.Add(lviPerfCounterCollector);
+
+            
 
 
             foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.CategoryName))
@@ -70,9 +86,6 @@ namespace QuickMon.UI
                 }
             }
 
-
-            //ListViewGroup rawAgentTypesGroup = new ListViewGroup("RAW Agent type");
-            //
             foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.DisplayName))
             {
                 ListViewGroup rawAgentTypesGroup = (from ListViewGroup g in lvwAgentType.Groups
@@ -156,6 +169,18 @@ namespace QuickMon.UI
                 {
                     SelectedCollectorHost = (CollectorHost)lvwAgentType.SelectedItems[0].Tag;
                 }
+                else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
+                {
+                    QuickMonTemplate selectedTemplate = (QuickMonTemplate)(lvwAgentType.SelectedItems[0].Tag);
+                    CollectorHost cls = CollectorHost.FromXml(selectedTemplate.Config);
+                    if (cls != null)
+                        SelectedCollectorHost = cls;
+                    else
+                    {
+                        MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
                 DialogResult = DialogResult.OK;
                 Close();
@@ -170,6 +195,7 @@ namespace QuickMon.UI
         private void SelectNewEntityType_Load(object sender, EventArgs e)
         {
             lvwAgentType.AutoResizeColumnEnabled = true;
+            lvwAgentType.BorderStyle = BorderStyle.None;
         }
     }
 }

@@ -601,7 +601,6 @@ namespace QuickMon
                     else
                     {
                         caMs = new MonitorState() { State = CollectorState.Disabled, RawDetails = "This agent is disabled", HtmlDetails = "<p>This agent is disabled</p>" };
-                        //caMs.RanAs = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
                     }
                     caMs.ForAgent = ca.Name;
                     caMs.ForAgentId = agentId;
