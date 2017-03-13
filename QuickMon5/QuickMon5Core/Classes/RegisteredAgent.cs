@@ -102,32 +102,35 @@ namespace QuickMon
                                             if (interfaceType.FullName == "QuickMon.IAgent")
                                             {
                                                 string className = type.FullName;
-                                                string name = className;//.Replace("QuickMon.", "");
-                                                string displayName = name;
-                                                //name = name.Replace("Collectors.", "");
-                                                //name = name.Replace("Notifiers.", "");
-                                                
-                                                string categoryName = "General";
-                                                try
-                                                {
-                                                    displayName = GetTypeDisplayName(type, name);
-                                                }
-                                                catch { }
-                                                try
-                                                {
-                                                    categoryName = GetCategoryName(type);
-                                                }
-                                                catch { }
+                                                if (list.FirstOrDefault(a => a.ClassName == className) == null)
+                                                {                                                    
+                                                    string name = className;//.Replace("QuickMon.", "");
+                                                    string displayName = name;
+                                                    //name = name.Replace("Collectors.", "");
+                                                    //name = name.Replace("Notifiers.", "");
 
-                                                RegisteredAgent agentRegistration = new RegisteredAgent();
-                                                agentRegistration.Name = name;
-                                                agentRegistration.DisplayName = displayName;
-                                                agentRegistration.CategoryName = categoryName;
-                                                agentRegistration.AssemblyPath = dllPath;
-                                                agentRegistration.ClassName = className;
-                                                agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(quickMonAssembly, className);
-                                                agentRegistration.IsNotifier = RegistrationHelper.IsNotifierClass(quickMonAssembly, className);
-                                                list.Add(agentRegistration);
+                                                    string categoryName = "General";
+                                                    try
+                                                    {
+                                                        displayName = GetTypeDisplayName(type, name);
+                                                    }
+                                                    catch { }
+                                                    try
+                                                    {
+                                                        categoryName = GetCategoryName(type);
+                                                    }
+                                                    catch { }
+
+                                                    RegisteredAgent agentRegistration = new RegisteredAgent();
+                                                    agentRegistration.Name = name;
+                                                    agentRegistration.DisplayName = displayName;
+                                                    agentRegistration.CategoryName = categoryName;
+                                                    agentRegistration.AssemblyPath = dllPath;
+                                                    agentRegistration.ClassName = className;
+                                                    agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(quickMonAssembly, className);
+                                                    agentRegistration.IsNotifier = RegistrationHelper.IsNotifierClass(quickMonAssembly, className);
+                                                    list.Add(agentRegistration);
+                                                }
                                             }
                                         }
                                         catch (Exception interfaceEx)
@@ -164,31 +167,34 @@ namespace QuickMon
                             if (interfaceType.FullName == "QuickMon.IAgent")
                             {
                                 string className = type.FullName;
-                                string name = className.Replace("QuickMon.", "");
-                                name = name.Replace("Collectors.", "");
-                                name = name.Replace("Notifiers.", "");
-                                string displayName = name;
-                                string categoryName = "General";
+                                if (list.FirstOrDefault(a => a.ClassName == className) == null)
+                                {
+                                    string name = className;//.Replace("QuickMon.", "");
+                                                            //name = name.Replace("Collectors.", "");
+                                                            //name = name.Replace("Notifiers.", "");
+                                    string displayName = name;
+                                    string categoryName = "General";
 
-                                try
-                                {
-                                    displayName = GetTypeDisplayName(type, name);
+                                    try
+                                    {
+                                        displayName = GetTypeDisplayName(type, name);
+                                    }
+                                    catch { }
+                                    try
+                                    {
+                                        categoryName = GetCategoryName(type);
+                                    }
+                                    catch { }
+                                    RegisteredAgent agentRegistration = new RegisteredAgent();
+                                    agentRegistration.Name = name;
+                                    agentRegistration.DisplayName = displayName;
+                                    agentRegistration.CategoryName = categoryName;
+                                    agentRegistration.AssemblyPath = Assembly.GetExecutingAssembly().Location;
+                                    agentRegistration.ClassName = className;
+                                    agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(currentAssembly, className);
+                                    agentRegistration.IsNotifier = !agentRegistration.IsCollector;
+                                    list.Add(agentRegistration);
                                 }
-                                catch { }
-                                try
-                                {
-                                    categoryName = GetCategoryName(type);
-                                }
-                                catch { }
-                                RegisteredAgent agentRegistration = new RegisteredAgent();
-                                agentRegistration.Name = name;
-                                agentRegistration.DisplayName = displayName;
-                                agentRegistration.CategoryName = categoryName;
-                                agentRegistration.AssemblyPath = Assembly.GetExecutingAssembly().Location;
-                                agentRegistration.ClassName = className;
-                                agentRegistration.IsCollector = RegistrationHelper.IsCollectorClass(currentAssembly, className);
-                                agentRegistration.IsNotifier = !agentRegistration.IsCollector;
-                                list.Add(agentRegistration);
                             }
                         }
                     }

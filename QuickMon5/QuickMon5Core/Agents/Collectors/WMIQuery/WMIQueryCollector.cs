@@ -271,7 +271,10 @@ namespace QuickMon.Collectors
         }
         public string Description
         {
-            get { return string.Format("{0}: {1}\\{2} - {3} -> S:{4},W:{5},E:{6}", Name, Machinename, Namespace, StateQuery, SuccessValue, WarningValue, ErrorValue); }
+            get {
+                return Name;
+                //return string.Format("{0}: {1}\\{2} - {3} -> S:{4},W:{5},E:{6}", Name, Machinename, Namespace, StateQuery, SuccessValue, WarningValue, ErrorValue);
+            }
         }
         public string TriggerSummary
         {
