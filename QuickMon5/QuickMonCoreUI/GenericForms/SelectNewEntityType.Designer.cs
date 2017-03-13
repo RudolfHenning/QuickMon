@@ -41,7 +41,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(404, 295);
+            this.cmdCancel.Location = new System.Drawing.Point(489, 332);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 8;
@@ -53,7 +53,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(323, 295);
+            this.cmdOK.Location = new System.Drawing.Point(408, 332);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 7;
@@ -67,7 +67,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwAgentType.AutoResizeColumnEnabled = false;
-            this.lvwAgentType.AutoResizeColumnIndex = 0;
+            this.lvwAgentType.AutoResizeColumnIndex = 1;
             this.lvwAgentType.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.detailsColumnHeader});
@@ -76,7 +76,7 @@
             this.lvwAgentType.Location = new System.Drawing.Point(2, 3);
             this.lvwAgentType.MultiSelect = false;
             this.lvwAgentType.Name = "lvwAgentType";
-            this.lvwAgentType.Size = new System.Drawing.Size(486, 286);
+            this.lvwAgentType.Size = new System.Drawing.Size(571, 323);
             this.lvwAgentType.TabIndex = 9;
             this.lvwAgentType.UseCompatibleStateImageBehavior = false;
             this.lvwAgentType.View = System.Windows.Forms.View.Details;
@@ -99,7 +99,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(491, 330);
+            this.ClientSize = new System.Drawing.Size(576, 367);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -107,6 +107,7 @@
             this.Name = "SelectNewEntityType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Select New Type";
+            this.Load += new System.EventHandler(this.SelectNewEntityType_Load);
             this.ResumeLayout(false);
 
         }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,6 +57,48 @@ namespace QuickMon.UI
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
             lvwAgentType.Groups.Add(templatesGroup);
 
+
+            foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.CategoryName))
+            {
+                ListViewGroup rawAgentTypesGroup = (from ListViewGroup g in lvwAgentType.Groups
+                                                    where g.Header == ("RAW Agent type:" + registeredAgent.CategoryName)
+                                                    select g).FirstOrDefault();
+                if (rawAgentTypesGroup == null)
+                {
+                    rawAgentTypesGroup = new ListViewGroup("RAW Agent type:" + registeredAgent.CategoryName);
+                    lvwAgentType.Groups.Add(rawAgentTypesGroup);
+                }
+            }
+
+
+            //ListViewGroup rawAgentTypesGroup = new ListViewGroup("RAW Agent type");
+            //
+            foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.DisplayName))
+            {
+                ListViewGroup rawAgentTypesGroup = (from ListViewGroup g in lvwAgentType.Groups
+                                                    where g.Header == ("RAW Agent type:" + registeredAgent.CategoryName)
+                                                    select g).FirstOrDefault();
+
+                #region Create Collector instance
+                ICollector currentAgent = null;
+                Assembly collectorEntryAssembly = Assembly.LoadFile(registeredAgent.AssemblyPath);
+                currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(registeredAgent.ClassName);
+                currentAgent.AgentClassName = registeredAgent.ClassName;
+                currentAgent.AgentClassDisplayName = registeredAgent.DisplayName;
+                CollectorHost ch = new CollectorHost() { Name = registeredAgent.DisplayName };
+                currentAgent.InitialConfiguration = currentAgent.AgentConfig.GetDefaultOrEmptyXml();
+                currentAgent.Name = registeredAgent.DisplayName;
+                currentAgent.Enabled = true;
+                ch.CollectorAgents.Add(currentAgent);
+                #endregion Create Collector instance
+
+                ListViewItem lviAgentType = new ListViewItem(registeredAgent.DisplayName);
+                lviAgentType.SubItems.Add(registeredAgent.Name);
+                lviAgentType.Group = rawAgentTypesGroup;
+                lviAgentType.Tag = ch;
+                lvwAgentType.Items.Add(lviAgentType);
+            }
+
             //foreach (string categoryName in (from a in RegisteredAgentCache.Agents
             //                                 where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
             //                                 group a by a.CategoryName into g
@@ -80,12 +123,7 @@ namespace QuickMon.UI
 
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
-            ListViewItem lviEmptyCollector = new ListViewItem("Folder");
-            lviEmptyCollector.SubItems.Add("Creates a new blank Collector with no Agents");
-            lviEmptyCollector.Group = generalGroup;
-            lvwAgentType.Items.Add(lviEmptyCollector);
-
-            
+                        
 
 
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
@@ -127,6 +165,11 @@ namespace QuickMon.UI
         private void lvwAgentType_DoubleClick(object sender, EventArgs e)
         {
             cmdOK_Click(null, null);
+        }
+
+        private void SelectNewEntityType_Load(object sender, EventArgs e)
+        {
+            lvwAgentType.AutoResizeColumnEnabled = true;
         }
     }
 }

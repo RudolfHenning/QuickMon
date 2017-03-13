@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
@@ -102,6 +103,19 @@
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\WindowsServiceState\WindowsServiceStateCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\WMIQuery\EditWMIQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\WMIQuery\EditWMIQuery.designer.cs">
+      <DependentUpon>EditWMIQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorEditEntry.designer.cs">
+      <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\WMIQuery\WMIQueryCollectorUI.cs" />
     <Compile Include="Agents\Collectors\WS\WSCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +257,12 @@
     <EmbeddedResource Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\WMIQuery\EditWMIQuery.resx">
+      <DependentUpon>EditWMIQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\WMIQuery\WMIQueryCollectorEditEntry.resx">
+      <DependentUpon>WMIQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\WS\WSCollectorEditEntry.resx">
       <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -300,6 +320,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
