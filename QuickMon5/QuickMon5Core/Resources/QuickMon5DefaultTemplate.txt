@@ -78,17 +78,32 @@
 			</notifierHosts>
 		</monitorPack>
 	</template>
-	<template name="New Collector Host" type="CollectorHost" class="CollectorHost" description="Creates new blank Collector Host">
-		<collectorHost uniqueId="" name="New Collector" enabled="True" expandOnStart="True" dependOnParentId="" agentCheckSequence="All" childCheckBehaviour="OnlyRunOnSuccess" repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" correctiveScriptDisabled="False" correctiveScriptOnWarningPath="" correctiveScriptOnErrorPath="" restorationScriptPath="" correctiveScriptsOnlyOnStateChange="False" enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48181" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" alertsPaused="False">
-			<!-- CollectorAgents -->
-			<collectorAgents>
-			</collectorAgents>
+	<template name="New Collector Host" type="CollectorHost" class="CollectorHost" description="Creates a blank collector with no agents">
+		<collectorHost uniqueId="" dependOnParentId="" name="Folder" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+			<!-- Alerting -->
+			<alerting>
+				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+				<texts><header /><footer /><error /><warning /><good /></texts>
+			</alerting>
+			<!-- Collector Agents -->
+			<collectorAgents agentCheckSequence="All"></collectorAgents>
+			<!-- Polling settings -->
+			<polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+			<!-- Remote agent settings -->
+			<remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+			<!-- Corrective Scripts -->
+			<correctiveScripts enabled="True" onlyOnStateChange="False">
+				<warning warningMinRepeatTimeMin="0" /><error errorMinRepeatTimeMin="0" /><restoration restoreMinRepeatTimeMin="0" />
+			</correctiveScripts>
+			<!-- Action scripts -->
+			<collectorActionScripts />
 			<!-- ServiceWindows -->
-			<serviceWindows>
-			</serviceWindows>
+			<serviceWindows />
 			<!-- Config variables -->
-			<configVars>
-			</configVars>
+			<configVars />
+			<!-- Categories -->
+			<categories />
+			<notes />
 		</collectorHost>
 	</template>
 	<template name="Ping" type="CollectorHost" class="CollectorHost" description="Ping host or address">

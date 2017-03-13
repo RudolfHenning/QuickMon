@@ -72,6 +72,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmdResetTemplates = new System.Windows.Forms.Button();
             this.flowLayoutPanelSettings.SuspendLayout();
             this.panelAppSettings.SuspendLayout();
             this.panelTvwDetailTextAlign.SuspendLayout();
@@ -608,6 +609,17 @@
             this.columnHeader2.Text = "User name cache";
             this.columnHeader2.Width = 356;
             // 
+            // cmdResetTemplates
+            // 
+            this.cmdResetTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdResetTemplates.Location = new System.Drawing.Point(3, 631);
+            this.cmdResetTemplates.Name = "cmdResetTemplates";
+            this.cmdResetTemplates.Size = new System.Drawing.Size(123, 23);
+            this.cmdResetTemplates.TabIndex = 3;
+            this.cmdResetTemplates.Text = "Reset templates";
+            this.cmdResetTemplates.UseVisualStyleBackColor = true;
+            this.cmdResetTemplates.Click += new System.EventHandler(this.cmdResetTemplates_Click);
+            // 
             // GeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,6 +629,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(634, 666);
+            this.Controls.Add(this.cmdResetTemplates);
             this.Controls.Add(this.flowLayoutPanelSettings);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
@@ -690,5 +703,6 @@
         private System.Windows.Forms.RadioButton optTvwDetailLeftAlign;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown nudMainWindowTreeViewExtraColumnSize;
+        private System.Windows.Forms.Button cmdResetTemplates;
     }
 }
