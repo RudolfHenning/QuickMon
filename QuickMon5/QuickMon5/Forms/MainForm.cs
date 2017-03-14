@@ -383,6 +383,18 @@ namespace QuickMon
             }
             detailsToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
             copyCollectorToolStripMenuItem.Enabled = tvwCollectors.SelectedNode != null;
+            if (Clipboard.ContainsText() &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').StartsWith("<collectorHosts", StringComparison.InvariantCulture) &&
+                Clipboard.GetText(TextDataFormat.Text).Trim(' ', '\r', '\n').EndsWith("</collectorHosts>", StringComparison.InvariantCulture))
+            {
+                pasteCollectorToolStripMenuItem.Enabled = true;
+                pasteAndEditCollectorConfigToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                pasteCollectorToolStripMenuItem.Enabled = false;
+                pasteAndEditCollectorConfigToolStripMenuItem.Enabled = false;
+            }
         }
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {

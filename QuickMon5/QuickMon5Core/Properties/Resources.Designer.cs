@@ -78,6 +78,23 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;quickMonTemplate&gt;
+        ///	&lt;template name=&quot;New MonitorPack&quot; type=&quot;MonitorPack&quot; class=&quot;MonitorPack&quot; description=&quot;Creates new black monitor pack&quot;&gt;
+        ///		&lt;monitorPack version=&quot;5.0.0.0&quot; name=&quot;New MonitorPack&quot; typeName=&quot;&quot; enabled=&quot;True&quot; runCorrectiveScripts=&quot;True&quot; stateHistorySize=&quot;100&quot; pollingFreqSecOverride=&quot;30&quot;&gt;
+        ///			&lt;configVars /&gt;
+        ///			&lt;collectorHosts&gt;
+        ///			&lt;/collectorHosts&gt;
+        ///			&lt;notifierHosts&gt;
+        ///				&lt;notifierHost name=&quot;Debugging&quot; enabled=&quot;True&quot; alertLevel=&quot;Warning&quot; detailLevel=&quot;De [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string QuickMon5DefaultTemplateOLD {
+            get {
+                return ResourceManager.GetString("QuickMon5DefaultTemplateOLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to use master
         ///declare @PageSize varchar(10)
         ///select @PageSize=v.low/1024.0
