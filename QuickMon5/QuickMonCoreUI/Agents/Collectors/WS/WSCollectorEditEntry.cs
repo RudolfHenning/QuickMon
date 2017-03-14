@@ -42,20 +42,26 @@ namespace QuickMon.UI
             {
                 SelectedEntry = new WSCollectorConfigEntry();
             }
-            editingEntry = (WSCollectorConfigEntry)SelectedEntry; 
+            editingEntry = (WSCollectorConfigEntry)SelectedEntry;
 
-                txtServiceURL.Text = editingEntry.ServiceBaseURL;
-                cboEndPoint.Text = editingEntry.ServiceBindingName;
-                cboMethodName.Text = editingEntry.MethodName;
-                txtParameters.Text = editingEntry.ToStringFromParameters();
+            txtServiceURL.Text = editingEntry.ServiceBaseURL;
+            cboEndPoint.Text = editingEntry.ServiceBindingName;
+            cboMethodName.Text = editingEntry.MethodName;
+            txtParameters.Text = editingEntry.ToStringFromParameters();
 
-                cboExpectedValueType.SelectedIndex = (int)editingEntry.ValueExpectedReturnType;
-                cboValueFormatMacro.SelectedItem = (from ValueFormatMacroDisplay v in cboValueFormatMacro.Items
-                                                    where v.MacroFormatType == editingEntry.MacroFormatType
-                                                    select v).FirstOrDefault();
-                indexOrRowNumericUpDown.Value = editingEntry.CheckValueArrayIndex;
-                dataSetColumnNumericUpDown.Value = editingEntry.CheckValueColumnIndex;
-            
+            cboExpectedValueType.SelectedIndex = (int)editingEntry.ValueExpectedReturnType;
+            cboValueFormatMacro.SelectedItem = (from ValueFormatMacroDisplay v in cboValueFormatMacro.Items
+                                                where v.MacroFormatType == editingEntry.MacroFormatType
+                                                select v).FirstOrDefault();
+            indexOrRowNumericUpDown.Value = editingEntry.CheckValueArrayIndex;
+            dataSetColumnNumericUpDown.Value = editingEntry.CheckValueColumnIndex;
+            cboReturnCheckSequence.SelectedIndex = (int)editingEntry.ReturnCheckSequence;
+            txtSuccess.Text = editingEntry.GoodScriptText;
+            cboSuccessMatchType.SelectedIndex = (int)editingEntry.GoodResultMatchType;
+            txtWarning.Text = editingEntry.WarningScriptText;
+            cboWarningMatchType.SelectedIndex = (int)editingEntry.WarningResultMatchType;
+            txtError.Text = editingEntry.ErrorScriptText;
+            cboErrorMatchType.SelectedIndex = (int)editingEntry.ErrorResultMatchType;
         }
         #endregion
 
@@ -263,7 +269,6 @@ namespace QuickMon.UI
                     textEntry.ServiceBindingName = cboEndPoint.Text;
                     textEntry.MethodName = cboMethodName.Text;
                     textEntry.ParametersFromString(txtParameters.Text);
-                    //textEntry.ResultIsSuccess = !chkResultXOr.Checked;
                     textEntry.ValueExpectedReturnType = (WebServiceValueExpectedReturnTypeEnum)cboExpectedValueType.SelectedIndex;
                     if (cboValueFormatMacro.SelectedIndex == -1 || !(cboValueFormatMacro.SelectedItem is ValueFormatMacroDisplay))
                         textEntry.MacroFormatType = WebServiceMacroFormatTypeEnum.None;
@@ -271,8 +276,14 @@ namespace QuickMon.UI
                         textEntry.MacroFormatType = ((ValueFormatMacroDisplay)cboValueFormatMacro.SelectedItem).MacroFormatType;
                     textEntry.CheckValueArrayIndex = (int)indexOrRowNumericUpDown.Value;
                     textEntry.CheckValueColumnIndex = (int)dataSetColumnNumericUpDown.Value;
-                    //textEntry.CheckValueOrMacro = cboValueOrMacro.Text;
-                    //textEntry.UseRegEx = chkUseRegEx.Checked;
+
+                    textEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+                    textEntry.GoodScriptText = txtSuccess.Text;
+                    textEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+                    textEntry.WarningScriptText = txtWarning.Text;
+                    textEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+                    textEntry.ErrorScriptText = txtError.Text;
+                    textEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
 
                     lastStep = "Running GetCurrentState";
                     MonitorState currentState = textEntry.GetCurrentState();
@@ -300,7 +311,6 @@ namespace QuickMon.UI
                     editingEntry.ServiceBindingName = cboEndPoint.Text;
                     editingEntry.MethodName = cboMethodName.Text;
                     editingEntry.ParametersFromString(txtParameters.Text);
-                    //editingEntry.ResultIsSuccess = !chkResultXOr.Checked;
                     editingEntry.ValueExpectedReturnType = (WebServiceValueExpectedReturnTypeEnum)cboExpectedValueType.SelectedIndex;
                     if (cboValueFormatMacro.SelectedIndex == -1 || !(cboValueFormatMacro.SelectedItem is ValueFormatMacroDisplay))
                         editingEntry.MacroFormatType = WebServiceMacroFormatTypeEnum.None;
@@ -308,8 +318,14 @@ namespace QuickMon.UI
                         editingEntry.MacroFormatType = ((ValueFormatMacroDisplay)cboValueFormatMacro.SelectedItem).MacroFormatType;
                     editingEntry.CheckValueArrayIndex = (int)indexOrRowNumericUpDown.Value;
                     editingEntry.CheckValueColumnIndex = (int)dataSetColumnNumericUpDown.Value;
-                    //editingEntry.CheckValueOrMacro = cboValueOrMacro.Text;
-                    //editingEntry.UseRegEx = chkUseRegEx.Checked;
+                    editingEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+                    editingEntry.GoodScriptText = txtSuccess.Text;
+                    editingEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+                    editingEntry.WarningScriptText = txtWarning.Text;
+                    editingEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+                    editingEntry.ErrorScriptText = txtError.Text;
+                    editingEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
+
                     SelectedEntry = editingEntry;
                     DialogResult = System.Windows.Forms.DialogResult.OK;
                     Close();

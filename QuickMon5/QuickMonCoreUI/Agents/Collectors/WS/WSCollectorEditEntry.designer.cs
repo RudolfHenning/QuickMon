@@ -182,7 +182,7 @@
             this.cmdTestService.Location = new System.Drawing.Point(369, 431);
             this.cmdTestService.Name = "cmdTestService";
             this.cmdTestService.Size = new System.Drawing.Size(75, 23);
-            this.cmdTestService.TabIndex = 22;
+            this.cmdTestService.TabIndex = 20;
             this.cmdTestService.Text = "Test";
             this.cmdTestService.UseVisualStyleBackColor = true;
             this.cmdTestService.Click += new System.EventHandler(this.cmdTestService_Click);
@@ -195,7 +195,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(531, 431);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 24;
+            this.cmdCancel.TabIndex = 22;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -207,7 +207,7 @@
             this.cmdOK.Location = new System.Drawing.Point(450, 431);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 23;
+            this.cmdOK.TabIndex = 21;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -305,9 +305,9 @@
             this.sequenceGroupBox.Location = new System.Drawing.Point(15, 222);
             this.sequenceGroupBox.Name = "sequenceGroupBox";
             this.sequenceGroupBox.Size = new System.Drawing.Size(592, 200);
-            this.sequenceGroupBox.TabIndex = 25;
+            this.sequenceGroupBox.TabIndex = 18;
             this.sequenceGroupBox.TabStop = false;
-            this.sequenceGroupBox.Text = "Evaluate returned data";
+            this.sequenceGroupBox.Text = "Evaluate returned value/data";
             // 
             // errorGroupBox
             // 
@@ -318,7 +318,7 @@
             this.errorGroupBox.Location = new System.Drawing.Point(9, 147);
             this.errorGroupBox.Name = "errorGroupBox";
             this.errorGroupBox.Size = new System.Drawing.Size(577, 44);
-            this.errorGroupBox.TabIndex = 16;
+            this.errorGroupBox.TabIndex = 4;
             this.errorGroupBox.TabStop = false;
             this.errorGroupBox.Text = "Error check";
             // 
@@ -329,14 +329,20 @@
             this.cboErrorMatchType.FormattingEnabled = true;
             this.cboErrorMatchType.Items.AddRange(new object[] {
             "Match",
+            "DoesNotMatch",
             "Contains",
+            "DoesNotContain",
             "StartsWith",
+            "DoesNotStartWith",
             "EndsWith",
+            "DoesNotEndWith",
             "RegEx",
             "IsNumber",
+            "IsNotANumber",
             "LargerThan",
             "SmallerThan",
-            "Between"});
+            "Between",
+            "NotBetween"});
             this.cboErrorMatchType.Location = new System.Drawing.Point(457, 18);
             this.cboErrorMatchType.Name = "cboErrorMatchType";
             this.cboErrorMatchType.Size = new System.Drawing.Size(110, 21);
@@ -361,7 +367,7 @@
             this.warningGroupBox.Location = new System.Drawing.Point(8, 97);
             this.warningGroupBox.Name = "warningGroupBox";
             this.warningGroupBox.Size = new System.Drawing.Size(577, 44);
-            this.warningGroupBox.TabIndex = 15;
+            this.warningGroupBox.TabIndex = 3;
             this.warningGroupBox.TabStop = false;
             this.warningGroupBox.Text = "Warning check";
             // 
@@ -372,14 +378,20 @@
             this.cboWarningMatchType.FormattingEnabled = true;
             this.cboWarningMatchType.Items.AddRange(new object[] {
             "Match",
+            "DoesNotMatch",
             "Contains",
+            "DoesNotContain",
             "StartsWith",
+            "DoesNotStartWith",
             "EndsWith",
+            "DoesNotEndWith",
             "RegEx",
             "IsNumber",
+            "IsNotANumber",
             "LargerThan",
             "SmallerThan",
-            "Between"});
+            "Between",
+            "NotBetween"});
             this.cboWarningMatchType.Location = new System.Drawing.Point(458, 18);
             this.cboWarningMatchType.Name = "cboWarningMatchType";
             this.cboWarningMatchType.Size = new System.Drawing.Size(110, 21);
@@ -404,7 +416,7 @@
             this.successGroupBox.Location = new System.Drawing.Point(9, 47);
             this.successGroupBox.Name = "successGroupBox";
             this.successGroupBox.Size = new System.Drawing.Size(577, 44);
-            this.successGroupBox.TabIndex = 14;
+            this.successGroupBox.TabIndex = 2;
             this.successGroupBox.TabStop = false;
             this.successGroupBox.Text = "Success check";
             // 
@@ -415,14 +427,20 @@
             this.cboSuccessMatchType.FormattingEnabled = true;
             this.cboSuccessMatchType.Items.AddRange(new object[] {
             "Match",
+            "DoesNotMatch",
             "Contains",
+            "DoesNotContain",
             "StartsWith",
+            "DoesNotStartWith",
             "EndsWith",
+            "DoesNotEndWith",
             "RegEx",
             "IsNumber",
+            "IsNotANumber",
             "LargerThan",
             "SmallerThan",
-            "Between"});
+            "Between",
+            "NotBetween"});
             this.cboSuccessMatchType.Location = new System.Drawing.Point(457, 18);
             this.cboSuccessMatchType.Name = "cboSuccessMatchType";
             this.cboSuccessMatchType.Size = new System.Drawing.Size(110, 21);
@@ -444,21 +462,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboReturnCheckSequence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboReturnCheckSequence.Items.AddRange(new object[] {
-            "Check availability only",
-            "Single value",
-            "Array",
-            "Data set"});
+            "Good, Warning and then assume Error",
+            "Error, Warning and then assume Good",
+            "Good, Error and then assume Warning",
+            "Error, Good and then assume Warning",
+            "Warning, Good and then assume Error",
+            "Warning, Error and then assume Good"});
             this.cboReturnCheckSequence.Location = new System.Drawing.Point(135, 19);
             this.cboReturnCheckSequence.Name = "cboReturnCheckSequence";
             this.cboReturnCheckSequence.Size = new System.Drawing.Size(451, 21);
-            this.cboReturnCheckSequence.TabIndex = 13;
+            this.cboReturnCheckSequence.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.Location = new System.Drawing.Point(6, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 21);
-            this.label2.TabIndex = 12;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Check sequence";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -469,7 +489,7 @@
             this.label11.Location = new System.Drawing.Point(12, 436);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(225, 13);
-            this.label11.TabIndex = 26;
+            this.label11.TabIndex = 19;
             this.label11.Text = "Tip: use [any] for any value, [null] for no value.";
             // 
             // WSCollectorEditEntry

@@ -253,10 +253,5 @@ namespace QuickMon
                 txtRecentMonitorPackFilter.Text = csvEdit.CSVData;
             }
         }
-
-        private void cmdResetTemplates_Click(object sender, EventArgs e)
-        {
-            QuickMonTemplate.ResetTemplates();
-        }
     }
 }
