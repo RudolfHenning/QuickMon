@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectNewEntityType));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.cmdResetTemplates = new System.Windows.Forms.Button();
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,9 +58,21 @@
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 7;
-            this.cmdOK.Text = "OK";
+            this.cmdOK.Text = "Select";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // cmdResetTemplates
+            // 
+            this.cmdResetTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdResetTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdResetTemplates.Location = new System.Drawing.Point(12, 332);
+            this.cmdResetTemplates.Name = "cmdResetTemplates";
+            this.cmdResetTemplates.Size = new System.Drawing.Size(105, 23);
+            this.cmdResetTemplates.TabIndex = 10;
+            this.cmdResetTemplates.Text = "Reset templates";
+            this.cmdResetTemplates.UseVisualStyleBackColor = true;
+            this.cmdResetTemplates.Click += new System.EventHandler(this.cmdResetTemplates_Click);
             // 
             // lvwAgentType
             // 
@@ -100,6 +113,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(576, 367);
+            this.Controls.Add(this.cmdResetTemplates);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -119,5 +133,6 @@
         private ListViewEx lvwAgentType;
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ColumnHeader detailsColumnHeader;
+        private System.Windows.Forms.Button cmdResetTemplates;
     }
 }

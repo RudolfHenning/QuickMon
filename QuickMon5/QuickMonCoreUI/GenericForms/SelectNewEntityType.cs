@@ -30,40 +30,11 @@ namespace QuickMon.UI
 
         public DialogResult ShowCollectorHostSelection()
         {
-            this.Text = "Select Collector Host type";
+            this.Text = "Creating a new Collector";
             selectingCollectorHosts = true;
-            //SetDetailColumnSizing();
-            lvwAgentType.Items.Clear();
-            lvwAgentType.Groups.Clear();
 
+            LoadCollectorItems();
             
-
-
-            ListViewGroup generalGroup = new ListViewGroup("General");
-            lvwAgentType.Groups.Add(generalGroup);
-            ListViewItem lviEmptyCollector = new ListViewItem("Folder");
-            lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
-            lviEmptyCollector.Group = generalGroup;
-            lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };
-            lvwAgentType.Items.Add(lviEmptyCollector);
-
-            ListViewItem lviPingCollector = new ListViewItem("Ping");
-            lviPingCollector.SubItems.Add("Creates a collector with a Ping agent");
-            lviPingCollector.Group = generalGroup;
-            lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
-            lvwAgentType.Items.Add(lviPingCollector);
-
-            ListViewGroup templatesGroup = new ListViewGroup("Templates");
-            lvwAgentType.Groups.Add(templatesGroup);
-
-            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.CollectorHost))
-            {
-                ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
-                lviTemplateCollector.SubItems.Add(qt.Description);
-                lviTemplateCollector.Group = templatesGroup;
-                lviTemplateCollector.Tag = qt;
-                lvwAgentType.Items.Add(lviTemplateCollector);
-            }            
 
             //ListViewItem lviPerfCounterCollector = new ListViewItem("Performance Counter");
             //lviPerfCounterCollector.SubItems.Add("Creates a collector with a Performance Counter agent");
@@ -73,7 +44,7 @@ namespace QuickMon.UI
 
             
 
-
+            /*
             foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.CategoryName))
             {
                 ListViewGroup rawAgentTypesGroup = (from ListViewGroup g in lvwAgentType.Groups
@@ -111,6 +82,7 @@ namespace QuickMon.UI
                 lviAgentType.Tag = ch;
                 lvwAgentType.Items.Add(lviAgentType);
             }
+            */
 
             //foreach (string categoryName in (from a in RegisteredAgentCache.Agents
             //                                 where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
@@ -124,6 +96,38 @@ namespace QuickMon.UI
             //lvwAgentType.Groups.Add(testGroup);
             //LoadTemplates();
             return this.ShowDialog();
+        }
+
+        private void LoadCollectorItems()
+        {
+            lvwAgentType.Items.Clear();
+            lvwAgentType.Groups.Clear();
+
+            ListViewGroup generalGroup = new ListViewGroup("General");
+            lvwAgentType.Groups.Add(generalGroup);
+            ListViewItem lviEmptyCollector = new ListViewItem("Folder");
+            lviEmptyCollector.SubItems.Add("Creates a blank collector with no agents");
+            lviEmptyCollector.Group = generalGroup;
+            lviEmptyCollector.Tag = new CollectorHost() { Name = "Folder" };
+            lvwAgentType.Items.Add(lviEmptyCollector);
+
+            ListViewItem lviPingCollector = new ListViewItem("Ping");
+            lviPingCollector.SubItems.Add("Creates a collector with a Ping agent");
+            lviPingCollector.Group = generalGroup;
+            lviPingCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Ping\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"Ping\" type=\"QuickMon.Collectors.PingCollector\" enabled=\"True\"><config><entries><entry pingMethod=\"Ping\" address=\"localhost\" /></entries></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
+            lvwAgentType.Items.Add(lviPingCollector);
+
+            ListViewGroup templatesGroup = new ListViewGroup("Templates");
+            lvwAgentType.Groups.Add(templatesGroup);
+
+            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.CollectorHost))
+            {
+                ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
+                lviTemplateCollector.SubItems.Add(qt.Description);
+                lviTemplateCollector.Group = templatesGroup;
+                lviTemplateCollector.Tag = qt;
+                lvwAgentType.Items.Add(lviTemplateCollector);
+            }
         }
 
         public DialogResult ShowCollectorSelection()
@@ -196,6 +200,18 @@ namespace QuickMon.UI
         {
             lvwAgentType.AutoResizeColumnEnabled = true;
             lvwAgentType.BorderStyle = BorderStyle.None;
+        }
+
+        private void cmdResetTemplates_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to reset all templates? This cannot be undone.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                QuickMonTemplate.ResetTemplates();
+                if (selectingCollectorHosts)
+                {
+                    LoadCollectorItems();
+                }
+            }
         }
     }
 }

@@ -178,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CaptainsLog.txt" />
+    <None Include="Resources\QuickMon5DefaultTemplateOLD.txt" />
     <None Include="Resources\SelectDatabaseSizeScript.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
