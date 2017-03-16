@@ -32,6 +32,6 @@ namespace QuickMon.UI
         {
             get { return false; }
         }
-        public virtual INotivierViewer Viewer { get { return null; } }
+        public virtual INotivierViewer Viewer { get { return null; } }        
     }
 }

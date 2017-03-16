@@ -123,6 +123,19 @@
       <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\WS\WSCollectorUI.cs" />
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierEdit.Designer.cs">
+      <DependentUpon>InMemoryNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierUI.cs" />
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierViewer.Designer.cs">
+      <DependentUpon>InMemoryNotifierViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseClasses\CollectorConfigEntryEditWindowBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +279,12 @@
     <EmbeddedResource Include="Agents\Collectors\WS\WSCollectorEditEntry.resx">
       <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\InMemory\InMemoryNotifierEdit.resx">
+      <DependentUpon>InMemoryNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\InMemory\InMemoryNotifierViewer.resx">
+      <DependentUpon>InMemoryNotifierViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </EmbeddedResource>
@@ -323,6 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\settings_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh24x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
