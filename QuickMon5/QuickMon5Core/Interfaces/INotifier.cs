@@ -13,5 +13,6 @@ namespace QuickMon
         /// Default should be Both
         /// </summary>
         AttendedOption AttendedRunOption { get; }
+        string RunTimeUniqueId { get; }
     }   
 }

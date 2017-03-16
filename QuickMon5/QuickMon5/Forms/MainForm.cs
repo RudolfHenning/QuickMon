@@ -396,6 +396,34 @@ namespace QuickMon
                 pasteAndEditCollectorConfigToolStripMenuItem.Enabled = false;
             }
         }
+        private void notifiersContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            TreeNode notifierSelected = null;
+            if (lblNotifiers.Focused)
+            {
+                tvwNotifiers.SelectedNode = null;
+                notifierSelected = null;
+            }
+            else
+                notifierSelected = tvwNotifiers.SelectedNode;
+
+            editNotifierToolStripMenuItem.Enabled = notifierSelected != null;
+            deleteNotifierToolStripMenuItem.Enabled = notifierSelected != null;
+            if (notifierSelected != null && notifierSelected.Tag != null)
+            {
+                if (notifierSelected.Tag is NotifierHost)
+                {
+                    NotifierHost nh = (NotifierHost)notifierSelected.Tag;
+                    enableNotifierToolStripMenuItem.Text = nh.Enabled ? "Disable" : "Enable";
+                }
+                else if (notifierSelected.Tag is INotifier)
+                {
+                    INotifier agent = (INotifier)notifierSelected.Tag;
+                    enableNotifierToolStripMenuItem.Text = agent.Enabled ? "Disable" : "Enable";
+                }
+            }
+            viewNotifierToolStripMenuItem.Enabled = notifierSelected != null && notifierSelected.Tag != null && notifierSelected.Tag is INotifier && RegisteredAgentUIMapper.HasAgentViewer(((INotifier)notifierSelected.Tag));
+        }
         private void addCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = tvwCollectors.SelectedNode;
@@ -471,6 +499,29 @@ namespace QuickMon
         {
             PasteSelectedCollectorAndDependant(true);
         }
+
+        private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void editNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void deleteNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void enableNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void viewNotifierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewNotifierDetails();
+        }
+
+
         #endregion
 
         #region Private methods
@@ -763,6 +814,37 @@ namespace QuickMon
                 }
             }
         }
+        private void ViewNotifierDetails()
+        {
+            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.SelectedNode.Tag is INotifier && 
+               tvwNotifiers.SelectedNode.Parent != null && tvwNotifiers.SelectedNode.Parent.Tag != null && tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
+            {
+                INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                NotifierHost nh = (NotifierHost)tvwNotifiers.SelectedNode.Parent.Tag;                
+
+                IChildWindowIdentity childWindow = GetChildWindowByIdentity(agent.RunTimeUniqueId);
+                if (childWindow == null)
+                {
+                    WinFormsUINotifierBase agentUI = RegisteredAgentUIMapper.GetNotifierUIClass(agent);
+                    if (agentUI != null && agentUI.HasDetailView && agentUI.Viewer != null)
+                    {
+                        agentUI.Viewer.SelectedNotifier = agent;
+                        childWindow = (IChildWindowIdentity)agentUI.Viewer;
+                        ((INotivierViewer)childWindow).SelectedNotifier = agent;
+                        childWindow.Identifier = agent.RunTimeUniqueId;
+                        childWindow.ParentWindow = this;
+                        childWindow.ShowChildWindow();
+                    }
+                }
+                else
+                {
+                    Form childForm = ((Form)childWindow);
+                    if (childForm.WindowState == FormWindowState.Minimized)
+                        childForm.WindowState = FormWindowState.Normal;
+                    childForm.Focus();
+                }                
+            }
+        }
         #endregion
 
         #region Monitor pack actions
@@ -1016,11 +1098,13 @@ namespace QuickMon
             //    monitorPack.RunCollectorHostCorrectiveErrorScript += monitorPack_RunCollectorHostCorrectiveErrorScript;
             //    monitorPack.RunCollectorHostRestorationScript += monitorPack_RunCollectorHostRestorationScript;
                 monitorPack.RunningAttended = AttendedOption.OnlyAttended;
+                monitorPack.NotifierAgentAlertRaised += MonitorPack_NotifierAgentAlertRaised;
 
                 monitorPack.ApplicationUserNameCacheFilePath = Properties.Settings.Default.ApplicationUserNameCacheFilePath;
                 monitorPack.ApplicationUserNameCacheMasterKey = Properties.Settings.Default.ApplicationMasterKey;
             }
         }
+
         private bool SaveMonitorPack()
         {
             bool success = false;
@@ -1354,6 +1438,21 @@ namespace QuickMon
                     System.Diagnostics.Trace.WriteLine("Error " + collectorHost.Name + "->" + ex.Message);
                 }
             });
+        }
+        private void MonitorPack_NotifierAgentAlertRaised(INotifier notifier, AlertRaised alertRaised)
+        {
+            IChildWindowIdentity childWindow = GetChildWindowByIdentity(notifier.RunTimeUniqueId);
+            if (childWindow != null)
+            {
+                this.Invoke((MethodInvoker) delegate{
+                    Form childForm = ((Form)childWindow);
+                    if (childForm.WindowState == FormWindowState.Minimized)
+                        childForm.WindowState = FormWindowState.Normal;
+                    childForm.Focus();
+                    if (childWindow.AutoRefreshEnabled)
+                        childWindow.RefreshDetails();
+                });
+            }
         }
         public void UpdateCollector(CollectorHost collectorHost, bool setChanged = false)
         {
@@ -1702,7 +1801,7 @@ namespace QuickMon
                             {
                                 string ellipseText = entryDisplayName.Substring(0, 20) + "....";
                                 string tmpStr = entryDisplayName.Substring(4);
-                                while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth)
+                                while (TextRenderer.MeasureText(ellipseText + tmpStr, cboRecentMonitorPacks.Font).Width > cboRecentMonitorPacks.DropDownWidth && tmpStr.Length > 0)
                                 {
                                     tmpStr = tmpStr.Substring(1);
                                 }
@@ -1740,7 +1839,13 @@ namespace QuickMon
 
         private void cmdRecentMonitorPacks_Click(object sender, EventArgs e)
         {
-            ShowRecentMonitorPackDropdown();
+            //ShowRecentMonitorPackDropdown();
+            SelectRecentMonitorPackDialog selectRecentMonitorPackDialog = new SelectRecentMonitorPackDialog();
+            if (selectRecentMonitorPackDialog.ShowDialog() == DialogResult.OK)
+            {                
+                LoadMonitorPack(selectRecentMonitorPackDialog.SelectedMonitorPack);
+                RefreshMonitorPack(true, true);
+            }
         }
 
         private void cboRecentMonitorPacks_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1857,11 +1962,10 @@ namespace QuickMon
             //CloseAllCollectorStatusViews();
             //CloseAllNotifierViewers();
         }
-        private IChildWindowIdentity GetChildWindowByIdentity(string identity)
+        private IChildWindowIdentity GetChildWindowByIdentity(string identifier)
         {
             IChildWindowIdentity child = (from IChildWindowIdentity c in childWindows
-
-                                          where c.Identifier == identity
+                                          where c.Identifier == identifier
                                           select c).FirstOrDefault();
             return child;
         }
@@ -1994,7 +2098,11 @@ namespace QuickMon
         {
             SetCounterValue(collectorsQueryTime, elapsedMilliseconds, "Collector Hosts query time (ms)");
         }
+
         #endregion
+
+
+
 
     }
 }

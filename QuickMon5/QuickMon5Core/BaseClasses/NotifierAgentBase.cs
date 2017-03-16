@@ -10,6 +10,8 @@ namespace QuickMon
         #region INotifier Members
         public abstract void RecordMessage(AlertRaised alertRaised);
         public abstract AttendedOption AttendedRunOption { get; }
+        private string uniqueID = Guid.NewGuid().ToString();
+        public string RunTimeUniqueId { get { return uniqueID; } }
         #endregion
     }
 }

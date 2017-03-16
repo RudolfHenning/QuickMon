@@ -270,5 +270,20 @@ namespace QuickMon
             LoggingServiceWindowEvent(collectorHost, false);
         }
         #endregion
+
+        #region Alerts
+        public event NotifierAgentAlertDelegate NotifierAgentAlertRaised;
+        private void RaiseNotifierAgentAlertRaised(INotifier notifierAgent, AlertRaised alertRaised)
+        {
+            try
+            {
+                NotifierAgentAlertRaised?.Invoke(notifierAgent, alertRaised);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("Error in RaiseRaiseMonitorPackError: {0}", ex.Message));
+            }
+        }
+        #endregion
     }
 }

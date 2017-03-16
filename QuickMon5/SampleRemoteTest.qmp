@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample Remote Test" lastChanged="2017-02-27 11:12:23" typeName="" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample Remote Test" lastChanged="2017-03-16 11:20:05" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>

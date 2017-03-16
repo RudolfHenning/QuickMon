@@ -621,6 +621,7 @@ namespace QuickMon
                                 {
                                     string configSummary = ((INotifierConfig)notifierAgent.AgentConfig).ConfigSummary;
                                     alertsRecorded.Add(string.Format("{0} ({1})", notifierAgent.AgentClassDisplayName, configSummary));
+                                    RaiseNotifierAgentAlertRaised(notifierAgent, alertRaised);
                                     LoggingAlertsRaisedEvent(string.Format("Alert raised for Collector '{0}'\r\nNotifier: '{1}'\r\n{2}", alertRaised.RaisedFor.Name, notifierAgent.Name, alertRaised.MessageRaw));
                                 }
                                 else
