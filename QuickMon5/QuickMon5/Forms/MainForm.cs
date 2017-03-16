@@ -506,8 +506,11 @@ namespace QuickMon
         }
         private void editNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            EditNotifier();
         }
+
+
+
         private void deleteNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -844,6 +847,35 @@ namespace QuickMon
                     childForm.Focus();
                 }                
             }
+        }
+        private void EditNotifier()
+        {
+            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.SelectedNode.Tag is INotifier &&
+               tvwNotifiers.SelectedNode.Parent != null && tvwNotifiers.SelectedNode.Parent.Tag != null && tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
+            {
+                INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
+                WinFormsUINotifierBase agentEditor = RegisteredAgentUIMapper.GetNotifierUIClass(agent);
+                if (agentEditor != null && agentEditor.HasDetailView && agentEditor.Viewer != null)
+                {
+                    IAgentConfigEntryEditWindow detailEditor = agentEditor.DetailEditor;
+                    detailEditor.SelectedEntry = agent.AgentConfig;                    
+                    if (detailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
+                    {
+                        //IChildWindowIdentity childWindow = GetChildWindowByIdentity(agent.RunTimeUniqueId);
+                        //if (childWindow != null)
+                        //{
+                        //    childWindow.CloseChildWindow();
+                        //    ((Form)childWindow).Close();
+                        //}
+
+                        SetMonitorChanged();
+                        agent.AgentConfig.FromXml(detailEditor.SelectedEntry.ToXml());
+                        tvwNotifiers.SelectedNode.Tag = agent;
+                        DoAutoSave();
+                    }
+                }
+            }
+
         }
         #endregion
 
