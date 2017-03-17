@@ -850,7 +850,33 @@ namespace QuickMon
         }
         private void EditNotifier()
         {
-            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.SelectedNode.Tag is INotifier &&
+            if (tvwNotifiers.SelectedNode != null && tvwNotifiers.SelectedNode.Tag is NotifierHost)
+            {
+                NotifierHost notifierHost = (NotifierHost)tvwNotifiers.SelectedNode.Tag;
+                EditNotifierHost editNotifierHost = new EditNotifierHost();
+                if (editNotifierHost.ShowDialog(notifierHost, monitorPack) == DialogResult.OK)
+                {
+                    foreach(INotifier agent in notifierHost.NotifierAgents)
+                    {
+                        IChildWindowIdentity childWindow = GetChildWindowByIdentity(agent.RunTimeUniqueId);
+                        if (childWindow != null)
+                        {
+                            Form childForm = ((Form)childWindow);
+                            childForm.Close();
+                        }
+                    }
+                    SetMonitorChanged();
+                    notifierHost.ReconfigureFromXml(editNotifierHost.SelectedConfig);
+                    if (tvwNotifiers.SelectedNode.Tag is NotifierHost)
+                    {
+                        tvwNotifiers.SelectedNode.Text = notifierHost.Name;
+                        tvwNotifiers.SelectedNode.Nodes.Clear();
+                        LoadNotifierAgents(tvwNotifiers.SelectedNode, notifierHost);
+                    }
+                    DoAutoSave();
+                }
+            }
+            else if (tvwNotifiers.SelectedNode != null && tvwNotifiers.SelectedNode.Tag is INotifier &&
                tvwNotifiers.SelectedNode.Parent != null && tvwNotifiers.SelectedNode.Parent.Tag != null && tvwNotifiers.SelectedNode.Parent.Tag is NotifierHost)
             {
                 INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
@@ -858,16 +884,9 @@ namespace QuickMon
                 if (agentEditor != null && agentEditor.HasDetailView && agentEditor.Viewer != null)
                 {
                     IAgentConfigEntryEditWindow detailEditor = agentEditor.DetailEditor;
-                    detailEditor.SelectedEntry = agent.AgentConfig;                    
+                    detailEditor.SelectedEntry = agent.AgentConfig;
                     if (detailEditor.ShowEditEntry() == QuickMonDialogResult.Ok)
                     {
-                        //IChildWindowIdentity childWindow = GetChildWindowByIdentity(agent.RunTimeUniqueId);
-                        //if (childWindow != null)
-                        //{
-                        //    childWindow.CloseChildWindow();
-                        //    ((Form)childWindow).Close();
-                        //}
-
                         SetMonitorChanged();
                         agent.AgentConfig.FromXml(detailEditor.SelectedEntry.ToXml());
                         tvwNotifiers.SelectedNode.Tag = agent;
@@ -1478,9 +1497,6 @@ namespace QuickMon
             {
                 this.Invoke((MethodInvoker) delegate{
                     Form childForm = ((Form)childWindow);
-                    if (childForm.WindowState == FormWindowState.Minimized)
-                        childForm.WindowState = FormWindowState.Normal;
-                    childForm.Focus();
                     if (childWindow.AutoRefreshEnabled)
                         childWindow.RefreshDetails();
                 });

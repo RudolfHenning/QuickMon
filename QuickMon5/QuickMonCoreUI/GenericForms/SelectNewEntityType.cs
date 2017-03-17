@@ -26,75 +26,16 @@ namespace QuickMon.UI
         public IAgent SelectedAgent { get; set; }
         public CollectorHost SelectedCollectorHost { get; set; }
         public List<QuickMonTemplate> Templates { get; set; }
+        public string InitialRegistrationName { get; set; }
         #endregion
 
         public DialogResult ShowCollectorHostSelection()
         {
             this.Text = "Creating a new Collector";
             selectingCollectorHosts = true;
-
+            cmdResetTemplates.Visible = true;
             LoadCollectorItems();
-            
 
-            //ListViewItem lviPerfCounterCollector = new ListViewItem("Performance Counter");
-            //lviPerfCounterCollector.SubItems.Add("Creates a collector with a Performance Counter agent");
-            //lviPerfCounterCollector.Group = generalGroup;
-            //lviPerfCounterCollector.Tag = CollectorHost.FromXml("<collectorHost uniqueId=\"\" dependOnParentId=\"\" name=\"Performance Counter\"><collectorAgents agentCheckSequence=\"All\"><collectorAgent name=\"PerfCounter\" type=\"QuickMon.Collectors.PerfCounterCollector\" enabled=\"True\"><config><performanceCounters><performanceCounter computer=\".\" category=\"Processor\" counter=\"% Processor Time\" instance=\"_Total\" warningValue=\"90\" errorValue=\"95\" numberOfSamples=\"3\" multiSampleWaitMS=\"100\" outputValueUnit=\"%\" /></performanceCounters></config></collectorAgent></collectorAgents></collectorHost>").Clone(true);
-            //lvwAgentType.Items.Add(lviPerfCounterCollector);
-
-            
-
-            /*
-            foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.CategoryName))
-            {
-                ListViewGroup rawAgentTypesGroup = (from ListViewGroup g in lvwAgentType.Groups
-                                                    where g.Header == ("RAW Agent type:" + registeredAgent.CategoryName)
-                                                    select g).FirstOrDefault();
-                if (rawAgentTypesGroup == null)
-                {
-                    rawAgentTypesGroup = new ListViewGroup("RAW Agent type:" + registeredAgent.CategoryName);
-                    lvwAgentType.Groups.Add(rawAgentTypesGroup);
-                }
-            }
-
-            foreach (RegisteredAgent registeredAgent in RegisteredAgentCache.Agents.Where(a => a.IsCollector).OrderBy(a => a.DisplayName))
-            {
-                ListViewGroup rawAgentTypesGroup = (from ListViewGroup g in lvwAgentType.Groups
-                                                    where g.Header == ("RAW Agent type:" + registeredAgent.CategoryName)
-                                                    select g).FirstOrDefault();
-
-                #region Create Collector instance
-                ICollector currentAgent = null;
-                Assembly collectorEntryAssembly = Assembly.LoadFile(registeredAgent.AssemblyPath);
-                currentAgent = (ICollector)collectorEntryAssembly.CreateInstance(registeredAgent.ClassName);
-                currentAgent.AgentClassName = registeredAgent.ClassName;
-                currentAgent.AgentClassDisplayName = registeredAgent.DisplayName;
-                CollectorHost ch = new CollectorHost() { Name = registeredAgent.DisplayName };
-                currentAgent.InitialConfiguration = currentAgent.AgentConfig.GetDefaultOrEmptyXml();
-                currentAgent.Name = registeredAgent.DisplayName;
-                currentAgent.Enabled = true;
-                ch.CollectorAgents.Add(currentAgent);
-                #endregion Create Collector instance
-
-                ListViewItem lviAgentType = new ListViewItem(registeredAgent.DisplayName);
-                lviAgentType.SubItems.Add(registeredAgent.Name);
-                lviAgentType.Group = rawAgentTypesGroup;
-                lviAgentType.Tag = ch;
-                lvwAgentType.Items.Add(lviAgentType);
-            }
-            */
-
-            //foreach (string categoryName in (from a in RegisteredAgentCache.Agents
-            //                                 where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
-            //                                 group a by a.CategoryName into g
-            //                                 orderby g.Key
-            //                                 select g.Key))
-            //{
-            //    lvwAgentType.Groups.Add(new ListViewGroup(categoryName));
-            //}
-            //ListViewGroup testGroup = new ListViewGroup("Test");
-            //lvwAgentType.Groups.Add(testGroup);
-            //LoadTemplates();
             return this.ShowDialog();
         }
 
@@ -132,32 +73,70 @@ namespace QuickMon.UI
 
         public DialogResult ShowCollectorSelection()
         {
-            this.Text = "Select Collector type";
+            this.Text = "Select Collector Agent type";
             selectingCollectors = true;
-            //SetDetailColumnSizing();
+            cmdResetTemplates.Visible = false;
+
+            LoadCollectorAgents();
+           
+            //LoadTemplates();
+            return ShowDialog();
+        }
+
+        private void LoadCollectorAgents()
+        {
             lvwAgentType.Items.Clear();
             lvwAgentType.Groups.Clear();
 
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
-                        
+
+            foreach (string categoryName in (from a in RegisteredAgentCache.Agents
+                                             where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
+                                             group a by a.CategoryName into g
+                                             orderby g.Key
+                                             select g.Key))
+            {
+                lvwAgentType.Groups.Add(new ListViewGroup(categoryName));
+            }
+            ListViewGroup testGroup = new ListViewGroup("Test");
+            lvwAgentType.Groups.Add(testGroup);
+
+            ListViewItem lvi;
+            foreach (RegisteredAgent ar in (from a in RegisteredAgentCache.Agents
+                                            where (selectingCollectors && a.IsCollector) || (!selectingCollectors && a.IsNotifier)
+                                            orderby a.Name
+                                            select a))
+            {
+                try
+                {
+                    ListViewGroup agentGroup = (from ListViewGroup gr in lvwAgentType.Groups
+                                                where gr.Header.ToLower() == ar.CategoryName.ToLower()
+                                                select gr).FirstOrDefault();
+                    if (agentGroup == null)
+                        agentGroup = generalGroup;
+
+                    lvi = new ListViewItem(ar.DisplayName);
+                    string details = ar.ClassName;
+                    System.Reflection.Assembly a = System.Reflection.Assembly.LoadFrom(ar.AssemblyPath);
+                    details += ", Version: " + a.GetName().Version.ToString();
+                    details += ", Assembly: " + System.IO.Path.GetFileName(a.Location);
+
+                    if (agentGroup == testGroup)
+                        lvi.ImageIndex = 1;
+                    else
+                        lvi.ImageIndex = 0;
+                    lvi.Group = agentGroup;
+                    lvi.SubItems.Add(details);
+                    lvi.Tag = ar;
+                    lvwAgentType.Items.Add(lvi);
+                    if (ar.Name == InitialRegistrationName)
+                        lvi.Selected = true;
+                }
+                catch { }
+            }
 
 
-            ListViewGroup templatesGroup = new ListViewGroup("Templates");
-            lvwAgentType.Groups.Add(templatesGroup);
-
-            //foreach (string categoryName in (from a in RegisteredAgentCache.Agents
-            //                                 where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
-            //                                 group a by a.CategoryName into g
-            //                                 orderby g.Key
-            //                                 select g.Key))
-            //{
-            //    lvwAgentType.Groups.Add(new ListViewGroup(categoryName));
-            //}
-            //ListViewGroup testGroup = new ListViewGroup("Test");
-            //lvwAgentType.Groups.Add(testGroup);
-            //LoadTemplates();
-            return this.ShowDialog();
         }
 
         private void lvwAgentType_SelectedIndexChanged(object sender, EventArgs e)
@@ -169,25 +148,92 @@ namespace QuickMon.UI
         {
             if (lvwAgentType.SelectedItems.Count == 1)
             {
-                if (lvwAgentType.SelectedItems[0].Tag is CollectorHost)
+                if (selectingCollectorHosts)
                 {
-                    SelectedCollectorHost = (CollectorHost)lvwAgentType.SelectedItems[0].Tag;
-                }
-                else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
-                {
-                    QuickMonTemplate selectedTemplate = (QuickMonTemplate)(lvwAgentType.SelectedItems[0].Tag);
-                    CollectorHost cls = CollectorHost.FromXml(selectedTemplate.Config);
-                    if (cls != null)
-                        SelectedCollectorHost = cls;
-                    else
+                    if (lvwAgentType.SelectedItems[0].Tag is CollectorHost)
                     {
-                        MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
+                        SelectedCollectorHost = (CollectorHost)lvwAgentType.SelectedItems[0].Tag;
+                    }
+                    else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
+                    {
+                        QuickMonTemplate selectedTemplate = (QuickMonTemplate)(lvwAgentType.SelectedItems[0].Tag);
+                        CollectorHost cls = CollectorHost.FromXml(selectedTemplate.Config);
+                        if (cls != null)
+                        {
+                            SelectedCollectorHost = cls;
+                        }
+                        else
+                        {
+                            MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return;
+                        }
+                    }
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                else if (selectingCollectors)
+                {
+                    RegisteredAgent ra = null;
+                    string configToUse = "";
+                    if (lvwAgentType.SelectedItems[0].Tag is RegisteredAgent)
+                    {
+                        ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
+                        //TemplateUsed = false;
+                    }
+                    else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
+                    {
+                        QuickMonTemplate template = (QuickMonTemplate)lvwAgentType.SelectedItems[0].Tag;
+                        ra = RegisteredAgentCache.GetRegisteredAgentByClassName(template.ForClass, selectingCollectors);
+                        configToUse = template.Config;
+                        //TemplateUsed = true;
+                    }
+                    if (ra != null)
+                    {
+                        if (System.IO.File.Exists(ra.AssemblyPath))
+                        {
+                            Assembly collectorEntryAssembly = Assembly.LoadFile(ra.AssemblyPath);
+                            SelectedAgent = (IAgent)collectorEntryAssembly.CreateInstance(ra.ClassName);
+                            SelectedAgent.AgentClassName = ra.ClassName;
+                            SelectedAgent.AgentClassDisplayName = ra.DisplayName;
+                            if (configToUse.Length == 0)
+                            {
+                                configToUse = SelectedAgent.AgentConfig.GetDefaultOrEmptyXml();
+                            }
+                            if (chkShowCustomConfig.Checked)
+                            {
+                                RAWXmlEditor editor = new RAWXmlEditor();
+                                editor.SelectedMarkup = configToUse;
+                                if (editor.ShowDialog() == DialogResult.OK)
+                                {
+                                    configToUse = editor.SelectedMarkup;
+                                }
+                            }
+                            try
+                            {
+                                SelectedAgent.AgentConfig.FromXml(configToUse);
+                                //if (selectingCollectors && configToUse.StartsWith("<collectorAgent"))
+                                //{
+                                //    SelectedAgent.AgentConfig.FromXml(configToUse);
+                                //}
+                                //else if (!selectingCollectors && configToUse.StartsWith("<notifierAgent"))
+                                //{
+                                //    SelectedAgent = NotifierHost.GetNotifierAgentFromString(configToUse);
+                                //}
+                                //else
+                                //    SelectedAgent.AgentConfig.FromXml(configToUse);
+                                DialogResult = System.Windows.Forms.DialogResult.OK;
+                                Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                        }
                     }
                 }
+                
 
-                DialogResult = DialogResult.OK;
-                Close();
+                    
             }
         }
 

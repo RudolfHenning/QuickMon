@@ -73,6 +73,12 @@
     <Compile Include="Forms\CollectorDetails.Designer.cs">
       <DependentUpon>CollectorDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditNotifierHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditNotifierHost.designer.cs">
+      <DependentUpon>EditNotifierHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NotUsed\CollectorHostEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CollectorDetails.resx">
       <DependentUpon>CollectorDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditNotifierHost.resx">
+      <DependentUpon>EditNotifierHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NotUsed\CollectorHostEditor.resx">
       <DependentUpon>CollectorHostEditor.cs</DependentUpon>
@@ -373,6 +382,10 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\NoGo.ico" />
+    <None Include="Resources\246_7.ico" />
+    <None Include="Resources\proc2.gif" />
+    <None Include="Resources\GearWithPlus.png" />
     <None Include="Resources\Error24x24.png" />
     <None Include="Resources\triang_yellow24x24.png" />
     <None Include="Resources\ok24x24.png" />

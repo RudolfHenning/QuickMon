@@ -18,7 +18,7 @@ namespace QuickMon
             InitializeComponent();
         }
 
-        private bool loading = false;
+        //private bool loading = false;
         private bool freChanging = false;
         private int panelAppSettingsHeight = 0;
         private int panelPollingSettingsHeight = 0;
@@ -45,7 +45,7 @@ namespace QuickMon
             //cmdPollingSettingsToggle_Click(null, null);
             cmdPasswordManagementToggle_Click(null, null);
 
-            loading = true;
+            //loading = true;
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
             chkSnapToDesktop.Checked = Properties.Settings.Default.MainFormSnap;
             chkAutosaveChanges.Checked = Properties.Settings.Default.AutosaveChanges;
@@ -82,7 +82,7 @@ namespace QuickMon
                     }
                 }
             }
-            loading = false;
+           // loading = false;
 
 
         }

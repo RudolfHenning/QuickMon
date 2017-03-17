@@ -941,19 +941,19 @@ namespace HenIT.Windows.Controls
                             new SolidBrush(BackColor),
                             itemonlyrect.Right - 1, itemonlyrect.Top,
                             labelitemrect.Width - itemonlyrect.Width + SystemInformation.SmallIconSize.Width + 1, selecteditemrect.Height + 1);
-                    bool draw = true;
-                    if (PrevVisibleItem != null)
-                        if (PrevVisibleItem.Selected) draw = false;
-                    // Draw upper line if previous item is not selected
-                    //if (draw) g.DrawLine(pen, selecteditemrect.Left, selecteditemrect.Top, selecteditemrect.Right, selecteditemrect.Top);
-                    //g.DrawLine(pen, selecteditemrect.Left, selecteditemrect.Top, selecteditemrect.Left, selecteditemrect.Bottom);
-                    draw = true;
-                    if (NextVisibleItem != null)
-                        if (NextVisibleItem.Selected) draw = false;
-                    // Draw lower line if net item is not selected
-                    //if (draw) g.DrawLine(pen, selecteditemrect.Left, selecteditemrect.Bottom, selecteditemrect.Right, selecteditemrect.Bottom);
-                    //g.DrawLine(pen, selecteditemrect.Right, selecteditemrect.Top, selecteditemrect.Right, selecteditemrect.Bottom);
-                    // If FullRowSelect is false and multiselect is enabled, the items don't have the same width
+                    //bool draw = true;
+                    //if (PrevVisibleItem != null)
+                    //    if (PrevVisibleItem.Selected) draw = false;
+                    //// Draw upper line if previous item is not selected
+                    ////if (draw) g.DrawLine(pen, selecteditemrect.Left, selecteditemrect.Top, selecteditemrect.Right, selecteditemrect.Top);
+                    ////g.DrawLine(pen, selecteditemrect.Left, selecteditemrect.Top, selecteditemrect.Left, selecteditemrect.Bottom);
+                    //draw = true;
+                    //if (NextVisibleItem != null)
+                    //    if (NextVisibleItem.Selected) draw = false;
+                    //// Draw lower line if net item is not selected
+                    ////if (draw) g.DrawLine(pen, selecteditemrect.Left, selecteditemrect.Bottom, selecteditemrect.Right, selecteditemrect.Bottom);
+                    ////g.DrawLine(pen, selecteditemrect.Right, selecteditemrect.Top, selecteditemrect.Right, selecteditemrect.Bottom);
+                    //// If FullRowSelect is false and multiselect is enabled, the items don't have the same width
                     if (!TreeListView.FullRowSelect && NextVisibleItem != null)
                         if (NextVisibleItem.Selected)
                         {
