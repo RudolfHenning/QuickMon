@@ -253,23 +253,27 @@ namespace QuickMon.Collectors
                 webServicePingEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
 
                 XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
-                webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
-
-                XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
-                webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
-                webServicePingEntry.GoodScriptText = goodScriptNode.InnerText;
-                if (webServicePingEntry.ValueExpectedReturnType == WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly)
+                if (testConditionsNode != null)
                 {
-                    webServicePingEntry.GoodScriptText = "[Available]";
+                    webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+                    XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                    webServicePingEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                    webServicePingEntry.GoodScriptText = goodScriptNode.InnerText;
+                    if (webServicePingEntry.ValueExpectedReturnType == WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly)
+                    {
+                        webServicePingEntry.GoodScriptText = "[Available]";
+                    }
+
+                    XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                    webServicePingEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                    webServicePingEntry.WarningScriptText = warningScriptNode.InnerText;
+
+                    XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                    webServicePingEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                    webServicePingEntry.ErrorScriptText = errorScriptNode.InnerText;
                 }
-
-                XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
-                webServicePingEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
-                webServicePingEntry.WarningScriptText = warningScriptNode.InnerText;
-
-                XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
-                webServicePingEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
-                webServicePingEntry.ErrorScriptText = errorScriptNode.InnerText;
+                else
+                    webServicePingEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
 
                 Entries.Add(webServicePingEntry);
             }
@@ -322,16 +326,16 @@ namespace QuickMon.Collectors
         public string GetDefaultOrEmptyXml()
         {
             return "<config>" +
-                "  <carvcesEntries>" +
-                "    <carvceEntry name=\"\">" +
-                "      <dataSource></dataSource>" +
-                "      <testCondition testSequence=\"GWE\">" +
-                "        <success testType=\"match\"></success>" +
-                "        <warning testType=\"match\"></warning>" +
-                "        <error testType=\"match\"></error>" +
-                "      </testCondition>" +
-                "    </carvceEntry>" +
-                "  </carvcesEntries>" +
+                "<carvcesEntries>" +
+                "<carvceEntry name=\"\">" +
+                "<dataSource></dataSource>" +
+                "<testConditions testSequence=\"GWE\">" +
+                "<success testType=\"match\"></success>" +
+                "<warning testType=\"match\"></warning>" +
+                "<error testType=\"match\"></error>" +
+                "</testConditions>" +
+                "</carvceEntry>" +
+                "</carvcesEntries>" +
                 "</config>";
             /*
             +
@@ -471,13 +475,19 @@ namespace QuickMon.Collectors
             try
             {
                 wsData = RunMethod();
-                FormatCurrentAgentValue(wsData);
-
-                agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
-                   GoodResultMatchType, GoodScriptText,
-                   WarningResultMatchType, WarningScriptText,
-                   ErrorResultMatchType, ErrorScriptText,
-                   CurrentAgentValue);
+                if (ValueExpectedReturnType == WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly)
+                {
+                    agentState = CollectorState.Good;
+                }
+                else
+                {
+                    FormatCurrentAgentValue(wsData);
+                    agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
+                       GoodResultMatchType, GoodScriptText,
+                       WarningResultMatchType, WarningScriptText,
+                       ErrorResultMatchType, ErrorScriptText,
+                       CurrentAgentValue);
+                }
             }
             catch (Exception wsException)
             {

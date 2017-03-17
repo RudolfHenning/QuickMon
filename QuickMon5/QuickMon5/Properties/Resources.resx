@@ -139,8 +139,8 @@
   <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="QuickMon5Background1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\QuickMon5Background1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tools24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tools24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,11 +187,14 @@
   <data name="doc_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doc_new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="QuickMon5Background2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\QuickMon5Background2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="QuickMon5Background1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QuickMon5Background1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Collectors24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Collectors24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GearWithPlus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GearWithPlus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QM4BlueStateErrA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QM4BlueStateErrA.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,14 +250,17 @@
   <data name="SaveAs24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAs24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Error24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Error24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="info16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\info16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CLOCK02" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CLOCK02.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="246_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\246_7.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="141" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\141.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -322,8 +328,14 @@
   <data name="clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="proc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\proc2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="doc_new16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doc_new16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QuickMon5Background2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QuickMon5Background2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="doc_new1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\doc_new1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -358,8 +370,8 @@
   <data name="folderOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folderOpen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Down16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Down16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Up16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Up16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="scroll24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scroll24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -373,7 +385,7 @@
   <data name="remote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remote.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Error24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Error24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NoGo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoGo.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

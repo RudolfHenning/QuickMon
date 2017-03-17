@@ -35,6 +35,7 @@
             this.lvwAgentType = new QuickMon.ListViewEx();
             this.nameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.detailsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chkShowCustomConfig = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -106,6 +107,18 @@
             this.detailsColumnHeader.Text = "Details";
             this.detailsColumnHeader.Width = 264;
             // 
+            // chkShowCustomConfig
+            // 
+            this.chkShowCustomConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkShowCustomConfig.AutoSize = true;
+            this.chkShowCustomConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.chkShowCustomConfig.Location = new System.Drawing.Point(142, 335);
+            this.chkShowCustomConfig.Name = "chkShowCustomConfig";
+            this.chkShowCustomConfig.Size = new System.Drawing.Size(218, 17);
+            this.chkShowCustomConfig.TabIndex = 11;
+            this.chkShowCustomConfig.Text = "Show custom config editor after selection";
+            this.chkShowCustomConfig.UseVisualStyleBackColor = true;
+            // 
             // SelectNewEntityType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,6 +126,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(576, 367);
+            this.Controls.Add(this.chkShowCustomConfig);
             this.Controls.Add(this.cmdResetTemplates);
             this.Controls.Add(this.lvwAgentType);
             this.Controls.Add(this.cmdCancel);
@@ -123,6 +137,7 @@
             this.Text = "Select New Type";
             this.Load += new System.EventHandler(this.SelectNewEntityType_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -134,5 +149,6 @@
         private System.Windows.Forms.ColumnHeader nameColumnHeader;
         private System.Windows.Forms.ColumnHeader detailsColumnHeader;
         private System.Windows.Forms.Button cmdResetTemplates;
+        private System.Windows.Forms.CheckBox chkShowCustomConfig;
     }
 }

@@ -70,19 +70,21 @@ namespace QuickMon.UI
         {
             cboValueFormatMacro.Enabled = cboExpectedValueType.SelectedIndex > 0;
             cboValueFormatMacro.Items.Clear();
-            if (cboExpectedValueType.SelectedIndex > 0)
+            if (cboExpectedValueType.SelectedIndex >= 0)
             {
                 switch ((WebServiceValueExpectedReturnTypeEnum)cboExpectedValueType.SelectedIndex)
                 {
                     case WebServiceValueExpectedReturnTypeEnum.CheckAvailabilityOnly:
                         indexOrRowNumericUpDown.Enabled = false;
                         dataSetColumnNumericUpDown.Enabled = false;
+                        sequenceGroupBox.Enabled = false;
                         //cboValueOrMacro.Enabled = false;
                         //chkUseRegEx.Enabled = false;
                         break;
                     case WebServiceValueExpectedReturnTypeEnum.SingleValue:
                         indexOrRowNumericUpDown.Enabled = false;
                         dataSetColumnNumericUpDown.Enabled = false;
+                        sequenceGroupBox.Enabled = true;
                         //cboValueOrMacro.Enabled = true;
                         //chkUseRegEx.Enabled = true;
                         cboValueFormatMacro.Items.Add(new ValueFormatMacroDisplay() { DisplayName = "", MacroFormatType = WebServiceMacroFormatTypeEnum.None });
@@ -92,6 +94,7 @@ namespace QuickMon.UI
                     case WebServiceValueExpectedReturnTypeEnum.Array:
                         indexOrRowNumericUpDown.Enabled = true;
                         dataSetColumnNumericUpDown.Enabled = false;
+                        sequenceGroupBox.Enabled = true;
                         //cboValueOrMacro.Enabled = true;
                         //chkUseRegEx.Enabled = true;
                         cboValueFormatMacro.Items.Add(new ValueFormatMacroDisplay() { DisplayName = "", MacroFormatType = WebServiceMacroFormatTypeEnum.None });
@@ -103,6 +106,7 @@ namespace QuickMon.UI
                     case WebServiceValueExpectedReturnTypeEnum.DataSet:
                         indexOrRowNumericUpDown.Enabled = true;
                         dataSetColumnNumericUpDown.Enabled = true;
+                        sequenceGroupBox.Enabled = true;
                         //cboValueOrMacro.Enabled = true;
                         //chkUseRegEx.Enabled = true;
                         cboValueFormatMacro.Items.Add(new ValueFormatMacroDisplay() { DisplayName = "", MacroFormatType = WebServiceMacroFormatTypeEnum.None });
