@@ -8,97 +8,13 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("Web Service Collector"), Category("Web Service")]
+    [Description("Web Service Collector"), Category("General")]
     public class WSCollector : CollectorAgentBase
     {
         public WSCollector()
         {
             AgentConfig = new WSCollectorConfig();
         }
-
-        //public override MonitorState RefreshState()
-        //{
-        //    MonitorState returnState = new MonitorState();
-        //    string lastAction = "";
-        //    int errors = 0;
-        //    int warnings = 0;
-        //    int success = 0;
-
-        //    try
-        //    {
-        //        WSCollectorConfig currentConfig = (WSCollectorConfig)AgentConfig;
-        //        returnState.RawDetails = string.Format("Calling {0} services", currentConfig.Entries.Count);
-        //        returnState.HtmlDetails = string.Format("<b>Calling {0} services</b>", currentConfig.Entries.Count);
-        //        foreach (WSCollectorConfigEntry entry in currentConfig.Entries)
-        //        {
-        //            CollectorState currentState = CollectorState.NotAvailable;
-        //            object wsData = "N/A";
-        //            try
-        //            {
-        //                lastAction = "Running Web Service " + entry.Description;
-        //                wsData = entry.RunMethod();
-        //                lastAction = "Checking states of " + entry.Description;
-        //                currentState = entry.GetState(wsData);
-        //                lastAction = entry.LastFormattedValue;
-        //            }
-        //            catch (Exception wsException)
-        //            {
-        //                currentState = CollectorState.Error;
-        //                lastAction = wsException.Message;
-        //                wsData = wsException.Message;
-        //            }
-        //            if (wsData == null )
-        //                wsData="N/A";
-        //            if (currentState == CollectorState.Error)
-        //            {
-        //                errors++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        ForAgent = entry.Description,
-        //                        State = CollectorState.Error,
-        //                        CurrentValue =  wsData.ToString()
-        //                    });
-        //            }
-        //            else if (currentState == CollectorState.Warning)
-        //            {
-        //                warnings++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        ForAgent = entry.Description,
-        //                        State = CollectorState.Warning,
-        //                        CurrentValue = wsData.ToString()
-        //                    });
-        //            }
-        //            else
-        //            {
-        //                success++;
-        //                returnState.ChildStates.Add(
-        //                    new MonitorState()
-        //                    {
-        //                        ForAgent = entry.Description,
-        //                        State = CollectorState.Good,
-        //                        CurrentValue = wsData.ToString()
-        //                    });
-        //            }                    
-        //        }
-
-        //        if (errors > 0 && warnings == 0 && success == 0) // any errors
-        //            returnState.State = CollectorState.Error;
-        //        else if (errors > 0 || warnings > 0) //any warnings
-        //            returnState.State = CollectorState.Warning;
-        //        else
-        //            returnState.State = CollectorState.Good;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        returnState.RawDetails = ex.Message;
-        //        returnState.HtmlDetails = string.Format("<p><b>Last action:</b> {0}</p><blockquote>{1}</blockquote>", lastAction, ex.Message);
-        //        returnState.State = CollectorState.Error;
-        //    }
-        //    return returnState;
-        //}
 
         public override List<System.Data.DataTable> GetDetailDataTables()
         {

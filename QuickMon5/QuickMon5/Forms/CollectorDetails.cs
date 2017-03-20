@@ -180,6 +180,7 @@ namespace QuickMon
             txtName.BorderStyle = BorderStyle.FixedSingle;
             cboTextType.SelectedIndex = 0;
             SetActivePanel(panelEditing);
+            EnableAgentContextMenuItems();
             CheckOkEnabled();
         }
         private void StopEditMode()
@@ -1172,7 +1173,7 @@ namespace QuickMon
             //  else use collector agent type (without the word Collector)
             //    and show new agent entry dialog
             SelectNewEntityType selectNewAgentType = new SelectNewEntityType();
-            if (selectNewAgentType.ShowCollectorSelection() == System.Windows.Forms.DialogResult.OK)
+            if (selectNewAgentType.ShowCollectorAgentSelection() == System.Windows.Forms.DialogResult.OK)
             {
                 ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;
                 agent.Enabled = true;
@@ -1340,6 +1341,76 @@ namespace QuickMon
                 agentsTreeListView_SelectedIndexChanged(null, null);
             }
         }
+        private void EnableAgentContextMenuItems()
+        {
+            bool addAgentEntry = false;
+            bool moveUpEnabled = false;
+            bool moveDownEnabled = false;
+            bool agentEnabledEnabled = false;
+            bool agentEDisabledEnabled = false;
+            if (agentsTreeListView.SelectedItems.Count == 1)
+            {
+                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
+                if (moveItem.Tag is ICollector)
+                {
+                    ICollector agent = (ICollector)moveItem.Tag;
+                    ICollectorConfig currentCollectorConfig = (ICollectorConfig)agent.AgentConfig;
+
+                    int index = editingCollectorHost.CollectorAgents.IndexOf(agent);
+                    moveUpEnabled = index > 0;
+                    moveDownEnabled = index < editingCollectorHost.CollectorAgents.Count - 1;
+
+                    addAgentEntry = (!((ICollectorConfig)agent.AgentConfig).SingleEntryOnly) || currentCollectorConfig.Entries.Count == 0;
+                    agentEnabledEnabled = !agent.Enabled;
+                    agentEDisabledEnabled = agent.Enabled;
+                }
+                else if (moveItem.Tag is ICollectorConfigEntry)
+                {
+                    ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
+                    ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
+                    ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
+                    int index = entryConfig.Entries.IndexOf(moveConfigEntry);
+                    moveUpEnabled = index > 0;
+                    moveDownEnabled = index < entryConfig.Entries.Count - 1;
+                    addAgentEntry = false;
+                }
+            }
+            else
+            {
+                foreach (TreeListViewItem tlvi in agentsTreeListView.SelectedItems)
+                {
+                    if (tlvi.Tag is ICollector)
+                    {
+                        ICollector agent = (ICollector)tlvi.Tag;
+                        if (!agent.Enabled)
+                            agentEnabledEnabled = true;
+                        else
+                            agentEDisabledEnabled = true;
+                    }
+                    else
+                    {
+                        agentEnabledEnabled = false;
+                        agentEDisabledEnabled = false;
+                        break;
+                    }
+                }
+            }
+            addAgentEntryToolStripButton.Enabled = addAgentEntry;
+            addAgentEntryToolStripMenuItem.Enabled = addAgentEntry;
+            editCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count == 1;
+            editToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count == 1;
+            deleteCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count > 0;
+            deleteToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count > 0;
+            moveUpAgentToolStripButton.Enabled = moveUpEnabled;
+            moveUpToolStripMenuItem.Enabled = moveUpEnabled;
+            moveDownAgentToolStripButton.Enabled = moveDownEnabled;
+            moveDownToolStripMenuItem.Enabled = moveDownEnabled;
+            enableAgentToolStripButton.Enabled = agentEnabledEnabled;
+            disableAgentToolStripButton.Enabled = agentEDisabledEnabled;
+            enableToolStripMenuItem.Enabled = agentEnabledEnabled || agentEDisabledEnabled;
+            this.enableToolStripMenuItem.Image = agentEnabledEnabled ? Properties.Resources._131 : Properties.Resources._133;
+            this.enableToolStripMenuItem.Text = agentEnabledEnabled ? "Enable" : "Disable";
+        }
         private bool SetEditingCollectorHost()
         {
             bool success = false;
@@ -1481,73 +1552,7 @@ namespace QuickMon
         }
         private void agentsTreeListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool addAgentEntry = false;
-            bool moveUpEnabled = false;
-            bool moveDownEnabled = false;
-            bool agentEnabledEnabled = false;
-            bool agentEDisabledEnabled = false;
-            if (agentsTreeListView.SelectedItems.Count == 1)
-            {
-                TreeListViewItem moveItem = agentsTreeListView.SelectedItems[0];
-                if (moveItem.Tag is ICollector)
-                {
-                    ICollector agent = (ICollector)moveItem.Tag;
-                    ICollectorConfig currentCollectorConfig = (ICollectorConfig)agent.AgentConfig;
-
-                    int index = editingCollectorHost.CollectorAgents.IndexOf(agent);
-                    moveUpEnabled = index > 0;
-                    moveDownEnabled = index < editingCollectorHost.CollectorAgents.Count - 1;
-
-                    addAgentEntry = (!((ICollectorConfig)agent.AgentConfig).SingleEntryOnly) || currentCollectorConfig.Entries.Count == 0;
-                    agentEnabledEnabled = !agent.Enabled;
-                    agentEDisabledEnabled = agent.Enabled;
-                }
-                else if (moveItem.Tag is ICollectorConfigEntry)
-                {
-                    ICollectorConfigEntry moveConfigEntry = (ICollectorConfigEntry)moveItem.Tag;
-                    ICollector moveAgent = (ICollector)moveItem.Parent.Tag;
-                    ICollectorConfig entryConfig = (ICollectorConfig)moveAgent.AgentConfig;
-                    int index = entryConfig.Entries.IndexOf(moveConfigEntry);
-                    moveUpEnabled = index > 0;
-                    moveDownEnabled = index < entryConfig.Entries.Count - 1;
-                    addAgentEntry = false;
-                }
-            }
-            else
-            {
-                foreach (TreeListViewItem tlvi in agentsTreeListView.SelectedItems)
-                {
-                    if (tlvi.Tag is ICollector)
-                    {
-                        ICollector agent = (ICollector)tlvi.Tag;
-                        if (!agent.Enabled)
-                            agentEnabledEnabled = true;
-                        else
-                            agentEDisabledEnabled = true;
-                    }
-                    else
-                    {
-                        agentEnabledEnabled = false;
-                        agentEDisabledEnabled = false;
-                        break;
-                    }
-                }
-            }
-            addAgentEntryToolStripButton.Enabled = addAgentEntry;
-            addAgentEntryToolStripMenuItem.Enabled = addAgentEntry;
-            editCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count == 1;
-            editToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count == 1;
-            deleteCollectorAgentToolStripButton.Enabled = agentsTreeListView.SelectedItems.Count > 0;
-            deleteToolStripMenuItem.Enabled = agentsTreeListView.SelectedItems.Count > 0;
-            moveUpAgentToolStripButton.Enabled = moveUpEnabled;
-            moveUpToolStripMenuItem.Enabled = moveUpEnabled;
-            moveDownAgentToolStripButton.Enabled = moveDownEnabled;
-            moveDownToolStripMenuItem.Enabled = moveDownEnabled;
-            enableAgentToolStripButton.Enabled = agentEnabledEnabled;
-            disableAgentToolStripButton.Enabled = agentEDisabledEnabled;
-            enableToolStripMenuItem.Enabled = agentEnabledEnabled || agentEDisabledEnabled;
-            this.enableToolStripMenuItem.Image = agentEnabledEnabled ? global::QuickMon.Properties.Resources._131 : global::QuickMon.Properties.Resources._133;
-            this.enableToolStripMenuItem.Text = agentEnabledEnabled ? "Enable" : "Disable";
+            EnableAgentContextMenuItems();
         }
         private void addCollectorConfigEntryToolStripButton_Click(object sender, EventArgs e)
         {
@@ -1642,6 +1647,18 @@ namespace QuickMon
         private void disableAgentToolStripButton_Click(object sender, EventArgs e)
         {
             DisableAgents();
+        }
+        private void enableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (enableToolStripMenuItem.Text == "Enable")
+            {
+                enableAgentToolStripButton_Click(null, null);
+            }
+            else
+            {
+                disableAgentToolStripButton_Click(null, null);
+            }
+
         }
         #endregion
 
@@ -1906,9 +1923,8 @@ namespace QuickMon
             lblNoteTextChangeIndicator.Text = "Alert Texts";
             cmdSetNoteText.Enabled = false;
         }
-
-
         #endregion
+
         #endregion
 
         //private void cmdAgentsToggle_Click(object sender, EventArgs e)

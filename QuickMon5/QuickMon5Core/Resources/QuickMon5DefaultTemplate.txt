@@ -140,6 +140,120 @@
 		<notes />
 	</collectorHost>
 </template>
+<template name="Drive space (C:)" type="CollectorAgent" class="QuickMon.Collectors.WMIQueryCollector" description="Drive space (C:)">
+	<collectorAgent name="Drive space" type="QuickMon.Collectors.WMIQueryCollector" enabled="True">
+            <config>
+                <wmiQueries>
+                    <wmiQuery name="C Drive space" namespace="root\CIMV2" machineName="." primaryUIValue="False">
+                        <stateQuery syntax="SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'" returnValueIsInt="True" returnValueInverted="True" warningValue="1048576000" errorValue="524288000" successValue="[any]" useRowCountAsValue="False" />
+                        <detailQuery syntax="SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'" columnNames="Caption, Size, FreeSpace, Description" />
+                    </wmiQuery>
+                </wmiQueries>
+            </config>
+        </collectorAgent>
+</template>
+<template name="FireFox version" type="CollectorAgent" class="QuickMon.Collectors.PowerShellScriptRunnerCollector" description="FireFox version">
+<collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True">
+            <config>
+                <carvcesEntries>
+                    <carvceEntry name="Firefox version test" primaryUIValue="False">
+                        <dataSource>function GetFFNewestVer() {
+    $ver = "N/A"
+    $site = Invoke-WebRequest -uri "https://www.mozilla.org/en-US/firefox/releases/"
+    if ($site.Content.Contains("data-latest-firefox=")){
+        $ver = $site.Content.Substring($site.Content.IndexOf("data-latest-firefox=")+21)
+        $ver = $ver.Substring(0,$ver.IndexOf('"'))    
+    }
+    return $ver
+}
+$ver = GetFFNewestVer
+#"Latest version available: " + $ver
+$localVer = (Get-ItemProperty -Path 'HKCU:\SOFTWARE\Mozilla\Mozilla Firefox').'(default)'
+# $localVer = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MozillaMaintenanceService').DisplayVersion
+$localVer
 
-
+if ($ver -ne $localVer){
+    "This computer does not have the latest version"
+}
+else {
+    "This computer has the latest version"
+}</dataSource>
+                    <testConditions testSequence="GWE">
+                        <success testType="Contains">This computer has the latest version</success>
+                        <warning testType="Match">This computer does not have the latest version</warning>
+                        <error testType="Match">[any]</error>
+                    </testConditions>
+                </carvceEntry>
+            </carvcesEntries>
+        </config>
+    </collectorAgent>
+</template>
+<template name="Ping default gateway" type="CollectorAgent" class="QuickMon.Collectors.PowerShellScriptRunnerCollector" description="Ping default gateway">
+	<collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True">
+            <config>
+                <carvcesEntries>
+                    <carvceEntry name="Ping Default Gateway" primaryUIValue="False">
+                        <dataSource>$defaultGateWay = ''
+$nics = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.DefaultIPGateway -ne $null } | select DefaultIPGateway 
+if ($nics -ne $null) {
+    $defaultGateWay = $nics[0].DefaultIPGateway
+}
+$defaultGateWay
+if (Test-Connection -ComputerName $defaultGateWay -Count 1 -Quiet) {
+    "Success $defaultGateWay"
+}
+else {
+    "Fail"
+}</dataSource>
+                    <testConditions testSequence="GEW">
+                        <success testType="Contains">Success</success>
+                        <warning testType="Match">[null]</warning>
+                        <error testType="Contains">Fail</error>
+                    </testConditions>
+                </carvceEntry>
+            </carvcesEntries>
+        </config>
+    </collectorAgent>
+</template>
+<template name="Ping DNS servers" type="CollectorAgent" class="QuickMon.Collectors.PowerShellScriptRunnerCollector" description="Ping DNS servers">
+<collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True">
+            <config>
+                <carvcesEntries>
+                    <carvceEntry name="PowerShell Test" primaryUIValue="False">
+                        <dataSource>$DNSServerSearchOrder = ''
+$nics = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.DefaultIPGateway -ne $null } | select DNSServerSearchOrder 
+if ($nics -ne $null) {
+    $DNSServerSearchOrder = $nics[0].DNSServerSearchOrder
+}
+$DNSServerSearchOrder
+$Total = 0
+$Success = 0
+$DNSServerSearchOrder | % {
+    $Total++
+    if (Test-Connection -ComputerName $_ -Count 1 -Quiet) {
+        $Success++
+    }
+}
+if ($Total -eq $Success) {
+    "Success"
+}
+else {
+    if ($Success -gt 0 -and $Total -gt $Success){
+        "Partial"
+    }
+    else 
+    {
+        "Fail"
+    }
+}</dataSource>
+                    <testConditions testSequence="GWE">
+                        <success testType="Contains">Success</success>
+                        <warning testType="Contains">Partial</warning>
+                        <error testType="Contains">Fail</error>
+                    </testConditions>
+                </carvceEntry>
+            </carvcesEntries>
+        </config>
+    </collectorAgent>
+</template>
 </quickMonTemplate>

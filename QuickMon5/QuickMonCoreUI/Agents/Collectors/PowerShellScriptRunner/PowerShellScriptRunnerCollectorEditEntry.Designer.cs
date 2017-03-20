@@ -48,11 +48,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmdImportScript = new System.Windows.Forms.Button();
             this.scriptGroupBox = new System.Windows.Forms.GroupBox();
-            this.optEWG = new System.Windows.Forms.RadioButton();
-            this.optGWE = new System.Windows.Forms.RadioButton();
-            this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
+            this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
             this.successGroupBox.SuspendLayout();
@@ -306,41 +305,6 @@
             this.scriptGroupBox.TabStop = false;
             this.scriptGroupBox.Text = "PowerShell script";
             // 
-            // optEWG
-            // 
-            this.optEWG.AutoSize = true;
-            this.optEWG.Location = new System.Drawing.Point(239, 19);
-            this.optEWG.Name = "optEWG";
-            this.optEWG.Size = new System.Drawing.Size(206, 17);
-            this.optEWG.TabIndex = 1;
-            this.optEWG.Text = "Error, Warning and then assume Good";
-            this.optEWG.UseVisualStyleBackColor = true;
-            // 
-            // optGWE
-            // 
-            this.optGWE.AutoSize = true;
-            this.optGWE.Checked = true;
-            this.optGWE.Location = new System.Drawing.Point(16, 19);
-            this.optGWE.Name = "optGWE";
-            this.optGWE.Size = new System.Drawing.Size(206, 17);
-            this.optGWE.TabIndex = 0;
-            this.optGWE.TabStop = true;
-            this.optGWE.Text = "Good, Warning and then assume Error";
-            this.optGWE.UseVisualStyleBackColor = true;
-            // 
-            // sequenceGroupBox
-            // 
-            this.sequenceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sequenceGroupBox.Controls.Add(this.optEWG);
-            this.sequenceGroupBox.Controls.Add(this.optGWE);
-            this.sequenceGroupBox.Location = new System.Drawing.Point(9, 249);
-            this.sequenceGroupBox.Name = "sequenceGroupBox";
-            this.sequenceGroupBox.Size = new System.Drawing.Size(552, 49);
-            this.sequenceGroupBox.TabIndex = 3;
-            this.sequenceGroupBox.TabStop = false;
-            this.sequenceGroupBox.Text = "Check sequence";
-            // 
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -359,6 +323,35 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
+            // 
+            // sequenceGroupBox
+            // 
+            this.sequenceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sequenceGroupBox.Controls.Add(this.cboReturnCheckSequence);
+            this.sequenceGroupBox.Location = new System.Drawing.Point(9, 249);
+            this.sequenceGroupBox.Name = "sequenceGroupBox";
+            this.sequenceGroupBox.Size = new System.Drawing.Size(552, 49);
+            this.sequenceGroupBox.TabIndex = 3;
+            this.sequenceGroupBox.TabStop = false;
+            this.sequenceGroupBox.Text = "Check sequence";
+            // 
+            // cboReturnCheckSequence
+            // 
+            this.cboReturnCheckSequence.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboReturnCheckSequence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboReturnCheckSequence.Items.AddRange(new object[] {
+            "Good, Warning and then assume Error",
+            "Error, Warning and then assume Good",
+            "Good, Error and then assume Warning",
+            "Error, Good and then assume Warning",
+            "Warning, Good and then assume Error",
+            "Warning, Error and then assume Good"});
+            this.cboReturnCheckSequence.Location = new System.Drawing.Point(10, 19);
+            this.cboReturnCheckSequence.Name = "cboReturnCheckSequence";
+            this.cboReturnCheckSequence.Size = new System.Drawing.Size(532, 21);
+            this.cboReturnCheckSequence.TabIndex = 2;
             // 
             // PowerShellScriptRunnerCollectorEditEntry
             // 
@@ -392,7 +385,6 @@
             this.scriptGroupBox.ResumeLayout(false);
             this.scriptGroupBox.PerformLayout();
             this.sequenceGroupBox.ResumeLayout(false);
-            this.sequenceGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,10 +411,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cmdImportScript;
         private System.Windows.Forms.GroupBox scriptGroupBox;
-        private System.Windows.Forms.RadioButton optEWG;
-        private System.Windows.Forms.RadioButton optGWE;
-        private System.Windows.Forms.GroupBox sequenceGroupBox;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox sequenceGroupBox;
+        private System.Windows.Forms.ComboBox cboReturnCheckSequence;
     }
 }

@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace QuickMon.Collectors
 {
-    [Description("PowerShell Script Runner Collector"), Category("PowerShell")]
+    [Description("PowerShell Script Runner Collector"), Category("General")]
     public class PowerShellScriptRunnerCollector : CollectorAgentBase
     {
         public PowerShellScriptRunnerCollector()
@@ -180,18 +180,12 @@ namespace QuickMon.Collectors
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config>" +
-                "  <carvcesEntries>" +
-                "    <carvceEntry name=\"\">" +
-                "      <dataSource></dataSource>" +
-                "      <testCondition testSequence=\"GWE\">" +
-                "        <success testType=\"match\"></success>" +
-                "        <warning testType=\"match\"></warning>" +
-                "        <error testType=\"match\"></error>" +
-                "      </testCondition>" +
-                "    </carvceEntry>" +
-                "  </carvcesEntries>" +
-                "</config>";
+            return "<config><carvcesEntries><carvceEntry name=\"\"><dataSource></dataSource>" +
+                "<testConditions testSequence=\"GWE\">" +
+                "<success testType=\"match\"></success>" +
+                "<warning testType=\"match\"></warning>" +
+                "<error testType=\"match\"></error>" +
+                "</testConditions></carvceEntry></carvcesEntries></config>";
 
             /*
                 "<config>" +

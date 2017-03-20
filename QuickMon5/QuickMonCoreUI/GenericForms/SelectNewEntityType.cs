@@ -19,27 +19,47 @@ namespace QuickMon.UI
             Templates = new List<QuickMonTemplate>();
         }
 
-        private bool selectingCollectors = false;
+        private bool selectingCollectorAgents = false;
         private bool selectingCollectorHosts = false;
+        private bool selectingNotifierHosts = false;
 
         #region Properties
         public IAgent SelectedAgent { get; set; }
         public CollectorHost SelectedCollectorHost { get; set; }
+        public NotifierHost SelectedNotifierHost { get; set; }
         public List<QuickMonTemplate> Templates { get; set; }
         public string InitialRegistrationName { get; set; }
         #endregion
 
+        #region public methods
         public DialogResult ShowCollectorHostSelection()
         {
             this.Text = "Creating a new Collector";
             selectingCollectorHosts = true;
-            cmdResetTemplates.Visible = true;
-            LoadCollectorItems();
+            LoadCollectorHostItems();
 
             return this.ShowDialog();
         }
+        public DialogResult ShowCollectorAgentSelection()
+        {
+            this.Text = "Select Collector Agent type";
+            selectingCollectorAgents = true;
+            LoadCollectorAgents();
+           
+            return ShowDialog();
+        }
+        public DialogResult ShowNotifierHostSelection()
+        {
+            this.Text = "Creating a new Notifier";
+            selectingNotifierHosts = true;
+            LoadNotifierHostItems();
 
-        private void LoadCollectorItems()
+            return this.ShowDialog();
+        }
+        #endregion
+
+        #region Private methods
+        private void LoadCollectorHostItems()
         {
             lvwAgentType.Items.Clear();
             lvwAgentType.Groups.Clear();
@@ -70,19 +90,6 @@ namespace QuickMon.UI
                 lvwAgentType.Items.Add(lviTemplateCollector);
             }
         }
-
-        public DialogResult ShowCollectorSelection()
-        {
-            this.Text = "Select Collector Agent type";
-            selectingCollectors = true;
-            cmdResetTemplates.Visible = false;
-
-            LoadCollectorAgents();
-           
-            //LoadTemplates();
-            return ShowDialog();
-        }
-
         private void LoadCollectorAgents()
         {
             lvwAgentType.Items.Clear();
@@ -104,7 +111,7 @@ namespace QuickMon.UI
 
             ListViewItem lvi;
             foreach (RegisteredAgent ar in (from a in RegisteredAgentCache.Agents
-                                            where (selectingCollectors && a.IsCollector) || (!selectingCollectors && a.IsNotifier)
+                                            where (selectingCollectorAgents && a.IsCollector) || (!selectingCollectorAgents && a.IsNotifier)
                                             orderby a.Name
                                             select a))
             {
@@ -136,56 +143,130 @@ namespace QuickMon.UI
                 catch { }
             }
 
+            ListViewGroup templatesGroup = new ListViewGroup("Templates");
+            lvwAgentType.Groups.Add(templatesGroup);
 
+            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.CollectorAgent))
+            {
+                ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
+                lviTemplateCollector.SubItems.Add(qt.Description);
+                lviTemplateCollector.Group = templatesGroup;
+                lviTemplateCollector.Tag = qt;
+                lvwAgentType.Items.Add(lviTemplateCollector);
+            }
         }
+        private void LoadNotifierHostItems()
+        {
+            lvwAgentType.Items.Clear();
+            lvwAgentType.Groups.Clear();
+            ListViewGroup generalGroup = new ListViewGroup("General");
+            lvwAgentType.Groups.Add(generalGroup);
+            ListViewItem lviDefaultNotifier = new ListViewItem("Default Notifier");
+            lviDefaultNotifier.SubItems.Add("Creates a blank collector with no agents");
+            lviDefaultNotifier.Group = generalGroup;
+            lviDefaultNotifier.Tag = NotifierHost.FromXml("<notifierHost name=\"Default Notifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"OnlyAttended\"><notifierAgents><notifierAgent name=\"Memory agent\" type=\"QuickMon.Notifiers.InMemoryNotifier\" enabled=\"True\"><config><inMemory maxEntryCount=\"99999\" /></config></notifierAgent></notifierAgents></notifierHost>");
+            lvwAgentType.Items.Add(lviDefaultNotifier);
 
+            ListViewGroup templatesGroup = new ListViewGroup("Templates");
+            lvwAgentType.Groups.Add(templatesGroup);
+
+            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.NotifierHost))
+            {
+                ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
+                lviTemplateCollector.SubItems.Add(qt.Description);
+                lviTemplateCollector.Group = templatesGroup;
+                lviTemplateCollector.Tag = qt;
+                lvwAgentType.Items.Add(lviTemplateCollector);
+            }
+        }
+        #endregion
+
+        #region Form events
+        private void SelectNewEntityType_Load(object sender, EventArgs e)
+        {
+            lvwAgentType.AutoResizeColumnEnabled = true;
+            lvwAgentType.BorderStyle = BorderStyle.None;
+        }
+        #endregion
+
+        #region ListView events
         private void lvwAgentType_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmdOK.Enabled = lvwAgentType.SelectedItems.Count == 1 && lvwAgentType.SelectedItems[0].Tag != null;
         }
+        private void lvwAgentType_DoubleClick(object sender, EventArgs e)
+        {
+            cmdOK_Click(null, null);
+        }
+        #endregion
 
+        #region Button events
+        private void cmdResetTemplates_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to reset all templates? This cannot be undone.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                QuickMonTemplate.ResetTemplates();
+                if (selectingCollectorHosts)
+                {
+                    LoadCollectorHostItems();
+                }
+                else if (selectingCollectorAgents)
+                {
+                    LoadCollectorAgents();
+                }
+            }
+        }
         private void cmdOK_Click(object sender, EventArgs e)
         {
             if (lvwAgentType.SelectedItems.Count == 1)
             {
+                string configToUse = "";
                 if (selectingCollectorHosts)
                 {
+                    #region Collector hosts
                     if (lvwAgentType.SelectedItems[0].Tag is CollectorHost)
                     {
-                        SelectedCollectorHost = (CollectorHost)lvwAgentType.SelectedItems[0].Tag;
+                        configToUse = ((CollectorHost)lvwAgentType.SelectedItems[0].Tag).ToXml();
                     }
                     else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
                     {
                         QuickMonTemplate selectedTemplate = (QuickMonTemplate)(lvwAgentType.SelectedItems[0].Tag);
-                        CollectorHost cls = CollectorHost.FromXml(selectedTemplate.Config);
-                        if (cls != null)
+                        configToUse = selectedTemplate.Config;
+                    }
+                    if (chkShowCustomConfig.Checked)
+                    {
+                        RAWXmlEditor editor = new RAWXmlEditor();
+                        editor.SelectedMarkup = configToUse;
+                        if (editor.ShowDialog() == DialogResult.OK)
                         {
-                            SelectedCollectorHost = cls;
-                        }
-                        else
-                        {
-                            MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            return;
+                            configToUse = editor.SelectedMarkup;
                         }
                     }
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    CollectorHost cls = CollectorHost.FromXml(configToUse);
+                    if (cls != null)
+                    {
+                        SelectedCollectorHost = cls;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    } 
+                    #endregion
                 }
-                else if (selectingCollectors)
+                else if (selectingCollectorAgents)
                 {
+                    #region Collector agents
                     RegisteredAgent ra = null;
-                    string configToUse = "";
                     if (lvwAgentType.SelectedItems[0].Tag is RegisteredAgent)
                     {
                         ra = (RegisteredAgent)lvwAgentType.SelectedItems[0].Tag;
-                        //TemplateUsed = false;
                     }
                     else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
                     {
                         QuickMonTemplate template = (QuickMonTemplate)lvwAgentType.SelectedItems[0].Tag;
-                        ra = RegisteredAgentCache.GetRegisteredAgentByClassName(template.ForClass, selectingCollectors);
+                        ra = RegisteredAgentCache.GetRegisteredAgentByClassName(template.ForClass, selectingCollectorAgents);
                         configToUse = template.Config;
-                        //TemplateUsed = true;
                     }
                     if (ra != null)
                     {
@@ -210,18 +291,18 @@ namespace QuickMon.UI
                             }
                             try
                             {
+                                if (configToUse.StartsWith("<collectorAgent"))
+                                {
+                                    System.Xml.XmlDocument collectorAgentDoc = new System.Xml.XmlDocument();
+                                    collectorAgentDoc.LoadXml(configToUse);
+                                    System.Xml.XmlNode configNode = collectorAgentDoc.DocumentElement.SelectSingleNode("config");
+                                    if (configNode != null)
+                                    {
+                                        configToUse = configNode.OuterXml;
+                                    }
+                                }
                                 SelectedAgent.AgentConfig.FromXml(configToUse);
-                                //if (selectingCollectors && configToUse.StartsWith("<collectorAgent"))
-                                //{
-                                //    SelectedAgent.AgentConfig.FromXml(configToUse);
-                                //}
-                                //else if (!selectingCollectors && configToUse.StartsWith("<notifierAgent"))
-                                //{
-                                //    SelectedAgent = NotifierHost.GetNotifierAgentFromString(configToUse);
-                                //}
-                                //else
-                                //    SelectedAgent.AgentConfig.FromXml(configToUse);
-                                DialogResult = System.Windows.Forms.DialogResult.OK;
+                                DialogResult = DialogResult.OK;
                                 Close();
                             }
                             catch (Exception ex)
@@ -229,35 +310,48 @@ namespace QuickMon.UI
                                 MessageBox.Show("An error occured while processing the config!\r\n" + ex.Message, "Edit config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             }
                         }
-                    }
+                    } 
+                    #endregion
                 }
-                
-
-                    
-            }
-        }
-
-        private void lvwAgentType_DoubleClick(object sender, EventArgs e)
-        {
-            cmdOK_Click(null, null);
-        }
-
-        private void SelectNewEntityType_Load(object sender, EventArgs e)
-        {
-            lvwAgentType.AutoResizeColumnEnabled = true;
-            lvwAgentType.BorderStyle = BorderStyle.None;
-        }
-
-        private void cmdResetTemplates_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to reset all templates? This cannot be undone.", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-            {
-                QuickMonTemplate.ResetTemplates();
-                if (selectingCollectorHosts)
+                else if (selectingNotifierHosts)
                 {
-                    LoadCollectorItems();
+                    #region Notifier hosts
+                    if (lvwAgentType.SelectedItems[0].Tag is NotifierHost)
+                    {
+                        configToUse = ((NotifierHost)lvwAgentType.SelectedItems[0].Tag).ToXml();
+                    }
+                    else if (lvwAgentType.SelectedItems[0].Tag is QuickMonTemplate)
+                    {
+                        QuickMonTemplate selectedTemplate = (QuickMonTemplate)(lvwAgentType.SelectedItems[0].Tag);
+                        configToUse = selectedTemplate.Config;
+                    }
+
+                    if (chkShowCustomConfig.Checked)
+                    {
+                        RAWXmlEditor editor = new RAWXmlEditor();
+                        editor.SelectedMarkup = configToUse;
+                        if (editor.ShowDialog() == DialogResult.OK)
+                        {
+                            configToUse = editor.SelectedMarkup;
+                        }
+                    }
+                    NotifierHost cls = NotifierHost.FromXml(configToUse);
+                    if (cls != null)
+                    {
+                        SelectedNotifierHost = cls;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The configuration for this template is invalid! Please correct and try again.", "Template", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    } 
+                    #endregion
                 }
+                DialogResult = DialogResult.OK;
+                Close();
             }
-        }
+        } 
+        #endregion
+        
     }
 }
