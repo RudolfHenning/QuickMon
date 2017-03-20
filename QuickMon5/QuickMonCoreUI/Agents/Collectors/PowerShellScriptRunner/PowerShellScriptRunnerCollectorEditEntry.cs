@@ -40,7 +40,8 @@ namespace QuickMon.UI
             #endregion
 
             txtName.Text = selectedEntry.Name;
-            optEWG.Checked = selectedEntry.ReturnCheckSequence == CollectorAgentReturnValueCheckSequence.EWG;
+            cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;
+            //optEWG.Checked = selectedEntry.ReturnCheckSequence == CollectorAgentReturnValueCheckSequence.EWG;
             txtScript.Text = selectedEntry.TestScript;
             txtSuccess.Text = selectedEntry.GoodScriptText;
             cboSuccessMatchType.SelectedIndex = (int)selectedEntry.GoodResultMatchType;
@@ -72,7 +73,7 @@ namespace QuickMon.UI
                 Cursor.Current = Cursors.WaitCursor;
                 PowerShellScriptRunnerEntry testEntry = new PowerShellScriptRunnerEntry();
                 testEntry.Name = txtName.Text;
-                testEntry.ReturnCheckSequence = optGWE.Checked ? CollectorAgentReturnValueCheckSequence.GWE : CollectorAgentReturnValueCheckSequence.EWG;
+                testEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 testEntry.TestScript = txtScript.Text;
                 testEntry.GoodScriptText = txtSuccess.Text;
                 testEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
@@ -103,7 +104,7 @@ namespace QuickMon.UI
             PowerShellScriptRunnerEntry selectedEntry = (PowerShellScriptRunnerEntry)SelectedEntry;
             selectedEntry.Name = txtName.Text;
 
-            selectedEntry.ReturnCheckSequence = optGWE.Checked ? CollectorAgentReturnValueCheckSequence.GWE : CollectorAgentReturnValueCheckSequence.EWG;
+            selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
             selectedEntry.TestScript = txtScript.Text;
             selectedEntry.GoodScriptText = txtSuccess.Text;
             selectedEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;

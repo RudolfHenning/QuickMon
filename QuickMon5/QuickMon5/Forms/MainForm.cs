@@ -502,14 +502,15 @@ namespace QuickMon
 
         private void addNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            AddNotifier();
         }
+
+        
+
         private void editNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditNotifier();
         }
-
-
 
         private void deleteNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -847,6 +848,29 @@ namespace QuickMon
                     childForm.Focus();
                 }                
             }
+        }
+        private void AddNotifier()
+        {
+            TreeNode parentNode = tvwNotifiers.SelectedNode;
+            SelectNewEntityType newType = new SelectNewEntityType();
+            if (parentNode == null)
+            {
+                if (newType.ShowNotifierHostSelection() == DialogResult.OK)
+                {
+                    NotifierHost newNh = newType.SelectedNotifierHost;
+                    monitorPack.AddNotifierHost(newNh);
+                    LoadNotifierNode(newNh);
+                    tvwNotifiers.SelectedNode = (TreeNodeEx)newNh.Tag;
+                    EditNotifier();
+                    SetMonitorChanged();
+                    DoAutoSave();
+                }
+            }
+            else
+            {
+
+            }           
+            
         }
         private void EditNotifier()
         {
@@ -2148,9 +2172,6 @@ namespace QuickMon
         }
 
         #endregion
-
-
-
 
     }
 }
