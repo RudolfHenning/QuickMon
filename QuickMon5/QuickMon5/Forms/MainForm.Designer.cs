@@ -295,6 +295,7 @@ namespace QuickMon
             this.cmdRemoteHosts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.cmdRemoteHosts, "About");
             this.cmdRemoteHosts.UseVisualStyleBackColor = false;
+            this.cmdRemoteHosts.Click += new System.EventHandler(this.cmdRemoteHosts_Click);
             // 
             // cmdOpen
             // 
@@ -647,14 +648,14 @@ namespace QuickMon
             this.enableNotifierToolStripMenuItem,
             this.viewNotifierToolStripMenuItem});
             this.notifiersContextMenuStrip.Name = "saveContextMenuStrip";
-            this.notifiersContextMenuStrip.Size = new System.Drawing.Size(161, 176);
+            this.notifiersContextMenuStrip.Size = new System.Drawing.Size(121, 154);
             this.notifiersContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.notifiersContextMenuStrip_Opening);
             // 
             // addNotifierToolStripMenuItem
             // 
             this.addNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.add;
             this.addNotifierToolStripMenuItem.Name = "addNotifierToolStripMenuItem";
-            this.addNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.addNotifierToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.addNotifierToolStripMenuItem.Text = "Add";
             this.addNotifierToolStripMenuItem.Click += new System.EventHandler(this.addNotifierToolStripMenuItem_Click);
             // 
@@ -662,7 +663,7 @@ namespace QuickMon
             // 
             this.editNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Blue3DGearEdit24;
             this.editNotifierToolStripMenuItem.Name = "editNotifierToolStripMenuItem";
-            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.editNotifierToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.editNotifierToolStripMenuItem.Text = "Edit";
             this.editNotifierToolStripMenuItem.Click += new System.EventHandler(this.editNotifierToolStripMenuItem_Click);
             // 
@@ -670,7 +671,7 @@ namespace QuickMon
             // 
             this.deleteNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.stop24x24;
             this.deleteNotifierToolStripMenuItem.Name = "deleteNotifierToolStripMenuItem";
-            this.deleteNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.deleteNotifierToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.deleteNotifierToolStripMenuItem.Text = "Delete";
             this.deleteNotifierToolStripMenuItem.Click += new System.EventHandler(this.deleteNotifierToolStripMenuItem_Click);
             // 
@@ -678,7 +679,7 @@ namespace QuickMon
             // 
             this.enableNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.ForbiddenBlue24x24;
             this.enableNotifierToolStripMenuItem.Name = "enableNotifierToolStripMenuItem";
-            this.enableNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.enableNotifierToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.enableNotifierToolStripMenuItem.Text = "Disable";
             this.enableNotifierToolStripMenuItem.Click += new System.EventHandler(this.enableNotifierToolStripMenuItem_Click);
             // 
@@ -686,7 +687,7 @@ namespace QuickMon
             // 
             this.viewNotifierToolStripMenuItem.Image = global::QuickMon.Properties.Resources.comp_search24;
             this.viewNotifierToolStripMenuItem.Name = "viewNotifierToolStripMenuItem";
-            this.viewNotifierToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.viewNotifierToolStripMenuItem.Size = new System.Drawing.Size(120, 30);
             this.viewNotifierToolStripMenuItem.Text = "View";
             this.viewNotifierToolStripMenuItem.Click += new System.EventHandler(this.viewNotifierToolStripMenuItem_Click);
             // 
@@ -721,6 +722,7 @@ namespace QuickMon
             this.lblNotifiers.StartForeColor = System.Drawing.SystemColors.ControlText;
             this.lblNotifiers.TabIndex = 44;
             this.lblNotifiers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblNotifiers.Click += new System.EventHandler(this.lblNotifiers_Click);
             // 
             // openFileDialogOpen
             // 

@@ -358,12 +358,20 @@ namespace QuickMon
         private void llblNotifierViewToggle_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
+            if (!masterSplitContainer.Panel2Collapsed && masterSplitContainer.Height > 300)
+            {
+                masterSplitContainer.SplitterDistance = masterSplitContainer.Height - 200;
+            }
             UpdateNotifiersLabel();
         }
         private void llblNotifierViewToggle_DoubleClick(object sender, EventArgs e)
         {
             masterSplitContainer.Panel2Collapsed = !masterSplitContainer.Panel2Collapsed;
             UpdateNotifiersLabel();
+        }
+        private void lblNotifiers_Click(object sender, EventArgs e)
+        {
+            tvwNotifiers.SelectedNode = null;
         }
         #endregion
 
@@ -405,12 +413,16 @@ namespace QuickMon
                 notifierSelected = null;
             }
             else
+            {
                 notifierSelected = tvwNotifiers.SelectedNode;
+            }
 
+            addNotifierToolStripMenuItem.Enabled = true;
             editNotifierToolStripMenuItem.Enabled = notifierSelected != null;
             deleteNotifierToolStripMenuItem.Enabled = notifierSelected != null;
             if (notifierSelected != null && notifierSelected.Tag != null)
             {
+                enableNotifierToolStripMenuItem.Enabled = true;
                 if (notifierSelected.Tag is NotifierHost)
                 {
                     NotifierHost nh = (NotifierHost)notifierSelected.Tag;
@@ -420,7 +432,12 @@ namespace QuickMon
                 {
                     INotifier agent = (INotifier)notifierSelected.Tag;
                     enableNotifierToolStripMenuItem.Text = agent.Enabled ? "Disable" : "Enable";
+                    addNotifierToolStripMenuItem.Enabled = false;
                 }
+            }
+            else
+            {
+                enableNotifierToolStripMenuItem.Enabled = false;
             }
             viewNotifierToolStripMenuItem.Enabled = notifierSelected != null && notifierSelected.Tag != null && notifierSelected.Tag is INotifier && RegisteredAgentUIMapper.HasAgentViewer(((INotifier)notifierSelected.Tag));
         }
@@ -448,28 +465,7 @@ namespace QuickMon
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode currentNode = tvwCollectors.SelectedNode;
-            if (currentNode != null && currentNode.Tag is CollectorHost)
-            {
-                if (MessageBox.Show("Are you sure you want to remove this collector (and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    SetMonitorChanged();
-                    RemoveCollector(currentNode);
-                    RefreshMonitorPack(true, true);
-                    if (currentNode.Parent != null)
-                    {
-                        TreeNodeEx parent = (TreeNodeEx)currentNode.Parent;
-                        parent.Nodes.Remove(currentNode);
-                        UpdateParentFolderNode(parent);
-                    }
-                    else
-                    {
-                        tvwCollectors.Nodes.Remove(currentNode);
-                    }
-                    SetMonitorChanged();
-                    DoAutoSave();
-                }
-            }
+            DeleteCollector();            
         }
         private void disableCollectorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -504,28 +500,23 @@ namespace QuickMon
         {
             AddNotifier();
         }
-
-        
-
         private void editNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditNotifier();
         }
-
         private void deleteNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            DeleteNotifier();
         }
         private void enableNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            EnableDisableNotifier();
+        }        
 
-        }
         private void viewNotifierToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ViewNotifierDetails();
         }
-
-
         #endregion
 
         #region Private methods
@@ -818,6 +809,31 @@ namespace QuickMon
                 }
             }
         }
+        private void DeleteCollector()
+        {
+            TreeNode currentNode = tvwCollectors.SelectedNode;
+            if (currentNode != null && currentNode.Tag is CollectorHost)
+            {
+                if (MessageBox.Show("Are you sure you want to remove this collector (and all possible dependants)?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    SetMonitorChanged();
+                    RemoveCollector(currentNode);
+                    RefreshMonitorPack(true, true);
+                    if (currentNode.Parent != null)
+                    {
+                        TreeNodeEx parent = (TreeNodeEx)currentNode.Parent;
+                        parent.Nodes.Remove(currentNode);
+                        UpdateParentFolderNode(parent);
+                    }
+                    else
+                    {
+                        tvwCollectors.Nodes.Remove(currentNode);
+                    }
+                    SetMonitorChanged();
+                    DoAutoSave();
+                }
+            }
+        }
         private void ViewNotifierDetails()
         {
             if (tvwNotifiers.SelectedNode != null && tvwNotifiers.SelectedNode.Tag is INotifier && 
@@ -870,7 +886,6 @@ namespace QuickMon
             {
 
             }           
-            
         }
         private void EditNotifier()
         {
@@ -896,6 +911,7 @@ namespace QuickMon
                         tvwNotifiers.SelectedNode.Text = notifierHost.Name;
                         tvwNotifiers.SelectedNode.Nodes.Clear();
                         LoadNotifierAgents(tvwNotifiers.SelectedNode, notifierHost);
+                        SetNotifierEnableIcon(tvwNotifiers.SelectedNode);
                     }
                     DoAutoSave();
                 }
@@ -919,6 +935,88 @@ namespace QuickMon
                 }
             }
 
+        }
+        private void DeleteNotifier()
+        {
+            TreeNode currentNode = tvwNotifiers.SelectedNode;
+            if (currentNode != null)
+            {
+                if (currentNode.Tag is NotifierHost)
+                {
+                    if (MessageBox.Show("Are you sure you want to remove this notifier?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        NotifierHost ce = (NotifierHost)currentNode.Tag;
+                        monitorPack.NotifierHosts.Remove(ce);
+                        tvwNotifiers.Nodes.Remove(currentNode);
+                        SetMonitorChanged();
+                        DoAutoSave();
+                    }
+                }
+                else if (currentNode.Tag is INotifier)
+                {
+                    if (MessageBox.Show("Are you sure you want to remove this notifier agent?", "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        INotifier agent = (INotifier)currentNode.Tag;
+                        TreeNode parentNode = currentNode.Parent;
+                        if (parentNode.Tag is NotifierHost)
+                        {
+                            NotifierHost ce = (NotifierHost)parentNode.Tag;
+                            ce.NotifierAgents.Remove(agent);
+                            parentNode.Nodes.Remove(currentNode);
+                            SetMonitorChanged();
+                            DoAutoSave();
+                        }
+                    }
+                }
+            }
+        }
+        private void EnableDisableNotifier()
+        {
+            TreeNode currentNode = tvwNotifiers.SelectedNode;
+            if (currentNode != null)
+            {
+                if (currentNode.Tag is NotifierHost)
+                {
+                    NotifierHost ce = (NotifierHost)currentNode.Tag;
+                    ce.Enabled = !ce.Enabled;
+                }
+                else if (currentNode.Tag is INotifier)
+                {
+                    INotifier agent = (INotifier)currentNode.Tag;
+                    agent.Enabled = !agent.Enabled;
+                }
+                SetNotifierEnableIcon(currentNode);
+                SetMonitorChanged();
+                DoAutoSave();
+            }
+        }
+        private void SetNotifierEnableIcon(TreeNode currentNode)
+        {
+            if (currentNode != null)
+            {
+                if (currentNode.Tag is NotifierHost)
+                {
+                    NotifierHost ce = (NotifierHost)currentNode.Tag;
+                    if (ce.Enabled)
+                    {
+                        currentNode.ImageIndex = 1;
+                    }
+                    else
+                    {
+                        currentNode.ImageIndex = 2;
+                    }
+                    currentNode.SelectedImageIndex = currentNode.ImageIndex;
+                }
+                else if (currentNode.Tag is INotifier)
+                {
+                    INotifier agent = (INotifier)currentNode.Tag;
+                    if (UI.RegisteredAgentUIMapper.HasAgentViewer(agent) && agent.Enabled)
+                        currentNode.ImageIndex = 3;
+                    else
+                        currentNode.ImageIndex = 4;
+                    currentNode.SelectedImageIndex = currentNode.ImageIndex;
+                }
+            }
         }
         #endregion
 
@@ -1028,6 +1126,7 @@ namespace QuickMon
                 else
                     UpdateStatusbar("");
                 monitorPackChanged = false;
+                UpdateAppTitle();
             }
         }
         private void LoadControlsFromMonitorPack()
@@ -2172,6 +2271,27 @@ namespace QuickMon
         }
 
         #endregion
+
+        private void cmdRemoteHosts_Click(object sender, EventArgs e)
+        {            
+            IChildWindowIdentity childWindow = GetChildWindowByIdentity("RemoteAgentHostManagement");
+            if (childWindow == null) {
+                RemoteAgentHostManagement newRemoteAgentHostManagement = new RemoteAgentHostManagement();
+                newRemoteAgentHostManagement.Identifier = "RemoteAgentHostManagement";
+                newRemoteAgentHostManagement.ParentWindow = this;
+                newRemoteAgentHostManagement.ShowChildWindow();
+                newRemoteAgentHostManagement.RefreshDetails();
+            }
+            else
+            {
+                Form childForm = ((Form)childWindow);
+                if (childForm.WindowState == FormWindowState.Minimized)
+                    childForm.WindowState = FormWindowState.Normal;
+                childForm.Focus();
+                childWindow.RefreshDetails();
+            }
+        }
+
 
     }
 }

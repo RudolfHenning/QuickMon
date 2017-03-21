@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -103,6 +104,12 @@
     <Compile Include="Forms\MonitorPackEditor.Designer.cs">
       <DependentUpon>MonitorPackEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RemoteAgentHostManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RemoteAgentHostManagement.Designer.cs">
+      <DependentUpon>RemoteAgentHostManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SelectRecentMonitorPackDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MonitorPackEditor.resx">
       <DependentUpon>MonitorPackEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemoteAgentHostManagement.resx">
+      <DependentUpon>RemoteAgentHostManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectRecentMonitorPackDialog.resx">
       <DependentUpon>SelectRecentMonitorPackDialog.cs</DependentUpon>
@@ -382,6 +392,8 @@
   <ItemGroup>
     <Content Include="QM5-64.ico" />
     <Content Include="QM5.ico" />
+    <None Include="Resources\FireWallRule.txt" />
+    <None Include="Resources\doc_edit.png" />
     <None Include="Resources\NoGo.ico" />
     <None Include="Resources\246_7.ico" />
     <None Include="Resources\proc2.gif" />

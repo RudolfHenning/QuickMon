@@ -272,6 +272,16 @@ namespace QuickMon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap doc_edit {
+            get {
+                object obj = ResourceManager.GetObject("doc_edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap doc_edit24x24 {
             get {
                 object obj = ResourceManager.GetObject("doc_edit24x24", resourceCulture);
@@ -336,6 +346,18 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("Error24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Registry Editor Version 5.00
+        ///
+        ///[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules]
+        ///&quot;{F811AB2E-286C-4DB6-8512-4C991A8A55EA}&quot;=&quot;v2.10|Action=Allow|Active=TRUE|Dir=In|Protocol=6|Profile=Domain|Profile=Private|LPort=48181|Name=QuickMon 5 Remote Host|&quot;.
+        /// </summary>
+        internal static string FireWallRule {
+            get {
+                return ResourceManager.GetString("FireWallRule", resourceCulture);
             }
         }
         
