@@ -59,20 +59,21 @@ namespace QuickMon
         private readonly int collectorOutOfServiceWindowstateImage = 9;
         #endregion
 
-        #region Public properties
-        /// <summary>
-        /// If set to true the main window refresh cycle will also trigger a refresh of this window's details (the states/current value/history etc)
-        /// </summary>
-        public bool AutoRefreshEnabled { get; set; }
+        #region Public properties        
         public CollectorHost SelectedCollectorHost { get; set; }
-        /// <summary>
-        /// reference to MainForm for bidirectional updating
-        /// </summary>
-        public IParentWindow ParentWindow { get; set; } 
+        
         public MonitorPack HostingMonitorPack { get; set; }
         #endregion
 
         #region IChildWindowIdentity
+        /// <summary>
+        /// reference to MainForm for bidirectional updating
+        /// </summary>
+        public IParentWindow ParentWindow { get; set; }
+        /// <summary>
+        /// If set to true the main window refresh cycle will also trigger a refresh of this window's details (the states/current value/history etc)
+        /// </summary>
+        public bool AutoRefreshEnabled { get; set; }
         public string Identifier { get; set; }
         public void RefreshDetails()
         {
@@ -994,6 +995,8 @@ namespace QuickMon
         private void optMetrics_CheckedChanged(object sender, EventArgs e)
         {
             SetActivePanel(panelMetrics);
+            collectorDetailSplitContainer.Panel2Collapsed = true;
+            chkRAWDetails.Image = global::QuickMon.Properties.Resources._131;
         }
 
         private void statusStripCollector_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1060,10 +1063,17 @@ namespace QuickMon
                         object selectedObject = tlvAgentStates.SelectedItems[0].Tag;
                         if (selectedObject == null)
                         {
-
+                            rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
                         }
                         else if (selectedObject is ICollector)
                         {
+                            ICollector c = (ICollector)selectedObject;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Name: ").FontStyle(FontStyle.Regular).AppendLine(c.Name);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("Agent");
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.State.ToString());
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadPrimaryUIValue());
+
 
                         }
                         else if (selectedObject is ICollectorConfigEntry)
@@ -1076,7 +1086,14 @@ namespace QuickMon
                         }
                         else if (selectedObject is MonitorState)
                         {
-                            rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
+                            MonitorState ms = (MonitorState)selectedObject;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadPrimaryOrFirstUIValue());
+
+                            //rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
                         }
                         else if (selectedObject is string)
                         {
