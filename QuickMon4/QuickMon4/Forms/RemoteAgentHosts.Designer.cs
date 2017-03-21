@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemoteAgentHosts));
             this.shadePanel1 = new System.Windows.Forms.Panel();
+            this.cmdEditMonitorPackList = new System.Windows.Forms.Button();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
@@ -56,7 +57,6 @@
             this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.cmdEditMonitorPackList = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.shadePanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,6 +76,24 @@
             this.shadePanel1.Name = "shadePanel1";
             this.shadePanel1.Size = new System.Drawing.Size(701, 31);
             this.shadePanel1.TabIndex = 0;
+            // 
+            // cmdEditMonitorPackList
+            // 
+            this.cmdEditMonitorPackList.BackColor = System.Drawing.Color.Transparent;
+            this.cmdEditMonitorPackList.BackgroundImage = global::QuickMon.Properties.Resources.doc_edit;
+            this.cmdEditMonitorPackList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cmdEditMonitorPackList.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.cmdEditMonitorPackList.FlatAppearance.BorderSize = 0;
+            this.cmdEditMonitorPackList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditMonitorPackList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdEditMonitorPackList.Location = new System.Drawing.Point(36, 1);
+            this.cmdEditMonitorPackList.Name = "cmdEditMonitorPackList";
+            this.cmdEditMonitorPackList.Size = new System.Drawing.Size(28, 28);
+            this.cmdEditMonitorPackList.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.cmdEditMonitorPackList, "Edit MonitorPackList.txt");
+            this.cmdEditMonitorPackList.UseVisualStyleBackColor = false;
+            this.cmdEditMonitorPackList.Visible = false;
+            this.cmdEditMonitorPackList.Click += new System.EventHandler(this.cmdEditMonitorPackList_Click);
             // 
             // cmdRefresh
             // 
@@ -114,7 +132,7 @@
             this.llblLocalServiceRegistered.BackColor = System.Drawing.Color.Transparent;
             this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.llblLocalServiceRegistered.LinkColor = System.Drawing.Color.Black;
-            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 9);
+            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(18, 9);
             this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
             this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
             this.llblLocalServiceRegistered.TabIndex = 0;
@@ -346,24 +364,6 @@
             this.quickMonServiceOpenFileDialog.FileName = "QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 4 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 4 Service";
-            // 
-            // cmdEditMonitorPackList
-            // 
-            this.cmdEditMonitorPackList.BackColor = System.Drawing.Color.Transparent;
-            this.cmdEditMonitorPackList.BackgroundImage = global::QuickMon.Properties.Resources.doc_edit;
-            this.cmdEditMonitorPackList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cmdEditMonitorPackList.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
-            this.cmdEditMonitorPackList.FlatAppearance.BorderSize = 0;
-            this.cmdEditMonitorPackList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditMonitorPackList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdEditMonitorPackList.Location = new System.Drawing.Point(36, 1);
-            this.cmdEditMonitorPackList.Name = "cmdEditMonitorPackList";
-            this.cmdEditMonitorPackList.Size = new System.Drawing.Size(28, 28);
-            this.cmdEditMonitorPackList.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.cmdEditMonitorPackList, "Edit MonitorPackList.txt");
-            this.cmdEditMonitorPackList.UseVisualStyleBackColor = false;
-            this.cmdEditMonitorPackList.Visible = false;
-            this.cmdEditMonitorPackList.Click += new System.EventHandler(this.cmdEditMonitorPackList_Click);
             // 
             // RemoteAgentHosts
             // 
