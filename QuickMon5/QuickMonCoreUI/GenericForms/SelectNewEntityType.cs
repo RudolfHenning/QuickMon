@@ -162,7 +162,7 @@ namespace QuickMon.UI
             ListViewGroup generalGroup = new ListViewGroup("General");
             lvwAgentType.Groups.Add(generalGroup);
             ListViewItem lviDefaultNotifier = new ListViewItem("Default Notifier");
-            lviDefaultNotifier.SubItems.Add("Creates a blank collector with no agents");
+            lviDefaultNotifier.SubItems.Add("Creates a default notifier with 'In Memory' agent");
             lviDefaultNotifier.Group = generalGroup;
             lviDefaultNotifier.Tag = NotifierHost.FromXml("<notifierHost name=\"Default Notifier\" enabled=\"True\" alertLevel=\"Warning\" detailLevel=\"Detail\" attendedOptionOverride=\"OnlyAttended\"><notifierAgents><notifierAgent name=\"Memory agent\" type=\"QuickMon.Notifiers.InMemoryNotifier\" enabled=\"True\"><config><inMemory maxEntryCount=\"99999\" /></config></notifierAgent></notifierAgents></notifierHost>");
             lvwAgentType.Items.Add(lviDefaultNotifier);
@@ -213,6 +213,10 @@ namespace QuickMon.UI
                 else if (selectingCollectorAgents)
                 {
                     LoadCollectorAgents();
+                }
+                else if (selectingNotifierHosts)
+                {
+                    LoadNotifierHostItems();
                 }
             }
         }
