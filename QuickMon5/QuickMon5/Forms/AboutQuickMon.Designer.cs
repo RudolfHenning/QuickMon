@@ -83,11 +83,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Azure;
             this.label1.Location = new System.Drawing.Point(22, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 37);
+            this.label1.Size = new System.Drawing.Size(179, 47);
             this.label1.TabIndex = 0;
             this.label1.Text = "QuickMon";
             // 
@@ -122,9 +122,9 @@
             // 
             this.lblThree.AutoSize = true;
             this.lblThree.BackColor = System.Drawing.Color.Transparent;
-            this.lblThree.Font = new System.Drawing.Font("Segoe Print", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThree.Font = new System.Drawing.Font("Segoe Print", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblThree.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblThree.Location = new System.Drawing.Point(68, 46);
+            this.lblThree.Location = new System.Drawing.Point(64, 46);
             this.lblThree.Name = "lblThree";
             this.lblThree.Size = new System.Drawing.Size(72, 85);
             this.lblThree.TabIndex = 5;
