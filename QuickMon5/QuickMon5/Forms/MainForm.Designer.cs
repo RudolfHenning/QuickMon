@@ -204,6 +204,7 @@ namespace QuickMon
             this.lblVersion.TabIndex = 43;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.lblVersion, "Version");
+            this.lblVersion.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
             // cmdRecentMonitorPacks
             // 

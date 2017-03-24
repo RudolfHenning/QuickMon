@@ -591,8 +591,105 @@ namespace QuickMon.UI
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         #endregion
 
+        #region ListView events
+        private void lvwRemoteHosts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            removeToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
+            monitorPacksToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count > 0;
+            testToolStripMenuItem.Enabled = lvwRemoteHosts.SelectedItems.Count == 1;
+        }
 
+        private void lvwRemoteHosts_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwRemoteHosts.SelectedItems.Count == 1)
+            {
+                try
+                {
+                    ListViewItem lvi = lvwRemoteHosts.SelectedItems[0];
+                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                    string remoteHostURL = string.Format("http://{0}:{1}/QuickMonRemoteHost", ri.Computer, ri.PortNumber);
+                    System.Diagnostics.Process p = new System.Diagnostics.Process();
+                    p.StartInfo = new System.Diagnostics.ProcessStartInfo();
+                    p.StartInfo.FileName = remoteHostURL;
+                    try
+                    {
+                        p.Start();
+                    }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(ex.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        #endregion
+
+        #region Context menu events
+        private void monitorPacksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwRemoteHosts.SelectedItems.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                bool anyErrors = false;
+                foreach (ListViewItem lvi in lvwRemoteHosts.SelectedItems)
+                {
+                    RemoteAgentInfo ri = (RemoteAgentInfo)lvi.Tag;
+                    try
+                    {
+                        int packCount = 0;
+                        sb.AppendFormat("***{0}:{1}***\r\n", ri.Computer.ToUpper(), ri.PortNumber);
+                        foreach (string mpFile in RemoteCollectorHostService.GetCurrentMonitorPacks(ri.Computer, ri.PortNumber))
+                        {
+                            sb.AppendLine("  " + mpFile.Replace(' ', ' ').TrimEnd());
+                            packCount++;
+                        }
+                        if (packCount == 0)
+                        {
+                            sb.AppendLine("  No Monitor packs found.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        anyErrors = true;
+                        if (ex.Message.Contains("ContractFilter mismatch"))
+                            sb.AppendFormat("  The service on {0}:{1} does not yet support this functionality.\r\n  Please check the version number!\r\n", ri.Computer, ri.PortNumber);
+                        else
+                            sb.AppendLine("  " + ex.Message);
+                    }
+                }
+                MessageBox.Show(sb.ToString(), "Monitor packs", MessageBoxButtons.OK, anyErrors ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the selected entry(s)", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                foreach (int index in (from int i in lvwRemoteHosts.SelectedIndices
+                                       orderby i descending
+                                       select i))
+                {
+                    lvwRemoteHosts.Items.RemoveAt(index);
+                }
+            }
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lvwRemoteHosts_DoubleClick(null, null);
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshServiceStates();
+        }
+        #endregion
     }
 }
