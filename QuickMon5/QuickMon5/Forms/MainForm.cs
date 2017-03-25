@@ -304,6 +304,26 @@ namespace QuickMon
         {
             settingsContextMenuStrip.Show(splitButtonTools, new Point(splitButtonTools.Width, 0));
         }
+        private void templatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IChildWindowIdentity childWindow = GetChildWindowByIdentity("TemplateEditor");
+            if (childWindow == null)
+            {
+                TemplateEditor templateEditor = new TemplateEditor();
+                templateEditor.Identifier = "TemplateEditor";
+                templateEditor.ParentWindow = this;
+                templateEditor.ShowChildWindow();
+                templateEditor.RefreshDetails();
+            }
+            else
+            {
+                Form childForm = ((Form)childWindow);
+                if (childForm.WindowState == FormWindowState.Minimized)
+                    childForm.WindowState = FormWindowState.Normal;
+                childForm.Focus();
+                childWindow.RefreshDetails();
+            }
+        }
         private void adminModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!PerformCleanShutdown(true))
@@ -312,6 +332,25 @@ namespace QuickMon
             {
                 Properties.Settings.Default.Save();
                 HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
+            }
+        }
+        private void cmdRemoteHosts_Click(object sender, EventArgs e)
+        {            
+            IChildWindowIdentity childWindow = GetChildWindowByIdentity("RemoteAgentHostManagement");
+            if (childWindow == null) {
+                RemoteAgentHostManagement newRemoteAgentHostManagement = new RemoteAgentHostManagement();
+                newRemoteAgentHostManagement.Identifier = "RemoteAgentHostManagement";
+                newRemoteAgentHostManagement.ParentWindow = this;
+                newRemoteAgentHostManagement.ShowChildWindow();
+                newRemoteAgentHostManagement.RefreshDetails();
+            }
+            else
+            {
+                Form childForm = ((Form)childWindow);
+                if (childForm.WindowState == FormWindowState.Minimized)
+                    childForm.WindowState = FormWindowState.Normal;
+                childForm.Focus();
+                childWindow.RefreshDetails();
             }
         }
         private void cmdAbout_Click(object sender, EventArgs e)
@@ -2272,25 +2311,7 @@ namespace QuickMon
 
         #endregion
 
-        private void cmdRemoteHosts_Click(object sender, EventArgs e)
-        {            
-            IChildWindowIdentity childWindow = GetChildWindowByIdentity("RemoteAgentHostManagement");
-            if (childWindow == null) {
-                RemoteAgentHostManagement newRemoteAgentHostManagement = new RemoteAgentHostManagement();
-                newRemoteAgentHostManagement.Identifier = "RemoteAgentHostManagement";
-                newRemoteAgentHostManagement.ParentWindow = this;
-                newRemoteAgentHostManagement.ShowChildWindow();
-                newRemoteAgentHostManagement.RefreshDetails();
-            }
-            else
-            {
-                Form childForm = ((Form)childWindow);
-                if (childForm.WindowState == FormWindowState.Minimized)
-                    childForm.WindowState = FormWindowState.Normal;
-                childForm.Focus();
-                childWindow.RefreshDetails();
-            }
-        }
+
 
 
     }

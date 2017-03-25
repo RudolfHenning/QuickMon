@@ -1,0 +1,4 @@
+<collectorAgent name="" type="" enabled="True">
+<config>
+</config>
+</collectorAgent>

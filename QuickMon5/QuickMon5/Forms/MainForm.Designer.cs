@@ -367,34 +367,35 @@ namespace QuickMon
             this.actionScriptsToolStripMenuItem,
             this.adminModeToolStripMenuItem});
             this.settingsContextMenuStrip.Name = "saveContextMenuStrip";
-            this.settingsContextMenuStrip.Size = new System.Drawing.Size(156, 124);
+            this.settingsContextMenuStrip.Size = new System.Drawing.Size(161, 146);
             // 
             // pollingToolStripMenuItem
             // 
             this.pollingToolStripMenuItem.Image = global::QuickMon.Properties.Resources.clock24x24;
             this.pollingToolStripMenuItem.Name = "pollingToolStripMenuItem";
-            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
+            this.pollingToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.pollingToolStripMenuItem.Text = "Polling";
             // 
             // templatesToolStripMenuItem
             // 
             this.templatesToolStripMenuItem.Image = global::QuickMon.Properties.Resources.tables24x24;
             this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
-            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.templatesToolStripMenuItem.Text = "Templates";
+            this.templatesToolStripMenuItem.Click += new System.EventHandler(this.templatesToolStripMenuItem_Click);
             // 
             // actionScriptsToolStripMenuItem
             // 
             this.actionScriptsToolStripMenuItem.Image = global::QuickMon.Properties.Resources.scroll24x24;
             this.actionScriptsToolStripMenuItem.Name = "actionScriptsToolStripMenuItem";
-            this.actionScriptsToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
+            this.actionScriptsToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.actionScriptsToolStripMenuItem.Text = "Action Scripts";
             // 
             // adminModeToolStripMenuItem
             // 
             this.adminModeToolStripMenuItem.Image = global::QuickMon.Properties.Resources.Shield24x24;
             this.adminModeToolStripMenuItem.Name = "adminModeToolStripMenuItem";
-            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(155, 30);
+            this.adminModeToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
             this.adminModeToolStripMenuItem.Text = "Admin mode";
             this.adminModeToolStripMenuItem.Click += new System.EventHandler(this.adminModeToolStripMenuItem_Click);
             // 

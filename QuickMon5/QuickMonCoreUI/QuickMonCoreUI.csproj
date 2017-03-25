@@ -153,6 +153,9 @@
     <Compile Include="Controls\API\ColorUtil.cs" />
     <Compile Include="Controls\API\COMInterfaces.cs" />
     <Compile Include="Controls\API\TextUtil.cs" />
+    <Compile Include="Controls\ComboBoxWithBorder.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ComboItem.cs" />
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
@@ -345,6 +348,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\refresh24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateMonitorPack.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateCollectorHost.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateCollectorAgent.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankTemplateNotifierHost.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
