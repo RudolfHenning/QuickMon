@@ -49,13 +49,11 @@ namespace QuickMon.UI
             InitializeComponent();
         }
 
-        #region Properties
-        public IParentWindow ParentWindow { get; set; }
-        #endregion
-
         #region IChildWindowIdentity
+
         public bool AutoRefreshEnabled { get; set; }
         public string Identifier { get; set; }
+        public IParentWindow ParentWindow { get; set; }
         public void RefreshDetails()
         {
             RefreshServiceStates();

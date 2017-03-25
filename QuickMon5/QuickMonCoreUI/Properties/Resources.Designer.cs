@@ -71,6 +71,42 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BlankTemplateCollectorAgent {
+            get {
+                return ResourceManager.GetString("BlankTemplateCollectorAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BlankTemplateCollectorHost {
+            get {
+                return ResourceManager.GetString("BlankTemplateCollectorHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BlankTemplateMonitorPack {
+            get {
+                return ResourceManager.GetString("BlankTemplateMonitorPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BlankTemplateNotifierHost {
+            get {
+                return ResourceManager.GetString("BlankTemplateNotifierHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap OUTLLIBR_9825 {

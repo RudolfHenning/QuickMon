@@ -1181,6 +1181,7 @@ namespace QuickMon
                 success = false;
             return success;
         }
+
         #region Agents edit
         private void CreateAgent()
         {
@@ -1723,6 +1724,16 @@ namespace QuickMon
         private void cboRemoteAgentServer_SelectedIndexChanged(object sender, EventArgs e)
         {
             chkRemoteAgentEnabled_CheckedChanged(null, null);
+        }
+        private void cboRemoteAgentServer_Leave(object sender, EventArgs e)
+        {
+            if (cboRemoteAgentServer.Text.Contains(":"))
+            {
+                string port = cboRemoteAgentServer.Text.Split(':')[1];
+                cboRemoteAgentServer.Text = cboRemoteAgentServer.Text.Split(':')[0];
+                if (port.IsIntegerTypeNumber())
+                    remoteportNumericUpDown.SaveValueSet(decimal.Parse(port));
+            }
         }
         private void cboRemoteAgentServer_TextChanged(object sender, EventArgs e)
         {

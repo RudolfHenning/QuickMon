@@ -1,0 +1,4 @@
+<notifierAgent name="" type="" enabled="True">
+<config>
+</config>
+</notifierAgent>

@@ -1,0 +1,9 @@
+<notifierHost name="" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
+	<notifierAgents>
+		<notifierAgent name="Memory agent" type="QuickMon.Notifiers.InMemoryNotifier" enabled="True">
+			<config>
+				<inMemory maxEntryCount="99999" />
+			</config>
+		</notifierAgent>
+	</notifierAgents>
+</notifierHost>
