@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-16 11:19:30" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-27 15:30:57" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -61,7 +61,9 @@
       <!-- ServiceWindows -->
       <serviceWindows />
       <!-- Categories -->
-      <categories />
+      <categories>
+        <category>*</category>
+      </categories>
       <!-- Config variables -->
       <configVars />
       <recordOnHosts />

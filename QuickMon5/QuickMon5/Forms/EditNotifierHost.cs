@@ -252,27 +252,30 @@ namespace QuickMon.UI
             //CollectorHost.GetCollectorAgentFromString()
             try
             {
-                //SelectNewAgentType selectNewAgentType = new SelectNewAgentType();
-                //if (selectNewAgentType.ShowNotifierSelection() == System.Windows.Forms.DialogResult.OK)
-                //{
-                //    INotifier agent = (INotifier)selectNewAgentType.SelectedAgent;
-                //    if (agent.Name == null || agent.Name.Length == 0)
-                //        agent.Name = agent.AgentClassDisplayName;
-                //    agent.Enabled = true;
+                SelectNewEntityType newType = new SelectNewEntityType();
+                if (newType.ShowNotifierAgentSelection() == DialogResult.OK)
+                {
+                    IAgent agent = newType.SelectedAgent;
+                    if (agent != null)
+                    {
+                        agent.Enabled = true;
+                        if (agent.Name == null || agent.Name.Trim().Length == 0)
+                            agent.Name = agent.AgentClassDisplayName;
 
-                //    ListViewItem lvi = new ListViewItem(agent.Name);
-                //    if (agent.Enabled)
-                //        lvi.ImageIndex = 1;
-                //    else
-                //        lvi.ImageIndex = 0;
-                //    lvi.SubItems.Add(agent.AgentClassDisplayName);
-                //    lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
-                //    lvi.Tag = agent;
-                //    lvwEntries.Items.Add(lvi);
-                //    lvwEntries.SelectedItems.Clear();
-                //    lvi.Selected = true;
-                //    EditAgent();                    
-                //}
+                        ListViewItem lvi = new ListViewItem(agent.Name);
+                        if (agent.Enabled)
+                            lvi.ImageIndex = 1;
+                        else
+                            lvi.ImageIndex = 0;
+                        lvi.SubItems.Add(agent.AgentClassDisplayName);
+                        lvi.SubItems.Add(agent.AgentConfig.ConfigSummary);
+                        lvi.Tag = agent;
+                        lvwEntries.Items.Add(lvi);
+                        lvwEntries.SelectedItems.Clear();
+                        lvi.Selected = true;
+                        EditAgent();
+                    }
+                }
             }
             catch (Exception ex)
             {

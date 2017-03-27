@@ -185,7 +185,7 @@ namespace QuickMon.Notifiers
 
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><rss rssFilePath=\"%LOCALAPPDATA%\\Hen IT\\QuickMon 4\\QuickMon.rss\" title=\"QuickMon RSS alerts\" link=\"\" description=\"\" " +
+            return "<config><rss rssFilePath=\"%LOCALAPPDATA%\\Hen IT\\QuickMon 5\\QuickMon.rss\" title=\"QuickMon RSS alerts\" link=\"\" description=\"\" " +
                 "keepEntriesDays=\"10\" language=\"en-us\" generator=\"QuickMon RSS notifier\" " +
                 "lineTitle=\"%CollectorName% - %AlertLevel%\" lineCategory=\"%CurrentState%, %CollectorName%\" lineLink=\"\" lineDescription=\"&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br/&gt;\r\n" +
                 "&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br/&gt;\r\n" +
