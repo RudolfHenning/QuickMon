@@ -200,7 +200,7 @@ namespace QuickMon.UI
                                                 orderby r.ClassName
                                                 select r))
                 {
-                    cboClass.Items.Add(ra.ClassName.Replace("QuickMon.Collectors.", ""));
+                    cboClass.Items.Add(ra.ClassName);
                 }
                 cboClass.Text = "";
                 cboClass.Enabled = true;
@@ -212,7 +212,7 @@ namespace QuickMon.UI
                                                 orderby r.ClassName
                                                 select r))
                 {
-                    cboClass.Items.Add(ra.ClassName.Replace("QuickMon.Notifiers.", ""));
+                    cboClass.Items.Add(ra.ClassName);
                 }
                 cboClass.Text = "";
                 cboClass.Enabled = true;

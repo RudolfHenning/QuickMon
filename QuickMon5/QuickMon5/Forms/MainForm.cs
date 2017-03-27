@@ -229,7 +229,8 @@ namespace QuickMon
         }
         private void cmdNew_Click(object sender, EventArgs e)
         {
-            CloseAllDetailWindows();
+            //CloseAllDetailWindows();
+            CloseAllMPDetailWindows();
             NewMonitorPack();
         }
         private void cmdOpen_Click(object sender, EventArgs e)
@@ -247,7 +248,8 @@ namespace QuickMon
                 }
                 if (openFileDialogOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    CloseAllDetailWindows();
+                    //CloseAllDetailWindows();
+                    CloseAllMPDetailWindows();
                     LoadMonitorPack(openFileDialogOpen.FileName);
                     RefreshMonitorPack(true, true);
                 }
@@ -921,9 +923,26 @@ namespace QuickMon
                     DoAutoSave();
                 }
             }
-            else
+            else if (parentNode.Tag is NotifierHost)
             {
+                NotifierHost parentNh = (NotifierHost)parentNode.Tag;
+                if (newType.ShowNotifierAgentSelection() == DialogResult.OK)
+                {
+                    IAgent newNa = newType.SelectedAgent;
+                    if (newNa != null)
+                    {
+                        newNa.Enabled = true;
+                        if (newNa.Name == null || newNa.Name.Trim().Length == 0)
+                            newNa.Name = newNa.AgentClassDisplayName;
 
+                        parentNh.NotifierAgents.Add((INotifier)newNa);
+                        LoadNotifierAgents(parentNode, parentNh);
+
+                        EditNotifier();
+                        SetMonitorChanged();
+                        DoAutoSave();
+                    }
+                }
             }           
         }
         private void EditNotifier()
@@ -1073,7 +1092,8 @@ namespace QuickMon
             PausePolling(false);
             try
             {
-                CloseAllDetailWindows();
+                //CloseAllDetailWindows();
+                CloseAllMPDetailWindows();
 
                 //monitorPack.CollectorHostStateUpdated -= monitorPack_CollectorHostStateUpdated;
                 monitorPack.CloseMonitorPack();
@@ -1126,7 +1146,8 @@ namespace QuickMon
                 {
                     try
                     {
-                        CloseAllDetailWindows();
+                        //CloseAllDetailWindows();
+                        CloseAllMPDetailWindows();
                         WaitForPollingToFinish(5);
                         monitorPack.CloseMonitorPack();
                     }
@@ -1401,7 +1422,8 @@ namespace QuickMon
                 SetMonitorChanged();
                 if (mpEdit.TriggerMonitorPackReload)
                 {
-                    CloseAllDetailWindows();
+                    //CloseAllDetailWindows();
+                    CloseAllMPDetailWindows();
                     monitorPack = mpEdit.SelectedMonitorPack;
                     UpdateStatusbar("Reloading monitor pack...");
                     SetMonitorPackEvents();
@@ -2066,7 +2088,8 @@ namespace QuickMon
                 cboRecentMonitorPacks.Visible = false;                
                 cboRecentMonitorPacks.Dock = DockStyle.Left;
 
-                CloseAllDetailWindows();
+                //CloseAllDetailWindows();
+                CloseAllMPDetailWindows();
                 MonitorPack.NameAndTypeSummary summary = (MonitorPack.NameAndTypeSummary)((QuickMon.Controls.ComboItem)cboRecentMonitorPacks.SelectedItem).Value;
 
                 LoadMonitorPack(summary.Path);
@@ -2158,6 +2181,21 @@ namespace QuickMon
                 childWindows.Remove(child);
             }
         }
+        private void CloseAllMPDetailWindows()
+        {
+            IChildWindowIdentity child = childWindows.FirstOrDefault(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement" }).Contains(w.Identifier));
+
+            while (child != null) // childWindows.Where(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement" }).Contains(w.Identifier)).Count() > 0)
+            {
+                ((Form)child).Close();
+                child = childWindows.FirstOrDefault(w => !(new String[] { "TemplateEditor", "RemoteAgentHostManagement" }).Contains(w.Identifier));
+
+                //if (child != null)
+                //{
+                //    ((Form)child).Close();
+                //}
+            }
+        }
         private void CloseAllDetailWindows()
         {
             while (childWindows.Count > 0)
@@ -2231,7 +2269,7 @@ namespace QuickMon
                         MessageBox.Show(string.Format("Could not create performance counters! Please use a user account that has the proper rights.\r\nMore details{0}:", ex.Message), "Performance Counters", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     else //try launching in admin mode
                     {
-                        MessageBox.Show("QuickMon 4 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("QuickMon 5 needs to restart in 'Admin' mode to set up its performance counters on this computer.", "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Properties.Settings.Default.Save();
                         Security.UACTools.RestartInAdminMode(Application.ExecutablePath);
                     }
@@ -2310,9 +2348,6 @@ namespace QuickMon
         }
 
         #endregion
-
-
-
 
     }
 }

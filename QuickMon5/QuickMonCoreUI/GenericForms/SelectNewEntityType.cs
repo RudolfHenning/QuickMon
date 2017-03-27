@@ -22,6 +22,7 @@ namespace QuickMon.UI
         private bool selectingCollectorAgents = false;
         private bool selectingCollectorHosts = false;
         private bool selectingNotifierHosts = false;
+        private bool selectingNotifierAgents = false;
 
         #region Properties
         public IAgent SelectedAgent { get; set; }
@@ -37,15 +38,13 @@ namespace QuickMon.UI
             this.Text = "Creating a new Collector";
             selectingCollectorHosts = true;
             LoadCollectorHostItems();
-
             return this.ShowDialog();
         }
         public DialogResult ShowCollectorAgentSelection()
         {
             this.Text = "Select Collector Agent type";
             selectingCollectorAgents = true;
-            LoadCollectorAgents();
-           
+            LoadCollectorAgents();           
             return ShowDialog();
         }
         public DialogResult ShowNotifierHostSelection()
@@ -53,7 +52,13 @@ namespace QuickMon.UI
             this.Text = "Creating a new Notifier";
             selectingNotifierHosts = true;
             LoadNotifierHostItems();
-
+            return this.ShowDialog();
+        }
+        public DialogResult ShowNotifierAgentSelection()
+        {
+            this.Text = "Creating a new Notifier";
+            selectingNotifierAgents = true;
+            LoadCollectorAgents();
             return this.ShowDialog();
         }
         #endregion
@@ -99,7 +104,7 @@ namespace QuickMon.UI
             lvwAgentType.Groups.Add(generalGroup);
 
             foreach (string categoryName in (from a in RegisteredAgentCache.Agents
-                                             where a.IsCollector && a.CategoryName != "Test" && a.CategoryName != "General"
+                                             where ((a.IsCollector && selectingCollectorAgents) || (selectingNotifierAgents && a.IsNotifier)) && a.CategoryName != "Test" && a.CategoryName != "General"
                                              group a by a.CategoryName into g
                                              orderby g.Key
                                              select g.Key))
@@ -111,7 +116,7 @@ namespace QuickMon.UI
 
             ListViewItem lvi;
             foreach (RegisteredAgent ar in (from a in RegisteredAgentCache.Agents
-                                            where (selectingCollectorAgents && a.IsCollector) || (!selectingCollectorAgents && a.IsNotifier)
+                                            where (selectingCollectorAgents && a.IsCollector) || (selectingNotifierAgents && a.IsNotifier)
                                             orderby a.Name
                                             select a))
             {
@@ -146,7 +151,7 @@ namespace QuickMon.UI
             ListViewGroup templatesGroup = new ListViewGroup("Templates");
             lvwAgentType.Groups.Add(templatesGroup);
 
-            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => t.TemplateType == TemplateType.CollectorAgent))
+            foreach (QuickMonTemplate qt in QuickMonTemplate.GetAllTemplates().Where(t => (selectingCollectorAgents && t.TemplateType == TemplateType.CollectorAgent) || (selectingNotifierAgents && t.TemplateType == TemplateType.NotifierAgent)))
             {
                 ListViewItem lviTemplateCollector = new ListViewItem(qt.Name);
                 lviTemplateCollector.SubItems.Add(qt.Description);
@@ -178,7 +183,7 @@ namespace QuickMon.UI
                 lviTemplateCollector.Tag = qt;
                 lvwAgentType.Items.Add(lviTemplateCollector);
             }
-        }
+        }        
         #endregion
 
         #region Form events
@@ -210,7 +215,7 @@ namespace QuickMon.UI
                 {
                     LoadCollectorHostItems();
                 }
-                else if (selectingCollectorAgents)
+                else if (selectingCollectorAgents || selectingNotifierAgents)
                 {
                     LoadCollectorAgents();
                 }
@@ -258,7 +263,7 @@ namespace QuickMon.UI
                     } 
                     #endregion
                 }
-                else if (selectingCollectorAgents)
+                else if (selectingCollectorAgents || selectingNotifierAgents)
                 {
                     #region Collector agents
                     RegisteredAgent ra = null;
@@ -295,7 +300,7 @@ namespace QuickMon.UI
                             }
                             try
                             {
-                                if (configToUse.StartsWith("<collectorAgent"))
+                                if ((selectingCollectorAgents && configToUse.StartsWith("<collectorAgent")) || (selectingNotifierAgents && configToUse.StartsWith("<notifierAgent")))
                                 {
                                     System.Xml.XmlDocument collectorAgentDoc = new System.Xml.XmlDocument();
                                     collectorAgentDoc.LoadXml(configToUse);
@@ -350,6 +355,10 @@ namespace QuickMon.UI
                         return;
                     } 
                     #endregion
+                }
+                else if (selectingNotifierAgents)
+                {
+
                 }
                 DialogResult = DialogResult.OK;
                 Close();

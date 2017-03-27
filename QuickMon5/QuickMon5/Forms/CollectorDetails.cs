@@ -1196,7 +1196,7 @@ namespace QuickMon
                 ICollector agent = (ICollector)selectNewAgentType.SelectedAgent;
                 agent.Enabled = true;
                 if (agent.Name == null || agent.Name.Trim().Length == 0)
-                    agent.Name = agent.AgentClassDisplayName.Replace("Collector", "").Trim();
+                    agent.Name = agent.AgentClassDisplayName;//.Replace("Collector", "").Trim();
 
                 TreeListViewItem tlvi = new TreeListViewItem(agent.Name);
                 if (agent.Enabled)
