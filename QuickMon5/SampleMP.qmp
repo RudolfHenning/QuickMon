@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-28 11:32:21" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-28 15:44:52" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -87,6 +87,55 @@
           </parameters>
         </actionScript>
       </collectorActionScripts>
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="b3ab1456-4fe5-4923-a961-305f730ba4d9" dependOnParentId="" name="QuickMon 5 service start" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Registry Query Collector" type="QuickMon.Collectors.RegistryQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name="Test" useRemoteServer="False" server="" registryHive="LocalMachine" path="SYSTEM\CurrentControlSet\Services\QuickMon 5 Service" keyName="Start" expandEnvironmentNames="False" returnValueIsNumber="True" primaryUIValue="False" />
+                <testConditions testSequence="GWE">
+                  <success testType="Match">2</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
       <!-- ServiceWindows -->
       <serviceWindows />
       <!-- Config variables -->

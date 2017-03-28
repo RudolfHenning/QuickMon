@@ -96,6 +96,13 @@
       <DependentUpon>PowerShellScriptRunnerCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.Designer.cs">
+      <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorUI.cs" />
     <Compile Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\PowerShellScriptRunner\PowerShellScriptRunnerCollectorEditEntry.resx">
       <DependentUpon>PowerShellScriptRunnerCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\RegistryQuery\RegistryQueryCollectorEditEntry.resx">
+      <DependentUpon>RegistryQueryCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\WindowsServiceState\ServiceStateCollectorEditEntry.resx">
       <DependentUpon>ServiceStateCollectorEditEntry.cs</DependentUpon>

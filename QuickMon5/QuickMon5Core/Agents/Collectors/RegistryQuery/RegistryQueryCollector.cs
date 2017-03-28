@@ -161,6 +161,7 @@ namespace QuickMon.Collectors
             }
             XmlElement root = config.DocumentElement;
             Entries.Clear();
+            //Version 4 config
             foreach (XmlElement queryNode in root.SelectNodes("queries/query"))
             {
                 RegistryQueryCollectorConfigEntry queryEntry = new RegistryQueryCollectorConfigEntry();
@@ -173,12 +174,52 @@ namespace QuickMon.Collectors
                 queryEntry.ExpandEnvironmentNames = bool.Parse(queryNode.ReadXmlElementAttr("expandEnvironmentNames", "False"));
 
                 queryEntry.ReturnValueIsNumber = bool.Parse(queryNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
-                queryEntry.SuccessValue = queryNode.ReadXmlElementAttr("successValue", "");
+                queryEntry.GoodValue = queryNode.ReadXmlElementAttr("successValue", "");
+                queryEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
                 queryEntry.WarningValue = queryNode.ReadXmlElementAttr("warningValue", "");
+                queryEntry.WarningResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
                 queryEntry.ErrorValue = queryNode.ReadXmlElementAttr("errorValue", "");
-                queryEntry.ReturnValueInARange = bool.Parse(queryNode.ReadXmlElementAttr("returnValueInARange", "False"));
-                queryEntry.ReturnValueInverted = bool.Parse(queryNode.ReadXmlElementAttr("returnValueInverted", "False"));
+                queryEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
+
+                //queryEntry.ReturnValueInARange = bool.Parse(queryNode.ReadXmlElementAttr("returnValueInARange", "False"));
+                //queryEntry.ReturnValueInverted = bool.Parse(queryNode.ReadXmlElementAttr("returnValueInverted", "False"));
                 queryEntry.PrimaryUIValue = queryNode.ReadXmlElementAttr("primaryUIValue", false);
+                Entries.Add(queryEntry);
+            }
+            //version 5 config
+            foreach (XmlElement carvceEntryNode in root.SelectNodes("carvcesEntries/carvceEntry"))
+            {
+                XmlNode dataSourceNode = carvceEntryNode.SelectSingleNode("dataSource");
+                RegistryQueryCollectorConfigEntry queryEntry = new RegistryQueryCollectorConfigEntry();
+                queryEntry.Name = dataSourceNode.ReadXmlElementAttr("name", "");
+                queryEntry.UseRemoteServer = bool.Parse(dataSourceNode.ReadXmlElementAttr("useRemoteServer", "False"));
+                queryEntry.Server = dataSourceNode.ReadXmlElementAttr("server", "");
+                queryEntry.RegistryHive = RegistryQueryCollectorConfigEntry.GetRegistryHiveFromString(dataSourceNode.ReadXmlElementAttr("registryHive", ""));
+                queryEntry.Path = dataSourceNode.ReadXmlElementAttr("path", "");
+                queryEntry.KeyName = dataSourceNode.ReadXmlElementAttr("keyName", "");
+                queryEntry.ExpandEnvironmentNames = bool.Parse(dataSourceNode.ReadXmlElementAttr("expandEnvironmentNames", "False"));
+                queryEntry.ReturnValueIsNumber = bool.Parse(dataSourceNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
+                queryEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
+
+                XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
+                if (testConditionsNode != null)
+                {
+                    queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+                    XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                    queryEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                    queryEntry.GoodValue = goodScriptNode.InnerText;                    
+
+                    XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                    queryEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                    queryEntry.WarningValue = warningScriptNode.InnerText;
+
+                    XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                    queryEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                    queryEntry.ErrorValue = errorScriptNode.InnerText;
+                }
+                else
+                    queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+
                 Entries.Add(queryEntry);
             }
         }
@@ -188,34 +229,61 @@ namespace QuickMon.Collectors
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
-            XmlNode queriesNode = root.SelectSingleNode("queries");
-            queriesNode.InnerXml = "";
+            XmlNode carvcesEntriesNode = root.SelectSingleNode("carvcesEntries");
+            carvcesEntriesNode.InnerXml = "";
 
             foreach (RegistryQueryCollectorConfigEntry queryEntry in Entries)
             {
-                XmlElement queryNode = config.CreateElement("query");
-                queryNode.SetAttributeValue("name", queryEntry.Name);
-                queryNode.SetAttributeValue("useRemoteServer", queryEntry.UseRemoteServer);
-                queryNode.SetAttributeValue("server", queryEntry.Server);
-                queryNode.SetAttributeValue("registryHive", queryEntry.RegistryHive.ToString());
-                queryNode.SetAttributeValue("path", queryEntry.Path);
-                queryNode.SetAttributeValue("keyName", queryEntry.KeyName);
-                queryNode.SetAttributeValue("expandEnvironmentNames", queryEntry.ExpandEnvironmentNames);
-                queryNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
-                queryNode.SetAttributeValue("successValue", queryEntry.SuccessValue);
-                queryNode.SetAttributeValue("warningValue", queryEntry.WarningValue);
-                queryNode.SetAttributeValue("errorValue", queryEntry.ErrorValue);
-                queryNode.SetAttributeValue("returnValueInARange", queryEntry.ReturnValueInARange);
-                queryNode.SetAttributeValue("returnValueInverted", queryEntry.ReturnValueInverted);
-                queryNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
-                queriesNode.AppendChild(queryNode);
+                XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
+                XmlElement dataSourceNode = config.CreateElement("dataSource");
+
+                dataSourceNode.SetAttributeValue("name", queryEntry.Name);
+                dataSourceNode.SetAttributeValue("useRemoteServer", queryEntry.UseRemoteServer);
+                dataSourceNode.SetAttributeValue("server", queryEntry.Server);
+                dataSourceNode.SetAttributeValue("registryHive", queryEntry.RegistryHive.ToString());
+                dataSourceNode.SetAttributeValue("path", queryEntry.Path);
+                dataSourceNode.SetAttributeValue("keyName", queryEntry.KeyName);
+                dataSourceNode.SetAttributeValue("expandEnvironmentNames", queryEntry.ExpandEnvironmentNames);
+                dataSourceNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
+                dataSourceNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
+
+                XmlElement testConditionsNode = config.CreateElement("testConditions");
+                testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
+                XmlElement successNode = config.CreateElement("success");
+                successNode.SetAttributeValue("testType", queryEntry.GoodResultMatchType.ToString());
+                successNode.InnerText = queryEntry.GoodValue;
+                XmlElement warningNode = config.CreateElement("warning");
+                warningNode.SetAttributeValue("testType", queryEntry.WarningResultMatchType.ToString());
+                warningNode.InnerText = queryEntry.WarningValue;
+                XmlElement errorNode = config.CreateElement("error");
+                errorNode.SetAttributeValue("testType", queryEntry.ErrorResultMatchType.ToString());
+                errorNode.InnerText = queryEntry.ErrorValue;
+
+                testConditionsNode.AppendChild(successNode);
+                testConditionsNode.AppendChild(warningNode);
+                testConditionsNode.AppendChild(errorNode);
+
+                carvceEntryNode.AppendChild(dataSourceNode);
+                carvceEntryNode.AppendChild(testConditionsNode);
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
             return config.OuterXml;
         }
 
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><queries></queries></config>";
+            return "<config>" +
+               "<carvcesEntries>" +
+               "<carvceEntry name=\"\">" +
+               "<dataSource></dataSource>" +
+               "<testConditions testSequence=\"GWE\">" +
+               "<success testType=\"match\"></success>" +
+               "<warning testType=\"match\"></warning>" +
+               "<error testType=\"match\"></error>" +
+               "</testConditions>" +
+               "</carvceEntry>" +
+               "</carvcesEntries>" +
+               "</config>";
         }
 
         public string ConfigSummary
@@ -243,32 +311,67 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry Members
         public MonitorState GetCurrentState()
         {
-            object value = GetValue();
-            CurrentAgentValue = value;
+            object wsData = null;
+            CollectorState agentState = CollectorState.NotAvailable;
+            try
+            {
+                wsData = GetValue();
+                if (ReturnValueIsNumber && !wsData.IsNumber())
+                {
+                    agentState = CollectorState.Error;
+                    wsData = "Returned value is not a number! (" + wsData.ToString() + ")";
+                }
+                else
+                {
+                    CurrentAgentValue = FormatUtils.FormatArrayToString(wsData, "[null]");
+                    agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
+                           GoodResultMatchType, GoodValue,
+                           WarningResultMatchType, WarningValue,
+                           ErrorResultMatchType, ErrorValue,
+                           CurrentAgentValue);
+                }
+            }
+            catch (Exception wsException)
+            {
+                agentState = CollectorState.Error;
+                wsData = wsException.Message;
+            }
+
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = Name,
-                CurrentValue = FormatUtils.FormatArrayToString(value, "[null]"),
-                State = EvaluateValue(value)
+                ForAgent = Description,
+                State = agentState,
+                CurrentValue = wsData == null ? "N/A" : wsData.ToString()
             };
 
-            if (currentState.State == CollectorState.Error)
-            {
-                currentState.RawDetails = string.Format("'{0}' - value '{1}' - Error (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), ErrorValue);
-                currentState.HtmlDetails = string.Format("'{0}' - value '{1}' - <b>Error</b> (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), ErrorValue);
-            }
-            else if (currentState.State == CollectorState.Warning)
-            {
-                currentState.RawDetails = string.Format("'{0}' - value '{1}' - Warning (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), WarningValue);
-                currentState.HtmlDetails = string.Format("'{0}' - value '{1}' - <b>Warning</b> (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), WarningValue);
-            }
-            else
-            {
-                currentState.RawDetails = string.Format("'{0}' - value '{1}'", Name, FormatUtils.FormatArrayToString(value, "[null]"));
-                currentState.HtmlDetails = string.Format("'{0}' - value '{1}'", Name, FormatUtils.FormatArrayToString(value, "[null]"));
-            }
-
             return currentState;
+
+            //object value = GetValue();
+            //CurrentAgentValue = value;
+            //MonitorState currentState = new MonitorState()
+            //{
+            //    ForAgent = Name,
+            //    CurrentValue = FormatUtils.FormatArrayToString(value, "[null]"),
+            //    State = EvaluateValue(value)
+            //};
+
+            //if (currentState.State == CollectorState.Error)
+            //{
+            //    currentState.RawDetails = string.Format("'{0}' - value '{1}' - Error (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), ErrorValue);
+            //    currentState.HtmlDetails = string.Format("'{0}' - value '{1}' - <b>Error</b> (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), ErrorValue);
+            //}
+            //else if (currentState.State == CollectorState.Warning)
+            //{
+            //    currentState.RawDetails = string.Format("'{0}' - value '{1}' - Warning (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), WarningValue);
+            //    currentState.HtmlDetails = string.Format("'{0}' - value '{1}' - <b>Warning</b> (trigger {2})", Name, FormatUtils.FormatArrayToString(value, "[null]"), WarningValue);
+            //}
+            //else
+            //{
+            //    currentState.RawDetails = string.Format("'{0}' - value '{1}'", Name, FormatUtils.FormatArrayToString(value, "[null]"));
+            //    currentState.HtmlDetails = string.Format("'{0}' - value '{1}'", Name, FormatUtils.FormatArrayToString(value, "[null]"));
+            //}
+
+            //return currentState;
         }
         public string Description
         {
@@ -284,7 +387,7 @@ namespace QuickMon.Collectors
         {
             get
             {
-                return string.Format("Success: {0}, Warn: {1}, Err: {2}", SuccessValue, WarningValue, ErrorValue);
+                return string.Format("Success: {0}, Warn: {1}, Err: {2}", GoodValue, WarningValue, ErrorValue);
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
@@ -301,12 +404,20 @@ namespace QuickMon.Collectors
         public string KeyName { get; set; }
         public bool ExpandEnvironmentNames { get; set; }
         public bool ReturnValueIsNumber { get; set; }
-        public bool ReturnValueInARange { get; set; }
-        public bool ReturnValueInverted { get; set; }
-        public string SuccessValue { get; set; }
+        //public bool ReturnValueInARange { get; set; }
+        //public bool ReturnValueInverted { get; set; }
+        //public string SuccessValue { get; set; }
+        //public string WarningValue { get; set; }
+        //public string ErrorValue { get; set; }
+
+        public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
+        public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
+        public string GoodValue { get; set; }
+        public CollectorAgentReturnValueCompareMatchType WarningResultMatchType { get; set; }
         public string WarningValue { get; set; }
+        public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
         public string ErrorValue { get; set; }
-        
+
         #endregion
 
         #region Static methods
@@ -343,115 +454,115 @@ namespace QuickMon.Collectors
         #endregion
 
         #region Public methods
-        public CollectorState EvaluateValue(object value)
-        {
-            CollectorState result = CollectorState.Good;
-            if (value == null || value == DBNull.Value)
-            {
-                if (ErrorValue == "[null]")
-                    result = CollectorState.Error;
-                else if (WarningValue == "[null]")
-                    result = CollectorState.Warning;
-                else if (SuccessValue == "[null]")
-                    result = CollectorState.Good;
-                else if (SuccessValue != "[any]")
-                    result = CollectorState.Error;
-            }
-            else if (value.ToString() == "[notExists]")
-            {
-                if (ErrorValue == "[notExists]")
-                    result = CollectorState.Error;
-                else if (WarningValue == "[notExists]")
-                    result = CollectorState.Warning;
-                else if (SuccessValue == "[notExists]")
-                    result = CollectorState.Good;
-                else
-                    result = CollectorState.Error;
-            }
-            else //non empty value but it DOES exist
-            {
-                if (!ReturnValueIsNumber || !ReturnValueInARange) //so it's not a number
-                {
-                    if (value.GetType().IsArray)
-                    {
-                        value = FormatUtils.FormatArrayToString(value);
-                    }
+        //public CollectorState EvaluateValue(object value)
+        //{
+        //    CollectorState result = CollectorState.Good;
+        //    if (value == null || value == DBNull.Value)
+        //    {
+        //        if (ErrorValue == "[null]")
+        //            result = CollectorState.Error;
+        //        else if (WarningValue == "[null]")
+        //            result = CollectorState.Warning;
+        //        else if (SuccessValue == "[null]")
+        //            result = CollectorState.Good;
+        //        else if (SuccessValue != "[any]")
+        //            result = CollectorState.Error;
+        //    }
+        //    else if (value.ToString() == "[notExists]")
+        //    {
+        //        if (ErrorValue == "[notExists]")
+        //            result = CollectorState.Error;
+        //        else if (WarningValue == "[notExists]")
+        //            result = CollectorState.Warning;
+        //        else if (SuccessValue == "[notExists]")
+        //            result = CollectorState.Good;
+        //        else
+        //            result = CollectorState.Error;
+        //    }
+        //    else //non empty value but it DOES exist
+        //    {
+        //        if (!ReturnValueIsNumber || !ReturnValueInARange) //so it's not a number
+        //        {
+        //            if (value.GetType().IsArray)
+        //            {
+        //                value = FormatUtils.FormatArrayToString(value);
+        //            }
 
-                    //first eliminate matching values
-                    if (SuccessValue == value.ToString())
-                        result = CollectorState.Good;
-                    else if (value.ToString() == ErrorValue)
-                        result = CollectorState.Error;
-                    else if (value.ToString() == WarningValue)
-                        result = CollectorState.Warning;
+        //            //first eliminate matching values
+        //            if (SuccessValue == value.ToString())
+        //                result = CollectorState.Good;
+        //            else if (value.ToString() == ErrorValue)
+        //                result = CollectorState.Error;
+        //            else if (value.ToString() == WarningValue)
+        //                result = CollectorState.Warning;
 
-                    //test for [contains] <value>, [beginswith] <value> or [endswith] <value>
-                    else if (SuccessValue.StartsWith("[contains]") && value.ToString().Contains(SuccessValue.Substring(("[contains]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (SuccessValue.StartsWith("[beginswith]") && value.ToString().StartsWith(SuccessValue.Substring(("[beginswith]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (SuccessValue.StartsWith("[endswith]") && value.ToString().EndsWith(SuccessValue.Substring(("[endswith]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (WarningValue.StartsWith("[contains]") && value.ToString().Contains(WarningValue.Substring(("[contains]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (WarningValue.StartsWith("[beginswith]") && value.ToString().StartsWith(WarningValue.Substring(("[beginswith]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (WarningValue.StartsWith("[endswith]") && value.ToString().EndsWith(WarningValue.Substring(("[endswith]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (ErrorValue.StartsWith("[contains]") && value.ToString().Contains(ErrorValue.Substring(("[contains]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (ErrorValue.StartsWith("[beginswith]") && value.ToString().StartsWith(ErrorValue.Substring(("[beginswith]").Length).Trim()))
-                        result = CollectorState.Good;
-                    else if (ErrorValue.StartsWith("[endswith]") && value.ToString().EndsWith(ErrorValue.Substring(("[endswith]").Length).Trim()))
-                        result = CollectorState.Good;
+        //            //test for [contains] <value>, [beginswith] <value> or [endswith] <value>
+        //            else if (SuccessValue.StartsWith("[contains]") && value.ToString().Contains(SuccessValue.Substring(("[contains]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (SuccessValue.StartsWith("[beginswith]") && value.ToString().StartsWith(SuccessValue.Substring(("[beginswith]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (SuccessValue.StartsWith("[endswith]") && value.ToString().EndsWith(SuccessValue.Substring(("[endswith]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (WarningValue.StartsWith("[contains]") && value.ToString().Contains(WarningValue.Substring(("[contains]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (WarningValue.StartsWith("[beginswith]") && value.ToString().StartsWith(WarningValue.Substring(("[beginswith]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (WarningValue.StartsWith("[endswith]") && value.ToString().EndsWith(WarningValue.Substring(("[endswith]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (ErrorValue.StartsWith("[contains]") && value.ToString().Contains(ErrorValue.Substring(("[contains]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (ErrorValue.StartsWith("[beginswith]") && value.ToString().StartsWith(ErrorValue.Substring(("[beginswith]").Length).Trim()))
+        //                result = CollectorState.Good;
+        //            else if (ErrorValue.StartsWith("[endswith]") && value.ToString().EndsWith(ErrorValue.Substring(("[endswith]").Length).Trim()))
+        //                result = CollectorState.Good;
 
-                    //Existing tests
-                    else if (ErrorValue == "[exists]")
-                        result = CollectorState.Error;
-                    else if (WarningValue == "[exists]")
-                        result = CollectorState.Warning;
-                    else if (SuccessValue == "[exists]")
-                        result = CollectorState.Good;
+        //            //Existing tests
+        //            else if (ErrorValue == "[exists]")
+        //                result = CollectorState.Error;
+        //            else if (WarningValue == "[exists]")
+        //                result = CollectorState.Warning;
+        //            else if (SuccessValue == "[exists]")
+        //                result = CollectorState.Good;
 
-                    //Any tests
-                    else if (ErrorValue == "[any]")
-                        result = CollectorState.Error;
-                    else if (WarningValue == "[any]")
-                        result = CollectorState.Warning;
+        //            //Any tests
+        //            else if (ErrorValue == "[any]")
+        //                result = CollectorState.Error;
+        //            else if (WarningValue == "[any]")
+        //                result = CollectorState.Warning;
 
-                    //Not matching success
-                    else if (SuccessValue != "[any]")
-                        result = CollectorState.Warning;
-                }
-                else if (!value.IsNumber()) //value must be a number!
-                {
-                    result = CollectorState.Error;
-                }
-                else //so it is a number and must be inside a range
-                {
-                    if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
-                                    (
-                                     (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(ErrorValue)) ||
-                                     (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(ErrorValue))
-                                    )
-                                )
-                    {
-                        result = CollectorState.Error;
-                    }
-                    else if (WarningValue != "[any]" && WarningValue != "[null]" &&
-                           (
-                            (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(WarningValue)) ||
-                            (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(WarningValue))
-                           )
-                        )
-                    {
-                        result = CollectorState.Warning;
-                    }
-                }
-            }
+        //            //Not matching success
+        //            else if (SuccessValue != "[any]")
+        //                result = CollectorState.Warning;
+        //        }
+        //        else if (!value.IsNumber()) //value must be a number!
+        //        {
+        //            result = CollectorState.Error;
+        //        }
+        //        else //so it is a number and must be inside a range
+        //        {
+        //            if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
+        //                            (
+        //                             (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(ErrorValue)) ||
+        //                             (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(ErrorValue))
+        //                            )
+        //                        )
+        //            {
+        //                result = CollectorState.Error;
+        //            }
+        //            else if (WarningValue != "[any]" && WarningValue != "[null]" &&
+        //                   (
+        //                    (!ReturnValueInverted && double.Parse(value.ToString()) >= double.Parse(WarningValue)) ||
+        //                    (ReturnValueInverted && double.Parse(value.ToString()) <= double.Parse(WarningValue))
+        //                   )
+        //                )
+        //            {
+        //                result = CollectorState.Warning;
+        //            }
+        //        }
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
         public object GetValue()
         {
             object result = null;
