@@ -6,10 +6,28 @@ More collector agents must use the CollectorAgentReturnValueCompareEngine
 Collector agents that must be part of Core
 	Web Service, Database agents. Done
 Recent MP list editor. Done
+Notifier host editor. Done
+In memory notifier viewer/editor
 
 Next
+	Connection sharing/caching in MP
 	Agents/entries can be flagged for which one will be used for primary output value to screen	
-	Notifier host editor
-	In memory notifier viewer/editor
 	Corrective scripts/Action scripts
+	Collector editors for other agents
+		Registry
+		SQL DB size
+		SQL Query
+		SQL Table size
 	Other Notifiers viewers/editors
+		Audio
+		EventLog
+		Log File
+		RSS
+		SMTP
+		SqlDB
+
+	SSH based agents
+
+	Enterprize agents
+		BizTalk
+		Active Directory
