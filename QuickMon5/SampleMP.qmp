@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-27 15:30:57" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-28 11:32:21" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -21,9 +21,51 @@
         <collectorAgent name="Ping" type="QuickMon.Collectors.PingCollector" enabled="True">
           <config>
             <entries>
-              <entry pingMethod="Ping" address="%ComputerName%" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" primaryUIValue="False" />
-              <entry pingMethod="Ping" address="127.0.0.1" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" primaryUIValue="True" />
+              <entry pingMethod="Ping" address="%ComputerName%" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" socketPingMsgBody="QuickMon Ping Test" primaryUIValue="False" />
+              <entry pingMethod="Ping" address="127.0.0.1" description="" maxTimeMS="3000" timeOutMS="5000" httpHeaderUser="" httpHeaderPwd="" httpProxyServer="" httpProxyUser="" httpProxyPwd="" socketPort="23" receiveTimeoutMS="30000" sendTimeoutMS="30000" useTelnetLogin="False" userName="" password="" ignoreInvalidHTTPSCerts="False" socketPingMsgBody="QuickMon Ping Test" primaryUIValue="True" />
             </entries>
+          </config>
+        </collectorAgent>
+        <collectorAgent name="Event Log Collector" type="QuickMon.Collectors.EventLogCollector" enabled="True">
+          <config>
+            <eventlogs>
+              <log computer="rhenning" eventLog="Application" typeInfo="False" typeWarn="True" typeErr="True" containsText="False" useRegEx="False" textFilter="" withInLastXEntries="1000" withInLastXMinutes="60" warningValue="1" errorValue="10" primaryUIValue="False">
+                <sources>
+                  <source>Event Reaper</source>
+                </sources>
+                <eventIds />
+              </log>
+            </eventlogs>
+          </config>
+        </collectorAgent>
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="C:\Scripts\DeviceMaster\logs\FullImport.log.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="False" containsText="" useRegEx="False" warningFileCountMax="1" errorFileCountMax="5" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Day" fileMinAge="7" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="False" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+        <collectorAgent name="Windows Service State Collector" type="QuickMon.Collectors.WindowsServiceStateCollector" enabled="True">
+          <config>
+            <machine name="." primaryUIValue="False">
+              <service name="Event Reaper - Harbinger" />
+              <service name="Event Reaper - QA" />
+              <service name="Event Reaper - Sovereign" />
+            </machine>
+          </config>
+        </collectorAgent>
+        <collectorAgent name="Web Service Collector" type="QuickMon.Collectors.WSCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource url="http://MMBiz5/MoneyMarket/BizTalk2010/HighAvailabilityMonitor/HighAvailabilityMonitorService.asmx" serviceBindingName="HighAvailabilityMonitorServiceSoap" method="IsAvailable" paramatersCSV="" valueExpectedReturnType="SingleValue" macroFormatType="None" arrayIndex="0" columnIndex="0" primaryUIValue="False" />
+                <testConditions testSequence="GEW">
+                  <success testType="Match">OK</success>
+                  <warning testType="Match">[null]</warning>
+                  <error testType="Match">[any]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
           </config>
         </collectorAgent>
       </collectorAgents>
