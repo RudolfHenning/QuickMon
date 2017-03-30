@@ -200,6 +200,7 @@ namespace QuickMon.Collectors
                 queryEntry.ExpandEnvironmentNames = bool.Parse(dataSourceNode.ReadXmlElementAttr("expandEnvironmentNames", "False"));
                 queryEntry.ReturnValueIsNumber = bool.Parse(dataSourceNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
                 queryEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
+                queryEntry.OutputValueUnit = dataSourceNode.ReadXmlElementAttr("outputValueUnit", "");
 
                 XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
                 if (testConditionsNode != null)
@@ -246,6 +247,7 @@ namespace QuickMon.Collectors
                 dataSourceNode.SetAttributeValue("expandEnvironmentNames", queryEntry.ExpandEnvironmentNames);
                 dataSourceNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
                 dataSourceNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
+                dataSourceNode.SetAttributeValue("outputValueUnit", queryEntry.OutputValueUnit);
 
                 XmlElement testConditionsNode = config.CreateElement("testConditions");
                 testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
@@ -341,7 +343,9 @@ namespace QuickMon.Collectors
             {
                 ForAgent = Description,
                 State = agentState,
-                CurrentValue = wsData == null ? "N/A" : wsData.ToString()
+                CurrentValue = wsData == null ? "N/A" : wsData.ToString(),
+                CurrentValueUnit = OutputValueUnit
+
             };
 
             return currentState;
@@ -417,7 +421,7 @@ namespace QuickMon.Collectors
         public string WarningValue { get; set; }
         public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
         public string ErrorValue { get; set; }
-
+        public string OutputValueUnit { get; set; }
         #endregion
 
         #region Static methods

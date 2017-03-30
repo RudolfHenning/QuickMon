@@ -7,14 +7,14 @@ Collector agents that must be part of Core
 	Web Service, Database agents. Done
 Recent MP list editor. Done
 Notifier host editor. Done
-In memory notifier viewer/editor
+In memory notifier viewer/editor - Done
+Registry Editor Done
 
 Next
 	Connection sharing/caching in MP
 	Agents/entries can be flagged for which one will be used for primary output value to screen	
 	Corrective scripts/Action scripts
 	Collector editors for other agents
-		Registry
 		SQL DB size
 		SQL Query
 		SQL Table size

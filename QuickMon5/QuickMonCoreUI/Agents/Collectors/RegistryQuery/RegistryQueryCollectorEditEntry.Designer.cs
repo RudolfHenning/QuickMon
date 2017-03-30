@@ -57,10 +57,14 @@
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.chkValueIsANumber = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.sequenceGroupBox.SuspendLayout();
             this.errorGroupBox.SuspendLayout();
             this.warningGroupBox.SuspendLayout();
             this.successGroupBox.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkExpandEnvNames
@@ -181,7 +185,7 @@
             // 
             this.cmdRegedit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdRegedit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdRegedit.Location = new System.Drawing.Point(11, 375);
+            this.cmdRegedit.Location = new System.Drawing.Point(11, 442);
             this.cmdRegedit.Name = "cmdRegedit";
             this.cmdRegedit.Size = new System.Drawing.Size(75, 23);
             this.cmdRegedit.TabIndex = 13;
@@ -194,7 +198,7 @@
             this.cmdTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTest.Enabled = false;
             this.cmdTest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTest.Location = new System.Drawing.Point(335, 375);
+            this.cmdTest.Location = new System.Drawing.Point(335, 442);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
             this.cmdTest.TabIndex = 14;
@@ -207,7 +211,7 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(497, 375);
+            this.cmdCancel.Location = new System.Drawing.Point(497, 442);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 16;
@@ -219,7 +223,7 @@
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(416, 375);
+            this.cmdOK.Location = new System.Drawing.Point(416, 442);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 15;
@@ -428,12 +432,57 @@
             this.chkValueIsANumber.UseVisualStyleBackColor = true;
             this.chkValueIsANumber.CheckedChanged += new System.EventHandler(this.chkValueIsANumber_CheckedChanged);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.cboOutputValueUnit);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.groupBox3.Location = new System.Drawing.Point(12, 374);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(560, 57);
+            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Display output";
+            // 
+            // cboOutputValueUnit
+            // 
+            this.cboOutputValueUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboOutputValueUnit.FormattingEnabled = true;
+            this.cboOutputValueUnit.Items.AddRange(new object[] {
+            "%",
+            "Bytes/sec",
+            "Connections",
+            "IO/sec",
+            "Operations/sec",
+            "Packets/sec",
+            "Queued/sec",
+            "Total/sec",
+            "Transfers/sec"});
+            this.cboOutputValueUnit.Location = new System.Drawing.Point(92, 18);
+            this.cboOutputValueUnit.Name = "cboOutputValueUnit";
+            this.cboOutputValueUnit.Size = new System.Drawing.Size(452, 21);
+            this.cboOutputValueUnit.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label6.Location = new System.Drawing.Point(11, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Output unit";
+            // 
             // RegistryQueryCollectorEditEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(584, 408);
+            this.ClientSize = new System.Drawing.Size(584, 475);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.chkValueIsANumber);
             this.Controls.Add(this.sequenceGroupBox);
             this.Controls.Add(this.cmdRegedit);
@@ -465,6 +514,8 @@
             this.warningGroupBox.PerformLayout();
             this.successGroupBox.ResumeLayout(false);
             this.successGroupBox.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -500,5 +551,8 @@
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkValueIsANumber;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ComboBox cboOutputValueUnit;
+        private System.Windows.Forms.Label label6;
     }
 }
