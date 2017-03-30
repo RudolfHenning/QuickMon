@@ -47,6 +47,7 @@ namespace QuickMon.UI
                 cboWarningMatchType.SelectedIndex = (int)selectedEntry.WarningResultMatchType;
                 txtError.Text = selectedEntry.ErrorValue;
                 cboErrorMatchType.SelectedIndex = (int)selectedEntry.ErrorResultMatchType;
+                cboOutputValueUnit.Text = selectedEntry.OutputValueUnit;
             }
             return (QuickMonDialogResult)ShowDialog();
         }
@@ -110,6 +111,7 @@ namespace QuickMon.UI
                 selectedEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
                 selectedEntry.ErrorValue = txtError.Text;
                 selectedEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
+                selectedEntry.OutputValueUnit = cboOutputValueUnit.Text;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
@@ -147,6 +149,7 @@ namespace QuickMon.UI
                     testQueryInstance.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
                     testQueryInstance.ErrorValue = txtError.Text;
                     testQueryInstance.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
+                    testQueryInstance.OutputValueUnit = cboOutputValueUnit.Text;
 
                     object returnValue = null;
                     //returnValue = testQueryInstance.GetValue();

@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-28 15:44:52" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-30 15:34:45" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -113,9 +113,61 @@
           <config>
             <carvcesEntries>
               <carvceEntry>
-                <dataSource name="Test" useRemoteServer="False" server="" registryHive="LocalMachine" path="SYSTEM\CurrentControlSet\Services\QuickMon 5 Service" keyName="Start" expandEnvironmentNames="False" returnValueIsNumber="True" primaryUIValue="False" />
+                <dataSource name="Test" useRemoteServer="False" server="rhenning-m" registryHive="LocalMachine" path="SYSTEM\CurrentControlSet\Services\QuickMon 5 Service" keyName="Start" expandEnvironmentNames="False" returnValueIsNumber="True" primaryUIValue="False" outputValueUnit="%" />
                 <testConditions testSequence="GWE">
                   <success testType="Match">2</success>
+                  <warning testType="Match">[any]</warning>
+                  <error testType="Match">[null]</error>
+                </testConditions>
+              </carvceEntry>
+            </carvcesEntries>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="5a71d403-4f27-45a7-a8fe-7a70a2ae3d74" dependOnParentId="" name="Device count" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Sql Query Collector" type="QuickMon.Collectors.SqlQueryCollector" enabled="True">
+          <config>
+            <carvcesEntries>
+              <carvceEntry>
+                <dataSource name="Some query" dataSourceType="SqlServer" connStr="" provider="" fileName="" server="rhenning\sql2014" database="DeviceMaster" integratedSec="True" userName="" password="" cmndTimeOut="60" usePersistentConnection="False" applicationName="QuickMon" primaryUIValue="False" outputValueUnit="device(s)">
+                  <stateQuery useSP="False">select count(*) from Devices</stateQuery>
+                  <detailQuery useSP="False">select count(*) as [Devices] from Devices</detailQuery>
+                </dataSource>
+                <testConditions testSequence="GWE">
+                  <success testType="LargerThan">0</success>
                   <warning testType="Match">[any]</warning>
                   <error testType="Match">[null]</error>
                 </testConditions>

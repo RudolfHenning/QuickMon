@@ -138,6 +138,8 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             Entries.Clear();
             XmlElement root = config.DocumentElement;
+
+            //Version 4 config
             foreach (XmlElement queryNode in root.SelectNodes("queries/query"))
             {
                 SqlQueryCollectorEntry queryEntry = new SqlQueryCollectorEntry();
@@ -155,22 +157,23 @@ namespace QuickMon.Collectors
                 queryEntry.UsePersistentConnection = bool.Parse(queryNode.ReadXmlElementAttr("usePersistentConnection", "False"));
                 queryEntry.ApplicationName = queryNode.ReadXmlElementAttr("applicationName", "QuickMon");
                 queryEntry.PrimaryUIValue = queryNode.ReadXmlElementAttr("primaryUIValue", false);
+                
 
                 XmlNode alertTriggersNode = queryNode.SelectSingleNode("alertTriggers");
                 queryEntry.ValueReturnType = DataBaseQueryValueReturnTypeConverter.FromString(alertTriggersNode.ReadXmlElementAttr("valueReturnType", "RawValue"));
-                queryEntry.ValueReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(alertTriggersNode.ReadXmlElementAttr("checkSequence", "EWG"));
+                queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(alertTriggersNode.ReadXmlElementAttr("checkSequence", "EWG"));
 
                 XmlNode successNode = alertTriggersNode.SelectSingleNode("success");
-                queryEntry.SuccessMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(successNode.ReadXmlElementAttr("matchType", "Match"));
-                queryEntry.SuccessValueOrMacro = successNode.ReadXmlElementAttr("value", "[any]");
+                queryEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(successNode.ReadXmlElementAttr("matchType", "Match"));
+                queryEntry.GoodValue = successNode.ReadXmlElementAttr("value", "[any]");
 
                 XmlNode warningNode = alertTriggersNode.SelectSingleNode("warning");
-                queryEntry.WarningMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningNode.ReadXmlElementAttr("matchType", "Match"));
-                queryEntry.WarningValueOrMacro = warningNode.ReadXmlElementAttr("value", "0");
+                queryEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningNode.ReadXmlElementAttr("matchType", "Match"));
+                queryEntry.WarningValue = warningNode.ReadXmlElementAttr("value", "0");
 
                 XmlNode errorNode = alertTriggersNode.SelectSingleNode("error");
-                queryEntry.ErrorMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorNode.ReadXmlElementAttr("matchType", "Match"));
-                queryEntry.ErrorValueOrMacro = errorNode.ReadXmlElementAttr("value", "[null]");
+                queryEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorNode.ReadXmlElementAttr("matchType", "Match"));
+                queryEntry.ErrorValue = errorNode.ReadXmlElementAttr("value", "[null]");
 
                 XmlNode stateQueryNode = queryNode.SelectSingleNode("stateQuery");
                 queryEntry.UseSPForStateQuery = stateQueryNode.ReadXmlElementAttr("useSP", false);
@@ -182,75 +185,142 @@ namespace QuickMon.Collectors
 
                 Entries.Add(queryEntry);
             }
+
+            //version 5 config
+            foreach (XmlElement carvceEntryNode in root.SelectNodes("carvcesEntries/carvceEntry"))
+            {
+                XmlNode dataSourceNode = carvceEntryNode.SelectSingleNode("dataSource");
+                SqlQueryCollectorEntry queryEntry = new SqlQueryCollectorEntry();
+                queryEntry.Name = dataSourceNode.ReadXmlElementAttr("name", "");
+                queryEntry.DataSourceType = dataSourceNode.ReadXmlElementAttr("dataSourceType", "SqlServer").ToLower() == "oledb" ? DataSourceType.OLEDB : DataSourceType.SqlServer;
+                queryEntry.ConnectionString = dataSourceNode.ReadXmlElementAttr("connStr", "");
+                queryEntry.ProviderName = dataSourceNode.ReadXmlElementAttr("provider", "");
+                queryEntry.FileName = dataSourceNode.ReadXmlElementAttr("fileName", "");
+                queryEntry.Server = dataSourceNode.ReadXmlElementAttr("server", "");
+                queryEntry.Database = dataSourceNode.ReadXmlElementAttr("database", "");
+                queryEntry.IntegratedSecurity = bool.Parse(dataSourceNode.ReadXmlElementAttr("integratedSec", "True"));
+                queryEntry.UserName = dataSourceNode.ReadXmlElementAttr("userName", "");
+                queryEntry.Password = dataSourceNode.ReadXmlElementAttr("password", "");
+                queryEntry.CmndTimeOut = int.Parse(dataSourceNode.ReadXmlElementAttr("cmndTimeOut", "60"));
+                queryEntry.UsePersistentConnection = bool.Parse(dataSourceNode.ReadXmlElementAttr("usePersistentConnection", "False"));
+                queryEntry.ApplicationName = dataSourceNode.ReadXmlElementAttr("applicationName", "QuickMon");
+                queryEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
+                queryEntry.OutputValueUnit = dataSourceNode.ReadXmlElementAttr("outputValueUnit", "");
+
+                XmlNode stateQueryNode = dataSourceNode.SelectSingleNode("stateQuery");
+                queryEntry.UseSPForStateQuery = stateQueryNode.ReadXmlElementAttr("useSP", false);
+                queryEntry.StateQuery = stateQueryNode.InnerText;
+
+                XmlNode detailQueryNode = dataSourceNode.SelectSingleNode("detailQuery");
+                queryEntry.UseSPForDetailQuery = detailQueryNode.ReadXmlElementAttr("useSP", false);
+                queryEntry.DetailQuery = detailQueryNode.InnerText;
+
+                XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
+                if (testConditionsNode != null)
+                {
+                    queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+                    XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                    queryEntry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                    queryEntry.GoodValue = goodScriptNode.InnerText;
+
+                    XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                    queryEntry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                    queryEntry.WarningValue = warningScriptNode.InnerText;
+
+                    XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                    queryEntry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                    queryEntry.ErrorValue = errorScriptNode.InnerText;
+                }
+                else
+                    queryEntry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+
+                Entries.Add(queryEntry);
+            }
         }
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
-            XmlNode queriesNode = root.SelectSingleNode("queries");
-            queriesNode.InnerXml = "";
+            XmlNode carvcesEntriesNode = root.SelectSingleNode("carvcesEntries");
+            carvcesEntriesNode.InnerXml = "";
             foreach (SqlQueryCollectorEntry queryEntry in Entries)
             {
-                XmlElement queryNode = config.CreateElement("query");
-                queryNode.SetAttributeValue("name", queryEntry.Name);
-                queryNode.SetAttributeValue("dataSourceType", queryEntry.DataSourceType.ToString());
-                queryNode.SetAttributeValue("connStr", queryEntry.ConnectionString);
-                queryNode.SetAttributeValue("provider", queryEntry.ProviderName);
-                queryNode.SetAttributeValue("fileName", queryEntry.FileName);
-                queryNode.SetAttributeValue("server", queryEntry.Server);
-                queryNode.SetAttributeValue("database", queryEntry.Database);
-                queryNode.SetAttributeValue("integratedSec", queryEntry.IntegratedSecurity);
-                queryNode.SetAttributeValue("userName", queryEntry.UserName);
-                queryNode.SetAttributeValue("password", queryEntry.Password);
-                queryNode.SetAttributeValue("cmndTimeOut", queryEntry.CmndTimeOut);
-                queryNode.SetAttributeValue("usePersistentConnection", queryEntry.UsePersistentConnection);
-                queryNode.SetAttributeValue("applicationName", queryEntry.ApplicationName);
-                queryNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
+                XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
+                XmlElement dataSourceNode = config.CreateElement("dataSource");
 
-                XmlElement alertTriggersNode = config.CreateElement("alertTriggers");
-                alertTriggersNode.SetAttributeValue("valueReturnType", queryEntry.ValueReturnType.ToString());
-                alertTriggersNode.SetAttributeValue("checkSequence", queryEntry.ValueReturnCheckSequence.ToString());
-                XmlElement successNode = config.CreateElement("success");
-                successNode.SetAttributeValue("matchType", queryEntry.SuccessMatchType.ToString());
-                successNode.SetAttributeValue("value", queryEntry.SuccessValueOrMacro);
-                alertTriggersNode.AppendChild(successNode);
-                XmlElement warningNode = config.CreateElement("warning");
-                warningNode.SetAttributeValue("matchType", queryEntry.WarningMatchType.ToString());
-                warningNode.SetAttributeValue("value", queryEntry.WarningValueOrMacro);
-                alertTriggersNode.AppendChild(warningNode);
-                XmlElement errorNode = config.CreateElement("error");
-                errorNode.SetAttributeValue("matchType", queryEntry.ErrorMatchType.ToString());
-                errorNode.SetAttributeValue("value", queryEntry.ErrorValueOrMacro);
-                alertTriggersNode.AppendChild(errorNode);
-                queryNode.AppendChild(alertTriggersNode);
+                dataSourceNode.SetAttributeValue("name", queryEntry.Name);
+                dataSourceNode.SetAttributeValue("dataSourceType", queryEntry.DataSourceType.ToString());
+                dataSourceNode.SetAttributeValue("connStr", queryEntry.ConnectionString);
+                dataSourceNode.SetAttributeValue("provider", queryEntry.ProviderName);
+                dataSourceNode.SetAttributeValue("fileName", queryEntry.FileName);
+                dataSourceNode.SetAttributeValue("server", queryEntry.Server);
+                dataSourceNode.SetAttributeValue("database", queryEntry.Database);
+                dataSourceNode.SetAttributeValue("integratedSec", queryEntry.IntegratedSecurity);
+                dataSourceNode.SetAttributeValue("userName", queryEntry.UserName);
+                dataSourceNode.SetAttributeValue("password", queryEntry.Password);
+                dataSourceNode.SetAttributeValue("cmndTimeOut", queryEntry.CmndTimeOut);
+                dataSourceNode.SetAttributeValue("usePersistentConnection", queryEntry.UsePersistentConnection);
+                dataSourceNode.SetAttributeValue("applicationName", queryEntry.ApplicationName);
+                dataSourceNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
+                dataSourceNode.SetAttributeValue("outputValueUnit", queryEntry.OutputValueUnit);
 
-                XmlElement stateQueryNode = queryNode.AppendElementWithText("stateQuery", queryEntry.StateQuery);
+                XmlElement stateQueryNode = dataSourceNode.AppendElementWithText("stateQuery", queryEntry.StateQuery);
                 stateQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForStateQuery);
 
-                XmlElement detailQueryNode = queryNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
+                XmlElement detailQueryNode = dataSourceNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
                 detailQueryNode.SetAttributeValue("useSP", queryEntry.UseSPForDetailQuery);
 
-                queriesNode.AppendChild(queryNode);
+                XmlElement testConditionsNode = config.CreateElement("testConditions");
+                testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
+                XmlElement successNode = config.CreateElement("success");
+                successNode.SetAttributeValue("testType", queryEntry.GoodResultMatchType.ToString());
+                successNode.InnerText = queryEntry.GoodValue;
+                XmlElement warningNode = config.CreateElement("warning");
+                warningNode.SetAttributeValue("testType", queryEntry.WarningResultMatchType.ToString());
+                warningNode.InnerText = queryEntry.WarningValue;
+                XmlElement errorNode = config.CreateElement("error");
+                errorNode.SetAttributeValue("testType", queryEntry.ErrorResultMatchType.ToString());
+                errorNode.InnerText = queryEntry.ErrorValue;                
+
+                testConditionsNode.AppendChild(successNode);
+                testConditionsNode.AppendChild(warningNode);
+                testConditionsNode.AppendChild(errorNode);
+                carvceEntryNode.AppendChild(dataSourceNode);
+                carvceEntryNode.AppendChild(testConditionsNode);
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
             return config.OuterXml;
 
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><queries>" +
-            "<query name=\"\" dataSourceType=\"SqlServer\" connStr=\"\" provider=\"\" " +
-                "server=\"\" database=\"\" integratedSec=\"True\" userName=\"\" password=\"\" " +
-                "cmndTimeOut=\"60\" usePersistentConnection=\"False\" applicationName=\"QuickMon\">" +
-                "<alertTriggers valueReturnType=\"RawValue\" checkSequence=\"EWG\">" +
-                    "<success matchType=\"Match\" value=\"[any]\" />" +
-                    "<warning matchType=\"Match\" value=\"0\" />" +
-                    "<error matchType=\"Match\" value=\"[null]\" />" +
-                "</alertTriggers>" +
-                "<stateQuery useSP=\"False\" />" +
-                "<detailQuery useSP=\"False\" />" +
-            "</query>" +
-          "</queries></config>";
+            return "<config>" +
+               "<carvcesEntries>" +
+               "<carvceEntry name=\"\">" +
+               "<dataSource><stateQuery /><detailQuery /></dataSource>" +
+               "<testConditions testSequence=\"GWE\">" +
+               "<success testType=\"match\"></success>" +
+               "<warning testType=\"match\"></warning>" +
+               "<error testType=\"match\"></error>" +
+               "</testConditions>" +
+               "</carvceEntry>" +
+               "</carvcesEntries>" +
+               "</config>";
+
+          //  return "<config><queries>" +
+          //  "<query name=\"\" dataSourceType=\"SqlServer\" connStr=\"\" provider=\"\" " +
+          //      "server=\"\" database=\"\" integratedSec=\"True\" userName=\"\" password=\"\" " +
+          //      "cmndTimeOut=\"60\" usePersistentConnection=\"False\" applicationName=\"QuickMon\">" +
+          //      "<alertTriggers valueReturnType=\"RawValue\" checkSequence=\"EWG\">" +
+          //          "<success matchType=\"Match\" value=\"[any]\" />" +
+          //          "<warning matchType=\"Match\" value=\"0\" />" +
+          //          "<error matchType=\"Match\" value=\"[null]\" />" +
+          //      "</alertTriggers>" +
+          //      "<stateQuery useSP=\"False\" />" +
+          //      "<detailQuery useSP=\"False\" />" +
+          //  "</query>" +
+          //"</queries></config>";
         }
         public string ConfigSummary
         {
@@ -280,7 +350,7 @@ namespace QuickMon.Collectors
             CmndTimeOut = 60;
             DataSourceType = Collectors.DataSourceType.SqlServer;
             ValueReturnType = DataBaseQueryValueReturnType.RawValue;
-            ValueReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+            ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
         }
 
         #region ICollectorConfigEntry Members
@@ -301,9 +371,9 @@ namespace QuickMon.Collectors
 
                 return string.Format("{0} Success: {1} ({2}), Warn: {3} ({4}), Err: {5} ({6}), Check seq: {7}",
                     connectionString,
-                    SuccessValueOrMacro, SuccessMatchType,
-                    WarningValueOrMacro, WarningMatchType,
-                    ErrorValueOrMacro, ErrorMatchType, ValueReturnCheckSequence) +
+                    GoodValue, GoodResultMatchType,
+                    WarningValue, WarningResultMatchType,
+                    ErrorValue, ErrorResultMatchType, ReturnCheckSequence) +
                     (ValueReturnType == DataBaseQueryValueReturnType.RowCount ? ", RowCnt" : "") +
                     (ValueReturnType == DataBaseQueryValueReturnType.QueryTime ? ", QryTime" : "");
             }
@@ -314,11 +384,11 @@ namespace QuickMon.Collectors
         public MonitorState GetCurrentState()
         {
             object value = GetStateQueryValue();
-            string unitName = ValueReturnType == DataBaseQueryValueReturnType.RowCount ? "row(s)" : ValueReturnType == DataBaseQueryValueReturnType.QueryTime ? "ms" : "";
+            string unitName = ValueReturnType == DataBaseQueryValueReturnType.RowCount ? "row(s)" : ValueReturnType == DataBaseQueryValueReturnType.QueryTime ? "ms" : OutputValueUnit;
             MonitorState currentState = new MonitorState()
             {
-                State = CollectorAgentReturnValueCompareEngine.GetState(ValueReturnCheckSequence, SuccessMatchType, SuccessValueOrMacro,
-                 WarningMatchType, WarningValueOrMacro, ErrorMatchType, ErrorValueOrMacro, value),
+                State = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence, GoodResultMatchType, GoodValue,
+                 WarningResultMatchType, WarningValue, ErrorResultMatchType, ErrorValue, value),
                 ForAgent = Name,
                 CurrentValue = value,
                 CurrentValueUnit = unitName
@@ -367,6 +437,7 @@ namespace QuickMon.Collectors
         public string ApplicationName { get; set; }
         public bool UsePersistentConnection { get; set; }
         private System.Data.Common.DbConnection PersistentConnection = null;
+        public string OutputValueUnit { get; set; }
 
         #region State query
         public string StateQuery { get; set; }
@@ -380,13 +451,13 @@ namespace QuickMon.Collectors
 
         #region Alert settings
         public DataBaseQueryValueReturnType ValueReturnType { get; set; }
-        public CollectorAgentReturnValueCheckSequence ValueReturnCheckSequence { get; set; }
-        public CollectorAgentReturnValueCompareMatchType SuccessMatchType { get; set; }
-        public string SuccessValueOrMacro { get; set; }
-        public CollectorAgentReturnValueCompareMatchType WarningMatchType { get; set; }
-        public string WarningValueOrMacro { get; set; }
-        public CollectorAgentReturnValueCompareMatchType ErrorMatchType { get; set; }
-        public string ErrorValueOrMacro { get; set; }
+        public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
+        public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
+        public string GoodValue { get; set; }
+        public CollectorAgentReturnValueCompareMatchType WarningResultMatchType { get; set; }
+        public string WarningValue { get; set; }
+        public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
+        public string ErrorValue { get; set; }        
         #endregion
 
         #endregion
