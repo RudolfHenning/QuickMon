@@ -54,6 +54,13 @@
     <Compile Include="..\QuickMon5Core\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlDatabaseSizeCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorUI.cs" />
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +68,13 @@
       <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorUI.cs" />
+    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEditEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEditEntry.Designer.cs">
+      <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorUI.cs" />
     <Compile Include="Agents\Collectors\EventLog\EventLogCollectorEditEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +151,20 @@
       <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Collectors\WS\WSCollectorUI.cs" />
+    <Compile Include="Agents\Notifiers\Audio\AudioNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\Audio\AudioNotifierEdit.Designer.cs">
+      <DependentUpon>AudioNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\Audio\AudioNotifierUI.cs" />
+    <Compile Include="Agents\Notifiers\EventLog\EventLogNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\EventLog\EventLogNotifierEdit.Designer.cs">
+      <DependentUpon>EventLogNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\EventLog\EventLogNotifierUI.cs" />
     <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +178,20 @@
     <Compile Include="Agents\Notifiers\InMemory\InMemoryNotifierViewer.Designer.cs">
       <DependentUpon>InMemoryNotifierViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Agents\Notifiers\LogFile\LogFileNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\LogFile\LogFileNotifierEdit.designer.cs">
+      <DependentUpon>LogFileNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\LogFile\LogFileNotifierUI.cs" />
+    <Compile Include="Agents\Notifiers\SMTP\SMTPNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\SMTP\SMTPNotifierEdit.Designer.cs">
+      <DependentUpon>SMTPNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\SMTP\SMTPNotifierUI.cs" />
     <Compile Include="BaseClasses\CollectorConfigEntryEditWindowBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,8 +314,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Agents\Collectors\Database\SqlDatabaseSize\SqlDatabaseSizeCollectorEditEntry.resx">
+      <DependentUpon>SqlDatabaseSizeCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\Database\SqlQuery\SqlQueryCollectorEditEntry.resx">
       <DependentUpon>SqlQueryCollectorEditEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Collectors\Database\SqlTableSize\SqlTableSizeCollectorEditEntry.resx">
+      <DependentUpon>SqlTableSizeCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Collectors\EventLog\EventLogCollectorEditEntry.resx">
       <DependentUpon>EventLogCollectorEditEntry.cs</DependentUpon>
@@ -308,11 +356,23 @@
     <EmbeddedResource Include="Agents\Collectors\WS\WSCollectorEditEntry.resx">
       <DependentUpon>WSCollectorEditEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\Audio\AudioNotifierEdit.resx">
+      <DependentUpon>AudioNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\EventLog\EventLogNotifierEdit.resx">
+      <DependentUpon>EventLogNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Agents\Notifiers\InMemory\InMemoryNotifierEdit.resx">
       <DependentUpon>InMemoryNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Agents\Notifiers\InMemory\InMemoryNotifierViewer.resx">
       <DependentUpon>InMemoryNotifierViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\LogFile\LogFileNotifierEdit.resx">
+      <DependentUpon>LogFileNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\SMTP\SMTPNotifierEdit.resx">
+      <DependentUpon>SMTPNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
@@ -389,6 +449,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BlankTemplateNotifierHost.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TriangleRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

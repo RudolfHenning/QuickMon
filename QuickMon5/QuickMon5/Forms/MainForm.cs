@@ -979,7 +979,7 @@ namespace QuickMon
             {
                 INotifier agent = (INotifier)tvwNotifiers.SelectedNode.Tag;
                 WinFormsUINotifierBase agentEditor = RegisteredAgentUIMapper.GetNotifierUIClass(agent);
-                if (agentEditor != null && agentEditor.HasDetailView && agentEditor.Viewer != null)
+                if (agentEditor != null && agentEditor.DetailEditor != null) // agentEditor.HasDetailView && agentEditor.Viewer != null)
                 {
                     IAgentConfigEntryEditWindow detailEditor = agentEditor.DetailEditor;
                     detailEditor.SelectedEntry = agent.AgentConfig;

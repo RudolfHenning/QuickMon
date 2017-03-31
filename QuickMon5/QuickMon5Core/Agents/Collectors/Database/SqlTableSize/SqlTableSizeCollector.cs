@@ -230,6 +230,10 @@ namespace QuickMon.Collectors
             MonitorState currentState = new MonitorState() { ForAgent = Description };
             List<Tuple<TableSizeEntry, CollectorState>> states = GetStates();
             long totalValue = 0;
+            int goods = 0;
+            int warnings = 0;
+            int errors = 0;
+            int totalCount = 0;
             foreach (var tableEntryState in states)
             {
                 if (tableEntryState.Item1.RowCount > 0)
@@ -245,15 +249,32 @@ namespace QuickMon.Collectors
                 if (tableEntryState.Item2 == CollectorState.Error)
                 {
                     tableState.RawDetails = tableEntryState.Item1.RowCount > 0 ? "(Trigger '" + tableEntryState.Item1.ErrorValue.ToString() + "')" : tableEntryState.Item1.ErrorStr;
+                    errors++;
                 }
                 else if (tableEntryState.Item2 == CollectorState.Warning)
                 {
-                    tableState.RawDetails = string.Format("(Trigger '{0}')", tableEntryState.Item1.WarningValue);                    
+                    tableState.RawDetails = string.Format("(Trigger '{0}')", tableEntryState.Item1.WarningValue);
+                    warnings++;
                 }                
+                else
+                {
+                    goods++;
+                }
+                totalCount++;
                 currentState.ChildStates.Add(tableState);
             }
             currentState.CurrentValue = totalValue;
+            currentState.CurrentValueUnit = "row(s)";
             CurrentAgentValue = totalValue;
+            if (totalCount > 0)
+            {
+                if (errors == totalCount)
+                    currentState.State = CollectorState.Error;
+                else if (goods == totalCount)
+                    currentState.State = CollectorState.Good;
+                else
+                    currentState.State = CollectorState.Warning;
+            }
 
             return currentState;
         }

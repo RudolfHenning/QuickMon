@@ -345,7 +345,6 @@ namespace QuickMon.Collectors
                 State = agentState,
                 CurrentValue = wsData == null ? "N/A" : wsData.ToString(),
                 CurrentValueUnit = OutputValueUnit
-
             };
 
             return currentState;

@@ -610,6 +610,8 @@ namespace QuickMon
                                 if (notifierAgent.AttendedRunOption == AttendedOption.OnlyAttended || notifierEntry.AttendedOptionOverride == AttendedOption.OnlyAttended)
                                     allowedToRun = false;
                             }
+                            if (!notifierAgent.Enabled)
+                                allowedToRun = false;
 
                             if (allowedToRun)
                             {

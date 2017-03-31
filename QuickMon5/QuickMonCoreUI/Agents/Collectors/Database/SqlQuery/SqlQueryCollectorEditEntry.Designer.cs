@@ -49,9 +49,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txtConnectionString = new System.Windows.Forms.TextBox();
             this.sqlServerPanel = new System.Windows.Forms.Panel();
+            this.cboDatabase = new System.Windows.Forms.ComboBox();
+            this.cmdLoadDBs = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.chkIntegratedSec = new System.Windows.Forms.CheckBox();
-            this.txtDatabase = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtUserName = new System.Windows.Forms.TextBox();
@@ -320,9 +321,10 @@
             // 
             // sqlServerPanel
             // 
+            this.sqlServerPanel.Controls.Add(this.cboDatabase);
+            this.sqlServerPanel.Controls.Add(this.cmdLoadDBs);
             this.sqlServerPanel.Controls.Add(this.label2);
             this.sqlServerPanel.Controls.Add(this.chkIntegratedSec);
-            this.sqlServerPanel.Controls.Add(this.txtDatabase);
             this.sqlServerPanel.Controls.Add(this.label3);
             this.sqlServerPanel.Controls.Add(this.txtServer);
             this.sqlServerPanel.Controls.Add(this.txtUserName);
@@ -334,6 +336,27 @@
             this.sqlServerPanel.Name = "sqlServerPanel";
             this.sqlServerPanel.Size = new System.Drawing.Size(626, 138);
             this.sqlServerPanel.TabIndex = 1;
+            // 
+            // cboDatabase
+            // 
+            this.cboDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboDatabase.FormattingEnabled = true;
+            this.cboDatabase.Location = new System.Drawing.Point(138, 35);
+            this.cboDatabase.Name = "cboDatabase";
+            this.cboDatabase.Size = new System.Drawing.Size(473, 21);
+            this.cboDatabase.TabIndex = 4;
+            // 
+            // cmdLoadDBs
+            // 
+            this.cmdLoadDBs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdLoadDBs.Location = new System.Drawing.Point(114, 33);
+            this.cmdLoadDBs.Name = "cmdLoadDBs";
+            this.cmdLoadDBs.Size = new System.Drawing.Size(18, 23);
+            this.cmdLoadDBs.TabIndex = 3;
+            this.cmdLoadDBs.Text = ">";
+            this.cmdLoadDBs.UseVisualStyleBackColor = true;
+            this.cmdLoadDBs.Click += new System.EventHandler(this.cmdLoadDBs_Click);
             // 
             // label2
             // 
@@ -353,20 +376,10 @@
             this.chkIntegratedSec.Location = new System.Drawing.Point(138, 61);
             this.chkIntegratedSec.Name = "chkIntegratedSec";
             this.chkIntegratedSec.Size = new System.Drawing.Size(111, 17);
-            this.chkIntegratedSec.TabIndex = 4;
+            this.chkIntegratedSec.TabIndex = 5;
             this.chkIntegratedSec.Text = "Integrated security";
             this.chkIntegratedSec.UseVisualStyleBackColor = true;
             this.chkIntegratedSec.CheckedChanged += new System.EventHandler(this.chkIntegratedSec_CheckedChanged);
-            // 
-            // txtDatabase
-            // 
-            this.txtDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDatabase.Location = new System.Drawing.Point(138, 35);
-            this.txtDatabase.Name = "txtDatabase";
-            this.txtDatabase.Size = new System.Drawing.Size(473, 20);
-            this.txtDatabase.TabIndex = 3;
-            this.txtDatabase.TextChanged += new System.EventHandler(this.txtDatabase_TextChanged);
             // 
             // label3
             // 
@@ -395,7 +408,7 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ReadOnly = true;
             this.txtUserName.Size = new System.Drawing.Size(473, 20);
-            this.txtUserName.TabIndex = 6;
+            this.txtUserName.TabIndex = 7;
             // 
             // label5
             // 
@@ -403,7 +416,7 @@
             this.label5.Location = new System.Drawing.Point(6, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 5;
+            this.label5.TabIndex = 6;
             this.label5.Text = "Username";
             // 
             // txtPassword
@@ -415,7 +428,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.ReadOnly = true;
             this.txtPassword.Size = new System.Drawing.Size(473, 20);
-            this.txtPassword.TabIndex = 8;
+            this.txtPassword.TabIndex = 9;
             // 
             // label4
             // 
@@ -423,7 +436,7 @@
             this.label4.Location = new System.Drawing.Point(6, 113);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 8;
             this.label4.Text = "Password";
             // 
             // panel2
@@ -499,7 +512,7 @@
         '\'',
         '\''};
             this.txtStateQuery.AutoIndentCharsPatterns = "";
-            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.txtStateQuery.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.txtStateQuery.BackBrush = null;
             this.txtStateQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtStateQuery.CharHeight = 14;
@@ -996,7 +1009,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtUserName;
-        private System.Windows.Forms.TextBox txtDatabase;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkIntegratedSec;
         private System.Windows.Forms.Label label6;
@@ -1040,5 +1052,7 @@
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
         private System.Windows.Forms.ComboBox cboOutputValueUnit;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox cboDatabase;
+        private System.Windows.Forms.Button cmdLoadDBs;
     }
 }

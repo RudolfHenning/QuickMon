@@ -188,7 +188,7 @@
             this.cmdRegedit.Location = new System.Drawing.Point(11, 442);
             this.cmdRegedit.Name = "cmdRegedit";
             this.cmdRegedit.Size = new System.Drawing.Size(75, 23);
-            this.cmdRegedit.TabIndex = 13;
+            this.cmdRegedit.TabIndex = 14;
             this.cmdRegedit.Text = "Regedit";
             this.cmdRegedit.UseVisualStyleBackColor = true;
             this.cmdRegedit.Click += new System.EventHandler(this.cmdRegedit_Click);
@@ -201,7 +201,7 @@
             this.cmdTest.Location = new System.Drawing.Point(335, 442);
             this.cmdTest.Name = "cmdTest";
             this.cmdTest.Size = new System.Drawing.Size(75, 23);
-            this.cmdTest.TabIndex = 14;
+            this.cmdTest.TabIndex = 15;
             this.cmdTest.Text = "Test";
             this.cmdTest.UseVisualStyleBackColor = true;
             this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
@@ -214,7 +214,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(497, 442);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 16;
+            this.cmdCancel.TabIndex = 17;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -226,7 +226,7 @@
             this.cmdOK.Location = new System.Drawing.Point(416, 442);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 15;
+            this.cmdOK.TabIndex = 16;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -442,7 +442,7 @@
             this.groupBox3.Location = new System.Drawing.Point(12, 374);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(560, 57);
-            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Display output";
             // 
@@ -453,14 +453,7 @@
             this.cboOutputValueUnit.FormattingEnabled = true;
             this.cboOutputValueUnit.Items.AddRange(new object[] {
             "%",
-            "Bytes/sec",
-            "Connections",
-            "IO/sec",
-            "Operations/sec",
-            "Packets/sec",
-            "Queued/sec",
-            "Total/sec",
-            "Transfers/sec"});
+            "item(s)"});
             this.cboOutputValueUnit.Location = new System.Drawing.Point(92, 18);
             this.cboOutputValueUnit.Name = "cboOutputValueUnit";
             this.cboOutputValueUnit.Size = new System.Drawing.Size(452, 21);
