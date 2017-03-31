@@ -320,5 +320,50 @@ namespace HenIT.Data.SqlClient
             RaiseDBAccessDurationInfoMessage(sw.ElapsedMilliseconds);
         }
         #endregion
+
+        #region DBHelper function
+        public static List<string> GetSQLDatabases(string sqlServer, bool intSec, string userName = "", string password = "")
+        {
+            List<string> list = new List<string>();
+            string connectionString = "";
+
+            if (sqlServer.Length > 0)
+            {
+                SqlConnectionStringBuilder sqlbuilder = new SqlConnectionStringBuilder();
+                sqlbuilder.DataSource = sqlServer;
+                sqlbuilder.InitialCatalog = "master";
+                if (!intSec && userName.Length > 0)
+                {
+                    sqlbuilder.UserID = userName;
+                    sqlbuilder.Password = password;
+                    sqlbuilder.IntegratedSecurity = false;
+                }
+                else
+                    sqlbuilder.IntegratedSecurity = true;
+                connectionString = sqlbuilder.ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmnd = new SqlCommand("select name from sys.databases where not (owner_sid = 0x01) order by name ", conn))
+                    {
+                        DataSet databasesDS = new DataSet();
+                        cmnd.CommandType = CommandType.Text;
+                        cmnd.CommandTimeout = 30;
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmnd))
+                        {
+                            da.Fill(databasesDS);
+                        }
+                        foreach(DataRow r in databasesDS.Tables[0].Rows)
+                        {
+                            list.Add(r[0].ToString());
+                        }
+                    }
+                }
+
+            }           
+
+            return list;
+        }
+        #endregion
     }
 }

@@ -40,7 +40,7 @@ namespace QuickMon.UI
                 optOLEDb.Checked = selectedEntry.DataSourceType == DataSourceType.OLEDB;
                 optSqlServer.Checked = selectedEntry.DataSourceType == DataSourceType.SqlServer;
                 txtServer.Text = selectedEntry.Server;
-                txtDatabase.Text = selectedEntry.Database;
+                cboDatabase.Text = selectedEntry.Database;
                 chkIntegratedSec.Checked = selectedEntry.IntegratedSecurity;
                 txtUserName.Text = selectedEntry.UserName;
                 txtPassword.Text = selectedEntry.Password;
@@ -127,7 +127,7 @@ namespace QuickMon.UI
                 txtStateQuery.Text.Trim().Length > 0 &&
                 txtDetailQuery.Text.Trim().Length > 0 &&
                 (
-                    (optSqlServer.Checked && txtServer.Text.Trim().Length > 0 && txtDatabase.Text.Trim().Length > 0) ||
+                    (optSqlServer.Checked && txtServer.Text.Trim().Length > 0 && cboDatabase.Text.Trim().Length > 0) ||
                     (optOLEDb.Checked && txtConnectionString.Text.Trim().Length > 0)
                 ) &&
                 txtGoodValueOrMacro.Text.Trim().Length > 0 &&
@@ -194,6 +194,23 @@ namespace QuickMon.UI
         #endregion  
 
         #region Button events
+        private void cmdLoadDBs_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                cboDatabase.Items.Clear();
+                foreach (string dbName in HenIT.Data.SqlClient.GenericSQLServerDAL.GetSQLDatabases(txtServer.Text, chkIntegratedSec.Checked, txtUserName.Text, txtPassword.Text))
+                {
+                    cboDatabase.Items.Add(dbName);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Databases", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            Cursor.Current = Cursors.Default;
+        }
         private void cmdOK_Click(object sender, EventArgs e)
         {
             SqlQueryCollectorEntry selectedEntry;
@@ -204,7 +221,7 @@ namespace QuickMon.UI
             selectedEntry.Name = txtName.Text;
             selectedEntry.DataSourceType = optOLEDb.Checked ? DataSourceType.OLEDB : DataSourceType.SqlServer;
             selectedEntry.Server = txtServer.Text;
-            selectedEntry.Database = txtDatabase.Text;
+            selectedEntry.Database = cboDatabase.Text;
             selectedEntry.IntegratedSecurity = chkIntegratedSec.Checked;
             selectedEntry.UserName = txtUserName.Text;
             selectedEntry.Password = txtPassword.Text;
@@ -247,7 +264,7 @@ namespace QuickMon.UI
                 testEntry.Name = txtName.Text;
                 testEntry.DataSourceType = optOLEDb.Checked ? DataSourceType.OLEDB : DataSourceType.SqlServer;
                 testEntry.Server = txtServer.Text;
-                testEntry.Database = txtDatabase.Text;
+                testEntry.Database = cboDatabase.Text;
                 testEntry.IntegratedSecurity = chkIntegratedSec.Checked;
                 testEntry.UserName = txtUserName.Text;
                 testEntry.Password = txtPassword.Text;
@@ -307,6 +324,7 @@ namespace QuickMon.UI
                 txtConnectionString.Text = csb.ConnectionString;
             }
         }
+
         #endregion
 
 

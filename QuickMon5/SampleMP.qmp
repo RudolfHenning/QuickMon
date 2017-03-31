@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-30 15:34:45" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-31 15:31:08" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -196,6 +196,135 @@
       <categories />
       <notes />
     </collectorHost>
+    <collectorHost uniqueId="0341221f-95a2-43e1-8b86-385d1f54dece" dependOnParentId="" name="Desktop files" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="File System Collector" type="QuickMon.Collectors.FileSystemCollector" enabled="True">
+          <config>
+            <directoryList>
+              <directory directoryPathFilter="%userprofile%\Downloads\*.*" testDirectoryExistOnly="False" testFilesExistOnly="False" errorOnFilesExist="False" includeSubDirs="True" containsText="" useRegEx="False" warningFileCountMax="50" errorFileCountMax="100" fileSizeIndicatorUnit="Bytes" warningFileSizeMax="0" errorFileSizeMax="0" fileAgeUnit="Minute" fileMinAge="0" fileMaxAge="0" fileSizeUnit="KB" fileMinSize="0" fileMaxSize="0" showFilenamesInDetails="True" showFileCountInOutputValue="True" showFileSizeInOutputValue="False" primaryUIValue="False" />
+            </directoryList>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="564032b1-8158-4539-bc65-ecc7eef38cdc" dependOnParentId="" name="DB Size" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="SQL Database Size Collector" type="QuickMon.Collectors.SqlDatabaseSizeCollector" enabled="True">
+          <config>
+            <databases>
+              <database name="DeviceMaster" server="rhenning\sql2014" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="30" warningValueMB="1024" errorValueMB="4096" primaryUIValue="False" />
+            </databases>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
+    <collectorHost uniqueId="20f40a4e-febc-418b-9295-7ec195e0d962" dependOnParentId="" name="Table sizes" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+      <!-- Alerting -->
+      <alerting>
+        <suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
+        <texts>
+          <header />
+          <footer />
+          <error />
+          <warning />
+          <good />
+        </texts>
+      </alerting>
+      <!-- Collector Agents -->
+      <collectorAgents agentCheckSequence="All">
+        <collectorAgent name="Sql Table Size Collector" type="QuickMon.Collectors.SqlTableSizeCollector" enabled="True">
+          <config>
+            <databases>
+              <database name="DeviceMaster" server="rhenning\sql2014" integratedSec="True" userName="" password="" sqlCmndTimeOutSec="30" primaryUIValue="True">
+                <table name="Devices" warningValue="70000" errorValue="100000" />
+                <table name="DevicesAD" warningValue="50000" errorValue="100000" />
+              </database>
+            </databases>
+          </config>
+        </collectorAgent>
+      </collectorAgents>
+      <!-- Polling settings -->
+      <polling enabledPollingOverride="False" onlyAllowUpdateOncePerXSec="1" enablePollFrequencySliding="False" pollSlideFrequencyAfterFirstRepeatSec="2" pollSlideFrequencyAfterSecondRepeatSec="5" pollSlideFrequencyAfterThirdRepeatSec="30" />
+      <!-- Remote agent settings -->
+      <remoteAgent enableRemoteExecute="False" forceRemoteExcuteOnChildCollectors="False" remoteAgentHostAddress="" remoteAgentHostPort="48191" blockParentRemoteAgentHostSettings="False" runLocalOnRemoteHostConnectionFailure="False" />
+      <!-- Corrective Scripts -->
+      <correctiveScripts enabled="True" onlyOnStateChange="False">
+        <warning warningMinRepeatTimeMin="0" />
+        <error errorMinRepeatTimeMin="0" />
+        <restoration restoreMinRepeatTimeMin="0" />
+      </correctiveScripts>
+      <!-- Action scripts -->
+      <collectorActionScripts />
+      <!-- ServiceWindows -->
+      <serviceWindows />
+      <!-- Config variables -->
+      <configVars />
+      <!-- Categories -->
+      <categories />
+      <notes />
+    </collectorHost>
   </collectorHosts>
   <notifierHosts>
     <notifierHost name="Debugging" enabled="True" alertLevel="Warning" detailLevel="Detail" attendedOptionOverride="OnlyAttended">
@@ -215,6 +344,30 @@
         <notifierAgent name="Memory agent" type="QuickMon.Notifiers.InMemoryNotifier" enabled="True">
           <config>
             <inMemory maxEntryCount="99999" />
+          </config>
+        </notifierAgent>
+        <notifierAgent name="Log File Notifier" type="QuickMon.Notifiers.LogFileNotifier" enabled="True">
+          <config>
+            <logFile path="c:\Temp\QuickMon5Log.log" createNewFileSizeKB="0" />
+          </config>
+        </notifierAgent>
+        <notifierAgent name="Event Log Notifier" type="QuickMon.Notifiers.EventLogNotifier" enabled="True">
+          <config>
+            <eventLog computer="." eventLog="Application" eventSource="QuickMon" successEventID="0" warningEventID="1" errorEventID="2" />
+          </config>
+        </notifierAgent>
+        <notifierAgent name="SMTP Notifier" type="QuickMon.Notifiers.SMTPNotifier" enabled="False">
+          <config>
+            <smtp hostServer="smtp.shoprite.co.za" useDefaultCredentials="True" domain="" userName="" password="" fromAddress="rhenning@shoprite.co.za" toAddress="rhenning@shoprite.co.za" senderAddress="rhenning@shoprite.co.za" replyToAddress="rhenning@shoprite.co.za" mailPriority="0" useTLS="False" isBodyHtml="True" port="25" subject="%AlertLevel% - %CollectorName%" body="QuickMon alert raised for &lt;b&gt;'%CollectorName%'&lt;/b&gt;&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Agents:&lt;/b&gt; %CollectorAgents%&lt;br /&gt;&#xD;&#xA;&lt;b&gt;Details&lt;/b&gt;&lt;blockquote&gt;%Details%&lt;/blockquote&gt;" />
+          </config>
+        </notifierAgent>
+        <notifierAgent name="Audio Notifier" type="QuickMon.Notifiers.AudioNotifier" enabled="True">
+          <config>
+            <audioConfig>
+              <goodState enabled="False" useSystemSounds="True" soundPath="" systemSound="1" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+              <warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+              <errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
+            </audioConfig>
           </config>
         </notifierAgent>
       </notifierAgents>

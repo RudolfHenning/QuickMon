@@ -117,41 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="smlrightTriangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\smlrightTriangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTLLIBR_9825" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTLLIBR_98251.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTLLIBR_98251" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTLLIBR_98252.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="refresh24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\refresh24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BlankTemplateNotifierHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateNotifierHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="BlankTemplateMonitorPack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateMonitorPack.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BlankTemplateCollectorAgent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateCollectorAgent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="BlankTemplateCollectorHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateCollectorHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="TriangleRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TriangleRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAQAAEABADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
+        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHd3d3d3d3d3d3d3d3d3d3AAAAAAAA
+        AAAAAAAAAAAABw///////////////////wcP//////////////////8HD/d3d3f/d3d3f/d3d3f/Bw//
+        /////////////////wcP93d3d/93d3d/93d3d/8HD///////////////////Bw/3d3d3/3d3d3/3d3d3
+        /wcP//////////////////8HD/d3d3f/d3d3f/d3d3f/Bw///////////////////wcP93d3d/93d3d/
+        93d3d/8HD///////////////////Bw/3d3d3/3d3d3/3d3d3/wcP//////////////////8HD/d3d3f/
+        d3d3f/d3d3f/Bw///////////////////wcP93d3d/93d3d/93d3d/8HD///////////////////Bw//
+        /////////////////wcAAAAAAAAAAAAAAAAAAAAHDMzMzMzMzMzMzMzMzMzMBwz/zMzM/8zMzM/8zMzP
+        /AcM/8zMzP/MzMzP/MzMz/wHDMzMzMzMzMzMzMzMzMzMBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////////4AAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf///////////////w==
+</value>
   </data>
 </root>

@@ -117,41 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="smlrightTriangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\smlrightTriangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTLLIBR_9825" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTLLIBR_98251.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTLLIBR_98251" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTLLIBR_98252.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="refresh24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\refresh24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BlankTemplateNotifierHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateNotifierHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="BlankTemplateMonitorPack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateMonitorPack.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BlankTemplateCollectorAgent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateCollectorAgent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="BlankTemplateCollectorHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlankTemplateCollectorHost.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="TriangleRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TriangleRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="soundOpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>181, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAEAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAwMDAAICAgAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
+        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACHd3
+        d3d3d3d3dwAAAAAAAAj///////////cAAAAAAAAI///////////3AAAAAAAACP//d///////9wAAAAAA
+        AAj/93d///////cAAAAAAAAI/wZ3d//////3AAAAAAAACPDgh3f//4//9wAAAAAAAAgOB3h3/4j///cA
+        AAAAAABw5m/4d4j////3AAAAAAAHDvB/+Hj/////9wAAAAAAAO/gf/h3//////cAAAAAAGb+8A/4d///
+        ///3AAAAAAb47+CA+HiIiP//9wAAAAAG5v7wcPh3//////cAAAAABvbv4A/4d//////3AAAAAABm/vB/
+        +Hj/////9wAAAAAAAG/gf/h/iP////cAAAAAAAAG9mf4f/+I///3AAAAAAAACG4Hd////4//9wAAAAAA
+        AAj24I////////cAAAAAAAAI/2b////////3AAAAAAAACP////////gAAAAAAAAAAAj////////4/4AA
+        AAAAAAAI////////+PgAAAAAAAAACP////////iAAAAAAAAAAAj////////4AAAAAAAAAAAIiIiIiIiI
+        iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///////////4AAB/+AAAf/gAAH/4A
+        AB/+AAAf/gAAH/4AAB/+AAAf/gAAH/wAAB/4AAAf8AAAH+AAAB/gAAAf4AAAH+AAAB/wAAAf/AAAH/4A
+        AB/+AAAf/gAAH/4AAB/+AAAf/gAAP/4AAH/+AAD//gAB//4AA////////////w==
+</value>
   </data>
 </root>
