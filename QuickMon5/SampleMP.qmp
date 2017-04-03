@@ -1,4 +1,4 @@
-<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-03-31 15:31:08" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
+<monitorPack version="5.0.0.1" name="Sample test" lastChanged="2017-04-03 13:42:14" typeName="Example" enabled="True" usernameCacheMasterKey="" usernameCacheFilePath="">
   <configVars>
     <configVar find="%ComputerName%" replace="localhost" />
   </configVars>
@@ -368,6 +368,18 @@
               <warningState enabled="True" useSystemSounds="True" soundPath="" systemSound="2" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
               <errorState enabled="True" useSystemSounds="True" soundPath="" systemSound="3" repeatCount="1" soundVolumePerc="-1" audioFilePath="" />
             </audioConfig>
+          </config>
+        </notifierAgent>
+        <notifierAgent name="RSS Notifier" type="QuickMon.Notifiers.RSSNotifier" enabled="True">
+          <config>
+            <rss rssFilePath="C:\Temp\QuickMon.rss" title="QuickMon RSS alerts" link="" description="" keepEntriesDays="10" language="en-us" generator="QuickMon RSS notifier" lineTitle="%CollectorName% - %AlertLevel%" lineCategory="%CurrentState%, %CollectorName%" lineLink="" lineDescription="&lt;b&gt;Date Time:&lt;/b&gt; %DateTime%&lt;br/&gt;&#xD;&#xA;&lt;b&gt;Current state:&lt;/b&gt; %CurrentState%&lt;br/&gt;&#xD;&#xA;&lt;b&gt;Collector:&lt;/b&gt; %CollectorName%&lt;br/&gt;&#xD;&#xA;&lt;b&gt;Details&lt;/b&gt;&lt;br/&gt;&#xD;&#xA;%Details%" />
+          </config>
+        </notifierAgent>
+        <notifierAgent name="Sql Server Database Notifier" type="QuickMon.Notifiers.SqlDatabaseNotifier" enabled="True">
+          <config>
+            <connection sqlServer="rhenning\sql2014" database="QuickMon5" integratedSec="True" userName="" password="">
+              <command cmndTimeOut="60" useSP="True" value="InsertMessage" alertFieldName="AlertLevel" collectorFieldName="Collector" previousStateFieldName="PreviousState" currentStateFieldName="CurrentState" detailsFieldName="Details" useSPForViewer="True" viewer="QueryMessages" dateTimeFieldName="InsertDate" />
+            </connection>
           </config>
         </notifierAgent>
       </notifierAgents>

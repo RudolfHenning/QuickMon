@@ -16,55 +16,10 @@ namespace QuickMon.UI
         public override INotivierViewer Viewer { get { return new LogFileNotifierUIViewer(); } }
     }
 
-    public class LogFileNotifierUIViewer : INotivierViewer, IChildWindowIdentity
+    public class LogFileNotifierUIViewer : NotifierNoViewerBase
     {
-        public INotifier SelectedNotifier { get; set; }
-
-        public void ShowNotifierViewer()
-        {
-            if (SelectedNotifier != null)
-            {
-                LogFileNotifier thisNotifier = (LogFileNotifier)SelectedNotifier;
-                LogFileNotifierConfig currentConfig = (LogFileNotifierConfig)thisNotifier.AgentConfig;
-                if (File.Exists(currentConfig.OutputPath))
-                {
-                    try
-                    {
-                        System.Diagnostics.Process p = new System.Diagnostics.Process();
-                        p.StartInfo = new System.Diagnostics.ProcessStartInfo() { FileName = currentConfig.OutputPath };
-                        p.Start();
-                    }
-                    catch { }
-                }
-                else
-                    System.Windows.Forms.MessageBox.Show("Log file not found or it might be empty!", "Log file", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
-            }
-        }
-
-        public bool IsViewerStillVisible()
-        {
-            return false;//always new window
-        }
-        public void CloseViewer()
-        {
-         
-        }
-
-
         #region IChildWindowIdentity
-        public bool AutoRefreshEnabled { get; set; }
-        public string Identifier { get; set; }
-        public IParentWindow ParentWindow { get; set; }
-        public void RefreshDetails()
-        {
-            //does nothing
-        }
-        public void CloseChildWindow()
-        {
-            if (ParentWindow != null)
-                ParentWindow.RemoveChildWindow(this);
-        }
-        public void ShowChildWindow()
+        public  override void ShowChildWindow(IParentWindow parentWindow = null)
         {
             //if (ParentWindow != null)
             //    ParentWindow.RegisterChildWindow(this);

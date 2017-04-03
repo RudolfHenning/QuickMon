@@ -16,8 +16,8 @@ namespace QuickMon
         /// <summary>
         /// Child window must remove itself from Main form reference list
         /// </summary>
-        void CloseChildWindow();
-        void ShowChildWindow();
+        void DeRegisterChildWindow();
+        void ShowChildWindow(IParentWindow parentWindow = null);
     }
 
     public interface IParentWindow

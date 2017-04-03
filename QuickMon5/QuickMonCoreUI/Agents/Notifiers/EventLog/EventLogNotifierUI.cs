@@ -16,55 +16,10 @@ namespace QuickMon.UI
         public override INotivierViewer Viewer { get { return new EventLogNotifierUIViewer(); } }
     }
 
-    public class EventLogNotifierUIViewer : INotivierViewer, IChildWindowIdentity
+    public class EventLogNotifierUIViewer : NotifierNoViewerBase //INotivierViewer, IChildWindowIdentity
     {
-
-        public INotifier SelectedNotifier { get; set; }
-
-        public void ShowNotifierViewer()
-        {
-            if (SelectedNotifier != null)
-            {
-                EventLogNotifier thisNotifier = (EventLogNotifier)SelectedNotifier;
-                EventLogNotifierConfig currentConfig = (EventLogNotifierConfig)thisNotifier.AgentConfig;
-                string command = "eventvwr.exe";
-                try
-                {
-                    System.Diagnostics.Process p = new System.Diagnostics.Process();
-                    p.StartInfo = new System.Diagnostics.ProcessStartInfo() { FileName = command };
-                    if (currentConfig.MachineName.Length > 1)
-                    {
-                        p.StartInfo.Arguments = "\\\\" + currentConfig.MachineName;
-                    }
-                    p.Start();
-                }
-                catch { }
-            }
-        }
-
-        public bool IsViewerStillVisible()
-        {
-            return false;//always new window
-        }
-        public void CloseViewer()
-        {
-         
-        }
-
         #region IChildWindowIdentity
-        public bool AutoRefreshEnabled { get; set; }
-        public string Identifier { get; set; }
-        public IParentWindow ParentWindow { get; set; }
-        public void RefreshDetails()
-        {
-            //does nothing
-        }
-        public void CloseChildWindow()
-        {
-            if (ParentWindow != null)
-                ParentWindow.RemoveChildWindow(this);
-        }
-        public void ShowChildWindow()
+        public override void ShowChildWindow(IParentWindow parentWindow = null)
         {
             //if (ParentWindow != null)
             //    ParentWindow.RegisterChildWindow(this);

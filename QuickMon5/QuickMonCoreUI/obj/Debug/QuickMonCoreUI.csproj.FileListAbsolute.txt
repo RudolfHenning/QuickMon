@@ -41,3 +41,8 @@ D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug
 D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\QuickMonCoreUI.csproj.GenerateResource.Cache
 D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\QuickMonCoreUI.dll
 D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\QuickMonCoreUI.pdb
+D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\QuickMon.UI.RSSNotifierEdit.resources
+D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\QuickMon.UI.SqlDatabaseNotifierEdit.resources
+D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\QuickMon.UI.SqlDatabaseNotifierShowViewer.resources
+D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\HenIT.Controls.DateTimeChooser.resources
+D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMonCoreUI\obj\Debug\HenIT.Controls.ChooseTimeDialog.resources

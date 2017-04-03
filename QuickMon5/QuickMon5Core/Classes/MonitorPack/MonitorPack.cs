@@ -589,13 +589,13 @@ namespace QuickMon
                                                         select n))
                 {
                     try
-                    {
-                        bool allowedToRun = true;
+                    {                        
                         List<string> alertsRecorded = new List<string>();
 
                         notifierEntry.ApplyConfigVarsNow();
                         foreach (INotifier notifierAgent in notifierEntry.NotifierAgents)
                         {
+                            bool allowedToRun = true;
                             if (RunningAttended == AttendedOption.AttendedAndUnAttended) //no Attended option set on MonitorPack
                             {
                                 allowedToRun = true;

@@ -107,6 +107,29 @@ namespace QuickMon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USE [QuickMon5]
+        ///GO
+        ///CREATE TABLE [dbo].[States](
+        ///	[StateId] [tinyint] NOT NULL,
+        ///	[Description] [nvarchar](50) NOT NULL,
+        /// CONSTRAINT [PK_States] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[StateId] ASC
+        ///)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+        ///) ON [PRIMARY]
+        ///GO
+        ///CREATE TABLE [dbo].[AlertLevels](
+        ///	[AlertLevel] [tinyint] NOT NULL,
+        ///	[Description] [nvarchar](50) NOT NULL,
+        /// CONSTRAINT [PK_AlertLevels] PRIMARY KEY CLUSTERED  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ExampleSqlDatabaseCreateScript {
+            get {
+                return ResourceManager.GetString("ExampleSqlDatabaseCreateScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap OUTLLIBR_9825 {
@@ -153,6 +176,31 @@ namespace QuickMon.Properties {
             get {
                 object obj = ResourceManager.GetObject("smlrightTriangle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT top(@top) 
+        ///	[InsertDate],
+        ///	[AlertLevel],
+        ///	[Category],
+        ///	[PreviousState],
+        ///	[CurrentState],
+        ///	[Details]
+        ///FROM
+        ///	[AlertMessages]
+        ///WHERE 
+        ///	[InsertDate] between @FromDate and @ToDate and
+        ///	(@AlertLevel is null or [AlertLevel] &gt;= @AlertLevel) and
+        ///	(@Category is null or [Category] like @Category) and
+        ///	(@CurrentState is null or [CurrentState] = @CurrentState) and
+        ///	(@Details is null or [Details] like @Details)
+        ///ORDER BY
+        ///	[InsertDate] desc.
+        /// </summary>
+        internal static string SqlDatabaseQueryTemplate {
+            get {
+                return ResourceManager.GetString("SqlDatabaseQueryTemplate", resourceCulture);
             }
         }
         

@@ -202,10 +202,10 @@ namespace QuickMon.Notifiers
         public string GetDefaultOrEmptyXml()
         {
             return "<config>\r\n" +
-                "  <connection sqlServer=\"\" database=\"QuickMon4\" integratedSec=\"True\" userName=\"\" password=\"\" >\r\n" +
+                "  <connection sqlServer=\"\" database=\"QuickMon\" integratedSec=\"True\" userName=\"\" password=\"\" >\r\n" +
                 "    <command cmndTimeOut=\"60\" useSP=\"True\" value=\"InsertMessage\" \r\n" +
                 "             alertFieldName=\"AlertLevel\" \r\n" +
-                "             collectorFieldName=\"Category\"\r\n" +
+                "             collectorFieldName=\"Collector\"\r\n" +
                 "             previousStateFieldName=\"PreviousState\"\r\n" +
                 "             currentStateFieldName=\"CurrentState\"\r\n" +
                 "             detailsFieldName=\"Details\"\r\n" +

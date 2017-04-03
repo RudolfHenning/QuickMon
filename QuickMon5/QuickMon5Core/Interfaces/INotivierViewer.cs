@@ -8,8 +8,8 @@ namespace QuickMon
     public interface INotivierViewer
     {
         INotifier SelectedNotifier { get; set; }
-        void ShowNotifierViewer();
-        bool IsViewerStillVisible();
-        void CloseViewer();
+        //void ShowNotifierViewer();
+        //bool IsViewerStillVisible();
+        //void CloseViewer();
     }
 }

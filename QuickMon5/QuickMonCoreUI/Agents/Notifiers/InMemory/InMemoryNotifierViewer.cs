@@ -12,65 +12,17 @@ using HenIT.RTF;
 
 namespace QuickMon.UI
 {
-    public partial class InMemoryNotifierViewer : FadeSnapForm, INotivierViewer, IChildWindowIdentity
+    public partial class InMemoryNotifierViewer : NotifierViewerBase // FadeSnapForm, INotivierViewer, IChildWindowIdentity
     {
         public InMemoryNotifierViewer()
         {
             InitializeComponent();
         }
         
-        public INotifier SelectedNotifier { get; set; }
-
         private AlertRaised lastAlert = null;
         private bool busyRefreshing = false;
 
-        #region IChildWindowIdentity
-        public bool AutoRefreshEnabled { get; set; }
-        public string Identifier { get; set; }
-        public IParentWindow ParentWindow { get; set; }
-        public void RefreshDetails()
-        {
-            if (SelectedNotifier != null)
-            {                
-                RefreshDisplayData();
-            }
-        }
-        public void CloseChildWindow()
-        {
-            if (ParentWindow != null)
-                ParentWindow.RemoveChildWindow(this);
-        }
-        public void ShowChildWindow()
-        {
-            if (ParentWindow != null)
-                ParentWindow.RegisterChildWindow(this);
-            Show();
-            RefreshDisplayData();
-            chkAutoRefresh.Checked = AutoRefreshEnabled;
-        }
-        #endregion
-
-
-        public bool IsViewerStillVisible()
-        {
-            return this.IsStillVisible();
-        }
-
-        public void ShowNotifierViewer()
-        {
-            if (SelectedNotifier != null)
-            {
-                Text = "In Memory Notifier Viewer - " + SelectedNotifier.Name;
-            }
-            if (this.WindowState == FormWindowState.Minimized)
-                this.WindowState = FormWindowState.Normal;
-            this.Show();
-            this.TopMost = true;
-            this.TopMost = false;
-            RefreshDisplayData();
-        }
-
-        private void RefreshDisplayData()
+        public override void RefreshDisplayData()
         {
             if (SelectedNotifier != null)
             {
@@ -147,14 +99,10 @@ namespace QuickMon.UI
             RefreshDisplayData();
         }
         
-        public void CloseViewer()
-        {
-            Close();
-        }
-
         private void InMemoryNotifierViewer_Load(object sender, EventArgs e)
         {
-            SnappingEnabled = true;
+            //SnappingEnabled = true;
+            chkAutoRefresh.Checked = AutoRefreshEnabled;
         }
 
         private void InMemoryNotifierViewer_KeyDown(object sender, KeyEventArgs e)
@@ -175,7 +123,7 @@ namespace QuickMon.UI
 
         private void InMemoryNotifierViewer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CloseChildWindow();
+            //DeRegisterChildWindow();
         }
 
         private void chkAutoRefresh_CheckedChanged(object sender, EventArgs e)

@@ -25,13 +25,15 @@ namespace QuickMon.UI
         {
             LoadTemplates();
         }
-        public void CloseChildWindow()
+        public void DeRegisterChildWindow()
         {
             if (ParentWindow != null)
                 ParentWindow.RemoveChildWindow(this);
         }
-        public void ShowChildWindow()
+        public void ShowChildWindow(IParentWindow parentWindow = null)
         {
+            if (parentWindow != null)
+                ParentWindow = parentWindow;
             if (ParentWindow != null)
                 ParentWindow.RegisterChildWindow(this);
             Show();
@@ -54,7 +56,7 @@ namespace QuickMon.UI
         }
         private void TemplateEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CloseChildWindow();
+            DeRegisterChildWindow();
         }
         #endregion
 

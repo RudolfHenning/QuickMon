@@ -185,6 +185,13 @@
       <DependentUpon>LogFileNotifierEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Notifiers\LogFile\LogFileNotifierUI.cs" />
+    <Compile Include="Agents\Notifiers\RSS\RSSNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\RSS\RSSNotifierEdit.designer.cs">
+      <DependentUpon>RSSNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\RSS\RSSNotifierUI.cs" />
     <Compile Include="Agents\Notifiers\SMTP\SMTPNotifierEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,7 +199,24 @@
       <DependentUpon>SMTPNotifierEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Agents\Notifiers\SMTP\SMTPNotifierUI.cs" />
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseAlertMessage.cs" />
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierEdit.designer.cs">
+      <DependentUpon>SqlDatabaseNotifierEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierShowViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierShowViewer.designer.cs">
+      <DependentUpon>SqlDatabaseNotifierShowViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierUI.cs" />
     <Compile Include="BaseClasses\CollectorConfigEntryEditWindowBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseClasses\NotifierViewerBase.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\API\APIsClipboard.cs" />
@@ -213,6 +237,21 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ComboItem.cs" />
+    <Compile Include="Controls\DateTimeChooser\ChooseTimeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser\ChooseTimeDialog.designer.cs">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser\ClockControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser\DateTimeChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DateTimeChooser\DateTimeChooser.designer.cs">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FadeSnapForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,8 +410,23 @@
     <EmbeddedResource Include="Agents\Notifiers\LogFile\LogFileNotifierEdit.resx">
       <DependentUpon>LogFileNotifierEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\RSS\RSSNotifierEdit.resx">
+      <DependentUpon>RSSNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Agents\Notifiers\SMTP\SMTPNotifierEdit.resx">
       <DependentUpon>SMTPNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierEdit.resx">
+      <DependentUpon>SqlDatabaseNotifierEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agents\Notifiers\SqlDatabase\SqlDatabaseNotifierShowViewer.resx">
+      <DependentUpon>SqlDatabaseNotifierShowViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DateTimeChooser\ChooseTimeDialog.resx">
+      <DependentUpon>ChooseTimeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DateTimeChooser\DateTimeChooser.resx">
+      <DependentUpon>DateTimeChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SplitButton\SplitButton.resx">
       <DependentUpon>SplitButton.cs</DependentUpon>
@@ -452,6 +506,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TriangleRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExampleSqlDatabaseCreateScript.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SqlDatabaseQueryTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

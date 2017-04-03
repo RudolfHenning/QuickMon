@@ -313,8 +313,8 @@ namespace QuickMon
             {
                 TemplateEditor templateEditor = new TemplateEditor();
                 templateEditor.Identifier = "TemplateEditor";
-                templateEditor.ParentWindow = this;
-                templateEditor.ShowChildWindow();
+                //templateEditor.ParentWindow = this;
+                templateEditor.ShowChildWindow(this);
                 templateEditor.RefreshDetails();
             }
             else
@@ -342,8 +342,8 @@ namespace QuickMon
             if (childWindow == null) {
                 RemoteAgentHostManagement newRemoteAgentHostManagement = new RemoteAgentHostManagement();
                 newRemoteAgentHostManagement.Identifier = "RemoteAgentHostManagement";
-                newRemoteAgentHostManagement.ParentWindow = this;
-                newRemoteAgentHostManagement.ShowChildWindow();
+                //newRemoteAgentHostManagement.ParentWindow = this;
+                newRemoteAgentHostManagement.ShowChildWindow(this);
                 newRemoteAgentHostManagement.RefreshDetails();
             }
             else
@@ -835,8 +835,8 @@ namespace QuickMon
                         CollectorDetails collectorDetails = new CollectorDetails();
                         collectorDetails.SelectedCollectorHost = ch;
                         collectorDetails.Identifier = ch.UniqueId;
-                        collectorDetails.ParentWindow = this;
-                        collectorDetails.ShowChildWindow();
+                        //collectorDetails.ParentWindow = this;
+                        collectorDetails.ShowChildWindow(this);
                         if (editmode)
                             collectorDetails.StartEditMode();
                     }
@@ -893,8 +893,8 @@ namespace QuickMon
                         childWindow = (IChildWindowIdentity)agentUI.Viewer;
                         ((INotivierViewer)childWindow).SelectedNotifier = agent;
                         childWindow.Identifier = agent.RunTimeUniqueId;
-                        childWindow.ParentWindow = this;
-                        childWindow.ShowChildWindow();
+                        //childWindow.ParentWindow = this;
+                        childWindow.ShowChildWindow(this);
                     }
                 }
                 else

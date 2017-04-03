@@ -82,16 +82,19 @@ namespace QuickMon
                 LoadControls();
             }
         }
-        public void CloseChildWindow()
+        public void DeRegisterChildWindow()
         {
             if (ParentWindow != null)
                 ParentWindow.RemoveChildWindow(this);
         }
-        public void ShowChildWindow()
+        public void ShowChildWindow(IParentWindow parentWindow = null)
         {
+            if (parentWindow != null)
+                ParentWindow = parentWindow;
             tlvAgentStates.BorderStyle = BorderStyle.None;
             if (ParentWindow != null)
                 ParentWindow.RegisterChildWindow(this);
+            Size = new Size(700, 500);
             Show();
         }
         #endregion
@@ -127,7 +130,7 @@ namespace QuickMon
         }
         private void CollectorDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CloseChildWindow();
+            DeRegisterChildWindow();
         }
         private void CollectorDetails_Shown(object sender, EventArgs e)
         {
