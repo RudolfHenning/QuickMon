@@ -33,7 +33,7 @@ namespace QuickMon
             lblCoreVersion.Text = string.Format("Core {0}", CoreAssemblyVersion);
             lblCompany.Text = string.Format("Created by {0}", AssemblyCompany);
             lblCreateDate.Text = string.Format("Created on {0}", AssemblyDate);
-            latestVersionCheckBackgroundWorker.RunWorkerAsync();
+            //latestVersionCheckBackgroundWorker.RunWorkerAsync();
         }
 
         public string AssemblyVersion
@@ -96,8 +96,9 @@ namespace QuickMon
         {
             try
             {
+                string url = "https://github.com/RudolfHenning/QuickMon/releases";
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo = new System.Diagnostics.ProcessStartInfo(quickMonOnlineUrl);
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(url);
                 p.Start();
             }
             catch (Exception ex)

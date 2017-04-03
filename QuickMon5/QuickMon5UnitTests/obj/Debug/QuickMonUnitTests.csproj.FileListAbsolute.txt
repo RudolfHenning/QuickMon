@@ -8,3 +8,13 @@ D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\D
 D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.csproj.GenerateResource.Cache
 D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.dll
 D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.pdb
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\bin\Debug\QuickMonUnitTests.dll
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\bin\Debug\QuickMonUnitTests.pdb
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\bin\Debug\QuickMonCore.dll
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\bin\Debug\System.Management.Automation.dll
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\bin\Debug\QuickMonCore.pdb
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.csprojResolveAssemblyReference.cache
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMon.Properties.Resources.resources
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.csproj.GenerateResource.Cache
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.dll
+D:\MyData\GitHub\QuickMon\QuickMon\QuickMon5\QuickMon5UnitTests\obj\Debug\QuickMonUnitTests.pdb
