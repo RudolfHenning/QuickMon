@@ -38,6 +38,7 @@
             this.lblThree = new System.Windows.Forms.Label();
             this.lblCoreVersion = new System.Windows.Forms.Label();
             this.latestVersionCheckBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.llblGitHub = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +100,7 @@
             this.lblVersionInfo.ForeColor = System.Drawing.Color.White;
             this.lblVersionInfo.Location = new System.Drawing.Point(25, 151);
             this.lblVersionInfo.Name = "lblVersionInfo";
-            this.lblVersionInfo.Size = new System.Drawing.Size(63, 21);
+            this.lblVersionInfo.Size = new System.Drawing.Size(62, 21);
             this.lblVersionInfo.TabIndex = 1;
             this.lblVersionInfo.Text = "Version";
             // 
@@ -116,6 +117,7 @@
             this.linkLabel1.TabIndex = 4;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Get latest version here (CodePlex)";
+            this.linkLabel1.Visible = false;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // lblThree
@@ -147,6 +149,21 @@
             // 
             this.latestVersionCheckBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.latestVersionCheckBackgroundWorker_DoWork);
             // 
+            // llblGitHub
+            // 
+            this.llblGitHub.AutoSize = true;
+            this.llblGitHub.BackColor = System.Drawing.Color.Transparent;
+            this.llblGitHub.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llblGitHub.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llblGitHub.LinkColor = System.Drawing.Color.Lavender;
+            this.llblGitHub.Location = new System.Drawing.Point(26, 271);
+            this.llblGitHub.Name = "llblGitHub";
+            this.llblGitHub.Size = new System.Drawing.Size(216, 18);
+            this.llblGitHub.TabIndex = 7;
+            this.llblGitHub.TabStop = true;
+            this.llblGitHub.Text = "Get latest version here (GitHub)";
+            this.llblGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblGitHub_LinkClicked);
+            // 
             // AboutQuickMon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,6 +172,7 @@
             this.BackgroundImage = global::QuickMon.Properties.Resources.AboutBkgrnd;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(398, 300);
+            this.Controls.Add(this.llblGitHub);
             this.Controls.Add(this.lblCoreVersion);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
@@ -191,5 +209,6 @@
         private System.Windows.Forms.Label lblThree;
         private System.Windows.Forms.Label lblCoreVersion;
         private System.ComponentModel.BackgroundWorker latestVersionCheckBackgroundWorker;
+        private System.Windows.Forms.LinkLabel llblGitHub;
     }
 }

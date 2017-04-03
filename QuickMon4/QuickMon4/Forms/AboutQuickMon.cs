@@ -33,7 +33,7 @@ namespace QuickMon
             lblCoreVersion.Text = string.Format("Core {0}", CoreAssemblyVersion);
             lblCompany.Text = string.Format("Created by {0}", AssemblyCompany);
             lblCreateDate.Text = string.Format("Created on {0}", AssemblyDate);
-            latestVersionCheckBackgroundWorker.RunWorkerAsync();
+            //latestVersionCheckBackgroundWorker.RunWorkerAsync();
         }
 
         public string AssemblyVersion
@@ -169,6 +169,21 @@ namespace QuickMon
             {
                 linkLabel1.Text = "Get latest version here (CodePlex)";
                 quickMonOnlineUrl = "https://quickmon.codeplex.com/";
+            }
+        }
+
+        private void llblGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string gitHubURL = "https://github.com/RudolfHenning/QuickMon/releases";
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(gitHubURL);
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
