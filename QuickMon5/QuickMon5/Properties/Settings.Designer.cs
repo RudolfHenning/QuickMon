@@ -262,7 +262,7 @@ namespace QuickMon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
         public int MainWindowTreeViewExtraColumnSize {
             get {
                 return ((int)(this["MainWindowTreeViewExtraColumnSize"]));
