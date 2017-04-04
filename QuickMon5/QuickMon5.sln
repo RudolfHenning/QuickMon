@@ -7,9 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickMonCore", "QuickMon5Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9221E5FF-9CA4-45EC-99BE-8A99FA598B02}"
 	ProjectSection(SolutionItems) = preProject
-		SampleMP.qmp = SampleMP.qmp
-		SampleMP2.qmp = SampleMP2.qmp
-		SampleRemoteTest.qmp = SampleRemoteTest.qmp
 		QuickMon5Core\VersionInfo.cs = QuickMon5Core\VersionInfo.cs
 	EndProjectSection
 EndProject
@@ -63,32 +60,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = QuickMonService\\QuickMonService.csproj
-		SccProjectName1 = QuickMonService
-		SccLocalPath1 = QuickMonService
-		SccProjectUniqueName2 = QuickMon5Core\\QuickMonCore.csproj
-		SccProjectName2 = QuickMon5Core
-		SccLocalPath2 = QuickMon5Core
-		SccProjectUniqueName3 = QuickMonRemoteHostCMD\\QuickMonRemoteHostCMD.csproj
-		SccProjectName3 = QuickMonRemoteHostCMD
-		SccLocalPath3 = QuickMonRemoteHostCMD
-		SccProjectUniqueName4 = QuickMon5UnitTests\\QuickMonUnitTests.csproj
-		SccProjectName4 = QuickMon5UnitTests
-		SccLocalPath4 = QuickMon5UnitTests
-		SccProjectUniqueName5 = QuickMon5\\QuickMon5.csproj
-		SccProjectName5 = QuickMon5
-		SccLocalPath5 = QuickMon5
-		SccProjectUniqueName6 = FastColoredTextBox\\FastColoredTextBox.csproj
-		SccProjectName6 = FastColoredTextBox
-		SccLocalPath6 = FastColoredTextBox
-		SccProjectUniqueName7 = QuickMonCoreUI\\QuickMonCoreUI.csproj
-		SccProjectName7 = QuickMonCoreUI
-		SccLocalPath7 = QuickMonCoreUI
 	EndGlobalSection
 EndGlobal
