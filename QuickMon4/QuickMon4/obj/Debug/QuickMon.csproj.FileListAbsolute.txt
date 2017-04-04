@@ -1,4 +1,0 @@
-D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon4\QuickMon4\bin\Debug\QuickMon.exe.config
-D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon4\QuickMon4\obj\Debug\Interop.Shell32.dll
-D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon4\QuickMon4\obj\Debug\Interop.TaskScheduler.dll
-D:\Rudolf\SourceCode\GitHub\QuickMon\QuickMon\QuickMon4\QuickMon4\obj\Debug\QuickMon.csproj.ResolveComReference.cache
