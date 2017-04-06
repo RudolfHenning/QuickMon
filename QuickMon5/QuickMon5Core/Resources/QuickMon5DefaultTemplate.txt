@@ -323,11 +323,11 @@ $KBps = ($totalBytes / 1024)
 $KBpsFormat = $KBps.ToString("0")
 "$KBpsFormat KB/sec"
 " "
-if ($KBps -lt 1024) {
+if ($KBps -lt 400) {
     "Good"
 }
 else { 
-    if ($totalBytes -lt 5120) {
+    if ($KBps -lt 800) {
     "Warning"
     }
     else {
