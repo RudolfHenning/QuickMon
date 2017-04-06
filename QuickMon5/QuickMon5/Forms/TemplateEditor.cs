@@ -301,6 +301,32 @@ namespace QuickMon.UI
                 cboType.Focus();
                 return;
             }
+            if (txtConfig.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must specify the config for the template!", "Config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtConfig.Focus();
+                return;
+            }
+            if (((TemplateType)cboType.SelectedIndex) == TemplateType.CollectorHost)
+            {
+                try
+                {
+                    System.Xml.XmlDocument xdoc = new System.Xml.XmlDocument();
+                    xdoc.LoadXml(txtConfig.Text);
+                    System.Xml.XmlElement root = xdoc.DocumentElement;
+                    if (root.ReadXmlElementAttr("uniqueId", "") == "" || root.ReadXmlElementAttr("dependOnParentId", "") == "")
+                    {
+                        root.SetAttributeValue("uniqueId", "");
+                        root.SetAttributeValue("dependOnParentId", "");
+                        txtConfig.Text = XmlFormattingUtils.NormalizeXML(xdoc.OuterXml);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Invalid config!\r\n" + ex.Message, "Config", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
 
             if (lvwTemplates.SelectedItems.Count == 1 && lvwTemplates.SelectedItems[0].Tag is QuickMonTemplate)
             {

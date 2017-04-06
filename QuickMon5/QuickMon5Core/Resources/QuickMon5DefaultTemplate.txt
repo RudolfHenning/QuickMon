@@ -45,7 +45,7 @@
 		</collectorHost>
 	</template>
 	<template name="PowerShell script" type="CollectorHost" class="CollectorHost" description="Run a PowerShell script">
-		<collectorHost uniqueId="3cea67b3-d94e-4675-a1ba-bfa162ba0c2b" dependOnParentId="" name="PowerShell Example" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+		<collectorHost uniqueId="" dependOnParentId="" name="PowerShell Example" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
 			<!-- Alerting -->
 			<alerting>
 				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -96,7 +96,7 @@
 		</collectorHost>
 	</template>
 	<template name="System health Info" type="CollectorHost" class="CollectorHost" description="New Collector Host with agents for system health">
-		<collectorHost uniqueId="22cecc59-4bc6-4ca0-a538-15c808625e9f" dependOnParentId="" name="System heath" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
+		<collectorHost uniqueId="" dependOnParentId="" name="System heath" enabled="True" expandOnStart="Auto" childCheckBehaviour="OnlyRunOnSuccess" runAsEnabled="False" runAs="">
 			<!-- Alerting -->
 			<alerting>
 				<suppression repeatAlertInXMin="0" alertOnceInXMin="0" delayErrWarnAlertForXSec="0" repeatAlertInXPolls="0" alertOnceInXPolls="0" delayErrWarnAlertForXPolls="0" alertsPaused="False" />
@@ -308,4 +308,40 @@ else {
 						</config>
 					</collectorAgent>
 				</template>
-			</quickMonTemplate>
+				<template name="Total Network usage KB/s" type="CollectorAgent" class="QuickMon.Collectors.PowerShellScriptRunnerCollector" description="Total Network usage KB/s">
+					<collectorAgent name="PowerShell Script Runner" type="QuickMon.Collectors.PowerShellScriptRunnerCollector" enabled="True">
+						<config>
+							<carvcesEntries>
+								<carvceEntry name="Calc Network usage" primaryUIValue="False">
+									<dataSource>$totalBytes = 0
+Get-Counter -Counter "\Network Interface(*)\Bytes Total/sec" | % {
+    $_.CounterSamples | select CookedValue | % {        
+        $totalBytes = $totalBytes + $_.CookedValue
+    }
+}
+$KBps = ($totalBytes / 1024)
+$KBpsFormat = $KBps.ToString("0")
+"$KBpsFormat KB/sec"
+" "
+if ($KBps -lt 1024) {
+    "Good"
+}
+else { 
+    if ($totalBytes -lt 5120) {
+    "Warning"
+    }
+    else {
+    "Error"
+    }
+}</dataSource>
+										<testConditions testSequence="GWE">
+											<success testType="Contains">Good</success>
+											<warning testType="Contains">Warning</warning>
+											<error testType="Contains">Error</error>
+										</testConditions>
+									</carvceEntry>
+								</carvcesEntries>
+							</config>
+						</collectorAgent>
+					</template>
+				</quickMonTemplate>

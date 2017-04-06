@@ -220,26 +220,31 @@ namespace QuickMon
                 if (SelectedCollectorHost.CurrentState.State == CollectorState.Good)
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.ok24x24;
+                    panelTop.BackColor = Color.White;
                     txtName.BackColor = Color.White;
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Warning)
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.triang_yellow24x24;
+                    panelTop.BackColor = Color.LightYellow;
                     txtName.BackColor = Color.LightYellow;
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.Error || SelectedCollectorHost.CurrentState.State == CollectorState.ConfigurationError)
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.Error24x24;
+                    panelTop.BackColor = Color.FromArgb(255, 240, 240);
                     txtName.BackColor = Color.FromArgb(255, 240, 240);
                 }
                 else if (SelectedCollectorHost.CurrentState.State == CollectorState.NotInServiceWindow)
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.clock1;
+                    panelTop.BackColor = Color.White;
                     txtName.BackColor = Color.White;
                 }
                 else
                 {
                     lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy24x24;
+                    panelTop.BackColor = Color.White;
                     txtName.BackColor = Color.White;
                 }
             }

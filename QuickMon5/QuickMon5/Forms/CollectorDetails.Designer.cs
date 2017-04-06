@@ -231,6 +231,7 @@
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panelTop = new System.Windows.Forms.Panel();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -288,6 +289,7 @@
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panelTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -297,12 +299,12 @@
             this.txtName.BackColor = System.Drawing.Color.White;
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(97, 9);
+            this.txtName.Location = new System.Drawing.Point(100, 9);
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(1058, 21);
+            this.txtName.Size = new System.Drawing.Size(1067, 21);
             this.txtName.TabIndex = 5;
             this.txtName.WordWrap = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
@@ -311,7 +313,7 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(39, 8);
+            this.lblName.Location = new System.Drawing.Point(42, 7);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(52, 18);
             this.lblName.TabIndex = 4;
@@ -2497,28 +2499,41 @@
             // 
             // lblCollectorState
             // 
+            this.lblCollectorState.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblCollectorState.Image = global::QuickMon.Properties.Resources.helpbwy24x24;
             this.lblCollectorState.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCollectorState.Location = new System.Drawing.Point(0, 2);
+            this.lblCollectorState.Location = new System.Drawing.Point(0, 0);
             this.lblCollectorState.Name = "lblCollectorState";
-            this.lblCollectorState.Size = new System.Drawing.Size(34, 31);
+            this.lblCollectorState.Size = new System.Drawing.Size(34, 33);
             this.lblCollectorState.TabIndex = 6;
             this.lblCollectorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cmdRefresh
             // 
-            this.cmdRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdRefresh.BackColor = System.Drawing.Color.Transparent;
             this.cmdRefresh.BackgroundImage = global::QuickMon.Properties.Resources.refresh24x24;
             this.cmdRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRefresh.Dock = System.Windows.Forms.DockStyle.Right;
             this.cmdRefresh.FlatAppearance.BorderSize = 0;
             this.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdRefresh.Location = new System.Drawing.Point(1161, 5);
+            this.cmdRefresh.Location = new System.Drawing.Point(1173, 0);
             this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(26, 26);
+            this.cmdRefresh.Size = new System.Drawing.Size(26, 33);
             this.cmdRefresh.TabIndex = 9;
             this.cmdRefresh.UseVisualStyleBackColor = false;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // panelTop
+            // 
+            this.panelTop.Controls.Add(this.lblCollectorState);
+            this.panelTop.Controls.Add(this.lblName);
+            this.panelTop.Controls.Add(this.cmdRefresh);
+            this.panelTop.Controls.Add(this.txtName);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(1199, 33);
+            this.panelTop.TabIndex = 10;
             // 
             // CollectorDetails
             // 
@@ -2526,12 +2541,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1199, 701);
-            this.Controls.Add(this.cmdRefresh);
+            this.Controls.Add(this.panelTop);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.statusStripCollector);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.lblCollectorState);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "CollectorDetails";
@@ -2615,6 +2627,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2813,5 +2827,6 @@
         private System.Windows.Forms.LinkLabel llblRawEdit;
         private System.Windows.Forms.ToolStripStatusLabel lastUpdateTimeToolStripStatusLabel;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel panelTop;
     }
 }

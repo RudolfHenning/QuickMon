@@ -97,6 +97,7 @@ namespace QuickMon
             pollingToolStripMenuItem.Visible = false;
             adminModeToolStripStatusLabel.Visible = Security.UACTools.IsInAdminMode();
             adminModeToolStripMenuItem.Visible = !Security.UACTools.IsInAdminMode();
+            cmdAdminMode.Visible = !Security.UACTools.IsInAdminMode();
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {            
@@ -198,35 +199,7 @@ namespace QuickMon
         {
             ToggleMenuSize();
         }
-        private void ToggleMenuSize()
-        {
-            if (panelSlimMenu.Width != 45)
-            {
-                panelSlimMenu.Width = 45;
-                cmdMenu.Text = "";
-                cmdNew.Text = "";
-                cmdOpen.Text = "";
-                splitButtonSave.ButtonText = "";
-                splitButtonCollectors.ButtonText = "";
-                splitButtonNotifiers.ButtonText = "";
-                splitButtonTools.ButtonText = "";
-                cmdRemoteHosts.Text = "";
-                cmdAbout.Text = "";
-            }
-            else
-            {
-                panelSlimMenu.Width = 120;
-                cmdMenu.Text = " Menu";
-                cmdNew.Text = " New";
-                cmdOpen.Text = " Open";
-                splitButtonSave.ButtonText = " Save";
-                splitButtonCollectors.ButtonText = " Collectors";
-                splitButtonNotifiers.ButtonText = " Notifiers";
-                splitButtonTools.ButtonText = " Settings";
-                cmdRemoteHosts.Text = " Remote Hosts";
-                cmdAbout.Text = " About";
-            }
-        }
+
         private void cmdNew_Click(object sender, EventArgs e)
         {
             //CloseAllDetailWindows();
@@ -290,6 +263,10 @@ namespace QuickMon
         {
             notifiersContextMenuStrip.Show(splitButtonNotifiers, new Point(splitButtonNotifiers.Width, 0));
         }
+        private void cmdSettings_Click(object sender, EventArgs e)
+        {
+            ShowSettings();
+        }
         private void splitButtonTools_ButtonClicked(object sender, EventArgs e)
         {
             GeneralSettings generalSettings = new GeneralSettings();
@@ -304,7 +281,7 @@ namespace QuickMon
         }
         private void splitButtonTools_SplitButtonClicked(object sender, EventArgs e)
         {
-            settingsContextMenuStrip.Show(splitButtonTools, new Point(splitButtonTools.Width, 0));
+            //settingsContextMenuStrip.Show(splitButtonTools, new Point(splitButtonTools.Width, 0));
         }
         private void templatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -336,6 +313,10 @@ namespace QuickMon
                 HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
             }
         }
+        private void cmdTemplates_Click(object sender, EventArgs e)
+        {
+            ShowTemplates();
+        }
         private void cmdRemoteHosts_Click(object sender, EventArgs e)
         {            
             IChildWindowIdentity childWindow = GetChildWindowByIdentity("RemoteAgentHostManagement");
@@ -359,6 +340,10 @@ namespace QuickMon
         {
             AboutQuickMon aboutQuickMon = new AboutQuickMon();
             aboutQuickMon.ShowDialog();
+        }
+        private void cmdAdminMode_Click(object sender, EventArgs e)
+        {
+            StartAdminMode();
         }
         private void cmdPauseRunMP_Click(object sender, EventArgs e)
         {
@@ -1074,6 +1059,84 @@ namespace QuickMon
                         currentNode.ImageIndex = 4;
                     currentNode.SelectedImageIndex = currentNode.ImageIndex;
                 }
+            }
+        }
+        private void ToggleMenuSize()
+        {
+            if (panelSlimMenu.Width != 45)
+            {
+                panelSlimMenu.Width = 45;
+                cmdMenu.Text = "";
+                cmdNew.Text = "";
+                cmdOpen.Text = "";
+                splitButtonSave.ButtonText = "";
+                splitButtonCollectors.ButtonText = "";
+                splitButtonNotifiers.ButtonText = "";
+                //splitButtonTools.ButtonText = "";
+                cmdSettings.Text = "";
+                cmdTemplates.Text = "";
+                cmdActionScripts.Text = "";
+                cmdRemoteHosts.Text = "";
+                cmdAbout.Text = "";
+                cmdAdminMode.Text = "";
+            }
+            else
+            {
+                panelSlimMenu.Width = 120;
+                cmdMenu.Text = " Menu";
+                cmdNew.Text = " New";
+                cmdOpen.Text = " Open";
+                splitButtonSave.ButtonText = " Save";
+                splitButtonCollectors.ButtonText = " Collectors";
+                splitButtonNotifiers.ButtonText = " Notifiers";
+                //splitButtonTools.ButtonText = " Settings";
+                cmdSettings.Text = " Settings";
+                cmdTemplates.Text = " Templates";
+                cmdActionScripts.Text = " Action Scripts";
+                cmdRemoteHosts.Text = " Remote Hosts";
+                cmdAbout.Text = " About";
+                cmdAdminMode.Text = " Admin Mode";
+            }
+        }
+        private void ShowTemplates()
+        {
+            IChildWindowIdentity childWindow = GetChildWindowByIdentity("TemplateEditor");
+            if (childWindow == null)
+            {
+                TemplateEditor templateEditor = new TemplateEditor();
+                templateEditor.Identifier = "TemplateEditor";
+                templateEditor.ShowChildWindow(this);
+                templateEditor.RefreshDetails();
+            }
+            else
+            {
+                Form childForm = ((Form)childWindow);
+                if (childForm.WindowState == FormWindowState.Minimized)
+                    childForm.WindowState = FormWindowState.Normal;
+                childForm.Focus();
+                childWindow.RefreshDetails();
+            }
+        }
+        private void StartAdminMode()
+        {
+            if (!PerformCleanShutdown(true))
+                return;
+            if (!HenIT.Security.AdminModeTools.IsInAdminMode())
+            {
+                Properties.Settings.Default.Save();
+                HenIT.Security.AdminModeTools.RestartInAdminMode(AppGlobals.AppTaskId);
+            }
+        }
+        private void ShowSettings()
+        {
+            GeneralSettings generalSettings = new GeneralSettings();
+            if (generalSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                LoadRecentMonitorPackList();
+                this.SnappingEnabled = Properties.Settings.Default.MainFormSnap;
+                if (monitorPack != null)
+                    monitorPack.ConcurrencyLevel = Properties.Settings.Default.ConcurrencyLevel;
+                SetCollectorTreeViewProperties();
             }
         }
         #endregion
@@ -2348,6 +2411,26 @@ namespace QuickMon
         }
 
         #endregion
+
+        #region Notifier treeview events
+        private void tvwNotifiers_DoubleClick(object sender, EventArgs e)
+        {
+            ViewNotifierDetails();
+        }
+        private void tvwNotifiers_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
 
     }
 }

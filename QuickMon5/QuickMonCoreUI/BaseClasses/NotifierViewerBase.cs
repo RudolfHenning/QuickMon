@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace QuickMon.UI
 {
-    public abstract class NotifierViewerBase : FadeSnapForm, INotivierViewer, IChildWindowIdentity
+    public class NotifierViewerBase : FadeSnapForm, INotivierViewer, IChildWindowIdentity
     {
         #region IChildWindowIdentity
         public bool AutoRefreshEnabled { get; set; }
@@ -40,7 +40,10 @@ namespace QuickMon.UI
         }
         #endregion
 
-        public abstract void RefreshDisplayData();
+        public virtual void RefreshDisplayData()
+        {
+
+        }
         protected override void OnLoad(EventArgs e)
         {
             SnappingEnabled = true;

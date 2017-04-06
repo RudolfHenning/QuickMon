@@ -7,28 +7,33 @@ Collector agents that must be part of Core
 	Web Service, Database agents. Done
 Recent MP list editor. Done
 Notifier host editor. Done
-In memory notifier viewer/editor - Done
-Registry Editor Done
-SQL Query Editor Done
+Notifier agents
+	In memory notifier viewer/editor - Done
+	Log File editor - Done
+	SMTP editor - Done
+	EventLog editor - Done
+	Audio editor - Done
+	RSS editor - Done
+	SqlDB viewer/editor - Done
+
+Collector agents
+	Registry Editor Done
+	SQL Query Editor Done
+	SQL DB size Editor Done
+	SQL Table size Editor Done
+
+When editing template uniqueId and dependOnParentId should be blanked out automatically - Done
+Main window - Notifier agents with viewers -> double click to open - Done
 
 Next
 	Connection sharing/caching in MP
 	Agents/entries can be flagged for which one will be used for primary output value to screen	
-	Corrective scripts/Action scripts
-	Collector editors for other agents
-		SQL DB size		
-		SQL Table size
-	Other Notifiers viewers/editors
-		Log File
-		SMTP
-		EventLog
-
-		Audio
-		RSS		
-		SqlDB
+	Corrective scripts/Action scripts	
 
 	SSH based agents
 
-	Enterprize agents
+	Enterprise agents
 		BizTalk
 		Active Directory
+
+	
