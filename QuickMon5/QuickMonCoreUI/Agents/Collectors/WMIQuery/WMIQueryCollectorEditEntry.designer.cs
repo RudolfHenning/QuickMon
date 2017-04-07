@@ -37,17 +37,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtStateQuery = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.chkIsReturnValueInt = new System.Windows.Forms.CheckBox();
-            this.chkReturnValueNotInverted = new System.Windows.Forms.CheckBox();
-            this.cboSuccessValue = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cboWarningValue = new System.Windows.Forms.ComboBox();
-            this.cboErrorValue = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
+            this.cmdEditSummaryQuery = new System.Windows.Forms.Button();
             this.tabPageDetail = new System.Windows.Forms.TabPage();
             this.cmdEditDetailsQuery = new System.Windows.Forms.Button();
             this.chkCopyColumnNames = new System.Windows.Forms.CheckBox();
@@ -61,11 +53,29 @@
             this.cmdTestDB = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.cmdEditSummaryQuery = new System.Windows.Forms.Button();
+            this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.sequenceGroupBox = new System.Windows.Forms.GroupBox();
+            this.errorGroupBox = new System.Windows.Forms.GroupBox();
+            this.cboErrorMatchType = new System.Windows.Forms.ComboBox();
+            this.txtError = new System.Windows.Forms.TextBox();
+            this.warningGroupBox = new System.Windows.Forms.GroupBox();
+            this.cboWarningMatchType = new System.Windows.Forms.ComboBox();
+            this.txtWarning = new System.Windows.Forms.TextBox();
+            this.successGroupBox = new System.Windows.Forms.GroupBox();
+            this.cboSuccessMatchType = new System.Windows.Forms.ComboBox();
+            this.txtSuccess = new System.Windows.Forms.TextBox();
+            this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.chkUseRowCountAsValue = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             this.tabPageDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.keyColumnNumericUpDown)).BeginInit();
+            this.sequenceGroupBox.SuspendLayout();
+            this.errorGroupBox.SuspendLayout();
+            this.warningGroupBox.SuspendLayout();
+            this.successGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -73,10 +83,10 @@
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdCancel.Location = new System.Drawing.Point(463, 321);
+            this.cmdCancel.Location = new System.Drawing.Point(463, 446);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 9;
+            this.cmdCancel.TabIndex = 11;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -84,10 +94,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdOK.Location = new System.Drawing.Point(382, 321);
+            this.cmdOK.Location = new System.Drawing.Point(382, 446);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 8;
+            this.cmdOK.TabIndex = 10;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -141,8 +151,8 @@
             this.txtStateQuery.Multiline = true;
             this.txtStateQuery.Name = "txtStateQuery";
             this.txtStateQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtStateQuery.Size = new System.Drawing.Size(495, 105);
-            this.txtStateQuery.TabIndex = 2;
+            this.txtStateQuery.Size = new System.Drawing.Size(495, 93);
+            this.txtStateQuery.TabIndex = 3;
             this.txtStateQuery.Text = "SELECT FreeSpace FROM Win32_LogicalDisk where Caption = \'C:\'";
             this.txtStateQuery.TextChanged += new System.EventHandler(this.txtStateQuery_TextChanged);
             // 
@@ -155,121 +165,6 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "WMI query for summary";
             // 
-            // chkIsReturnValueInt
-            // 
-            this.chkIsReturnValueInt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkIsReturnValueInt.AutoSize = true;
-            this.chkIsReturnValueInt.Checked = true;
-            this.chkIsReturnValueInt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsReturnValueInt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkIsReturnValueInt.Location = new System.Drawing.Point(13, 136);
-            this.chkIsReturnValueInt.Name = "chkIsReturnValueInt";
-            this.chkIsReturnValueInt.Size = new System.Drawing.Size(157, 17);
-            this.chkIsReturnValueInt.TabIndex = 3;
-            this.chkIsReturnValueInt.Text = "Value is in a range of values";
-            this.chkIsReturnValueInt.UseVisualStyleBackColor = true;
-            this.chkIsReturnValueInt.CheckedChanged += new System.EventHandler(this.chkIsReturnValueInt_CheckedChanged);
-            // 
-            // chkReturnValueNotInverted
-            // 
-            this.chkReturnValueNotInverted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkReturnValueNotInverted.AutoSize = true;
-            this.chkReturnValueNotInverted.Checked = true;
-            this.chkReturnValueNotInverted.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkReturnValueNotInverted.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkReturnValueNotInverted.Location = new System.Drawing.Point(199, 136);
-            this.chkReturnValueNotInverted.Name = "chkReturnValueNotInverted";
-            this.chkReturnValueNotInverted.Size = new System.Drawing.Size(151, 17);
-            this.chkReturnValueNotInverted.TabIndex = 4;
-            this.chkReturnValueNotInverted.Text = "Success < Warning < Error";
-            this.chkReturnValueNotInverted.UseVisualStyleBackColor = true;
-            // 
-            // cboSuccessValue
-            // 
-            this.cboSuccessValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboSuccessValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboSuccessValue.FormattingEnabled = true;
-            this.cboSuccessValue.Items.AddRange(new object[] {
-            "[null]",
-            "[any]"});
-            this.cboSuccessValue.Location = new System.Drawing.Point(102, 164);
-            this.cboSuccessValue.Name = "cboSuccessValue";
-            this.cboSuccessValue.Size = new System.Drawing.Size(102, 21);
-            this.cboSuccessValue.TabIndex = 7;
-            this.cboSuccessValue.TextChanged += new System.EventHandler(this.cboSuccessValue_TextChanged);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 167);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Values: Success";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(210, 167);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Warning";
-            // 
-            // cboWarningValue
-            // 
-            this.cboWarningValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboWarningValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboWarningValue.FormattingEnabled = true;
-            this.cboWarningValue.Items.AddRange(new object[] {
-            "[null]",
-            "[any]"});
-            this.cboWarningValue.Location = new System.Drawing.Point(263, 164);
-            this.cboWarningValue.Name = "cboWarningValue";
-            this.cboWarningValue.Size = new System.Drawing.Size(96, 21);
-            this.cboWarningValue.TabIndex = 9;
-            this.cboWarningValue.TextChanged += new System.EventHandler(this.cboWarningValue_TextChanged);
-            // 
-            // cboErrorValue
-            // 
-            this.cboErrorValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboErrorValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboErrorValue.FormattingEnabled = true;
-            this.cboErrorValue.Items.AddRange(new object[] {
-            "[null]",
-            "[any]"});
-            this.cboErrorValue.Location = new System.Drawing.Point(400, 164);
-            this.cboErrorValue.Name = "cboErrorValue";
-            this.cboErrorValue.Size = new System.Drawing.Size(105, 21);
-            this.cboErrorValue.TabIndex = 11;
-            this.cboErrorValue.TextChanged += new System.EventHandler(this.cboErrorValue_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(365, 167);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Error";
-            // 
-            // chkUseRowCountAsValue
-            // 
-            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkUseRowCountAsValue.AutoSize = true;
-            this.chkUseRowCountAsValue.Checked = true;
-            this.chkUseRowCountAsValue.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUseRowCountAsValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(358, 136);
-            this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
-            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(115, 17);
-            this.chkUseRowCountAsValue.TabIndex = 5;
-            this.chkUseRowCountAsValue.Text = "Row count is value";
-            this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
-            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -280,30 +175,34 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 87);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(526, 228);
+            this.tabControl1.Size = new System.Drawing.Size(526, 353);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPageSummary
             // 
             this.tabPageSummary.BackColor = System.Drawing.Color.White;
+            this.tabPageSummary.Controls.Add(this.chkUseRowCountAsValue);
+            this.tabPageSummary.Controls.Add(this.sequenceGroupBox);
             this.tabPageSummary.Controls.Add(this.cmdEditSummaryQuery);
             this.tabPageSummary.Controls.Add(this.txtStateQuery);
-            this.tabPageSummary.Controls.Add(this.label6);
-            this.tabPageSummary.Controls.Add(this.chkUseRowCountAsValue);
-            this.tabPageSummary.Controls.Add(this.label5);
-            this.tabPageSummary.Controls.Add(this.label4);
             this.tabPageSummary.Controls.Add(this.label3);
-            this.tabPageSummary.Controls.Add(this.cboErrorValue);
-            this.tabPageSummary.Controls.Add(this.chkIsReturnValueInt);
-            this.tabPageSummary.Controls.Add(this.chkReturnValueNotInverted);
-            this.tabPageSummary.Controls.Add(this.cboWarningValue);
-            this.tabPageSummary.Controls.Add(this.cboSuccessValue);
             this.tabPageSummary.Location = new System.Drawing.Point(4, 22);
             this.tabPageSummary.Name = "tabPageSummary";
             this.tabPageSummary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSummary.Size = new System.Drawing.Size(518, 202);
+            this.tabPageSummary.Size = new System.Drawing.Size(518, 327);
             this.tabPageSummary.TabIndex = 0;
-            this.tabPageSummary.Text = "Summary";
+            this.tabPageSummary.Text = "State query";
+            // 
+            // cmdEditSummaryQuery
+            // 
+            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
+            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
+            this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
+            this.cmdEditSummaryQuery.Size = new System.Drawing.Size(36, 23);
+            this.cmdEditSummaryQuery.TabIndex = 1;
+            this.cmdEditSummaryQuery.UseVisualStyleBackColor = true;
+            this.cmdEditSummaryQuery.Click += new System.EventHandler(this.cmdEditSummaryQuery_Click);
             // 
             // tabPageDetail
             // 
@@ -320,9 +219,9 @@
             this.tabPageDetail.Location = new System.Drawing.Point(4, 22);
             this.tabPageDetail.Name = "tabPageDetail";
             this.tabPageDetail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDetail.Size = new System.Drawing.Size(518, 202);
+            this.tabPageDetail.Size = new System.Drawing.Size(518, 320);
             this.tabPageDetail.TabIndex = 1;
-            this.tabPageDetail.Text = "Detail";
+            this.tabPageDetail.Text = "Detail query";
             // 
             // cmdEditDetailsQuery
             // 
@@ -350,7 +249,7 @@
             // 
             this.cmdEditColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdEditColumnNames.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditColumnNames.Location = new System.Drawing.Point(471, 171);
+            this.cmdEditColumnNames.Location = new System.Drawing.Point(471, 289);
             this.cmdEditColumnNames.Name = "cmdEditColumnNames";
             this.cmdEditColumnNames.Size = new System.Drawing.Size(33, 23);
             this.cmdEditColumnNames.TabIndex = 7;
@@ -362,7 +261,7 @@
             // 
             this.txtColumnNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtColumnNames.Location = new System.Drawing.Point(136, 173);
+            this.txtColumnNames.Location = new System.Drawing.Point(136, 291);
             this.txtColumnNames.Name = "txtColumnNames";
             this.txtColumnNames.Size = new System.Drawing.Size(329, 20);
             this.txtColumnNames.TabIndex = 6;
@@ -372,7 +271,7 @@
             // 
             this.lblColumnNameSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblColumnNameSequence.AutoSize = true;
-            this.lblColumnNameSequence.Location = new System.Drawing.Point(9, 176);
+            this.lblColumnNameSequence.Location = new System.Drawing.Point(9, 294);
             this.lblColumnNameSequence.Name = "lblColumnNameSequence";
             this.lblColumnNameSequence.Size = new System.Drawing.Size(121, 13);
             this.lblColumnNameSequence.TabIndex = 5;
@@ -388,7 +287,7 @@
             this.txtDetailQuery.Multiline = true;
             this.txtDetailQuery.Name = "txtDetailQuery";
             this.txtDetailQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDetailQuery.Size = new System.Drawing.Size(495, 140);
+            this.txtDetailQuery.Size = new System.Drawing.Size(495, 258);
             this.txtDetailQuery.TabIndex = 2;
             this.txtDetailQuery.Text = "SELECT Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = \'C:\'";
             this.txtDetailQuery.TextChanged += new System.EventHandler(this.txtDetailQuery_TextChanged);
@@ -406,7 +305,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 181);
+            this.label9.Location = new System.Drawing.Point(13, 299);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
             this.label9.TabIndex = 4;
@@ -416,7 +315,7 @@
             // keyColumnNumericUpDown
             // 
             this.keyColumnNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.keyColumnNumericUpDown.Location = new System.Drawing.Point(136, 179);
+            this.keyColumnNumericUpDown.Location = new System.Drawing.Point(136, 297);
             this.keyColumnNumericUpDown.Name = "keyColumnNumericUpDown";
             this.keyColumnNumericUpDown.Size = new System.Drawing.Size(59, 20);
             this.keyColumnNumericUpDown.TabIndex = 6;
@@ -426,10 +325,10 @@
             // 
             this.cmdTestDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdTestDB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTestDB.Location = new System.Drawing.Point(301, 321);
+            this.cmdTestDB.Location = new System.Drawing.Point(301, 446);
             this.cmdTestDB.Name = "cmdTestDB";
             this.cmdTestDB.Size = new System.Drawing.Size(75, 23);
-            this.cmdTestDB.TabIndex = 7;
+            this.cmdTestDB.TabIndex = 9;
             this.cmdTestDB.Text = "Test";
             this.cmdTestDB.UseVisualStyleBackColor = true;
             this.cmdTestDB.Click += new System.EventHandler(this.cmdTestDB_Click);
@@ -453,16 +352,230 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Name";
             // 
-            // cmdEditSummaryQuery
+            // cboOutputValueUnit
             // 
-            this.cmdEditSummaryQuery.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdEditSummaryQuery.Image = global::QuickMon.Properties.Resources.settings_16;
-            this.cmdEditSummaryQuery.Location = new System.Drawing.Point(136, 2);
-            this.cmdEditSummaryQuery.Name = "cmdEditSummaryQuery";
-            this.cmdEditSummaryQuery.Size = new System.Drawing.Size(36, 23);
-            this.cmdEditSummaryQuery.TabIndex = 1;
-            this.cmdEditSummaryQuery.UseVisualStyleBackColor = true;
-            this.cmdEditSummaryQuery.Click += new System.EventHandler(this.cmdEditSummaryQuery_Click);
+            this.cboOutputValueUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboOutputValueUnit.FormattingEnabled = true;
+            this.cboOutputValueUnit.Items.AddRange(new object[] {
+            "%",
+            "item(s)",
+            "KB",
+            "MB"});
+            this.cboOutputValueUnit.Location = new System.Drawing.Point(94, 448);
+            this.cboOutputValueUnit.Name = "cboOutputValueUnit";
+            this.cboOutputValueUnit.Size = new System.Drawing.Size(201, 21);
+            this.cboOutputValueUnit.TabIndex = 8;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.AutoSize = true;
+            this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label10.Location = new System.Drawing.Point(13, 451);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 13);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Output unit";
+            // 
+            // sequenceGroupBox
+            // 
+            this.sequenceGroupBox.Controls.Add(this.errorGroupBox);
+            this.sequenceGroupBox.Controls.Add(this.warningGroupBox);
+            this.sequenceGroupBox.Controls.Add(this.successGroupBox);
+            this.sequenceGroupBox.Controls.Add(this.cboReturnCheckSequence);
+            this.sequenceGroupBox.Controls.Add(this.label5);
+            this.sequenceGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.sequenceGroupBox.Location = new System.Drawing.Point(3, 124);
+            this.sequenceGroupBox.Name = "sequenceGroupBox";
+            this.sequenceGroupBox.Size = new System.Drawing.Size(512, 200);
+            this.sequenceGroupBox.TabIndex = 4;
+            this.sequenceGroupBox.TabStop = false;
+            this.sequenceGroupBox.Text = "Evaluate returned value/data";
+            // 
+            // errorGroupBox
+            // 
+            this.errorGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorGroupBox.Controls.Add(this.cboErrorMatchType);
+            this.errorGroupBox.Controls.Add(this.txtError);
+            this.errorGroupBox.Location = new System.Drawing.Point(9, 147);
+            this.errorGroupBox.Name = "errorGroupBox";
+            this.errorGroupBox.Size = new System.Drawing.Size(497, 44);
+            this.errorGroupBox.TabIndex = 4;
+            this.errorGroupBox.TabStop = false;
+            this.errorGroupBox.Text = "Error check";
+            // 
+            // cboErrorMatchType
+            // 
+            this.cboErrorMatchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboErrorMatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboErrorMatchType.FormattingEnabled = true;
+            this.cboErrorMatchType.Items.AddRange(new object[] {
+            "Match",
+            "DoesNotMatch",
+            "Contains",
+            "DoesNotContain",
+            "StartsWith",
+            "DoesNotStartWith",
+            "EndsWith",
+            "DoesNotEndWith",
+            "RegEx",
+            "IsNumber",
+            "IsNotANumber",
+            "LargerThan",
+            "SmallerThan",
+            "Between",
+            "NotBetween"});
+            this.cboErrorMatchType.Location = new System.Drawing.Point(377, 18);
+            this.cboErrorMatchType.Name = "cboErrorMatchType";
+            this.cboErrorMatchType.Size = new System.Drawing.Size(110, 21);
+            this.cboErrorMatchType.TabIndex = 1;
+            // 
+            // txtError
+            // 
+            this.txtError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtError.Location = new System.Drawing.Point(6, 18);
+            this.txtError.Name = "txtError";
+            this.txtError.Size = new System.Drawing.Size(365, 20);
+            this.txtError.TabIndex = 0;
+            this.txtError.Text = "[any]";
+            // 
+            // warningGroupBox
+            // 
+            this.warningGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.warningGroupBox.Controls.Add(this.cboWarningMatchType);
+            this.warningGroupBox.Controls.Add(this.txtWarning);
+            this.warningGroupBox.Location = new System.Drawing.Point(8, 97);
+            this.warningGroupBox.Name = "warningGroupBox";
+            this.warningGroupBox.Size = new System.Drawing.Size(497, 44);
+            this.warningGroupBox.TabIndex = 3;
+            this.warningGroupBox.TabStop = false;
+            this.warningGroupBox.Text = "Warning check";
+            // 
+            // cboWarningMatchType
+            // 
+            this.cboWarningMatchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboWarningMatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWarningMatchType.FormattingEnabled = true;
+            this.cboWarningMatchType.Items.AddRange(new object[] {
+            "Match",
+            "DoesNotMatch",
+            "Contains",
+            "DoesNotContain",
+            "StartsWith",
+            "DoesNotStartWith",
+            "EndsWith",
+            "DoesNotEndWith",
+            "RegEx",
+            "IsNumber",
+            "IsNotANumber",
+            "LargerThan",
+            "SmallerThan",
+            "Between",
+            "NotBetween"});
+            this.cboWarningMatchType.Location = new System.Drawing.Point(378, 18);
+            this.cboWarningMatchType.Name = "cboWarningMatchType";
+            this.cboWarningMatchType.Size = new System.Drawing.Size(110, 21);
+            this.cboWarningMatchType.TabIndex = 1;
+            // 
+            // txtWarning
+            // 
+            this.txtWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtWarning.Location = new System.Drawing.Point(6, 18);
+            this.txtWarning.Name = "txtWarning";
+            this.txtWarning.Size = new System.Drawing.Size(366, 20);
+            this.txtWarning.TabIndex = 0;
+            this.txtWarning.Text = "[null]";
+            // 
+            // successGroupBox
+            // 
+            this.successGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.successGroupBox.Controls.Add(this.cboSuccessMatchType);
+            this.successGroupBox.Controls.Add(this.txtSuccess);
+            this.successGroupBox.Location = new System.Drawing.Point(9, 47);
+            this.successGroupBox.Name = "successGroupBox";
+            this.successGroupBox.Size = new System.Drawing.Size(497, 44);
+            this.successGroupBox.TabIndex = 2;
+            this.successGroupBox.TabStop = false;
+            this.successGroupBox.Text = "Success check";
+            // 
+            // cboSuccessMatchType
+            // 
+            this.cboSuccessMatchType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboSuccessMatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSuccessMatchType.FormattingEnabled = true;
+            this.cboSuccessMatchType.Items.AddRange(new object[] {
+            "Match",
+            "DoesNotMatch",
+            "Contains",
+            "DoesNotContain",
+            "StartsWith",
+            "DoesNotStartWith",
+            "EndsWith",
+            "DoesNotEndWith",
+            "RegEx",
+            "IsNumber",
+            "IsNotANumber",
+            "LargerThan",
+            "SmallerThan",
+            "Between",
+            "NotBetween"});
+            this.cboSuccessMatchType.Location = new System.Drawing.Point(377, 18);
+            this.cboSuccessMatchType.Name = "cboSuccessMatchType";
+            this.cboSuccessMatchType.Size = new System.Drawing.Size(110, 21);
+            this.cboSuccessMatchType.TabIndex = 1;
+            // 
+            // txtSuccess
+            // 
+            this.txtSuccess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSuccess.Location = new System.Drawing.Point(6, 18);
+            this.txtSuccess.Name = "txtSuccess";
+            this.txtSuccess.Size = new System.Drawing.Size(365, 20);
+            this.txtSuccess.TabIndex = 0;
+            this.txtSuccess.Text = "OK";
+            // 
+            // cboReturnCheckSequence
+            // 
+            this.cboReturnCheckSequence.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboReturnCheckSequence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboReturnCheckSequence.Items.AddRange(new object[] {
+            "Good, Warning and then assume Error",
+            "Error, Warning and then assume Good",
+            "Good, Error and then assume Warning",
+            "Error, Good and then assume Warning",
+            "Warning, Good and then assume Error",
+            "Warning, Error and then assume Good"});
+            this.cboReturnCheckSequence.Location = new System.Drawing.Point(135, 19);
+            this.cboReturnCheckSequence.Name = "cboReturnCheckSequence";
+            this.cboReturnCheckSequence.Size = new System.Drawing.Size(371, 21);
+            this.cboReturnCheckSequence.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(6, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(126, 21);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Check sequence";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkUseRowCountAsValue
+            // 
+            this.chkUseRowCountAsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUseRowCountAsValue.AutoSize = true;
+            this.chkUseRowCountAsValue.Location = new System.Drawing.Point(370, 6);
+            this.chkUseRowCountAsValue.Name = "chkUseRowCountAsValue";
+            this.chkUseRowCountAsValue.Size = new System.Drawing.Size(139, 17);
+            this.chkUseRowCountAsValue.TabIndex = 2;
+            this.chkUseRowCountAsValue.Text = "Row count as the value";
+            this.chkUseRowCountAsValue.UseVisualStyleBackColor = true;
             // 
             // WMIQueryCollectorEditEntry
             // 
@@ -470,7 +583,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(558, 356);
+            this.ClientSize = new System.Drawing.Size(558, 481);
+            this.Controls.Add(this.cboOutputValueUnit);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmdTestDB);
@@ -496,6 +611,13 @@
             this.tabPageDetail.ResumeLayout(false);
             this.tabPageDetail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.keyColumnNumericUpDown)).EndInit();
+            this.sequenceGroupBox.ResumeLayout(false);
+            this.errorGroupBox.ResumeLayout(false);
+            this.errorGroupBox.PerformLayout();
+            this.warningGroupBox.ResumeLayout(false);
+            this.warningGroupBox.PerformLayout();
+            this.successGroupBox.ResumeLayout(false);
+            this.successGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,20 +637,11 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown keyColumnNumericUpDown;
         private System.Windows.Forms.Button cmdEditSummaryQuery;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button cmdTestDB;
         private System.Windows.Forms.TabPage tabPageSummary;
         private System.Windows.Forms.TextBox txtStateQuery;
-        private System.Windows.Forms.CheckBox chkUseRowCountAsValue;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cboErrorValue;
-        private System.Windows.Forms.CheckBox chkIsReturnValueInt;
-        private System.Windows.Forms.CheckBox chkReturnValueNotInverted;
-        private System.Windows.Forms.ComboBox cboWarningValue;
-        private System.Windows.Forms.ComboBox cboSuccessValue;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TextBox txtMachines;
         private System.Windows.Forms.Label label2;
@@ -536,5 +649,20 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cboOutputValueUnit;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox sequenceGroupBox;
+        private System.Windows.Forms.GroupBox errorGroupBox;
+        private System.Windows.Forms.ComboBox cboErrorMatchType;
+        private System.Windows.Forms.TextBox txtError;
+        private System.Windows.Forms.GroupBox warningGroupBox;
+        private System.Windows.Forms.ComboBox cboWarningMatchType;
+        private System.Windows.Forms.TextBox txtWarning;
+        private System.Windows.Forms.GroupBox successGroupBox;
+        private System.Windows.Forms.ComboBox cboSuccessMatchType;
+        private System.Windows.Forms.TextBox txtSuccess;
+        private System.Windows.Forms.ComboBox cboReturnCheckSequence;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chkUseRowCountAsValue;
     }
 }

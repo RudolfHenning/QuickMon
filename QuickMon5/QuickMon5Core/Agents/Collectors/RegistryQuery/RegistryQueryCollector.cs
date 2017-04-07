@@ -173,7 +173,7 @@ namespace QuickMon.Collectors
                 queryEntry.KeyName = queryNode.ReadXmlElementAttr("keyName", "");
                 queryEntry.ExpandEnvironmentNames = bool.Parse(queryNode.ReadXmlElementAttr("expandEnvironmentNames", "False"));
 
-                queryEntry.ReturnValueIsNumber = bool.Parse(queryNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
+                //queryEntry.ReturnValueIsNumber = bool.Parse(queryNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
                 queryEntry.GoodValue = queryNode.ReadXmlElementAttr("successValue", "");
                 queryEntry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
                 queryEntry.WarningValue = queryNode.ReadXmlElementAttr("warningValue", "");
@@ -198,7 +198,7 @@ namespace QuickMon.Collectors
                 queryEntry.Path = dataSourceNode.ReadXmlElementAttr("path", "");
                 queryEntry.KeyName = dataSourceNode.ReadXmlElementAttr("keyName", "");
                 queryEntry.ExpandEnvironmentNames = bool.Parse(dataSourceNode.ReadXmlElementAttr("expandEnvironmentNames", "False"));
-                queryEntry.ReturnValueIsNumber = bool.Parse(dataSourceNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
+                //queryEntry.ReturnValueIsNumber = bool.Parse(dataSourceNode.ReadXmlElementAttr("returnValueIsNumber", "False"));
                 queryEntry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
                 queryEntry.OutputValueUnit = dataSourceNode.ReadXmlElementAttr("outputValueUnit", "");
 
@@ -245,7 +245,7 @@ namespace QuickMon.Collectors
                 dataSourceNode.SetAttributeValue("path", queryEntry.Path);
                 dataSourceNode.SetAttributeValue("keyName", queryEntry.KeyName);
                 dataSourceNode.SetAttributeValue("expandEnvironmentNames", queryEntry.ExpandEnvironmentNames);
-                dataSourceNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
+                //dataSourceNode.SetAttributeValue("returnValueIsNumber", queryEntry.ReturnValueIsNumber);
                 dataSourceNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
                 dataSourceNode.SetAttributeValue("outputValueUnit", queryEntry.OutputValueUnit);
 
@@ -318,20 +318,20 @@ namespace QuickMon.Collectors
             try
             {
                 wsData = GetValue();
-                if (ReturnValueIsNumber && !wsData.IsNumber())
-                {
-                    agentState = CollectorState.Error;
-                    wsData = "Returned value is not a number! (" + wsData.ToString() + ")";
-                }
-                else
-                {
+                //if (ReturnValueIsNumber && !wsData.IsNumber())
+                //{
+                //    agentState = CollectorState.Error;
+                //    wsData = "Returned value is not a number! (" + wsData.ToString() + ")";
+                //}
+                //else
+                //{
                     CurrentAgentValue = FormatUtils.FormatArrayToString(wsData, "[null]");
                     agentState = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence,
                            GoodResultMatchType, GoodValue,
                            WarningResultMatchType, WarningValue,
                            ErrorResultMatchType, ErrorValue,
                            CurrentAgentValue);
-                }
+                //}
             }
             catch (Exception wsException)
             {
@@ -406,7 +406,7 @@ namespace QuickMon.Collectors
         public string Path { get; set; }
         public string KeyName { get; set; }
         public bool ExpandEnvironmentNames { get; set; }
-        public bool ReturnValueIsNumber { get; set; }
+        //public bool ReturnValueIsNumber { get; set; }
         //public bool ReturnValueInARange { get; set; }
         //public bool ReturnValueInverted { get; set; }
         //public string SuccessValue { get; set; }

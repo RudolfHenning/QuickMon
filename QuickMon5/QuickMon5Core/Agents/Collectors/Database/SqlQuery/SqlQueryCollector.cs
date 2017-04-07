@@ -291,7 +291,6 @@ namespace QuickMon.Collectors
                 carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
             return config.OuterXml;
-
         }
         public string GetDefaultOrEmptyXml()
         {

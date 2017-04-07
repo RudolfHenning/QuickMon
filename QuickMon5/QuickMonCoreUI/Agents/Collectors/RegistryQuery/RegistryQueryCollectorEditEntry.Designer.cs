@@ -56,7 +56,6 @@
             this.txtSuccess = new System.Windows.Forms.TextBox();
             this.cboReturnCheckSequence = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.chkValueIsANumber = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboOutputValueUnit = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -420,18 +419,6 @@
             this.label5.Text = "Check sequence";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // chkValueIsANumber
-            // 
-            this.chkValueIsANumber.AutoSize = true;
-            this.chkValueIsANumber.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.chkValueIsANumber.Location = new System.Drawing.Point(308, 145);
-            this.chkValueIsANumber.Name = "chkValueIsANumber";
-            this.chkValueIsANumber.Size = new System.Drawing.Size(108, 17);
-            this.chkValueIsANumber.TabIndex = 11;
-            this.chkValueIsANumber.Text = "Value is a number";
-            this.chkValueIsANumber.UseVisualStyleBackColor = true;
-            this.chkValueIsANumber.CheckedChanged += new System.EventHandler(this.chkValueIsANumber_CheckedChanged);
-            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -476,7 +463,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(584, 475);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.chkValueIsANumber);
             this.Controls.Add(this.sequenceGroupBox);
             this.Controls.Add(this.cmdRegedit);
             this.Controls.Add(this.cmdTest);
@@ -543,7 +529,6 @@
         private System.Windows.Forms.TextBox txtSuccess;
         private System.Windows.Forms.ComboBox cboReturnCheckSequence;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox chkValueIsANumber;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox cboOutputValueUnit;
         private System.Windows.Forms.Label label6;

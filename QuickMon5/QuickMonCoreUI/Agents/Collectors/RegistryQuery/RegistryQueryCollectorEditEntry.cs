@@ -39,7 +39,7 @@ namespace QuickMon.UI
                 txtKey.Text = selectedEntry.KeyName;
                 chkExpandEnvNames.Checked = selectedEntry.ExpandEnvironmentNames;
 
-                chkValueIsANumber.Checked = selectedEntry.ReturnValueIsNumber;
+                //chkValueIsANumber.Checked = selectedEntry.ReturnValueIsNumber;
                 cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;
                 txtSuccess.Text = selectedEntry.GoodValue;
                 cboSuccessMatchType.SelectedIndex = (int)selectedEntry.GoodResultMatchType;
@@ -95,14 +95,14 @@ namespace QuickMon.UI
                 selectedEntry.ExpandEnvironmentNames = chkExpandEnvNames.Checked;
                 selectedEntry.RegistryHive = RegistryQueryCollectorConfigEntry.GetRegistryHiveFromString(cboRegistryHive.Text);
 
-                if (!chkValueIsANumber.Checked)
-                {
-                    selectedEntry.ReturnValueIsNumber = false;
-                }
-                else
-                {
-                    selectedEntry.ReturnValueIsNumber = true;
-                }
+                //if (!chkValueIsANumber.Checked)
+                //{
+                //    selectedEntry.ReturnValueIsNumber = false;
+                //}
+                //else
+                //{
+                //    selectedEntry.ReturnValueIsNumber = true;
+                //}
 
                 selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                 selectedEntry.GoodValue = txtSuccess.Text;
@@ -133,14 +133,14 @@ namespace QuickMon.UI
                     testQueryInstance.ExpandEnvironmentNames = chkExpandEnvNames.Checked;
                     testQueryInstance.RegistryHive = RegistryQueryCollectorConfigEntry.GetRegistryHiveFromString(cboRegistryHive.Text);
 
-                    if (!chkValueIsANumber.Checked)
-                    {
-                        testQueryInstance.ReturnValueIsNumber = false;
-                    }
-                    else
-                    {
-                        testQueryInstance.ReturnValueIsNumber = true;
-                    }
+                    //if (!chkValueIsANumber.Checked)
+                    //{
+                    //    testQueryInstance.ReturnValueIsNumber = false;
+                    //}
+                    //else
+                    //{
+                    //    testQueryInstance.ReturnValueIsNumber = true;
+                    //}
 
                     testQueryInstance.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
                     testQueryInstance.GoodValue = txtSuccess.Text;
@@ -236,21 +236,21 @@ namespace QuickMon.UI
                 {
                     throw new InPutValidationException("Only one value can be [notExists]!", txtSuccess);
                 }
-                if (chkValueIsANumber.Checked)
-                {
-                    if (txtSuccess.Text == "[exists]" || txtSuccess.Text == "[notExists]" ||
-                        txtWarning.Text == "[exists]" || txtWarning.Text == "[notExists]" ||
-                        txtError.Text == "[exists]" || txtError.Text == "[notExists]")
-                    {
-                        throw new InPutValidationException("The values [exists] and [notExists] cannot be used when testing for numbers!", txtSuccess);
-                    }
-                    if (txtSuccess.Text != "[null]" && txtSuccess.Text != "[any]" && !txtSuccess.Text.IsLong())
-                        throw new InPutValidationException("Success value must be a valid integer!\r\n(or predefined values [any] or [null])", txtSuccess);
-                    else if (txtWarning.Text != "[null]" && txtWarning.Text != "[any]" && !txtWarning.Text.IsLong())
-                        throw new InPutValidationException("Warning value must be a valid integer!\r\n(or predefined values [any] or [null])", txtWarning);
-                    else if (txtError.Text != "[null]" && txtError.Text != "[any]" && !txtError.Text.IsLong())
-                        throw new InPutValidationException("Error value must be a valid integer!\r\n(or predefined values [any] or [null])", txtError);                    
-                }
+                //if (chkValueIsANumber.Checked)
+                //{
+                //    if (txtSuccess.Text == "[exists]" || txtSuccess.Text == "[notExists]" ||
+                //        txtWarning.Text == "[exists]" || txtWarning.Text == "[notExists]" ||
+                //        txtError.Text == "[exists]" || txtError.Text == "[notExists]")
+                //    {
+                //        throw new InPutValidationException("The values [exists] and [notExists] cannot be used when testing for numbers!", txtSuccess);
+                //    }
+                //    if (txtSuccess.Text != "[null]" && txtSuccess.Text != "[any]" && !txtSuccess.Text.IsLong())
+                //        throw new InPutValidationException("Success value must be a valid integer!\r\n(or predefined values [any] or [null])", txtSuccess);
+                //    else if (txtWarning.Text != "[null]" && txtWarning.Text != "[any]" && !txtWarning.Text.IsLong())
+                //        throw new InPutValidationException("Warning value must be a valid integer!\r\n(or predefined values [any] or [null])", txtWarning);
+                //    else if (txtError.Text != "[null]" && txtError.Text != "[any]" && !txtError.Text.IsLong())
+                //        throw new InPutValidationException("Error value must be a valid integer!\r\n(or predefined values [any] or [null])", txtError);                    
+                //}
                 return true;
             }
             catch (InPutValidationException ex)

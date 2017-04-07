@@ -25,10 +25,16 @@ Collector agents
 When editing template uniqueId and dependOnParentId should be blanked out automatically - Done
 Main window - Notifier agents with viewers -> double click to open - Done
 
+*****************************************************************************************************
 Next
+	Corrective scripts/Action scripts
+
+	DataSet views for all Collectors!!
 	Connection sharing/caching in MP
+		SQL based agents
+		SSH based agents
 	Agents/entries can be flagged for which one will be used for primary output value to screen	
-	Corrective scripts/Action scripts	
+	
 
 	SSH based agents
 

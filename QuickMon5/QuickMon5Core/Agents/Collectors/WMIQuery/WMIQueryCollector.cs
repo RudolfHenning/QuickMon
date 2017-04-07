@@ -141,21 +141,35 @@ namespace QuickMon.Collectors
             config.LoadXml(configurationString);
             Entries.Clear();
             XmlElement root = config.DocumentElement;
+            //version 4 type config
             foreach (XmlElement wmiQueryNode in root.SelectNodes("wmiQueries/wmiQuery"))
             {
                 WMIQueryCollectorConfigEntry entry = new WMIQueryCollectorConfigEntry();
                 entry.Name = wmiQueryNode.ReadXmlElementAttr("name", entry.Machinename);
                 entry.Namespace = wmiQueryNode.ReadXmlElementAttr("namespace", "root\\CIMV2");
-                entry.Machinename = wmiQueryNode.ReadXmlElementAttr("machineName", ".");                
+                entry.Machinename = wmiQueryNode.ReadXmlElementAttr("machineName", ".");
                 entry.PrimaryUIValue = wmiQueryNode.ReadXmlElementAttr("primaryUIValue", false);
+                entry.OutputValueUnit = wmiQueryNode.ReadXmlElementAttr("outputValueUnit", "");
 
                 XmlNode stateQueryNode = wmiQueryNode.SelectSingleNode("stateQuery");
                 entry.StateQuery = stateQueryNode.ReadXmlElementAttr("syntax", "");
-                entry.ReturnValueIsInt = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueIsInt", "True"));
-                entry.ReturnValueInverted = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueInverted", "False"));
+                //entry.ReturnValueIsInt = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueIsInt", "True"));
+                //entry.ReturnValueInverted = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueInverted", "False"));
+
+                if (bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueInverted", "False")))
+                {
+                    entry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.EWG;
+                }
+                else
+                {
+                    entry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+                }
+                entry.GoodResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
+                entry.WarningResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
+                entry.ErrorResultMatchType = CollectorAgentReturnValueCompareMatchType.Match;
                 entry.WarningValue = stateQueryNode.ReadXmlElementAttr("warningValue", "0");
                 entry.ErrorValue = stateQueryNode.ReadXmlElementAttr("errorValue", "0");
-                entry.SuccessValue = stateQueryNode.ReadXmlElementAttr("successValue", "[any]");
+                entry.GoodValue = stateQueryNode.ReadXmlElementAttr("successValue", "0");
                 entry.UseRowCountAsValue = bool.Parse(stateQueryNode.ReadXmlElementAttr("useRowCountAsValue", "True"));
                 XmlNode detailQueryNode = wmiQueryNode.SelectSingleNode("detailQuery");
                 entry.DetailQuery = detailQueryNode.ReadXmlElementAttr("syntax", "");
@@ -167,48 +181,153 @@ namespace QuickMon.Collectors
                     entry.ColumnNames.Add(columns);
                 Entries.Add(entry);
             }
+
+            //version 5 type config
+            foreach (XmlElement carvceEntryNode in root.SelectNodes("carvcesEntries/carvceEntry"))
+            {
+                XmlNode dataSourceNode = carvceEntryNode.SelectSingleNode("dataSource");
+                WMIQueryCollectorConfigEntry entry = new WMIQueryCollectorConfigEntry();
+                entry.Name = dataSourceNode.ReadXmlElementAttr("name", "");
+                entry.Namespace = dataSourceNode.ReadXmlElementAttr("namespace", "root\\CIMV2");
+                entry.Machinename = dataSourceNode.ReadXmlElementAttr("machineName", ".");
+                entry.PrimaryUIValue = dataSourceNode.ReadXmlElementAttr("primaryUIValue", false);
+                entry.OutputValueUnit = dataSourceNode.ReadXmlElementAttr("outputValueUnit", "");
+
+                XmlNode stateQueryNode = dataSourceNode.SelectSingleNode("stateQuery");
+                //entry.ReturnValueIsInt = bool.Parse(stateQueryNode.ReadXmlElementAttr("returnValueIsInt", "False"));
+                entry.UseRowCountAsValue = bool.Parse(stateQueryNode.ReadXmlElementAttr("useRowCountAsValue", "False"));
+                entry.StateQuery = stateQueryNode.InnerText;
+
+                XmlNode detailQueryNode = dataSourceNode.SelectSingleNode("detailQuery");
+                string columns = detailQueryNode.ReadXmlElementAttr("columnNames", "");
+                entry.ColumnNames = new List<string>();
+                if (columns.Length > 0 && columns.IndexOf(',') > -1)
+                    entry.ColumnNames = columns.ToListFromCSVString();
+                else if (columns.Length > 0)
+                    entry.ColumnNames.Add(columns);
+                entry.DetailQuery = detailQueryNode.InnerText;
+
+                XmlNode testConditionsNode = carvceEntryNode.SelectSingleNode("testConditions");
+                if (testConditionsNode != null)
+                {
+                    entry.ReturnCheckSequence = CollectorAgentReturnValueCompareEngine.CheckSequenceTypeFromString(testConditionsNode.ReadXmlElementAttr("testSequence", "gwe"));
+                    XmlNode goodScriptNode = testConditionsNode.SelectSingleNode("success");
+                    entry.GoodResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(goodScriptNode.ReadXmlElementAttr("testType", "match"));
+                    entry.GoodValue = goodScriptNode.InnerText;
+
+                    XmlNode warningScriptNode = testConditionsNode.SelectSingleNode("warning");
+                    entry.WarningResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(warningScriptNode.ReadXmlElementAttr("testType", "match"));
+                    entry.WarningValue = warningScriptNode.InnerText;
+
+                    XmlNode errorScriptNode = testConditionsNode.SelectSingleNode("error");
+                    entry.ErrorResultMatchType = CollectorAgentReturnValueCompareEngine.MatchTypeFromString(errorScriptNode.ReadXmlElementAttr("testType", "match"));
+                    entry.ErrorValue = errorScriptNode.InnerText;
+                }
+                else
+                    entry.ReturnCheckSequence = CollectorAgentReturnValueCheckSequence.GWE;
+
+                Entries.Add(entry);
+            }
         }
         public string ToXml()
         {
             XmlDocument config = new XmlDocument();
             config.LoadXml(GetDefaultOrEmptyXml());
             XmlElement root = config.DocumentElement;
-            XmlNode wmiNode = root.SelectSingleNode("wmiQueries");
-            wmiNode.InnerXml = "";
-            foreach (WMIQueryCollectorConfigEntry entry in Entries)
+            XmlNode carvcesEntriesNode = root.SelectSingleNode("carvcesEntries");
+            carvcesEntriesNode.InnerXml = "";
+            foreach (WMIQueryCollectorConfigEntry queryEntry in Entries)
             {
-                XmlElement entryNode = config.CreateElement("wmiQuery");
-                entryNode.SetAttributeValue("name", entry.Name);
-                entryNode.SetAttributeValue("namespace", entry.Namespace);
-                entryNode.SetAttributeValue("machineName", entry.Machinename);
-                entryNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
-                XmlElement stateQueryNode = config.CreateElement("stateQuery");
-                stateQueryNode.SetAttributeValue("syntax", entry.StateQuery);
-                stateQueryNode.SetAttributeValue("returnValueIsInt", entry.ReturnValueIsInt);
-                stateQueryNode.SetAttributeValue("returnValueInverted", entry.ReturnValueInverted);
-                stateQueryNode.SetAttributeValue("warningValue", entry.WarningValue);
-                stateQueryNode.SetAttributeValue("errorValue", entry.ErrorValue);
-                stateQueryNode.SetAttributeValue("successValue", entry.SuccessValue);
-                stateQueryNode.SetAttributeValue("useRowCountAsValue", entry.UseRowCountAsValue);
-                entryNode.AppendChild(stateQueryNode);
+                XmlElement carvceEntryNode = config.CreateElement("carvceEntry");
+                XmlElement dataSourceNode = config.CreateElement("dataSource");
 
-                XmlElement detailQueryNode = config.CreateElement("detailQuery");
-                detailQueryNode.SetAttributeValue("syntax", entry.DetailQuery);
-                detailQueryNode.SetAttributeValue("columnNames", entry.ColumnNames.ToCSVString());
-                entryNode.AppendChild(detailQueryNode);
-                wmiNode.AppendChild(entryNode);
+                dataSourceNode.SetAttributeValue("name", queryEntry.Name);
+                dataSourceNode.SetAttributeValue("namespace", queryEntry.Namespace);
+                dataSourceNode.SetAttributeValue("machineName", queryEntry.Machinename);
+                dataSourceNode.SetAttributeValue("primaryUIValue", queryEntry.PrimaryUIValue);
+                dataSourceNode.SetAttributeValue("outputValueUnit", queryEntry.OutputValueUnit);
+
+                XmlElement stateQueryNode = dataSourceNode.AppendElementWithText("stateQuery", queryEntry.StateQuery);
+                //stateQueryNode.SetAttributeValue("returnValueIsInt", queryEntry.ReturnValueIsInt);
+                stateQueryNode.SetAttributeValue("useRowCountAsValue", queryEntry.UseRowCountAsValue);
+
+                XmlElement detailQueryNode = dataSourceNode.AppendElementWithText("detailQuery", queryEntry.DetailQuery);
+                detailQueryNode.SetAttributeValue("columnNames", queryEntry.ColumnNames.ToCSVString());
+
+                XmlElement testConditionsNode = config.CreateElement("testConditions");
+                testConditionsNode.SetAttributeValue("testSequence", queryEntry.ReturnCheckSequence.ToString());
+                XmlElement successNode = config.CreateElement("success");
+                successNode.SetAttributeValue("testType", queryEntry.GoodResultMatchType.ToString());
+                successNode.InnerText = queryEntry.GoodValue;
+                XmlElement warningNode = config.CreateElement("warning");
+                warningNode.SetAttributeValue("testType", queryEntry.WarningResultMatchType.ToString());
+                warningNode.InnerText = queryEntry.WarningValue;
+                XmlElement errorNode = config.CreateElement("error");
+                errorNode.SetAttributeValue("testType", queryEntry.ErrorResultMatchType.ToString());
+                errorNode.InnerText = queryEntry.ErrorValue;
+
+                testConditionsNode.AppendChild(successNode);
+                testConditionsNode.AppendChild(warningNode);
+                testConditionsNode.AppendChild(errorNode);
+                carvceEntryNode.AppendChild(dataSourceNode);
+                carvceEntryNode.AppendChild(testConditionsNode);
+                carvcesEntriesNode.AppendChild(carvceEntryNode);
             }
             return config.OuterXml;
+
+
+            //XmlNode wmiNode = root.SelectSingleNode("wmiQueries");
+            //wmiNode.InnerXml = "";
+            //foreach (WMIQueryCollectorConfigEntry entry in Entries)
+            //{
+
+
+            //    XmlElement entryNode = config.CreateElement("wmiQuery");
+            //    entryNode.SetAttributeValue("name", entry.Name);
+            //    entryNode.SetAttributeValue("namespace", entry.Namespace);
+            //    entryNode.SetAttributeValue("machineName", entry.Machinename);
+            //    entryNode.SetAttributeValue("primaryUIValue", entry.PrimaryUIValue);
+            //    entryNode.SetAttributeValue("outputValueUnit", entry.OutputValueUnit);
+            //    XmlElement stateQueryNode = config.CreateElement("stateQuery");
+            //    stateQueryNode.SetAttributeValue("syntax", entry.StateQuery);
+            //    stateQueryNode.SetAttributeValue("returnValueIsInt", entry.ReturnValueIsInt);
+            //    stateQueryNode.SetAttributeValue("returnValueInverted", entry.ReturnValueInverted);
+            //    stateQueryNode.SetAttributeValue("warningValue", entry.WarningValue);
+            //    stateQueryNode.SetAttributeValue("errorValue", entry.ErrorValue);
+            //    stateQueryNode.SetAttributeValue("successValue", entry.SuccessValue);
+            //    stateQueryNode.SetAttributeValue("useRowCountAsValue", entry.UseRowCountAsValue);
+            //    entryNode.AppendChild(stateQueryNode);
+
+            //    XmlElement detailQueryNode = config.CreateElement("detailQuery");
+            //    detailQueryNode.SetAttributeValue("syntax", entry.DetailQuery);
+            //    detailQueryNode.SetAttributeValue("columnNames", entry.ColumnNames.ToCSVString());
+            //    entryNode.AppendChild(detailQueryNode);
+            //    wmiNode.AppendChild(entryNode);
+            //}
+            //return config.OuterXml;
         }
         public string GetDefaultOrEmptyXml()
         {
-            return "<config><wmiQueries><wmiQuery name=\"Example\" namespace=\"root\\CIMV2\" machineName=\".\">" +
-                    "<stateQuery syntax=\"SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'\" " +
-                        "returnValueIsInt=\"True\" returnValueInverted=\"True\" useRowCountAsValue=\"False\" " +
-                        "warningValue=\"1048576000\" errorValue=\"524288000\" successValue=\"[any]\" />" +
-                    "<detailQuery syntax=\"SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'\" " + 
-                        "columnNames=\"Caption, Size, FreeSpace, Description\" keyColumn=\"0\" />" +
-                "</wmiQuery></wmiQueries></config>";
+            return "<config>" +
+              "<carvcesEntries>" +
+              "<carvceEntry name=\"\">" +
+              "<dataSource><stateQuery /><detailQuery /></dataSource>" +
+              "<testConditions testSequence=\"GWE\">" +
+              "<success testType=\"match\"></success>" +
+              "<warning testType=\"match\"></warning>" +
+              "<error testType=\"match\"></error>" +
+              "</testConditions>" +
+              "</carvceEntry>" +
+              "</carvcesEntries>" +
+              "</config>";
+
+            //return "<config><wmiQueries><wmiQuery name=\"Example\" namespace=\"root\\CIMV2\" machineName=\".\">" +
+            //        "<stateQuery syntax=\"SELECT FreeSpace FROM Win32_LogicalDisk where Caption = 'C:'\" " +
+            //            "returnValueIsInt=\"True\" returnValueInverted=\"True\" useRowCountAsValue=\"False\" " +
+            //            "warningValue=\"1048576000\" errorValue=\"524288000\" successValue=\"[any]\" />" +
+            //        "<detailQuery syntax=\"SELECT Caption, Size, FreeSpace, Description FROM Win32_LogicalDisk where Caption = 'C:'\" " + 
+            //            "columnNames=\"Caption, Size, FreeSpace, Description\" keyColumn=\"0\" />" +
+            //    "</wmiQuery></wmiQueries></config>";
         }
         public string ConfigSummary
         {
@@ -236,29 +355,43 @@ namespace QuickMon.Collectors
         #region ICollectorConfigEntry
         public MonitorState GetCurrentState()
         {
-            object value = null;
-            if (!ReturnValueIsInt)
-            {
-                value = RunQueryWithSingleResult();
-            }
-            else
-            {
-                if (UseRowCountAsValue)
-                {
-                    value = RunQueryWithCountResult();
-                }
-                else
-                {
-                    value = RunQueryWithSingleResult();
-                }
-            }
-            CurrentAgentValue = value == null ? "[null]" : value;
+            object value = RunQuery();
+            string unitName = OutputValueUnit;
+            if (UseRowCountAsValue && OutputValueUnit.Length == 0)
+                unitName = "row(s)";
             MonitorState currentState = new MonitorState()
             {
-                ForAgent = Description,
-                CurrentValue = value == null ? "[null]" : value,
-                State = GetState(value)
+                State = CollectorAgentReturnValueCompareEngine.GetState(ReturnCheckSequence, GoodResultMatchType, GoodValue,
+                 WarningResultMatchType, WarningValue, ErrorResultMatchType, ErrorValue, value),
+                ForAgent = Name,
+                CurrentValue = value,
+                CurrentValueUnit = unitName
             };
+
+            //object value = null;
+            //if (!ReturnValueIsInt)
+            //{
+            //    value = RunQueryWithSingleResult();
+            //}
+            //else
+            //{
+            //    if (UseRowCountAsValue)
+            //    {
+            //        value = RunQueryWithCountResult();
+            //    }
+            //    else
+            //    {
+            //        value = RunQueryWithSingleResult();
+            //    }
+            //}
+            //CurrentAgentValue = value == null ? "[null]" : value;
+            //MonitorState currentState = new MonitorState()
+            //{
+            //    ForAgent = Description,
+            //    CurrentValue = value == null ? "[null]" : value,
+            //    CurrentValueUnit = OutputValueUnit,
+            //    State = GetState(value)
+            //};
             if (currentState.State == CollectorState.Error)
             {
                 currentState.RawDetails = string.Format("(Trigger '{0}')", ErrorValue);
@@ -280,7 +413,7 @@ namespace QuickMon.Collectors
         {
             get
             {
-                return string.Format("Success: {0}, Warn: {1}, Err: {2}", SuccessValue, WarningValue, ErrorValue);
+                return string.Format("Success: {0}, Warn: {1}, Err: {2}", GoodValue, WarningValue, ErrorValue);
             }
         }
         public List<ICollectorConfigSubEntry> SubItems { get; set; }
@@ -290,28 +423,36 @@ namespace QuickMon.Collectors
         #region Properties
         public string Name { get; set; }
         public object CurrentAgentValue { get; set; }
+        public string OutputValueUnit { get; set; }
         public string Namespace { get; set; }
         public string Machinename { get; set; }
         public string StateQuery { get; set; }
-        public bool ReturnValueIsInt { get; set; }
-        public bool ReturnValueInverted { get; set; }
-        public string WarningValue { get; set; }
-        public string ErrorValue { get; set; }
-        public string SuccessValue { get; set; }
+        //public bool ReturnValueIsInt { get; set; }
+        //public bool ReturnValueInverted { get; set; }
         public bool UseRowCountAsValue { get; set; }
         public string DetailQuery { get; set; }
         public List<string> ColumnNames { get; set; }
+
+        #region Alert trigger tests
+        public CollectorAgentReturnValueCheckSequence ReturnCheckSequence { get; set; }
+        public CollectorAgentReturnValueCompareMatchType GoodResultMatchType { get; set; }
+        public string GoodValue { get; set; }
+        public CollectorAgentReturnValueCompareMatchType WarningResultMatchType { get; set; }
+        public string WarningValue { get; set; }
+        public CollectorAgentReturnValueCompareMatchType ErrorResultMatchType { get; set; }
+        public string ErrorValue { get; set; }
+        #endregion
         #endregion
 
         public object RunQuery()
         {
             object value = null;
-            if (!ReturnValueIsInt)
-            {
-                value = RunQueryWithSingleResult();
-            }
-            else
-            {
+            //if (!ReturnValueIsInt)
+            //{
+            //    value = RunQueryWithSingleResult();
+            //}
+            //else
+            //{
                 if (UseRowCountAsValue)
                 {
                     value = RunQueryWithCountResult();
@@ -320,63 +461,63 @@ namespace QuickMon.Collectors
                 {
                     value = RunQueryWithSingleResult();
                 }
-            }
+            //}
             return value;
         }
-        private CollectorState GetState(object value)
-        {
-            CollectorState currentState = CollectorState.Good;
-            if (value == null)
-            {
-                if (ErrorValue == "[null]")
-                    currentState = CollectorState.Error;
-                else if (WarningValue == "[null]")
-                    currentState = CollectorState.Warning;
-            }
-            else //non null value
-            {
-                if (!ReturnValueIsInt)
-                {
-                    if (value.ToString() == ErrorValue)
-                        currentState = CollectorState.Error;
-                    else if (value.ToString() == WarningValue)
-                        currentState = CollectorState.Warning;
-                    else if (value.ToString() == SuccessValue || SuccessValue == "[any]")
-                        currentState = CollectorState.Good; //just to flag condition
-                    else if (WarningValue == "[any]")
-                        currentState = CollectorState.Warning;
-                    else if (ErrorValue == "[any]")
-                        currentState = CollectorState.Error;
-                }
-                else //now we know the value is not null and must be in a range
-                {
-                    if (!value.IsIntegerTypeNumber()) //value must be a number!
-                    {
-                        currentState = CollectorState.Error;
-                    }
-                    else if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
-                            (
-                             (!ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(ErrorValue)) ||
-                             (ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(ErrorValue))
-                            )
-                        )
-                    {
-                        currentState = CollectorState.Error;
-                    }
-                    else if (WarningValue != "[any]" && WarningValue != "[null]" &&
-                           (
-                            (!ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(WarningValue)) ||
-                            (ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(WarningValue))
-                           )
-                        )
-                    {
-                        currentState = CollectorState.Warning;
-                    }
-                }
-            }
-            return currentState;
-        }
-        public decimal RunQueryWithCountResult()
+        //private CollectorState GetState(object value)
+        //{
+        //    CollectorState currentState = CollectorState.Good;
+        //    if (value == null)
+        //    {
+        //        if (ErrorValue == "[null]")
+        //            currentState = CollectorState.Error;
+        //        else if (WarningValue == "[null]")
+        //            currentState = CollectorState.Warning;
+        //    }
+        //    else //non null value
+        //    {
+        //        if (!ReturnValueIsInt)
+        //        {
+        //            if (value.ToString() == ErrorValue)
+        //                currentState = CollectorState.Error;
+        //            else if (value.ToString() == WarningValue)
+        //                currentState = CollectorState.Warning;
+        //            else if (value.ToString() == SuccessValue || SuccessValue == "[any]")
+        //                currentState = CollectorState.Good; //just to flag condition
+        //            else if (WarningValue == "[any]")
+        //                currentState = CollectorState.Warning;
+        //            else if (ErrorValue == "[any]")
+        //                currentState = CollectorState.Error;
+        //        }
+        //        else //now we know the value is not null and must be in a range
+        //        {
+        //            if (!value.IsIntegerTypeNumber()) //value must be a number!
+        //            {
+        //                currentState = CollectorState.Error;
+        //            }
+        //            else if (ErrorValue != "[any]" && ErrorValue != "[null]" &&
+        //                    (
+        //                     (!ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(ErrorValue)) ||
+        //                     (ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(ErrorValue))
+        //                    )
+        //                )
+        //            {
+        //                currentState = CollectorState.Error;
+        //            }
+        //            else if (WarningValue != "[any]" && WarningValue != "[null]" &&
+        //                   (
+        //                    (!ReturnValueInverted && decimal.Parse(value.ToString()) >= decimal.Parse(WarningValue)) ||
+        //                    (ReturnValueInverted && decimal.Parse(value.ToString()) <= decimal.Parse(WarningValue))
+        //                   )
+        //                )
+        //            {
+        //                currentState = CollectorState.Warning;
+        //            }
+        //        }
+        //    }
+        //    return currentState;
+        //}
+        private decimal RunQueryWithCountResult()
         {
             decimal result = 0;
             ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = Machinename });
@@ -392,7 +533,7 @@ namespace QuickMon.Collectors
             }
             return result;
         }
-        public object RunQueryWithSingleResult()
+        private object RunQueryWithSingleResult()
         {
             ManagementScope managementScope = new ManagementScope(new ManagementPath(Namespace) { Server = Machinename });
             using (ManagementObjectSearcher searcherInstance = new ManagementObjectSearcher(managementScope, new WqlObjectQuery(StateQuery), null))

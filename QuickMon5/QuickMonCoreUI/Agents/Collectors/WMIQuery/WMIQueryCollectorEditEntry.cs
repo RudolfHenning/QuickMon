@@ -31,10 +31,6 @@ namespace QuickMon.UI
         #region Form events
         private void EditConfigEntry_Load(object sender, EventArgs e)
         {
-
-        }
-        private void EditConfig_Shown(object sender, EventArgs e)
-        {
             if (SelectedEntry != null)
             {
                 WMIQueryCollectorConfigEntry selectedEntry = (WMIQueryCollectorConfigEntry)SelectedEntry;            
@@ -42,15 +38,26 @@ namespace QuickMon.UI
                 txtNamespace.Text = selectedEntry.Namespace == null ? "root\\CIMV2" : selectedEntry.Namespace;
                 txtMachines.Text = selectedEntry.Machinename == null ? "." : selectedEntry.Machinename;
                 txtStateQuery.Text = selectedEntry.StateQuery;
-                chkIsReturnValueInt.Checked = selectedEntry.ReturnValueIsInt;
-                chkReturnValueNotInverted.Checked = !selectedEntry.ReturnValueInverted;
+                //chkIsReturnValueInt.Checked = selectedEntry.ReturnValueIsInt;
+                //chkReturnValueNotInverted.Checked = !selectedEntry.ReturnValueInverted;
                 chkUseRowCountAsValue.Checked = selectedEntry.UseRowCountAsValue;
-                cboSuccessValue.Text = selectedEntry.SuccessValue;
-                cboWarningValue.Text = selectedEntry.WarningValue;
-                cboErrorValue.Text = selectedEntry.ErrorValue;
+
+                cboReturnCheckSequence.SelectedIndex = (int)selectedEntry.ReturnCheckSequence;
+                txtSuccess.Text = selectedEntry.GoodValue;
+                cboSuccessMatchType.SelectedIndex = (int)selectedEntry.GoodResultMatchType;
+                txtWarning.Text = selectedEntry.WarningValue;
+                cboWarningMatchType.SelectedIndex = (int)selectedEntry.WarningResultMatchType;
+                txtError.Text = selectedEntry.ErrorValue;
+                cboErrorMatchType.SelectedIndex = (int)selectedEntry.ErrorResultMatchType;
+
                 txtDetailQuery.Text = selectedEntry.DetailQuery;
                 txtColumnNames.Text = selectedEntry.ColumnNames.ToCSVString();
+                cboOutputValueUnit.Text = selectedEntry.OutputValueUnit;
             }
+        }
+        private void EditConfig_Shown(object sender, EventArgs e)
+        {
+            
         }
         #endregion
 
@@ -91,45 +98,58 @@ namespace QuickMon.UI
                     tmpWMIConfig.Namespace = txtNamespace.Text;
                     tmpWMIConfig.Machinename = txtMachines.Text;
                     tmpWMIConfig.StateQuery = txtStateQuery.Text;
-                    tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                    tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
+
+                    //tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
+                    //tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
                     tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                    tmpWMIConfig.SuccessValue = cboSuccessValue.Text;
-                    tmpWMIConfig.WarningValue = cboWarningValue.Text;
-                    tmpWMIConfig.ErrorValue = cboErrorValue.Text;
+                    tmpWMIConfig.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+                    tmpWMIConfig.GoodValue = txtSuccess.Text;
+                    tmpWMIConfig.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+                    tmpWMIConfig.WarningValue = txtWarning.Text;
+                    tmpWMIConfig.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+                    tmpWMIConfig.ErrorValue = txtError.Text;
+                    tmpWMIConfig.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
+
                     tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
                     tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
+                    tmpWMIConfig.OutputValueUnit = cboOutputValueUnit.Text;
 
                     //tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
 
-                    object returnValue = null;
-                    if (tmpWMIConfig.UseRowCountAsValue)
-                    {
-                        lastStep = "Run summary query (row count as value)";
-                        returnValue = tmpWMIConfig.RunQueryWithCountResult();
-                    }
-                    else
-                    {
-                        lastStep = "Run summary query";
-                        if (returnValue.IsIntegerTypeNumber())
-                        {
-                            object currentValue = null;
-                            currentValue = tmpWMIConfig.RunQueryWithSingleResult();
-                            if (currentValue.IsNumber())
-                                returnValue = (decimal)currentValue;
-                            else
-                                throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                        }
-                        else
-                            returnValue = tmpWMIConfig.RunQueryWithSingleResult();
-                    }
+                    lastStep = "Run GetCurrentState";
+                    MonitorState testState = tmpWMIConfig.GetCurrentState();
 
-                    if (tmpWMIConfig.ReturnValueIsInt)
-                    {
-                        lastStep = "Test return value is an Integer";
-                        if (!returnValue.IsIntegerTypeNumber())
-                            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
-                    }
+
+
+                    //object returnValue = null;
+
+                    //if (tmpWMIConfig.UseRowCountAsValue)
+                    //{
+                    //    lastStep = "Run summary query (row count as value)";
+                    //    returnValue = tmpWMIConfig.RunQueryWithCountResult();
+                    //}
+                    //else
+                    //{
+                    //    lastStep = "Run summary query";
+                    //    if (returnValue.IsIntegerTypeNumber())
+                    //    {
+                    //        object currentValue = null;
+                    //        currentValue = tmpWMIConfig.RunQueryWithSingleResult();
+                    //        if (currentValue.IsNumber())
+                    //            returnValue = (decimal)currentValue;
+                    //        else
+                    //            throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
+                    //    }
+                    //    else
+                    //        returnValue = tmpWMIConfig.RunQueryWithSingleResult();
+                    //}
+
+                    //if (tmpWMIConfig.ReturnValueIsInt)
+                    //{
+                    //    lastStep = "Test return value is an Integer";
+                    //    if (!returnValue.IsIntegerTypeNumber())
+                    //        throw new Exception(string.Format("Return value is not an integer!\r\nValue returned: {0}", returnValue));
+                    //}
                     //testing detail query
                     lastStep = "Testing detail query - Getting column names";
                     List<DataColumn> columns = tmpWMIConfig.GetDetailQueryColumns();
@@ -154,9 +174,9 @@ namespace QuickMon.UI
                     lastStep = "Testing detail query";
                     DataSet ds = tmpWMIConfig.RunDetailQuery();
                     if (columnWarningText.Length == 0)
-                        MessageBox.Show(string.Format("Success!\r\nSummary value return: {0}\r\nDetail row count: {1}\r\nDetail columns: {2}", returnValue, ds.Tables[0].Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(string.Format("{0}!\r\nSummary value return: {1}\r\nDetail row count: {2}\r\nDetail columns: {3}", testState.State, tmpWMIConfig.CurrentAgentValue, ds.Tables[0].Rows.Count, columns.ToCSVString()), "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
-                        MessageBox.Show(string.Format("Success (with warning)!\r\nSummary value return: {0}\r\nDetail row count: {1}\r\nDetail columns returned: {2}\r\nColumns not found: {3}", returnValue, ds.Tables[0].Rows.Count, columns.ToCSVString(), columnWarningText), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(string.Format("{0} (with warning)!\r\nSummary value return: {1}\r\nDetail row count: {2}\r\nDetail columns returned: {3}\r\nColumns not found: {4}", testState.State, tmpWMIConfig.CurrentAgentValue, ds.Tables[0].Rows.Count, columns.ToCSVString(), columnWarningText), "Test", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 catch (Exception ex)
                 {
@@ -176,14 +196,19 @@ namespace QuickMon.UI
                 selectedEntry.Namespace = txtNamespace.Text;
                 selectedEntry.Machinename = txtMachines.Text;
                 selectedEntry.StateQuery = txtStateQuery.Text;
-                selectedEntry.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                selectedEntry.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
+                //selectedEntry.ReturnValueIsInt = chkIsReturnValueInt.Checked;
+                //selectedEntry.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
                 selectedEntry.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                selectedEntry.SuccessValue = cboSuccessValue.Text;
-                selectedEntry.WarningValue = cboWarningValue.Text;
-                selectedEntry.ErrorValue = cboErrorValue.Text;
+                selectedEntry.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+                selectedEntry.GoodValue = txtSuccess.Text;
+                selectedEntry.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+                selectedEntry.WarningValue = txtWarning.Text;
+                selectedEntry.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+                selectedEntry.ErrorValue = txtError.Text;
+                selectedEntry.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
                 selectedEntry.DetailQuery = txtDetailQuery.Text;
                 selectedEntry.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
+                selectedEntry.OutputValueUnit = cboOutputValueUnit.Text;
 
                 SelectedEntry = selectedEntry;
                 //WmiIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
@@ -222,8 +247,8 @@ namespace QuickMon.UI
         #region Other control events
         private void chkIsReturnValueInt_CheckedChanged(object sender, EventArgs e)
         {
-            chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
-            chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
+            //chkReturnValueNotInverted.Enabled = chkIsReturnValueInt.Checked;
+            //chkUseRowCountAsValue.Enabled = chkIsReturnValueInt.Checked;
         }
         private void lblColumnNameSequence_DoubleClick(object sender, EventArgs e)
         {
@@ -234,12 +259,16 @@ namespace QuickMon.UI
                 tmpWMIConfig.Namespace = txtNamespace.Text;
                 tmpWMIConfig.Machinename = txtMachines.Text;
                 tmpWMIConfig.StateQuery = txtStateQuery.Text;
-                tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
-                tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
+                //tmpWMIConfig.ReturnValueIsInt = chkIsReturnValueInt.Checked;
+                //tmpWMIConfig.ReturnValueInverted = !chkReturnValueNotInverted.Checked;
                 tmpWMIConfig.UseRowCountAsValue = chkUseRowCountAsValue.Checked;
-                tmpWMIConfig.SuccessValue = cboSuccessValue.Text;
-                tmpWMIConfig.WarningValue = cboWarningValue.Text;
-                tmpWMIConfig.ErrorValue = cboErrorValue.Text;
+                tmpWMIConfig.ReturnCheckSequence = (CollectorAgentReturnValueCheckSequence)cboReturnCheckSequence.SelectedIndex;
+                tmpWMIConfig.GoodValue = txtSuccess.Text;
+                tmpWMIConfig.GoodResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboSuccessMatchType.SelectedIndex;
+                tmpWMIConfig.WarningValue = txtWarning.Text;
+                tmpWMIConfig.WarningResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboWarningMatchType.SelectedIndex;
+                tmpWMIConfig.ErrorValue = txtError.Text;
+                tmpWMIConfig.ErrorResultMatchType = (CollectorAgentReturnValueCompareMatchType)cboErrorMatchType.SelectedIndex;
                 tmpWMIConfig.DetailQuery = txtDetailQuery.Text;
                 tmpWMIConfig.ColumnNames = txtColumnNames.Text.ToListFromCSVString();
                 // tmpWMIConfig.KeyColumn = (int)keyColumnNumericUpDown.Value;
@@ -258,11 +287,11 @@ namespace QuickMon.UI
         {
             cmdOK.Enabled = txtName.Text.Length > 0 && txtNamespace.Text.Length > 0 && txtMachines.Text.Length > 0 &&
                 txtStateQuery.Text.Length > 0 &&
-                cboSuccessValue.Text.Length > 0 && cboWarningValue.Text.Length > 0 && cboErrorValue.Text.Length > 0 &&
+                txtSuccess.Text.Length > 0 && txtWarning.Text.Length > 0 && txtError.Text.Length > 0 &&
                 txtDetailQuery.Text.Length > 0;
             cmdTestDB.Enabled = txtName.Text.Length > 0 && txtNamespace.Text.Length > 0 && txtMachines.Text.Length > 0 &&
                 txtStateQuery.Text.Length > 0 &&
-                cboSuccessValue.Text.Length > 0 && cboWarningValue.Text.Length > 0 && cboErrorValue.Text.Length > 0 &&
+                txtSuccess.Text.Length > 0 && txtWarning.Text.Length > 0 && txtError.Text.Length > 0 &&
                 txtDetailQuery.Text.Length > 0;
         }
         private bool DoValidate()
@@ -273,49 +302,49 @@ namespace QuickMon.UI
                     throw new InPutValidationException("Namespace must be specified!", txtNamespace);
                 if (txtMachines.Text.Length == 0 || txtMachines.Text.ToListFromCSVString(true).Count == 0)
                     throw new InPutValidationException("There must be at least one machine name!", txtMachines);
-                if ((cboSuccessValue.Text == "[null]" && cboWarningValue.Text == "[null]") ||
-                    (cboSuccessValue.Text == "[null]" && cboErrorValue.Text == "[null]") ||
-                    (cboWarningValue.Text == "[null]" && cboErrorValue.Text == "[null]"))
+                if ((txtSuccess.Text == "[null]" && txtWarning.Text == "[null]") ||
+                    (txtSuccess.Text == "[null]" && txtError.Text == "[null]") ||
+                    (txtWarning.Text == "[null]" && txtError.Text == "[null]"))
                 {
-                    throw new InPutValidationException("Only one value can be [null]!", cboSuccessValue);
+                    throw new InPutValidationException("Only one value can be [null]!", txtSuccess);
                 }
-                if ((cboSuccessValue.Text == "[any]" && cboWarningValue.Text == "[any]") ||
-                    (cboSuccessValue.Text == "[any]" && cboErrorValue.Text == "[any]") ||
-                    (cboWarningValue.Text == "[any]" && cboErrorValue.Text == "[any]"))
+                if ((txtSuccess.Text == "[any]" && txtWarning.Text == "[any]") ||
+                    (txtSuccess.Text == "[any]" && txtError.Text == "[any]") ||
+                    (txtWarning.Text == "[any]" && txtError.Text == "[any]"))
                 {
-                    throw new InPutValidationException("Only one value can be [any]!", cboSuccessValue);
+                    throw new InPutValidationException("Only one value can be [any]!", txtSuccess);
                 }
-                if (chkIsReturnValueInt.Checked)
-                {
-                    if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" && !cboSuccessValue.Text.IsLong())
-                        throw new InPutValidationException("Success value must be a valid integer!\r\n(or predefined values [any] or [null])", cboSuccessValue);
-                    else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" && !cboWarningValue.Text.IsLong())
-                        throw new InPutValidationException("Warning value must be a valid integer!\r\n(or predefined values [any] or [null])", cboWarningValue);
-                    else if (cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" && !cboErrorValue.Text.IsLong())
-                        throw new InPutValidationException("Error value must be a valid integer!\r\n(or predefined values [any] or [null])", cboErrorValue);
-                    else if (chkReturnValueNotInverted.Checked)
-                    {
-                        if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" &&
-                            cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            long.Parse(cboSuccessValue.Text) >= long.Parse(cboWarningValue.Text))
-                            throw new InPutValidationException("Success value must smaller than Warning value", cboSuccessValue);
-                        else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" &&
-                            int.Parse(cboWarningValue.Text) >= long.Parse(cboErrorValue.Text))
-                            throw new InPutValidationException("Warning value must smaller than Error value", cboWarningValue);
-                    }
-                    else if (!chkReturnValueNotInverted.Checked)
-                    {
-                        if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" &&
-                            cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            long.Parse(cboSuccessValue.Text) <= long.Parse(cboWarningValue.Text))
-                            throw new InPutValidationException("Success value must bigger than Warning value", cboSuccessValue);
-                        else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
-                            cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" &&
-                            long.Parse(cboWarningValue.Text) <= long.Parse(cboErrorValue.Text))
-                            throw new InPutValidationException("Warning value must bigger than Error value", cboWarningValue);
-                    }
-                }
+                //if (chkIsReturnValueInt.Checked)
+                //{
+                //    if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" && !cboSuccessValue.Text.IsLong())
+                //        throw new InPutValidationException("Success value must be a valid integer!\r\n(or predefined values [any] or [null])", cboSuccessValue);
+                //    else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" && !cboWarningValue.Text.IsLong())
+                //        throw new InPutValidationException("Warning value must be a valid integer!\r\n(or predefined values [any] or [null])", cboWarningValue);
+                //    else if (cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" && !cboErrorValue.Text.IsLong())
+                //        throw new InPutValidationException("Error value must be a valid integer!\r\n(or predefined values [any] or [null])", cboErrorValue);
+                //    else if (chkReturnValueNotInverted.Checked)
+                //    {
+                //        if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" &&
+                //            cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
+                //            long.Parse(cboSuccessValue.Text) >= long.Parse(cboWarningValue.Text))
+                //            throw new InPutValidationException("Success value must smaller than Warning value", cboSuccessValue);
+                //        else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
+                //            cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" &&
+                //            int.Parse(cboWarningValue.Text) >= long.Parse(cboErrorValue.Text))
+                //            throw new InPutValidationException("Warning value must smaller than Error value", cboWarningValue);
+                //    }
+                //    else if (!chkReturnValueNotInverted.Checked)
+                //    {
+                //        if (cboSuccessValue.Text != "[null]" && cboSuccessValue.Text != "[any]" &&
+                //            cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
+                //            long.Parse(cboSuccessValue.Text) <= long.Parse(cboWarningValue.Text))
+                //            throw new InPutValidationException("Success value must bigger than Warning value", cboSuccessValue);
+                //        else if (cboWarningValue.Text != "[null]" && cboWarningValue.Text != "[any]" &&
+                //            cboErrorValue.Text != "[null]" && cboErrorValue.Text != "[any]" &&
+                //            long.Parse(cboWarningValue.Text) <= long.Parse(cboErrorValue.Text))
+                //            throw new InPutValidationException("Warning value must bigger than Error value", cboWarningValue);
+                //    }
+                //}
                 return true;
             }
             catch (InPutValidationException ex)
@@ -328,6 +357,7 @@ namespace QuickMon.UI
         }
         #endregion
 
+        #region Change control
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             CheckTestOKEnabled();
@@ -359,7 +389,8 @@ namespace QuickMon.UI
         private void txtDetailQuery_TextChanged(object sender, EventArgs e)
         {
             CheckTestOKEnabled();
-        }
+        } 
+        #endregion
 
 
     }
