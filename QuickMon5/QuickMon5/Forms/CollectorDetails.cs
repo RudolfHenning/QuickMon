@@ -252,7 +252,25 @@ namespace QuickMon
             txtName.Text = SelectedCollectorHost.Name;
             LoadMetrics();
             LoadHistory();
+            LoadActionScripts();
             UpdateAgentStateTree();            
+        }
+
+        private void LoadActionScripts()
+        {
+            lvwActionScripts.Items.Clear();
+            if (SelectedCollectorHost.ActionScripts != null)
+            {
+                foreach(var actionScript in SelectedCollectorHost.ActionScripts)
+                {
+                    if (actionScript.RunTimeLinkedActionScript != null)
+                    {
+                        ListViewItem lvi = new ListViewItem(actionScript.RunTimeLinkedActionScript.Name);
+                        lvi.Tag = actionScript;
+                        lvwActionScripts.Items.Add(lvi);
+                    }
+                }
+            }
         }
 
         private void LoadMetrics()
@@ -461,7 +479,7 @@ namespace QuickMon
             chkCorrectiveScriptDisabled.Checked = editingCollectorHost.CorrectiveScriptDisabled;
             numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin);
             numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin);
-            chkOnlyRunCorrectiveScriptsOnStateChange.Checked = editingCollectorHost.CorrectiveScriptsOnlyOnStateChange;
+            //chkOnlyRunCorrectiveScriptsOnStateChange.Checked = editingCollectorHost.CorrectiveScriptsOnlyOnStateChange;
             numericUpDownRestorationScriptMinimumRepeatTimeMin.SaveValueSet(editingCollectorHost.RestorationScriptMinimumRepeatTimeMin);
             chkRunAsEnabled.Checked = editingCollectorHost.RunAsEnabled;
             txtRunAs.Text = editingCollectorHost.RunAs;
@@ -1142,6 +1160,8 @@ namespace QuickMon
                 if (SetEditingCollectorHost())
                 {
                     SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
+                    if (SelectedCollectorHost.ParentMonitorPack != null)
+                        SelectedCollectorHost.ParentMonitorPack.InitializeCollectorActionScripts(SelectedCollectorHost);
                     LoadControls();                    
                     
                     ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);
@@ -1498,7 +1518,7 @@ namespace QuickMon
                 //editingCollectorHost.CorrectiveScriptOnWarningPath = txtCorrectiveScriptOnWarning.Text;
                 //editingCollectorHost.CorrectiveScriptOnErrorPath = txtCorrectiveScriptOnError.Text;
                 //editingCollectorHost.RestorationScriptPath = txtRestorationScript.Text;
-                editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
+                //editingCollectorHost.CorrectiveScriptsOnlyOnStateChange = chkOnlyRunCorrectiveScriptsOnStateChange.Checked;
                 editingCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnWarningMinimumRepeatTimeMin.Value;
                 editingCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin = (int)numericUpDownCorrectiveScriptOnErrorMinimumRepeatTimeMin.Value;
                 editingCollectorHost.RestorationScriptMinimumRepeatTimeMin = (int)numericUpDownRestorationScriptMinimumRepeatTimeMin.Value;

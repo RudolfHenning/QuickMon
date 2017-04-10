@@ -119,8 +119,8 @@ namespace QuickMon
                     foreach (CollectorHost collectorHost in CollectorHosts)
                     {
                         SetCollectorHostEvents(collectorHost);
-                        InitializeCollectorActionScripts(collectorHost);
                     }
+                    InitializeCollectorActionScripts();
                 }
                 #endregion
                 /***************** Load Notifiers ****************/
@@ -221,6 +221,16 @@ namespace QuickMon
             collectorHost.ExitingServiceWindow += collectorHost_ExitingServiceWindow;
         }
 
+        /// <summary>
+        /// When Initializing/reinitializing the scripts
+        /// </summary>
+        public void InitializeCollectorActionScripts()
+        {
+            foreach (CollectorHost collectorHost in CollectorHosts)
+            {
+                InitializeCollectorActionScripts(collectorHost);
+            }
+        }
         public void InitializeCollectorActionScripts(CollectorHost collectorHost)
         {
             if (collectorHost != null && collectorHost.ActionScripts != null)

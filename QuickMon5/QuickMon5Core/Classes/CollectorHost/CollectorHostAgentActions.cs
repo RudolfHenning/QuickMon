@@ -145,32 +145,40 @@ namespace QuickMon
                     AddStateToHistory(currentState);
 
                     #region Corrective scripts
-                    if (!CorrectiveScriptDisabled && (ParentMonitorPack == null || ParentMonitorPack.CorrectiveScriptsEnabled))
+                    try
                     {
-                        if (newState.State == CollectorState.Good && stateChanged && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
+                        if (!CorrectiveScriptDisabled && (ParentMonitorPack == null || ParentMonitorPack.CorrectiveScriptsEnabled))
                         {
-                            foreach (string scriptName in RunRestorationScripts())
+                            if (newState.State == CollectorState.Good && (currentState.State == CollectorState.Error || currentState.State == CollectorState.Warning))
                             {
-                                newState.ScriptsRan.Add("Restoration script: " + scriptName);
-                            }
-                        }
-                        else if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
-                        {
-                            if (newState.State == CollectorState.Error)
-                            {
-                                foreach (string scriptName in RunErrorCorrectiveScripts())
+
+                                foreach (string scriptName in RunRestorationScripts(stateChanged))
                                 {
-                                    newState.ScriptsRan.Add("Error corrective script: " + scriptName);
+                                    newState.ScriptsRan.Add("Restoration script: " + scriptName);
                                 }
                             }
-                            else if (newState.State == CollectorState.Warning)
+                            else // if (stateChanged || !CorrectiveScriptsOnlyOnStateChange)
                             {
-                                foreach (string scriptName in RunWarningCorrectiveScripts())
+                                if (newState.State == CollectorState.Error)
                                 {
-                                    newState.ScriptsRan.Add("Warning corrective script: " + scriptName);
+                                    foreach (string scriptName in RunErrorCorrectiveScripts(stateChanged))
+                                    {
+                                        newState.ScriptsRan.Add("Error corrective script: " + scriptName);
+                                    }
+                                }
+                                else if (newState.State == CollectorState.Warning)
+                                {
+                                    foreach (string scriptName in RunWarningCorrectiveScripts(stateChanged))
+                                    {
+                                        newState.ScriptsRan.Add("Warning corrective script: " + scriptName);
+                                    }
                                 }
                             }
                         }
+                    }
+                    catch (Exception corrEx)
+                    {
+                        CorrectiveScriptExecutionFailed?.Invoke(this, "Error executing corrective scripts", corrEx.Message);
                     }
                     #endregion
                 }
@@ -697,11 +705,17 @@ namespace QuickMon
         #endregion
 
         #region Run Corrective Scripts
-        private List<string> RunRestorationScripts()
+        private List<string> RunRestorationScripts(bool stateChanged = false)
         {
             List<string> scriptsRan = new List<string>();
-            if (RestorationScriptMinimumRepeatTimeMin > 0 && DateTime.Now < LastRestorationScriptRun.AddMinutes(RestorationScriptMinimumRepeatTimeMin))
+            if (!stateChanged && RestorationScriptMinimumRepeatTimeMin == 0)
+            {
+                CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Restoration script(s) blocked from running. It will only run if the state has changed!");
+            }
+            else if (RestorationScriptMinimumRepeatTimeMin > 0 && DateTime.Now < LastRestorationScriptRun.AddMinutes(RestorationScriptMinimumRepeatTimeMin))
+            {
                 CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Restoration script(s) blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
+            }
             else
             {
                 foreach (var restorationScript in (from s in ActionScripts
@@ -710,10 +724,15 @@ namespace QuickMon
                 {
                     try
                     {
-                        restorationScript.Run(false);
-                        RestorationScriptExecuted?.Invoke(this, restorationScript.RunTimeLinkedActionScript.Name);
-                        LastRestorationScriptRun = DateTime.Now;
-                        scriptsRan.Add(restorationScript.RunTimeLinkedActionScript.Name);
+                        if (restorationScript.RunTimeLinkedActionScript != null)
+                        {
+                            restorationScript.Run(false);
+                            RestorationScriptExecuted?.Invoke(this, restorationScript.RunTimeLinkedActionScript.Name);
+                            LastRestorationScriptRun = DateTime.Now;
+                            scriptsRan.Add(restorationScript.RunTimeLinkedActionScript.Name);
+                        }
+                        else
+                            ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", restorationScript.MPId);
                     }
                     catch (Exception ex)
                     {
@@ -725,23 +744,34 @@ namespace QuickMon
             }
             return scriptsRan;
         }
-        private List<string> RunWarningCorrectiveScripts()
+        private List<string> RunWarningCorrectiveScripts(bool stateChanged = false)
         {
             List<string> scriptsRan = new List<string>();
-            if (CorrectiveScriptOnWarningMinimumRepeatTimeMin > 0 && DateTime.Now < LastWarningCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnWarningMinimumRepeatTimeMin))
+            if (!stateChanged && CorrectiveScriptOnWarningMinimumRepeatTimeMin == 0)
+            {
+                CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Warning corrective script(s) blocked from running. It will only run if the state has changed!");
+            }
+            else if (CorrectiveScriptOnWarningMinimumRepeatTimeMin > 0 && DateTime.Now < LastWarningCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnWarningMinimumRepeatTimeMin))
+            {
                 CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Warning corrective script(s) blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
+            }
             else
             {
                 foreach (var warningScript in (from s in ActionScripts
-                                                   where s.IsWarningCorrectiveScript
-                                                   select s))
+                                               where s.IsWarningCorrectiveScript
+                                               select s))
                 {
                     try
                     {
-                        warningScript.Run(false);
-                        WarningCorrectiveScriptExecuted?.Invoke(this, warningScript.RunTimeLinkedActionScript.Name);
-                        LastWarningCorrectiveScriptRun = DateTime.Now;
-                        scriptsRan.Add(warningScript.RunTimeLinkedActionScript.Name);
+                        if (warningScript.RunTimeLinkedActionScript != null)
+                        {
+                            warningScript.Run(false);
+                            WarningCorrectiveScriptExecuted?.Invoke(this, warningScript.RunTimeLinkedActionScript.Name);
+                            LastWarningCorrectiveScriptRun = DateTime.Now;
+                            scriptsRan.Add(warningScript.RunTimeLinkedActionScript.Name);
+                        }
+                        else
+                            ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", warningScript.MPId);
                     }
                     catch (Exception ex)
                     {
@@ -753,10 +783,14 @@ namespace QuickMon
             }
             return scriptsRan;
         }
-        private List<string> RunErrorCorrectiveScripts()
+        private List<string> RunErrorCorrectiveScripts(bool stateChanged = false)
         {
             List<string> scriptsRan = new List<string>();
-            if (CorrectiveScriptOnErrorMinimumRepeatTimeMin > 0 && DateTime.Now < LastErrorCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnErrorMinimumRepeatTimeMin))
+            if (!stateChanged && CorrectiveScriptOnErrorMinimumRepeatTimeMin == 0)
+            {
+                CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Error corrective script(s) blocked from running. It will only run if the state has changed!");
+            }
+            else if (CorrectiveScriptOnErrorMinimumRepeatTimeMin > 0 && DateTime.Now < LastErrorCorrectiveScriptRun.AddMinutes(CorrectiveScriptOnErrorMinimumRepeatTimeMin))
                 CorrectiveScriptMinRepeatTimeBlockedEvent?.Invoke(this, "Error corrective script(s) blocked from running. The specified minimum number of seconds have not passed since the last time the script ran!");
             else
             {
@@ -766,10 +800,15 @@ namespace QuickMon
                 {
                     try
                     {
-                        errorScript.Run(false);
-                        ErrorCorrectiveScriptExecuted?.Invoke(this, errorScript.RunTimeLinkedActionScript.Name);
-                        LastErrorCorrectiveScriptRun = DateTime.Now;
-                        scriptsRan.Add(errorScript.RunTimeLinkedActionScript.Name);
+                        if (errorScript.RunTimeLinkedActionScript != null)
+                        {
+                            errorScript.Run(false);
+                            ErrorCorrectiveScriptExecuted?.Invoke(this, errorScript.RunTimeLinkedActionScript.Name);
+                            LastErrorCorrectiveScriptRun = DateTime.Now;
+                            scriptsRan.Add(errorScript.RunTimeLinkedActionScript.Name);
+                        }
+                        else
+                            ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", errorScript.MPId);
                     }
                     catch (Exception ex)
                     {

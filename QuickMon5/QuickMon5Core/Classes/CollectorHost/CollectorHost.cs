@@ -344,7 +344,7 @@ namespace QuickMon
         public string CorrectiveScriptOnWarningPath { get; set; }
         public string CorrectiveScriptOnErrorPath { get; set; }
         public string RestorationScriptPath { get; set; }
-        public bool CorrectiveScriptsOnlyOnStateChange { get; set; } 
+        //public bool CorrectiveScriptsOnlyOnStateChange { get; set; } 
         public int CorrectiveScriptOnWarningMinimumRepeatTimeMin { get; set; }
         public int CorrectiveScriptOnErrorMinimumRepeatTimeMin { get; set; }
         public int RestorationScriptMinimumRepeatTimeMin { get; set; }
