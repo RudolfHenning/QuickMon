@@ -145,27 +145,27 @@ namespace QuickMon
                 if (warningCorrectiveScriptsNode != null)
                 {
                     newCollectorHost.CorrectiveScriptOnWarningMinimumRepeatTimeMin = warningCorrectiveScriptsNode.ReadXmlElementAttr("warningMinRepeatTimeMin", 0);
-                    newCollectorHost.CorrectiveScriptOnWarningPath = warningCorrectiveScriptsNode.InnerText;
+                    //newCollectorHost.CorrectiveScriptOnWarningPath = warningCorrectiveScriptsNode.InnerText;
                 }
                 XmlNode errorCorrectiveScriptsNode = correctiveScriptsNode.SelectSingleNode("error");
                 if (errorCorrectiveScriptsNode != null)
                 {
                     newCollectorHost.CorrectiveScriptOnErrorMinimumRepeatTimeMin = errorCorrectiveScriptsNode.ReadXmlElementAttr("errorMinRepeatTimeMin", 0);
-                    newCollectorHost.CorrectiveScriptOnErrorPath = errorCorrectiveScriptsNode.InnerText;
+                    //newCollectorHost.CorrectiveScriptOnErrorPath = errorCorrectiveScriptsNode.InnerText;
                 }
                 XmlNode restorationCorrectiveScriptsNode = correctiveScriptsNode.SelectSingleNode("restoration");
                 if (restorationCorrectiveScriptsNode != null)
                 {
                     newCollectorHost.RestorationScriptMinimumRepeatTimeMin = restorationCorrectiveScriptsNode.ReadXmlElementAttr("restoreMinRepeatTimeMin", 0);
-                    newCollectorHost.RestorationScriptPath = restorationCorrectiveScriptsNode.InnerText;                    
+                    //newCollectorHost.RestorationScriptPath = restorationCorrectiveScriptsNode.InnerText;                    
                 }
             }
             else
             {
                 newCollectorHost.CorrectiveScriptDisabled = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptDisabled", false);
-                newCollectorHost.CorrectiveScriptOnWarningPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnWarningPath");
-                newCollectorHost.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
-                newCollectorHost.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
+                //newCollectorHost.CorrectiveScriptOnWarningPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnWarningPath");
+                //newCollectorHost.CorrectiveScriptOnErrorPath = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptOnErrorPath");
+                //newCollectorHost.RestorationScriptPath = xmlCollectorEntry.ReadXmlElementAttr("restorationScriptPath");
                 //newCollectorHost.CorrectiveScriptsOnlyOnStateChange = xmlCollectorEntry.ReadXmlElementAttr("correctiveScriptsOnlyOnStateChange", false);
             }
             #endregion
@@ -450,7 +450,7 @@ namespace QuickMon
             string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
             string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
             string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
-            string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptOnWarningPath, CorrectiveScriptOnErrorPath, RestorationScriptPath, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
+            string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
             string actionScriptsXml = GetActionScriptsXml(ActionScripts);
             string serviceWindowsXml = ServiceWindows.ToXml();
             string configVariablesXml = GetConfigVarXml(ConfigVariables);
@@ -486,7 +486,7 @@ namespace QuickMon
             string alertingSettingsXml = GetAlertingToXml(RepeatAlertInXMin, AlertOnceInXMin, DelayErrWarnAlertForXSec, RepeatAlertInXPolls, AlertOnceInXPolls, DelayErrWarnAlertForXPolls, AlertsPaused, AlertHeaderText, AlertFooterText, ErrorAlertText, WarningAlertText, GoodAlertText);
             string remoteAgentSettingsXml = GetRemoteAgentConfigXml(EnableRemoteExecute, ForceRemoteExcuteOnChildCollectors, RemoteAgentHostAddress, RemoteAgentHostPort, BlockParentOverrideRemoteAgentHostSettings, RunLocalOnRemoteHostConnectionFailure);
             string pollingSettingsXml = GetPollingConfigXml(EnabledPollingOverride, OnlyAllowUpdateOncePerXSec, EnablePollFrequencySliding, PollSlideFrequencyAfterFirstRepeatSec, PollSlideFrequencyAfterSecondRepeatSec, PollSlideFrequencyAfterThirdRepeatSec);
-            string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptOnWarningPath, CorrectiveScriptOnErrorPath, RestorationScriptPath, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
+            string correctiveScriptsXml = GetCorrectiveScriptsConfigXml(CorrectiveScriptDisabled, CorrectiveScriptOnErrorMinimumRepeatTimeMin, CorrectiveScriptOnWarningMinimumRepeatTimeMin, RestorationScriptMinimumRepeatTimeMin);
             string actionScriptsXml = GetActionScriptsXml(ActionScripts);           
             string serviceWindowsXml = ServiceWindows.ToXml();
             string configVariablesXml = GetConfigVarXml(ConfigVariables);
@@ -853,7 +853,7 @@ namespace QuickMon
             return pollingSettingsDoc.DocumentElement.OuterXml;
         }
         private static string GetCorrectiveScriptsConfigXml(bool correctiveScriptDisabled, // bool correctiveScriptsOnlyOnStateChange,
-            string correctiveScriptOnWarningPath, string correctiveScriptOnErrorPath, string restorationScriptPath,
+            //string correctiveScriptOnWarningPath, string correctiveScriptOnErrorPath, string restorationScriptPath,
             int correctiveScriptOnErrorMinimumRepeatTimeMin, int correctiveScriptOnWarningMinimumRepeatTimeMin, int restorationScriptMinimumRepeatTimeMin) 
         {
             XmlDocument correctiveScriptsDoc = new XmlDocument();
@@ -869,12 +869,12 @@ namespace QuickMon
             XmlNode restoreNode = correctiveScriptsDoc.DocumentElement.SelectSingleNode("restoration");
             restoreNode.SetAttributeValue("restoreMinRepeatTimeMin", restorationScriptMinimumRepeatTimeMin);
 
-            if (correctiveScriptOnWarningPath != null && correctiveScriptOnWarningPath.Trim(' ', '\r', '\n').Length > 0)
-                warningNode.InnerText = correctiveScriptOnWarningPath.Trim(' ', '\r', '\n');            
-            if (correctiveScriptOnErrorPath != null && correctiveScriptOnErrorPath.Trim(' ', '\r', '\n').Length > 0)
-                errorNode.InnerText = correctiveScriptOnErrorPath.Trim(' ', '\r', '\n');
-            if (restorationScriptPath != null && restorationScriptPath.Trim(' ', '\r','\n').Length > 0)
-                restoreNode.InnerText = restorationScriptPath.Trim(' ', '\r', '\n');
+            //if (correctiveScriptOnWarningPath != null && correctiveScriptOnWarningPath.Trim(' ', '\r', '\n').Length > 0)
+            //    warningNode.InnerText = correctiveScriptOnWarningPath.Trim(' ', '\r', '\n');            
+            //if (correctiveScriptOnErrorPath != null && correctiveScriptOnErrorPath.Trim(' ', '\r', '\n').Length > 0)
+            //    errorNode.InnerText = correctiveScriptOnErrorPath.Trim(' ', '\r', '\n');
+            //if (restorationScriptPath != null && restorationScriptPath.Trim(' ', '\r','\n').Length > 0)
+            //    restoreNode.InnerText = restorationScriptPath.Trim(' ', '\r', '\n');
             return correctiveScriptsDoc.DocumentElement.OuterXml;       
         }
         private static string GetConfigVarXml(List<ConfigVariable> configVariables)
