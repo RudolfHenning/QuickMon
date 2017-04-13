@@ -52,6 +52,9 @@ namespace QuickMon
             this.cmdOpen = new System.Windows.Forms.Button();
             this.cmdNew = new System.Windows.Forms.Button();
             this.cmdMenu = new System.Windows.Forms.Button();
+            this.cmdTemplates = new System.Windows.Forms.Button();
+            this.cmdAdminMode = new System.Windows.Forms.Button();
+            this.cmdSettings = new System.Windows.Forms.Button();
             this.settingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pollingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,10 +95,6 @@ namespace QuickMon
             this.splitButtonSave = new QuickMon.Controls.SplitButton.SplitButton();
             this.refreshBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
-            this.cmdTemplates = new System.Windows.Forms.Button();
-            this.cmdActionScripts = new System.Windows.Forms.Button();
-            this.cmdAdminMode = new System.Windows.Forms.Button();
-            this.cmdSettings = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.saveContextMenuStrip.SuspendLayout();
             this.openContextMenuStrip.SuspendLayout();
@@ -134,7 +133,7 @@ namespace QuickMon
             // 
             this.toolStripStatusLabelStatus.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabelStatus.Name = "toolStripStatusLabelStatus";
-            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(441, 17);
+            this.toolStripStatusLabelStatus.Size = new System.Drawing.Size(453, 17);
             this.toolStripStatusLabelStatus.Spring = true;
             this.toolStripStatusLabelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -273,7 +272,7 @@ namespace QuickMon
             this.cmdAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdAbout.Image = global::QuickMon.Properties.Resources.info24x24;
             this.cmdAbout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAbout.Location = new System.Drawing.Point(0, 306);
+            this.cmdAbout.Location = new System.Drawing.Point(0, 276);
             this.cmdAbout.Name = "cmdAbout";
             this.cmdAbout.Size = new System.Drawing.Size(45, 30);
             this.cmdAbout.TabIndex = 11;
@@ -360,6 +359,63 @@ namespace QuickMon
             this.toolTip1.SetToolTip(this.cmdMenu, "Menu  CTRL+M");
             this.cmdMenu.UseVisualStyleBackColor = false;
             this.cmdMenu.Click += new System.EventHandler(this.cmdMenu_Click);
+            // 
+            // cmdTemplates
+            // 
+            this.cmdTemplates.BackColor = System.Drawing.Color.Transparent;
+            this.cmdTemplates.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdTemplates.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdTemplates.FlatAppearance.BorderSize = 0;
+            this.cmdTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdTemplates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdTemplates.Image = global::QuickMon.Properties.Resources.tables24x24;
+            this.cmdTemplates.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdTemplates.Location = new System.Drawing.Point(0, 186);
+            this.cmdTemplates.Name = "cmdTemplates";
+            this.cmdTemplates.Size = new System.Drawing.Size(45, 30);
+            this.cmdTemplates.TabIndex = 6;
+            this.cmdTemplates.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdTemplates, "Templates");
+            this.cmdTemplates.UseVisualStyleBackColor = false;
+            this.cmdTemplates.Click += new System.EventHandler(this.cmdTemplates_Click);
+            // 
+            // cmdAdminMode
+            // 
+            this.cmdAdminMode.BackColor = System.Drawing.Color.Transparent;
+            this.cmdAdminMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdAdminMode.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cmdAdminMode.FlatAppearance.BorderSize = 0;
+            this.cmdAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAdminMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAdminMode.Image = global::QuickMon.Properties.Resources.Shield24x24;
+            this.cmdAdminMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAdminMode.Location = new System.Drawing.Point(0, 439);
+            this.cmdAdminMode.Name = "cmdAdminMode";
+            this.cmdAdminMode.Size = new System.Drawing.Size(45, 30);
+            this.cmdAdminMode.TabIndex = 12;
+            this.cmdAdminMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdAdminMode, "Admin Mode");
+            this.cmdAdminMode.UseVisualStyleBackColor = false;
+            this.cmdAdminMode.Click += new System.EventHandler(this.cmdAdminMode_Click);
+            // 
+            // cmdSettings
+            // 
+            this.cmdSettings.BackColor = System.Drawing.Color.Transparent;
+            this.cmdSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdSettings.FlatAppearance.BorderSize = 0;
+            this.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSettings.Image = global::QuickMon.Properties.Resources.tools24x24;
+            this.cmdSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdSettings.Location = new System.Drawing.Point(0, 246);
+            this.cmdSettings.Name = "cmdSettings";
+            this.cmdSettings.Size = new System.Drawing.Size(45, 30);
+            this.cmdSettings.TabIndex = 10;
+            this.cmdSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.cmdSettings, "Settings");
+            this.cmdSettings.UseVisualStyleBackColor = false;
+            this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
             // settingsContextMenuStrip
             // 
@@ -790,7 +846,6 @@ namespace QuickMon
             this.panelSlimMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelSlimMenu.Controls.Add(this.cmdAbout);
             this.panelSlimMenu.Controls.Add(this.cmdSettings);
-            this.panelSlimMenu.Controls.Add(this.cmdActionScripts);
             this.panelSlimMenu.Controls.Add(this.cmdRemoteHosts);
             this.panelSlimMenu.Controls.Add(this.cmdTemplates);
             this.panelSlimMenu.Controls.Add(this.splitButtonNotifiers);
@@ -873,81 +928,6 @@ namespace QuickMon
             // 
             this.saveFileDialogSave.DefaultExt = "qmp";
             this.saveFileDialogSave.Filter = "QuickMon Monitor Pack files|*.qmp";
-            // 
-            // cmdTemplates
-            // 
-            this.cmdTemplates.BackColor = System.Drawing.Color.Transparent;
-            this.cmdTemplates.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdTemplates.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdTemplates.FlatAppearance.BorderSize = 0;
-            this.cmdTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdTemplates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdTemplates.Image = global::QuickMon.Properties.Resources.tables24x24;
-            this.cmdTemplates.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdTemplates.Location = new System.Drawing.Point(0, 186);
-            this.cmdTemplates.Name = "cmdTemplates";
-            this.cmdTemplates.Size = new System.Drawing.Size(45, 30);
-            this.cmdTemplates.TabIndex = 6;
-            this.cmdTemplates.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdTemplates, "Templates");
-            this.cmdTemplates.UseVisualStyleBackColor = false;
-            this.cmdTemplates.Click += new System.EventHandler(this.cmdTemplates_Click);
-            // 
-            // cmdActionScripts
-            // 
-            this.cmdActionScripts.BackColor = System.Drawing.Color.Transparent;
-            this.cmdActionScripts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdActionScripts.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdActionScripts.FlatAppearance.BorderSize = 0;
-            this.cmdActionScripts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdActionScripts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdActionScripts.Image = global::QuickMon.Properties.Resources.scroll24x24;
-            this.cmdActionScripts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdActionScripts.Location = new System.Drawing.Point(0, 246);
-            this.cmdActionScripts.Name = "cmdActionScripts";
-            this.cmdActionScripts.Size = new System.Drawing.Size(45, 30);
-            this.cmdActionScripts.TabIndex = 8;
-            this.cmdActionScripts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdActionScripts, "Action Scripts");
-            this.cmdActionScripts.UseVisualStyleBackColor = false;
-            // 
-            // cmdAdminMode
-            // 
-            this.cmdAdminMode.BackColor = System.Drawing.Color.Transparent;
-            this.cmdAdminMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdAdminMode.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cmdAdminMode.FlatAppearance.BorderSize = 0;
-            this.cmdAdminMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAdminMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdAdminMode.Image = global::QuickMon.Properties.Resources.Shield24x24;
-            this.cmdAdminMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAdminMode.Location = new System.Drawing.Point(0, 439);
-            this.cmdAdminMode.Name = "cmdAdminMode";
-            this.cmdAdminMode.Size = new System.Drawing.Size(45, 30);
-            this.cmdAdminMode.TabIndex = 12;
-            this.cmdAdminMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdAdminMode, "Admin Mode");
-            this.cmdAdminMode.UseVisualStyleBackColor = false;
-            this.cmdAdminMode.Click += new System.EventHandler(this.cmdAdminMode_Click);
-            // 
-            // cmdSettings
-            // 
-            this.cmdSettings.BackColor = System.Drawing.Color.Transparent;
-            this.cmdSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.cmdSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdSettings.FlatAppearance.BorderSize = 0;
-            this.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSettings.Image = global::QuickMon.Properties.Resources.tools24x24;
-            this.cmdSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdSettings.Location = new System.Drawing.Point(0, 276);
-            this.cmdSettings.Name = "cmdSettings";
-            this.cmdSettings.Size = new System.Drawing.Size(45, 30);
-            this.cmdSettings.TabIndex = 10;
-            this.cmdSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.cmdSettings, "Settings");
-            this.cmdSettings.UseVisualStyleBackColor = false;
-            this.cmdSettings.Click += new System.EventHandler(this.cmdSettings_Click);
             // 
             // MainForm
             // 
@@ -1050,7 +1030,6 @@ namespace QuickMon
         private System.Windows.Forms.ToolStripStatusLabel adminModeToolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem actionScriptsToolStripMenuItem;
         private System.Windows.Forms.Button cmdTemplates;
-        private System.Windows.Forms.Button cmdActionScripts;
         private System.Windows.Forms.Button cmdAdminMode;
         private System.Windows.Forms.Button cmdSettings;
     }

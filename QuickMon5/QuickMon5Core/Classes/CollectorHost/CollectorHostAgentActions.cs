@@ -724,19 +724,19 @@ namespace QuickMon
                 {
                     try
                     {
-                        if (restorationScript.RunTimeLinkedActionScript != null)
-                        {
+                        //if (restorationScript.RunTimeLinkedActionScript != null)
+                        //{
                             restorationScript.Run(false);
-                            RestorationScriptExecuted?.Invoke(this, restorationScript.RunTimeLinkedActionScript.Name);
+                            RestorationScriptExecuted?.Invoke(this, restorationScript.Name);
                             LastRestorationScriptRun = DateTime.Now;
-                            scriptsRan.Add(restorationScript.RunTimeLinkedActionScript.Name);
-                        }
-                        else
-                            ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", restorationScript.MPId);
+                            scriptsRan.Add(restorationScript.Name);
+                        //}
+                        //else
+                        //    ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", restorationScript.MPId);
                     }
                     catch (Exception ex)
                     {
-                        RestorationScriptFailed?.Invoke(this, restorationScript.RunTimeLinkedActionScript.Name, ex.Message);
+                        RestorationScriptFailed?.Invoke(this, restorationScript.Name, ex.Message);
                     }
                 }
                 if (scriptsRan.Count > 0)
@@ -763,19 +763,19 @@ namespace QuickMon
                 {
                     try
                     {
-                        if (warningScript.RunTimeLinkedActionScript != null)
-                        {
+                        //if (warningScript.RunTimeLinkedActionScript != null)
+                        //{
                             warningScript.Run(false);
-                            WarningCorrectiveScriptExecuted?.Invoke(this, warningScript.RunTimeLinkedActionScript.Name);
+                            WarningCorrectiveScriptExecuted?.Invoke(this, warningScript.Name);
                             LastWarningCorrectiveScriptRun = DateTime.Now;
-                            scriptsRan.Add(warningScript.RunTimeLinkedActionScript.Name);
-                        }
-                        else
-                            ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", warningScript.MPId);
+                            scriptsRan.Add(warningScript.Name);
+                        //}
+                        //else
+                        //    ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", warningScript.MPId);
                     }
                     catch (Exception ex)
                     {
-                        WarningCorrectiveScriptFailed?.Invoke(this, warningScript.RunTimeLinkedActionScript.Name, ex.Message);
+                        WarningCorrectiveScriptFailed?.Invoke(this, warningScript.Name, ex.Message);
                     }
                 }
                 if (scriptsRan.Count > 0)
@@ -800,19 +800,19 @@ namespace QuickMon
                 {
                     try
                     {
-                        if (errorScript.RunTimeLinkedActionScript != null)
-                        {
+                        //if (errorScript.RunTimeLinkedActionScript != null)
+                        //{
                             errorScript.Run(false);
-                            ErrorCorrectiveScriptExecuted?.Invoke(this, errorScript.RunTimeLinkedActionScript.Name);
+                            ErrorCorrectiveScriptExecuted?.Invoke(this, errorScript.Name);
                             LastErrorCorrectiveScriptRun = DateTime.Now;
-                            scriptsRan.Add(errorScript.RunTimeLinkedActionScript.Name);
-                        }
-                        else
-                            ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", errorScript.MPId);
+                            scriptsRan.Add(errorScript.Name);
+                        //}
+                        //else
+                        //    ErrorCorrectiveScriptFailed?.Invoke(this, "No linked action script found!", errorScript.MPId);
                     }
                     catch (Exception ex)
                     {
-                        ErrorCorrectiveScriptFailed?.Invoke(this, errorScript.RunTimeLinkedActionScript.Name,  ex.Message);
+                        ErrorCorrectiveScriptFailed?.Invoke(this, errorScript.Name,  ex.Message);
                     }
                 }
                 if (scriptsRan.Count > 0)

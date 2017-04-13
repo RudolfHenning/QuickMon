@@ -263,12 +263,12 @@ namespace QuickMon
             {
                 foreach(var actionScript in SelectedCollectorHost.ActionScripts)
                 {
-                    if (actionScript.RunTimeLinkedActionScript != null)
-                    {
-                        ListViewItem lvi = new ListViewItem(actionScript.RunTimeLinkedActionScript.Name);
+                    //if (actionScript.RunTimeLinkedActionScript != null)
+                    //{
+                        ListViewItem lvi = new ListViewItem(actionScript.Name);
                         lvi.Tag = actionScript;
                         lvwActionScripts.Items.Add(lvi);
-                    }
+                    //}
                 }
             }
         }
@@ -1160,8 +1160,8 @@ namespace QuickMon
                 if (SetEditingCollectorHost())
                 {
                     SelectedCollectorHost.ReconfigureFromXml(editingCollectorHost.ToXml());
-                    if (SelectedCollectorHost.ParentMonitorPack != null)
-                        SelectedCollectorHost.ParentMonitorPack.InitializeCollectorActionScripts(SelectedCollectorHost);
+                    //if (SelectedCollectorHost.ParentMonitorPack != null)
+                    //    SelectedCollectorHost.ParentMonitorPack.InitializeCollectorActionScripts(SelectedCollectorHost);
                     LoadControls();                    
                     
                     ((MainForm)ParentWindow).UpdateCollector(SelectedCollectorHost, true);

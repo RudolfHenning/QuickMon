@@ -10,49 +10,49 @@ namespace QuickMon
     {
         public ActionScript()
         {
-            Parameters = new List<ScriptParameter>();
+            //Parameters = new List<ScriptParameter>();
         }
-        public class ScriptParameter
-        {
-            public string Id { get; set; }
-            public string DefaultValue { get; set; }
-            public string DataType { get; set; }
+        //public class ScriptParameter
+        //{
+        //    public string Id { get; set; }
+        //    public string DefaultValue { get; set; }
+        //    public string DataType { get; set; }
 
-            public string ToXml()
-            {
-                XmlDocument xdoc = new XmlDocument();
-                xdoc.LoadXml("<parameter />");
-                xdoc.DocumentElement.SetAttributeValue("id", Id);
-                xdoc.DocumentElement.SetAttributeValue("default", DefaultValue);
-                xdoc.DocumentElement.SetAttributeValue("type", DataType);
-                return xdoc.DocumentElement.OuterXml;
-            }
-            public XmlNode ToXmlNode()
-            {
-                XmlDocument xdoc = new XmlDocument();
-                xdoc.LoadXml("<parameter />");
-                xdoc.DocumentElement.SetAttributeValue("id", Id);
-                xdoc.DocumentElement.SetAttributeValue("default", DefaultValue);
-                xdoc.DocumentElement.SetAttributeValue("type", DataType);
-                return xdoc.DocumentElement;
-            }
-            public static List<ScriptParameter> FromXml(XmlNode parametersNode)
-            {
-                List<ScriptParameter> parameters = new List<ScriptParameter>();
-                if (parametersNode.OuterXml.StartsWith("<parameters"))
-                {
-                    ScriptParameter sp = new ScriptParameter() { Id = "" };
-                    foreach (XmlNode parameterNode in parametersNode.SelectNodes("parameter"))
-                    {
-                        sp.Id = parameterNode.ReadXmlElementAttr("id", "");
-                        sp.DefaultValue = parameterNode.ReadXmlElementAttr("default", "");
-                        sp.DataType = parameterNode.ReadXmlElementAttr("type", "string");
-                        parameters.Add(sp);
-                    }
-                }
-                return parameters;
-            }
-        }
+        //    public string ToXml()
+        //    {
+        //        XmlDocument xdoc = new XmlDocument();
+        //        xdoc.LoadXml("<parameter />");
+        //        xdoc.DocumentElement.SetAttributeValue("id", Id);
+        //        xdoc.DocumentElement.SetAttributeValue("default", DefaultValue);
+        //        xdoc.DocumentElement.SetAttributeValue("type", DataType);
+        //        return xdoc.DocumentElement.OuterXml;
+        //    }
+        //    public XmlNode ToXmlNode()
+        //    {
+        //        XmlDocument xdoc = new XmlDocument();
+        //        xdoc.LoadXml("<parameter />");
+        //        xdoc.DocumentElement.SetAttributeValue("id", Id);
+        //        xdoc.DocumentElement.SetAttributeValue("default", DefaultValue);
+        //        xdoc.DocumentElement.SetAttributeValue("type", DataType);
+        //        return xdoc.DocumentElement;
+        //    }
+        //    public static List<ScriptParameter> FromXml(XmlNode parametersNode)
+        //    {
+        //        List<ScriptParameter> parameters = new List<ScriptParameter>();
+        //        if (parametersNode.OuterXml.StartsWith("<parameters"))
+        //        {
+        //            ScriptParameter sp = new ScriptParameter() { Id = "" };
+        //            foreach (XmlNode parameterNode in parametersNode.SelectNodes("parameter"))
+        //            {
+        //                sp.Id = parameterNode.ReadXmlElementAttr("id", "");
+        //                sp.DefaultValue = parameterNode.ReadXmlElementAttr("default", "");
+        //                sp.DataType = parameterNode.ReadXmlElementAttr("type", "string");
+        //                parameters.Add(sp);
+        //            }
+        //        }
+        //        return parameters;
+        //    }
+        //}
         public string Id { get; set; }
         public string Name { get; set; }
         public ScriptType ScriptType { get; set; }
@@ -60,7 +60,10 @@ namespace QuickMon
         public WindowSizeStyle WindowSizeStyle { get; set; }
         public bool RunAdminMode { get; set; }
         public string Script { get; set; }
-        public List<ScriptParameter> Parameters { get; set; }
+        public bool IsErrorCorrectiveScript { get; set; }
+        public bool IsWarningCorrectiveScript { get; set; }
+        public bool IsRestorationScript { get; set; }
+        //public List<ScriptParameter> Parameters { get; set; }
 
         public XmlNode ToXmlNode()
         {
@@ -72,14 +75,17 @@ namespace QuickMon
             xdoc.DocumentElement.SetAttributeValue("description", Description);
             xdoc.DocumentElement.SetAttributeValue("windowStyle", WindowSizeStyle.ToString());
             xdoc.DocumentElement.SetAttributeValue("adminMode", RunAdminMode);
+            xdoc.DocumentElement.SetAttributeValue("correctiveErrorScript", IsErrorCorrectiveScript);
+            xdoc.DocumentElement.SetAttributeValue("correctiveWarningScript", IsWarningCorrectiveScript);
+            xdoc.DocumentElement.SetAttributeValue("restorationScript", IsRestorationScript);
             XmlNode scriptTextNode = xdoc.DocumentElement.SelectSingleNode("scriptText");
             scriptTextNode.InnerText = Script;
-            XmlNode parametersNode = xdoc.DocumentElement.SelectSingleNode("parameters");
-            foreach (ScriptParameter parameter in Parameters)
-            {
-                XmlNode parameterNode = xdoc.ImportNode(parameter.ToXmlNode(), true);
-                parametersNode.AppendChild(parameterNode);
-            }
+            //XmlNode parametersNode = xdoc.DocumentElement.SelectSingleNode("parameters");
+            //foreach (ScriptParameter parameter in Parameters)
+            //{
+            //    XmlNode parameterNode = xdoc.ImportNode(parameter.ToXmlNode(), true);
+            //    parametersNode.AppendChild(parameterNode);
+            //}
 
             return xdoc.DocumentElement;
         }
@@ -103,11 +109,14 @@ namespace QuickMon
                         script.Description = actionScriptNode.ReadXmlElementAttr("description", "");
                         script.WindowSizeStyle = WindowSizeStyleConverter.FromString(actionScriptNode.ReadXmlElementAttr("windowStyle", "normal"));
                         script.RunAdminMode = actionScriptNode.ReadXmlElementAttr("adminMode", false);
-                        XmlNode parametersNode = actionScriptNode.SelectSingleNode("parameters");
-                        if (parametersNode != null)
-                        {
-                            script.Parameters = ScriptParameter.FromXml(parametersNode);
-                        }
+                        script.IsErrorCorrectiveScript = actionScriptNode.ReadXmlElementAttr("correctiveErrorScript", false);
+                        script.IsWarningCorrectiveScript = actionScriptNode.ReadXmlElementAttr("correctiveWarningScript", false);
+                        script.IsRestorationScript = actionScriptNode.ReadXmlElementAttr("restorationScript", false);
+                        //XmlNode parametersNode = actionScriptNode.SelectSingleNode("parameters");
+                        //if (parametersNode != null)
+                        //{
+                        //    script.Parameters = ScriptParameter.FromXml(parametersNode);
+                        //}
 
                         script.Script = actionScriptNode.InnerText;
                         scripts.Add(script);
@@ -130,31 +139,31 @@ namespace QuickMon
             return scripts;
         }
 
-        public string Run(bool withPause = false, List<CollectorActionScript.ScriptParameter> CollectorScriptParameters = null)
-        {
-            string runTimeScript = Script;
-            foreach (ScriptParameter parameter in Parameters)
-            {
-                CollectorActionScript.ScriptParameter currentCollectorScriptParameter = null;
-                if (CollectorScriptParameters != null)
-                {
-                    currentCollectorScriptParameter = (from csp in CollectorScriptParameters
-                                                       where csp.Id == parameter.Id
-                                                       select csp).FirstOrDefault();
-                }
-                if (currentCollectorScriptParameter != null)
-                {
-                    runTimeScript = runTimeScript.Replace(parameter.Id, currentCollectorScriptParameter.Value);
-                }
-                else
-                {
-                    runTimeScript = runTimeScript.Replace(parameter.Id, parameter.DefaultValue);
-                }
-            }            
+        //public string Run(bool withPause = false, List<CollectorActionScript.ScriptParameter> CollectorScriptParameters = null)
+        //{
+        //    string runTimeScript = Script;
+        //    foreach (ScriptParameter parameter in Parameters)
+        //    {
+        //        CollectorActionScript.ScriptParameter currentCollectorScriptParameter = null;
+        //        if (CollectorScriptParameters != null)
+        //        {
+        //            currentCollectorScriptParameter = (from csp in CollectorScriptParameters
+        //                                               where csp.Id == parameter.Id
+        //                                               select csp).FirstOrDefault();
+        //        }
+        //        if (currentCollectorScriptParameter != null)
+        //        {
+        //            runTimeScript = runTimeScript.Replace(parameter.Id, currentCollectorScriptParameter.Value);
+        //        }
+        //        else
+        //        {
+        //            runTimeScript = runTimeScript.Replace(parameter.Id, parameter.DefaultValue);
+        //        }
+        //    }            
 
-            Run(runTimeScript, withPause);
-            return runTimeScript;
-        }
+        //    Run(runTimeScript, withPause);
+        //    return runTimeScript;
+        //}
         private void Run(string runtTimeScript, bool withPause)
         {
             //Step one save script as temporary batch/ps1 file

@@ -12,7 +12,7 @@ namespace QuickMon
     {
         public MonitorPack()
         {
-            ActionScripts = new List<ActionScript>();
+            //ActionScripts = new List<ActionScript>();
             CollectorHosts = new List<CollectorHost>();
             NotifierHosts = new List<NotifierHost>();
             ConfigVariables = new List<ConfigVariable>();
@@ -56,7 +56,7 @@ namespace QuickMon
         /// </summary>
         public int PollingFrequencyOverrideSec { get; set; }
         public bool PreloadCollectorInstances { get; set; }
-        public List<ActionScript> ActionScripts { get; set; }
+        //public List<ActionScript> ActionScripts { get; set; }
         public List<CollectorHost> CollectorHosts { get; private set; }
         public List<NotifierHost> NotifierHosts { get; private set; }
         //public NotifierHost DefaultViewerNotifier { get; set; }

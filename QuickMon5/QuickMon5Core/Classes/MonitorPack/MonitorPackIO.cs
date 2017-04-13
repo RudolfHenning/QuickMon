@@ -109,18 +109,18 @@ namespace QuickMon
                     CollectorStateHistorySize = collectorHostsNode.ReadXmlElementAttr("stateHistorySize", CollectorStateHistorySize);
                     PollingFrequencyOverrideSec = collectorHostsNode.ReadXmlElementAttr("pollingFreqSecOverride", PollingFrequencyOverrideSec);
 
-                    XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
-                    if (actionScriptsNode != null)
-                    {
-                        ActionScripts = ActionScript.FromXml(actionScriptsNode);                        
-                    }
+                    //XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
+                    //if (actionScriptsNode != null)
+                    //{
+                    //    ActionScripts = ActionScript.FromXml(actionScriptsNode);                        
+                    //}
 
                     CollectorHosts = CollectorHost.GetCollectorHosts(collectorHostsNode, this);// , ConfigVariables);
                     foreach (CollectorHost collectorHost in CollectorHosts)
                     {
                         SetCollectorHostEvents(collectorHost);
                     }
-                    InitializeCollectorActionScripts();
+                    //InitializeCollectorActionScripts();
                 }
                 #endregion
                 /***************** Load Notifiers ****************/
@@ -224,27 +224,27 @@ namespace QuickMon
         /// <summary>
         /// When Initializing/reinitializing the scripts
         /// </summary>
-        public void InitializeCollectorActionScripts()
-        {
-            foreach (CollectorHost collectorHost in CollectorHosts)
-            {
-                InitializeCollectorActionScripts(collectorHost);
-            }
-        }
-        public void InitializeCollectorActionScripts(CollectorHost collectorHost)
-        {
-            if (collectorHost != null && collectorHost.ActionScripts != null)
-            {
-                foreach(var collectorActionScript in collectorHost.ActionScripts)
-                {
-                    ActionScript currentActionScript = (from acs in ActionScripts
-                                                        where acs.Id == collectorActionScript.MPId
-                                                        select acs).FirstOrDefault();
-                    if (currentActionScript != null)
-                        collectorActionScript.InitializeScript(currentActionScript);
-                }
-            }
-        }
+        //public void InitializeCollectorActionScripts()
+        //{
+        //    foreach (CollectorHost collectorHost in CollectorHosts)
+        //    {
+        //        InitializeCollectorActionScripts(collectorHost);
+        //    }
+        //}
+        //public void InitializeCollectorActionScripts(CollectorHost collectorHost)
+        //{
+        //    if (collectorHost != null && collectorHost.ActionScripts != null)
+        //    {
+        //        foreach(var collectorActionScript in collectorHost.ActionScripts)
+        //        {
+        //            ActionScript currentActionScript = (from acs in ActionScripts
+        //                                                where acs.Id == collectorActionScript.MPId
+        //                                                select acs).FirstOrDefault();
+        //            if (currentActionScript != null)
+        //                collectorActionScript.InitializeScript(currentActionScript);
+        //        }
+        //    }
+        //}
         public CollectorHost GetParentCollectorHost(CollectorHost child)
         {
             CollectorHost selectedCH = null;
@@ -277,7 +277,7 @@ namespace QuickMon
         {
             collectorHost.ParentMonitorPack = this;
             SetCollectorHostEvents(collectorHost);
-            InitializeCollectorActionScripts(collectorHost);
+            //InitializeCollectorActionScripts(collectorHost);
             CollectorHosts.Add(collectorHost);
         }
         /// <summary>
@@ -366,11 +366,11 @@ namespace QuickMon
             collectorHostsNode.SetAttributeValue("pollingFreqSecOverride", PollingFrequencyOverrideSec);
             XmlNode actionScriptsNode = collectorHostsNode.SelectSingleNode("actionScripts");
 
-            foreach (ActionScript ascr in ActionScripts)
-            {
-                XmlNode scriptParameterNode = outDoc.ImportNode(ascr.ToXmlNode(), true);
-                actionScriptsNode.AppendChild(scriptParameterNode);
-            }
+            //foreach (ActionScript ascr in ActionScripts)
+            //{
+            //    XmlNode scriptParameterNode = outDoc.ImportNode(ascr.ToXmlNode(), true);
+            //    actionScriptsNode.AppendChild(scriptParameterNode);
+            //}
 
             foreach(CollectorHost collectorHost in CollectorHosts)
             {

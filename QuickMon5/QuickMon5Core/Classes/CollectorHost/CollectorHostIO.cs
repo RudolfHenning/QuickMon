@@ -171,15 +171,21 @@ namespace QuickMon
             #endregion
 
             #region Action scripts
-            XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("collectorActionScripts");
+            //old idea
+            //XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("collectorActionScripts");
+            //if (actionScriptsNode != null)
+            //{
+            //    newCollectorHost.ActionScripts = CollectorActionScript.FromXml(actionScriptsNode);
+            //}
+            XmlNode actionScriptsNode = xmlCollectorEntry.SelectSingleNode("actionScripts");
             if (actionScriptsNode != null)
             {
-                newCollectorHost.ActionScripts = CollectorActionScript.FromXml(actionScriptsNode);
+                newCollectorHost.ActionScripts = ActionScript.FromXml(actionScriptsNode);
             }
             #endregion
 
             #region Service windows
-            newCollectorHost.ServiceWindows = new ServiceWindows();
+                newCollectorHost.ServiceWindows = new ServiceWindows();
             XmlNode serviceWindowsNode = xmlCollectorEntry.SelectSingleNode("serviceWindows");
             if (serviceWindowsNode != null) //Load service windows info
                 newCollectorHost.ServiceWindows.CreateFromConfig(serviceWindowsNode.OuterXml);
@@ -893,20 +899,20 @@ namespace QuickMon
             }
             return configVarXml.ToString();
         }
-        private static string GetActionScriptsXml(List<CollectorActionScript> actionScripts)
+        private static string GetActionScriptsXml(List<ActionScript> actionScripts)
         {
             StringBuilder actionScriptsXml = new StringBuilder();
             if (actionScripts != null && actionScripts.Count > 0)
             {
-                actionScriptsXml.AppendLine("<collectorActionScripts>");
-                foreach (CollectorActionScript acs in actionScripts)
+                actionScriptsXml.AppendLine("<actionScripts>");
+                foreach (ActionScript acs in actionScripts)
                 {
                     actionScriptsXml.AppendLine(acs.ToXml());
                 }
-                actionScriptsXml.AppendLine("</collectorActionScripts>");
+                actionScriptsXml.AppendLine("</actionScripts>");
             }
             else
-                actionScriptsXml.AppendLine("<collectorActionScripts />");
+                actionScriptsXml.AppendLine("<actionScripts />");
             return actionScriptsXml.ToString();
         }
         #endregion

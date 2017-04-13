@@ -1074,8 +1074,7 @@ namespace QuickMon
                 splitButtonNotifiers.ButtonText = "";
                 //splitButtonTools.ButtonText = "";
                 cmdSettings.Text = "";
-                cmdTemplates.Text = "";
-                cmdActionScripts.Text = "";
+                cmdTemplates.Text = "";                
                 cmdRemoteHosts.Text = "";
                 cmdAbout.Text = "";
                 cmdAdminMode.Text = "";
@@ -1091,8 +1090,7 @@ namespace QuickMon
                 splitButtonNotifiers.ButtonText = " Notifiers";
                 //splitButtonTools.ButtonText = " Settings";
                 cmdSettings.Text = " Settings";
-                cmdTemplates.Text = " Templates";
-                cmdActionScripts.Text = " Action Scripts";
+                cmdTemplates.Text = " Templates";                
                 cmdRemoteHosts.Text = " Remote Hosts";
                 cmdAbout.Text = " About";
                 cmdAdminMode.Text = " Admin Mode";
