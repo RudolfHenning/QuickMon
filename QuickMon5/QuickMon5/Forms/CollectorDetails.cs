@@ -105,6 +105,7 @@ namespace QuickMon
             this.Size = new Size(700, 500);
             tlvAgentStates.AutoResizeColumnEnabled = true;
             agentsTreeListView.AutoResizeColumnEnabled = true;
+            lvwActionScriptsEdit.AutoResizeColumnEnabled = true;
             lvwHistory.AutoResizeColumnEnabled = true;
             lvwMetrics.AutoResizeColumnEnabled = true;
             lvwHistory.BorderStyle = BorderStyle.None;
@@ -259,6 +260,7 @@ namespace QuickMon
         private void LoadActionScripts()
         {
             lvwActionScripts.Items.Clear();
+            lvwActionScriptsEdit.Items.Clear();
             if (SelectedCollectorHost.ActionScripts != null)
             {
                 foreach(var actionScript in SelectedCollectorHost.ActionScripts)
@@ -269,6 +271,20 @@ namespace QuickMon
                         lvi.Tag = actionScript;
                         lvwActionScripts.Items.Add(lvi);
                     //}
+                }
+
+                foreach (var actionScript in SelectedCollectorHost.ActionScripts)
+                {
+                    ListViewItem lvi = new ListViewItem(actionScript.Name);
+                    lvi.SubItems.Add(actionScript.ScriptType.ToString());
+                    lvi.SubItems.Add(actionScript.RunAdminMode ? "Yes" : "No");
+                    lvi.SubItems.Add(actionScript.IsRestorationScript ? "Yes" : "No");
+                    lvi.SubItems.Add(actionScript.IsWarningCorrectiveScript ? "Yes" : "No");
+                    lvi.SubItems.Add(actionScript.IsErrorCorrectiveScript ? "Yes" : "No");
+                    lvi.SubItems.Add(actionScript.Description);
+                    lvi.Tag = actionScript;
+
+                    lvwActionScriptsEdit.Items.Add(lvi);
                 }
             }
         }
