@@ -210,7 +210,7 @@ namespace QuickMon
                 p.StartInfo.Verb = "runas";
             p.Start();
         }
-        public void Run(bool withPause = false)
+        public bool Run(bool withPause = false)
         {
             //Script
             //Step one save script as temporary batch/ps1 file
@@ -244,8 +244,24 @@ namespace QuickMon
             }
             else
             {
-                p.StartInfo = new System.Diagnostics.ProcessStartInfo(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe");
-                p.StartInfo.Arguments = "-File \"" + tmpfilePath + "\"";
+                System.Diagnostics.ProcessStartInfo si = new System.Diagnostics.ProcessStartInfo(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe");
+                si.Arguments = "-File \"" + tmpfilePath + "\"";
+                //si.Arguments = "-NoExit -File \"" + tmpfilePath + "\"";
+                //si.UseShellExecute = false;
+                //si.RedirectStandardOutput = true;
+                //si.RedirectStandardError = true;
+                //si.UseShellExecute = false;
+                //si.CreateNoWindow = true;
+
+                p.StartInfo = si;
+
+                //p.StartInfo = new System.Diagnostics.ProcessStartInfo(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe");
+                //p.StartInfo.Arguments = @"&'" + tmpfilePath + "'";
+                //p.StartInfo.UseShellExecute = false;
+                //p.StartInfo.RedirectStandardOutput = true;
+                //p.StartInfo.RedirectStandardError = true;
+                //p.StartInfo.UseShellExecute = false;
+                //p.StartInfo.CreateNoWindow = true;
             }
 
             if (withPause)
@@ -255,7 +271,15 @@ namespace QuickMon
             
             if (RunAdminMode)
                 p.StartInfo.Verb = "runas";
-            p.Start();
+            if (p.Start())
+            {
+                return true;
+            }
+            else
+            {
+                System.Diagnostics.Trace.WriteLine(p.ExitCode);
+                return false;
+            }
         }
     }    
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -182,6 +182,20 @@
             this.moveUpConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.moveDownConfigVarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lvwActionScriptsEdit = new QuickMon.ListViewEx();
+            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.adminColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.restorationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.descriptiomColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.addActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.editActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.runToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.llblRawEdit = new System.Windows.Forms.LinkLabel();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -226,20 +240,6 @@
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.addActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteActionScriptToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.lvwActionScriptsEdit = new QuickMon.ListViewEx();
-            this.actionScriptNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.typeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.descriptiomColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.restorationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.warningColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.errorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.adminColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.runToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -289,6 +289,7 @@
             this.configVarsTabPage.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.panelMetrics.SuspendLayout();
             this.panelAgentStates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.agentStateSplitContainer)).BeginInit();
@@ -299,7 +300,6 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelTop.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtName
@@ -506,9 +506,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer3.Column = 0;
-            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer3;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer2;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -2060,6 +2060,129 @@
             this.tabPage1.Text = "Action scripts";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // lvwActionScriptsEdit
+            // 
+            this.lvwActionScriptsEdit.AutoResizeColumnEnabled = false;
+            this.lvwActionScriptsEdit.AutoResizeColumnIndex = 6;
+            this.lvwActionScriptsEdit.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.actionScriptNameColumnHeader,
+            this.typeColumnHeader,
+            this.adminColumnHeader,
+            this.restorationColumnHeader,
+            this.warningColumnHeader,
+            this.errorColumnHeader,
+            this.descriptiomColumnHeader});
+            this.lvwActionScriptsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwActionScriptsEdit.FullRowSelect = true;
+            this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
+            this.lvwActionScriptsEdit.Name = "lvwActionScriptsEdit";
+            this.lvwActionScriptsEdit.Size = new System.Drawing.Size(948, 362);
+            this.lvwActionScriptsEdit.TabIndex = 3;
+            this.lvwActionScriptsEdit.UseCompatibleStateImageBehavior = false;
+            this.lvwActionScriptsEdit.View = System.Windows.Forms.View.Details;
+            this.lvwActionScriptsEdit.SelectedIndexChanged += new System.EventHandler(this.lvwActionScriptsEdit_SelectedIndexChanged);
+            // 
+            // actionScriptNameColumnHeader
+            // 
+            this.actionScriptNameColumnHeader.Text = "Name";
+            this.actionScriptNameColumnHeader.Width = 203;
+            // 
+            // typeColumnHeader
+            // 
+            this.typeColumnHeader.Text = "Type";
+            this.typeColumnHeader.Width = 88;
+            // 
+            // adminColumnHeader
+            // 
+            this.adminColumnHeader.Text = "Admin";
+            // 
+            // restorationColumnHeader
+            // 
+            this.restorationColumnHeader.Text = "Restore";
+            this.restorationColumnHeader.Width = 52;
+            // 
+            // warningColumnHeader
+            // 
+            this.warningColumnHeader.Text = "Warning";
+            this.warningColumnHeader.Width = 57;
+            // 
+            // errorColumnHeader
+            // 
+            this.errorColumnHeader.Text = "Error";
+            this.errorColumnHeader.Width = 49;
+            // 
+            // descriptiomColumnHeader
+            // 
+            this.descriptiomColumnHeader.Text = "Description";
+            this.descriptiomColumnHeader.Width = 384;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addActionScriptToolStripButton,
+            this.editActionScriptToolStripButton,
+            this.deleteActionScriptToolStripButton,
+            this.toolStripSeparator4,
+            this.runToolStripButton});
+            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(948, 27);
+            this.toolStrip2.TabIndex = 2;
+            this.toolStrip2.TabStop = true;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // addActionScriptToolStripButton
+            // 
+            this.addActionScriptToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addActionScriptToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
+            this.addActionScriptToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addActionScriptToolStripButton.Name = "addActionScriptToolStripButton";
+            this.addActionScriptToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.addActionScriptToolStripButton.Text = "Create new";
+            this.addActionScriptToolStripButton.ToolTipText = "Add Action Script";
+            this.addActionScriptToolStripButton.Click += new System.EventHandler(this.addActionScriptToolStripButton_Click);
+            // 
+            // editActionScriptToolStripButton
+            // 
+            this.editActionScriptToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editActionScriptToolStripButton.Enabled = false;
+            this.editActionScriptToolStripButton.Image = global::QuickMon.Properties.Resources.proc2;
+            this.editActionScriptToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editActionScriptToolStripButton.Name = "editActionScriptToolStripButton";
+            this.editActionScriptToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.editActionScriptToolStripButton.Text = "toolStripButton1";
+            this.editActionScriptToolStripButton.ToolTipText = "Edit Action Script";
+            this.editActionScriptToolStripButton.Click += new System.EventHandler(this.editActionScriptToolStripButton_Click);
+            // 
+            // deleteActionScriptToolStripButton
+            // 
+            this.deleteActionScriptToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteActionScriptToolStripButton.Enabled = false;
+            this.deleteActionScriptToolStripButton.Image = global::QuickMon.Properties.Resources.stop24x24;
+            this.deleteActionScriptToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteActionScriptToolStripButton.Name = "deleteActionScriptToolStripButton";
+            this.deleteActionScriptToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteActionScriptToolStripButton.Text = "Delete selected item(s)";
+            this.deleteActionScriptToolStripButton.Click += new System.EventHandler(this.deleteActionScriptToolStripButton_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
+            // 
+            // runToolStripButton
+            // 
+            this.runToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.runToolStripButton.Enabled = false;
+            this.runToolStripButton.Image = global::QuickMon.Properties.Resources.rungreen24x24;
+            this.runToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.runToolStripButton.Name = "runToolStripButton";
+            this.runToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.runToolStripButton.Text = "Run script";
+            this.runToolStripButton.Click += new System.EventHandler(this.runToolStripButton_Click);
+            // 
             // llblRawEdit
             // 
             this.llblRawEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -2176,9 +2299,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer1.Column = 0;
-            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer1;
+            treeListViewItemCollectionComparer3.Column = 0;
+            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer3;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2559,124 +2682,6 @@
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
             // 
-            // toolStrip2
-            // 
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addActionScriptToolStripButton,
-            this.editActionScriptToolStripButton,
-            this.deleteActionScriptToolStripButton,
-            this.toolStripSeparator4,
-            this.runToolStripButton});
-            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(948, 27);
-            this.toolStrip2.TabIndex = 2;
-            this.toolStrip2.TabStop = true;
-            this.toolStrip2.Text = "toolStrip2";
-            // 
-            // addActionScriptToolStripButton
-            // 
-            this.addActionScriptToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addActionScriptToolStripButton.Image = global::QuickMon.Properties.Resources.Plus16x16;
-            this.addActionScriptToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addActionScriptToolStripButton.Name = "addActionScriptToolStripButton";
-            this.addActionScriptToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.addActionScriptToolStripButton.Text = "Create new";
-            this.addActionScriptToolStripButton.ToolTipText = "Add Action Script";
-            // 
-            // editActionScriptToolStripButton
-            // 
-            this.editActionScriptToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editActionScriptToolStripButton.Enabled = false;
-            this.editActionScriptToolStripButton.Image = global::QuickMon.Properties.Resources.proc2;
-            this.editActionScriptToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editActionScriptToolStripButton.Name = "editActionScriptToolStripButton";
-            this.editActionScriptToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.editActionScriptToolStripButton.Text = "toolStripButton1";
-            this.editActionScriptToolStripButton.ToolTipText = "Edit Action Script";
-            // 
-            // deleteActionScriptToolStripButton
-            // 
-            this.deleteActionScriptToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteActionScriptToolStripButton.Enabled = false;
-            this.deleteActionScriptToolStripButton.Image = global::QuickMon.Properties.Resources.stop24x24;
-            this.deleteActionScriptToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteActionScriptToolStripButton.Name = "deleteActionScriptToolStripButton";
-            this.deleteActionScriptToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteActionScriptToolStripButton.Text = "Delete selected item(s)";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
-            // 
-            // lvwActionScriptsEdit
-            // 
-            this.lvwActionScriptsEdit.AutoResizeColumnEnabled = false;
-            this.lvwActionScriptsEdit.AutoResizeColumnIndex = 6;
-            this.lvwActionScriptsEdit.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.actionScriptNameColumnHeader,
-            this.typeColumnHeader,
-            this.adminColumnHeader,
-            this.restorationColumnHeader,
-            this.warningColumnHeader,
-            this.errorColumnHeader,
-            this.descriptiomColumnHeader});
-            this.lvwActionScriptsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwActionScriptsEdit.FullRowSelect = true;
-            this.lvwActionScriptsEdit.Location = new System.Drawing.Point(3, 30);
-            this.lvwActionScriptsEdit.Name = "lvwActionScriptsEdit";
-            this.lvwActionScriptsEdit.Size = new System.Drawing.Size(948, 362);
-            this.lvwActionScriptsEdit.TabIndex = 3;
-            this.lvwActionScriptsEdit.UseCompatibleStateImageBehavior = false;
-            this.lvwActionScriptsEdit.View = System.Windows.Forms.View.Details;
-            // 
-            // actionScriptNameColumnHeader
-            // 
-            this.actionScriptNameColumnHeader.Text = "Name";
-            this.actionScriptNameColumnHeader.Width = 203;
-            // 
-            // typeColumnHeader
-            // 
-            this.typeColumnHeader.Text = "Type";
-            this.typeColumnHeader.Width = 88;
-            // 
-            // descriptiomColumnHeader
-            // 
-            this.descriptiomColumnHeader.Text = "Description";
-            this.descriptiomColumnHeader.Width = 384;
-            // 
-            // restorationColumnHeader
-            // 
-            this.restorationColumnHeader.Text = "Restore";
-            this.restorationColumnHeader.Width = 52;
-            // 
-            // warningColumnHeader
-            // 
-            this.warningColumnHeader.Text = "Warning";
-            this.warningColumnHeader.Width = 57;
-            // 
-            // errorColumnHeader
-            // 
-            this.errorColumnHeader.Text = "Error";
-            this.errorColumnHeader.Width = 49;
-            // 
-            // adminColumnHeader
-            // 
-            this.adminColumnHeader.Text = "Admin";
-            // 
-            // runToolStripButton
-            // 
-            this.runToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.runToolStripButton.Enabled = false;
-            this.runToolStripButton.Image = global::QuickMon.Properties.Resources.rungreen24x24;
-            this.runToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.runToolStripButton.Name = "runToolStripButton";
-            this.runToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.runToolStripButton.Text = "toolStripButton1";
-            // 
             // CollectorDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2760,6 +2765,8 @@
             this.toolStrip1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.panelMetrics.ResumeLayout(false);
             this.panelAgentStates.ResumeLayout(false);
             this.agentStateSplitContainer.Panel1.ResumeLayout(false);
@@ -2773,8 +2780,6 @@
             this.panel2.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

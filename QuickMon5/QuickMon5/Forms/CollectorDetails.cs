@@ -256,7 +256,6 @@ namespace QuickMon
             LoadActionScripts();
             UpdateAgentStateTree();            
         }
-
         private void LoadActionScripts()
         {
             lvwActionScripts.Items.Clear();
@@ -288,7 +287,6 @@ namespace QuickMon
                 }
             }
         }
-
         private void LoadMetrics()
         {
             AddUpdateListViewItem(lvwMetrics, "General", "Notes", SelectedCollectorHost.Notes);
@@ -453,7 +451,6 @@ namespace QuickMon
             AddUpdateListViewItem(lvwMetrics, "Remote agent host", "Enabled", remoteHostEnabled ? "Yes" : "No");
             AddUpdateListViewItem(lvwMetrics, "Remote agent host", "Address", SelectedCollectorHost.ToRemoteHostName(), remoteHostEnabled);
         }
-
         private void LoadEditControls()
         {
             #region Editing controls
@@ -1997,6 +1994,42 @@ namespace QuickMon
         }
         #endregion
 
+        #endregion
+
+        #region Action scripts
+        private void lvwActionScriptsEdit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            editActionScriptToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count == 1;
+            deleteActionScriptToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count > 0;
+            runToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count == 1;
+        }
+        private void addActionScriptToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void editActionScriptToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void deleteActionScriptToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void runToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvwActionScriptsEdit.SelectedItems.Count == 1)
+                {
+                    ActionScript asc = (ActionScript)lvwActionScriptsEdit.SelectedItems[0].Tag;
+                    asc.Run();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error running script!\r\n" + ex.Message, "Run script", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
         #endregion
 
         //private void cmdAgentsToggle_Click(object sender, EventArgs e)
