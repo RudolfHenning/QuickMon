@@ -1559,6 +1559,7 @@ namespace QuickMon
                     }
                 }
                 SetEditingCollectorHostAgents();
+                SetEditingActionScripts();
 
                 if (cmdSetNoteText.Enabled)
                     cmdSetNoteText_Click(null, null);
@@ -1570,6 +1571,19 @@ namespace QuickMon
             }
             return success;
         }
+
+        private void SetEditingActionScripts()
+        {
+            editingCollectorHost.ActionScripts.Clear();
+            foreach(ListViewItem lvi in lvwActionScriptsEdit.Items)
+            {
+                if (lvi.Tag is ActionScript)
+                {
+                    editingCollectorHost.ActionScripts.Add((ActionScript)lvi.Tag);
+                }
+            }
+        }
+
         private void SetEditingCollectorHostAgents()
         {
             editingCollectorHost.CollectorAgents.Clear();
@@ -2005,15 +2019,50 @@ namespace QuickMon
         }
         private void addActionScriptToolStripButton_Click(object sender, EventArgs e)
         {
-
+            EditActionScript editActionScript = new EditActionScript();
+            if (editActionScript.ShowDialog() == DialogResult.OK)
+            {
+                SelectedCollectorHost.ActionScripts.Add(editActionScript.SelectedActionScript);
+                ListViewItem lvi = new ListViewItem(editActionScript.SelectedActionScript.Name);
+                lvi.SubItems.Add(editActionScript.SelectedActionScript.ScriptType.ToString());
+                lvi.SubItems.Add(editActionScript.SelectedActionScript.RunAdminMode ? "Yes" : "No");
+                lvi.SubItems.Add(editActionScript.SelectedActionScript.IsRestorationScript ? "Yes" : "No");
+                lvi.SubItems.Add(editActionScript.SelectedActionScript.IsWarningCorrectiveScript ? "Yes" : "No");
+                lvi.SubItems.Add(editActionScript.SelectedActionScript.IsErrorCorrectiveScript ? "Yes" : "No");
+                lvi.SubItems.Add(editActionScript.SelectedActionScript.Description);
+                lvi.Tag = editActionScript.SelectedActionScript;
+                lvwActionScriptsEdit.Items.Add(lvi);
+            }
         }
         private void editActionScriptToolStripButton_Click(object sender, EventArgs e)
         {
-
+            if (lvwActionScriptsEdit.SelectedItems.Count == 1 && lvwActionScriptsEdit.SelectedItems[0].Tag is ActionScript)
+            {
+                EditActionScript editActionScript = new EditActionScript();
+                editActionScript.SelectedActionScript = (ActionScript)lvwActionScriptsEdit.SelectedItems[0].Tag;
+                if (editActionScript.ShowDialog() == DialogResult.OK)
+                {
+                    ListViewItem lvi = lvwActionScriptsEdit.SelectedItems[0];
+                    lvi.Text = editActionScript.SelectedActionScript.Name;
+                    lvi.SubItems[1].Text = editActionScript.SelectedActionScript.ScriptType.ToString();
+                    lvi.SubItems[2].Text = editActionScript.SelectedActionScript.RunAdminMode ? "Yes" : "No";
+                    lvi.SubItems[3].Text = editActionScript.SelectedActionScript.IsRestorationScript ? "Yes" : "No";
+                    lvi.SubItems[4].Text = editActionScript.SelectedActionScript.IsWarningCorrectiveScript ? "Yes" : "No";
+                    lvi.SubItems[5].Text = editActionScript.SelectedActionScript.IsErrorCorrectiveScript ? "Yes" : "No";
+                    lvi.SubItems[6].Text = editActionScript.SelectedActionScript.Description;
+                    lvi.Tag = editActionScript.SelectedActionScript;                    
+                }
+            }
         }
         private void deleteActionScriptToolStripButton_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Are you sure you want to delete the seleted action script(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                foreach (ListViewItem lvi in lvwActionScriptsEdit.SelectedItems)
+                {
+                    lvwActionScriptsEdit.Items.Remove(lvi);
+                }
+            }
         }
         private void runToolStripButton_Click(object sender, EventArgs e)
         {

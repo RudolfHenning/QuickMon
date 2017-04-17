@@ -53,7 +53,7 @@ namespace QuickMon
         //        return parameters;
         //    }
         //}
-        public string Id { get; set; }
+        //public string Id { get; set; }
         public string Name { get; set; }
         public ScriptType ScriptType { get; set; }
         public string Description { get; set; }
@@ -68,8 +68,8 @@ namespace QuickMon
         public XmlNode ToXmlNode()
         {
             XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml("<actionScript><scriptText /><parameters /></actionScript>");
-            xdoc.DocumentElement.SetAttributeValue("id", Id);
+            xdoc.LoadXml("<actionScript><scriptText /></actionScript>");
+            //xdoc.DocumentElement.SetAttributeValue("id", Id);
             xdoc.DocumentElement.SetAttributeValue("name", Name);
             xdoc.DocumentElement.SetAttributeValue("type", ScriptType.ToString());
             xdoc.DocumentElement.SetAttributeValue("description", Description);
@@ -103,7 +103,7 @@ namespace QuickMon
                     try
                     {
                         ActionScript script = new ActionScript();
-                        script.Id = actionScriptNode.ReadXmlElementAttr("id", "");
+                        //script.Id = actionScriptNode.ReadXmlElementAttr("id", "");
                         script.Name = actionScriptNode.ReadXmlElementAttr("name", "");
                         script.ScriptType = ScriptTypeConverter.FromString(actionScriptNode.ReadXmlElementAttr("type", "dos"));
                         script.Description = actionScriptNode.ReadXmlElementAttr("description", "");
