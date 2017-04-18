@@ -2100,7 +2100,7 @@ namespace QuickMon
         }
         private void lvwActionScriptsEdit_DoubleClick(object sender, EventArgs e)
         {
-            runToolStripButton_Click(sender, e);
+            editActionScriptToolStripButton_Click(sender, e);
         }
 
         private void lvwActionScripts_DoubleClick(object sender, EventArgs e)

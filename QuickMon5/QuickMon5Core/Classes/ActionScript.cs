@@ -210,6 +210,7 @@ namespace QuickMon
                 p.StartInfo.Verb = "runas";
             p.Start();
         }
+        public bool PSNoExitSet { get; set; }
         public bool Run(bool withPause = false)
         {
             //Script
@@ -245,8 +246,11 @@ namespace QuickMon
             else
             {
                 System.Diagnostics.ProcessStartInfo si = new System.Diagnostics.ProcessStartInfo(System.Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\system32\\WindowsPowerShell\\v1.0\\powershell.exe");
-                si.Arguments = "-File \"" + tmpfilePath + "\"";
-                //si.Arguments = "-NoExit -File \"" + tmpfilePath + "\"";
+                if (PSNoExitSet)
+                    si.Arguments = "-NoExit -File \"" + tmpfilePath + "\"";
+                else
+                    si.Arguments = "-File \"" + tmpfilePath + "\"";
+                //
                 //si.UseShellExecute = false;
                 //si.RedirectStandardOutput = true;
                 //si.RedirectStandardError = true;

@@ -64,5 +64,29 @@ namespace QuickMon.UI
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
+
+        private void llnkExecutionPolicy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string output = Collectors.PowerShellScriptRunnerEntry.RunScript("Set-ExecutionPolicy RemoteSigned");
+                if (output == null || output.Length == 0)
+                    output = "No output.";
+                MessageBox.Show(output, "ExecutionPolicy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //ActionScript psEp = new ActionScript();
+                //psEp.Name = "SetExecutionPolicy";
+                //psEp.RunAdminMode = true;
+                //psEp.ScriptType = ScriptType.PowerShell;
+                //psEp.WindowSizeStyle = WindowSizeStyle.Normal;
+                //psEp.Script = "Set-ExecutionPolicy RemoteSigned";
+                //psEp.PSNoExitSet = true;
+                //psEp.Run(true);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error setting ExecutionPolicy!\r\n" + ex.Message, "ExecutionPolicy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
     }
 }

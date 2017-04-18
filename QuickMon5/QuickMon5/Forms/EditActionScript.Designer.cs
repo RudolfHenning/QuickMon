@@ -44,10 +44,11 @@
             this.cboWindowSizeStyle = new System.Windows.Forms.ComboBox();
             this.chkAdminMode = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.chkIsErrorCorrectiveScript = new System.Windows.Forms.CheckBox();
             this.chkIsWarningCorrectiveScript = new System.Windows.Forms.CheckBox();
             this.chkIsRestorationScript = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.llnkExecutionPolicy = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -219,6 +220,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Corrective script handling";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(6, 39);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(454, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Please avoid script commands that require user input when using corrective script" +
+    "s! e.g. pause.";
+            // 
             // chkIsErrorCorrectiveScript
             // 
             this.chkIsErrorCorrectiveScript.AutoSize = true;
@@ -249,16 +261,17 @@
             this.chkIsRestorationScript.Text = "Restoration";
             this.chkIsRestorationScript.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // llnkExecutionPolicy
             // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(6, 39);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(454, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Please avoid script commands that require user input when using corrective script" +
-    "s! e.g. pause.";
+            this.llnkExecutionPolicy.AutoSize = true;
+            this.llnkExecutionPolicy.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.llnkExecutionPolicy.Location = new System.Drawing.Point(297, 41);
+            this.llnkExecutionPolicy.Name = "llnkExecutionPolicy";
+            this.llnkExecutionPolicy.Size = new System.Drawing.Size(267, 13);
+            this.llnkExecutionPolicy.TabIndex = 15;
+            this.llnkExecutionPolicy.TabStop = true;
+            this.llnkExecutionPolicy.Text = "Ensure ExecutionPolicy is set up (requires Admin mode)";
+            this.llnkExecutionPolicy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llnkExecutionPolicy_LinkClicked);
             // 
             // EditActionScript
             // 
@@ -266,6 +279,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(582, 413);
+            this.Controls.Add(this.llnkExecutionPolicy);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chkAdminMode);
             this.Controls.Add(this.cboWindowSizeStyle);
@@ -316,5 +330,6 @@
         private System.Windows.Forms.CheckBox chkIsWarningCorrectiveScript;
         private System.Windows.Forms.CheckBox chkIsRestorationScript;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel llnkExecutionPolicy;
     }
 }
