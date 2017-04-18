@@ -28,10 +28,13 @@ Main window - Notifier agents with viewers -> double click to open - Done
 *****************************************************************************************************
 Next
 	Corrective scripts/Action scripts
-	!!!!! Design change - All details of script stored in Collector host config. Monitor pack contains no Action script details. 
+	!!!!! Design change - All details of script stored in Collector host config. Monitor pack contains no Action script details.  - Done
 	   UI: separate window to manage scripts of all collector hosts so it allows for copy/paste etc.
 
+	Detail view for Collector History clicking
+
 	DataSet views for all Collectors!!
+
 	Connection sharing/caching in MP
 		SQL based agents
 		SSH based agents

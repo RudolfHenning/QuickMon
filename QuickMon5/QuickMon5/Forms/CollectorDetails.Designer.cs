@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer1 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CollectorDetails));
-            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer3 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
+            HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer treeListViewItemCollectionComparer2 = new HenIT.Windows.Controls.TreeListViewItemCollection.TreeListViewItemCollectionComparer();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.statusStripCollector = new System.Windows.Forms.StatusStrip();
@@ -228,18 +228,16 @@
             this.optMetrics = new System.Windows.Forms.RadioButton();
             this.optAgentStates = new System.Windows.Forms.RadioButton();
             this.cmdCollectorEdit = new System.Windows.Forms.Button();
-            this.lvwActionScripts = new System.Windows.Forms.ListView();
+            this.lvwActionScripts = new QuickMon.ListViewEx();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cmdRunActionScript = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblCollectorState = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop = new System.Windows.Forms.Panel();
+            this.nameActionScriptColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStripCollector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -506,9 +504,9 @@
             this.agentsTreeListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            treeListViewItemCollectionComparer2.Column = 0;
-            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer2;
+            treeListViewItemCollectionComparer1.Column = 0;
+            treeListViewItemCollectionComparer1.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.agentsTreeListView.Comparer = treeListViewItemCollectionComparer1;
             this.agentsTreeListView.ContextMenuStrip = this.agentsContextMenuStrip;
             this.agentsTreeListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.agentsTreeListView.LabelEdit = true;
@@ -2081,6 +2079,7 @@
             this.lvwActionScriptsEdit.UseCompatibleStateImageBehavior = false;
             this.lvwActionScriptsEdit.View = System.Windows.Forms.View.Details;
             this.lvwActionScriptsEdit.SelectedIndexChanged += new System.EventHandler(this.lvwActionScriptsEdit_SelectedIndexChanged);
+            this.lvwActionScriptsEdit.DoubleClick += new System.EventHandler(this.lvwActionScriptsEdit_DoubleClick);
             // 
             // actionScriptNameColumnHeader
             // 
@@ -2299,9 +2298,9 @@
             this.tlvAgentStates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.nameColumnHeader,
             this.valueColumnHeader});
-            treeListViewItemCollectionComparer3.Column = 0;
-            treeListViewItemCollectionComparer3.SortOrder = System.Windows.Forms.SortOrder.None;
-            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer3;
+            treeListViewItemCollectionComparer2.Column = 0;
+            treeListViewItemCollectionComparer2.SortOrder = System.Windows.Forms.SortOrder.None;
+            this.tlvAgentStates.Comparer = treeListViewItemCollectionComparer2;
             this.tlvAgentStates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlvAgentStates.HideSelection = false;
             this.tlvAgentStates.Location = new System.Drawing.Point(0, 0);
@@ -2547,6 +2546,10 @@
             // 
             // lvwActionScripts
             // 
+            this.lvwActionScripts.AutoResizeColumnEnabled = false;
+            this.lvwActionScripts.AutoResizeColumnIndex = 0;
+            this.lvwActionScripts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nameActionScriptColumnHeader});
             this.lvwActionScripts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwActionScripts.FullRowSelect = true;
             this.lvwActionScripts.Location = new System.Drawing.Point(2, 25);
@@ -2554,14 +2557,13 @@
             this.lvwActionScripts.Size = new System.Drawing.Size(198, 615);
             this.lvwActionScripts.TabIndex = 5;
             this.lvwActionScripts.UseCompatibleStateImageBehavior = false;
-            this.lvwActionScripts.View = System.Windows.Forms.View.List;
+            this.lvwActionScripts.View = System.Windows.Forms.View.Details;
+            this.lvwActionScripts.SelectedIndexChanged += new System.EventHandler(this.lvwActionScripts_SelectedIndexChanged);
+            this.lvwActionScripts.DoubleClick += new System.EventHandler(this.lvwActionScripts_DoubleClick);
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.cmdRunActionScript);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(2, 0);
@@ -2569,61 +2571,21 @@
             this.panel2.Size = new System.Drawing.Size(198, 25);
             this.panel2.TabIndex = 3;
             // 
-            // button5
+            // cmdRunActionScript
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.BackgroundImage = global::QuickMon.Properties.Resources.rungreen24x24;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(90, 0);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(27, 25);
-            this.button5.TabIndex = 8;
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.BackgroundImage = global::QuickMon.Properties.Resources.add;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(117, 0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(27, 25);
-            this.button4.TabIndex = 7;
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::QuickMon.Properties.Resources.doc_edit24x24;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(144, 0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(27, 25);
-            this.button3.TabIndex = 6;
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::QuickMon.Properties.Resources.stop24x24;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(171, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(27, 25);
-            this.button2.TabIndex = 5;
-            this.button2.UseVisualStyleBackColor = false;
+            this.cmdRunActionScript.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRunActionScript.BackgroundImage = global::QuickMon.Properties.Resources.rungreen24x24;
+            this.cmdRunActionScript.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRunActionScript.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdRunActionScript.Enabled = false;
+            this.cmdRunActionScript.FlatAppearance.BorderSize = 0;
+            this.cmdRunActionScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRunActionScript.Location = new System.Drawing.Point(171, 0);
+            this.cmdRunActionScript.Name = "cmdRunActionScript";
+            this.cmdRunActionScript.Size = new System.Drawing.Size(27, 25);
+            this.cmdRunActionScript.TabIndex = 8;
+            this.cmdRunActionScript.UseVisualStyleBackColor = false;
+            this.cmdRunActionScript.Click += new System.EventHandler(this.cmdRunActionScript_Click);
             // 
             // label2
             // 
@@ -2681,6 +2643,10 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1199, 33);
             this.panelTop.TabIndex = 10;
+            // 
+            // nameActionScriptColumnHeader
+            // 
+            this.nameActionScriptColumnHeader.Text = "Name";
             // 
             // CollectorDetails
             // 
@@ -2800,12 +2766,9 @@
         private System.Windows.Forms.Button cmdRefresh;
         private System.Windows.Forms.Button cmdActionScriptsVisible;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdCollectorEdit;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button cmdRunActionScript;
         private System.Windows.Forms.Panel panelAgentStates;
         private System.Windows.Forms.Panel panelMetrics;
         private ListViewEx lvwMetrics;
@@ -2980,7 +2943,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.ListView lvwActionScripts;
+        private ListViewEx lvwActionScripts;
         private ListViewEx lvwActionScriptsEdit;
         private System.Windows.Forms.ColumnHeader actionScriptNameColumnHeader;
         private System.Windows.Forms.ColumnHeader typeColumnHeader;
@@ -2995,5 +2958,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ColumnHeader adminColumnHeader;
         private System.Windows.Forms.ToolStripButton runToolStripButton;
+        private System.Windows.Forms.ColumnHeader nameActionScriptColumnHeader;
     }
 }

@@ -105,6 +105,7 @@ namespace QuickMon
             this.Size = new Size(700, 500);
             tlvAgentStates.AutoResizeColumnEnabled = true;
             agentsTreeListView.AutoResizeColumnEnabled = true;
+            lvwActionScripts.AutoResizeColumnEnabled = true;
             lvwActionScriptsEdit.AutoResizeColumnEnabled = true;
             lvwHistory.AutoResizeColumnEnabled = true;
             lvwMetrics.AutoResizeColumnEnabled = true;
@@ -160,20 +161,6 @@ namespace QuickMon
         }
         public void StartEditMode()
         {
-            //agentsEditSplitContainer.Panel2Collapsed = false;
-            //hostSettingsSplitContainer.Panel2Collapsed = true;
-            //hostSettingsSplitContainer.Height = 25;
-            //cmdHostsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            //operationalSplitContainer.Panel2Collapsed = true;
-            //operationalSplitContainer.Height = 25;
-            //cmdOperationalToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            //alertsSplitContainer.Panel2Collapsed = true;
-            //alertsSplitContainer.Height = 25;
-            //cmdAlertsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-            //configVariSplitContainer.Panel2Collapsed = true;
-            //configVariSplitContainer.Height = 25;
-            //cmdConfigVarsToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
-
             if (this.Size.Height < 450)
             {
                 this.Size = new Size(this.Size.Width, 450);
@@ -186,6 +173,7 @@ namespace QuickMon
             cboTextType.SelectedIndex = 0;
             SetActivePanel(panelEditing);
             EnableAgentContextMenuItems();
+            
             CheckOkEnabled();
         }
         private void StopEditMode()
@@ -259,19 +247,21 @@ namespace QuickMon
         private void LoadActionScripts()
         {
             lvwActionScripts.Items.Clear();
+            if (SelectedCollectorHost.ActionScripts != null)
+            {
+                foreach (var actionScript in SelectedCollectorHost.ActionScripts)
+                {
+                    ListViewItem lvi = new ListViewItem(actionScript.Name);
+                    lvi.Tag = actionScript;
+                    lvwActionScripts.Items.Add(lvi);
+                }                
+            }
+        }
+        private void LoadActionScriptsEditing()
+        {
             lvwActionScriptsEdit.Items.Clear();
             if (SelectedCollectorHost.ActionScripts != null)
             {
-                foreach(var actionScript in SelectedCollectorHost.ActionScripts)
-                {
-                    //if (actionScript.RunTimeLinkedActionScript != null)
-                    //{
-                        ListViewItem lvi = new ListViewItem(actionScript.Name);
-                        lvi.Tag = actionScript;
-                        lvwActionScripts.Items.Add(lvi);
-                    //}
-                }
-
                 foreach (var actionScript in SelectedCollectorHost.ActionScripts)
                 {
                     ListViewItem lvi = new ListViewItem(actionScript.Name);
@@ -510,7 +500,8 @@ namespace QuickMon
             }
             LoadServiceWindows();
             LoadConfigVars();
-            LoadAgents();         
+            LoadAgents();
+            LoadActionScriptsEditing();
             #endregion
         }
         private void LoadServiceWindows()
@@ -798,6 +789,72 @@ namespace QuickMon
             }
             return values;
         }
+        private void UpdateRawView()
+        {
+            if (!updateAgentsDetailViewBusy)
+            {
+                updateAgentsDetailViewBusy = true;
+                RTFBuilder rtfBuilder = new RTFBuilder();
+
+                if (tlvAgentStates.Focused)
+                {
+                    if (tlvAgentStates.SelectedItems.Count == 0)
+                    {                        
+                        rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                    }
+                    else
+                    {
+                        object selectedObject = tlvAgentStates.SelectedItems[0].Tag;
+                        if (selectedObject == null)
+                        {
+                            rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
+                        }
+                        else if (selectedObject is ICollector)
+                        {
+                            ICollector c = (ICollector)selectedObject;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Name: ").FontStyle(FontStyle.Regular).AppendLine(c.Name);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("Agent");
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.State.ToString());
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadPrimaryUIValue());
+
+
+                        }
+                        else if (selectedObject is ICollectorConfigEntry)
+                        {
+
+                        }
+                        else if (selectedObject is ICollectorConfigSubEntry)
+                        {
+
+                        }
+                        else if (selectedObject is MonitorState)
+                        {
+                            MonitorState ms = (MonitorState)selectedObject;
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
+                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadPrimaryOrFirstUIValue());
+
+                            //rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
+                        }
+                        else if (selectedObject is string)
+                        {
+                            rtfBuilder.AppendLine(selectedObject.ToString());
+                        }
+
+                    }
+                }
+
+                rtxDetails.Rtf = rtfBuilder.ToString();
+                rtxDetails.SelectionStart = 0;
+                rtxDetails.SelectionLength = 0;
+                rtxDetails.ScrollToCaret();
+
+                updateAgentsDetailViewBusy = false;
+            }
+        }
         #endregion
 
         #region Agents
@@ -1009,7 +1066,7 @@ namespace QuickMon
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
             RefreshDetails();
-            LoadEditControls();
+            //LoadEditControls();
         }
         #endregion
 
@@ -1084,72 +1141,7 @@ namespace QuickMon
             UpdateRawView();
         }
         private static bool updateAgentsDetailViewBusy = false;
-        private void UpdateRawView()
-        {
-            if (!updateAgentsDetailViewBusy)
-            {
-                updateAgentsDetailViewBusy = true;
-                RTFBuilder rtfBuilder = new RTFBuilder();
 
-                if (tlvAgentStates.Focused)
-                {
-                    if (tlvAgentStates.SelectedItems.Count == 0)
-                    {                        
-                        rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
-                    }
-                    else
-                    {
-                        object selectedObject = tlvAgentStates.SelectedItems[0].Tag;
-                        if (selectedObject == null)
-                        {
-                            rtfBuilder.AppendLine(SelectedCollectorHost.CurrentState.ReadAllRawDetails());
-                        }
-                        else if (selectedObject is ICollector)
-                        {
-                            ICollector c = (ICollector)selectedObject;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Name: ").FontStyle(FontStyle.Regular).AppendLine(c.Name);
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("Agent");
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.State.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(c.CurrentState.ReadPrimaryUIValue());
-
-
-                        }
-                        else if (selectedObject is ICollectorConfigEntry)
-                        {
-
-                        }
-                        else if (selectedObject is ICollectorConfigSubEntry)
-                        {
-
-                        }
-                        else if (selectedObject is MonitorState)
-                        {
-                            MonitorState ms = (MonitorState)selectedObject;
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("For object: ").FontStyle(FontStyle.Regular).AppendLine(ms.ForAgent);
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Type: ").FontStyle(FontStyle.Regular).AppendLine("State");
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Time: ").FontStyle(FontStyle.Regular).AppendLine(ms.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("State: ").FontStyle(FontStyle.Regular).AppendLine(ms.State.ToString());
-                            rtfBuilder.FontStyle(FontStyle.Bold).Append("Value: ").FontStyle(FontStyle.Regular).AppendLine(ms.ReadPrimaryOrFirstUIValue());
-
-                            //rtfBuilder.AppendLine(((MonitorState)selectedObject).RawDetails);
-                        }
-                        else if (selectedObject is string)
-                        {
-                            rtfBuilder.AppendLine(selectedObject.ToString());
-                        }
-
-                    }
-                }
-
-                rtxDetails.Rtf = rtfBuilder.ToString();
-                rtxDetails.SelectionStart = 0;
-                rtxDetails.SelectionLength = 0;
-                rtxDetails.ScrollToCaret();
-
-                updateAgentsDetailViewBusy = false;
-            }
-        }
         private void chkRAWDetails_CheckedChanged(object sender, EventArgs e)
         {
             collectorDetailSplitContainer.Panel2Collapsed = !chkRAWDetails.Checked;
@@ -2015,7 +2007,7 @@ namespace QuickMon
         {
             editActionScriptToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count == 1;
             deleteActionScriptToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count > 0;
-            runToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count == 1;
+            runToolStripButton.Enabled = lvwActionScriptsEdit.SelectedItems.Count > 0;
         }
         private void addActionScriptToolStripButton_Click(object sender, EventArgs e)
         {
@@ -2032,17 +2024,19 @@ namespace QuickMon
                 lvi.SubItems.Add(editActionScript.SelectedActionScript.Description);
                 lvi.Tag = editActionScript.SelectedActionScript;
                 lvwActionScriptsEdit.Items.Add(lvi);
+                LoadActionScripts();
             }
         }
         private void editActionScriptToolStripButton_Click(object sender, EventArgs e)
         {
             if (lvwActionScriptsEdit.SelectedItems.Count == 1 && lvwActionScriptsEdit.SelectedItems[0].Tag is ActionScript)
             {
+                ListViewItem lvi = lvwActionScriptsEdit.SelectedItems[0];
+
                 EditActionScript editActionScript = new EditActionScript();
-                editActionScript.SelectedActionScript = (ActionScript)lvwActionScriptsEdit.SelectedItems[0].Tag;
+                editActionScript.SelectedActionScript = (ActionScript)lvi.Tag;
                 if (editActionScript.ShowDialog() == DialogResult.OK)
-                {
-                    ListViewItem lvi = lvwActionScriptsEdit.SelectedItems[0];
+                {                    
                     lvi.Text = editActionScript.SelectedActionScript.Name;
                     lvi.SubItems[1].Text = editActionScript.SelectedActionScript.ScriptType.ToString();
                     lvi.SubItems[2].Text = editActionScript.SelectedActionScript.RunAdminMode ? "Yes" : "No";
@@ -2050,7 +2044,8 @@ namespace QuickMon
                     lvi.SubItems[4].Text = editActionScript.SelectedActionScript.IsWarningCorrectiveScript ? "Yes" : "No";
                     lvi.SubItems[5].Text = editActionScript.SelectedActionScript.IsErrorCorrectiveScript ? "Yes" : "No";
                     lvi.SubItems[6].Text = editActionScript.SelectedActionScript.Description;
-                    lvi.Tag = editActionScript.SelectedActionScript;                    
+                    lvi.Tag = editActionScript.SelectedActionScript;
+                    LoadActionScripts();
                 }
             }
         }
@@ -2062,6 +2057,7 @@ namespace QuickMon
                 {
                     lvwActionScriptsEdit.Items.Remove(lvi);
                 }
+                LoadActionScripts();
             }
         }
         private void runToolStripButton_Click(object sender, EventArgs e)
@@ -2078,6 +2074,38 @@ namespace QuickMon
             {
                 MessageBox.Show("Error running script!\r\n" + ex.Message, "Run script", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void lvwActionScripts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmdRunActionScript.Enabled = lvwActionScripts.SelectedItems.Count > 0;
+        }
+        private void cmdRunActionScript_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvwActionScripts.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem lvi in lvwActionScripts.SelectedItems)
+                    {
+                        ActionScript asc = (ActionScript)lvi.Tag;
+                        asc.Run();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error running script!\r\n" + ex.Message, "Run script", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+        private void lvwActionScriptsEdit_DoubleClick(object sender, EventArgs e)
+        {
+            runToolStripButton_Click(sender, e);
+        }
+
+        private void lvwActionScripts_DoubleClick(object sender, EventArgs e)
+        {
+            cmdRunActionScript_Click(sender, e);
         }
         #endregion
 

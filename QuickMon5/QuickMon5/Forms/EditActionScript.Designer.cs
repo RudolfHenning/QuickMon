@@ -44,9 +44,10 @@
             this.cboWindowSizeStyle = new System.Windows.Forms.ComboBox();
             this.chkAdminMode = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkIsRestorationScript = new System.Windows.Forms.CheckBox();
-            this.chkIsWarningCorrectiveScript = new System.Windows.Forms.CheckBox();
             this.chkIsErrorCorrectiveScript = new System.Windows.Forms.CheckBox();
+            this.chkIsWarningCorrectiveScript = new System.Windows.Forms.CheckBox();
+            this.chkIsRestorationScript = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,7 +131,7 @@
             this.txtScript.Multiline = true;
             this.txtScript.Name = "txtScript";
             this.txtScript.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtScript.Size = new System.Drawing.Size(485, 164);
+            this.txtScript.Size = new System.Drawing.Size(485, 151);
             this.txtScript.TabIndex = 11;
             this.txtScript.TextChanged += new System.EventHandler(this.txtScript_TextChanged);
             // 
@@ -207,15 +208,36 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.chkIsErrorCorrectiveScript);
             this.groupBox1.Controls.Add(this.chkIsWarningCorrectiveScript);
             this.groupBox1.Controls.Add(this.chkIsRestorationScript);
-            this.groupBox1.Location = new System.Drawing.Point(85, 326);
+            this.groupBox1.Location = new System.Drawing.Point(85, 313);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 49);
+            this.groupBox1.Size = new System.Drawing.Size(485, 62);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Corrective script handling";
+            // 
+            // chkIsErrorCorrectiveScript
+            // 
+            this.chkIsErrorCorrectiveScript.AutoSize = true;
+            this.chkIsErrorCorrectiveScript.Location = new System.Drawing.Point(206, 19);
+            this.chkIsErrorCorrectiveScript.Name = "chkIsErrorCorrectiveScript";
+            this.chkIsErrorCorrectiveScript.Size = new System.Drawing.Size(48, 17);
+            this.chkIsErrorCorrectiveScript.TabIndex = 2;
+            this.chkIsErrorCorrectiveScript.Text = "Error";
+            this.chkIsErrorCorrectiveScript.UseVisualStyleBackColor = true;
+            // 
+            // chkIsWarningCorrectiveScript
+            // 
+            this.chkIsWarningCorrectiveScript.AutoSize = true;
+            this.chkIsWarningCorrectiveScript.Location = new System.Drawing.Point(111, 19);
+            this.chkIsWarningCorrectiveScript.Name = "chkIsWarningCorrectiveScript";
+            this.chkIsWarningCorrectiveScript.Size = new System.Drawing.Size(66, 17);
+            this.chkIsWarningCorrectiveScript.TabIndex = 1;
+            this.chkIsWarningCorrectiveScript.Text = "Warning";
+            this.chkIsWarningCorrectiveScript.UseVisualStyleBackColor = true;
             // 
             // chkIsRestorationScript
             // 
@@ -227,25 +249,16 @@
             this.chkIsRestorationScript.Text = "Restoration";
             this.chkIsRestorationScript.UseVisualStyleBackColor = true;
             // 
-            // chkIsWarningCorrectiveScript
+            // label6
             // 
-            this.chkIsWarningCorrectiveScript.AutoSize = true;
-            this.chkIsWarningCorrectiveScript.Location = new System.Drawing.Point(92, 19);
-            this.chkIsWarningCorrectiveScript.Name = "chkIsWarningCorrectiveScript";
-            this.chkIsWarningCorrectiveScript.Size = new System.Drawing.Size(66, 17);
-            this.chkIsWarningCorrectiveScript.TabIndex = 1;
-            this.chkIsWarningCorrectiveScript.Text = "Warning";
-            this.chkIsWarningCorrectiveScript.UseVisualStyleBackColor = true;
-            // 
-            // chkIsErrorCorrectiveScript
-            // 
-            this.chkIsErrorCorrectiveScript.AutoSize = true;
-            this.chkIsErrorCorrectiveScript.Location = new System.Drawing.Point(164, 19);
-            this.chkIsErrorCorrectiveScript.Name = "chkIsErrorCorrectiveScript";
-            this.chkIsErrorCorrectiveScript.Size = new System.Drawing.Size(48, 17);
-            this.chkIsErrorCorrectiveScript.TabIndex = 2;
-            this.chkIsErrorCorrectiveScript.Text = "Error";
-            this.chkIsErrorCorrectiveScript.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(6, 39);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(454, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Please avoid script commands that require user input when using corrective script" +
+    "s! e.g. pause.";
             // 
             // EditActionScript
             // 
@@ -302,5 +315,6 @@
         private System.Windows.Forms.CheckBox chkIsErrorCorrectiveScript;
         private System.Windows.Forms.CheckBox chkIsWarningCorrectiveScript;
         private System.Windows.Forms.CheckBox chkIsRestorationScript;
+        private System.Windows.Forms.Label label6;
     }
 }
