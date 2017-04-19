@@ -39,6 +39,12 @@
             this.portColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.packsColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteHostStatusImageList = new System.Windows.Forms.ImageList(this.components);
             this.cmdAdd = new System.Windows.Forms.Button();
             this.txtComputer = new System.Windows.Forms.TextBox();
@@ -46,22 +52,14 @@
             this.lblComputer = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.llblLocalServiceRegistered = new System.Windows.Forms.LinkLabel();
-            this.llblStartLocalService = new System.Windows.Forms.LinkLabel();
-            this.llblFirewallRule = new System.Windows.Forms.LinkLabel();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.quickMonServiceOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.remoteHostListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.monitorPacksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label13 = new System.Windows.Forms.Label();
             this.shadePanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.remoteHostListContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).BeginInit();
             this.panel1.SuspendLayout();
-            this.remoteHostListContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // shadePanel1
@@ -167,6 +165,54 @@
             this.packsColumnHeader.Text = "Packs";
             this.packsColumnHeader.Width = 102;
             // 
+            // remoteHostListContextMenuStrip
+            // 
+            this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorPacksToolStripMenuItem,
+            this.removeToolStripMenuItem,
+            this.testToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.refreshToolStripMenuItem});
+            this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
+            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(151, 98);
+            // 
+            // monitorPacksToolStripMenuItem
+            // 
+            this.monitorPacksToolStripMenuItem.Enabled = false;
+            this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
+            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
+            this.monitorPacksToolStripMenuItem.Click += new System.EventHandler(this.monitorPacksToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Enabled = false;
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Enabled = false;
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
             // remoteHostStatusImageList
             // 
             this.remoteHostStatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("remoteHostStatusImageList.ImageStream")));
@@ -248,59 +294,12 @@
             // panel1
             // 
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.llblLocalServiceRegistered);
-            this.panel1.Controls.Add(this.llblStartLocalService);
-            this.panel1.Controls.Add(this.llblFirewallRule);
+            this.panel1.Controls.Add(this.label13);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 250);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(584, 31);
             this.panel1.TabIndex = 23;
-            // 
-            // llblLocalServiceRegistered
-            // 
-            this.llblLocalServiceRegistered.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblLocalServiceRegistered.AutoSize = true;
-            this.llblLocalServiceRegistered.BackColor = System.Drawing.Color.Transparent;
-            this.llblLocalServiceRegistered.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblLocalServiceRegistered.LinkColor = System.Drawing.Color.Black;
-            this.llblLocalServiceRegistered.Location = new System.Drawing.Point(12, 9);
-            this.llblLocalServiceRegistered.Name = "llblLocalServiceRegistered";
-            this.llblLocalServiceRegistered.Size = new System.Drawing.Size(187, 13);
-            this.llblLocalServiceRegistered.TabIndex = 0;
-            this.llblLocalServiceRegistered.TabStop = true;
-            this.llblLocalServiceRegistered.Text = "Register local \'Remote Agent/Service\'";
-            this.llblLocalServiceRegistered.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblLocalServiceRegistered_LinkClicked);
-            // 
-            // llblStartLocalService
-            // 
-            this.llblStartLocalService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblStartLocalService.AutoSize = true;
-            this.llblStartLocalService.BackColor = System.Drawing.Color.Transparent;
-            this.llblStartLocalService.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblStartLocalService.LinkColor = System.Drawing.Color.Black;
-            this.llblStartLocalService.Location = new System.Drawing.Point(12, 9);
-            this.llblStartLocalService.Name = "llblStartLocalService";
-            this.llblStartLocalService.Size = new System.Drawing.Size(170, 13);
-            this.llblStartLocalService.TabIndex = 2;
-            this.llblStartLocalService.TabStop = true;
-            this.llblStartLocalService.Text = "Start local \'Remote Agent/Service\'";
-            this.llblStartLocalService.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblStartLocalService_LinkClicked);
-            // 
-            // llblFirewallRule
-            // 
-            this.llblFirewallRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.llblFirewallRule.AutoSize = true;
-            this.llblFirewallRule.BackColor = System.Drawing.Color.Transparent;
-            this.llblFirewallRule.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.llblFirewallRule.LinkColor = System.Drawing.Color.Black;
-            this.llblFirewallRule.Location = new System.Drawing.Point(237, 9);
-            this.llblFirewallRule.Name = "llblFirewallRule";
-            this.llblFirewallRule.Size = new System.Drawing.Size(218, 13);
-            this.llblFirewallRule.TabIndex = 1;
-            this.llblFirewallRule.TabStop = true;
-            this.llblFirewallRule.Text = "Add Remote Host Firewall rule for port 48191";
-            this.llblFirewallRule.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llblFirewallRule_LinkClicked);
             // 
             // refreshTimer
             // 
@@ -313,53 +312,16 @@
             this.quickMonServiceOpenFileDialog.Filter = "QuickMon 5 Service|QuickMonService.exe";
             this.quickMonServiceOpenFileDialog.Title = "Select QuickMon 5 Service";
             // 
-            // remoteHostListContextMenuStrip
+            // label13
             // 
-            this.remoteHostListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.monitorPacksToolStripMenuItem,
-            this.removeToolStripMenuItem,
-            this.testToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.refreshToolStripMenuItem});
-            this.remoteHostListContextMenuStrip.Name = "contextMenuStrip1";
-            this.remoteHostListContextMenuStrip.Size = new System.Drawing.Size(153, 120);
-            // 
-            // monitorPacksToolStripMenuItem
-            // 
-            this.monitorPacksToolStripMenuItem.Enabled = false;
-            this.monitorPacksToolStripMenuItem.Name = "monitorPacksToolStripMenuItem";
-            this.monitorPacksToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.monitorPacksToolStripMenuItem.Text = "Monitor packs";
-            this.monitorPacksToolStripMenuItem.Click += new System.EventHandler(this.monitorPacksToolStripMenuItem_Click);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Enabled = false;
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Enabled = false;
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.testToolStripMenuItem.Text = "Test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.Crimson;
+            this.label13.Location = new System.Drawing.Point(12, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(424, 13);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "To set up the QuickMon Service/Remote host and Firewall settings please go to set" +
+    "tings";
             // 
             // RemoteAgentHostManagement
             // 
@@ -381,10 +343,10 @@
             this.shadePanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.remoteHostListContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.remoteportNumericUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.remoteHostListContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -406,9 +368,6 @@
         private System.Windows.Forms.Label lblComputer;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.LinkLabel llblLocalServiceRegistered;
-        private System.Windows.Forms.LinkLabel llblStartLocalService;
-        private System.Windows.Forms.LinkLabel llblFirewallRule;
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.ImageList remoteHostStatusImageList;
         private System.Windows.Forms.OpenFileDialog quickMonServiceOpenFileDialog;
@@ -418,5 +377,6 @@
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.Label label13;
     }
 }

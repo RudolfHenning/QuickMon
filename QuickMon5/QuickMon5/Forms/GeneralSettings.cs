@@ -23,6 +23,7 @@ namespace QuickMon
         private int panelAppSettingsHeight = 0;
         private int panelPollingSettingsHeight = 0;
         private int panelPasswordManagementHeight = 0;
+        private int panelRemoteHostServiceAndFirewallHeight = 0;
 
         private void flowLayoutPanelSettings_Resize(object sender, EventArgs e)
         {
@@ -42,8 +43,10 @@ namespace QuickMon
             panelAppSettingsHeight = panelAppSettings.Height;
             panelPollingSettingsHeight = panelPollingSettings.Height;
             panelPasswordManagementHeight = panelPasswordManagement.Height;
+            panelRemoteHostServiceAndFirewallHeight = panelRemoteHostServiceAndFirewall.Height;
             //cmdPollingSettingsToggle_Click(null, null);
             cmdPasswordManagementToggle_Click(null, null);
+            cmdRemoteHostServiceAndFirewallToggle_Click(null, null);
 
             //loading = true;
             concurrencyLevelNnumericUpDown.Value = Properties.Settings.Default.ConcurrencyLevel;
@@ -82,9 +85,52 @@ namespace QuickMon
                     }
                 }
             }
-           // loading = false;
 
+            flowLayoutPanelSettingsContent.Enabled = Security.UACTools.IsInAdminMode();
+            CheckQuickMonServiceInstalled();
+            CheckQuickMonRemoteHostFirewallPort();
+        }
 
+        private void CheckQuickMonRemoteHostFirewallPort()
+        {
+            bool isFWRuleInstalled = false;
+            try
+            {
+                Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
+                object regVal = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A55EA}");
+                if (regVal != null)
+                {
+                    string quickMonRule = regVal.ToString();
+                    if (quickMonRule.Length > 0)
+                        isFWRuleInstalled = true;
+                }
+            }
+            catch { }
+            lblFirewallPortRuleInstalled.Text = isFWRuleInstalled ? "Yes" : "No";
+            llblInstallFirewallPortRule.Enabled = !isFWRuleInstalled;
+        }
+
+        private void CheckQuickMonServiceInstalled()
+        {
+            bool isInstalled = false;
+            try
+            {
+                Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 5 Service");
+                if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 5 Service")
+                {
+                    isInstalled = true;
+                    System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
+                    lblServiceState.Text = qsvrc.Status.ToString();
+                    if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                        llblServiceState.Text = "Start";
+                    else
+                        llblServiceState.Text = "Stop";
+                }
+            }
+            catch { }
+            lblIsQuickMonServiceInstalled.Text = isInstalled ? "Yes" : "No";
+            llblInstallQuickMonService.Enabled = lblIsQuickMonServiceInstalled.Text == "No";
+            llblServiceState.Enabled = lblIsQuickMonServiceInstalled.Text == "Yes";
         }
 
         private void GeneralSettings_Shown(object sender, EventArgs e)
@@ -251,6 +297,136 @@ namespace QuickMon
             if (csvEdit.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 txtRecentMonitorPackFilter.Text = csvEdit.CSVData;
+            }
+        }
+
+        private void cmdRemoteHostServiceAndFirewallToggle_Click(object sender, EventArgs e)
+        {
+            if (cmdRemoteHostServiceAndFirewallToggle.Height == panelRemoteHostServiceAndFirewall.Height)
+            {
+                panelRemoteHostServiceAndFirewall.Height = panelRemoteHostServiceAndFirewallHeight;
+                this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_contract16x16;
+                flowLayoutPanelSettings.ScrollControlIntoView(panelRemoteHostServiceAndFirewall);
+            }
+            else
+            {
+                panelRemoteHostServiceAndFirewall.Height = cmdRemoteHostServiceAndFirewallToggle.Height;
+                this.cmdRemoteHostServiceAndFirewallToggle.Image = global::QuickMon.Properties.Resources.icon_expand16x16;
+            }
+            
+        }
+
+        private void lblServiceState_DoubleClick(object sender, EventArgs e)
+        {
+            CheckQuickMonServiceInstalled();
+        }
+
+        private void llblInstallQuickMonService_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string localPath = Environment.CurrentDirectory;
+            string serviceEXE = System.IO.Path.Combine(localPath, "QuickMonService.exe");
+            quickMonServiceOpenFileDialog.FileName = serviceEXE;
+            quickMonServiceOpenFileDialog.InitialDirectory = localPath;
+            if (quickMonServiceOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo();
+                p.StartInfo.FileName = quickMonServiceOpenFileDialog.FileName;
+                p.StartInfo.Arguments = "-install";
+                p.StartInfo.Verb = "runas";
+                try
+                {
+                    p.Start();
+                    p.WaitForExit();
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                }
+
+                try
+                {
+                    System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
+                    if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                    {
+                        qsvrc.Start();
+                        qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
+                    }
+
+                    lblServiceState.Text = qsvrc.Status.ToString();
+                }
+                catch { }
+            }
+        }
+
+        private void llblServiceState_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Application.DoEvents();
+                this.Cursor = Cursors.WaitCursor;
+                System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
+                lblServiceState.Text = qsvrc.Status.ToString();
+                if (llblServiceState.Text == "Start" && qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                {
+                    qsvrc.Start();
+                    qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
+                }
+                else if (llblServiceState.Text == "Stop" && qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                {
+                    qsvrc.Stop();
+                    qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped);
+                }
+                lblServiceState.Text = qsvrc.Status.ToString();
+                CheckQuickMonServiceInstalled();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.Cursor = Cursors.Default;
+        }
+
+        private void llblInstallFirewallPortRule_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string regfile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon5FirewallRule.reg");
+            try
+            {
+                if (System.IO.File.Exists(regfile))
+                    System.IO.File.Delete(regfile);
+                System.IO.File.WriteAllText(regfile, Properties.Resources.FireWallRule);
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo();
+                p.StartInfo.FileName = "REGEDIT.EXE";
+                p.StartInfo.Arguments = "/S " + regfile;
+                p.StartInfo.Verb = "runas";
+                try
+                {
+                    p.Start();
+                    p.WaitForExit();
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex.ToString());
+                }
+
+                try
+                {
+                    System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
+                    if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                    {
+                        firewallSrvs.Stop();
+                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+                        firewallSrvs.Start();
+                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+                    }
+                    CheckQuickMonRemoteHostFirewallPort();
+                }
+                catch { }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

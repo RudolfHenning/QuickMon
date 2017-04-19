@@ -79,40 +79,44 @@ namespace QuickMon.UI
             try
             {
                 LoadKnownRemoteHosts();
-                if (Security.UACTools.IsInAdminMode())
-                {
-                    llblStartLocalService.Visible = false;
-                    cmdEditMonitorPackList.Visible = true;
-                    try
-                    {
-                        llblLocalServiceRegistered.Visible = true;
-                        Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 5 Service");
-                        if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 5 Service")
-                        {
-                            llblLocalServiceRegistered.Visible = false;
-                            System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
-                            if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
-                                llblStartLocalService.Visible = true;
-                        }
-                    }
-                    catch { }
+                //if (Security.UACTools.IsInAdminMode())
+                //{
+                //    llblStartLocalService.Visible = false;
+                //    cmdEditMonitorPackList.Visible = true;
+                //    try
+                //    {
+                //        llblLocalServiceRegistered.Visible = true;
+                //        Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 5 Service");
+                //        if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 5 Service")
+                //        {
+                //            llblLocalServiceRegistered.Visible = false;
+                //            System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
+                //            if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                //                llblStartLocalService.Visible = true;
+                //        }
+                //    }
+                //    catch { }
 
-                    try
-                    {
-                        llblFirewallRule.Visible = true;
-                        Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
-                        string quickMonRule = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A55EA}").ToString();
-                        if (quickMonRule.Length > 0)
-                            llblFirewallRule.Visible = false;
-                    }
-                    catch { }
-                }
-                else
-                {
-                    llblLocalServiceRegistered.Visible = false;
-                    llblFirewallRule.Visible = false;
-                    llblStartLocalService.Visible = false;
-                }
+                //    try
+                //    {
+                //        llblFirewallRule.Visible = true;
+                //        Microsoft.Win32.RegistryKey fwrules = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules");
+                //        object regVal = fwrules.GetValue("{F811AB2E-286C-4DB6-8512-4C991A8A55EA}");
+                //        if (regVal != null)
+                //        {
+                //            string quickMonRule = regVal.ToString();
+                //            if (quickMonRule.Length > 0)
+                //                llblFirewallRule.Visible = false;
+                //        }
+                //    }
+                //    catch { }
+                //}
+                //else
+                //{
+                //    llblLocalServiceRegistered.Visible = false;
+                //    llblFirewallRule.Visible = false;
+                //    llblStartLocalService.Visible = false;
+                //}
             }
             catch (Exception ex)
             {
@@ -465,22 +469,22 @@ namespace QuickMon.UI
                     System.Threading.ThreadPool.QueueUserWorkItem(RefreshItem, lvi);
                 }
 
-                try
-                {
-                    llblStartLocalService.Visible = false;
-                    if (Security.UACTools.IsInAdminMode())
-                    {
-                        Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 5 Service");
-                        if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 5 Service")
-                        {
-                            llblLocalServiceRegistered.Visible = false;
-                            System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
-                            if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
-                                llblStartLocalService.Visible = true;
-                        }
-                    }
-                }
-                catch { }
+                //try
+                //{
+                //    llblStartLocalService.Visible = false;
+                //    if (Security.UACTools.IsInAdminMode())
+                //    {
+                //        Microsoft.Win32.RegistryKey svcsInstalled = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\services\QuickMon 5 Service");
+                //        if (svcsInstalled.GetValue("DisplayName").ToString() == "QuickMon 5 Service")
+                //        {
+                //            llblLocalServiceRegistered.Visible = false;
+                //            System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
+                //            if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                //                llblStartLocalService.Visible = true;
+                //        }
+                //    }
+                //}
+                //catch { }
             }
             catch (Exception ex)
             {
@@ -529,67 +533,67 @@ namespace QuickMon.UI
         }
         private void llblFirewallRule_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string regfile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon5FirewallRule.reg");
-            try
-            {
-                if (System.IO.File.Exists(regfile))
-                    System.IO.File.Delete(regfile);
-                System.IO.File.WriteAllText(regfile, Properties.Resources.FireWallRule);
-                System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo = new System.Diagnostics.ProcessStartInfo();
-                p.StartInfo.FileName = "REGEDIT.EXE";
-                p.StartInfo.Arguments = "/S " + regfile;
-                p.StartInfo.Verb = "runas";
-                try
-                {
-                    p.Start();
-                    p.WaitForExit();
-                }
-                catch (System.ComponentModel.Win32Exception ex)
-                {
-                    System.Diagnostics.Trace.WriteLine(ex.ToString());
-                }
+            //string regfile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "QuickMon5FirewallRule.reg");
+            //try
+            //{
+            //    if (System.IO.File.Exists(regfile))
+            //        System.IO.File.Delete(regfile);
+            //    System.IO.File.WriteAllText(regfile, Properties.Resources.FireWallRule);
+            //    System.Diagnostics.Process p = new System.Diagnostics.Process();
+            //    p.StartInfo = new System.Diagnostics.ProcessStartInfo();
+            //    p.StartInfo.FileName = "REGEDIT.EXE";
+            //    p.StartInfo.Arguments = "/S " + regfile;
+            //    p.StartInfo.Verb = "runas";
+            //    try
+            //    {
+            //        p.Start();
+            //        p.WaitForExit();
+            //    }
+            //    catch (System.ComponentModel.Win32Exception ex)
+            //    {
+            //        System.Diagnostics.Trace.WriteLine(ex.ToString());
+            //    }
 
-                try
-                {
-                    System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
-                    if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
-                    {
-                        firewallSrvs.Stop();
-                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
-                        firewallSrvs.Start();
-                        firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
-                    }
-                    llblFirewallRule.Visible = false;
-                }
-                catch { }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //    try
+            //    {
+            //        System.ServiceProcess.ServiceController firewallSrvs = new System.ServiceProcess.ServiceController("Windows Firewall");
+            //        if (firewallSrvs.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+            //        {
+            //            firewallSrvs.Stop();
+            //            firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped, new TimeSpan(0, 0, 30));
+            //            firewallSrvs.Start();
+            //            firewallSrvs.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+            //        }
+            //        llblFirewallRule.Visible = false;
+            //    }
+            //    catch { }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
         private void llblStartLocalService_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
-            {
-                System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
-                if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
-                {
-                    qsvrc.Start();
-                    qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
-                    qsvrc.Refresh();
-                    if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Running)
-                    {
-                        MessageBox.Show("Service started", "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        llblStartLocalService.Visible = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //try
+            //{
+            //    System.ServiceProcess.ServiceController qsvrc = new System.ServiceProcess.ServiceController("QuickMon 5 Service");
+            //    if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+            //    {
+            //        qsvrc.Start();
+            //        qsvrc.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running, new TimeSpan(0, 0, 30));
+            //        qsvrc.Refresh();
+            //        if (qsvrc.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+            //        {
+            //            MessageBox.Show("Service started", "Service", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //            llblStartLocalService.Visible = false;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         #endregion
